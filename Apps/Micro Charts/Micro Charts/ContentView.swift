@@ -8,19 +8,16 @@
 
 import Foundation
 import SwiftUI
-import FioriSwiftUI
+import FioriCharts
 
 struct ContentView: View {
     var body: some View {
         NavigationView {
-            Text("Hello, World")
-            /*
             List {
                 ForEach(Test.allTestModels) {
                     ChartView($0).frame(height: 200)
                 }
-                
-            }.navigationBarTitle("Micro Charts")*/
+            }.navigationBarTitle("Micro Charts")
         }
     }
 }

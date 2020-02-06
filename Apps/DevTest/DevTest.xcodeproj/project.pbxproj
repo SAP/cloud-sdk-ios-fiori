@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,9 +13,14 @@
 		1B583CD823D926590003F30C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B583CD723D926590003F30C /* Assets.xcassets */; };
 		1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B583CDA23D926590003F30C /* Preview Assets.xcassets */; };
 		1B583CDE23D926590003F30C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B583CDC23D926590003F30C /* LaunchScreen.storyboard */; };
-		1B583D3623D926FF0003F30C /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 1B583D3523D926FF0003F30C /* AnyCodable */; };
-		1B583D3923D927190003F30C /* ObservableArray in Frameworks */ = {isa = PBXBuildFile; productRef = 1B583D3823D927190003F30C /* ObservableArray */; };
-		1B583D3D23D927300003F30C /* TinyNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 1B583D3C23D927300003F30C /* TinyNetworking */; };
+		1B716FA923ECCCBC005982F7 /* AnyCodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA523ECCCBC005982F7 /* AnyCodable.framework */; };
+		1B716FAA23ECCCBC005982F7 /* AnyCodable.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA523ECCCBC005982F7 /* AnyCodable.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B716FAB23ECCCBC005982F7 /* FioriIntegrationCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA623ECCCBC005982F7 /* FioriIntegrationCards.framework */; };
+		1B716FAC23ECCCBC005982F7 /* FioriIntegrationCards.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA623ECCCBC005982F7 /* FioriIntegrationCards.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B716FAD23ECCCBC005982F7 /* ObservableArray.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA723ECCCBC005982F7 /* ObservableArray.framework */; };
+		1B716FAE23ECCCBC005982F7 /* ObservableArray.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA723ECCCBC005982F7 /* ObservableArray.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1B716FAF23ECCCBC005982F7 /* TinyNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA823ECCCBC005982F7 /* TinyNetworking.framework */; };
+		1B716FB023ECCCBC005982F7 /* TinyNetworking.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716FA823ECCCBC005982F7 /* TinyNetworking.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1BADC44323DA28E1006CC945 /* parameters.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC43923DA28E1006CC945 /* parameters.json */; };
 		1BADC44423DA28E1006CC945 /* quicklinks_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC43A23DA28E1006CC945 /* quicklinks_manifest.json */; };
 		1BADC44523DA28E1006CC945 /* object.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC43B23DA28E1006CC945 /* object.json */; };
@@ -29,6 +34,23 @@
 		1BADC44F23DA3475006CC945 /* CardCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC44E23DA3475006CC945 /* CardCollection.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1B716FB123ECCCBD005982F7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1B716FB023ECCCBC005982F7 /* TinyNetworking.framework in Embed Frameworks */,
+				1B716FAA23ECCCBC005982F7 /* AnyCodable.framework in Embed Frameworks */,
+				1B716FAC23ECCCBC005982F7 /* FioriIntegrationCards.framework in Embed Frameworks */,
+				1B716FAE23ECCCBC005982F7 /* ObservableArray.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1B583CCE23D926560003F30C /* DevTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DevTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1B583CD123D926560003F30C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +60,10 @@
 		1B583CDA23D926590003F30C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1B583CDD23D926590003F30C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B583CDF23D926590003F30C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B716FA523ECCCBC005982F7 /* AnyCodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AnyCodable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B716FA623ECCCBC005982F7 /* FioriIntegrationCards.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FioriIntegrationCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B716FA723ECCCBC005982F7 /* ObservableArray.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ObservableArray.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B716FA823ECCCBC005982F7 /* TinyNetworking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TinyNetworking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BADC43923DA28E1006CC945 /* parameters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = parameters.json; sourceTree = "<group>"; };
 		1BADC43A23DA28E1006CC945 /* quicklinks_manifest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = quicklinks_manifest.json; sourceTree = "<group>"; };
 		1BADC43B23DA28E1006CC945 /* object.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = object.json; sourceTree = "<group>"; };
@@ -56,9 +82,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B583D3623D926FF0003F30C /* AnyCodable in Frameworks */,
-				1B583D3923D927190003F30C /* ObservableArray in Frameworks */,
-				1B583D3D23D927300003F30C /* TinyNetworking in Frameworks */,
+				1B716FAF23ECCCBC005982F7 /* TinyNetworking.framework in Frameworks */,
+				1B716FA923ECCCBC005982F7 /* AnyCodable.framework in Frameworks */,
+				1B716FAB23ECCCBC005982F7 /* FioriIntegrationCards.framework in Frameworks */,
+				1B716FAD23ECCCBC005982F7 /* ObservableArray.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +97,7 @@
 			children = (
 				1B583CD023D926560003F30C /* DevTest */,
 				1B583CCF23D926560003F30C /* Products */,
+				1B716FA423ECCCBC005982F7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -105,6 +133,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		1B716FA423ECCCBC005982F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B716FA523ECCCBC005982F7 /* AnyCodable.framework */,
+				1B716FA623ECCCBC005982F7 /* FioriIntegrationCards.framework */,
+				1B716FA723ECCCBC005982F7 /* ObservableArray.framework */,
+				1B716FA823ECCCBC005982F7 /* TinyNetworking.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +171,7 @@
 				1B583CCA23D926560003F30C /* Sources */,
 				1B583CCB23D926560003F30C /* Frameworks */,
 				1B583CCC23D926560003F30C /* Resources */,
+				1B716FB123ECCCBD005982F7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,9 +179,6 @@
 			);
 			name = DevTest;
 			packageProductDependencies = (
-				1B583D3523D926FF0003F30C /* AnyCodable */,
-				1B583D3823D927190003F30C /* ObservableArray */,
-				1B583D3C23D927300003F30C /* TinyNetworking */,
 			);
 			productName = DevTest;
 			productReference = 1B583CCE23D926560003F30C /* DevTest.app */;
@@ -172,9 +209,6 @@
 			);
 			mainGroup = 1B583CC523D926560003F30C;
 			packageReferences = (
-				1B583D3423D926FF0003F30C /* XCRemoteSwiftPackageReference "AnyCodable" */,
-				1B583D3723D927190003F30C /* XCRemoteSwiftPackageReference "observable-array" */,
-				1B583D3B23D927300003F30C /* XCRemoteSwiftPackageReference "tiny-networking" */,
 			);
 			productRefGroup = 1B583CCF23D926560003F30C /* Products */;
 			projectDirPath = "";
@@ -410,51 +444,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1B583D3423D926FF0003F30C /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:Flight-School/AnyCodable.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.3;
-			};
-		};
-		1B583D3723D927190003F30C /* XCRemoteSwiftPackageReference "observable-array" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:sstadelman/observable-array.git";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		1B583D3B23D927300003F30C /* XCRemoteSwiftPackageReference "tiny-networking" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:objcio/tiny-networking.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.3.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		1B583D3523D926FF0003F30C /* AnyCodable */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1B583D3423D926FF0003F30C /* XCRemoteSwiftPackageReference "AnyCodable" */;
-			productName = AnyCodable;
-		};
-		1B583D3823D927190003F30C /* ObservableArray */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1B583D3723D927190003F30C /* XCRemoteSwiftPackageReference "observable-array" */;
-			productName = ObservableArray;
-		};
-		1B583D3C23D927300003F30C /* TinyNetworking */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1B583D3B23D927300003F30C /* XCRemoteSwiftPackageReference "tiny-networking" */;
-			productName = TinyNetworking;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1B583CC623D926560003F30C /* Project object */;
 }

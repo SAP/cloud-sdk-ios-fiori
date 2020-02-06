@@ -8,6 +8,7 @@
 
 import SwiftUI
 import ObservableArray
+import FioriIntegrationCards
 
 extension String: Identifiable {
     public var id: String {

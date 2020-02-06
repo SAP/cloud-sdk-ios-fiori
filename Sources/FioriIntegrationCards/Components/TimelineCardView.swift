@@ -8,13 +8,17 @@
 
 import SwiftUI
 
-struct TimelineCardView: View {
+public struct TimelineCardView: View {
     
-    var model: TimelineCard!
+    public var model: TimelineCard!
     
-    var body: some View {
+    public var body: some View {
         ForEach(model.content.value!) {
             TimelineItemView(model: $0)
         }
+    }
+    
+    public init(model: TimelineCard) {
+        self.model = model
     }
 }
