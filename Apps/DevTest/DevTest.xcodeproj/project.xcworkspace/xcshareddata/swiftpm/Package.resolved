@@ -11,15 +11,6 @@
         }
       },
       {
-        "package": "FioriSwiftUI",
-        "repositoryURL": "git@github.wdf.sap.corp:Tango/fiori-ios-swiftui.git",
-        "state": {
-          "branch": "master",
-          "revision": "36e99b980c6d4440f6efa0b6a780e0278cd0ed8c",
-          "version": null
-        }
-      },
-      {
         "package": "ObservableArray",
         "repositoryURL": "git@github.com:sstadelman/observable-array.git",
         "state": {
