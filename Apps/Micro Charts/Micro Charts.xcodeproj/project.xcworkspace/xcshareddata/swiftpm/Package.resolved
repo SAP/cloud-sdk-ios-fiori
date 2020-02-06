@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "AnyCodable",
+        "repositoryURL": "git@github.com:Flight-School/AnyCodable.git",
+        "state": {
+          "branch": null,
+          "revision": "6e9610258e9f1044b5e0d88545052846448b43c3",
+          "version": "0.2.3"
+        }
+      },
+      {
+        "package": "FioriSwiftUI",
+        "repositoryURL": "git@github.wdf.sap.corp:Tango/fiori-ios-swiftui.git",
+        "state": {
+          "branch": "master",
+          "revision": "a96b03bf88094c24d784f056efa85af5b0a9ebb9",
+          "version": null
+        }
+      },
+      {
+        "package": "ObservableArray",
+        "repositoryURL": "git@github.com:sstadelman/observable-array.git",
+        "state": {
+          "branch": "master",
+          "revision": "521e199d1bbf44749bec12652517fd63c2f3c5d1",
+          "version": null
+        }
+      },
+      {
+        "package": "TinyNetworking",
+        "repositoryURL": "git@github.com:objcio/tiny-networking.git",
+        "state": {
+          "branch": null,
+          "revision": "6676e026109376e6aa51af4830cc5eab57397573",
+          "version": "0.3.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

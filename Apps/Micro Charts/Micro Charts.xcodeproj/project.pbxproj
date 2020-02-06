@@ -1,0 +1,412 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1BF8846C23ECAD510030910A /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1BF8846B23ECAD510030910A /* FioriSwiftUI */; };
+		1BF8846D23ECAD510030910A /* FioriSwiftUI in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1BF8846B23ECAD510030910A /* FioriSwiftUI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
+		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
+		F6F9163A23962B4400D091FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163923962B4400D091FF /* ContentView.swift */; };
+		F6F9163C23962B4700D091FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6F9163B23962B4700D091FF /* Assets.xcassets */; };
+		F6F9163F23962B4700D091FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F6F9163E23962B4700D091FF /* Preview Assets.xcassets */; };
+		F6F9164223962B4700D091FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F6F9164023962B4700D091FF /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B89321FF23DA54AA004F9BD7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1BF8846D23ECAD510030910A /* FioriSwiftUI in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
+		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F6F9163523962B4400D091FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F6F9163723962B4400D091FF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F6F9163923962B4400D091FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F6F9163B23962B4700D091FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F6F9163E23962B4700D091FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F6F9164123962B4700D091FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F6F9164323962B4700D091FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F6F9162F23962B4400D091FF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BF8846C23ECAD510030910A /* FioriSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B89321FB23DA54A9004F9BD7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F6F9162923962B4400D091FF = {
+			isa = PBXGroup;
+			children = (
+				F6F9163423962B4400D091FF /* Micro Charts */,
+				F6F9163323962B4400D091FF /* Products */,
+				B89321FB23DA54A9004F9BD7 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		F6F9163323962B4400D091FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F6F9163223962B4400D091FF /* Micro Charts.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F6F9163423962B4400D091FF /* Micro Charts */ = {
+			isa = PBXGroup;
+			children = (
+				B84527E223D1220400CD3A93 /* Micro Charts.entitlements */,
+				F6F9163923962B4400D091FF /* ContentView.swift */,
+				F6F9163523962B4400D091FF /* AppDelegate.swift */,
+				F6F9163B23962B4700D091FF /* Assets.xcassets */,
+				F6F9164323962B4700D091FF /* Info.plist */,
+				F6F9164023962B4700D091FF /* LaunchScreen.storyboard */,
+				F6F9163D23962B4700D091FF /* Preview Content */,
+				F6F9163723962B4400D091FF /* SceneDelegate.swift */,
+			);
+			path = "Micro Charts";
+			sourceTree = "<group>";
+		};
+		F6F9163D23962B4700D091FF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				F6F9163E23962B4700D091FF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F6F9163123962B4400D091FF /* Micro Charts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F6F9164623962B4700D091FF /* Build configuration list for PBXNativeTarget "Micro Charts" */;
+			buildPhases = (
+				F6F9162E23962B4400D091FF /* Sources */,
+				F6F9162F23962B4400D091FF /* Frameworks */,
+				F6F9163023962B4400D091FF /* Resources */,
+				B89321FF23DA54AA004F9BD7 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Micro Charts";
+			packageProductDependencies = (
+				1BF8846B23ECAD510030910A /* FioriSwiftUI */,
+			);
+			productName = "Micro Charts";
+			productReference = F6F9163223962B4400D091FF /* Micro Charts.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F6F9162A23962B4400D091FF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = sstadelman;
+				TargetAttributes = {
+					F6F9163123962B4400D091FF = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+				};
+			};
+			buildConfigurationList = F6F9162D23962B4400D091FF /* Build configuration list for PBXProject "Micro Charts" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F6F9162923962B4400D091FF;
+			packageReferences = (
+				1BF8846A23ECAD510030910A /* XCRemoteSwiftPackageReference "fiori-ios-swiftui" */,
+			);
+			productRefGroup = F6F9163323962B4400D091FF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F6F9163123962B4400D091FF /* Micro Charts */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F6F9163023962B4400D091FF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F9164223962B4700D091FF /* LaunchScreen.storyboard in Resources */,
+				F6F9163F23962B4700D091FF /* Preview Assets.xcassets in Resources */,
+				F6F9163C23962B4700D091FF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F6F9162E23962B4400D091FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */,
+				F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */,
+				F6F9163A23962B4400D091FF /* ContentView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F6F9164023962B4700D091FF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F6F9164123962B4700D091FF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F6F9164423962B4700D091FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		F6F9164523962B4700D091FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F6F9164723962B4700D091FF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Micro Charts/Micro Charts.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Micro Charts/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Micro Charts/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sstadelman.Micro-Charts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F6F9164823962B4700D091FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Micro Charts/Micro Charts.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Micro Charts/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "Micro Charts/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sstadelman.Micro-Charts";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F6F9162D23962B4400D091FF /* Build configuration list for PBXProject "Micro Charts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6F9164423962B4700D091FF /* Debug */,
+				F6F9164523962B4700D091FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F6F9164623962B4700D091FF /* Build configuration list for PBXNativeTarget "Micro Charts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6F9164723962B4700D091FF /* Debug */,
+				F6F9164823962B4700D091FF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1BF8846A23ECAD510030910A /* XCRemoteSwiftPackageReference "fiori-ios-swiftui" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.wdf.sap.corp:Tango/fiori-ios-swiftui.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1BF8846B23ECAD510030910A /* FioriSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BF8846A23ECAD510030910A /* XCRemoteSwiftPackageReference "fiori-ios-swiftui" */;
+			productName = FioriSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = F6F9162A23962B4400D091FF /* Project object */;
+}

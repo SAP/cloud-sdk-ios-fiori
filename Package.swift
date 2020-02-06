@@ -30,8 +30,7 @@ let package = Package(
             dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray"]),
         .target(
             name: "Charts",
-            dependencies: [],
-            exclude: ["TestCases"]),
+            dependencies: []),
         .testTarget(
             name: "FioriSwiftUITests",
             dependencies: ["FioriSwiftUI"]),
