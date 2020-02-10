@@ -10,6 +10,16 @@ import FioriCharts
 import SwiftUI
 
 struct Test {
+    static let bulletModles = [
+        ChartModel(chartType: .micro_bullet,
+                                          data: [[[120], [100], [110]], [[0], [50], [150], [200]]],
+                                          colorsForCategory: [[.green, .green, .red, .blue]]),
+                               
+        ChartModel(chartType: .micro_bullet,
+                                          data: [[[35], [50], [70]], [[0], [20], [50], [100]]],
+                                          colorsForCategory: [[.red, .yellow, .yellow, .red]])
+    ]
+    
     static let columnModels = [
         ChartModel(chartType: .micro_column,
                    data: [[[200], [170], [165], [143], [166], [112], [110]]],
@@ -56,5 +66,6 @@ struct Test {
         ChartModel(chartType: .micro_radial, data: [[[]]])
     ]
     
-    static let allTestModels = [columnModels, harveyBallModels, radialModels].flatMap { $0 }
+    static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels].flatMap { $0 }
 }
+

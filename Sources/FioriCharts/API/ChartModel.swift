@@ -114,30 +114,48 @@ public class ChartModel: ObservableObject, Identifiable {
         
         // check if there is data
         if let _ = data.first?.first?.first {
-            let range: ClosedRange<Double> = {
-                let allValues: [Double] = data.first!.map({ $0.first! })
-
-                var min = allValues.min() ?? 0
-                if min > 0 {
-                    min = 0
-                }
-                let max = allValues.max() ?? 1
-
-                //print("ACT ALL VALUES: \(allValues)")
-                guard min != max else { return 0...max }
-                return min...max
-            }()
-            
-            self.range = [range]
+            self.range = []
+            for i in 0 ..< data.count {
+                let range: ClosedRange<Double> = {
+                    let allValues: [Double] = data[i].map({ $0.first! })
+                    
+                    var min = allValues.min() ?? 0
+                    if min > 0 {
+                        min = 0
+                    }
+                    let max = allValues.max() ?? 1
+                    
+                    //print("ACT ALL VALUES: \(allValues)")
+                    guard min != max else { return 0...max }
+                    return min...max
+                }()
+                self.range?.append(range)
+            }
         }
     }
     
-    func normalizedValue(for value: Double, seriesIndex: Int) -> Double {
+    func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
         if let range = range {
-            return abs(value) / (range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
+            return abs(T(value)) / T(range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
         }
         else {
             return 0
+        }
+    }
+    
+    func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
+        if let range = range {
+            var minValue = range.first!.lowerBound
+            var maxValue = range.first!.upperBound
+            for i in range {
+                minValue = min(minValue, i.lowerBound)
+                maxValue = max(maxValue, i.upperBound)
+            }
+            
+            return abs(value) / T(maxValue - minValue)
+        }
+        else {
+            return T(0)
         }
     }
 }
@@ -197,3 +215,4 @@ extension ChartModel {
         return res
     }
 }
+
