@@ -17,14 +17,14 @@ extension String: Identifiable {
 }
 
 struct ContentView: View {
-    
-    let models: [Manifest]
+        
+    let cards: [String]
     
     var body: some View {
         NavigationView() {
-            List() {
-                ForEach(models) { model in
-                    self.makeBody(model)
+            List(cards) { card in
+                NavigationLink(destination: self.makeBody(self.getManifest(for: card)!)) {
+                    Text(card)
                 }
             }
             .navigationBarTitle("UI Integration Cards")
@@ -44,6 +44,17 @@ struct ContentView: View {
         default:
             return AnyView(EmptyView())
         }
+    }
+    
+    func getManifest(for card: String) -> Manifest? {
+        do {
+            let data = try Data(contentsOf: Bundle.main.url(forResource: card, withExtension: "json")!)
+            let model = try JSONDecoder().decode(Manifest.self, from: data)
+            return model
+        } catch {
+            print(error)
+        }
+        return nil
     }
 }
 
