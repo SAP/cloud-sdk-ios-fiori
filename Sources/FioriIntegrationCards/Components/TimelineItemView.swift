@@ -24,7 +24,7 @@ struct TimelineItemView: View {
             VStack(alignment: .leading, spacing: 0) {
                 SafeText(model.title).font(.body)
                 SafeText(model.dateTime).font(.footnote).foregroundColor(.gray)
-                Spacer()
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
                 SafeText(model.description).font(.body)
             }
             .padding(8)

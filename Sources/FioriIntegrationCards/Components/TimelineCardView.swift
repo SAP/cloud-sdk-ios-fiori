@@ -13,9 +13,18 @@ public struct TimelineCardView: View {
     public var model: TimelineCard!
     
     public var body: some View {
-        ForEach(model.content.value!) {
-            TimelineItemView(model: $0)
+        VStack(alignment: .leading, spacing: 20) {
+            HeaderView(model: model.header)
+            Divider().accentColor(Color.primary)
+            ForEach(model.content.value!) {
+                TimelineItemView(model: $0)
+            }
         }
+        .padding(16)
+        .overlay(
+            RoundedRectangle(cornerRadius: 6)
+                .stroke(Color.gray, lineWidth: 0.5)
+        ).padding(16)
     }
     
     public init(model: TimelineCard) {
