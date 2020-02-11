@@ -40,7 +40,7 @@ public struct ChartView: View {
 struct FUIChartView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(Test.allCases) {
+            ForEach(Tests.allCases) {
                 ChartView($0)
                     .frame(width: 300, height: 200)
                     .previewLayout(.sizeThatFits)

@@ -73,13 +73,56 @@ public struct ChartAxisAttribute {
 
 public class ChartModel: ObservableObject, Identifiable {
 
+    ///
+    public enum DimensionData<T> {
+        case single(T)
+        case array([T])
+        
+        var value: T? {
+            switch self {
+            case .single(let val):
+                return val
+            default:
+                return nil
+            }
+        }
+        
+        var values: [T]? {
+            switch self {
+            case .array(let vals):
+                return vals
+            default:
+                return nil
+            }
+        }
+        
+        var count: Int {
+            switch self {
+            case .array(let vals):
+                return vals.count
+            default:
+                return 1
+            }
+        }
+        
+        subscript(index: Int) -> T {
+            switch self {
+            case .array(let vals):
+                return vals[index]
+                
+            case .single(let val):
+                return val
+            }
+        }
+    }
+    
     /// data
     @Published public var chartType: ChartType
     /// seires -> category -> dimension
-    @Published public var data: [[[Double]]]
+    @Published public var data: [[DimensionData<Double>]]
     @Published public var titlesForCategory: [[String]]?
     @Published public var titlesForAxis: [String]?
-    @Published public var labelsForDimension: [[[String]]]?
+    @Published public var labelsForDimension: [[DimensionData<String>]]?
     
     /// to be removed
     @Published public var colorsForCategory: [[Color]]?
@@ -99,26 +142,90 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil) {
         self.chartType = chartType
-        self.data = data
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
-        self.labelsForDimension = labelsForDimension
         
-        if let series = data.first, let category = series.first {
-            self.displayEndIndex = max(category.count - 1, 0)
-            self.lastDisplayEndIndex = self.displayEndIndex
+        var tmpData: [[DimensionData<Double>]] = []
+        for c in data {
+            var series: [DimensionData<Double>] = []
+            for d in c {
+                series.append(DimensionData.single(d))
+            }
+            tmpData.append(series)
+        }
+        self.data = tmpData
+        
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String>]] = []
+            for c in labels {
+                var series: [DimensionData<String>] = []
+                for d in c {
+                    series.append(DimensionData.single(d))
+                }
+                tmpLabels.append(series)
+            }
+            self.labelsForDimension = tmpLabels
         }
         
+        initials()
+    }
+    
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
+        self.chartType = chartType
+        self.titlesForCategory = titlesForCategory
+        self.colorsForCategory = colorsForCategory
+        self.titlesForAxis = titlesForAxis
+        
+        var tmpData: [[DimensionData<Double>]] = []
+        for c in data {
+            var series: [DimensionData<Double>] = []
+            for d in c {
+                series.append(DimensionData.array(d))
+            }
+            tmpData.append(series)
+        }
+        self.data = tmpData
+        
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String>]] = []
+            for c in labels {
+                var series: [DimensionData<String>] = []
+                for d in c {
+                    series.append(DimensionData.array(d))
+                }
+                tmpLabels.append(series)
+            }
+            self.labelsForDimension = tmpLabels
+        }
+        
+        initials()
+    }
+    
+    func initials() {
+//        if let series = data.first, let category = series.first {
+//            self.displayEndIndex = max(category.count - 1, 0)
+//            self.lastDisplayEndIndex = self.displayEndIndex
+//        }
+        
         // check if there is data
-        if let _ = data.first?.first?.first {
+        if let _ = data.first?.first {
             self.range = []
+            
+            // go through series
             for i in 0 ..< data.count {
                 let range: ClosedRange<Double> = {
-                    let allValues: [Double] = data[i].map({ $0.first! })
+                    var allValues: [Double] = []
                     
+                    if let _ = data[i].first?.value {
+                        allValues = data[i].map { $0.value! }
+                    }
+                    else if let _ = data[i].first?.values {
+                        allValues = data[i].map({$0.values!.first!})
+                    }
+                                        
                     var min = allValues.min() ?? 0
                     if min > 0 {
                         min = 0

@@ -130,9 +130,9 @@ public struct ColumnMicroChart: View {
         guard let valueLabels = model.labelsForDimension else { return false }
         
         // check the column bar is wide enough to accommodate the label
-        if let _ = valueLabels.first?.first?.first {
-            for str in valueLabels.first!.first! {
-                let size = stringSize(str: str, font: columnLabelsFont)
+        if let category = valueLabels.first {
+            for str in category {
+                let size = stringSize(str: str.value ?? "", font: columnLabelsFont)
                 if size.width > barWidth {
                     return false
                 }
@@ -222,7 +222,7 @@ public struct ColumnMicroChart: View {
         }
         
         if showValueColumnLabels(barWidth) {
-            columnLabelsHeight = stringSize(str: model.labelsForDimension!.first!.first!.first!, font: columnLabelsFont).height
+            columnLabelsHeight = stringSize(str: model.labelsForDimension!.first!.first!.value ?? "", font: columnLabelsFont).height
             wholeBarsHeight -= columnLabelsHeight
             positiveLablesHeight = columnLabelsHeight
             
@@ -315,7 +315,7 @@ public struct ColumnMicroChart: View {
 struct ColumnMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(Test.columnModels) {
+            ForEach(Tests.columnModels) {
                 ColumnMicroChart($0)
                 .frame(width: 330, height: 220, alignment: .topLeading)
                 .previewLayout(.sizeThatFits)

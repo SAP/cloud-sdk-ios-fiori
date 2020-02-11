@@ -132,8 +132,10 @@ public struct BulletMicroChart: View {
 struct BulletMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            BulletMicroChart(Test.bulletModles.first!)
-                .frame(width: 320, height: 94, alignment: .topLeading)
+            ForEach(Tests.bulletModles) {
+                BulletMicroChart($0)
+                .frame(width: 320, height: 94)
+            }
         }
         .previewLayout(.fixed(width: 320, height: 94))
     }
