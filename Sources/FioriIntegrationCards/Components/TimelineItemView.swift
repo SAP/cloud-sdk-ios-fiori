@@ -12,14 +12,21 @@ struct TimelineItemView: View {
     
     var model: TimelineItem
     
+    let isLast: Bool
+    
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 10) {
+        HStack(alignment: .top, spacing: 0) {
+            VStack {
                 Rectangle()
                     .stroke()
-                    .frame(width: 20, height: 20, alignment: .top)
-                    .padding(EdgeInsets(top: 10, leading: 10, bottom: 0, trailing: 20))
+                    .frame(width: 30, height: 30, alignment: .top)
+                if !isLast {
+                    VerticalLine()
+                        .stroke(Color.gray, lineWidth: 0.6)
+                }
             }
+            .fixedSize(horizontal: true, vertical: false)
+            .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 20))
             
             VStack(alignment: .leading, spacing: 0) {
                 SafeText(model.title).font(.body)
@@ -30,6 +37,17 @@ struct TimelineItemView: View {
             .padding(8)
             .overlay(Bubble())
         }
+    }
+}
+
+struct VerticalLine: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        let startPoint: CGPoint = CGPoint(x: (rect.minX + rect.maxX)/2, y: rect.minY)
+        let endPoint: CGPoint   = CGPoint(x: (rect.minX + rect.maxX)/2, y: rect.maxY)
+        path.move(to: startPoint)
+        path.addLine(to: endPoint)
+        return path
     }
 }
 

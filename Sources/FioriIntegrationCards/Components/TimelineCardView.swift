@@ -16,8 +16,9 @@ public struct TimelineCardView: View {
         VStack(alignment: .leading, spacing: 20) {
             HeaderView(model: model.header)
             Divider().accentColor(Color.primary)
-            ForEach(model.content.value!) {
-                TimelineItemView(model: $0)
+            ForEach(0 ..< model.content.value!.count) { index in
+                TimelineItemView(model: self.model.content.value![index], isLast: index == self.model.content.value!.count - 1)
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(16)
