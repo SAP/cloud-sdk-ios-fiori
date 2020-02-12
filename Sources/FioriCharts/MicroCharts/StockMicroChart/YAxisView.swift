@@ -9,15 +9,15 @@
 import SwiftUI
 
 struct YAxisView: View {
-    @EnvironmentObject var model: StockMicroChartModel
+    @EnvironmentObject var model: ChartModel
     
     let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
     var chartWidth: CGFloat
     
     var body: some View {
-        let minVal = model.ranges[model.curMode].lowerBound
-        let maxVal = model.ranges[model.curMode].upperBound
+        let minVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0)
+        let maxVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0)
         
         var yAxisTitlesCount = Int((rect.size.height - 40)/30)
         if yAxisTitlesCount < 0 {
@@ -71,9 +71,9 @@ struct YAxisView: View {
     }
     
     func formatYAxisTitle(value: CGFloat, total: Int) -> String {
-        let minVal = model.ranges[model.curMode].lowerBound
-        let maxVal = model.ranges[model.curMode].upperBound
-        let range = (maxVal - minVal) / CGFloat(total)
+        let minVal = model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0
+        let maxVal = model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0
+        let range = CGFloat(maxVal - minVal) / CGFloat(total)
         
         let dataPrecision = (range >= 1) ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")
         
@@ -83,7 +83,7 @@ struct YAxisView: View {
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 200), chartWidth: 160).environmentObject(StockMicroChartModel.allCases[1])
+        YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 200), chartWidth: 160).environmentObject(Tests.stockModels[1])
         .frame(width:300, height: 200, alignment: .topLeading)
         .padding()
         .previewLayout(.sizeThatFits)

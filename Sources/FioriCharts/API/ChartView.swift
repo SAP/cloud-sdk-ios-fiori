@@ -29,6 +29,9 @@ public struct ChartView: View {
             else if chartModel.chartType == .micro_column {
                 ColumnMicroChart(chartModel)
             }
+            else if chartModel.chartType == .stock {
+                StockMicroChart(chartModel)
+            }
             else {
                 NoDataView()
             }

@@ -132,13 +132,18 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var axesAttributes:[[ChartAxisAttribute]]?
     @Published public var numOfGridLines: [Int] = [3,3]
     
-    // for pinch & zoom
+    /// for pinch & zoom
     @Published var displayStartIndex:Int = 0
     @Published var displayEndIndex:Int = 0
     @Published var lastDisplayStartIndex = 0
     @Published var lastDisplayEndIndex:Int = 0
     
-    var range: [ClosedRange<Double>]?
+    /// selection state
+    @Published var selectedSeriesIndex: Int?
+    @Published var selectedCategoryIndex: Int?
+    @Published var selectedDimensionIndex: Int?
+    
+    var ranges: [ClosedRange<Double>]?
     
     public let id = UUID()
     
@@ -170,7 +175,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.labelsForDimension = tmpLabels
         }
         
-        initials()
+        initialize()
     }
     
     public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
@@ -201,18 +206,24 @@ public class ChartModel: ObservableObject, Identifiable {
             self.labelsForDimension = tmpLabels
         }
         
-        initials()
+        initialize()
     }
     
-    func initials() {
-//        if let series = data.first, let category = series.first {
-//            self.displayEndIndex = max(category.count - 1, 0)
-//            self.lastDisplayEndIndex = self.displayEndIndex
-//        }
+    func initialize() {
+        if let series = data.first, let category = series.first {
+            displayEndIndex = max(category.count - 1, 0)
+            lastDisplayEndIndex = displayEndIndex
+            displayStartIndex = 0
+            lastDisplayStartIndex = 0
+        }
+        
+        if chartType == .stock {
+            selectedSeriesIndex = 0
+        }
         
         // check if there is data
         if let _ = data.first?.first {
-            self.range = []
+            self.ranges = []
             
             // go through series
             for i in 0 ..< data.count {
@@ -226,23 +237,19 @@ public class ChartModel: ObservableObject, Identifiable {
                         allValues = data[i].map({$0.values!.first!})
                     }
                                         
-                    var min = allValues.min() ?? 0
-                    if min > 0 {
-                        min = 0
-                    }
+                    let min = allValues.min() ?? 0
                     let max = allValues.max() ?? 1
                     
-                    //print("ACT ALL VALUES: \(allValues)")
                     guard min != max else { return 0...max }
                     return min...max
                 }()
-                self.range?.append(range)
+                self.ranges?.append(range)
             }
         }
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
-        if let range = range {
+        if let range = ranges {
             return abs(T(value)) / T(range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
         }
         else {
@@ -251,7 +258,7 @@ public class ChartModel: ObservableObject, Identifiable {
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
-        if let range = range {
+        if let range = ranges {
             var minValue = range.first!.lowerBound
             var maxValue = range.first!.upperBound
             for i in range {

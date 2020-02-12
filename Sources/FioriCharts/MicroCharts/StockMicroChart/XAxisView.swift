@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct XAxisView: View {
-    @EnvironmentObject var model: StockMicroChartModel
+    @EnvironmentObject var model: ChartModel
     
     let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
@@ -119,29 +119,29 @@ struct XAxisView: View {
     }
     
     func getDateAtIndex(_ index: Int) -> Date {
-        let count = model.data[model.curMode].count
-        if StockUtility.isItADayModeAndNotClosed(model) {
-            if index >= count  {
-                let startTime = model.data[model.curMode].first!.date
-                let seconds = index * 3600 / StockUtility.calNumOfDataItemsInDayModePerHour(model)
-                let date = startTime.addingTimeInterval(TimeInterval(seconds))
-                
-                return date
-            }
-        }
+        let count = model.data[model.selectedSeriesIndex!].count
+//        if StockUtility.isItADayModeAndNotClosed(model) {
+//            if index >= count  {
+//                let startTime = model.data[model.selectedSeriesIndex!].first!.date
+//                let seconds = index * 3600 / StockUtility.calNumOfDataItemsInDayModePerHour(model)
+//                let date = startTime.addingTimeInterval(TimeInterval(seconds))
+//
+//                return date
+//            }
+//        }
         
-        return model.data[model.curMode][index].date
+        return StockUtility.categoryValueInDate(model, categoryIndex: index)!
     }
     
     func getPriceAtIndex(_ index: Int) -> CGFloat {
-        let count = model.data[model.curMode].count
-        if StockUtility.isItADayModeAndNotClosed(model) {
-            if index >= count  {
-                return -1
-            }
-        }
+        let count = model.data[model.selectedSeriesIndex!].count
+//        if StockUtility.isItADayModeAndNotClosed(model) {
+//            if index >= count  {
+//                return -1
+//            }
+//        }
         
-        return CGFloat(model.data[model.curMode][index].close)
+        return CGFloat(StockUtility.dimensionValue(model, categoryIndex: index) ?? -1)
     }
     
     func monthAbbreviationFromInt(_ month: Int) -> String {
@@ -153,11 +153,9 @@ struct XAxisView: View {
 struct XAxisView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20)).environmentObject(StockMicroChartModel.allCases[0])
-            .frame(width:300, height: 200, alignment: .topLeading)
-            .previewLayout(.sizeThatFits)
-        
-            XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20)).environmentObject(StockMicroChartModel.allCases[1])
+            ForEach(Tests.stockModels) {
+                XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20)).environmentObject(StockUtility.preprocessModel($0))
+            }
             .frame(width:300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
         }

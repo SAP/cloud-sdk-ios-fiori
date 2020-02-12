@@ -53,5 +53,6 @@ public enum ChartType {
     /// Micro Chart Radial
     case micro_radial
     
+    /// Stock market
     case stock
 }

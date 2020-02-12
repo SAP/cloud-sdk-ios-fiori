@@ -9,22 +9,23 @@
 import SwiftUI
 
 struct StockLinesView: View {
-    @EnvironmentObject var model: StockMicroChartModel
+    @EnvironmentObject var model: ChartModel
     
     var rect: CGRect
     
     var body: some View {
+        //Text("hello")
         var noData = false
         let width = rect.size.width
         let height = rect.size.height
         
         var endIndex = model.displayEndIndex
         if StockUtility.isItADayModeAndNotClosed(model) {
-            if model.displayStartIndex >= model.data[model.curMode].count {
+            if model.displayStartIndex >= model.data[model.selectedSeriesIndex!].count {
                 noData = true
             }
-            if endIndex >= model.data[model.curMode].count {
-                endIndex = model.data[model.curMode].count - 1
+            if endIndex >= model.data[model.selectedSeriesIndex!].count {
+                endIndex = model.data[model.selectedSeriesIndex!].count - 1
             }
         }
         
@@ -32,24 +33,35 @@ struct StockLinesView: View {
         var path = Path()
         
         if !noData {
-            let curDisplayData = model.data[model.curMode][model.displayStartIndex...endIndex]
-            let data = curDisplayData.map { CGFloat($0.close) }
-            let count = data.count
             let stockLineWidth = calStockLinesWidth(width, realEndIndex: endIndex)
-            let minVal = model.ranges[model.curMode].lowerBound
-            let maxVal = model.ranges[model.curMode].upperBound
+            let minVal = CGFloat(model.ranges![model.selectedSeriesIndex!].lowerBound)
+            let maxVal = CGFloat(model.ranges![model.selectedSeriesIndex!].upperBound)
             
-            let normalizedData = data.map {
-                height - ($0 - minVal) * height / (maxVal - minVal) + rect.origin.y
+            let curDisplayData = model.data[model.selectedSeriesIndex!][model.displayStartIndex...endIndex]
+            let data = curDisplayData.map { (dimensionData) -> CGFloat in
+                var tmpVal: CGFloat = 0
+                if let val = dimensionData.value {
+                    tmpVal = CGFloat(val)
+                }
+                else if let vals = dimensionData.values {
+                    tmpVal = CGFloat(vals.first ?? 0)
+                }
+                
+                return height - (tmpVal - minVal) * height / (maxVal - minVal) + rect.origin.y
             }
             
+//            let normalizedData = data.map {
+//                height - ($0 - minVal) * height / (maxVal - minVal) + rect.origin.y
+//            }
+            
+            let count = data.count
             let xStep = stockLineWidth / CGFloat((count - 1))
             var x: CGFloat = rect.origin.x
             
             
-            linePath.move(to: CGPoint(x: x, y: normalizedData.first!))
+            linePath.move(to: CGPoint(x: x, y: data.first!))
             
-            for y in normalizedData.dropFirst() {
+            for y in data.dropFirst() {
                 x += xStep
                 linePath.addLine(to: CGPoint(x: x, y: y))
             }
@@ -58,7 +70,7 @@ struct StockLinesView: View {
             // move to left bottom corner
             path.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y + height))
             // move to left top point
-            path.addLine(to: CGPoint(x: rect.origin.x, y: normalizedData.first!))
+            path.addLine(to: CGPoint(x: rect.origin.x, y: data.first!))
             path.addPath(linePath)
             // move to right bottom corner
             path.addLine(to: CGPoint(x: x, y: rect.origin.y + height))
@@ -99,8 +111,10 @@ struct StockLinesView: View {
 
 struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
-        StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200)).environmentObject(StockMicroChartModel.allCases[1])
-        .frame(width:300, height: 200, alignment: .topLeading)
+        ForEach(Tests.stockModels) {
+            StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200)).environmentObject(StockUtility.preprocessModel($0))
+        }
+        .frame(width:300, height: 200)
         .previewLayout(.sizeThatFits)
     }
 }

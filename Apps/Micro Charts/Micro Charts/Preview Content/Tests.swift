@@ -64,7 +64,13 @@ struct Tests {
          ChartModel(chartType: .micro_radial, data: [[0.1]], colorsForCategory: [[Color.red]]),
          ChartModel(chartType: .micro_radial, data: [[0]], colorsForCategory: [[Color.red]])
      ]
-     
-     public static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels].flatMap { $0 }
+    
+    static let stockModels = [
+        ChartModel(chartType: .stock, data: [[16.52, 16.50, 16.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 17.01, 18.22, 17.76, 17.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]]),
+        
+        ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]])
+    ]
+    
+    public static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels, stockModels].flatMap { $0 }
 }
 

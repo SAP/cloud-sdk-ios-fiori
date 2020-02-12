@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct StockIndicatorView: View {
-    @EnvironmentObject var model: StockMicroChartModel
+    @EnvironmentObject var model: ChartModel
     
     var rect: CGRect
     
@@ -18,10 +18,9 @@ struct StockIndicatorView: View {
     
     var body: some View {
         let x = closestPoint.x
-        let data = model.data[model.curMode][closestDataIndex]
-        let hour = Calendar.current.component(.hour, from: data.date)
-        let price = String(data.close)
-        let date = data.date
+        let date = StockUtility.categoryValueInDate(model, categoryIndex: closestDataIndex)
+        let hour = Calendar.current.component(.hour, from: date!)
+        let price = StockUtility.dimensionValue(model, categoryIndex: closestDataIndex)
         let df = DateFormatter()
         df.dateStyle = .medium
         if hour == 0 {
@@ -34,7 +33,7 @@ struct StockIndicatorView: View {
         return ZStack {
             LineShape(pos1: CGPoint(x: x, y: rect.origin.y), pos2: CGPoint(x: x, y: rect.origin.y + rect.size.height), color: .black)
             
-            Text(price)
+            Text(String(price!))
                 .font(.caption)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
@@ -44,7 +43,7 @@ struct StockIndicatorView: View {
                 .shadow(color: .gray, radius: 6, x: 0, y: 6)
                 .position(x: x, y: rect.origin.y)
             
-            Text(df.string(from: date))
+            Text(df.string(from: date!))
                 .font(.caption)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
@@ -62,7 +61,7 @@ struct StockIndicatorView: View {
 
 struct StockIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        StockIndicatorView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), closestPoint: .constant(CGPoint(x: 100, y: 80)), closestDataIndex: .constant(3)).environmentObject(StockMicroChartModel.allCases[1])
+        StockIndicatorView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), closestPoint: .constant(CGPoint(x: 100, y: 80)), closestDataIndex: .constant(3)).environmentObject(Tests.stockModels[1])
         .frame(width:300, height: 200, alignment: .topLeading)
         .padding(32)
         .previewLayout(.sizeThatFits)

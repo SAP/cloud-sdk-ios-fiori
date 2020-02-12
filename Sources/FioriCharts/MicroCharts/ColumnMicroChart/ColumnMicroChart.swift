@@ -21,6 +21,16 @@ public struct ColumnMicroChart: View {
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
+        
+        // reset ranges' lower bound to 0
+        if let ranges = model.ranges {
+            for i in 0 ..< ranges.count {
+                let range = ranges[i]
+                
+                let minVal = range.lowerBound > 0 ? 0 : range.lowerBound
+                model.ranges![i] = minVal...range.upperBound
+            }
+        }
     }
     
     
@@ -117,7 +127,7 @@ public struct ColumnMicroChart: View {
     }
     
     func existNegativeValues() -> Bool {
-        if let ranges = model.range, let range = ranges.first {
+        if let ranges = model.ranges, let range = ranges.first {
             if range.lowerBound < 0 {
                 return true
             }
@@ -264,7 +274,7 @@ public struct ColumnMicroChart: View {
             topLabelsHeight = 0
         }
         
-        let minVal = model.range == nil ? 0 : model.range!.first!.lowerBound
+        let minVal = model.ranges == nil ? 0 : min(0, model.ranges!.first!.lowerBound)
         let negativeBarsHeight = minVal >= 0 ? 0 : (CGFloat(model.normalizedValue(for: minVal, seriesIndex: 0)) * wholeBarsHeight)
         
         let positiveBarsHeight = wholeBarsHeight - negativeBarsHeight
