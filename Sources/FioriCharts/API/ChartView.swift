@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 public struct ChartView: View {
     var chartModel: ChartModel
     
@@ -18,7 +17,10 @@ public struct ChartView: View {
     
     public var body: some View {
         Group {
-            if chartModel.chartType == .micro_harvey_ball {
+            if chartModel.chartType == .micro_bullet  {
+                BulletMicroChart(chartModel)
+            }
+            else if chartModel.chartType == .micro_harvey_ball {
                 HarveyBallMicroChart(chartModel)
             }
             else if chartModel.chartType == .micro_radial {
@@ -27,6 +29,9 @@ public struct ChartView: View {
             else if chartModel.chartType == .micro_column {
                 ColumnMicroChart(chartModel)
             }
+            else if chartModel.chartType == .stock {
+                StockMicroChart(chartModel)
+            }
             else {
                 NoDataView()
             }
@@ -34,13 +39,15 @@ public struct ChartView: View {
     }
 }
 
-/*
- struct FUIChartView_Previews: PreviewProvider {
- static var previews: some View {
- let columnChart = ColumnMicroChartModel(dataSource: Test.ChartCard.items[1].dataSeries)
- 
- return FUIChartView(columnChart)
- .frame(width: 300, height: 200)
- .previewLayout(.sizeThatFits)
- }
- }*/
+
+struct FUIChartView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            ForEach(Tests.allCases) {
+                ChartView($0)
+                    .frame(width: 300, height: 200)
+                    .previewLayout(.sizeThatFits)
+            }
+        }
+    }
+}

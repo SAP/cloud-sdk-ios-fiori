@@ -73,13 +73,56 @@ public struct ChartAxisAttribute {
 
 public class ChartModel: ObservableObject, Identifiable {
 
+    ///
+    public enum DimensionData<T> {
+        case single(T)
+        case array([T])
+        
+        var value: T? {
+            switch self {
+            case .single(let val):
+                return val
+            default:
+                return nil
+            }
+        }
+        
+        var values: [T]? {
+            switch self {
+            case .array(let vals):
+                return vals
+            default:
+                return nil
+            }
+        }
+        
+        var count: Int {
+            switch self {
+            case .array(let vals):
+                return vals.count
+            default:
+                return 1
+            }
+        }
+        
+        subscript(index: Int) -> T {
+            switch self {
+            case .array(let vals):
+                return vals[index]
+                
+            case .single(let val):
+                return val
+            }
+        }
+    }
+    
     /// data
     @Published public var chartType: ChartType
     /// seires -> category -> dimension
-    @Published public var data: [[[Double]]]
+    @Published public var data: [[DimensionData<Double>]]
     @Published public var titlesForCategory: [[String]]?
     @Published public var titlesForAxis: [String]?
-    @Published public var labelsForDimension: [[[String]]]?
+    @Published public var labelsForDimension: [[DimensionData<String>]]?
     
     /// to be removed
     @Published public var colorsForCategory: [[Color]]?
@@ -89,55 +132,144 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var axesAttributes:[[ChartAxisAttribute]]?
     @Published public var numOfGridLines: [Int] = [3,3]
     
-    // for pinch & zoom
+    /// for pinch & zoom
     @Published var displayStartIndex:Int = 0
     @Published var displayEndIndex:Int = 0
     @Published var lastDisplayStartIndex = 0
     @Published var lastDisplayEndIndex:Int = 0
     
-    var range: [ClosedRange<Double>]?
+    /// selection state
+    @Published var selectedSeriesIndex: Int?
+    @Published var selectedCategoryIndex: Int?
+    @Published var selectedDimensionIndex: Int?
+    
+    var ranges: [ClosedRange<Double>]?
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil) {
         self.chartType = chartType
-        self.data = data
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
-        self.labelsForDimension = labelsForDimension
         
+        var tmpData: [[DimensionData<Double>]] = []
+        for c in data {
+            var series: [DimensionData<Double>] = []
+            for d in c {
+                series.append(DimensionData.single(d))
+            }
+            tmpData.append(series)
+        }
+        self.data = tmpData
+        
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String>]] = []
+            for c in labels {
+                var series: [DimensionData<String>] = []
+                for d in c {
+                    series.append(DimensionData.single(d))
+                }
+                tmpLabels.append(series)
+            }
+            self.labelsForDimension = tmpLabels
+        }
+        
+        initialize()
+    }
+    
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
+        self.chartType = chartType
+        self.titlesForCategory = titlesForCategory
+        self.colorsForCategory = colorsForCategory
+        self.titlesForAxis = titlesForAxis
+        
+        var tmpData: [[DimensionData<Double>]] = []
+        for c in data {
+            var series: [DimensionData<Double>] = []
+            for d in c {
+                series.append(DimensionData.array(d))
+            }
+            tmpData.append(series)
+        }
+        self.data = tmpData
+        
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String>]] = []
+            for c in labels {
+                var series: [DimensionData<String>] = []
+                for d in c {
+                    series.append(DimensionData.array(d))
+                }
+                tmpLabels.append(series)
+            }
+            self.labelsForDimension = tmpLabels
+        }
+        
+        initialize()
+    }
+    
+    func initialize() {
         if let series = data.first, let category = series.first {
-            self.displayEndIndex = max(category.count - 1, 0)
-            self.lastDisplayEndIndex = self.displayEndIndex
+            displayEndIndex = max(category.count - 1, 0)
+            lastDisplayEndIndex = displayEndIndex
+            displayStartIndex = 0
+            lastDisplayStartIndex = 0
+        }
+        
+        if chartType == .stock {
+            selectedSeriesIndex = 0
         }
         
         // check if there is data
-        if let _ = data.first?.first?.first {
-            let range: ClosedRange<Double> = {
-                let allValues: [Double] = data.first!.map({ $0.first! })
-
-                var min = allValues.min() ?? 0
-                if min > 0 {
-                    min = 0
-                }
-                let max = allValues.max() ?? 1
-
-                //print("ACT ALL VALUES: \(allValues)")
-                guard min != max else { return 0...max }
-                return min...max
-            }()
+        if let _ = data.first?.first {
+            self.ranges = []
             
-            self.range = [range]
+            // go through series
+            for i in 0 ..< data.count {
+                let range: ClosedRange<Double> = {
+                    var allValues: [Double] = []
+                    
+                    if let _ = data[i].first?.value {
+                        allValues = data[i].map { $0.value! }
+                    }
+                    else if let _ = data[i].first?.values {
+                        allValues = data[i].map({$0.values!.first!})
+                    }
+                                        
+                    let min = allValues.min() ?? 0
+                    let max = allValues.max() ?? 1
+                    
+                    guard min != max else { return 0...max }
+                    return min...max
+                }()
+                self.ranges?.append(range)
+            }
         }
     }
     
-    func normalizedValue(for value: Double, seriesIndex: Int) -> Double {
-        if let range = range {
-            return abs(value) / (range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
+    func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
+        if let range = ranges {
+            return abs(T(value)) / T(range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
         }
         else {
             return 0
+        }
+    }
+    
+    func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
+        if let range = ranges {
+            var minValue = range.first!.lowerBound
+            var maxValue = range.first!.upperBound
+            for i in range {
+                minValue = min(minValue, i.lowerBound)
+                maxValue = max(maxValue, i.upperBound)
+            }
+            
+            return abs(value) / T(maxValue - minValue)
+        }
+        else {
+            return T(0)
         }
     }
 }
@@ -197,3 +329,4 @@ extension ChartModel {
         return res
     }
 }
+

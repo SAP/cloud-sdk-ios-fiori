@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(Test.allTestModels) {
+                ForEach(Tests.allCases) {
                     ChartView($0).frame(height: 200)
                 }
             }.navigationBarTitle("Micro Charts")

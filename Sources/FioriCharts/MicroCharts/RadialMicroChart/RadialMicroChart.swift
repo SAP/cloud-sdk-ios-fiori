@@ -77,7 +77,7 @@ struct RadialMicroChart: View {
 struct RadialMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(Test.radialModels) {
+            ForEach(Tests.radialModels) {
                 RadialMicroChart($0)
                     .frame(height: 200, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)

@@ -9,19 +9,17 @@
 import SwiftUI
 
 public struct StockMicroChart: View {
-    @ObservedObject var model: StockMicroChartModel
+    @ObservedObject var model: ChartModel
     
-    public init(_ model: StockMicroChartModel) {
-        self.model = model
-        self.model.displayEndIndex = StockUtility.calNumOfDataItmesInDayMode(model) - 1
-        self.model.lastDisplayEndIndex = self.model.displayEndIndex
+    public init(_ model: ChartModel) {
+        self.model = StockUtility.preprocessModel(model)
     }
     
     public var body: some View {
         return GeometryReader { geometry in
             if self.model.data.count > 0 && self.model.data.first!.count > 0 {
                 VStack(alignment: .leading, spacing: 1){
-                    HStack{
+                    /*HStack{
                         Text(self.model.name)
                             .font(.headline)
                         Spacer()
@@ -33,11 +31,11 @@ public struct StockMicroChart: View {
                     
                     Text(self.model.priceUnit)
                         .font(.subheadline)
-                        .foregroundColor(Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1)))
+                        .foregroundColor(Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1)))*/
                     
-                    self.stockModes(in: geometry.size)
-                        .padding(8)
-                    
+//                    self.stockModes(in: geometry.size)
+//                        .padding(8)
+//
                     StockView().environmentObject(self.model)
                 }
                 .background(Color(#colorLiteral(red: 0.9999071956, green: 1, blue: 0.999881804, alpha: 1)))
@@ -50,7 +48,7 @@ public struct StockMicroChart: View {
         }.padding(8)
     }
     
-    func stockModes(in size: CGSize) -> some View {
+    /*func stockModes(in size: CGSize) -> some View {
         HStack(alignment: .center, spacing: 1) {
             ForEach(self.model.modes, id: \.self) { (mode) -> AnyView in
                 let text = Text(mode)
@@ -59,14 +57,14 @@ public struct StockMicroChart: View {
                     .frame(width: (size.width / CGFloat(self.model.modes.count)) - 4)
                     .padding(.vertical, 4)
                     .onTapGesture {
-                        self.model.curMode = self.model.modes.firstIndex(of: mode)!
+                        self.model.selectedSeriesIndex = self.model.modes.firstIndex(of: mode)
                         self.model.displayStartIndex = 0
                         self.model.lastDisplayStartIndex = 0
                         self.model.displayEndIndex = StockUtility.calNumOfDataItmesInDayMode(self.model) - 1
                         self.model.lastDisplayEndIndex = self.model.displayEndIndex
                 }
                 
-                if self.model.modes[self.model.curMode] == mode {
+                if self.model.modes[self.model.selectedSeriesIndex!] == mode {
                     return AnyView(text
                         .border(Color.blue, width: 2)
                         .cornerRadius(4))
@@ -89,13 +87,13 @@ public struct StockMicroChart: View {
             .background(color)
             .cornerRadius(4)
             .foregroundColor(Color.white)
-    }
+    }*/
 }
 
 struct StockMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(StockMicroChartModel.allCases) { data in
+            ForEach(Tests.stockModels) { data in
                 StockMicroChart(data)
                     .frame(width:300, height: 260)
                     .previewLayout(.sizeThatFits)

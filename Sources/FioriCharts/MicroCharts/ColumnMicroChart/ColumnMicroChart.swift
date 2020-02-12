@@ -21,6 +21,16 @@ public struct ColumnMicroChart: View {
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
+        
+        // reset ranges' lower bound to 0
+        if let ranges = model.ranges {
+            for i in 0 ..< ranges.count {
+                let range = ranges[i]
+                
+                let minVal = range.lowerBound > 0 ? 0 : range.lowerBound
+                model.ranges![i] = minVal...range.upperBound
+            }
+        }
     }
     
     
@@ -117,7 +127,7 @@ public struct ColumnMicroChart: View {
     }
     
     func existNegativeValues() -> Bool {
-        if let ranges = model.range, let range = ranges.first {
+        if let ranges = model.ranges, let range = ranges.first {
             if range.lowerBound < 0 {
                 return true
             }
@@ -130,9 +140,9 @@ public struct ColumnMicroChart: View {
         guard let valueLabels = model.labelsForDimension else { return false }
         
         // check the column bar is wide enough to accommodate the label
-        if let _ = valueLabels.first?.first?.first {
-            for str in valueLabels.first!.first! {
-                let size = stringSize(str: str, font: columnLabelsFont)
+        if let category = valueLabels.first {
+            for str in category {
+                let size = stringSize(str: str.value ?? "", font: columnLabelsFont)
                 if size.width > barWidth {
                     return false
                 }
@@ -222,7 +232,7 @@ public struct ColumnMicroChart: View {
         }
         
         if showValueColumnLabels(barWidth) {
-            columnLabelsHeight = stringSize(str: model.labelsForDimension!.first!.first!.first!, font: columnLabelsFont).height
+            columnLabelsHeight = stringSize(str: model.labelsForDimension!.first!.first!.value ?? "", font: columnLabelsFont).height
             wholeBarsHeight -= columnLabelsHeight
             positiveLablesHeight = columnLabelsHeight
             
@@ -264,7 +274,7 @@ public struct ColumnMicroChart: View {
             topLabelsHeight = 0
         }
         
-        let minVal = model.range == nil ? 0 : model.range!.first!.lowerBound
+        let minVal = model.ranges == nil ? 0 : min(0, model.ranges!.first!.lowerBound)
         let negativeBarsHeight = minVal >= 0 ? 0 : (CGFloat(model.normalizedValue(for: minVal, seriesIndex: 0)) * wholeBarsHeight)
         
         let positiveBarsHeight = wholeBarsHeight - negativeBarsHeight
@@ -315,7 +325,7 @@ public struct ColumnMicroChart: View {
 struct ColumnMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(Test.columnModels) {
+            ForEach(Tests.columnModels) {
                 ColumnMicroChart($0)
                 .frame(width: 330, height: 220, alignment: .topLeading)
                 .previewLayout(.sizeThatFits)

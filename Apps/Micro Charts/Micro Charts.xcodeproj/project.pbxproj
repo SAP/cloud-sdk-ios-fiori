@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1B716F9123ECC5CC005982F7 /* FioriCharts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716F9023ECC5CC005982F7 /* FioriCharts.framework */; };
 		1B716F9223ECC5CC005982F7 /* FioriCharts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1B716F9023ECC5CC005982F7 /* FioriCharts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1B716F9423ECC63F005982F7 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B716F9323ECC63F005982F7 /* Tests.swift */; };
+		B838A32423F22E7B00C70817 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838A32323F22E7B00C70817 /* Tests.swift */; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
 		F6F9163A23962B4400D091FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163923962B4400D091FF /* ContentView.swift */; };
@@ -34,7 +34,7 @@
 
 /* Begin PBXFileReference section */
 		1B716F9023ECC5CC005982F7 /* FioriCharts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FioriCharts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1B716F9323ECC63F005982F7 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		B838A32323F22E7B00C70817 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F9163523962B4400D091FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -102,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				F6F9163E23962B4700D091FF /* Preview Assets.xcassets */,
-				1B716F9323ECC63F005982F7 /* Tests.swift */,
+				B838A32323F22E7B00C70817 /* Tests.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -184,7 +184,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */,
-				1B716F9423ECC63F005982F7 /* Tests.swift in Sources */,
+				B838A32423F22E7B00C70817 /* Tests.swift in Sources */,
 				F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */,
 				F6F9163A23962B4400D091FF /* ContentView.swift in Sources */,
 			);

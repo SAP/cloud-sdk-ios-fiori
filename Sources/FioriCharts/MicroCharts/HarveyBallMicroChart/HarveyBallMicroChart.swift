@@ -67,7 +67,7 @@ struct HarveyBallMicroChart: View {
 struct HarveyBallMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ForEach(Test.harveyBallModels) {
+            ForEach(Tests.harveyBallModels) {
                 HarveyBallMicroChart($0)
                     .frame(width: 300, height: 200)
                     .previewLayout(.sizeThatFits)

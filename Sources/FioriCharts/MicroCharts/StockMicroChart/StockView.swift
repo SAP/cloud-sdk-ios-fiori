@@ -33,7 +33,7 @@ enum DragState {
 }
 
 struct StockView: View {
-    @EnvironmentObject var model: StockMicroChartModel
+    @EnvironmentObject var model: ChartModel
     
     let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     
@@ -169,13 +169,13 @@ struct StockView: View {
     
     func calClosestDataPoint(toPoint: CGPoint, rect: CGRect) -> CGPoint {
         let count = model.displayEndIndex - model.displayStartIndex + 1
-        let minVal = model.ranges[model.curMode].lowerBound
-        let maxVal = model.ranges[model.curMode].upperBound
+        let minVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0)
+        let maxVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0)
         let stepWidth = rect.size.width / CGFloat(count - 1)
         
         var index = Int(0.5 + floor(toPoint.x - rect.origin.x) / stepWidth) + model.displayStartIndex
         
-        if model.displayStartIndex >= model.data[model.curMode].count {
+        if model.displayStartIndex >= model.data[model.selectedSeriesIndex!].count {
             self.closestDataIndex = -1
             return .zero
         }
@@ -183,13 +183,14 @@ struct StockView: View {
         if index < model.displayStartIndex {
             index = model.displayStartIndex
         }
-        else if index >= model.data[model.curMode].count {
-            index = model.data[model.curMode].count - 1
+        else if index >= model.data[model.selectedSeriesIndex!].count {
+            index = model.data[model.selectedSeriesIndex!].count - 1
         }
         self.closestDataIndex = index
-        let currentData = model.data[model.curMode][index]
+        //let currentData = model.data[model.selectedSeriesIndex!][index]
+        let currentData = StockUtility.dimensionValue(model, categoryIndex: index)
         let x = CGFloat(index - model.displayStartIndex) * stepWidth + rect.origin.x
-        let y = rect.size.height - (CGFloat(currentData.close) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
+        let y = rect.size.height - (CGFloat(currentData ?? 0) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
         
         return CGPoint(x: x, y: y)
     }
@@ -198,8 +199,10 @@ struct StockView: View {
 
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
-        StockView().environmentObject(StockMicroChartModel.allCases[1])
-            .frame(width:300, height: 200, alignment: .topLeading)
-            .previewLayout(.sizeThatFits)
+        ForEach(Tests.stockModels) {
+            StockView().environmentObject(StockUtility.preprocessModel($0))
+        }
+        .frame(width:300, height: 200, alignment: .topLeading)
+        .previewLayout(.sizeThatFits)
     }
 }
