@@ -19,7 +19,7 @@ struct TimelineItemView: View {
             VStack {
                 Rectangle()
                     .stroke()
-                    .frame(width: 30, height: 30, alignment: .top)
+                    .frame(width: 26 , height: 26, alignment: .top)
                 if !isLast {
                     VerticalLine()
                         .stroke(Color.gray, lineWidth: 0.6)
@@ -80,7 +80,7 @@ struct BubbleShape: Shape {
         let triangleBottom: CGPoint = CGPoint(x: rect.minX, y: rect.minY + self.cornerRadius + self.triangleSide * 3)
         let triangleLeft: CGPoint   = CGPoint(x: rect.minX - self.triangleSide, y: rect.minY + self.cornerRadius + self.triangleSide * 2)
         
-        // draw rounded rectangle
+        // draw rounded rectangle, closewise
         path.addArc(center: leftTop, radius: self.cornerRadius, startAngle: .radians(.pi), endAngle: .radians(-.pi/2), clockwise: false)
         path.addArc(center: rightTop, radius: self.cornerRadius, startAngle: .radians(-.pi/2), endAngle: .radians(0), clockwise: false)
         path.addArc(center: rightBottom, radius: self.cornerRadius, startAngle: .radians(0), endAngle: .radians(.pi/2), clockwise: false)
