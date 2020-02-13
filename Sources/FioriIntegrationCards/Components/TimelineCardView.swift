@@ -13,12 +13,12 @@ public struct TimelineCardView: View {
     public var model: TimelineCard!
     
     public var body: some View {
-        VStack(alignment: .leading, spacing: 20) {
+        VStack(alignment: .leading, spacing: 0) {
             HeaderView(model: model.header)
             Divider().accentColor(Color.primary)
+                .padding([.bottom, .top])
             ForEach(0 ..< model.content.value!.count) { index in
                 TimelineItemView(model: self.model.content.value![index], isLast: index == self.model.content.value!.count - 1)
-                .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(16)

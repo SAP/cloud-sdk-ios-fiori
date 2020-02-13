@@ -15,27 +15,28 @@ struct TimelineItemView: View {
     let isLast: Bool
     
     var body: some View {
-        HStack(alignment: .top, spacing: 0) {
+        HStack(alignment: .top) {
             VStack {
                 Rectangle()
                     .stroke()
                     .frame(width: 26 , height: 26, alignment: .top)
-                if !isLast {
+                if !self.isLast {
                     VerticalLine()
                         .stroke(Color.gray, lineWidth: 0.6)
+                        .frame(height: 100)
                 }
             }
             .fixedSize(horizontal: true, vertical: false)
-            .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 20))
+            .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 15))
             
             VStack(alignment: .leading, spacing: 0) {
-                SafeText(model.title).font(.body)
-                SafeText(model.dateTime).font(.footnote).foregroundColor(.gray)
+                self.SafeText(self.model.title).font(.body)
+                self.SafeText(self.model.dateTime).font(.footnote).foregroundColor(.gray)
                     .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
-                SafeText(model.description).font(.body)
+                self.SafeText(self.model.description).font(.body)
             }
             .padding(8)
-            .overlay(Bubble())
+            .overlay(Bubble(color: Color.lightGray))
         }
     }
 }
@@ -51,10 +52,36 @@ struct VerticalLine: Shape {
     }
 }
 
+//struct TimelineBubble: View {
+//    var model: TimelineItem
+//
+//    var body: some View {
+//        GeometryReader { (geometry) in
+//            self.makeView(geometry)
+//        }
+//    }
+//
+//    func makeView(_ geometry: GeometryProxy) -> some View {
+//        print(geometry.size.width, geometry.size.height)
+//        //        self.rect = geometry.frame(in: .global)
+//        return VStack(alignment: .leading, spacing: 0) {
+//            SafeText(model.title).font(.body)
+//            SafeText(model.dateTime).font(.footnote).foregroundColor(.gray)
+//                .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+//            SafeText(model.description).font(.body)
+//        }
+//        .padding(8)
+//        .overlay(Bubble())
+//    }
+//}
+
 struct Bubble: View {
+    
+    let color: Color
+    
     var body: some View {
         BubbleShape(cornerRadius: 3)
-            .stroke(Color.gray, style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
+            .stroke(color, style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
     }
 }
 

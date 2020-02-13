@@ -31,4 +31,8 @@ extension Color {
             return Color.black
         }
     }
+    
+    static let lightGray = {
+        return Color(UIColor.lightGray)
+    }()
 }
