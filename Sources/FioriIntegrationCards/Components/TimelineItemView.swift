@@ -22,11 +22,11 @@ struct TimelineItemView: View {
                     .frame(width: 26 , height: 26, alignment: .top)
                 if !self.isLast {
                     VerticalLine()
-                        .stroke(Color.gray, lineWidth: 0.6)
+                        .stroke(Color.lightGray, lineWidth: 0.6)
                         .frame(height: 100)
                 }
             }
-            .fixedSize(horizontal: true, vertical: false)
+            .frame(width: 30)
             .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 15))
             
             VStack(alignment: .leading, spacing: 0) {
