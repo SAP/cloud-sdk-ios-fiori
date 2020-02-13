@@ -39,10 +39,10 @@ public struct AnalyticalCardView: View {
                     SafeText(unitOfMeasurement).foregroundColor(Color.gray)
                 }
                 HStack {
-                    SafeText(mainNumber).foregroundColor(Color(#colorLiteral(red: 0.7708280683, green: 0.03531546146, blue: 0.0158638116, alpha: 1)))
+                    SafeText(mainNumber).foregroundColor(Color.getTrendColor(trend: trend))
                         .font(.system(size: 40)).fixedSize(horizontal: false, vertical: true)
                     VStack {
-                        PolygonShape(sides: 3).fill(Color(#colorLiteral(red: 0.7708280683, green: 0.03531546146, blue: 0.0158638116, alpha: 1))).frame(width: 15, height: 15).rotationEffect(.degrees(90))
+                        PolygonShape(sides: 3).fill(Color.getTrendColor(trend: trend)).frame(width: 15, height: 15).rotationEffect(.degrees(90))
                         SafeText(mainUnit)
                     }.padding(.trailing, 50)
                     

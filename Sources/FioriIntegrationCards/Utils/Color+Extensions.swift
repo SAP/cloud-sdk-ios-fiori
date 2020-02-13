@@ -35,4 +35,11 @@ extension Color {
     static let lightGray = {
         return Color(UIColor.lightGray)
     }()
+    
+    static func getTrendColor(trend: String?) -> Color {
+        guard let _trend = trend else {
+            return .black
+        }
+        return _trend == "Down" ? .red : .green
+    }
 }
