@@ -14,6 +14,8 @@ struct TimelineItemView: View {
     
     let isLast: Bool
     
+    var bubbleRect: CGRect?
+    
     var body: some View {
         HStack(alignment: .top) {
             VStack {
@@ -36,7 +38,7 @@ struct TimelineItemView: View {
                 self.SafeText(self.model.description).font(.body)
             }
             .padding(8)
-            .overlay(Bubble(color: Color.lightGray))
+            .overlay(Bubble(borderColor: Color.lightGray))
         }
     }
 }
@@ -77,11 +79,11 @@ struct VerticalLine: Shape {
 
 struct Bubble: View {
     
-    let color: Color
+    let borderColor: Color
     
     var body: some View {
         BubbleShape(cornerRadius: 3)
-            .stroke(color, style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
+            .stroke(borderColor, style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
     }
 }
 

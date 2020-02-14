@@ -18,22 +18,19 @@ public struct TableCardView: View {
     
     public var body: some View {
         Group {
-            VStack(alignment: .leading) {
+            VStack(alignment: .center) {
                 HeaderView(model: model.header)
-                    .padding(.bottom)
                 TableTitleRowView(model: model.content.value?.first?.columns)
-                    .padding(EdgeInsets.init(top: 0, leading: -4, bottom: 0, trailing: -8))
-                    .padding(.bottom)
                 ForEach(model.content.value!) {
                     TableRowView(model: $0)
-                        .padding(.bottom)
+                        .frame(height: 30)
                 }
             }
         }
-        .padding(4)
+        .padding(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.gray, lineWidth: 0.5)
-        ).padding(0)
+        ).padding(20)
     }
 }

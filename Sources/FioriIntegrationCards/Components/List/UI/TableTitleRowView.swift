@@ -12,13 +12,16 @@ struct TableTitleRowView: View {
     var model: [TableColumn]!
     
     var body: some View {
-        HStack {
-            ForEach(model) {
-                self.SafeText($0.title).font(.system(size: 14))
-                    .frame(width: 90, height: 30, alignment: .leading)
-
+        GeometryReader { geometry in
+            HStack {
+                ForEach(0 ..< self.model.count) { index in
+                    self.SafeText(self.model[index].title).font(.system(size: 14))
+                }
+                .frame(width: geometry.size.width / CGFloat(self.model.count), height: 40, alignment: .leading)
             }
+            .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+            .background(Color.init(UIColor.lightGray.withAlphaComponent(0.3)))
         }
-        .background(Color.init(UIColor.lightGray.withAlphaComponent(0.3)))
+        .frame(height: 40)
     }
 }

@@ -12,10 +12,12 @@ struct TableRowView: View {
     var model: TableRow
     
     var body: some View {
-        HStack {
-            ForEach(model.columns!) {
-                TableColumnView(model: $0)
-                    .frame(width: 90, height: 30, alignment: .leading)
+        GeometryReader { geometry in
+            HStack {
+                ForEach(0 ..< self.model.columns!.count) { index in
+                    TableColumnView(model: self.model.columns![index])
+                        .frame(width: geometry.size.width / CGFloat(self.model.columns!.count), alignment: .leading)
+                }
             }
         }
     }

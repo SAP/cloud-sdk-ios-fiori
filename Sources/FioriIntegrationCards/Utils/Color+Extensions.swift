@@ -40,6 +40,6 @@ extension Color {
         guard let _trend = trend else {
             return .black
         }
-        return _trend == "Down" ? .red : .green
+        return _trend == "Down" ? Color.init(red: 187/255, green: 0, blue: 0) : .green
     }
 }

@@ -22,6 +22,7 @@ struct TableColumnView: View {
         SafeText(model.value)
             .foregroundColor(.forStatus(status: model.state))
             .font(.system(size: 12, weight: self.boldText ? .bold : .regular, design: .default))
+            .frame( alignment: .leading)
     }
 }
 

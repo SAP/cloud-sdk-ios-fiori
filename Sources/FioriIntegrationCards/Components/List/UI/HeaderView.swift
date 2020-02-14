@@ -39,7 +39,7 @@ struct DefaultHeaderView: View {
                     SafeText(model.title).font(.headline)
                     SafeView(model.status).font(.footnote)
                 }
-                SafeText(model.subTitle)
+                SafeText(model.subTitle).foregroundColor(.gray)
             }
         }
     }
