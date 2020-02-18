@@ -34,6 +34,8 @@ struct DefaultHeaderView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
             SafeView(model.icon).background(Color.white)
+//            AsyncImage(url: model.icon!.src)
+                .frame(width: 45, height: 45, alignment: .center)
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     SafeText(model.title).font(.headline)

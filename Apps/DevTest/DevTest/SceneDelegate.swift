@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let cards: [String] = ["timeline", "table", "list", "object", "analytical"]
+        let cards: [String] = [/*"timeline", "table",*/ "list" /*, "object", "analytical"*/]
         
         let contentView = ContentView(cards: cards)
         
