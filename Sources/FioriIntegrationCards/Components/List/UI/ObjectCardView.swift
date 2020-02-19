@@ -27,8 +27,22 @@ public struct ObjectCardView: View {
                 Divider().accentColor(Color.primary)
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     ForEach(model.content.value!.prefix(2)) {
+                        self.SafeText($0.title)
+                            .font(.subheadline)
+                            .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 0))
+                    }
+                }
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    ForEach(model.content.value!.prefix(2)) {
                         ObjectCardGroupView(model: $0)
                     }
+                }
+                .padding(.bottom)
+                VStack(alignment: .leading) {
+                    self.SafeText(model.content.value?.last!.title)
+                        .font(.subheadline)
+                        .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 0))
+                    ObjectCardGroupView(model: (model.content.value?.last)!)
                 }
             }
         }
