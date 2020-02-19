@@ -30,7 +30,6 @@ final public class Icon: Decodable, AnyBodyProducing, ObservableObject {
         if let image = self.imageLoader.image  {
             return AnyView(Image(uiImage: image)
                 .resizable()
-                .frame(width: 45, height: 45, alignment: .center)
             )
         }
 

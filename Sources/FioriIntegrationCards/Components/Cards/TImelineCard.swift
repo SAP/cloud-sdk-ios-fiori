@@ -28,7 +28,7 @@ public class TimelineCard: BaseCard<TimelineItem, [TimelineItem]> {
             .combineLatest(data) { (_, jsonDicts) -> [TimelineItem] in
                 return jsonDicts.map { (jsonDict) -> TimelineItem in
                     let _title          = self.template.title.replacingPlaceholders(withValuesIn: jsonDict)
-                    let _description    = self.template.description?.replacingPlaceholders(withValuesIn: jsonDict)
+                    let _description    = self.template.description?.replacingPlaceholders(withValuesIn: jsonDict).trimmed()
                     let _dateTime       = self.template.dateTime?.replacingPlaceholders(withValuesIn: jsonDict)
                     let _owner          = self.template.owner?.replacingPlaceholders(withValuesIn: jsonDict)
                     let _ownerImage     = self.template.ownerImage?.replacingPlaceholders(withValuesIn: jsonDict)

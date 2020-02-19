@@ -21,7 +21,7 @@ public struct ObjectCardView: View {
     }
     
     public var body: some View {
-        VStack() {
+        VStack(alignment: .leading) {
             Group {
                 HeaderView(model: model.header!)
                 Divider().accentColor(Color.primary)

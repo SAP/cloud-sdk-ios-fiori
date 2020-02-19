@@ -10,7 +10,7 @@ import AnyCodable
 import Combine
 
 public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
-
+    
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         let container = try decoder.container(keyedBy: HavingHeader.CodingKeys.self)
@@ -22,6 +22,21 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
         
         let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
         let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
+        
+        let headerData = dataJson["json"] as! JSONDictionary
+        switch self.header {
+        case .default(let value):
+            let _type        = value.type?.replacingPlaceholders(withValuesIn: headerData)
+            let _title       = value.title.replacingPlaceholders(withValuesIn: headerData)
+            let _subTitle    = value.subTitle?.replacingPlaceholders(withValuesIn: headerData)
+            let _actions     = value.actions
+            let _icon        = value.icon
+            let _status      = value.status
+            let defaultHeader = DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
+            header = .default(defaultHeader)
+        default:
+            break
+        }
         
         CurrentValueSubject<[ObjectGroup], Never>(template)
             .combineLatest(data) { (groups, jsonDict) -> [ObjectGroup] in

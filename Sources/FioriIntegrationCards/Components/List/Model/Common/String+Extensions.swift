@@ -23,4 +23,11 @@ extension String {
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         return urlRequest
     }
+    
+    func trimmed() -> String? {
+        if self.hasPrefix("{"), self.hasSuffix("}") {
+            return nil
+        }
+        return self
+    }
 }
