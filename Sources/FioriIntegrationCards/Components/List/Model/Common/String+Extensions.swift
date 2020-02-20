@@ -30,4 +30,12 @@ extension String {
         }
         return self
     }
+    
+    func validPhoneNumber(number: String) -> String {
+        let characterSet  = CharacterSet(charactersIn: "+0123456789").inverted
+        var filtered: String!
+        let inputString: Array = number.components(separatedBy: characterSet)
+        filtered = inputString.joined()
+        return filtered
+    }
 }

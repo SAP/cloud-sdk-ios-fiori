@@ -18,8 +18,40 @@ struct ObjectCardGroupItemView: View {
                 .foregroundColor(.gray)
             SafeText(model.value)
                 .font(.caption)
+                .foregroundColor(.getLinkColor(type: self.model.type))
+                .onTapGesture {
+                    self.action(type: self.model.type, value: self.model.value)
+            }
         }
         .padding(EdgeInsets(top: 10.5, leading: 0, bottom: 10.5, trailing: 0))
+    }
+    
+    func action(type: String?, value: String) {
+        guard let _type = type else {
+            return
+        }
+        
+        switch _type {
+        case "link":
+            let url = URL.init(string: value)
+            openURL(url: url)
+        case "phone":
+            let tel = "tel://"
+            let formatted = tel + value.validPhoneNumber(number: value)
+            let url = URL.init(string: formatted)
+            openURL(url: url)
+        case "email":
+            let email = "mailto:\(value)"
+            let url = URL.init(string: email)
+            openURL(url: url)
+        default:
+            break
+        }
+    }
+    
+    func openURL(url: URL?) {
+        guard let validURL = url, UIApplication.shared.canOpenURL(validURL) else { return }
+        UIApplication.shared.open(validURL)
     }
 }
 

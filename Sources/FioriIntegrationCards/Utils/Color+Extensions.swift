@@ -42,4 +42,11 @@ extension Color {
         }
         return _trend == "Down" ? Color.init(red: 187/255, green: 0, blue: 0) : .green
     }
+    
+    static func getLinkColor(type: String?) -> Color {
+        guard let _ = type else {
+            return .black
+        }
+        return .blue
+    }
 }
