@@ -17,17 +17,19 @@ public struct TableCardView: View {
     }
     
     public var body: some View {
-        Group {
-            VStack(alignment: .center) {
-                HeaderView(model: model.header)
+        VStack(alignment: .leading, spacing: 0) {
+            HeaderView(model: model.header)
+            VStack(alignment: .leading, spacing: 0) {
                 TableTitleRowView(model: model.content.value?.first?.columns)
                 ForEach(model.content.value!) {
                     TableRowView(model: $0)
                         .frame(height: 30)
+                        .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
                 }
             }
+            .padding(10)
         }
-        .padding(EdgeInsets(top: 8, leading: 20, bottom: 8, trailing: 20))
+        .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 4)
                 .stroke(Color.gray, lineWidth: 0.5)

@@ -13,7 +13,7 @@ public struct Status: Decodable, AnyBodyProducing {
     public let text: String?
     
     func body() -> AnyView {
-        switch text {
+        switch text?.trimmed() {
         case .none:
             return AnyView(EmptyView())
         case .some(let value):
