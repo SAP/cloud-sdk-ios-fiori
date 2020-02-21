@@ -33,8 +33,12 @@ struct HarveyBallMicroChart: View {
         let val = radius / 10
         let depth = val > HarveyBallMicroChart.maxDepth ? HarveyBallMicroChart.maxDepth : (val < HarveyBallMicroChart.minDepth ? HarveyBallMicroChart.minDepth : val)
         
-        let total = model.dataItemsIn(seriesIndex: 0).first
-        let fraction = model.dataItemsIn(seriesIndex: 1).first
+        var total = model.dataItemsIn(seriesIndex: 0).first
+        var fraction = model.dataItemsIn(seriesIndex: 1).first
+        if total?.color == .black && total?.color == .black {
+            total?.color = .gray
+            fraction?.color = .green
+        }
         
         return HStack {
             if  fraction != nil && total != nil {

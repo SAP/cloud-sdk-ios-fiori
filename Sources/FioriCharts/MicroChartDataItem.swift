@@ -11,9 +11,9 @@ import SwiftUI
 
 public struct MicroChartDataItem: Identifiable{
     public var value: CGFloat
-    public let label: String?
-    public let displayValue: String?
-    public let color: Color!
+    public var label: String?
+    public var displayValue: String?
+    public var color: Color!
     public let id: UUID = UUID()
     
     init(value: CGFloat = 0, displayValue: String? = nil, label: String? = nil, color: Color? = Color.black) {
