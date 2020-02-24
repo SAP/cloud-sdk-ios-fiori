@@ -44,6 +44,9 @@ public class NetworkService {
         }
         task.resume()
     }
+}
+
+extension NetworkService {
     
     func getIcon(iconName: String, _ callback: @escaping (_ succeed: Bool, _ icon: UIImage?, _ errMessage: String?) -> Void) {
         let urlRequest = try! NetworkRouter.getIconURL(name: iconName)

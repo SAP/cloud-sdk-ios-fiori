@@ -29,10 +29,14 @@ struct HeaderView: View {
 struct DefaultHeaderView: View {
     
     let model: DefaultHeader
+
+    init(model: DefaultHeader) {
+        self.model = model
+    }
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            SafeView(model.icon).background(Color.white)
+            AsyncImageView(url: self.model.icon?.src)
                 .frame(width: 45, height: 45, alignment: .center)
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {

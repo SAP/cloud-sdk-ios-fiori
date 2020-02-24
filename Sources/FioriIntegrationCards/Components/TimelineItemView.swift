@@ -19,7 +19,7 @@ struct TimelineItemView: View {
     var body: some View {
         HStack(alignment: .top) {
             VStack {
-                SafeView(model.icon)
+                AsyncImageView(url: model.icon?.src)
                     .frame(width: 26 , height: 26, alignment: .top)
                 if !self.isLast {
                     VerticalLine()

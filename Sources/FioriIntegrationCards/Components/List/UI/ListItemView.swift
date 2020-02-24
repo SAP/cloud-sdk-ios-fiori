@@ -21,7 +21,7 @@ struct ListItemView: View {
         HStack(alignment: .center, spacing: 12) {
             SafeView(highlight)
             HStack(alignment: .center, spacing: 12) {
-                SafeView(icon)
+                AsyncImageView(url: icon?.src)
                 VStack(alignment: .leading, spacing: 3) {
                     SafeText(title)
                     SafeText(description).lineLimit(1).opacity(0.6)

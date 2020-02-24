@@ -15,7 +15,7 @@ extension View {
         switch value {
         case .none:
             return AnyView(EmptyView())
-        case .some(var value):
+        case .some(let value):
             return value.body()
         }
     }
