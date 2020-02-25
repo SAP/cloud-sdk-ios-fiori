@@ -18,17 +18,19 @@ struct TimelineItemView: View {
     
     @State private var lineHeight: CGFloat = 100.0
     
+    private let iconWidth: CGFloat = 24.0
+    
     init(model: TimelineItem, isLast: Bool) {
         self.model = model
         self.isLast = isLast
-        self.model.icon?.size = 26
+        self.model.icon?.size = iconWidth
     }
     
     var body: some View {
         HStack(alignment: .top) {
             VStack {
                 SafeView(self.model.icon)
-                    .frame(width: 30 , height: 30, alignment: .top)
+                    .frame(width: iconWidth , height: iconWidth, alignment: .top)
                     .padding(.bottom, -30)
                 if !self.isLast {
                     VerticalLine()
@@ -36,8 +38,8 @@ struct TimelineItemView: View {
                         .frame(height: self.lineHeight)
                 }
             }
-            .frame(width: 30)
-            .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 15))
+            .frame(width: iconWidth)
+            .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 12))
             
             VStack(alignment: .leading, spacing: 0) {
                 self.SafeText(self.model.title).font(.body)
@@ -49,11 +51,11 @@ struct TimelineItemView: View {
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             .padding(8)
             .overlay(Bubble(borderColor: Color.lightGray))
-            .alignmentGuide(.center) { (d) -> CGFloat in
+            .alignmentGuide(.center) { (dimension) -> CGFloat in
                 DispatchQueue.main.async {
-                    self.lineHeight = d.height
+                    self.lineHeight = dimension.height
                 }
-                return d[.leading]
+                return dimension[.leading]
             }
         }
     }
