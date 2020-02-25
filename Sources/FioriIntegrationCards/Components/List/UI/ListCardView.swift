@@ -29,6 +29,7 @@ public struct ListCardView: View {
         VStack() {
             Group {
                 HeaderView(model: model.header)
+                    .padding(.bottom, -30)
                 Divider().accentColor(Color.primary)
                 VStack(alignment: .leading) {
                     ForEach(model.items.value) {

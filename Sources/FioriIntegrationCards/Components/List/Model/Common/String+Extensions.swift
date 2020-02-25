@@ -38,4 +38,33 @@ extension String {
         filtered = inputString.joined()
         return filtered
     }
+    
+    func validIcon() -> String? {
+        let map: [String: String] = [
+            "sap-icon://desktop-mobile": "",
+            "sap-icon://appointment-2": "",
+            "sap-icon://my-view": "",
+            "sap-icon://outgoing-call": ""
+        ]
+        
+        return map[self]?.htmlToString
+    }
+    
+    var htmlToAttributedString: NSAttributedString? {
+        guard let data = data(using: .utf8) else { return NSAttributedString() }
+        do {
+            return try NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil)
+        } catch {
+            return NSAttributedString()
+        }
+    }
+    
+    var htmlToString: String {
+        return htmlToAttributedString?.string ?? "??"
+    }
+    
+    func iconName() -> String? {
+        let separated = self.components(separatedBy: "//")
+        return separated.last
+    }
 }

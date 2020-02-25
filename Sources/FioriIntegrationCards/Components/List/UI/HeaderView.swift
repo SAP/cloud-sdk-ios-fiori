@@ -32,11 +32,12 @@ struct DefaultHeaderView: View {
 
     init(model: DefaultHeader) {
         self.model = model
+        self.model.icon?.size = 40
     }
     
     var body: some View {
         HStack(alignment: .center, spacing: 12) {
-            AsyncImageView(url: self.model.icon?.src)
+            SafeView(self.model.icon)
                 .frame(width: 45, height: 45, alignment: .center)
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {

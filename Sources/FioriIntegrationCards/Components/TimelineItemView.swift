@@ -16,11 +16,18 @@ struct TimelineItemView: View {
     
     var bubbleRect: CGRect?
     
+    init(model: TimelineItem, isLast: Bool) {
+        self.model = model
+        self.isLast = isLast
+        self.model.icon?.size = 26
+    }
+    
     var body: some View {
         HStack(alignment: .top) {
             VStack {
-                AsyncImageView(url: model.icon?.src)
-                    .frame(width: 26 , height: 26, alignment: .top)
+                SafeView(self.model.icon)
+                    .frame(width: 30 , height: 30, alignment: .top)
+                    .padding(.bottom, -30)
                 if !self.isLast {
                     VerticalLine()
                         .stroke(Color.lightGray, lineWidth: 0.6)
