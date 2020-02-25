@@ -32,6 +32,7 @@
 		1BADC44B23DA28E1006CC945 /* corporate_benefits.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC44123DA28E1006CC945 /* corporate_benefits.json */; };
 		1BADC44C23DA28E1006CC945 /* analytical.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC44223DA28E1006CC945 /* analytical.json */; };
 		1BADC44F23DA3475006CC945 /* CardCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC44E23DA3475006CC945 /* CardCollection.swift */; };
+		AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB328EC124048A9900148FDC /* SAP-icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +76,7 @@
 		1BADC44123DA28E1006CC945 /* corporate_benefits.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = corporate_benefits.json; sourceTree = "<group>"; };
 		1BADC44223DA28E1006CC945 /* analytical.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = analytical.json; sourceTree = "<group>"; };
 		1BADC44E23DA3475006CC945 /* CardCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollection.swift; sourceTree = "<group>"; };
+		AB328EC124048A9900148FDC /* SAP-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAP-icons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				1B583CD523D926560003F30C /* ContentView.swift */,
 				1BADC44E23DA3475006CC945 /* CardCollection.swift */,
 				1B583CD723D926590003F30C /* Assets.xcassets */,
+				AB328EC124048A9900148FDC /* SAP-icons.ttf */,
 				1B583CDC23D926590003F30C /* LaunchScreen.storyboard */,
 				1B583CDF23D926590003F30C /* Info.plist */,
 				1B583CD923D926590003F30C /* Preview Content */,
@@ -234,6 +237,7 @@
 				1BADC44823DA28E1006CC945 /* table.json in Resources */,
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,
 				1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */,
+				AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */,
 				1B583CD823D926590003F30C /* Assets.xcassets in Resources */,
 				1BADC44323DA28E1006CC945 /* parameters.json in Resources */,
 				1BADC44923DA28E1006CC945 /* contentstack-benefits_manifest.json in Resources */,

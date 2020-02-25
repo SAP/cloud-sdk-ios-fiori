@@ -12,14 +12,44 @@ import SwiftUI
 import Combine
 
 
-final public class Icon: Decodable, ObservableObject {
-    
+final public class Icon: Decodable, AnyBodyProducing, ObservableObject {
+
     public let src: String
     public let id: UUID = UUID()
+    
+    public var size: CGFloat?
+    
+    public var name: String? {
+        get {
+            return src.iconName()
+        }
+    }
     
     enum CodingKeys: CodingKey {
         case src
     }
+    
+    func body() -> AnyView {
+        guard let validIcon = self.src.validIcon() else {
+            return AnyView(EmptyView())
+        }
+        
+        return AnyView(
+            Text(validIcon)
+                .font(.custom("SAP-icons", size: self.size ?? 30))
+        )
+    }
+//
+//    func getFont() -> Font {
+//        guard let sapFont = UIFont(name: "SAP-icons", size: UIFont.labelFontSize) else {
+//            fatalError("""
+//               Failed to load the "SAP-Icons" font.
+//               Make sure the font file is included in the project and the font name is spelled correctly.
+//               """
+//            )
+//        }
+//        return Font(UIFontMetrics.default.scaledFont(for: sapFont))
+//    }
     
     init(src: String) {
         self.src = src
