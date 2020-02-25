@@ -43,8 +43,6 @@ struct ContentView: View {
             return AnyView(TimelineCardView(model: value))
         case .analytical(let value):
             return AnyView(AnalyticalCardView(model: value))
-        default:
-            return AnyView(EmptyView())
         }
     }
     
