@@ -16,6 +16,8 @@ struct TimelineItemView: View {
     
     var bubbleRect: CGRect?
     
+    @State private var lineHeight: CGFloat = 100.0
+    
     init(model: TimelineItem, isLast: Bool) {
         self.model = model
         self.isLast = isLast
@@ -31,7 +33,7 @@ struct TimelineItemView: View {
                 if !self.isLast {
                     VerticalLine()
                         .stroke(Color.lightGray, lineWidth: 0.6)
-                        .frame(height: 100)
+                        .frame(height: self.lineHeight)
                 }
             }
             .frame(width: 30)
@@ -47,6 +49,12 @@ struct TimelineItemView: View {
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             .padding(8)
             .overlay(Bubble(borderColor: Color.lightGray))
+            .alignmentGuide(.center) { (d) -> CGFloat in
+                DispatchQueue.main.async {
+                    self.lineHeight = d.height
+                }
+                return d[.leading]
+            }
         }
     }
 }
