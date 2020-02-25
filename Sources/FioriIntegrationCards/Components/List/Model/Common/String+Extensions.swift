@@ -40,14 +40,18 @@ extension String {
     }
     
     func validIcon() -> String? {
-        let map: [String: String] = [
-            "sap-icon://desktop-mobile": "",
-            "sap-icon://appointment-2": "",
-            "sap-icon://my-view": "",
-            "sap-icon://outgoing-call": ""
-        ]
+        guard let key = self.iconName() else {
+            return nil
+        }
+        guard let value = IconLibrary.iconDictionary[key] else {
+            return nil
+        }
+        guard let scalar = UnicodeScalar(value) else {
+            return nil
+        }
         
-        return map[self]?.htmlToString
+        let output = String(scalar)
+        return output
     }
     
     var htmlToAttributedString: NSAttributedString? {
