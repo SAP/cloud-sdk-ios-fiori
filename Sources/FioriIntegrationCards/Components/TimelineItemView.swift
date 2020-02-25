@@ -39,10 +39,12 @@ struct TimelineItemView: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 self.SafeText(self.model.title).font(.body)
+                    .padding(.bottom, 4)
                 self.SafeText(self.model.dateTime).font(.footnote).foregroundColor(.gray)
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
+                    .padding(.bottom, 8)
                 self.SafeText(self.model.description).font(.body)
             }
+            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             .padding(8)
             .overlay(Bubble(borderColor: Color.lightGray))
         }
