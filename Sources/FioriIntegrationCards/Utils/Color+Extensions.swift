@@ -32,6 +32,10 @@ extension Color {
         }
     }
     
+    static let darkGray = {
+        return Color(UIColor.darkGray)
+    }
+    
     static let lightGray = {
         return Color(UIColor.lightGray)
     }()
