@@ -32,6 +32,9 @@ public struct ChartView: View {
             else if chartModel.chartType == .stock {
                 StockMicroChart(chartModel)
             }
+            else if chartModel.chartType == .donut {
+                DonutChart(chartModel)
+            }
             else {
                 NoDataView()
             }
