@@ -41,6 +41,7 @@ struct RadialMicroChart: View {
                 NoDataView()
             }
             else {
+                Spacer()
                 ZStack {
                     self.chartView(in: size, percentage: percentage!)
                     if mode == .inside {
@@ -49,7 +50,7 @@ struct RadialMicroChart: View {
                             .foregroundColor(percentage!.color)
                     }
                 }
-                
+                Spacer()
 //                if mode == .rightSide {
 //                    Text(str)
 //                        .font(Font.system(.largeTitle))
@@ -67,9 +68,10 @@ struct RadialMicroChart: View {
         let depth = val > RadialMicroChart.maxDepth ? RadialMicroChart.maxDepth : (val < RadialMicroChart.minDepth ? RadialMicroChart.minDepth : val)
         
         return ZStack {
-            ArcShape(center: CGPoint(x: radius, y: radius), percentage: 100, radius: radius, innerRadius: radius - depth, color: .gray)
-            
-            ArcShape(center: CGPoint(x: radius, y: radius), percentage: percentage.value, radius: radius, innerRadius: radius - depth, color: percentage.color)
+            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
+                .strokeBorder(Color.gray, lineWidth: depth)
+            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(percentage.value) * 360 / 100))
+                .strokeBorder(percentage.color, lineWidth: depth)
         }.frame(width: radius * 2, height: radius * 2, alignment: .topLeading)
     }
 }
