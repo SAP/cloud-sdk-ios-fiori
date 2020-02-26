@@ -36,7 +36,7 @@ final public class Icon: Decodable, AnyBodyProducing, ObservableObject {
         
         return AnyView(
             Text(validIcon)
-                .foregroundColor(Color.darkGray())
+                .foregroundColor(Color.darkGray)
                 .font(.custom("SAP-icons", size: self.size ?? 30))
         )
     }

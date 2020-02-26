@@ -43,7 +43,7 @@ extension String {
         guard let key = self.iconName() else {
             return nil
         }
-        guard let value = IconLibrary.iconDictionary[key] else {
+        guard let value = IconLibrary.icons[key] else {
             return nil
         }
         guard let scalar = UnicodeScalar(value) else {

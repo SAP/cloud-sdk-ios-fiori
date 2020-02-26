@@ -34,7 +34,7 @@ struct TimelineItemView: View {
                     .padding(.bottom, -30)
                 if !self.isLast {
                     VerticalLine()
-                        .stroke(Color.lightGray, lineWidth: 0.6)
+                        .stroke(Color.darkGray, lineWidth: 0.6)
                         .frame(height: self.lineHeight)
                 }
             }

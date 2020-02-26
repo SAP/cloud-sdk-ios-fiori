@@ -8,7 +8,7 @@
 import Foundation
 
 class IconLibrary {
-    public static let iconDictionary: [String: UInt32] = [
+    public static let icons: [String: UInt32] = [
         "accidental-leave": 0xe000,
         "account": 0xe001,
         "wrench": 0xe002,
