@@ -12,19 +12,13 @@ import SwiftUI
 import Combine
 
 
-final public class Icon: Decodable, AnyBodyProducing, ObservableObject {
+final public class Icon: Decodable, AnyBodyProducing {
 
     public let src: String
     public let id: UUID = UUID()
     
     public var size: CGFloat?
-    
-    public var name: String? {
-        get {
-            return src.iconName()
-        }
-    }
-    
+
     enum CodingKeys: CodingKey {
         case src
     }

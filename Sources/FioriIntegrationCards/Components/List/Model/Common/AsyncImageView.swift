@@ -50,7 +50,7 @@ final class ImageLoader: ObservableObject {
                 return
             }
             
-            print("got an image")
+            print("Got an image with: \(name)")
             DispatchQueue.main.async {
                 self.image = image
             }
