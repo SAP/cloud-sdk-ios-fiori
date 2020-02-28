@@ -119,29 +119,7 @@ struct XAxisView: View {
     }
     
     func getDateAtIndex(_ index: Int) -> Date {
-        let count = model.data[model.selectedSeriesIndex!].count
-//        if StockUtility.isItADayModeAndNotClosed(model) {
-//            if index >= count  {
-//                let startTime = model.data[model.selectedSeriesIndex!].first!.date
-//                let seconds = index * 3600 / StockUtility.calNumOfDataItemsInDayModePerHour(model)
-//                let date = startTime.addingTimeInterval(TimeInterval(seconds))
-//
-//                return date
-//            }
-//        }
-        
         return StockUtility.categoryValueInDate(model, categoryIndex: index)!
-    }
-    
-    func getPriceAtIndex(_ index: Int) -> CGFloat {
-        let count = model.data[model.selectedSeriesIndex!].count
-//        if StockUtility.isItADayModeAndNotClosed(model) {
-//            if index >= count  {
-//                return -1
-//            }
-//        }
-        
-        return CGFloat(StockUtility.dimensionValue(model, categoryIndex: index) ?? -1)
     }
     
     func monthAbbreviationFromInt(_ month: Int) -> String {

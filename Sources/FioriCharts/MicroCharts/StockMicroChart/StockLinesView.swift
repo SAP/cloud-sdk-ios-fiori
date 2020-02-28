@@ -14,98 +14,56 @@ struct StockLinesView: View {
     var rect: CGRect
     
     var body: some View {
-        //Text("hello")
         var noData = false
-        let width = rect.size.width
+        var width = rect.size.width
         let height = rect.size.height
         
         var endIndex = model.displayEndIndex
-        if StockUtility.isItADayModeAndNotClosed(model) {
-            if model.displayStartIndex >= model.data[model.selectedSeriesIndex!].count {
-                noData = true
+        if StockUtility.isIntraDay(model) {
+            if endIndex >= StockUtility.lastValidDimIndex(model) {
+                endIndex = StockUtility.lastValidDimIndex(model)
             }
-            if endIndex >= model.data[model.selectedSeriesIndex!].count {
-                endIndex = model.data[model.selectedSeriesIndex!].count - 1
+            
+            if model.displayStartIndex > endIndex {
+                noData = true
             }
         }
         
-        var linePath = Path()
-        var path = Path()
-        
+        let range = model.ranges?[model.currentSeriesIndex] ?? 0...1
+        var data: [Double] = []
         if !noData {
-            let stockLineWidth = calStockLinesWidth(width, realEndIndex: endIndex)
-            let minVal = CGFloat(model.ranges![model.selectedSeriesIndex!].lowerBound)
-            let maxVal = CGFloat(model.ranges![model.selectedSeriesIndex!].upperBound)
+            width = width * CGFloat(endIndex - model.displayStartIndex) / CGFloat(model.displayEndIndex - model.displayStartIndex)
             
-            let curDisplayData = model.data[model.selectedSeriesIndex!][model.displayStartIndex...endIndex]
-            let data = curDisplayData.map { (dimensionData) -> CGFloat in
-                var tmpVal: CGFloat = 0
-                if let val = dimensionData.value {
-                    tmpVal = CGFloat(val)
-                }
-                else if let vals = dimensionData.values {
-                    tmpVal = CGFloat(vals.first ?? 0)
-                }
-                
-                return height - (tmpVal - minVal) * height / (maxVal - minVal) + rect.origin.y
-            }
+            let curDisplayData = model.data[model.currentSeriesIndex][model.displayStartIndex...endIndex]
+            data = curDisplayData.map { $0.first ?? 0 }
             
-//            let normalizedData = data.map {
-//                height - ($0 - minVal) * height / (maxVal - minVal) + rect.origin.y
-//            }
-            
-            let count = data.count
-            let xStep = stockLineWidth / CGFloat((count - 1))
-            var x: CGFloat = rect.origin.x
-            
-            
-            linePath.move(to: CGPoint(x: x, y: data.first!))
-            
-            for y in data.dropFirst() {
-                x += xStep
-                linePath.addLine(to: CGPoint(x: x, y: y))
-            }
-            
-            
-            // move to left bottom corner
-            path.move(to: CGPoint(x: rect.origin.x, y: rect.origin.y + height))
-            // move to left top point
-            path.addLine(to: CGPoint(x: rect.origin.x, y: data.first!))
-            path.addPath(linePath)
-            // move to right bottom corner
-            path.addLine(to: CGPoint(x: x, y: rect.origin.y + height))
-            // move to left bottom corner
-            path.addLine(to: CGPoint(x: rect.origin.x, y: rect.origin.y + height))
-            path.closeSubpath()
         }
         
         return ZStack {
-            Color(#colorLiteral(red: 0.9999071956, green: 1, blue: 0.999881804, alpha: 1))
-            //Color.red
+            Color(#colorLiteral(red: 0.9999071956, green: 1, blue: 0.999881804, alpha: 1)).frame(width: rect.size.width, height: height)
             
             if !noData {
                 ZStack {
-                    // stock color gradient
-                    path.fill(LinearGradient(gradient:
-                        Gradient(colors: [Color(#colorLiteral(red: 0.4957013249, green: 0.9818227649, blue: 0.6320676684, alpha: 1)), Color(#colorLiteral(red: 0.9872599244, green: 0.992430985, blue: 0.9878047109, alpha: 1))]),
-                            startPoint: .top, endPoint: .bottom))
+                    HStack(spacing: 0) {
+                        LinesShape(points: data, displayRange: range, fill: true)
+                            .fill(LinearGradient(gradient:
+                                Gradient(colors: [Color(#colorLiteral(red: 0.4957013249, green: 0.9818227649, blue: 0.6320676684, alpha: 1)), Color(#colorLiteral(red: 0.9872599244, green: 0.992430985, blue: 0.9878047109, alpha: 1))]),
+                                                 startPoint: .top,
+                                                 endPoint: .bottom))
+                            .frame(width: width, height: height)
+                        Spacer(minLength: 0)
+                    }.frame(width: rect.size.width, height: height)
                     
-                    // stock solid line
-                    linePath.stroke(lineWidth: 3).foregroundColor(.green)
-                    //.animation(.easeOut(duration: 1.2))
+                    HStack(spacing: 0) {
+                        LinesShape(points: data, displayRange: range)
+                            .stroke(lineWidth: 3)
+                            .foregroundColor(.green)
+                            .frame(width: width, height: height)
+                        Spacer(minLength: 0)
+                    }.frame(width: rect.size.width, height: height)
                 }
             }
         }
-    }
-    
-    func calStockLinesWidth(_ width: CGFloat, realEndIndex: Int) -> CGFloat {
-        if StockUtility.isItADayModeAndNotClosed(model) {
-            let tmp = CGFloat(realEndIndex - model.displayStartIndex + 1) / CGFloat(model.displayEndIndex - model.displayStartIndex + 1) * width
-            
-            return (tmp > width) ? width : tmp
-        }
-        
-        return width
     }
 }
 

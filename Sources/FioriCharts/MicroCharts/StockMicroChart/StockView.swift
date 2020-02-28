@@ -41,9 +41,11 @@ struct StockView: View {
     @State var closestPoint:CGPoint = .zero
     @State var closestDataIndex:Int = 0
     @State var showIndicator = false
+    @State var draggingStockView = false
+    @State var position = CGPoint.zero
     
     @GestureState var dragState = DragState.inactive
-    @GestureState var position = CGSize.zero
+    //@GestureState var position = CGPoint.zero
     
     var body: some View {
         GeometryReader { geometry in
@@ -61,55 +63,76 @@ struct StockView: View {
         
         let pan = LongPressGesture(minimumDuration: 0.5)
             .sequenced(before: DragGesture())
-            .updating($dragState, body: { (value, state, transaction) in
+//            .updating($dragState, body: { (value, state, transaction) in
+//                switch value {
+//                case .first(true):
+//                    state = .pressing
+//                    DispatchQueue.global().async {
+//                        self.showIndicator = true
+//                        self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: linesRect)
+//                    }
+//                default:
+//                    break
+//                }
+//
+//            })
+            .onChanged({ value in
                 switch value {
-                case .first(true):
-                    state = .pressing
                 case .second(true, let drag):
-                    state = .dragging(translation: drag?.translation ?? .zero)
-                    let total = StockUtility.calNumOfDataItmesInDayMode(self.model)
-                    let count = self.model.lastDisplayEndIndex - self.model.lastDisplayStartIndex + 1
-                    var delta = Int(-state.translation.width * CGFloat(count) / rect.size.width)
-                    //print("delta: \(delta)")
-                    
-                    if delta > 0 && delta + self.model.displayEndIndex >= total {
-                        delta = total - self.model.displayEndIndex - 1
+                    if let value = drag {
+                        self.showIndicator = true
+                        //print("indicator pos: \(value.location)")
+                        self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: linesRect)
                     }
-                    else if delta < 0 && delta + self.model.displayStartIndex < 0 {
-                        delta = -self.model.displayStartIndex
-                    }
-                    
-                    self.model.displayStartIndex += delta
-                    self.model.displayEndIndex += delta
-      
-//                    print("state: \(state), count = \(count), delta = \(delta), rect.size.with = \(rect.size.width), pos: \(self.model.displayStartIndex): \(self.model.displayEndIndex)")
                 default:
                     break
                 }
-                
             })
-            .onEnded({ (value) in
-                guard case .second(true, _?) = value else {
-                    return
-                }
-                
-                self.model.lastDisplayStartIndex = self.model.displayStartIndex
-                self.model.lastDisplayEndIndex = self.model.displayEndIndex
-                //print("ended")
+            .onEnded({ _ in
+                self.showIndicator = false
             })
         
         let drag = DragGesture()
-        .onChanged({ value in
-            self.showIndicator = true
-            self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: linesRect)
-            
-            //print("Moving indicator to index \(self.closestDataIndex)...")
-        })
-        .onEnded({ value in
-            self.showIndicator = false
-        })
-        .exclusively(before: pan)
+            .onChanged({ value in
+                let total = StockUtility.numOfDataItmes(self.model)
+                let count = self.model.lastDisplayEndIndex - self.model.lastDisplayStartIndex + 1
                 
+                if total == count {
+                    self.showIndicator = true
+                    self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: linesRect)
+                    return
+                }
+                
+                if self.position == .zero {
+                    self.position = value.location
+                }
+                
+                self.draggingStockView = true
+                
+                //var delta = Int((self.position.x - value.location.x) * CGFloat(count) / rect.size.width)
+                var delta = -Int(value.translation.width * CGFloat(count) / rect.size.width)
+                if delta > 0 && delta + self.model.lastDisplayEndIndex >= total {
+                    delta = total - self.model.lastDisplayEndIndex - 1
+                }
+                else if delta < 0 && delta + self.model.lastDisplayStartIndex < 0 {
+                    delta = -self.model.lastDisplayStartIndex
+                }
+                
+                self.model.displayStartIndex = self.model.lastDisplayStartIndex + delta
+                self.model.displayEndIndex = self.model.lastDisplayEndIndex + delta
+
+            })
+            .onEnded({ value in
+                self.showIndicator = false
+                self.position = .zero
+                self.draggingStockView = false
+                
+                // update them
+                self.model.lastDisplayEndIndex = self.model.displayEndIndex
+                self.model.lastDisplayStartIndex = self.model.displayStartIndex
+            })
+        //.exclusively(before: pan)
+        
         let mag = MagnificationGesture()
             .onChanged({ value in
                 self.showIndicator = false
@@ -117,11 +140,11 @@ struct StockView: View {
                 // clamp the ratio of zoom in & zoom out
                 if value.magnitude > 0 {
                     let mid = (self.model.lastDisplayStartIndex + self.model.lastDisplayEndIndex) / 2
-                    let count = StockUtility.calNumOfDataItmesInDayMode(self.model)
+                    let count = StockUtility.numOfDataItmes(self.model)
                     let range = self.model.lastDisplayEndIndex - self.model.lastDisplayStartIndex + 1
                     var scaledRange = Int(CGFloat(range) / (value.magnitude * 2))
-                    if scaledRange == 0 {
-                        scaledRange = 1
+                    if scaledRange < 2 {
+                        scaledRange = 2
                     }
                     
                     if mid - scaledRange < 0 {
@@ -139,8 +162,6 @@ struct StockView: View {
                         self.model.displayStartIndex = mid - scaledRange
                         self.model.displayEndIndex = mid + scaledRange
                     }
-//                    print("changing mag \(scaledRange) -> \(self.model.displayStartIndex), \(self.model.displayEndIndex)...")
-                    
                 }
             })
             .onEnded({ value in
@@ -148,14 +169,21 @@ struct StockView: View {
                 self.model.lastDisplayStartIndex = self.model.displayStartIndex
             })
             .exclusively(before: drag)
-            .exclusively(before: pan)
+        //.exclusively(before: pan)
         
         return ZStack {
-            StockLinesView(rect: linesRect)
-                .opacity(dragState.isPressing ? 0.4 : 1.0)
-                .gesture(pan)
-                .gesture(drag)
-                .gesture(mag)
+            if model.userInteractionEnabled {
+                StockLinesView(rect: linesRect)
+                    .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
+                    .opacity(draggingStockView ? 0.4 : 1.0)
+                    .gesture(pan)
+                    .gesture(drag)
+                    .gesture(mag)
+            }
+            else {
+                StockLinesView(rect: linesRect)
+                    .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
+            }
             
             XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight))
             
@@ -169,13 +197,13 @@ struct StockView: View {
     
     func calClosestDataPoint(toPoint: CGPoint, rect: CGRect) -> CGPoint {
         let count = model.displayEndIndex - model.displayStartIndex + 1
-        let minVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0)
-        let maxVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0)
+        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
+        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
         let stepWidth = rect.size.width / CGFloat(count - 1)
         
         var index = Int(0.5 + floor(toPoint.x - rect.origin.x) / stepWidth) + model.displayStartIndex
-        
-        if model.displayStartIndex >= model.data[model.selectedSeriesIndex!].count {
+        //print("before index = \(index), startIndex = \(model.displayStartIndex), endIndex = \(model.displayEndIndex)")
+        if model.displayStartIndex > StockUtility.lastValidDimIndex(model) {
             self.closestDataIndex = -1
             return .zero
         }
@@ -183,11 +211,12 @@ struct StockView: View {
         if index < model.displayStartIndex {
             index = model.displayStartIndex
         }
-        else if index >= model.data[model.selectedSeriesIndex!].count {
-            index = model.data[model.selectedSeriesIndex!].count - 1
+        else if index >= StockUtility.lastValidDimIndex(model) {
+            index = StockUtility.lastValidDimIndex(model)
         }
         self.closestDataIndex = index
-        //let currentData = model.data[model.selectedSeriesIndex!][index]
+        //print("after: index = \(index)")
+        
         let currentData = StockUtility.dimensionValue(model, categoryIndex: index)
         let x = CGFloat(index - model.displayStartIndex) * stepWidth + rect.origin.x
         let y = rect.size.height - (CGFloat(currentData ?? 0) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y

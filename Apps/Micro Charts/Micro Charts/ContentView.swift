@@ -12,13 +12,27 @@ import FioriCharts
 
 struct ContentView: View {
     var body: some View {
+//        ChartView(Tests.stockModels[1]).frame(height: 200)
         NavigationView {
-            List {
-                ForEach(Tests.allCases) {
-                    ChartView($0).frame(height: 200)
+            List(Tests.allCases) { model in
+                NavigationLink(destination: OneChartView(model)) {
+                    ChartView(model).frame(height: 200)
                 }
             }.navigationBarTitle("Micro Charts")
         }
+    }
+}
+
+struct OneChartView: View {
+    var model: ChartModel
+    
+    init(_ model: ChartModel) {
+        self.model = model
+        self.model.userInteractionEnabled = true
+    }
+    
+    var body: some View {
+        ChartView(model).padding()
     }
 }
 
