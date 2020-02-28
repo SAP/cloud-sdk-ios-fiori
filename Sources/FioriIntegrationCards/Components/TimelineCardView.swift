@@ -25,7 +25,7 @@ public struct TimelineCardView: View {
         .overlay(
             RoundedRectangle(cornerRadius: 6)
                 .stroke(Color.gray, lineWidth: 0.5)
-        ).padding(16)
+        ).padding(48)
     }
     
     public init(model: TimelineCard) {
