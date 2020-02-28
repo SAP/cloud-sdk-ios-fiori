@@ -13,7 +13,6 @@ extension String {
         guard let url = URL(string: self) else {
             throw NetworkError.invalidURL(url: self)
         }
-        print(url.absoluteString)
         return url
     }
     
