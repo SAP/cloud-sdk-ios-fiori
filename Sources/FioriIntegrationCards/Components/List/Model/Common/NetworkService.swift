@@ -11,10 +11,9 @@ import UIKit
 enum NetworkRouter: String {
     typealias RawValue = String
     
-    static let baseURLString = "https://i.pinimg.com/originals/ce/a1/c3/"
+    static let baseURLString = "https://cdn.business2community.com/wp-content"
     
     case image      = "image/"
-//    case icon       = ""
     
     static func getIconURL(name: String) throws -> URLRequest {
         let url = try baseURLString.asURL()

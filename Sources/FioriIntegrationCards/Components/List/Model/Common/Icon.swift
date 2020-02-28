@@ -30,28 +30,17 @@ final public class Icon: Decodable, AnyBodyProducing, ObservableObject {
     }
     
     func body() -> AnyView {
-        guard let validIcon = self.src.validIcon() else {
-            return AnyView(EmptyView())
-        }
-        
-        return AnyView(
-            Text(validIcon)
+        if let validIcon = self.src.validIcon()  {
+            return AnyView(
+                Text(validIcon)
                 .foregroundColor(Color.darkGray)
                 .font(.custom("SAP-icons", size: self.size ?? 30))
-        )
+            )
+        }
+
+        return AnyView(AsyncImageView(url: self.src))
     }
-//
-//    func getFont() -> Font {
-//        guard let sapFont = UIFont(name: "SAP-icons", size: UIFont.labelFontSize) else {
-//            fatalError("""
-//               Failed to load the "SAP-Icons" font.
-//               Make sure the font file is included in the project and the font name is spelled correctly.
-//               """
-//            )
-//        }
-//        return Font(UIFontMetrics.default.scaledFont(for: sapFont))
-//    }
-    
+
     init(src: String) {
         self.src = src
     }
