@@ -60,11 +60,11 @@ public struct StockMicroChart: View {
                         self.model.selectedSeriesIndex = self.model.modes.firstIndex(of: mode)
                         self.model.displayStartIndex = 0
                         self.model.lastDisplayStartIndex = 0
-                        self.model.displayEndIndex = StockUtility.calNumOfDataItmesInDayMode(self.model) - 1
+                        self.model.displayEndIndex = StockUtility.numOfDataItmes(self.model) - 1
                         self.model.lastDisplayEndIndex = self.model.displayEndIndex
                 }
                 
-                if self.model.modes[self.model.selectedSeriesIndex!] == mode {
+                if self.model.modes[self.model.currentSeriesIndex] == mode {
                     return AnyView(text
                         .border(Color.blue, width: 2)
                         .cornerRadius(4))
@@ -95,7 +95,7 @@ struct StockMicroChart_Previews: PreviewProvider {
         Group {
             ForEach(Tests.stockModels) { data in
                 StockMicroChart(data)
-                    .frame(width:300, height: 260)
+                    .frame(height: 260)
                     .previewLayout(.sizeThatFits)
             }
         }

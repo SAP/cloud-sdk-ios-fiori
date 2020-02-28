@@ -105,6 +105,15 @@ public class ChartModel: ObservableObject, Identifiable {
             }
         }
         
+        var first: T? {
+            switch self {
+            case .array(let vals):
+                return vals.first
+            case .single(let val):
+                return val
+            }
+        }
+        
         subscript(index: Int) -> T {
             switch self {
             case .array(let vals):
@@ -131,6 +140,9 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var plotAttributes:[[ChartPlotItemAtrribute]]?
     @Published public var axesAttributes:[[ChartAxisAttribute]]?
     @Published public var numOfGridLines: [Int] = [3,3]
+    
+    ///
+    @Published public var userInteractionEnabled: Bool = true
     
     /// for pinch & zoom
     @Published var displayStartIndex:Int = 0
@@ -272,6 +284,33 @@ public class ChartModel: ObservableObject, Identifiable {
             return T(0)
         }
     }
+    
+    var currentSeriesIndex: Int {
+        if let current = selectedSeriesIndex {
+            return current
+        }
+        else {
+            return 0
+        }
+    }
+    
+    var currentCategoryIndex: Int {
+        if let current = selectedCategoryIndex {
+            return current
+        }
+        else {
+            return 0
+        }
+    }
+    
+    var currentDimensionIndex: Int {
+        if let current = selectedDimensionIndex {
+            return current
+        }
+        else {
+            return 0
+        }
+    }
 }
 
 
@@ -310,7 +349,6 @@ extension ChartModel {
         var res: [MicroChartDataItem] = []
         
         guard seriesIndex < data.count, data[seriesIndex].count > 0 else {
-        //if seriesIndex > data.count {
             return res
         }
         

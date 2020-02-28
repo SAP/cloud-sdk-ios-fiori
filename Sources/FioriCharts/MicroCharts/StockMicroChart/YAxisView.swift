@@ -16,8 +16,8 @@ struct YAxisView: View {
     var chartWidth: CGFloat
     
     var body: some View {
-        let minVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0)
-        let maxVal = CGFloat(model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0)
+        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
+        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
         
         var yAxisTitlesCount = Int((rect.size.height - 40)/30)
         if yAxisTitlesCount < 0 {
@@ -71,8 +71,8 @@ struct YAxisView: View {
     }
     
     func formatYAxisTitle(value: CGFloat, total: Int) -> String {
-        let minVal = model.ranges?[model.selectedSeriesIndex!].lowerBound ?? 0
-        let maxVal = model.ranges?[model.selectedSeriesIndex!].upperBound ?? 0
+        let minVal = model.ranges?[model.currentSeriesIndex].lowerBound ?? 0
+        let maxVal = model.ranges?[model.currentSeriesIndex].upperBound ?? 0
         let range = CGFloat(maxVal - minVal) / CGFloat(total)
         
         let dataPrecision = (range >= 1) ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")

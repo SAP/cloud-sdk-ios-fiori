@@ -26,7 +26,7 @@ public struct BulletMicroChart: View {
         let thresholds = model.dataItemsIn(seriesIndex: 1)
         
         return GeometryReader { proxy in
-            ZStack {
+            ZStack(alignment: .leading) {
                 if tmp.count == 0 || tmp.first == nil {
                     NoDataView()
                 }
@@ -54,7 +54,9 @@ public struct BulletMicroChart: View {
     
     func backgroundView(in size: CGSize) -> some View {
         let chartHeight = size.height * 0.786
-        return BarShape(origin: CGPoint(x: 0, y: (size.height - chartHeight)/2.0), size: CGSize(width: size.width, height: chartHeight), color: .gray)
+        return Rectangle()
+            .fill(Color.gray)
+            .frame(width: size.width, height: chartHeight)
     }
     
     func forecastView(in size: CGSize) -> some View {
@@ -65,10 +67,10 @@ public struct BulletMicroChart: View {
         let width = model.normalizedValue(for: forecastValue) * size.width
         let height = chartHeight * 0.6
         
-        return BarShape(origin: CGPoint(x: 0, y: (size.height - height)/2.0),
-                                size: CGSize(width: width, height: height),
-                                color: .init(red: 0, green: 0, blue: 1.0, opacity: 0.3))
-                                //color: .blue.withAlphaComponent(0.3)))
+        return Rectangle()
+            .fill(Color(red: 0, green: 0, blue: 1.0, opacity: 0.3))
+            .frame(width: width, height: height)
+
     }
     
     func actualView(in size: CGSize) -> some View {
@@ -89,7 +91,9 @@ public struct BulletMicroChart: View {
         
         let color: Color = actualValue > targetValue ?  .green : .red
         
-        return BarShape(origin: CGPoint(x: x, y: (size.height - height)/2.0), size: CGSize(width: width, height: height), color: color)
+        return Rectangle()
+            .fill(color)
+            .frame(width: width, height: height)
     }
     
     func targetView(in size: CGSize) -> some View {
