@@ -21,7 +21,7 @@
                 "position": "Sales Executive",
                 "phone": "+1 202 555 5555",
                 "email": "my@mymail.com",
-                "photo": "./topics/images/Woman_avatar_01.png",
+                "photo": "/uploads/2017/08/blank-profile-picture-973460_640.png",
                 "manager": {
                     "firstName": "John",
                     "lastName": "Miller",

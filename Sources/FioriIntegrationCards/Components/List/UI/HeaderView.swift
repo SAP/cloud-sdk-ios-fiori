@@ -39,8 +39,6 @@ struct DefaultHeaderView: View {
         HStack(alignment: .center, spacing: 12) {
             SafeView(self.model.icon)
                 .frame(width: 45, height: 45, alignment: .center)
-            AsyncImageView(url: self.model.icon?.src)
-                .frame(width: 45, height: 45, alignment: .center)
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     SafeText(model.title).font(.headline)

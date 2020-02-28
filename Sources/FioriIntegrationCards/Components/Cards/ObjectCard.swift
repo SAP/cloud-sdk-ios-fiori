@@ -30,8 +30,8 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
             let _title       = value.title.replacingPlaceholders(withValuesIn: headerData)
             let _subTitle    = value.subTitle?.replacingPlaceholders(withValuesIn: headerData)
             let _actions     = value.actions
-            let _icon        = value.icon
-            let _status      = value.status
+            let _icon        = value.icon?.replacingPlaceholders(withValuesIn: headerData)
+            let _status      = value.status?.replacingPlaceholders(withValuesIn: headerData)
             let defaultHeader = DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
             header = .default(defaultHeader)
         default:
