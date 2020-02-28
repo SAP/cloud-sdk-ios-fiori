@@ -41,21 +41,40 @@ struct Tests {
     
     static let harveyBallModels = [
         ChartModel(chartType: .micro_harvey_ball,
-                   data: [[360], [8]],
-                   titlesForCategory: [["360 Mrd"], ["8 Mrd"]],
-                   colorsForCategory: [[Color.gray], [Color.green]]),
+                   data: [[360, 8]],
+                   titlesForCategory: [["360 Mrd", "8 Mrd"]],
+                   colorsForCategory: [[Color.gray, Color.green]]),
         ChartModel(chartType: .micro_harvey_ball,
-                   data: [[360], [352]],
-                   titlesForCategory: [["360 Mrd"], ["352 Mrd"]],
-                   colorsForCategory: [[Color.gray], [Color.blue]]),
+                   data: [[360, 352]],
+                   titlesForCategory: [["360 Mrd", "352 Mrd"]],
+                   colorsForCategory: [[Color.gray, Color.blue]]),
         ChartModel(chartType: .micro_harvey_ball,
-                   data: [[360], [400]],
-                   titlesForCategory: [["360 Mrd"], ["400 Mrd"]],
-                   colorsForCategory: [[Color.gray], [Color.red]]),
+                   data: [[360, 400]],
+                   titlesForCategory: [["360 Mrd", "400 Mrd"]],
+                   colorsForCategory: [[Color.gray, Color.red]]),
         ChartModel(chartType: .micro_harvey_ball,
-                   data: [[100], [8]],
-                   titlesForCategory: [["100 Mrd"], [""]],
-                   colorsForCategory: [[Color.gray], [Color.purple]])
+                   data: [[100, 8]],
+                   titlesForCategory: [["100 Mrd", ""]],
+                   colorsForCategory: [[Color.gray, Color.purple]])
+    ]
+    
+    static let donutModels = [
+        ChartModel(chartType: .donut,
+                   data: [[142.50, 332.05, 247.18, 228.82]],
+                   titlesForCategory: [["Trucks", "Vans", "Leasing", "Service"]],
+                   colorsForCategory: [[Color(red: 113/255, green: 135/255, blue: 145/255),
+                                        Color(red: 84/255, green: 92/255, blue: 235/255),
+                                        Color(red: 80/255, green: 162/255, blue: 177/255),
+                                        Color(red: 60/255, green: 98/255, blue: 147/255)]]),
+        
+        ChartModel(chartType: .donut,
+                   data: [[142.50, 332.05, 247.18, 228.82, 83.45]],
+                   titlesForCategory: [["Trucks", "Vans", "Leasing", "Service", "Rentals"]],
+                   colorsForCategory: [[Color(red: 113/255, green: 135/255, blue: 145/255),
+                                        Color(red: 84/255, green: 92/255, blue: 235/255),
+                                        Color(red: 80/255, green: 162/255, blue: 177/255),
+                                        Color(red: 60/255, green: 98/255, blue: 147/255),
+                                        Color.green]])
     ]
     
     static let radialModels = [
@@ -78,6 +97,6 @@ struct Tests {
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]])
     ]
     
-    public static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels, stockModels].flatMap { $0 }
+    public static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels, donutModels, stockModels].flatMap { $0 }
 }
 

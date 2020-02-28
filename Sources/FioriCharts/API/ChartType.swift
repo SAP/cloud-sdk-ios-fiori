@@ -55,4 +55,7 @@ public enum ChartType {
     
     /// Stock market
     case stock
+    
+    /// donut chart
+    case donut
 }
