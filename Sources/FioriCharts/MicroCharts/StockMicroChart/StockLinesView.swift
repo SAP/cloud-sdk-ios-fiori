@@ -56,7 +56,7 @@ struct StockLinesView: View {
                     
                     HStack(spacing: 0) {
                         LinesShape(points: data, displayRange: range)
-                            .stroke(lineWidth: 3)
+                            .stroke(lineWidth: 2)
                             .foregroundColor(.green)
                             .frame(width: width, height: height)
                         Spacer(minLength: 0)

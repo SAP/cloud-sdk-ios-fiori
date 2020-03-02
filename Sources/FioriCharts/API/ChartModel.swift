@@ -142,7 +142,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var numOfGridLines: [Int] = [3,3]
     
     ///
-    @Published public var userInteractionEnabled: Bool = true
+    @Published public var userInteractionEnabled: Bool = false
     
     /// for pinch & zoom
     @Published var displayStartIndex:Int = 0
@@ -159,11 +159,13 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
+        self.selectedSeriesIndex = selectedSeriesIndex
+        self.userInteractionEnabled = userInteractionEnabled
         
         var tmpData: [[DimensionData<Double>]] = []
         for c in data {
@@ -190,11 +192,13 @@ public class ChartModel: ObservableObject, Identifiable {
         initialize()
     }
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil) {
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
+        self.selectedSeriesIndex = selectedSeriesIndex
+        self.userInteractionEnabled = userInteractionEnabled
         
         var tmpData: [[DimensionData<Double>]] = []
         for c in data {
@@ -227,10 +231,6 @@ public class ChartModel: ObservableObject, Identifiable {
             lastDisplayEndIndex = displayEndIndex
             displayStartIndex = 0
             lastDisplayStartIndex = 0
-        }
-        
-        if chartType == .stock {
-            selectedSeriesIndex = 0
         }
         
         // check if there is data
