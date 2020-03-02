@@ -22,7 +22,11 @@ class StockUtility {
                 let count = category.count
                 var seriesTitles: [String] = category
                 
-                if count >= 3, let startTime = StockUtility.categoryValueInDate(model, categoryIndex: 0), let secondTime = StockUtility.categoryValueInDate(model, categoryIndex: 1), let timeBeforeEndTime = StockUtility.categoryValueInDate(model, categoryIndex: count - 2), let endTime = StockUtility.categoryValueInDate(model, categoryIndex: count - 1) {
+                if count >= 3,
+                    let startTime = StockUtility.categoryValueInDate(model, seriesIndex: i, categoryIndex: 0),
+                    let secondTime = StockUtility.categoryValueInDate(model, seriesIndex: i, categoryIndex: 1),
+                    let timeBeforeEndTime = StockUtility.categoryValueInDate(model, seriesIndex: i, categoryIndex: count - 2),
+                    let endTime = StockUtility.categoryValueInDate(model, seriesIndex: i, categoryIndex: count - 1) {
                     
                     let startTimeInterval = secondTime.timeIntervalSince(startTime)
                     var endTimeInterval = endTime.timeIntervalSince(timeBeforeEndTime)
@@ -84,21 +88,6 @@ class StockUtility {
         
         model.ranges = ranges
         
-//        if let ranges = model.ranges{
-//            for i in 0 ..< ranges.count {
-//                let range = ranges[i]
-//
-//                let maxVal = range.upperBound + (range.upperBound - range.lowerBound) * 0.3
-//                var minVal = range.lowerBound - (range.upperBound - range.lowerBound) * 0.3
-//
-//                if minVal < 0 {
-//                    minVal = 0
-//                }
-//
-//                model.ranges![i] = minVal...maxVal
-//            }
-//        }
-        
         model.displayEndIndex = StockUtility.numOfDataItmes(model) - 1
         model.lastDisplayEndIndex = model.displayEndIndex
         
@@ -147,6 +136,16 @@ class StockUtility {
         return categories[seriesIndex][categoryIndex]
     }
     
+    static func categoryValueInDate(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Date? {
+        guard let dateString = categoryValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) else { return nil }
+        
+        return date(from: dateString)
+    }
+    
+    static func categoryValueInDate(_ model: ChartModel, categoryIndex: Int) -> Date? {
+        return categoryValueInDate(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
+    }
+    
     static func date(from s: String) -> Date? {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -157,38 +156,6 @@ class StockUtility {
     static func categoryValue(_ model: ChartModel, categoryIndex: Int) -> String? {
         return categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
     }
-    
-    static func categoryValueInDate(_ model: ChartModel, categoryIndex: Int) -> Date? {
-        guard let dateString = categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex) else { return nil }
-        
-        return date(from: dateString)
-    }
-    
-//    static func calNumOfDataItemsInDayModePerHour(_ model: ChartModel) -> Int {
-//        guard let startTime = StockUtility.categoryValueInDate(model, categoryIndex: 0) else { return 0}
-//        guard let endTime = StockUtility.categoryValueInDate(model, categoryIndex: model.titlesForCategory!.first!.count - 1) else { return 0 }
-//
-//        let duration = endTime.timeIntervalSince(startTime)
-//
-//        // this means there is only one item of data (not allowed)
-//        if duration == 0 {
-//            return 390
-//        }
-//        else {
-//            return model.data[model.currentSeriesIndex].count * 3600 / Int(duration)
-//        }
-//    }
-    
-//    static func calTimeIntervalInDayMode(_ model: ChartModel) -> TimeInterval {
-//        if isIntraDay(model) {
-//            guard let startTime = StockUtility.categoryValueInDate(model, categoryIndex: 0) else { return 0}
-//            guard let endTime = StockUtility.categoryValueInDate(model, categoryIndex: model.titlesForCategory!.first!.count - 1) else { return 0 }
-//
-//            return endTime.timeIntervalSince(startTime)
-//        }
-//
-//        return 0
-//    }
     
     static func numOfDataItmes(_ model: ChartModel) -> Int {
         if let titles = model.titlesForCategory {
