@@ -13,9 +13,7 @@ struct TimelineItemView: View {
     var model: TimelineItem
     
     let isLast: Bool
-    
-    var bubbleRect: CGRect?
-    
+        
     @State private var lineHeight: CGFloat = 100.0
     
     private let iconWidth: CGFloat = 24.0
