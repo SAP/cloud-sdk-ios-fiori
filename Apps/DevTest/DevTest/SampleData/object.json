@@ -21,11 +21,11 @@
                 "position": "Sales Executive",
                 "phone": "+1 202 555 5555",
                 "email": "my@mymail.com",
-                "photo": "/uploads/2017/08/blank-profile-picture-973460_640.png",
+                "photo": "./images/DonnaMoore.png",
                 "manager": {
                     "firstName": "John",
                     "lastName": "Miller",
-                    "photo": "/uploads/2017/08/blank-profile-picture-973460_640.png"
+                    "photo": "./images/AlainChevalier.png"
                 },
                 "company": {
                     "name": "Robert Brown Entertainment",

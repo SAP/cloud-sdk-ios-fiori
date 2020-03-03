@@ -38,6 +38,14 @@ extension String {
         return filtered
     }
     
+    func validDirectory() -> String {
+        let characters = Array(self)
+        if let firstCharacter = characters.first, firstCharacter == "." {
+            return String(characters.dropFirst())
+        }
+        return self
+    }
+    
     func validIcon() -> String? {
         guard let key = self.iconName() else {
             return nil
