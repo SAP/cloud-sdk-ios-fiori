@@ -25,7 +25,7 @@
                 "manager": {
                     "firstName": "John",
                     "lastName": "Miller",
-                    "photo": "./topics/images/Woman_avatar_02.png"
+                    "photo": "/uploads/2017/08/blank-profile-picture-973460_640.png"
                 },
                 "company": {
                     "name": "Robert Brown Entertainment",
