@@ -34,6 +34,8 @@ struct AsyncImageView: View {
 }
 
 final class ImageLoader: ObservableObject {
+    var imageCache = ImageCache.getImageCache()
+    
     @Published var image: UIImage?
     
     func load(imageName: String?) {
@@ -41,6 +43,10 @@ final class ImageLoader: ObservableObject {
             return
         }
         
+        if loadImageFromCache(name) {
+            return
+        }
+
         NetworkService.shared.getIcon(iconName: name) { (succeed, image, err) in
             guard succeed else {
                 print(err!)
@@ -51,9 +57,39 @@ final class ImageLoader: ObservableObject {
             }
             
             print("Got an image with: \(name)")
+            self.imageCache.set(forKey: name, image: image!)
             DispatchQueue.main.async {
                 self.image = image
             }
         }
+    }
+    
+    func loadImageFromCache(_ imageName: String) -> Bool {
+
+        guard let cacheImage = imageCache.get(forKey: imageName) else {
+            return false
+        }
+        
+        image = cacheImage
+        return true
+    }
+}
+
+class ImageCache {
+    var cache = NSCache<NSString, UIImage>()
+    
+    func get(forKey: String) -> UIImage? {
+        return cache.object(forKey: NSString(string: forKey))
+    }
+    
+    func set(forKey: String, image: UIImage) {
+        cache.setObject(image, forKey: NSString(string: forKey))
+    }
+}
+
+extension ImageCache {
+    private static var imageCache = ImageCache()
+    static func getImageCache() -> ImageCache {
+        return imageCache
     }
 }
