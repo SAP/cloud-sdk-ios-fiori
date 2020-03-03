@@ -32,7 +32,7 @@ final public class Icon: Decodable, AnyBodyProducing {
             )
         }
 
-        return AnyView(AsyncImageView(url: self.src))
+        return AnyView(AsyncImageView(url: self.src).clipShape(Circle()))
     }
 
     init(src: String) {
@@ -46,7 +46,7 @@ final public class Icon: Decodable, AnyBodyProducing {
 
 extension Icon: Placeholding {
     func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Icon {
-        let _src = src.replacingPlaceholders(withValuesIn: dictionary)
+        let _src = src.replacingPlaceholders(withValuesIn: dictionary).validDirectory()
         return Icon(src: _src)
     }
 }
