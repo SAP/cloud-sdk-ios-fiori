@@ -24,12 +24,13 @@ public struct ObjectCardView: View {
         VStack(alignment: .leading) {
             Group {
                 HeaderView(model: model.header!)
+                    .padding(.leading, 8)
                 Divider().accentColor(Color.primary)
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
                     ForEach(model.content.value!.prefix(2)) {
                         self.SafeText($0.title)
                             .font(.subheadline)
-                            .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 0))
+                            .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 0))
                     }
                 }
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -41,7 +42,7 @@ public struct ObjectCardView: View {
                 VStack(alignment: .leading) {
                     self.SafeText(model.content.value?.last!.title)
                         .font(.subheadline)
-                        .padding(EdgeInsets(top: 4, leading: 8, bottom: 8, trailing: 0))
+                        .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 0))
                     ObjectCardGroupView(model: (model.content.value?.last)!)
                 }
             }
