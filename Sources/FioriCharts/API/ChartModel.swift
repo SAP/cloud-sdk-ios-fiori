@@ -142,14 +142,11 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var numOfGridLines: [Int] = [3,3]
     
     ///
-    @Published public var userInteractionEnabled: Bool = false
+    @Published public var userInteractionEnabled: Bool = true
     
-    /// for pinch & zoom
-    @Published var displayStartIndex:Int = 0
-    @Published var displayEndIndex:Int = 0
-    @Published var lastDisplayStartIndex = 0
-    @Published var lastDisplayEndIndex:Int = 0
-    
+    ///
+    @Published public var panChartToDataPointOnly = false
+  
     /// selection state
     @Published var selectedSeriesIndex: Int?
     @Published var selectedCategoryIndex: Int?
@@ -159,7 +156,7 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
@@ -192,7 +189,7 @@ public class ChartModel: ObservableObject, Identifiable {
         initialize()
     }
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false) {
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
@@ -226,13 +223,6 @@ public class ChartModel: ObservableObject, Identifiable {
     }
     
     func initialize() {
-        if let series = data.first, let category = series.first {
-            displayEndIndex = max(category.count - 1, 0)
-            lastDisplayEndIndex = displayEndIndex
-            displayStartIndex = 0
-            lastDisplayStartIndex = 0
-        }
-        
         // check if there is data
         if let _ = data.first?.first {
             self.ranges = []
