@@ -87,10 +87,7 @@ class StockUtility {
         }
         
         model.ranges = ranges
-        
-        model.displayEndIndex = StockUtility.numOfDataItmes(model) - 1
-        model.lastDisplayEndIndex = model.displayEndIndex
-        
+               
         return model
     }
     

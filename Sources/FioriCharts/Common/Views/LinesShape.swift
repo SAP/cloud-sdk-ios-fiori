@@ -14,13 +14,17 @@ public struct LinesShape: Shape {
     var displayRange: ClosedRange<Double>?
     var fill: Bool = false
     var curve:Bool = false
+    var startOffset: CGFloat = 0
+    var endOffset: CGFloat = 0
     
-    public init(points: [Double], displayRange: ClosedRange<Double>? = nil, fill: Bool = false, curve: Bool = false) {
+    public init(points: [Double], displayRange: ClosedRange<Double>? = nil, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
-
+        
         self.displayRange = displayRange
         self.fill = fill
         self.curve = curve
+        self.startOffset = startOffset
+        self.endOffset = endOffset
     }
     
     public func path(in rect: CGRect) -> Path {
@@ -30,27 +34,26 @@ public struct LinesShape: Shape {
             return path
         }
         
-        let range = calRange()
+        let range = self.range
         
         let data = points.map { rect.size.height - (CGFloat($0) - CGFloat(range.lowerBound)) * rect.size.height / CGFloat(range.upperBound - range.lowerBound)}
-
-        var p1 = CGPoint(x: 0, y: CGFloat(data[0]))
+        
+        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
+        var p1 = CGPoint(x: startOffset, y: CGFloat(data[0]))
         if fill {
-            path.move(to: CGPoint(x: 0, y: rect.size.height))
+            path.move(to: CGPoint(x: startOffset, y: rect.size.height))
             path.addLine(to: p1)
         }
         else {
             path.move(to: p1)
         }
         
-        let stepWidth = rect.size.width / CGFloat(data.count - 1)
         if(data.count < 2){
-            //path.addLine(to: CGPoint(x: stepWidth, y: data[1]))
             return path
         }
         
         for i in 1 ..< data.count {
-            let p2 = CGPoint(x: stepWidth * CGFloat(i), y: data[i])
+            let p2 = CGPoint(x: startOffset + stepWidth * CGFloat(i), y: data[i])
             if curve {
                 let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
                 path.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
@@ -71,7 +74,7 @@ public struct LinesShape: Shape {
         return path
     }
     
-    func calRange() -> ClosedRange<Double> {
+    var range: ClosedRange<Double> {
         if let range = displayRange {
             return range
         }
@@ -80,7 +83,7 @@ public struct LinesShape: Shape {
         let minValue = points.min() ?? 0
         let maxDisplayValue = maxValue + (maxValue - minValue) * 0.3
         let minDisplayValue = minValue - (maxValue - minValue) * 0.3
-
+        
         return minDisplayValue...maxDisplayValue
     }
 }
@@ -109,24 +112,41 @@ extension CGPoint {
 struct LinesShape_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            LinesShape(points: [600, 700, 650, 750])
+            LinesShape(points: [600, 700, 650, 750, 720])
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                .frame(width: 400, height: 200)
+                .previewLayout(.sizeThatFits)
+            
+            // pan left 10 points
+            LinesShape(points: [600, 700, 650, 750, 720, 720], startOffset: -10, endOffset: 90)
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                .frame(width: 400, height: 200)
+                .previewLayout(.sizeThatFits)
+            
+            // pan right 10 points
+            LinesShape(points: [600, 600, 700, 650, 750, 720], startOffset: -90, endOffset: 10)
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                .frame(width: 400, height: 200)
+                .previewLayout(.sizeThatFits)
+            
+            LinesShape(points: [200], curve: true)
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
                 .frame(width: 300, height: 200)
                 .previewLayout(.sizeThatFits)
             
-            LinesShape(points: [200], curve: true)
-            .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
-            .frame(width: 300, height: 200)
-            .previewLayout(.sizeThatFits)
-            
-            LinesShape(points: [600, 700, 650, 750], curve: true)
+            LinesShape(points: [600, 700, 650, 750, 720, 720], curve: true)
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
-                .frame(width: 300, height: 200)
+                .frame(width: 400, height: 200)
+                .previewLayout(.sizeThatFits)
+            
+            LinesShape(points: [600, 700, 650, 750, 720, 720], curve: true, startOffset: -20, endOffset: 80)
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                .frame(width: 400, height: 200)
                 .previewLayout(.sizeThatFits)
             
             LinesShape(points: [600, 700, 650, 750], displayRange: 0...800)
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
-                .frame(width: 300, height: 200)
+                .frame(width: 400, height: 200)
                 .previewLayout(.sizeThatFits)
             
             LinesShape(points: [600, 700, 650, 750], fill: true, curve: false)

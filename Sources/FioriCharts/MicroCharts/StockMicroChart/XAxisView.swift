@@ -13,6 +13,8 @@ struct XAxisView: View {
     
     let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
+    var startPos: Int = 0
+    var scale: CGFloat = 1.0
     
     var body: some View {
         var xAxisTitles = calXAxisTitles()
@@ -38,29 +40,36 @@ struct XAxisView: View {
     }
     
     func calXAxisTitles() -> [AxisTitle] {
+        let width = rect.size.width
+        let startPosInFloat = CGFloat(startPos)
+        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
+        let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
+        
+        
         var result: [AxisTitle] = []
         
-        let startDate = getDateAtIndex(model.displayStartIndex)
-        let endDate = getDateAtIndex(model.displayEndIndex)
+        let startDate = getDateAtIndex(startIndex)
+        let endDate = getDateAtIndex(endIndex)
         let duration = endDate.timeIntervalSince(startDate)
         
         if duration < 60 {
-            result = findData(component: .second)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .second)
         }
         else if duration < 3600 {
-            result = findData(component: .minute)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .minute)
         }
         else if duration < 3600 * 24 { // hour
-            result = findData(component: .hour)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .hour)
         }
         else if duration < 3600 * 24 * 60 { // day
-            result = findData(component: .day)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .day)
         }
         else if duration < 3600 * 24 * 31 * 14 { // month
-            result = findData(component: .month)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .month)
         }
         else { // year
-            result = findData(component: .year)
+            result = findData(startIndex: startIndex, endIndex: endIndex, component: .year)
         }
         
         // trim results if there are too many
@@ -81,11 +90,11 @@ struct XAxisView: View {
         return result
     }
     
-    func findData(component: Calendar.Component, skipFirst: Bool = true) -> [AxisTitle] {
+    func findData(startIndex: Int, endIndex: Int, component: Calendar.Component, skipFirst: Bool = true) -> [AxisTitle] {
         var result: [AxisTitle] = []
         
         var prev = -1
-        for i in model.displayStartIndex...model.displayEndIndex{
+        for i in startIndex...endIndex{
             let date = getDateAtIndex(i)
             let cur = Calendar.current.component(component, from: date)
             if prev == -1 && skipFirst {
@@ -114,8 +123,16 @@ struct XAxisView: View {
     }
     
     func calXPosforXAxisElement(dataIndex: Int, rect: CGRect) -> CGFloat {
-        let count = model.displayEndIndex - model.displayStartIndex
-        return rect.origin.x + CGFloat(dataIndex - model.displayStartIndex) * rect.size.width / CGFloat(count)
+        if dataIndex == 0 {
+            return rect.origin.x
+        }
+        
+        let width = rect.size.width    
+        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((CGFloat(startPos) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - CGFloat(startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        
+        return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }
     
     func getDateAtIndex(_ index: Int) -> Date {
