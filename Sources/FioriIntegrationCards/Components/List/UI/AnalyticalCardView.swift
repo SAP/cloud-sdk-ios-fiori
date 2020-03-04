@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FioriCharts
 
 public struct AnalyticalCardView: View {
     
@@ -64,6 +65,44 @@ public struct AnalyticalCardView: View {
                 }.padding(.bottom, 10)
                 SafeText(details).foregroundColor(Color.gray).font(.system(size: 15))
             }
+            GeometryReader { geometry in
+                self.lineView(in: geometry.frame(in: .local), from: self.model.content!)
+            }.frame(height: 260)
+        }
+    }
+    
+    func lineView(in rect: CGRect, from content: AnalyticalContent) -> some View {
+        let xAxisHeight:CGFloat = 24
+        let yAxisWidth:CGFloat = 40
+        
+        let width = rect.size.width - yAxisWidth
+        let height = rect.size.height - xAxisHeight
+        let linesRect = CGRect(x: yAxisWidth, y: 0, width: width, height: height)
+        
+        return ZStack {
+            ForEach(content.data!) { data in
+//                let points: [Double] = data.points.map { $0.value }
+                LinesShape(points: data.points.map { $0.value })
+                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                .frame(width: width, height: height)
+                .previewLayout(.sizeThatFits)
+            }
+        }
+    }
+    
+    func chartView(in rect: CGRect) -> some View {
+        let xAxisHeight:CGFloat = 24
+        let yAxisWidth:CGFloat = 40
+        
+        let width = rect.size.width - yAxisWidth
+        let height = rect.size.height - xAxisHeight
+        let linesRect = CGRect(x: yAxisWidth, y: 0, width: width, height: height)
+        
+        return ZStack {
+            LinesShape(points: [600, 700, 650, 750, 720])
+            .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+            .frame(width: width, height: height)
+            .previewLayout(.sizeThatFits)
         }
     }
 }

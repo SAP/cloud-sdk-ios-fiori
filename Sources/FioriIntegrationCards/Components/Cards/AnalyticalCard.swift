@@ -7,6 +7,7 @@
 //
 
 import AnyCodable
+import Foundation
 
 public class AnalyticalCard: Decodable {
     
@@ -196,14 +197,17 @@ public struct AnalyticalContent: Decodable {
         }()
         data = {
             let listArray = jsonData["list"] as! JSONArray
-            let _data = listArray.map { (json) -> DataCategory in
-                let _name = self.dimensions.first?.value.replacingPlaceholders(withValuesIn: json)
-                let _points = self.measures.map { (measure) -> DataPoint in
+            let _data = self.measures.map { (measure) -> DataCategory in
+                let _names = listArray.map { (json) -> String in
+                    let _name = self.dimensions.first?.value.replacingPlaceholders(withValuesIn: json)
+                    return _name ?? "Empty"
+                }
+                let _points = listArray.map { (json) -> DataPoint in
                     let _series = measure.label.replacingPlaceholders(withValuesIn: json)
                     let _value  = measure.value.replacingPlaceholdersToDouble(withValuesIn: json)
                     return DataPoint(series: _series, value: _value, secondaryValue: nil, tertiaryValue: nil)
                 }
-                return DataCategory(name: _name ?? "Category Name", points: _points)
+                return DataCategory(names: _names, points: _points)
             }
             return _data
         }()
@@ -244,12 +248,14 @@ public struct AnalyticalLegendTemplate: Decodable {
     }
 }
 
-public struct DataCategory: Decodable {
-    public let name: String
+public struct DataCategory: Identifiable, Decodable {
+    public let id: UUID = UUID()
+    public let names: [String]
     public let points: [DataPoint]
 }
 
-public struct DataPoint: Decodable {
+public struct DataPoint: Identifiable, Decodable {
+    public let id: UUID = UUID()
     public let series: String
     public let value: Double   // y value in most charts, sometimes the x in horizontal charts
     public let secondaryValue: Double? // would be used in scatter and bubble charts
