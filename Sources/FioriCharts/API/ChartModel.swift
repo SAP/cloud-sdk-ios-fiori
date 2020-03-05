@@ -152,11 +152,35 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published var selectedCategoryIndex: Int?
     @Published var selectedDimensionIndex: Int?
     
+    /**
+     Provides attributes for the primary numeric axis.
+
+     - For stock, clustered column, line, and combo charts this is the Y axis.
+     - For bar charts this is the X axis.
+     */
+    @Published public var numericAxis: ChartNumericAxis
+    
+    /**
+     Provides attributes for the secondary numeric axis.
+     
+     - For clustered line, area and combo charts this is the secondary Y axis.
+     */
+    @Published public var secondaryNumericAxis: ChartNumericAxis
+
+    /**
+     Provides attributes for the category axis.
+
+     - For stock, clustered column, line, and combo charts this is the X axis.
+     - For bar charts this is the Y axis.
+     */
+    @Published public var categoryAxis: ChartCategoryAxis
+    
     var ranges: [ClosedRange<Double>]?
+    
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
@@ -186,10 +210,31 @@ public class ChartModel: ObservableObject, Identifiable {
             self.labelsForDimension = tmpLabels
         }
         
+        if let numericAxis = numericAxis {
+            self.numericAxis = numericAxis
+        }
+        else {
+            self.numericAxis = ChartNumericAxis()
+        }
+        
+        if let secondaryNumericAxis = secondaryNumericAxis {
+            self.secondaryNumericAxis = secondaryNumericAxis
+        }
+        else {
+            self.secondaryNumericAxis = ChartNumericAxis()
+        }
+        
+        if let categoryAxis = categoryAxis {
+            self.categoryAxis = categoryAxis
+        }
+        else {
+            self.categoryAxis = ChartCategoryAxis()
+        }
+        
         initialize()
     }
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true) {
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
         self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
@@ -217,6 +262,27 @@ public class ChartModel: ObservableObject, Identifiable {
                 tmpLabels.append(series)
             }
             self.labelsForDimension = tmpLabels
+        }
+        
+        if let numericAxis = numericAxis {
+            self.numericAxis = numericAxis
+        }
+        else {
+            self.numericAxis = ChartNumericAxis()
+        }
+        
+        if let secondaryNumericAxis = secondaryNumericAxis {
+            self.secondaryNumericAxis = secondaryNumericAxis
+        }
+        else {
+            self.secondaryNumericAxis = ChartNumericAxis()
+        }
+        
+        if let categoryAxis = categoryAxis {
+            self.categoryAxis = categoryAxis
+        }
+        else {
+            self.categoryAxis = ChartCategoryAxis()
         }
         
         initialize()
