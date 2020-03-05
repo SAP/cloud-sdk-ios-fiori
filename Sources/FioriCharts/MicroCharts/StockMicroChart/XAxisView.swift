@@ -26,8 +26,8 @@ struct XAxisView: View {
             ForEach(xAxisTitles) { title in
                 LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: 0),
                           pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: self.rect.origin.y),
-                          color: .gray,
-                          width: 1,
+                          color: self.model.categoryAxis.baseline.color,
+                          width: CGFloat(self.model.categoryAxis.baseline.width),
                           strokeStyle: strokeStyle)
                 
                 Text(title.title)
