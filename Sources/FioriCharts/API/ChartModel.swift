@@ -9,68 +9,6 @@
 import Foundation
 import SwiftUI
 
-public struct ChartLabelAttribute {
-    /// Size of the label font in points.
-    var fontSize: Double
-    
-    /// fontWeight is currently fixed at `regular`
-    var fontWeight: Double
-    
-    /// Text color for the label.
-    var color: Color
-    
-    /// True when the associated label(s) should be hidden.
-    var isHidden: Bool
-
-    /// Specifies how far from the axis labels should be rendered.
-    var offset: Double
-}
-
-public struct ChartLineAttribute {
-
-    /// Width of the line in points.
-    var width: Double
-
-    /// Color of the line.
-    var color: UIColor
-
-    /// Dash pattern for the line. Specifies the length of painted segments, and the gap between them.
-    var dashPattern: (length: Int, gap: Int)?
-
-    /// Indicates whether the lines should be displayed or not.
-    var isHidden: Bool
-}
-
-public struct ChartBarAtrribute {
-    /// Color of the line.
-    var color: UIColor
-    
-    /// todo: border line/color
-}
-
-public struct ChartPlotItemAtrribute {
-    var bar: ChartBarAtrribute
-    var label: ChartLabelAttribute
-}
-
-public struct ChartAxisAttribute {
-    
-    /// Properties of the axis title label.
-    var titleLabel: ChartLabelAttribute
-    
-    /// Properties for the axis gridline labels.
-    var labels: ChartLabelAttribute
-    
-    /// Properties for the axis gridlines.
-    var gridlines: ChartLineAttribute
-    
-    /**
-    Properties for the axis baseline, which is typically usually 0.
-    - Only numeric axes have a baseline.
-    */
-    var baseline: ChartLineAttribute
-}
-
 public class ChartModel: ObservableObject, Identifiable {
 
     ///
@@ -133,15 +71,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var titlesForAxis: [String]?
     @Published public var labelsForDimension: [[DimensionData<String>]]?
     
-    ///
-    @Published public var colorsForCategory: [[Color]]?
-    
-    /// styles
-    @Published public var plotAttributes:[[ChartPlotItemAtrribute]]?
-    @Published public var axesAttributes:[[ChartAxisAttribute]]?
-    @Published public var numOfGridLines: [Int] = [3,3]
-    
-    ///
+    /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = true
     
     ///
@@ -155,6 +85,14 @@ public class ChartModel: ObservableObject, Identifiable {
     // scale is not allowed to be less than 1.0
     @Published var scale: CGFloat = 1.0
     @Published var startPos: Int = 0
+    
+    /// styles
+
+    ///
+    @Published public var colorsForCategory: [[Color]]?
+    
+    @Published public var numOfGridLines: [Int] = [3,3]
+    
     
     /**
      Provides attributes for the primary numeric axis.
