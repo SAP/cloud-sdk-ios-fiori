@@ -85,10 +85,10 @@ struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
         //ForEach(Tests.stockModels) {
-            //StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), startOffset: -10, endOffset: 90).environmentObject(StockUtility.preprocessModel($0))
-            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 168, scale: 1.89).environmentObject(StockUtility.preprocessModel(Tests.stockModels[1]))
+            //StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), startOffset: -10, endOffset: 90).environmentObject($0)
+            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 168, scale: 1.89).environmentObject(Tests.stockModels[1])
             
-            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 20, scale: 2.0).environmentObject(StockUtility.preprocessModel(Tests.stockModels[1]))
+            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 20, scale: 2.0).environmentObject(Tests.stockModels[1])
         }
         .frame(width:300, height: 200)
         .previewLayout(.sizeThatFits)

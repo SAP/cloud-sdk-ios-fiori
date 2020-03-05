@@ -12,7 +12,7 @@ public struct StockMicroChart: View {
     @ObservedObject var model: ChartModel
     
     public init(_ model: ChartModel) {
-        self.model = StockUtility.preprocessModel(model)
+        self.model = model
     }
     
     public var body: some View {

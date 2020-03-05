@@ -177,22 +177,46 @@ public class ChartModel: ObservableObject, Identifiable {
     
     var ranges: [ClosedRange<Double>]?
     
-    
     public let id = UUID()
     
     public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
-        self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
         self.selectedSeriesIndex = selectedSeriesIndex
         self.userInteractionEnabled = userInteractionEnabled
         
+        var intradayIndex: [Int] = []
+        if chartType != .stock {
+            self.titlesForCategory = titlesForCategory
+        }
+        else {
+            if let titles = titlesForCategory {
+                var modifiedTitlesForCategory: [[String]] = []
+                for (i, category) in titles.enumerated() {
+                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
+                        intradayIndex.append(i)
+                        modifiedTitlesForCategory.append(modifiedTitles)
+                    }
+                    else {
+                        modifiedTitlesForCategory.append(category)
+                    }
+                }
+                
+                self.titlesForCategory = modifiedTitlesForCategory
+            }
+        }
+    
         var tmpData: [[DimensionData<Double>]] = []
-        for c in data {
+        for (i, c) in data.enumerated() {
             var series: [DimensionData<Double>] = []
-            for d in c {
-                series.append(DimensionData.single(d))
+            for (j, d) in c.enumerated() {
+                if intradayIndex.contains(i) && j == c.count - 1 {
+                    continue
+                }
+                else {
+                    series.append(DimensionData.single(d))
+                }
             }
             tmpData.append(series)
         }
@@ -236,17 +260,42 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
-        self.titlesForCategory = titlesForCategory
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
         self.selectedSeriesIndex = selectedSeriesIndex
         self.userInteractionEnabled = userInteractionEnabled
         
+        var intradayIndex: [Int] = []
+        if chartType != .stock {
+            self.titlesForCategory = titlesForCategory
+        }
+        else {
+            if let titles = titlesForCategory {
+                var modifiedTitlesForCategory: [[String]] = []
+                for (i, category) in titles.enumerated() {
+                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
+                        intradayIndex.append(i)
+                        modifiedTitlesForCategory.append(modifiedTitles)
+                    }
+                    else {
+                        modifiedTitlesForCategory.append(category)
+                    }
+                }
+                
+                self.titlesForCategory = modifiedTitlesForCategory
+            }
+        }
+        
         var tmpData: [[DimensionData<Double>]] = []
-        for c in data {
+        for (i, c) in data.enumerated() {
             var series: [DimensionData<Double>] = []
-            for d in c {
-                series.append(DimensionData.array(d))
+            for (j, d) in c.enumerated() {
+                if intradayIndex.contains(i) && j == c.count - 1 {
+                    continue
+                }
+                else {
+                    series.append(DimensionData.array(d))
+                }
             }
             tmpData.append(series)
         }
@@ -308,12 +357,61 @@ public class ChartModel: ObservableObject, Identifiable {
                     let min = allValues.min() ?? 0
                     let max = allValues.max() ?? 1
                     
-                    guard min != max else { return 0...max }
-                    return min...max
+                    var minVal = min
+                    var maxVal = max
+                    if self.chartType == .stock {
+                        maxVal = max + (max - min) * 0.3
+                        minVal = min - (max - min) * 0.3
+                        
+                        if minVal < 0 {
+                            minVal = 0
+                        }
+                    }
+                    
+                    guard minVal != maxVal else { return 0...maxVal }
+                    return minVal...maxVal
                 }()
                 self.ranges?.append(range)
             }
         }
+    }
+    
+    // interpolate time strings in categoryTitles if it is intraday mode and return modified titles
+    static func preprocessIntradayDataForStock(_ categoryTitles: [String]) -> [String]? {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        var dataChanged = false
+        
+        let count = categoryTitles.count
+        if count >= 3,
+            let startTime = StockUtility.date(from: categoryTitles[0]),
+            let secondTime = StockUtility.date(from: categoryTitles[1]),
+            let timeBeforeEndTime = StockUtility.date(from: categoryTitles[count - 2]),
+            let endTime = StockUtility.date(from: categoryTitles[count - 1]) {
+            
+            let startTimeInterval = secondTime.timeIntervalSince(startTime)
+            var endTimeInterval = endTime.timeIntervalSince(timeBeforeEndTime)
+            var j: Int = count - 1
+            var insertedTime = timeBeforeEndTime
+            var modifiedCategoryTitles = categoryTitles
+            
+            // indicates this is intraday
+            while endTimeInterval > startTimeInterval {
+                let time = insertedTime.advanced(by: startTimeInterval)
+                let timeString = df.string(from: time)
+                modifiedCategoryTitles.insert(timeString, at: j)
+                j += 1
+                insertedTime = time
+                endTimeInterval -= startTimeInterval
+                dataChanged = true
+            }
+            
+            if dataChanged {
+                return modifiedCategoryTitles
+            }
+        }
+        
+        return nil
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
