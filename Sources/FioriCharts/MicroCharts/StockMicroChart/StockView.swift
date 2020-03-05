@@ -43,13 +43,16 @@ struct StockView: View {
     @State var showIndicator = false
     @State var draggingStockView = false
     
-    
-    // scale is not allowed to be less than 1.0
-    @State var scale: CGFloat = 1.0
+//    // scale is not allowed to be less than 1.0
+//    @State var scale: CGFloat = 1.0
+//    @State var startPos: Int = 0
     @State var lastScale: CGFloat = 1.0
-    @State var startPos: Int = 0
     @State var lastStartPos: Int = 0
     
+    init() {
+        lastScale = 0
+        lastStartPos = 0
+    }
     
     @GestureState var dragState = DragState.inactive
     //@GestureState var position = CGPoint.zero
@@ -90,30 +93,30 @@ struct StockView: View {
         let drag = DragGesture()
             .onChanged({ value in
                 // not zoomed in
-                if self.scale == 1.0 {
+                if self.model.scale == 1.0 {
                     self.showIndicator = true
                     self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: linesRect)
                     return
                 }
                 
                 self.draggingStockView = true
-                let maxPos = Int(linesRect.size.width * (self.scale - 1))
+                let maxPos = Int(linesRect.size.width * (self.model.scale - 1))
                 let tmp = self.lastStartPos - Int(value.translation.width)
                 if self.model.panChartToDataPointOnly {
-                    let unitWidth: CGFloat = linesRect.size.width * self.scale / CGFloat(StockUtility.numOfDataItmes(self.model) - 1)
+                    let unitWidth: CGFloat = linesRect.size.width * self.model.scale / CGFloat(StockUtility.numOfDataItmes(self.model) - 1)
                     let index = CGFloat(tmp) / unitWidth
                     let direction: CGFloat = value.translation.width < 0 ? -0.5 : 0.5
                     let closestIndex = Int(index + direction).clamp(low: 0, high: StockUtility.numOfDataItmes(self.model))
-                    self.startPos = Int(CGFloat(closestIndex) * unitWidth)
+                    self.model.startPos = Int(CGFloat(closestIndex) * unitWidth)
                 }
                 else {
-                    self.startPos = tmp.clamp(low: 0, high: maxPos)
+                    self.model.startPos = tmp.clamp(low: 0, high: maxPos)
                 }
             })
             .onEnded({ value in
                 self.showIndicator = false
                 self.draggingStockView = false
-                self.lastStartPos = self.startPos
+                self.lastStartPos = self.model.startPos
             })
         
         // zoom in & out
@@ -123,22 +126,22 @@ struct StockView: View {
                 let count = StockUtility.numOfDataItmes(self.model)
                 let maxScale = max(1, CGFloat(count - 1) / 2)
                 let tmp = self.lastScale * value.magnitude
-                self.scale = tmp.clamp(low: 1.0, high: maxScale)
+                self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
                 let width = linesRect.size.width
                 let midPos: CGFloat = (CGFloat(self.lastStartPos) + width / 2) / (self.lastScale * width)
                 
-                let maxPos: Int = Int(width * (self.scale - 1))
-                self.startPos = Int(midPos * width * self.scale - width/2).clamp(low: 0, high: maxPos)
+                let maxPos: Int = Int(width * (self.model.scale - 1))
+                self.model.startPos = Int(midPos * width * self.model.scale - width/2).clamp(low: 0, high: maxPos)
             })
             .onEnded({ value in
-                self.lastScale = self.scale
-                self.lastStartPos = self.startPos
+                self.lastScale = self.model.scale
+                self.lastStartPos = self.model.startPos
             })
             .exclusively(before: drag)
         
         return ZStack {
             if model.userInteractionEnabled {
-                StockLinesView(rect: linesRect, startPos: self.startPos, scale: self.scale)
+                StockLinesView(rect: linesRect)
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
                     .opacity(draggingStockView ? 0.4 : 1.0)
                     .gesture(pan)
@@ -146,11 +149,11 @@ struct StockView: View {
                     .gesture(mag)
             }
             else {
-                StockLinesView(rect: linesRect, startPos: self.startPos, scale: self.scale)
+                StockLinesView(rect: linesRect)
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
             }
             
-            XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight), startPos: self.startPos, scale: self.scale)
+            XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight))
             
             YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: height), chartWidth: linesRect.size.width)
             
@@ -163,10 +166,10 @@ struct StockView: View {
     func calClosestDataPoint(toPoint: CGPoint, rect: CGRect) -> CGPoint {
         let width = rect.size.width
         
-        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
-        let startIndex = Int((CGFloat(startPos) / unitWidth).rounded(.up))
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         //let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
-        let startOffset: CGFloat = (unitWidth - CGFloat(startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
         let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
