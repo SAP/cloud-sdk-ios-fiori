@@ -43,7 +43,7 @@ public struct AnalyticalCardView: View {
                     SafeText(mainNumber).foregroundColor(Color.getTrendColor(trend: trend))
                         .font(.system(size: 40)).fixedSize(horizontal: false, vertical: true)
                     VStack {
-                        PolygonShape(sides: 3).fill(Color.getTrendColor(trend: trend)).frame(width: 15, height: 15).rotationEffect(.degrees(90))
+                        PolygonView(trend: trend)
                         SafeText(mainUnit)
                     }.padding(.trailing, 50)
                     
@@ -89,21 +89,16 @@ public struct AnalyticalCardView: View {
             }
         }
     }
+}
+
+struct PolygonView: View {
+    let trend: String?
     
-    func chartView(in rect: CGRect) -> some View {
-        let xAxisHeight:CGFloat = 24
-        let yAxisWidth:CGFloat = 40
-        
-        let width = rect.size.width - yAxisWidth
-        let height = rect.size.height - xAxisHeight
-        let linesRect = CGRect(x: yAxisWidth, y: 0, width: width, height: height)
-        
-        return ZStack {
-            LinesShape(points: [600, 700, 650, 750, 720])
-            .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
-            .frame(width: width, height: height)
-            .previewLayout(.sizeThatFits)
-        }
+    var body: some View {
+        return PolygonShape(sides: 3)
+            .fill(Color.getTrendColor(trend: trend))
+            .frame(width: 15, height: 15)
+            .rotationEffect(.degrees(trend == "Down" ? 90 : -90))
     }
 }
 
