@@ -13,8 +13,6 @@ struct XAxisView: View {
     
     let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
-    var startPos: Int = 0
-    var scale: CGFloat = 1.0
     
     var body: some View {
         var xAxisTitles = calXAxisTitles()
@@ -41,8 +39,8 @@ struct XAxisView: View {
     
     func calXAxisTitles() -> [AxisTitle] {
         let width = rect.size.width
-        let startPosInFloat = CGFloat(startPos)
-        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startPosInFloat = CGFloat(model.startPos)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
         let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
         
@@ -128,9 +126,9 @@ struct XAxisView: View {
         }
         
         let width = rect.size.width    
-        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
-        let startIndex = Int((CGFloat(startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }

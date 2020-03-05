@@ -12,16 +12,14 @@ struct StockLinesView: View {
     @EnvironmentObject var model: ChartModel
 
     var rect: CGRect
-    var startPos: Int = 0
-    var scale: CGFloat = 1.0
     
     var body: some View {
         var noData = false
         var width = rect.size.width
         let height = rect.size.height
-        let startPosInFloat = CGFloat(startPos)
+        let startPosInFloat = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
         let startIndex = Int(startPosInFloat / unitWidth)
         
         var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
@@ -84,13 +82,11 @@ struct StockLinesView: View {
 struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-        //ForEach(Tests.stockModels) {
-            //StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), startOffset: -10, endOffset: 90).environmentObject($0)
-            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 168, scale: 1.89).environmentObject(Tests.stockModels[1])
-            
-            StockLinesView(rect: CGRect(x: 0, y: 0, width: 358, height: 200), startPos: 20, scale: 2.0).environmentObject(Tests.stockModels[1])
+            ForEach(Tests.stockModels) {
+                StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200)).environmentObject($0)
+            }
+            .frame(width:300, height: 200)
+            .previewLayout(.sizeThatFits)
         }
-        .frame(width:300, height: 200)
-        .previewLayout(.sizeThatFits)
     }
 }

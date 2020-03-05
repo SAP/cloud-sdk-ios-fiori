@@ -133,7 +133,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var titlesForAxis: [String]?
     @Published public var labelsForDimension: [[DimensionData<String>]]?
     
-    /// to be removed
+    ///
     @Published public var colorsForCategory: [[Color]]?
     
     /// styles
@@ -151,6 +151,10 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published var selectedSeriesIndex: Int?
     @Published var selectedCategoryIndex: Int?
     @Published var selectedDimensionIndex: Int?
+    
+    // scale is not allowed to be less than 1.0
+    @Published var scale: CGFloat = 1.0
+    @Published var startPos: Int = 0
     
     /**
      Provides attributes for the primary numeric axis.
