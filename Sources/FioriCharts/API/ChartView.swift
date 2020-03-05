@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct ChartView: View {
-    var chartModel: ChartModel
+    @ObservedObject var chartModel: ChartModel
     
     public init(_ chartModel: ChartModel) {
         self.chartModel = chartModel
