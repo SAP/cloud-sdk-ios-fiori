@@ -149,7 +149,7 @@ struct XAxisView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) {
-                XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20)).environmentObject(StockUtility.preprocessModel($0))
+                XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20)).environmentObject($0)
             }
             .frame(width:300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

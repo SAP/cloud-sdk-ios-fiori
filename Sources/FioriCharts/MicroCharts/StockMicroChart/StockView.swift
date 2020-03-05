@@ -185,7 +185,7 @@ struct StockView: View {
 struct StockView_Previews: PreviewProvider {
     static var previews: some View {
         ForEach(Tests.stockModels) {
-            StockView().environmentObject(StockUtility.preprocessModel($0))
+            StockView().environmentObject($0)
         }
         .frame(width:300, height: 200, alignment: .topLeading)
         .previewLayout(.sizeThatFits)
