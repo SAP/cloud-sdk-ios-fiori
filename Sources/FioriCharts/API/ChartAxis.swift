@@ -7,22 +7,45 @@
 
 import Foundation
 
+/**
+ Identifiers for different axes presented by the chart.
+
+ These are provided as a convenient way to reference axes by their position and orientation.
+
+ The type of axis will vary depending on the type of chart presented. As an example, for scatter, bubble, and bar charts the `x` axis is a numeric axis; but for all other chart types the `x` axis is the category axis.
+ */
+public enum ChartAxisId {
+
+    /// X axis. Normally the category or horizontal axis.
+    case x
+    /// Y axis. Normally the value or vertical axis.
+    case y
+    /// :nodoc:
+    case radius
+    /// :nodoc:
+    case dual
+    /// Category or X axis.
+    case category
+}
+
 public class ChartAxis: ObservableObject, Identifiable {
+    /// Provides an identifier that associates the axis with a position and orientation in the chart.
+    @Published public var axisId: ChartAxisId?
     
-    /// Properties for the axis gridline labels.
-    /*public private(set) var labels: ChartLabelAttributes
-     */
+     /**
+      Properties for the axis baseline, which is typically usually 0.
+      - Only numeric axes have a baseline.
+      */
+     @Published public var baseline: ChartLineAttributes
+    
     /// Properties for the axis gridlines.
     @Published public var gridlines: ChartLineAttributes
     
-    /**
-     Properties for the axis baseline, which is typically usually 0.
-     - Only numeric axes have a baseline.
-     */
-    @Published public var baseline: ChartLineAttributes
+    /// Properties for the axis gridline labels.
+    @Published public var labels: ChartLabelAttributes
     
-    /// Provides an identifier that associates the axis with a position and orientation in the chart.
-    var axisId: ChartAxisId?
+    /// Properties of the axis title label.
+    @Published public var titleLabel: ChartLabelAttributes
     
     /// Title of the axis.
     @Published var title: String?
@@ -30,13 +53,8 @@ public class ChartAxis: ObservableObject, Identifiable {
     public let id = UUID()
     
     
-    public init(gridlines: ChartLineAttributes?, baseline: ChartLineAttributes?, axisId: ChartAxisId? = nil, title: String? = nil) {
-        if let gridlinesAttributes = gridlines {
-            self.gridlines = gridlinesAttributes
-        }
-        else {
-            self.gridlines = ChartGridlineAttributes()
-        }
+    public init(axisId: ChartAxisId? = nil, baseline: ChartLineAttributes? = nil, gridlines: ChartLineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil) {
+        self.axisId = axisId
         
         if let baselineAttributes = baseline {
             self.baseline = baselineAttributes
@@ -45,7 +63,27 @@ public class ChartAxis: ObservableObject, Identifiable {
             self.baseline = ChartBaselineAttributes()
         }
         
-        self.axisId = axisId
+        if let gridlinesAttributes = gridlines {
+            self.gridlines = gridlinesAttributes
+        }
+        else {
+            self.gridlines = ChartGridlineAttributes()
+        }
+        
+        if let labelsAttributes = labels {
+            self.labels = labelsAttributes
+        }
+        else {
+            self.labels = ChartLabelAttributes()
+        }
+        
+        if let titleLabelsAttributes = titleLabel {
+            self.titleLabel = titleLabelsAttributes
+        }
+        else {
+            self.titleLabel = ChartLabelAttributes()
+        }
+        
         self.title = title
     }
 }
@@ -60,10 +98,10 @@ public class ChartAxis: ObservableObject, Identifiable {
 public class ChartNumericAxis : ChartAxis {
     
     public convenience init() {
-        self.init(isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil, gridlines: nil, baseline: nil, axisId: nil, title: nil)
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
-    public init(isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?, gridlines: ChartLineAttributes?, baseline: ChartLineAttributes?, axisId: ChartAxisId? = nil, title: String? = nil) {
+    public init(axisId: ChartAxisId? = nil, baseline: ChartLineAttributes? = nil, gridlines: ChartLineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
             self.formatter = formatter
         }
@@ -87,7 +125,7 @@ public class ChartNumericAxis : ChartAxis {
         self.explicitMin = explicitMin
         self.explicitMax = explicitMax
         
-        super.init(gridlines: gridlines, baseline: baseline, axisId: .y, title: title)
+        super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title)
     }
     
     /**
@@ -198,20 +236,14 @@ public class ChartCategoryAxis : ChartNumericAxis {
     }
     
     public init(labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
-        
         self.labelLayoutStyle = labelLayoutStyle
-        super.init(isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil, gridlines: nil, baseline: nil, axisId: nil, title: nil)
+        
+        super.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
     
     /// Defines the manner in which labels will be presented when they are provided by the data source, and not hidden.
     @Published public var labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle
-    
-    
-    //    override func labelForValue(_ value: Double) -> String? {
-    //        return nil
-    //    }
-    
     
     //    var layout: ChartAxisLabelLayout
 }
