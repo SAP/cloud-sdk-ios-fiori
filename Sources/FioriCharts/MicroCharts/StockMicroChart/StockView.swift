@@ -104,8 +104,6 @@ struct StockView: View {
                     let unitWidth: CGFloat = linesRect.size.width * self.model.scale / CGFloat(StockUtility.numOfDataItmes(self.model) - 1)
                     let closestIndex = Int(CGFloat(tmp) / unitWidth)
                     self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
-                    
-//                    print("value: \(value.translation.width), lastStartPos: \(self.lastStartPos), tmp: \(tmp), maxPos: \(maxPos), startPos: \(self.model.startPos), closestIndex: \(closestIndex), width: \(width), unitWidth = \(unitWidth)")
                 }
                 else {
                     self.model.startPos = tmp.clamp(low: 0, high: maxPos)
@@ -130,8 +128,6 @@ struct StockView: View {
                 
                 let maxPos: Int = Int(width * (self.model.scale - 1))
                 self.model.startPos = Int(midPos * width * self.model.scale - width/2).clamp(low: 0, high: maxPos)
-                
-//                print("scale: \(self.model.scale), width: \(width), midPos: \(midPos), maxPos: \(maxPos), startPos: \(self.model.startPos)")
             })
             .onEnded({ value in
                 self.lastScale = self.model.scale

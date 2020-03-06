@@ -132,7 +132,7 @@ struct SettingView: View {
                         
                         Text("Gridlines width: \(model.categoryAxis.gridlines.width)")
                         Slider(value: $model.categoryAxis.gridlines.width, in: 1...5, step: 1)
-                        Picker(selection: $model.categoryAxis.gridlines.color, label: Text("Baseline color: ")) {
+                        Picker(selection: $model.categoryAxis.gridlines.color, label: Text("Gridlines color: ")) {
                             Text("red").tag(Color.red)
                             Text("green").tag(Color.green)
                             Text("blue").tag(Color.blue)
@@ -161,7 +161,7 @@ struct SettingView: View {
                         
                         Text("Gridlines width: \(model.numericAxis.gridlines.width)")
                         Slider(value: $model.numericAxis.gridlines.width, in: 1...5, step: 1)
-                        Picker(selection: $model.numericAxis.gridlines.color, label: Text("Baseline color: ")) {
+                        Picker(selection: $model.numericAxis.gridlines.color, label: Text("Gridlines color: ")) {
                             Text("red").tag(Color.red)
                             Text("green").tag(Color.green)
                             Text("blue").tag(Color.blue)

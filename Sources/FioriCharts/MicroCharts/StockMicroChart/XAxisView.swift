@@ -16,24 +16,32 @@ struct XAxisView: View {
     
     var body: some View {
         var xAxisTitles = calXAxisTitles()
-        xAxisTitles.insert(AxisTitle(index: 0, title: ""), at: 0)
+        //xAxisTitles.insert(AxisTitle(index: 0, title: ""), at: 0)
         
         let strokeStyle = StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
         
         return ZStack {
             ForEach(xAxisTitles) { title in
+                // grid lines
                 LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: 0),
                           pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: self.rect.origin.y),
                           color: self.model.categoryAxis.gridlines.color,
                           width: 1,
                           strokeStyle: strokeStyle)
                 
+                // category labels
                 Text(title.title)
                     .font(.footnote)
                     .foregroundColor(self.textColor)
                     .position(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
                               y: self.rect.origin.y + self.rect.size.height / 2)
             }
+            
+            // bottom solid line
+            LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
+                      pos2: CGPoint(x: rect.origin.x, y: rect.origin.y),
+                      color: model.categoryAxis.baseline.color,
+                      width: CGFloat(model.categoryAxis.baseline.width))
         }
     }
     
