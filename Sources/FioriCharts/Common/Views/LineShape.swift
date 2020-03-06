@@ -46,7 +46,10 @@ struct LineShape_Previews: PreviewProvider {
 
             LineShape(pos1: CGPoint(x: 30, y: 10), pos2: CGPoint(x: 30, y: 80), color: .black, width: 3)
             
-            LineShape(pos1: CGPoint(x: 40, y: 10), pos2: CGPoint(x: 280, y: 80), color: .red, width: 0, strokeStyle: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [4, 8], dashPhase: 0))
+            LineShape(pos1: CGPoint(x: 40, y: 10),
+                      pos2: CGPoint(x: 280, y: 80),
+                      color: .red, width: 0,
+                      strokeStyle: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [4, 8], dashPhase: 0))
         }
         .frame(width: 312, height: 100, alignment: .center)
         .previewLayout(.sizeThatFits)

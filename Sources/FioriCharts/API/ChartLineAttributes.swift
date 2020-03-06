@@ -51,7 +51,7 @@ public class ChartGridlineAttributes : ChartLineAttributes, ObservableObject, Id
 // Baseline properties for an Axis.
 public class ChartBaselineAttributes : ChartLineAttributes, ObservableObject, Identifiable {
 
-    public init(width: Double = 1, color: Color = Color.gray, dashPattern: (length: Int, gap: Int)? = nil, isHidden: Bool = false, value: Double? = nil, position: Double? = nil, colorHasAlphaComponent: Bool = false) {
+    public init(width: Double = 2, color: Color = Color.gray, dashPattern: (length: Int, gap: Int)? = nil, isHidden: Bool = false, value: Double? = nil, position: Double? = nil, colorHasAlphaComponent: Bool = false) {
         self.width = width
         self.color = color
         self.dashPattern = dashPattern

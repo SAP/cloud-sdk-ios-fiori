@@ -72,19 +72,19 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var labelsForDimension: [[DimensionData<String>]]?
     
     /// enable or disable user interaction
-    @Published public var userInteractionEnabled: Bool = true
+    @Published public var userInteractionEnabled: Bool = false
     
     ///
     @Published public var panChartToDataPointOnly = false
   
     /// selection state
-    @Published var selectedSeriesIndex: Int?
-    @Published var selectedCategoryIndex: Int?
-    @Published var selectedDimensionIndex: Int?
+    @Published public var selectedSeriesIndex: Int?
+    @Published public var selectedCategoryIndex: Int?
+    @Published public var selectedDimensionIndex: Int?
     
     // scale is not allowed to be less than 1.0
-    @Published var scale: CGFloat = 1.0
-    @Published var startPos: Int = 0
+    @Published public var scale: CGFloat = 1.0
+    @Published public var startPos: Int = 0
     
     /// styles
 
@@ -121,7 +121,7 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
+    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
@@ -200,7 +200,7 @@ public class ChartModel: ObservableObject, Identifiable {
         initialize()
     }
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = true, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
+    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
         self.chartType = chartType
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
@@ -381,7 +381,7 @@ public class ChartModel: ObservableObject, Identifiable {
         }
     }
     
-    var currentSeriesIndex: Int {
+    public var currentSeriesIndex: Int {
         if let current = selectedSeriesIndex {
             return current
         }
@@ -390,7 +390,7 @@ public class ChartModel: ObservableObject, Identifiable {
         }
     }
     
-    var currentCategoryIndex: Int {
+    public var currentCategoryIndex: Int {
         if let current = selectedCategoryIndex {
             return current
         }
@@ -399,7 +399,7 @@ public class ChartModel: ObservableObject, Identifiable {
         }
     }
     
-    var currentDimensionIndex: Int {
+    public var currentDimensionIndex: Int {
         if let current = selectedDimensionIndex {
             return current
         }

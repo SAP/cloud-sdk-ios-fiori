@@ -42,7 +42,7 @@ struct YAxisView: View {
         }
         yAxisTitles.append(AxisTitle(index: count - 1, title: formatYAxisTitle(value: minVal, total: count)))
         
-        let strokeStyle = StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
+        let strokeStyle = StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
         
         let x = rect.origin.x + rect.size.width
         // y axis titles
@@ -58,15 +58,15 @@ struct YAxisView: View {
             // middle dash line
             LineShape(pos1: CGPoint(x: x, y: rect.size.height/2),
                       pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2),
-                      color: .init(red: 0.4210377932, green: 0.4355759025, blue: 0.448372364),
+                      color: model.numericAxis.gridlines.color,
                       width: 1,
                       strokeStyle: strokeStyle)
             
             // bottom solid line
             LineShape(pos1: CGPoint(x: x, y: rect.size.height),
                       pos2: CGPoint(x: x + chartWidth, y: rect.size.height),
-                      color: .init(red: 0.4210377932, green: 0.4355759025, blue: 0.448372364),
-                      width: 2)
+                      color: model.categoryAxis.baseline.color,
+                      width: CGFloat(model.categoryAxis.baseline.width))
         }
     }
     
