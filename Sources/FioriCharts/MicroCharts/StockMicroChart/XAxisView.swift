@@ -18,14 +18,14 @@ struct XAxisView: View {
         var xAxisTitles = calXAxisTitles()
         xAxisTitles.insert(AxisTitle(index: 0, title: ""), at: 0)
         
-        let strokeStyle = StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
+        let strokeStyle = StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
         
         return ZStack {
             ForEach(xAxisTitles) { title in
                 LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: 0),
                           pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: self.rect.origin.y),
-                          color: self.model.categoryAxis.baseline.color,
-                          width: CGFloat(self.model.categoryAxis.baseline.width),
+                          color: self.model.categoryAxis.gridlines.color,
+                          width: 1,
                           strokeStyle: strokeStyle)
                 
                 Text(title.title)
@@ -43,12 +43,15 @@ struct XAxisView: View {
         let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
         let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
-        
+        //let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), StockUtility.numOfDataItmes(model) - 1)
         
         var result: [AxisTitle] = []
         
-        let startDate = getDateAtIndex(startIndex)
-        let endDate = getDateAtIndex(endIndex)
+        guard let startDate = getDateAtIndex(startIndex),
+            let endDate = getDateAtIndex(endIndex) else {
+                return result
+        }
+        
         let duration = endDate.timeIntervalSince(startDate)
         
         if duration < 60 {
@@ -93,7 +96,7 @@ struct XAxisView: View {
         
         var prev = -1
         for i in startIndex...endIndex{
-            let date = getDateAtIndex(i)
+            guard let date = getDateAtIndex(i) else { return result }
             let cur = Calendar.current.component(component, from: date)
             if prev == -1 && skipFirst {
                 prev = cur
@@ -133,8 +136,8 @@ struct XAxisView: View {
         return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }
     
-    func getDateAtIndex(_ index: Int) -> Date {
-        return StockUtility.categoryValueInDate(model, categoryIndex: index)!
+    func getDateAtIndex(_ index: Int) -> Date? {
+        return StockUtility.categoryValueInDate(model, categoryIndex: index)
     }
     
     func monthAbbreviationFromInt(_ month: Int) -> String {

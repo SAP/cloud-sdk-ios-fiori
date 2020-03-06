@@ -42,10 +42,14 @@ class StockUtility {
         return dimensionValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
     
+    static func categoryValue(_ model: ChartModel, categoryIndex: Int) -> String? {
+        return categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
+    }
+    
     static func categoryValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> String? {
         guard let categories = model.titlesForCategory else { return nil }
         
-        if categories.count < seriesIndex || categories[seriesIndex].count < categoryIndex {
+        if seriesIndex < 0 || seriesIndex >= categories.count || categoryIndex < 0 || categoryIndex >= categories[seriesIndex].count {
             return nil
         }
         
@@ -67,10 +71,6 @@ class StockUtility {
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         return df.date(from: s)
-    }
-    
-    static func categoryValue(_ model: ChartModel, categoryIndex: Int) -> String? {
-        return categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
     }
     
     static func numOfDataItmes(_ model: ChartModel) -> Int {
