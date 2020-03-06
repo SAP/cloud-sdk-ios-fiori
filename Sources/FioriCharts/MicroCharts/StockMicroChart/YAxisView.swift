@@ -44,6 +44,8 @@ struct YAxisView: View {
         
         let strokeStyle = StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
         
+        let baselineStrokeStyle = StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
+        
         let x = rect.origin.x + rect.size.width
         // y axis titles
         return ZStack {
@@ -62,11 +64,12 @@ struct YAxisView: View {
                       width: 1,
                       strokeStyle: strokeStyle)
             
-            // bottom solid line
+            // left base line
             LineShape(pos1: CGPoint(x: x, y: rect.size.height),
-                      pos2: CGPoint(x: x + chartWidth, y: rect.size.height),
-                      color: model.categoryAxis.baseline.color,
-                      width: CGFloat(model.categoryAxis.baseline.width))
+                      pos2: CGPoint(x: x, y: rect.origin.y),
+                      color: model.numericAxis.baseline.color,
+                      width: 1,
+                      strokeStyle: baselineStrokeStyle)
         }
     }
     
