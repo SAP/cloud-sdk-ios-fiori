@@ -9,6 +9,38 @@
 import Foundation
 import SwiftUI
 
+/// Enum for available selection modes.
+public enum ChartSelectionMode {
+
+    /// Selects a single value in the currently selected series and category indices.
+    case single
+
+    /// Selects one value in each series for the selected category index(es).
+    case all
+}
+
+/// Enum for default category selection.
+public enum ChartDefaultCategorySelectionMode {
+    
+    /// No default selection mode is defined. Any set selection will be used.
+    case index
+    
+    /// First category of the selected series and dimension will be used.
+    case first
+    
+    /// Last category of the selected series and dimension will be used.
+    case last
+}
+
+
+/// Selection state for points and rects in the chart.
+enum ChartSelectionState {
+    case normal
+    case selected
+    case highlighted
+    case disabled
+}
+
 public class ChartModel: ObservableObject, Identifiable {
 
     ///
@@ -77,22 +109,21 @@ public class ChartModel: ObservableObject, Identifiable {
     ///
     @Published public var panChartToDataPointOnly = false
   
-    /// selection state
-    @Published public var selectedSeriesIndex: Int?
-    @Published public var selectedCategoryIndex: Int?
-    @Published public var selectedDimensionIndex: Int?
+    /// seires attributes
+    @Published public var series: ChartSeriesAttributes? = nil
     
-    // scale is not allowed to be less than 1.0
-    @Published public var scale: CGFloat = 1.0
-    @Published public var startPos: Int = 0
-    
-    /// styles
-
     ///
     @Published public var colorsForCategory: [[Color]]?
     
-    @Published public var numOfGridLines: [Int] = [3,3]
+    @Published public var numberOfGridlines: Int = 2
     
+    /**
+     Provides attributes for the category axis.
+
+     - For stock, clustered column, line, and combo charts this is the X axis.
+     - For bar charts this is the Y axis.
+     */
+    @Published public var categoryAxis: ChartCategoryAxis
     
     /**
      Provides attributes for the primary numeric axis.
@@ -108,14 +139,59 @@ public class ChartModel: ObservableObject, Identifiable {
      - For clustered line, area and combo charts this is the secondary Y axis.
      */
     @Published public var secondaryNumericAxis: ChartNumericAxis
-
+    
     /**
-     Provides attributes for the category axis.
-
-     - For stock, clustered column, line, and combo charts this is the X axis.
-     - For bar charts this is the Y axis.
+     Indicates indexes of column series for combo chart.
+     - Given indexes of series will be treated as column and the rest series will be treated as line.
      */
-    @Published public var categoryAxis: ChartCategoryAxis
+    @Published public var indexesOfColumnSeries: IndexSet?
+    
+    /**
+     Indicates total indexes for waterfall chart.
+     - Given indexes will treat the corresponding categories as totals.
+     - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
+     - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
+     */
+    public var indexesOfTotalsCategories: IndexSet?
+    
+    /**
+     Indicates secondary value axis series indexes for line based charts.
+     - The secondary value index works with .line, .area and .combo charts only.
+     - Given series indexes will assign the corresponding series to the secondary value axis.
+     */
+    public var indexesOfSecondaryValueAxis: IndexSet?
+    
+    /// selection state
+    /**
+     Determines which plot items should be selected for a category.
+     - single : Selects a single value in the currently selected series and category indices.
+     - all : Selects one value in each series for the selected category index(es).
+     */
+    @Published public var selectionMode: ChartSelectionMode = .single
+    
+    /**
+     Default category selection mode for the chart. Defines how the initial selection is handled. Only valid values are selected.
+     Used in combination with: `select(category:)`, `select(categoriesInRange:)`, `select(series:)`, `select(dimension:)`.
+     If no series is selected through `select(series:)`, the first series will be used.
+     For Scatter and Bubble charts, if no dimension is defined through `select(dimension:)`, the Y axis dimension will be used.
+     - `MCDefaultCategorySelectionIndex` This is the default behavior, where the given selection will be considered as the initial selection.
+     - `MCDefaultCategorySelectionFirst` The first category will be considered as the default selection.
+     - `MCDefaultCategorySelectionLast` The last gategory will be considered as the default selection.
+    */
+    @Published public var defaultCategorySelectionMode: ChartDefaultCategorySelectionMode = .first
+    
+    /// When false a state is allowed in which no series is selected/active.
+    @Published public var selectionRequired: Bool = false
+    
+    @Published public var selectedSeriesIndex: Int?
+    @Published public var selectedCategoryIndexes: ClosedRange<Int>?
+    @Published public var selectedDimensionIndex: ClosedRange<Int>?
+    
+    // scale is not allowed to be less than 1.0
+    @Published public var scale: CGFloat = 1.0
+    @Published public var startPos: Int = 0
+    
+    /// styles
     
     var ranges: [ClosedRange<Double>]?
     
@@ -383,24 +459,6 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public var currentSeriesIndex: Int {
         if let current = selectedSeriesIndex {
-            return current
-        }
-        else {
-            return 0
-        }
-    }
-    
-    public var currentCategoryIndex: Int {
-        if let current = selectedCategoryIndex {
-            return current
-        }
-        else {
-            return 0
-        }
-    }
-    
-    public var currentDimensionIndex: Int {
-        if let current = selectedDimensionIndex {
             return current
         }
         else {

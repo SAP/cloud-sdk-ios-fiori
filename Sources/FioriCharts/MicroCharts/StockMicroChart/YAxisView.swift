@@ -64,12 +64,14 @@ struct YAxisView: View {
                       width: 1,
                       strokeStyle: strokeStyle)
             
-            // left base line
-            LineShape(pos1: CGPoint(x: x, y: rect.size.height),
-                      pos2: CGPoint(x: x, y: rect.origin.y),
-                      color: model.numericAxis.baseline.color,
-                      width: 1,
-                      strokeStyle: baselineStrokeStyle)
+            if !model.numericAxis.baseline.isHidden {
+                // left base line
+                LineShape(pos1: CGPoint(x: x, y: rect.size.height),
+                          pos2: CGPoint(x: x, y: rect.origin.y),
+                          color: model.numericAxis.baseline.color,
+                          width: 1,
+                          strokeStyle: baselineStrokeStyle)
+            }
         }
     }
     
@@ -86,8 +88,8 @@ struct YAxisView: View {
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 200), chartWidth: 160).environmentObject(Tests.stockModels[1])
-        .frame(width:300, height: 200, alignment: .topLeading)
+        YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400), chartWidth: 160).environmentObject(Tests.stockModels[1])
+        .frame(width:300, height: 400, alignment: .topLeading)
         .padding()
         .previewLayout(.sizeThatFits)
         
