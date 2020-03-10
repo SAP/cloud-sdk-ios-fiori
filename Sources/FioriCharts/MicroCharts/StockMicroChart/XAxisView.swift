@@ -15,8 +15,7 @@ struct XAxisView: View {
     var rect: CGRect
     
     var body: some View {
-        var xAxisTitles = calXAxisTitles()
-        //xAxisTitles.insert(AxisTitle(index: 0, title: ""), at: 0)
+        let xAxisTitles = calXAxisTitles()
         
         let strokeStyle = StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
         
@@ -38,10 +37,12 @@ struct XAxisView: View {
             }
             
             // bottom solid line
-            LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
-                      pos2: CGPoint(x: rect.origin.x, y: rect.origin.y),
-                      color: model.categoryAxis.baseline.color,
-                      width: CGFloat(model.categoryAxis.baseline.width))
+            if !model.categoryAxis.baseline.isHidden {
+                LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
+                          pos2: CGPoint(x: rect.origin.x, y: rect.origin.y),
+                          color: model.categoryAxis.baseline.color,
+                          width: CGFloat(model.categoryAxis.baseline.width))
+            }
         }
     }
     
