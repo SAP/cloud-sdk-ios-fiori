@@ -71,3 +71,5 @@ fastlane/test_output
 # Do NOT CHECK FioriSwiftUI.xcodeproj in.  
 # Instead, regenerate using `swift package generate-xcodeproj`
 FioriSwiftUI.xcodeproj
+
+**/.DS_Store
