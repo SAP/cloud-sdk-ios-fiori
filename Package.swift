@@ -27,7 +27,7 @@ let package = Package(
             dependencies: ["FioriIntegrationCards", "FioriCharts"]),
         .target(
             name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray"]),
+            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts"]),
         .target(
             name: "FioriCharts",
             dependencies: []),
