@@ -24,10 +24,29 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     @Published public var lineWidth: Double = 1
     
     /// Properties for the points rendered in all line series.
-    @Published public var points: ChartPointAttributes?
+    @Published public var points: ChartPointAttributes
     
     /// Diameter of line caps for first and last values in a line series.
-    @Published public var lineCapDiameters: (Double, Double)?
+    @Published public var firstLineCapDiameter: Double
+    
+    /// Diameter of line caps for first and last values in a line series.
+    @Published public var lastLineCapDiameter: Double
     
     public let id = UUID()
+    
+    public init(colors: [Color]? = nil, lineWidth: Double = 1, points: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
+        self.colors = colors
+        self.lineWidth = lineWidth
+        
+        if let points = points {
+            self.points = points
+        }
+        else {
+            self.points = ChartPointAttributes()
+        }
+        
+        self.firstLineCapDiameter = firstLineCapDiameter
+        
+        self.lastLineCapDiameter = lastLineCapDiameter
+    }
 }

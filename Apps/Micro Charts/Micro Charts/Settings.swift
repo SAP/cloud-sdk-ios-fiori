@@ -25,7 +25,22 @@ struct Settings: View {
                     }
                 }
                 
-                Section(header: Text("Selection").font(.subheadline)) {
+                Section(header: Text("Selection")) {
+                    Toggle(isOn: $model.selectionRequired) {
+                        Text("Selection Required")
+                    }
+                    
+                    Picker(selection: $model.selectionMode, label: Text("Selection Mode")) {
+                        Text("Single").tag(ChartSelectionMode.single)
+                        Text("All").tag(ChartSelectionMode.all)
+                    }
+                    
+                    Picker(selection: $model.defaultCategorySelectionMode, label: Text("Category Selection Mode")) {
+                        Text("Index").tag(ChartCategorySelectionMode.index)
+                        Text("First").tag(ChartCategorySelectionMode.first)
+                        Text("Last").tag(ChartCategorySelectionMode.last)
+                    }
+                    
                     Stepper("Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
                         self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % self.model.data.count
                         self.model.scale = 1.0
@@ -35,9 +50,12 @@ struct Settings: View {
                         self.model.scale = 1.0
                         self.model.startPos = 0
                     })
+                    
+                    Text("Selected Category Indexes: TODO")
+                    Text("Selected Dimension Indexes: TODO")
                 }
                 
-                Section(header: Text("Scale").font(.subheadline)) {
+                Section(header: Text("Scale")) {
                     
                     Text("Scale: \(model.scale)")
                     Slider(value: $model.scale, in: 1...max(1.1, CGFloat(model.data[model.currentSeriesIndex].count - 1) / 2), step: 0.1) { (changed) in
@@ -47,17 +65,28 @@ struct Settings: View {
                     }
                     
                     Text("Start Position: \(model.startPos)")
+                }
+                
+                Section(header: Text("Series")) {
+                    Text("Colors: TBD")
                     
-                    Text("Baseline width: \(model.categoryAxis.baseline.width)")
-                    Slider(value: $model.categoryAxis.baseline.width, in: 1...5, step: 1)
+                    Text("Line Width: \(model.seriesAttributes.lineWidth)")
+                    Slider(value: $model.seriesAttributes.lineWidth, in: 1...10, step: 1)
+                    
+                    Text("First Line Cap Diameter: \(model.seriesAttributes.firstLineCapDiameter)")
+                    Slider(value: $model.seriesAttributes.firstLineCapDiameter, in: 0...10, step: 1)
+                    
+                    Text("First Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
+                    Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
+                    
+                    NavigationLink(destination: SettingsPoint(point: $model.seriesAttributes.points)) {
+                        Text("Point")
+                    }
+                    Text("Colors")
                 }
                 
-                Section(footer: Text("Series")) {
-                    Text("series")
-                }
-                
-                Section(header: Text("Axis Attributes")) {
-                    NavigationLink(destination: SettingsAxis(axis: $model.numericAxis)) {
+                Section(header: Text("Axis")) {
+                    NavigationLink(destination: SettingsCategoryAxis(axis: $model.categoryAxis)) {
                         Text("Category Axis")
                     }
                     
@@ -68,9 +97,25 @@ struct Settings: View {
                     NavigationLink(destination: SettingsAxis(axis: $model.secondaryNumericAxis)) {
                         Text("Secondary Numeric Axis")
                     }
+                    
+                    Text("Number of Gridlines: \(model.numberOfGridlines)")
+                    Slider(value: $model.numberOfGridlines.double, in: 1...10, step: 1)
+                }
+                
+                Section(header: Text("Index Set")) {
+                    Text("Indexes Of Column Series: TODO")
+                    Text("Indexes Of Totals Categories: TODO")
+                    Text("Indexes Of Secondary Value Axis: TODO")
                 }
             }.navigationBarTitle("Configuration", displayMode: .inline)
         }
+    }
+}
+
+extension Int {
+    var double: Double {
+        get { Double(self) }
+        set { self = Int(newValue) }
     }
 }
 

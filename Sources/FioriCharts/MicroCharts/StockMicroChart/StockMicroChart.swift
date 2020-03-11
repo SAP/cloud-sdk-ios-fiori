@@ -21,7 +21,8 @@ public struct StockMicroChart: View {
                 VStack{
                     StockView().environmentObject(self.model)
                 }
-                .padding(8)
+                .padding(.top, 8)
+                .padding(.trailing, 8)
                 .background(Color(#colorLiteral(red: 0.9999071956, green: 1, blue: 0.999881804, alpha: 1)))
             }
             else {
