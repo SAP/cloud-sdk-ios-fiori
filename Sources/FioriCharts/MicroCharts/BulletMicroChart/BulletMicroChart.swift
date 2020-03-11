@@ -16,7 +16,7 @@ public struct BulletMicroChart: View {
     
     @ObservedObject var model: ChartModel
     @State var mode: Mode? = .standard
-   
+    
     init(_ model: ChartModel) {
         self.model = model
     }
@@ -70,7 +70,7 @@ public struct BulletMicroChart: View {
         return Rectangle()
             .fill(Color(red: 0, green: 0, blue: 1.0, opacity: 0.3))
             .frame(width: width, height: height)
-
+        
     }
     
     func actualView(in size: CGSize) -> some View {
@@ -83,7 +83,7 @@ public struct BulletMicroChart: View {
         var width = model.normalizedValue(for: actualValue) * size.width
         let height = chartHeight * 0.6 * 0.6
         var x: CGFloat = 0
-
+        
         if mode == BulletMicroChart.Mode.delta {
             x = model.normalizedValue(for: targetValue) * size.width
             width -= x
@@ -105,29 +105,28 @@ public struct BulletMicroChart: View {
         let normalizedTargetValue = self.model.normalizedValue(for: targetValue)
         return ZStack {
             LineShape(pos1: CGPoint(x: normalizedTargetValue * size.width, y: y - 3),
-                           pos2: CGPoint(x: normalizedTargetValue * size.width, y: y + chartHeight + 6),
-                           color: .black,
-                           width: 3)
+                      pos2: CGPoint(x: normalizedTargetValue * size.width, y: y + chartHeight + 6))
+                .stroke(Color.black,
+                        style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
             
             LineShape(pos1: CGPoint(x: normalizedTargetValue * size.width - 2, y: y - 3),
-                           pos2: CGPoint(x: normalizedTargetValue * size.width - 2, y: y + chartHeight + 6),
-                           color: .white,
-                           width: 2)
+                      pos2: CGPoint(x: normalizedTargetValue * size.width - 2, y: y + chartHeight + 6))
+                .stroke(Color.white,
+                        style: StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
         }
     }
     
-
-        
+    
+    
     func thresholdsView(size: CGSize, thresholds: [MicroChartDataItem]) -> some View {
         let chartHeight = size.height * 0.786
         let y = (size.height - chartHeight) / 2
         return ZStack {
             ForEach(thresholds) {
                 LineShape(pos1: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y - 3),
-                          pos2: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y + chartHeight + 6),
-                          color: $0.color,
-                          width: 3)
-                
+                          pos2: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y + chartHeight + 6))
+                    .stroke($0.color,
+                            style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
             }
         }
     }
@@ -138,7 +137,7 @@ struct BulletMicroChart_Previews: PreviewProvider {
         Group {
             ForEach(Tests.bulletModles) {
                 BulletMicroChart($0)
-                .frame(width: 320, height: 94)
+                    .frame(width: 320, height: 94)
             }
         }
         .previewLayout(.fixed(width: 320, height: 94))

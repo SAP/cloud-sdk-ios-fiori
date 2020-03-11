@@ -31,7 +31,8 @@ struct StockIndicatorView: View {
         }
         
         return ZStack {
-            LineShape(pos1: CGPoint(x: x, y: rect.origin.y), pos2: CGPoint(x: x, y: rect.origin.y + rect.size.height), color: .black)
+            LineShape(pos1: CGPoint(x: x, y: rect.origin.y), pos2: CGPoint(x: x, y: rect.origin.y + rect.size.height))
+                .stroke(Color.black, lineWidth: 1)
             
             Text(String(price!))
                 .font(.caption)
