@@ -14,7 +14,7 @@ struct SettingsLine: View {
     
     var body: some View {
         Form {
-            Section {
+            Section(header: Text("Basic")) {
                 Toggle(isOn: $line.isHidden) {
                     Text("Is Hidden")
                 }
@@ -23,8 +23,14 @@ struct SettingsLine: View {
                 Slider(value: $line.width, in: 1...10, step: 1)
                 
                 Text("Color: TODO")
+            }
+            
+            Section(header: Text("Dash Pattern")) {
+                Text("Length: \(line.dashPatternLength)")
+                Slider(value: $line.dashPatternLength, in: 1...20, step: 1)
                 
-                Text("Dash Pattern: TODO")
+                Text("Gap: \(line.dashPatternGap)")
+                Slider(value: $line.dashPatternGap, in: 0...20, step: 1)
             }
         }.navigationBarTitle("Line Attributes")
     }

@@ -60,7 +60,7 @@ public class ChartAxis: ObservableObject, Identifiable {
             self.baseline = baselineAttributes
         }
         else {
-            self.baseline = ChartGridlineAttributes()
+            self.baseline = ChartGridlineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false)
         }
         
         if let gridlinesAttributes = gridlines {
