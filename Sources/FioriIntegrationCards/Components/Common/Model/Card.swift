@@ -81,59 +81,14 @@ extension Card: Hashable {
 //    public var rows: [TableRow]
 //}
 
-public struct TableRow: Identifiable, Decodable, Hashable {
-    public let columns: [TableColumn]?
-    public let actions: [Action]?
-    public let id: UUID = UUID()
-}
-
-public struct TableColumn: Identifiable, Decodable, Hashable {
-    public let title: String?
-    public let width: String?
-    public let value: String?
-    public let icon: Icon?
-    public let state: String?
-    public let url: String?
-    public let target: String?
-    public let identifier: Bool?
-    public let progressIndicator: String?
-    public let id: UUID = UUID()
-}
-
 //public struct ObjectCard: Decodable {
 //    public let groups: [ObjectGroup]
 //}
 
-public struct ObjectGroup: Decodable, Identifiable, Hashable {
-    public let title: String
-    public let items: [ObjectGroupItem]
-    public let id: UUID = UUID()
-}
-
-public struct ObjectGroupItem: Decodable, Identifiable, Hashable {
-    public let icon: Icon?
-    public let label: String
-    public let value: String
-    public let type: String?
-    public let url: String?
-    public let target: String?
-    public let emailSubject: String?
-    public let id: UUID = UUID()
-}
 
 //public struct TimelineCard: Decodable {
 //    public let items: [TimelineItem]
 //}
-
-public struct TimelineItem: Identifiable, Decodable, Hashable {
-    public let title: String
-    public let description: String?
-    public let dateTime: String?
-    public let owner: String?
-    public let ownerImage: String?
-    public let icon: Icon?
-    public let id: UUID = UUID()
-}
 
 //public struct AnalyticalCard: Decodable {
 //    public let chartType: String
@@ -145,50 +100,3 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
 //    public let measures: [AnalyticalMeasureDimension]
 //    public let dimensions: [AnalyticalMeasureDimension]
 //}
-
-public struct AnalyticalMeasureDimension: Decodable {
-    public let label: String
-    public let value: String
-}
-
-public struct AnalyticalLegend: Decodable {
-    public let title: String?
-    public let drawingEffect: String?
-    public let isHierarchical: Bool?
-    public let isScrollable: Bool?
-    public let isVisible: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case title, drawingEffect, isHierarchical, isScrollable, isVisible = "visible"
-    }
-}
-
-public struct AnalyticalPlotArea: Decodable {
-    public let dataLabel: AnalyticalDataLabel?
-    public let categoryAxisText: AnalyticalDataLabel?
-    public let valueAxisText: AnalyticalDataLabel?
-}
-
-public struct AnalyticalTitleAttributes: Decodable {
-    public let text: String
-    public let isVisible: Bool?
-    public let alignment: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case text, alignment, isVisible = "visible"
-    }
-}
-
-public struct AnalyticalDataLabel: Decodable {
-    public let isVisible: Bool?
-    public let isShowingTotal: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case isVisible = "visible"
-        case isShowingTotal = "showTotal"
-    }
-}
-
-
-
-
