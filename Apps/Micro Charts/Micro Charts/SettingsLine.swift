@@ -19,11 +19,14 @@ struct SettingsLine: View {
                     Text("Is Hidden")
                 }
                 
-                Text("Baseline width: \(line.width)")
-                Slider(value: $line.width, in: 1...5, step: 1)
+                Text("Line width: \(line.width)")
+                Slider(value: $line.width, in: 1...10, step: 1)
                 
+                Text("Color: TODO")
+                
+                Text("Dash Pattern: TODO")
             }
-        }.navigationBarTitle("Line")
+        }.navigationBarTitle("Line Attributes")
     }
 }
 

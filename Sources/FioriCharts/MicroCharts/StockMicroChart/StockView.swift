@@ -63,7 +63,7 @@ struct StockView: View {
     
     func chartView(in rect: CGRect) -> some View {
         let xAxisHeight:CGFloat = 24
-        let yAxisWidth:CGFloat = 40
+        let yAxisWidth:CGFloat = 20
         
         let width = rect.size.width - yAxisWidth
         let height = rect.size.height - xAxisHeight
