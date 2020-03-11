@@ -14,6 +14,8 @@
 		B8220EA62416C97000D0437C /* SettingsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EA52416C97000D0437C /* SettingsLabel.swift */; };
 		B8220EA82416C99700D0437C /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EA72416C99700D0437C /* Settings.swift */; };
 		B8220EAC2416FB2A00D0437C /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EAB2416FB2A00D0437C /* DetailView.swift */; };
+		B8220EB2241809DB00D0437C /* SettingsCategoryAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */; };
+		B8220EB424184BA700D0437C /* SettingsPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EB324184BA700D0437C /* SettingsPoint.swift */; };
 		B838A32423F22E7B00C70817 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838A32323F22E7B00C70817 /* Tests.swift */; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
@@ -44,6 +46,8 @@
 		B8220EA52416C97000D0437C /* SettingsLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsLabel.swift; sourceTree = "<group>"; };
 		B8220EA72416C99700D0437C /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B8220EAB2416FB2A00D0437C /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCategoryAxis.swift; sourceTree = "<group>"; };
+		B8220EB324184BA700D0437C /* SettingsPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPoint.swift; sourceTree = "<group>"; };
 		B838A32323F22E7B00C70817 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +105,8 @@
 				B8220EAB2416FB2A00D0437C /* DetailView.swift */,
 				B8220EA72416C99700D0437C /* Settings.swift */,
 				B8220EA12416C94400D0437C /* SettingsAxis.swift */,
+				B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */,
+				B8220EB324184BA700D0437C /* SettingsPoint.swift */,
 				B8220EA32416C95B00D0437C /* SettingsLine.swift */,
 				B8220EA52416C97000D0437C /* SettingsLabel.swift */,
 				F6F9163523962B4400D091FF /* AppDelegate.swift */,
@@ -198,6 +204,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8220EB424184BA700D0437C /* SettingsPoint.swift in Sources */,
 				B8220EA62416C97000D0437C /* SettingsLabel.swift in Sources */,
 				B8220EAC2416FB2A00D0437C /* DetailView.swift in Sources */,
 				B8220EA22416C94400D0437C /* SettingsAxis.swift in Sources */,
@@ -205,6 +212,7 @@
 				F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */,
 				B838A32423F22E7B00C70817 /* Tests.swift in Sources */,
 				F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */,
+				B8220EB2241809DB00D0437C /* SettingsCategoryAxis.swift in Sources */,
 				B8220EA42416C95B00D0437C /* SettingsLine.swift in Sources */,
 				F6F9163A23962B4400D091FF /* ContentView.swift in Sources */,
 			);
