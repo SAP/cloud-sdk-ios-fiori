@@ -59,20 +59,6 @@ extension TimelineCard: Hashable {
     }
 }
 
-public struct TimelineItemTemplate: Decodable {
-    public let title: BaseModel
-    public let description: BaseModel?
-    public let dateTime: BaseModel?
-    public let owner: BaseModel?
-    public let ownerImage: BaseModel?
-    public let icon: Icon?
-}
-
-public struct BaseModel: Decodable {
-    let label: String?
-    let value: String
-}
-
 private struct HavingContent<ContentModel: Decodable>: Decodable {
     let content: ContentModel
 }

@@ -70,29 +70,6 @@ struct VerticalLine: Shape {
     }
 }
 
-//struct TimelineBubble: View {
-//    var model: TimelineItem
-//
-//    var body: some View {
-//        GeometryReader { (geometry) in
-//            self.makeView(geometry)
-//        }
-//    }
-//
-//    func makeView(_ geometry: GeometryProxy) -> some View {
-//        print(geometry.size.width, geometry.size.height)
-//        //        self.rect = geometry.frame(in: .global)
-//        return VStack(alignment: .leading, spacing: 0) {
-//            SafeText(model.title).font(.body)
-//            SafeText(model.dateTime).font(.footnote).foregroundColor(.gray)
-//                .padding(EdgeInsets(top: 0, leading: 0, bottom: 8, trailing: 0))
-//            SafeText(model.description).font(.body)
-//        }
-//        .padding(8)
-//        .overlay(Bubble())
-//    }
-//}
-
 struct Bubble: View {
     
     let borderColor: Color
