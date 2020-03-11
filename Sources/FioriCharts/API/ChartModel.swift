@@ -20,7 +20,7 @@ public enum ChartSelectionMode {
 }
 
 /// Enum for default category selection.
-public enum ChartDefaultCategorySelectionMode {
+public enum ChartCategorySelectionMode {
     
     /// No default selection mode is defined. Any set selection will be used.
     case index
@@ -110,7 +110,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var panChartToDataPointOnly = false
   
     /// seires attributes
-    @Published public var series: ChartSeriesAttributes? = nil
+    @Published public var seriesAttributes: ChartSeriesAttributes
     
     ///
     @Published public var colorsForCategory: [[Color]]?
@@ -178,7 +178,7 @@ public class ChartModel: ObservableObject, Identifiable {
      - `MCDefaultCategorySelectionFirst` The first category will be considered as the default selection.
      - `MCDefaultCategorySelectionLast` The last gategory will be considered as the default selection.
     */
-    @Published public var defaultCategorySelectionMode: ChartDefaultCategorySelectionMode = .first
+    @Published public var defaultCategorySelectionMode: ChartCategorySelectionMode = .index
     
     /// When false a state is allowed in which no series is selected/active.
     @Published public var selectionRequired: Bool = false
@@ -197,7 +197,18 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(chartType: ChartType, data: [[Double]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[String]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
+    public init(chartType: ChartType,
+                data: [[Double]],
+                titlesForCategory: [[String]]? = nil,
+                colorsForCategory: [[Color]]? = nil,
+                titlesForAxis: [String]? = nil,
+                labelsForDimension: [[String]]? = nil,
+                selectedSeriesIndex: Int? = nil,
+                userInteractionEnabled: Bool = false,
+                seriesAttributes: ChartSeriesAttributes? = nil,
+                categoryAxis: ChartCategoryAxis? = nil,
+                numericAxis: ChartNumericAxis? = nil,
+                secondaryNumericAxis: ChartNumericAxis? = nil) {
         self.chartType = chartType
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
@@ -227,27 +238,27 @@ public class ChartModel: ObservableObject, Identifiable {
     
         var tmpData: [[DimensionData<Double>]] = []
         for (i, c) in data.enumerated() {
-            var series: [DimensionData<Double>] = []
+            var s: [DimensionData<Double>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
                 }
                 else {
-                    series.append(DimensionData.single(d))
+                    s.append(DimensionData.single(d))
                 }
             }
-            tmpData.append(series)
+            tmpData.append(s)
         }
         self.data = tmpData
         
         if let labels = labelsForDimension {
             var tmpLabels: [[DimensionData<String>]] = []
             for c in labels {
-                var series: [DimensionData<String>] = []
+                var s: [DimensionData<String>] = []
                 for d in c {
-                    series.append(DimensionData.single(d))
+                    s.append(DimensionData.single(d))
                 }
-                tmpLabels.append(series)
+                tmpLabels.append(s)
             }
             self.labelsForDimension = tmpLabels
         }
@@ -271,12 +282,30 @@ public class ChartModel: ObservableObject, Identifiable {
         }
         else {
             self.categoryAxis = ChartCategoryAxis()
+        }
+        
+        if let seriesAttributes = seriesAttributes {
+            self.seriesAttributes = seriesAttributes
+        }
+        else {
+            self.seriesAttributes = ChartSeriesAttributes()
         }
         
         initialize()
     }
     
-    public init(chartType: ChartType, data: [[[Double]]], titlesForCategory: [[String]]? = nil, colorsForCategory: [[Color]]? = nil, titlesForAxis: [String]? = nil, labelsForDimension: [[[String]]]? = nil, selectedSeriesIndex: Int? = nil, userInteractionEnabled: Bool = false, numericAxis: ChartNumericAxis? = nil, secondaryNumericAxis: ChartNumericAxis? = nil, categoryAxis: ChartCategoryAxis? = nil) {
+    public init(chartType: ChartType,
+                data: [[[Double]]],
+                titlesForCategory: [[String]]? = nil,
+                colorsForCategory: [[Color]]? = nil,
+                titlesForAxis: [String]? = nil,
+                labelsForDimension: [[[String]]]? = nil,
+                selectedSeriesIndex: Int? = nil,
+                userInteractionEnabled: Bool = false,
+                seriesAttributes: ChartSeriesAttributes? = nil,
+                categoryAxis: ChartCategoryAxis? = nil,
+                numericAxis: ChartNumericAxis? = nil,
+                secondaryNumericAxis: ChartNumericAxis? = nil) {
         self.chartType = chartType
         self.colorsForCategory = colorsForCategory
         self.titlesForAxis = titlesForAxis
@@ -306,27 +335,27 @@ public class ChartModel: ObservableObject, Identifiable {
         
         var tmpData: [[DimensionData<Double>]] = []
         for (i, c) in data.enumerated() {
-            var series: [DimensionData<Double>] = []
+            var s: [DimensionData<Double>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
                 }
                 else {
-                    series.append(DimensionData.array(d))
+                    s.append(DimensionData.array(d))
                 }
             }
-            tmpData.append(series)
+            tmpData.append(s)
         }
         self.data = tmpData
         
         if let labels = labelsForDimension {
             var tmpLabels: [[DimensionData<String>]] = []
             for c in labels {
-                var series: [DimensionData<String>] = []
+                var s: [DimensionData<String>] = []
                 for d in c {
-                    series.append(DimensionData.array(d))
+                    s.append(DimensionData.array(d))
                 }
-                tmpLabels.append(series)
+                tmpLabels.append(s)
             }
             self.labelsForDimension = tmpLabels
         }
@@ -350,6 +379,13 @@ public class ChartModel: ObservableObject, Identifiable {
         }
         else {
             self.categoryAxis = ChartCategoryAxis()
+        }
+        
+        if let seriesAttributes = seriesAttributes {
+            self.seriesAttributes = seriesAttributes
+        }
+        else {
+            self.seriesAttributes = ChartSeriesAttributes()
         }
         
         initialize()
