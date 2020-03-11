@@ -41,11 +41,7 @@ struct YAxisView: View {
             }
         }
         yAxisTitles.append(AxisTitle(index: count - 1, title: formatYAxisTitle(value: minVal, total: count)))
-        
-        let strokeStyle = StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
-        
-        let baselineStrokeStyle = StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
-        
+
         let x = rect.origin.x + rect.size.width
         // y axis titles
         return ZStack {
@@ -59,18 +55,17 @@ struct YAxisView: View {
             
             // middle dash line
             LineShape(pos1: CGPoint(x: x, y: rect.size.height/2),
-                      pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2),
-                      color: model.numericAxis.gridlines.color,
-                      width: 1,
-                      strokeStyle: strokeStyle)
+                      pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2))
+                .stroke(model.numericAxis.gridlines.color,
+                        style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0))
             
             if !model.numericAxis.baseline.isHidden {
                 // left base line
                 LineShape(pos1: CGPoint(x: x, y: rect.size.height),
-                          pos2: CGPoint(x: x, y: rect.origin.y),
-                          color: model.numericAxis.baseline.color,
-                          width: 1,
-                          strokeStyle: baselineStrokeStyle)
+                          pos2: CGPoint(x: x, y: rect.origin.y))
+                    .stroke(model.numericAxis.baseline.color,
+                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
+                    //.frame(width: rect.size.width, height: rect.size.height)
             }
         }
     }

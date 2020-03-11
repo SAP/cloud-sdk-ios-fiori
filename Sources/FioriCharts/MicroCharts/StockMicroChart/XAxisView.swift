@@ -17,16 +17,15 @@ struct XAxisView: View {
     var body: some View {
         let xAxisTitles = calXAxisTitles()
         
-        let strokeStyle = StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0)
-        
         return ZStack {
             ForEach(xAxisTitles) { title in
                 // grid lines
-                LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: 0),
-                          pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect), y: self.rect.origin.y),
-                          color: self.model.categoryAxis.gridlines.color,
-                          width: 1,
-                          strokeStyle: strokeStyle)
+                LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
+                                        y: 0),
+                          pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
+                                        y: self.rect.origin.y))
+                    .stroke(self.model.categoryAxis.gridlines.color,
+                            style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 4], dashPhase: 0))
                 
                 // category labels
                 Text(title.title)
@@ -39,9 +38,9 @@ struct XAxisView: View {
             // bottom solid line
             if !model.categoryAxis.baseline.isHidden {
                 LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
-                          pos2: CGPoint(x: rect.origin.x, y: rect.origin.y),
-                          color: model.categoryAxis.baseline.color,
-                          width: CGFloat(model.categoryAxis.baseline.width))
+                          pos2: CGPoint(x: rect.origin.x, y: rect.origin.y))
+                    .stroke(self.model.categoryAxis.baseline.color,
+                            style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.baseline.width), lineCap: .round))
             }
         }
     }
@@ -52,7 +51,6 @@ struct XAxisView: View {
         let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
         let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
-        //let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), StockUtility.numOfDataItmes(model) - 1)
         
         var result: [AxisTitle] = []
         
