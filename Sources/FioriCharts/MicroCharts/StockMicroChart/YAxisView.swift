@@ -45,27 +45,32 @@ struct YAxisView: View {
         let x = rect.origin.x + rect.size.width
         // y axis titles
         return ZStack {
-            ForEach(yAxisTitles) { title in
-                Text(title.title)
-                    .font(.caption)
-                    .foregroundColor(self.textColor)
-                    .position(x: self.rect.origin.x + self.rect.size.width / 2,
-                              y: self.rect.origin.y + CGFloat(title.index) * self.rect.size.height / CGFloat(yAxisTitles.count - 1))
+            if !model.numericAxis.labels.isHidden {
+                ForEach(yAxisTitles) { title in
+                    Text(title.title)
+                        .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
+                        .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
+                        .position(x: self.rect.origin.x + self.rect.size.width / 2,
+                                  y: self.rect.origin.y + CGFloat(title.index) * self.rect.size.height / CGFloat(yAxisTitles.count - 1))
+                }
             }
             
-            // middle dash line
-            LineShape(pos1: CGPoint(x: x, y: rect.size.height/2),
-                      pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2))
-                .stroke(model.numericAxis.gridlines.color,
-                        style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [2, 4], dashPhase: 0))
+            if !model.numericAxis.gridlines.isHidden {
+                // middle dash line
+                LineShape(pos1: CGPoint(x: x, y: rect.size.height/2),
+                          pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2))
+                    .stroke(Color(hex: model.numericAxis.gridlines.color),
+                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width),
+                                               dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
+            }
             
             if !model.numericAxis.baseline.isHidden {
                 // left base line
                 LineShape(pos1: CGPoint(x: x, y: rect.size.height),
                           pos2: CGPoint(x: x, y: rect.origin.y))
-                    .stroke(model.numericAxis.baseline.color,
-                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width), lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
-                    //.frame(width: rect.size.width, height: rect.size.height)
+                    .stroke(Color(hex: model.numericAxis.baseline.color),
+                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width),
+                                               dash: [CGFloat(self.model.numericAxis.baseline.dashPatternLength), CGFloat(self.model.numericAxis.baseline.dashPatternGap)]))
             }
         }
     }

@@ -18,29 +18,35 @@ struct XAxisView: View {
         let xAxisTitles = calXAxisTitles()
         
         return ZStack {
-            ForEach(xAxisTitles) { title in
-                // grid lines
-                LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
-                                        y: 0),
-                          pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
-                                        y: self.rect.origin.y))
-                    .stroke(self.model.categoryAxis.gridlines.color,
-                            style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
-                                               dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
-                
-                // category labels
-                Text(title.title)
-                    .font(.footnote)
-                    .foregroundColor(self.textColor)
-                    .position(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
-                              y: self.rect.origin.y + self.rect.size.height / 2)
+            if !self.model.categoryAxis.gridlines.isHidden || !self.model.categoryAxis.labels.isHidden {
+                ForEach(xAxisTitles) { title in
+                    // grid lines
+                    if !self.model.categoryAxis.gridlines.isHidden {
+                        LineShape(pos1: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
+                                                y: 0),
+                                  pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
+                                                y: self.rect.origin.y))
+                            .stroke(Color(hex: self.model.categoryAxis.gridlines.color),
+                                    style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
+                                                       dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
+                    }
+                    
+                    if !self.model.categoryAxis.labels.isHidden {
+                        // category labels
+                        Text(title.title)
+                            .font(.system(size: CGFloat(self.model.categoryAxis.labels.fontSize)))
+                            .foregroundColor(Color(hex: self.model.categoryAxis.labels.color))
+                            .position(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
+                                      y: self.rect.origin.y + self.rect.size.height / 2)
+                    }
+                }
             }
             
             // bottom solid line
             if !model.categoryAxis.baseline.isHidden {
                 LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
                           pos2: CGPoint(x: rect.origin.x, y: rect.origin.y))
-                    .stroke(self.model.categoryAxis.baseline.color,
+                    .stroke(Color(hex: self.model.categoryAxis.baseline.color),
                             style: StrokeStyle(
                                 lineWidth: CGFloat(self.model.categoryAxis.baseline.width),
                                 dash: [CGFloat(self.model.categoryAxis.baseline.dashPatternLength), CGFloat(self.model.categoryAxis.baseline.dashPatternGap)]))

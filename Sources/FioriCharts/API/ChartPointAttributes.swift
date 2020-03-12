@@ -19,7 +19,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable {
     @Published public var gap: Double = 2
     
     /// Stroke color for the point.
-    @Published public var strokeColor: Color? = nil
+    @Published public var strokeColor: String = "00000000"
     
     /// Line width for the point's stroked path.
     @Published public var lineWidth: Double  = 0
