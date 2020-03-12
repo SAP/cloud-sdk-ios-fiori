@@ -11,6 +11,7 @@ import FioriCharts
 
 struct SettingsLine: View {
     @Binding var line: ChartGridlineAttributes
+    let colorOptions: [String] = ["FF0000FF", "00FF00FF", "0000FFFF", "FFFF00FF", "FF00FFFF", "00FFFF88", "88888888"]
     
     var body: some View {
         Form {
@@ -22,7 +23,7 @@ struct SettingsLine: View {
                 Text("Line width: \(line.width)")
                 Slider(value: $line.width, in: 1...10, step: 1)
                 
-                Text("Color: TODO")
+                SettingColor(color: $line.color)
             }
             
             Section(header: Text("Dash Pattern")) {

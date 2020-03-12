@@ -16,6 +16,8 @@
 		B8220EAC2416FB2A00D0437C /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EAB2416FB2A00D0437C /* DetailView.swift */; };
 		B8220EB2241809DB00D0437C /* SettingsCategoryAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */; };
 		B8220EB424184BA700D0437C /* SettingsPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EB324184BA700D0437C /* SettingsPoint.swift */; };
+		B8220EE92419D6FB00D0437C /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EE82419D6FB00D0437C /* Color+Extensions.swift */; };
+		B8220EEB241AA40F00D0437C /* SettingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEA241AA40F00D0437C /* SettingColor.swift */; };
 		B838A32423F22E7B00C70817 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838A32323F22E7B00C70817 /* Tests.swift */; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
@@ -48,6 +50,8 @@
 		B8220EAB2416FB2A00D0437C /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCategoryAxis.swift; sourceTree = "<group>"; };
 		B8220EB324184BA700D0437C /* SettingsPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPoint.swift; sourceTree = "<group>"; };
+		B8220EE82419D6FB00D0437C /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		B8220EEA241AA40F00D0437C /* SettingColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingColor.swift; sourceTree = "<group>"; };
 		B838A32323F22E7B00C70817 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -108,8 +112,10 @@
 				B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */,
 				B8220EB324184BA700D0437C /* SettingsPoint.swift */,
 				B8220EA32416C95B00D0437C /* SettingsLine.swift */,
+				B8220EEA241AA40F00D0437C /* SettingColor.swift */,
 				B8220EA52416C97000D0437C /* SettingsLabel.swift */,
 				F6F9163523962B4400D091FF /* AppDelegate.swift */,
+				B8220EE82419D6FB00D0437C /* Color+Extensions.swift */,
 				F6F9163B23962B4700D091FF /* Assets.xcassets */,
 				F6F9164323962B4700D091FF /* Info.plist */,
 				F6F9164023962B4700D091FF /* LaunchScreen.storyboard */,
@@ -206,6 +212,7 @@
 			files = (
 				B8220EB424184BA700D0437C /* SettingsPoint.swift in Sources */,
 				B8220EA62416C97000D0437C /* SettingsLabel.swift in Sources */,
+				B8220EEB241AA40F00D0437C /* SettingColor.swift in Sources */,
 				B8220EAC2416FB2A00D0437C /* DetailView.swift in Sources */,
 				B8220EA22416C94400D0437C /* SettingsAxis.swift in Sources */,
 				B8220EA82416C99700D0437C /* Settings.swift in Sources */,
@@ -215,6 +222,7 @@
 				B8220EB2241809DB00D0437C /* SettingsCategoryAxis.swift in Sources */,
 				B8220EA42416C95B00D0437C /* SettingsLine.swift in Sources */,
 				F6F9163A23962B4400D091FF /* ContentView.swift in Sources */,
+				B8220EE92419D6FB00D0437C /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

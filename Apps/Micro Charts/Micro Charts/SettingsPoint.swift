@@ -28,7 +28,7 @@ struct SettingsPoint: View {
                 Text("Allowed gap between dots before they run into each other and are hidden: \(point.gap)")
                 Slider(value: $point.gap, in: 0...10, step: 1)
                 
-                Text("Stroke color: TODO")
+                SettingColor(color: $point.strokeColor)
             }
         }.navigationBarTitle("Point Attributes")
     }

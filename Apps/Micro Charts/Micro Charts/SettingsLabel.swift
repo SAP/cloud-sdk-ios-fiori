@@ -25,7 +25,7 @@ struct SettingsLabel: View {
                 Text("Font offset: \(label.offset)")
                 Slider(value: $label.offset, in: 0...10, step: 1)
                 
-                Text("Color: TODO")
+                SettingColor(color: $label.color)
             }
         }.navigationBarTitle("Label Attributes")
     }
