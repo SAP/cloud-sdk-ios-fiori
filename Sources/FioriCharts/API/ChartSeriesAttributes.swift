@@ -18,7 +18,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
      let colorIndex = seriesIndex % colors.count
      ```
      */
-    @Published public var colors: [Color]?
+    @Published public var colors: [String]
     
     /// Line width for all series rendered as lines.
     @Published public var lineWidth: Double = 1
@@ -34,8 +34,14 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(colors: [Color]? = nil, lineWidth: Double = 1, points: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
-        self.colors = colors
+    public init(colors: [String], lineWidth: Double = 1, points: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
+        if colors.count > 0 {
+            self.colors = colors
+        }
+        else {
+            self.colors = ["5899DA"]
+        }
+        
         self.lineWidth = lineWidth
         
         if let points = points {
