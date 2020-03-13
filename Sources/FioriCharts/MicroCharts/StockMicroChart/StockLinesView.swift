@@ -49,6 +49,17 @@ struct StockLinesView: View {
             
         }
         
+        var isPriceGoingUp = true
+        
+        if let startPrice = StockUtility.dimensionValue(model, categoryIndex: 0), let endPrice = StockUtility.dimensionValue(model, categoryIndex: StockUtility.lastValidDimIndex(model)) {
+            if startPrice > endPrice {
+                isPriceGoingUp = false
+            }
+        }
+        
+        let strokeColor = isPriceGoingUp ? model.seriesAttributes.colors[0] : model.seriesAttributes.colors[1]
+        let fillColor = isPriceGoingUp ? model.seriesAttributes.colors[2] : model.seriesAttributes.colors[3]
+        
         return ZStack {
             Color(#colorLiteral(red: 0.9999071956, green: 1, blue: 0.999881804, alpha: 1)).frame(width: rect.size.width, height: height)
             
@@ -57,7 +68,7 @@ struct StockLinesView: View {
                     HStack(spacing: 0) {
                         LinesShape(points: data, displayRange: range, fill: true, startOffset: startOffset, endOffset: endOffset)
                             .fill(LinearGradient(gradient:
-                                Gradient(colors: [Color(#colorLiteral(red: 0.4957013249, green: 0.9818227649, blue: 0.6320676684, alpha: 1)), Color(#colorLiteral(red: 0.9872599244, green: 0.992430985, blue: 0.9878047109, alpha: 1))]),
+                                Gradient(colors: [Color(hex: fillColor), Color(hex: model.seriesAttributes.colors[4])]),
                                                  startPoint: .top,
                                                  endPoint: .bottom))
                             .frame(width: width, height: height)
@@ -67,8 +78,9 @@ struct StockLinesView: View {
                     
                     HStack(spacing: 0) {
                         LinesShape(points: data, displayRange: range,startOffset: startOffset, endOffset: endOffset)
-                            .stroke(lineWidth: 2)
-                            .foregroundColor(.green)
+                            .stroke(lineWidth: CGFloat(model.seriesAttributes.lineWidth))
+                            //.foregroundColor(.green)
+                            .foregroundColor(Color(hex: strokeColor))
                             .frame(width: width, height: height)
                             .clipped()
                         Spacer(minLength: 0)

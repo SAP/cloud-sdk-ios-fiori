@@ -23,39 +23,6 @@ struct Settings: View {
                     Toggle(isOn: $model.panChartToDataPointOnly) {
                         Text("Pan chart to data point only")
                     }
-                }
-                
-                Section(header: Text("Selection")) {
-                    Toggle(isOn: $model.selectionRequired) {
-                        Text("Selection Required")
-                    }
-                    
-                    Picker(selection: $model.selectionMode, label: Text("Selection Mode")) {
-                        Text("Single").tag(ChartSelectionMode.single)
-                        Text("All").tag(ChartSelectionMode.all)
-                    }
-                    
-                    Picker(selection: $model.defaultCategorySelectionMode, label: Text("Category Selection Mode")) {
-                        Text("Index").tag(ChartCategorySelectionMode.index)
-                        Text("First").tag(ChartCategorySelectionMode.first)
-                        Text("Last").tag(ChartCategorySelectionMode.last)
-                    }
-                    
-                    Stepper("Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
-                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % self.model.data.count
-                        self.model.scale = 1.0
-                        self.model.startPos = 0
-                    }, onDecrement:  {
-                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.data.count) % self.model.data.count
-                        self.model.scale = 1.0
-                        self.model.startPos = 0
-                    })
-                    
-                    Text("Selected Category Indexes: TODO")
-                    Text("Selected Dimension Indexes: TODO")
-                }
-                
-                Section(header: Text("Scale")) {
                     
                     Text("Scale: \(model.scale)")
                     Slider(value: $model.scale, in: 1...max(1.1, CGFloat(model.data[model.currentSeriesIndex].count - 1) / 2), step: 0.1) { (changed) in
@@ -67,23 +34,10 @@ struct Settings: View {
                     Text("Start Position: \(model.startPos)")
                 }
                 
-                Section(header: Text("Series")) {
-                    Text("Colors: TBD")
-                    
-                    Text("Line Width: \(model.seriesAttributes.lineWidth)")
-                    Slider(value: $model.seriesAttributes.lineWidth, in: 1...10, step: 1)
-                    
-                    Text("First Line Cap Diameter: \(model.seriesAttributes.firstLineCapDiameter)")
-                    Slider(value: $model.seriesAttributes.firstLineCapDiameter, in: 0...10, step: 1)
-                    
-                    Text("First Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
-                    Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
-                    
-                    NavigationLink(destination: SettingsPoint(point: $model.seriesAttributes.points)) {
-                        Text("Point")
-                    }
-                    Text("Colors")
-                }
+                NavigationLink("Selection", destination: SettingsSelection(model: model))
+                
+                NavigationLink("Series", destination: SettingsSeries(model: model))
+                
                 
                 Section(header: Text("Axis")) {
                     NavigationLink(destination: SettingsCategoryAxis(axis: $model.categoryAxis)) {
