@@ -19,49 +19,53 @@ struct YAxisView: View {
         let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
         let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
         
-        var yAxisTitlesCount = Int((rect.size.height - 40)/30)
-        if yAxisTitlesCount < 0 {
-            yAxisTitlesCount = 0
-        }
-        else if yAxisTitlesCount > 0 {
-            yAxisTitlesCount = (yAxisTitlesCount / 2 > 0) ? (yAxisTitlesCount / 2) : 1
-            if yAxisTitlesCount % 2 == 0 {
-                yAxisTitlesCount -= 1
+        let yAxisLabelsCount = max(1, model.numberOfGridlines)
+        let count = yAxisLabelsCount + 1
+        var yAxisLabels: [AxisTitle] = [AxisTitle(index: 0, title: formatYAxisTitle(value: maxVal, total: count))]
+        
+        if yAxisLabelsCount > 1 {
+            for i in 1..<yAxisLabelsCount {
+                let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount + 1)
+                yAxisLabels.append(AxisTitle(index: i, title: formatYAxisTitle(value: val, total: count)))
             }
         }
         
-        let count = yAxisTitlesCount + 2
-        var yAxisTitles: [AxisTitle] = [AxisTitle(index: 0, title: formatYAxisTitle(value: maxVal, total: count))]
+        //yAxisLabels.append(AxisTitle(index: count - 1, title: formatYAxisTitle(value: minVal, total: count)))
+        let startValTitle = formatYAxisTitle(value: minVal, total: count)
         
-        if yAxisTitlesCount > 0 {
-            for i in 1...yAxisTitlesCount {
-                let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisTitlesCount + 1)
-                yAxisTitles.append(AxisTitle(index: i,
-                                             title: formatYAxisTitle(value: val, total: count)))
-            }
-        }
-        yAxisTitles.append(AxisTitle(index: count - 1, title: formatYAxisTitle(value: minVal, total: count)))
-
         let x = rect.origin.x + rect.size.width
-        // y axis titles
+        let stepHeight = self.rect.size.height / CGFloat(yAxisLabelsCount)
+        
         return ZStack {
-            if !model.numericAxis.labels.isHidden {
-                ForEach(yAxisTitles) { title in
-                    Text(title.title)
-                        .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
-                        .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
-                        .position(x: self.rect.origin.x + self.rect.size.width / 2,
-                                  y: self.rect.origin.y + CGFloat(title.index) * self.rect.size.height / CGFloat(yAxisTitles.count - 1))
+            if !model.numericAxis.labels.isHidden || !model.numericAxis.gridlines.isHidden {
+                ForEach(yAxisLabels) { label in
+                    if !self.model.numericAxis.labels.isHidden {
+                        // y axis lables
+                        Text(label.title)
+                            .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
+                            .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
+                            .position(x: self.rect.origin.x + self.rect.size.width / 2,
+                                      y: self.rect.origin.y + CGFloat(label.index) * stepHeight)
+                    }
+                    
+                    if !self.model.numericAxis.gridlines.isHidden {
+                        // grid lines
+                        LineShape(pos1: CGPoint(x: x, y: self.rect.origin.y + CGFloat(label.index) * stepHeight),
+                                  pos2: CGPoint(x: x + self.chartWidth, y: self.rect.origin.y + CGFloat(label.index) * stepHeight))
+                            .stroke(Color(hex: self.model.numericAxis.gridlines.color),
+                                    style: StrokeStyle(lineWidth: CGFloat(self.model.numericAxis.gridlines.width),
+                                                       dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
+                    }
                 }
             }
             
-            if !model.numericAxis.gridlines.isHidden {
-                // middle dash line
-                LineShape(pos1: CGPoint(x: x, y: rect.size.height/2),
-                          pos2: CGPoint(x: x + chartWidth, y: rect.size.height/2))
-                    .stroke(Color(hex: model.numericAxis.gridlines.color),
-                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.gridlines.width),
-                                               dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
+            // start value label
+            if !self.model.numericAxis.labels.isHidden {
+                Text(startValTitle)
+                    .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
+                    .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
+                    .position(x: self.rect.origin.x + self.rect.size.width / 2,
+                              y: self.rect.origin.y + self.rect.size.height)
             }
             
             if !model.numericAxis.baseline.isHidden {
@@ -89,9 +93,9 @@ struct YAxisView: View {
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
         YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400), chartWidth: 160).environmentObject(Tests.stockModels[1])
-        .frame(width:300, height: 400, alignment: .topLeading)
-        .padding()
-        .previewLayout(.sizeThatFits)
+            .frame(width:300, height: 400, alignment: .topLeading)
+            .padding()
+            .previewLayout(.sizeThatFits)
         
     }
 }

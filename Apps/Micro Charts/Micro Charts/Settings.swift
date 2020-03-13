@@ -38,6 +38,7 @@ struct Settings: View {
                 
                 NavigationLink("Series", destination: SettingsSeries(model: model))
                 
+                Text("Color for categories: TODO")
                 
                 Section(header: Text("Axis")) {
                     NavigationLink(destination: SettingsCategoryAxis(axis: $model.categoryAxis)) {
