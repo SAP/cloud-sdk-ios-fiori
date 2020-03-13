@@ -16,11 +16,14 @@ struct SettingColor: View {
     
     var body: some View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {
-            ForEach(0 ..< self.colorOptions.count) { i in
+            ForEach(colorOptions, id: \.self) { hex in
                 Rectangle()
-                    .fill(Color(hex: self.colorOptions[i]))
-                    .frame(width: 60, height: 20)
-                    .tag(self.colorOptions[i])
+                    .fill(Color(hex: hex))
+                    .tag(hex)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.gray, lineWidth: 1))
+                .frame(width: 60, height: 20)
             }
         }
     }
