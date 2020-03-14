@@ -117,21 +117,50 @@ struct XAxisView: View {
             if prev == -1 && skipFirst {
                 prev = cur
             } else if cur != prev {
-                if component == .month {
+                switch component {
+                case .month:
                     result.append(AxisTitle(index: i, title: monthAbbreviationFromInt(cur)))
-                }
-                else if component == .day {
-                    result.append(AxisTitle(index: i, title: String("\(cur)(D)")))
-                }
-                else if component == .hour {
-                    result.append(AxisTitle(index: i, title: String("\(cur):00")))
-                }
-                else if component == .minute {
-                    result.append(AxisTitle(index: i, title: String("\(cur)(M)")))
-                }
-                else {
+                    
+                case .day:
+                    let components = Calendar.current.dateComponents([.month, .day], from: date)
+                    var title: String = ""
+                    if let month = components.month {
+                        title.append(String(month))
+                    }
+                    
+                    if let day = components.day {
+                        if !title.isEmpty {
+                            title.append("/")
+                        }
+                        title.append(String(day))
+                    }
+                    
+                    result.append(AxisTitle(index: i, title: title))
+                    
+                case .hour, .minute:
+                    let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+                    var title: String = ""
+                    if let hour = components.hour {
+                        title.append(String(hour))
+                    }
+                    
+                    if let minute = components.minute {
+                        if !title.isEmpty {
+                            title.append(":")
+                        }
+                        if minute < 10 {
+                            title.append("0")
+                        }
+                        
+                        title.append(String(minute))
+                    }
+                    
+                    result.append(AxisTitle(index: i, title: title))
+                    
+                default:
                     result.append(AxisTitle(index: i, title: String(cur)))
                 }
+                
                 prev = cur
             }
         }
