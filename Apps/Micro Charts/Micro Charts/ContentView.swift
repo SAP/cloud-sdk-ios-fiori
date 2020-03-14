@@ -48,7 +48,7 @@ struct ContentView: View {
                         }
                     }
                 }
-            }.navigationBarTitle("Micro Charts", displayMode: .inline)
+            }.navigationBarTitle("Micro Charts")
                 .sheet(isPresented: $showingDetail) {
                     DetailView(model: self.currentModel!)
             }
