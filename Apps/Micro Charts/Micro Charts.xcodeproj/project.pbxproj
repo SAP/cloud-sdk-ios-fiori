@@ -20,7 +20,6 @@
 		B8220EEB241AA40F00D0437C /* SettingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEA241AA40F00D0437C /* SettingColor.swift */; };
 		B8220EED241AB90A00D0437C /* SettingsSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEC241AB90A00D0437C /* SettingsSeries.swift */; };
 		B8220EEF241ABA1800D0437C /* SettingsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEE241ABA1800D0437C /* SettingsSelection.swift */; };
-		B838A32423F22E7B00C70817 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838A32323F22E7B00C70817 /* Tests.swift */; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
 		F6F9163A23962B4400D091FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163923962B4400D091FF /* ContentView.swift */; };
@@ -56,7 +55,6 @@
 		B8220EEA241AA40F00D0437C /* SettingColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingColor.swift; sourceTree = "<group>"; };
 		B8220EEC241AB90A00D0437C /* SettingsSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSeries.swift; sourceTree = "<group>"; };
 		B8220EEE241ABA1800D0437C /* SettingsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSelection.swift; sourceTree = "<group>"; };
-		B838A32323F22E7B00C70817 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F9163523962B4400D091FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				F6F9163E23962B4700D091FF /* Preview Assets.xcassets */,
-				B838A32323F22E7B00C70817 /* Tests.swift */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -224,7 +221,6 @@
 				B8220EA82416C99700D0437C /* Settings.swift in Sources */,
 				F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */,
 				B8220EEF241ABA1800D0437C /* SettingsSelection.swift in Sources */,
-				B838A32423F22E7B00C70817 /* Tests.swift in Sources */,
 				F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */,
 				B8220EB2241809DB00D0437C /* SettingsCategoryAxis.swift in Sources */,
 				B8220EA42416C95B00D0437C /* SettingsLine.swift in Sources */,

@@ -9,8 +9,18 @@
 import Foundation
 import SwiftUI
 
-struct Tests {
-    static let bulletModles = [
+public struct Tests {
+    public static let lineModels = [
+        ChartModel(chartType: .line,
+                   data: [[200, 170, 165, 143, 166, 112, 110]],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+        ),
+        ChartModel(chartType: .line,
+                   data: [[1.8, 2.2, 1.1, 0.7, 1.2, 2.3, 2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]])
+    ]
+    
+    public static let bulletModles = [
         ChartModel(chartType: .micro_bullet,
                    data: [[120, 100, 110], [0, 50, 150, 200]],
                    colorsForCategory: [[.green, .green, .red, .blue]]),
@@ -20,7 +30,7 @@ struct Tests {
                    colorsForCategory: [[.red, .yellow, .yellow, .red]])
     ]
     
-    static let columnModels = [
+    public static let columnModels = [
         ChartModel(chartType: .micro_column,
                    data: [[200, 170, 165, 143, 166, 112, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
@@ -39,7 +49,7 @@ struct Tests {
                    colorsForCategory: [[Color.green, Color.green, Color.red, Color.blue]])
     ]
     
-    static let harveyBallModels = [
+    public static let harveyBallModels = [
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 8]],
                    titlesForCategory: [["360 Mrd", "8 Mrd"]],
@@ -58,7 +68,7 @@ struct Tests {
                    colorsForCategory: [[Color.gray, Color.purple]])
     ]
     
-    static let donutModels = [
+    public static let donutModels = [
         ChartModel(chartType: .donut,
                    data: [[142.50, 332.05, 247.18, 228.82]],
                    titlesForCategory: [["Trucks", "Vans", "Leasing", "Service"]],
@@ -77,14 +87,14 @@ struct Tests {
                                         Color.green]])
     ]
     
-    static let radialModels = [
+    public static let radialModels = [
         ChartModel(chartType: .micro_radial, data: [[45]], colorsForCategory: [[Color.blue]]),
         ChartModel(chartType: .micro_radial, data: [[99.9]], colorsForCategory: [[Color.green]]),
         ChartModel(chartType: .micro_radial, data: [[0.1]], colorsForCategory: [[Color.red]]),
         ChartModel(chartType: .micro_radial, data: [[0]], colorsForCategory: [[Color.red]])
     ]
     
-    static let stockModels = [
+    public static let stockModels = [
         // multiple series: intraday: 1min, one day: 1min, 1year:1day, 3years:1week
         ChartModel(chartType: .stock,
                    data: [
@@ -115,6 +125,6 @@ struct Tests {
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]])
     ]
     
-    public static let allCases = [bulletModles, columnModels, harveyBallModels, radialModels, donutModels, stockModels].flatMap { $0 }
+    public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
 }
 

@@ -35,6 +35,9 @@ public struct ChartView: View {
             else if chartModel.chartType == .donut {
                 DonutChart(chartModel)
             }
+            else if chartModel.chartType == .line {
+                LineChart(chartModel)
+            }
             else {
                 NoDataView()
             }
