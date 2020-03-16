@@ -29,8 +29,6 @@ struct DonutChart: View {
     
         // depth
         let depth = diameter / 5
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
         
         let segments: [MicroChartDataItem] = model.dataItemsIn(seriesIndex: 0)
         let count = segments.count
@@ -61,23 +59,6 @@ struct DonutChart: View {
                             .strokeBorder(segments[i].color ?? Color.gray, lineWidth: depth)
                             .frame(width: diameter, height: diameter)
                     }
-                }
-                
-                VStack(alignment: .center) {
-                    Spacer()
-                    ForEach(0 ..< count) { i in
-                        HStack {
-                            Circle()
-                                .fill(segments[i].color ?? Color.gray)
-                                .frame(width: 12, height: 12)
-                            Text(segments[i].label ?? "hello")
-                                .font(.body)
-                            Spacer()
-                            Text(numberFormatter.string(from: segments[i].value as NSNumber) ?? "")
-                                .font(.body)
-                        }
-                    }
-                    Spacer()
                 }
             }
         }
