@@ -16,6 +16,7 @@ struct ContentView: View {
     
     let charts: [(String, CGFloat, [ChartModel])] =
         [("Stock", 160, Tests.stockModels),
+         ("Line", 160, Tests.lineModels),
          ("Donut", 140, Tests.donutModels),
          ("Micro Chart - Column", 160, Tests.columnModels),
          ("Micro Chart - Harvey Ball", 160, Tests.harveyBallModels),

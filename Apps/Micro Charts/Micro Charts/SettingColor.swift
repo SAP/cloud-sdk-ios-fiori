@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import FioriCharts
 
 struct SettingColor: View {
     @Binding var color: String
