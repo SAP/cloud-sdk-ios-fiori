@@ -112,8 +112,10 @@ public class ChartModel: ObservableObject, Identifiable {
     /// seires attributes
     @Published public var seriesAttributes: ChartSeriesAttributes
     
-    ///
-    @Published public var colorsForCategory: [[Color]]?
+    /// colors for any category in any series
+    /// it is optional. this color overwrite the color from seriesAttributes
+    /// format: [seriesIndex1:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexN: HexColor], ... , seriesIndexN:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexM: HexColor]]
+    @Published public var colorsForCategory: [Int: [Int: HexColor]]
     
     @Published public var numberOfGridlines: Int = 2
     
@@ -200,7 +202,7 @@ public class ChartModel: ObservableObject, Identifiable {
     public init(chartType: ChartType,
                 data: [[Double]],
                 titlesForCategory: [[String]]? = nil,
-                colorsForCategory: [[Color]]? = nil,
+                colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [String]? = nil,
                 labelsForDimension: [[String]]? = nil,
                 selectedSeriesIndex: Int? = nil,
@@ -210,7 +212,13 @@ public class ChartModel: ObservableObject, Identifiable {
                 numericAxis: ChartNumericAxis? = nil,
                 secondaryNumericAxis: ChartNumericAxis? = nil) {
         self.chartType = chartType
-        self.colorsForCategory = colorsForCategory
+        if let colorsForCategory = colorsForCategory {
+            self.colorsForCategory = colorsForCategory
+        }
+        else {
+            self.colorsForCategory = [Int: [Int: HexColor]]()
+        }
+        
         self.titlesForAxis = titlesForAxis
         self.selectedSeriesIndex = selectedSeriesIndex
         self.userInteractionEnabled = userInteractionEnabled
@@ -297,7 +305,7 @@ public class ChartModel: ObservableObject, Identifiable {
     public init(chartType: ChartType,
                 data: [[[Double]]],
                 titlesForCategory: [[String]]? = nil,
-                colorsForCategory: [[Color]]? = nil,
+                colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [String]? = nil,
                 labelsForDimension: [[[String]]]? = nil,
                 selectedSeriesIndex: Int? = nil,
@@ -307,7 +315,13 @@ public class ChartModel: ObservableObject, Identifiable {
                 numericAxis: ChartNumericAxis? = nil,
                 secondaryNumericAxis: ChartNumericAxis? = nil) {
         self.chartType = chartType
-        self.colorsForCategory = colorsForCategory
+        if let colorsForCategory = colorsForCategory {
+            self.colorsForCategory = colorsForCategory
+        }
+        else {
+            self.colorsForCategory = [Int: [Int: HexColor]]()
+        }
+        
         self.titlesForAxis = titlesForAxis
         self.selectedSeriesIndex = selectedSeriesIndex
         self.userInteractionEnabled = userInteractionEnabled
@@ -517,17 +531,17 @@ public class ChartModel: ObservableObject, Identifiable {
 
 
 extension ChartModel {
-    func colorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
-        guard let tmp = colorsForCategory, seriesIndex < tmp.count else {
-            return Color.black
+    func colorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+        if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
+            return val
         }
-            
-        let colors = tmp[seriesIndex]
-        if categoryIndex >= colors.count {
-            return colors.last!
+        
+        let count = seriesAttributes.colors.count
+        if count > 0 {
+            return seriesAttributes.colors[categoryIndex%count]
         }
         else {
-            return colors[categoryIndex]
+            return Palette.hexColor(for: .primary2)
         }
     }
     

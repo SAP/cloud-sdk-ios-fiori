@@ -9,10 +9,23 @@ import Foundation
 import SwiftUI
 
 public enum ColorStyle: String, CaseIterable {
+    /// Dynamic text color, with variants for light and dark color schemes.
+    /// (dark variant) ![](https://dummyimage.com/48x18/32636A.png&text=+)        Hex color: 32636A
+    /// (light variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
+    case primary1
     /// Dynamic secondary text color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/515559.png&text=+)        Hex color: 515559
     /// (light variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
-    case primary1
+    case primary2
+    /// Dynamic secondary text color, with variants for light and dark color schemes.
+    /// (dark variant) ![](https://dummyimage.com/48x18/6A6D70.png&text=+)        Hex color: 6A6D70
+    /// (light variant) ![](https://dummyimage.com/48x18/EBEBF5.png&text=+)        Hex color: EBEBF5        alpha: 60%
+    case primary3
+    /// Dynamic background and accent color, used in any color scheme.
+    /// (dark variant) ![](https://dummyimage.com/48x18/CCCCCC.png&text=+)          Hex color: CCCCCC
+    /// (light variant) ![](https://dummyimage.com/48x18/EBEBF5.png&text=+)          Hex color: EBEBF5        alpha: 30%
+    case primary4
+    
     /// Standard text color, with variants for light and dark color variants.
     /// Use `UIColor.preferredFioriColor(forStyle: background:)` to select appropriate variant.
     /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)        Hex color: 5899DA
@@ -83,7 +96,13 @@ public class Palette {
     public class func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case.primary1:
+            return HexColor(colors: [.light: "32636A", .dark: "FFFFFF"])
+        case.primary2:
             return HexColor(colors: [.light: "515559", .dark: "FFFFFF"])
+        case.primary3:
+            return HexColor(colors: [.light: "6A6D70", .dark: "EBEBF5"])
+        case.primary4:
+            return HexColor(colors: [.light: "CCCCCC", .dark: "EBEBF5"])
         case .chart1:
             return HexColor(colors: [.light: "5899DA", .dark: "74B3F0"])
         case .chart2:

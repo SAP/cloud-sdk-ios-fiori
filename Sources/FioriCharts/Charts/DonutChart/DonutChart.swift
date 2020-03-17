@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DonutChart: View {
     @ObservedObject var model: ChartModel
+    @Environment(\.colorScheme) var colorScheme
     
     // degree of gap between segments
     let GAP: Double = 0.5
@@ -56,7 +57,7 @@ struct DonutChart: View {
                 ZStack {
                     ForEach(0 ..< count) { i in
                         ArcShape(startAngle: Angle(degrees: startAngles[i]), endAngle: Angle(degrees: endAngles[i]))
-                            .strokeBorder(segments[i].color ?? Color.gray, lineWidth: depth)
+                            .strokeBorder(segments[i].color.color(self.colorScheme), lineWidth: depth)
                             .frame(width: diameter, height: diameter)
                     }
                 }
