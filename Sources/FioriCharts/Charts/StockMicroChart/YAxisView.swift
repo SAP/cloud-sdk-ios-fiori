@@ -10,8 +10,8 @@ import SwiftUI
 
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.colorScheme) var colorScheme
     
-    let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
     var chartWidth: CGFloat
     
@@ -29,8 +29,7 @@ struct YAxisView: View {
                 yAxisLabels.append(AxisTitle(index: i, title: formatYAxisTitle(value: val, total: count)))
             }
         }
-        
-        //yAxisLabels.append(AxisTitle(index: count - 1, title: formatYAxisTitle(value: minVal, total: count)))
+
         let startValTitle = formatYAxisTitle(value: minVal, total: count)
         
         let x = rect.origin.x + rect.size.width
@@ -43,7 +42,7 @@ struct YAxisView: View {
                         // y axis lables
                         Text(label.title)
                             .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
-                            .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
+                            .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
                             .position(x: self.rect.origin.x + self.rect.size.width / 2,
                                       y: self.rect.origin.y + CGFloat(label.index) * stepHeight)
                     }
@@ -52,7 +51,7 @@ struct YAxisView: View {
                         // grid lines
                         LineShape(pos1: CGPoint(x: x, y: self.rect.origin.y + CGFloat(label.index) * stepHeight),
                                   pos2: CGPoint(x: x + self.chartWidth, y: self.rect.origin.y + CGFloat(label.index) * stepHeight))
-                            .stroke(Color(hex: self.model.numericAxis.gridlines.color),
+                            .stroke(self.model.numericAxis.gridlines.color.color(self.colorScheme),
                                     style: StrokeStyle(lineWidth: CGFloat(self.model.numericAxis.gridlines.width),
                                                        dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
                     }
@@ -63,7 +62,7 @@ struct YAxisView: View {
             if !self.model.numericAxis.labels.isHidden {
                 Text(startValTitle)
                     .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
-                    .foregroundColor(Color(hex: self.model.numericAxis.labels.color))
+                    .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
                     .position(x: self.rect.origin.x + self.rect.size.width / 2,
                               y: self.rect.origin.y + self.rect.size.height)
             }
@@ -72,7 +71,7 @@ struct YAxisView: View {
                 // left base line
                 LineShape(pos1: CGPoint(x: x, y: rect.size.height),
                           pos2: CGPoint(x: x, y: rect.origin.y))
-                    .stroke(Color(hex: model.numericAxis.baseline.color),
+                    .stroke(model.numericAxis.baseline.color.color(self.colorScheme),
                             style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width),
                                                dash: [CGFloat(self.model.numericAxis.baseline.dashPatternLength), CGFloat(self.model.numericAxis.baseline.dashPatternGap)]))
             }

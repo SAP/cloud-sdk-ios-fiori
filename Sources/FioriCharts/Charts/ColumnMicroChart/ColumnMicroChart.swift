@@ -12,6 +12,7 @@ import UIKit
 public struct ColumnMicroChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.colorScheme) var colorScheme
     
     let topBottomLabelsFont: UIFont = UIFont.preferredFont(forTextStyle: .body)
     let columnLabelsFont: UIFont = UIFont.preferredFont(forTextStyle: .caption1)

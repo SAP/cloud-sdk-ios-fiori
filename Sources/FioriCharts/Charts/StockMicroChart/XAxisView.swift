@@ -10,13 +10,13 @@ import SwiftUI
 
 struct XAxisView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.colorScheme) var colorScheme
     
-    let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
     var rect: CGRect
     
     var body: some View {
         let xAxisTitles = calXAxisTitles()
-        
+
         return ZStack {
             if !self.model.categoryAxis.gridlines.isHidden || !self.model.categoryAxis.labels.isHidden {
                 ForEach(xAxisTitles) { title in
@@ -26,7 +26,7 @@ struct XAxisView: View {
                                                 y: 0),
                                   pos2: CGPoint(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
                                                 y: self.rect.origin.y))
-                            .stroke(Color(hex: self.model.categoryAxis.gridlines.color),
+                            .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
                                     style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
                                                        dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
                     }
@@ -35,7 +35,7 @@ struct XAxisView: View {
                         // category labels
                         Text(title.title)
                             .font(.system(size: CGFloat(self.model.categoryAxis.labels.fontSize)))
-                            .foregroundColor(Color(hex: self.model.categoryAxis.labels.color))
+                            .foregroundColor(self.model.categoryAxis.labels.color.color(self.colorScheme))
                             .position(x: self.calXPosforXAxisElement(dataIndex: title.index, rect: self.rect),
                                       y: self.rect.origin.y + self.rect.size.height / 2)
                     }
@@ -46,7 +46,7 @@ struct XAxisView: View {
             if !model.categoryAxis.baseline.isHidden {
                 LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
                           pos2: CGPoint(x: rect.origin.x, y: rect.origin.y))
-                    .stroke(Color(hex: self.model.categoryAxis.baseline.color),
+                    .stroke(model.categoryAxis.baseline.color.color(self.colorScheme),
                             style: StrokeStyle(
                                 lineWidth: CGFloat(self.model.categoryAxis.baseline.width),
                                 dash: [CGFloat(self.model.categoryAxis.baseline.dashPatternLength), CGFloat(self.model.categoryAxis.baseline.dashPatternGap)]))

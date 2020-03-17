@@ -35,9 +35,6 @@ enum DragState {
 struct StockView: View {
     @EnvironmentObject var model: ChartModel
     
-    let textColor = Color(#colorLiteral(red: 0.4376021028, green: 0.4471841455, blue: 0.4600644708, alpha: 1))
-    
-    //
     @State var closestPoint:CGPoint = .zero
     @State var closestDataIndex:Int = 0
     @State var showIndicator = false
@@ -138,6 +135,7 @@ struct StockView: View {
         return ZStack {
             if model.userInteractionEnabled {
                 StockLinesView(rect: linesRect)
+                    .frame(width: linesRect.size.width, height: linesRect.size.height)
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
                     .opacity(draggingStockView ? 0.4 : 1.0)
                     .gesture(pan)
@@ -164,7 +162,6 @@ struct StockView: View {
         
         let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        //let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)

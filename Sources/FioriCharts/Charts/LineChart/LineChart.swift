@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LineChart: View {
     @ObservedObject var model: ChartModel
+    @Environment(\.colorScheme) var colorScheme
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
@@ -29,7 +30,7 @@ struct LineChart: View {
         return ZStack {
             ForEach(0 ..< data.count) { i in
                 LinesShape(points: data[i])
-                    .stroke(Color(hex: self.model.seriesAttributes.colors[i]), lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                    .stroke(self.model.seriesAttributes.colors[i].color(self.colorScheme), lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
             }
         }
     }
