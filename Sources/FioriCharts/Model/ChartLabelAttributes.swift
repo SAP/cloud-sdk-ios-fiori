@@ -16,7 +16,7 @@ public class ChartLabelAttributes: ObservableObject, Identifiable {
     // @Published public var fontWeight: Double = 1
 
     /// Text color for the label.
-    @Published public var color: String = "000000"
+    @Published public var color: HexColor = Palette.hexColor(for: .primary1)
 
     /// True when the associated label(s) should be hidden.
     @Published public var isHidden: Bool = false

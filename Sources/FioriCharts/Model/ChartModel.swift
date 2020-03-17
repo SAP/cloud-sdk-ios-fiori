@@ -394,10 +394,10 @@ public class ChartModel: ObservableObject, Identifiable {
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> ChartSeriesAttributes {
         switch chartType {
         case .stock:
-            let colors = ["19A979", "AB2217", "7EFAA1", "EDD3D2", "FCFDFC"]
+            let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke), Palette.hexColor(for: .stockUpFill), Palette.hexColor(for: .stockDownFill), Palette.hexColor(for: .stockFillEndColor)]
             return ChartSeriesAttributes(colors: colors, lineWidth: 2, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
         default:
-            let colors = ["5899DA", "E8743B", "19A979", "ED4A7B", "945ECF", "13A4B4", "525DF4", "BF399E", "6C8893", "EE6868", "2F6497"]
+            let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2)]
             let count = min(colors.count, max(1, seriesCount))
             return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), lineWidth: 2, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
         }

@@ -11,7 +11,6 @@ import FioriCharts
 
 struct SettingsLine: View {
     @Binding var line: ChartGridlineAttributes
-    let colorOptions: [String] = ["FF0000FF", "00FF00FF", "0000FFFF", "FFFF00FF", "FF00FFFF", "00FFFF88", "88888888"]
     
     var body: some View {
         Form {

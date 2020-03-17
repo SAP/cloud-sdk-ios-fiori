@@ -48,7 +48,7 @@ public class ChartAxis: ObservableObject, Identifiable {
     @Published public var titleLabel: ChartLabelAttributes
     
     /// Title of the axis.
-    @Published var title: String?
+    @Published public var title: String?
     
     public let id = UUID()
     
