@@ -36,7 +36,7 @@ public class ChartAxis: ObservableObject, Identifiable {
       Properties for the axis baseline, which is typically usually 0.
       - Only numeric axes have a baseline.
       */
-     @Published public var baseline: ChartGridlineAttributes
+     @Published public var baseline: ChartBaselineAttributes
     
     /// Properties for the axis gridlines.
     @Published public var gridlines: ChartGridlineAttributes
@@ -53,14 +53,14 @@ public class ChartAxis: ObservableObject, Identifiable {
     public let id = UUID()
     
     
-    public init(axisId: ChartAxisId? = nil, baseline: ChartGridlineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil) {
+    public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil) {
         self.axisId = axisId
         
         if let baselineAttributes = baseline {
             self.baseline = baselineAttributes
         }
         else {
-            self.baseline = ChartGridlineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false)
+            self.baseline = ChartBaselineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: nil, position: nil)
         }
         
         if let gridlinesAttributes = gridlines {
@@ -101,7 +101,7 @@ public class ChartNumericAxis : ChartAxis {
         self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
-    public init(axisId: ChartAxisId? = nil, baseline: ChartGridlineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
+    public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
             self.formatter = formatter
         }

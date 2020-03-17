@@ -41,7 +41,7 @@ struct SettingsAxis: View {
             
             Section(header: Text("Line")) {
                 NavigationLink(destination:
-                SettingsLine(line: $axis.baseline)) {
+                SettingsBaseline(line: $axis.baseline)) {
                     Text("Baseline")
                 }
                 
