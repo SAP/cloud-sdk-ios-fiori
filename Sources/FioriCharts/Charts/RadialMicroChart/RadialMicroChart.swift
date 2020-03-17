@@ -15,6 +15,7 @@ struct RadialMicroChart: View {
     }
     
     @ObservedObject var model: ChartModel
+    @Environment(\.colorScheme) var colorScheme
     @State var mode: RadialMicroChart.Mode? = .inside
     
     // the difference of outer and inner radius range from 5...20
@@ -32,7 +33,7 @@ struct RadialMicroChart: View {
     }
     
     func arcView(in size: CGSize) -> some View {
-        let percentage = model.dataItemsIn(seriesIndex: 0).first
+        let percentage = model.dataItemsIn(seriesIndex: 0).last
         
         let str = String(format: "%.1f%%", percentage?.value ?? 0)
         
@@ -43,11 +44,11 @@ struct RadialMicroChart: View {
             else {
                 Spacer()
                 ZStack {
-                    self.chartView(in: size, percentage: percentage!)
+                    self.chartView(in: size)
                     if mode == .inside {
                         Text(str)
                             .font(Font.system(.largeTitle))
-                            .foregroundColor(percentage!.color)
+                            .foregroundColor(percentage!.color.color(colorScheme))
                     }
                 }
                 Spacer()
@@ -60,18 +61,23 @@ struct RadialMicroChart: View {
         }
     }
     
-    func chartView(in size: CGSize, percentage: MicroChartDataItem) -> some View {
+    func chartView(in size: CGSize) -> some View {
+        let total = model.dataItemsIn(seriesIndex: 0).first
+        let percentage = model.dataItemsIn(seriesIndex: 0).last
         let radius = min(size.width, size.height) / 2
-        
+        var ratio: Double = 100
+        if total!.value != 0 {
+            ratio = Double(percentage!.value / total!.value)
+        }
         // calculate the difference of outer and inner radius
         let val = radius / 10
         let depth = val > RadialMicroChart.maxDepth ? RadialMicroChart.maxDepth : (val < RadialMicroChart.minDepth ? RadialMicroChart.minDepth : val)
         
         return ZStack {
             ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                .strokeBorder(Color.gray, lineWidth: depth)
-            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(percentage.value) * 360 / 100))
-                .strokeBorder(percentage.color, lineWidth: depth)
+                .strokeBorder(total!.color.color(colorScheme), lineWidth: depth)
+            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: ratio * 360))
+                .strokeBorder(percentage!.color.color(colorScheme), lineWidth: depth)
         }.frame(width: radius * 2, height: radius * 2, alignment: .topLeading)
     }
 }

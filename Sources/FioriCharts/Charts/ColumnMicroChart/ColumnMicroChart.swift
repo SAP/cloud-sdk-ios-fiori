@@ -70,11 +70,11 @@ public struct ColumnMicroChart: View {
                             if positiveLablesHeight > 0 && self.columnLabel(for: item, positive: true) != nil {
                                 Text(self.columnLabel(for: item, positive: true) ?? "")
                                     .font(.caption)
-                                    .foregroundColor(item.color)
+                                    .foregroundColor(item.color.color(self.colorScheme))
                             }
 
                             Rectangle()
-                                .fill(item.color)
+                                .fill(item.color.color(self.colorScheme))
                                 .frame(width: barWidth, height: item.value > 0 ? (CGFloat(self.model.normalizedValue(for: Double(item.value), seriesIndex: 0)) * wholeBarsHeight) : 0)
                         }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
                     }
@@ -86,13 +86,13 @@ public struct ColumnMicroChart: View {
                         ForEach(columns) { item in
                             VStack(alignment: .center, spacing: 0) {
                                 Rectangle()
-                                    .fill(item.value > 0 ? Color.clear : item.color)
+                                    .fill(item.value > 0 ? Color.clear : item.color.color(self.colorScheme))
                                     .frame(width: barWidth, height: CGFloat(self.model.normalizedValue(for: Double(item.value), seriesIndex: 0)) * wholeBarsHeight)
                                 
                                 if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
                                     Text(self.columnLabel(for: item, positive: false) ?? "")
                                         .font(.caption)
-                                        .foregroundColor(item.color)
+                                        .foregroundColor(item.color.color(self.colorScheme))
                                 }
                                 
                                 Spacer(minLength: 0)
