@@ -38,7 +38,12 @@ struct Settings: View {
                 
                 NavigationLink("Series", destination: SettingsSeries(model: model))
                 
-                Text("Color for categories: TODO")
+                if model.colorsForCategory.count > 0 {
+                    NavigationLink("Color for categories", destination: SettingsColorForCategory(model: model))
+                }
+                else {
+                    Text("Color for categories: 0")
+                }
                 
                 Section(header: Text("Axis")) {
                     NavigationLink(destination: SettingsCategoryAxis(axis: $model.categoryAxis)) {
