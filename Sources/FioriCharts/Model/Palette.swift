@@ -96,52 +96,51 @@ public class Palette {
     public class func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case.primary1:
-            return HexColor(colors: [.light: "32636A", .dark: "FFFFFF"])
+            return HexColor(lightColor: "32636A", darkColor: "FFFFFF")
         case.primary2:
-            return HexColor(colors: [.light: "515559", .dark: "FFFFFF"])
+            return HexColor(lightColor: "515559", darkColor: "FFFFFF")
         case.primary3:
-            return HexColor(colors: [.light: "6A6D70", .dark: "EBEBF5"])
+            return HexColor(lightColor: "6A6D70", darkColor: "EBEBF5")
         case.primary4:
-            return HexColor(colors: [.light: "CCCCCC", .dark: "EBEBF5"])
+            return HexColor(lightColor: "CCCCCC", darkColor: "EBEBF5")
         case .chart1:
-            return HexColor(colors: [.light: "5899DA", .dark: "74B3F0"])
+            return HexColor(lightColor: "5899DA", darkColor: "74B3F0")
         case .chart2:
-            return HexColor(colors: [.light: "E8743B", .dark: "E8743B"])
+            return HexColor(lightColor: "E8743B", darkColor: "E8743B")
         case .chart3:
-            return HexColor(colors: [.light: "19A979", .dark: "5899DA"])
+            return HexColor(lightColor: "19A979", darkColor: "5899DA")
         case .chart4:
-            return HexColor(colors: [.light: "ED4A7B", .dark: "5899DA"])
+            return HexColor(lightColor: "ED4A7B", darkColor: "5899DA")
         case .chart5:
-            return HexColor(colors: [.light: "945ECF", .dark: "5899DA"])
+            return HexColor(lightColor: "945ECF", darkColor: "5899DA")
         case .chart6:
-            return HexColor(colors: [.light: "13A4B4", .dark: "5899DA"])
+            return HexColor(lightColor: "13A4B4", darkColor: "5899DA")
         case .chart7:
-            return HexColor(colors: [.light: "525DF4", .dark: "5C66F5"])
+            return HexColor(lightColor: "525DF4", darkColor: "5C66F5")
         case .chart8:
-            return HexColor(colors: [.light: "BF399E", .dark: "C63FA4"])
+            return HexColor(lightColor: "BF399E", darkColor: "C63FA4")
         case .chart9:
-            return HexColor(colors: [.light: "6C8893", .dark: "6C8893"])
+            return HexColor(lightColor: "6C8893", darkColor: "6C8893")
         case .chart10:
-            return HexColor(colors: [.light: "EE6868", .dark: "EE6868"])
+            return HexColor(lightColor: "EE6868", darkColor: "EE6868")
         case .chart11:
-            return HexColor(colors: [.light: "2F6497", .dark: "387BB7"])
+            return HexColor(lightColor: "2F6497", darkColor: "387BB7")
         case .negative:
-            return HexColor(colors: [.light: "BB0000", .dark: "FF453A"])
+            return HexColor(lightColor: "BB0000", darkColor: "FF453A")
         case .critical:
-            return HexColor(colors: [.light: "E9730C", .dark: "FF9F0A"])
+            return HexColor(lightColor: "E9730C", darkColor: "FF9F0A")
         case .positive:
-            return HexColor(colors: [.light: "107E3E", .dark: "32D74B"])
-            
+            return HexColor(lightColor: "107E3E", darkColor: "32D74B")
         case .stockUpStroke:
-            return HexColor(colors: [.light: "19A979", .dark: "19A979"])
+            return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .stockDownStroke:
-            return HexColor(colors: [.light: "AB2217", .dark: "AB2217"])
+            return HexColor(lightColor: "AB2217", darkColor: "AB2217")
         case .stockUpFill:
-            return HexColor(colors: [.light: "7EFAA1", .dark: "7EFAA1"])
+            return HexColor(lightColor: "7EFAA1", darkColor: "7EFAA1")
         case .stockDownFill:
-            return HexColor(colors: [.light: "CD3328", .dark: "CD3328"])
+            return HexColor(lightColor: "CD3328", darkColor: "CD3328")
         case .stockFillEndColor:
-            return HexColor(colors: [.light: "FCFDFC", .dark: "FCFDFC"])
+            return HexColor(lightColor: "FCFDFC", darkColor: "FCFDFC")
         }
     }
 }
