@@ -58,14 +58,3 @@ extension TimelineCard: Hashable {
         hasher.combine(content.value)
     }
 }
-
-private struct HavingContent<ContentModel: Decodable>: Decodable {
-    let content: ContentModel
-}
-
-private struct HavingHeader {
-    enum CodingKeys: CodingKey {
-        case header
-    }
-    let header: Header
-}

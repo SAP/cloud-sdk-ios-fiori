@@ -140,16 +140,6 @@ extension AnalyticalCard: Hashable {
     }
 }
 
-private struct HavingContent<ContentModel: Decodable>: Decodable {
-    let content: ContentModel
-}
-
-private struct HavingHeader {
-    enum CodingKeys: CodingKey {
-        case header
-    }
-    let header: Header
-}
 
 public struct AnalyticalContent: Decodable {
     public let chartType: String
