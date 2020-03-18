@@ -104,18 +104,6 @@ public class ListCard: Decodable, ObservableObject {
 //    var item: Item { get }
 //}
 
-private struct HavingHeader {
-    enum CodingKeys: CodingKey {
-        case header
-    }
-    let header: Header
-}
-
-private struct HavingContent<ContentModel: Decodable>: Decodable {
-    let content: ContentModel
-}
-
-
 class CardData: Decodable {
     
     let jsonObject = CurrentValueSubject<JSONArray, Never>([])

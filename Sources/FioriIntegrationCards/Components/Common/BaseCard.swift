@@ -26,19 +26,3 @@ public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, Obser
     }
     internal var subscribers = Set<AnyCancellable>()
 }
-
-extension BaseCard {
-    
-    public struct HavingContent<ContentModel: Decodable>: Decodable {
-        let content: ContentModel
-    }
-    public struct HavingData<Model: Decodable>: Decodable {
-        let data: Model
-    }
-    public struct HavingHeader {
-        enum CodingKeys: CodingKey {
-            case header
-        }
-        let header: Header
-    }
-}
