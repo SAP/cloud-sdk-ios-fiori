@@ -17,7 +17,7 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
         
         header = try container.decode(Header.self, forKey: .header)
         
-        let value = try HavingContent<HavingGroups>(from: decoder)
+        let value = try HavingContent<HavingGroups<[ObjectGroup]>>(from: decoder)
         template = value.content.groups
         
         let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
@@ -59,10 +59,7 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
         })
         .store(in: &subscribers)
     }
-    
-    private struct HavingGroups: Decodable {
-        let groups: [ObjectGroup]
-    }
+
 }
 
 extension ObjectCard: Hashable {
