@@ -17,6 +17,12 @@ public struct DimensionSelector: View {
     public var selectionDidChangeHandler: ((Int?) -> Void)?
     @State public var selectedIndex: Int?
     
+    public init(titles: [String], selectionDidChangeHandler: ((Int?) -> Void)? = nil, selectedIndex: Int?  = nil) {
+        self.controlTitles = titles
+        self.selectionDidChangeHandler = selectionDidChangeHandler
+        self.selectedIndex = selectedIndex
+    }
+    
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: 6) {

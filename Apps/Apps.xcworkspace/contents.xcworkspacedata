@@ -8,6 +8,9 @@
       location = "group:DevTest/DevTest.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:DevTest/../FioriSwiftUITestApp/FioriSwiftUITestApp.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:../FioriSwiftUI.xcodeproj">
    </FileRef>
 </Workspace>
