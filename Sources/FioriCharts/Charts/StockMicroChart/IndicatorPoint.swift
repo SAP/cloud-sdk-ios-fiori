@@ -13,12 +13,8 @@ struct IndicatorPoint: View {
         ZStack {
             Circle()
                 .fill(Color.red)
-            
-            Circle()
-                .stroke(Color.white, style: StrokeStyle(lineWidth: 4))
         }
         .frame(width: 14, height: 14)
-        .shadow(color: Color.gray, radius: 6, x: 0, y: 6)
     }
 }
 

@@ -11,13 +11,13 @@ public struct LinesShape: Shape {
     var points: [Double]
     
     // min and max value for the display range
-    var displayRange: ClosedRange<Double>?
+    var displayRange: ClosedRange<CGFloat>?
     var fill: Bool = false
     var curve:Bool = false
     var startOffset: CGFloat = 0
     var endOffset: CGFloat = 0
     
-    public init(points: [Double], displayRange: ClosedRange<Double>? = nil, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [Double], displayRange: ClosedRange<CGFloat>? = nil, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.displayRange = displayRange
@@ -36,7 +36,7 @@ public struct LinesShape: Shape {
         
         let range = self.range
         
-        let data = points.map { rect.size.height - (CGFloat($0) - CGFloat(range.lowerBound)) * rect.size.height / CGFloat(range.upperBound - range.lowerBound)}
+        let data = points.map { rect.size.height - (CGFloat($0) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound)}
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
         var p1 = CGPoint(x: startOffset, y: CGFloat(data[0]))
@@ -74,15 +74,15 @@ public struct LinesShape: Shape {
         return path
     }
     
-    var range: ClosedRange<Double> {
+    var range: ClosedRange<CGFloat> {
         if let range = displayRange {
             return range
         }
         
-        let maxValue = points.max() ?? 0
-        let minValue = points.min() ?? 0
-        let maxDisplayValue = maxValue + (maxValue - minValue) * 0.3
-        let minDisplayValue = minValue - (maxValue - minValue) * 0.3
+        let maxValue = CGFloat(points.max() ?? 0)
+        let minValue = CGFloat(points.min() ?? 0)
+        let maxDisplayValue: CGFloat = maxValue + (maxValue - minValue) * 0.2
+        let minDisplayValue: CGFloat = minValue - (maxValue - minValue) * 0.2
         
         return minDisplayValue...maxDisplayValue
     }

@@ -133,10 +133,32 @@ struct StockView: View {
                 self.lastStartPos = self.model.startPos
             })
             .exclusively(before: drag)
+
+        // calculate display range
+        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
+        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 1)
+        var displayMinVal: CGFloat = minVal - (maxVal - minVal) * 0.2
+        var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
+        
+        if minVal >= 0 && maxVal >= 0 && displayMinVal < 0 {
+            displayMinVal = 0
+        }
+        
+        if model.numericAxis.isZeroBased {
+            displayMinVal = 0
+        }
+        
+        if let tmp = model.numericAxis.explicitMin {
+            displayMinVal = CGFloat(tmp)
+        }
+
+        if let tmp = model.numericAxis.explicitMax {
+            displayMaxVal = CGFloat(tmp)
+        }
         
         return ZStack {
             if model.userInteractionEnabled {
-                StockLinesView(rect: linesRect)
+                StockLinesView(rect: linesRect, displayRange: displayMinVal...displayMaxVal)
                     .frame(width: linesRect.size.width, height: linesRect.size.height)
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
                     .opacity(draggingStockView ? 0.4 : 1.0)
@@ -145,13 +167,13 @@ struct StockView: View {
                     .gesture(mag)
             }
             else {
-                StockLinesView(rect: linesRect)
+                StockLinesView(rect: linesRect, displayRange: displayMinVal...displayMaxVal)
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
             }
             
             XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight), axisDataSource: stockAxisDataSource)
             
-            YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: height), chartWidth: linesRect.size.width, axisDataSource: stockAxisDataSource)
+            YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: height), chartWidth: linesRect.size.width, displayRange: displayMinVal...displayMaxVal, axisDataSource: stockAxisDataSource)
             
             if self.showIndicator && closestDataIndex >= 0 {
                 StockIndicatorView(rect: linesRect, closestPoint: $closestPoint, closestDataIndex: $closestDataIndex)
