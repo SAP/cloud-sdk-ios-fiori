@@ -15,22 +15,24 @@ struct YAxisView: View {
     
     var rect: CGRect
     var chartWidth: CGFloat
+    var displayRange: ClosedRange<CGFloat>
     
-    init(rect: CGRect, chartWidth: CGFloat, axisDataSource: AxisDataSource? = nil) {
+    init(rect: CGRect, chartWidth: CGFloat, displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
         self.rect = rect
         self.chartWidth = chartWidth
+        self.displayRange = displayRange
         self.axisDataSource = axisDataSource
     }
     
     var body: some View {
-        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
+        let minVal = displayRange.lowerBound
         let yAxisLabelsCount = max(1, model.numberOfGridlines)
         
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisTitles(model, rect: rect) {
+        if let res = axisDataSource?.yAxisTitles(model, rect: rect, displayRange: displayRange) {
             yAxisLabels = res
         }
-        let startValTitle = axisDataSource?.axisView(model, formattedStringForValue: Double(minVal)) ?? ""
+        let startValTitle = axisDataSource?.axisView(model, displayRange: displayRange, formattedStringForValue: Double(minVal)) ?? ""
         
         let x = rect.origin.x + rect.size.width
         let stepHeight = self.rect.size.height / CGFloat(yAxisLabelsCount)
@@ -78,15 +80,15 @@ struct YAxisView: View {
         }
     }
     
-    func formatYAxisTitle(value: CGFloat, total: Int) -> String {
-        let minVal = model.ranges?[model.currentSeriesIndex].lowerBound ?? 0
-        let maxVal = model.ranges?[model.currentSeriesIndex].upperBound ?? 0
-        let range = CGFloat(maxVal - minVal) / CGFloat(total)
-        
-        let dataPrecision = (range >= 1) ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")
-        
-        return String(format: dataPrecision, value)
-    }
+//    func formatYAxisTitle(value: CGFloat, total: Int) -> String {
+//        let minVal = displayRange.lowerBound
+//        let maxVal = displayRange.upperBound
+//        let range = CGFloat(maxVal - minVal) / CGFloat(total)
+//
+//        let dataPrecision = (range >= 1) ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")
+//
+//        return String(format: dataPrecision, value)
+//    }
 }
 
 struct YAxisView_Previews: PreviewProvider {
@@ -94,7 +96,7 @@ struct YAxisView_Previews: PreviewProvider {
         let axisDataSource = DefaultAxisDataSource()
         
         return YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400),
-                         chartWidth: 160, axisDataSource: axisDataSource)
+                         chartWidth: 160, displayRange: 0...2000, axisDataSource: axisDataSource)
             .environmentObject(Tests.stockModels[1])
             .frame(width:300, height: 400, alignment: .topLeading)
             .padding()

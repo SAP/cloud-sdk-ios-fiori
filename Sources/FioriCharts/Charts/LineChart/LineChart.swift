@@ -30,10 +30,39 @@ struct LineChart: View {
         let xAxisHeight:CGFloat = 24
         let yAxisWidth:CGFloat = 20
         
+        // calculate display range
+        var minVal: CGFloat = CGFloat(Int.max)
+        var maxVal: CGFloat = CGFloat(Int.min)
+        if let ranges = model.ranges {
+            for range in ranges {
+                minVal = min(CGFloat(range.lowerBound), minVal)
+                maxVal = max(CGFloat(range.upperBound), maxVal)
+            }
+        }
+        
+        var displayMinVal: CGFloat = minVal - (maxVal - minVal) * 0.2
+        var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
+        
+        if minVal >= 0 && maxVal >= 0 && displayMinVal < 0 {
+            displayMinVal = 0
+        }
+        
+        if model.numericAxis.isZeroBased {
+            displayMinVal = 0
+        }
+        
+        if let tmp = model.numericAxis.explicitMin {
+            displayMinVal = CGFloat(tmp)
+        }
+
+        if let tmp = model.numericAxis.explicitMax {
+            displayMaxVal = CGFloat(tmp)
+        }
+        
         return GeometryReader { proxy in
             ZStack {
                 ForEach(0 ..< data.count) { i in
-                    LinesShape(points: data[i])
+                    LinesShape(points: data[i], displayRange: displayMinVal...displayMaxVal)
                         .stroke(self.model.seriesAttributes.colors[i].color(self.colorScheme),
                                 lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
                         .frame(width: proxy.size.width - yAxisWidth, height: proxy.size.height - xAxisHeight)
@@ -43,9 +72,13 @@ struct LineChart: View {
                 XAxisView(rect: CGRect(x: yAxisWidth, y: proxy.size.height - xAxisHeight, width: proxy.size.width - yAxisWidth, height: xAxisHeight), axisDataSource: self.axisDataSource).environmentObject(self.model)
                     .offset(x: 0)
                 
-                YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: proxy.size.height - xAxisHeight), chartWidth: proxy.size.width - yAxisWidth, axisDataSource: self.axisDataSource).environmentObject(self.model)
+                YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: proxy.size.height - xAxisHeight),
+                          chartWidth: proxy.size.width - yAxisWidth,
+                          displayRange: displayMinVal...displayMaxVal,
+                          axisDataSource: self.axisDataSource)
+                    .environmentObject(self.model)
             }
-        }.padding()
+        }.padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }
 

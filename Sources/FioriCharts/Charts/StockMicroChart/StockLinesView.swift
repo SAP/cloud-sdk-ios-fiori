@@ -13,6 +13,7 @@ struct StockLinesView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var rect: CGRect
+    var displayRange: ClosedRange<CGFloat>
     
     var body: some View {
         var noData = false
@@ -42,7 +43,6 @@ struct StockLinesView: View {
             endOffset = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
         }
         
-        let range = model.ranges?[model.currentSeriesIndex] ?? 0...1
         var data: [Double] = []
         if !noData {
             let curDisplayData = model.data[model.currentSeriesIndex][startIndex...endIndex]
@@ -65,7 +65,7 @@ struct StockLinesView: View {
             if !noData {
                 ZStack {
                     HStack(spacing: 0) {
-                        LinesShape(points: data, displayRange: range, fill: true, startOffset: startOffset, endOffset: endOffset)
+                        LinesShape(points: data, displayRange: displayRange, fill: true, startOffset: startOffset, endOffset: endOffset)
                             .fill(LinearGradient(gradient:
                                 Gradient(colors: [fillColor, model.seriesAttributes.colors[4].color(self.colorScheme)]),
                                                  startPoint: .top,
@@ -76,7 +76,7 @@ struct StockLinesView: View {
                     }.frame(width: rect.size.width, height: height)
                     
                     HStack(spacing: 0) {
-                        LinesShape(points: data, displayRange: range,startOffset: startOffset, endOffset: endOffset)
+                        LinesShape(points: data, displayRange: displayRange, startOffset: startOffset, endOffset: endOffset)
                             .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes.lineWidth))
                             .frame(width: width, height: height)
                             .clipped()
@@ -92,7 +92,7 @@ struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) {
-                StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200)).environmentObject($0)
+                StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), displayRange: 0 ... 2000).environmentObject($0)
             }
             .frame(width:300, height: 200)
             .previewLayout(.sizeThatFits)

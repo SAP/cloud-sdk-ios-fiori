@@ -436,23 +436,16 @@ public class ChartModel: ObservableObject, Identifiable {
                                         
                     let min = allValues.min() ?? 0
                     let max = allValues.max() ?? 1
-                    
-                    var minVal = min
-                    var maxVal = max
-                    if self.chartType == .stock {
-                        maxVal = max + (max - min) * 0.2
-                        minVal = min - (max - min) * 0.2
-
-                        if minVal < 0 {
-                            minVal = 0
-                        }
-                    }
-                    
-                    guard minVal != maxVal else { return 0...maxVal }
-                    return minVal...maxVal
+        
+                    guard min != max else { return min...max+1 }
+                    return min...max
                 }()
                 self.ranges?.append(range)
             }
+        }
+        
+        if chartType == .stock {
+            numericAxis.isZeroBased = false
         }
     }
     

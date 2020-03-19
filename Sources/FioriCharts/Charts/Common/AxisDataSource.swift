@@ -10,9 +10,9 @@ import SwiftUI
 
 protocol AxisDataSource: class {
     func xAxisTitles(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
-    func yAxisTitles(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
+    func yAxisTitles(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle]
     
-    func axisView(_ chartModel: ChartModel, formattedStringForValue value: Double) -> String
+    func axisView(_ model: ChartModel, displayRange: ClosedRange<CGFloat>, formattedStringForValue value: Double) -> String
 }
 
 class DefaultAxisDataSource: AxisDataSource {
@@ -34,29 +34,28 @@ class DefaultAxisDataSource: AxisDataSource {
         return ret
     }
     
-    func yAxisTitles(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
-        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
+    func yAxisTitles(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle] {
+        let minVal = displayRange.lowerBound
+        let maxVal = displayRange.upperBound
         
         let yAxisLabelsCount = max(1, model.numberOfGridlines)
         let stepHeight = rect.size.height / CGFloat(yAxisLabelsCount)
         
-        //let count = yAxisLabelsCount + 1
-        var yAxisLabels: [AxisTitle] = [AxisTitle(index: 0, title: axisView(model, formattedStringForValue: Double(maxVal)), pos: rect.origin.y)]
+        var yAxisLabels: [AxisTitle] = [AxisTitle(index: 0, title: axisView(model, displayRange: displayRange, formattedStringForValue: Double(maxVal)), pos: rect.origin.y)]
         
         if yAxisLabelsCount > 1 {
             for i in 1..<yAxisLabelsCount {
                 let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount + 1)
-                yAxisLabels.append(AxisTitle(index: i, title: axisView(model, formattedStringForValue: Double(val)), pos: rect.origin.y + CGFloat(i) * stepHeight))
+                yAxisLabels.append(AxisTitle(index: i, title: axisView(model, displayRange: displayRange, formattedStringForValue: Double(val)), pos: rect.origin.y + CGFloat(i) * stepHeight))
             }
         }
         
         return yAxisLabels
     }
     
-    func axisView(_ chartModel: ChartModel, formattedStringForValue value: Double) -> String {
-        let minVal = chartModel.ranges?[chartModel.currentSeriesIndex].lowerBound ?? 0
-        let dataPrecision = minVal > 10 ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")
+    func axisView(_ model: ChartModel, displayRange: ClosedRange<CGFloat>, formattedStringForValue value: Double) -> String {
+        let step = (displayRange.upperBound - displayRange.lowerBound) / CGFloat(model.numberOfGridlines)
+        let dataPrecision = step >= 1 ? "%.0f" : (step >= 0.1 ? "%.1f" : "%.2f")
         
         return String(format: dataPrecision, value)
     }
