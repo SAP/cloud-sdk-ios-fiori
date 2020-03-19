@@ -44,6 +44,8 @@ struct StockView: View {
     @State var lastScale: CGFloat = 1.0
     @State var lastStartPos: Int = 0
     
+    let stockAxisDataSource = StockAxisDataSource()
+    
     init() {
         lastScale = 0
         lastStartPos = 0
@@ -147,9 +149,9 @@ struct StockView: View {
                     .offset(x: linesRect.origin.x/2, y: -xAxisHeight/2)
             }
             
-            XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight))
+            XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: width, height: xAxisHeight), axisDataSource: stockAxisDataSource)
             
-            YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: height), chartWidth: linesRect.size.width)
+            YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: height), chartWidth: linesRect.size.width, axisDataSource: stockAxisDataSource)
             
             if self.showIndicator && closestDataIndex >= 0 {
                 StockIndicatorView(rect: linesRect, closestPoint: $closestPoint, closestDataIndex: $closestDataIndex)
@@ -185,6 +187,144 @@ struct StockView_Previews: PreviewProvider {
         }
         .frame(width:300, height: 200, alignment: .topLeading)
         .previewLayout(.sizeThatFits)
+    }
+}
+
+class StockAxisDataSource : DefaultAxisDataSource {
+    override func xAxisTitles(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        let width = rect.size.width
+        let startPosInFloat = CGFloat(model.startPos)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
+        let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
+        
+        var result: [AxisTitle] = []
+        
+        guard let startDate = getDateAtIndex(model, index: startIndex),
+            let endDate = getDateAtIndex(model, index: endIndex) else {
+                return result
+        }
+        
+        let duration = endDate.timeIntervalSince(startDate)
+        
+        if duration < 60 {
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .second, rect: rect)
+        }
+        else if duration < 3600 {
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .minute, rect: rect)
+        }
+        else if duration < 3600 * 24 { // hour
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .hour, rect: rect)
+        }
+        else if duration < 3600 * 24 * 60 { // day
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .day, rect: rect)
+        }
+        else if duration < 3600 * 24 * 31 * 14 { // month
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .month, rect: rect)
+        }
+        else { // year
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .year, rect: rect)
+        }
+        
+        // trim results if there are too many
+        if result.count > 6 {
+            let ratio = Float(result.count) / 4
+            var tmp: [AxisTitle] = []
+            for i in 1...5 {
+                var index = Int(Float(i) * ratio - 0.5)
+                if index >= result.count {
+                    index = result.count - 1
+                }
+                tmp.append(result[index])
+            }
+            
+            return tmp
+        }
+        
+        return result
+    }
+    
+    func findData(_ model: ChartModel, startIndex: Int, endIndex: Int, component: Calendar.Component, rect: CGRect, skipFirst: Bool = true) -> [AxisTitle] {
+        var result: [AxisTitle] = []
+        
+        var prev = -1
+        for i in startIndex...endIndex{
+            guard let date = getDateAtIndex(model, index: i) else { return result }
+            let cur = Calendar.current.component(component, from: date)
+            if prev == -1 && skipFirst {
+                prev = cur
+            } else if cur != prev {
+                switch component {
+                case .month:
+                    result.append(AxisTitle(index: i, title: monthAbbreviationFromInt(cur), pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    
+                case .day:
+                    let components = Calendar.current.dateComponents([.month, .day], from: date)
+                    var title: String = ""
+                    if let month = components.month {
+                        title.append(String(month))
+                    }
+                    
+                    if let day = components.day {
+                        if !title.isEmpty {
+                            title.append("/")
+                        }
+                        title.append(String(day))
+                    }
+                    
+                    result.append(AxisTitle(index: i, title: title, pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    
+                case .hour, .minute:
+                    let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+                    var title: String = ""
+                    if let hour = components.hour {
+                        title.append(String(hour))
+                    }
+                    
+                    if let minute = components.minute {
+                        if !title.isEmpty {
+                            title.append(":")
+                        }
+                        if minute < 10 {
+                            title.append("0")
+                        }
+                        
+                        title.append(String(minute))
+                    }
+                    
+                    result.append(AxisTitle(index: i, title: title, pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    
+                default:
+                    result.append(AxisTitle(index: i, title: String(cur), pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                }
+                
+                prev = cur
+            }
+        }
+        
+        return result
+    }
+    
+    func calXPosforXAxisElement(_ model: ChartModel, dataIndex: Int, rect: CGRect) -> CGFloat {
+        if dataIndex == 0 {
+            return rect.origin.x
+        }
+        
+        let width = rect.size.width
+        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        
+        return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
+    }
+    
+    func getDateAtIndex(_ model: ChartModel, index: Int) -> Date? {
+        return StockUtility.categoryValueInDate(model, categoryIndex: index)
+    }
+    
+    func monthAbbreviationFromInt(_ month: Int) -> String {
+        let ma = Calendar.current.shortMonthSymbols
+        return ma[month - 1]
     }
 }
 

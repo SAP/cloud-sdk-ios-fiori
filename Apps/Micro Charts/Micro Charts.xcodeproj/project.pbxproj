@@ -21,6 +21,7 @@
 		B8220EED241AB90A00D0437C /* SettingsSeries.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEC241AB90A00D0437C /* SettingsSeries.swift */; };
 		B8220EEF241ABA1800D0437C /* SettingsSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220EEE241ABA1800D0437C /* SettingsSelection.swift */; };
 		B8220F342421648B00D0437C /* SettingsBaseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220F332421648A00D0437C /* SettingsBaseline.swift */; };
+		B8220F3624219F4400D0437C /* SettingsColorForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220F3524219F4400D0437C /* SettingsColorForCategory.swift */; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
 		F6F9163A23962B4400D091FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163923962B4400D091FF /* ContentView.swift */; };
@@ -57,6 +58,7 @@
 		B8220EEC241AB90A00D0437C /* SettingsSeries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSeries.swift; sourceTree = "<group>"; };
 		B8220EEE241ABA1800D0437C /* SettingsSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSelection.swift; sourceTree = "<group>"; };
 		B8220F332421648A00D0437C /* SettingsBaseline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBaseline.swift; sourceTree = "<group>"; };
+		B8220F3524219F4400D0437C /* SettingsColorForCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsColorForCategory.swift; sourceTree = "<group>"; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F9163523962B4400D091FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				B8220EA72416C99700D0437C /* Settings.swift */,
 				B8220EEE241ABA1800D0437C /* SettingsSelection.swift */,
 				B8220EEC241AB90A00D0437C /* SettingsSeries.swift */,
+				B8220F3524219F4400D0437C /* SettingsColorForCategory.swift */,
 				B8220EA12416C94400D0437C /* SettingsAxis.swift */,
 				B8220EB1241809DB00D0437C /* SettingsCategoryAxis.swift */,
 				B8220EB324184BA700D0437C /* SettingsPoint.swift */,
@@ -230,6 +233,7 @@
 				B8220EA42416C95B00D0437C /* SettingsLine.swift in Sources */,
 				B8220EED241AB90A00D0437C /* SettingsSeries.swift in Sources */,
 				F6F9163A23962B4400D091FF /* ContentView.swift in Sources */,
+				B8220F3624219F4400D0437C /* SettingsColorForCategory.swift in Sources */,
 				B8220EE92419D6FB00D0437C /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
