@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "BetterCodable",
+        "repositoryURL": "https://github.com/marksands/BetterCodable.git",
+        "state": {
+          "branch": "master",
+          "revision": "3b91cd0b6bab5c2716e05ca15fa64a25877175cd",
+          "version": null
+        }
+      },
+      {
         "package": "ObservableArray",
         "repositoryURL": "https://github.com/sstadelman/observable-array.git",
         "state": {
