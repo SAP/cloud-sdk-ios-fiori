@@ -23,7 +23,7 @@ public struct ObjectCardView: View {
     public var body: some View {
         VStack(alignment: .leading) {
             Group {
-                HeaderView(model: model.header!)
+                HeaderView(model: model.header)
                     .padding(.leading, 8)
                 Divider().accentColor(Color.primary)
                 HStack(alignment: .firstTextBaseline, spacing: 8) {
