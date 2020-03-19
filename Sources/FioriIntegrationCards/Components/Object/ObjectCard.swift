@@ -24,35 +24,11 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
         let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
         
         let headerData = dataJson["json"] as! JSONDictionary
-        switch self.header {
-        case .default(let value):
-            let _type        = value.type?.replacingPlaceholders(withValuesIn: headerData)
-            let _title       = value.title.replacingPlaceholders(withValuesIn: headerData)
-            let _subTitle    = value.subTitle?.replacingPlaceholders(withValuesIn: headerData)
-            let _actions     = value.actions
-            let _icon        = value.icon?.replacingPlaceholders(withValuesIn: headerData)
-            let _status      = value.status?.replacingPlaceholders(withValuesIn: headerData)
-            let defaultHeader = DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
-            header = .default(defaultHeader)
-        default:
-            break
-        }
+        header = header.replacingPlaceholders(withValuesIn: headerData)
         
         CurrentValueSubject<[ObjectGroup], Never>(template)
             .combineLatest(data) { (groups, jsonDict) -> [ObjectGroup] in
-                return groups.map {
-                    let items = $0.items.map { (item) -> ObjectGroupItem in
-                        let _icon = item.icon?.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _label = item.label.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _value = item.value.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _type = item.type?.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _url = item.url?.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _target = item.target?.replacingPlaceholders(withValuesIn: jsonDict)
-                        let _emailSubject = item.emailSubject?.replacingPlaceholders(withValuesIn: jsonDict)
-                        return ObjectGroupItem(icon: _icon, label: _label, value: _value, type: _type, url: _url, target: _target, emailSubject: _emailSubject)
-                    }
-                    return ObjectGroup(title: $0.title, items: items)
-                }
+                return groups.map { $0.replacingPlaceholders(withValuesIn: jsonDict) }
         }
         .sink(receiveValue: { [weak self] in
             self?.content.send($0)

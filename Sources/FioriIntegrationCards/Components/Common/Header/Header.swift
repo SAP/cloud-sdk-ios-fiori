@@ -30,3 +30,13 @@ public enum Header: Decodable, Hashable {
     }
 }
 
+extension Header: Placeholding {
+    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Header {
+        switch self {
+            case .default(let header):
+                return .default(header.replacingPlaceholders(withValuesIn: dictionary))
+            case .numeric(let header):
+                return .numeric(header.replacingPlaceholders(withValuesIn: dictionary))
+        }
+    }
+}

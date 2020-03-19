@@ -26,3 +26,15 @@ extension DefaultHeader: Equatable {
             lhs.status == rhs.status
     }
 }
+
+extension DefaultHeader: Placeholding {
+    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> DefaultHeader {
+        let _type        = type?.replacingPlaceholders(withValuesIn: dictionary)
+        let _title       = title.replacingPlaceholders(withValuesIn: dictionary)
+        let _subTitle    = subTitle?.replacingPlaceholders(withValuesIn: dictionary)
+        let _actions     = actions /// TODO:  implement replacingPlaceholders for `actions`
+        let _icon        = icon?.replacingPlaceholders(withValuesIn: dictionary)
+        let _status      = status?.replacingPlaceholders(withValuesIn: dictionary)
+        return DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
+    }
+}
