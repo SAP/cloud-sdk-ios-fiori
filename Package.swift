@@ -17,7 +17,7 @@ let package = Package(
         .package(url: "https://github.com/objcio/tiny-networking", from: "0.2.0"),
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
         .package(url: "https://github.com/sstadelman/observable-array.git", .branch("master")),
-        .package(url: "git@github.com:marksands/BetterCodable.git", .branch("master"))
+//        .package(url: "git@github.com:marksands/BetterCodable.git", .branch("master"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -27,7 +27,7 @@ let package = Package(
             dependencies: ["FioriIntegrationCards", "FioriCharts"]),
         .target(
             name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts", "BetterCodable"]),
+            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts"]),
         .target(
             name: "FioriCharts",
             dependencies: []),
