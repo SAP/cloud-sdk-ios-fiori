@@ -11,26 +11,26 @@ import SwiftUI
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
+    weak var axisDataSource: AxisDataSource? = nil
     
     var rect: CGRect
     var chartWidth: CGFloat
     
+    init(rect: CGRect, chartWidth: CGFloat, axisDataSource: AxisDataSource? = nil) {
+        self.rect = rect
+        self.chartWidth = chartWidth
+        self.axisDataSource = axisDataSource
+    }
+    
     var body: some View {
         let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
-        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
-        
         let yAxisLabelsCount = max(1, model.numberOfGridlines)
-        let count = yAxisLabelsCount + 1
-        var yAxisLabels: [AxisTitle] = [AxisTitle(index: 0, title: formatYAxisTitle(value: maxVal, total: count))]
         
-        if yAxisLabelsCount > 1 {
-            for i in 1..<yAxisLabelsCount {
-                let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount + 1)
-                yAxisLabels.append(AxisTitle(index: i, title: formatYAxisTitle(value: val, total: count)))
-            }
+        var yAxisLabels: [AxisTitle] = []
+        if let res = axisDataSource?.yAxisTitles(model, rect: rect) {
+            yAxisLabels = res
         }
-
-        let startValTitle = formatYAxisTitle(value: minVal, total: count)
+        let startValTitle = axisDataSource?.axisView(model, formattedStringForValue: Double(minVal)) ?? ""
         
         let x = rect.origin.x + rect.size.width
         let stepHeight = self.rect.size.height / CGFloat(yAxisLabelsCount)
@@ -91,7 +91,11 @@ struct YAxisView: View {
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400), chartWidth: 160).environmentObject(Tests.stockModels[1])
+        let axisDataSource = DefaultAxisDataSource()
+        
+        return YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400),
+                         chartWidth: 160, axisDataSource: axisDataSource)
+            .environmentObject(Tests.stockModels[1])
             .frame(width:300, height: 400, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)

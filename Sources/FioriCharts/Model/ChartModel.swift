@@ -440,9 +440,9 @@ public class ChartModel: ObservableObject, Identifiable {
                     var minVal = min
                     var maxVal = max
                     if self.chartType == .stock {
-                        maxVal = max + (max - min) * 0.3
-                        minVal = min - (max - min) * 0.3
-                        
+                        maxVal = max + (max - min) * 0.2
+                        minVal = min - (max - min) * 0.2
+
                         if minVal < 0 {
                             minVal = 0
                         }

@@ -14,6 +14,9 @@ struct ContentView: View {
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
+//    let charts: [(String, CGFloat, [ChartModel])] = [
+//        ("Line", 160, [Tests.lineModels[0]]),
+//    ]
     let charts: [(String, CGFloat, [ChartModel])] =
         [("Stock", 160, Tests.stockModels),
          ("Line", 160, Tests.lineModels),

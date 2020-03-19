@@ -10,6 +10,7 @@ import SwiftUI
 struct LineChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
+    let axisDataSource = DefaultAxisDataSource()
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
@@ -26,13 +27,25 @@ struct LineChart: View {
             }
             data.append(s)
         }
+        let xAxisHeight:CGFloat = 24
+        let yAxisWidth:CGFloat = 20
         
-        return ZStack {
-            ForEach(0 ..< data.count) { i in
-                LinesShape(points: data[i])
-                    .stroke(self.model.seriesAttributes.colors[i].color(self.colorScheme), lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+        return GeometryReader { proxy in
+            ZStack {
+                ForEach(0 ..< data.count) { i in
+                    LinesShape(points: data[i])
+                        .stroke(self.model.seriesAttributes.colors[i].color(self.colorScheme),
+                                lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                        .frame(width: proxy.size.width - yAxisWidth, height: proxy.size.height - xAxisHeight)
+                        .offset(x: yAxisWidth / 2, y: -xAxisHeight/2)
+                }
+                
+                XAxisView(rect: CGRect(x: yAxisWidth, y: proxy.size.height - xAxisHeight, width: proxy.size.width - yAxisWidth, height: xAxisHeight), axisDataSource: self.axisDataSource).environmentObject(self.model)
+                    .offset(x: 0)
+                
+                YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: proxy.size.height - xAxisHeight), chartWidth: proxy.size.width - yAxisWidth, axisDataSource: self.axisDataSource).environmentObject(self.model)
             }
-        }
+        }.padding()
     }
 }
 
@@ -41,8 +54,8 @@ struct LineChart_Previews: PreviewProvider {
         Group {
             ForEach(Tests.lineModels) {
                 LineChart($0)
-                .frame(width: 330, height: 220, alignment: .topLeading)
-                .previewLayout(.sizeThatFits)
+                    .frame(width: 330, height: 220, alignment: .topLeading)
+                    .previewLayout(.sizeThatFits)
             }
         }
     }

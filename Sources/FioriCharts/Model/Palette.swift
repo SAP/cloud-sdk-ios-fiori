@@ -27,7 +27,6 @@ public enum ColorStyle: String, CaseIterable {
     case primary4
     
     /// Standard text color, with variants for light and dark color variants.
-    /// Use `UIColor.preferredFioriColor(forStyle: background:)` to select appropriate variant.
     /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)        Hex color: 5899DA
     /// (light variant) ![](https://dummyimage.com/48x18/74B3F0.png&text=+)        Hex color: 74B3F0
     case chart1
