@@ -27,7 +27,7 @@ public struct DimensionSelector: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: 6) {
                 ForEach(controlTitles.indices, id: \.self) { index in
-                    FUIControlButton(title: self.controlTitles[index], index: index, selectedIndex: self.$selectedIndex)
+                    FUIControlButton(title: self.controlTitles[index], isSelected: self.selectedIndex == index)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                     }
