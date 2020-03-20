@@ -19,29 +19,8 @@ struct ContentView: View {
             "1Q",
             "YTD",
             "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
             "5Y"
-        ], selectedIndex: 1)
+        ])
     }
 }
 
