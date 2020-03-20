@@ -14,17 +14,17 @@ struct ContentView: View {
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
-//    let charts: [(String, CGFloat, [ChartModel])] = [
-//        ("Line", 160, [Tests.lineModels[0]]),
-//    ]
-    let charts: [(String, CGFloat, [ChartModel])] =
-        [("Stock", 160, Tests.stockModels),
-         ("Line", 160, Tests.lineModels),
-         ("Donut", 140, Tests.donutModels),
-         ("Micro Chart - Column", 160, Tests.columnModels),
-         ("Micro Chart - Harvey Ball", 160, Tests.harveyBallModels),
-         ("Micro Chart - Radial", 160, Tests.radialModels),
-         ("Micro Chart - Bullet", 120, Tests.bulletModles)
+    //    let charts: [(String, CGFloat, [ChartModel])] = [
+    //        ("Line", 280, 160, Tests.lineModels)
+    //    ]
+    let charts: [(String, CGFloat, CGFloat, [ChartModel])] =
+        [("Stock", 280, 160, Tests.stockModels),
+         ("Line", 280, 160, Tests.lineModels),
+         ("Micro Chart - Column", 280, 160, Tests.columnModels),
+         ("Donut", 180, 160, Tests.donutModels),
+         ("Micro Chart - Radial", 180, 160, Tests.radialModels),
+         ("Micro Chart - Harvey Ball", 240, 160, Tests.harveyBallModels),
+         ("Micro Chart - Bullet", 280, 120, Tests.bulletModles)
     ]
     
     var body: some View {
@@ -39,9 +39,9 @@ struct ContentView: View {
                         
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(alignment: .top, spacing: 0) {
-                                ForEach(self.charts[index].2) { model in
+                                ForEach(self.charts[index].3) { model in
                                     ChartView(model)
-                                        .frame(width: 280, height: self.charts[index].1)
+                                        .frame(width: self.charts[index].1, height: self.charts[index].2)
                                         .padding(.leading, 15)
                                         .onTapGesture {
                                             self.currentModel = model

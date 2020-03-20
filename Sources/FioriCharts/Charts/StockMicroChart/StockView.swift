@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+/*
 enum DragState {
     case inactive
     case pressing
@@ -30,7 +30,7 @@ enum DragState {
             return false
         }
     }
-}
+}*/
 
 struct StockView: View {
     @EnvironmentObject var model: ChartModel
@@ -350,14 +350,3 @@ class StockAxisDataSource : DefaultAxisDataSource {
     }
 }
 
-extension Comparable {
-    func clamp(low: Self, high: Self) -> Self {
-        if (self > high) {
-            return high
-        } else if (self < low) {
-            return low
-        }
-
-        return self
-    }
-}

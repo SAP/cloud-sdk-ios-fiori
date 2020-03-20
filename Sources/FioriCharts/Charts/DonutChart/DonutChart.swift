@@ -26,7 +26,7 @@ struct DonutChart: View {
     }
     
     func chartView(in size: CGSize) -> some View {
-        let diameter = min(size.width / 2, size.height)
+        let diameter = min(size.width, size.height)
     
         // depth
         let depth = diameter / 5
@@ -71,7 +71,7 @@ struct DonutChart_Previews: PreviewProvider {
         Group {
             ForEach(Tests.donutModels) {
                 DonutChart($0)
-                    .frame(width: 400, height: 200)
+                    .frame(width: 200, height: 200)
                     .previewLayout(.sizeThatFits)
             }
         }
