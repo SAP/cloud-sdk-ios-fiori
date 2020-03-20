@@ -10,6 +10,45 @@ import Foundation
 import SwiftUI
 
 class StockUtility {
+    static func displayRange(_ model: ChartModel) -> ClosedRange<CGFloat> {
+        // calculate display range
+        var minVal: CGFloat = CGFloat(Int.max)
+        var maxVal: CGFloat = CGFloat(Int.min)
+        if model.chartType == .stock {
+            minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
+            maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 1)
+        }
+        else {
+            if let ranges = model.ranges {
+                for range in ranges {
+                    minVal = min(CGFloat(range.lowerBound), minVal)
+                    maxVal = max(CGFloat(range.upperBound), maxVal)
+                }
+            }
+        }
+        
+        var displayMinVal: CGFloat = minVal - (maxVal - minVal) * 0.2
+        var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
+        
+        if minVal >= 0 && maxVal >= 0 && displayMinVal < 0 {
+            displayMinVal = 0
+        }
+        
+        if model.numericAxis.isZeroBased {
+            displayMinVal = 0
+        }
+        
+        if let tmp = model.numericAxis.explicitMin {
+            displayMinVal = CGFloat(tmp)
+        }
+        
+        if let tmp = model.numericAxis.explicitMax {
+            displayMaxVal = CGFloat(tmp)
+        }
+        
+        return displayMinVal...displayMaxVal
+    }
+    
     static func lastValidDimIndex(_ model: ChartModel) -> Int {
         return model.data[model.currentSeriesIndex].count - 1
     }
