@@ -12,13 +12,13 @@ import SwiftUI
 struct FUIControlButton: View {
     
     let title: String
-    let index: Int
-    @Binding var selectedIndex: Int?
+    
+    var isSelected: Bool
 
     var body: some View {
         Text(title)
             .padding(8)
-            .foregroundColor(self.selectedIndex == self.index ? Color.blue : Color.gray)
-            .overlay(ButtonOverlayView(index: self.index, selectedIndex: self.$selectedIndex))
+            .foregroundColor(self.isSelected ? Color.blue : Color.gray)
+            .overlay(ButtonOverlayView(isSelected: self.isSelected))
     }
 }
