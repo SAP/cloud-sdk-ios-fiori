@@ -15,19 +15,23 @@ public struct DimensionSelector: View {
     public let controlTitles: [String]
     
     public var selectionDidChangeHandler: ((Int?) -> Void)?
-    @State public var selectedIndex: Int?
+    public var selectedIndex: Int? {
+        return model.selectedIndex
+    }
     
-    public init(titles: [String], selectionDidChangeHandler: ((Int?) -> Void)? = nil, selectedIndex: Int?  = nil) {
+    @ObservedObject private var model: DimensionSelectorModel = DimensionSelectorModel()
+    
+    public init(titles: [String], selectionDidChangeHandler: ((Int?) -> Void)? = nil, selectedIndex: Int? = nil) {
         self.controlTitles = titles
         self.selectionDidChangeHandler = selectionDidChangeHandler
-        self.selectedIndex = selectedIndex
+        self.model.selectedIndex = selectedIndex
     }
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: 6) {
                 ForEach(controlTitles.indices, id: \.self) { index in
-                    FUIControlButton(title: self.controlTitles[index], isSelected: self.selectedIndex == index)
+                    FUIControlButton(title: self.controlTitles[index], isSelected: self.model.selectedIndex == index)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                     }
@@ -39,10 +43,10 @@ public struct DimensionSelector: View {
     }
     
     private func selectionDidChange(index: Int) {
-        if selectedIndex != index {
-            selectedIndex = index
+        if model.selectedIndex != index {
+            model.selectedIndex = index
         } else {
-            selectedIndex = nil
+            model.selectedIndex = nil
         }
         print("selected: \(selectedIndex ?? -1)")
         if let handler = self.selectionDidChangeHandler {
