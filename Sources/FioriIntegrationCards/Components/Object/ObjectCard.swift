@@ -13,18 +13,16 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: HavingHeader.CodingKeys.self)
-        
-        header = try container.decode(Header.self, forKey: .header)
-        
+
         let value = try HavingContent<HavingGroups<[ObjectGroup]>>(from: decoder)
         template = value.content.groups
         
         let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
         let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
         
-        let headerData = dataJson["json"] as! JSONDictionary
-        header = header.replacingPlaceholders(withValuesIn: headerData)
+        if let headerData = dataJson["json"] as? JSONDictionary {
+            self.rawHeaderData.send(headerData)
+        }
         
         CurrentValueSubject<[ObjectGroup], Never>(template)
             .combineLatest(data) { (groups, jsonDict) -> [ObjectGroup] in
