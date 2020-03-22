@@ -6,38 +6,49 @@
 //
 import Combine
 
+protocol DataLoading {
+    func loadData()
+}
+
 public class TableCard: BaseCard<TableRow, [TableRow]> {
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         
-        template = try HavingContent<HavingRow>(from: decoder).content.row
+        template = try HavingContent<HavingRow<TableRow>>(from: decoder).content.row
         
-        let data = try HavingData<CardData>(from: decoder).data.jsonObject
+        let dataPub = try HavingData<CardData>(from: decoder).data.jsonObject
         
-        CurrentValueSubject<[TableRow], Never>([template])
-            .combineLatest(data) { (_, jsonDicts) -> [TableRow] in
-                return jsonDicts.map { self.template.replacingPlaceholders(withValuesIn: $0) }
-        }
-        .sink(receiveValue: { [weak self] in
-            self?.content.send($0)
-        })
+        dataPub.combineLatest(Just(template).compactMap({ $0 }))
+            .map({ value in
+                value.0.map({ value.1.replacingPlaceholders(withValuesIn: $0) })
+            })
+            .sink (receiveValue: { [unowned self] in
+                self.content = $0
+            })
             .store(in: &subscribers)
-        
-    }
-    
-    private struct HavingRow: Decodable {
-        let row: TableRow
     }
 }
 
+//extension TableCard: DataLoading {
+//    func loadData() {
+//        Publishers.TryMap({ }
+//        .sink(receiveValue: { [weak self] in
+//            self?.contentData.send($0)
+//        })
+//    }
+//}
+
+public struct HavingRow<Model: Decodable>: Decodable {
+    let row: Model
+}
 extension TableCard: Hashable {
     public static func == (lhs: TableCard, rhs: TableCard) -> Bool {
-        return lhs.header == rhs.header && lhs.content.value == lhs.content.value
+        return lhs.header == rhs.header && lhs.content == lhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(header)
-        hasher.combine(content.value)
+        hasher.combine(content)
     }
 }

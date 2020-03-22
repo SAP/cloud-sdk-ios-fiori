@@ -11,38 +11,33 @@ import AnyCodable
 import Combine
 import TinyNetworking
 
-protocol JSONDataLoading {
-    associatedtype Content: Decodable
-    var data: Content { get set }
-    func loadData()
-}
-
-extension JSONDataLoading where Content == JSONArray {
-    
-}
 
 public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, ObservableObject {
     
-    public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
-    public var header: Header
-    public var headerPub = CurrentValueSubject<Header?, Never>(nil)
-    public let content = CurrentValueSubject<Content?, Never>(nil)
-    
+    @Published var header: Header
+    @Published var content: Content? = nil
     var template: Template!
+    
+    public let cardData = CurrentValueSubject<JSONDictionary?, Never>(nil)
+    public let headerData = CurrentValueSubject<JSONDictionary?, Never>(nil)
+    public let contentData = CurrentValueSubject<JSONDictionary?, Never>(nil)
     
     required public init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: HavingHeader.CodingKeys.self)
         header = try container.decode(Header.self, forKey: .header)
         
-        Publishers.CombineLatest(headerPub, content)
-        .sink(receiveValue: { [unowned self] _ in self.objectWillChange.send() })
-        .store(in: &subscribers)
+        // MARK: - handle binding of headerData to header template
+        headerData
+            .compactMap({ $0 })
+            .sink(receiveValue: { [unowned self] in
+                self.header = self.header.replacingPlaceholders(withValuesIn: $0)
+            })
+            .store(in: &subscribers)
         
-//        content.receive(on: RunLoop.main)
-//        .sink(receiveValue: { [unowned self] _ in self.objectWillChange.send() })
-//        .store(in: &subscribers)
+
     }
     
+    public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
 }

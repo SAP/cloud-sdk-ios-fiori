@@ -20,8 +20,8 @@ public struct TableCardView: View {
         VStack(alignment: .leading, spacing: 0) {
             HeaderView(model: model.header)
             VStack(alignment: .leading, spacing: 0) {
-                TableTitleRowView(model: model.content.value?.first?.columns)
-                ForEach(model.content.value!) {
+                TableTitleRowView(model: model.content?.first?.columns)
+                ForEach(model.content!) {
                     TableRowView(model: $0)
                         .frame(height: 30)
                         .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
