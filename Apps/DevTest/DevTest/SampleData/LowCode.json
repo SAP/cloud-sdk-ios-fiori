@@ -1,0 +1,75 @@
+
+{
+    "_version": "1.15.0",
+    "sap.app": {
+        "id": "card.explorer.object.card",
+        "type": "card",
+        "title": "Sample of an Object Card",
+        "subTitle": "Sample of an Object Card"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://switch-classes"
+        }
+    },
+    "sap.card": {
+        "type": "Object",
+        "data": {
+            "json": {
+                "title": "Low Code",
+                "varietal": "Viognier",
+                "reviews": "4.6",
+                "details": "Viognier, out of favor for much of the modern era, survived on a handful of acres in its native Condrieu, in France’s northern Rhône. Now Viognier wines are back in a big way, thanks to white-wine drinkers looking for interesting alternatives to Chardonnay and Pinot Grigio.",
+                "region": "California",
+                "appelation": "Sonoma",
+                "style": "White Wine",
+                "taste": "Brioche, crushed rocks, apricot, and tangerine notes all emerge from this medium to full bodied effort that has rocking levels of salty minerality as well as a great texture and finish.",
+                "body": "Full-bodied",
+                "vintage": "2020"
+            }
+        },
+        "header": {
+            "title": "{title}",
+            "subTitle": "{varietal} {vintage}"
+        },
+        "content": {
+            "groups": [
+                {
+                    "title": "",
+                    "items": [
+                        {
+                            "label": "Region:",
+                            "value": "{region}"
+                        },
+                        {
+                            "label": "Appelation:",
+                            "value": "{appelation}"
+                        },
+                        {
+                            "label": "Style:",
+                            "value": "{style}",
+                        },
+                        {
+                            "label": "Body:",
+                            "value": "{body}",
+                        }
+                    ]
+                },
+                {
+                    "title": "",
+                    "items": [
+                        {
+                            "label": "Details:",
+                            "value": "{details}"
+                        },
+                        {
+                            "label": "Taste:",
+                            "value": "{taste}"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

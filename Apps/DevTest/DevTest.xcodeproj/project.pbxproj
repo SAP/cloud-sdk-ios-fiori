@@ -34,9 +34,10 @@
 		1BADC44F23DA3475006CC945 /* CardCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BADC44E23DA3475006CC945 /* CardCollection.swift */; };
 		AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB328EC124048A9900148FDC /* SAP-icons.ttf */; };
 		F6B9469D2422D2880041F5D0 /* employee.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469C2422D2880041F5D0 /* employee.json */; };
-		F6B9469F2422D2C80041F5D0 /* mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* mainfest.json */; };
+		F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */; };
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
-		F6B946A42422D76B0041F5D0 /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A32422D76B0041F5D0 /* manifest.json */; };
+		F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A32422D76B0041F5D0 /* timeline_manifest.json */; };
+		F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947362426BBBF0041F5D0 /* LowCode.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,9 +83,10 @@
 		1BADC44E23DA3475006CC945 /* CardCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCollection.swift; sourceTree = "<group>"; };
 		AB328EC124048A9900148FDC /* SAP-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAP-icons.ttf"; sourceTree = "<group>"; };
 		F6B9469C2422D2880041F5D0 /* employee.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee.json; sourceTree = "<group>"; };
-		F6B9469E2422D2C80041F5D0 /* mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mainfest.json; sourceTree = "<group>"; };
+		F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tineline_mainfest.json; sourceTree = "<group>"; };
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
-		F6B946A32422D76B0041F5D0 /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		F6B946A32422D76B0041F5D0 /* timeline_manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timeline_manifest.json; sourceTree = "<group>"; };
+		F6B947362426BBBF0041F5D0 /* LowCode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LowCode.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				1BADC44023DA28E1006CC945 /* list.json */,
 				1BADC44123DA28E1006CC945 /* corporate_benefits.json */,
 				1BADC44223DA28E1006CC945 /* analytical.json */,
+				F6B947362426BBBF0041F5D0 /* LowCode.json */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -178,7 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				F6B9469C2422D2880041F5D0 /* employee.json */,
-				F6B9469E2422D2C80041F5D0 /* mainfest.json */,
+				F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */,
 			);
 			path = ObjectVariants;
 			sourceTree = "<group>";
@@ -187,7 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				F6B946A12422D7450041F5D0 /* employees.json */,
-				F6B946A32422D76B0041F5D0 /* manifest.json */,
+				F6B946A32422D76B0041F5D0 /* timeline_manifest.json */,
 			);
 			path = TimelineVariants;
 			sourceTree = "<group>";
@@ -259,7 +262,7 @@
 				1BADC44B23DA28E1006CC945 /* corporate_benefits.json in Resources */,
 				1B583CDE23D926590003F30C /* LaunchScreen.storyboard in Resources */,
 				1BADC44A23DA28E1006CC945 /* list.json in Resources */,
-				F6B946A42422D76B0041F5D0 /* manifest.json in Resources */,
+				F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */,
 				1BADC44423DA28E1006CC945 /* quicklinks_manifest.json in Resources */,
 				1BADC44623DA28E1006CC945 /* component.json in Resources */,
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
@@ -267,9 +270,10 @@
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,
 				1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */,
 				AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */,
+				F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */,
 				F6B946A22422D7450041F5D0 /* employees.json in Resources */,
 				1B583CD823D926590003F30C /* Assets.xcassets in Resources */,
-				F6B9469F2422D2C80041F5D0 /* mainfest.json in Resources */,
+				F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */,
 				1BADC44323DA28E1006CC945 /* parameters.json in Resources */,
 				1BADC44923DA28E1006CC945 /* contentstack-benefits_manifest.json in Resources */,
 				F6B9469D2422D2880041F5D0 /* employee.json in Resources */,

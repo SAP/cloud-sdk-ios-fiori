@@ -12,9 +12,6 @@ public class TimelineCard: BaseCard<TimelineItem, [TimelineItem]> {
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-        let container = try decoder.container(keyedBy: HavingHeader.CodingKeys.self)
-        
-        header = try container.decode(Header.self, forKey: .header)
         
         let value = try HavingContent<HavingTemplateItem>(from: decoder)
         templateItem = value.content.item
@@ -37,7 +34,7 @@ public class TimelineCard: BaseCard<TimelineItem, [TimelineItem]> {
                 }
         }
         .sink(receiveValue: { [weak self] in
-            self?.content.send($0)
+            self?.content = $0
         })
             .store(in: &subscribers)
     }
@@ -50,11 +47,11 @@ public class TimelineCard: BaseCard<TimelineItem, [TimelineItem]> {
 extension TimelineCard: Hashable {
     public static func == (lhs: TimelineCard, rhs: TimelineCard) -> Bool {
         return lhs.header == rhs.header &&
-            lhs.content.value == rhs.content.value
+            lhs.content == rhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(header)
-        hasher.combine(content.value)
+        hasher.combine(content)
     }
 }

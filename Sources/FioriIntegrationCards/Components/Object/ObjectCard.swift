@@ -8,6 +8,8 @@
 import Foundation
 import AnyCodable
 import Combine
+import KeyedCodable_iOS
+
 
 public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
     
@@ -21,7 +23,7 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
         let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
         
         if let headerData = dataJson["json"] as? JSONDictionary {
-            self.rawHeaderData.send(headerData)
+            self.headerData.send(headerData)
         }
         
         CurrentValueSubject<[ObjectGroup], Never>(template)
@@ -29,21 +31,22 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
                 return groups.map { $0.replacingPlaceholders(withValuesIn: jsonDict) }
         }
         .sink(receiveValue: { [weak self] in
-            self?.content.send($0)
+            self?.content = $0
         })
         .store(in: &subscribers)
     }
-
 }
+
+
 
 extension ObjectCard: Hashable {
     public static func == (lhs: ObjectCard, rhs: ObjectCard) -> Bool {
         return lhs.header == rhs.header &&
-            lhs.content.value == rhs.content.value
+            lhs.content == rhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(header)
-        hasher.combine(content.value)
+        hasher.combine(content)
     }
 }
