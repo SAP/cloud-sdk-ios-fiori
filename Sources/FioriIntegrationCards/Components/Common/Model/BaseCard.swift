@@ -45,7 +45,9 @@ public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, Obser
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
     
-    private enum CodingKeys: CodingKey {
-        case header, data
+    // MARK: - union of all content-related keys across the cards
+    enum CodingKeys: CodingKey {
+        case header, data, content, item
     }
+
 }
