@@ -4,7 +4,13 @@
         "id": "card.explorer.object.card",
         "type": "card",
         "title": "Sample of an Object Card",
-        "subTitle": "Sample of an Object Card"
+        "subTitle": "Sample of an Object Card",
+        "dataSources": {
+            "products": {
+                "uri": "./SEPMRA_PROD_MAN",
+                "type": "OData"
+            }
+        }
     },
     "sap.ui": {
         "technology": "UI5",
