@@ -154,7 +154,7 @@ class CardData: Decodable {
             let data = try! JSONEncoder().encode(json)
             jsonPublisher.send(data)
         } else if let request = request {
-            dataPublisher.send(request.result)
+            dataPublisher.send(request.fetchedData)
             request.send()
         }
     }
@@ -166,36 +166,7 @@ enum ParseError: Error {
     case convert
 }
 
-class Request: Decodable {
-    let url: String
-    
-    enum CodingKeys: CodingKey {
-        case url
-    }
-    
-    func send() {
-        
-        let url = URL(string: self.url)!
-        
-        subscription = URLSession.shared
-        .dataTaskPublisher(for: url)
-            .print("C")
-            .map(\.data)
-        .print("D")
-        .sink(receiveCompletion: { completion in
-            if case .failure(let err) = completion {
-              print("Retrieving data failed with error \(err)")
-            }
-          }, receiveValue: { object in
-            print("Retrieved object \(object)")
-            self.result.send(object)
-//            self.result.send(completion: .finished)
-        })
-    }
-    
-    let result = PassthroughSubject<Data, Never>()
-    private var subscription: AnyCancellable? = nil
-}
+
 
 /*
  do {
