@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import AnyCodable
-
 
 public enum Card: Decodable, Identifiable, CustomStringConvertible {
     case list(ListCard)
