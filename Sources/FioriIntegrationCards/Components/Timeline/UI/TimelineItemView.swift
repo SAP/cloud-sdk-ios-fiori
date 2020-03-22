@@ -40,11 +40,11 @@ struct TimelineItemView: View {
             .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 12))
             
             VStack(alignment: .leading, spacing: 0) {
-                self.SafeText(self.model.title).font(.body)
+                self.SafeText(self.model.title?.value).font(.body)
                     .padding(.bottom, 4)
-                self.SafeText(self.model.dateTime).font(.footnote).foregroundColor(.gray)
+                self.SafeText(self.model.dateTime?.value).font(.footnote).foregroundColor(.gray)
                     .padding(.bottom, 8)
-                self.SafeText(self.model.description).font(.body)
+                self.SafeText(self.model.description?.value).font(.body)
             }
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             .padding(8)
