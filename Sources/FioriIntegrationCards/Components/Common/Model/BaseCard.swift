@@ -15,7 +15,9 @@ import TinyNetworking
 public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, ObservableObject {
     
     @Published var header: Header
+    @Published var data: BaseData?
     @Published var content: Content? = nil
+    
     var template: Template!
     
     public let cardData = CurrentValueSubject<JSONDictionary?, Never>(nil)
@@ -24,8 +26,10 @@ public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, Obser
     
     required public init(from decoder: Decoder) throws {
         
-        let container = try decoder.container(keyedBy: HavingHeader.CodingKeys.self)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
         header = try container.decode(Header.self, forKey: .header)
+        data = try container.decodeIfPresent(BaseData.self, forKey: .data)
+//        content = try container.decodeIfPresent(Content.self, forKey: .content)
         
         // MARK: - handle binding of headerData to header template
         headerData
@@ -40,4 +44,8 @@ public class BaseCard<Template: Decodable, Content: Decodable>: Decodable, Obser
     
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
+    
+    private enum CodingKeys: CodingKey {
+        case header, data
+    }
 }
