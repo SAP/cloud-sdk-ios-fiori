@@ -16,7 +16,12 @@ public struct DimensionSelector: View {
     
     public var selectionDidChangeHandler: ((Int?) -> Void)?
     public var selectedIndex: Int? {
-        return model.selectedIndex
+        set {
+            model.selectedIndex = newValue
+        }
+        get {
+            return model.selectedIndex
+        }
     }
     
     @ObservedObject private var model: DimensionSelectorModel = DimensionSelectorModel()
