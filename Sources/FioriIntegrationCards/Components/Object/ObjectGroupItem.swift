@@ -19,7 +19,7 @@ public struct ObjectGroupItem: Decodable, Identifiable, Hashable {
 }
 
 extension ObjectGroupItem: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> ObjectGroupItem {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> ObjectGroupItem {
         let _icon = icon?.replacingPlaceholders(withValuesIn: dictionary)
         let _label = label.replacingPlaceholders(withValuesIn: dictionary)
         let _value = value.replacingPlaceholders(withValuesIn: dictionary)

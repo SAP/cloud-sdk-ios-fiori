@@ -21,7 +21,7 @@ public struct TableColumn: Identifiable, Decodable, Hashable {
 }
 
 extension TableColumn: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TableColumn {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TableColumn {
         let _value               = value?.replacingPlaceholders(withValuesIn: dictionary)
         let _title               = title?.replacingPlaceholders(withValuesIn: dictionary)
         let _width               = width?.replacingPlaceholders(withValuesIn: dictionary)

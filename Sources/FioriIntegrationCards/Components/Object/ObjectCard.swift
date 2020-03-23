@@ -50,3 +50,11 @@ extension ObjectCard: Hashable {
         hasher.combine(content)
     }
 }
+
+extension Array: Placeholding where Element: Placeholding {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Array<Element> {
+        return map { $0.replacingPlaceholders(withValuesIn: dictionary) }
+    }
+    
+    
+}
