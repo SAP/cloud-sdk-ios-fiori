@@ -32,6 +32,7 @@ struct ContentView: View {
     }
     
     func makeBody(_ model: Manifest) -> AnyView {
+        
         switch model.card {
         case .list(let value):
             return AnyView(ListCardView(model: value))

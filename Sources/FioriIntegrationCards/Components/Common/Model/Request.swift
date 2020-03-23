@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class Request: Decodable {
-    
+
     /// The URL of the request. If the URL is relative, it is going to be resolved based on the page instead of the manifest base path.
     let url: String
     
@@ -49,21 +49,42 @@ class Request: Decodable {
         let url = URL(string: self.url)!
         
         subscription = URLSession.shared
-        .dataTaskPublisher(for: url)
-            .print("C")
+            .dataTaskPublisher(for: url)
             .map(\.data)
-        .print("D")
-        .sink(receiveCompletion: { completion in
-            if case .failure(let err) = completion {
-              print("Retrieving data failed with error \(err)")
-            }
-          }, receiveValue: { object in
-            print("Retrieved object \(object)")
-            self.fetchedData.send(object)
-//            self.result.send(completion: .finished)
-        })
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                    case .failure(let error):
+                        print("Retrieving data failed with error \(error)")
+                    case .finished:
+                        self.fetchedData.send(completion: .finished)
+                }
+            }, receiveValue: { object in
+                self.fetchedData.send(object)
+            })
     }
     
     public let fetchedData = PassthroughSubject<Data, Never>()
     private var subscription: AnyCancellable? = nil
+}
+
+extension Request: Equatable {
+    static func == (lhs: Request, rhs: Request) -> Bool {
+        return lhs.url == rhs.url &&
+            lhs.mode == rhs.mode &&
+            lhs.method == rhs.method &&
+            lhs.headers == rhs.headers &&
+            lhs.parameters == rhs.parameters &&
+            lhs.withCredentials == rhs.withCredentials
+    }
+}
+
+extension Request: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(url)
+        hasher.combine(mode)
+        hasher.combine(method)
+        hasher.combine(headers)
+        hasher.combine(parameters)
+        hasher.combine(withCredentials)
+    }
 }
