@@ -28,7 +28,7 @@ extension DefaultHeader: Equatable {
 }
 
 extension DefaultHeader: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> DefaultHeader {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> DefaultHeader {
         let _type        = type?.replacingPlaceholders(withValuesIn: dictionary)
         let _title       = title.replacingPlaceholders(withValuesIn: dictionary)
         let _subTitle    = subTitle?.replacingPlaceholders(withValuesIn: dictionary)

@@ -20,7 +20,7 @@ public struct NumericHeader: Decodable, Hashable {
 }
 
 extension NumericHeader:  Placeholding {
-        func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> NumericHeader {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> NumericHeader {
             
             let _type               = type.replacingPlaceholders(withValuesIn: dictionary)
             let _title              = title.replacingPlaceholders(withValuesIn: dictionary)

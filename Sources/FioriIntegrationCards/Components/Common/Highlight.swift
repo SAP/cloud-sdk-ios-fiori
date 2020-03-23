@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
+public enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
     
     case error
     case warn
@@ -18,9 +18,9 @@ enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
     case none
     case placeholder(String)
     
-    static let allCases: [Highlight] = [.error, .warn, .success, .info, .none]
+    public static let allCases: [Highlight] = [.error, .warn, .success, .info, .none]
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let value = try container.decode(String.self)
         guard let c = Highlight(rawValue: value) else {
@@ -67,7 +67,7 @@ enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
 }
 
 extension Highlight: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Highlight {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Highlight {
         switch self {
         case .placeholder(let placeholder):
             let value = placeholder.replacingPlaceholders(withValuesIn: dictionary)

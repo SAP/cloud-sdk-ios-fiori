@@ -23,7 +23,7 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
 }
 
 extension TimelineItem.KeyValue : Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem.KeyValue {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem.KeyValue {
         let _label = label?.replacingPlaceholders(withValuesIn: dictionary)
         let _value = value.replacingPlaceholders(withValuesIn: dictionary)
         return TimelineItem.KeyValue(label: _label, value: _value)
@@ -31,7 +31,7 @@ extension TimelineItem.KeyValue : Placeholding {
 }
 
 extension TimelineItem: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem {
         let _title = title?.replacingPlaceholders(withValuesIn: dictionary)
         let _description = description?.replacingPlaceholders(withValuesIn: dictionary)
         let _dateTime = dateTime?.replacingPlaceholders(withValuesIn: dictionary)

@@ -24,6 +24,35 @@ extension ListCard: Hashable {
 }
 
 public class ListCard: Decodable, ObservableObject {
+public struct ListCardItem: Decodable, Identifiable, Hashable {
+       public let title: String?
+       public let description: String?
+       public let info: [String]?
+       public let highlight: Highlight?
+       public let icon: Icon?
+       public let actions: [Action]?
+       public let id: String = UUID().uuidString
+   }
+
+extension ListCardItem: Placeholding {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> ListCardItem {
+        let _title = title?.replacingPlaceholders(withValuesIn: dictionary)
+        let _description = description?.replacingPlaceholders(withValuesIn: dictionary)
+        let _info = info?.replacingPlaceholders(withValuesIn: dictionary)
+        let _highlight = highlight?.replacingPlaceholders(withValuesIn: dictionary)
+        let _icon = icon?.replacingPlaceholders(withValuesIn: dictionary)
+        let _actions = actions?.replacingPlaceholders(withValuesIn: dictionary)
+        return ListCardItem(title: _title, description: _description, info: _info, highlight: _highlight, icon: _icon, actions: _actions)
+    }
+    
+    
+}
+
+extension Array where Element == String {
+    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> [String] {
+        map { $0.replacingPlaceholders(withValuesIn: dictionary) }
+    }
+}
     
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     

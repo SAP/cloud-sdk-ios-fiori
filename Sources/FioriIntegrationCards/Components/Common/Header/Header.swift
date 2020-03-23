@@ -31,7 +31,7 @@ public enum Header: Decodable, Hashable {
 }
 
 extension Header: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Header {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Header {
         switch self {
             case .default(let header):
                 return .default(header.replacingPlaceholders(withValuesIn: dictionary))

@@ -14,7 +14,7 @@ public struct Action: Decodable, Hashable {
 }
 
 extension Action: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Action {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Action {
         let _type = type?.replacingPlaceholders(withValuesIn: dictionary)
         let _url  = url?.replacingPlaceholders(withValuesIn: dictionary)
         return Action(type: _type, url: _url)

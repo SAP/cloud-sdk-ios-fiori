@@ -14,7 +14,7 @@ public struct MainIndicator: Decodable, Hashable {
 }
 
 extension MainIndicator: Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> MainIndicator {
+    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> MainIndicator {
         let _number = number.replacingPlaceholders(withValuesIn: dictionary)
         let _unit = unit.replacingPlaceholders(withValuesIn: dictionary)
         let _trend = trend.replacingPlaceholders(withValuesIn: dictionary)
