@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 import AnyCodable
 
 protocol DataHandling {
@@ -14,7 +15,7 @@ protocol DataHandling {
     var dataPublisher: Published<Data>.Publisher { get }
 }
 
-class BaseData: Decodable {
+public class DataFetcher: Decodable {
     let request: Request?
     @Published var json: Data? = nil
     let path: String?
@@ -24,7 +25,7 @@ class BaseData: Decodable {
         case request, json, path, updateInterval
     }
     
-    required init(from decoder: Decoder) throws {
+    required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         request = try container.decodeIfPresent(Request.self, forKey: .request)
         let _json = try container.decodeIfPresent(AnyCodable.self, forKey: .json)
@@ -33,5 +34,37 @@ class BaseData: Decodable {
         }
         path = try container.decodeIfPresent(String.self, forKey: .path)
         updateInterval = try container.decodeIfPresent(Float.self, forKey: .updateInterval)
+        
+        print(self.json == nil)
+        
+        request?.fetchedData
+            .sink(receiveValue: { [weak self] in
+                self?.json = $0
+            })
+            .store(in: &subscribers)
+    }
+    
+    public func load() {
+        request?.send()
+    }
+    
+    private var subscribers = Set<AnyCancellable>()
+}
+
+extension DataFetcher: Equatable {
+    public static func == (lhs: DataFetcher, rhs: DataFetcher) -> Bool {
+        return lhs.request == rhs.request &&
+            lhs.json == rhs.json &&
+            lhs.path == rhs.path &&
+            lhs.updateInterval == rhs.updateInterval
+    }
+}
+
+extension DataFetcher: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(request)
+        hasher.combine(json)
+        hasher.combine(path)
+        hasher.combine(updateInterval)
     }
 }

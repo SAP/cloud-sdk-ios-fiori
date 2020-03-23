@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 public enum Header: Decodable, Hashable {
     case `default`(DefaultHeader)

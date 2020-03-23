@@ -15,19 +15,20 @@ public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-
-        let value = try HavingContent<HavingGroups<[ObjectGroup]>>(from: decoder)
-        template = value.content.groups
         
-        let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
-        let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        let contentContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .content)
+//        template = try contentContainer.decodeIfPresent([ObjectGroup].self, forKey: .groups)
         
-        if let headerData = dataJson["json"] as? JSONDictionary {
-            self.headerData.send(headerData)
-        }
+//        let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
+//        let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
+//
+//        if let headerData = dataJson["json"] as? JSONDictionary {
+//            self.headerData.send(headerData)
+//        }
         
-        CurrentValueSubject<[ObjectGroup], Never>(template)
-            .combineLatest(data) { (groups, jsonDict) -> [ObjectGroup] in
+        Just(template).compactMap({ $0 })
+            .combineLatest(cardData.compactMap({ $0 })) { (groups, jsonDict) -> [ObjectGroup] in
                 return groups.map { $0.replacingPlaceholders(withValuesIn: jsonDict) }
         }
         .sink(receiveValue: { [weak self] in

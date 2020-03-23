@@ -17,8 +17,10 @@ public struct TimelineCardView: View {
             HeaderView(model: model.header)
             Divider().accentColor(Color.primary)
                 .padding([.bottom, .top])
-            ForEach(0 ..< model.content!.count) { index in
-                TimelineItemView(model: self.model.content![index], isLast: index == self.model.content!.count - 1)
+            if (model.content != nil) {
+                ForEach(0 ..< model.content!.count) { index in
+                    TimelineItemView(model: self.model.content![index], isLast: index == self.model.content!.count - 1)
+                }
             }
         }
         .padding(16)

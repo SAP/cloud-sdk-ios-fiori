@@ -23,7 +23,43 @@ extension ListCard: Hashable {
     }
 }
 
-public class ListCard: Decodable, ObservableObject {
+public class ListCard: BaseCard<ListCardItem, [ListCardItem]> {
+   
+        
+        
+    let items = CurrentValueSubject<[ListCardItem], Never>([])
+    
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+
+        
+        
+//        CurrentValueSubject<Item, Never>(bindingPlaceholders)
+//            .combineLatest(data.content.data.jsonObject) { (item, jsonArray) -> [Item] in
+//                return jsonArray.map {
+//                    let _icon = item.icon?.replacingPlaceholders(withValuesIn: $0)
+//                    let _title = item.title?.replacingPlaceholders(withValuesIn: $0)
+//                    let _description = item.description?.replacingPlaceholders(withValuesIn: $0)
+//                    let _highlight = item.highlight?.replacingPlaceholders(withValuesIn: $0)
+//                    return Item(title: _title, description: _description, info: nil, highlight: _highlight, icon: _icon, actions: nil)
+//                }
+//        }
+//        .sink(receiveValue: { [weak self] in
+//            self?.items.send($0)
+//        })
+//        .store(in: &subscribers)
+    }
+    
+    
+    private struct HavingItem: Decodable {
+        let item: ListCardItem
+    }
+    
+    private struct HavingData<Model: Decodable>: Decodable {
+        let data: Model
+    }
+}
+
 public struct ListCardItem: Decodable, Identifiable, Hashable {
        public let title: String?
        public let description: String?
@@ -53,6 +89,8 @@ extension Array where Element == String {
         map { $0.replacingPlaceholders(withValuesIn: dictionary) }
     }
 }
+/*
+public class ListCard_DEP: Decodable, ObservableObject {
     
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     
@@ -123,7 +161,7 @@ extension Array where Element == String {
 //        }
 //    }
 }
-
+*/
 /// MARK: - Binding structs: will contain placeholder strings
 
 //private protocol HavingCardData {
@@ -133,63 +171,6 @@ extension Array where Element == String {
 //    var item: Item { get }
 //}
 
-class CardData: Decodable {
-    
-    let jsonObject = CurrentValueSubject<JSONArray, Never>([])
-
-    private let json: [[String: AnyCodable]]?
-    private let request: Request?
-    private let path: String?
-
-    enum CodingKeys: CodingKey {
-        case json, request, path
-    }
-    
-    required init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        json = try container.decodeIfPresent([[String: AnyCodable]].self, forKey: .json)
-        request = try container.decodeIfPresent(Request.self, forKey: .request)
-        path = try container.decodeIfPresent(String.self, forKey: .path)
-
-        let dataPublisher = PassthroughSubject<PassthroughSubject<Data, Never>, Never>()
-        
-        dataPublisher
-        .switchToLatest()
-            .combineLatest(CurrentValueSubject<String?, Never>(path))
-            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .allowFragments), $0.1) })
-            .print("A")
-            .map({ parsed, path -> JSONArray in
-                switch parsed {
-                case is NSDictionary:
-                    let jsonDict = parsed as! JSONDictionary
-                    guard let path = path else { return [jsonDict] }
-                    guard let array: JSONArray = jsonDict.resolve(keyPath: path, separator: "/") else { return [] }
-                    return array
-                case is NSArray:
-                    return parsed as! JSONArray
-                default:
-                    return []
-                }
-            })
-            .print("B")
-            .sink(receiveCompletion: {_ in }, receiveValue: { value in
-                self.jsonObject.send(value)
-            })
-            .store(in: &subscription)
-        
-        if let json = json {
-            let jsonPublisher = PassthroughSubject<Data, Never>()
-            dataPublisher.send(jsonPublisher)
-            let data = try! JSONEncoder().encode(json)
-            jsonPublisher.send(data)
-        } else if let request = request {
-            dataPublisher.send(request.fetchedData)
-            request.send()
-        }
-    }
-    
-    private var subscription: Set<AnyCancellable> = []
-}
 
 enum ParseError: Error {
     case convert
