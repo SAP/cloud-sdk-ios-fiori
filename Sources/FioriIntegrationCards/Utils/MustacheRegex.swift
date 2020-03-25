@@ -97,3 +97,23 @@ extension String {
         return Bool(mutableString)!
     }
 }
+
+
+///TODO: Open Source
+// from here: https://github.com/onmyway133/Omnia, used under MIT license
+public typealias JSONDictionary = [String: Any]
+public typealias JSONArray = [JSONDictionary]
+
+fileprivate func resolve<T>(_ jsonDictionary: Any, keyPath: String, separator: String.Element = ".") -> T? {
+    var current: Any? = jsonDictionary
+    
+    keyPath.split(separator: separator).forEach { component in
+        if let maybeInt = Int(component), let array = current as? Array<Any> {
+            current = array[maybeInt]
+        } else if let dictionary = current as? JSONDictionary {
+            current = dictionary[String(component)]
+        }
+    }
+    
+    return current as? T
+}

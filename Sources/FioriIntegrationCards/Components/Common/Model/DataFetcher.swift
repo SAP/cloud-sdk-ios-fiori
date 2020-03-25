@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import AnyCodable
+import TimelaneCombine
 
 protocol DataHandling {
     var data: Data { get }
@@ -17,7 +18,7 @@ protocol DataHandling {
 
 public class DataFetcher: Decodable {
     let request: Request?
-    @Published var json: Data? = nil
+    let json = CurrentValueSubject<Data?, Never>(nil)
     let path: String?
     let updateInterval: Float?
     
@@ -30,18 +31,22 @@ public class DataFetcher: Decodable {
         request = try container.decodeIfPresent(Request.self, forKey: .request)
         let _json = try container.decodeIfPresent(AnyCodable.self, forKey: .json)
         if let json = _json {
-            self.json = try JSONEncoder().encode(json)
+            self.json.send(try JSONEncoder().encode(json))
         }
         path = try container.decodeIfPresent(String.self, forKey: .path)
         updateInterval = try container.decodeIfPresent(Float.self, forKey: .updateInterval)
-        
-        print(self.json == nil)
-        
+                
         request?.fetchedData
-            .sink(receiveValue: { [weak self] in
-                self?.json = $0
+        .lane("DataFetcher request.fetchedData")
+            .compactMap({ $0 })
+            .sink(receiveValue: { [unowned self] in
+                self.json.send($0)
             })
             .store(in: &subscribers)
+        
+//        self.json.lane("DataFetcher json?").compactMap({ $0 }).lane("DataFetcher json").sink(receiveValue: { print("JSON: \(String(data: $0, encoding: .utf8)!)") }).store(in: &subscribers)
+        
+        load()
     }
     
     public func load() {
@@ -54,7 +59,6 @@ public class DataFetcher: Decodable {
 extension DataFetcher: Equatable {
     public static func == (lhs: DataFetcher, rhs: DataFetcher) -> Bool {
         return lhs.request == rhs.request &&
-            lhs.json == rhs.json &&
             lhs.path == rhs.path &&
             lhs.updateInterval == rhs.updateInterval
     }
@@ -63,7 +67,6 @@ extension DataFetcher: Equatable {
 extension DataFetcher: Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(request)
-        hasher.combine(json)
         hasher.combine(path)
         hasher.combine(updateInterval)
     }

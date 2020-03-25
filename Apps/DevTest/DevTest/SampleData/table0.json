@@ -1,0 +1,61 @@
+{
+    "sap.app": {
+        "id": "card.explorer.table.card",
+        "type": "card"
+    },
+    "sap.card": {
+        "type": "Table",
+        "header": {
+            "title": "Sales Orders for Key Accounts",
+            "subTitle": "Today",
+            "status": {
+                "text": "5 of 27"
+            }
+        },
+        "content": {
+            "data": {
+                "json": {
+                    "url": "./cardcontent/tableitems.json"
+                }
+            },
+            "row": {
+                "columns": [
+                    {
+                        "label": "Sales Order",
+                        "value": "{salesOrder}",
+                        "identifier": true
+                    },
+                    {
+                        "label": "Customer",
+                        "value": "{name}"
+                    },
+                    {
+                        "label": "Net Amount",
+                        "value": "{netAmount}",
+                        "hAlign": "End"
+                    },
+                    {
+                        "label": "Status",
+                        "value": "{status}",
+                        "state": "{statusState}"
+                    },
+                    {
+                        "label": "Avatar",
+                        "width": "12%",
+                        "icon": {
+                            "src": "{icon}"
+                        }
+                    },
+                    {
+                        "label": "Progress",
+                        "progressIndicator": {
+                            "percent": "{percent}",
+                            "text": "{percentValue}",
+                            "state": "{progressState}"
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

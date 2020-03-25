@@ -33,7 +33,7 @@ class CardData: Decodable {
         .switchToLatest()
             .combineLatest(CurrentValueSubject<String?, Never>(path))
             .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .allowFragments), $0.1) })
-            .print("A")
+//            .print("A")
             .map({ parsed, path -> JSONArray in
                 switch parsed {
                 case is NSDictionary:
@@ -47,7 +47,7 @@ class CardData: Decodable {
                     return []
                 }
             })
-            .print("B")
+//            .print("B")
             .sink(receiveCompletion: {_ in }, receiveValue: { value in
                 self.jsonObject.send(value)
             })

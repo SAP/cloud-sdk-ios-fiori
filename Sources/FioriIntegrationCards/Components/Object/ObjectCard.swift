@@ -8,33 +8,13 @@
 import Foundation
 import AnyCodable
 import Combine
-import KeyedCodable_iOS
 
 
-public class ObjectCard: BaseCard<[ObjectGroup], [ObjectGroup]> {
+public class ObjectCard: ManyManyCard<[ObjectGroup]> {
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        let contentContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .content)
-//        template = try contentContainer.decodeIfPresent([ObjectGroup].self, forKey: .groups)
-        
-//        let dataJson = try HavingData<AnyDecodable>(from: decoder).data.value as! JSONDictionary
-//        let data = CurrentValueSubject<JSONDictionary, Never>(dataJson["json"] as! JSONDictionary)
-//
-//        if let headerData = dataJson["json"] as? JSONDictionary {
-//            self.headerData.send(headerData)
-//        }
-        
-        Just(template).compactMap({ $0 })
-            .combineLatest(cardData.compactMap({ $0 })) { (groups, jsonDict) -> [ObjectGroup] in
-                return groups.map { $0.replacingPlaceholders(withValuesIn: jsonDict) }
-        }
-        .sink(receiveValue: { [weak self] in
-            self?.content = $0
-        })
-        .store(in: &subscribers)
     }
 }
 
