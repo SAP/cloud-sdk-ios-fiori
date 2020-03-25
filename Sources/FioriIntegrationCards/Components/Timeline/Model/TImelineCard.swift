@@ -6,7 +6,7 @@
 //
 import Combine
 
-public class TimelineCard: BaseCard<TimelineItem, [TimelineItem]> {
+public class TimelineCard: OneManyCard<TimelineItem> {
         
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)

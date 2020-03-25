@@ -10,10 +10,29 @@ import Foundation
 import Combine
 import AnyCodable
 
+
 extension Dictionary where Key == String, Value == Any {
-    public func resolve<T>(keyPath: Key, separator: String.Element = ".") -> T? {
+    public func resolve<T>(keyPath: Key?, separator: String.Element = "/") -> T? {
         var current: Any? = self
+        let keyPath = keyPath ?? Key(separator)
         
+        keyPath.split(separator: separator).forEach { component in
+            if let maybeInt = Int(component), let array = current as? Array<Any> {
+                current = array[maybeInt]
+            } else if let dictionary = current as? JSONDictionary {
+                current = dictionary[String(component)]
+            }
+        }
+        
+        return current as? T
+    }
+}
+
+extension Array where Element == JSONDictionary {
+    public func resolve<T>(keyPath: Element.Key?, separator: String.Element = "/") -> T? {
+        var current: Any? = self
+        let keyPath = keyPath ?? Element.Key(separator)
+
         keyPath.split(separator: separator).forEach { component in
             if let maybeInt = Int(component), let array = current as? Array<Any> {
                 current = array[maybeInt]

@@ -31,10 +31,12 @@ public struct ListCardView: View {
                 HeaderView(model: model.header)
                     .padding(.bottom, -30)
                 Divider().accentColor(Color.primary)
-                VStack(alignment: .leading) {
-                    ForEach(model.items.value) {
-                        ListItemView(icon: $0.icon, title: $0.title, description: $0.description, highlight: $0.highlight)
-                        Divider()
+                if model.content != nil {
+                    VStack(alignment: .leading) {
+                        ForEach(model.content!) {
+                            ListItemView(icon: $0.icon, title: $0.title, description: $0.description, highlight: $0.highlight)
+                            Divider()
+                        }
                     }
                 }
             }

@@ -14,20 +14,20 @@ import TinyNetworking
 extension ListCard: Hashable {
     public static func == (lhs: ListCard, rhs: ListCard) -> Bool {
         return lhs.header == rhs.header &&
-            lhs.items.value == lhs.items.value
+            lhs.content == lhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(header)
-        hasher.combine(items.value)
+        hasher.combine(content)
     }
 }
 
-public class ListCard: BaseCard<ListCardItem, [ListCardItem]> {
+public class ListCard: OneManyCard<ListCardItem> {
    
         
         
-    let items = CurrentValueSubject<[ListCardItem], Never>([])
+//    let items = CurrentValueSubject<[ListCardItem], Never>([])
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)

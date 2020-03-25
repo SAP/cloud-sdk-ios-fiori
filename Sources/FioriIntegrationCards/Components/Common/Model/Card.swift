@@ -72,29 +72,3 @@ extension Card: Hashable {
         }
     }
 }
-
-
-
-//public struct TableCard: Decodable {
-//    public var rows: [TableRow]
-//}
-
-//public struct ObjectCard: Decodable {
-//    public let groups: [ObjectGroup]
-//}
-
-
-//public struct TimelineCard: Decodable {
-//    public let items: [TimelineItem]
-//}
-
-//public struct AnalyticalCard: Decodable {
-//    public let chartType: String
-//    public let legend: AnalyticalLegend?
-//    public let plotArea: AnalyticalPlotArea?
-//    public let title: AnalyticalTitleAttributes?
-//    public let measureAxis: String?
-//    public let dimensionAxis: String?
-//    public let measures: [AnalyticalMeasureDimension]
-//    public let dimensions: [AnalyticalMeasureDimension]
-//}

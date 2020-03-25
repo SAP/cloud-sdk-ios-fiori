@@ -38,6 +38,7 @@
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
 		F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A32422D76B0041F5D0 /* timeline_manifest.json */; };
 		F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947362426BBBF0041F5D0 /* LowCode.json */; };
+		F6B947C2242C072F0041F5D0 /* table0.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947C1242C072F0041F5D0 /* table0.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -87,6 +88,7 @@
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
 		F6B946A32422D76B0041F5D0 /* timeline_manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timeline_manifest.json; sourceTree = "<group>"; };
 		F6B947362426BBBF0041F5D0 /* LowCode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LowCode.json; sourceTree = "<group>"; };
+		F6B947C1242C072F0041F5D0 /* table0.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = table0.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				1BADC44123DA28E1006CC945 /* corporate_benefits.json */,
 				1BADC44223DA28E1006CC945 /* analytical.json */,
 				F6B947362426BBBF0041F5D0 /* LowCode.json */,
+				F6B947C1242C072F0041F5D0 /* table0.json */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */,
 				1BADC44423DA28E1006CC945 /* quicklinks_manifest.json in Resources */,
 				1BADC44623DA28E1006CC945 /* component.json in Resources */,
+				F6B947C2242C072F0041F5D0 /* table0.json in Resources */,
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
 				1BADC44823DA28E1006CC945 /* table.json in Resources */,
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,

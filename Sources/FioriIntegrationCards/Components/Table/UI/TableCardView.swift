@@ -19,15 +19,17 @@ public struct TableCardView: View {
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HeaderView(model: model.header)
-            VStack(alignment: .leading, spacing: 0) {
-                TableTitleRowView(model: model.content?.first?.columns)
-                ForEach(model.content!) {
-                    TableRowView(model: $0)
-                        .frame(height: 30)
-                        .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
+            if model.content != nil {
+                VStack(alignment: .leading, spacing: 0) {
+                    TableTitleRowView(model: model.content?.first?.columns)
+                    ForEach(model.content!) {
+                        TableRowView(model: $0)
+                            .frame(height: 30)
+                            .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
+                    }
                 }
+                .padding(10)
             }
-            .padding(10)
         }
         .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
         .overlay(
