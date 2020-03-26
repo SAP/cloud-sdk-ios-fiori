@@ -39,7 +39,7 @@ extension String {
         return placeholders
     }
     
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> String {
+    func replacingPlaceholders(withValuesIn object: Any) -> String {
         var mutableString = self
         // identify the keys and ranges of the mustache placeholders
         let substitutions = mutableString.mustachePlaceholders()
@@ -49,7 +49,7 @@ extension String {
 //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
-            if let value: String = resolve(dictionary, keyPath: sub.0, separator: "/") {
+            if let value: String = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: value)
             }
@@ -67,10 +67,10 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute valuex
             
-            if let value: Double = resolve(dictionary, keyPath: sub.0, separator: "/") {
+            if let value: Double = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
                 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
-            } else if let value: Int = resolve(dictionary, keyPath: sub.0, separator: "/") {
+            } else if let value: Int = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
                 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
             }
@@ -88,7 +88,7 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
-            if let value: Bool = resolve(dictionary, keyPath: sub.0, separator: "/") {
+            if let value: Bool = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
                 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 let boolString = value ? "true" : "false"
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: boolString)
@@ -104,16 +104,19 @@ extension String {
 public typealias JSONDictionary = [String: Any]
 public typealias JSONArray = [JSONDictionary]
 
-fileprivate func resolve<T>(_ jsonDictionary: Any, keyPath: String, separator: String.Element = ".") -> T? {
-    var current: Any? = jsonDictionary
-    
-    keyPath.split(separator: separator).forEach { component in
-        if let maybeInt = Int(component), let array = current as? Array<Any> {
-            current = array[maybeInt]
-        } else if let dictionary = current as? JSONDictionary {
-            current = dictionary[String(component)]
+enum `Any` {
+    static func resolve<T>(_ object: Any, keyPath: String, separator: String.Element = ".") -> T? {
+        var current: Any? = object
+        
+        keyPath.split(separator: separator).forEach { component in
+            if let maybeInt = Int(component), let array = current as? Array<Any> {
+                current = array[maybeInt]
+            } else if let dictionary = current as? JSONDictionary {
+                current = dictionary[String(component)]
+            }
         }
+        
+        return current as? T
     }
-    
-    return current as? T
 }
+

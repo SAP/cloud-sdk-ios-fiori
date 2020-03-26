@@ -45,8 +45,8 @@ final public class Icon: Decodable, AnyBodyProducing {
 }
 
 extension Icon: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Icon {
-        let _src = src.replacingPlaceholders(withValuesIn: dictionary).validDirectory()
+    public func replacingPlaceholders(withValuesIn object: Any) -> Icon {
+        let _src = src.replacingPlaceholders(withValuesIn: object).validDirectory()
         return Icon(src: _src)
     }
 }

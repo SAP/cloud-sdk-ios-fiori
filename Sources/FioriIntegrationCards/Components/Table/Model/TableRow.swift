@@ -14,9 +14,9 @@ public struct TableRow: Identifiable, Decodable, Hashable {
 }
 
 extension TableRow: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TableRow {
-        let _columns = columns?.map { $0.replacingPlaceholders(withValuesIn: dictionary) }
-        let _actions = actions?.map { $0.replacingPlaceholders(withValuesIn: dictionary) }
+    public func replacingPlaceholders(withValuesIn object: Any) -> TableRow {
+        let _columns = columns?.map { $0.replacingPlaceholders(withValuesIn: object) }
+        let _actions = actions?.map { $0.replacingPlaceholders(withValuesIn: object) }
         return TableRow(columns: _columns, actions: _actions/*, id: id*/)
     }
     

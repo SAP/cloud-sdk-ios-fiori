@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol Placeholding {
-    func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Self
+    func replacingPlaceholders(withValuesIn object: Any) -> Self
     
 }

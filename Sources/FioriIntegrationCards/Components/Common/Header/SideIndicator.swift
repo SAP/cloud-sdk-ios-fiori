@@ -13,10 +13,10 @@ public struct SideIndicator: Decodable, Hashable {
 }
 
 extension SideIndicator: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> SideIndicator {
-        let _title  = title.replacingPlaceholders(withValuesIn: dictionary)
-        let _number = number.replacingPlaceholders(withValuesIn: dictionary)
-        let _unit   = unit.replacingPlaceholders(withValuesIn: dictionary)
+    public func replacingPlaceholders(withValuesIn object: Any) -> SideIndicator {
+        let _title  = title.replacingPlaceholders(withValuesIn: object)
+        let _number = number.replacingPlaceholders(withValuesIn: object)
+        let _unit   = unit.replacingPlaceholders(withValuesIn: object)
         return SideIndicator(title: _title, number: _number, unit: _unit)
     }
 }
