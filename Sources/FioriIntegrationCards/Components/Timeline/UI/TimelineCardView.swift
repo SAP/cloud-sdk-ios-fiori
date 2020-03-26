@@ -10,17 +10,15 @@ import SwiftUI
 
 public struct TimelineCardView: View {
     
-    public var model: TimelineCard!
+    public var model: TimelineCard
     
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             HeaderView(model: model.header)
             Divider().accentColor(Color.primary)
                 .padding([.bottom, .top])
-            if (model.content != nil) {
-                ForEach(0 ..< model.content!.count) { index in
-                    TimelineItemView(model: self.model.content![index], isLast: index == self.model.content!.count - 1)
-                }
+            ForEach(0 ..< model.content.count) { index in
+                TimelineItemView(model: self.model.content[index], isLast: index == self.model.content.count - 1)
             }
         }
         .padding(16)

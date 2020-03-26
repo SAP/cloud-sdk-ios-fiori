@@ -23,9 +23,9 @@ public struct Status: Decodable, AnyBodyProducing {
 }
 
 extension Status: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Status {
+    public func replacingPlaceholders(withValuesIn object: Any) -> Status {
         guard let value = text else { return self }
-        return Status(text: value.replacingPlaceholders(withValuesIn: dictionary))
+        return Status(text: value.replacingPlaceholders(withValuesIn: object))
     }
     
 }

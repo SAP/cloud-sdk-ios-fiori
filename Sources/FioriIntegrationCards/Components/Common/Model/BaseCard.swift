@@ -10,65 +10,68 @@ import Foundation
 import AnyCodable
 import Combine
 import TinyNetworking
-import TimelaneCombine
 
 
 
 /// JSON data must be in `array` form
 open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
     
-    @Published var content: [Template]? = nil
+    @Published var content: [Template] = []
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
         
-        $content
-            .lane("OneManyCard.$content")
-            .compactMap({ $0 })
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: { [unowned self] _ in
-                self.objectWillChange.send() })
-            .store(in: &subscribers)
-        
         contentPublisher
-            .lane("OneManyCard.contentPublisher")
-            .compactMap({ $0 })
-            .map({ $0.value })
-            .lane("OneManyCard.contentPublisher.switchToLatest()")
-            .compactMap({ $0 })
+            .compactMap({ $0?.value })
             .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
-            .compactMap({ [unowned self] object -> JSONArray? in
-                if let value = object as? JSONArray,
-                let arr: JSONArray = value.resolve(keyPath: self._contentData?.path) {
-                return arr
-            } else if let value = object as? JSONDictionary,
-                let arr: JSONArray = value.resolve(keyPath: self._contentData?.path) {
-                return arr
-            } else {
-                return nil
-            }
-        })
-        .sink(receiveCompletion: {
-            switch $0 {
-                case .failure(let error):
-                    print(error)
-                case .finished:
-                    print("FINISHED")
-                    return
-            }
-        }, receiveValue: { [unowned self] array in
-            self.content = array.map({ self.template.replacingPlaceholders(withValuesIn: $0) })
-            print("content: \(self.content)")
-        })
-        .store(in: &subscribers)
+            .map({ $0 })
+            .sink(receiveCompletion: {
+                switch $0 {
+                    case .failure(let error):
+                        print(error)
+                    case .finished:
+                        print("FINISHED")
+                }
+            }, receiveValue: { [unowned self] object in
+                if let array = object as? JSONArray {
+                    self.content = array.map({ self.template.replacingPlaceholders(withValuesIn: $0) })
+                } else if let dict = object as? JSONDictionary {
+                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict)]
+                }
+            })
+            .store(in: &subscribers)
     }
 }
 
 
 
-open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard<Template> {
+open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard<Template> where Template.Element: Placeholding {
     
     @Published var content: Template? = nil
+    
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        
+        contentPublisher
+            .compactMap({ $0?.value })
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .map({ $0 })
+            .sink(receiveCompletion: {
+                switch $0 {
+                    case .failure(let error):
+                        print(error)
+                    case .finished:
+                        print("FINISHED")
+                }
+            }, receiveValue: { [unowned self] object in
+                if let array = object as? JSONArray {
+                    self.content = zip(self.template, array).map({ $0.0.replacingPlaceholders(withValuesIn: $0.1) }) as? Template
+                } else if let dict = object as? JSONDictionary {
+                    self.content = self.template.replacingPlaceholders(withValuesIn: dict)
+                }
+            })
+            .store(in: &subscribers)
+    }
 }
 
 //open class ManyManyCard<Content: Decodable, Template: Decodable & Placeholding>: BaseCard<Template> where Content
@@ -112,45 +115,17 @@ open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableOb
             }
         }
         
-//        // MARK: override card data with header data
-//        if let headerData = _headerData?.json {
-//            headerData
-//                .lane("BaseCard.headerData")
-//                .sink(receiveCompletion: { [unowned self] _ in
-//                    self.headerPublisher.send(completion: .finished)
-//                    }, receiveValue: { [unowned self] _ in
-//                        self.headerPublisher.send(self._headerData!.json)
-//                        //                        self.headerPublisher.send(completion: .finished)
-//                })
-//                .store(in: &subscribers)
-//
-//        }
-//
-//        // MARK: override card data with content data
-//        if let contentData = _contentData?.json {
-//            contentData
-//                .lane("BaseCard.contentData")
-//                .sink(receiveCompletion: { [unowned self] _ in
-//                    self.contentPublisher.send(completion: .finished)
-//                    }, receiveValue: { [unowned self] _ in
-//                        self.contentPublisher.send(contentData)
-//                        //                        self.contentPublisher.send(completion: .finished)
-//                })
-//                .store(in: &subscribers)
-//
-//        }
-        
         precondition(template != nil, "Unable to load template from card: \(self)")
         
         headerPublisher
             .compactMap({ $0 })
             .map({ $0.value })
-            .lane("BaseCard.headerPublisher.switchToLatest()")
             .compactMap({ $0 })
-            .tryMap({ try JSONDecoder().decode([String: AnyDecodable].self, from: $0) })
-            .map({
-                print($0)
-                return $0.mapValues({ $0.value }) })
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+//
+//            .map({
+//                print($0)
+//                return $0.mapValues({ $0.value }) })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -159,6 +134,8 @@ open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableOb
                         return
                 }
             }, receiveValue:  { [unowned self] in
+                
+                
                 self.header = self.header.replacingPlaceholders(withValuesIn: $0)
             })
             .store(in: &subscribers)

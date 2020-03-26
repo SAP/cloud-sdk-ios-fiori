@@ -10,12 +10,8 @@ import AnyCodable
 import Combine
 
 
-public class ObjectCard: ManyManyCard<[ObjectGroup]> {
-    
-    required public init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        
-    }
+open class ObjectCard: ManyManyCard<[ObjectGroup]> {
+
 }
 
 
@@ -33,8 +29,8 @@ extension ObjectCard: Hashable {
 }
 
 extension Array: Placeholding where Element: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> Array<Element> {
-        return map { $0.replacingPlaceholders(withValuesIn: dictionary) }
+    public func replacingPlaceholders(withValuesIn object: Any) -> Array<Element> {
+        return map { $0.replacingPlaceholders(withValuesIn: object) }
     }
     
     

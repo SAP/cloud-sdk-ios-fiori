@@ -23,21 +23,21 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
 }
 
 extension TimelineItem.KeyValue : Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem.KeyValue {
-        let _label = label?.replacingPlaceholders(withValuesIn: dictionary)
-        let _value = value.replacingPlaceholders(withValuesIn: dictionary)
+    public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem.KeyValue {
+        let _label = label?.replacingPlaceholders(withValuesIn: object)
+        let _value = value.replacingPlaceholders(withValuesIn: object)
         return TimelineItem.KeyValue(label: _label, value: _value)
     }
 }
 
 extension TimelineItem: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> TimelineItem {
-        let _title = title?.replacingPlaceholders(withValuesIn: dictionary)
-        let _description = description?.replacingPlaceholders(withValuesIn: dictionary)
-        let _dateTime = dateTime?.replacingPlaceholders(withValuesIn: dictionary)
-        let _owner = owner?.replacingPlaceholders(withValuesIn: dictionary)
-        let _ownerImage = ownerImage?.replacingPlaceholders(withValuesIn: dictionary)
-        let _icon = icon?.replacingPlaceholders(withValuesIn: dictionary)
+    public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem {
+        let _title = title?.replacingPlaceholders(withValuesIn: object)
+        let _description = description?.replacingPlaceholders(withValuesIn: object)
+        let _dateTime = dateTime?.replacingPlaceholders(withValuesIn: object)
+        let _owner = owner?.replacingPlaceholders(withValuesIn: object)
+        let _ownerImage = ownerImage?.replacingPlaceholders(withValuesIn: object)
+        let _icon = icon?.replacingPlaceholders(withValuesIn: object)
         return TimelineItem(title: _title, description: _description, dateTime: _dateTime, owner: _owner, ownerImage: _ownerImage, icon: _icon)
     }
 }

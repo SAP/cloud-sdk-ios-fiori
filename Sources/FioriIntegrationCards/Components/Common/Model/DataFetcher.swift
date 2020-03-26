@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 import AnyCodable
-import TimelaneCombine
 
 protocol DataHandling {
     var data: Data { get }
@@ -37,7 +36,6 @@ public class DataFetcher: Decodable {
         updateInterval = try container.decodeIfPresent(Float.self, forKey: .updateInterval)
                 
         request?.fetchedData
-        .lane("DataFetcher request.fetchedData")
             .compactMap({ $0 })
             .sink(receiveValue: { [unowned self] in
                 self.json.send($0)

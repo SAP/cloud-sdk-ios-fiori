@@ -20,17 +20,17 @@ public struct NumericHeader: Decodable, Hashable {
 }
 
 extension NumericHeader:  Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> NumericHeader {
+    public func replacingPlaceholders(withValuesIn object: Any) -> NumericHeader {
             
-            let _type               = type.replacingPlaceholders(withValuesIn: dictionary)
-            let _title              = title.replacingPlaceholders(withValuesIn: dictionary)
-            let _subTitle           = subTitle?.replacingPlaceholders(withValuesIn: dictionary)
-            let _unitOfMeasurement  = unitOfMeasurement?.replacingPlaceholders(withValuesIn: dictionary)
-            let _details            = details?.replacingPlaceholders(withValuesIn: dictionary)
-            let _status             = status?.replacingPlaceholders(withValuesIn: dictionary)
-            let _sideIndicators     = sideIndicators?.map({ $0.replacingPlaceholders(withValuesIn: dictionary) })
-            let _mainIndicator      = mainIndicator?.replacingPlaceholders(withValuesIn: dictionary)
-            let _actions            = actions?.map({ $0.replacingPlaceholders(withValuesIn: dictionary) })
+            let _type               = type.replacingPlaceholders(withValuesIn: object)
+            let _title              = title.replacingPlaceholders(withValuesIn: object)
+            let _subTitle           = subTitle?.replacingPlaceholders(withValuesIn: object)
+            let _unitOfMeasurement  = unitOfMeasurement?.replacingPlaceholders(withValuesIn: object)
+            let _details            = details?.replacingPlaceholders(withValuesIn: object)
+            let _status             = status?.replacingPlaceholders(withValuesIn: object)
+            let _sideIndicators     = sideIndicators?.map({ $0.replacingPlaceholders(withValuesIn: object) })
+            let _mainIndicator      = mainIndicator?.replacingPlaceholders(withValuesIn: object)
+            let _actions            = actions?.map({ $0.replacingPlaceholders(withValuesIn: object) })
             
             return NumericHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, unitOfMeasurement: _unitOfMeasurement, mainIndicator: _mainIndicator, details: _details, sideIndicators: _sideIndicators, status: _status)
  

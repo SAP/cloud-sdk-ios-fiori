@@ -16,10 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        let oneMany = ["table", "list", "timeline"]
+//        let oneMany = ["table", "list", "timeline"]
+//        let manyMany = ["LowCode", "object", "analytical"]
         let cards: [String] = ["LowCode", "timeline", "table", "list" , "object", "analytical"]
         
-        let contentView = ContentView(cards: oneMany)
+        let contentView = ContentView(cards: cards)
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

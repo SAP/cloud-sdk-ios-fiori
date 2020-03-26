@@ -14,11 +14,11 @@ public struct MainIndicator: Decodable, Hashable {
 }
 
 extension MainIndicator: Placeholding {
-    public func replacingPlaceholders(withValuesIn dictionary: Dictionary<String, Any>) -> MainIndicator {
-        let _number = number.replacingPlaceholders(withValuesIn: dictionary)
-        let _unit = unit.replacingPlaceholders(withValuesIn: dictionary)
-        let _trend = trend.replacingPlaceholders(withValuesIn: dictionary)
-        let _state = state.replacingPlaceholders(withValuesIn: dictionary)
+    public func replacingPlaceholders(withValuesIn object: Any) -> MainIndicator {
+        let _number = number.replacingPlaceholders(withValuesIn: object)
+        let _unit = unit.replacingPlaceholders(withValuesIn: object)
+        let _trend = trend.replacingPlaceholders(withValuesIn: object)
+        let _state = state.replacingPlaceholders(withValuesIn: object)
         return MainIndicator(number: _number, unit: _unit, trend: _trend, state: _state)
     }
     
