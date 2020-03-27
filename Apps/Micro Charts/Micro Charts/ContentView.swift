@@ -14,9 +14,6 @@ struct ContentView: View {
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
-    //    let charts: [(String, CGFloat, [ChartModel])] = [
-    //        ("Line", 280, 160, Tests.lineModels)
-    //    ]
     let charts: [(String, CGFloat, CGFloat, [ChartModel])] =
         [("Stock", 280, 160, Tests.stockModels),
          ("Line", 280, 160, Tests.lineModels),
@@ -41,15 +38,15 @@ struct ContentView: View {
                             HStack(alignment: .top, spacing: 0) {
                                 ForEach(self.charts[index].3) { model in
                                     ChartView(model)
-                                        .frame(width: self.charts[index].1, height: self.charts[index].2)
-                                        .padding(.leading, 15)
+                                        .frame(width: self.charts[index].1, height: self.charts[index].2 - 2)
+                                        .padding(.leading, 8)
                                         .onTapGesture {
                                             self.currentModel = model
                                             self.showingDetail.toggle()
                                     }
                                 }
                             }
-                        }
+                        }.frame(height: self.charts[index].2)
                     }
                 }
             }.navigationBarTitle("Micro Charts")

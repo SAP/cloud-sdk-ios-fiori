@@ -41,6 +41,13 @@ enum ChartSelectionState {
     case disabled
 }
 
+/// value type for Numberic Axis
+enum ChartValueType {
+    case allPositive
+    case allNegative
+    case mixed
+}
+
 public class ChartModel: ObservableObject, Identifiable {
 
     ///
@@ -102,6 +109,8 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var titlesForCategory: [[String]]?
     @Published public var titlesForAxis: [String]?
     @Published public var labelsForDimension: [[DimensionData<String>]]?
+    
+    @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
     
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
@@ -186,8 +195,12 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var selectionRequired: Bool = false
     
     @Published public var selectedSeriesIndex: Int?
-    @Published public var selectedCategoryIndexes: ClosedRange<Int>?
-    @Published public var selectedDimensionIndex: ClosedRange<Int>?
+    
+    /**
+     Selects a category range, including the lower and and upper bounds of the range. The resulting selection(s) depend on the current `selectionMode`.
+     */
+    @Published public var selectedCategoryInRange: ClosedRange<Int>?
+    @Published public var selectedDimensionInRange: ClosedRange<Int>?
     
     // scale is not allowed to be less than 1.0
     @Published public var scale: CGFloat = 1.0
@@ -196,6 +209,26 @@ public class ChartModel: ObservableObject, Identifiable {
     /// styles
     
     var ranges: [ClosedRange<Double>]?
+    
+    var valueType: ChartValueType {
+        if let ranges = ranges {
+            let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
+                return min(result.lowerBound, next.lowerBound) ... max(result.upperBound, next.upperBound)
+            }
+            
+            if range.lowerBound >= 0 {
+                return .allPositive
+            }
+            else if range.upperBound <= 0 {
+                return .allNegative
+            }
+            else {
+                return .mixed
+            }
+        }
+        
+        return .allPositive
+    }
     
     public let id = UUID()
     
@@ -457,10 +490,10 @@ public class ChartModel: ObservableObject, Identifiable {
         
         let count = categoryTitles.count
         if count >= 3,
-            let startTime = StockUtility.date(from: categoryTitles[0]),
-            let secondTime = StockUtility.date(from: categoryTitles[1]),
-            let timeBeforeEndTime = StockUtility.date(from: categoryTitles[count - 2]),
-            let endTime = StockUtility.date(from: categoryTitles[count - 1]) {
+            let startTime = ChartUtility.date(from: categoryTitles[0]),
+            let secondTime = ChartUtility.date(from: categoryTitles[1]),
+            let timeBeforeEndTime = ChartUtility.date(from: categoryTitles[count - 2]),
+            let endTime = ChartUtility.date(from: categoryTitles[count - 1]) {
             
             let startTimeInterval = secondTime.timeIntervalSince(startTime)
             var endTimeInterval = endTime.timeIntervalSince(timeBeforeEndTime)

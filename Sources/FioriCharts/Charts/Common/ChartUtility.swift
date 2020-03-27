@@ -1,5 +1,5 @@
 //
-//  StockUtility.swift
+//  ChartUtility.swift
 //  Micro Charts
 //
 //  Created by Xu, Sheng on 1/8/20.
@@ -9,7 +9,15 @@
 import Foundation
 import SwiftUI
 
-class StockUtility {
+class ChartUtility {
+    static func numOfDataItmes(_ model: ChartModel) -> Int {
+        if let titles = model.titlesForCategory {
+            return titles[model.currentSeriesIndex].count
+        }
+        
+        return model.data[model.currentSeriesIndex].count
+    }
+    
     static func displayRange(_ model: ChartModel) -> ClosedRange<CGFloat> {
         // calculate display range
         var minVal: CGFloat = CGFloat(Int.max)
@@ -30,12 +38,20 @@ class StockUtility {
         var displayMinVal: CGFloat = minVal - (maxVal - minVal) * 0.2
         var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
         
-        if minVal >= 0 && maxVal >= 0 && displayMinVal < 0 {
-            displayMinVal = 0
+        if abs(displayMaxVal) > 10 {
+            displayMaxVal = ChartUtility.roundToGoodNumber(val: displayMaxVal)
         }
         
-        if model.numericAxis.isZeroBased {
+        if abs(displayMinVal) > 10 {
+            displayMinVal = ChartUtility.roundToGoodNumber(val: displayMinVal)
+        }
+        
+        let valueType = model.valueType
+        if valueType == .allPositive && (model.numericAxis.isZeroBased || displayMinVal < 0) {
             displayMinVal = 0
+        }
+        else if valueType == .allNegative && (model.numericAxis.isZeroBased || displayMaxVal > 0){
+            displayMaxVal = 0
         }
         
         if let tmp = model.numericAxis.explicitMin {
@@ -49,13 +65,35 @@ class StockUtility {
         return displayMinVal...displayMaxVal
     }
     
+    static func roundToGoodNumber(val: CGFloat) -> CGFloat {
+        let negative: CGFloat = val > 0 ? 1 : -1
+        var factor:CGFloat = 1
+        var coefficient = negative * val
+        while coefficient >= 10 {
+            coefficient /= 10
+            factor *= 10
+        }
+        
+        if CGFloat(Int(coefficient + 0.5)) > coefficient {
+            coefficient = CGFloat(Int(coefficient + 0.5))
+        }
+        else if CGFloat(Int(coefficient + 0.9)) > coefficient {
+            coefficient = CGFloat(Int(coefficient + 0.9)) - 0.5
+        }
+        else {
+            coefficient = CGFloat(Int(coefficient))
+        }
+        
+        return negative * coefficient * factor
+    }
+    
     static func lastValidDimIndex(_ model: ChartModel) -> Int {
         return model.data[model.currentSeriesIndex].count - 1
     }
     
     static func isIntraDay(_ model: ChartModel) -> Bool {
         let countA = model.titlesForCategory?[model.currentSeriesIndex].count ?? 0
-        let countB = StockUtility.lastValidDimIndex(model) + 1
+        let countB = ChartUtility.lastValidDimIndex(model) + 1
         
         return countA != countB
     }
@@ -77,6 +115,10 @@ class StockUtility {
         return nil
     }
     
+    static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Double? {
+        return dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
+    }
+    
     static func dimensionValue(_ model: ChartModel, categoryIndex: Int) -> Double? {
         return dimensionValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
@@ -95,6 +137,18 @@ class StockUtility {
         return categories[seriesIndex][categoryIndex]
     }
     
+    static func xPos(_ pos: CGFloat, layoutDirection: LayoutDirection, width: CGFloat) -> CGFloat {
+        if layoutDirection == .rightToLeft {
+            return (width - pos)
+        }
+        else {
+            return pos
+        }
+    }
+    
+    /*
+     Stock chart functions only
+     */
     static func categoryValueInDate(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Date? {
         guard let dateString = categoryValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) else { return nil }
         
@@ -110,13 +164,5 @@ class StockUtility {
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         return df.date(from: s)
-    }
-    
-    static func numOfDataItmes(_ model: ChartModel) -> Int {
-        if let titles = model.titlesForCategory {
-            return titles[model.currentSeriesIndex].count
-        }
-        
-        return model.data[model.currentSeriesIndex].count
     }
 }

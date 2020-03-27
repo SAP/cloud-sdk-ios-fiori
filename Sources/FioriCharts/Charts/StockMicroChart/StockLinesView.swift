@@ -9,19 +9,28 @@
 import SwiftUI
 
 struct StockLinesView: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.layoutDirection) var layoutDirection
     
-    var rect: CGRect
-    var displayRange: ClosedRange<CGFloat>
+    public init(_ chartModel: ChartModel) {
+        self.model = chartModel
+    }
     
     var body: some View {
+        GeometryReader { proxy in
+            self.content(in: proxy.frame(in: .local))
+        }
+    }
+    
+    func content(in rect: CGRect) -> some View {
+        let displayRange = ChartUtility.displayRange(model)
         var noData = false
         var width = rect.size.width
         let height = rect.size.height
         let startPosInFloat = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
         let startIndex = Int(startPosInFloat / unitWidth)
         
         var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
@@ -29,15 +38,15 @@ struct StockLinesView: View {
         
         var endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
     
-        if endIndex > StockUtility.lastValidDimIndex(model) {
-            endIndex = StockUtility.lastValidDimIndex(model)
+        if endIndex > ChartUtility.lastValidDimIndex(model) {
+            endIndex = ChartUtility.lastValidDimIndex(model)
         }
 
         if startIndex > endIndex {
             noData = true
         }
-        if StockUtility.isIntraDay(model) {
-            let count = StockUtility.lastValidDimIndex(model)
+        if ChartUtility.isIntraDay(model) {
+            let count = ChartUtility.lastValidDimIndex(model)
             
             width =  min(CGFloat(count) * unitWidth - startPosInFloat, rect.size.width)
             endOffset = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
@@ -52,20 +61,27 @@ struct StockLinesView: View {
         
         var isPriceGoingUp = true
         
-        if let startPrice = StockUtility.dimensionValue(model, categoryIndex: 0), let endPrice = StockUtility.dimensionValue(model, categoryIndex: StockUtility.lastValidDimIndex(model)) {
+        if let startPrice = ChartUtility.dimensionValue(model, categoryIndex: 0), let endPrice = ChartUtility.dimensionValue(model, categoryIndex: ChartUtility.lastValidDimIndex(model)) {
             if startPrice > endPrice {
                 isPriceGoingUp = false
             }
         }
         
-        let strokeColor = isPriceGoingUp ? model.seriesAttributes.colors[0].color(colorScheme) : model.seriesAttributes.colors[1].color(colorScheme)
-        let fillColor = isPriceGoingUp ? model.seriesAttributes.colors[2].color(colorScheme) : model.seriesAttributes.colors[3].color(colorScheme)
+        let rgba = isPriceGoingUp ? model.seriesAttributes.colors[0].rgba(colorScheme) : model.seriesAttributes.colors[1].rgba(colorScheme)
+        let strokeColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+        let fillColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
         
-        return ZStack {        
+        return ZStack {
+            model.backgroundColor.color(colorScheme)
             if !noData {
                 ZStack {
                     HStack(spacing: 0) {
-                        LinesShape(points: data, displayRange: displayRange, fill: true, startOffset: startOffset, endOffset: endOffset)
+                        LinesShape(points: data,
+                                   displayRange: displayRange,
+                                   layoutDirection: self.layoutDirection,
+                                   fill: true,
+                                   startOffset: startOffset,
+                                   endOffset: endOffset)
                             .fill(LinearGradient(gradient:
                                 Gradient(colors: [fillColor, model.seriesAttributes.colors[4].color(self.colorScheme)]),
                                                  startPoint: .top,
@@ -76,7 +92,11 @@ struct StockLinesView: View {
                     }.frame(width: rect.size.width, height: height)
                     
                     HStack(spacing: 0) {
-                        LinesShape(points: data, displayRange: displayRange, startOffset: startOffset, endOffset: endOffset)
+                        LinesShape(points: data,
+                                   displayRange: displayRange,
+                                   layoutDirection: self.layoutDirection,
+                                   startOffset: startOffset,
+                                   endOffset: endOffset)
                             .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes.lineWidth))
                             .frame(width: width, height: height)
                             .clipped()
@@ -92,7 +112,7 @@ struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) {
-                StockLinesView(rect: CGRect(x: 0, y: 0, width: 300, height: 200), displayRange: 0 ... 2000).environmentObject($0)
+                StockLinesView($0)
             }
             .frame(width:300, height: 200)
             .previewLayout(.sizeThatFits)

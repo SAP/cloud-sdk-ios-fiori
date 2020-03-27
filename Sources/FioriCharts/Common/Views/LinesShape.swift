@@ -12,15 +12,17 @@ public struct LinesShape: Shape {
     
     // min and max value for the display range
     var displayRange: ClosedRange<CGFloat>?
+    var layoutDirection: LayoutDirection
     var fill: Bool = false
     var curve:Bool = false
     var startOffset: CGFloat = 0
     var endOffset: CGFloat = 0
     
-    public init(points: [Double], displayRange: ClosedRange<CGFloat>? = nil, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [Double], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.displayRange = displayRange
+        self.layoutDirection = layoutDirection
         self.fill = fill
         self.curve = curve
         self.startOffset = startOffset
@@ -39,9 +41,10 @@ public struct LinesShape: Shape {
         let data = points.map { rect.size.height - (CGFloat($0) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound)}
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
-        var p1 = CGPoint(x: startOffset, y: CGFloat(data[0]))
+        let x = ChartUtility.xPos(startOffset, layoutDirection: layoutDirection, width: rect.size.width)
+        var p1 = CGPoint(x: x, y: CGFloat(data[0]))
         if fill {
-            path.move(to: CGPoint(x: startOffset, y: rect.size.height))
+            path.move(to: CGPoint(x: x, y: rect.size.height))
             path.addLine(to: p1)
         }
         else {
@@ -53,7 +56,7 @@ public struct LinesShape: Shape {
         }
         
         for i in 1 ..< data.count {
-            let p2 = CGPoint(x: startOffset + stepWidth * CGFloat(i), y: data[i])
+            let p2 = CGPoint(x: ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width), y: data[i])
             if curve {
                 let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
                 path.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
@@ -73,6 +76,15 @@ public struct LinesShape: Shape {
         
         return path
     }
+    
+//    func xPos(pos: CGFloat, rect: CGRect) -> CGFloat {
+//        if layoutDirection == .rightToLeft {
+//            return (rect.size.width - pos)
+//        }
+//        else {
+//            return pos
+//        }
+//    }
     
     var range: ClosedRange<CGFloat> {
         if let range = displayRange {

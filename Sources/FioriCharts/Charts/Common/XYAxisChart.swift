@@ -5,6 +5,7 @@
 //  Created by Xu, Sheng on 3/19/20.
 //
 
+import UIKit
 import SwiftUI
 
 enum DragState {
@@ -31,12 +32,17 @@ enum DragState {
     }
 }
 
-struct XYAxisChart<Content: View>: View {
+struct XYAxisChart<Content: View, Indicator: View>: View {
     @ObservedObject var model: ChartModel
-    var chartView: Content
+    @Environment(\.colorScheme) var colorScheme
+    @Environment(\.layoutDirection) var layoutDirection
     
-    @State var closestPoint:CGPoint = .zero
-    @State var closestDataIndex:Int = 0
+    var chartView: Content
+    var indicatorView: Indicator
+    var axisDataSource: AxisDataSource
+    
+    //    @State var closestPoint:CGPoint = .zero
+    //    @State var closestDataIndex:Int = 0
     @State var showIndicator = false
     @State var draggingChartView = false
     
@@ -44,31 +50,109 @@ struct XYAxisChart<Content: View>: View {
     @State var lastScale: CGFloat = 1.0
     @State var lastStartPos: Int = 0
     @GestureState var dragState = DragState.inactive
+    //@State private var xAxisHeight:CGFloat = 20
+    @State private var yAxisWidth:CGFloat = 20
+    @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
+    @State private var yAxisSize: CGSize = CGSize(width: 20, height: 0)
     
-    var axisDataSource: AxisDataSource?
-    
-    init(_ chartModel: ChartModel, chartView: Content) {
+    init(_ chartModel: ChartModel, axisDataSource: AxisDataSource, chartView: Content, indicatorView: Indicator) {
         self.model = chartModel
         self.chartView = chartView
-    
-        axisDataSource = model.chartType == .stock ? StockAxisDataSource() : DefaultAxisDataSource()
+        self.indicatorView = indicatorView
+        self.axisDataSource = axisDataSource
+        
         lastScale = 0
         lastStartPos = 0
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            self.chartView(in: geometry.frame(in: .local))
+        GeometryReader { proxy in
+            self.view(in: proxy.frame(in: .local))
         }
     }
     
-    func chartView(in rect: CGRect) -> some View {
-        let displayRange = StockUtility.displayRange(model)
-        let xAxisHeight:CGFloat = 24
-        let yAxisWidth:CGFloat = 20
+    func view(in rect: CGRect) -> some View {
+        let xAxisHeight = xAxisLabelsMaxHeight(rect)
+        let yAxisWidth = yAxisLabelsMaxWidth()
         
-        let chartRect = CGRect(x: yAxisWidth, y: 0, width: rect.size.width - yAxisWidth, height: rect.size.height - xAxisHeight)
+        let displayRange = ChartUtility.displayRange(model)
+        let chartWidth = rect.size.width - yAxisWidth
         
+        let xAxisRect, yAxisRect, chartRect: CGRect
+        switch model.valueType {
+        case .allPositive:
+            yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+            chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
+            xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
+        case .allNegative:
+            yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+            chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
+            xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
+        case .mixed:
+            yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
+            chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
+            var baselineYPos: CGFloat = rect.size.height - xAxisHeight
+            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, displayRange: displayRange)
+            for label in yAxisLabels {
+                if abs(label.value) < 0.001 {
+                    baselineYPos = label.pos
+                    break
+                }
+            }
+            
+            xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
+        }
+        
+        return HStack(alignment: .top, spacing: 0) {
+            VStack(spacing: 0) {
+                YAxisView(displayRange: displayRange,
+                          axisDataSource: axisDataSource)
+                    .frame(height: yAxisRect.size.height)
+                    .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                    .zIndex(2)
+                    .environmentObject(self.model)
+            }.frame(width: yAxisRect.size.width, height: rect.size.height)
+            
+            VStack(alignment: .leading, spacing: 0) {
+                if model.valueType == .allPositive {
+                    GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                    //.zIndex(1)
+                    
+                    XAxisView(axisDataSource: axisDataSource)
+                        .frame(height: xAxisRect.height)
+                        .environmentObject(self.model)
+                }
+                else if model.valueType == .allNegative {
+                    XAxisView(axisDataSource: axisDataSource)
+                        .frame(height: xAxisRect.height)
+                        .environmentObject(self.model)
+                    
+                    GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                    //.zIndex(1)
+                }
+                else {
+                    ZStack {
+                        GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                        //.zIndex(1)
+                        
+                        XAxisView(axisDataSource: axisDataSource)
+                            .frame(height: xAxisRect.height)
+                            .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
+                            .environmentObject(self.model)
+                    }
+                }
+            }
+//            .onPreferenceChange(XAxisSizePreferenceKey.self) {
+//                    for sz in $0 {
+//                        print("X axis label size: \(sz)")
+//                    }
+//                    self.xAxisSize.width = $0.map { $0.width }.max() ?? 20
+//                    print("X axis Max label size: \(self.xAxisSize.width)")
+//            }
+        }
+    }
+    
+    func GridLinesAndChartView(chartRect: CGRect, displayRange: ClosedRange<CGFloat>) -> some View {
         // drag to show the indicator
         let pan = LongPressGesture(minimumDuration: 0.5)
             .sequenced(before: DragGesture())
@@ -77,7 +161,8 @@ struct XYAxisChart<Content: View>: View {
                 case .second(true, let drag):
                     if let value = drag {
                         self.showIndicator = true
-                        self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: chartRect)
+                        let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
+                        self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: value.location.y), rect: chartRect)
                     }
                 default:
                     break
@@ -91,17 +176,18 @@ struct XYAxisChart<Content: View>: View {
         let drag = DragGesture()
             .onChanged({ value in
                 // not zoomed in
-                if self.model.scale == 1.0 {
+                if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
                     self.showIndicator = true
-                    self.closestPoint = self.calClosestDataPoint(toPoint: value.location, rect: chartRect)
+                    let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
+                    self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: value.location.y), rect: chartRect)
                     return
                 }
                 
                 self.draggingChartView = true
                 let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
-                let tmp = self.lastStartPos - Int(value.translation.width)
+                let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
                 if self.model.panChartToDataPointOnly {
-                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(StockUtility.numOfDataItmes(self.model) - 1)
+                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItmes(self.model) - 1)
                     let closestIndex = Int(CGFloat(tmp) / unitWidth)
                     self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
                 }
@@ -119,7 +205,7 @@ struct XYAxisChart<Content: View>: View {
         let mag = MagnificationGesture()
             .onChanged({ value in
                 self.showIndicator = false
-                let count = StockUtility.numOfDataItmes(self.model)
+                let count = ChartUtility.numOfDataItmes(self.model)
                 let maxScale = max(1, CGFloat(count - 1) / 2)
                 let tmp = self.lastScale * value.magnitude
                 self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
@@ -137,53 +223,106 @@ struct XYAxisChart<Content: View>: View {
         
         return ZStack {
             if model.userInteractionEnabled {
-                chartView
-                    .frame(width: chartRect.size.width, height: chartRect.size.height)
-                    .offset(x: chartRect.origin.x/2, y: -xAxisHeight/2)
+                self.chartView
                     .opacity(draggingChartView ? 0.4 : 1.0)
                     .gesture(pan)
                     .gesture(drag)
                     .gesture(mag)
             }
             else {
-                chartView
-                    .frame(width: chartRect.size.width, height: chartRect.size.height)
-                    .offset(x: chartRect.origin.x/2, y: -xAxisHeight/2)
+                self.chartView
             }
             
-            XAxisView(rect: CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartRect.size.width, height: xAxisHeight), axisDataSource: axisDataSource).environmentObject(self.model)
-
-            YAxisView(rect: CGRect(x:0, y: 0, width: yAxisWidth, height: chartRect.size.height), chartWidth: chartRect.size.width, displayRange: displayRange, axisDataSource: axisDataSource).environmentObject(self.model)
+            XAxisGridlines(axisDataSource: axisDataSource)
+                .environmentObject(model)
+            YAxisGridlines(displayRange: displayRange, axisDataSource: axisDataSource)
+                .environmentObject(model)
             
-            if self.showIndicator && closestDataIndex >= 0 {
-                StockIndicatorView(rect: chartRect, closestPoint: $closestPoint, closestDataIndex: $closestDataIndex)
+            if self.showIndicator {
+                indicatorView
             }
-        }
+        }.frame(width: chartRect.size.width, height: chartRect.size.height)
     }
     
+    func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
+        let lables = axisDataSource.xAxisLabels(model, rect: rect)
+        if lables.count == 0 { return 16 }
+        
+        var height: CGFloat = 16
+        for label in lables {
+            let size = textSize(str: label.title, fontSize: model.categoryAxis.labels.fontSize)
+            height = max(height, size.height)
+        }
+        
+        return height + 4
+    }
     
+    func yAxisLabelsMaxWidth() -> CGFloat {
+        //guard let ds = axisDataSource else { return 20 }
+        
+        var width: CGFloat = 20
+        let range = ChartUtility.displayRange(model)
+        for val in [range.lowerBound, range.upperBound] {
+            let str = axisDataSource.axisView(model, displayRange: range, formattedStringForValue: Double(val))
+            let size = textSize(str: str, fontSize: model.numericAxis.labels.fontSize)
+            width = max(width, size.width)
+        }
+        
+        return width + 6
+    }
     
-    func calClosestDataPoint(toPoint: CGPoint, rect: CGRect) -> CGPoint {
-        let width = rect.size.width
+    func textSize(str: String, fontSize: Double) -> CGSize {
+        let font = UIFont.systemFont(ofSize: CGFloat(fontSize))
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
-        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let size = (str as NSString)
+            .boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(MAXFLOAT)),
+                          options: .usesLineFragmentOrigin,
+                          attributes: [NSAttributedString.Key.font: font],
+                          context: nil).size
         
-        let minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
-        let maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 0)
-        let index: Int = Int((toPoint.x - startOffset) / unitWidth + 0.5) + startIndex
-        
-        self.closestDataIndex = index.clamp(low: 0, high: StockUtility.lastValidDimIndex(model))
-        
-        let currentData = StockUtility.dimensionValue(model, categoryIndex: self.closestDataIndex)
-        let x = rect.origin.x + startOffset + CGFloat(self.closestDataIndex - startIndex) * unitWidth
-        let y = rect.size.height - (CGFloat(currentData ?? 0) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
-        
-        return CGPoint(x: x, y: y)
+        return size
+    }
+    
+}
+
+struct XAxisSizePreferenceKey: PreferenceKey {
+    typealias Value = [CGSize]
+    static let defaultValue: Value = []
+    
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value.append(contentsOf: nextValue())
     }
 }
 
+struct SizeModifier: ViewModifier{
+    func body(content: Content) -> some View {
+        content.overlay(GeometryReader { proxy in
+            Color.clear.preference(key: XAxisSizePreferenceKey.self, value: [proxy.size])
+        })
+    }
+}
+
+/*
+ struct XAxisSizeEnvironmentKey: EnvironmentKey {
+ static let defaultValue: CGSize? = nil
+ }
+ 
+ struct YAxisSizeEnvironmentKey: EnvironmentKey {
+ static let defaultValue: CGSize? = nil
+ }
+ 
+ extension EnvironmentValues {
+ var xAxisSize: CGSize? {
+ get { self[XAxisSizeEnvironmentKey] }
+ set { self[XAxisSizeEnvironmentKey] = newValue }
+ }
+ 
+ var yAxisSize: CGSize? {
+ get { self[YAxisSizeEnvironmentKey] }
+ set { self[YAxisSizeEnvironmentKey] = newValue }
+ }
+ }
+ */
 extension Comparable {
     func clamp(low: Self, high: Self) -> Self {
         if (self > high) {
@@ -199,8 +338,10 @@ extension Comparable {
 struct XYAxisChart_Previews: PreviewProvider {
     static var previews: some View {
         XYAxisChart(Tests.lineModels[0],
-                    chartView: LinesView(Tests.lineModels[0]))
+                    axisDataSource: DefaultAxisDataSource(),
+                    chartView: LinesView(Tests.lineModels[0]),
+                    indicatorView: StockIndicatorView(Tests.lineModels[0]))
             .frame(width:300, height: 400)
-        .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
+            .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }

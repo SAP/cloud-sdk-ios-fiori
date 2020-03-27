@@ -15,8 +15,11 @@ struct LineChart: View {
     }
     
     var body: some View {
-        XYAxisChart(model, chartView: LinesView(model))
-        .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
+        XYAxisChart(model,
+                    axisDataSource: DefaultAxisDataSource(),
+                    chartView: LinesView(model),
+                    indicatorView: LineIndicatorView(model))
+        .padding()
     }
 }
 
