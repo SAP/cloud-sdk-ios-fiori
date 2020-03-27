@@ -13,49 +13,51 @@ struct XAxisView: View {
     weak var axisDataSource: AxisDataSource? = nil
     
     @Environment(\.colorScheme) var colorScheme
+    @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     
-    var rect: CGRect
-    
-    init(rect: CGRect, axisDataSource: AxisDataSource? = nil) {
-        self.rect = rect
+    init(axisDataSource: AxisDataSource? = nil) {
         self.axisDataSource = axisDataSource
     }
     
     var body: some View {
-        var xAxisTitles: [AxisTitle] = []
-        if let res = axisDataSource?.xAxisTitles(model, rect: rect) {
-            xAxisTitles = res
+        GeometryReader { proxy in
+            self.view(in: proxy.frame(in: .local))
         }
-
+    }
+    
+    func view(in rect: CGRect) -> some View {
+        var xAxisLabels: [AxisTitle] = []
+        if let res = axisDataSource?.xAxisLabels(model, rect: rect) {
+            xAxisLabels = res
+        }
+        
+        var baselineYPos: CGFloat = 0
+        var labelYPos: CGFloat = rect.size.height / 2
+        let valueType = model.valueType
+        if valueType == .allNegative {
+            labelYPos = rect.size.height / 2
+            baselineYPos = rect.size.height
+        }
+        
         return ZStack {
-            if xAxisTitles.count > 0 && (!self.model.categoryAxis.gridlines.isHidden || !self.model.categoryAxis.labels.isHidden) {
-                ForEach(xAxisTitles) { title in
-                    // grid lines
-                    if !self.model.categoryAxis.gridlines.isHidden {
-                        LineShape(pos1: CGPoint(x: title.pos,
-                                                y: 0),
-                                  pos2: CGPoint(x: title.pos,
-                                                y: self.rect.origin.y))
-                            .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
-                                    style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
-                                                       dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
-                    }
-                    
+            if xAxisLabels.count > 0 && !self.model.categoryAxis.labels.isHidden {
+                ForEach(xAxisLabels) { title in
                     if !self.model.categoryAxis.labels.isHidden {
                         // category labels
                         Text(title.title)
                             .font(.system(size: CGFloat(self.model.categoryAxis.labels.fontSize)))
                             .foregroundColor(self.model.categoryAxis.labels.color.color(self.colorScheme))
-                            .position(x: title.pos,
-                                      y: self.rect.origin.y + self.rect.size.height / 2)
+                            .position(x: title.pos, y: labelYPos)
+                            .modifier(SizeModifier())
                     }
                 }
             }
             
-            // bottom solid line
+            // base line
             if !model.categoryAxis.baseline.isHidden {
-                LineShape(pos1: CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y),
-                          pos2: CGPoint(x: rect.origin.x, y: rect.origin.y))
+                LineShape(pos1: .zero,
+                          pos2: CGPoint(x: rect.size.width, y: 0))
+                    .offset(x: 0, y: baselineYPos)
                     .stroke(model.categoryAxis.baseline.color.color(self.colorScheme),
                             style: StrokeStyle(
                                 lineWidth: CGFloat(self.model.categoryAxis.baseline.width),
@@ -67,14 +69,20 @@ struct XAxisView: View {
 
 struct XAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = StockAxisDataSource()
+        let axisStockDataSource = StockAxisDataSource()
+        let axisDataSource = DefaultAxisDataSource()
         
         return Group {
-            ForEach(Tests.stockModels) {
-                XAxisView(rect: CGRect(x: 0, y: 180, width: 300, height: 20),
-                          axisDataSource: axisDataSource).environmentObject($0)
+            ForEach(Tests.lineModels) {
+                XAxisView(axisDataSource: axisDataSource).environmentObject($0)
             }
-            .frame(width:300, height: 200, alignment: .topLeading)
+            .frame(width:300, height: 20, alignment: .topLeading)
+            .previewLayout(.sizeThatFits)
+            
+            ForEach(Tests.stockModels) {
+                XAxisView(axisDataSource: axisStockDataSource).environmentObject($0)
+            }
+            .frame(width:300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
         }
         

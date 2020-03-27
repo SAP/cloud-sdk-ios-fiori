@@ -11,94 +11,64 @@ import SwiftUI
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
-    weak var axisDataSource: AxisDataSource? = nil
+    @Environment(\.layoutDirection) var layoutDirection
     
-    var rect: CGRect
-    var chartWidth: CGFloat
+    weak var axisDataSource: AxisDataSource? = nil
     var displayRange: ClosedRange<CGFloat>
     
-    init(rect: CGRect, chartWidth: CGFloat, displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
-        self.rect = rect
-        self.chartWidth = chartWidth
+    init(displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
         self.displayRange = displayRange
         self.axisDataSource = axisDataSource
     }
     
     var body: some View {
-        let minVal = displayRange.lowerBound
-        let yAxisLabelsCount = max(1, model.numberOfGridlines)
-        
+        GeometryReader { proxy in
+            self.view(in: proxy.frame(in: .local))
+        }
+    }
+    
+    func view(in rect: CGRect) -> some View {
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisTitles(model, rect: rect, displayRange: displayRange) {
+        if let res = axisDataSource?.yAxisLabels(model, rect: rect, displayRange: displayRange) {
             yAxisLabels = res
         }
-        let startValTitle = axisDataSource?.axisView(model, displayRange: displayRange, formattedStringForValue: Double(minVal)) ?? ""
-        
-        let x = rect.origin.x + rect.size.width
-        let stepHeight = self.rect.size.height / CGFloat(yAxisLabelsCount)
+
+        let baselineX = layoutDirection == .leftToRight ? (rect.size.width) : (rect.size.width - CGFloat(model.numericAxis.baseline.width))
         
         return ZStack {
-            if !model.numericAxis.labels.isHidden || !model.numericAxis.gridlines.isHidden {
+            if !model.numericAxis.labels.isHidden {
                 ForEach(yAxisLabels) { label in
-                    if !self.model.numericAxis.labels.isHidden {
-                        // y axis lables
-                        Text(label.title)
-                            .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
-                            .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
-                            .position(x: self.rect.origin.x + self.rect.size.width / 2,
-                                      y: self.rect.origin.y + CGFloat(label.index) * stepHeight)
-                    }
-                    
-                    if !self.model.numericAxis.gridlines.isHidden {
-                        // grid lines
-                        LineShape(pos1: CGPoint(x: x, y: self.rect.origin.y + CGFloat(label.index) * stepHeight),
-                                  pos2: CGPoint(x: x + self.chartWidth, y: self.rect.origin.y + CGFloat(label.index) * stepHeight))
-                            .stroke(self.model.numericAxis.gridlines.color.color(self.colorScheme),
-                                    style: StrokeStyle(lineWidth: CGFloat(self.model.numericAxis.gridlines.width),
-                                                       dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
-                    }
+                    // y axis lables
+                    Text(label.title)
+                        .fixedSize()
+                        .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
+                        .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
+                        .position(x: rect.size.width / 2,
+                                  y: label.pos)
                 }
-            }
-            
-            // start value label
-            if !self.model.numericAxis.labels.isHidden {
-                Text(startValTitle)
-                    .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
-                    .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
-                    .position(x: self.rect.origin.x + self.rect.size.width / 2,
-                              y: self.rect.origin.y + self.rect.size.height)
             }
             
             if !model.numericAxis.baseline.isHidden {
                 // left base line
-                LineShape(pos1: CGPoint(x: x, y: rect.size.height),
-                          pos2: CGPoint(x: x, y: rect.origin.y))
+                LineShape(pos1: CGPoint(x: 0, y: 0),
+                          pos2: CGPoint(x: 0, y: rect.size.height))
                     .stroke(model.numericAxis.baseline.color.color(self.colorScheme),
                             style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width),
                                                dash: [CGFloat(self.model.numericAxis.baseline.dashPatternLength), CGFloat(self.model.numericAxis.baseline.dashPatternGap)]))
+                    .frame(width: CGFloat(model.numericAxis.baseline.width), height: rect.size.height)
+                    .position(x: baselineX, y: rect.size.height / 2)
             }
         }
     }
-    
-//    func formatYAxisTitle(value: CGFloat, total: Int) -> String {
-//        let minVal = displayRange.lowerBound
-//        let maxVal = displayRange.upperBound
-//        let range = CGFloat(maxVal - minVal) / CGFloat(total)
-//
-//        let dataPrecision = (range >= 1) ? "%.0f" : (minVal >= 0.1 ? "%.1f" : "%.2f")
-//
-//        return String(format: dataPrecision, value)
-//    }
 }
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
         let axisDataSource = DefaultAxisDataSource()
         
-        return YAxisView(rect: CGRect(x: 0, y: 0, width: 40, height: 400),
-                         chartWidth: 160, displayRange: 0...2000, axisDataSource: axisDataSource)
+        return YAxisView(displayRange: 0...2000, axisDataSource: axisDataSource)
             .environmentObject(Tests.stockModels[1])
-            .frame(width:300, height: 400, alignment: .topLeading)
+            .frame(width:80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)
         

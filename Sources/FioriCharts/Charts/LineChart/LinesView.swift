@@ -10,24 +10,27 @@ import SwiftUI
 struct LinesView: View {
     @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.layoutDirection) var layoutDirection
+    var fill: Bool = false
     
-    public init(_ chartModel: ChartModel) {
+    public init(_ chartModel: ChartModel, fill: Bool = false) {
         self.model = chartModel
+        self.fill = fill
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            self.chartView(in: geometry.frame(in: .local))
+        GeometryReader { proxy in
+            self.content(in: proxy.frame(in: .local))
         }
     }
     
-    func chartView(in rect: CGRect) -> some View {
-        let displayRange = StockUtility.displayRange(model)
+    func content(in rect: CGRect) -> some View {
+        let displayRange = ChartUtility.displayRange(model)
         var noData = false
         let width = rect.size.width
         let startPosInFloat = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(StockUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
         let startIndex = Int(startPosInFloat / unitWidth)
         
         var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
@@ -35,35 +38,62 @@ struct LinesView: View {
         
         let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
     
-        if endIndex > StockUtility.lastValidDimIndex(model) {
-            endIndex = StockUtility.lastValidDimIndex(model)
+        if endIndex > ChartUtility.lastValidDimIndex(model) {
+            endIndex = ChartUtility.lastValidDimIndex(model)
         }
 
         if startIndex > endIndex {
             noData = true
         }
         
-        var data: [[Double]] = []
+        var data: [[Double]] = Array(repeating: [], count: model.data.count)
         if !noData {
-            for category in model.data {
+            for (i, category) in model.data.enumerated() {
                 var s: [Double] = []
                 for i in startIndex...endIndex {
                     if let val = category[i].first {
                         s.append(val)
                     }
                 }
-                data.append(s)
+                data[i] = s
             }
         }
         
+        var strokeColors: [Color] = []
+        var fillColors: [Color] = []
+        
+        for i in 0 ..< data.count {
+            let rgba = model.seriesAttributes.colors[i].rgba(colorScheme)
+            let strokeColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+            let fillColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
+            strokeColors.append(strokeColor)
+            fillColors.append(fillColor)
+        }
+ 
         return ZStack {
+            model.backgroundColor.color(colorScheme)
             ForEach(0 ..< data.count) { i in
                 LinesShape(points: data[i],
                            displayRange: displayRange,
+                           layoutDirection: self.layoutDirection,
                            startOffset: startOffset,
                            endOffset: endOffset)
-                    .stroke(self.model.seriesAttributes.colors[i].color(self.colorScheme),
-                            lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                    .stroke(strokeColors[i],
+                    lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                    .frame(width: rect.size.width, height: rect.size.height)
+                    .clipped()
+                
+//                if self.fill {
+//                    LinesShape(points: data[i],
+//                               displayRange: displayRange,
+//                               layoutDirection: self.layoutDirection,
+//                               fill: true,
+//                               startOffset: startOffset,
+//                               endOffset: endOffset)
+//                        .fill(fillColors[i])
+//                        .frame(width: rect.size.width, height: rect.size.height)
+//                        .clipped()
+//                }
             }
         }
     }

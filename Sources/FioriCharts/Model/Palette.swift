@@ -9,6 +9,9 @@ import Foundation
 import SwiftUI
 
 public enum ColorStyle: String, CaseIterable {
+    case background
+    ///
+    ///
     /// Dynamic text color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/32636A.png&text=+)        Hex color: 32636A
     /// (light variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
@@ -94,6 +97,8 @@ extension ColorStyle: CustomDebugStringConvertible {
 public class Palette {
     public class func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
+        case . background:
+            return HexColor(lightColor: "FFFFFF", darkColor: "000000")
         case.primary1:
             return HexColor(lightColor: "32636A", darkColor: "FFFFFF")
         case.primary2:
@@ -139,7 +144,7 @@ public class Palette {
         case .stockDownFill:
             return HexColor(lightColor: "CD3328", darkColor: "CD3328")
         case .stockFillEndColor:
-            return HexColor(lightColor: "FCFDFC", darkColor: "FCFDFC")
+            return HexColor(lightColor: "FCFDFC", darkColor: "000000")
         }
     }
 }
