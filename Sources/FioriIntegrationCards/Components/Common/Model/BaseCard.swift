@@ -78,9 +78,7 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
 
 open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableObject, Identifiable {
     
-    open var id: String {
-        return UUID().uuidString
-    }
+    open var id: String = UUID().uuidString
     
     @Published var header: Header
     
@@ -91,7 +89,7 @@ open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableOb
     internal let _contentData: DataFetcher?
     
     public let headerPublisher = CurrentValueSubject<CurrentValueSubject<Data?, Never>?, Never>(nil)
-    public '[let contentPublisher = CurrentValueSubject<CurrentValueSubject<Data?, Never>?, Never>(nil)
+    public let contentPublisher = CurrentValueSubject<CurrentValueSubject<Data?, Never>?, Never>(nil)
     
     required public init(from decoder: Decoder) throws {
         
