@@ -16,7 +16,18 @@ public enum Card: Decodable, Identifiable, CustomStringConvertible {
     case analytical(AnalyticalCard)
 
     public var id: String {
-        return self.description
+        switch self {
+        case .list(let val):
+            return val.id
+        case .table(let val):
+            return val.id
+        case .object(let val):
+            return val.id
+        case .timeline(let val):
+            return val.id
+        case .analytical(let val):
+            return val.id
+        }
     }
     
     public var description: String {
