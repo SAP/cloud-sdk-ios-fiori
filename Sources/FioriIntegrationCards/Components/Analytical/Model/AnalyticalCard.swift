@@ -9,7 +9,7 @@
 import AnyCodable
 import Foundation
 
-public class AnalyticalCard: Decodable {
+public class AnalyticalCard: Decodable, Identifiable {
     
     private let headerTemplate: Header
     // not sure about the optional here
@@ -17,6 +17,8 @@ public class AnalyticalCard: Decodable {
 
     private let template: Template
     public var content: AnalyticalContent?
+    
+    open var id: String = UUID().uuidString
 
     private enum MainKeys: CodingKey {
         case header
