@@ -23,16 +23,47 @@ struct ContentView: View {
     var body: some View {
         NavigationView() {
             List(cards) { card in
-                NavigationLink(destination: self.makeBody(self.getManifest(for: card)!)) {
+                NavigationLink(destination: LoadingView(card: card)) {
                     Text(card)
                 }
             }
             .navigationBarTitle("UI Integration Cards")
         }
     }
+}
+
+struct LoadingView: View {
+    let card: String
+    
+    @State var isLoading = true
+    @State var loadingMessage = "Loading ..."
+    @State var model: Manifest?
+    
+    var body: some View {
+        VStack{
+            if isLoading {
+                Text(loadingMessage)
+                    .font(.headline)
+                    .foregroundColor(.primary)
+            }
+            else {
+                makeBody(model!)
+            }
+        }.onAppear {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.model = self.getManifest(for: self.card)
+                
+                if self.model != nil {
+                    self.isLoading = false
+                }
+                else {
+                    self.loadingMessage = "Failed to load \(self.card)"
+                }
+            }
+        }
+    }
     
     func makeBody(_ model: Manifest) -> AnyView {
-        
         switch model.card {
         case .list(let value):
             return AnyView(ListCardView(model: value))
@@ -61,7 +92,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-//        ContentView()
-        EmptyView()
+        ContentView(cards: ["LowCode", "timeline", "table", "list" , "object", "analytical"])
     }
 }
