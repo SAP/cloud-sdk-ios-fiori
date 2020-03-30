@@ -6,9 +6,7 @@
 //
 import Combine
 
-open class TableCard: OneManyCard<TableRow> {
-    
-}
+open typealias TableCard: OneManyCard<TableRow>
 
 
 public struct HavingRow<Model: Decodable>: Decodable {
