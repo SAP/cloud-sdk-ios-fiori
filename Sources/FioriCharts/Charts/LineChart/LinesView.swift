@@ -11,7 +11,7 @@ struct LinesView: View {
     @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
-    var fill: Bool = false
+    @State var fill: Bool = false
     
     public init(_ chartModel: ChartModel, fill: Bool = false) {
         self.model = chartModel
@@ -28,20 +28,20 @@ struct LinesView: View {
         let displayRange = ChartUtility.displayRange(model)
         var noData = false
         let width = rect.size.width
-        let startPosInFloat = CGFloat(model.startPos)
+        let startPosIn = CGFloat(model.startPos)
         
         let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
-        let startIndex = Int(startPosInFloat / unitWidth)
+        let startIndex = Int(startPosIn / unitWidth)
         
-        var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = -startPosInFloat.truncatingRemainder(dividingBy: unitWidth)
+        var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = -startPosIn.truncatingRemainder(dividingBy: unitWidth)
         
-        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
-    
+        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosIn - width).truncatingRemainder(dividingBy: unitWidth)
+        
         if endIndex > ChartUtility.lastValidDimIndex(model) {
             endIndex = ChartUtility.lastValidDimIndex(model)
         }
-
+        
         if startIndex > endIndex {
             noData = true
         }
@@ -61,7 +61,7 @@ struct LinesView: View {
         
         var strokeColors: [Color] = []
         var fillColors: [Color] = []
-        
+        let pointAttributesCount = model.seriesAttributes.points.count
         for i in 0 ..< data.count {
             let rgba = model.seriesAttributes.colors[i].rgba(colorScheme)
             let strokeColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
@@ -69,7 +69,7 @@ struct LinesView: View {
             strokeColors.append(strokeColor)
             fillColors.append(fillColor)
         }
- 
+        
         return ZStack {
             model.backgroundColor.color(colorScheme)
             ForEach(0 ..< data.count) { i in
@@ -79,23 +79,31 @@ struct LinesView: View {
                            startOffset: startOffset,
                            endOffset: endOffset)
                     .stroke(strokeColors[i],
-                    lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                            lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
-                
-//                if self.fill {
-//                    LinesShape(points: data[i],
-//                               displayRange: displayRange,
-//                               layoutDirection: self.layoutDirection,
-//                               fill: true,
-//                               startOffset: startOffset,
-//                               endOffset: endOffset)
-//                        .fill(fillColors[i])
-//                        .frame(width: rect.size.width, height: rect.size.height)
-//                        .clipped()
-//                }
+            }
+            
+            ForEach(0 ..< data.count) { i in
+                PointsShape(points: data[i],
+                            displayRange: displayRange,
+                            layoutDirection: self.layoutDirection,
+                            radius: self.pointRadius(at: i),
+                            gap: CGFloat(self.model.seriesAttributes.points[i % pointAttributesCount].gap),
+                            startOffset: startOffset,
+                            endOffset: endOffset)
+                    .fill(self.model.seriesAttributes.points[i % pointAttributesCount].strokeColor.color(self.colorScheme))
+                    .clipShape(Rectangle()
+                        .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
+                        .offset(x: -1 * self.pointRadius(at: i), y: 0))
             }
         }
+    }
+    
+    func pointRadius(at index: Int) -> CGFloat {
+        let pointAttributesCount = model.seriesAttributes.points.count
+        
+        return model.seriesAttributes.points[index % pointAttributesCount].isHidden ? 0 : CGFloat(model.seriesAttributes.points[index % pointAttributesCount].diameter/2)
     }
 }
 

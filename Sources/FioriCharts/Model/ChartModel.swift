@@ -446,7 +446,12 @@ public class ChartModel: ObservableObject, Identifiable {
         default:
             let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2)]
             let count = min(colors.count, max(1, seriesCount))
-            return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), lineWidth: 2, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            var pointAttributes: [ChartPointAttributes] = []
+            for i in 0 ..< count {
+                let pa = ChartPointAttributes(isHidden: false, diameter: 6, strokeColor: colors[i], gap: 2)
+                pointAttributes.append(pa)
+            }
+            return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), lineWidth: 2, points: pointAttributes, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
         }
     }
     
