@@ -11,7 +11,7 @@ public struct LinesShape: Shape {
     var points: [Double]
     
     // min and max value for the display range
-    var displayRange: ClosedRange<CGFloat>?
+    var displayRange: ClosedRange<CGFloat>
     var layoutDirection: LayoutDirection
     var fill: Bool = false
     var curve:Bool = false
@@ -21,12 +21,20 @@ public struct LinesShape: Shape {
     public init(points: [Double], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
-        self.displayRange = displayRange
         self.layoutDirection = layoutDirection
         self.fill = fill
         self.curve = curve
         self.startOffset = startOffset
         self.endOffset = endOffset
+        
+        if let range = displayRange {
+            self.displayRange = range
+        }
+        else {
+            let maxValue = CGFloat(points.max() ?? 0)
+            let minValue = CGFloat(points.min() ?? 0)
+            self.displayRange = minValue ... maxValue
+        }
     }
     
     public func path(in rect: CGRect) -> Path {
@@ -36,9 +44,7 @@ public struct LinesShape: Shape {
             return path
         }
         
-        let range = self.range
-        
-        let data = points.map { rect.size.height - (CGFloat($0) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound)}
+        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)}
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
         let x = ChartUtility.xPos(startOffset, layoutDirection: layoutDirection, width: rect.size.width)
@@ -75,28 +81,6 @@ public struct LinesShape: Shape {
         }
         
         return path
-    }
-    
-//    func xPos(pos: CGFloat, rect: CGRect) -> CGFloat {
-//        if layoutDirection == .rightToLeft {
-//            return (rect.size.width - pos)
-//        }
-//        else {
-//            return pos
-//        }
-//    }
-    
-    var range: ClosedRange<CGFloat> {
-        if let range = displayRange {
-            return range
-        }
-        
-        let maxValue = CGFloat(points.max() ?? 0)
-        let minValue = CGFloat(points.min() ?? 0)
-        let maxDisplayValue: CGFloat = maxValue + (maxValue - minValue) * 0.2
-        let minDisplayValue: CGFloat = minValue - (maxValue - minValue) * 0.2
-        
-        return minDisplayValue...maxDisplayValue
     }
 }
 

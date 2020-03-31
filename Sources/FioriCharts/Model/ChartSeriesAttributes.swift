@@ -24,7 +24,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     @Published public var lineWidth: Double = 1
     
     /// Properties for the points rendered in all line series.
-    @Published public var points: ChartPointAttributes
+    @Published public var points: [ChartPointAttributes]
     
     /// Diameter of line caps for first and last values in a line series.
     @Published public var firstLineCapDiameter: Double
@@ -34,7 +34,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(colors: [HexColor], lineWidth: Double = 1, points: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
+    public init(colors: [HexColor], lineWidth: Double = 1, points: [ChartPointAttributes]? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
         if colors.count > 0 {
             self.colors = colors
         }
@@ -48,7 +48,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
             self.points = points
         }
         else {
-            self.points = ChartPointAttributes()
+            self.points = [ChartPointAttributes()]
         }
         
         self.firstLineCapDiameter = firstLineCapDiameter

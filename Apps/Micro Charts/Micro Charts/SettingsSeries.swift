@@ -23,15 +23,19 @@ struct SettingsSeries: View {
 
                 Text("Last Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
                 Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
-
-                NavigationLink(destination: SettingsPoint(point: $model.seriesAttributes.points)) {
-                    Text("Point")
+            }
+            
+            Section(header: Text("Points")) {
+                ForEach(0 ..< self.model.seriesAttributes.points.count) { i in
+                    NavigationLink(destination: SettingsPoint(point: self.$model.seriesAttributes.points[i])) {
+                        Text("Series \(i) Point")
+                    }
                 }
             }
             
             Section(header: Text("Colors")) {
                 ForEach(0 ..< self.model.seriesAttributes.colors.count) { i in
-                    SettingColor(color: self.$model.seriesAttributes.colors[i], title: "Color \(i)")
+                    SettingColor(color: self.$model.seriesAttributes.colors[i], title: "Series \(i) Color")
                 }
             }
         }.navigationBarTitle("Series")
