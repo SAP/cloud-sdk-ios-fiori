@@ -16,9 +16,32 @@ extension String: Identifiable {
     }
 }
 
+extension Card: View {
+    public var body: some View {
+        return makeView()
+            .frame(maxWidth: 425, alignment: .topLeading)
+    }
+    
+    func makeView() -> AnyView {
+        switch self {
+        case .object(let card):
+            return AnyView(ObjectCardView(model: card))
+        case .list(let card):
+            return AnyView(ListCardView(model: card))
+        case .table(let card):
+            return AnyView(TableCardView(model: card))
+        case .timeline(let card):
+            return AnyView(TimelineCardView(model: card))
+        case .analytical(let card):
+            return AnyView(AnalyticalCardView(model: card))
+        }
+    }
+}
+
 struct ContentView: View {
         
     let cards: [String]
+    let collectionCards = ["LowCode", "LowCode"]//, "object", "object"]
     
     var body: some View {
         NavigationView() {
@@ -27,7 +50,6 @@ struct ContentView: View {
                     Text(card)
                 }
             }
-            .navigationBarTitle("UI Integration Cards")
         }
     }
 }
