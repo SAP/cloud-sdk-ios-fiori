@@ -10,6 +10,7 @@ import SwiftUI
 import FioriSwiftUI
 
 struct ContentView: View {
+    
     var body: some View {
         
         DimensionSelector(titles: [
@@ -41,12 +42,12 @@ struct ContentView: View {
             "YTD",
             "1Y",
             "5Y"
-        ], selectedIndex: 1)
+        ])
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environment(\.horizontalSizeClass, .compact)
     }
 }
