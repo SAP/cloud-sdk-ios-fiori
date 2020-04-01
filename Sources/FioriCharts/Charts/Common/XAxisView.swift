@@ -21,11 +21,11 @@ struct XAxisView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.view(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func view(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         var xAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.xAxisLabels(model, rect: rect) {
             xAxisLabels = res

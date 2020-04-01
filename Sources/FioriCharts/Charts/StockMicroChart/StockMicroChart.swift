@@ -20,7 +20,6 @@ struct StockMicroChart: View {
                     axisDataSource: StockAxisDataSource(),
                     chartView: StockLinesView(model),
                     indicatorView: StockIndicatorView(model))
-        .padding()
     }
 }
 
@@ -76,6 +75,10 @@ class StockAxisDataSource : DefaultAxisDataSource {
         }
         
         return result
+    }
+    
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisLabels(model, rect: rect)
     }
     
     func findData(_ model: ChartModel, startIndex: Int, endIndex: Int, component: Calendar.Component, rect: CGRect, skipFirst: Bool = false) -> [AxisTitle] {

@@ -10,6 +10,9 @@ import SwiftUI
 
 protocol AxisDataSource: class {
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
+    
+    func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
+    
     func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle]
     
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect)
@@ -20,33 +23,65 @@ protocol AxisDataSource: class {
 class DefaultAxisDataSource: AxisDataSource {
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         var ret: [AxisTitle] = []
+        
+        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 {
+            return ret
+        }
+        
         let count = ChartUtility.numOfDataItmes(model)
         let width = rect.size.width
         
         let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
-        let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
+        let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1)
         
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
 
+        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : [startIndex, endIndex]
         
-        if startIndex >= 0 && endIndex < count {
-            if let titlesForCategory = model.titlesForCategory {
-                if model.currentSeriesIndex < titlesForCategory.count {
-                    let count = titlesForCategory[model.currentSeriesIndex].count
-                    if count > 0 {
-                        //let stepWidth = rect.size.width / CGFloat(endIndex - startIndex)
-                        for i in startIndex ... endIndex {
-                            ret.append(AxisTitle(index: i,
-                                                 title: titlesForCategory[model.currentSeriesIndex][i],
-                                                 pos: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth))
-                        }
-                    }
+        for (index, i) in labelsIndex.enumerated() {
+            var offset: CGFloat = 0
+            let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
+            if model.categoryAxis.labelLayoutStyle == .range {
+                let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+                if index == 0 {
+                    offset = size.width / 2
+                }
+                else {
+                    offset = -size.width / 2
                 }
             }
+            
+            ret.append(AxisTitle(index: i,
+                                 title: title,
+                                 pos: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth))
         }
         
+        return ret
+    }
+    
+    func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        var ret: [AxisTitle] = []
+        let count = ChartUtility.numOfDataItmes(model)
+        let width = rect.size.width
+        
+        let startPosInFloat = CGFloat(model.startPos)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
+        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
+        let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1)
+        
+        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+
+        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : [startIndex, endIndex]
+        
+        for i in labelsIndex {
+            let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
+            ret.append(AxisTitle(index: i,
+                                 title: title,
+                                 pos: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth))
+        }
+            
         return ret
     }
     
