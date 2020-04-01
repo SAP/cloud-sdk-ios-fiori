@@ -18,13 +18,11 @@ open class ObjectCard: ManyManyCard<[ObjectGroup]> {
 
 extension ObjectCard: Hashable {
     public static func == (lhs: ObjectCard, rhs: ObjectCard) -> Bool {
-        return lhs.header == rhs.header &&
-            lhs.content == rhs.content
+        return lhs.id == rhs.id
     }
     
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(header)
-        hasher.combine(content)
+        hasher.combine(id)
     }
 }
 
