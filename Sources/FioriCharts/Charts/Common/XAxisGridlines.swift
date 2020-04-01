@@ -27,7 +27,7 @@ struct XAxisGridlines: View {
     
     func view(in rect: CGRect) -> some View {
         var xAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.xAxisLabels(model, rect: rect) {
+        if let res = axisDataSource?.xAxisGridlines(model, rect: rect) {
             xAxisLabels = res
             if let first = xAxisLabels.first, abs(first.pos) < 0.001 {
                 xAxisLabels.removeFirst()
