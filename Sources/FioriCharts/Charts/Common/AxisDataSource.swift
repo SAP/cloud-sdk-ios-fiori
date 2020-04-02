@@ -46,10 +46,10 @@ class DefaultAxisDataSource: AxisDataSource {
             if model.categoryAxis.labelLayoutStyle == .range {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
-                    offset = size.width / 2
+                    offset = min(size.width, (rect.size.width - 2) / 2) / 2
                 }
                 else {
-                    offset = -size.width / 2
+                    offset = -min(size.width, (rect.size.width - 2) / 2) / 2
                 }
             }
             

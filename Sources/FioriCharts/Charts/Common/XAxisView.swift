@@ -47,8 +47,10 @@ struct XAxisView: View {
                         Text(title.title)
                             .font(.system(size: CGFloat(self.model.categoryAxis.labels.fontSize)))
                             .foregroundColor(self.model.categoryAxis.labels.color.color(self.colorScheme))
+                            .frame(maxWidth: rect.size.width / 2)
                             .position(x: title.pos, y: labelYPos)
-                            .modifier(SizeModifier())
+
+                            //.modifier(SizeModifier())
                     }
                 }
             }
