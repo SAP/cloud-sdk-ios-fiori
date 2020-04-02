@@ -67,11 +67,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.view(in: proxy.frame(in: .local))
-        }
+            self.makeBody(in: proxy.frame(in: .local))
+        }.padding(8)
     }
     
-    func view(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         let xAxisHeight = xAxisLabelsMaxHeight(rect)
         let yAxisWidth = yAxisLabelsMaxWidth()
         
@@ -249,40 +249,32 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         if lables.count == 0 { return 16 }
         
         var height: CGFloat = 16
+        var totalWidth: CGFloat = 0
         for label in lables {
-            let size = textSize(str: label.title, fontSize: model.categoryAxis.labels.fontSize)
+            let size = label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
             height = max(height, size.height)
+            totalWidth += size.width + 2
         }
         
-        return height + 4
+        // show nothing
+        if model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
+            height = 0
+        }
+        
+        return height + CGFloat(model.categoryAxis.baseline.width)
     }
     
     func yAxisLabelsMaxWidth() -> CGFloat {
-        //guard let ds = axisDataSource else { return 20 }
-        
         var width: CGFloat = 20
         let range = ChartUtility.displayRange(model)
         for val in [range.lowerBound, range.upperBound] {
             let str = axisDataSource.axisView(model, displayRange: range, formattedStringForValue: Double(val))
-            let size = textSize(str: str, fontSize: model.numericAxis.labels.fontSize)
+            let size = str.boundingBoxSize(with: model.numericAxis.labels.fontSize)
             width = max(width, size.width)
         }
         
         return width + 6
     }
-    
-    func textSize(str: String, fontSize: Double) -> CGSize {
-        let font = UIFont.systemFont(ofSize: CGFloat(fontSize))
-        
-        let size = (str as NSString)
-            .boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(MAXFLOAT)),
-                          options: .usesLineFragmentOrigin,
-                          attributes: [NSAttributedString.Key.font: font],
-                          context: nil).size
-        
-        return size
-    }
-    
 }
 
 struct XAxisSizePreferenceKey: PreferenceKey {
