@@ -19,7 +19,6 @@ struct LineChart: View {
                     axisDataSource: DefaultAxisDataSource(),
                     chartView: LinesView(model),
                     indicatorView: LineIndicatorView(model))
-        .padding()
     }
 }
 
