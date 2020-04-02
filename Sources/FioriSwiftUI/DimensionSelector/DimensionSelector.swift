@@ -13,18 +13,18 @@ public struct DimensionSelector: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
-    public let segmentTitles: [String]
+    let segmentTitles: [String]
     
-    public var selectionDidChangeHandler: ((Int?) -> Void)?
+    let interItemSpacing: CGFloat
     
-    @State var interItemSpacing: CGFloat = 6
+    @Binding var selectedIndex: Int?
     
-    @State public var selectedIndex: Int?
-    
-    public init(titles: [String], selectionDidChangeHandler: ((Int?) -> Void)? = nil, selectedIndex: Int? = nil) {
-        self.segmentTitles = titles
-        self.selectionDidChangeHandler = selectionDidChangeHandler
-        _selectedIndex = State(initialValue: selectedIndex)
+    public init(segmentTitles: [String],
+                interItemSpacing: CGFloat = 6,
+                selectedIndex: Binding<Int?>) {
+        self.segmentTitles = segmentTitles
+        self.interItemSpacing = interItemSpacing
+        self._selectedIndex = selectedIndex
     }
     
     public var body: some View {
@@ -49,11 +49,7 @@ public struct DimensionSelector: View {
             selectedIndex = nil
         }
         
-//        print("selectedIndex: \(selectedIndex)")
-        
-        if let handler = self.selectionDidChangeHandler {
-            handler(selectedIndex)
-        }
+        print("selectedIndex: \(selectedIndex)")
     }
 }
 

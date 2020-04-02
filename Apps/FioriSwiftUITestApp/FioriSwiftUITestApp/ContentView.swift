@@ -8,41 +8,11 @@
 
 import SwiftUI
 import FioriSwiftUI
+import FioriCharts
 
 struct ContentView: View {
-    
     var body: some View {
-        
-        DimensionSelector(titles: [
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y",
-            "1D",
-            "1W",
-            "1M",
-            "1Q",
-            "YTD",
-            "1Y",
-            "5Y"
-        ])
+        DimensionSelector_Chart()
     }
 }
 
