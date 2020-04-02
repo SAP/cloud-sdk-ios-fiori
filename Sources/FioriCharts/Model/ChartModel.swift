@@ -304,25 +304,37 @@ public class ChartModel: ObservableObject, Identifiable {
             self.labelsForDimension = tmpLabels
         }
         
+        if let categoryAxis = categoryAxis {
+            self.categoryAxis = categoryAxis
+        }
+        else {
+            let axis = ChartCategoryAxis()
+            if chartType != .stock {
+                axis.gridlines.isHidden = true
+            }
+            self.categoryAxis = axis
+        }
+        
         if let numericAxis = numericAxis {
             self.numericAxis = numericAxis
         }
         else {
-            self.numericAxis = ChartNumericAxis()
+            let axis = ChartNumericAxis()
+            if chartType != .stock {
+                axis.baseline.isHidden = true
+            }
+            self.numericAxis = axis
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
             self.secondaryNumericAxis = secondaryNumericAxis
         }
         else {
-            self.secondaryNumericAxis = ChartNumericAxis()
-        }
-        
-        if let categoryAxis = categoryAxis {
-            self.categoryAxis = categoryAxis
-        }
-        else {
-            self.categoryAxis = ChartCategoryAxis()
+            let axis = ChartNumericAxis()
+            if chartType != .stock {
+                axis.baseline.isHidden = true
+            }
+            self.secondaryNumericAxis = axis
         }
         
         if let seriesAttributes = seriesAttributes {
