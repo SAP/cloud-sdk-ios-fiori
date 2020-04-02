@@ -33,12 +33,12 @@ class DefaultAxisDataSource: AxisDataSource {
         
         let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
-        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
-        let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1)
+        let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
+        let endIndex = max(min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
 
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : [startIndex, endIndex]
+        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
             var offset: CGFloat = 0
@@ -55,7 +55,7 @@ class DefaultAxisDataSource: AxisDataSource {
             
             ret.append(AxisTitle(index: i,
                                  title: title,
-                                 pos: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth))
+                                 pos: CGPoint(x: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth, y: 0)))
         }
         
         return ret
@@ -79,7 +79,7 @@ class DefaultAxisDataSource: AxisDataSource {
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             ret.append(AxisTitle(index: i,
                                  title: title,
-                                 pos: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth))
+                                 pos: CGPoint(x: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth, y: 0)))
         }
             
         return ret
@@ -110,7 +110,12 @@ class DefaultAxisDataSource: AxisDataSource {
         var yAxisLabels: [AxisTitle] = []
         for i in 0...yAxisLabelsCount {
             let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount)
-            yAxisLabels.append(AxisTitle(index: i, value: val, title: axisView(model, displayRange: displayRange, formattedStringForValue: Double(val)), pos: rect.origin.y + startPos + CGFloat(i) * stepHeight))
+            let title = axisView(model, displayRange: displayRange, formattedStringForValue: Double(val))
+            let size = title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
+            yAxisLabels.append(AxisTitle(index: i,
+                                         value: val,
+                                         title: title,
+                                         pos: CGPoint(x: rect.size.width - CGFloat(model.numericAxis.baseline.width) - 1 - size.width / 2, y: rect.origin.y + startPos + CGFloat(i) * stepHeight)))
         }
         
         return yAxisLabels

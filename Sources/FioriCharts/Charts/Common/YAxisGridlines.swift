@@ -55,8 +55,8 @@ struct YAxisGridlines: View {
                 ForEach(yAxisLabels) { label in
                     if !self.model.numericAxis.gridlines.isHidden {
                         // grid lines
-                        LineShape(pos1: CGPoint(x: 0, y: label.pos),
-                                  pos2: CGPoint(x: rect.size.width, y: label.pos))
+                        LineShape(pos1: CGPoint(x: 0, y: label.pos.y),
+                                  pos2: CGPoint(x: rect.size.width, y: label.pos.y))
                             .stroke(self.model.numericAxis.gridlines.color.color(self.colorScheme),
                                     style: StrokeStyle(lineWidth: CGFloat(self.model.numericAxis.gridlines.width),
                                                        dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
