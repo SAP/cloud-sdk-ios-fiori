@@ -93,7 +93,9 @@ class StockAxisDataSource : DefaultAxisDataSource {
             } else if cur != prev {
                 switch component {
                 case .month:
-                    result.append(AxisTitle(index: i, title: monthAbbreviationFromInt(cur), pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    result.append(AxisTitle(index: i,
+                                            title: monthAbbreviationFromInt(cur),
+                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
                     
                 case .day:
                     let components = Calendar.current.dateComponents([.month, .day], from: date)
@@ -109,7 +111,9 @@ class StockAxisDataSource : DefaultAxisDataSource {
                         title.append(String(day))
                     }
                     
-                    result.append(AxisTitle(index: i, title: title, pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    result.append(AxisTitle(index: i,
+                                            title: title,
+                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
                     
                 case .hour, .minute:
                     let components = Calendar.current.dateComponents([.hour, .minute], from: date)
@@ -129,21 +133,25 @@ class StockAxisDataSource : DefaultAxisDataSource {
                         title.append(String(minute))
                     }
                     
-                    result.append(AxisTitle(index: i, title: title, pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    result.append(AxisTitle(index: i,
+                                            title: title,
+                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
                     
                 default:
-                    result.append(AxisTitle(index: i, title: String(cur), pos: calXPosforXAxisElement(model, dataIndex: i, rect: rect)))
+                    result.append(AxisTitle(index: i,
+                                            title: String(cur),
+                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
                 }
                 
                 prev = cur
             }
         }
         
-        if let tmp = result.last, abs(tmp.pos - rect.size.width) < 1 {
+        if let tmp = result.last, abs(tmp.pos.x - rect.size.width) < 1 {
             result.removeLast()
         }
         
-        if let tmp = result.first, abs(tmp.pos) < 1 {
+        if let tmp = result.first, abs(tmp.pos.x) < 1 {
             result.removeFirst()
         }
         

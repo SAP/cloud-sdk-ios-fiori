@@ -14,13 +14,13 @@ struct AxisTitle: Identifiable {
     let index: Int
     let value: CGFloat
     let title: String
-    let pos: CGFloat
+    let pos: CGPoint
     
     var id: Int {
         return index
     }
     
-    init(index: Int, value: CGFloat = 0, title: String, pos: CGFloat) {
+    init(index: Int, value: CGFloat = 0, title: String, pos: CGPoint) {
         self.index = index
         self.value = value
         self.title = title

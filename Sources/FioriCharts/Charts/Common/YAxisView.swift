@@ -43,8 +43,8 @@ struct YAxisView: View {
                         .fixedSize()
                         .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
                         .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
-                        .position(x: rect.size.width / 2,
-                                  y: label.pos)
+                        .position(x: label.pos.x,
+                                  y: label.pos.y)
                 }
             }
             

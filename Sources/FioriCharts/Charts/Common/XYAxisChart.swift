@@ -95,7 +95,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, displayRange: displayRange)
             for label in yAxisLabels {
                 if abs(label.value) < 0.001 {
-                    baselineYPos = label.pos
+                    baselineYPos = label.pos.y
                     break
                 }
             }

@@ -29,7 +29,7 @@ struct XAxisGridlines: View {
         var xAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.xAxisGridlines(model, rect: rect) {
             xAxisLabels = res
-            if let first = xAxisLabels.first, abs(first.pos) < 0.001 {
+            if let first = xAxisLabels.first, abs(first.pos.x) < 0.001 {
                 xAxisLabels.removeFirst()
             }
         }
@@ -45,7 +45,7 @@ struct XAxisGridlines: View {
                             .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
                                     style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
                                                        dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
-                            .offset(x: title.pos)
+                            .offset(x: title.pos.x)
                     }
                 }
             }
