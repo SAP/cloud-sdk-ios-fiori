@@ -20,11 +20,18 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
      */
     @Published public var colors: [HexColor]
     
-    /// Line width for all series rendered as lines.
-    @Published public var lineWidth: Double = 1
+    /**
+     Collection of palettes containing colors for all series.
+
+     If the number of palettes is less than the number of series, then palettes will be recycled.
+     */
+    @Published public var palettes: [ChartSeriesPalette]
     
     /// Properties for the points rendered in all line series.
     @Published public var points: [ChartPointAttributes]
+    
+    /// Lines width for  series rendered as lines.
+    @Published public var linesWidth: [Double]
     
     /// Diameter of line caps for first and last values in a line series.
     @Published public var firstLineCapDiameter: Double
@@ -34,7 +41,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(colors: [HexColor], lineWidth: Double = 1, points: [ChartPointAttributes]? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
+    public init(colors: [HexColor], palettes: [ChartSeriesPalette]? = nil, linesWidth: [Double]?, points: [ChartPointAttributes]? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
         if colors.count > 0 {
             self.colors = colors
         }
@@ -42,7 +49,19 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
             self.colors = [Palette.hexColor(for: .chart1)]
         }
         
-        self.lineWidth = lineWidth
+        if let palettes = palettes {
+            self.palettes = palettes
+        }
+        else {
+            self.palettes = []
+        }
+        
+        if let linesWidth = linesWidth {
+            self.linesWidth = linesWidth
+        }
+        else {
+            self.linesWidth = [1]
+        }
         
         if let points = points {
             self.points = points

@@ -14,15 +14,16 @@ struct SettingsSeries: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Basic")) {
-                Text("Line Width: \(model.seriesAttributes.lineWidth)")
-                Slider(value: $model.seriesAttributes.lineWidth, in: 1...10, step: 1)
-
-                Text("First Line Cap Diameter: \(model.seriesAttributes.firstLineCapDiameter)")
-                Slider(value: $model.seriesAttributes.firstLineCapDiameter, in: 0...10, step: 1)
-
-                Text("Last Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
-                Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
+            Section(header: Text("Lines Width")) {
+                ForEach( 0 ..< self.model.seriesAttributes.linesWidth.count) { i in
+                    Text("Series \(i) Line Width: \(self.model.seriesAttributes.linesWidth[i])")
+                    Slider(value: self.$model.seriesAttributes.linesWidth[i], in: 1...10, step: 1)
+                }
+//                Text("First Line Cap Diameter: \(model.seriesAttributes.firstLineCapDiameter)")
+//                Slider(value: $model.seriesAttributes.firstLineCapDiameter, in: 0...10, step: 1)
+//
+//                Text("Last Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
+//                Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
             }
             
             Section(header: Text("Points")) {

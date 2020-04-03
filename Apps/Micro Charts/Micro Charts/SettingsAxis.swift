@@ -10,7 +10,7 @@ import SwiftUI
 import FioriCharts
 
 struct SettingsAxis: View {
-    @Binding var axis: ChartNumericAxis
+    @Binding var axis: ChartNumericAxisAttributes
     
     var body: some View {
         Form {
@@ -64,7 +64,7 @@ struct SettingsAxis: View {
     }
 }
 
-extension ChartNumericAxis {
+extension ChartNumericAxisAttributes {
     var explicitMinToggleBinding: Binding<Bool> {
         return Binding(get: {
             return self.explicitMin != nil

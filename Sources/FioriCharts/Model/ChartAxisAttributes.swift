@@ -1,5 +1,5 @@
 //
-//  ChartAxis.swift
+//  ChartAxisAttributes.swift
 //  AnyCodable
 //
 //  Created by Xu, Sheng on 3/4/20.
@@ -28,7 +28,7 @@ public enum ChartAxisId {
     case category
 }
 
-public class ChartAxis: ObservableObject, Identifiable {
+public class ChartAxisAttributes: ObservableObject, Identifiable {
     /// Provides an identifier that associates the axis with a position and orientation in the chart.
     @Published public var axisId: ChartAxisId?
     
@@ -95,7 +95,7 @@ public class ChartAxis: ObservableObject, Identifiable {
  - Bar charts display the numeric axis as the X axis.
  - Line, column, and combo charts display the numeric axis as the Y axis.
  */
-public class ChartNumericAxis : ChartAxis {
+public class ChartNumericAxisAttributes : ChartAxisAttributes {
     
     public convenience init() {
         self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
@@ -229,7 +229,7 @@ public enum ChartCategoryAxisLabelLayoutStyle {
  - Bar charts display the category axis as the Y axis.
  - Line, column, and combo charts display the category axis as the X axis.
  */
-public class ChartCategoryAxis : ChartNumericAxis {
+public class ChartCategoryAxisAttributes : ChartNumericAxisAttributes {
     
     public convenience init() {
         self.init(labelLayoutStyle: .allOrNothing)

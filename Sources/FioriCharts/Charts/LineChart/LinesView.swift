@@ -79,7 +79,7 @@ struct LinesView: View {
                            startOffset: startOffset,
                            endOffset: endOffset)
                     .stroke(strokeColors[i],
-                            lineWidth: CGFloat(self.model.seriesAttributes.lineWidth))
+                            lineWidth: CGFloat(self.model.seriesAttributes.linesWidth[i % self.model.seriesAttributes.linesWidth.count]))
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
             }

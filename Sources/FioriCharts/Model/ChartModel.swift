@@ -106,17 +106,25 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var chartType: ChartType
     /// seires -> category -> dimension
     @Published public var data: [[DimensionData<Double>]]
+    // To be changed
+    //@Published public var titlesForCategory: [[String?]]
     @Published public var titlesForCategory: [[String]]?
     @Published public var titlesForAxis: [String]?
+    
+    // To be changed
+    // @Published public var labelsForDimension: [[DimensionData<String?>]]
     @Published public var labelsForDimension: [[DimensionData<String>]]?
     
     @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
+    
+    @Published public var selectionEnabled: Bool = false
+    @Published public var zoomEnabled: Bool = false
     
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
     
     ///
-    @Published public var panChartToDataPointOnly = false
+    @Published public var snapToPoint = false
   
     /// seires attributes
     @Published public var seriesAttributes: ChartSeriesAttributes
@@ -134,7 +142,7 @@ public class ChartModel: ObservableObject, Identifiable {
      - For stock, clustered column, line, and combo charts this is the X axis.
      - For bar charts this is the Y axis.
      */
-    @Published public var categoryAxis: ChartCategoryAxis
+    @Published public var categoryAxis: ChartCategoryAxisAttributes
     
     /**
      Provides attributes for the primary numeric axis.
@@ -142,14 +150,14 @@ public class ChartModel: ObservableObject, Identifiable {
      - For stock, clustered column, line, and combo charts this is the Y axis.
      - For bar charts this is the X axis.
      */
-    @Published public var numericAxis: ChartNumericAxis
+    @Published public var numericAxis: ChartNumericAxisAttributes
     
     /**
      Provides attributes for the secondary numeric axis.
      
      - For clustered line, area and combo charts this is the secondary Y axis.
      */
-    @Published public var secondaryNumericAxis: ChartNumericAxis
+    @Published public var secondaryNumericAxis: ChartNumericAxisAttributes
     
     /**
      Indicates indexes of column series for combo chart.
@@ -241,9 +249,9 @@ public class ChartModel: ObservableObject, Identifiable {
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: ChartSeriesAttributes? = nil,
-                categoryAxis: ChartCategoryAxis? = nil,
-                numericAxis: ChartNumericAxis? = nil,
-                secondaryNumericAxis: ChartNumericAxis? = nil) {
+                categoryAxis: ChartCategoryAxisAttributes? = nil,
+                numericAxis: ChartNumericAxisAttributes? = nil,
+                secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
         self.chartType = chartType
         if let colorsForCategory = colorsForCategory {
             self.colorsForCategory = colorsForCategory
@@ -308,7 +316,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.categoryAxis = categoryAxis
         }
         else {
-            let axis = ChartCategoryAxis()
+            let axis = ChartCategoryAxisAttributes()
             if chartType != .stock {
                 axis.gridlines.isHidden = true
             }
@@ -319,7 +327,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.numericAxis = numericAxis
         }
         else {
-            let axis = ChartNumericAxis()
+            let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
             }
@@ -330,7 +338,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.secondaryNumericAxis = secondaryNumericAxis
         }
         else {
-            let axis = ChartNumericAxis()
+            let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
             }
@@ -356,9 +364,9 @@ public class ChartModel: ObservableObject, Identifiable {
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: ChartSeriesAttributes? = nil,
-                categoryAxis: ChartCategoryAxis? = nil,
-                numericAxis: ChartNumericAxis? = nil,
-                secondaryNumericAxis: ChartNumericAxis? = nil) {
+                categoryAxis: ChartCategoryAxisAttributes? = nil,
+                numericAxis: ChartNumericAxisAttributes? = nil,
+                secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
         self.chartType = chartType
         if let colorsForCategory = colorsForCategory {
             self.colorsForCategory = colorsForCategory
@@ -423,21 +431,21 @@ public class ChartModel: ObservableObject, Identifiable {
             self.numericAxis = numericAxis
         }
         else {
-            self.numericAxis = ChartNumericAxis()
+            self.numericAxis = ChartNumericAxisAttributes()
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
             self.secondaryNumericAxis = secondaryNumericAxis
         }
         else {
-            self.secondaryNumericAxis = ChartNumericAxis()
+            self.secondaryNumericAxis = ChartNumericAxisAttributes()
         }
         
         if let categoryAxis = categoryAxis {
             self.categoryAxis = categoryAxis
         }
         else {
-            self.categoryAxis = ChartCategoryAxis()
+            self.categoryAxis = ChartCategoryAxisAttributes()
         }
         
         if let seriesAttributes = seriesAttributes {
@@ -453,17 +461,19 @@ public class ChartModel: ObservableObject, Identifiable {
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> ChartSeriesAttributes {
         switch chartType {
         case .stock:
+            let linesWidth: [Double] = Array(repeating: 2, count: seriesCount)
             let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke), Palette.hexColor(for: .stockUpFill), Palette.hexColor(for: .stockDownFill), Palette.hexColor(for: .stockFillEndColor)]
-            return ChartSeriesAttributes(colors: colors, lineWidth: 2, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            return ChartSeriesAttributes(colors: colors, linesWidth: linesWidth, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
         default:
             let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2)]
             let count = min(colors.count, max(1, seriesCount))
             var pointAttributes: [ChartPointAttributes] = []
+            let linesWidth: [Double] = Array(repeating: 2, count: count)
             for i in 0 ..< count {
                 let pa = ChartPointAttributes(isHidden: false, diameter: 6, strokeColor: colors[i], gap: 2)
                 pointAttributes.append(pa)
             }
-            return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), lineWidth: 2, points: pointAttributes, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), linesWidth: linesWidth, points: pointAttributes, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
         }
     }
     
