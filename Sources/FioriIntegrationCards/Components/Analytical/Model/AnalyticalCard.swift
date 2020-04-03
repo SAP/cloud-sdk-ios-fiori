@@ -9,21 +9,7 @@
 import AnyCodable
 import Foundation
 
-public class AnalyticalCard: Decodable, Identifiable {
-    
-    private let headerTemplate: Header
-    // not sure about the optional here
-    var header: NumericHeader?
-
-    private let template: Template
-    public var content: AnalyticalContent?
-    
-    open var id: String = UUID().uuidString
-
-    private enum MainKeys: CodingKey {
-        case header
-        case content
-    }
+public class AnalyticalCard: BaseBaseCard {
     
     public enum ContentKeys: CodingKey {
         case chartType
@@ -36,52 +22,31 @@ public class AnalyticalCard: Decodable, Identifiable {
         case dimensions
     }
     
+    @Published var content: AnalyticalContent?
+    private var template: AnalyticalContent
+    
     required public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
+        template = try container.decode(AnalyticalContent.self, forKey: .content)
         
-        let container = try decoder.container(keyedBy: MainKeys.self)
-        headerTemplate = try container.decode(Header.self, forKey: .header)
-        let contentContainer = try container.nestedContainer(keyedBy: ContentKeys.self, forKey: .content)
+        try super.init(from: decoder)
         
-        template = try Template(from: contentContainer)
+        contentPublisher
+            .compactMap({ $0?.value })
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .map({ $0 })
+            .sink(receiveCompletion: {
+                switch $0 {
+                    case .failure(let error):
+                        print(error)
+                    case .finished:
+                        print("FINISHED")
+                }
+            }, receiveValue: { [unowned self] object in
+                self.content = self.template.replacingPlaceholders(withValuesIn: object)
+            })
+            .store(in: &subscribers)
         
-        let contentDataJson = try HavingContent<HavingData<AnyCodable>>(from: decoder).content.data.value as! JSONDictionary
-        guard let contentData = contentDataJson["json"] as? JSONDictionary else {
-            return
-        }
-        content = AnalyticalContent.init(from: template, with: contentData)
-        
-//        let headerDataJson = try HavingHeaderData<HavingData<AnyCodable>>(from: decoder).header.data.value as! JSONDictionary
-//        guard let headerData = headerDataJson["json"] as? JSONDictionary else {
-//            return
-//        }
-//
-//        switch headerTemplate {
-//        case .numeric(let template):
-//            header = getbindedHeader(with: headerData, for: template)
-//            break
-//        default:
-//            break
-//        }
-    }
-    
-    public struct HavingAnyModel<Model: Decodable>: Decodable {
-        let model: Model?
-        
-        enum CodingKeys: CodingKey {
-            case model
-        }
-        
-        init(from json: JSONDictionary, with key: CodingKey) {
-            model = json[key.stringValue] as? Model
-        }
-    }
-    
-    private struct HavingHeaderData<DataModel: Decodable>: Decodable {
-        let header: DataModel
-    }
-    
-    private struct HavingData<Model: Decodable>: Decodable {
-        let data: Model
     }
 }
 
@@ -96,6 +61,38 @@ extension AnalyticalCard: Hashable {
     }
 }
 
+public struct BackedDouble: Decodable {
+    public var value: Double?
+    var placeholder: String? = nil
+    
+    init(value: Double?, placeholder: String?) {
+        self.value = value
+        self.placeholder = placeholder
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        
+        value = try? container.decode(Double.self)
+        guard value != nil else {
+            placeholder = try? container.decode(String.self)
+            if let placeholder = placeholder {
+                value = Double(placeholder)
+            }
+            return
+        }
+    }
+}
+
+extension BackedDouble: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> BackedDouble {
+        guard value == nil,
+            let _placeholder = placeholder else { return self }
+        let converted = _placeholder.replacingPlaceholders(withValuesIn: object)
+        let _value = Double(converted)
+        return BackedDouble(value: _value, placeholder: _placeholder)
+    }
+}
 
 public struct AnalyticalContent: Decodable {
     public let chartType: String
@@ -106,63 +103,32 @@ public struct AnalyticalContent: Decodable {
     public let dimensionAxis: String?
     public let measures: [AnalyticalMeasureDimension]
     public let dimensions: [AnalyticalMeasureDimension]
+    public var categories: [DataCategory] = []
     
-    public var data: [DataCategory]?
+    private enum CodingKeys: CodingKey {
+        case chartType, legend, plotArea, title, measureAxis, dimensionAxis, measures, dimensions
+    }
     
-    init(from template: Template, with jsonData: JSONDictionary) {
-        chartType       = template.chartType.replacingPlaceholders(withValuesIn: jsonData)
-        measureAxis     = template.measureAxis?.replacingPlaceholders(withValuesIn: jsonData)
-        dimensionAxis   = template.dimensionAxis?.replacingPlaceholders(withValuesIn: jsonData)
-        legend = {
-            let _title              = template.legend?.title?.replacingPlaceholders(withValuesIn: jsonData)
-            let _drawingEffect      = template.legend?.drawingEffect?.replacingPlaceholders(withValuesIn: jsonData)
-            let _isHierarchical     = template.legend?.isHierarchical?.replacingPlaceholdersToBoolean(withValuesIn: jsonData)
-            let _isScrollable       = template.legend?.isScrollable?.replacingPlaceholdersToBoolean(withValuesIn: jsonData)
-            let _isVisible          = template.legend?.isVisible?.replacingPlaceholdersToBoolean(withValuesIn: jsonData)
-            return AnalyticalLegend(title: _title, drawingEffect: _drawingEffect, isHierarchical: _isHierarchical, isScrollable: _isScrollable, isVisible: _isVisible)
-        }()
-        
-        title = template.title
-        plotArea = template.plotArea
-        
-        measures = {
-            let _measures = template.measures.map { (measureTemp) -> AnalyticalMeasureDimension in
-                let _label = measureTemp.label.replacingPlaceholders(withValuesIn: jsonData)
-                let _value = measureTemp.value.replacingPlaceholders(withValuesIn: jsonData)
-                return AnalyticalMeasureDimension(label: _label, value: _value)
-            }
-            return _measures
-        }()
-        dimensions = {
-            let _dimensions = template.dimensions.map { (measureTemp) -> AnalyticalMeasureDimension in
-                let _label = measureTemp.label.replacingPlaceholders(withValuesIn: jsonData)
-                let _value = measureTemp.value.replacingPlaceholders(withValuesIn: jsonData)
-                return AnalyticalMeasureDimension(label: _label, value: _value)
-            }
-            return _dimensions
-        }()
-        data = {
-            let listArray = jsonData["list"] as! JSONArray
-            let _data = self.measures.map { (measure) -> DataCategory in
-                let _names = listArray.map { (json) -> String in
-                    let _name = self.dimensions.first?.value.replacingPlaceholders(withValuesIn: json)
-                    return _name ?? "Empty"
-                }
-                let _points = listArray.map { (json) -> DataPoint in
-                    let _series = measure.label.replacingPlaceholders(withValuesIn: json)
-                    let _value  = measure.value.replacingPlaceholdersToDouble(withValuesIn: json)
-                    return DataPoint(series: _series, value: _value, secondaryValue: nil, tertiaryValue: nil)
-                }
-                return DataCategory(names: _names, points: _points)
-            }
-            return _data
-        }()
+}
+
+extension AnalyticalContent: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalContent {
+        let _chartType       = chartType.replacingPlaceholders(withValuesIn: object)
+        let _measureAxis     = measureAxis?.replacingPlaceholders(withValuesIn: object)
+        let _dimensionAxis   = dimensionAxis?.replacingPlaceholders(withValuesIn: object)
+        let _legend          = legend?.replacingPlaceholders(withValuesIn: object)
+        let _title           = title?.replacingPlaceholders(withValuesIn: object)
+        let _plotArea        = plotArea?.replacingPlaceholders(withValuesIn: object)
+        let _measures        = measures.map { $0.replacingPlaceholders(withValuesIn: object) }
+        let _dimensions      = dimensions.map { $0.replacingPlaceholders(withValuesIn: object) }
+        let _data            = categories.map({ $0.replacingPlaceholders(withValuesIn: object)})
+        return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis, measures: _measures, dimensions: _dimensions, categories: _data)
     }
 }
 
 public struct Template: Decodable {
     public let chartType: String
-    public let legend: AnalyticalLegendTemplate?
+    public let legend: AnalyticalLegend?
     public let plotArea: AnalyticalPlotArea?
     public let title: AnalyticalTitleAttributes?
     public let measureAxis: String?
@@ -172,7 +138,7 @@ public struct Template: Decodable {
     
     init(from container: KeyedDecodingContainer<AnalyticalCard.ContentKeys>) throws {
         chartType       = try container.decode(String.self, forKey: .chartType)
-        legend          = try container.decode(AnalyticalLegendTemplate.self, forKey: .legend)
+        legend          = try container.decode(AnalyticalLegend.self, forKey: .legend)
         plotArea        = try container.decode(AnalyticalPlotArea.self, forKey: .plotArea)
         title           = try container.decode(AnalyticalTitleAttributes.self, forKey: .title)
         measureAxis     = try container.decode(String.self, forKey: .measureAxis)
@@ -182,28 +148,34 @@ public struct Template: Decodable {
     }
 }
 
-public struct AnalyticalLegendTemplate: Decodable {
-    public let title: String?
-    public let drawingEffect: String?
-    public let isHierarchical: String?
-    public let isScrollable: String?
-    public let isVisible: String?
-    
-    enum CodingKeys: String, CodingKey {
-        case title, drawingEffect, isHierarchical, isScrollable, isVisible = "visible"
-    }
-}
-
 public struct DataCategory: Identifiable, Decodable {
     public let id: UUID = UUID()
     public let names: [String]
     public let points: [DataPoint]
 }
 
+extension DataCategory: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> DataCategory {
+        let _names = names.map({ $0.replacingPlaceholders(withValuesIn: object) })
+        let _points = points.map({ $0.replacingPlaceholders(withValuesIn: object) })
+        return DataCategory(names: _names, points: _points)
+    }
+}
+
 public struct DataPoint: Identifiable, Decodable {
     public let id: UUID = UUID()
     public let series: String
-    public let value: Double   // y value in most charts, sometimes the x in horizontal charts
-    public let secondaryValue: Double? // would be used in scatter and bubble charts
-    public let tertiaryValue: Double?  // would be used in bubble charts
+    public let value: BackedDouble   // y value in most charts, sometimes the x in horizontal charts
+    public let secondaryValue: BackedDouble? // would be used in scatter and bubble charts
+    public let tertiaryValue: BackedDouble?  // would be used in bubble charts
+}
+
+extension DataPoint: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> DataPoint {
+        let _series = series.replacingPlaceholders(withValuesIn: object)
+        let _value = value.replacingPlaceholders(withValuesIn: object)
+        let _secondaryValue = secondaryValue?.replacingPlaceholders(withValuesIn: object)
+        let _tertiaryValue = tertiaryValue?.replacingPlaceholders(withValuesIn: object)
+        return DataPoint(series: _series, value: _value, secondaryValue: _secondaryValue, tertiaryValue: _tertiaryValue)
+    }
 }

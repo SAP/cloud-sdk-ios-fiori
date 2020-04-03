@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct TableTitleRowView: View {
-    var model: [TableColumn]!
+    var model: [TableColumn]
     
     var body: some View {
         GeometryReader { geometry in

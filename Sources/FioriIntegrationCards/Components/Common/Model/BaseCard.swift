@@ -11,7 +11,31 @@ import AnyCodable
 import Combine
 import TinyNetworking
 
-
+/// JSON data must be in `array` form
+open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
+    
+    @Published var content: Template?
+    
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        
+        contentPublisher
+            .compactMap({ $0?.value })
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .map({ $0 })
+            .sink(receiveCompletion: {
+                switch $0 {
+                    case .failure(let error):
+                        print(error)
+                    case .finished:
+                        print("FINISHED")
+                }
+            }, receiveValue: { [unowned self] object in
+                self.content = self.template.replacingPlaceholders(withValuesIn: object)
+            })
+            .store(in: &subscribers)
+    }
+}
 
 /// JSON data must be in `array` form
 open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
@@ -74,16 +98,45 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
     }
 }
 
-//open class ManyManyCard<Content: Decodable, Template: Decodable & Placeholding>: BaseCard<Template> where Content
 
-open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableObject, Identifiable {
+open class BaseCard<Template: Decodable & Placeholding>: BaseBaseCard {
+    
+    var template: Template!
+    
+    required public init(from decoder: Decoder) throws {
+        try super.init(from: decoder)
+        // MARK: - Decode `header`, `content`, `template`, and 3 data fetchers
+        
+        let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
+        let contentContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .content)
+        
+        // MARK: get nested Template from content node
+        for k in BaseCardCodingKeys.contentKeys {
+            if let t = try? contentContainer.decodeIfPresent(Template.self, forKey: k) {
+                template = t
+                break
+            }
+        }
+        
+        precondition(template != nil, "Unable to load template from card: \(self)")
+    }
+}
+
+
+// MARK: - union of all content-related keys across the cards
+internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
+    case header, data, content, item, groups, row
+    
+    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
+}
+
+
+open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
     
     open var id: String = UUID().uuidString
     
     @Published var header: Header
-    
-    var template: Template!
-    
+        
     internal let _headerData: DataFetcher?
     internal let _cardData: DataFetcher?
     internal let _contentData: DataFetcher?
@@ -108,16 +161,6 @@ open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableOb
         // MARK: get nested data from content node
         let contentContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .content)
         _contentData = try contentContainer.decodeIfPresent(DataFetcher.self, forKey: .data)
-        
-        // MARK: get nested Template from content node
-        for k in BaseCardCodingKeys.contentKeys {
-            if let t = try? contentContainer.decodeIfPresent(Template.self, forKey: k) {
-                template = t
-                break
-            }
-        }
-        
-        precondition(template != nil, "Unable to load template from card: \(self)")
         
         headerPublisher
             .compactMap({ $0 })
@@ -156,11 +199,4 @@ open class BaseCard<Template: Decodable & Placeholding>: Decodable, ObservableOb
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
     
-}
-
-// MARK: - union of all content-related keys across the cards
-fileprivate enum BaseCardCodingKeys: CodingKey, CaseIterable {
-    case header, data, content, item, groups, row
-    
-    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
 }

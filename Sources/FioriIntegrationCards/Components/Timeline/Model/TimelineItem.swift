@@ -15,20 +15,10 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
     public let ownerImage: KeyValue?
     public let icon: Icon?
     public let id: UUID = UUID()
-    
-    public struct KeyValue: Codable, Hashable {
-        let label: String?
-        let value: String
-    }
+
 }
 
-extension TimelineItem.KeyValue : Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem.KeyValue {
-        let _label = label?.replacingPlaceholders(withValuesIn: object)
-        let _value = value.replacingPlaceholders(withValuesIn: object)
-        return TimelineItem.KeyValue(label: _label, value: _value)
-    }
-}
+
 
 extension TimelineItem: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem {

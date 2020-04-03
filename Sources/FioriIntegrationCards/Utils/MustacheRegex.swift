@@ -50,14 +50,13 @@ extension String {
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
             if let value: String = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-//            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: value)
             }
         }
         return mutableString
     }
     
-    func replacingPlaceholdersToDouble(withValuesIn dictionary: Dictionary<String, Any>) -> Double {
+    func replacingPlaceholdersToDouble(withValuesIn object: Any) -> Double {
         var mutableString = self
         // identify the keys and ranges of the mustache placeholders
         let substitutions = mutableString.mustachePlaceholders()
@@ -67,10 +66,10 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute valuex
             
-            if let value: Double = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
+            if let value: Double = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
                 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
-            } else if let value: Int = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
+            } else if let value: Int = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
                 //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
             }
@@ -78,7 +77,7 @@ extension String {
         return Double(mutableString)!
     }
     
-    func replacingPlaceholdersToBoolean(withValuesIn dictionary: Dictionary<String, Any>) -> Bool {
+    func replacingPlaceholdersToBoolean(withValuesIn object: Any) -> Bool? {
         var mutableString = self
         // identify the keys and ranges of the mustache placeholders
         let substitutions = mutableString.mustachePlaceholders()
@@ -88,13 +87,12 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
-            if let value: Bool = `Any`.resolve(dictionary, keyPath: sub.0, separator: "/") {
-                //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
+            if let value: Bool = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
                 let boolString = value ? "true" : "false"
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: boolString)
             }
         }
-        return Bool(mutableString)!
+        return Bool(mutableString)
     }
 }
 

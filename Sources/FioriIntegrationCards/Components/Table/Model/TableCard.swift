@@ -10,10 +10,6 @@ open class TableCard: OneManyCard<TableRow> {
     
 }
 
-
-public struct HavingRow<Model: Decodable>: Decodable {
-    let row: Model
-}
 extension TableCard: Hashable {
     public static func == (lhs: TableCard, rhs: TableCard) -> Bool {
         return lhs.header == rhs.header && lhs.content == lhs.content
