@@ -6,21 +6,11 @@
 //  Copyright © 2020 sstadelman. All rights reserved.
 //
 
-import AnyCodable
+//import AnyCodable
 import Foundation
+import FioriCharts
 
 public class AnalyticalCard: BaseBaseCard {
-    
-    public enum ContentKeys: CodingKey {
-        case chartType
-        case legend
-        case plotArea
-        case title
-        case measureAxis
-        case dimensionAxis
-        case measures
-        case dimensions
-    }
     
     @Published var content: AnalyticalContent?
     private var template: AnalyticalContent
@@ -33,8 +23,8 @@ public class AnalyticalCard: BaseBaseCard {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
-            .map({ $0 })
+            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
+            .compactMap({ o -> Any? in return `Any`.resolve(o.0, keyPath: o.1, separator: "/") })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -44,10 +34,16 @@ public class AnalyticalCard: BaseBaseCard {
                 }
             }, receiveValue: { [unowned self] object in
                 self.content = self.template.replacingPlaceholders(withValuesIn: object)
+//                guard let content = self.content,
+//                    let chartType = ChartType(rawValue: content.chartType),
+//                let data =
+//                    else { return }
             })
             .store(in: &subscribers)
         
     }
+    
+    @Published var chartModel: ChartModel = ChartModel(chartType: .line, data: Array<Array<Double>>())
 }
 
 extension AnalyticalCard: Hashable {
@@ -93,59 +89,7 @@ extension BackedDouble: Placeholding {
     }
 }
 
-public struct AnalyticalContent: Decodable {
-    public let chartType: String
-    public let legend: AnalyticalLegend?
-    public let plotArea: AnalyticalPlotArea?
-    public let title: AnalyticalTitleAttributes?
-    public let measureAxis: String?
-    public let dimensionAxis: String?
-    public let measures: [AnalyticalMeasureDimension]
-    public let dimensions: [AnalyticalMeasureDimension]
-    public var categories: [DataCategory] = []
-    
-    private enum CodingKeys: CodingKey {
-        case chartType, legend, plotArea, title, measureAxis, dimensionAxis, measures, dimensions
-    }
-    
-}
 
-extension AnalyticalContent: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalContent {
-        let _chartType       = chartType.replacingPlaceholders(withValuesIn: object)
-        let _measureAxis     = measureAxis?.replacingPlaceholders(withValuesIn: object)
-        let _dimensionAxis   = dimensionAxis?.replacingPlaceholders(withValuesIn: object)
-        let _legend          = legend?.replacingPlaceholders(withValuesIn: object)
-        let _title           = title?.replacingPlaceholders(withValuesIn: object)
-        let _plotArea        = plotArea?.replacingPlaceholders(withValuesIn: object)
-        let _measures        = measures.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _dimensions      = dimensions.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _data            = categories.map({ $0.replacingPlaceholders(withValuesIn: object) })
-        return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis, measures: _measures, dimensions: _dimensions, categories: _data)
-    }
-}
-
-public struct Template: Decodable {
-    public let chartType: String
-    public let legend: AnalyticalLegend?
-    public let plotArea: AnalyticalPlotArea?
-    public let title: AnalyticalTitleAttributes?
-    public let measureAxis: String?
-    public let dimensionAxis: String?
-    public let measures: [AnalyticalMeasureDimension]
-    public let dimensions: [AnalyticalMeasureDimension]
-    
-    init(from container: KeyedDecodingContainer<AnalyticalCard.ContentKeys>) throws {
-        chartType       = try container.decode(String.self, forKey: .chartType)
-        legend          = try container.decode(AnalyticalLegend.self, forKey: .legend)
-        plotArea        = try container.decode(AnalyticalPlotArea.self, forKey: .plotArea)
-        title           = try container.decode(AnalyticalTitleAttributes.self, forKey: .title)
-        measureAxis     = try container.decode(String.self, forKey: .measureAxis)
-        dimensionAxis   = try container.decode(String.self, forKey: .dimensionAxis)
-        measures        = try container.decode([AnalyticalMeasureDimension].self, forKey: .measures)
-        dimensions      = try container.decode([AnalyticalMeasureDimension].self, forKey: .dimensions)
-    }
-}
 
 public struct DataCategory: Identifiable, Decodable {
     public let id: UUID = UUID()

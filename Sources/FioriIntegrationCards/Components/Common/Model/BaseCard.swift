@@ -21,8 +21,8 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
-            .map({ $0 })
+            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
+            .compactMap({ o -> Any? in return `Any`.resolve(o.0, keyPath: o.1, separator: "/") })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -47,8 +47,8 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
-            .map({ $0 })
+            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
+            .compactMap({ o -> Any? in return `Any`.resolve(o.0, keyPath: o.1, separator: "/") })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -76,8 +76,8 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
-            .map({ $0 })
+            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
+            .compactMap({ o -> Any? in return `Any`.resolve(o.0, keyPath: o.1, separator: "/") })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -136,8 +136,8 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
     internal let _cardData: DataFetcher?
     internal let _contentData: DataFetcher?
     
-    public let headerPublisher = CurrentValueSubject<CurrentValueSubject<Data?, Never>?, Never>(nil)
-    public let contentPublisher = CurrentValueSubject<CurrentValueSubject<Data?, Never>?, Never>(nil)
+    public let headerPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
+    public let contentPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
     
     required public init(from decoder: Decoder) throws {
         
@@ -158,14 +158,9 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
         _contentData = try contentContainer.decodeIfPresent(DataFetcher.self, forKey: .data)
         
         headerPublisher
-            .compactMap({ $0 })
-            .map({ $0.value })
-            .compactMap({ $0 })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
-//
-//            .map({
-//                print($0)
-//                return $0.mapValues({ $0.value }) })
+            .compactMap({ $0?.value })
+            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
+            .map({ `Any`.resolve($0.0, keyPath: $0.1, separator: "/")})
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):

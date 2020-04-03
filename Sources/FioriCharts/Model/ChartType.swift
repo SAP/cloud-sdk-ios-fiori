@@ -9,7 +9,7 @@
 import Foundation
 
 /// Available chart types. Use this enum to define chart type to present.
-public enum ChartType {
+public enum ChartType: String {
 
     /// Line Chart
     case line
@@ -58,4 +58,6 @@ public enum ChartType {
     
     /// donut chart
     case donut
+    
+    
 }
