@@ -16,3 +16,11 @@ public struct AnalyticalDataLabel: Decodable {
         case isShowingTotal = "showTotal"
     }
 }
+
+extension AnalyticalDataLabel: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalDataLabel {
+        let _isVisible = String(describing: isVisible).replacingPlaceholdersToBoolean(withValuesIn: object)
+        let _isShowingTotal = String(describing: isShowingTotal).replacingPlaceholdersToBoolean(withValuesIn: object)
+        return AnalyticalDataLabel(isVisible: _isVisible, isShowingTotal: _isShowingTotal)
+    }
+}

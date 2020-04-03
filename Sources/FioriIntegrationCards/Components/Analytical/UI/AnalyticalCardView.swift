@@ -18,55 +18,12 @@ public struct AnalyticalCardView: View {
     }
     
     public var body: some View {
-        let title = model.header?.title
-        let subtitle = model.header?.subTitle
-        let unitOfMeasurement = model.header?.unitOfMeasurement
-        let trend = model.header?.mainIndicator?.trend
-        let mainNumber = model.header?.mainIndicator?.number
-        let mainUnit = model.header?.mainIndicator?.unit
-        let targetNum = model.header?.sideIndicators?[0].number
-        let targetUnit = model.header?.sideIndicators?[0].unit
-        let deviationNum = model.header?.sideIndicators?[1].number
-        let deviationUnit = model.header?.sideIndicators?[1].unit
-        let details = model.header?.details
         
         return Group {
-            VStack(alignment: .leading) {
-                
-                SafeText(title).font(.headline)
-                HStack {
-                    SafeText(subtitle).foregroundColor(Color.gray)
-                    SafeText(" | ").foregroundColor(Color.gray)
-                    SafeText(unitOfMeasurement).foregroundColor(Color.gray)
-                }
-                HStack {
-                    SafeText(mainNumber).foregroundColor(Color.getTrendColor(trend: trend))
-                        .font(.system(size: 40)).fixedSize(horizontal: false, vertical: true)
-                    VStack {
-                        PolygonView(trend: trend)
-                        SafeText(mainUnit)
-                    }.padding(.trailing, 50)
-                    
-                    VStack {
-                        SafeText("Target").foregroundColor(Color.gray)
-                        HStack {
-                            SafeText(targetNum)
-                            SafeText(targetUnit)
-                        }
-                    }.padding(.trailing, 10)
-                    
-                    VStack {
-                        SafeText("Deviation").foregroundColor(Color.gray)
-                        HStack {
-                            SafeText(deviationNum)
-                            SafeText(deviationUnit)
-                        }
-                    }
-                }.padding(.bottom, 10)
-                SafeText(details).foregroundColor(Color.gray).font(.system(size: 15))
-            }
+            HeaderView(model: model.header)
             GeometryReader { geometry in
-                self.lineView(in: geometry.frame(in: .local), from: self.model.content!)
+                Text("Placeholder for LineView")
+//                self.lineView(in: geometry.frame(in: .local), from: self.model.content!)
             }.frame(height: 260)
         }
     }
@@ -80,13 +37,14 @@ public struct AnalyticalCardView: View {
         let linesRect = CGRect(x: yAxisWidth, y: 0, width: width, height: height)
         
         return ZStack {
+            Text("Placeholder for LineShape")/*
             ForEach(content.data!) { data in
 //                let points: [Double] = data.points.map { $0.value }
                 LinesShape(points: data.points.map { $0.value })
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
                 .frame(width: width, height: height)
                 .previewLayout(.sizeThatFits)
-            }
+            }*/
         }
     }
 }

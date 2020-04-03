@@ -18,15 +18,15 @@ struct HeaderView: View {
     
     func makeBody() -> AnyView {
         switch model {
-        case .default(let value):
-            return AnyView(DefaultHeaderView(model: value))
-        default:
-            return AnyView(EmptyView())
+            case .default(let value):
+                return AnyView(DefaultHeaderView(model: value))
+            case .numeric(let value):
+                return AnyView(NumericHeaderView(model: value))
         }
     }
 }
 
-struct DefaultHeaderView: View {
+private struct DefaultHeaderView: View {
     
     let model: DefaultHeader
 
@@ -46,6 +46,48 @@ struct DefaultHeaderView: View {
                 }
                 SafeText(model.subTitle).foregroundColor(.gray)
             }
+        }
+    }
+}
+
+private struct NumericHeaderView: View {
+    
+    let model: NumericHeader
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            
+            SafeText(model.title).font(.headline)
+            HStack {
+                SafeText(model.subTitle).foregroundColor(Color.gray)
+                SafeText(" | ").foregroundColor(Color.gray)
+                SafeText(model.unitOfMeasurement).foregroundColor(Color.gray)
+            }
+            HStack {
+                SafeText(model.mainIndicator?.number).foregroundColor(Color.getTrendColor(trend: model.mainIndicator?.trend))
+                    .font(.system(size: 40)).fixedSize(horizontal: false, vertical: true)
+                VStack {
+                    PolygonView(trend: model.mainIndicator?.trend)
+                    SafeText(model.mainIndicator?.unit)
+                }.padding(.trailing, 50)
+                
+                VStack {
+                    SafeText("Target").foregroundColor(Color.gray)
+                    HStack {
+                        SafeText(model.sideIndicators?.first?.number)
+                        SafeText(model.sideIndicators?.first?.unit)
+                    }
+                }.padding(.trailing, 10)
+                
+                VStack {
+                    SafeText("Deviation").foregroundColor(Color.gray)
+                    HStack {
+                        SafeText(model.sideIndicators?.last?.number)
+                        SafeText(model.sideIndicators?.last?.unit)
+                    }
+                }
+            }.padding(.bottom, 10)
+            SafeText(model.details).foregroundColor(Color.gray).font(.system(size: 15))
         }
     }
 }
