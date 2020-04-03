@@ -102,11 +102,11 @@ public typealias JSONDictionary = [String: Any]
 public typealias JSONArray = [JSONDictionary]
 
 enum `Any` {
-    static func resolve<T>(_ object: Any, keyPath: String, separator: String.Element = ".") -> T? {
+    static func resolve<T>(_ object: Any, keyPath: String?, separator: String.Element = ".") -> T? {
         var current: Any? = object
         
-        keyPath.split(separator: separator).forEach { component in
-            if let maybeInt = Int(component), let array = current as? [Any] {
+        keyPath?.split(separator: separator).forEach { component in
+            if let maybeInt = Int(component), let array = current as? Array<Any> {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
                 current = dictionary[String(component)]
