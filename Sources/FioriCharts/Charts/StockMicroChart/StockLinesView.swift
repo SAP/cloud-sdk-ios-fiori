@@ -97,7 +97,7 @@ struct StockLinesView: View {
                                    layoutDirection: self.layoutDirection,
                                    startOffset: startOffset,
                                    endOffset: endOffset)
-                            .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes.lineWidth))
+                            .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes.linesWidth[model.currentSeriesIndex % model.seriesAttributes.linesWidth.count]))
                             .frame(width: width, height: height)
                             .clipped()
                         Spacer(minLength: 0)

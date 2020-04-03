@@ -20,8 +20,8 @@ struct Settings: View {
                         Text("Enable User Interaction")
                     }
                     
-                    Toggle(isOn: $model.panChartToDataPointOnly) {
-                        Text("Pan chart to data point only")
+                    Toggle(isOn: $model.snapToPoint) {
+                        Text("Snap to point only")
                     }
                     
                     Text("Scale: \(model.scale)")

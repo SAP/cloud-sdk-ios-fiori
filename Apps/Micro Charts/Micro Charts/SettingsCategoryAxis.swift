@@ -10,7 +10,7 @@ import SwiftUI
 import FioriCharts
 
 struct SettingsCategoryAxis: View {
-    @Binding var axis: ChartCategoryAxis
+    @Binding var axis: ChartCategoryAxisAttributes
     
     var body: some View {
         Form {
