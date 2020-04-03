@@ -52,7 +52,7 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView() {
-            NavigationLink("CollectionView", destination: CollectionView<[Card], Card>(data: self.cards.compactMap({ self.getManifest(for: $0)?.card }), layout: flowLayout(for:containerSize:sizes:), content: { $0 }))
+            NavigationLink("CollectionView", destination: CollectionView<[Card], Card>(data: self.cards.compactMap({ getManifest(for: $0)?.card }), layout: flowLayout(for:containerSize:sizes:), content: { $0 }))
 
             List(cards) { card in
                 NavigationLink(destination: LoadingView(card: card)) {
@@ -82,7 +82,7 @@ struct LoadingView: View {
             }
         }.onAppear {
             DispatchQueue.global(qos: .userInitiated).async {
-                self.model = self.getManifest(for: self.card)
+                self.model = getManifest(for: self.card)
                 
                 if self.model != nil {
                     self.isLoading = false
@@ -109,16 +109,17 @@ struct LoadingView: View {
         }
     }
     
-    func getManifest(for card: String) -> Manifest? {
-        do {
-            let data = try Data(contentsOf: Bundle.main.url(forResource: card, withExtension: "json")!)
-            let model = try JSONDecoder().decode(Manifest.self, from: data)
-            return model
-        } catch {
-            print(error)
-        }
-        return nil
+}
+
+func getManifest(for card: String) -> Manifest? {
+    do {
+        let data = try Data(contentsOf: Bundle.main.url(forResource: card, withExtension: "json")!)
+        let model = try JSONDecoder().decode(Manifest.self, from: data)
+        return model
+    } catch {
+        print(error)
     }
+    return nil
 }
 
 struct ContentView_Previews: PreviewProvider {
