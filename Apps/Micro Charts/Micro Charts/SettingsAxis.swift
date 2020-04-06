@@ -27,6 +27,27 @@ struct SettingsAxis: View {
                     Text("Is Magnituded Displayed")
                 }
                 
+                Picker(selection: $axis.formatter.numberStyle, label: Text("Number Formatter Style")) {
+                    Text("decimal").tag(NumberFormatter.Style.decimal)
+                    Text("percent").tag(NumberFormatter.Style.percent)
+                    Text("currency").tag(NumberFormatter.Style.currency)
+                    Text("currencyAccounting").tag(NumberFormatter.Style.currencyAccounting)
+                    Text("currencyISOCode").tag(NumberFormatter.Style.currencyISOCode)
+                    Text("currencyPlural").tag(NumberFormatter.Style.currencyPlural)
+                    Text("ordinal").tag(NumberFormatter.Style.ordinal)
+                    Text("none").tag(NumberFormatter.Style.none)
+                }
+                
+                Picker(selection: $axis.abbreviatedFormatter.numberStyle, label: Text("Abbreviated Number Formatter Style")) {
+                    Text("decimal").tag(NumberFormatter.Style.decimal)
+                    Text("percent").tag(NumberFormatter.Style.percent)
+                    Text("currency").tag(NumberFormatter.Style.currency)
+                    Text("currencyAccounting").tag(NumberFormatter.Style.currencyAccounting)
+                    Text("currencyISOCode").tag(NumberFormatter.Style.currencyISOCode)
+                    Text("currencyPlural").tag(NumberFormatter.Style.currencyPlural)
+                    Text("ordinal").tag(NumberFormatter.Style.ordinal)
+                    Text("none").tag(NumberFormatter.Style.none)
+                }
 //                Toggle(isOn: axis.explicitMinToggleBinding) {
 //                    Text("Explicit Min is set")
 //                }

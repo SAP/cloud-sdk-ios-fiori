@@ -13,11 +13,11 @@ protocol AxisDataSource: class {
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
+    func yAxisFormattedString(_ model: ChartModel, value: Double) -> String
+    
     func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle]
     
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect)
-    
-    func axisView(_ model: ChartModel, displayRange: ClosedRange<CGFloat>, formattedStringForValue value: Double) -> String
 }
 
 class DefaultAxisDataSource: AxisDataSource {
@@ -84,6 +84,162 @@ class DefaultAxisDataSource: AxisDataSource {
         return ret
     }
     
+    private func numberMagnitude(from value: Double) -> (magnitude: String, divisor: Double) {
+        var divisorValue: Double = 1
+        var stringValue = " "
+        let d = abs(value)
+        
+        if (d < 1e3)    // we can represent up to 999 directly
+        {
+            divisorValue = 1
+        }
+        else if (d < 1e6)    // 999k
+        {
+            stringValue = "K"
+            divisorValue = 1e3
+        }
+        else if (d < 1e9)    // 999m
+        {
+            stringValue = "M"
+            divisorValue = 1e6
+        }
+        else if (d < 1e12)    // 999b
+        {
+            stringValue = "B"
+            divisorValue = 1e9
+        }
+        else if (d < 1e15)    // 999t
+        {
+            stringValue = "T"
+            divisorValue = 1e12
+        }
+        else if (d < 1e18)    // 999q
+        {
+            stringValue = "Q"
+            divisorValue = 1e15
+        }
+        else { // higher than 999 quadrillion we don't care
+            stringValue = "Z"
+            divisorValue = 1e18
+        }
+        
+        
+        return (stringValue, divisorValue)
+    }
+    
+    private func numberFormatter(for value: Double, divisor: Double, abbreviatedFormatter: NumberFormatter) -> NumberFormatter
+    {
+        let value = abs(value)
+        
+        let nf = abbreviatedFormatter
+    
+        // 100+
+        if (value >= 100) {
+            nf.maximumFractionDigits = 0
+        }
+        
+        // 10 -> 100
+        if (100 > value && value >= 10) {
+            var numberOfFractionDigits = nf.maximumFractionDigits
+            if numberOfFractionDigits > 1 || divisor > 1 {
+                numberOfFractionDigits = 1
+            }
+
+            nf.maximumFractionDigits = numberOfFractionDigits
+        }
+        
+        // 0.001 -> 10
+        if (10 > value && value > 0.001) {
+            var numberOfFractionDigits = nf.maximumFractionDigits
+            if numberOfFractionDigits > 2 || divisor > 1 {
+                numberOfFractionDigits = 2
+            }
+
+            nf.maximumFractionDigits = numberOfFractionDigits
+        }
+        
+        // Scientific
+        if 0 != value && (value < 0.001 || value >= 1E18) {
+            nf.numberStyle = .scientific
+            nf.positiveFormat = "#E0"
+            nf.negativeFormat = "#E0"
+            nf.exponentSymbol = "e"
+            nf.maximumFractionDigits = 2
+        }
+        
+        return nf
+    }
+
+    private func abbreviatedString(for num: Double, useSuffix: Bool, abbreviatedFormatter: NumberFormatter) -> String {
+        var aNum = abs(num)
+        var multiplier: Double = 100.0
+        
+        if(abbreviatedFormatter.numberStyle == .percent)
+        {
+            if let multi = abbreviatedFormatter.multiplier {
+                multiplier = multi.doubleValue
+            }
+            aNum *= multiplier;
+        }
+
+        /*
+         Find the magnitude for the value. The suffix is a " " by default because Joel originally implemented it this way for the medium charts. Probably just to guarantee the these strings were always the same length?
+         */
+        let (magnitude, divisor) = numberMagnitude(from: aNum)
+        aNum /= divisor
+        
+        /*
+         Fetch the correct formatter for the value.
+         */
+        let formatter = numberFormatter(for: aNum, divisor: divisor, abbreviatedFormatter: abbreviatedFormatter)
+        
+        /*
+         Undo the application of fabs.
+         */
+        let sign = num < 0.0 ? -1.0 : 1.0
+        aNum *= sign
+        
+        /*
+         Apply the magnitude suffix.
+         */
+        var formattedString = ""
+        let suffix = useSuffix ? magnitude : ""
+        if abbreviatedFormatter.numberStyle == .percent
+        {
+            aNum /= multiplier;
+            formattedString = formatter.string(from: NSNumber(value: aNum)) ?? " "
+         
+            /*
+             We want 1k% not 1%k.
+             */
+            if magnitude != " " {
+                let percent = formatter.percentSymbol ?? "%"
+                let index = formattedString.lastIndex(of: percent.first ?? "%") ?? formattedString.endIndex
+                let tmp = formattedString[..<index]
+                formattedString = "\(tmp)\(suffix)\(percent)"
+            }
+        } else {
+            let valueString = formatter.string(from: NSNumber(value: aNum)) ?? ""
+            if let positiveSuffix = formatter.positiveSuffix, useSuffix {
+                if let index = valueString.lastIndex(of: positiveSuffix.first ?? "+") {
+                    /*
+                    We want 1k+ not 1+k.
+                    */
+                    let tmp = formattedString[..<index]
+                    formattedString = "\(tmp)\(suffix)\(positiveSuffix)"
+                }
+                else {
+                    formattedString = "\(valueString)\(suffix)\(positiveSuffix)"
+                }
+            }
+            else {
+                formattedString = "\(valueString)\(suffix)"
+            }
+        }
+    
+        return formattedString
+    }
+    
     func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle] {
         var minVal = displayRange.lowerBound
         var maxVal = displayRange.upperBound
@@ -109,7 +265,7 @@ class DefaultAxisDataSource: AxisDataSource {
         var yAxisLabels: [AxisTitle] = []
         for i in 0...yAxisLabelsCount {
             let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount)
-            let title = axisView(model, displayRange: displayRange, formattedStringForValue: Double(val))
+            let title = yAxisFormattedString(model, value: Double(val))
             let size = title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
@@ -138,10 +294,12 @@ class DefaultAxisDataSource: AxisDataSource {
         model.selectedCategoryInRange = closestDataIndex ... closestDataIndex
     }
     
-    func axisView(_ model: ChartModel, displayRange: ClosedRange<CGFloat>, formattedStringForValue value: Double) -> String {
-        let step = (displayRange.upperBound - displayRange.lowerBound) / CGFloat(model.numberOfGridlines)
-        let dataPrecision = step >= 1 ? "%.0f" : (step >= 0.1 ? "%.1f" : "%.2f")
-        
-        return String(format: dataPrecision, value)
+    func yAxisFormattedString(_ model: ChartModel, value: Double) -> String {
+        if model.numericAxis.abbreviatesLabels {
+            return abbreviatedString(for: value, useSuffix: model.numericAxis.isMagnitudedDisplayed, abbreviatedFormatter: model.numericAxis.abbreviatedFormatter)
+        }
+        else {
+            return model.numericAxis.formatter.string(from: NSNumber(value: value)) ?? " "
+        }
     }
 }

@@ -9,13 +9,13 @@ import Foundation
 
 /**
  Identifiers for different axes presented by the chart.
-
+ 
  These are provided as a convenient way to reference axes by their position and orientation.
-
+ 
  The type of axis will vary depending on the type of chart presented. As an example, for scatter, bubble, and bar charts the `x` axis is a numeric axis; but for all other chart types the `x` axis is the category axis.
  */
 public enum ChartAxisId {
-
+    
     /// X axis. Normally the category or horizontal axis.
     case x
     /// Y axis. Normally the value or vertical axis.
@@ -32,11 +32,11 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
     /// Provides an identifier that associates the axis with a position and orientation in the chart.
     @Published public var axisId: ChartAxisId?
     
-     /**
-      Properties for the axis baseline, which is typically usually 0.
-      - Only numeric axes have a baseline.
-      */
-     @Published public var baseline: ChartBaselineAttributes
+    /**
+     Properties for the axis baseline, which is typically usually 0.
+     - Only numeric axes have a baseline.
+     */
+    @Published public var baseline: ChartBaselineAttributes
     
     /// Properties for the axis gridlines.
     @Published public var gridlines: ChartGridlineAttributes
@@ -107,7 +107,11 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         
         if let abbreviatedFormatter = abbreviatedFormatter {
             self.abbreviatedFormatter = abbreviatedFormatter
-        } else {
+        }
+        else if let formatter = formatter {
+            self.abbreviatedFormatter = formatter
+        }
+        else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
             self.abbreviatedFormatter = formatter

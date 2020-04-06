@@ -264,7 +264,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         var width: CGFloat = 20
         let range = ChartUtility.displayRange(model)
         for val in [range.lowerBound, range.upperBound] {
-            let str = axisDataSource.axisView(model, displayRange: range, formattedStringForValue: Double(val))
+            let str = axisDataSource.yAxisFormattedString(model, value: Double(val))
             let size = str.boundingBoxSize(with: model.numericAxis.labels.fontSize)
             width = max(width, size.width)
         }
