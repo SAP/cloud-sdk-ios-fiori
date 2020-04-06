@@ -30,16 +30,27 @@ extension AnalyticalData: Placeholding {
             print("WARN: \(object) must be an array.")
             return self
         }
-        let x = array.map({
-            item in
-            self._measures.map({ $0.replacingPlaceholders(withValuesIn: item) })
-        })
-        let y = array.map({ item in self._dimensions.map({ $0.replacingPlaceholders(withValuesIn: item) })})
-        return .init(measures: x, dimensions: y, _measures: _measures, _dimensions: _dimensions)
+        
+        var measuresDict = Dictionary<Int, Array<AnalyticalMeasureDimension>>()
+        var dimensionsDict = Dictionary<Int, Array<AnalyticalMeasureDimension>>()
+
+        for i in 0..<array.count {
+            for j in 0..<_measures.count {
+                measuresDict[j, default: []].append(_measures[j].replacingPlaceholders(withValuesIn: array[i]))
+            }
+            for j in 0..<_dimensions.count {
+                dimensionsDict[j, default: []].append(_dimensions[j].replacingPlaceholders(withValuesIn: array[i]))
+            }
+        }
+
+        return .init(measures: measuresDict.values.flatMap({ $0 }), dimensions: dimensionsDict.values.flatMap({ $0 }), _measures: _measures, _dimensions: _dimensions)
     }
     
     
 }
+
+
+
 
 /// Content data `path` should resolve to JSON array
 public class AnalyticalCard: BaseBaseCard {
@@ -76,16 +87,13 @@ public class AnalyticalCard: BaseBaseCard {
                 }
             }, receiveValue: { [unowned self] object in
                 let data = self.chartDataTemplate.replacingPlaceholders(withValuesIn: object)
-                guard let series = data.measures?.map({ $0.map({ Double($0.value) ?? 0.0 })}) else { preconditionFailure() }
-                let seriesTitles = data.measures?.map({ $0.map({ $0.label })})
-                let axesLabels = data.dimensions?.map({ $0.map({ $0.value }) })
-                let axesTitles = data.dimensions?.map({ $0.map({ $0.label} )})
+                guard let series = data.measures.map({ $0.map({ $0.compactMap({ Double($0.value) }) })}) else { preconditionFailure() }
+                let labelsForDimension: [[String]]? = data.measures?.map({ $0.map({ $0.label })})
+                let titlesForCategory: [[String]]? = data.dimensions?.map({ $0.map({ $0.value }) })
+                let axesTitles: [String]? = data.dimensions?.map({ $0.map({ $0.label }).first ?? "" })
                 
-                let m = ChartModel(chartType: .line, data: [series])
-
-                
-//                let model = ChartModel(chartType: .line, data: [series], titlesForCategory: axesLabels, colorsForCategory: nil, titlesForAxis: axesTitles?.first, labelsForDimension: seriesTitles, selectedSeriesIndex: nil, userInteractionEnabled: true, seriesAttributes: nil, categoryAxis: nil, numericAxis: nil, secondaryNumericAxis: nil)
-                self.chartModel = m
+                let model = ChartModel(chartType: .line, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: axesTitles, labelsForDimension: labelsForDimension)
+                self.chartModel = model
             })
             .store(in: &subscribers)
         

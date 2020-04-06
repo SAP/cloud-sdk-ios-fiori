@@ -20,10 +20,12 @@ public struct AnalyticalCardView: View {
     public var body: some View {
         
         return Group {
-            HeaderView(model: model.header)
-            GeometryReader { geometry in
+            VStack {
+                HeaderView(model: model.header)
                 ChartView(self.model.chartModel)
-            }.frame(height: 260)
+                    .frame(minHeight: 260, alignment: .topLeading)
+            }
+            .frame(maxWidth: 417, alignment: .topLeading)
         }
     }
     
