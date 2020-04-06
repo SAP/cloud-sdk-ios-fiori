@@ -96,7 +96,6 @@ extension String {
     }
 }
 
-
 ///TODO: Open Source
 // from here: https://github.com/onmyway133/Omnia, used under MIT license
 public typealias JSONDictionary = [String: Any]
@@ -107,7 +106,7 @@ enum `Any` {
         var current: Any? = object
         
         keyPath.split(separator: separator).forEach { component in
-            if let maybeInt = Int(component), let array = current as? Array<Any> {
+            if let maybeInt = Int(component), let array = current as? [Any] {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
                 current = dictionary[String(component)]
@@ -117,4 +116,3 @@ enum `Any` {
         return current as? T
     }
 }
-

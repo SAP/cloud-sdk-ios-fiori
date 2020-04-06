@@ -52,35 +52,30 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    
     public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil) {
         self.axisId = axisId
         
         if let baselineAttributes = baseline {
             self.baseline = baselineAttributes
-        }
-        else {
+        } else {
             self.baseline = ChartBaselineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: nil, position: nil)
         }
         
         if let gridlinesAttributes = gridlines {
             self.gridlines = gridlinesAttributes
-        }
-        else {
+        } else {
             self.gridlines = ChartGridlineAttributes()
         }
         
         if let labelsAttributes = labels {
             self.labels = labelsAttributes
-        }
-        else {
+        } else {
             self.labels = ChartLabelAttributes()
         }
         
         if let titleLabelsAttributes = titleLabel {
             self.titleLabel = titleLabelsAttributes
-        }
-        else {
+        } else {
             self.titleLabel = ChartLabelAttributes()
         }
         
@@ -95,7 +90,7 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
  - Bar charts display the numeric axis as the X axis.
  - Line, column, and combo charts display the numeric axis as the Y axis.
  */
-public class ChartNumericAxisAttributes : ChartAxisAttributes {
+public class ChartNumericAxisAttributes: ChartAxisAttributes {
     
     public convenience init() {
         self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
@@ -104,8 +99,7 @@ public class ChartNumericAxisAttributes : ChartAxisAttributes {
     public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
             self.formatter = formatter
-        }
-        else {
+        } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
             self.formatter = formatter
@@ -113,8 +107,7 @@ public class ChartNumericAxisAttributes : ChartAxisAttributes {
         
         if let abbreviatedFormatter = abbreviatedFormatter {
             self.abbreviatedFormatter = abbreviatedFormatter
-        }
-        else {
+        } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
             self.abbreviatedFormatter = formatter
@@ -137,7 +130,6 @@ public class ChartNumericAxisAttributes : ChartAxisAttributes {
      */
     @Published public var isZeroBased: Bool = true
     
-    
     /**
      Formatter used for the axis gridline labels.
      Defines the formatting for both extended and abbreviated states set through `ChartNumericAxis.abbreviatesLabels`.
@@ -146,26 +138,21 @@ public class ChartNumericAxisAttributes : ChartAxisAttributes {
      */
     @Published public var formatter: NumberFormatter
     
-    
     /**
      True if values will be abbreviated. For example, "1,234,567.89" to "1.23k". Default is true.
      The `ChartNumericAxis.formatter` defines the formatting for both extended and abbreviated states.
      */
     @Published public var abbreviatesLabels: Bool = true
     
-    
     /// True if the value's magnitude is included in abbreviated labels. For example, the "k" in "1.23k".
     @Published public var isMagnitudedDisplayed: Bool = true
     
-    
     @Published public var abbreviatedFormatter: NumberFormatter
-    
     
     //    override func labelForValue(_ value: Double) -> String? {
     //
     //        return nil
     //    }
-    
     
     /**
      Allows you to specify the minimum value for the axis, overriding the minimum value applied by the chart.
@@ -178,7 +165,6 @@ public class ChartNumericAxisAttributes : ChartAxisAttributes {
      Default is nil.
      */
     @Published public var explicitMin: Double?
-    
     
     /**
      Allows you to specify the maximum value for the axis, overriding the maximum value applied by the chart.
@@ -209,7 +195,6 @@ public enum ChartCategoryAxisLabelLayoutStyle {
      */
     case allOrNothing
     
-    
     /**
      The `range` layout style is intended for time series, or numeric ranges where horizontal space is limited.
      
@@ -229,7 +214,7 @@ public enum ChartCategoryAxisLabelLayoutStyle {
  - Bar charts display the category axis as the Y axis.
  - Line, column, and combo charts display the category axis as the X axis.
  */
-public class ChartCategoryAxisAttributes : ChartNumericAxisAttributes {
+public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     
     public convenience init() {
         self.init(labelLayoutStyle: .allOrNothing)
@@ -240,7 +225,6 @@ public class ChartCategoryAxisAttributes : ChartNumericAxisAttributes {
         
         super.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
-    
     
     /// Defines the manner in which labels will be presented when they are provided by the data source, and not hidden.
     @Published public var labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle

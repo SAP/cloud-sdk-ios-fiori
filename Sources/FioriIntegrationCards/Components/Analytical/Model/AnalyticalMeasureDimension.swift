@@ -12,7 +12,7 @@ public struct AnalyticalMeasureDimension: Decodable {
     public let value: String
 }
 
-extension AnalyticalMeasureDimension : Placeholding {
+extension AnalyticalMeasureDimension: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalMeasureDimension {
         let _label = label.replacingPlaceholders(withValuesIn: object)
         let _value = value.replacingPlaceholders(withValuesIn: object)

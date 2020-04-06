@@ -21,7 +21,7 @@ public struct AnalyticalCardView: View {
         
         return Group {
             HeaderView(model: model.header)
-            GeometryReader { geometry in
+            GeometryReader { _ in
                 Text("Placeholder for LineView")
 //                self.lineView(in: geometry.frame(in: .local), from: self.model.content!)
             }.frame(height: 260)
@@ -29,8 +29,8 @@ public struct AnalyticalCardView: View {
     }
     
     func lineView(in rect: CGRect, from content: AnalyticalContent) -> some View {
-        let xAxisHeight:CGFloat = 24
-        let yAxisWidth:CGFloat = 40
+        let xAxisHeight: CGFloat = 24
+        let yAxisWidth: CGFloat = 40
         
         let width = rect.size.width - yAxisWidth
         let height = rect.size.height - xAxisHeight
@@ -90,4 +90,3 @@ struct PolygonShape: Shape {
         return path
     }
 }
-

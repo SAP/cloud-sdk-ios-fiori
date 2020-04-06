@@ -28,7 +28,7 @@ struct TimelineItemView: View {
         HStack(alignment: .top) {
             VStack {
                 SafeView(self.model.icon)
-                    .frame(width: iconWidth , height: iconWidth, alignment: .top)
+                    .frame(width: iconWidth, height: iconWidth, alignment: .top)
                     .padding(.bottom, -30)
                 if !self.isLast {
                     VerticalLine()

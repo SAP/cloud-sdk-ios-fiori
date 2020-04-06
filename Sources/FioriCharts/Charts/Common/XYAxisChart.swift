@@ -51,7 +51,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     @State var lastStartPos: Int = 0
     @GestureState var dragState = DragState.inactive
     //@State private var xAxisHeight:CGFloat = 20
-    @State private var yAxisWidth:CGFloat = 20
+    @State private var yAxisWidth: CGFloat = 20
     @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     @State private var yAxisSize: CGSize = CGSize(width: 20, height: 0)
     
@@ -121,16 +121,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
                         .environmentObject(self.model)
-                }
-                else if model.valueType == .allNegative {
+                } else if model.valueType == .allNegative {
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
                         .environmentObject(self.model)
                     
                     GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
                     //.zIndex(1)
-                }
-                else {
+                } else {
                     ZStack {
                         GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
                         //.zIndex(1)
@@ -190,12 +188,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItmes(self.model) - 1)
                     let closestIndex = Int(CGFloat(tmp) / unitWidth)
                     self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
-                }
-                else {
+                } else {
                     self.model.startPos = tmp.clamp(low: 0, high: maxPos)
                 }
             })
-            .onEnded({ value in
+            .onEnded({ _ in
                 self.showIndicator = false
                 self.draggingChartView = false
                 self.lastStartPos = self.model.startPos
@@ -215,7 +212,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 let maxPos: Int = Int(width * (self.model.scale - 1))
                 self.model.startPos = Int(midPos * width * self.model.scale - width/2).clamp(low: 0, high: maxPos)
             })
-            .onEnded({ value in
+            .onEnded({ _ in
                 self.lastScale = self.model.scale
                 self.lastStartPos = self.model.startPos
             })
@@ -228,8 +225,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     .gesture(pan)
                     .gesture(drag)
                     .gesture(mag)
-            }
-            else {
+            } else {
                 self.chartView
             }
             
@@ -286,7 +282,7 @@ struct XAxisSizePreferenceKey: PreferenceKey {
     }
 }
 
-struct SizeModifier: ViewModifier{
+struct SizeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.overlay(GeometryReader { proxy in
             Color.clear.preference(key: XAxisSizePreferenceKey.self, value: [proxy.size])
@@ -317,9 +313,9 @@ struct SizeModifier: ViewModifier{
  */
 extension Comparable {
     func clamp(low: Self, high: Self) -> Self {
-        if (self > high) {
+        if self > high {
             return high
-        } else if (self < low) {
+        } else if self < low {
             return low
         }
         
@@ -333,7 +329,7 @@ struct XYAxisChart_Previews: PreviewProvider {
                     axisDataSource: DefaultAxisDataSource(),
                     chartView: LinesView(Tests.lineModels[0]),
                     indicatorView: StockIndicatorView(Tests.lineModels[0]))
-            .frame(width:300, height: 400)
+            .frame(width: 300, height: 400)
             .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }

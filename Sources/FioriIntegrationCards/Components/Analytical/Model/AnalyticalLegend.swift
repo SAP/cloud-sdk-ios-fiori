@@ -14,7 +14,7 @@ public struct AnalyticalLegend: Decodable {
     public let isScrollable: Bool?
     public let isVisible: Bool?
     
-    private var placeholders: Dictionary<String, String> = [:]
+    private var placeholders: [String: String] = [:]
     
     private var _drawingEffectBacking: String? = "normal"
     private var _isHierarchicalBacking: String? = "false"
@@ -82,7 +82,6 @@ extension AnalyticalLegend: Placeholding {
         let _isVisible = _isVisibleBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
         return AnalyticalLegend(title: _title, drawingEffect: _drawingEffect, isHierarchical: _isHierarchical, isScrollable: _isScrollable, isVisible: _isVisible)
     }
-    
     
 }
 

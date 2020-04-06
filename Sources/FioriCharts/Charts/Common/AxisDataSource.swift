@@ -47,8 +47,7 @@ class DefaultAxisDataSource: AxisDataSource {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
                     offset = min(size.width, (rect.size.width - 2) / 2) / 2
-                }
-                else {
+                } else {
                     offset = -min(size.width, (rect.size.width - 2) / 2) / 2
                 }
             }
@@ -96,7 +95,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let valueType = model.valueType
         if valueType == .mixed && maxVal != (-minVal) {
             var count = Int(maxVal / stepValue + 0.6)
-            if maxVal < (-minVal){
+            if maxVal < (-minVal) {
                 count = Int((-minVal) / stepValue + 0.6)
             }
             

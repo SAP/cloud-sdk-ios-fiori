@@ -13,7 +13,7 @@ public struct ObjectCardGroupView: View {
     var model: ObjectGroup
     
     public var body: some View {
-        VStack() {
+        VStack {
             Group {
                 VStack(alignment: .leading) {
                     ForEach(model.items) {
@@ -25,4 +25,3 @@ public struct ObjectCardGroupView: View {
         .padding(8)
     }
 }
-

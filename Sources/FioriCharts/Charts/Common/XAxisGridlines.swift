@@ -61,7 +61,7 @@ struct XAxisGridlines_Previews: PreviewProvider {
             ForEach(Tests.stockModels) {
                 XAxisGridlines(axisDataSource: axisDataSource).environmentObject($0)
             }
-            .frame(width:300, height: 200, alignment: .topLeading)
+            .frame(width: 300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
         }
         

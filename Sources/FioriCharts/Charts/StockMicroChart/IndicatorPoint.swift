@@ -22,7 +22,7 @@ struct IndicatorPoint_Previews: PreviewProvider {
     static var previews: some View {
         IndicatorPoint()
             .position(x: 100, y: 100)
-            .frame(width:200, height: 200, alignment: .topLeading)
+            .frame(width: 200, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
     }
 }

@@ -17,7 +17,6 @@ public struct AnalyticalTitleAttributes: Decodable {
     }
 }
 
-
 extension AnalyticalTitleAttributes: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalTitleAttributes {
         let _text = text.replacingPlaceholders(withValuesIn: object)

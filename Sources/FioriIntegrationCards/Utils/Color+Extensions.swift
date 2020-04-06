@@ -44,7 +44,7 @@ extension Color {
         guard let _trend = trend else {
             return .black
         }
-        return _trend == "Down" ? Color.init(red: 187/255, green: 0, blue: 0) : .green
+        return _trend == "Down" ? Color(red: 187/255, green: 0, blue: 0) : .green
     }
     
     static func getLinkColor(type: String?) -> Color {

@@ -67,4 +67,3 @@ public struct HexColor: Hashable {
         return "FFFFFF"
     }
 }
-

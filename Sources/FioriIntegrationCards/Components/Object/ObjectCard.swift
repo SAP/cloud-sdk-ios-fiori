@@ -9,12 +9,9 @@ import Foundation
 import AnyCodable
 import Combine
 
-
 open class ObjectCard: ManyManyCard<[ObjectGroup]> {
 
 }
-
-
 
 extension ObjectCard: Hashable {
     public static func == (lhs: ObjectCard, rhs: ObjectCard) -> Bool {
@@ -27,9 +24,8 @@ extension ObjectCard: Hashable {
 }
 
 extension Array: Placeholding where Element: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Array<Element> {
+    public func replacingPlaceholders(withValuesIn object: Any) -> [Element] {
         return map { $0.replacingPlaceholders(withValuesIn: object) }
     }
-    
     
 }

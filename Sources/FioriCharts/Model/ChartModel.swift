@@ -32,7 +32,6 @@ public enum ChartCategorySelectionMode {
     case last
 }
 
-
 /// Selection state for points and rects in the chart.
 enum ChartSelectionState {
     case normal
@@ -226,11 +225,9 @@ public class ChartModel: ObservableObject, Identifiable {
             
             if range.lowerBound >= 0 {
                 return .allPositive
-            }
-            else if range.upperBound <= 0 {
+            } else if range.upperBound <= 0 {
                 return .allNegative
-            }
-            else {
+            } else {
                 return .mixed
             }
         }
@@ -255,8 +252,7 @@ public class ChartModel: ObservableObject, Identifiable {
         self.chartType = chartType
         if let colorsForCategory = colorsForCategory {
             self.colorsForCategory = colorsForCategory
-        }
-        else {
+        } else {
             self.colorsForCategory = [Int: [Int: HexColor]]()
         }
         
@@ -267,16 +263,14 @@ public class ChartModel: ObservableObject, Identifiable {
         var intradayIndex: [Int] = []
         if chartType != .stock {
             self.titlesForCategory = titlesForCategory
-        }
-        else {
+        } else {
             if let titles = titlesForCategory {
                 var modifiedTitlesForCategory: [[String]] = []
                 for (i, category) in titles.enumerated() {
                     if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
                         intradayIndex.append(i)
                         modifiedTitlesForCategory.append(modifiedTitles)
-                    }
-                    else {
+                    } else {
                         modifiedTitlesForCategory.append(category)
                     }
                 }
@@ -291,8 +285,7 @@ public class ChartModel: ObservableObject, Identifiable {
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
-                }
-                else {
+                } else {
                     s.append(DimensionData.single(d))
                 }
             }
@@ -314,8 +307,7 @@ public class ChartModel: ObservableObject, Identifiable {
         
         if let categoryAxis = categoryAxis {
             self.categoryAxis = categoryAxis
-        }
-        else {
+        } else {
             let axis = ChartCategoryAxisAttributes()
             if chartType != .stock {
                 axis.gridlines.isHidden = true
@@ -325,8 +317,7 @@ public class ChartModel: ObservableObject, Identifiable {
         
         if let numericAxis = numericAxis {
             self.numericAxis = numericAxis
-        }
-        else {
+        } else {
             let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
@@ -336,8 +327,7 @@ public class ChartModel: ObservableObject, Identifiable {
         
         if let secondaryNumericAxis = secondaryNumericAxis {
             self.secondaryNumericAxis = secondaryNumericAxis
-        }
-        else {
+        } else {
             let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
@@ -347,8 +337,7 @@ public class ChartModel: ObservableObject, Identifiable {
         
         if let seriesAttributes = seriesAttributes {
             self.seriesAttributes = seriesAttributes
-        }
-        else {
+        } else {
             self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
         }
         
@@ -370,8 +359,7 @@ public class ChartModel: ObservableObject, Identifiable {
         self.chartType = chartType
         if let colorsForCategory = colorsForCategory {
             self.colorsForCategory = colorsForCategory
-        }
-        else {
+        } else {
             self.colorsForCategory = [Int: [Int: HexColor]]()
         }
         
@@ -382,16 +370,14 @@ public class ChartModel: ObservableObject, Identifiable {
         var intradayIndex: [Int] = []
         if chartType != .stock {
             self.titlesForCategory = titlesForCategory
-        }
-        else {
+        } else {
             if let titles = titlesForCategory {
                 var modifiedTitlesForCategory: [[String]] = []
                 for (i, category) in titles.enumerated() {
                     if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
                         intradayIndex.append(i)
                         modifiedTitlesForCategory.append(modifiedTitles)
-                    }
-                    else {
+                    } else {
                         modifiedTitlesForCategory.append(category)
                     }
                 }
@@ -406,8 +392,7 @@ public class ChartModel: ObservableObject, Identifiable {
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
-                }
-                else {
+                } else {
                     s.append(DimensionData.array(d))
                 }
             }
@@ -429,29 +414,25 @@ public class ChartModel: ObservableObject, Identifiable {
         
         if let numericAxis = numericAxis {
             self.numericAxis = numericAxis
-        }
-        else {
+        } else {
             self.numericAxis = ChartNumericAxisAttributes()
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
             self.secondaryNumericAxis = secondaryNumericAxis
-        }
-        else {
+        } else {
             self.secondaryNumericAxis = ChartNumericAxisAttributes()
         }
         
         if let categoryAxis = categoryAxis {
             self.categoryAxis = categoryAxis
-        }
-        else {
+        } else {
             self.categoryAxis = ChartCategoryAxisAttributes()
         }
         
         if let seriesAttributes = seriesAttributes {
             self.seriesAttributes = seriesAttributes
-        }
-        else {
+        } else {
             self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
         }
         
@@ -489,9 +470,8 @@ public class ChartModel: ObservableObject, Identifiable {
                     
                     if let _ = data[i].first?.value {
                         allValues = data[i].map { $0.value! }
-                    }
-                    else if let _ = data[i].first?.values {
-                        allValues = data[i].map({$0.values!.first!})
+                    } else if let _ = data[i].first?.values {
+                        allValues = data[i].map({ $0.values!.first! })
                     }
                                         
                     let min = allValues.min() ?? 0
@@ -550,8 +530,7 @@ public class ChartModel: ObservableObject, Identifiable {
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
         if let range = ranges {
             return abs(T(value)) / T(range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
-        }
-        else {
+        } else {
             return 0
         }
     }
@@ -566,8 +545,7 @@ public class ChartModel: ObservableObject, Identifiable {
             }
             
             return abs(value) / T(maxValue - minValue)
-        }
-        else {
+        } else {
             return T(0)
         }
     }
@@ -575,13 +553,11 @@ public class ChartModel: ObservableObject, Identifiable {
     public var currentSeriesIndex: Int {
         if let current = selectedSeriesIndex {
             return current
-        }
-        else {
+        } else {
             return 0
         }
     }
 }
-
 
 extension ChartModel {
     func colorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
@@ -592,8 +568,7 @@ extension ChartModel {
         let count = seriesAttributes.colors.count
         if count > 0 {
             return seriesAttributes.colors[categoryIndex%count]
-        }
-        else {
+        } else {
             return Palette.hexColor(for: .primary2)
         }
     }
@@ -636,4 +611,3 @@ extension ChartModel {
         return res
     }
 }
-

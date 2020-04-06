@@ -78,13 +78,13 @@ struct XAxisView_Previews: PreviewProvider {
             ForEach(Tests.lineModels) {
                 XAxisView(axisDataSource: axisDataSource).environmentObject($0)
             }
-            .frame(width:300, height: 20, alignment: .topLeading)
+            .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
             ForEach(Tests.stockModels) {
                 XAxisView(axisDataSource: axisStockDataSource).environmentObject($0)
             }
-            .frame(width:300, height: 20, alignment: .topLeading)
+            .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
         }
         

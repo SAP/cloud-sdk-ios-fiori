@@ -8,7 +8,6 @@
 
 import SwiftUI
 
-
 struct ListItemView: View {
 
     let icon: Icon?

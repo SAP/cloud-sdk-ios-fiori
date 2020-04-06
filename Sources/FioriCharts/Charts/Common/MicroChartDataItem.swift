@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public struct MicroChartDataItem: Identifiable{
+public struct MicroChartDataItem: Identifiable {
     public var value: CGFloat
     public var label: String?
     public var displayValue: String?
@@ -22,8 +22,7 @@ public struct MicroChartDataItem: Identifiable{
         self.label = label
         if let color = color {
             self.color = color
-        }
-        else {
+        } else {
             self.color = Palette.hexColor(for: .primary2)
         }
     }

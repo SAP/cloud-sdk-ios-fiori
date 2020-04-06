@@ -40,8 +40,7 @@ struct RadialMicroChart: View {
         return HStack(alignment: .center, spacing: 4) {
             if percentage == nil {
                 NoDataView()
-            }
-            else {
+            } else {
                 Spacer()
                 ZStack {
                     self.chartView(in: size)

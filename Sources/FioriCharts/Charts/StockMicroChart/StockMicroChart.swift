@@ -23,7 +23,7 @@ struct StockMicroChart: View {
     }
 }
 
-class StockAxisDataSource : DefaultAxisDataSource {
+class StockAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         let width = rect.size.width
         let startPosInFloat = CGFloat(model.startPos)
@@ -42,20 +42,15 @@ class StockAxisDataSource : DefaultAxisDataSource {
         
         if duration < 60 {
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .second, rect: rect)
-        }
-        else if duration < 3600 {
+        } else if duration < 3600 {
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .minute, rect: rect)
-        }
-        else if duration < 3600 * 24 { // hour
+        } else if duration < 3600 * 24 { // hour
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .hour, rect: rect)
-        }
-        else if duration < 3600 * 24 * 60 { // day
+        } else if duration < 3600 * 24 * 60 { // day
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .day, rect: rect)
-        }
-        else if duration < 3600 * 24 * 31 * 14 { // month
+        } else if duration < 3600 * 24 * 31 * 14 { // month
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .month, rect: rect)
-        }
-        else { // year
+        } else { // year
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .year, rect: rect)
         }
         
@@ -85,7 +80,7 @@ class StockAxisDataSource : DefaultAxisDataSource {
         var result: [AxisTitle] = []
         
         var prev = -1
-        for i in startIndex...endIndex{
+        for i in startIndex...endIndex {
             guard let date = getDateAtIndex(model, index: i) else { return result }
             let cur = Calendar.current.component(component, from: date)
             if prev == -1 && skipFirst {
@@ -180,7 +175,6 @@ class StockAxisDataSource : DefaultAxisDataSource {
         return ma[month - 1]
     }
 }
-
 
 struct StockMicroChart_Previews: PreviewProvider {
     static var previews: some View {

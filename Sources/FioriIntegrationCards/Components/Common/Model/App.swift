@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 public struct App: Codable, Identifiable, Hashable {
     public let id: String
     public let type: String

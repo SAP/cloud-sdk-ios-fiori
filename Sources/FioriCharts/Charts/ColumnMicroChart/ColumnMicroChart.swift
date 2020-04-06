@@ -27,7 +27,6 @@ public struct ColumnMicroChart: View {
         }
     }
     
-    
     public var body: some View {
         GeometryReader { proxy in
             self.columnsView(in: proxy.size)
@@ -118,8 +117,7 @@ public struct ColumnMicroChart: View {
     func columnLabel(for item: MicroChartDataItem, positive: Bool) -> String? {
         if positive {
             return item.value >= 0 ? (item.displayValue): nil
-        }
-        else {
+        } else {
             return item.value < 0 ? (item.displayValue): nil
         }
     }
@@ -141,11 +139,9 @@ public struct ColumnMicroChart: View {
         var space = width * 0.2
         if space < 2 {
             space = 2
-        }
-        else if space > 5 {
+        } else if space > 5 {
             space = 5
-        }
-        else {
+        } else {
             space = ceil(space)
         }
         width = (size.width - CGFloat((count - 1)) * space) / CGFloat(count)

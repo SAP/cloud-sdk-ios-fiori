@@ -17,34 +17,26 @@ public struct ChartView: View {
     
     public var body: some View {
         Group {
-            if chartModel.chartType == .micro_bullet  {
+            if chartModel.chartType == .micro_bullet {
                 BulletMicroChart(chartModel)
-            }
-            else if chartModel.chartType == .micro_harvey_ball {
+            } else if chartModel.chartType == .micro_harvey_ball {
                 HarveyBallMicroChart(chartModel)
-            }
-            else if chartModel.chartType == .micro_radial {
+            } else if chartModel.chartType == .micro_radial {
                 RadialMicroChart(chartModel)
-            }
-            else if chartModel.chartType == .micro_column {
+            } else if chartModel.chartType == .micro_column {
                 ColumnMicroChart(chartModel)
-            }
-            else if chartModel.chartType == .stock {
+            } else if chartModel.chartType == .stock {
                 StockMicroChart(chartModel)
-            }
-            else if chartModel.chartType == .donut {
+            } else if chartModel.chartType == .donut {
                 DonutChart(chartModel)
-            }
-            else if chartModel.chartType == .line {
+            } else if chartModel.chartType == .line {
                 LineChart(chartModel)
-            }
-            else {
+            } else {
                 NoDataView()
             }
         }
     }
 }
-
 
 struct FUIChartView_Previews: PreviewProvider {
     static var previews: some View {

@@ -30,8 +30,7 @@ public struct BulletMicroChart: View {
             ZStack(alignment: .leading) {
                 if tmp.count == 0 || tmp.first == nil {
                     NoDataView()
-                }
-                else {
+                } else {
                     if thresholds.count > 0 {
                         // draw threshold lines
                         self.thresholdsView(size: proxy.size, thresholds: thresholds)
@@ -117,8 +116,6 @@ public struct BulletMicroChart: View {
         }
     }
     
-    
-    
     func thresholdsView(size: CGSize, thresholds: [MicroChartDataItem]) -> some View {
         let chartHeight = size.height * 0.786
         let y = (size.height - chartHeight) / 2
@@ -144,4 +141,3 @@ struct BulletMicroChart_Previews: PreviewProvider {
         .previewLayout(.fixed(width: 320, height: 94))
     }
 }
-

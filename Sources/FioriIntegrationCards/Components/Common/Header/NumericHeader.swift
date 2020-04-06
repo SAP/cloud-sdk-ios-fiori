@@ -19,7 +19,7 @@ public struct NumericHeader: Decodable, Hashable {
     public let status: Status?
 }
 
-extension NumericHeader:  Placeholding {
+extension NumericHeader: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> NumericHeader {
             
             let _type               = type.replacingPlaceholders(withValuesIn: object)

@@ -43,7 +43,7 @@ public class AreaMicroChartModel: ObservableObject, Identifiable {
         
         let b = [chartPoints?.points, targetPoints?.points, minThreshold?.points, maxThreshold?.points, innerMinThreshold?.points, innerMaxThreshold?.points]
             .compactMap({ $0 })
-            .flatMap ({ $0 })
+            .flatMap({ $0 })
             .boundingBox()
         
         let originX = minXValue ?? b.minX
@@ -67,7 +67,7 @@ public class AreaMicroChartModel: ObservableObject, Identifiable {
         var body: some View {
             GeometryReader { proxy in
                 
-                if Array<Path.ChartItemType>([.minFill, .maxFill, .innerMaxFill, .innerMinFill]).contains(self.itemType) {
+                if [Path.ChartItemType]([.minFill, .maxFill, .innerMaxFill, .innerMinFill]).contains(self.itemType) {
                     self.points.path(in: proxy.size, chartItemType: self.itemType, boundingBox: self.chartBoundingBox)
                         .fill()
                         .foregroundColor(self.color)

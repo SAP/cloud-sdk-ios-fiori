@@ -27,4 +27,3 @@ struct AxisTitle: Identifiable {
         self.pos = pos
     }
 }
-

@@ -51,7 +51,7 @@ public struct LineShape: Shape {
 struct LineShape_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ZStack{
+            ZStack {
                 LineShape(pos1: CGPoint(x: 28, y: 10), pos2: CGPoint(x: 28, y: 80))
                     .stroke(Color.green, lineWidth: 3)
                 
@@ -64,7 +64,6 @@ struct LineShape_Previews: PreviewProvider {
             }
             .frame(width: 320, height: 100, alignment: .center)
             .previewLayout(.sizeThatFits)
-    
             
             ZStack(alignment: .topLeading) {
                 LineShape(pos1: CGPoint(x: 0, y: 0), pos2: CGPoint(x: 0, y: 100))
@@ -87,7 +86,6 @@ struct LineShape_Previews: PreviewProvider {
                 LineShape(pos1: CGPoint(x: 0, y: 0), pos2: CGPoint(x: 300, y: 0))
                     .stroke(Color.red, lineWidth: 5)
                 .offset(x: 0, y: 50)
-                
                 
                 LineShape(pos1: CGPoint(x: 0, y: 0), pos2: CGPoint(x: 300, y: 0))
                     .stroke(Color.red, lineWidth: 5)
