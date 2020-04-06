@@ -49,14 +49,14 @@ extension String {
 //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
-            if let value: String = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-                mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: value)
+            if let value = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
+                mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(describing: value))
             }
         }
         return mutableString
     }
     
-    func replacingPlaceholdersToDouble(withValuesIn object: Any) -> Double {
+    func replacingPlaceholdersToDouble(withValuesIn object: Any) -> Double? {
         var mutableString = self
         // identify the keys and ranges of the mustache placeholders
         let substitutions = mutableString.mustachePlaceholders()
@@ -66,15 +66,11 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute valuex
             
-            if let value: Double = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-                //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
-                mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
-            } else if let value: Int = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-                //            if let value = dictionary.getValue(forKeyPath: keyPath) as? String {
-                mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(value))
+            if let value = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
+                return Double(String(describing: value))// mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(describing: value))
             }
         }
-        return Double(mutableString)!
+        return nil // Double(mutableString)!
     }
     
     func replacingPlaceholdersToBoolean(withValuesIn object: Any) -> Bool? {
@@ -87,12 +83,11 @@ extension String {
             //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
             
-            if let value: Bool = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-                let boolString = value ? "true" : "false"
-                mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: boolString)
+            if let value = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
+                return Bool(String(describing: value))
             }
         }
-        return Bool(mutableString)
+        return nil
     }
 }
 
@@ -101,8 +96,36 @@ extension String {
 public typealias JSONDictionary = [String: Any]
 public typealias JSONArray = [JSONDictionary]
 
+protocol Initializable {
+    init<T>(_: T)
+}
+
+extension String: Initializable {
+    init<T>(_ value: T) {
+        self = String(describing: value)
+    }
+}
+
+extension Double: Initializable {
+    init<T>(_ value: T) {
+        self = Double(String(describing: value))
+    }
+}
+
+extension Int: Initializable {
+    init<T>(_ value: T) {
+        self = Int(String(describing: value))
+    }
+}
+
+extension Bool: Initializable {
+    init<T>(_ value: T) {
+        self = Bool(String(describing: value))
+    }
+}
+
 enum `Any` {
-    static func resolve<T>(_ object: Any, keyPath: String?, separator: String.Element = ".") -> T? {
+    static func resolve(_ object: Any, keyPath: String?, separator: String.Element = ".") -> Any? {
         var current: Any? = object
         
         keyPath?.split(separator: separator).forEach { component in
@@ -113,6 +136,6 @@ enum `Any` {
             }
         }
         
-        return current as? T
+        return current
     }
 }
