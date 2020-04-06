@@ -34,7 +34,7 @@ public struct DimensionSelector: View {
                     Segment(title: self.segmentTitles[index], isSelected: self.selectedIndex == index)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
-                    }
+                        }
                 }
             }
             .padding([.top, .bottom], 8)

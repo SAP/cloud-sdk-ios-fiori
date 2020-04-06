@@ -25,8 +25,7 @@ class ChartUtility {
         if model.chartType == .stock {
             minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
             maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 1)
-        }
-        else {
+        } else {
             if let ranges = model.ranges {
                 for range in ranges {
                     minVal = min(CGFloat(range.lowerBound), minVal)
@@ -49,8 +48,7 @@ class ChartUtility {
         let valueType = model.valueType
         if valueType == .allPositive && (model.numericAxis.isZeroBased || displayMinVal < 0) {
             displayMinVal = 0
-        }
-        else if valueType == .allNegative && (model.numericAxis.isZeroBased || displayMaxVal > 0){
+        } else if valueType == .allNegative && (model.numericAxis.isZeroBased || displayMaxVal > 0) {
             displayMaxVal = 0
         }
         
@@ -67,7 +65,7 @@ class ChartUtility {
     
     static func roundToGoodNumber(val: CGFloat) -> CGFloat {
         let negative: CGFloat = val > 0 ? 1 : -1
-        var factor:CGFloat = 1
+        var factor: CGFloat = 1
         var coefficient = negative * val
         while coefficient >= 10 {
             coefficient /= 10
@@ -76,11 +74,9 @@ class ChartUtility {
         
         if CGFloat(Int(coefficient + 0.5)) > coefficient {
             coefficient = CGFloat(Int(coefficient + 0.5))
-        }
-        else if CGFloat(Int(coefficient + 0.9)) > coefficient {
+        } else if CGFloat(Int(coefficient + 0.9)) > coefficient {
             coefficient = CGFloat(Int(coefficient + 0.9)) - 0.5
-        }
-        else {
+        } else {
             coefficient = CGFloat(Int(coefficient))
         }
         
@@ -105,8 +101,7 @@ class ChartUtility {
         
         if let value = model.data[seriesIndex][categoryIndex].value {
             return value
-        }
-        else if let values = model.data[seriesIndex][categoryIndex].values {
+        } else if let values = model.data[seriesIndex][categoryIndex].values {
             if values.count > dimensionIndex {
                 return values[dimensionIndex]
             }
@@ -140,8 +135,7 @@ class ChartUtility {
     static func xPos(_ pos: CGFloat, layoutDirection: LayoutDirection, width: CGFloat) -> CGFloat {
         if layoutDirection == .rightToLeft {
             return (width - pos)
-        }
-        else {
+        } else {
             return pos
         }
     }

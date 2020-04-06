@@ -30,8 +30,8 @@ extension Array where Element == CGPoint {
         }
         
         let normalized: [CGPoint] = self
-            .map ({ CGPoint(x: $0.x / box.width * size.width, y: $0.y / box.height * size.height) })
-            .map { $0.applying(.inverted(in: size.height))}
+            .map({ CGPoint(x: $0.x / box.width * size.width, y: $0.y / box.height * size.height) })
+            .map { $0.applying(.inverted(in: size.height)) }
         return normalized
     }
     

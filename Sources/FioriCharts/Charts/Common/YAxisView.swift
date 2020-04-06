@@ -68,7 +68,7 @@ struct YAxisView_Previews: PreviewProvider {
         
         return YAxisView(displayRange: 0...2000, axisDataSource: axisDataSource)
             .environmentObject(Tests.stockModels[1])
-            .frame(width:80, height: 200, alignment: .topLeading)
+            .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)
         

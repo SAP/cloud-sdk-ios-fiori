@@ -100,7 +100,7 @@ struct StockIndicatorView: View {
 struct StockIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
         StockIndicatorView(Tests.stockModels[1])
-            .frame(width:300, height: 200, alignment: .topLeading)
+            .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)
     }

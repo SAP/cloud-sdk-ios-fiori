@@ -21,7 +21,7 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
             .map({ $0 })
             .sink(receiveCompletion: {
                 switch $0 {
@@ -47,7 +47,7 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
             .map({ $0 })
             .sink(receiveCompletion: {
                 switch $0 {
@@ -67,8 +67,6 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
     }
 }
 
-
-
 open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard<Template> where Template.Element: Placeholding {
     
     @Published var content: Template? = nil
@@ -78,7 +76,7 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
             .map({ $0 })
             .sink(receiveCompletion: {
                 switch $0 {
@@ -97,7 +95,6 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
             .store(in: &subscribers)
     }
 }
-
 
 open class BaseCard<Template: Decodable & Placeholding>: BaseBaseCard {
     
@@ -122,14 +119,12 @@ open class BaseCard<Template: Decodable & Placeholding>: BaseBaseCard {
     }
 }
 
-
 // MARK: - union of all content-related keys across the cards
 internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
     case header, data, content, item, groups, row
     
     static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
 }
-
 
 open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
     
@@ -166,7 +161,7 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
             .compactMap({ $0 })
             .map({ $0.value })
             .compactMap({ $0 })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
 //
 //            .map({
 //                print($0)
@@ -178,13 +173,11 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
                     case .finished:
                         return
                 }
-            }, receiveValue:  { [unowned self] in
-                
+            }, receiveValue: { [unowned self] in
                 
                 self.header = self.header.replacingPlaceholders(withValuesIn: $0)
             })
             .store(in: &subscribers)
-        
         
         if let headerData = _headerData ?? _cardData {
             headerPublisher.send(headerData.json)
@@ -194,7 +187,6 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
             contentPublisher.send(contentData.json)
         }
     }
-    
     
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()

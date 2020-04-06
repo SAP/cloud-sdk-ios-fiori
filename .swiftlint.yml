@@ -1,0 +1,71 @@
+disabled_rules: # rule identifiers to exclude from running
+  - attributes
+  - generic_type_name
+  - identifier_name
+  - large_tuple
+  - line_length
+  - multiple_closures_with_trailing_closure
+  - redundant_optional_initialization
+  - trailing_whitespace
+  - type_name
+
+opt_in_rules: # some rules are only opt-in
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - empty_count
+  - explicit_init
+  - first_where
+  - force_unwrapping
+  - missing_docs
+  - overridden_super_call
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - switch_case_on_newline
+# Find all the available rules by running:
+# swiftlint rules
+
+included: # paths to include during linting. `--path` is ignored if present.
+  - Sources
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+#  - Carthage
+#  - Pods
+#  - Source/ExcludedFolder
+#  - Source/ExcludedFile.swift
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+force_cast: warning # implicitly
+force_try:
+  severity: warning # explicitly
+empty_count: warning
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+
+# rules that have both warning and error levels, can set just the warning level
+# implicitly
+#line_length:
+#  - 300 # warning
+#  - 350 # error
+
+# they can set both implicitly with an array
+type_body_length:
+  - 600 # warning
+  - 700 # error
+
+function_body_length:
+  warning: 60
+  error: 100
+
+# or they can set both explicitly
+file_length:
+  warning: 700
+  error: 900
+
+generic_type_name:
+  warning: 45
+  error: 50
+
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)

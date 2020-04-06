@@ -31,7 +31,7 @@ public class NetworkService {
     private init() {}
             
     private func makeRequest(_ urlRequest: URLRequest, _ callback: @escaping (Result<Data, NetworkError>) -> Void) {
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
             if error != nil {
                 callback(.failure(.badAccess))
             }

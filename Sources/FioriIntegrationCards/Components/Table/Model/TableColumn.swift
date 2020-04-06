@@ -34,5 +34,4 @@ extension TableColumn: Placeholding {
         return TableColumn(title: _title, width: _width, value: _value, icon: _icon, state: _state, url: _url, target: _target, identifier: _identifier, progressIndicator: _progressIndicator)
     }
     
-    
 }

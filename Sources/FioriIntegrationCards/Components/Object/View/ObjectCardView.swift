@@ -77,7 +77,7 @@ public struct ObjectCardView_Previews: PreviewProvider {
     }
 }
 
-fileprivate let testString = """
+private let testString = """
 {
     "_version": "1.15.0",
     "sap.app": {

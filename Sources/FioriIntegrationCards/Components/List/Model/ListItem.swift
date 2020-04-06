@@ -20,7 +20,7 @@ struct ListItem: Decodable, RawBindable, Identifiable {
     }
     private let _uuid: UUID = UUID()
     
-    init(data: Dictionary<String, Any>, binding: ListItemBinding) {
+    init(data: [String: Any], binding: ListItemBinding) {
         
         if let path = binding.icon?.src {
             icon = Icon(src: path.replacingPlaceholders(withValuesIn: data))

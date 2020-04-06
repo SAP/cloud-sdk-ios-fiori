@@ -12,7 +12,7 @@ public struct KeyValue: Codable, Hashable {
     let value: String
 }
 
-extension KeyValue : Placeholding {
+extension KeyValue: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> KeyValue {
         let _label = label?.replacingPlaceholders(withValuesIn: object)
         let _value = value.replacingPlaceholders(withValuesIn: object)

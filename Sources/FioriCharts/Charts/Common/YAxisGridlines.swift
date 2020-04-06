@@ -36,8 +36,7 @@ struct YAxisGridlines: View {
         let valueType = model.valueType
         if valueType == .allNegative {
             valueToRemove = displayRange.upperBound
-        }
-        else if valueType == .mixed {
+        } else if valueType == .mixed {
             valueToRemove = 0
         }
         
@@ -73,7 +72,7 @@ struct YAxisGridlines_Previews: PreviewProvider {
         
         return YAxisGridlines(displayRange: 0...2000, axisDataSource: axisDataSource)
             .environmentObject(Tests.stockModels[1])
-            .frame(width:80, height: 200, alignment: .topLeading)
+            .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)
         

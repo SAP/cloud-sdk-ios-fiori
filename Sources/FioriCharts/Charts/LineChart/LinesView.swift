@@ -64,8 +64,8 @@ struct LinesView: View {
         let pointAttributesCount = model.seriesAttributes.points.count
         for i in 0 ..< data.count {
             let rgba = model.seriesAttributes.colors[i].rgba(colorScheme)
-            let strokeColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-            let fillColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
+            let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+            let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
             strokeColors.append(strokeColor)
             fillColors.append(fillColor)
         }

@@ -10,14 +10,13 @@ import Foundation
 import Combine
 import AnyCodable
 
-
 extension Dictionary where Key == String, Value == Any {
     public func resolve<T>(keyPath: Key?, separator: String.Element = "/") -> T? {
         var current: Any? = self
         let keyPath = keyPath ?? Key(separator)
         
         keyPath.split(separator: separator).forEach { component in
-            if let maybeInt = Int(component), let array = current as? Array<Any> {
+            if let maybeInt = Int(component), let array = current as? [Any] {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
                 current = dictionary[String(component)]
@@ -34,7 +33,7 @@ extension Array where Element == JSONDictionary {
         let keyPath = keyPath ?? Element.Key(separator)
 
         keyPath.split(separator: separator).forEach { component in
-            if let maybeInt = Int(component), let array = current as? Array<Any> {
+            if let maybeInt = Int(component), let array = current as? [Any] {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
                 current = dictionary[String(component)]
@@ -49,14 +48,14 @@ public final class ObservableDictionary<Key: Hashable, Value>: Collection, Obser
     
     public let objectWillChange = ObservableObjectPublisher()
     
-    public typealias DictionaryType = Dictionary<Key, Value>
+    public typealias DictionaryType = [Key: Value]
     private var dictionary: DictionaryType {
         didSet {
             objectWillChange.send()
         }
     }
     
-    public init(_ dictionary: Dictionary<Key, Value>) {
+    public init(_ dictionary: [Key: Value]) {
         self.dictionary = dictionary
     }
     //Collection: these are the access methods
@@ -84,7 +83,7 @@ public final class ObservableDictionary<Key: Hashable, Value>: Collection, Obser
         return dictionary.indices
     }
     
-    public subscript(key: Key)->Value? {
+    public subscript(key: Key) -> Value? {
         get {
             return dictionary[key]
         }

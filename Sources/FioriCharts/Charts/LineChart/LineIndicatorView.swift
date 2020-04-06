@@ -75,7 +75,7 @@ struct LineIndicatorView: View {
 struct LineIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
         LineIndicatorView(Tests.lineModels[0])
-            .frame(width:300, height: 200, alignment: .topLeading)
+            .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)
     }

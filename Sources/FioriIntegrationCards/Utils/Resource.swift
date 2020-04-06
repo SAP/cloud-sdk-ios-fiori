@@ -20,7 +20,7 @@ final class Resource<A>: ObservableObject {
     
     init(endpoint: Endpoint<A>) {
         self.endpoint = endpoint
-        self.objectWillChange = $value.handleEvents(receiveSubscription: { [weak self] sub in
+        self.objectWillChange = $value.handleEvents(receiveSubscription: { [weak self] _ in
             guard let s = self, s.firstLoad else { return }
             s.firstLoad = false
             s.reload()

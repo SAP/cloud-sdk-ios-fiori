@@ -24,15 +24,11 @@ extension ListCard: Hashable {
 }
 
 public class ListCard: OneManyCard<ListCardItem> {
-   
-        
         
 //    let items = CurrentValueSubject<[ListCardItem], Never>([])
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
-
-        
         
 //        CurrentValueSubject<Item, Never>(bindingPlaceholders)
 //            .combineLatest(data.content.data.jsonObject) { (item, jsonArray) -> [Item] in
@@ -49,7 +45,6 @@ public class ListCard: OneManyCard<ListCardItem> {
 //        })
 //        .store(in: &subscribers)
     }
-    
     
     private struct HavingItem: Decodable {
         let item: ListCardItem
@@ -80,7 +75,6 @@ extension ListCardItem: Placeholding {
         let _actions = actions?.replacingPlaceholders(withValuesIn: object)
         return ListCardItem(title: _title, description: _description, info: _info, highlight: _highlight, icon: _icon, actions: _actions)
     }
-    
     
 }
 
@@ -162,7 +156,7 @@ public class ListCard_DEP: Decodable, ObservableObject {
 //    }
 }
 */
-/// MARK: - Binding structs: will contain placeholder strings
+// MARK: - Binding structs: will contain placeholder strings
 
 //private protocol HavingCardData {
 //    associatedtype JSONModel: Decodable
@@ -171,12 +165,9 @@ public class ListCard_DEP: Decodable, ObservableObject {
 //    var item: Item { get }
 //}
 
-
 enum ParseError: Error {
     case convert
 }
-
-
 
 /*
  do {

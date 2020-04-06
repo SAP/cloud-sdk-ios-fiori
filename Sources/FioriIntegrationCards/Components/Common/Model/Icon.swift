@@ -11,7 +11,6 @@ import UIKit
 import SwiftUI
 import Combine
 
-
 final public class Icon: Decodable, AnyBodyProducing {
 
     public let src: String
@@ -24,7 +23,7 @@ final public class Icon: Decodable, AnyBodyProducing {
     }
     
     func body() -> AnyView {
-        if let validIcon = self.src.validIcon()  {
+        if let validIcon = self.src.validIcon() {
             return AnyView(
                 Text(validIcon)
                 .foregroundColor(Color.darkGray)

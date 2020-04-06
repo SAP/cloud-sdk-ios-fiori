@@ -11,8 +11,6 @@ import Combine
 import AnyCodable
 import ObservableArray
 
-
-
 public struct ListCardView: View {
     
     @ObservedObject var model: ListCard
@@ -26,7 +24,7 @@ public struct ListCardView: View {
     }
     
     public var body: some View {
-        VStack() {
+        VStack {
             Group {
                 HeaderView(model: model.header)
                     .padding(.bottom, -30)

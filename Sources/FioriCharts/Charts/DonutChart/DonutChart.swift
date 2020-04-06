@@ -18,7 +18,6 @@ struct DonutChart: View {
         self.model = chartModel
     }
     
-    
     var body: some View {
         GeometryReader { proxy in
             self.chartView(in: proxy.size)
@@ -52,8 +51,7 @@ struct DonutChart: View {
         return HStack(alignment: .center) {
             if count == 0 {
                 NoDataView()
-            }
-            else {
+            } else {
                 ZStack {
                     ForEach(0 ..< count) { i in
                         ArcShape(startAngle: Angle(degrees: startAngles[i]), endAngle: Angle(degrees: endAngles[i]))

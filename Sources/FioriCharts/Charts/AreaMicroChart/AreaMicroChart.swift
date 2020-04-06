@@ -87,7 +87,6 @@ public struct AreaMicroChart: View {
     }
 }
 
-
 // MARK: - preview content
 struct AreaMicroChart_Previews: PreviewProvider {
     
@@ -106,4 +105,3 @@ struct AreaMicroChart_Previews: PreviewProvider {
         }
     }
 }
-

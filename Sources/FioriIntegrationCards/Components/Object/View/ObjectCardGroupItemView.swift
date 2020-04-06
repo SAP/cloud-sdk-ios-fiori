@@ -25,7 +25,7 @@ struct ObjectCardGroupItemView: View {
                     .foregroundColor(.getLinkColor(type: self.model.type))
                     .onTapGesture {
                         self.action(type: self.model.type, value: self.model.value)
-                }
+                    }
             }
             .padding(EdgeInsets(top: 10.5, leading: 0, bottom: 10.5, trailing: 0))
         }
@@ -38,16 +38,16 @@ struct ObjectCardGroupItemView: View {
         
         switch _type {
         case "link":
-            let url = URL.init(string: value)
+            let url = URL(string: value)
             openURL(url: url)
         case "phone":
             let tel = "tel://"
             let formatted = tel + value.validPhoneNumber(number: value)
-            let url = URL.init(string: formatted)
+            let url = URL(string: formatted)
             openURL(url: url)
         case "email":
             let email = "mailto:\(value)"
-            let url = URL.init(string: email)
+            let url = URL(string: email)
             openURL(url: url)
         default:
             break
@@ -59,4 +59,3 @@ struct ObjectCardGroupItemView: View {
         UIApplication.shared.open(validURL)
     }
 }
-

@@ -25,4 +25,3 @@ struct TableColumnView: View {
             .frame( alignment: .leading)
     }
 }
-

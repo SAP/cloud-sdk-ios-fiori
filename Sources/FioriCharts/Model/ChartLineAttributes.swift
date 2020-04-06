@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 /// Gridline properties for an Axis.
-public class ChartGridlineAttributes : ObservableObject, Identifiable {
+public class ChartGridlineAttributes: ObservableObject, Identifiable {
     public init(width: Double = 1, color: HexColor = Palette.hexColor(for: .primary3), dashPatternLength: Double = 1, dashPatternGap: Double = 3, isHidden: Bool = false) {
         self.width = width
         self.color = color
@@ -30,9 +30,8 @@ public class ChartGridlineAttributes : ObservableObject, Identifiable {
     public let id = UUID()
 }
 
-
 // Baseline properties for an Axis.
-public class ChartBaselineAttributes : ChartGridlineAttributes {
+public class ChartBaselineAttributes: ChartGridlineAttributes {
 
     public init(width: Double = 2, color: HexColor = Palette.hexColor(for: .primary3), dashPatternLength: Double = 1, dashPatternGap: Double = 0, isHidden: Bool = false, value: Double? = nil, position: Double? = nil) {
         self.value = value

@@ -30,8 +30,7 @@ struct PointsShape: Shape {
         
         if let range = displayRange {
             self.displayRange = range
-        }
-        else {
+        } else {
             let maxValue = CGFloat(points.max() ?? 0)
             let minValue = CGFloat(points.min() ?? 0)
             self.displayRange = minValue ... maxValue
@@ -45,7 +44,7 @@ struct PointsShape: Shape {
             return path
         }
         
-        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)}
+        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound) }
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
         var lastPoint = CGPoint(x: -gap, y: 0)

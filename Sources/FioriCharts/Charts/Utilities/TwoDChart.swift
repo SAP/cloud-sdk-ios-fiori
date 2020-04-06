@@ -13,7 +13,7 @@ protocol TwoDChart {
     var range: ClosedRange<CGFloat> { get }
 }
 
-extension TwoDChart{
+extension TwoDChart {
     var normalizedValue: CGFloat {
         return normalizedValue(for: value)
     }

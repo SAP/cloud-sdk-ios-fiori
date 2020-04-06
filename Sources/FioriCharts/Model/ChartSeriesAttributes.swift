@@ -44,29 +44,25 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     public init(colors: [HexColor], palettes: [ChartSeriesPalette]? = nil, linesWidth: [Double]?, points: [ChartPointAttributes]? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
         if colors.count > 0 {
             self.colors = colors
-        }
-        else {
+        } else {
             self.colors = [Palette.hexColor(for: .chart1)]
         }
         
         if let palettes = palettes {
             self.palettes = palettes
-        }
-        else {
+        } else {
             self.palettes = []
         }
         
         if let linesWidth = linesWidth {
             self.linesWidth = linesWidth
-        }
-        else {
+        } else {
             self.linesWidth = [1]
         }
         
         if let points = points {
             self.points = points
-        }
-        else {
+        } else {
             self.points = [ChartPointAttributes()]
         }
         

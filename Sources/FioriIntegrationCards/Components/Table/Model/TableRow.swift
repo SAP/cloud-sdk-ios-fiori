@@ -20,5 +20,4 @@ extension TableRow: Placeholding {
         return TableRow(columns: _columns, actions: _actions/*, id: id*/)
     }
     
-    
 }

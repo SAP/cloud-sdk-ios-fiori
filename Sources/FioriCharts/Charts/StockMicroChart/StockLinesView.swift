@@ -68,8 +68,8 @@ struct StockLinesView: View {
         }
         
         let rgba = isPriceGoingUp ? model.seriesAttributes.colors[0].rgba(colorScheme) : model.seriesAttributes.colors[1].rgba(colorScheme)
-        let strokeColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-        let fillColor = Color.init(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
+        let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
+        let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
         
         return ZStack {
             model.backgroundColor.color(colorScheme)
@@ -114,7 +114,7 @@ struct StockLinesView_Previews: PreviewProvider {
             ForEach(Tests.stockModels) {
                 StockLinesView($0)
             }
-            .frame(width:300, height: 200)
+            .frame(width: 300, height: 200)
             .previewLayout(.sizeThatFits)
         }
     }

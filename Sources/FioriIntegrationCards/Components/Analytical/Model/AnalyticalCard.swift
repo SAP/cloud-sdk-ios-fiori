@@ -33,7 +33,7 @@ public class AnalyticalCard: BaseBaseCard {
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers)})
+            .tryMap({ try JSONSerialization.jsonObject(with: $0, options: .mutableContainers) })
             .map({ $0 })
             .sink(receiveCompletion: {
                 switch $0 {
@@ -49,7 +49,6 @@ public class AnalyticalCard: BaseBaseCard {
         
     }
 }
-
 
 extension AnalyticalCard: Hashable {
     public static func == (lhs: AnalyticalCard, rhs: AnalyticalCard) -> Bool {
@@ -121,7 +120,7 @@ extension AnalyticalContent: Placeholding {
         let _plotArea        = plotArea?.replacingPlaceholders(withValuesIn: object)
         let _measures        = measures.map { $0.replacingPlaceholders(withValuesIn: object) }
         let _dimensions      = dimensions.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _data            = categories.map({ $0.replacingPlaceholders(withValuesIn: object)})
+        let _data            = categories.map({ $0.replacingPlaceholders(withValuesIn: object) })
         return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis, measures: _measures, dimensions: _dimensions, categories: _data)
     }
 }

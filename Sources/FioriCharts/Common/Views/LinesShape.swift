@@ -14,7 +14,7 @@ public struct LinesShape: Shape {
     var displayRange: ClosedRange<CGFloat>
     var layoutDirection: LayoutDirection
     var fill: Bool = false
-    var curve:Bool = false
+    var curve: Bool = false
     var startOffset: CGFloat = 0
     var endOffset: CGFloat = 0
     
@@ -29,8 +29,7 @@ public struct LinesShape: Shape {
         
         if let range = displayRange {
             self.displayRange = range
-        }
-        else {
+        } else {
             let maxValue = CGFloat(points.max() ?? 0)
             let minValue = CGFloat(points.min() ?? 0)
             self.displayRange = minValue ... maxValue
@@ -44,7 +43,7 @@ public struct LinesShape: Shape {
             return path
         }
         
-        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)}
+        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound) }
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
         let x = ChartUtility.xPos(startOffset, layoutDirection: layoutDirection, width: rect.size.width)
@@ -52,12 +51,11 @@ public struct LinesShape: Shape {
         if fill {
             path.move(to: CGPoint(x: x, y: rect.size.height))
             path.addLine(to: p1)
-        }
-        else {
+        } else {
             path.move(to: p1)
         }
         
-        if(data.count < 2){
+        if data.count < 2 {
             return path
         }
         
@@ -67,8 +65,7 @@ public struct LinesShape: Shape {
                 let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
                 path.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
                 path.addQuadCurve(to: p2, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p2))
-            }
-            else {
+            } else {
                 path.addLine(to: p2)
             }
             
@@ -85,20 +82,20 @@ public struct LinesShape: Shape {
 }
 
 extension CGPoint {
-    static func midPoint(p1:CGPoint, p2:CGPoint) -> CGPoint {
+    static func midPoint(p1: CGPoint, p2: CGPoint) -> CGPoint {
         return CGPoint(
             x: p1.x + (p2.x - p1.x) / 2,
             y: p1.y + (p2.y - p1.y) / 2
         )
     }
     
-    static func controlPointForPoints(p1:CGPoint, p2:CGPoint) -> CGPoint {
-        var controlPoint = CGPoint.midPoint(p1:p1, p2:p2)
+    static func controlPointForPoints(p1: CGPoint, p2: CGPoint) -> CGPoint {
+        var controlPoint = CGPoint.midPoint(p1: p1, p2: p2)
         let diffY = abs(p2.y - controlPoint.y)
         
-        if (p1.y < p2.y){
+        if p1.y < p2.y {
             controlPoint.y += diffY
-        } else if (p1.y > p2.y) {
+        } else if p1.y > p2.y {
             controlPoint.y -= diffY
         }
         return controlPoint

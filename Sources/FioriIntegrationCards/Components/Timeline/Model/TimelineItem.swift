@@ -18,8 +18,6 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
 
 }
 
-
-
 extension TimelineItem: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem {
         let _title = title?.replacingPlaceholders(withValuesIn: object)

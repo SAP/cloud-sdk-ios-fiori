@@ -48,7 +48,7 @@ class CardData: Decodable {
                 }
             })
 //            .print("B")
-            .sink(receiveCompletion: {_ in }, receiveValue: { value in
+            .sink(receiveCompletion: { _ in }, receiveValue: { value in
                 self.jsonObject.send(value)
             })
             .store(in: &subscription)
@@ -66,4 +66,3 @@ class CardData: Decodable {
     
     private var subscription: Set<AnyCancellable> = []
 }
-

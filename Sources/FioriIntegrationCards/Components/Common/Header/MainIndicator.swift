@@ -22,5 +22,4 @@ extension MainIndicator: Placeholding {
         return MainIndicator(number: _number, unit: _unit, trend: _trend, state: _state)
     }
     
-    
 }
