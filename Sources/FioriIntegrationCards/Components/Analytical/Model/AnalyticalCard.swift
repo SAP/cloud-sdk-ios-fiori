@@ -8,23 +8,65 @@
 
 //import AnyCodable
 import Foundation
+import Combine
 import FioriCharts
 
+
+public struct AnalyticalData: Decodable {
+    public private(set) var measures: [[AnalyticalMeasureDimension]]? = nil
+    public private(set) var dimensions: [[AnalyticalMeasureDimension]]? = nil
+    
+    private let _measures: [AnalyticalMeasureDimension]
+    private let _dimensions: [AnalyticalMeasureDimension]
+    
+    private enum CodingKeys: String, CodingKey  {
+        case _measures = "measures", _dimensions = "dimensions"
+    }
+}
+
+extension AnalyticalData: Placeholding {
+    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalData {
+        guard let array = object as? JSONArray else {
+            print("WARN: \(object) must be an array.")
+            return self
+        }
+        let x = array.map({
+            item in
+            self._measures.map({ $0.replacingPlaceholders(withValuesIn: item) })
+        })
+        let y = array.map({ item in self._dimensions.map({ $0.replacingPlaceholders(withValuesIn: item) })})
+        return .init(measures: x, dimensions: y, _measures: _measures, _dimensions: _dimensions)
+    }
+    
+    
+}
+
+/// Content data `path` should resolve to JSON array
 public class AnalyticalCard: BaseBaseCard {
     
     @Published var content: AnalyticalContent?
+    @Published var chartData: AnalyticalData?
+    
     private var template: AnalyticalContent
+    private var chartDataTemplate: AnalyticalData
     
     required public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
         template = try container.decode(AnalyticalContent.self, forKey: .content)
+        chartDataTemplate = try container.decode(AnalyticalData.self, forKey: .content)
         
         try super.init(from: decoder)
         
         contentPublisher
             .compactMap({ $0?.value })
-            .tryMap({ (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) })
-            .compactMap({ o -> Any? in return `Any`.resolve(o.0, keyPath: o.1, separator: "/") })
+            .tryMap({ [unowned self] value -> (Any, String?) in
+                let json = try JSONSerialization.jsonObject(with: value.0, options: .mutableContainers)
+                self.content = self.template.replacingPlaceholders(withValuesIn: json)
+                return (json, value.1)
+            })
+            .compactMap({ o -> JSONArray? in
+                return `Any`.resolve(o.0, keyPath: o.1, separator: "/") as? JSONArray
+            })
             .sink(receiveCompletion: {
                 switch $0 {
                     case .failure(let error):
@@ -33,11 +75,17 @@ public class AnalyticalCard: BaseBaseCard {
                         print("FINISHED")
                 }
             }, receiveValue: { [unowned self] object in
-                self.content = self.template.replacingPlaceholders(withValuesIn: object)
-//                guard let content = self.content,
-//                    let chartType = ChartType(rawValue: content.chartType),
-//                let data =
-//                    else { return }
+                let data = self.chartDataTemplate.replacingPlaceholders(withValuesIn: object)
+                guard let series = data.measures?.map({ $0.map({ Double($0.value) ?? 0.0 })}) else { preconditionFailure() }
+                let seriesTitles = data.measures?.map({ $0.map({ $0.label })})
+                let axesLabels = data.dimensions?.map({ $0.map({ $0.value }) })
+                let axesTitles = data.dimensions?.map({ $0.map({ $0.label} )})
+                
+                let m = ChartModel(chartType: .line, data: [series])
+
+                
+//                let model = ChartModel(chartType: .line, data: [series], titlesForCategory: axesLabels, colorsForCategory: nil, titlesForAxis: axesTitles?.first, labelsForDimension: seriesTitles, selectedSeriesIndex: nil, userInteractionEnabled: true, seriesAttributes: nil, categoryAxis: nil, numericAxis: nil, secondaryNumericAxis: nil)
+                self.chartModel = m
             })
             .store(in: &subscribers)
         

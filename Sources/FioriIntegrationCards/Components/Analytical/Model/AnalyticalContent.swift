@@ -15,20 +15,16 @@ public struct AnalyticalContent: Decodable {
     public let title: AnalyticalTitleAttributes?
     public let measureAxis: String?
     public let dimensionAxis: String?
-    public let measures: [AnalyticalMeasureDimension]
-    public let dimensions: [AnalyticalMeasureDimension]
-    public var categories: [DataCategory] = []
-        
-    private enum CodingKeys: CodingKey {
-        case chartType, legend, plotArea, title, measureAxis, dimensionAxis, measures, dimensions
+    
+    init(chartType: String, legend: AnalyticalLegend?, plotArea: AnalyticalPlotArea?, title: AnalyticalTitleAttributes?, measureAxis: String?, dimensionAxis: String?) {
+        self.chartType = chartType
+        self.legend = legend
+        self.plotArea = plotArea
+        self.title = title
+        self.measureAxis = measureAxis
+        self.dimensionAxis = dimensionAxis
+
     }
-//
-//    public enum ChartType: String, Decodable, CaseIterable {
-//        case line = "Line"
-//        case stackedBar = "StackedBar"
-//        case stackedColumn = "StackedColumn"
-//        case donut = "Donut"
-//    }
 }
 
 extension AnalyticalContent: Placeholding {
@@ -39,10 +35,7 @@ extension AnalyticalContent: Placeholding {
         let _legend          = legend?.replacingPlaceholders(withValuesIn: object)
         let _title           = title?.replacingPlaceholders(withValuesIn: object)
         let _plotArea        = plotArea?.replacingPlaceholders(withValuesIn: object)
-        let _measures        = measures.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _dimensions      = dimensions.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _data            = categories.map({ $0.replacingPlaceholders(withValuesIn: object)})
         
-        return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis, measures: _measures, dimensions: _dimensions, categories: _data)
+        return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis)
     }
 }

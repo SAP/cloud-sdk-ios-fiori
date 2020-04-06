@@ -21,9 +21,8 @@ public struct AnalyticalCardView: View {
         
         return Group {
             HeaderView(model: model.header)
-            GeometryReader { _ in
-                Text("Placeholder for LineView")
-//                self.lineView(in: geometry.frame(in: .local), from: self.model.content!)
+            GeometryReader { geometry in
+                ChartView(self.model.chartModel)
             }.frame(height: 260)
         }
     }
