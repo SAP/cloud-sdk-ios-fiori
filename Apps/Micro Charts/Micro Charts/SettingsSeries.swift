@@ -10,41 +10,63 @@ import SwiftUI
 import FioriCharts
 
 struct SettingsSeries: View {
-    @ObservedObject var model: ChartModel
+    @Binding var seriesAttr: ChartSeriesAttributes
     
     var body: some View {
-        Form {
-            Section(header: Text("Lines Width")) {
-                ForEach( 0 ..< self.model.seriesAttributes.linesWidth.count) { i in
-                    Text("Series \(i) Line Width: \(self.model.seriesAttributes.linesWidth[i])")
-                    Slider(value: self.$model.seriesAttributes.linesWidth[i], in: 1...10, step: 1)
+        return Form {
+            Section(header: Text("Palette")) {
+                ForEach(0 ..< self.seriesAttr.palette.colors.count) { i in
+                    SettingColor(color: self.$seriesAttr.palette.colors[i], title: "Primary Color \(i)")
                 }
-//                Text("First Line Cap Diameter: \(model.seriesAttributes.firstLineCapDiameter)")
-//                Slider(value: $model.seriesAttributes.firstLineCapDiameter, in: 0...10, step: 1)
-//
-//                Text("Last Line Cap Diameter: \(model.seriesAttributes.lastLineCapDiameter)")
-//                Slider(value: $model.seriesAttributes.lastLineCapDiameter, in: 0...10, step: 1)
+                
+                SettingColor(color: self.$seriesAttr.palette.labelColor, title: "Label Color")
+                
+                SettingColor(color: self.$seriesAttr.palette.positiveMinColor, title: "Positive Min Color")
+                
+                SettingColor(color: self.$seriesAttr.palette.positiveMaxColor, title: "Positive Max Color")
+                
+                SettingColor(color: self.$seriesAttr.palette.negativeMinColor, title: "Negative Min Color")
+                
+                SettingColor(color: self.$seriesAttr.palette.negativeMaxColor, title: "Negative Max Color")
             }
             
-            Section(header: Text("Points")) {
-                ForEach(0 ..< self.model.seriesAttributes.points.count) { i in
-                    NavigationLink(destination: SettingsPoint(point: self.$model.seriesAttributes.points[i])) {
-                        Text("Series \(i) Point")
-                    }
+            Section(header: Text("Point")) {
+                NavigationLink(destination: SettingsPoint(point: $seriesAttr.point)) {
+                                        Text("Point")
                 }
             }
             
-            Section(header: Text("Colors")) {
-                ForEach(0 ..< self.model.seriesAttributes.colors.count) { i in
-                    SettingColor(color: self.$model.seriesAttributes.colors[i], title: "Series \(i) Color")
-                }
+            Section(header: Text("Line")) {
+                Text("Line Width: \(seriesAttr.lineWidth)")
+                Slider(value: $seriesAttr.lineWidth, in: 1...10, step: 1)
+                
+                Text("First Line Cap Diameter: \(seriesAttr.firstLineCapDiameter)")
+                Slider(value: $seriesAttr.firstLineCapDiameter, in: 0...10, step: 1)
+
+                Text("Last Line Cap Diameter: \(seriesAttr.lastLineCapDiameter)")
+                Slider(value: $seriesAttr.lastLineCapDiameter, in: 0...10, step: 1)
             }
         }.navigationBarTitle("Series")
     }
 }
 
+
+struct SettingsSeriesCollection: View {
+    @ObservedObject var model: ChartModel
+    
+    var body: some View {
+        Form {
+            ForEach(0 ..< self.model.seriesAttributes.count) { i in
+                NavigationLink(destination: SettingsSeries(seriesAttr: self.$model.seriesAttributes[i])) {
+                    Text("Series \(i)")
+                }
+            }
+        }.navigationBarTitle("Series Collection")
+    }
+}
+
 struct SettingsSeries_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsSeries(model: Tests.stockModels[0])
+        SettingsSeriesCollection(model: Tests.stockModels[0])
     }
 }

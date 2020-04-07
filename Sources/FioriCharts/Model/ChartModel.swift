@@ -126,7 +126,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var snapToPoint = false
   
     /// seires attributes
-    @Published public var seriesAttributes: ChartSeriesAttributes
+    @Published public var seriesAttributes: [ChartSeriesAttributes]
     
     /// colors for any category in any series
     /// it is optional. this color overwrite the color from seriesAttributes
@@ -245,7 +245,7 @@ public class ChartModel: ObservableObject, Identifiable {
                 labelsForDimension: [[String]]? = nil,
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
-                seriesAttributes: ChartSeriesAttributes? = nil,
+                seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
@@ -336,7 +336,16 @@ public class ChartModel: ObservableObject, Identifiable {
         }
         
         if let seriesAttributes = seriesAttributes {
-            self.seriesAttributes = seriesAttributes
+            if seriesAttributes.count == data.count {
+                self.seriesAttributes = seriesAttributes
+            }
+            else {
+                var tmp = seriesAttributes
+                for i in seriesAttributes.count ..< data.count {
+                    tmp.append(seriesAttributes[i % seriesAttributes.count])
+                }
+                self.seriesAttributes = seriesAttributes
+            }
         } else {
             self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
         }
@@ -352,7 +361,7 @@ public class ChartModel: ObservableObject, Identifiable {
                 labelsForDimension: [[[String]]]? = nil,
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
-                seriesAttributes: ChartSeriesAttributes? = nil,
+                seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
@@ -431,7 +440,16 @@ public class ChartModel: ObservableObject, Identifiable {
         }
         
         if let seriesAttributes = seriesAttributes {
-            self.seriesAttributes = seriesAttributes
+            if seriesAttributes.count == data.count {
+                self.seriesAttributes = seriesAttributes
+            }
+            else {
+                var tmp = seriesAttributes
+                for i in seriesAttributes.count ..< data.count {
+                    tmp.append(seriesAttributes[i % seriesAttributes.count])
+                }
+                self.seriesAttributes = seriesAttributes
+            }
         } else {
             self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
         }
@@ -439,22 +457,28 @@ public class ChartModel: ObservableObject, Identifiable {
         initialize()
     }
     
-    static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> ChartSeriesAttributes {
+    static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
         switch chartType {
         case .stock:
-            let linesWidth: [Double] = Array(repeating: 2, count: seriesCount)
+            let count = max(1, seriesCount)
             let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke), Palette.hexColor(for: .stockUpFill), Palette.hexColor(for: .stockDownFill), Palette.hexColor(for: .stockFillEndColor)]
-            return ChartSeriesAttributes(colors: colors, linesWidth: linesWidth, points: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            let palette = ChartSeriesPalette(colors: colors)
+            let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            return Array(repeating: sa, count: count)
+            
         default:
-            let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2)]
+            let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2), Palette.hexColor(for: .chart3), Palette.hexColor(for: .chart4), Palette.hexColor(for: .chart5), Palette.hexColor(for: .chart6), Palette.hexColor(for: .chart7), Palette.hexColor(for: .chart8), Palette.hexColor(for: .chart9), Palette.hexColor(for: .chart10), Palette.hexColor(for: .chart11)]
             let count = min(colors.count, max(1, seriesCount))
-            var pointAttributes: [ChartPointAttributes] = []
-            let linesWidth: [Double] = Array(repeating: 2, count: count)
+            //var pointAttributes: [ChartPointAttributes] = []
+            var result: [ChartSeriesAttributes] = []
+            
             for i in 0 ..< count {
-                let pa = ChartPointAttributes(isHidden: false, diameter: 6, strokeColor: colors[i], gap: 2)
-                pointAttributes.append(pa)
+                let color = colors[i % colors.count]
+                let pointAttr = ChartPointAttributes(isHidden: false, diameter: 6, strokeColor: color, gap: 2)
+                let seriesPalette = ChartSeriesPalette(colors: [color])
+                result.append(ChartSeriesAttributes(palette: seriesPalette, lineWidth: 2, point: pointAttr, firstLineCapDiameter: 0, lastLineCapDiameter: 0))
             }
-            return ChartSeriesAttributes(colors: Array(colors[0 ..< count]), linesWidth: linesWidth, points: pointAttributes, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            return result
         }
     }
     
@@ -565,9 +589,9 @@ extension ChartModel {
             return val
         }
         
-        let count = seriesAttributes.colors.count
+        let count = seriesAttributes.count
         if count > 0 {
-            return seriesAttributes.colors[categoryIndex%count]
+            return seriesAttributes[categoryIndex%count].palette.colors[0]
         } else {
             return Palette.hexColor(for: .primary2)
         }

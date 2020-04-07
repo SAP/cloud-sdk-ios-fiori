@@ -63,8 +63,8 @@ struct LineIndicatorView: View {
                 
                 ForEach(0 ..< model.data.count) { i in
                     Circle()
-                        .fill(self.model.seriesAttributes.colors[i].color(self.colorScheme))
-                        .frame(width: 14, height: 14)
+                        .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
+                        .frame(width: CGFloat(self.model.seriesAttributes[i].point.diameter + 4), height: CGFloat(self.model.seriesAttributes[i].point.diameter + 4))
                         .position(CGPoint(x: x, y: yPos[i]))
                 }
             }

@@ -36,6 +36,6 @@ struct SettingsPoint: View {
 
 struct SettingsPoint_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsPoint(point: .constant(Tests.stockModels[0].seriesAttributes.points[0]))
+        SettingsPoint(point: .constant(Tests.stockModels[0].seriesAttributes[0].point))
     }
 }

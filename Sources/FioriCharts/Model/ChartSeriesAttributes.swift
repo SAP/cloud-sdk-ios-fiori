@@ -8,66 +8,45 @@
 import Foundation
 import SwiftUI
 
+/// Each series has its own ChartSeriesAttributes
 public class ChartSeriesAttributes: ObservableObject, Identifiable {
-    /**
-     Colors used to render the series.
 
-     Colors will be reused when fewer colors are provided than the number of series.
-
-     ```
-     let colorIndex = seriesIndex % colors.count
-     ```
-     */
-    @Published public var colors: [HexColor]
+    /// palettes for current series
+    @Published public var palette: ChartSeriesPalette
     
-    /**
-     Collection of palettes containing colors for all series.
-
-     If the number of palettes is less than the number of series, then palettes will be recycled.
-     */
-    @Published public var palettes: [ChartSeriesPalette]
+    /// Properties for the point rendered in current series.
+    @Published public var point: ChartPointAttributes
     
-    /// Properties for the points rendered in all line series.
-    @Published public var points: [ChartPointAttributes]
+    /// Line width for current series
+    @Published public var lineWidth: Double
     
-    /// Lines width for  series rendered as lines.
-    @Published public var linesWidth: [Double]
-    
-    /// Diameter of line caps for first and last values in a line series.
+    /// Diameter of line caps for first value
     @Published public var firstLineCapDiameter: Double
     
-    /// Diameter of line caps for first and last values in a line series.
+    /// Diameter of line caps for last value
     @Published public var lastLineCapDiameter: Double
     
     public let id = UUID()
     
-    public init(colors: [HexColor], palettes: [ChartSeriesPalette]? = nil, linesWidth: [Double]?, points: [ChartPointAttributes]? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
-        if colors.count > 0 {
-            self.colors = colors
-        } else {
-            self.colors = [Palette.hexColor(for: .chart1)]
+    public init(palette: ChartSeriesPalette? = nil, lineWidth: Double = 1, point: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
+        //self.color = color
+        
+        if let palette = palette {
+            self.palette = palette
+        }
+        else {
+            self.palette = ChartSeriesPalette(colors: [])
         }
         
-        if let palettes = palettes {
-            self.palettes = palettes
-        } else {
-            self.palettes = []
-        }
+        self.lineWidth = lineWidth
         
-        if let linesWidth = linesWidth {
-            self.linesWidth = linesWidth
+        if let point = point {
+            self.point = point
         } else {
-            self.linesWidth = [1]
-        }
-        
-        if let points = points {
-            self.points = points
-        } else {
-            self.points = [ChartPointAttributes()]
+            self.point = ChartPointAttributes()
         }
         
         self.firstLineCapDiameter = firstLineCapDiameter
-        
         self.lastLineCapDiameter = lastLineCapDiameter
     }
 }
