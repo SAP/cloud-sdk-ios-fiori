@@ -67,12 +67,13 @@ class DefaultAxisDataSource: AxisDataSource {
         
         let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
-        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
-        let endIndex = min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1)
+        let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
+        let endIndex = min(max(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
 
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : [startIndex, endIndex]
+        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) :
+            ((startIndex != endIndex) ? [startIndex, endIndex] : [startIndex])
         
         for i in labelsIndex {
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
