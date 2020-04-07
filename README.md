@@ -29,7 +29,6 @@ To add to your framework target, add the repository URL to your **Package.swift*
 ## How to obtain support
 ## Contributing
 ## To-Do (upcoming changes)
-## License
 
 ## Project setup
 To work with test apps, you must generate the xcodeproj file for the packages.  
@@ -39,3 +38,8 @@ From the root of the repo:  `swift package generate-xcodeproj`.
 Then use `/Apps/Apps.xcworkspace`.
 
 > Keep in mind that changes to the generated xcodeproj **will be ignored**.  To maintain folder structure, add files, etc., open `./Package.swift` directly in Xcode.
+
+## License
+
+Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
+This file is licensed under the Apache-2.0 license except as noted otherwise in the [LICENSE](/LICENSE) file.
