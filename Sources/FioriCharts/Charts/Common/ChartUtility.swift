@@ -38,11 +38,15 @@ class ChartUtility {
         var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
         
         if abs(displayMaxVal) > 10 {
-            displayMaxVal = ChartUtility.roundToGoodNumber(val: displayMaxVal)
+            displayMaxVal = ChartUtility.roundToGoodNumber(val: displayMaxVal, roundUp: true)
         }
         
         if abs(displayMinVal) > 10 {
-            displayMinVal = ChartUtility.roundToGoodNumber(val: displayMinVal)
+            displayMinVal = ChartUtility.roundToGoodNumber(val: displayMinVal, roundUp: false)
+        }
+        
+        if abs(displayMaxVal - displayMinVal) < 0.1 {
+            displayMaxVal += 1
         }
         
         let valueType = model.valueType
@@ -63,7 +67,7 @@ class ChartUtility {
         return displayMinVal...displayMaxVal
     }
     
-    static func roundToGoodNumber(val: CGFloat) -> CGFloat {
+    static func roundToGoodNumber(val: CGFloat, roundUp: Bool) -> CGFloat {
         let negative: CGFloat = val > 0 ? 1 : -1
         var factor: CGFloat = 1
         var coefficient = negative * val
@@ -72,13 +76,7 @@ class ChartUtility {
             factor *= 10
         }
         
-        if CGFloat(Int(coefficient + 0.5)) > coefficient {
-            coefficient = CGFloat(Int(coefficient + 0.5))
-        } else if CGFloat(Int(coefficient + 0.9)) > coefficient {
-            coefficient = CGFloat(Int(coefficient + 0.9)) - 0.5
-        } else {
-            coefficient = CGFloat(Int(coefficient))
-        }
+        coefficient = coefficient.rounded(roundUp ? .up : .down)
         
         return negative * coefficient * factor
     }
