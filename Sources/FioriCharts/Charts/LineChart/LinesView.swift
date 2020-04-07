@@ -61,9 +61,9 @@ struct LinesView: View {
         
         var strokeColors: [Color] = []
         var fillColors: [Color] = []
-        let pointAttributesCount = model.seriesAttributes.points.count
+        
         for i in 0 ..< data.count {
-            let rgba = model.seriesAttributes.colors[i].rgba(colorScheme)
+            let rgba = model.seriesAttributes[i].palette.colors[0].rgba(colorScheme)
             let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
             let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
             strokeColors.append(strokeColor)
@@ -79,7 +79,7 @@ struct LinesView: View {
                            startOffset: startOffset,
                            endOffset: endOffset)
                     .stroke(strokeColors[i],
-                            lineWidth: CGFloat(self.model.seriesAttributes.linesWidth[i % self.model.seriesAttributes.linesWidth.count]))
+                            lineWidth: CGFloat(self.model.seriesAttributes[i].lineWidth))
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
             }
@@ -89,10 +89,10 @@ struct LinesView: View {
                             displayRange: displayRange,
                             layoutDirection: self.layoutDirection,
                             radius: self.pointRadius(at: i),
-                            gap: CGFloat(self.model.seriesAttributes.points[i % pointAttributesCount].gap),
+                            gap: CGFloat(self.model.seriesAttributes[i].point.gap),
                             startOffset: startOffset,
                             endOffset: endOffset)
-                    .fill(self.model.seriesAttributes.points[i % pointAttributesCount].strokeColor.color(self.colorScheme))
+                    .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
                     .clipShape(Rectangle()
                         .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
                         .offset(x: -1 * self.pointRadius(at: i), y: 0))
@@ -101,9 +101,9 @@ struct LinesView: View {
     }
     
     func pointRadius(at index: Int) -> CGFloat {
-        let pointAttributesCount = model.seriesAttributes.points.count
+        let pointAttr = model.seriesAttributes[index].point
         
-        return model.seriesAttributes.points[index % pointAttributesCount].isHidden ? 0 : CGFloat(model.seriesAttributes.points[index % pointAttributesCount].diameter/2)
+        return pointAttr.isHidden ? 0 : CGFloat(pointAttr.diameter/2)
     }
 }
 

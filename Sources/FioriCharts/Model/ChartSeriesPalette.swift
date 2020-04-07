@@ -9,8 +9,14 @@ import Foundation
 
 public class ChartSeriesPalette: ObservableObject, Identifiable {
     
-    public init(color: HexColor, labelColor: HexColor, positiveMaxColor: HexColor, positiveMinColor: HexColor, negativeMaxColor: HexColor, negativeMinColor: HexColor) {
-        self.color = color
+    public init(colors: [HexColor], labelColor: HexColor, positiveMaxColor: HexColor, positiveMinColor: HexColor, negativeMaxColor: HexColor, negativeMinColor: HexColor) {
+        if colors.count > 0 {
+            self.colors = colors
+        }
+        else {
+            self.colors = [Palette.hexColor(for: .primary1)]
+        }
+        
         self.labelColor = labelColor
         self.positiveMaxColor = positiveMaxColor
         self.positiveMinColor = positiveMinColor
@@ -18,16 +24,19 @@ public class ChartSeriesPalette: ObservableObject, Identifiable {
         self.negativeMinColor = negativeMinColor
     }
 
-    public convenience init(color: HexColor, labelColor: HexColor) {
-        self.init(color: color, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
+    public convenience init(colors: [HexColor], labelColor: HexColor) {
+        self.init(colors: colors, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
     }
     
-    public convenience init(color: HexColor) {
-        self.init(color: color, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
+    public convenience init(colors: [HexColor]) {
+        let color = colors.first ?? Palette.hexColor(for: .primary1)
+        
+        self.init(colors: colors, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
 
     /// Primary color of the series. Used to render the series' lines.
-    @Published public var color: HexColor
+    /// One color only for charts except stock requires multiple colors
+    @Published public var colors: [HexColor]
 
     /// Color used to render labels for the series.
     @Published public var labelColor: HexColor

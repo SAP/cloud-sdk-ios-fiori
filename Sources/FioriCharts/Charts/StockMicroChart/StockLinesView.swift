@@ -52,9 +52,10 @@ struct StockLinesView: View {
             endOffset = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
         }
         
+        let seriesIndex = model.currentSeriesIndex
         var data: [Double] = []
         if !noData {
-            let curDisplayData = model.data[model.currentSeriesIndex][startIndex...endIndex]
+            let curDisplayData = model.data[seriesIndex][startIndex...endIndex]
             data = curDisplayData.map { $0.first ?? 0 }
             
         }
@@ -67,7 +68,7 @@ struct StockLinesView: View {
             }
         }
         
-        let rgba = isPriceGoingUp ? model.seriesAttributes.colors[0].rgba(colorScheme) : model.seriesAttributes.colors[1].rgba(colorScheme)
+        let rgba = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].rgba(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].rgba(colorScheme)
         let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
         let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
         
@@ -83,7 +84,7 @@ struct StockLinesView: View {
                                    startOffset: startOffset,
                                    endOffset: endOffset)
                             .fill(LinearGradient(gradient:
-                                Gradient(colors: [fillColor, model.seriesAttributes.colors[4].color(self.colorScheme)]),
+                                Gradient(colors: [fillColor, model.seriesAttributes[seriesIndex].palette.colors[4].color(self.colorScheme)]),
                                                  startPoint: .top,
                                                  endPoint: .bottom))
                             .frame(width: width, height: height)
@@ -97,7 +98,7 @@ struct StockLinesView: View {
                                    layoutDirection: self.layoutDirection,
                                    startOffset: startOffset,
                                    endOffset: endOffset)
-                            .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes.linesWidth[model.currentSeriesIndex % model.seriesAttributes.linesWidth.count]))
+                            .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes[seriesIndex].lineWidth))
                             .frame(width: width, height: height)
                             .clipped()
                         Spacer(minLength: 0)

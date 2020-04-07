@@ -36,7 +36,7 @@ struct Settings: View {
                 
                 NavigationLink("Selection", destination: SettingsSelection(model: model))
                 
-                NavigationLink("Series", destination: SettingsSeries(model: model))
+                NavigationLink("Series Collection", destination: SettingsSeriesCollection(model: model))
                 
                 if model.colorsForCategory.count > 0 {
                     NavigationLink("Color for categories", destination: SettingsColorForCategory(model: model))
