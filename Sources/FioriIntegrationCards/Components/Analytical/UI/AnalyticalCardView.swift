@@ -25,7 +25,12 @@ public struct AnalyticalCardView: View {
                 ChartView(self.model.chartModel)
                     .frame(minHeight: 260, alignment: .topLeading)
             }
-            .frame(maxWidth: 417, alignment: .topLeading)
+//            .frame(maxWidth: 417, alignment: .topLeading)
+            .padding(16)
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(Color.gray, lineWidth: 0.5)
+            ).padding(16)
         }
     }
     
