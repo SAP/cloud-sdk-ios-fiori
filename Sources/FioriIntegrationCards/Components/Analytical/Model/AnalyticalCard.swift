@@ -87,12 +87,13 @@ public class AnalyticalCard: BaseBaseCard {
                 }
             }, receiveValue: { [unowned self] object in
                 let data = self.chartDataTemplate.replacingPlaceholders(withValuesIn: object)
-                guard let series = data.measures.map({ $0.map({ $0.compactMap({ Double($0.value) }) })}) else { preconditionFailure() }
+                guard let chartType = ChartType(from: self.content!.chartType),
+                    let series = data.measures.map({ $0.map({ $0.compactMap({ Double($0.value) }) })}) else { preconditionFailure() }
                 let labelsForDimension: [[String]]? = data.measures?.map({ $0.map({ $0.label })})
                 let titlesForCategory: [[String]]? = data.dimensions?.map({ $0.map({ $0.value }) })
                 let axesTitles: [String]? = data.dimensions?.map({ $0.map({ $0.label }).first ?? "" })
                 
-                let model = ChartModel(chartType: .line, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: axesTitles, labelsForDimension: labelsForDimension)
+                let model = ChartModel(chartType: chartType, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: axesTitles, labelsForDimension: labelsForDimension)
                 self.chartModel = model
             })
             .store(in: &subscribers)
@@ -100,6 +101,23 @@ public class AnalyticalCard: BaseBaseCard {
     }
     
     @Published var chartModel: ChartModel = ChartModel(chartType: .line, data: Array<Array<Double>>())
+}
+
+extension ChartType {
+    init?(from analyticalCardType: String) {
+        switch analyticalCardType.lowercased() {
+            case "line":
+                self = .line
+            case "stackedbar":
+                self = .bar
+            case "stackedcolumn":
+                self = .stackedColumn
+            case "donut":
+                self = .donut
+            default:
+                return nil
+        }
+    }
 }
 
 extension AnalyticalCard: Hashable {

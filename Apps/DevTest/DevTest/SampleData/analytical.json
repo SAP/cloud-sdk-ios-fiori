@@ -48,7 +48,7 @@
             ]
         },
 		"content": {
-            "chartType": "StackedColumn",
+            "chartType": "Line",
             "legend": {
                 "visible": false
             },
