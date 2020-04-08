@@ -89,11 +89,11 @@ public class AnalyticalCard: BaseBaseCard {
                 let data = self.chartDataTemplate.replacingPlaceholders(withValuesIn: object)
                 guard let chartType = ChartType(from: self.content!.chartType),
                     let series = data.measures.map({ $0.map({ $0.compactMap({ Double($0.value) }) })}) else { preconditionFailure() }
-                let labelsForDimension: [[String]]? = data.measures?.map({ $0.map({ $0.label })})
-                let titlesForCategory: [[String]]? = data.dimensions?.map({ $0.map({ $0.value }) })
-                let axesTitles: [String]? = data.dimensions?.map({ $0.map({ $0.label }).first ?? "" })
+                let labelsForDimension: [[String?]]? = data.measures?.map({ $0.map({ $0.label })})
+                let titlesForCategory: [[String?]]? = data.dimensions?.map({ $0.map({ $0.value }) })
+                //let axesTitles: [String]? = data.dimensions?.map({ $0.map({ $0.label }).first ?? "" })
                 
-                let model = ChartModel(chartType: chartType, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: axesTitles, labelsForDimension: labelsForDimension)
+                let model = ChartModel(chartType: chartType, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: nil, labelsForDimension: labelsForDimension)
                 self.chartModel = model
             })
             .store(in: &subscribers)
