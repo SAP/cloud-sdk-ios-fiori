@@ -4,7 +4,7 @@ Thank you for your interest in contributing to our project! It's people like you
 
 We welcome any type of contribution, not only code. You can help and 
 - **analyze issues**: take a look at the [open issues](https://github.com/SAP/cloud-sdk-ios-fiori/issues?state=open). Even if you can't write code, commenting on them, showing that you care about a given issue matters. It helps us triage them.
-- **report an issue**: do not hesitate to file a  [new issue](https://github.com/SAP/openui5/issues/new). The more details you can give the better
+- **report an issue**: do not hesitate to file a  [new issue](https://github.com/SAP/cloud-sdk-ios-fiori/issues/new). The more details you can give the better
 - **provide feedback**: is the README insufficient or the API documentation unclear? Let us know!
 
 ## Submitting code and pull request handling
