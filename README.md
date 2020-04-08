@@ -28,6 +28,9 @@ To add to your framework target, add the repository URL to your **Package.swift*
 ## Known Issues
 ## How to obtain support
 ## Contributing
+
+If you want to contribute, please check the [Contribution Guidelines](./CONTRIBUTING.md).
+
 ## To-Do (upcoming changes)
 
 ## Project setup
