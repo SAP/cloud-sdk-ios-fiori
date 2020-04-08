@@ -47,6 +47,8 @@ enum ChartValueType {
     case mixed
 }
 
+public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String?
+
 public class ChartModel: ObservableObject, Identifiable {
 
     ///
@@ -103,16 +105,19 @@ public class ChartModel: ObservableObject, Identifiable {
     
     /// data
     @Published public var chartType: ChartType
-    /// seires -> category -> dimension
+    /// seires -> category -> dimension (either a single value or an array)
     @Published public var data: [[DimensionData<Double>]]
-    // To be changed
-    //@Published public var titlesForCategory: [[String?]]
+
+    //@Published public var titlesForCategory: [[String?]]?
     @Published public var titlesForCategory: [[String]]?
-    @Published public var titlesForAxis: [String]?
     
-    // To be changed
-    // @Published public var labelsForDimension: [[DimensionData<String?>]]
-    @Published public var labelsForDimension: [[DimensionData<String>]]?
+    @Published public var titlesForAxis: [ChartAxisId: String]?
+    
+    @Published public var labelsForDimension: [[DimensionData<String?>]]?
+    //@Published public var labelsForDimension: [[DimensionData<String>]]?
+    
+    /// app to provide this to format values from numeric axis
+    public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
     
     @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
     
@@ -241,8 +246,8 @@ public class ChartModel: ObservableObject, Identifiable {
                 data: [[Double]],
                 titlesForCategory: [[String]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
-                titlesForAxis: [String]? = nil,
-                labelsForDimension: [[String]]? = nil,
+                titlesForAxis: [ChartAxisId: String]? = nil,
+                labelsForDimension: [[String?]]? = nil,
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
@@ -294,9 +299,9 @@ public class ChartModel: ObservableObject, Identifiable {
         self.data = tmpData
         
         if let labels = labelsForDimension {
-            var tmpLabels: [[DimensionData<String>]] = []
+            var tmpLabels: [[DimensionData<String?>]] = []
             for c in labels {
-                var s: [DimensionData<String>] = []
+                var s: [DimensionData<String?>] = []
                 for d in c {
                     s.append(DimensionData.single(d))
                 }
@@ -357,8 +362,8 @@ public class ChartModel: ObservableObject, Identifiable {
                 data: [[[Double]]],
                 titlesForCategory: [[String]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
-                titlesForAxis: [String]? = nil,
-                labelsForDimension: [[[String]]]? = nil,
+                titlesForAxis: [ChartAxisId: String]? = nil,
+                labelsForDimension: [[[String?]]]? = nil,
                 selectedSeriesIndex: Int? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
@@ -410,9 +415,9 @@ public class ChartModel: ObservableObject, Identifiable {
         self.data = tmpData
         
         if let labels = labelsForDimension {
-            var tmpLabels: [[DimensionData<String>]] = []
+            var tmpLabels: [[DimensionData<String?>]] = []
             for c in labels {
-                var s: [DimensionData<String>] = []
+                var s: [DimensionData<String?>] = []
                 for d in c {
                     s.append(DimensionData.array(d))
                 }
