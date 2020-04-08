@@ -296,6 +296,12 @@ class DefaultAxisDataSource: AxisDataSource {
     }
     
     func yAxisFormattedString(_ model: ChartModel, value: Double) -> String {
+        if let labelHandler = model.numericAxisLabelFormatHandler {
+            if let res = labelHandler(value, ChartAxisId.y) {
+                return res
+            }
+        }
+        
         if model.numericAxis.abbreviatesLabels {
             return abbreviatedString(for: value, useSuffix: model.numericAxis.isMagnitudedDisplayed, abbreviatedFormatter: model.numericAxis.abbreviatedFormatter)
         }
