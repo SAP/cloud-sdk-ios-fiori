@@ -108,13 +108,11 @@ public class ChartModel: ObservableObject, Identifiable {
     /// seires -> category -> dimension (either a single value or an array)
     @Published public var data: [[DimensionData<Double>]]
 
-    //@Published public var titlesForCategory: [[String?]]?
-    @Published public var titlesForCategory: [[String]]?
+    @Published public var titlesForCategory: [[String?]]?
     
     @Published public var titlesForAxis: [ChartAxisId: String]?
     
     @Published public var labelsForDimension: [[DimensionData<String?>]]?
-    //@Published public var labelsForDimension: [[DimensionData<String>]]?
     
     /// app to provide this to format values from numeric axis
     public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
@@ -244,7 +242,7 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public init(chartType: ChartType,
                 data: [[Double]],
-                titlesForCategory: [[String]]? = nil,
+                titlesForCategory: [[String?]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
@@ -270,7 +268,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.titlesForCategory = titlesForCategory
         } else {
             if let titles = titlesForCategory {
-                var modifiedTitlesForCategory: [[String]] = []
+                var modifiedTitlesForCategory: [[String?]] = []
                 for (i, category) in titles.enumerated() {
                     if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
                         intradayIndex.append(i)
@@ -360,7 +358,7 @@ public class ChartModel: ObservableObject, Identifiable {
     
     public init(chartType: ChartType,
                 data: [[[Double]]],
-                titlesForCategory: [[String]]? = nil,
+                titlesForCategory: [[String?]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
@@ -386,7 +384,7 @@ public class ChartModel: ObservableObject, Identifiable {
             self.titlesForCategory = titlesForCategory
         } else {
             if let titles = titlesForCategory {
-                var modifiedTitlesForCategory: [[String]] = []
+                var modifiedTitlesForCategory: [[String?]] = []
                 for (i, category) in titles.enumerated() {
                     if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
                         intradayIndex.append(i)
@@ -519,17 +517,23 @@ public class ChartModel: ObservableObject, Identifiable {
     }
     
     // interpolate time strings in categoryTitles if it is intraday mode and return modified titles
-    static func preprocessIntradayDataForStock(_ categoryTitles: [String]) -> [String]? {
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        var dataChanged = false
-        
+    static func preprocessIntradayDataForStock(_ categoryTitles: [String?]) -> [String?]? {
         let count = categoryTitles.count
-        if count >= 3,
-            let startTime = ChartUtility.date(from: categoryTitles[0]),
-            let secondTime = ChartUtility.date(from: categoryTitles[1]),
-            let timeBeforeEndTime = ChartUtility.date(from: categoryTitles[count - 2]),
-            let endTime = ChartUtility.date(from: categoryTitles[count - 1]) {
+        if count < 3 {
+            return nil
+        }
+        
+        if let c0 = categoryTitles[0],
+        let c1 = categoryTitles[1],
+        let c2 = categoryTitles[count - 2],
+        let c3 = categoryTitles[count - 1],
+        let startTime = ChartUtility.date(from: c0),
+        let secondTime = ChartUtility.date(from: c1),
+        let timeBeforeEndTime = ChartUtility.date(from: c2),
+        let endTime = ChartUtility.date(from: c3) {
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            var dataChanged = false
             
             let startTimeInterval = secondTime.timeIntervalSince(startTime)
             var endTimeInterval = endTime.timeIntervalSince(timeBeforeEndTime)
