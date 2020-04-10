@@ -5,7 +5,6 @@
 //  Created by Xu, Sheng on 3/19/20.
 //
 
-import UIKit
 import SwiftUI
 
 enum DragState {
