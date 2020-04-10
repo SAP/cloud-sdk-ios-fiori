@@ -26,7 +26,10 @@ public class ChartPointAttributes: ObservableObject, Identifiable {
     
     public let id = UUID()
     
-    public init(isHidden: Bool = false, diameter: Double = 4, strokeColor: HexColor = Palette.hexColor(for: .primary2), gap: Double = 2) {
+    public init(isHidden: Bool = false,
+                diameter: Double = 4,
+                strokeColor: HexColor = Palette.hexColor(for: .primary2),
+                gap: Double = 2) {
         self._isHidden = Published(initialValue: isHidden)
         self._diameter = Published(initialValue: diameter)
         self._strokeColor = Published(initialValue: strokeColor)
