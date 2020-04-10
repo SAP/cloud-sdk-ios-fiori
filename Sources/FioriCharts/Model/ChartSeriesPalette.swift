@@ -9,7 +9,12 @@ import Foundation
 
 public class ChartSeriesPalette: ObservableObject, Identifiable {
     
-    public init(colors: [HexColor], labelColor: HexColor, positiveMaxColor: HexColor, positiveMinColor: HexColor, negativeMaxColor: HexColor, negativeMinColor: HexColor) {
+    public init(colors: [HexColor],
+                labelColor: HexColor,
+                positiveMaxColor: HexColor,
+                positiveMinColor: HexColor,
+                negativeMaxColor: HexColor,
+                negativeMinColor: HexColor) {
         if colors.count > 0 {
             self._colors = Published(initialValue: colors)
         }
