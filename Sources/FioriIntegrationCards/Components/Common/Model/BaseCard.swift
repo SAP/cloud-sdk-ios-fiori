@@ -144,7 +144,9 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
         // MARK: - Decode `header`, `content`, `template`, and 3 data fetchers
         
         let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
-        header = try container.decode(Header.self, forKey: .header)
+        
+        let tempHeader = try container.decode(Header.self, forKey: .header)
+        _header = Published(initialValue: tempHeader)
         
         // MARK: get nested data from header node
         let headerContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .header)

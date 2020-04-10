@@ -23,8 +23,11 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
     
     required public init(from decoder: Decoder) throws {
         let _container = try decoder.container(keyedBy: CodingKeys.self)
-        app = try _container.decode(App.self, forKey: .app)
-        card = try _container.decode(Card.self, forKey: .card)
+        let tempApp = try _container.decode(App.self, forKey: .app)
+        _app = Published(initialValue: tempApp)
+        
+        let tempCard = try _container.decode(Card.self, forKey: .card)
+        _card = Published(initialValue: tempCard)
     }
 }
 
