@@ -29,24 +29,22 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
     public let id = UUID()
     
     public init(palette: ChartSeriesPalette? = nil, lineWidth: Double = 1, point: ChartPointAttributes? = nil, firstLineCapDiameter: Double = 0, lastLineCapDiameter: Double = 0) {
-        //self.color = color
-        
         if let palette = palette {
-            self.palette = palette
+            self._palette = Published(initialValue: palette)
         }
         else {
-            self.palette = ChartSeriesPalette(colors: [])
+            self._palette = Published(initialValue: ChartSeriesPalette(colors: []))
         }
         
-        self.lineWidth = lineWidth
+        self._lineWidth = Published(initialValue: lineWidth)
         
         if let point = point {
-            self.point = point
+            self._point = Published(initialValue: point)
         } else {
-            self.point = ChartPointAttributes()
+            self._point = Published(initialValue: ChartPointAttributes())
         }
         
-        self.firstLineCapDiameter = firstLineCapDiameter
-        self.lastLineCapDiameter = lastLineCapDiameter
+        self._firstLineCapDiameter = Published(initialValue: firstLineCapDiameter)
+        self._lastLineCapDiameter = Published(initialValue: lastLineCapDiameter)
     }
 }

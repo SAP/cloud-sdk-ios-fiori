@@ -11,17 +11,17 @@ public class ChartSeriesPalette: ObservableObject, Identifiable {
     
     public init(colors: [HexColor], labelColor: HexColor, positiveMaxColor: HexColor, positiveMinColor: HexColor, negativeMaxColor: HexColor, negativeMinColor: HexColor) {
         if colors.count > 0 {
-            self.colors = colors
+            self._colors = Published(initialValue: colors)
         }
         else {
-            self.colors = [Palette.hexColor(for: .primary1)]
+            self._colors = Published(initialValue: [Palette.hexColor(for: .primary1)])
         }
         
-        self.labelColor = labelColor
-        self.positiveMaxColor = positiveMaxColor
-        self.positiveMinColor = positiveMinColor
-        self.negativeMaxColor = negativeMaxColor
-        self.negativeMinColor = negativeMinColor
+        self._labelColor = Published(initialValue: labelColor)
+        self._positiveMaxColor = Published(initialValue: positiveMaxColor)
+        self._positiveMinColor = Published(initialValue: positiveMinColor)
+        self._negativeMaxColor = Published(initialValue: negativeMaxColor)
+        self._negativeMinColor = Published(initialValue: negativeMinColor)
     }
 
     public convenience init(colors: [HexColor], labelColor: HexColor) {

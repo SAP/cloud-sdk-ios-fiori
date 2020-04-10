@@ -11,11 +11,11 @@ import SwiftUI
 /// Gridline properties for an Axis.
 public class ChartGridlineAttributes: ObservableObject, Identifiable {
     public init(width: Double = 1, color: HexColor = Palette.hexColor(for: .primary3), dashPatternLength: Double = 1, dashPatternGap: Double = 3, isHidden: Bool = false) {
-        self.width = width
-        self.color = color
-        self.dashPatternLength = dashPatternLength
-        self.dashPatternGap = dashPatternGap
-        self.isHidden = isHidden
+        self._width = Published(initialValue: width)
+        self._color = Published(initialValue: color)
+        self._dashPatternLength = Published(initialValue: dashPatternLength)
+        self._dashPatternGap = Published(initialValue: dashPatternGap)
+        self._isHidden = Published(initialValue: isHidden)
     }
 
     @Published public var width: Double
@@ -34,8 +34,8 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable {
 public class ChartBaselineAttributes: ChartGridlineAttributes {
 
     public init(width: Double = 2, color: HexColor = Palette.hexColor(for: .primary3), dashPatternLength: Double = 1, dashPatternGap: Double = 0, isHidden: Bool = false, value: Double? = nil, position: Double? = nil) {
-        self.value = value
-        self.position = position
+        self._value = Published(initialValue: value)
+        self._position = Published(initialValue: position)
         
         super.init(width: width, color: color, dashPatternLength: dashPatternLength, dashPatternGap: dashPatternGap, isHidden: isHidden)
     }

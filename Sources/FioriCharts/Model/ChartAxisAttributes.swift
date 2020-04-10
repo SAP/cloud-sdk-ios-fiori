@@ -53,33 +53,34 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
     public let id = UUID()
     
     public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil) {
-        self.axisId = axisId
+        self._axisId = Published(initialValue: axisId)
         
         if let baselineAttributes = baseline {
-            self.baseline = baselineAttributes
+            self._baseline = Published(initialValue: baselineAttributes)
         } else {
-            self.baseline = ChartBaselineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: nil, position: nil)
+            let bl = ChartBaselineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: nil, position: nil)
+            self._baseline = Published(initialValue: bl)
         }
         
         if let gridlinesAttributes = gridlines {
-            self.gridlines = gridlinesAttributes
+            self._gridlines = Published(initialValue: gridlinesAttributes)
         } else {
-            self.gridlines = ChartGridlineAttributes()
+            self._gridlines = Published(initialValue: ChartGridlineAttributes())
         }
         
         if let labelsAttributes = labels {
-            self.labels = labelsAttributes
+            self._labels = Published(initialValue: labelsAttributes)
         } else {
-            self.labels = ChartLabelAttributes()
+            self._labels = Published(initialValue: ChartLabelAttributes())
         }
         
         if let titleLabelsAttributes = titleLabel {
-            self.titleLabel = titleLabelsAttributes
+            self._titleLabel = Published(initialValue: titleLabelsAttributes)
         } else {
-            self.titleLabel = ChartLabelAttributes()
+            self._titleLabel = Published(initialValue: ChartLabelAttributes())
         }
         
-        self.title = title
+        self._title = Published(initialValue: title)
     }
 }
 
@@ -98,29 +99,29 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     
     public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
-            self.formatter = formatter
+            self._formatter = Published(initialValue: formatter)
         } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
-            self.formatter = formatter
+            self._formatter = Published(initialValue: formatter)
         }
         
         if let abbreviatedFormatter = abbreviatedFormatter {
-            self.abbreviatedFormatter = abbreviatedFormatter
+            self._abbreviatedFormatter = Published(initialValue: abbreviatedFormatter)
         }
         else if let formatter = formatter {
-            self.abbreviatedFormatter = formatter
+            self._abbreviatedFormatter = Published(initialValue: formatter)
         }
         else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
-            self.abbreviatedFormatter = formatter
+            self._abbreviatedFormatter = Published(initialValue: formatter)
         }
         
-        self.isZeroBased = true
-        self.abbreviatesLabels = abbreviatesLabels
-        self.explicitMin = explicitMin
-        self.explicitMax = explicitMax
+        self._isZeroBased = Published(initialValue: true)
+        self._abbreviatesLabels = Published(initialValue: abbreviatesLabels)
+        self._explicitMin = Published(initialValue: explicitMin)
+        self._explicitMax = Published(initialValue: explicitMax)
         
         super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title)
     }
@@ -225,7 +226,7 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     }
     
     public init(labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
-        self.labelLayoutStyle = labelLayoutStyle
+        self._labelLayoutStyle = Published(initialValue: labelLayoutStyle)
         
         super.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
