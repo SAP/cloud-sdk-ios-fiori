@@ -252,20 +252,20 @@ public class ChartModel: ObservableObject, Identifiable {
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
-        self.chartType = chartType
+        self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
-            self.colorsForCategory = colorsForCategory
+            self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self.colorsForCategory = [Int: [Int: HexColor]]()
+            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
         }
         
-        self.titlesForAxis = titlesForAxis
-        self.selectedSeriesIndex = selectedSeriesIndex
-        self.userInteractionEnabled = userInteractionEnabled
+        self._titlesForAxis = Published(initialValue: titlesForAxis)
+        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
         if chartType != .stock {
-            self.titlesForCategory = titlesForCategory
+            self._titlesForCategory = Published(initialValue: titlesForCategory)
         } else {
             if let titles = titlesForCategory {
                 var modifiedTitlesForCategory: [[String?]] = []
@@ -278,7 +278,7 @@ public class ChartModel: ObservableObject, Identifiable {
                     }
                 }
                 
-                self.titlesForCategory = modifiedTitlesForCategory
+                self._titlesForCategory = Published(initialValue: modifiedTitlesForCategory)
             }
         }
     
@@ -294,7 +294,7 @@ public class ChartModel: ObservableObject, Identifiable {
             }
             tmpData.append(s)
         }
-        self.data = tmpData
+        self._data = Published(initialValue: tmpData)
         
         if let labels = labelsForDimension {
             var tmpLabels: [[DimensionData<String?>]] = []
@@ -305,52 +305,53 @@ public class ChartModel: ObservableObject, Identifiable {
                 }
                 tmpLabels.append(s)
             }
-            self.labelsForDimension = tmpLabels
+            self._labelsForDimension = Published(initialValue: tmpLabels)
         }
         
         if let categoryAxis = categoryAxis {
-            self.categoryAxis = categoryAxis
+            self._categoryAxis = Published(initialValue: categoryAxis)
         } else {
             let axis = ChartCategoryAxisAttributes()
             if chartType != .stock {
                 axis.gridlines.isHidden = true
             }
-            self.categoryAxis = axis
+            self._categoryAxis = Published(initialValue: axis)
         }
         
         if let numericAxis = numericAxis {
-            self.numericAxis = numericAxis
+            self._numericAxis = Published(initialValue: numericAxis)
         } else {
             let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
             }
-            self.numericAxis = axis
+            self._numericAxis = Published(initialValue: axis)
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
-            self.secondaryNumericAxis = secondaryNumericAxis
+            self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         } else {
             let axis = ChartNumericAxisAttributes()
             if chartType != .stock {
                 axis.baseline.isHidden = true
             }
-            self.secondaryNumericAxis = axis
+            self._secondaryNumericAxis = Published(initialValue: axis)
         }
         
         if let seriesAttributes = seriesAttributes {
             if seriesAttributes.count == data.count {
-                self.seriesAttributes = seriesAttributes
+                self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
             else {
                 var tmp = seriesAttributes
                 for i in seriesAttributes.count ..< data.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
                 }
-                self.seriesAttributes = seriesAttributes
+                self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
         } else {
-            self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+            self._seriesAttributes = Published(initialValue: sa)
         }
         
         initialize()
@@ -368,20 +369,20 @@ public class ChartModel: ObservableObject, Identifiable {
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
-        self.chartType = chartType
+        self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
-            self.colorsForCategory = colorsForCategory
+            self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self.colorsForCategory = [Int: [Int: HexColor]]()
+            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
         }
         
-        self.titlesForAxis = titlesForAxis
-        self.selectedSeriesIndex = selectedSeriesIndex
-        self.userInteractionEnabled = userInteractionEnabled
+        self._titlesForAxis = Published(initialValue: titlesForAxis)
+        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
         if chartType != .stock {
-            self.titlesForCategory = titlesForCategory
+            self._titlesForCategory = Published(initialValue: titlesForCategory)
         } else {
             if let titles = titlesForCategory {
                 var modifiedTitlesForCategory: [[String?]] = []
@@ -394,7 +395,7 @@ public class ChartModel: ObservableObject, Identifiable {
                     }
                 }
                 
-                self.titlesForCategory = modifiedTitlesForCategory
+                self._titlesForCategory = Published(initialValue: modifiedTitlesForCategory)
             }
         }
         
@@ -410,7 +411,7 @@ public class ChartModel: ObservableObject, Identifiable {
             }
             tmpData.append(s)
         }
-        self.data = tmpData
+        self._data = Published(initialValue: tmpData)
         
         if let labels = labelsForDimension {
             var tmpLabels: [[DimensionData<String?>]] = []
@@ -421,40 +422,41 @@ public class ChartModel: ObservableObject, Identifiable {
                 }
                 tmpLabels.append(s)
             }
-            self.labelsForDimension = tmpLabels
+            self._labelsForDimension = Published(initialValue: tmpLabels)
         }
         
         if let numericAxis = numericAxis {
-            self.numericAxis = numericAxis
+            self._numericAxis = Published(initialValue: numericAxis)
         } else {
-            self.numericAxis = ChartNumericAxisAttributes()
+            self._numericAxis = Published(initialValue: ChartNumericAxisAttributes())
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
-            self.secondaryNumericAxis = secondaryNumericAxis
+            self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         } else {
-            self.secondaryNumericAxis = ChartNumericAxisAttributes()
+            self._secondaryNumericAxis = Published(initialValue: ChartNumericAxisAttributes())
         }
         
         if let categoryAxis = categoryAxis {
-            self.categoryAxis = categoryAxis
+            self._categoryAxis = Published(initialValue: categoryAxis)
         } else {
-            self.categoryAxis = ChartCategoryAxisAttributes()
+            self._categoryAxis = Published(initialValue: ChartCategoryAxisAttributes())
         }
         
         if let seriesAttributes = seriesAttributes {
             if seriesAttributes.count == data.count {
-                self.seriesAttributes = seriesAttributes
+                self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
             else {
                 var tmp = seriesAttributes
                 for i in seriesAttributes.count ..< data.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
                 }
-                self.seriesAttributes = seriesAttributes
+                self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
         } else {
-            self.seriesAttributes = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+            self._seriesAttributes = Published(initialValue: sa)
         }
         
         initialize()
