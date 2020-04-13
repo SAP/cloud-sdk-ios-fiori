@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct LinesShape: Shape {
-    var points: [Double]
+    var points: [Double?]
     
     // min and max value for the display range
     var displayRange: ClosedRange<CGFloat>
@@ -18,7 +18,7 @@ public struct LinesShape: Shape {
     var startOffset: CGFloat = 0
     var endOffset: CGFloat = 0
     
-    public init(points: [Double], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [Double?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.layoutDirection = layoutDirection
@@ -30,8 +30,9 @@ public struct LinesShape: Shape {
         if let range = displayRange {
             self.displayRange = range
         } else {
-            let maxValue = CGFloat(points.max() ?? 0)
-            let minValue = CGFloat(points.min() ?? 0)
+            let compactPoints = points.compactMap { $0 }
+            let minValue = CGFloat(compactPoints.min() ?? 0)
+            let maxValue = CGFloat(compactPoints.max() ?? Double((minValue + 1)))
             self.displayRange = minValue ... maxValue
         }
     }
@@ -43,41 +44,92 @@ public struct LinesShape: Shape {
             return path
         }
         
-        let data = points.map { rect.size.height - (CGFloat($0) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound) }
-        
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
-        let x = ChartUtility.xPos(startOffset, layoutDirection: layoutDirection, width: rect.size.width)
-        var p1 = CGPoint(x: x, y: CGFloat(data[0]))
-        if fill {
-            path.move(to: CGPoint(x: x, y: rect.size.height))
-            path.addLine(to: p1)
-        } else {
-            path.move(to: p1)
-        }
-        
-        if data.count < 2 {
-            return path
-        }
-        
-        for i in 1 ..< data.count {
-            let p2 = CGPoint(x: ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width), y: data[i])
-            if curve {
-                let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
-                path.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
-                path.addQuadCurve(to: p2, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p2))
-            } else {
-                path.addLine(to: p2)
+        let data: [CGFloat?] = points.map {
+            if let val = $0 {
+                return yPosition(from: CGFloat(val), in: rect)
             }
-            
-            p1 = p2
+            else {
+                return nil
+            }
+        }
+
+        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
+        var prevPt: CGPoint? = nil
+        var fillOrigY: CGFloat = yPosition(from: 0, in: rect)
+        if displayRange.lowerBound > 0 {
+            fillOrigY = yPosition(from: displayRange.lowerBound, in: rect)
+        }
+        else if displayRange.upperBound < 0 {
+            fillOrigY = yPosition(from: displayRange.upperBound, in: rect)
         }
         
-        if fill {
-            path.addLine(to: CGPoint(x: p1.x, y: rect.size.height))
-            path.closeSubpath()
+        var subPath: Path? = nil
+        
+        for i in 0 ..< data.count {
+            if let val = data[i] { // cur point is not nil
+                let x = ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width)
+                let p2 = CGPoint(x: x, y: val)
+                
+                // prev point is not nil
+                if let p1 = prevPt {
+                    if curve {
+                        let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
+                        subPath?.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
+                        subPath?.addQuadCurve(to: p2, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p2))
+                    } else {
+                        subPath?.addLine(to: p2)
+                    }
+                }
+                else { // prev point is nil
+                    subPath = Path()
+                    
+                    if fill {
+                        subPath?.move(to: CGPoint(x: x, y: fillOrigY))
+                        subPath?.addLine(to: p2)
+                    } else {
+                        subPath?.move(to: p2)
+                    }
+                }
+                
+                prevPt = p2
+            }
+            else { // cur point is nil
+                if let p1 = prevPt { // prev point is not nil
+                    if fill {
+                        subPath?.addLine(to: CGPoint(x: p1.x, y: fillOrigY))
+                        subPath?.closeSubpath()
+                    }
+                    
+                    // finish the sub path
+                    if let tmpPath = subPath {
+                        path.addPath(tmpPath)
+                    }
+                    subPath = nil
+                }
+                
+                prevPt = nil
+            }
+        }
+        
+        if fill, let p1 = prevPt { // prev point is not nil
+            subPath?.addLine(to: CGPoint(x: p1.x, y: fillOrigY))
+            subPath?.closeSubpath()
+        }
+        
+        if let tmpPath = subPath {
+            path.addPath(tmpPath)
         }
         
         return path
+    }
+    
+    func yPosition(from val: CGFloat, in rect: CGRect) -> CGFloat {
+        if displayRange.upperBound == displayRange.lowerBound {
+            return 0
+        }
+        else {
+            return rect.size.height - (val - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)
+        }
     }
 }
 
@@ -109,6 +161,11 @@ struct LinesShape_Previews: PreviewProvider {
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
                 .frame(width: 400, height: 200)
                 .previewLayout(.sizeThatFits)
+            
+            LinesShape(points: [600, 700, nil, 750, 720, -200, -100], fill: true)
+            .fill(LinearGradient(gradient: Gradient(colors: [.blue, .white]), startPoint: .top, endPoint: .bottom))
+            .frame(width: 400, height: 200)
+            .previewLayout(.sizeThatFits)
             
             // pan left 10 points
             LinesShape(points: [600, 700, 650, 750, 720, 720], startOffset: -10, endOffset: 90)

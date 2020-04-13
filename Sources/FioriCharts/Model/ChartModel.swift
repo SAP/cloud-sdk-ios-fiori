@@ -106,7 +106,7 @@ public class ChartModel: ObservableObject, Identifiable {
     /// data
     @Published public var chartType: ChartType
     /// seires -> category -> dimension (either a single value or an array)
-    @Published public var data: [[DimensionData<Double>]]
+    @Published public var data: [[DimensionData<Double?>]]
 
     @Published public var titlesForCategory: [[String?]]?
     
@@ -241,7 +241,7 @@ public class ChartModel: ObservableObject, Identifiable {
     public let id = UUID()
     
     public init(chartType: ChartType,
-                data: [[Double]],
+                data: [[Double?]],
                 titlesForCategory: [[String?]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
@@ -282,9 +282,9 @@ public class ChartModel: ObservableObject, Identifiable {
             }
         }
     
-        var tmpData: [[DimensionData<Double>]] = []
+        var tmpData: [[DimensionData<Double?>]] = []
         for (i, c) in data.enumerated() {
-            var s: [DimensionData<Double>] = []
+            var s: [DimensionData<Double?>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
@@ -358,7 +358,7 @@ public class ChartModel: ObservableObject, Identifiable {
     }
     
     public init(chartType: ChartType,
-                data: [[[Double]]],
+                data: [[[Double?]]],
                 titlesForCategory: [[String?]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
@@ -399,9 +399,9 @@ public class ChartModel: ObservableObject, Identifiable {
             }
         }
         
-        var tmpData: [[DimensionData<Double>]] = []
+        var tmpData: [[DimensionData<Double?>]] = []
         for (i, c) in data.enumerated() {
-            var s: [DimensionData<Double>] = []
+            var s: [DimensionData<Double?>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
@@ -498,9 +498,9 @@ public class ChartModel: ObservableObject, Identifiable {
                     var allValues: [Double] = []
                     
                     if let _ = data[i].first?.value {
-                        allValues = data[i].map { $0.value! }
+                        allValues = data[i].compactMap { $0.value! }
                     } else if let _ = data[i].first?.values {
-                        allValues = data[i].map({ $0.values!.first! })
+                        allValues = data[i].compactMap { $0.values!.first! }
                     }
                                         
                     let min = allValues.min() ?? 0
@@ -633,13 +633,13 @@ extension ChartModel {
         
         for i in 0 ..< data[seriesIndex].count {
             if data[seriesIndex][i].count > dimensionIndex {
-                let value = data[seriesIndex][i][dimensionIndex]
-                
-                let item = MicroChartDataItem(value: CGFloat(value),
-                                              displayValue: labelAt(seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: dimensionIndex),
-                                              label: titleAt(seriesIndex: seriesIndex, categoryIndex: i),
-                                              color: colorAt(seriesIndex: seriesIndex, categoryIndex: i))
-                res.append(item)
+                if let value = data[seriesIndex][i][dimensionIndex] {
+                    let item = MicroChartDataItem(value: CGFloat(value),
+                                                  displayValue: labelAt(seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: dimensionIndex),
+                                                  label: titleAt(seriesIndex: seriesIndex, categoryIndex: i),
+                                                  color: colorAt(seriesIndex: seriesIndex, categoryIndex: i))
+                    res.append(item)
+                }
             }
         }
         

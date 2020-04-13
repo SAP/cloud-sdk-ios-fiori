@@ -46,10 +46,10 @@ struct LinesView: View {
             noData = true
         }
         
-        var data: [[Double]] = Array(repeating: [], count: model.data.count)
+        var data: [[Double?]] = Array(repeating: [], count: model.data.count)
         if !noData {
             for (i, category) in model.data.enumerated() {
-                var s: [Double] = []
+                var s: [Double?] = []
                 for i in startIndex...endIndex {
                     if let val = category[i].first {
                         s.append(val)
