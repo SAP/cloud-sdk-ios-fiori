@@ -53,7 +53,7 @@ struct StockLinesView: View {
         }
         
         let seriesIndex = model.currentSeriesIndex
-        var data: [Double] = []
+        var data: [Double?] = []
         if !noData {
             let curDisplayData = model.data[seriesIndex][startIndex...endIndex]
             data = curDisplayData.map { $0.first ?? 0 }

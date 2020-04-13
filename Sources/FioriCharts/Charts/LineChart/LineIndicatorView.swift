@@ -25,8 +25,7 @@ struct LineIndicatorView: View {
     func content(rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var x: CGFloat = 0
-        var yPos: [CGFloat] = []
-        
+        var yPosDict = [Int: CGFloat]()
         if let tmp = model.selectedCategoryInRange {
             selectedCategoryRange = tmp
         }
@@ -47,12 +46,14 @@ struct LineIndicatorView: View {
             
             for i in 0 ..< model.data.count {
                 if let value = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: closestDataIndex) {
-                    
                     let y = rect.size.height - (CGFloat(value) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
-                    yPos.append(y)
+                    yPosDict[i] = y
                 }
             }
         }
+        
+        let seriesIndexes = Array(yPosDict.keys.sorted())
+        
         
         return ZStack {
             if closestDataIndex >= 0 {
@@ -61,11 +62,12 @@ struct LineIndicatorView: View {
                           layoutDirection: layoutDirection)
                     .stroke(Palette.hexColor(for: .primary1).color(colorScheme), lineWidth: 1)
                 
-                ForEach(0 ..< model.data.count) { i in
+                ForEach(seriesIndexes, id: \.self) { i in
                     Circle()
                         .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
-                        .frame(width: CGFloat(self.model.seriesAttributes[i].point.diameter + 4), height: CGFloat(self.model.seriesAttributes[i].point.diameter + 4))
-                        .position(CGPoint(x: x, y: yPos[i]))
+                        .frame(width: CGFloat(self.model.seriesAttributes[i].point.diameter + 4),
+                               height: CGFloat(self.model.seriesAttributes[i].point.diameter + 4))
+                        .position(CGPoint(x: x, y: yPosDict[i] ?? 0))
                 }
             }
         }

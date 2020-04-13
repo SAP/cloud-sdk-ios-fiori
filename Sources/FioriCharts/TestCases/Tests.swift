@@ -20,14 +20,20 @@ public struct Tests {
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]]),
         ChartModel(chartType: .line,
-                   data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
+                   data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
+                          [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]]),
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]]),
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]])
+                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]]),
+        ChartModel(chartType: .line,
+                   data: [[200, 170, 165, 183, nil, nil, nil],
+                          [nil, nil, nil, 183, 196, 190, 180]],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+        ),
     ]
     
     public static let bulletModles = [
