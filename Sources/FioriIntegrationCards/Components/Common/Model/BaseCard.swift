@@ -171,8 +171,8 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
                         return
                 }
             }, receiveValue: { [unowned self] in
-                let tempHead = self.header.replacingPlaceholders(withValuesIn: $0)
-                self._header = Published(initialValue: tempHead)
+                
+                self.header = self.header.replacingPlaceholders(withValuesIn: $0)
             })
             .store(in: &subscribers)
         
