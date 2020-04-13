@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 public struct DimensionSelector: View {
     
@@ -17,21 +18,34 @@ public struct DimensionSelector: View {
     
     let interItemSpacing: CGFloat
     
-    @Binding var selectedIndex: Int?
+    public var selectedIndex: Int? {
+        get {
+            return model.selectedIndex
+        }
+        set {
+            model.selectedIndex = newValue
+        }
+    }
+    
+    public var selectionDidChangePublisher: CurrentValueSubject<Int?, Never>?
+    
+    @ObservedObject private var model: DimensionSelectorModel = DimensionSelectorModel()
     
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
-                selectedIndex: Binding<Int?>) {
+                selectedIndex: Int?) {
         self.segmentTitles = segmentTitles
         self.interItemSpacing = interItemSpacing
-        self._selectedIndex = selectedIndex
+        self.model.selectedIndex = selectedIndex
+        
+        self.selectionDidChangePublisher = CurrentValueSubject(selectedIndex)
     }
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.selectedIndex == index)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
@@ -44,12 +58,12 @@ public struct DimensionSelector: View {
     
     private func selectionDidChange(index: Int) {
         if selectedIndex != index {
-            selectedIndex = index
+            self.model.selectedIndex = index
         } else {
-            selectedIndex = nil
+            self.model.selectedIndex = nil
         }
-        
-        print("selectedIndex: \(selectedIndex)")
+                
+        selectionDidChangePublisher?.send(self.model.selectedIndex)
     }
 }
 
