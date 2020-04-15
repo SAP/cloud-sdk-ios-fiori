@@ -220,6 +220,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     var ranges: [ClosedRange<Double>]?
     
+    
     var valueType: ChartValueType {
         if let ranges = ranges {
             let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
@@ -253,19 +254,19 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 categoryAxis: ChartCategoryAxisAttributes,
                 numericAxis: ChartNumericAxisAttributes,
                 secondaryNumericAxis: ChartNumericAxisAttributes) {
-        self.chartType = chartType
-        self.data = data
-        self.titlesForCategory = titlesForCategory
-        self.colorsForCategory = colorsForCategory
-        self.titlesForAxis = titlesForAxis
-        self.labelsForDimension = labelsForDimension
-        self.backgroundColor = backgroundColor
-        self.selectedSeriesIndex = selectedSeriesIndex
-        self.userInteractionEnabled = userInteractionEnabled
-        self.seriesAttributes = seriesAttributes
-        self.categoryAxis = categoryAxis
-        self.numericAxis = numericAxis
-        self.secondaryNumericAxis = secondaryNumericAxis
+        self._chartType = Published(initialValue: chartType)
+        self._data = Published(initialValue: data)
+        self._titlesForCategory = Published(initialValue: titlesForCategory)
+        self._colorsForCategory = Published(initialValue: colorsForCategory)
+        self._titlesForAxis = Published(initialValue: titlesForAxis)
+        self._labelsForDimension = Published(initialValue: labelsForDimension)
+        self._backgroundColor = Published(initialValue: backgroundColor)
+        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
+        self._seriesAttributes = Published(initialValue: seriesAttributes)
+        self._categoryAxis = Published(initialValue: categoryAxis)
+        self._numericAxis = Published(initialValue: numericAxis)
+        self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         
         initialize()
     }
