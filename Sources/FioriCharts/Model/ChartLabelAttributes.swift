@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public class ChartLabelAttributes: ObservableObject, Identifiable {
+public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
     /// Text color for the label.
     @Published public var color: HexColor
@@ -38,5 +38,11 @@ public class ChartLabelAttributes: ObservableObject, Identifiable {
         self._offset = Published(initialValue: offset)
         self._isHidden = Published(initialValue: isHidden)
     }
-                
+        
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return ChartLabelAttributes(color: self.color,
+                                    fontSize: self.fontSize,
+                                    offset: self.offset,
+                                    isHidden: self.isHidden)
+    }
 }

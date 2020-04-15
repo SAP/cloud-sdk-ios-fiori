@@ -34,6 +34,11 @@ public struct Tests {
                           [nil, nil, nil, 183, 196, 190, 180]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
         ),
+        ChartModel(chartType: .line,
+                   data: [[nil, 220, nil, 250, 200, nil, 230],
+                          [160, nil, 130, 170, nil, 190, 180]],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+        )
     ]
     
     public static let bulletModles = [
