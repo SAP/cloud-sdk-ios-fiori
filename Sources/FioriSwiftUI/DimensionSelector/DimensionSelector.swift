@@ -27,9 +27,11 @@ public struct DimensionSelector: View {
         }
     }
     
-    public var selectionDidChangePublisher: CurrentValueSubject<Int?, Never>?
+    lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
+        self.model.$selectedIndex.eraseToAnyPublisher()
+    }()
     
-    @ObservedObject private var model: DimensionSelectorModel = DimensionSelectorModel()
+    @ObservedObject private var model: Model = Model()
     
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
@@ -37,16 +39,19 @@ public struct DimensionSelector: View {
         self.segmentTitles = segmentTitles
         self.interItemSpacing = interItemSpacing
         self.model.selectedIndex = selectedIndex
-        
-        self.selectionDidChangePublisher = CurrentValueSubject(selectedIndex)
     }
     
     public var body: some View {
+        getBody(selectionDidChangeHandler: nil)
+    }
+    
+    func getBody(selectionDidChangeHandler: ((Int?) -> Void)?) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
                     Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index)
                         .onTapGesture {
+                            selectionDidChangeHandler?(index)
                             self.selectionDidChange(index: index)
                         }
                 }
@@ -56,16 +61,28 @@ public struct DimensionSelector: View {
         }
     }
     
-    private func selectionDidChange(index: Int) {
+    private func selectionDidChange(index: Int?) {
         if selectedIndex != index {
             self.model.selectedIndex = index
-        } else {
-            self.model.selectedIndex = nil
-        }
-                
-        selectionDidChangePublisher?.send(self.model.selectedIndex)
+//            print("selectedIndex change: \(selectedIndex)")
+        }     
     }
 }
+
+//extension DimensionSelector {
+//    public func onIndexChange(_ handler: @escaping ((Int?) -> Void)) -> some View {
+//        self.modifier(OnIndexChangeModifier(dimensionSelector: self, handler: handler))
+//    }
+//}
+//
+//struct OnIndexChangeModifier: ViewModifier {
+//    let dimensionSelector: DimensionSelector
+//    let handler: ((Int?) -> Void)
+//    
+//    func body(content: Content) -> some View {
+//        dimensionSelector.getBody(selectionDidChangeHandler: handler)
+//    }
+//}
 
 extension DimensionSelector {
     struct Segment: View {
@@ -81,6 +98,10 @@ extension DimensionSelector {
                 .overlay(ButtonOverlayView(isSelected: self.isSelected))
         }
     }
+    
+    class Model: ObservableObject {
+        @Published var selectedIndex: Int?
+    }
 }
 
 struct DimensionSelector_Previews: PreviewProvider {
@@ -88,3 +109,5 @@ struct DimensionSelector_Previews: PreviewProvider {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
+
+

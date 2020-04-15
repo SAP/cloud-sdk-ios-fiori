@@ -15,74 +15,34 @@ struct DimensionSelector_Chart: View {
     
     let segmentTitltes = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
     
-    @State var cancellable: AnyCancellable? = nil
-    @State var selectedIndex: Int?
+    @ObservedObject var stockModel = Tests.stockModels[0]
     
-    var selectorView: DimensionSelector!
-    var receiver: CurrentValueSubject<Int?, Never>?
+    var cancellableSet: Set<AnyCancellable> = []
+    
+    var dimensionSelector: DimensionSelector!
     
     init() {
-        selectorView = DimensionSelector(segmentTitles: segmentTitltes, selectedIndex: selectedIndex)
-        receiver = selectorView.selectionDidChangePublisher
-        self._cancellable = State(initialValue: self.receiver?.sink(receiveValue: { (index) in
-            self.selectedIndex = index
-        }))
-//        setup()
+        dimensionSelector = DimensionSelector(segmentTitles: segmentTitltes, selectedIndex: stockModel.selectedSeriesIndex)
+        dimensionSelector.selectionDidChangePublisher
+            .assign(to: \.stockModel.selectedSeriesIndex, on: self)
+            .store(in: &cancellableSet)
     }
 
     var body: some View {
-
-        let vStack = VStack {
-            selectorView
-            
-            if selectedIndex != nil {
-                ChartView(stockModel)
-                    .frame(width: 400, height: 250)
-            } else {
-                NoDataView()
-                    .frame(width: 400, height: 250)
-            }
+        
+        VStack(alignment: .center, spacing: 10) {
+            dimensionSelector
+            chartView
         }
-        
-        return vStack
     }
     
-    func setup() {
-        
-//        DispatchQueue.main.async {
-//            self.cancellable = self.receiver?.sink(receiveValue: { (index) in
-//                print("selected: \(index ?? -1)")
-//                self.selectedIndex = index
-//            })
-//        }
-    }
-//
-//    func makeChartView(index: Int?) -> AnyView {
-//        if index != nil {
-//            return AnyView(ChartView(self.stockModel))
-//        }
-//
-//        return AnyView(NoDataView())
-//    }
-    
-//    func makeChartView(publisher: CurrentValueSubject<Int?, Never>?) -> some View {
-//        var chartView: AnyView = AnyView(NoDataView())
-//
-//        let _ = publisher?.sink(receiveValue: { (selectedIndex) in
-//            print("get: \(selectedIndex)")
-//            if selectedIndex != nil {
-//               chartView = AnyView(ChartView(self.stockModel))
-//            }
-//        })
-//        return chartView
-//    }
-}
-
-extension DimensionSelector_Chart {
-    var stockModel: ChartModel {
-        let model = Tests.stockModels[0]
-        model.selectedSeriesIndex = 1
-        return model
+    var chartView: some View {
+        if stockModel.selectedSeriesIndex != nil {
+            return AnyView(ChartView(stockModel))
+                
+        } else {
+            return AnyView(NoDataView())
+        }
     }
 }
 
