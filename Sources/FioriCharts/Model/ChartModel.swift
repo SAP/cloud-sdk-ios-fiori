@@ -49,7 +49,7 @@ enum ChartValueType {
 
 public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String?
 
-public class ChartModel: ObservableObject, Identifiable {
+public class ChartModel: ObservableObject, Identifiable, NSCopying {
 
     ///
     public enum DimensionData<T> {
@@ -126,7 +126,7 @@ public class ChartModel: ObservableObject, Identifiable {
     @Published public var userInteractionEnabled: Bool = false
     
     ///
-    @Published public var snapToPoint = false
+    @Published public var snapToPoint: Bool = false
   
     /// seires attributes
     @Published public var seriesAttributes: [ChartSeriesAttributes]
@@ -239,6 +239,36 @@ public class ChartModel: ObservableObject, Identifiable {
     }
     
     public let id = UUID()
+    
+    public init(chartType: ChartType,
+                data: [[DimensionData<Double?>]],
+                titlesForCategory: [[String?]]?,
+                colorsForCategory: [Int: [Int: HexColor]],
+                titlesForAxis: [ChartAxisId: String]?,
+                labelsForDimension: [[DimensionData<String?>]]?,
+                backgroundColor: HexColor,
+                selectedSeriesIndex: Int?,
+                userInteractionEnabled: Bool,
+                seriesAttributes: [ChartSeriesAttributes],
+                categoryAxis: ChartCategoryAxisAttributes,
+                numericAxis: ChartNumericAxisAttributes,
+                secondaryNumericAxis: ChartNumericAxisAttributes) {
+        self.chartType = chartType
+        self.data = data
+        self.titlesForCategory = titlesForCategory
+        self.colorsForCategory = colorsForCategory
+        self.titlesForAxis = titlesForAxis
+        self.labelsForDimension = labelsForDimension
+        self.backgroundColor = backgroundColor
+        self.selectedSeriesIndex = selectedSeriesIndex
+        self.userInteractionEnabled = userInteractionEnabled
+        self.seriesAttributes = seriesAttributes
+        self.categoryAxis = categoryAxis
+        self.numericAxis = numericAxis
+        self.secondaryNumericAxis = secondaryNumericAxis
+        
+        initialize()
+    }
     
     public init(chartType: ChartType,
                 data: [[Double?]],
@@ -591,6 +621,27 @@ public class ChartModel: ObservableObject, Identifiable {
         } else {
             return 0
         }
+    }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ChartModel(chartType: self.chartType,
+                              data: self.data,
+                              titlesForCategory: self.titlesForCategory,
+                              colorsForCategory: self.colorsForCategory,
+                              titlesForAxis: self.titlesForAxis,
+                              labelsForDimension: self.labelsForDimension,
+                              backgroundColor: self.backgroundColor,
+                              selectedSeriesIndex: self.selectedSeriesIndex,
+                              userInteractionEnabled: self.userInteractionEnabled,
+                              seriesAttributes: self.seriesAttributes.map {
+                                  let copy = $0.copy() as! ChartSeriesAttributes
+                                  return copy
+                              },
+                              categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
+                              numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
+                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes)
+        
+        return copy
     }
 }
 

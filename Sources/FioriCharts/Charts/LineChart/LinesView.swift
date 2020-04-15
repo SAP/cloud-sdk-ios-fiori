@@ -15,7 +15,7 @@ struct LinesView: View {
     
     public init(_ chartModel: ChartModel, fill: Bool = false) {
         self.model = chartModel
-        self.fill = fill
+        self._fill = State(initialValue: fill)
     }
     
     var body: some View {
@@ -59,17 +59,6 @@ struct LinesView: View {
             }
         }
         
-        var strokeColors: [Color] = []
-        var fillColors: [Color] = []
-        
-        for i in 0 ..< data.count {
-            let rgba = model.seriesAttributes[i].palette.colors[0].rgba(colorScheme)
-            let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-            let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
-            strokeColors.append(strokeColor)
-            fillColors.append(fillColor)
-        }
-        
         return ZStack {
             model.backgroundColor.color(colorScheme)
             ForEach(0 ..< data.count) { i in
@@ -78,10 +67,23 @@ struct LinesView: View {
                            layoutDirection: self.layoutDirection,
                            startOffset: startOffset,
                            endOffset: endOffset)
-                    .stroke(strokeColors[i],
+                    .stroke(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme),
                             lineWidth: CGFloat(self.model.seriesAttributes[i].lineWidth))
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
+                
+                if self.fill {
+                    LinesShape(points: data[i],
+                               displayRange: displayRange,
+                               layoutDirection: self.layoutDirection,
+                               fill: self.fill,
+                               startOffset: startOffset,
+                               endOffset: endOffset)
+                        .fill(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme))
+                        .opacity(0.4)
+                        .frame(width: rect.size.width, height: rect.size.height)
+                        .clipped()
+                }
             }
             
             ForEach(0 ..< data.count) { i in
@@ -94,8 +96,8 @@ struct LinesView: View {
                             endOffset: endOffset)
                     .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
                     .clipShape(Rectangle()
-                        .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
-                        .offset(x: -1 * self.pointRadius(at: i), y: 0))
+                    .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
+                    .offset(x: -1 * self.pointRadius(at: i), y: 0))
             }
         }
     }

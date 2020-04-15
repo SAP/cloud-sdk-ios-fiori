@@ -28,7 +28,7 @@ public enum ChartAxisId {
     case category
 }
 
-public class ChartAxisAttributes: ObservableObject, Identifiable {
+public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying {
     /// Provides an identifier that associates the axis with a position and orientation in the chart.
     @Published public var axisId: ChartAxisId?
     
@@ -82,6 +82,15 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
         
         self._title = Published(initialValue: title)
     }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return ChartAxisAttributes(axisId: self.axisId,
+                                   baseline: (self.baseline.copy() as! ChartBaselineAttributes),
+                                   gridlines: (self.gridlines.copy() as! ChartGridlineAttributes),
+                                   labels: (self.labels.copy() as! ChartLabelAttributes),
+                                   titleLabel: (self.titleLabel.copy() as! ChartLabelAttributes),
+                                   title: self.title)
+    }
 }
 
 /**
@@ -92,11 +101,6 @@ public class ChartAxisAttributes: ObservableObject, Identifiable {
  - Line, column, and combo charts display the numeric axis as the Y axis.
  */
 public class ChartNumericAxisAttributes: ChartAxisAttributes {
-    
-    public convenience init() {
-        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
-    }
-    
     public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
             self._formatter = Published(initialValue: formatter)
@@ -126,6 +130,27 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title)
     }
     
+    public convenience init() {
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
+    }
+    
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        
+        let copy = ChartNumericAxisAttributes(axisId: self.axisId,
+                                              baseline: (self.baseline.copy() as! ChartBaselineAttributes),
+                                              gridlines: (self.gridlines.copy() as! ChartGridlineAttributes),
+                                              labels: (self.labels.copy() as! ChartLabelAttributes),
+                                              titleLabel: (self.titleLabel.copy() as! ChartLabelAttributes),
+                                              title: self.title,
+                                              isZeroBased: isZeroBased,
+                                              abbreviatesLabels: abbreviatesLabels,
+                                              explicitMin: explicitMin,
+                                              explicitMax: explicitMax,
+                                              formatter: formatter.copy() as? NumberFormatter,
+                                              abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter)
+        
+        return copy
+    }
     /**
      Indicates whether the baseline starts at zero or the minimum value in the data set.
      
@@ -221,14 +246,36 @@ public enum ChartCategoryAxisLabelLayoutStyle {
  */
 public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     
+    public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?, labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
+        self._labelLayoutStyle = Published(initialValue: labelLayoutStyle)
+        
+        super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title, isZeroBased: isZeroBased, abbreviatesLabels: abbreviatesLabels, explicitMin: explicitMin, explicitMax: explicitMax, formatter: formatter, abbreviatedFormatter: abbreviatedFormatter)
+    }
+    
+    public convenience init(labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil, labelLayoutStyle: labelLayoutStyle)
+    }
+    
     public convenience init() {
         self.init(labelLayoutStyle: .allOrNothing)
     }
     
-    public init(labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
-        self._labelLayoutStyle = Published(initialValue: labelLayoutStyle)
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ChartCategoryAxisAttributes(axisId: self.axisId,
+                                               baseline: (self.baseline.copy() as! ChartBaselineAttributes),
+                                               gridlines: (self.gridlines.copy() as! ChartGridlineAttributes),
+                                               labels: (self.labels.copy() as! ChartLabelAttributes),
+                                               titleLabel: (self.titleLabel.copy() as! ChartLabelAttributes),
+                                               title: self.title,
+                                               isZeroBased: isZeroBased,
+                                               abbreviatesLabels: abbreviatesLabels,
+                                               explicitMin: explicitMin,
+                                               explicitMax: explicitMax,
+                                               formatter: formatter.copy() as? NumberFormatter,
+                                               abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter,
+                                               labelLayoutStyle: self.labelLayoutStyle)
         
-        super.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
+        return copy
     }
     
     /// Defines the manner in which labels will be presented when they are provided by the data source, and not hidden.

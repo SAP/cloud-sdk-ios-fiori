@@ -32,7 +32,7 @@ struct SettingsSeries: View {
             
             Section(header: Text("Point")) {
                 NavigationLink(destination: SettingsPoint(point: $seriesAttr.point)) {
-                                        Text("Point")
+                    Text("Point")
                 }
             }
             

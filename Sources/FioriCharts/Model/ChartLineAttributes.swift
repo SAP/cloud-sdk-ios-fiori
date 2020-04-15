@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 /// Gridline properties for an Axis.
-public class ChartGridlineAttributes: ObservableObject, Identifiable {
+public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying {
     public init(width: Double = 1,
                 color: HexColor = Palette.hexColor(for: .primary3),
                 dashPatternLength: Double = 1,
@@ -22,6 +22,14 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable {
         self._isHidden = Published(initialValue: isHidden)
     }
 
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return ChartGridlineAttributes(width: self.width,
+                                       color: self.color,
+                                       dashPatternLength: self.dashPatternLength,
+                                       dashPatternGap: self.dashPatternGap,
+                                       isHidden: self.isHidden)
+    }
+    
     @Published public var width: Double
 
     @Published public var color: HexColor
@@ -48,6 +56,16 @@ public class ChartBaselineAttributes: ChartGridlineAttributes {
         self._position = Published(initialValue: position)
         
         super.init(width: width, color: color, dashPatternLength: dashPatternLength, dashPatternGap: dashPatternGap, isHidden: isHidden)
+    }
+    
+    public override func copy(with zone: NSZone? = nil) -> Any {
+        return ChartBaselineAttributes(width: self.width,
+                                       color: self.color,
+                                       dashPatternLength: self.dashPatternLength,
+                                       dashPatternGap: self.dashPatternGap,
+                                       isHidden: self.isHidden,
+                                       value: self.value,
+                                       position: self.position)
     }
 
     /// Baseline value or nil if no data has been assigned to the Chart.

@@ -17,6 +17,11 @@ struct ContentView: View {
     let charts: [(String, CGFloat, CGFloat, [ChartModel])] =
         [("Stock", 280, 160, Tests.stockModels),
          ("Line", 280, 160, Tests.lineModels),
+         ("Area", 280, 160, Tests.lineModels.map {
+            let model = $0.copy() as! ChartModel
+            model.chartType = .area
+            return model
+         }),
          ("Micro Chart - Column", 280, 160, Tests.columnModels),
          ("Donut", 180, 160, Tests.donutModels),
          ("Micro Chart - Radial", 180, 160, Tests.radialModels),

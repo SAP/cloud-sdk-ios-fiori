@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-public class ChartPointAttributes: ObservableObject, Identifiable {
+public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
+    
     /// Indicates if the point is hidden or visible.
     @Published public var isHidden: Bool = false
     
@@ -34,5 +35,14 @@ public class ChartPointAttributes: ObservableObject, Identifiable {
         self._diameter = Published(initialValue: diameter)
         self._strokeColor = Published(initialValue: strokeColor)
         self._gap = Published(initialValue: gap)
+    }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ChartPointAttributes(isHidden: self.isHidden,
+                                        diameter: self.diameter,
+                                        strokeColor: self.strokeColor,
+                                        gap: self.gap)
+        
+        return copy
     }
 }

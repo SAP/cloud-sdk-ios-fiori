@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class ChartSeriesPalette: ObservableObject, Identifiable {
+public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     
     public init(colors: [HexColor],
                 labelColor: HexColor,
@@ -37,6 +37,15 @@ public class ChartSeriesPalette: ObservableObject, Identifiable {
         let color = colors.first ?? Palette.hexColor(for: .primary1)
         
         self.init(colors: colors, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
+    }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return ChartSeriesPalette(colors: self.colors,
+                                  labelColor: self.labelColor,
+                                  positiveMaxColor: self.positiveMaxColor,
+                                  positiveMinColor: self.positiveMinColor,
+                                  negativeMaxColor: self.negativeMaxColor,
+                                  negativeMinColor: self.negativeMinColor)
     }
 
     /// Primary color of the series. Used to render the series' lines.

@@ -9,8 +9,8 @@ import Foundation
 import SwiftUI
 
 /// Each series has its own ChartSeriesAttributes
-public class ChartSeriesAttributes: ObservableObject, Identifiable {
-
+public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
+    
     /// palettes for current series
     @Published public var palette: ChartSeriesPalette
     
@@ -50,5 +50,13 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable {
         
         self._firstLineCapDiameter = Published(initialValue: firstLineCapDiameter)
         self._lastLineCapDiameter = Published(initialValue: lastLineCapDiameter)
+    }
+    
+    public func copy(with zone: NSZone? = nil) -> Any {
+        return ChartSeriesAttributes(palette: (self.palette.copy() as! ChartSeriesPalette),
+                                     lineWidth: self.lineWidth,
+                                     point: (self.point.copy() as! ChartPointAttributes),
+                                     firstLineCapDiameter: self.firstLineCapDiameter,
+                                     lastLineCapDiameter: self.lastLineCapDiameter)
     }
 }
