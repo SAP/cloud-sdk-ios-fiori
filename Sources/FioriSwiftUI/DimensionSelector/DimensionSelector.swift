@@ -35,7 +35,7 @@ public struct DimensionSelector: View {
     
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
-                selectedIndex: Int?) {
+                selectedIndex: Int? = nil) {
         self.segmentTitles = segmentTitles
         self.interItemSpacing = interItemSpacing
         self.model.selectedIndex = selectedIndex
