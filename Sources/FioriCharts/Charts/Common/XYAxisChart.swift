@@ -139,13 +139,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                 }
             }
-//            .onPreferenceChange(XAxisSizePreferenceKey.self) {
-//                    for sz in $0 {
-//                        print("X axis label size: \(sz)")
-//                    }
-//                    self.xAxisSize.width = $0.map { $0.width }.max() ?? 20
-//                    print("X axis Max label size: \(self.xAxisSize.width)")
-//            }
         }
     }
     
@@ -218,15 +211,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .exclusively(before: drag)
         
         return ZStack {
-            if model.userInteractionEnabled {
-                self.chartView
-                    .opacity(draggingChartView ? 0.4 : 1.0)
-                    .gesture(pan)
-                    .gesture(drag)
-                    .gesture(mag)
-            } else {
-                self.chartView
-            }
+            self.chartView
+                .opacity(draggingChartView ? 0.4 : 1.0)
+                .gesture(pan)
+                .gesture(drag)
+                .gesture(mag)
+                .disabled(!model.userInteractionEnabled)
             
             XAxisGridlines(axisDataSource: axisDataSource)
                 .environmentObject(model)
@@ -289,27 +279,6 @@ struct SizeModifier: ViewModifier {
     }
 }
 
-/*
- struct XAxisSizeEnvironmentKey: EnvironmentKey {
- static let defaultValue: CGSize? = nil
- }
- 
- struct YAxisSizeEnvironmentKey: EnvironmentKey {
- static let defaultValue: CGSize? = nil
- }
- 
- extension EnvironmentValues {
- var xAxisSize: CGSize? {
- get { self[XAxisSizeEnvironmentKey] }
- set { self[XAxisSizeEnvironmentKey] = newValue }
- }
- 
- var yAxisSize: CGSize? {
- get { self[YAxisSizeEnvironmentKey] }
- set { self[YAxisSizeEnvironmentKey] = newValue }
- }
- }
- */
 extension Comparable {
     func clamp(low: Self, high: Self) -> Self {
         if self > high {
