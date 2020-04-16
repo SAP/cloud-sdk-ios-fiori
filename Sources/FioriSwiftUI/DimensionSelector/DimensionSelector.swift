@@ -30,19 +30,15 @@ public struct DimensionSelector: View {
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
-    
-    public var selectionDidChangeHandler: ((Int?) -> Void)?
-    
+        
     @ObservedObject private var model: Model = Model()
     
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
-                selectedIndex: Int?,
-                selectionDidChangeHandler: ((Int?) -> Void)? = nil) {
+                selectedIndex: Int?) {
         self.segmentTitles = segmentTitles
         self.interItemSpacing = interItemSpacing
         self.model.selectedIndex = selectedIndex
-        self.selectionDidChangeHandler = selectionDidChangeHandler
     }
     
     public var body: some View {
@@ -68,10 +64,6 @@ public struct DimensionSelector: View {
     private func selectionDidChange(index: Int?) {
         if selectedIndex != index {
             self.model.selectedIndex = index
-            if let handler = self.selectionDidChangeHandler {
-                handler(index)
-            }
-//            print("selectedIndex change: \(selectedIndex)")
         }     
     }
 }
