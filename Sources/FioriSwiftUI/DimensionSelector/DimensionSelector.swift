@@ -31,6 +31,8 @@ public struct DimensionSelector: View {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
     
+    public var selectionDidChangeHandler: ((Int?) -> Void)?
+    
     @ObservedObject private var model: Model = Model()
     
     public init(segmentTitles: [String],
@@ -64,6 +66,9 @@ public struct DimensionSelector: View {
     private func selectionDidChange(index: Int?) {
         if selectedIndex != index {
             self.model.selectedIndex = index
+            if let handler = self.selectionDidChangeHandler {
+                handler(index)
+            }
 //            print("selectedIndex change: \(selectedIndex)")
         }     
     }

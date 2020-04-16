@@ -26,6 +26,9 @@ struct DimensionSelector_Chart: View {
         dimensionSelector.selectionDidChangePublisher
             .assign(to: \.stockModel.selectedSeriesIndex, on: self)
             .store(in: &cancellableSet)
+        dimensionSelector.selectionDidChangeHandler = { index in
+            print("selected index: \(index ?? -1)")
+        }
     }
 
     var body: some View {
