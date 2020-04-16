@@ -15,16 +15,6 @@ public struct ColumnMicroChart: View {
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
-        
-        // reset ranges' lower bound to 0
-        if let ranges = model.ranges {
-            for i in 0 ..< ranges.count {
-                let range = ranges[i]
-                
-                let minVal = range.lowerBound > 0 ? 0 : range.lowerBound
-                model.ranges![i] = minVal...range.upperBound
-            }
-        }
     }
     
     public var body: some View {
@@ -46,16 +36,14 @@ public struct ColumnMicroChart: View {
         let wholeBarsHeight: CGFloat = size.height - dateLabelsHeight - negativeLabelsHeight - positiveLablesHeight
         
         var minVal: CGFloat = 0
-        if let ranges = model.ranges {
-            if let range = ranges.first {
-                minVal = CGFloat(range.lowerBound)
-            }
+        var valueRange: CGFloat = 1
+        if let range = model.ranges.first {
+            minVal = CGFloat(range.lowerBound > 0 ? 0 : range.lowerBound)
+            valueRange = CGFloat(range.upperBound) - minVal
         }
         
-        let negativeBarsHeight: CGFloat = minVal >= 0 ? 0 : (CGFloat(model.normalizedValue(for: minVal, seriesIndex: 0)) * wholeBarsHeight)
-        
+        let negativeBarsHeight: CGFloat = minVal >= 0 ? 0 : wholeBarsHeight * abs(minVal) / valueRange
         let positiveBarsHeight: CGFloat = wholeBarsHeight - negativeBarsHeight
-        
         let columns = model.dataItemsIn(seriesIndex: 0)
         
         return VStack(alignment: .center, spacing: 0) {
@@ -74,7 +62,7 @@ public struct ColumnMicroChart: View {
                         
                         Rectangle()
                             .fill(item.color.color(self.colorScheme))
-                            .frame(width: barWidth, height: item.value > 0 ? (CGFloat(self.model.normalizedValue(for: Double(item.value), seriesIndex: 0)) * wholeBarsHeight) : 0)
+                            .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
                     }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
                 }
             }.frame(width: size.width, height: positiveBarsHeight + positiveLablesHeight)
@@ -86,7 +74,7 @@ public struct ColumnMicroChart: View {
                         VStack(alignment: .center, spacing: 0) {
                             Rectangle()
                                 .fill(item.value > 0 ? Color.clear : item.color.color(self.colorScheme))
-                                .frame(width: barWidth, height: CGFloat(self.model.normalizedValue(for: Double(item.value), seriesIndex: 0)) * wholeBarsHeight)
+                                .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
                             
                             if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
                                 Text(self.columnLabel(for: item, positive: false) ?? "")
@@ -122,8 +110,12 @@ public struct ColumnMicroChart: View {
         }
     }
     
+    func normalizedValue(for value: Double, range: CGFloat) -> CGFloat {
+        return abs(CGFloat(value)) / range
+    }
+    
     func existNegativeValues() -> Bool {
-        if let ranges = model.ranges, let range = ranges.first {
+        if let range = model.ranges.first {
             if range.lowerBound < 0 {
                 return true
             }

@@ -48,16 +48,24 @@ struct SettingsAxis: View {
                     Text("ordinal").tag(NumberFormatter.Style.ordinal)
                     Text("none").tag(NumberFormatter.Style.none)
                 }
-//                Toggle(isOn: axis.explicitMinToggleBinding) {
-//                    Text("Explicit Min is set")
-//                }
-//                
-//                if axis.explicitMin != nil {
-//                    VStack(alignment: .leading, spacing: 0) {
-//                        Text("Explicit Min Value: \(axis.explicitMin ?? 0)")
-//                        Slider(value: $axis.explicitMinDoubleBinding, in: 0...100, step: 10)
-//                    }
-//                }
+                
+                Button(action: {
+                    self.axis.explicitMin = nil
+                    self.axis.explicitMax = nil
+                }) {
+                    Text("Set explicitMin & explicitMax nil")
+                        .padding()
+                        .border(Color.black)
+                }
+                
+                Button(action: {
+                    self.axis.explicitMin =  -10000
+                    self.axis.explicitMax = 10000
+                }) {
+                    Text("Set explicitMin & explicitMax -10k, 10k")
+                        .padding()
+                        .border(Color.black)
+                }
             }
             
             Section(header: Text("Line")) {
@@ -82,32 +90,6 @@ struct SettingsAxis: View {
                 }
             }
         }.navigationBarTitle("Axis")
-    }
-}
-
-extension ChartNumericAxisAttributes {
-    var explicitMinToggleBinding: Binding<Bool> {
-        return Binding(get: {
-            return self.explicitMin != nil
-        }, set: { (val) in
-            self.explicitMin = val ? 0 : nil
-        })
-    }
-    
-    var explicitMinDoubleBinding: Binding<Double> {
-        return Binding(get: { () -> Double in
-            return Double(self.explicitMin ?? 0)
-        }, set: { (val) in
-            self.explicitMin = Double(val)
-        })
-    }
-    
-    var explicitMaxToggleBinding: Binding<Bool> {
-        return Binding(get: {
-            return self.explicitMax != nil
-        }) { (val) in
-            self.explicitMax = val ? 0 : nil
-        }
     }
 }
 

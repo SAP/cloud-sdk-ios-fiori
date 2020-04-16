@@ -218,25 +218,46 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// styles
     
-    var ranges: [ClosedRange<Double>]?
+    var ranges: [ClosedRange<Double>] {
+        var result: [ClosedRange<Double>] = []
+        
+        // go through series
+        for i in 0 ..< data.count {
+            let range: ClosedRange<Double> = {
+                var allValues: [Double] = []
+                
+                // single value
+                if let _ = data[i].first?.value {
+                    allValues = data[i].compactMap { $0.value! }
+                } else if let _ = data[i].first?.values {
+                    allValues = data[i].compactMap { $0.values!.first! }
+                }
+                                    
+                let min = allValues.min() ?? 0
+                let max = allValues.max() ?? (min + 1)
+    
+                guard min != max else { return min...max+1 }
+                return min...max
+            }()
+            result.append(range)
+        }
+        
+        return result
+    }
     
     
     var valueType: ChartValueType {
-        if let ranges = ranges {
-            let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
-                return min(result.lowerBound, next.lowerBound) ... max(result.upperBound, next.upperBound)
-            }
-            
-            if range.lowerBound >= 0 {
-                return .allPositive
-            } else if range.upperBound <= 0 {
-                return .allNegative
-            } else {
-                return .mixed
-            }
+        let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
+            return min(result.lowerBound, next.lowerBound) ... max(result.upperBound, next.upperBound)
         }
         
-        return .allPositive
+        if range.lowerBound >= 0 {
+            return .allPositive
+        } else if range.upperBound <= 0 {
+            return .allNegative
+        } else {
+            return .mixed
+        }
     }
     
     public let id = UUID()
@@ -267,8 +288,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        
-        initialize()
     }
     
     public init(chartType: ChartType,
@@ -384,8 +403,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
             self._seriesAttributes = Published(initialValue: sa)
         }
-        
-        initialize()
     }
     
     public init(chartType: ChartType,
@@ -459,7 +476,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let numericAxis = numericAxis {
             self._numericAxis = Published(initialValue: numericAxis)
         } else {
-            self._numericAxis = Published(initialValue: ChartNumericAxisAttributes())
+            let axis = ChartNumericAxisAttributes()
+            if chartType != .stock {
+                axis.baseline.isHidden = true
+            }
+            self._numericAxis = Published(initialValue: axis)
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
@@ -489,8 +510,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
             self._seriesAttributes = Published(initialValue: sa)
         }
-        
-        initialize()
     }
     
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
@@ -515,37 +534,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 result.append(ChartSeriesAttributes(palette: seriesPalette, lineWidth: 2, point: pointAttr, firstLineCapDiameter: 0, lastLineCapDiameter: 0))
             }
             return result
-        }
-    }
-    
-    func initialize() {
-        // check if there is data
-        if let _ = data.first?.first {
-            self.ranges = []
-            
-            // go through series
-            for i in 0 ..< data.count {
-                let range: ClosedRange<Double> = {
-                    var allValues: [Double] = []
-                    
-                    if let _ = data[i].first?.value {
-                        allValues = data[i].compactMap { $0.value! }
-                    } else if let _ = data[i].first?.values {
-                        allValues = data[i].compactMap { $0.values!.first! }
-                    }
-                                        
-                    let min = allValues.min() ?? 0
-                    let max = allValues.max() ?? 1
-        
-                    guard min != max else { return min...max+1 }
-                    return min...max
-                }()
-                self.ranges?.append(range)
-            }
-        }
-        
-        if chartType == .stock {
-            numericAxis.isZeroBased = false
         }
     }
     
@@ -594,18 +582,19 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
-        if let range = ranges {
-            return abs(T(value)) / T(range[seriesIndex].upperBound - range[seriesIndex].lowerBound)
-        } else {
+        if seriesIndex < data.count {
+            return abs(T(value)) / T(ranges[seriesIndex].upperBound - ranges[seriesIndex].lowerBound)
+        }
+        else {
             return 0
         }
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
-        if let range = ranges {
-            var minValue = range.first!.lowerBound
-            var maxValue = range.first!.upperBound
-            for i in range {
+        if data.count > 0 {
+            var minValue = ranges.first!.lowerBound
+            var maxValue = ranges.first!.upperBound
+            for i in ranges {
                 minValue = min(minValue, i.lowerBound)
                 maxValue = max(maxValue, i.upperBound)
             }
