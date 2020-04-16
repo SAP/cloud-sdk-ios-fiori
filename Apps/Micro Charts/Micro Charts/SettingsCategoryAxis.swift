@@ -26,10 +26,6 @@ struct SettingsCategoryAxis: View {
                 Toggle(isOn: $axis.isMagnitudedDisplayed) {
                     Text("Is Magnituded Displayed")
                 }
-                
-                Toggle(isOn: axis.explicitMinToggleBinding) {
-                    Text("Explicit Min is set")
-                }
             }
                 
             Section(header: Text("Line")) {

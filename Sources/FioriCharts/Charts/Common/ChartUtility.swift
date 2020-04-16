@@ -19,18 +19,22 @@ class ChartUtility {
     }
     
     static func displayRange(_ model: ChartModel) -> ClosedRange<CGFloat> {
+        if let minVal = model.numericAxis.explicitMin, let maxVal = model.numericAxis.explicitMax {
+            let displayMinVal = CGFloat(minVal)
+            let displayMaxVal = maxVal < minVal ? CGFloat(minVal + 1) : CGFloat(maxVal)
+            
+            return displayMinVal...displayMaxVal
+        }
         // calculate display range
         var minVal: CGFloat = CGFloat(Int.max)
         var maxVal: CGFloat = CGFloat(Int.min)
         if model.chartType == .stock {
-            minVal = CGFloat(model.ranges?[model.currentSeriesIndex].lowerBound ?? 0)
-            maxVal = CGFloat(model.ranges?[model.currentSeriesIndex].upperBound ?? 1)
+            minVal = CGFloat(model.ranges[model.currentSeriesIndex].lowerBound)
+            maxVal = CGFloat(model.ranges[model.currentSeriesIndex].upperBound)
         } else {
-            if let ranges = model.ranges {
-                for range in ranges {
-                    minVal = min(CGFloat(range.lowerBound), minVal)
-                    maxVal = max(CGFloat(range.upperBound), maxVal)
-                }
+            for range in model.ranges {
+                minVal = min(CGFloat(range.lowerBound), minVal)
+                maxVal = max(CGFloat(range.upperBound), maxVal)
             }
         }
         
