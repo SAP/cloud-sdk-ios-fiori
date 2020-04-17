@@ -22,7 +22,7 @@ extension Card: View {
             .frame(maxWidth: 425, alignment: .topLeading)
     }
     
-    func makeView() -> AnyView {
+    func makeView() -> some View {
         switch self {
         case .object(let card):
             return AnyView(ObjectCardView(model: card))
@@ -44,27 +44,23 @@ struct ContentView: View {
     
     init(cards: [String]) {
         self.cards = cards
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5, execute: {
-            
-        })
     }
     
     var body: some View {
         NavigationView() {
-            NavigationLink("CollectionView", destination: CollectionView<[Card], Card>(data: self.cards.compactMap({ getManifest(for: $0)?.card }), layout: flowLayout(for:containerSize:sizes:), content: { $0 }))
-
-            List(cards) { card in
-                NavigationLink(destination: LoadingView(card: card)) {
-                    Text(card)
+            //            NavigationLink("CollectionView", destination: CollectionView<[Manifest], Card>(data: TestCardBundle.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card }))
+            
+            List(TestCardBundle.allCases) { bundle in
+                NavigationLink(destination: LoadingView(card: bundle)) {
+                    Text(bundle.rawValue)
                 }
-            }
+            }.navigationBarTitle("Test Cases")
         }
     }
 }
 
 struct LoadingView: View {
-    let card: String
+    let card: TestCardBundle
     
     @State var isLoading = true
     @State var loadingMessage = "Loading ..."
@@ -78,11 +74,11 @@ struct LoadingView: View {
                     .foregroundColor(.primary)
             }
             else {
-                makeBody(model!)
+                model?.card.body
             }
         }.onAppear {
             DispatchQueue.global(qos: .userInitiated).async {
-                self.model = getManifest(for: self.card)
+                self.model = self.card.manifest()
                 
                 if self.model != nil {
                     self.isLoading = false
@@ -93,22 +89,6 @@ struct LoadingView: View {
             }
         }
     }
-    
-    func makeBody(_ model: Manifest) -> AnyView {
-        switch model.card {
-        case .list(let value):
-            return AnyView(ListCardView(model: value))
-        case .object(let value):
-            return AnyView(ObjectCardView(model: value))
-        case .table(let value):
-            return AnyView(TableCardView(model: value))
-        case .timeline(let value):
-            return AnyView(TimelineCardView(model: value))
-        case .analytical(let value):
-            return AnyView(AnalyticalCardView(model: value))
-        }
-    }
-    
 }
 
 func getManifest(for card: String) -> Manifest? {

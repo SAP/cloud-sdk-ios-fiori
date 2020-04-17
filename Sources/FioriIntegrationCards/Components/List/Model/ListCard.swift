@@ -23,37 +23,7 @@ extension ListCard: Hashable {
     }
 }
 
-public class ListCard: OneManyCard<ListCardItem> {
-        
-//    let items = CurrentValueSubject<[ListCardItem], Never>([])
-    
-    required public init(from decoder: Decoder) throws {
-        try super.init(from: decoder)
-        
-//        CurrentValueSubject<Item, Never>(bindingPlaceholders)
-//            .combineLatest(data.content.data.jsonObject) { (item, jsonArray) -> [Item] in
-//                return jsonArray.map {
-//                    let _icon = item.icon?.replacingPlaceholders(withValuesIn: $0)
-//                    let _title = item.title?.replacingPlaceholders(withValuesIn: $0)
-//                    let _description = item.description?.replacingPlaceholders(withValuesIn: $0)
-//                    let _highlight = item.highlight?.replacingPlaceholders(withValuesIn: $0)
-//                    return Item(title: _title, description: _description, info: nil, highlight: _highlight, icon: _icon, actions: nil)
-//                }
-//        }
-//        .sink(receiveValue: { [weak self] in
-//            self?.items.send($0)
-//        })
-//        .store(in: &subscribers)
-    }
-    
-    private struct HavingItem: Decodable {
-        let item: ListCardItem
-    }
-    
-    private struct HavingData<Model: Decodable>: Decodable {
-        let data: Model
-    }
-}
+public class ListCard: OneManyCard<ListCardItem> {}
 
 public struct ListCardItem: Decodable, Identifiable, Hashable {
        public let title: String?
