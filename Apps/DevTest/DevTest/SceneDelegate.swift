@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let manyMany = ["LowCode", "object", "analytical"]
         let cards: [String] = ["LowCode", "timeline", "table", "list" , "object", "analytical"]
         
-        let contentView = ContentView(cards: ["analytical"])
+        let contentView = ContentView(cards: cards)
         
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

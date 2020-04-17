@@ -18,6 +18,7 @@ let package = Package(
         .package(url: "https://github.com/objcio/tiny-networking", from: "0.2.0"),
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
         .package(url: "https://github.com/sstadelman/observable-array.git", .branch("master")),
+        .package(url: "https://github.com/marmelroy/Zip.git", .branch("master"))
 //        .package(url: "https://github.com/icanzilb/TimelaneCombine", from: "1.0.0")
 //        .package(url: "https://github.com/marksands/BetterCodable.git", .branch("master"))
     ],
@@ -29,7 +30,7 @@ let package = Package(
             dependencies: ["FioriIntegrationCards", "FioriCharts"]),
         .target(
             name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts"]),
+            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts", "Zip"]),
         .target(
             name: "FioriCharts",
             dependencies: []),

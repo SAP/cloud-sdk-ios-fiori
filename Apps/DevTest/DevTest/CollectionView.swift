@@ -86,11 +86,12 @@ struct CollectionView<Elements, Content>: View where Elements: RandomAccessColle
     }
     
     var body: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: true, content: {
             GeometryReader { proxy in
                 self.bodyHelper(containerSize: proxy.size, offsets: self.layout(self.data, proxy.size, self.sizes))
-            }            
-        }
+            }
+        }).offset(.zero)
+            .frame(height: 3000, alignment: .topLeading)
     }
 }
 

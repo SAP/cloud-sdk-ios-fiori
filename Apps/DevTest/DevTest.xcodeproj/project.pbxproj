@@ -39,6 +39,26 @@
 		F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A32422D76B0041F5D0 /* timeline_manifest.json */; };
 		F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947362426BBBF0041F5D0 /* LowCode.json */; };
 		F6B947C2242C072F0041F5D0 /* table0.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947C1242C072F0041F5D0 /* table0.json */; };
+		F6B97A122449159A009BABD6 /* card-explorer-icon-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B979FF24491598009BABD6 /* card-explorer-icon-list-card.card.zip */; };
+		F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0024491598009BABD6 /* card-explorer-activities-timeline-card.card.zip */; };
+		F6B97A142449159A009BABD6 /* card-explorer-members-timeline-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0124491598009BABD6 /* card-explorer-members-timeline-card.card.zip */; };
+		F6B97A152449159A009BABD6 /* card-explorer-numeric-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0224491598009BABD6 /* card-explorer-numeric-list-card.card.zip */; };
+		F6B97A162449159A009BABD6 /* card-explorer-simple-calendar-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0324491599009BABD6 /* card-explorer-simple-calendar-card.card.zip */; };
+		F6B97A1A2449159A009BABD6 /* card-explorer-donut-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0724491599009BABD6 /* card-explorer-donut-card.card.zip */; };
+		F6B97A1C2449159A009BABD6 /* card-explorer-quick-links-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0924491599009BABD6 /* card-explorer-quick-links-list-card.card.zip */; };
+		F6B97A1D2449159A009BABD6 /* card-explorer-table-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0A24491599009BABD6 /* card-explorer-table-card.card.zip */; };
+		F6B97A1F2449159A009BABD6 /* card-explorer-object-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0C24491599009BABD6 /* card-explorer-object-card.card.zip */; };
+		F6B97A202449159A009BABD6 /* card-explorer-line-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0D24491599009BABD6 /* card-explorer-line-card.card.zip */; };
+		F6B97A222449159A009BABD6 /* card-explorer-stacked-column-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0F24491599009BABD6 /* card-explorer-stacked-column-card.card.zip */; };
+		F6B97A232449159A009BABD6 /* card-explorer-highlight-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A1024491599009BABD6 /* card-explorer-highlight-list-card.card.zip */; };
+		F6B97A242449159A009BABD6 /* adativecard-embedded.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A112449159A009BABD6 /* adativecard-embedded.card.zip */; };
+		F6B97A262449174C009BABD6 /* TestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6B97A252449174C009BABD6 /* TestCases.swift */; };
+		F6B97A4424492469009BABD6 /* adativecard-embedded3.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A3E24492468009BABD6 /* adativecard-embedded3.card.zip */; };
+		F6B97A4524492469009BABD6 /* adativecard-embedded5.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A3F24492468009BABD6 /* adativecard-embedded5.card.zip */; };
+		F6B97A4624492469009BABD6 /* adativecard-embedded2.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A4024492468009BABD6 /* adativecard-embedded2.card.zip */; };
+		F6B97A4724492469009BABD6 /* adativecard-embedded1.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A4124492468009BABD6 /* adativecard-embedded1.card.zip */; };
+		F6B97A4824492469009BABD6 /* adativecard-embedded4.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A4224492468009BABD6 /* adativecard-embedded4.card.zip */; };
+		F6B97A4924492469009BABD6 /* adativecard-embedded6.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A4324492468009BABD6 /* adativecard-embedded6.card.zip */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +109,26 @@
 		F6B946A32422D76B0041F5D0 /* timeline_manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timeline_manifest.json; sourceTree = "<group>"; };
 		F6B947362426BBBF0041F5D0 /* LowCode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LowCode.json; sourceTree = "<group>"; };
 		F6B947C1242C072F0041F5D0 /* table0.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = table0.json; sourceTree = "<group>"; };
+		F6B979FF24491598009BABD6 /* card-explorer-icon-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-icon-list-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0024491598009BABD6 /* card-explorer-activities-timeline-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-activities-timeline-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0124491598009BABD6 /* card-explorer-members-timeline-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-members-timeline-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0224491598009BABD6 /* card-explorer-numeric-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-numeric-list-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0324491599009BABD6 /* card-explorer-simple-calendar-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-simple-calendar-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0724491599009BABD6 /* card-explorer-donut-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-donut-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0924491599009BABD6 /* card-explorer-quick-links-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-quick-links-list-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0A24491599009BABD6 /* card-explorer-table-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-table-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0C24491599009BABD6 /* card-explorer-object-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-object-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0D24491599009BABD6 /* card-explorer-line-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-line-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A0F24491599009BABD6 /* card-explorer-stacked-column-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-stacked-column-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A1024491599009BABD6 /* card-explorer-highlight-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-highlight-list-card.card.zip"; sourceTree = "<group>"; };
+		F6B97A112449159A009BABD6 /* adativecard-embedded.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded.card.zip"; sourceTree = "<group>"; };
+		F6B97A252449174C009BABD6 /* TestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCases.swift; sourceTree = "<group>"; };
+		F6B97A3E24492468009BABD6 /* adativecard-embedded3.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded3.card.zip"; sourceTree = "<group>"; };
+		F6B97A3F24492468009BABD6 /* adativecard-embedded5.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded5.card.zip"; sourceTree = "<group>"; };
+		F6B97A4024492468009BABD6 /* adativecard-embedded2.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded2.card.zip"; sourceTree = "<group>"; };
+		F6B97A4124492468009BABD6 /* adativecard-embedded1.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded1.card.zip"; sourceTree = "<group>"; };
+		F6B97A4224492468009BABD6 /* adativecard-embedded4.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded4.card.zip"; sourceTree = "<group>"; };
+		F6B97A4324492468009BABD6 /* adativecard-embedded6.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded6.card.zip"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +202,26 @@
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				F6B97A252449174C009BABD6 /* TestCases.swift */,
+				F6B97A4124492468009BABD6 /* adativecard-embedded1.card.zip */,
+				F6B97A4024492468009BABD6 /* adativecard-embedded2.card.zip */,
+				F6B97A3E24492468009BABD6 /* adativecard-embedded3.card.zip */,
+				F6B97A4224492468009BABD6 /* adativecard-embedded4.card.zip */,
+				F6B97A3F24492468009BABD6 /* adativecard-embedded5.card.zip */,
+				F6B97A4324492468009BABD6 /* adativecard-embedded6.card.zip */,
+				F6B97A112449159A009BABD6 /* adativecard-embedded.card.zip */,
+				F6B97A0024491598009BABD6 /* card-explorer-activities-timeline-card.card.zip */,
+				F6B97A0724491599009BABD6 /* card-explorer-donut-card.card.zip */,
+				F6B97A1024491599009BABD6 /* card-explorer-highlight-list-card.card.zip */,
+				F6B979FF24491598009BABD6 /* card-explorer-icon-list-card.card.zip */,
+				F6B97A0D24491599009BABD6 /* card-explorer-line-card.card.zip */,
+				F6B97A0124491598009BABD6 /* card-explorer-members-timeline-card.card.zip */,
+				F6B97A0224491598009BABD6 /* card-explorer-numeric-list-card.card.zip */,
+				F6B97A0C24491599009BABD6 /* card-explorer-object-card.card.zip */,
+				F6B97A0924491599009BABD6 /* card-explorer-quick-links-list-card.card.zip */,
+				F6B97A0324491599009BABD6 /* card-explorer-simple-calendar-card.card.zip */,
+				F6B97A0F24491599009BABD6 /* card-explorer-stacked-column-card.card.zip */,
+				F6B97A0A24491599009BABD6 /* card-explorer-table-card.card.zip */,
 				F6B946A02422D72F0041F5D0 /* TimelineVariants */,
 				F6B9469B2422D2540041F5D0 /* ObjectVariants */,
 				1BADC43923DA28E1006CC945 /* parameters.json */,
@@ -262,25 +322,44 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BADC44523DA28E1006CC945 /* object.json in Resources */,
+				F6B97A1A2449159A009BABD6 /* card-explorer-donut-card.card.zip in Resources */,
+				F6B97A232449159A009BABD6 /* card-explorer-highlight-list-card.card.zip in Resources */,
 				1BADC44B23DA28E1006CC945 /* corporate_benefits.json in Resources */,
 				1B583CDE23D926590003F30C /* LaunchScreen.storyboard in Resources */,
 				1BADC44A23DA28E1006CC945 /* list.json in Resources */,
+				F6B97A222449159A009BABD6 /* card-explorer-stacked-column-card.card.zip in Resources */,
 				F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */,
 				1BADC44423DA28E1006CC945 /* quicklinks_manifest.json in Resources */,
 				1BADC44623DA28E1006CC945 /* component.json in Resources */,
 				F6B947C2242C072F0041F5D0 /* table0.json in Resources */,
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
+				F6B97A1C2449159A009BABD6 /* card-explorer-quick-links-list-card.card.zip in Resources */,
+				F6B97A162449159A009BABD6 /* card-explorer-simple-calendar-card.card.zip in Resources */,
+				F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */,
+				F6B97A4524492469009BABD6 /* adativecard-embedded5.card.zip in Resources */,
+				F6B97A4624492469009BABD6 /* adativecard-embedded2.card.zip in Resources */,
 				1BADC44823DA28E1006CC945 /* table.json in Resources */,
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,
 				1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */,
+				F6B97A202449159A009BABD6 /* card-explorer-line-card.card.zip in Resources */,
 				AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */,
+				F6B97A4824492469009BABD6 /* adativecard-embedded4.card.zip in Resources */,
 				F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */,
 				F6B946A22422D7450041F5D0 /* employees.json in Resources */,
 				1B583CD823D926590003F30C /* Assets.xcassets in Resources */,
+				F6B97A4724492469009BABD6 /* adativecard-embedded1.card.zip in Resources */,
+				F6B97A152449159A009BABD6 /* card-explorer-numeric-list-card.card.zip in Resources */,
+				F6B97A1F2449159A009BABD6 /* card-explorer-object-card.card.zip in Resources */,
 				F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */,
 				1BADC44323DA28E1006CC945 /* parameters.json in Resources */,
+				F6B97A242449159A009BABD6 /* adativecard-embedded.card.zip in Resources */,
+				F6B97A1D2449159A009BABD6 /* card-explorer-table-card.card.zip in Resources */,
 				1BADC44923DA28E1006CC945 /* contentstack-benefits_manifest.json in Resources */,
+				F6B97A142449159A009BABD6 /* card-explorer-members-timeline-card.card.zip in Resources */,
 				F6B9469D2422D2880041F5D0 /* employee.json in Resources */,
+				F6B97A4924492469009BABD6 /* adativecard-embedded6.card.zip in Resources */,
+				F6B97A122449159A009BABD6 /* card-explorer-icon-list-card.card.zip in Resources */,
+				F6B97A4424492469009BABD6 /* adativecard-embedded3.card.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +371,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */,
+				F6B97A262449174C009BABD6 /* TestCases.swift in Sources */,
 				1B583CD223D926560003F30C /* AppDelegate.swift in Sources */,
 				1B583CD423D926560003F30C /* SceneDelegate.swift in Sources */,
 				1B583CD623D926560003F30C /* ContentView.swift in Sources */,
