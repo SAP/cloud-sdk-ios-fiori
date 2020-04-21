@@ -16,8 +16,17 @@ public struct DimensionSelector: View {
     
     let segmentTitles: [String]
     
-    let interItemSpacing: CGFloat
-    
+    let titleInsets: EdgeInsets
+
+    public var interItemSpacing: CGFloat {
+        get {
+            return model.interItemSpacing
+        }
+        set {
+            model.interItemSpacing = newValue
+        }
+    }
+        
     public var selectedIndex: Int? {
         get {
             return model.selectedIndex
@@ -35,23 +44,21 @@ public struct DimensionSelector: View {
     
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
+                titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil) {
         self.segmentTitles = segmentTitles
-        self.interItemSpacing = interItemSpacing
+        self.titleInsets = titleInsets
+        
+        self.model.interItemSpacing = interItemSpacing
         self.model.selectedIndex = selectedIndex
     }
     
     public var body: some View {
-        getBody(selectionDidChangeHandler: nil)
-    }
-    
-    func getBody(selectionDidChangeHandler: ((Int?) -> Void)?) -> some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .center, spacing: interItemSpacing) {
+            HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.titleInsets)
                         .onTapGesture {
-                            selectionDidChangeHandler?(index)
                             self.selectionDidChange(index: index)
                         }
                 }
@@ -60,7 +67,7 @@ public struct DimensionSelector: View {
             .padding([.leading, .trailing], horizontalSizeClass == .compact ? 16 : 48)
         }
     }
-    
+
     private func selectionDidChange(index: Int?) {
         if selectedIndex != index {
             self.model.selectedIndex = index
@@ -89,10 +96,12 @@ extension DimensionSelector {
         let title: String
         
         var isSelected: Bool
+        
+        let titleInsets: EdgeInsets
 
         var body: some View {
             Text(title)
-                .padding(8)
+                .padding(titleInsets)
                 .foregroundColor(self.isSelected ? Color.blue : Color.gray)
                 .overlay(ButtonOverlayView(isSelected: self.isSelected))
         }
@@ -100,6 +109,7 @@ extension DimensionSelector {
     
     class Model: ObservableObject {
         @Published var selectedIndex: Int?
+        @Published var interItemSpacing: CGFloat!
     }
 }
 
