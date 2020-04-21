@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-struct ControlStateColor {
+public struct ControlStateColor {
     var selected: Color
     var normal: Color
 }
