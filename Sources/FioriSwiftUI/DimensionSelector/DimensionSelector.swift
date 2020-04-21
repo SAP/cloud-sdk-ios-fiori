@@ -62,6 +62,7 @@ public struct DimensionSelector: View {
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
+                    .font(self.model.font)
                 }
             }
             .padding([.top, .bottom], 8)
@@ -114,6 +115,7 @@ extension DimensionSelector {
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
         @Published var controlStateColor: ControlStateColor!
+        @Published var font: Font?
     }
 }
 
