@@ -34,10 +34,10 @@ public struct TableCardView: View {
                 .padding(10)
             }
         }
-        .padding(EdgeInsets(top: 8, leading: 10, bottom: 8, trailing: 10))
+        .padding(16)
         .overlay(
-            RoundedRectangle(cornerRadius: 4)
+            RoundedRectangle(cornerRadius: 6)
                 .stroke(Color.gray, lineWidth: 0.5)
-        ).padding(20)
+        ).padding(16)
     }
 }
