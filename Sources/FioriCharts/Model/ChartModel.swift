@@ -106,7 +106,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// data
     @Published public var chartType: ChartType
     /// seires -> category -> dimension (either a single value or an array)
-    @Published public var data: [[DimensionData<Double?>]]
+    @Published public var data: [[DimensionData<CGFloat?>]]
 
     @Published public var titlesForCategory: [[String?]]?
     
@@ -237,13 +237,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     // By default, all column based charts have this enabled and all line based don't.
     @Published public var fudgeYAxisRange = false
     
-    var ranges: [ClosedRange<Double>] {
-        var result: [ClosedRange<Double>] = []
+    var ranges: [ClosedRange<CGFloat>] {
+        var result: [ClosedRange<CGFloat>] = []
         
         // go through series
         for i in 0 ..< data.count {
-            let range: ClosedRange<Double> = {
-                var allValues: [Double] = []
+            let range: ClosedRange<CGFloat> = {
+                var allValues: [CGFloat] = []
                 
                 // single value
                 if let _ = data[i].first?.value {
@@ -268,7 +268,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
 //    var secondaryNumericAxisTickValues: AxisTickValues
     
     var valueType: ChartValueType {
-        let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
+        let range: ClosedRange<CGFloat> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<CGFloat> in
             return min(result.lowerBound, next.lowerBound) ... max(result.upperBound, next.upperBound)
         }
         
@@ -284,7 +284,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public let id = UUID()
     
     public init(chartType: ChartType,
-                data: [[DimensionData<Double?>]],
+                data: [[DimensionData<CGFloat?>]],
                 titlesForCategory: [[String?]]?,
                 colorsForCategory: [Int: [Int: HexColor]],
                 titlesForAxis: [ChartAxisId: String]?,
@@ -353,14 +353,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             }
         }
     
-        var tmpData: [[DimensionData<Double?>]] = []
+        var tmpData: [[DimensionData<CGFloat?>]] = []
         for (i, c) in data.enumerated() {
-            var s: [DimensionData<Double?>] = []
+            var s: [DimensionData<CGFloat?>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
                 } else {
-                    s.append(DimensionData.single(d))
+                    s.append(DimensionData.single(ChartUtility.cgfloatOptional(from: d)))
                 }
             }
             tmpData.append(s)
@@ -468,14 +468,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             }
         }
         
-        var tmpData: [[DimensionData<Double?>]] = []
+        var tmpData: [[DimensionData<CGFloat?>]] = []
         for (i, c) in data.enumerated() {
-            var s: [DimensionData<Double?>] = []
+            var s: [DimensionData<CGFloat?>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
                     continue
                 } else {
-                    s.append(DimensionData.array(d))
+                    let tmpD: [CGFloat?] = d.map { (v) in
+                        ChartUtility.cgfloatOptional(from: v)
+                    }
+                    
+                    s.append(DimensionData.array(tmpD))
                 }
             }
             tmpData.append(s)

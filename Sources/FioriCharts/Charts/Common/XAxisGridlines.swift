@@ -21,11 +21,11 @@ struct XAxisGridlines: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.view(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func view(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         var xAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.xAxisGridlines(model, rect: rect) {
             xAxisLabels = res
@@ -43,8 +43,8 @@ struct XAxisGridlines: View {
                                   pos2: CGPoint(x: 0, y: rect.size.height),
                                   layoutDirection: self.layoutDirection)
                             .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
-                                    style: StrokeStyle(lineWidth: CGFloat(self.model.categoryAxis.gridlines.width),
-                                                       dash: [CGFloat(self.model.categoryAxis.gridlines.dashPatternLength), CGFloat(self.model.categoryAxis.gridlines.dashPatternGap)]))
+                                    style: StrokeStyle(lineWidth: self.model.categoryAxis.gridlines.width,
+                                                       dash: [self.model.categoryAxis.gridlines.dashPatternLength, self.model.categoryAxis.gridlines.dashPatternGap]))
                             .offset(x: title.pos.x)
                     }
                 }

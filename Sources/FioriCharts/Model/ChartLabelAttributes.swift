@@ -14,13 +14,13 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var color: HexColor
     
     /// Size of the label font in points.
-    @Published public var fontSize: Double
+    @Published public var fontSize: CGFloat
 
     /// font weight
-    // @Published public var fontWeight: Double = 1
+    // @Published public var fontWeight: CGFloat = 1
 
     /// Specifies how far from the axis labels should be rendered.
-    @Published public var offset: Double
+    @Published public var offset: CGFloat
     
     
     /// True when the associated label(s) should be hidden.
@@ -34,15 +34,15 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
                 offset: Double = 0,
                 isHidden: Bool = false) {
         self._color = Published(initialValue: color)
-        self._fontSize = Published(initialValue: fontSize)
-        self._offset = Published(initialValue: offset)
+        self._fontSize = Published(initialValue: CGFloat(fontSize))
+        self._offset = Published(initialValue: CGFloat(offset))
         self._isHidden = Published(initialValue: isHidden)
     }
         
     public func copy(with zone: NSZone? = nil) -> Any {
         return ChartLabelAttributes(color: self.color,
-                                    fontSize: self.fontSize,
-                                    offset: self.offset,
+                                    fontSize: Double(self.fontSize),
+                                    offset: Double(self.offset),
                                     isHidden: self.isHidden)
     }
 }

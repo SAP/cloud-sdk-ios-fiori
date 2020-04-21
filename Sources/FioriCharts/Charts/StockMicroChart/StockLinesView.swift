@@ -19,18 +19,18 @@ struct StockLinesView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.content(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func content(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         let displayRange = ChartUtility.displayRange(model)
         var noData = false
         var width = rect.size.width
         let height = rect.size.height
         let startPosInFloat = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
         let startIndex = Int(startPosInFloat / unitWidth)
         
         var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
@@ -53,7 +53,7 @@ struct StockLinesView: View {
         }
         
         let seriesIndex = model.currentSeriesIndex
-        var data: [Double?] = []
+        var data: [CGFloat?] = []
         if !noData {
             let curDisplayData = model.data[seriesIndex][startIndex...endIndex]
             data = curDisplayData.map { $0.first ?? 0 }
@@ -98,7 +98,7 @@ struct StockLinesView: View {
                                    layoutDirection: self.layoutDirection,
                                    startOffset: startOffset,
                                    endOffset: endOffset)
-                            .stroke(strokeColor, lineWidth: CGFloat(model.seriesAttributes[seriesIndex].lineWidth))
+                            .stroke(strokeColor, lineWidth: model.seriesAttributes[seriesIndex].lineWidth)
                             .frame(width: width, height: height)
                             .clipped()
                         Spacer(minLength: 0)

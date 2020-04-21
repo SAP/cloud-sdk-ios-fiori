@@ -209,8 +209,8 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         
         self._isZeroBased = Published(initialValue: true)
         self._abbreviatesLabels = Published(initialValue: abbreviatesLabels)
-        self._explicitMin = Published(initialValue: explicitMin)
-        self._explicitMax = Published(initialValue: explicitMax)
+        self._explicitMin = Published(initialValue: ChartUtility.cgfloatOptional(from: explicitMin))
+        self._explicitMax = Published(initialValue: ChartUtility.cgfloatOptional(from: explicitMax))
         
         super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title)
     }
@@ -229,8 +229,8 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
                                               title: self.title,
                                               isZeroBased: isZeroBased,
                                               abbreviatesLabels: abbreviatesLabels,
-                                              explicitMin: explicitMin,
-                                              explicitMax: explicitMax,
+                                              explicitMin: ChartUtility.doubleOptional(from: explicitMin),
+                                              explicitMax: ChartUtility.doubleOptional(from: explicitMax),
                                               formatter: formatter.copy() as? NumberFormatter,
                                               abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter)
         
@@ -279,7 +279,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
      
      Default is nil.
      */
-    @Published public var explicitMin: Double?
+    @Published public var explicitMin: CGFloat?
     
     /**
      Allows you to specify the maximum value for the axis, overriding the maximum value applied by the chart.
@@ -291,7 +291,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
      
      Default is nil.
      */
-    @Published public var explicitMax: Double?
+    @Published public var explicitMax: CGFloat?
 }
 
 /**
@@ -354,8 +354,8 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
                                                title: self.title,
                                                isZeroBased: isZeroBased,
                                                abbreviatesLabels: abbreviatesLabels,
-                                               explicitMin: explicitMin,
-                                               explicitMax: explicitMax,
+                                               explicitMin: ChartUtility.doubleOptional(from: explicitMin),
+                                               explicitMax: ChartUtility.doubleOptional(from: explicitMax),
                                                formatter: formatter.copy() as? NumberFormatter,
                                                abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter,
                                                labelLayoutStyle: self.labelLayoutStyle)

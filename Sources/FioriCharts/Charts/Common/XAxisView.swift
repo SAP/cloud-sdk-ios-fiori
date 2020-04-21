@@ -45,7 +45,7 @@ struct XAxisView: View {
                     if !self.model.categoryAxis.labels.isHidden {
                         // category labels
                         Text(title.title)
-                            .font(.system(size: CGFloat(self.model.categoryAxis.labels.fontSize)))
+                            .font(.system(size: self.model.categoryAxis.labels.fontSize))
                             .foregroundColor(self.model.categoryAxis.labels.color.color(self.colorScheme))
                             .frame(maxWidth: rect.size.width / 2)
                             .position(x: title.pos.x, y: labelYPos)
@@ -62,8 +62,8 @@ struct XAxisView: View {
                     .offset(x: 0, y: baselineYPos)
                     .stroke(model.categoryAxis.baseline.color.color(self.colorScheme),
                             style: StrokeStyle(
-                                lineWidth: CGFloat(self.model.categoryAxis.baseline.width),
-                                dash: [CGFloat(self.model.categoryAxis.baseline.dashPatternLength), CGFloat(self.model.categoryAxis.baseline.dashPatternGap)]))
+                                lineWidth: self.model.categoryAxis.baseline.width,
+                                dash: [self.model.categoryAxis.baseline.dashPatternLength, self.model.categoryAxis.baseline.dashPatternGap]))
             }
         }
     }

@@ -20,17 +20,17 @@ struct LinesView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.content(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func content(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         let displayRange = ChartUtility.displayRange(model)
         var noData = false
         let width = rect.size.width
         let startPosIn = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
         let startIndex = Int(startPosIn / unitWidth)
         
         var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))
@@ -46,10 +46,10 @@ struct LinesView: View {
             noData = true
         }
         
-        var data: [[Double?]] = Array(repeating: [], count: model.data.count)
+        var data: [[CGFloat?]] = Array(repeating: [], count: model.data.count)
         if !noData {
             for (i, category) in model.data.enumerated() {
-                var s: [Double?] = []
+                var s: [CGFloat?] = []
                 for i in startIndex...endIndex {
                     if let val = category[i].first {
                         s.append(val)
@@ -80,7 +80,7 @@ struct LinesView: View {
                            startOffset: startOffset,
                            endOffset: endOffset)
                     .stroke(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme),
-                            lineWidth: CGFloat(self.model.seriesAttributes[i].lineWidth))
+                            lineWidth: self.model.seriesAttributes[i].lineWidth)
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
                 
@@ -88,7 +88,7 @@ struct LinesView: View {
                         displayRange: displayRange,
                         layoutDirection: self.layoutDirection,
                         radius: self.pointRadius(at: i),
-                        gap: CGFloat(self.model.seriesAttributes[i].point.gap),
+                        gap: self.model.seriesAttributes[i].point.gap,
                         startOffset: startOffset,
                         endOffset: endOffset)
                 .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))

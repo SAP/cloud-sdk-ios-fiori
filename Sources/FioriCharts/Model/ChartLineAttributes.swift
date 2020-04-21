@@ -15,27 +15,27 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying 
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 3,
                 isHidden: Bool = false) {
-        self._width = Published(initialValue: width)
+        self._width = Published(initialValue: CGFloat(width))
         self._color = Published(initialValue: color)
-        self._dashPatternLength = Published(initialValue: dashPatternLength)
-        self._dashPatternGap = Published(initialValue: dashPatternGap)
+        self._dashPatternLength = Published(initialValue: CGFloat(dashPatternLength))
+        self._dashPatternGap = Published(initialValue: CGFloat(dashPatternGap))
         self._isHidden = Published(initialValue: isHidden)
     }
 
     public func copy(with zone: NSZone? = nil) -> Any {
-        return ChartGridlineAttributes(width: self.width,
+        return ChartGridlineAttributes(width: Double(self.width),
                                        color: self.color,
-                                       dashPatternLength: self.dashPatternLength,
-                                       dashPatternGap: self.dashPatternGap,
+                                       dashPatternLength: Double(self.dashPatternLength),
+                                       dashPatternGap: Double(self.dashPatternGap),
                                        isHidden: self.isHidden)
     }
     
-    @Published public var width: Double
+    @Published public var width: CGFloat
 
     @Published public var color: HexColor
 
-    @Published public var dashPatternLength: Double
-    @Published public var dashPatternGap: Double
+    @Published public var dashPatternLength: CGFloat
+    @Published public var dashPatternGap: CGFloat
     
     @Published public var isHidden: Bool
     
@@ -52,25 +52,25 @@ public class ChartBaselineAttributes: ChartGridlineAttributes {
                 isHidden: Bool = false,
                 value: Double? = nil,
                 position: Double? = nil) {
-        self._value = Published(initialValue: value)
-        self._position = Published(initialValue: position)
+        self._value = Published(initialValue: ChartUtility.cgfloatOptional(from: value))
+        self._position = Published(initialValue: ChartUtility.cgfloatOptional(from: position))
         
         super.init(width: width, color: color, dashPatternLength: dashPatternLength, dashPatternGap: dashPatternGap, isHidden: isHidden)
     }
     
     public override func copy(with zone: NSZone? = nil) -> Any {
-        return ChartBaselineAttributes(width: self.width,
+        return ChartBaselineAttributes(width: Double(self.width),
                                        color: self.color,
-                                       dashPatternLength: self.dashPatternLength,
-                                       dashPatternGap: self.dashPatternGap,
+                                       dashPatternLength: Double(self.dashPatternLength),
+                                       dashPatternGap: Double(self.dashPatternGap),
                                        isHidden: self.isHidden,
-                                       value: self.value,
-                                       position: self.position)
+                                       value: ChartUtility.doubleOptional(from: self.value),
+                                       position: ChartUtility.doubleOptional(from: self.position))
     }
 
     /// Baseline value or nil if no data has been assigned to the Chart.
-    @Published public var value: Double?
+    @Published public var value: CGFloat?
 
     /// Baseline position or nil if no data has been assigned to the Chart.
-    @Published public var position: Double?
+    @Published public var position: CGFloat?
 }

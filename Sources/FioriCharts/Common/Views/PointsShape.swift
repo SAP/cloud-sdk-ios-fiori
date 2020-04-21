@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PointsShape: Shape {
-    let points: [Double?]
+    let points: [CGFloat?]
     
     // min and max value for the display range
     let displayRange: ClosedRange<CGFloat>
@@ -19,7 +19,7 @@ struct PointsShape: Shape {
     let startOffset: CGFloat
     let endOffset: CGFloat
     
-    public init(points: [Double?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, radius: CGFloat = 2, gap: CGFloat = 2, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [CGFloat?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, radius: CGFloat = 2, gap: CGFloat = 2, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.layoutDirection = layoutDirection
@@ -33,7 +33,7 @@ struct PointsShape: Shape {
         } else {
             let compactPoints = points.compactMap { $0 }
             let minValue = CGFloat(compactPoints.min() ?? 0)
-            let maxValue = CGFloat(compactPoints.max() ?? Double((minValue + 1)))
+            let maxValue = CGFloat(compactPoints.max() ?? CGFloat((minValue + 1)))
             self.displayRange = minValue ... maxValue
         }
     }

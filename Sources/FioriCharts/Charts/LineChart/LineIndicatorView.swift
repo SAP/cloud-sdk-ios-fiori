@@ -18,11 +18,11 @@ struct LineIndicatorView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.content(rect: proxy.frame(in: .local))
+            self.makeBody(rect: proxy.frame(in: .local))
         }
     }
     
-    func content(rect: CGRect) -> some View {
+    func makeBody(rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var x: CGFloat = 0
         var yPosDict = [Int: CGFloat]()
@@ -31,7 +31,7 @@ struct LineIndicatorView: View {
         }
         
         let closestDataIndex = selectedCategoryRange.lowerBound
-        let count = ChartUtility.numOfDataItmes(model)
+        let count = ChartUtility.numOfDataItems(model)
         
         if closestDataIndex >= 0 && closestDataIndex < count {
             let width = rect.size.width
