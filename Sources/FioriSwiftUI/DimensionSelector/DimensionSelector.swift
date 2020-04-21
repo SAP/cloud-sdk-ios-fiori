@@ -45,6 +45,15 @@ public struct DimensionSelector: View {
         }
     }
     
+    public var controlStateColor: ControlStateColor? {
+        get {
+            return model.controlStateColor
+        }
+        set {
+            model.controlStateColor = newValue
+        }
+    }
+    
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
