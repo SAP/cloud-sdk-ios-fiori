@@ -165,7 +165,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      Indicates indexes of column series for combo chart.
      - Given indexes of series will be treated as column and the rest series will be treated as line.
      */
-    @Published public var indexesOfColumnSeries: IndexSet?
+    @Published public var indexesOfColumnSeries: IndexSet = IndexSet()
     
     /**
      Indicates total indexes for waterfall chart.
@@ -173,14 +173,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
      - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
      */
-    public var indexesOfTotalsCategories: IndexSet?
+    public var indexesOfTotalsCategories: IndexSet = IndexSet()
     
     /**
      Indicates secondary value axis series indexes for line based charts.
      - The secondary value index works with .line, .area and .combo charts only.
      - Given series indexes will assign the corresponding series to the secondary value axis.
      */
-    public var indexesOfSecondaryValueAxis: IndexSet?
+    public var indexesOfSecondaryValueAxis: IndexSet = IndexSet()
     
     /// selection state
     /**
@@ -216,7 +216,26 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published public var scale: CGFloat = 1.0
     @Published public var startPos: Int = 0
     
-    /// styles
+    //
+    // Flag that indicates if we should adjust to nice values, or use the data
+    // minimum and maximum to calculate the range.
+    //
+    // Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
+    //
+    // There is also a "loose label" variable as well, which allows labels to exceed the data range.
+    // It is inconsistent when it comes to enabling it.
+    //    • ellipse - yes
+    //    • waterfall - yes
+    //    • stacked column - no
+    //    • line - no
+    //    • column - no
+    //    • combo - yes
+    @Published public var adjustToNiceValues = true
+    
+    //
+    // Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
+    // By default, all column based charts have this enabled and all line based don't.
+    @Published public var fudgeYAxisRange = false
     
     var ranges: [ClosedRange<Double>] {
         var result: [ClosedRange<Double>] = []
@@ -245,6 +264,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return result
     }
     
+//    var numericAxisTickValues: AxisTickValues
+//    var secondaryNumericAxisTickValues: AxisTickValues
     
     var valueType: ChartValueType {
         let range: ClosedRange<Double> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<Double> in
