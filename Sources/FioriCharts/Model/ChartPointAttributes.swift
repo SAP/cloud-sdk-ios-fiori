@@ -14,16 +14,16 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var isHidden: Bool = false
     
     /// Diameter of the point.
-    @Published public var diameter: Double = 4
+    @Published public var diameter: CGFloat = 4
     
     /// Allowed gap between dots before they run into eachother and are hidden.
-    @Published public var gap: Double = 2
+    @Published public var gap: CGFloat = 2
     
     /// Stroke color for the point.
     @Published public var strokeColor: HexColor = Palette.hexColor(for: .primary2)
     
     /// Line width for the point's stroked path.
-    //@Published public var lineWidth: Double  = 0
+    //@Published public var lineWidth: CGFloat  = 0
     
     public let id = UUID()
     
@@ -32,16 +32,16 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
                 strokeColor: HexColor = Palette.hexColor(for: .primary2),
                 gap: Double = 2) {
         self._isHidden = Published(initialValue: isHidden)
-        self._diameter = Published(initialValue: diameter)
+        self._diameter = Published(initialValue: CGFloat(diameter))
         self._strokeColor = Published(initialValue: strokeColor)
-        self._gap = Published(initialValue: gap)
+        self._gap = Published(initialValue: CGFloat(gap))
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartPointAttributes(isHidden: self.isHidden,
-                                        diameter: self.diameter,
+                                        diameter: Double(self.diameter),
                                         strokeColor: self.strokeColor,
-                                        gap: self.gap)
+                                        gap: Double(self.gap))
         
         return copy
     }

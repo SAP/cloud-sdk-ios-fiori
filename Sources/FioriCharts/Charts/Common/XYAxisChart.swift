@@ -177,7 +177,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
                 let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
                 if self.model.snapToPoint {
-                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItmes(self.model) - 1)
+                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItems(self.model) - 1)
                     let closestIndex = Int(CGFloat(tmp) / unitWidth)
                     self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
                 } else {
@@ -194,7 +194,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         let mag = MagnificationGesture()
             .onChanged({ value in
                 self.showIndicator = false
-                let count = ChartUtility.numOfDataItmes(self.model)
+                let count = ChartUtility.numOfDataItems(self.model)
                 let maxScale = max(1, CGFloat(count - 1) / 2)
                 let tmp = self.lastScale * value.magnitude
                 self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
@@ -246,7 +246,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             height = 0
         }
         
-        return height + CGFloat(model.categoryAxis.baseline.width)
+        return height + model.categoryAxis.baseline.width
     }
     
     func yAxisLabelsMaxWidth() -> CGFloat {

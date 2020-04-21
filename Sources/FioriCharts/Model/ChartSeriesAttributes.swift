@@ -18,13 +18,13 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var point: ChartPointAttributes
     
     /// Line width for current series
-    @Published public var lineWidth: Double
+    @Published public var lineWidth: CGFloat
     
     /// Diameter of line caps for first value
-    @Published public var firstLineCapDiameter: Double
+    @Published public var firstLineCapDiameter: CGFloat
     
     /// Diameter of line caps for last value
-    @Published public var lastLineCapDiameter: Double
+    @Published public var lastLineCapDiameter: CGFloat
     
     public let id = UUID()
     
@@ -40,7 +40,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
             self._palette = Published(initialValue: ChartSeriesPalette(colors: []))
         }
         
-        self._lineWidth = Published(initialValue: lineWidth)
+        self._lineWidth = Published(initialValue: CGFloat(lineWidth))
         
         if let point = point {
             self._point = Published(initialValue: point)
@@ -48,15 +48,15 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
             self._point = Published(initialValue: ChartPointAttributes())
         }
         
-        self._firstLineCapDiameter = Published(initialValue: firstLineCapDiameter)
-        self._lastLineCapDiameter = Published(initialValue: lastLineCapDiameter)
+        self._firstLineCapDiameter = Published(initialValue: CGFloat(firstLineCapDiameter))
+        self._lastLineCapDiameter = Published(initialValue: CGFloat(lastLineCapDiameter))
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
         return ChartSeriesAttributes(palette: (self.palette.copy() as! ChartSeriesPalette),
-                                     lineWidth: self.lineWidth,
+                                     lineWidth: Double(self.lineWidth),
                                      point: (self.point.copy() as! ChartPointAttributes),
-                                     firstLineCapDiameter: self.firstLineCapDiameter,
-                                     lastLineCapDiameter: self.lastLineCapDiameter)
+                                     firstLineCapDiameter: Double(self.firstLineCapDiameter),
+                                     lastLineCapDiameter: Double(self.lastLineCapDiameter))
     }
 }

@@ -28,7 +28,7 @@ class DefaultAxisDataSource: AxisDataSource {
             return ret
         }
         
-        let count = ChartUtility.numOfDataItmes(model)
+        let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
         let startPosInFloat = CGFloat(model.startPos)
@@ -37,7 +37,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let endIndex = max(min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-
+        
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
@@ -62,7 +62,7 @@ class DefaultAxisDataSource: AxisDataSource {
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         var ret: [AxisTitle] = []
-        let count = ChartUtility.numOfDataItmes(model)
+        let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
         let startPosInFloat = CGFloat(model.startPos)
@@ -71,7 +71,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let endIndex = min(max(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-
+        
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) :
             ((startIndex != endIndex) ? [startIndex, endIndex] : [startIndex])
         
@@ -81,7 +81,7 @@ class DefaultAxisDataSource: AxisDataSource {
                                  title: title,
                                  pos: CGPoint(x: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth, y: 0)))
         }
-            
+        
         return ret
     }
     
@@ -133,7 +133,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let value = abs(value)
         
         let nf = abbreviatedFormatter
-    
+        
         // 100+
         if (value >= 100) {
             nf.maximumFractionDigits = 0
@@ -145,7 +145,7 @@ class DefaultAxisDataSource: AxisDataSource {
             if numberOfFractionDigits > 1 || divisor > 1 {
                 numberOfFractionDigits = 1
             }
-
+            
             nf.maximumFractionDigits = numberOfFractionDigits
         }
         
@@ -155,7 +155,7 @@ class DefaultAxisDataSource: AxisDataSource {
             if numberOfFractionDigits > 2 || divisor > 1 {
                 numberOfFractionDigits = 2
             }
-
+            
             nf.maximumFractionDigits = numberOfFractionDigits
         }
         
@@ -170,7 +170,7 @@ class DefaultAxisDataSource: AxisDataSource {
         
         return nf
     }
-
+    
     private func abbreviatedString(for num: Double, useSuffix: Bool, abbreviatedFormatter: NumberFormatter) -> String {
         var aNum = abs(num)
         var multiplier: Double = 100.0
@@ -182,7 +182,7 @@ class DefaultAxisDataSource: AxisDataSource {
             }
             aNum *= multiplier;
         }
-
+        
         /*
          Find the magnitude for the value. The suffix is a " " by default because Joel originally implemented it this way for the medium charts. Probably just to guarantee the these strings were always the same length?
          */
@@ -209,7 +209,7 @@ class DefaultAxisDataSource: AxisDataSource {
         {
             aNum /= multiplier;
             formattedString = formatter.string(from: NSNumber(value: aNum)) ?? " "
-         
+            
             /*
              We want 1k% not 1%k.
              */
@@ -224,8 +224,8 @@ class DefaultAxisDataSource: AxisDataSource {
             if let positiveSuffix = formatter.positiveSuffix, useSuffix {
                 if let index = valueString.lastIndex(of: positiveSuffix.first ?? "+") {
                     /*
-                    We want 1k+ not 1+k.
-                    */
+                     We want 1k+ not 1+k.
+                     */
                     let tmp = formattedString[..<index]
                     formattedString = "\(tmp)\(suffix)\(positiveSuffix)"
                 }
@@ -237,7 +237,7 @@ class DefaultAxisDataSource: AxisDataSource {
                 formattedString = "\(valueString)\(suffix)"
             }
         }
-    
+        
         return formattedString
     }
     
@@ -247,6 +247,9 @@ class DefaultAxisDataSource: AxisDataSource {
         var startPos: CGFloat = 0
         
         let yAxisLabelsCount = max(1, model.numberOfGridlines)
+    
+        // ChartUtility.calculateRangeProperties(model, secondaryRange: false)
+        
         var stepValue = (maxVal - minVal) / CGFloat(yAxisLabelsCount)
         let unitHeight = rect.size.height / (maxVal - minVal)
         let valueType = model.valueType
@@ -280,7 +283,7 @@ class DefaultAxisDataSource: AxisDataSource {
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect) {
         let width = rect.size.width
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((toPoint.x - startOffset) / unitWidth + 0.5) + startIndex

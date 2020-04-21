@@ -10,7 +10,7 @@ import SwiftUI
 struct YAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
-
+    
     weak var axisDataSource: AxisDataSource? = nil
     var displayRange: ClosedRange<CGFloat>
     
@@ -21,11 +21,11 @@ struct YAxisGridlines: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.view(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func view(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         var yAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.yAxisLabels(model, rect: rect, displayRange: displayRange) {
             yAxisLabels = res
@@ -48,7 +48,7 @@ struct YAxisGridlines: View {
             }
         }
         yAxisLabels.remove(at: indexToRemove)
-
+        
         return ZStack {
             if !model.numericAxis.gridlines.isHidden {
                 ForEach(yAxisLabels) { label in
@@ -57,8 +57,8 @@ struct YAxisGridlines: View {
                         LineShape(pos1: CGPoint(x: 0, y: label.pos.y),
                                   pos2: CGPoint(x: rect.size.width, y: label.pos.y))
                             .stroke(self.model.numericAxis.gridlines.color.color(self.colorScheme),
-                                    style: StrokeStyle(lineWidth: CGFloat(self.model.numericAxis.gridlines.width),
-                                                       dash: [CGFloat(self.model.numericAxis.gridlines.dashPatternLength), CGFloat(self.model.numericAxis.gridlines.dashPatternGap)]))
+                                    style: StrokeStyle(lineWidth: self.model.numericAxis.gridlines.width,
+                                                       dash: [self.model.numericAxis.gridlines.dashPatternLength, self.model.numericAxis.gridlines.dashPatternGap]))
                     }
                 }
             }

@@ -19,11 +19,11 @@ struct StockIndicatorView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.content(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func content(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var priceStr: String = ""
         var closestPoint: CGPoint? = nil
@@ -34,7 +34,7 @@ struct StockIndicatorView: View {
         
         let closestDataIndex = selectedCategoryRange.lowerBound
         let width = rect.size.width
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItmes(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let x = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
@@ -49,7 +49,7 @@ struct StockIndicatorView: View {
             
             closestPoint = CGPoint(x: x, y: y)
         
-            priceStr = String(price)
+            priceStr = String(Double(price))
         }
         
         return ZStack {

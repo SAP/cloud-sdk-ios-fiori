@@ -10,6 +10,24 @@ import Foundation
 import SwiftUI
 
 class ChartUtility {
+    static func cgfloatOptional(from value: Double?) -> CGFloat? {
+        var result: CGFloat? = nil
+        if let v = value {
+            result = CGFloat(v)
+        }
+        
+        return result
+    }
+    
+    static func doubleOptional(from value: CGFloat?) -> Double? {
+        var result: Double? = nil
+        if let v = value {
+            result = Double(v)
+        }
+        
+        return result
+    }
+    
     static func calculateRangeProperties(_ model: ChartModel, secondaryRange: Bool)
         {
             if model.data.count == 0 || model.data.first?.count == 0 {
@@ -25,16 +43,11 @@ class ChartUtility {
                 return
             }
             
-            let dataRange: ClosedRange<Double> = indexes.reduce(model.ranges[indexes[0]]) { (result, i) -> ClosedRange<Double> in
+            let dataRange: ClosedRange<CGFloat> = indexes.reduce(model.ranges[indexes[0]]) { (result, i) -> ClosedRange<CGFloat> in
                 let dmin = min(result.lowerBound, model.ranges[i].lowerBound)
                 let dmax = max(result.upperBound, model.ranges[i].upperBound)
                 return dmin...dmax
             }
-    //        let dataRange: ClosedRange<Double> = model.ranges.reduce(model.ranges.first ?? (0...1)) { (result, range) -> ClosedRange<Double> in
-    //            let dmin = min(result.lowerBound, range.lowerBound)
-    //            let dmax = max(result.upperBound, range.upperBound)
-    //            return dmin...dmax
-    //        }
             
             var fudgeRange: Bool
             
@@ -142,7 +155,7 @@ class ChartUtility {
                 {
                     var useLooseLabels = true
                     
-                    let valueAxisBaselineValue: Double = dmax < 0.0 ? dmax : max(0.0, dmin)
+                    let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
                     
                     // If the baseline is at zero we aim to always show the baseline with a tick.
                     if valueAxisBaselineValue == 0.0
@@ -160,9 +173,9 @@ class ChartUtility {
         }
         
         
-        static func axisCreateTicks(_ model: ChartModel, rangeStart: Double, rangeEnd: Double, desiredTickCount: UInt, looseLabels: Bool, fudgeRange: Bool, adjustToNiceValues: Bool)
+        static func axisCreateTicks(_ model: ChartModel, rangeStart: CGFloat, rangeEnd: CGFloat, desiredTickCount: UInt, looseLabels: Bool, fudgeRange: Bool, adjustToNiceValues: Bool)
         {
-            let Q:[Double] = [1.0, 2.0, 4.0, 5.0, 3.0, 6.0, 7.0, 8.0, 9.0]
+            let Q:[CGFloat] = [1.0, 2.0, 4.0, 5.0, 3.0, 6.0, 7.0, 8.0, 9.0]
             // As suggested in the paper but not ideal for our use cases.
             //    Q[0] = 1.0
             //    Q[1] = 5.0
@@ -174,7 +187,7 @@ class ChartUtility {
             //    Q[7] = 1.25
             
             // Weights applied to the four optimization components (simplicity, coverage, density, and legibility)
-            let w:[Double] = [0.06, 0.01, 0.1]
+            let w:[CGFloat] = [0.06, 0.01, 0.1]
             // As defined in the paper but not ideal for our use cases.
             //    w[0] = 0.2
             //    w[1] = 0.25
@@ -187,10 +200,10 @@ class ChartUtility {
         }
         
         struct Best {
-            var lmin: Double
-            var lmax: Double
-            var lstep: Double
-            var score: Double
+            var lmin: CGFloat
+            var lmax: CGFloat
+            var lstep: CGFloat
+            var score: CGFloat
         }
         
         // An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
@@ -205,22 +218,22 @@ class ChartUtility {
         // @param w weights applied to the four optimization components (simplicity, coverage, density, and legibility)
         // @references
         // Talbot, J., Lin, S., Hanrahan, P. (2010) An Extension of Wilkinson's Algorithm for Positioning Tick Labels on Axes, InfoVis 2010.
-        static func axisUtilExtended(_ model: ChartModel, _ dMin: Double, _ dMax: Double, _ m: UInt, _ Q: [Double], _ loose: Bool, _ fudgeRange: Bool, _ w: [Double], _ qLength: UInt, _ adjustToNiceValues: Bool)
+        static func axisUtilExtended(_ model: ChartModel, _ dMin: CGFloat, _ dMax: CGFloat, _ m: UInt, _ Q: [CGFloat], _ loose: Bool, _ fudgeRange: Bool, _ w: [CGFloat], _ qLength: UInt, _ adjustToNiceValues: Bool)
         {
-            let eps = 1e-10
+            let eps = CGFloat(1e-10)
             let maxIterations = 30
             
-            func modFloor(_ a: Double, _ n: Double) -> Double {
+            func modFloor(_ a: CGFloat, _ n: CGFloat) -> CGFloat {
                 return a - n * floor(a / n)
             }
             
             // Scoring functions, including the approximations for limiting the search
-            func simplicity(_ q: Double, _ j: Double, _ lmin: Double, _ lmax: Double, _ lstep: Double, _ qLength: UInt, _ index: UInt) -> Double {
+            func simplicity(_ q: CGFloat, _ j: CGFloat, _ lmin: CGFloat, _ lmax: CGFloat, _ lstep: CGFloat, _ qLength: UInt, _ index: UInt) -> CGFloat {
                 let targetIndex = max(min(index, qLength - 1), 0)
                 let n = qLength
                 let i = targetIndex + 1
-                let v: Double = (modFloor(lmin, lstep) < eps && lmin <= 0 && lmax >= 0) ? 1 : 0
-                var score: Double
+                let v: CGFloat = (modFloor(lmin, lstep) < eps && lmin <= 0 && lmax >= 0) ? 1 : 0
+                var score: CGFloat
                 
                 if (n <= 1)
                 {
@@ -228,19 +241,19 @@ class ChartUtility {
                 }
                 else
                 {
-                    score = 1 - Double(i - 1) / Double(n - 1) - j + v
+                    score = 1 - CGFloat(i - 1) / CGFloat(n - 1) - j + v
                 }
                 
                 return score
             }
             
-            func simplicityMax(_ q: Double, _ j: Double, _ qLength: UInt, _ index: UInt) -> Double
+            func simplicityMax(_ q: CGFloat, _ j: CGFloat, _ qLength: UInt, _ index: UInt) -> CGFloat
             {
                 let targetIndex = max(min(index, qLength - 1), 0)
                 let n = qLength
                 let i = targetIndex + 1
-                let v = 1.0
-                var score: Double
+                let v: CGFloat = 1.0
+                var score: CGFloat
                 
                 if (n <= 1)
                 {
@@ -248,19 +261,19 @@ class ChartUtility {
                 }
                 else
                 {
-                    score = 1 - Double(i - 1) / Double(n - 1) - j + v
+                    score = 1 - CGFloat(i - 1) / CGFloat(n - 1) - j + v
                 }
                 
                 return score
             }
             
-            func coverage(_ dmin: Double, _ dmax: Double, _ lmin: Double, _ lmax: Double) -> Double
+            func coverage(_ dmin: CGFloat, _ dmax: CGFloat, _ lmin: CGFloat, _ lmax: CGFloat) -> CGFloat
             {
                 let range = dmax - dmin
                 return 1.0 - 0.5 * (pow(dmax - lmax, 2.0) + pow(dmin - lmin, 2.0)) / pow(0.1 * range, 2.0)
             }
             
-            func coverageMax(_ dmin: Double, _ dmax: Double, _ span: Double) -> Double
+            func coverageMax(_ dmin: CGFloat, _ dmax: CGFloat, _ span: CGFloat) -> CGFloat
             {
                 let range = dmax - dmin
                 
@@ -275,7 +288,7 @@ class ChartUtility {
                 }
             }
             
-            func density(_ k: Double, _ m: Double, _ dmin: Double, _ dmax: Double, _ lmin: Double, _ lmax: Double) -> Double
+            func density(_ k: CGFloat, _ m: CGFloat, _ dmin: CGFloat, _ dmax: CGFloat, _ lmin: CGFloat, _ lmax: CGFloat) -> CGFloat
             {
                 let r = (k - 1.0) / (lmax - lmin)
                 let rt = (m - 1.0) / (max(lmax, dmax) - min(dmin, lmin))
@@ -283,7 +296,7 @@ class ChartUtility {
                 return 2.0 - max(r / rt, rt / r)
             }
             
-            func densityMax(_ k: Double, _ m: Double) -> Double {
+            func densityMax(_ k: CGFloat, _ m: CGFloat) -> CGFloat {
                 if(k >= m)
                 {
                     return 2.0 - (k - 1.0) / (m - 1.0)
@@ -294,27 +307,27 @@ class ChartUtility {
                 }
             }
             
-            var plotMinimum: Double = 0
-            var plotMaximum: Double = 0
-            var tickMinimum: Double = 0
-            var tickMaximum: Double = 0
-            var dataMinimum: Double = 0
-            var dataMaximum: Double = 0
-            var plotRange: Double = 0
-            var tickRange: Double = 0
-            var dataRange: Double = 0
-            var plotScale: Double = 0
-            var tickScale: Double = 0
-            var dataScale: Double = 0
-            var tickStepSize: Double = 0
-            var tickValues: [Double] = []
-            var tickPositions: [Double] = []
+            var plotMinimum: CGFloat = 0
+            var plotMaximum: CGFloat = 0
+            var tickMinimum: CGFloat = 0
+            var tickMaximum: CGFloat = 0
+            var dataMinimum: CGFloat = 0
+            var dataMaximum: CGFloat = 0
+            var plotRange: CGFloat = 0
+            var tickRange: CGFloat = 0
+            var dataRange: CGFloat = 0
+            var plotScale: CGFloat = 0
+            var tickScale: CGFloat = 0
+            var dataScale: CGFloat = 0
+            var tickStepSize: CGFloat = 0
+            var tickValues: [CGFloat] = []
+            var tickPositions: [CGFloat] = []
             var tickCount: UInt = 0
             
             let dmin = min(dMin, dMax)
             let dmax = dMin == dMax ? (dMax + 1): max(dMin, dMax)
             
-            //        var temp: Double
+            //        var temp: CGFloat
             //
             //        if (dmin > dmax)
             //        {
@@ -322,7 +335,7 @@ class ChartUtility {
             //            dmin = dmax
             //            dmax = temp
             //        }
-            let plotBaselineValue: Double = dmax < 0.0 ? dmax : max(0.0, dmin)
+            let plotBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
             
             if (!adjustToNiceValues || dmax - dmin < eps)
             {
@@ -331,7 +344,7 @@ class ChartUtility {
                 //return seq(from=dmin, to=dmax, length.out=m)
                 //return sequenceFromToByLength(dmin, dmax, m)
                 
-                let range: Double = dmax - dmin
+                let range: CGFloat = dmax - dmin
                 var baselineWithinPlot: Bool = dmax > 0.0 && dmin < 0.0
                 if (dmin == 0 || dmax == 0)
                 {
@@ -379,11 +392,11 @@ class ChartUtility {
                     dataScale = 1.0 / dataRange
                 }
                 
-                tickStepSize = tickRange / Double(m - 1)
+                tickStepSize = tickRange / CGFloat(m - 1)
                 tickCount = m
                 
                 for i in 0 ..< tickCount {
-                    let tickValue = dmin + tickStepSize * Double(i)
+                    let tickValue = dmin + tickStepSize * CGFloat(i)
                     tickValues.append(tickValue)
                     tickPositions.append(plotScale * (tickValue - plotMinimum))
                 }
@@ -399,7 +412,7 @@ class ChartUtility {
             {
                 for i in 0 ..< qLength {
                     let q = Q[Int(i)]
-                    let sm = simplicityMax(q, Double(j), qLength, i)
+                    let sm = simplicityMax(q, CGFloat(j), qLength, i)
                     
                     if ((w[0] * sm + w[1] + w[2]) < best.score)
                     {
@@ -412,34 +425,34 @@ class ChartUtility {
                     // loop over tick counts (don't loop more than twice the desired tick count).
                     while (k < m + m)
                     {
-                        let dm = densityMax(Double(k), Double(m))
+                        let dm = densityMax(CGFloat(k), CGFloat(m))
                         
                         if((w[0] * sm + w[1] + w[2] * dm) < best.score)
                         {
                             break
                         }
                         
-                        let delta = (dmax - dmin) / (Double(k) + 1.0) / (Double(j) * q)
+                        let delta = (dmax - dmin) / (CGFloat(k) + 1.0) / (CGFloat(j) * q)
                         var z = ceil(log10(delta))
                         
-                        while (z < Double(maxIterations))
+                        while (z < CGFloat(maxIterations))
                         {
-                            let step = Double(j) * q * pow(10.0, z)
+                            let step = CGFloat(j) * q * pow(10.0, z)
                             
                             if step.isInfinite || step.isNaN
                             {
                                 break
                             }
                             
-                            let cm = coverageMax(dmin, dmax, step * (Double(k) - 1.0))
+                            let cm = coverageMax(dmin, dmax, step * (CGFloat(k) - 1.0))
                             
                             if ((w[0] * sm + w[1] * cm + w[2] * dm) < best.score)
                             {
                                 break
                             }
                             
-                            let minStart = Int(floor(dmax / step - (Double(k) - 1.0)) * Double(j))
-                            let maxStart = Int(ceil(dmin / step) * Double(j))
+                            let minStart = Int(floor(dmax / step - (CGFloat(k) - 1.0)) * CGFloat(j))
+                            let maxStart = Int(ceil(dmin / step) * CGFloat(j))
                             
                             if (minStart > maxStart)
                             {
@@ -449,13 +462,13 @@ class ChartUtility {
                             
                             for start in minStart ... maxStart
                             {
-                                let lmin = Double(start) * (step / Double(j))
-                                let lmax = lmin + step * (Double(k) - 1.0)
+                                let lmin = CGFloat(start) * (step / CGFloat(j))
+                                let lmax = lmin + step * (CGFloat(k) - 1.0)
                                 let lstep = step
                                 
-                                let s = simplicity(q, Double(j), lmin, lmax, lstep, qLength, i)
+                                let s = simplicity(q, CGFloat(j), lmin, lmax, lstep, qLength, i)
                                 let c = coverage(dmin, dmax, lmin, lmax)
-                                let g = density(Double(k), Double(m), dmin, dmax, lmin, lmax)
+                                let g = density(CGFloat(k), CGFloat(m), dmin, dmax, lmin, lmax)
                                 
                                 let score = w[0] * s + w[1] * c + w[2] * g
                                 
@@ -484,11 +497,11 @@ class ChartUtility {
             {
                 if (rangeStart <= best.lmin && rangeStart > 0.0 && rangeEnd >= rangeStart)
                 {
-                    rangeStart -= best.lstep / Double(tickCount)
+                    rangeStart -= best.lstep / CGFloat(tickCount)
                 }
                 else if (rangeEnd >= best.lmax && rangeEnd < 0.0 && rangeStart <= rangeEnd)
                 {
-                    rangeEnd += best.lstep / Double(tickCount)
+                    rangeEnd += best.lstep / CGFloat(tickCount)
                 }
             }
             
@@ -535,7 +548,7 @@ class ChartUtility {
             
             for i in 0 ..< tickCount
             {
-                let tickValue = tickMinimum + tickStepSize * Double(i)
+                let tickValue = tickMinimum + tickStepSize * CGFloat(i)
                 tickValues.append(tickValue)
                 tickPositions.append(plotScale * (tickValue - plotMinimum))
             }
@@ -544,7 +557,7 @@ class ChartUtility {
     //        return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
         }
     
-    static func numOfDataItmes(_ model: ChartModel) -> Int {
+    static func numOfDataItems(_ model: ChartModel) -> Int {
         if let titles = model.titlesForCategory {
             return titles[model.currentSeriesIndex].count
         }
@@ -630,7 +643,7 @@ class ChartUtility {
         return countA != countB
     }
     
-    static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> Double? {
+    static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
         if model.data.count < seriesIndex || model.data[seriesIndex].count < categoryIndex {
             return nil
         }
@@ -646,11 +659,11 @@ class ChartUtility {
         return nil
     }
     
-    static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Double? {
+    static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> CGFloat? {
         return dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
     
-    static func dimensionValue(_ model: ChartModel, categoryIndex: Int) -> Double? {
+    static func dimensionValue(_ model: ChartModel, categoryIndex: Int) -> CGFloat? {
         return dimensionValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
     

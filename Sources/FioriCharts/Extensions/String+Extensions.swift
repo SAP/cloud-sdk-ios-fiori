@@ -9,11 +9,11 @@ import Foundation
 import SwiftUI
 
 extension String {
-    func boundingBoxSize(with fontSize: Double) -> CGSize {
+    func boundingBoxSize(with fontSize: CGFloat) -> CGSize {
         #if os(iOS) || os(tvOS) || os(watchOS)
-        let font = UIFont.systemFont(ofSize: CGFloat(fontSize))
+        let font = UIFont.systemFont(ofSize: fontSize)
         #elseif os(macOS)
-        let font = NSFont.systemFont(ofSize: CGFloat(fontSize))
+        let font = NSFont.systemFont(ofSize: fontSize)
         #endif
         
         let size = (self as NSString)

@@ -23,17 +23,17 @@ struct YAxisView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.view(in: proxy.frame(in: .local))
+            self.makeBody(in: proxy.frame(in: .local))
         }
     }
     
-    func view(in rect: CGRect) -> some View {
+    func makeBody(in rect: CGRect) -> some View {
         var yAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.yAxisLabels(model, rect: rect, displayRange: displayRange) {
             yAxisLabels = res
         }
 
-        let baselineX = layoutDirection == .leftToRight ? (rect.size.width) : (rect.size.width - CGFloat(model.numericAxis.baseline.width))
+        let baselineX = layoutDirection == .leftToRight ? (rect.size.width) : (rect.size.width - model.numericAxis.baseline.width)
         
         return ZStack {
             if !model.numericAxis.labels.isHidden {
@@ -41,7 +41,7 @@ struct YAxisView: View {
                     // y axis lables
                     Text(label.title)
                         .fixedSize()
-                        .font(.system(size: CGFloat(self.model.numericAxis.labels.fontSize)))
+                        .font(.system(size: self.model.numericAxis.labels.fontSize))
                         .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
                         .position(x: label.pos.x,
                                   y: label.pos.y)
@@ -53,9 +53,9 @@ struct YAxisView: View {
                 LineShape(pos1: CGPoint(x: 0, y: 0),
                           pos2: CGPoint(x: 0, y: rect.size.height))
                     .stroke(model.numericAxis.baseline.color.color(self.colorScheme),
-                            style: StrokeStyle(lineWidth: CGFloat(model.numericAxis.baseline.width),
-                                               dash: [CGFloat(self.model.numericAxis.baseline.dashPatternLength), CGFloat(self.model.numericAxis.baseline.dashPatternGap)]))
-                    .frame(width: CGFloat(model.numericAxis.baseline.width), height: rect.size.height)
+                            style: StrokeStyle(lineWidth: model.numericAxis.baseline.width,
+                                               dash: [self.model.numericAxis.baseline.dashPatternLength, self.model.numericAxis.baseline.dashPatternGap]))
+                    .frame(width: model.numericAxis.baseline.width, height: rect.size.height)
                     .position(x: baselineX, y: rect.size.height / 2)
             }
         }

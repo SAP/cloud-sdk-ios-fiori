@@ -8,7 +8,7 @@
 import SwiftUI
 
 public struct LinesShape: Shape {
-    var points: [Double?]
+    var points: [CGFloat?]
     
     // min and max value for the display range
     var displayRange: ClosedRange<CGFloat>
@@ -18,7 +18,7 @@ public struct LinesShape: Shape {
     var startOffset: CGFloat = 0
     var endOffset: CGFloat = 0
     
-    public init(points: [Double?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [CGFloat?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.layoutDirection = layoutDirection
@@ -32,7 +32,7 @@ public struct LinesShape: Shape {
         } else {
             let compactPoints = points.compactMap { $0 }
             let minValue = CGFloat(compactPoints.min() ?? 0)
-            let maxValue = CGFloat(compactPoints.max() ?? Double((minValue + 1)))
+            let maxValue = CGFloat(compactPoints.max() ?? CGFloat((minValue + 1)))
             self.displayRange = minValue ... maxValue
         }
     }
@@ -46,7 +46,7 @@ public struct LinesShape: Shape {
         
         let data: [CGFloat?] = points.map {
             if let val = $0 {
-                return yPosition(from: CGFloat(val), in: rect)
+                return yPosition(from: val, in: rect)
             }
             else {
                 return nil
