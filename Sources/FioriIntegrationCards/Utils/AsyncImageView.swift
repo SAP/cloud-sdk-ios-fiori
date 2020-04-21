@@ -48,8 +48,8 @@ final class ImageLoader: ObservableObject {
         }
 
         NetworkService.shared.getIcon(iconName: name) { (succeed, image, err) in
-            guard succeed else {
-                print(err!)
+            guard succeed, let image = image else {
+                if err != nil { print(String(describing: err)) }
                 DispatchQueue.main.async {
                     self.image = nil
                 }
@@ -57,7 +57,7 @@ final class ImageLoader: ObservableObject {
             }
             
             print("Got an image with: \(name)")
-            self.imageCache.set(forKey: name, image: image!)
+            self.imageCache.set(forKey: name, image: image)
             DispatchQueue.main.async {
                 self.image = image
             }
