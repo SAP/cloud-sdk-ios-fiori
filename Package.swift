@@ -12,6 +12,10 @@ let package = Package(
             name: "FioriSwiftUI",
             type: .dynamic,
             targets: ["FioriSwiftUI"]),
+        .library(
+        name: "Cards",
+        type: .dynamic,
+        targets: ["FioriIntegrationCards"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.

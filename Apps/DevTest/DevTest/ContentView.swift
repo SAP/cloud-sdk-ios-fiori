@@ -47,14 +47,16 @@ struct ContentView: View {
     }
     
     var body: some View {
-        NavigationView() {
-            //            NavigationLink("CollectionView", destination: CollectionView<[Manifest], Card>(data: TestCardBundle.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card }))
-            
-            List(TestCardBundle.allCases) { bundle in
-                NavigationLink(destination: LoadingView(card: bundle)) {
-                    Text(bundle.rawValue)
-                }
-            }.navigationBarTitle("Test Cases")
+        TabView {
+            NavigationView() {
+                List(TestCardBundle.allCases) { bundle in
+                    NavigationLink(destination: LoadingView(card: bundle)) {
+                        Text(bundle.rawValue)
+                    }
+                }.navigationBarTitle("Test Cases")
+            }.tabItem { Text("Test Cases") }
+            CollectionView<[Manifest], Card>(data: TestCardBundle.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card })
+            .tabItem({ Text("Collection View") })
         }
     }
 }
