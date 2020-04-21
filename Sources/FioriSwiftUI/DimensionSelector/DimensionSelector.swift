@@ -46,18 +46,19 @@ public struct DimensionSelector: View {
                 interItemSpacing: CGFloat = 6,
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil) {
-        self.segmentTitles = segmentTitles
-        self.titleInsets = titleInsets
+        self.segmentTitles  = segmentTitles
+        self.titleInsets    = titleInsets
         
-        self.model.interItemSpacing = interItemSpacing
-        self.model.selectedIndex = selectedIndex
+        self.model.interItemSpacing     = interItemSpacing
+        self.model.selectedIndex        = selectedIndex
+        self.model.controlStateColor    = ControlStateColor(selected: .blue, normal: .gray)
     }
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.titleInsets)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.titleInsets, controlColor: self.model.controlStateColor)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
@@ -97,19 +98,22 @@ extension DimensionSelector {
         
         var isSelected: Bool
         
-        let titleInsets: EdgeInsets
+        var titleInsets: EdgeInsets
+        
+        var controlColor: ControlStateColor
 
         var body: some View {
             Text(title)
                 .padding(titleInsets)
-                .foregroundColor(self.isSelected ? Color.blue : Color.gray)
-                .overlay(ButtonOverlayView(isSelected: self.isSelected))
+                .foregroundColor(self.isSelected ? controlColor.selected : controlColor.normal)
+                .overlay(ButtonOverlayView(isSelected: self.isSelected, controlColor: controlColor))
         }
     }
     
     class Model: ObservableObject {
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
+        @Published var controlStateColor: ControlStateColor!
     }
 }
 
