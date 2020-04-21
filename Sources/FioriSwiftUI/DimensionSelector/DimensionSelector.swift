@@ -16,7 +16,14 @@ public struct DimensionSelector: View {
     
     let segmentTitles: [String]
     
-    let titleInsets: EdgeInsets
+    public var titleInsets: EdgeInsets {
+        get {
+            return model.titleInsets
+        }
+        set {
+            model.titleInsets = newValue
+        }
+    }
 
     public var interItemSpacing: CGFloat {
         get {
@@ -65,8 +72,8 @@ public struct DimensionSelector: View {
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil) {
         self.segmentTitles  = segmentTitles
-        self.titleInsets    = titleInsets
-        
+
+        self.model.titleInsets          = titleInsets
         self.model.interItemSpacing     = interItemSpacing
         self.model.selectedIndex        = selectedIndex
         self.model.controlStateColor    = ControlStateColor(selected: .blue, normal: .gray)
@@ -76,7 +83,7 @@ public struct DimensionSelector: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.titleInsets, controlColor: self.model.controlStateColor)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.model.titleInsets, controlColor: self.model.controlStateColor)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
@@ -134,6 +141,7 @@ extension DimensionSelector {
         @Published var interItemSpacing: CGFloat!
         @Published var controlStateColor: ControlStateColor!
         @Published var font: Font?
+        @Published var titleInsets: EdgeInsets!
     }
 }
 
