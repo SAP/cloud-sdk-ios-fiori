@@ -36,7 +36,7 @@ public struct DimensionSelector: View {
         }
     }
     
-    public var font: Font? {
+    public var titleFont: Font? {
         get {
             return model.font
         }
