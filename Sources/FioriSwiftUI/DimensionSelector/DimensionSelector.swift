@@ -36,6 +36,15 @@ public struct DimensionSelector: View {
         }
     }
     
+    public var font: Font? {
+        get {
+            return model.font
+        }
+        set {
+            model.font = newValue
+        }
+    }
+    
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
