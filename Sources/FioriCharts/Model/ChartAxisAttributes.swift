@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftUI
 /**
  Identifiers for different axes presented by the chart.
  
@@ -26,6 +26,91 @@ public enum ChartAxisId {
     case dual
     /// Category or X axis.
     case category
+}
+
+/**
+ * Axis context struct.
+ */
+struct AxisTickValues
+{
+    /*
+     * The actual plottable min/max.
+     * This is the smallest value between tick min and data min, and the biggest
+     * value between tick max and data max.
+     */
+    let plotMinimum: CGFloat
+    let plotMaximum: CGFloat
+
+    /*
+     * Indicate the value and position of the origin of a chart.
+     * If the y axis zero value is visible in the plottable area, zero is the
+     * baseline. Otherwise it will be the closest visible value to the y axis
+     * zero value... the origin.
+     */
+    let plotBaselineValue: CGFloat
+    let plotBaselinePosition: CGFloat
+    
+    /*
+     * The min/max represented by the tick marks.
+     */
+    let tickMinimum: CGFloat
+    let tickMaximum: CGFloat
+    
+    /*
+     * The min/max values in the data.
+     */
+    let dataMinimum: CGFloat
+    let dataMaximum: CGFloat
+    
+    /*
+     * The range between plot min and plot max.
+     */
+    let plotRange: CGFloat
+    
+    /*
+     * The range between tick min and tick max.
+     */
+    let tickRange: CGFloat
+    
+    /*
+     * The range between data min and data max.
+     */
+    let dataRange: CGFloat
+    
+    /*
+     * The range between plot min and plot max.
+     */
+    let plotScale: CGFloat
+    
+    /*
+     * The range between tick min and tick max.
+     */
+    let tickScale: CGFloat
+    
+    /*
+     * The range between data min and data max.
+     */
+    let dataScale: CGFloat
+    
+    /*
+     *  The size of the tick distance from one tick mark to another.
+     */
+    let tickStepSize: CGFloat
+    
+    /*
+     *  Array of tick values that are to be represented.
+     */
+    let tickValues: [CGFloat]
+    
+    /*
+     *  Array of tick values that are to be represented.
+     */
+    let tickPositions: [CGFloat]
+    
+    /*
+     *  Amount of ticks that are to be represented.
+     */
+    let tickCount: UInt
 }
 
 public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying {
