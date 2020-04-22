@@ -8,5 +8,6 @@ import SwiftUI
 
 public struct ControlStateColor {
     public var selected: Color
-    public var normal: Color
+    public var normalFont: Color
+    public var normalBorder: Color
 }

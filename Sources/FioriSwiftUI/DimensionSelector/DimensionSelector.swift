@@ -76,7 +76,7 @@ public struct DimensionSelector: View {
         self.model.titleInsets          = titleInsets
         self.model.interItemSpacing     = interItemSpacing
         self.model.selectedIndex        = selectedIndex
-        self.model.controlStateColor    = ControlStateColor(selected: .blue, normal: .gray)
+        self.model.controlStateColor    = ControlStateColor(selected: .blue, normalFont: .gray, normalBorder: .init(red: 0.3, green: 0.3, blue: 0.3))
     }
     
     public var body: some View {
@@ -131,7 +131,7 @@ extension DimensionSelector {
         var body: some View {
             Text(title)
                 .padding(titleInsets)
-                .foregroundColor(self.isSelected ? controlColor.selected : controlColor.normal)
+                .foregroundColor(self.isSelected ? controlColor.selected : controlColor.normalFont)
                 .overlay(ButtonOverlayView(isSelected: self.isSelected, controlColor: controlColor))
         }
     }
