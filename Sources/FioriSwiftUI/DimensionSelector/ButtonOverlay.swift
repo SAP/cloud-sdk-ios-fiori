@@ -15,7 +15,7 @@ struct ButtonOverlayView: View {
     
     var body: some View {
         ButtonOverlayShape(cornerRadius: 4)
-            .stroke(self.isSelected ? controlColor.selected : controlColor.normal, style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
+            .stroke(self.isSelected ? controlColor.selected : controlColor.normalBorder, style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
     }
 }
 
