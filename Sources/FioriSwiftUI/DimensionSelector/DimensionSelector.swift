@@ -131,7 +131,7 @@ extension DimensionSelector {
         var body: some View {
             Text(title)
                 .padding(titleInsets)
-                .foregroundColor(self.isSelected ? controlColor.selected : nil)
+                .foregroundColor(self.isSelected ? controlColor.selected : controlColor.normalFont)
                 .overlay(ButtonOverlayView(isSelected: self.isSelected, controlColor: controlColor))
         }
     }
