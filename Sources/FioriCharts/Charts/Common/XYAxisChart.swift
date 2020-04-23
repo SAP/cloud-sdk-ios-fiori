@@ -72,7 +72,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     func makeBody(in rect: CGRect) -> some View {
         let xAxisHeight = xAxisLabelsMaxHeight(rect)
-        let yAxisWidth = yAxisLabelsMaxWidth()
+        let yAxisWidth = yAxisLabelsMaxWidth(rect)
         
         let displayRange = ChartUtility.displayRange(model)
         let chartWidth = rect.size.width - yAxisWidth
@@ -230,12 +230,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
-        let lables = axisDataSource.xAxisLabels(model, rect: rect)
-        if lables.count == 0 { return 16 }
+        let labels = axisDataSource.xAxisLabels(model, rect: rect)
+        if labels.count == 0 { return 16 }
         
         var height: CGFloat = 16
         var totalWidth: CGFloat = 0
-        for label in lables {
+        for label in labels {
             let size = label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
             height = max(height, size.height)
             totalWidth += size.width + 2
@@ -249,12 +249,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         return height + model.categoryAxis.baseline.width
     }
     
-    func yAxisLabelsMaxWidth() -> CGFloat {
+    func yAxisLabelsMaxWidth(_ rect: CGRect) -> CGFloat {
         var width: CGFloat = 20
+        
         let range = ChartUtility.displayRange(model)
-        for val in [range.lowerBound, range.upperBound] {
-            let str = axisDataSource.yAxisFormattedString(model, value: Double(val))
-            let size = str.boundingBoxSize(with: model.numericAxis.labels.fontSize)
+        let labels = axisDataSource.yAxisLabels(model, rect: rect, displayRange: range)
+        
+        for label in labels {
+            let size = label.title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
             width = max(width, size.width)
         }
         

@@ -123,7 +123,6 @@ class ChartUtility {
     }
     
     static func calculateRangeProperties(_ model: ChartModel, dataElements: ChartModel.DataElementsForAxisTickValues, secondaryRange: Bool) -> AxisTickValues {
-        print("calculateRangeProperties")
         
         if dataElements.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
@@ -241,7 +240,7 @@ class ChartUtility {
     // Talbot, J., Lin, S., Hanrahan, P. (2010) An Extension of Wilkinson's Algorithm for Positioning Tick Labels on Axes, InfoVis 2010.
     static func axisUtilExtended(_ model: ChartModel, _ dMin: CGFloat, _ dMax: CGFloat, _ m: UInt, _ Q: [CGFloat], _ loose: Bool, _ fudgeRange: Bool, _ w: [CGFloat], _ qLength: UInt, _ adjustToNiceValues: Bool) -> AxisTickValues
     {
-        print("loose = \(loose), fudgeRange = \(fudgeRange), adjustToNiceValues = \(adjustToNiceValues)")
+        //print("loose = \(loose), fudgeRange = \(fudgeRange), adjustToNiceValues = \(adjustToNiceValues)")
         let eps = CGFloat(1e-10)
         let maxIterations = 30
         
@@ -414,6 +413,9 @@ class ChartUtility {
                 tickValues.append(tickValue)
                 tickPositions.append(plotScale * (tickValue - plotMinimum))
             }
+            tickValues.reverse()
+            tickPositions.reverse()
+            
             let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
             return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
         }
@@ -566,6 +568,8 @@ class ChartUtility {
             tickValues.append(tickValue)
             tickPositions.append(plotScale * (tickValue - plotMinimum))
         }
+        tickValues.reverse()
+        tickPositions.reverse()
         
         let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)

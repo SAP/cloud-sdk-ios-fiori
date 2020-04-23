@@ -242,37 +242,20 @@ class DefaultAxisDataSource: AxisDataSource {
     }
     
     func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle] {
-        var minVal = displayRange.lowerBound
-        var maxVal = displayRange.upperBound
-        var startPos: CGFloat = 0
-        
-        let yAxisLabelsCount = max(1, model.numberOfGridlines)
-    
-        var stepValue = (maxVal - minVal) / CGFloat(yAxisLabelsCount)
-        let unitHeight = rect.size.height / (maxVal - minVal)
-        let valueType = model.valueType
-        if valueType == .mixed && maxVal != (-minVal) {
-            var count = Int(maxVal / stepValue + 0.6)
-            if maxVal < (-minVal) {
-                count = Int((-minVal) / stepValue + 0.6)
-            }
-            
-            stepValue = min(maxVal / CGFloat(count), (-minVal)/CGFloat(yAxisLabelsCount - count))
-            maxVal = stepValue * CGFloat(count)
-            minVal = -CGFloat(yAxisLabelsCount - count) * stepValue
-            startPos = (displayRange.upperBound - maxVal) * unitHeight
-        }
-        let stepHeight = stepValue * unitHeight
+        let ticks = model.numericAxisTickValues
+        let yAxisLabelsCount = Int(ticks.tickCount)
+        let height = rect.size.height
         
         var yAxisLabels: [AxisTitle] = []
-        for i in 0...yAxisLabelsCount {
-            let val = maxVal - CGFloat(i) * (maxVal - minVal) / CGFloat(yAxisLabelsCount)
+        for i in 0 ..< yAxisLabelsCount {
+            let val = ticks.tickValues[i]
             let title = yAxisFormattedString(model, value: Double(val))
             let size = title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
+            
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,
-                                         pos: CGPoint(x: rect.size.width - CGFloat(model.numericAxis.baseline.width) - 1 - size.width / 2, y: rect.origin.y + startPos + CGFloat(i) * stepHeight)))
+                                         pos: CGPoint(x: rect.size.width - CGFloat(model.numericAxis.baseline.width) - 1 - size.width / 2, y: rect.origin.y + height * (1.0 - ticks.tickPositions[i]))))
         }
         
         return yAxisLabels
