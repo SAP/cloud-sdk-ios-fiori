@@ -298,7 +298,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
-            print(result)
             if numericAxisTickValuesCache.count > 10 {
                 numericAxisTickValuesCache.removeAll()
             }
