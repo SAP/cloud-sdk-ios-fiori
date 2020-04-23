@@ -264,7 +264,50 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return result
     }
     
-//    var numericAxisTickValues: AxisTickValues
+    struct DataElementsForAxisTickValues: Hashable {
+        
+        let noData: Bool
+        /*
+         * The min/max values in the data.
+         */
+        let dataMinimum: CGFloat
+        let dataMaximum: CGFloat
+        
+        // only applicable for stock, otherwise it is 0 always
+        let currentSeriesIndex: Int
+        
+        let numberOfGridlines: Int
+        
+        let adjustToNiceValues: Bool
+        
+        let fudgeYAxisRange: Bool
+        
+        let secondaryRange: Bool
+    }
+    
+    // cache for AxisTickValues
+    var numericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
+    var numericAxisTickValues: AxisTickValues {
+        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: false)
+        
+        if de.noData {
+            return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
+        }
+        else if let result = numericAxisTickValuesCache[de] {
+            return result
+        }
+        else {
+            let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
+            print(result)
+            if numericAxisTickValuesCache.count > 10 {
+                numericAxisTickValuesCache.removeAll()
+            }
+            
+            numericAxisTickValuesCache[de] = result
+            
+            return result
+        }
+    }
 //    var secondaryNumericAxisTickValues: AxisTickValues
     
     var valueType: ChartValueType {
@@ -393,9 +436,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._numericAxis = Published(initialValue: numericAxis)
         } else {
             let axis = ChartNumericAxisAttributes()
-            if chartType != .stock {
+            if chartType == .stock {
+                axis.isZeroBased = false
+                axis.abbreviatesLabels = false
+            }
+            else {
                 axis.baseline.isHidden = true
             }
+
             self._numericAxis = Published(initialValue: axis)
         }
         
@@ -502,7 +550,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._numericAxis = Published(initialValue: numericAxis)
         } else {
             let axis = ChartNumericAxisAttributes()
-            if chartType != .stock {
+            if chartType == .stock {
+                axis.isZeroBased = false
+                axis.abbreviatesLabels = false
+            }
+            else {
                 axis.baseline.isHidden = true
             }
             self._numericAxis = Published(initialValue: axis)
