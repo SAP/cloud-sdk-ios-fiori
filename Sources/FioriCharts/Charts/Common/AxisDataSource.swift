@@ -248,8 +248,6 @@ class DefaultAxisDataSource: AxisDataSource {
         
         let yAxisLabelsCount = max(1, model.numberOfGridlines)
     
-        // ChartUtility.calculateRangeProperties(model, secondaryRange: false)
-        
         var stepValue = (maxVal - minVal) / CGFloat(yAxisLabelsCount)
         let unitHeight = rect.size.height / (maxVal - minVal)
         let valueType = model.valueType
