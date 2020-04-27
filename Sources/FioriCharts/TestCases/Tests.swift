@@ -12,20 +12,26 @@ import SwiftUI
 public struct Tests {
     public static let lineModels = [
         ChartModel(chartType: .line,
-                   data: [[200, 170, 165, 143, 166, 112, 110],
-                          [150, 160, 175, 183, 196, 190, 180]],
-                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+                   data: [[200, 170, 165, 143, 166, 82, 110],
+                          [45, 20, 50, 40, 60, 45, 55].map { $0 / 100.0 }],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                   numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
+                   secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
+                   indexesOfSecondaryValueAxis: [1]
         ),
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]]),
+                   titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
+                   indexesOfSecondaryValueAxis: [1]),
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]]),
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
+                   indexesOfSecondaryValueAxis: [1]),
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]]),
+                   titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
+                   indexesOfSecondaryValueAxis: [1]),
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]]),
@@ -124,7 +130,7 @@ public struct Tests {
         ChartModel(chartType: .stock,
                    data: [[16.52, 16.50, 0]],
                    titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 15:30:00"]]),
-             
+        
         // intraday
         ChartModel(chartType: .stock, data: [[[16.52, 18.48, 19.21, 20.00, 20000], [22.80, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
         
@@ -132,4 +138,11 @@ public struct Tests {
     ]
     
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
+}
+
+extension NumberFormatter {
+    convenience init(style: NumberFormatter.Style) {
+        self.init()
+        self.numberStyle = style
+    }
 }

@@ -23,9 +23,18 @@ struct LinesView: View {
             self.makeBody(in: proxy.frame(in: .local))
         }
     }
-    
     func makeBody(in rect: CGRect) -> some View {
-        let displayRange = ChartUtility.displayRange(model)
+        ZStack {
+            model.backgroundColor.color(colorScheme)
+            
+            self.makeLinesBody(in: rect, secondary: false)
+            
+            self.makeLinesBody(in: rect, secondary: true)
+        }
+    }
+    
+    func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
+        let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var noData = false
         let width = rect.size.width
         let startPosIn = CGFloat(model.startPos)
@@ -46,22 +55,28 @@ struct LinesView: View {
             noData = true
         }
         
-        var data: [[CGFloat?]] = Array(repeating: [], count: model.data.count)
+        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        let indexes = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        
+        if indexes.count == 0 {
+            noData = true
+        }
+        
+        var data: [[CGFloat?]] = []
         if !noData {
-            for (i, category) in model.data.enumerated() {
+            for i in indexes {
+                let category = model.data[i]
                 var s: [CGFloat?] = []
                 for i in startIndex...endIndex {
                     if let val = category[i].first {
                         s.append(val)
                     }
                 }
-                data[i] = s
+                data.append(s)
             }
         }
         
         return ZStack {
-            model.backgroundColor.color(colorScheme)
-            
             ForEach(0 ..< data.count) { i in
                 LinesShape(points: data[i],
                        displayRange: displayRange,
@@ -69,7 +84,7 @@ struct LinesView: View {
                        fill: self.fill,
                        startOffset: startOffset,
                        endOffset: endOffset)
-                .fill(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme))
+                .fill(self.model.seriesAttributes[indexes[i]].palette.colors[0].color(self.colorScheme))
                 .opacity(self.fill ? 0.4 : 0)
                 .frame(width: rect.size.width, height: rect.size.height)
                 .clipped()
@@ -79,8 +94,8 @@ struct LinesView: View {
                            layoutDirection: self.layoutDirection,
                            startOffset: startOffset,
                            endOffset: endOffset)
-                    .stroke(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme),
-                            lineWidth: self.model.seriesAttributes[i].lineWidth)
+                    .stroke(self.model.seriesAttributes[indexes[i]].palette.colors[0].color(self.colorScheme),
+                            lineWidth: self.model.seriesAttributes[indexes[i]].lineWidth)
                     .frame(width: rect.size.width, height: rect.size.height)
                     .clipped()
                 
@@ -88,13 +103,13 @@ struct LinesView: View {
                         displayRange: displayRange,
                         layoutDirection: self.layoutDirection,
                         radius: self.pointRadius(at: i),
-                        gap: self.model.seriesAttributes[i].point.gap,
+                        gap: self.model.seriesAttributes[indexes[i]].point.gap,
                         startOffset: startOffset,
                         endOffset: endOffset)
-                .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
+                .fill(self.model.seriesAttributes[indexes[i]].point.strokeColor.color(self.colorScheme))
                 .clipShape(Rectangle()
-                .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
-                .offset(x: -1 * self.pointRadius(at: i), y: 0))
+                .size(width: rect.size.width + self.pointRadius(at: indexes[i]) * 2, height: rect.size.height)
+                .offset(x: -1 * self.pointRadius(at: indexes[i]), y: 0))
             }
         }
     }

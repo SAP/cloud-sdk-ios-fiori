@@ -73,25 +73,33 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     func makeBody(in rect: CGRect) -> some View {
         let xAxisHeight = xAxisLabelsMaxHeight(rect)
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
+        let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
         
         let displayRange = ChartUtility.displayRange(model)
-        let chartWidth = rect.size.width - yAxisWidth
+        let chartWidth = rect.size.width - yAxisWidth - secondaryYAxisWidth
         
-        let xAxisRect, yAxisRect, chartRect: CGRect
+        let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
         switch model.valueType {
         case .allPositive:
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+            secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
             xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
         case .allNegative:
             yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+            secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
             xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
         case .mixed:
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
+            secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
             var baselineYPos: CGFloat = rect.size.height - xAxisHeight
-            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, displayRange: displayRange)
+            var useSecondary = false
+            if yAxisWidth == 0 {
+                useSecondary = true
+            }
+            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, secondary: useSecondary)
             for label in yAxisLabels {
                 if abs(label.value) < 0.001 {
                     baselineYPos = label.pos.y
@@ -104,8 +112,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return HStack(alignment: .top, spacing: 0) {
             VStack(spacing: 0) {
-                YAxisView(displayRange: displayRange,
-                          axisDataSource: axisDataSource)
+                YAxisView(axisDataSource: axisDataSource)
                     .frame(height: yAxisRect.size.height)
                     .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                     .zIndex(2)
@@ -139,6 +146,15 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                 }
             }
+            
+            // secondary numerix axis
+            VStack(spacing: 0) {
+                YAxisView(axisDataSource: axisDataSource, secondary: true)
+                    .frame(height: secondaryYAxisRect.size.height)
+                    .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
+                    .zIndex(2)
+                    .environmentObject(self.model)
+            }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
         }
     }
     
@@ -249,14 +265,40 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         return height + model.categoryAxis.baseline.width
     }
     
-    func yAxisLabelsMaxWidth(_ rect: CGRect) -> CGFloat {
-        var width: CGFloat = 20
+    func yAxisLabelsMaxWidth(_ rect: CGRect, secondary: Bool = false) -> CGFloat {
+        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        var indexes: [Int] = allIndexs.sorted()
         
-        let range = ChartUtility.displayRange(model)
-        let labels = axisDataSource.yAxisLabels(model, rect: rect, displayRange: range)
+        // For clustered line, area and combo charts this is the secondary Y axis.
+        if model.chartType == .line || model.chartType == .area || model.chartType == .combo {
+            indexes = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        }
+        else {
+            if secondary {
+                return 0
+            }
+        }
+        
+        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        
+        if indexes.count == 0 {
+            return 0
+        }
+        
+        if axis.labels.isHidden && axis.gridlines.isHidden {
+            return 0
+        }
+        
+        if axis.labels.isHidden {
+            return axis.gridlines.width
+        }
+    
+        var width: CGFloat = 20
+        let labels = axisDataSource.yAxisLabels(model, rect: rect, secondary: secondary)
+        
         
         for label in labels {
-            let size = label.title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
+            let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
             width = max(width, size.width)
         }
         

@@ -14,11 +14,11 @@ struct YAxisView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
     weak var axisDataSource: AxisDataSource? = nil
-    var displayRange: ClosedRange<CGFloat>
+    var secondary: Bool
     
-    init(displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
-        self.displayRange = displayRange
+    init(axisDataSource: AxisDataSource? = nil, secondary: Bool = false) {
         self.axisDataSource = axisDataSource
+        self.secondary = secondary
     }
     
     var body: some View {
@@ -29,33 +29,34 @@ struct YAxisView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, displayRange: displayRange) {
+        if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: secondary) {
             yAxisLabels = res
         }
 
-        let baselineX = layoutDirection == .leftToRight ? (rect.size.width) : (rect.size.width - model.numericAxis.baseline.width)
+        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        let baselineX = secondary ? 0 : (layoutDirection == .leftToRight ? (rect.size.width) : (rect.size.width - axis.baseline.width))
         
         return ZStack {
-            if !model.numericAxis.labels.isHidden {
+            if !axis.labels.isHidden {
                 ForEach(yAxisLabels) { label in
                     // y axis lables
                     Text(label.title)
                         .fixedSize()
-                        .font(.system(size: self.model.numericAxis.labels.fontSize))
-                        .foregroundColor(self.model.numericAxis.labels.color.color(self.colorScheme))
+                        .font(.system(size: axis.labels.fontSize))
+                        .foregroundColor(axis.labels.color.color(self.colorScheme))
                         .position(x: label.pos.x,
                                   y: label.pos.y)
                 }
             }
             
-            if !model.numericAxis.baseline.isHidden {
+            if !axis.baseline.isHidden {
                 // left base line
                 LineShape(pos1: CGPoint(x: 0, y: 0),
                           pos2: CGPoint(x: 0, y: rect.size.height))
-                    .stroke(model.numericAxis.baseline.color.color(self.colorScheme),
-                            style: StrokeStyle(lineWidth: model.numericAxis.baseline.width,
-                                               dash: [self.model.numericAxis.baseline.dashPatternLength, self.model.numericAxis.baseline.dashPatternGap]))
-                    .frame(width: model.numericAxis.baseline.width, height: rect.size.height)
+                    .stroke(axis.baseline.color.color(self.colorScheme),
+                            style: StrokeStyle(lineWidth: axis.baseline.width,
+                                               dash: [axis.baseline.dashPatternLength, axis.baseline.dashPatternGap]))
+                    .frame(width: axis.baseline.width, height: rect.size.height)
                     .position(x: baselineX, y: rect.size.height / 2)
             }
         }
@@ -66,7 +67,7 @@ struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
         let axisDataSource = DefaultAxisDataSource()
         
-        return YAxisView(displayRange: 0...2000, axisDataSource: axisDataSource)
+        return YAxisView(axisDataSource: axisDataSource)
             .environmentObject(Tests.stockModels[1])
             .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()

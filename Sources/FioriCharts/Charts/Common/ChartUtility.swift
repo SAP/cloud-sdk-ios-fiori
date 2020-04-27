@@ -119,7 +119,8 @@ class ChartUtility {
                 }
             }
         }
-        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: 0, numberOfGridlines: model.numberOfGridlines, adjustToNiceValues: model.adjustToNiceValues, fudgeYAxisRange: model.fudgeYAxisRange, secondaryRange: secondaryRange)
+        
+        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, adjustToNiceValues: model.adjustToNiceValues, fudgeYAxisRange: model.fudgeYAxisRange, secondaryRange: secondaryRange)
     }
     
     static func calculateRangeProperties(_ model: ChartModel, dataElements: ChartModel.DataElementsForAxisTickValues, secondaryRange: Bool) -> AxisTickValues {
@@ -142,54 +143,21 @@ class ChartUtility {
             fudgeRange = false
         }
         
-        if secondaryRange
-        {/*
-             //
-             // Create value axis tick properties based on min/max and if we need to adjust to nice values.
-             //
-             if (allowLooseLabel)
-             {
-             bool useLooseLabels = true
-             
-             context->secondaryValueAxisBaselineValue = max < 0.0 ? max : fmax(0.0, min)
-             
-             // If the baseline is at zero we aim to always show the baseline with a tick.
-             if (context->secondaryValueAxisBaselineValue == 0.0)
-             {
-             useLooseLabels = false
-             }
-             
-             MCAxisContextCreateTicks(context->secondaryValueAxisContext, min, max, context->desiredYAxisTickCount, useLooseLabels, fudgeRange, context->adjustToNiceValues)
-             }
-             else
-             {
-             MCAxisContextCreateTicks(context->secondaryValueAxisContext, min, max, context->desiredYAxisTickCount, false, fudgeRange, context->adjustToNiceValues)
-             }*/
+        var useLooseLabels = allowLooseLabel
+        //
+        // Create value axis tick properties based on min/max and if we need to adjust to nice values.
+        //
+        if (allowLooseLabel){
+            let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
             
-            return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        }
-        else
-        {
-            //
-            // Create value axis tick properties based on min/max and if we need to adjust to nice values.
-            //
-            if (allowLooseLabel){
-                var useLooseLabels = true
-                
-                let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
-                
-                // If the baseline is at zero we aim to always show the baseline with a tick.
-                if valueAxisBaselineValue == 0.0
-                {
-                    useLooseLabels = false
-                }
-                
-                return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: useLooseLabels, fudgeRange: fudgeRange, adjustToNiceValues: model.adjustToNiceValues)
-            }
-            else{
-                return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: false, fudgeRange: fudgeRange, adjustToNiceValues: model.adjustToNiceValues)
+            // If the baseline is at zero we aim to always show the baseline with a tick.
+            if valueAxisBaselineValue == 0.0
+            {
+                useLooseLabels = false
             }
         }
+        
+        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: useLooseLabels, fudgeRange: fudgeRange, adjustToNiceValues: model.adjustToNiceValues)
     }
     
     
@@ -583,73 +551,15 @@ class ChartUtility {
         return model.data[model.currentSeriesIndex].count
     }
     
-    static func displayRange(_ model: ChartModel) -> ClosedRange<CGFloat> {
-        /*if let minVal = model.numericAxis.explicitMin, let maxVal = model.numericAxis.explicitMax {
-         let displayMinVal = CGFloat(minVal)
-         let displayMaxVal = maxVal < minVal ? CGFloat(minVal + 1) : CGFloat(maxVal)
-         
-         return displayMinVal...displayMaxVal
-         }
-         // calculate display range
-         var minVal: CGFloat = CGFloat(Int.max)
-         var maxVal: CGFloat = CGFloat(Int.min)
-         if model.chartType == .stock {
-         minVal = CGFloat(model.ranges[model.currentSeriesIndex].lowerBound)
-         maxVal = CGFloat(model.ranges[model.currentSeriesIndex].upperBound)
-         } else {
-         for range in model.ranges {
-         minVal = min(CGFloat(range.lowerBound), minVal)
-         maxVal = max(CGFloat(range.upperBound), maxVal)
-         }
-         }
-         
-         var displayMinVal: CGFloat = minVal - (maxVal - minVal) * 0.2
-         var displayMaxVal: CGFloat = maxVal + (maxVal - minVal) * 0.2
-         
-         if abs(displayMaxVal) > 10 {
-         displayMaxVal = ChartUtility.roundToGoodNumber(val: displayMaxVal, roundUp: true)
-         }
-         
-         if abs(displayMinVal) > 10 {
-         displayMinVal = ChartUtility.roundToGoodNumber(val: displayMinVal, roundUp: false)
-         }
-         
-         if abs(displayMaxVal - displayMinVal) < 0.1 {
-         displayMaxVal += 1
-         }
-         
-         let valueType = model.valueType
-         if valueType == .allPositive && (model.numericAxis.isZeroBased || displayMinVal < 0) {
-         displayMinVal = 0
-         } else if valueType == .allNegative && (model.numericAxis.isZeroBased || displayMaxVal > 0) {
-         displayMaxVal = 0
-         }
-         
-         if let tmp = model.numericAxis.explicitMin {
-         displayMinVal = CGFloat(tmp)
-         }
-         
-         if let tmp = model.numericAxis.explicitMax {
-         displayMaxVal = CGFloat(tmp)
-         }
-         
-         return displayMinVal...displayMaxVal*/
-        let axisValues = model.numericAxisTickValues
-        return axisValues.plotMinimum ... axisValues.plotMaximum
-    }
-    
-    static func roundToGoodNumber(val: CGFloat, roundUp: Bool) -> CGFloat {
-        let negative: CGFloat = val > 0 ? 1 : -1
-        var factor: CGFloat = 1
-        var coefficient = negative * val
-        while coefficient >= 10 {
-            coefficient /= 10
-            factor *= 10
+    static func displayRange(_ model: ChartModel, secondary: Bool = false) -> ClosedRange<CGFloat> {
+        if secondary {
+            let axisValues = model.secondaryNumericAxisTickValues
+            return axisValues.plotMinimum ... axisValues.plotMaximum
         }
-        
-        coefficient = coefficient.rounded(roundUp ? .up : .down)
-        
-        return negative * coefficient * factor
+        else {
+            let axisValues = model.numericAxisTickValues
+            return axisValues.plotMinimum ... axisValues.plotMaximum
+        }
     }
     
     static func lastValidDimIndex(_ model: ChartModel) -> Int {

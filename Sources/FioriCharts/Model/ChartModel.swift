@@ -173,14 +173,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
      - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
      */
-    public var indexesOfTotalsCategories: IndexSet = IndexSet()
+    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet()
     
     /**
      Indicates secondary value axis series indexes for line based charts.
      - The secondary value index works with .line, .area and .combo charts only.
      - Given series indexes will assign the corresponding series to the secondary value axis.
      */
-    public var indexesOfSecondaryValueAxis: IndexSet = IndexSet()
+    @Published public var indexesOfSecondaryValueAxis: IndexSet = IndexSet()
     
     /// selection state
     /**
@@ -307,7 +307,26 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         }
     }
-//    var secondaryNumericAxisTickValues: AxisTickValues
+    var secondaryNumericAxisTickValues: AxisTickValues {
+        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: true)
+        
+        if de.noData {
+            return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
+        }
+        else if let result = numericAxisTickValuesCache[de] {
+            return result
+        }
+        else {
+            let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
+            if numericAxisTickValuesCache.count > 10 {
+                numericAxisTickValuesCache.removeAll()
+            }
+            
+            numericAxisTickValuesCache[de] = result
+            
+            return result
+        }
+    }
     
     var valueType: ChartValueType {
         let range: ClosedRange<CGFloat> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<CGFloat> in
@@ -337,7 +356,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 seriesAttributes: [ChartSeriesAttributes],
                 categoryAxis: ChartCategoryAxisAttributes,
                 numericAxis: ChartNumericAxisAttributes,
-                secondaryNumericAxis: ChartNumericAxisAttributes) {
+                secondaryNumericAxis: ChartNumericAxisAttributes,
+                indexesOfSecondaryValueAxis: IndexSet,
+                indexesOfColumnSeries: IndexSet,
+                indexesOfTotalsCategories: IndexSet) {
         self._chartType = Published(initialValue: chartType)
         self._data = Published(initialValue: data)
         self._titlesForCategory = Published(initialValue: titlesForCategory)
@@ -351,6 +373,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
+        self._indexesOfSecondaryValueAxis = Published(initialValue: indexesOfSecondaryValueAxis)
+        self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
+        self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
     }
     
     public init(chartType: ChartType,
@@ -364,7 +389,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
-                secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
+                secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                indexesOfSecondaryValueAxis: [Int]? = nil,
+                indexesOfColumnSeries: [Int]? = nil,
+                indexesOfTotalsCategories: [Int]? = nil) {
         self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
@@ -471,6 +499,39 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
             self._seriesAttributes = Published(initialValue: sa)
         }
+        
+        if let indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfSecondaryValueAxis {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfSecondaryValueAxis = Published(initialValue: IndexSet(validIndexes))
+        }
+        
+        if let indexesOfColumnSeries = indexesOfColumnSeries {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfColumnSeries {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfColumnSeries = Published(initialValue: IndexSet(validIndexes))
+        }
+        
+        if let indexesOfTotalsCategories = indexesOfTotalsCategories {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfTotalsCategories {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
+        }
     }
     
     public init(chartType: ChartType,
@@ -484,7 +545,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
-                secondaryNumericAxis: ChartNumericAxisAttributes? = nil) {
+                secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                indexesOfSecondaryValueAxis: [Int]? = nil,
+                indexesOfColumnSeries: [Int]? = nil,
+                indexesOfTotalsCategories: [Int]? = nil) {
         self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
@@ -585,6 +649,39 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         } else {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
             self._seriesAttributes = Published(initialValue: sa)
+        }
+        
+        if let indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfSecondaryValueAxis {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfSecondaryValueAxis = Published(initialValue: IndexSet(validIndexes))
+        }
+        
+        if let indexesOfColumnSeries = indexesOfColumnSeries {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfColumnSeries {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfColumnSeries = Published(initialValue: IndexSet(validIndexes))
+        }
+        
+        if let indexesOfTotalsCategories = indexesOfTotalsCategories {
+            var validIndexes: [Int] = []
+            for seriesIndex in indexesOfTotalsCategories {
+                if seriesIndex >= 0 && seriesIndex < data.count {
+                    validIndexes.append(seriesIndex)
+                }
+            }
+            validIndexes.sort()
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
         }
     }
     
@@ -705,7 +802,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               },
                               categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
                               numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
-                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes)
+                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
+                              indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
+                              indexesOfColumnSeries: self.indexesOfColumnSeries,
+                              indexesOfTotalsCategories: self.indexesOfTotalsCategories)
         
         return copy
     }
