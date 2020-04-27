@@ -27,7 +27,7 @@ struct YAxisGridlines: View {
     
     func makeBody(in rect: CGRect) -> some View {
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, displayRange: displayRange) {
+        if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: false) {
             yAxisLabels = res
         }
         
@@ -40,15 +40,16 @@ struct YAxisGridlines: View {
             valueToRemove = 0
         }
         
-        var indexToRemove = 0
+        var indexToRemove = -1
         for (i, label) in yAxisLabels.enumerated() {
             if abs(valueToRemove.distance(to: label.value)) < 0.001 {
                 indexToRemove = i
                 break
             }
         }
-        yAxisLabels.remove(at: indexToRemove)
-        
+        if indexToRemove >= 0 {
+            yAxisLabels.remove(at: indexToRemove)
+        }
         return ZStack {
             if !model.numericAxis.gridlines.isHidden {
                 ForEach(yAxisLabels) { label in

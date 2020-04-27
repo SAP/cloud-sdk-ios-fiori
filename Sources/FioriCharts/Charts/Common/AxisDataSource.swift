@@ -13,9 +13,9 @@ protocol AxisDataSource: class {
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
-    func yAxisFormattedString(_ model: ChartModel, value: Double) -> String
+    func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String
     
-    func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle]
+    func yAxisLabels(_ model: ChartModel, rect: CGRect, secondary: Bool) -> [AxisTitle]
     
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect)
 }
@@ -241,21 +241,23 @@ class DefaultAxisDataSource: AxisDataSource {
         return formattedString
     }
     
-    func yAxisLabels(_ model: ChartModel, rect: CGRect, displayRange: ClosedRange<CGFloat>) -> [AxisTitle] {
-        let ticks = model.numericAxisTickValues
+    func yAxisLabels(_ model: ChartModel, rect: CGRect, secondary: Bool = false) -> [AxisTitle] {
+        let ticks = secondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
+        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        
         let yAxisLabelsCount = Int(ticks.tickCount)
         let height = rect.size.height
         
         var yAxisLabels: [AxisTitle] = []
         for i in 0 ..< yAxisLabelsCount {
             let val = ticks.tickValues[i]
-            let title = yAxisFormattedString(model, value: Double(val))
-            let size = title.boundingBoxSize(with: model.numericAxis.labels.fontSize)
-            
+            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
+            let size = title.boundingBoxSize(with: axis.labels.fontSize)
+            let x = secondary ? (size.width / 2 + 1) : (rect.size.width - CGFloat(axis.baseline.width) - 1 - size.width / 2)
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,
-                                         pos: CGPoint(x: rect.size.width - CGFloat(model.numericAxis.baseline.width) - 1 - size.width / 2, y: rect.origin.y + height * (1.0 - ticks.tickPositions[i]))))
+                                         pos: CGPoint(x: x, y: rect.origin.y + height * (1.0 - ticks.tickPositions[i]))))
         }
         
         return yAxisLabels
@@ -279,18 +281,21 @@ class DefaultAxisDataSource: AxisDataSource {
         model.selectedCategoryInRange = closestDataIndex ... closestDataIndex
     }
     
-    func yAxisFormattedString(_ model: ChartModel, value: Double) -> String {
+    func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String {
         if let labelHandler = model.numericAxisLabelFormatHandler {
-            if let res = labelHandler(value, ChartAxisId.y) {
+            let axisId = secondary ? ChartAxisId.dual : ChartAxisId.y
+            if let res = labelHandler(value, axisId) {
                 return res
             }
         }
         
-        if model.numericAxis.abbreviatesLabels {
-            return abbreviatedString(for: value, useSuffix: model.numericAxis.isMagnitudedDisplayed, abbreviatedFormatter: model.numericAxis.abbreviatedFormatter)
+        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        
+        if axis.abbreviatesLabels {
+            return abbreviatedString(for: value, useSuffix: axis.isMagnitudedDisplayed, abbreviatedFormatter: axis.abbreviatedFormatter)
         }
         else {
-            return model.numericAxis.formatter.string(from: NSNumber(value: value)) ?? " "
+            return axis.formatter.string(from: NSNumber(value: value)) ?? " "
         }
     }
 }

@@ -32,21 +32,23 @@ struct LineIndicatorView: View {
         
         let closestDataIndex = selectedCategoryRange.lowerBound
         let count = ChartUtility.numOfDataItems(model)
-        
+        let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
+
         if closestDataIndex >= 0 && closestDataIndex < count {
             let width = rect.size.width
             let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
             let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
             let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
             let displayRange = ChartUtility.displayRange(model)
-            let minVal = displayRange.lowerBound
-            let maxVal = displayRange.upperBound
+            let seconaryDisplayRange = ChartUtility.displayRange(model, secondary: true)
             
             x = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
             
             for i in 0 ..< model.data.count {
+                let range = secondarySeriesIndexes.contains(i) ? seconaryDisplayRange : displayRange
+                
                 if let value = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: closestDataIndex) {
-                    let y = rect.size.height - (CGFloat(value) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
+                    let y = rect.size.height - (CGFloat(value) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound) + rect.origin.y
                     yPosDict[i] = y
                 }
             }
