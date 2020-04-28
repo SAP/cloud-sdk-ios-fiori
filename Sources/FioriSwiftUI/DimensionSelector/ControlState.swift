@@ -6,8 +6,8 @@
 //
 import SwiftUI
 
-public struct ControlStateColor {
-    public var selected: Color
-    public var normalFont: Color
-    public var normalBorder: Color
+public enum ControlState {
+    case normal
+    case selected
+    case disabled
 }

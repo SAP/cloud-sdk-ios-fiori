@@ -16,14 +16,23 @@ public struct DimensionSelector: View {
     
     let segmentTitles: [String]
     
-    public var titleInsets: EdgeInsets {
+    public var segmentAttributes: [ControlState: SegmentAttribute] {
         get {
-            return model.titleInsets
+            return model.segmentAttributes
         }
         set {
-            model.titleInsets = newValue
+            model.segmentAttributes = newValue
         }
     }
+    
+//    public var titleInsets: EdgeInsets {
+//        get {
+//            return model.titleInsets
+//        }
+//        set {
+//            model.titleInsets = newValue
+//        }
+//    }
 
     public var interItemSpacing: CGFloat {
         get {
@@ -43,23 +52,23 @@ public struct DimensionSelector: View {
         }
     }
     
-    public var titleFont: Font? {
-        get {
-            return model.font
-        }
-        set {
-            model.font = newValue
-        }
-    }
+//    public var titleFont: Font? {
+//        get {
+//            return model.font
+//        }
+//        set {
+//            model.font = newValue
+//        }
+//    }
     
-    public var controlStateColor: ControlStateColor? {
-        get {
-            return model.controlStateColor
-        }
-        set {
-            model.controlStateColor = newValue
-        }
-    }
+//    public var controlStateColor: ControlStateColor? {
+//        get {
+//            return model.controlStateColor
+//        }
+//        set {
+//            model.controlStateColor = newValue
+//        }
+//    }
     
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
@@ -73,21 +82,23 @@ public struct DimensionSelector: View {
                 selectedIndex: Int? = nil) {
         self.segmentTitles  = segmentTitles
 
-        self.model.titleInsets          = titleInsets
         self.model.interItemSpacing     = interItemSpacing
         self.model.selectedIndex        = selectedIndex
-        self.model.controlStateColor    = ControlStateColor(selected: .blue, normalFont: .gray, normalBorder: .init(red: 0.3, green: 0.3, blue: 0.3))
+        self.model.segmentAttributes    = [
+            .normal: SegmentAttribute(fontColor: .gray, fontSize: nil, font: nil, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets),
+            .selected: SegmentAttribute(fontColor: .blue, fontSize: nil, font: nil, borderColor: .blue, titleInset: titleInsets),
+            .disabled: SegmentAttribute(fontColor: .gray, fontSize: nil, font: nil, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets)
+        ]
     }
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, titleInsets: self.model.titleInsets, controlColor: self.model.controlStateColor)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
-                    .font(self.model.font)
                 }
             }
             .padding([.top, .bottom], 8)
@@ -123,25 +134,22 @@ extension DimensionSelector {
         let title: String
         
         var isSelected: Bool
-        
-        var titleInsets: EdgeInsets
-        
-        var controlColor: ControlStateColor
+                
+        var segmentAttributes: [ControlState: SegmentAttribute]
 
         var body: some View {
             Text(title)
-                .padding(titleInsets)
-                .foregroundColor(self.isSelected ? controlColor.selected : controlColor.normalFont)
-                .overlay(ButtonOverlayView(isSelected: self.isSelected, controlColor: controlColor))
+                .font(self.isSelected ? segmentAttributes[.selected]?.font : segmentAttributes[.normal]?.font)
+                .padding(segmentAttributes[.normal]?.titleInset ?? EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                .foregroundColor(self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor)
+                .overlay(ButtonOverlayView(isSelected: self.isSelected, segmentAttributes: segmentAttributes))
         }
     }
     
     class Model: ObservableObject {
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
-        @Published var controlStateColor: ControlStateColor!
-        @Published var font: Font?
-        @Published var titleInsets: EdgeInsets!
+        @Published var segmentAttributes: [ControlState: SegmentAttribute]!
     }
 }
 
