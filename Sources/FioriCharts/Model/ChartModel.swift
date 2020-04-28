@@ -377,7 +377,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
     }
-    
+    // swiftlint:disable cyclomatic_complexity
     public init(chartType: ChartType,
                 data: [[Double?]],
                 titlesForCategory: [[String?]]? = nil,

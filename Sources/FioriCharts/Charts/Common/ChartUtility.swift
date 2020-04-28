@@ -193,7 +193,9 @@ class ChartUtility {
         var lstep: CGFloat
         var score: CGFloat
     }
-    
+
+    // swiftlint:disable cyclomatic_complexity function_body_length function_parameter_count
+
     // An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
     //
     // Enhanced version of Wilkinson's optimization-based axis labeling approach. It is described in detail in our paper. See the references.
