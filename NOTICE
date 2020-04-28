@@ -1,6 +1,6 @@
 Copyright (c) 2009-2020 SAP SE or an SAP affiliate company.
 
-APIs
+APIs:
 This project may include APIs to SAP or third-party products or services.
 The use of these APIs, products and services may be subject to additional
 agreements. In no event shall the application of the Apache Software
@@ -13,3 +13,7 @@ products to communicate with or call on SAP or third party products
 or services (for example, SAP Enterprise Services, BAPIs, Idocs, RFCs
 and ABAP calls or other user exits) and may be made available through
 SAP or third party products, SDKs, documentation or other media.
+
+Limitations:
+Note that you may use the software solely for the purpose of developing
+applications for use with 'SAP Cloud Platform Mobile Services'.
