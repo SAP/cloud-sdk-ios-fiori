@@ -5,6 +5,7 @@
 
 SwiftUI implementation of SAP Fiori for iOS Design Language.
 
+![](https://github.com/SAP/cloud-sdk-ios-fiori/blob/images/Resources/Images/Team.png?raw=true)
 
 ## Description
 This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the **SAPFiori** framework of the SAP Cloud Platform SDK for iOS.  
