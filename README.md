@@ -1,4 +1,7 @@
 # cloud-sdk-ios-fiori
+
+[![Swift Build and Unit Test](https://github.com/SAP/cloud-sdk-ios-fiori//workflows/CI/badge.svg)](https://github.com/SAP/cloud-sdk-ios-fiori/actions?query=workflow%3ACI)
+
 SwiftUI implementation of SAP Fiori for iOS Design Language.
 
 
