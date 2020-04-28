@@ -26,12 +26,16 @@ struct YAxisGridlines: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        let indexes =  model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let secondary: Bool = indexes.count == 0 ? true : false
+        
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: false) {
+        if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: secondary) {
             yAxisLabels = res
         }
         
-        let displayRange = ChartUtility.displayRange(model)
+        let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var valueToRemove: CGFloat = displayRange.lowerBound
         let valueType = model.valueType
         if valueType == .allNegative {
