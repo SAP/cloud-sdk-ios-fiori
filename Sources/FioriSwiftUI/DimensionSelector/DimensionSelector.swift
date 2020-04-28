@@ -85,9 +85,9 @@ public struct DimensionSelector: View {
         self.model.interItemSpacing     = interItemSpacing
         self.model.selectedIndex        = selectedIndex
         self.model.segmentAttributes    = [
-            .normal: SegmentAttribute(fontColor: .gray, fontSize: nil, font: nil, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets),
-            .selected: SegmentAttribute(fontColor: .blue, fontSize: nil, font: nil, borderColor: .blue, titleInset: titleInsets),
-            .disabled: SegmentAttribute(fontColor: .gray, fontSize: nil, font: nil, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets)
+            .normal: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets),
+            .selected: SegmentAttribute(fontColor: .blue, borderColor: .blue, titleInset: titleInsets),
+            .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets)
         ]
     }
     
@@ -109,7 +109,7 @@ public struct DimensionSelector: View {
     private func selectionDidChange(index: Int?) {
         if selectedIndex != index {
             self.model.selectedIndex = index
-        }     
+        }
     }
 }
 
@@ -122,7 +122,7 @@ public struct DimensionSelector: View {
 //struct OnIndexChangeModifier: ViewModifier {
 //    let dimensionSelector: DimensionSelector
 //    let handler: ((Int?) -> Void)
-//    
+//
 //    func body(content: Content) -> some View {
 //        dimensionSelector.getBody(selectionDidChangeHandler: handler)
 //    }
