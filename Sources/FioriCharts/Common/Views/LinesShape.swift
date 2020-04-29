@@ -8,17 +8,18 @@
 import SwiftUI
 
 public struct LinesShape: Shape {
-    var points: [CGFloat?]
+    let points: [CGFloat?]
     
     // min and max value for the display range
-    var displayRange: ClosedRange<CGFloat>
-    var layoutDirection: LayoutDirection
-    var fill: Bool = false
-    var curve: Bool = false
-    var startOffset: CGFloat = 0
-    var endOffset: CGFloat = 0
+    let displayRange: ClosedRange<CGFloat>
+    let layoutDirection: LayoutDirection
+    let fill: Bool
+    let curve: Bool
+    let startOffset: CGFloat
+    let endOffset: CGFloat
+    let baselinePosition: CGFloat
     
-    public init(points: [CGFloat?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(points: [CGFloat?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, fill: Bool = false, baselinePosition: CGFloat = 0, curve: Bool = false, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
         self.points = points
         
         self.layoutDirection = layoutDirection
@@ -26,6 +27,7 @@ public struct LinesShape: Shape {
         self.curve = curve
         self.startOffset = startOffset
         self.endOffset = endOffset
+        self.baselinePosition = baselinePosition
         
         if let range = displayRange {
             self.displayRange = range
@@ -55,13 +57,7 @@ public struct LinesShape: Shape {
 
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
         var prevPt: CGPoint? = nil
-        var fillOrigY: CGFloat = yPosition(from: 0, in: rect)
-        if displayRange.lowerBound > 0 {
-            fillOrigY = yPosition(from: displayRange.lowerBound, in: rect)
-        }
-        else if displayRange.upperBound < 0 {
-            fillOrigY = yPosition(from: displayRange.upperBound, in: rect)
-        }
+        let fillOrigY: CGFloat = rect.size.height * (1.0 - baselinePosition)
         
         var subPath: Path? = nil
         
@@ -211,3 +207,4 @@ struct LinesShape_Previews: PreviewProvider {
         }
     }
 }
+

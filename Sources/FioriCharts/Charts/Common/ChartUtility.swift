@@ -545,6 +545,15 @@ class ChartUtility {
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
     }
     
+    static func xAxisBaselinePosition(_ model: ChartModel) -> CGFloat {
+        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        
+        let axisValues = indexes.count > 0 ? model.numericAxisTickValues : model.secondaryNumericAxisTickValues
+        
+        return (axisValues.plotBaselineValue - axisValues.plotMinimum) * axisValues.plotScale
+    }
+    
     static func numOfDataItems(_ model: ChartModel) -> Int {
         if let titles = model.titlesForCategory {
             return titles[model.currentSeriesIndex].count

@@ -23,6 +23,7 @@ struct LinesView: View {
             self.makeBody(in: proxy.frame(in: .local))
         }
     }
+    
     func makeBody(in rect: CGRect) -> some View {
         ZStack {
             model.backgroundColor.color(colorScheme)
@@ -56,13 +57,13 @@ struct LinesView: View {
         }
         
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
-        let indexes = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let indexes: [Int] = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         
         if indexes.count == 0 {
             noData = true
         }
         
-        var data: [[CGFloat?]] = []
+        var data = [Int: [CGFloat?]]()
         if !noData {
             for i in indexes {
                 let category = model.data[i]
@@ -72,44 +73,48 @@ struct LinesView: View {
                         s.append(val)
                     }
                 }
-                data.append(s)
+                data[i] = s
             }
         }
+        let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         
         return ZStack {
-            ForEach(0 ..< data.count) { i in
-                LinesShape(points: data[i],
-                       displayRange: displayRange,
-                       layoutDirection: self.layoutDirection,
-                       fill: self.fill,
-                       startOffset: startOffset,
-                       endOffset: endOffset)
-                .fill(self.model.seriesAttributes[indexes[i]].palette.colors[0].color(self.colorScheme))
-                .opacity(self.fill ? 0.4 : 0)
-                .frame(width: rect.size.width, height: rect.size.height)
-                .clipped()
-                
-                LinesShape(points: data[i],
-                           displayRange: displayRange,
-                           layoutDirection: self.layoutDirection,
-                           startOffset: startOffset,
-                           endOffset: endOffset)
-                    .stroke(self.model.seriesAttributes[indexes[i]].palette.colors[0].color(self.colorScheme),
-                            lineWidth: self.model.seriesAttributes[indexes[i]].lineWidth)
-                    .frame(width: rect.size.width, height: rect.size.height)
-                    .clipped()
-                
-                PointsShape(points: data[i],
-                        displayRange: displayRange,
-                        layoutDirection: self.layoutDirection,
-                        radius: self.pointRadius(at: i),
-                        gap: self.model.seriesAttributes[indexes[i]].point.gap,
-                        startOffset: startOffset,
-                        endOffset: endOffset)
-                .fill(self.model.seriesAttributes[indexes[i]].point.strokeColor.color(self.colorScheme))
-                .clipShape(Rectangle()
-                .size(width: rect.size.width + self.pointRadius(at: indexes[i]) * 2, height: rect.size.height)
-                .offset(x: -1 * self.pointRadius(at: indexes[i]), y: 0))
+            ForEach(indexes, id: \.self) { i in
+                ZStack {
+                    LinesShape(points: data[i] ?? [],
+                               displayRange: displayRange,
+                               layoutDirection: self.layoutDirection,
+                               fill: self.fill,
+                               baselinePosition: baselinePosition,
+                               startOffset: startOffset,
+                               endOffset: endOffset)
+                        .fill(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme))
+                        .opacity(self.fill ? 0.4 : 0)
+                        .frame(width: rect.size.width, height: rect.size.height)
+                        .clipped()
+                    
+                    LinesShape(points: data[i] ?? [],
+                               displayRange: displayRange,
+                               layoutDirection: self.layoutDirection,
+                               startOffset: startOffset,
+                               endOffset: endOffset)
+                        .stroke(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme),
+                                lineWidth: self.model.seriesAttributes[i].lineWidth)
+                        .frame(width: rect.size.width, height: rect.size.height)
+                        .clipped()
+                    
+                    PointsShape(points: data[i] ?? [],
+                                displayRange: displayRange,
+                                layoutDirection: self.layoutDirection,
+                                radius: self.pointRadius(at: i),
+                                gap: self.model.seriesAttributes[i].point.gap,
+                                startOffset: startOffset,
+                                endOffset: endOffset)
+                        .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
+                        .clipShape(Rectangle()
+                            .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height)
+                            .offset(x: -1 * self.pointRadius(at: i), y: 0))
+                }
             }
         }
     }
@@ -132,3 +137,4 @@ struct LinesView_Previews: PreviewProvider {
         }
     }
 }
+
