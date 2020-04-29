@@ -65,7 +65,9 @@ struct Settings: View {
                 Section(header: Text("Index Set")) {
                     Text("Indexes Of Column Series: TODO")
                     Text("Indexes Of Totals Categories: TODO")
-                    Text("Indexes Of Secondary Value Axis: TODO")
+                    
+                    NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfSecondaryValueAxis)) { Text("Indexes Of Secondary Value Axis:")
+                    }
                 }
             }.navigationBarTitle("Configuration", displayMode: .inline)
         }
