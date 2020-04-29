@@ -14,7 +14,14 @@ public struct DimensionSelector: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
-    let segmentTitles: [String]
+    public var titles: [String] {
+        get {
+            return model.titles
+        }
+        set {
+            model.titles = newValue
+        }
+    }
     
     public var segmentAttributes: [ControlState: SegmentAttribute] {
         get {
@@ -48,27 +55,21 @@ public struct DimensionSelector: View {
             return model.selectedIndex
         }
         set {
-            model.selectedIndex = newValue
+            guard let value = newValue, 0 <= value, value < self.titles.count else {
+                return
+            }
+            model.selectedIndex = value
         }
     }
     
-//    public var titleFont: Font? {
-//        get {
-//            return model.font
-//        }
-//        set {
-//            model.font = newValue
-//        }
-//    }
-    
-//    public var controlStateColor: ControlStateColor? {
-//        get {
-//            return model.controlStateColor
-//        }
-//        set {
-//            model.controlStateColor = newValue
-//        }
-//    }
+    public var leadingInset: CGFloat {
+        get {
+            return model.leadingInset ?? (horizontalSizeClass == .compact ? 16 : 48)
+        }
+        set {
+            return model.leadingInset = newValue
+        }
+    }
     
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
@@ -79,30 +80,36 @@ public struct DimensionSelector: View {
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
-                selectedIndex: Int? = nil) {
-        self.segmentTitles              = segmentTitles
-        self.titleInsets                = titleInsets
-        self.model.interItemSpacing     = interItemSpacing
-        self.model.selectedIndex        = selectedIndex
+                selectedIndex: Int? = nil,
+                leadingInset: CGFloat? = nil) {
+        self.titles      = segmentTitles
+        self.titleInsets        = titleInsets
+        self.interItemSpacing   = interItemSpacing
+        self.selectedIndex      = selectedIndex
+        
         self.model.segmentAttributes    = [
             .normal: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
             .selected: SegmentAttribute(fontColor: .blue, borderColor: .blue),
             .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
+        
+        if let _leadingInset = leadingInset {
+            self.leadingInset = _leadingInset
+        }
     }
     
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
-                ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
+                ForEach(self.model.titles.indices, id: \.self) { index in
+                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
                 }
             }
             .padding([.top, .bottom], 8)
-            .padding([.leading, .trailing], horizontalSizeClass == .compact ? 16 : 48)
+            .padding([.leading, .trailing], model.leadingInset ?? (horizontalSizeClass == .compact ? 16 : 48))
         }
     }
 
@@ -112,21 +119,6 @@ public struct DimensionSelector: View {
         }
     }
 }
-
-//extension DimensionSelector {
-//    public func onIndexChange(_ handler: @escaping ((Int?) -> Void)) -> some View {
-//        self.modifier(OnIndexChangeModifier(dimensionSelector: self, handler: handler))
-//    }
-//}
-//
-//struct OnIndexChangeModifier: ViewModifier {
-//    let dimensionSelector: DimensionSelector
-//    let handler: ((Int?) -> Void)
-//
-//    func body(content: Content) -> some View {
-//        dimensionSelector.getBody(selectionDidChangeHandler: handler)
-//    }
-//}
 
 extension DimensionSelector {
     struct Segment: View {
@@ -149,10 +141,12 @@ extension DimensionSelector {
     }
     
     class Model: ObservableObject {
+        @Published var titles: [String]!
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
         @Published var titleInset: EdgeInsets!
         @Published var segmentAttributes: [ControlState: SegmentAttribute]!
+        @Published var leadingInset: CGFloat?
     }
 }
 
