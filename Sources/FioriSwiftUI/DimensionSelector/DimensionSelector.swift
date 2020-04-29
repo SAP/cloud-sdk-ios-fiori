@@ -151,7 +151,7 @@ extension DimensionSelector {
             Text(title)
                 .font(self.isSelected ? segmentAttributes[.selected]?.font : segmentAttributes[.normal]?.font)
                 .padding(titleInset)
-                .foregroundColor(self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor)
+                .foregroundColor(isEnable ? (self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor) : (segmentAttributes[.disabled]?.fontColor))
                 .overlay(ButtonOverlayView(isSelected: self.isSelected, isEnable: self.isEnable, segmentAttributes: segmentAttributes))
         }
     }
