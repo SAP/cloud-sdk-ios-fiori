@@ -1,0 +1,21 @@
+# CODEOWNERS
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+# Order is important; the last matching pattern takes the most
+# precedence.
+# https://help.github.com/en/articles/about-code-owners
+
+# Default owners for everything in the repo
+*									@cloud-sdk-ios-fiori-admin
+
+# Owners for Cards
+Sources/FioriIntegrationCards/*  	@sstadelman @ShawnMa16
+
+# Owners for Charts
+Sources/FioriCharts/*  				@shengxu7 @billzhou0223
+
+# Owners for SwiftUI Controls
+Sources/FioriSwiftUI/*  			@SAP/cloud-sdk-ios-fiori-team
+
+# Owners for GitHub Integration
+.github/*  							@MarcoEidinger @billzhou0223
