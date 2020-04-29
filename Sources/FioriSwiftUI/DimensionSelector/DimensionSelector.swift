@@ -67,6 +67,9 @@ public struct DimensionSelector: View {
             return model.isEnable
         }
         set {
+            if !newValue {
+                self.selectionDidChange(index: nil)
+            }
             model.isEnable = newValue
         }
     }
@@ -114,7 +117,9 @@ public struct DimensionSelector: View {
                 ForEach(self.model.titles.indices, id: \.self) { index in
                     Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
                         .onTapGesture {
-                            self.selectionDidChange(index: index)
+                            if self.model.isEnable {
+                                self.selectionDidChange(index: index)
+                            }
                         }
                 }
             }
@@ -124,10 +129,6 @@ public struct DimensionSelector: View {
     }
 
     private func selectionDidChange(index: Int?) {
-        guard self.model.isEnable else {
-            self.model.selectedIndex = nil
-            return
-        }
         if selectedIndex != index {
             self.model.selectedIndex = index
         }
