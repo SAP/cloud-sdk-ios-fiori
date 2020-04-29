@@ -55,10 +55,19 @@ public struct DimensionSelector: View {
             return model.selectedIndex
         }
         set {
-            guard let value = newValue, 0 <= value, value < self.titles.count else {
+            guard let value = newValue, 0 <= value, value < self.titles.count, self.isEnable else {
                 return
             }
             model.selectedIndex = value
+        }
+    }
+    
+    public var isEnable: Bool {
+        get {
+            return model.isEnable
+        }
+        set {
+            model.isEnable = newValue
         }
     }
     
@@ -85,6 +94,7 @@ public struct DimensionSelector: View {
         self.titles      = segmentTitles
         self.titleInsets        = titleInsets
         self.interItemSpacing   = interItemSpacing
+        self.model.isEnable     = true
         self.selectedIndex      = selectedIndex
         
         self.model.segmentAttributes    = [
@@ -102,7 +112,7 @@ public struct DimensionSelector: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(self.model.titles.indices, id: \.self) { index in
-                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
+                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
@@ -114,6 +124,10 @@ public struct DimensionSelector: View {
     }
 
     private func selectionDidChange(index: Int?) {
+        guard self.model.isEnable else {
+            self.model.selectedIndex = nil
+            return
+        }
         if selectedIndex != index {
             self.model.selectedIndex = index
         }
@@ -126,6 +140,8 @@ extension DimensionSelector {
         let title: String
         
         var isSelected: Bool
+        
+        var isEnable: Bool
                 
         var segmentAttributes: [ControlState: SegmentAttribute]
         
@@ -136,7 +152,7 @@ extension DimensionSelector {
                 .font(self.isSelected ? segmentAttributes[.selected]?.font : segmentAttributes[.normal]?.font)
                 .padding(titleInset)
                 .foregroundColor(self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor)
-                .overlay(ButtonOverlayView(isSelected: self.isSelected, segmentAttributes: segmentAttributes))
+                .overlay(ButtonOverlayView(isSelected: self.isSelected, isEnable: self.isEnable, segmentAttributes: segmentAttributes))
         }
     }
     
@@ -147,6 +163,7 @@ extension DimensionSelector {
         @Published var titleInset: EdgeInsets!
         @Published var segmentAttributes: [ControlState: SegmentAttribute]!
         @Published var leadingInset: CGFloat?
+        @Published var isEnable: Bool!
     }
 }
 

@@ -11,11 +11,12 @@ import SwiftUI
 
 struct ButtonOverlayView: View {
     var isSelected: Bool
+    var isEnable: Bool
     var segmentAttributes: [ControlState: SegmentAttribute]
     
     var body: some View {
         ButtonOverlayShape(cornerRadius: 4)
-            .stroke(self.isSelected ? segmentAttributes[.selected]!.borderColor : segmentAttributes[.normal]!.borderColor,
+            .stroke(isEnable ? (self.isSelected ? segmentAttributes[.selected]!.borderColor : segmentAttributes[.normal]!.borderColor) : (segmentAttributes[.disabled]!.borderColor),
                     style: StrokeStyle(lineWidth: 0.6, lineCap: .round, lineJoin: .round, miterLimit: 0, dash: [], dashPhase: 0))
     }
 }
