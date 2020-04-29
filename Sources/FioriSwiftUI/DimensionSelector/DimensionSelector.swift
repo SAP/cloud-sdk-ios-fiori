@@ -25,14 +25,14 @@ public struct DimensionSelector: View {
         }
     }
     
-//    public var titleInsets: EdgeInsets {
-//        get {
-//            return model.titleInsets
-//        }
-//        set {
-//            model.titleInsets = newValue
-//        }
-//    }
+    public var titleInsets: EdgeInsets {
+        get {
+            return model.titleInset
+        }
+        set {
+            model.titleInset = newValue
+        }
+    }
 
     public var interItemSpacing: CGFloat {
         get {
@@ -80,14 +80,14 @@ public struct DimensionSelector: View {
                 interItemSpacing: CGFloat = 6,
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil) {
-        self.segmentTitles  = segmentTitles
-
+        self.segmentTitles              = segmentTitles
+        self.titleInsets                = titleInsets
         self.model.interItemSpacing     = interItemSpacing
         self.model.selectedIndex        = selectedIndex
         self.model.segmentAttributes    = [
-            .normal: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets),
-            .selected: SegmentAttribute(fontColor: .blue, borderColor: .blue, titleInset: titleInsets),
-            .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2), titleInset: titleInsets)
+            .normal: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
+            .selected: SegmentAttribute(fontColor: .blue, borderColor: .blue),
+            .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
     }
     
@@ -95,7 +95,7 @@ public struct DimensionSelector: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(segmentTitles.indices, id: \.self) { index in
-                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes)
+                    Segment(title: self.segmentTitles[index], isSelected: self.model.selectedIndex == index, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
                         .onTapGesture {
                             self.selectionDidChange(index: index)
                         }
@@ -136,11 +136,13 @@ extension DimensionSelector {
         var isSelected: Bool
                 
         var segmentAttributes: [ControlState: SegmentAttribute]
+        
+        var titleInset: EdgeInsets
 
         var body: some View {
             Text(title)
                 .font(self.isSelected ? segmentAttributes[.selected]?.font : segmentAttributes[.normal]?.font)
-                .padding(segmentAttributes[.normal]?.titleInset ?? EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                .padding(titleInset)
                 .foregroundColor(self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor)
                 .overlay(ButtonOverlayView(isSelected: self.isSelected, segmentAttributes: segmentAttributes))
         }
@@ -149,6 +151,7 @@ extension DimensionSelector {
     class Model: ObservableObject {
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
+        @Published var titleInset: EdgeInsets!
         @Published var segmentAttributes: [ControlState: SegmentAttribute]!
     }
 }

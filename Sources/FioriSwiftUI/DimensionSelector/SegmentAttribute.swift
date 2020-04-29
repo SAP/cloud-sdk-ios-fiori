@@ -13,17 +13,14 @@ public class SegmentAttribute {
     public var fontSize: CGFloat?
     public var font: Font?
     public var borderColor: Color!
-    public var titleInset: EdgeInsets!
     
     public init(fontColor: Color,
                 fontSize: CGFloat? = nil,
                 font: Font? = nil,
-                borderColor: Color,
-                titleInset: EdgeInsets) {
+                borderColor: Color) {
         self.fontColor      = fontColor
         self.fontSize       = fontSize
         self.font           = font
         self.borderColor    = borderColor
-        self.titleInset     = titleInset
     }
 }
