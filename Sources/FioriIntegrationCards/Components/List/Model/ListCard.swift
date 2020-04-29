@@ -14,7 +14,7 @@ import TinyNetworking
 extension ListCard: Hashable {
     public static func == (lhs: ListCard, rhs: ListCard) -> Bool {
         return lhs.header == rhs.header &&
-            lhs.content == lhs.content
+            lhs.content == rhs.content
     }
     
     public func hash(into hasher: inout Hasher) {

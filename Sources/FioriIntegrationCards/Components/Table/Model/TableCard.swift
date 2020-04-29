@@ -12,7 +12,7 @@ open class TableCard: OneManyCard<TableRow> {
 
 extension TableCard: Hashable {
     public static func == (lhs: TableCard, rhs: TableCard) -> Bool {
-        return lhs.header == rhs.header && lhs.content == lhs.content
+        return lhs.header == rhs.header && lhs.content == rhs.content
     }
     
     public func hash(into hasher: inout Hasher) {
