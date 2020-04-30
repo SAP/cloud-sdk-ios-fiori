@@ -77,12 +77,14 @@ public struct SegmentedControl: View {
         }
     }
     
-    public var leadingInset: CGFloat {
+    public var contentInset: EdgeInsets {
         get {
-            return model.leadingInset ?? (horizontalSizeClass == .compact ? 16 : 48)
+            let leadingAndTrailing: CGFloat = horizontalSizeClass == .compact ? 16 : 48
+            let defaultInset = EdgeInsets(top: 8, leading: leadingAndTrailing, bottom: 8, trailing: leadingAndTrailing)
+            return model.contentInset ?? defaultInset
         }
         set {
-            return model.leadingInset = newValue
+            return model.contentInset = newValue
         }
     }
     
@@ -96,7 +98,7 @@ public struct SegmentedControl: View {
                 interItemSpacing: CGFloat = 6,
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil,
-                leadingInset: CGFloat? = nil) {
+                contentInset: EdgeInsets? = nil) {
         self.titles      = segmentTitles
         self.titleInsets        = titleInsets
         self.interItemSpacing   = interItemSpacing
@@ -109,8 +111,8 @@ public struct SegmentedControl: View {
             .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
         
-        if let _leadingInset = leadingInset {
-            self.leadingInset = _leadingInset
+        if let _contentInset = contentInset {
+            self.contentInset = _contentInset
         }
     }
     
@@ -127,7 +129,8 @@ public struct SegmentedControl: View {
                 }
             }
             .padding([.top, .bottom], 8)
-            .padding([.leading, .trailing], model.leadingInset ?? (horizontalSizeClass == .compact ? 16 : 48))
+            .padding(.leading, model.contentInset?.leading ?? (horizontalSizeClass == .compact ? 16 : 48))
+            .padding(.trailing, model.contentInset?.trailing ?? (horizontalSizeClass == .compact ? 16 : 48))
         }
     }
 
@@ -166,7 +169,7 @@ extension SegmentedControl {
         @Published var interItemSpacing: CGFloat!
         @Published var titleInset: EdgeInsets!
         @Published var segmentAttributes: [ControlState: SegmentAttribute]!
-        @Published var leadingInset: CGFloat?
+        @Published var contentInset: EdgeInsets?
         @Published var isEnable: Bool!
     }
 }
