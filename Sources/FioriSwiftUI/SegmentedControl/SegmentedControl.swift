@@ -55,10 +55,13 @@ public struct SegmentedControl: View {
             return model.selectedIndex
         }
         set {
-            guard let value = newValue, 0 <= value, value < self.titles.count, self.isEnable else {
+            guard self.isEnable else {
                 return
             }
-            model.selectedIndex = value
+            if let value = newValue, (value < 0 || value >= self.titles.count) {
+                return
+            }
+            model.selectedIndex = newValue
         }
     }
     
