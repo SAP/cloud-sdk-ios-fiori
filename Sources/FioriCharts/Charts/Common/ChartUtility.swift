@@ -129,7 +129,10 @@ class ChartUtility {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
         }
         
-        let allowLooseLabel = false
+        var allowLooseLabel = true
+        if model.chartType == .line || model.chartType == .area || model.chartType == .stock || model.chartType == .combo {
+            allowLooseLabel = false
+        }
         
         let dmin = dataElements.dataMinimum
         let dmax = dataElements.dataMaximum

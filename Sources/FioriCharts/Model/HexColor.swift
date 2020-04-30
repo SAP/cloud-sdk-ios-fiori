@@ -67,3 +67,10 @@ public struct HexColor: Hashable {
         return "FFFFFF"
     }
 }
+
+extension HexColor: Equatable {
+    public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
+        return lhs.hex(.light) == rhs.hex(.light) &&
+            lhs.hex(.dark) == rhs.hex(.dark)
+    }
+}

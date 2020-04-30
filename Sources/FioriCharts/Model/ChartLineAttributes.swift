@@ -74,3 +74,25 @@ public class ChartBaselineAttributes: ChartGridlineAttributes {
     /// Baseline position or nil if no data has been assigned to the Chart.
     @Published public var position: CGFloat?
 }
+
+extension ChartGridlineAttributes: Equatable {
+    public static func == (lhs: ChartGridlineAttributes, rhs: ChartGridlineAttributes) -> Bool {
+        return lhs.width == rhs.width &&
+        lhs.color == rhs.color &&
+        lhs.dashPatternLength == rhs.dashPatternLength &&
+        lhs.dashPatternGap == rhs.dashPatternGap &&
+        lhs.isHidden == rhs.isHidden
+    }
+}
+
+extension ChartBaselineAttributes {
+    public static func == (lhs: ChartBaselineAttributes, rhs: ChartBaselineAttributes) -> Bool {
+        return lhs.width == rhs.width &&
+            lhs.color == rhs.color &&
+            lhs.dashPatternLength == rhs.dashPatternLength &&
+            lhs.dashPatternGap == rhs.dashPatternGap &&
+            lhs.isHidden == rhs.isHidden &&
+            lhs.value == rhs.value &&
+            lhs.position == rhs.position
+    }
+}

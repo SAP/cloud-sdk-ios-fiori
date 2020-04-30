@@ -46,3 +46,12 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
         return copy
     }
 }
+
+extension ChartPointAttributes: Equatable {
+    public static func == (lhs: ChartPointAttributes, rhs: ChartPointAttributes) -> Bool {
+        return lhs.isHidden == rhs.isHidden &&
+            lhs.diameter == rhs.diameter &&
+            lhs.strokeColor == rhs.strokeColor &&
+            lhs.gap == rhs.gap
+    }
+}

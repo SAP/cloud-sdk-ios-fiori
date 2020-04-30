@@ -69,3 +69,14 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
 }
+
+extension ChartSeriesPalette: Equatable {
+    public static func == (lhs: ChartSeriesPalette, rhs: ChartSeriesPalette) -> Bool {
+        return lhs.colors == rhs.colors &&
+            lhs.labelColor == rhs.labelColor &&
+            lhs.positiveMaxColor == rhs.positiveMaxColor &&
+            lhs.positiveMinColor == rhs.positiveMinColor &&
+            lhs.negativeMaxColor == rhs.negativeMaxColor &&
+            lhs.negativeMinColor == rhs.negativeMinColor
+    }
+}

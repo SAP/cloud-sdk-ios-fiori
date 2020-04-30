@@ -365,6 +365,65 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     
     /// Defines the manner in which labels will be presented when they are provided by the data source, and not hidden.
     @Published public var labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle
-    
-    //    var layout: ChartAxisLabelLayout
+}
+
+extension ChartAxisAttributes: Equatable {
+    public static func == (lhs: ChartAxisAttributes, rhs: ChartAxisAttributes) -> Bool {
+        return lhs.axisId == rhs.axisId &&
+            lhs.baseline == rhs.baseline &&
+            lhs.gridlines == rhs.gridlines &&
+            lhs.labels == rhs.labels &&
+            lhs.titleLabel == rhs.titleLabel &&
+            lhs.title == rhs.title
+    }
+}
+
+/*
+ ChartNumericAxisAttributes(axisId: self.axisId,
+ baseline: (self.baseline.copy() as! ChartBaselineAttributes),
+ gridlines: (self.gridlines.copy() as! ChartGridlineAttributes),
+ labels: (self.labels.copy() as! ChartLabelAttributes),
+ titleLabel: (self.titleLabel.copy() as! ChartLabelAttributes),
+ title: self.title,
+ isZeroBased: isZeroBased,
+ abbreviatesLabels: abbreviatesLabels,
+ explicitMin: ChartUtility.doubleOptional(from: explicitMin),
+ explicitMax: ChartUtility.doubleOptional(from: explicitMax),
+ formatter: formatter.copy() as? NumberFormatter,
+ abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter)
+ */
+
+extension ChartNumericAxisAttributes {
+    public static func == (lhs: ChartNumericAxisAttributes, rhs: ChartNumericAxisAttributes) -> Bool {
+        return lhs.axisId == rhs.axisId &&
+            lhs.baseline == rhs.baseline &&
+            lhs.gridlines == rhs.gridlines &&
+            lhs.labels == rhs.labels &&
+            lhs.titleLabel == rhs.titleLabel &&
+            lhs.title == rhs.title &&
+            lhs.isZeroBased && rhs.isZeroBased &&
+            lhs.abbreviatesLabels == rhs.abbreviatesLabels &&
+            lhs.explicitMin == rhs.explicitMin &&
+            lhs.explicitMax == rhs.explicitMax &&
+            lhs.formatter == rhs.formatter &&
+            lhs.abbreviatedFormatter == rhs.abbreviatedFormatter
+    }
+}
+
+extension ChartCategoryAxisAttributes {
+    public static func == (lhs: ChartCategoryAxisAttributes, rhs: ChartCategoryAxisAttributes) -> Bool {
+        return lhs.axisId == rhs.axisId &&
+            lhs.baseline == rhs.baseline &&
+            lhs.gridlines == rhs.gridlines &&
+            lhs.labels == rhs.labels &&
+            lhs.titleLabel == rhs.titleLabel &&
+            lhs.title == rhs.title &&
+            lhs.isZeroBased && rhs.isZeroBased &&
+            lhs.abbreviatesLabels == rhs.abbreviatesLabels &&
+            lhs.explicitMin == rhs.explicitMin &&
+            lhs.explicitMax == rhs.explicitMax &&
+            lhs.formatter == rhs.formatter &&
+            lhs.abbreviatedFormatter == rhs.abbreviatedFormatter &&
+            lhs.labelLayoutStyle == rhs.labelLayoutStyle
+    }
 }

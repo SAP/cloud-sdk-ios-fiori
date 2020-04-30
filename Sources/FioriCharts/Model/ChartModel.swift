@@ -52,7 +52,7 @@ public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String
 public class ChartModel: ObservableObject, Identifiable, NSCopying {
 
     ///
-    public enum DimensionData<T> {
+    public enum DimensionData<T>: Equatable where T: Equatable {
         case single(T)
         case array([T])
         
@@ -99,6 +99,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 
             case .single(let val):
                 return val
+            }
+        }
+        
+        public static func == (lhs: ChartModel.DimensionData<T>, rhs: ChartModel.DimensionData<T>) -> Bool {
+            switch lhs {
+            case .array(let vals):
+                return vals == rhs.values
+                
+            case .single(let val):
+                return val == rhs.value
             }
         }
     }
@@ -809,6 +819,27 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               indexesOfTotalsCategories: self.indexesOfTotalsCategories)
         
         return copy
+    }
+}
+
+extension ChartModel: Equatable {
+    public static func == (lhs: ChartModel, rhs: ChartModel) -> Bool {
+        return lhs.chartType == rhs.chartType &&
+            lhs.data == rhs.data &&
+            lhs.titlesForCategory == rhs.titlesForCategory &&
+            lhs.colorsForCategory == rhs.colorsForCategory &&
+            lhs.titlesForAxis == rhs.titlesForAxis &&
+            lhs.labelsForDimension == rhs.labelsForDimension &&
+            lhs.backgroundColor == rhs.backgroundColor &&
+            lhs.selectedSeriesIndex == rhs.selectedSeriesIndex &&
+            lhs.userInteractionEnabled == rhs.userInteractionEnabled &&
+            lhs.seriesAttributes == rhs.seriesAttributes &&
+            lhs.categoryAxis == rhs.categoryAxis &&
+            lhs.numericAxis == rhs.numericAxis &&
+            lhs.secondaryNumericAxis == rhs.secondaryNumericAxis &&
+            lhs.indexesOfSecondaryValueAxis == rhs.indexesOfSecondaryValueAxis &&
+            lhs.indexesOfColumnSeries == rhs.indexesOfColumnSeries &&
+            lhs.indexesOfTotalsCategories == rhs.indexesOfTotalsCategories
     }
 }
 

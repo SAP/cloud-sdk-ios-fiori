@@ -46,3 +46,12 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
                                     isHidden: self.isHidden)
     }
 }
+
+extension ChartLabelAttributes: Equatable {
+    public static func == (lhs: ChartLabelAttributes, rhs: ChartLabelAttributes) -> Bool {
+        return lhs.color == rhs.color &&
+            lhs.fontSize == rhs.fontSize &&
+            lhs.offset == rhs.offset &&
+            lhs.isHidden == rhs.isHidden
+    }
+}

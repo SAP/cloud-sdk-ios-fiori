@@ -60,3 +60,13 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
                                      lastLineCapDiameter: Double(self.lastLineCapDiameter))
     }
 }
+
+extension ChartSeriesAttributes: Equatable {
+    public static func == (lhs: ChartSeriesAttributes, rhs: ChartSeriesAttributes) -> Bool {
+        return lhs.palette == rhs.palette &&
+            lhs.lineWidth == rhs.lineWidth &&
+            lhs.point == rhs.point &&
+            lhs.firstLineCapDiameter == rhs.firstLineCapDiameter &&
+            lhs.lastLineCapDiameter == rhs.lastLineCapDiameter
+    }
+}
