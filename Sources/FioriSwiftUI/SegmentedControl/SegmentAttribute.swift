@@ -13,4 +13,14 @@ public struct SegmentAttribute {
     public var fontSize: CGFloat?
     public var font: Font?
     public var borderColor: Color?
+    
+    public init(fontColor: Color? = nil,
+                fontSize: CGFloat? = nil,
+                font: Font? = nil,
+                borderColor: Color? = nil) {
+        self.fontColor      = fontColor
+        self.fontSize       = fontSize
+        self.font           = font
+        self.borderColor    = borderColor
+    }
 }
