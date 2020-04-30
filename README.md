@@ -71,10 +71,11 @@ In both cases, **xcodebuild** tooling will manage cloning and updating the repos
 
 ## Configuration
 
-Two products are exposed by the `Package.swift` manifest. Choose the one which fits best to your use case.
+Three products are exposed by the `Package.swift` manifest.
 
-- **FioriSwiftUI** to leverage FioriCharts
-- **FioriIntegrationCards** to either leverage cards or charts
+**FioriSwiftUI** as umbrella product will contain everything the package as to offer in the future.
+
+If you are concerned about bundle size you can use either one of the individual products **FioriCharts** or **FioriIntegrationCards**
 
 ## Limitations
 
