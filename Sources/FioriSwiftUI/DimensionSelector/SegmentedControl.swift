@@ -1,6 +1,6 @@
 //
 //  SegmentedControl.swift
-//  DimensionSelector
+//  SegmentedControl
 //
 //  Created by Ma, Xiao on 3/17/20.
 //  Copyright © 2020 Ma, Xiao. All rights reserved.
