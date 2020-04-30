@@ -1,5 +1,5 @@
 //
-//  DimensionSelector.swift
+//  SegmentedControl.swift
 //  DimensionSelector
 //
 //  Created by Ma, Xiao on 3/17/20.

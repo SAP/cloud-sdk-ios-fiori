@@ -12,7 +12,7 @@ import FioriCharts
 
 struct ContentView: View {
     var body: some View {
-        DimensionSelector_Chart()
+        SegmentedControl_Chart()
     }
 }
 

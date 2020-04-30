@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F6FC0082435B7AC00BC885A /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6FC0072435B7AC00BC885A /* DimensionSelector+Chart.swift */; };
+		1F6FC0082435B7AC00BC885A /* SegmentedControl+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6FC0072435B7AC00BC885A /* SegmentedControl+Chart.swift */; };
 		ABCD7CC324240A2800F526BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD7CC224240A2800F526BE /* AppDelegate.swift */; };
 		ABCD7CC524240A2800F526BE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD7CC424240A2800F526BE /* SceneDelegate.swift */; };
 		ABCD7CC724240A2800F526BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABCD7CC624240A2800F526BE /* ContentView.swift */; };
@@ -52,7 +52,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F6FC0072435B7AC00BC885A /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
+		1F6FC0072435B7AC00BC885A /* SegmentedControl+Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentedControl+Chart.swift"; sourceTree = "<group>"; };
 		ABCD7CBF24240A2800F526BE /* FioriSwiftUITestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FioriSwiftUITestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABCD7CC224240A2800F526BE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABCD7CC424240A2800F526BE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 		1F6FC0062435B72600BC885A /* DimensionSelector */ = {
 			isa = PBXGroup;
 			children = (
-				1F6FC0072435B7AC00BC885A /* DimensionSelector+Chart.swift */,
+				1F6FC0072435B7AC00BC885A /* SegmentedControl+Chart.swift */,
 			);
 			path = DimensionSelector;
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F6FC0082435B7AC00BC885A /* DimensionSelector+Chart.swift in Sources */,
+				1F6FC0082435B7AC00BC885A /* SegmentedControl+Chart.swift in Sources */,
 				ABCD7CC324240A2800F526BE /* AppDelegate.swift in Sources */,
 				ABCD7CC524240A2800F526BE /* SceneDelegate.swift in Sources */,
 				ABCD7CC724240A2800F526BE /* ContentView.swift in Sources */,
