@@ -11,9 +11,6 @@ struct DonutChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
     
-    // degree of gap between segments
-    let GAP: Double = 0.5
-    
     init(_ chartModel: ChartModel) {
         self.model = chartModel
     }
@@ -26,9 +23,11 @@ struct DonutChart: View {
     
     func chartView(in size: CGSize) -> some View {
         let diameter = min(size.width, size.height)
-    
+        // 1pt gap -> degree of gap between segments
+        let GAP: Double = 360.0 / (Double(diameter) * Double.pi)
+        
         // depth
-        let depth = diameter / 5
+        let depth: CGFloat = diameter * (126.0 - 76.0) / ( 2.0 * 126.0)
         
         let segments: [MicroChartDataItem] = model.dataItemsIn(seriesIndex: 0)
         let count = segments.count
