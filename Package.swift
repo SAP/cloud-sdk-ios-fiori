@@ -12,6 +12,10 @@ let package = Package(
             type: .dynamic,
             targets: ["FioriSwiftUI"]),
         .library(
+            name: "FioriCharts",
+            type: .dynamic,
+            targets: ["FioriCharts"]),
+        .library(
             name: "FioriIntegrationCards",
             type: .dynamic,
             targets: ["FioriIntegrationCards"]),
@@ -26,12 +30,15 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriCharts"]),
+            dependencies: ["FioriIntegrationCards"]),
         .target(
             name: "FioriIntegrationCards",
             dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts", "Zip"]),
         .target(
             name: "FioriCharts",
+            dependencies: ["FioriSwiftUICore"]),
+        .target(
+            name: "FioriSwiftUICore",
             dependencies: []),
         .testTarget(
             name: "FioriSwiftUITests",

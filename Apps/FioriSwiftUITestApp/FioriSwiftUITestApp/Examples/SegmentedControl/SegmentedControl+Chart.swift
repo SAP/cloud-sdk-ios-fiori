@@ -8,7 +8,7 @@
 
 import SwiftUI
 import FioriCharts
-import FioriSwiftUI
+import FioriSwiftUICore
 import Combine
 
 struct SegmentedControl_Chart: View {
