@@ -66,7 +66,7 @@ struct RadialMicroChart: View {
         let radius = min(size.width, size.height) / 2
         var ratio: Double = 100
         if total!.value != 0 {
-            ratio = Double(percentage!.value / total!.value)
+            ratio = Double(percentage!.value / max(total!.value, 1))
         }
         // calculate the difference of outer and inner radius
         let val = radius / 10

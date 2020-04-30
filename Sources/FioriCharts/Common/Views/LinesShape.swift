@@ -55,7 +55,7 @@ public struct LinesShape: Shape {
             }
         }
 
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
+        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(data.count - 1, 1))
         var prevPt: CGPoint? = nil
         let fillOrigY: CGFloat = rect.size.height * (1.0 - baselinePosition)
         

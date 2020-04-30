@@ -32,7 +32,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let width = rect.size.width
         
         let startPosInFloat = CGFloat(model.startPos)
-        let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
         let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
         let endIndex = max(min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
@@ -66,7 +66,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let width = rect.size.width
         
         let startPosInFloat = CGFloat(model.startPos)
-        let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
         let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
         let endIndex = min(max(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
@@ -266,7 +266,7 @@ class DefaultAxisDataSource: AxisDataSource {
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect) {
         let width = rect.size.width
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((toPoint.x - startOffset) / unitWidth + 0.5) + startIndex

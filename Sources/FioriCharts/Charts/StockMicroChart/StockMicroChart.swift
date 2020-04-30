@@ -27,7 +27,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         let width = rect.size.width
         let startPosInFloat = CGFloat(model.startPos)
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
         let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
         
@@ -159,7 +159,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
         }
         
         let width = rect.size.width
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         

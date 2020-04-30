@@ -40,7 +40,7 @@ struct LinesView: View {
         let width = rect.size.width
         let startPosIn = CGFloat(model.startPos)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int(startPosIn / unitWidth)
         
         var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))

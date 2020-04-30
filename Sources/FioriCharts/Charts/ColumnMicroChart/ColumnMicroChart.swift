@@ -47,57 +47,62 @@ public struct ColumnMicroChart: View {
         let columns = model.dataItemsIn(seriesIndex: 0)
         
         return VStack(alignment: .center, spacing: 0) {
-            // positive value columns and their value column lables
-            HStack(alignment: .bottom, spacing: barSpace) {
-                ForEach(columns) { item in
-                    VStack(alignment: .center, spacing: 0) {
-                        Spacer(minLength: 0)
-                        
-                        if positiveLablesHeight > 0 && self.columnLabel(for: item, positive: true) != nil {
-                            Text(self.columnLabel(for: item, positive: true) ?? "")
-                                .lineLimit(1)
-                                .font(.caption)
-                                .foregroundColor(item.color.color(self.colorScheme))
-                        }
-                        
-                        Rectangle()
-                            .fill(item.color.color(self.colorScheme))
-                            .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
-                    }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
-                }
-            }.frame(width: size.width, height: positiveBarsHeight + positiveLablesHeight)
-            
-            // negative value columns and their value column lables
-            if self.existNegativeValues() {
-                HStack(alignment: .top, spacing: barSpace) {
+            if columns.count > 0 {
+                // positive value columns and their value column lables
+                HStack(alignment: .bottom, spacing: barSpace) {
                     ForEach(columns) { item in
                         VStack(alignment: .center, spacing: 0) {
-                            Rectangle()
-                                .fill(item.value > 0 ? Color.clear : item.color.color(self.colorScheme))
-                                .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
+                            Spacer(minLength: 0)
                             
-                            if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
-                                Text(self.columnLabel(for: item, positive: false) ?? "")
+                            if positiveLablesHeight > 0 && self.columnLabel(for: item, positive: true) != nil {
+                                Text(self.columnLabel(for: item, positive: true) ?? "")
                                     .lineLimit(1)
                                     .font(.caption)
                                     .foregroundColor(item.color.color(self.colorScheme))
                             }
                             
-                            Spacer(minLength: 0)
-                        }.frame(width: barWidth, height: negativeBarsHeight + negativeLabelsHeight)
+                            Rectangle()
+                                .fill(item.color.color(self.colorScheme))
+                                .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
+                        }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
                     }
-                }.frame(width: size.width, height: negativeBarsHeight + negativeLabelsHeight)
-            }
-            
-            // date column lables
-            if dateLabelsHeight > 0 {
-                HStack(alignment: .bottom, spacing: barSpace) {
-                    ForEach(columns) { item in
-                        Text(item.label ?? "")
-                            .lineLimit(1)
-                            .font(.caption)
-                    }.frame(width: barWidth)
+                }.frame(width: size.width, height: positiveBarsHeight + positiveLablesHeight)
+                
+                // negative value columns and their value column lables
+                if self.existNegativeValues() {
+                    HStack(alignment: .top, spacing: barSpace) {
+                        ForEach(columns) { item in
+                            VStack(alignment: .center, spacing: 0) {
+                                Rectangle()
+                                    .fill(item.value > 0 ? Color.clear : item.color.color(self.colorScheme))
+                                    .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
+                                
+                                if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
+                                    Text(self.columnLabel(for: item, positive: false) ?? "")
+                                        .lineLimit(1)
+                                        .font(.caption)
+                                        .foregroundColor(item.color.color(self.colorScheme))
+                                }
+                                
+                                Spacer(minLength: 0)
+                            }.frame(width: barWidth, height: negativeBarsHeight + negativeLabelsHeight)
+                        }
+                    }.frame(width: size.width, height: negativeBarsHeight + negativeLabelsHeight)
                 }
+                
+                // date column lables
+                if dateLabelsHeight > 0 {
+                    HStack(alignment: .bottom, spacing: barSpace) {
+                        ForEach(columns) { item in
+                            Text(item.label ?? "")
+                                .lineLimit(1)
+                                .font(.caption)
+                        }.frame(width: barWidth)
+                    }
+                }
+            }
+            else {
+                NoDataView()
             }
         }
     }
@@ -136,7 +141,7 @@ public struct ColumnMicroChart: View {
         } else {
             space = ceil(space)
         }
-        width = (size.width - CGFloat((count - 1)) * space) / CGFloat(count)
+        width = (size.width - CGFloat((count - 1)) * space) / CGFloat(max(count, 1))
         
         return (width, space)
     }

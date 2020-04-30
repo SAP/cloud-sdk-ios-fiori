@@ -34,7 +34,7 @@ struct StockIndicatorView: View {
         
         let closestDataIndex = selectedCategoryRange.lowerBound
         let width = rect.size.width
-        let unitWidth: CGFloat = width * model.scale / CGFloat(ChartUtility.numOfDataItems(model) - 1)
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let x = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
@@ -45,7 +45,7 @@ struct StockIndicatorView: View {
             let maxVal = displayRange.upperBound
             
             
-            let y = rect.size.height - (CGFloat(price) - minVal) * rect.size.height / (maxVal - minVal) + rect.origin.y
+            let y = rect.size.height - (CGFloat(price) - minVal) * rect.size.height / max(maxVal - minVal, 1) + rect.origin.y
             
             closestPoint = CGPoint(x: x, y: y)
         

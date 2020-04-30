@@ -62,6 +62,9 @@ struct HarveyBallMicroChart: View {
                 }
                 Spacer()
             }
+            else {
+                NoDataView()
+            }
         }
     }
 }

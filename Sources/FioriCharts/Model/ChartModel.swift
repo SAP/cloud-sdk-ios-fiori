@@ -772,7 +772,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 maxValue = max(maxValue, i.upperBound)
             }
             
-            return abs(value) / T(maxValue - minValue)
+            let diff = abs(maxValue - minValue) <= 0.000001 ? 1 : (maxValue - minValue)
+            return abs(value) / T(diff)
         } else {
             return T(0)
         }

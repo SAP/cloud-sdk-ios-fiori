@@ -17,24 +17,28 @@ public struct Tests {
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                    numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
                    secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
-                   indexesOfSecondaryValueAxis: [1]
-        ),
+                   indexesOfSecondaryValueAxis: [1]),
+        
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
                    indexesOfSecondaryValueAxis: [1]),
+        
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
                    indexesOfSecondaryValueAxis: [0, 1]),
+        
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
                    indexesOfSecondaryValueAxis: [1]),
+        
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]]),
+        
         ChartModel(chartType: .line,
                    data: [[200, 170, 165, 183, nil, nil, nil],
                           [nil, nil, nil, 183, 196, 190, 180]],
@@ -44,7 +48,8 @@ public struct Tests {
                    data: [[nil, 220, nil, 250, 200, nil, 230],
                           [160, nil, 130, 170, nil, 190, 180]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
-        )
+        ),
+        ChartModel(chartType: .line, data: [[nil]])
     ]
     
     public static let bulletModles = [
@@ -53,7 +58,9 @@ public struct Tests {
         
         ChartModel(chartType: .micro_bullet,
                    data: [[35, 50, 70], [0, 20, 50, 100]],
-                   colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart2), 3: Palette.hexColor(for: .chart3)]])
+                   colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart2), 3: Palette.hexColor(for: .chart3)]]),
+        
+        ChartModel(chartType: .micro_bullet, data: [[nil]])
     ]
     
     public static let columnModels = [
@@ -61,14 +68,18 @@ public struct Tests {
                    data: [[200, 170, 165, 143, 166, 112, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                    labelsForDimension: [["$200K", "avg", "$165K", "$143K", "$166K", "$112K", "$110K"]]),
+        
         ChartModel(chartType: .micro_column,
                    data: [[200, 170, -165, 143, 166, 112, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                    colorsForCategory: [0: [2: Palette.hexColor(for: .negative)]],
                    labelsForDimension: [["$200K", "avg", "-165K", nil, "$166K", "$112K", "$110K"]]),
+        
         ChartModel(chartType: .micro_column,
                    data: [[60, 80, 100, 60, 55, 15]],
-                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun"]])
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun"]]),
+        
+        ChartModel(chartType: .micro_column, data: [[nil]])
     ]
     
     public static let harveyBallModels = [
@@ -76,18 +87,23 @@ public struct Tests {
                    data: [[360, 8]],
                    titlesForCategory: [["360 Mrd", "8 Mrd"]],
                    colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .negative)]]),
+        
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 352]],
                    titlesForCategory: [["360 Mrd", "352 Mrd"]],
                    colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .positive)]]),
+        
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 400]],
                    titlesForCategory: [["360 Mrd", "400 Mrd"]],
                    colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .positive)]]),
+        
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[100, 8]],
                    titlesForCategory: [["100 Mrd", ""]],
-                   colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .critical)]])
+                   colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .critical)]]),
+        
+        ChartModel(chartType: .micro_harvey_ball, data: [[nil]])
     ]
     
     public static let donutModels = [
@@ -98,14 +114,21 @@ public struct Tests {
         ChartModel(chartType: .donut,
                    data: [[142.50, 332.05, 247.18, 228.82, 83.45]],
                    titlesForCategory: [["Trucks", "Vans", "Leasing", "Service", "Rentals"]],
-                   colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart3), 3: Palette.hexColor(for: .chart4), 4: Palette.hexColor(for: .chart5)]])
+                   colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart3), 3: Palette.hexColor(for: .chart4), 4: Palette.hexColor(for: .chart5)]]),
+        
+        ChartModel(chartType: .donut, data: [[nil]])
     ]
     
     public static let radialModels = [
         ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .negative)]]),
+        
         ChartModel(chartType: .micro_radial, data: [[100, 99]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .positive)]]),
+        
         ChartModel(chartType: .micro_radial, data: [[100, 10]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .critical)]]),
-        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .critical)]])
+        
+        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary4), 1: Palette.hexColor(for: .critical)]]),
+        
+        ChartModel(chartType: .micro_radial, data: [[nil]])
     ]
     
     public static let stockModels = [
@@ -134,7 +157,9 @@ public struct Tests {
         // intraday
         ChartModel(chartType: .stock, data: [[[16.52, 18.48, 19.21, 20.00, 20000], [22.80, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
         
-        ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]])
+        ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]]),
+        
+        ChartModel(chartType: .stock, data: [[nil]])
     ]
     
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }

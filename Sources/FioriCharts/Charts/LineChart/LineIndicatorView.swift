@@ -36,7 +36,7 @@ struct LineIndicatorView: View {
 
         if closestDataIndex >= 0 && closestDataIndex < count {
             let width = rect.size.width
-            let unitWidth: CGFloat = width * model.scale / CGFloat(count - 1)
+            let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
             let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
             let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
             let displayRange = ChartUtility.displayRange(model)

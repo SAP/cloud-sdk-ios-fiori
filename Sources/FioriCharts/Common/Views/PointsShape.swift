@@ -47,14 +47,15 @@ struct PointsShape: Shape {
         
         let data: [CGFloat?] = points.map {
             if let val = $0 {
-                return rect.size.height - (CGFloat(val) - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)
+                let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
+                return rect.size.height - (CGFloat(val) - displayRange.lowerBound) * rect.size.height / range
             }
             else {
                 return nil
             }
         }
         
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(data.count - 1)
+        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(data.count - 1, 1))
         var lastPoint = CGPoint(x: -gap, y: 0)
         
         for i in 0 ..< data.count {
