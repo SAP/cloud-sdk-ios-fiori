@@ -8,50 +8,50 @@ SwiftUI implementation of SAP Fiori for iOS Design Language.
 ![](https://github.com/SAP/cloud-sdk-ios-fiori/blob/images/Resources/Images/Team.png?raw=true)
 
 ## Description
-This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the **SAPFiori** framework of the SAP Cloud Platform SDK for iOS.  
+This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the **SAPFiori** framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).  
 
 > This project is in development, and should not yet be used productively.
 
-This project currently contains two modules:  **FioriCharts** and **FioriIntegrationCards**.
+This project currently contains two modules: **FioriCharts** and **FioriIntegrationCards**.
 
 ### FioriCharts
 The FioriCharts module is planned to replace the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
 
 | | SAPFiori 4.0.x, 5.0.x  | FioriCharts |
 | - | --------- | - |
-| Area | x | x |
-| Line | x | x |
-| Column | x | x |
-| Stacked Column | x | planned |
-| Bar | x | planned |
-| Stacked Bar | not planned | planned |
-| Bubble | x | planned |
-| Waterfall | x | planned |
-| Combo | x | planned |
-| Donut | not planned | x |
-| Bullet | not planned | planned |
-| Stacked Bullet | not planned | planned |
-| Harvey Ball | not planned | x |
-| Radial | not planned | x |
-| Stocks (line) | not planned | x |
+| Area | :white_check_mark: | :white_check_mark: |
+| Line | :white_check_mark: | :white_check_mark: |
+| Column | :white_check_mark: | :white_check_mark: |
+| Stacked Column | :white_check_mark: | :soon: |
+| Bar | :white_check_mark: | :soon: |
+| Stacked Bar | :x: | :soon: |
+| Bubble | :white_check_mark: | :soon: |
+| Waterfall | :white_check_mark: | :soon: |
+| Combo | :white_check_mark: | :soon: |
+| Donut | :x: | :white_check_mark: |
+| Bullet | :x: | :soon: |
+| Stacked Bullet | :x: | :soon: |
+| Harvey Ball | :x: | :white_check_mark: |
+| Radial | :x: | :white_check_mark: |
+| Stocks (line) | :x: | :white_check_mark: |
 
 The API is designed for backwards compatibility to the existing SAPFiori charting APIs, but is optimized for SwiftUI.
 
-Upcoming releases of SAPFiori will dynamically link to FioriCharts framework; applications linking SAPFiori should include this package as a dependency.
+Upcoming releases of SAPFiori will dynamically link to FioriSwiftUI framework; applications linking SAPFiori should include this package and its eponymous package product as a dependency.
 
 ### Fiori Integration Cards
 The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integration Cards](https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/index.html).  These types of cards are common in UI5 dashboard and overview page user contexts.  In native iOS apps, we are focusing initially on the dashboard use case, and also considering Cards as ideal for Annotation-style views--in maps, or AR experiences.  
 
 | | FioriIntegrationCards |
 | - | - |
-| Object Card | x | 
-| List Card | x | 
-| Timeline Card | x | 
-| Analytic Card | x | 
-| Table Card | x | 
-| Calendar Card | planned |
+| Object Card | :white_check_mark: | 
+| List Card | :white_check_mark: | 
+| Timeline Card | :white_check_mark: | 
+| Analytic Card | :white_check_mark: | 
+| Table Card | :white_check_mark: | 
+| Calendar Card | :soon: |
 | Adaptive Card | tbd |
-| Component Card | not currently planned |
+| Component Card | :x: |
 
 
 ## Requirements
@@ -71,7 +71,10 @@ In both cases, **xcodebuild** tooling will manage cloning and updating the repos
 
 ## Configuration
 
-At present, only one product **FioriSwiftUI** is exposed by the `Package.swift` manifest.
+Two products are exposed by the `Package.swift` manifest. Choose the one which fits best to your use case.
+
+- **FioriSwiftUI** to leverage FioriCharts
+- **FioriIntegrationCards** to either leverage cards or charts
 
 ## Limitations
 
