@@ -99,17 +99,17 @@
 		1F6FC0032435B6D100BC885A /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				1F6FC0062435B72600BC885A /* DimensionSelector */,
+				1F6FC0062435B72600BC885A /* SegmentedControl */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
 		};
-		1F6FC0062435B72600BC885A /* DimensionSelector */ = {
+		1F6FC0062435B72600BC885A /* SegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
 				1F6FC0072435B7AC00BC885A /* SegmentedControl+Chart.swift */,
 			);
-			path = DimensionSelector;
+			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		ABCD7CB624240A2800F526BE = {
