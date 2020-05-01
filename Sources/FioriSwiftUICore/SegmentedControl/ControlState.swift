@@ -1,6 +1,6 @@
 //
 //  ControlState.swift
-//  FioriSwiftUI
+//  FioriSwiftUICore
 //
 //  Created by Ma, Xiao on 4/21/20.
 //

@@ -1,6 +1,6 @@
 //
 //  SegmentAttribute.swift
-//  AnyCodable
+//  FioriSwiftUICore
 //
 //  Created by Ma, Xiao on 4/28/20.
 //
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct SegmentAttribute {
+public struct SegmentAttributes {
     public var fontColor: Color?
     public var fontSize: CGFloat?
     public var font: Font?

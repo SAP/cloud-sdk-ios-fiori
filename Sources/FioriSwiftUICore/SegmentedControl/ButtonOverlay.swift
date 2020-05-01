@@ -1,6 +1,6 @@
 //
 //  ButtonOverlay.swift
-//  DimensionSelector
+//  FioriSwiftUICore
 //
 //  Created by Ma, Xiao on 3/17/20.
 //  Copyright © 2020 Ma, Xiao. All rights reserved.
@@ -12,7 +12,7 @@ import SwiftUI
 struct ButtonOverlayView: View {
     var isSelected: Bool
     var isEnable: Bool
-    var segmentAttributes: [ControlState: SegmentAttribute]
+    var segmentAttributes: [ControlState: SegmentAttributes]
     
     var body: some View {
         ButtonOverlayShape(cornerRadius: 4)

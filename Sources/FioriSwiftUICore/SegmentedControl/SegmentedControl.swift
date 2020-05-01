@@ -1,6 +1,6 @@
 //
 //  SegmentedControl.swift
-//  SegmentedControl
+//  FioriSwiftUICore
 //
 //  Created by Ma, Xiao on 3/17/20.
 //  Copyright © 2020 Ma, Xiao. All rights reserved.
@@ -23,7 +23,7 @@ public struct SegmentedControl: View {
         }
     }
     
-    public var segmentAttributes: [ControlState: SegmentAttribute] {
+    public var segmentAttributes: [ControlState: SegmentAttributes] {
         get {
             return model.segmentAttributes
         }
@@ -106,9 +106,9 @@ public struct SegmentedControl: View {
         self.selectedIndex      = selectedIndex
         
         self.model.segmentAttributes    = [
-            .normal: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
-            .selected: SegmentAttribute(fontColor: .blue, borderColor: .blue),
-            .disabled: SegmentAttribute(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
+            .normal: SegmentAttributes(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
+            .selected: SegmentAttributes(fontColor: .blue, borderColor: .blue),
+            .disabled: SegmentAttributes(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
         
         if let _contentInset = contentInset {
@@ -150,7 +150,7 @@ extension SegmentedControl {
         
         var isEnable: Bool
                 
-        var segmentAttributes: [ControlState: SegmentAttribute]
+        var segmentAttributes: [ControlState: SegmentAttributes]
         
         var titleInset: EdgeInsets
 
@@ -168,7 +168,7 @@ extension SegmentedControl {
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat!
         @Published var titleInset: EdgeInsets!
-        @Published var segmentAttributes: [ControlState: SegmentAttribute]!
+        @Published var segmentAttributes: [ControlState: SegmentAttributes]!
         @Published var contentInset: EdgeInsets?
         @Published var isEnable: Bool!
     }
