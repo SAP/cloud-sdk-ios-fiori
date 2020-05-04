@@ -88,6 +88,15 @@ public struct SegmentedControl: View {
         }
     }
     
+    public var segmentWidthMode: SegmentWidthMode {
+        get {
+            return model.segmentWidthMode
+        }
+        set {
+            model.segmentWidthMode = newValue
+        }
+    }
+    
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
@@ -105,11 +114,13 @@ public struct SegmentedControl: View {
         self.model.isEnable     = true
         self.selectedIndex      = selectedIndex
         
-        self.model.segmentAttributes    = [
-            .normal: SegmentAttributes(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
-            .selected: SegmentAttributes(fontColor: .blue, borderColor: .blue),
-            .disabled: SegmentAttributes(fontColor: .gray, borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
+        self.model.segmentAttributes = [
+            .normal: SegmentAttributes(fontColor: .gray, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
+            .selected: SegmentAttributes(fontColor: .blue, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .blue),
+            .disabled: SegmentAttributes(fontColor: .gray, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
+        
+        self.model.segmentWidthMode = .intrinsic
         
         if let _contentInset = contentInset {
             self.contentInset = _contentInset
@@ -120,7 +131,7 @@ public struct SegmentedControl: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {
                 ForEach(self.model.titles.indices, id: \.self) { index in
-                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, titleInset: self.model.titleInset)
+                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, size: self.getSegmentSize(at: index))
                         .onTapGesture {
                             if self.model.isEnable {
                                 self.selectionDidChange(index: index)
@@ -139,6 +150,53 @@ public struct SegmentedControl: View {
             self.model.selectedIndex = index
         }
     }
+    
+    private func getSegmentSize(at index: Int) -> CGSize {
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+
+        switch self.model.segmentWidthMode {
+        case .fixed(let _width):
+            width = _width
+        case .intrinsic:
+            width = getSizeForString(self.titles[index]).width
+        case .maximum:
+            for title in titles {
+                width = max(width, getSizeForString(title).width)
+            }
+        default :
+            width = getSizeForString(self.titles[index]).width
+        }
+        
+        for title in titles {
+            height = max(height, getSizeForString(title).height)
+        }
+        
+        return CGSize(width: width + titleInsets.leading + titleInsets.trailing,
+                      height: height + titleInsets.top + titleInsets.bottom)
+    }
+    
+    private func largestFont() -> UIFont {
+        var fonts: [UIFont] = []
+        if let normalFont = segmentAttributes[.normal]?.font {
+            fonts.append(normalFont.withSize(segmentAttributes[.normal]?.fontSize ?? normalFont.pointSize))
+        }
+        if let selectedFont = segmentAttributes[.selected]?.font {
+            fonts.append(selectedFont.withSize(segmentAttributes[.selected]?.fontSize ?? selectedFont.pointSize))
+        }
+        if let disabledFont = segmentAttributes[.disabled]?.font {
+            fonts.append(disabledFont.withSize(segmentAttributes[.disabled]?.fontSize ?? disabledFont.pointSize))
+        }
+        
+        let sortedFont = fonts.sorted { (font1, font2) -> Bool in
+            return font1.pointSize < font2.pointSize
+        }
+        return sortedFont.last ?? UIFont.preferredFont(forTextStyle: .subheadline)
+    }
+    
+    private func getSizeForString(_ string: String) -> CGSize {
+        return (string as NSString).size(withAttributes: [NSAttributedString.Key.font : largestFont()])
+    }
 }
 
 extension SegmentedControl {
@@ -151,15 +209,15 @@ extension SegmentedControl {
         var isEnable: Bool
                 
         var segmentAttributes: [ControlState: SegmentAttributes]
-        
-        var titleInset: EdgeInsets
+                
+        var size: CGSize
 
         var body: some View {
-            Text(title)
-                .font(self.isSelected ? segmentAttributes[.selected]?.font : segmentAttributes[.normal]?.font)
-                .padding(titleInset)
-                .foregroundColor(isEnable ? (self.isSelected ? segmentAttributes[.selected]?.fontColor : segmentAttributes[.normal]?.fontColor) : (segmentAttributes[.disabled]?.fontColor))
-                .overlay(ButtonOverlayView(isSelected: self.isSelected, isEnable: self.isEnable, segmentAttributes: segmentAttributes))
+            Text(self.title)
+                .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.getFont() : self.segmentAttributes[.normal]?.getFont()) : self.segmentAttributes[.disabled]?.getFont())
+                .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.fontColor : self.segmentAttributes[.normal]?.fontColor) : (self.segmentAttributes[.disabled]?.fontColor))
+                .frame(width: self.size.width, height: self.size.height)
+                .overlay(ButtonOverlayView(isSelected: self.isSelected, isEnable: self.isEnable, segmentAttributes: self.segmentAttributes))
         }
     }
     
@@ -171,6 +229,7 @@ extension SegmentedControl {
         @Published var segmentAttributes: [ControlState: SegmentAttributes]!
         @Published var contentInset: EdgeInsets?
         @Published var isEnable: Bool!
+        @Published var segmentWidthMode: SegmentWidthMode!
     }
 }
 
