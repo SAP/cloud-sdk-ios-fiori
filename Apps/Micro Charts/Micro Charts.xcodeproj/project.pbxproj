@@ -23,6 +23,8 @@
 		B8220F342421648B00D0437C /* SettingsBaseline.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220F332421648A00D0437C /* SettingsBaseline.swift */; };
 		B8220F3624219F4400D0437C /* SettingsColorForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8220F3524219F4400D0437C /* SettingsColorForCategory.swift */; };
 		B83CD5C2245A436E00F1DC72 /* SettingsIndexSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83CD5C1245A436E00F1DC72 /* SettingsIndexSet.swift */; };
+		B83CD641246204D200F1DC72 /* FioriSwiftUICore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B83CD640246204D200F1DC72 /* FioriSwiftUICore.framework */; };
+		B83CD642246204D200F1DC72 /* FioriSwiftUICore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B83CD640246204D200F1DC72 /* FioriSwiftUICore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F6F9163623962B4400D091FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163523962B4400D091FF /* AppDelegate.swift */; };
 		F6F9163823962B4400D091FF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163723962B4400D091FF /* SceneDelegate.swift */; };
 		F6F9163A23962B4400D091FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F9163923962B4400D091FF /* ContentView.swift */; };
@@ -39,6 +41,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				1B716F9223ECC5CC005982F7 /* FioriCharts.framework in Embed Frameworks */,
+				B83CD642246204D200F1DC72 /* FioriSwiftUICore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +64,7 @@
 		B8220F332421648A00D0437C /* SettingsBaseline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsBaseline.swift; sourceTree = "<group>"; };
 		B8220F3524219F4400D0437C /* SettingsColorForCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsColorForCategory.swift; sourceTree = "<group>"; };
 		B83CD5C1245A436E00F1DC72 /* SettingsIndexSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsIndexSet.swift; sourceTree = "<group>"; };
+		B83CD640246204D200F1DC72 /* FioriSwiftUICore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FioriSwiftUICore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B84527E223D1220400CD3A93 /* Micro Charts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Micro Charts.entitlements"; sourceTree = "<group>"; };
 		F6F9163223962B4400D091FF /* Micro Charts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Micro Charts.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F6F9163523962B4400D091FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1B716F9123ECC5CC005982F7 /* FioriCharts.framework in Frameworks */,
+				B83CD641246204D200F1DC72 /* FioriSwiftUICore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +92,7 @@
 		B89321FB23DA54A9004F9BD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B83CD640246204D200F1DC72 /* FioriSwiftUICore.framework */,
 				1B716F9023ECC5CC005982F7 /* FioriCharts.framework */,
 			);
 			name = Frameworks;
@@ -379,14 +385,14 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro Charts/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Micro Charts/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sstadelman.Micro-Charts";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fioricharts.Micro-Charts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -405,14 +411,14 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Micro Charts/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZK2MG3TWVQ;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Micro Charts/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sstadelman.Micro-Charts";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.fioricharts.Micro-Charts";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";

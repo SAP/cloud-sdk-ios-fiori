@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+// swiftlint:disable file_length
 
 /**
 A common data model for all charts. Chart properties can be initialized in init() or changed after init().
@@ -107,13 +108,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published public var chartType: ChartType
     
     /// seires -> category -> dimension (either a single value or an array)
-    @Published public var data: [[DimensionData<CGFloat?>]]
+    @Published var data: [[DimensionData<CGFloat?>]]
 
     /// titles for category
-    @Published public var titlesForCategory: [[String?]]?
+    @Published var titlesForCategory: [[String?]]?
     
     /// labels for demension data
-    @Published public var labelsForDimension: [[DimensionData<String?>]]?
+    @Published var labelsForDimension: [[DimensionData<String?>]]?
     
     @Published public var titlesForAxis: [ChartAxisId: String]?
     
@@ -243,32 +244,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published public var fudgeYAxisRange = false
     
     /// internal property for series data range
-    var ranges: [ClosedRange<CGFloat>] {
-        var result: [ClosedRange<CGFloat>] = []
-        
-        // go through series
-        for i in 0 ..< data.count {
-            let range: ClosedRange<CGFloat> = {
-                var allValues: [CGFloat] = []
-                
-                // single value
-                if let _ = data[i].first?.value {
-                    allValues = data[i].compactMap { $0.value! }
-                } else if let _ = data[i].first?.values {
-                    allValues = data[i].compactMap { $0.values!.first! }
-                }
-                                    
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-    
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        
-        return result
-    }
+    var ranges: [ClosedRange<CGFloat>]
     
     /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
@@ -387,6 +363,29 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._indexesOfSecondaryValueAxis = Published(initialValue: indexesOfSecondaryValueAxis)
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
+        
+        var result: [ClosedRange<CGFloat>] = []
+        // go through series
+        for i in 0 ..< data.count {
+            let range: ClosedRange<CGFloat> = {
+                var allValues: [CGFloat] = []
+
+                // single value
+                if let _ = data[i].first?.value {
+                    allValues = data[i].compactMap { $0.value! }
+                } else if let _ = data[i].first?.values {
+                    allValues = data[i].compactMap { $0.values!.first! }
+                }
+
+                let min = allValues.min() ?? 0
+                let max = allValues.max() ?? (min + 1)
+
+                guard min != max else { return min...max+1 }
+                return min...max
+            }()
+            result.append(range)
+        }
+        ranges = result
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -544,6 +543,25 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             validIndexes.sort()
             self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
         }
+        
+        var result: [ClosedRange<CGFloat>] = []
+        // go through series
+        for i in 0 ..< data.count {
+            let range: ClosedRange<CGFloat> = {
+                //var allValues: [CGFloat] = []
+                let allValues: [CGFloat] = data[i]
+                                            .compactMap { $0 }
+                                            .map { CGFloat($0) }
+                
+                let min = allValues.min() ?? 0
+                let max = allValues.max() ?? (min + 1)
+    
+                guard min != max else { return min...max+1 }
+                return min...max
+            }()
+            result.append(range)
+        }
+        ranges = result
     }
     
     public init(chartType: ChartType,
@@ -666,7 +684,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis {
             var validIndexes: [Int] = []
             for seriesIndex in indexesOfSecondaryValueAxis {
-                if seriesIndex >= 0 && seriesIndex < data.count {
+                if seriesIndex >= 0 && seriesIndex < data3d.count {
                     validIndexes.append(seriesIndex)
                 }
             }
@@ -677,7 +695,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let indexesOfColumnSeries = indexesOfColumnSeries {
             var validIndexes: [Int] = []
             for seriesIndex in indexesOfColumnSeries {
-                if seriesIndex >= 0 && seriesIndex < data.count {
+                if seriesIndex >= 0 && seriesIndex < data3d.count {
                     validIndexes.append(seriesIndex)
                 }
             }
@@ -688,13 +706,31 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
             var validIndexes: [Int] = []
             for seriesIndex in indexesOfTotalsCategories {
-                if seriesIndex >= 0 && seriesIndex < data.count {
+                if seriesIndex >= 0 && seriesIndex < data3d.count {
                     validIndexes.append(seriesIndex)
                 }
             }
             validIndexes.sort()
             self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
         }
+        
+        var result: [ClosedRange<CGFloat>] = []
+        // go through series
+        for i in 0 ..< data3d.count {
+            let range: ClosedRange<CGFloat> = {
+                //let allValues: [CGFloat] = data3d[i].compactMap { CGFloat($0.first!!) }
+                let allValues: [CGFloat] = data3d[i].compactMap { $0.first! }
+                    .map { CGFloat($0) }
+                
+                let min = allValues.min() ?? 0
+                let max = allValues.max() ?? (min + 1)
+    
+                guard min != max else { return min...max+1 }
+                return min...max
+            }()
+            result.append(range)
+        }
+        ranges = result
     }
     
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
@@ -822,6 +858,21 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         return copy
     }
+    
+    /// number of series in the chart model
+    public func numOfSeries() -> Int {
+        return data.count
+    }
+    
+    /// number of categories in the series
+    public func numOfCategories(in seriesId: Int) -> Int {
+        if seriesId >= data.count {
+            return 0
+        }
+        else {
+            return data[seriesId].count
+        }
+    }
 }
 
 extension ChartModel: Equatable {
@@ -900,25 +951,6 @@ extension ChartModel {
 
 
 extension ChartModel: CustomStringConvertible {
-    // "colorsForCategory": "\(String(describing: colorsForCategory))",
-    /*
-     (chartType: ChartType,
-     data: [[DimensionData<CGFloat?>]],
-     titlesForCategory: [[String?]]?,
-     colorsForCategory: [Int: [Int: HexColor]],
-     titlesForAxis: [ChartAxisId: String]?,
-     labelsForDimension: [[DimensionData<String?>]]?,
-     backgroundColor: HexColor,
-     selectedSeriesIndex: Int?,
-     userInteractionEnabled: Bool,
-     seriesAttributes: [ChartSeriesAttributes],
-     categoryAxis: ChartCategoryAxisAttributes,
-     numericAxis: ChartNumericAxisAttributes,
-     secondaryNumericAxis: ChartNumericAxisAttributes,
-     indexesOfSecondaryValueAxis: IndexSet,
-     indexesOfColumnSeries: IndexSet,
-     indexesOfTotalsCategories: IndexSet)
-     */
     public var description: String {
         let titlesForCategoryDesc: [[String]]
         if let tfc = titlesForCategory {

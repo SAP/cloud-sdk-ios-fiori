@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 
 public struct Tests {
+    /// line and area models for test
     public static let lineModels = [
         ChartModel(chartType: .line,
                    data: [[200, 170, 165, 143, 166, 82, 110],
@@ -53,6 +54,7 @@ public struct Tests {
         ChartModel(chartType: .line, data: [[]])
     ]
     
+    /// bullet models for test
     public static let bulletModles = [
         ChartModel(chartType: .micro_bullet,
                    data: [[120, 100, 110], [0, 50, 150, 200]]),
@@ -66,6 +68,7 @@ public struct Tests {
         ChartModel(chartType: .micro_bullet, data: [[]])
     ]
     
+    /// column models for test
     public static let columnModels = [
         ChartModel(chartType: .micro_column,
                    data: [[200, 170, 165, 143, 166, 112, 110]],
@@ -85,6 +88,7 @@ public struct Tests {
         ChartModel(chartType: .micro_column, data: [[nil]])
     ]
     
+    /// harvey ball models for test
     public static let harveyBallModels = [
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 8]],
@@ -109,6 +113,7 @@ public struct Tests {
         ChartModel(chartType: .micro_harvey_ball, data: [[nil]])
     ]
     
+    /// donut models for test
     public static let donutModels = [
         ChartModel(chartType: .donut,
                    data: [[142.50, 332.05, 247.18, 228.82]],
@@ -122,6 +127,7 @@ public struct Tests {
         ChartModel(chartType: .donut, data: [[nil]])
     ]
     
+    /// radial models for test
     public static let radialModels = [
         ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .negative)]]),
         
@@ -134,6 +140,7 @@ public struct Tests {
         ChartModel(chartType: .micro_radial, data: [[nil]])
     ]
     
+    /// stock models for test
     public static let stockModels = [
         // multiple series: intraday: 1min, one day: 1min, 1year:1day, 3years:1week
         ChartModel(chartType: .stock,
@@ -151,14 +158,14 @@ public struct Tests {
         ], selectedSeriesIndex: 3),
         
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90]],
-                   titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00"]]),
+                   titlesForCategory: [["2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00"]]),
         
         ChartModel(chartType: .stock,
                    data: [[16.52, 16.50, 0]],
                    titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 15:30:00"]]),
         
         // intraday
-        ChartModel(chartType: .stock, data3d: [[[16.52, 18.48, 19.21, 20.00, 20000], [22.80, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
+        ChartModel(chartType: .stock, data3d: [[[nil, nil, 19.21, 20.00, 20000], [16.52, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
         
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]]),
         
@@ -167,6 +174,7 @@ public struct Tests {
         ChartModel(chartType: .stock, data: [[]])
     ]
     
+    /// all test models
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
 }
 

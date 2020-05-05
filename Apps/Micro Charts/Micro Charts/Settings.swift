@@ -25,7 +25,7 @@ struct Settings: View {
                     }
                     
                     Text("Scale: \(model.scale)")
-                    Slider(value: $model.scale, in: 1...max(1.1, CGFloat(model.data[model.currentSeriesIndex].count - 1) / 2), step: 0.1) { (changed) in
+                    Slider(value: $model.scale, in: 1...max(1.1, CGFloat(model.numOfCategories(in: model.currentSeriesIndex) / 2)), step: 0.1) { (changed) in
                         if (changed) {
                             self.model.startPos = 0
                         }
