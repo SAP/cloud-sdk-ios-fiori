@@ -47,6 +47,25 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     }
 }
 
+extension ChartPointAttributes: CustomStringConvertible {
+    public var description: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 2
+        
+        return """
+{
+    "ChartPointAttributes": {
+        "diameter": \(nf.string(from: NSNumber(value: Double(diameter))) ?? ""),
+        "strokeColor": \(String(describing: strokeColor)),
+        "gap": \(nf.string(from: NSNumber(value: Double(gap))) ?? ""),
+        "isHidden": \(isHidden)
+    }
+}
+"""
+    }
+}
+
 extension ChartPointAttributes: Equatable {
     public static func == (lhs: ChartPointAttributes, rhs: ChartPointAttributes) -> Bool {
         return lhs.isHidden == rhs.isHidden &&

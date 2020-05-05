@@ -19,7 +19,7 @@ public struct HexColor: Hashable {
      - darkColor: a hex color (RGB or RGBA) for .dark mode, default is "FFFFFF"
      */
     public init(lightColor: String? = nil, darkColor: String? = nil) {
-        self.colors = [.light: "000000", .dark: "FFFFFF"]
+        self.colors = [.light: "000000FF", .dark: "FFFFFFFF"]
         
         if let color = lightColor {
             colors[.light] = color
@@ -64,7 +64,7 @@ public struct HexColor: Hashable {
             return hex
         }
         
-        return "FFFFFF"
+        return "FFFFFFFF"
     }
 }
 
@@ -72,5 +72,13 @@ extension HexColor: Equatable {
     public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
         return lhs.hex(.light) == rhs.hex(.light) &&
             lhs.hex(.dark) == rhs.hex(.dark)
+    }
+}
+
+extension HexColor: CustomStringConvertible {
+    public var description: String {
+        return """
+{"HexColor": {"light": "\(hex(.light))", "dark": "\(hex(.dark))"}}
+"""
     }
 }

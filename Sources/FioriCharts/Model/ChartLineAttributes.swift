@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 /// Gridline properties for an Axis.
-public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying {
+public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {
     public init(width: Double = 1,
                 color: HexColor = Palette.hexColor(for: .primary3),
                 dashPatternLength: Double = 1,
@@ -28,6 +28,24 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying 
                                        dashPatternLength: Double(self.dashPatternLength),
                                        dashPatternGap: Double(self.dashPatternGap),
                                        isHidden: self.isHidden)
+    }
+    
+    public var description: String {
+        let nf = NumberFormatter()
+            nf.numberStyle = .decimal
+            nf.maximumFractionDigits = 2
+        
+            return """
+{
+    "ChartGridlineAttributes": {
+        "width": \(nf.string(from: NSNumber(value: Double(width))) ?? "nil"),
+        "color": \(String(describing: color)),
+        "dashPatternLength": \(nf.string(from: NSNumber(value: Double(dashPatternLength))) ?? "nil"),
+        "dashPatternGap": \(nf.string(from: NSNumber(value: Double(dashPatternGap))) ?? "nil"),
+        "isHidden": \(isHidden)
+    }
+}
+"""
     }
     
     @Published public var width: CGFloat
@@ -68,6 +86,26 @@ public class ChartBaselineAttributes: ChartGridlineAttributes {
                                        position: ChartUtility.doubleOptional(from: self.position))
     }
 
+    public override var description: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 2
+        
+        return """
+{
+    "ChartBaselineAttributes": {
+        "width": \(nf.string(from: NSNumber(value: Double(width))) ?? "nil"),
+        "color": \(String(describing: color)),
+        "dashPatternLength": \(nf.string(from: NSNumber(value: Double(dashPatternLength))) ?? "nil"),
+        "dashPatternGap": \(nf.string(from: NSNumber(value: Double(dashPatternGap))) ?? "nil"),
+        "isHidden": \(isHidden),
+        "value": "\(String(describing: value))",
+        "position": "\(String(describing: position))"
+    }
+}
+"""
+    }
+    
     /// Baseline value or nil if no data has been assigned to the Chart.
     @Published public var value: CGFloat?
 

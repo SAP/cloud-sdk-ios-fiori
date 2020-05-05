@@ -80,3 +80,20 @@ extension ChartSeriesPalette: Equatable {
             lhs.negativeMinColor == rhs.negativeMinColor
     }
 }
+
+extension ChartSeriesPalette: CustomStringConvertible {
+    public var description: String {
+        return """
+{
+    "ChartSeriesPalette": {
+        "colors": \(String(describing: colors)),
+        "labelColor": \(String(describing: labelColor)),
+        "positiveMaxColor": \(String(describing: positiveMaxColor)),
+        "positiveMinColor": \(String(describing: positiveMinColor)),
+        "negativeMaxColor": \(String(describing: negativeMaxColor)),
+        "negativeMinColor": \(String(describing: negativeMinColor))
+    }
+}
+"""
+    }
+}

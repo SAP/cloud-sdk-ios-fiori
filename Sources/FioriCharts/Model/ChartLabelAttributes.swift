@@ -55,3 +55,22 @@ extension ChartLabelAttributes: Equatable {
             lhs.isHidden == rhs.isHidden
     }
 }
+
+extension ChartLabelAttributes: CustomStringConvertible {
+    public var description: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 2
+    
+        return """
+{
+    "ChartLabelAttributes": {
+        "color": \(String(describing: color)),
+        "fontSize": \(nf.string(from: NSNumber(value: Double(fontSize))) ?? "nil"),
+        "offset": \(nf.string(from: NSNumber(value: Double(offset))) ?? "nil"),
+        "isHidden": \(isHidden)
+    }
+}
+"""
+    }
+}

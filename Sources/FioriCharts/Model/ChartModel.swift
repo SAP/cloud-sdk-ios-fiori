@@ -52,7 +52,8 @@ public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String
 public class ChartModel: ObservableObject, Identifiable, NSCopying {
 
     ///
-    public enum DimensionData<T>: Equatable where T: Equatable {
+    public enum DimensionData<T>: CustomStringConvertible, Equatable where T: Equatable {
+        
         case single(T)
         case array([T])
         
@@ -99,6 +100,29 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 
             case .single(let val):
                 return val
+            }
+        }
+        
+        public var description: String {
+            switch self {
+            case .array(let vals):
+                let valsStr = vals.map {
+                    "\(String(describing: $0))"
+                }
+                
+                return String(describing: valsStr)
+//                var result = "["
+//
+//                for val in vals {
+//                    result.append("\"\(String(describing: val))\", ")
+//                }
+//                result.removeLast()
+//                result.append("]")
+//
+//                return result
+                
+            case .single(let val):
+                return "\"\(String(describing: val))\""
             }
         }
         
@@ -387,6 +411,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
     }
+    
     // swiftlint:disable cyclomatic_complexity
     public init(chartType: ChartType,
                 data: [[Double?]],
@@ -893,5 +918,114 @@ extension ChartModel {
         }
         
         return res
+    }
+}
+
+
+extension ChartModel: CustomStringConvertible {
+    // "colorsForCategory": "\(String(describing: colorsForCategory))",
+    /*
+     (chartType: ChartType,
+     data: [[DimensionData<CGFloat?>]],
+     titlesForCategory: [[String?]]?,
+     colorsForCategory: [Int: [Int: HexColor]],
+     titlesForAxis: [ChartAxisId: String]?,
+     labelsForDimension: [[DimensionData<String?>]]?,
+     backgroundColor: HexColor,
+     selectedSeriesIndex: Int?,
+     userInteractionEnabled: Bool,
+     seriesAttributes: [ChartSeriesAttributes],
+     categoryAxis: ChartCategoryAxisAttributes,
+     numericAxis: ChartNumericAxisAttributes,
+     secondaryNumericAxis: ChartNumericAxisAttributes,
+     indexesOfSecondaryValueAxis: IndexSet,
+     indexesOfColumnSeries: IndexSet,
+     indexesOfTotalsCategories: IndexSet)
+     */
+    public var description: String {
+        let titlesForCategoryDesc: [[String]]
+        if let tfc = titlesForCategory {
+            titlesForCategoryDesc = tfc.map { (cat) -> [String] in
+                cat.map { String(describing: $0) }
+            }
+        }
+        else {
+            titlesForCategoryDesc = [["\"nil\""]]
+        }
+        
+        var titlesForAxisDesc: String
+        if let tfa = titlesForAxis {
+            titlesForAxisDesc = "{"
+            var i = 0
+            for (key, value) in tfa {
+                titlesForAxisDesc.append("\"\(key.rawValue)\"")
+                titlesForAxisDesc.append(": \"\(value)\"")
+                if i < tfa.count - 1 {
+                    titlesForAxisDesc.append(", ")
+                }
+                i += 1
+            }
+            titlesForAxisDesc.append("}")
+        }
+        else {
+            titlesForAxisDesc = "\"nil\""
+        }
+        
+        var colorsForCategoryDesc: String
+        if colorsForCategory.count > 0 {
+            colorsForCategoryDesc = "{"
+            var i = 0
+            for (key, cat) in colorsForCategory {
+                //colorsForCategoryDesc.append("{")
+                
+                colorsForCategoryDesc.append("\"\(key)\": ")
+                
+                colorsForCategoryDesc.append("{")
+                var j = 0
+                for (index, color) in cat {
+                    colorsForCategoryDesc.append("\"\(index)\": ")
+                    colorsForCategoryDesc.append("\(String(describing: color))")
+                    if j < cat.count - 1 {
+                        colorsForCategoryDesc.append(", ")
+                    }
+                    j += 1
+                }
+                colorsForCategoryDesc.append("}")
+                
+                if i < colorsForCategory.count - 1 {
+                    colorsForCategoryDesc.append(", ")
+                }
+                i += 1
+            }
+            colorsForCategoryDesc.append("}")
+        }else {
+            colorsForCategoryDesc = "\"nil\""
+        }
+        
+        return """
+{
+    "ChartModel": {
+        "chartType": "\(chartType.rawValue)",
+        "data": \(String(describing: data)),
+        "titlesForCategory": \(titlesForCategoryDesc),
+        "colorsForCategory": \(colorsForCategoryDesc),
+        "labelsForDimension": \(labelsForDimension == nil ? "\"nil\"": String(describing: labelsForDimension)),
+        "titlesForAxis": \(titlesForAxisDesc),
+        "numberOfGridlines": \(numberOfGridlines),
+        "userInteractionEnabled": \(userInteractionEnabled),
+        "selectionEnabled": \(selectionEnabled),
+        "zoomEnabled": \(zoomEnabled),
+        "snapToPoint": \(snapToPoint),
+        "backgroundColor": \(String(describing: backgroundColor)),
+        "seriesAttributes": \(String(describing: seriesAttributes)),
+        "categoryAxis": \(String(describing: categoryAxis)),
+        "numericAxis": \(String(describing: numericAxis)),
+        "secondaryNumericAxis": \(String(describing: secondaryNumericAxis)),
+        "indexesOfSecondaryValueAxis": \(String(describing: indexesOfSecondaryValueAxis.sorted())),
+        "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
+        "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted()))
+    }
+}
+"""
     }
 }

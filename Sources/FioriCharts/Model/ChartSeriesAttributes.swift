@@ -70,3 +70,22 @@ extension ChartSeriesAttributes: Equatable {
             lhs.lastLineCapDiameter == rhs.lastLineCapDiameter
     }
 }
+
+extension ChartSeriesAttributes: CustomStringConvertible {
+    public var description: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 2
+        
+        return """
+{
+    "ChartSeriesAttributes": {
+        "palette": \(String(describing: palette)),
+        "point": \(String(describing: point)),
+        "firstLineCapDiameter": \(nf.string(from: NSNumber(value: Double(firstLineCapDiameter))) ?? "nil"),
+        "lastLineCapDiameter": \(nf.string(from: NSNumber(value: Double(lastLineCapDiameter))) ?? "nil")
+    }
+}
+"""
+    }
+}
