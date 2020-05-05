@@ -49,7 +49,8 @@ public struct Tests {
                           [160, nil, 130, 170, nil, 190, 180]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
         ),
-        ChartModel(chartType: .line, data: [[nil]])
+        ChartModel(chartType: .line, data: [[nil]]),
+        ChartModel(chartType: .line, data: [[]])
     ]
     
     public static let bulletModles = [
@@ -60,7 +61,9 @@ public struct Tests {
                    data: [[35, 50, 70], [0, 20, 50, 100]],
                    colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart2), 3: Palette.hexColor(for: .chart3)]]),
         
-        ChartModel(chartType: .micro_bullet, data: [[nil]])
+        ChartModel(chartType: .micro_bullet, data: [[nil]]),
+        
+        ChartModel(chartType: .micro_bullet, data: [[]])
     ]
     
     public static let columnModels = [
@@ -155,11 +158,13 @@ public struct Tests {
                    titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 15:30:00"]]),
         
         // intraday
-        ChartModel(chartType: .stock, data: [[[16.52, 18.48, 19.21, 20.00, 20000], [22.80, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
+        ChartModel(chartType: .stock, data3d: [[[16.52, 18.48, 19.21, 20.00, 20000], [22.80, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
         
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]]),
         
-        ChartModel(chartType: .stock, data: [[nil]])
+        ChartModel(chartType: .stock, data: [[nil]]),
+        
+        ChartModel(chartType: .stock, data: [[]])
     ]
     
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }

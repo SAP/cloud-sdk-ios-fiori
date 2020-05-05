@@ -547,7 +547,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     public init(chartType: ChartType,
-                data: [[[Double?]]],
+                data3d: [[[Double?]]],
                 titlesForCategory: [[String?]]? = nil,
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
@@ -592,7 +592,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         var tmpData: [[DimensionData<CGFloat?>]] = []
-        for (i, c) in data.enumerated() {
+        for (i, c) in data3d.enumerated() {
             var s: [DimensionData<CGFloat?>] = []
             for (j, d) in c.enumerated() {
                 if intradayIndex.contains(i) && j == c.count - 1 {
@@ -648,18 +648,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let seriesAttributes = seriesAttributes {
-            if seriesAttributes.count == data.count {
+            if seriesAttributes.count == data3d.count {
                 self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
             else {
                 var tmp = seriesAttributes
-                for i in seriesAttributes.count ..< data.count {
+                for i in seriesAttributes.count ..< data3d.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
                 }
                 self._seriesAttributes = Published(initialValue: seriesAttributes)
             }
         } else {
-            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data3d.count)
             self._seriesAttributes = Published(initialValue: sa)
         }
         
