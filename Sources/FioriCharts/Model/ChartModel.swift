@@ -9,49 +9,24 @@
 import Foundation
 import SwiftUI
 
-/// Enum for available selection modes.
-public enum ChartSelectionMode {
+/**
+A common data model for all charts. Chart properties can be initialized in init() or changed after init().
 
-    /// Selects a single value in the currently selected series and category indices.
-    case single
+## Usage
 
-    /// Selects one value in each series for the selected category index(es).
-    case all
-}
+```
+let model = ChartModel(chartType: .line,
+           data: [[nil, 220, nil, 250, 200, nil, 230],
+                  [160, nil, 130, 170, nil, 190, 180]],
+           titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+)
 
-/// Enum for default category selection.
-public enum ChartCategorySelectionMode {
-    
-    /// No default selection mode is defined. Any set selection will be used.
-    case index
-    
-    /// First category of the selected series and dimension will be used.
-    case first
-    
-    /// Last category of the selected series and dimension will be used.
-    case last
-}
-
-/// Selection state for points and rects in the chart.
-enum ChartSelectionState {
-    case normal
-    case selected
-    case highlighted
-    case disabled
-}
-
-/// value type for Numberic Axis
-enum ChartValueType {
-    case allPositive
-    case allNegative
-    case mixed
-}
-
-public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String?
+```
+*/
 
 public class ChartModel: ObservableObject, Identifiable, NSCopying {
 
-    ///
+    /// An internal data structure to hold a single piece of data or an array of data
     public enum DimensionData<T>: CustomStringConvertible, Equatable where T: Equatable {
         
         case single(T)
@@ -111,15 +86,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 }
                 
                 return String(describing: valsStr)
-//                var result = "["
-//
-//                for val in vals {
-//                    result.append("\"\(String(describing: val))\", ")
-//                }
-//                result.removeLast()
-//                result.append("]")
-//
-//                return result
                 
             case .single(let val):
                 return "\"\(String(describing: val))\""
@@ -137,20 +103,24 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
-    /// data
+    /// chart type
     @Published public var chartType: ChartType
+    
     /// seires -> category -> dimension (either a single value or an array)
     @Published public var data: [[DimensionData<CGFloat?>]]
 
+    /// titles for category
     @Published public var titlesForCategory: [[String?]]?
     
-    @Published public var titlesForAxis: [ChartAxisId: String]?
-    
+    /// labels for demension data
     @Published public var labelsForDimension: [[DimensionData<String?>]]?
+    
+    @Published public var titlesForAxis: [ChartAxisId: String]?
     
     /// app to provide this to format values from numeric axis
     public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
     
+    /// background color for the whole chart
     @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
     
     @Published public var selectionEnabled: Bool = false
@@ -159,7 +129,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
     
-    ///
+    /// snap to point when dragging a chart
     @Published public var snapToPoint: Bool = false
   
     /// seires attributes
@@ -170,6 +140,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// format: [seriesIndex1:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexN: HexColor], ... , seriesIndexN:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexM: HexColor]]
     @Published public var colorsForCategory: [Int: [Int: HexColor]]
     
+    /// number of gridlines for numeric axis
     @Published public var numberOfGridlines: Int = 2
     
     /**
@@ -271,6 +242,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     // By default, all column based charts have this enabled and all line based don't.
     @Published public var fudgeYAxisRange = false
     
+    /// internal property for series data range
     var ranges: [ClosedRange<CGFloat>] {
         var result: [ClosedRange<CGFloat>] = []
         
@@ -298,6 +270,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return result
     }
     
+    /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
         
         let noData: Bool
@@ -319,8 +292,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let secondaryRange: Bool
     }
     
-    // cache for AxisTickValues
+    /// cache for AxisTickValues
     var numericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
+    
+    /// axis tick values for primary numeirc axis
     var numericAxisTickValues: AxisTickValues {
         let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: false)
         
@@ -341,6 +316,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         }
     }
+    
+    /// axis tick values for secondary numeirc axis
     var secondaryNumericAxisTickValues: AxisTickValues {
         let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: true)
         
@@ -1029,3 +1006,43 @@ extension ChartModel: CustomStringConvertible {
 """
     }
 }
+
+/// Enum for available selection modes.
+public enum ChartSelectionMode {
+
+    /// Selects a single value in the currently selected series and category indices.
+    case single
+
+    /// Selects one value in each series for the selected category index(es).
+    case all
+}
+
+/// Enum for default category selection.
+public enum ChartCategorySelectionMode {
+    
+    /// No default selection mode is defined. Any set selection will be used.
+    case index
+    
+    /// First category of the selected series and dimension will be used.
+    case first
+    
+    /// Last category of the selected series and dimension will be used.
+    case last
+}
+
+/// Selection state for points and rects in the chart.
+enum ChartSelectionState {
+    case normal
+    case selected
+    case highlighted
+    case disabled
+}
+
+/// value type for Numberic Axis
+enum ChartValueType {
+    case allPositive
+    case allNegative
+    case mixed
+}
+
+public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String?

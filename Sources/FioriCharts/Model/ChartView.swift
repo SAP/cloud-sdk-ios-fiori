@@ -8,6 +8,29 @@
 
 import SwiftUI
 
+/**
+SwiftUI View's wrapper for all charts
+
+## Usage
+
+```
+let model = ChartModel(chartType: .line,
+           data: [[nil, 220, nil, 250, 200, nil, 230],
+                  [160, nil, 130, 170, nil, 190, 180]],
+           titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+)
+
+then in,
+ public var body: some View {
+    ...
+    ChartView(model)
+        .frame(width: 300, height: 200)
+    ...
+}
+ 
+```
+*/
+
 public struct ChartView: View {
     @ObservedObject var chartModel: ChartModel
     
