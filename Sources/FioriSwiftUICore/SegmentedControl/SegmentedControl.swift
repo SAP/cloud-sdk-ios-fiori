@@ -9,11 +9,27 @@
 import Foundation
 import SwiftUI
 import Combine
+/**
+A SegmentedControl object is a horizontal control made of multiple segments, each segment functioning as a discrete button.
+Selection is mutually exclusive.
+ 
+ ## Code usage:
+ ```
+ let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+ var segmentedControl: SegmentedControl!
+ var cancellableSet: Set<AnyCancellable> = []
+ 
+ segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.selectedSeriesIndex)
+ segmentedControl.selectionDidChangePublisher
+     .store(in: &cancellableSet)
+ ```
+ */
 
 public struct SegmentedControl: View {
     
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
+    /// Titles for the segments
     public var titles: [String] {
         get {
             return model.titles
@@ -23,6 +39,7 @@ public struct SegmentedControl: View {
         }
     }
     
+    /// A dictionary for setting attributes.
     public var segmentAttributes: [ControlState: SegmentAttributes] {
         get {
             return model.segmentAttributes
@@ -31,7 +48,8 @@ public struct SegmentedControl: View {
             model.segmentAttributes = newValue
         }
     }
-    
+
+    /// Custom cell title insets.
     public var titleInsets: EdgeInsets {
         get {
             return model.titleInset
@@ -40,7 +58,8 @@ public struct SegmentedControl: View {
             model.titleInset = newValue
         }
     }
-
+    
+    ///The space between two segments. Default value is 6.
     public var interItemSpacing: CGFloat {
         get {
             return model.interItemSpacing
@@ -49,7 +68,12 @@ public struct SegmentedControl: View {
             model.interItemSpacing = newValue
         }
     }
-        
+    
+    /**
+     The index number identifying the selected segment (that is, the last segment touched).
+     
+     When this property is directly set to a new value by developer, the event handler registered on FUISegmentedControl will get invoked. If this property is set to a negative value, the current selection will be canceled. If exceeding the upper range, no change to the current selection. If the value is set to nil, it will de-select the current selection.
+     */
     public var selectedIndex: Int? {
         get {
             return model.selectedIndex
@@ -64,7 +88,8 @@ public struct SegmentedControl: View {
             model.selectedIndex = newValue
         }
     }
-    
+
+    /// If set to false, previous selection will be removed.
     public var isEnable: Bool {
         get {
             return model.isEnable
@@ -77,6 +102,7 @@ public struct SegmentedControl: View {
         }
     }
     
+    /// Content inset for the segmented control. Currently support leading and trailing insets.
     public var contentInset: EdgeInsets {
         get {
             let leadingAndTrailing: CGFloat = horizontalSizeClass == .compact ? 16 : 48
@@ -88,6 +114,7 @@ public struct SegmentedControl: View {
         }
     }
     
+    /// Segment width, default is `.intrinsic`
     public var segmentWidthMode: SegmentWidthMode {
         get {
             return model.segmentWidthMode
@@ -103,6 +130,14 @@ public struct SegmentedControl: View {
         
     @ObservedObject private var model: Model = Model()
     
+    
+    /// Initializes and returns a segmented control with segments having the given titles.
+    /// - Parameters:
+    ///   - segmentTitles: An array of String objects (for segment titles).
+    ///   - interItemSpacing: Margin between two segments, default is 6.
+    ///   - titleInsets: Title insets for each segment.
+    ///   - selectedIndex: An integer for setting pre-selection.
+    ///   - contentInset: Option, content inset for the segmented control. Currently support leading and trailing insets.
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
                 titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
@@ -127,6 +162,7 @@ public struct SegmentedControl: View {
         }
     }
     
+    /// :nodoc:
     public var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .center, spacing: self.model.interItemSpacing) {

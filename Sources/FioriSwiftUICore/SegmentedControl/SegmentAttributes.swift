@@ -8,12 +8,23 @@
 import Foundation
 import SwiftUI
 
+/// A struct for stylings in the `SegmentedControl`
 public struct SegmentAttributes {
+    /// Font color for titles
     public var fontColor: Color?
+    /// Font size for titles
     public var fontSize: CGFloat?
+    /// Font for titles
     public var font: UIFont?
+    /// Border color for segments
     public var borderColor: Color?
     
+    /// A struct for stylings in the `SegmentedControl`
+    /// - Parameters:
+    ///   - fontColor: Font color for titles
+    ///   - fontSize: Font size for titles
+    ///   - font: Font for titles
+    ///   - borderColor: Border color for segments
     public init(fontColor: Color? = nil,
                 fontSize: CGFloat? = nil,
                 font: UIFont? = nil,
