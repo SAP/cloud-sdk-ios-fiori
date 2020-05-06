@@ -35,8 +35,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
                 lastLineCapDiameter: Double = 0) {
         if let palette = palette {
             self._palette = Published(initialValue: palette)
-        }
-        else {
+        } else {
             self._palette = Published(initialValue: ChartSeriesPalette(colors: []))
         }
         

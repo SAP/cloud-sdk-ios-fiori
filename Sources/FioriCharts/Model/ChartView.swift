@@ -40,10 +40,9 @@ public struct ChartView: View {
     
     public var body: some View {
         Group {
-            if chartModel.data.count == 0 || chartModel.data.first?.count == 0 {
+            if chartModel.data.isEmpty || chartModel.data.first?.count == 0 {
                 NoDataView()
-            }
-            else if chartModel.chartType == .micro_bullet {
+            } else if chartModel.chartType == .micro_bullet {
                 BulletMicroChart(chartModel)
             } else if chartModel.chartType == .micro_harvey_ball {
                 HarveyBallMicroChart(chartModel)

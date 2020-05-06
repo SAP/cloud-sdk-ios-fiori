@@ -104,15 +104,15 @@ public class Palette {
         case.primary2:
             return HexColor(lightColor: "515559", darkColor: "FFFFFF")
         case.primary3:
-            return HexColor(lightColor: "6A6D70", darkColor: "EBEBF5")
+            return HexColor(lightColor: "6A6D70", darkColor: "EBEBF599")
         case.primary4:
-            return HexColor(lightColor: "CCCCCC", darkColor: "EBEBF5")
+            return HexColor(lightColor: "CCCCCC", darkColor: "EBEBF54D")
         case .chart1:
             return HexColor(lightColor: "5899DA", darkColor: "74B3F0")
         case .chart2:
             return HexColor(lightColor: "E8743B", darkColor: "E8743B")
         case .chart3:
-            return HexColor(lightColor: "19A979", darkColor: "5899DA")
+            return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .chart4:
             return HexColor(lightColor: "ED4A7B", darkColor: "5899DA")
         case .chart5:
@@ -138,11 +138,11 @@ public class Palette {
         case .stockUpStroke:
             return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .stockDownStroke:
-            return HexColor(lightColor: "AB2217", darkColor: "AB2217")
+            return HexColor(lightColor: "EE6868", darkColor: "EE6868")
         case .stockUpFill:
-            return HexColor(lightColor: "7EFAA1", darkColor: "7EFAA1")
+            return HexColor(lightColor: "19A97966", darkColor: "19A97966")
         case .stockDownFill:
-            return HexColor(lightColor: "CD3328", darkColor: "CD3328")
+            return HexColor(lightColor: "EE686866", darkColor: "EE686866")
         case .stockFillEndColor:
             return HexColor(lightColor: "FCFDFC", darkColor: "000000")
         }

@@ -389,6 +389,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     public init(chartType: ChartType,
                 data: [[Double?]],
                 titlesForCategory: [[String?]]? = nil,
@@ -478,9 +479,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 axis.isZeroBased = false
                 axis.abbreviatesLabels = false
             }
-            else {
-                axis.baseline.isHidden = true
-            }
+            axis.baseline.isHidden = true
 
             self._numericAxis = Published(initialValue: axis)
         }
@@ -564,6 +563,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         ranges = result
     }
     
+    // swiftlint:disable function_body_length
     public init(chartType: ChartType,
                 data3d: [[[Double?]]],
                 titlesForCategory: [[String?]]? = nil,

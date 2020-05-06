@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 
+/// test data for internal usage
 public struct Tests {
     /// line and area models for test
     public static let lineModels = [

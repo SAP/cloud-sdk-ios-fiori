@@ -22,14 +22,12 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     /// Specifies how far from the axis labels should be rendered.
     @Published public var offset: CGFloat
     
-    
     /// True when the associated label(s) should be hidden.
     @Published public var isHidden: Bool
     
-    
     public let id = UUID()
     
-    public init(color: HexColor = Palette.hexColor(for: .primary2),
+    public init(color: HexColor = Palette.hexColor(for: .primary3),
                 fontSize: Double = 12,
                 offset: Double = 0,
                 isHidden: Bool = false) {

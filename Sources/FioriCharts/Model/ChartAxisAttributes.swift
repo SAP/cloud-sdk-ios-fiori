@@ -143,7 +143,7 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
         if let baselineAttributes = baseline {
             self._baseline = Published(initialValue: baselineAttributes)
         } else {
-            let bl = ChartBaselineAttributes(width: 2, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: nil, position: nil)
+            let bl = ChartBaselineAttributes()
             self._baseline = Published(initialValue: bl)
         }
         

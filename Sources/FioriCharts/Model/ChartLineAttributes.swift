@@ -11,7 +11,7 @@ import SwiftUI
 /// Gridline properties for an Axis.
 public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {
     public init(width: Double = 1,
-                color: HexColor = Palette.hexColor(for: .primary3),
+                color: HexColor = Palette.hexColor(for: .primary4),
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 3,
                 isHidden: Bool = false) {
@@ -63,7 +63,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
 // Baseline properties for an Axis.
 public class ChartBaselineAttributes: ChartGridlineAttributes {
 
-    public init(width: Double = 2,
+    public init(width: Double = 1,
                 color: HexColor = Palette.hexColor(for: .primary3),
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 0,
