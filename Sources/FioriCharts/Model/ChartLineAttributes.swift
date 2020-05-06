@@ -124,6 +124,7 @@ extension ChartGridlineAttributes: Equatable {
 }
 
 extension ChartBaselineAttributes {
+    /// conform to Equatable
     public static func == (lhs: ChartBaselineAttributes, rhs: ChartBaselineAttributes) -> Bool {
         return lhs.width == rhs.width &&
             lhs.color == rhs.color &&

@@ -39,18 +39,18 @@ public struct LinesShape: Shape {
         }
     }
     
+    // swiftlint:disable cyclomatic_complexity
     public func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        if points.count == 0 {
+        if points.isEmpty {
             return path
         }
         
         let data: [CGFloat?] = points.map {
             if let val = $0 {
                 return yPosition(from: val, in: rect)
-            }
-            else {
+            } else {
                 return nil
             }
         }
@@ -75,8 +75,7 @@ public struct LinesShape: Shape {
                     } else {
                         subPath?.addLine(to: p2)
                     }
-                }
-                else { // prev point is nil
+                } else { // prev point is nil
                     subPath = Path()
                     
                     if fill {
@@ -88,8 +87,7 @@ public struct LinesShape: Shape {
                 }
                 
                 prevPt = p2
-            }
-            else { // cur point is nil
+            } else { // cur point is nil
                 if let p1 = prevPt { // prev point is not nil
                     if fill {
                         subPath?.addLine(to: CGPoint(x: p1.x, y: fillOrigY))
@@ -122,8 +120,7 @@ public struct LinesShape: Shape {
     func yPosition(from val: CGFloat, in rect: CGRect) -> CGFloat {
         if displayRange.upperBound == displayRange.lowerBound {
             return 0
-        }
-        else {
+        } else {
             return rect.size.height - (val - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)
         }
     }
@@ -207,4 +204,3 @@ struct LinesShape_Previews: PreviewProvider {
         }
     }
 }
-

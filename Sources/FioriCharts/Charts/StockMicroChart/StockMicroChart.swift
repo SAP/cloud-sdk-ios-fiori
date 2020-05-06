@@ -76,6 +76,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
         return xAxisLabels(model, rect: rect)
     }
     
+    // swiftlint:disable cyclomatic_complexity
     func findData(_ model: ChartModel, startIndex: Int, endIndex: Int, component: Calendar.Component, rect: CGRect, skipFirst: Bool = false) -> [AxisTitle] {
         var result: [AxisTitle] = []
         

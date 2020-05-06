@@ -277,11 +277,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         if de.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        }
-        else if let result = numericAxisTickValuesCache[de] {
+        } else if let result = numericAxisTickValuesCache[de] {
             return result
-        }
-        else {
+        } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
             if numericAxisTickValuesCache.count > 10 {
                 numericAxisTickValuesCache.removeAll()
@@ -299,11 +297,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         if de.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        }
-        else if let result = numericAxisTickValuesCache[de] {
+        } else if let result = numericAxisTickValuesCache[de] {
             return result
-        }
-        else {
+        } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
             if numericAxisTickValuesCache.count > 10 {
                 numericAxisTickValuesCache.removeAll()
@@ -497,8 +493,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let seriesAttributes = seriesAttributes {
             if seriesAttributes.count == data.count {
                 self._seriesAttributes = Published(initialValue: seriesAttributes)
-            }
-            else {
+            } else {
                 var tmp = seriesAttributes
                 for i in seriesAttributes.count ..< data.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
@@ -646,8 +641,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             if chartType == .stock {
                 axis.isZeroBased = false
                 axis.abbreviatesLabels = false
-            }
-            else {
+            } else {
                 axis.baseline.isHidden = true
             }
             self._numericAxis = Published(initialValue: axis)
@@ -668,8 +662,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let seriesAttributes = seriesAttributes {
             if seriesAttributes.count == data3d.count {
                 self._seriesAttributes = Published(initialValue: seriesAttributes)
-            }
-            else {
+            } else {
                 var tmp = seriesAttributes
                 for i in seriesAttributes.count ..< data3d.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
@@ -805,14 +798,15 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
         if seriesIndex < data.count {
             return abs(T(value)) / T(ranges[seriesIndex].upperBound - ranges[seriesIndex].lowerBound)
-        }
-        else {
+        } else {
             return 0
         }
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
-        if data.count > 0 {
+        if data.isEmpty {
+             return T(0)
+        } else {
             var minValue = ranges.first!.lowerBound
             var maxValue = ranges.first!.upperBound
             for i in ranges {
@@ -822,8 +816,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             let diff = abs(maxValue - minValue) <= 0.000001 ? 1 : (maxValue - minValue)
             return abs(value) / T(diff)
-        } else {
-            return T(0)
         }
     }
     
@@ -868,8 +860,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public func numOfCategories(in seriesId: Int) -> Int {
         if seriesId >= data.count {
             return 0
-        }
-        else {
+        } else {
             return data[seriesId].count
         }
     }
@@ -902,11 +893,11 @@ extension ChartModel {
             return val
         }
         
-        let count = seriesAttributes.count
-        if count > 0 {
-            return seriesAttributes[categoryIndex%count].palette.colors[0]
-        } else {
+        if seriesAttributes.isEmpty {
             return Palette.hexColor(for: .primary2)
+        } else {
+            let count = seriesAttributes.count
+            return seriesAttributes[categoryIndex%count].palette.colors[0]
         }
     }
     
@@ -949,7 +940,6 @@ extension ChartModel {
     }
 }
 
-
 extension ChartModel: CustomStringConvertible {
     public var description: String {
         let titlesForCategoryDesc: [[String]]
@@ -957,8 +947,7 @@ extension ChartModel: CustomStringConvertible {
             titlesForCategoryDesc = tfc.map { (cat) -> [String] in
                 cat.map { String(describing: $0) }
             }
-        }
-        else {
+        } else {
             titlesForCategoryDesc = [["\"nil\""]]
         }
         
@@ -975,13 +964,14 @@ extension ChartModel: CustomStringConvertible {
                 i += 1
             }
             titlesForAxisDesc.append("}")
-        }
-        else {
+        } else {
             titlesForAxisDesc = "\"nil\""
         }
         
         var colorsForCategoryDesc: String
-        if colorsForCategory.count > 0 {
+        if colorsForCategory.isEmpty {
+            colorsForCategoryDesc = "\"nil\""
+        } else {
             colorsForCategoryDesc = "{"
             var i = 0
             for (key, cat) in colorsForCategory {
@@ -1007,8 +997,6 @@ extension ChartModel: CustomStringConvertible {
                 i += 1
             }
             colorsForCategoryDesc.append("}")
-        }else {
-            colorsForCategoryDesc = "\"nil\""
         }
         
         return """
@@ -1077,4 +1065,5 @@ enum ChartValueType {
     case mixed
 }
 
+/// NumericAxis label format handler passed from app
 public typealias NumericAxisLabelFormatHandler = (Double, ChartAxisId) -> String?

@@ -70,6 +70,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }.padding(8)
     }
     
+    // swiftlint:disable function_body_length
     func makeBody(in rect: CGRect) -> some View {
         let xAxisHeight = xAxisLabelsMaxHeight(rect)
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
@@ -158,6 +159,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
     }
     
+    // swiftlint:disable function_body_length
     func GridLinesAndChartView(chartRect: CGRect, displayRange: ClosedRange<CGFloat>) -> some View {
         // drag to show the indicator
         let pan = LongPressGesture(minimumDuration: 0.5)
@@ -247,7 +249,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         let labels = axisDataSource.xAxisLabels(model, rect: rect)
-        if labels.count == 0 { return 16 }
+        if labels.isEmpty { return 16 }
         
         var height: CGFloat = 16
         var totalWidth: CGFloat = 0
@@ -272,8 +274,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         // For clustered line, area and combo charts this is the secondary Y axis.
         if model.chartType == .line || model.chartType == .area || model.chartType == .combo {
             indexes = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        }
-        else {
+        } else {
             if secondary {
                 return 0
             }
@@ -281,7 +282,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         
-        if indexes.count == 0 {
+        if indexes.isEmpty {
             return 0
         }
         
@@ -295,7 +296,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
         var width: CGFloat = 20
         let labels = axisDataSource.yAxisLabels(model, rect: rect, secondary: secondary)
-        
         
         for label in labels {
             let size = label.title.boundingBoxSize(with: axis.labels.fontSize)

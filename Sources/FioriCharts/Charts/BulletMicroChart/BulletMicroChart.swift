@@ -28,7 +28,7 @@ public struct BulletMicroChart: View {
         
         return GeometryReader { proxy in
             ZStack(alignment: .leading) {
-                if tmp.count == 0 || tmp.first == nil {
+                if tmp.isEmpty || tmp.first == nil {
                     NoDataView()
                 } else {
                     if thresholds.count > 0 {

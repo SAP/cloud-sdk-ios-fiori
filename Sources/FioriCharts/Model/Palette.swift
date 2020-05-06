@@ -94,7 +94,9 @@ extension ColorStyle: CustomDebugStringConvertible {
     }
 }
 
+/// palette used in FioriCharts
 public class Palette {
+    /// hex color from a ColorStyle
     public class func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case . background:

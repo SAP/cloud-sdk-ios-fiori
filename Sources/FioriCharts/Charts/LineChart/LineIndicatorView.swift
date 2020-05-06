@@ -56,7 +56,6 @@ struct LineIndicatorView: View {
         
         let seriesIndexes = Array(yPosDict.keys.sorted())
         
-        
         return ZStack {
             if closestDataIndex >= 0 {
                 LineShape(pos1: CGPoint(x: x, y: rect.origin.y),

@@ -41,7 +41,7 @@ struct PointsShape: Shape {
     public func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        if points.count == 0 {
+        if points.isEmpty {
             return path
         }
         
@@ -49,8 +49,7 @@ struct PointsShape: Shape {
             if let val = $0 {
                 let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
                 return rect.size.height - (CGFloat(val) - displayRange.lowerBound) * rect.size.height / range
-            }
-            else {
+            } else {
                 return nil
             }
         }

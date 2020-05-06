@@ -48,7 +48,7 @@ struct DonutChart: View {
         }
         
         return HStack(alignment: .center) {
-            if count == 0 {
+            if segments.isEmpty {
                 NoDataView()
             } else {
                 ZStack {

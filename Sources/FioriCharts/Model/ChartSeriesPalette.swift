@@ -15,11 +15,10 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 positiveMinColor: HexColor,
                 negativeMaxColor: HexColor,
                 negativeMinColor: HexColor) {
-        if colors.count > 0 {
-            self._colors = Published(initialValue: colors)
-        }
-        else {
+        if colors.isEmpty {
             self._colors = Published(initialValue: [Palette.hexColor(for: .primary1)])
+        } else {
+            self._colors = Published(initialValue: colors)
         }
         
         self._labelColor = Published(initialValue: labelColor)

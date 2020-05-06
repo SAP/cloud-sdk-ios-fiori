@@ -47,7 +47,9 @@ public struct ColumnMicroChart: View {
         let columns = model.dataItemsIn(seriesIndex: 0)
         
         return VStack(alignment: .center, spacing: 0) {
-            if columns.count > 0 {
+            if columns.isEmpty {
+                NoDataView()
+            } else {
                 // positive value columns and their value column lables
                 HStack(alignment: .bottom, spacing: barSpace) {
                     ForEach(columns) { item in
@@ -100,9 +102,6 @@ public struct ColumnMicroChart: View {
                         }.frame(width: barWidth)
                     }
                 }
-            }
-            else {
-                NoDataView()
             }
         }
     }

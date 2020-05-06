@@ -44,7 +44,6 @@ struct StockIndicatorView: View {
             let minVal = displayRange.lowerBound
             let maxVal = displayRange.upperBound
             
-            
             let y = rect.size.height - (CGFloat(price) - minVal) * rect.size.height / max(maxVal - minVal, 1) + rect.origin.y
             
             closestPoint = CGPoint(x: x, y: y)

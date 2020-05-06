@@ -35,7 +35,7 @@ struct XAxisGridlines: View {
         }
         
         return ZStack {
-            if xAxisLabels.count > 0 && !self.model.categoryAxis.gridlines.isHidden {
+            if !xAxisLabels.isEmpty && !self.model.categoryAxis.gridlines.isHidden {
                 ForEach(xAxisLabels) { title in
                     // grid lines
                     if !self.model.categoryAxis.gridlines.isHidden {

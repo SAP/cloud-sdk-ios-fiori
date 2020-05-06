@@ -28,7 +28,7 @@ struct YAxisGridlines: View {
     func makeBody(in rect: CGRect) -> some View {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes =  model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        let secondary: Bool = indexes.count == 0 ? true : false
+        let secondary: Bool = indexes.isEmpty ? true : false
         
         var yAxisLabels: [AxisTitle] = []
         if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: secondary) {

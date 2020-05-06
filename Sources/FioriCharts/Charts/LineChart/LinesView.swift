@@ -34,6 +34,7 @@ struct LinesView: View {
         }
     }
     
+    // swiftlint:disable function_body_length
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var noData = false
@@ -59,7 +60,7 @@ struct LinesView: View {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes: [Int] = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         
-        if indexes.count == 0 {
+        if indexes.isEmpty {
             noData = true
         }
         
@@ -137,4 +138,3 @@ struct LinesView_Previews: PreviewProvider {
         }
     }
 }
-

@@ -31,8 +31,7 @@ public enum ChartAxisId: String {
 /**
  * Axis context struct.
  */
-struct AxisTickValues
-{
+struct AxisTickValues {
     /*
      * The actual plottable min/max.
      * This is the smallest value between tick min and data min, and the biggest
@@ -211,11 +210,9 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         
         if let abbreviatedFormatter = abbreviatedFormatter {
             self._abbreviatedFormatter = Published(initialValue: abbreviatedFormatter)
-        }
-        else if let formatter = formatter {
+        } else if let formatter = formatter {
             self._abbreviatedFormatter = Published(initialValue: formatter)
-        }
-        else {
+        } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
             self._abbreviatedFormatter = Published(initialValue: formatter)
@@ -347,7 +344,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
 /**
  Defines the policy used to determine which labels are presented along the horizontal category axis.
  */
-public enum ChartCategoryAxisLabelLayoutStyle: CustomStringConvertible{
+public enum ChartCategoryAxisLabelLayoutStyle: CustomStringConvertible {
     /**
      The `allOrNothing` layout style will display all labels, or no labels when they cannot be presented without overlapping.
      
@@ -460,6 +457,7 @@ extension ChartAxisAttributes: Equatable {
 }
 
 extension ChartNumericAxisAttributes {
+    /// conform to Equatable
     public static func == (lhs: ChartNumericAxisAttributes, rhs: ChartNumericAxisAttributes) -> Bool {
         return lhs.axisId == rhs.axisId &&
             lhs.baseline == rhs.baseline &&
@@ -478,15 +476,8 @@ extension ChartNumericAxisAttributes {
 }
 
 extension ChartCategoryAxisAttributes {
+    /// conform to Equatable
     public static func == (lhs: ChartCategoryAxisAttributes, rhs: ChartCategoryAxisAttributes) -> Bool {
-//        print("axisId: \(lhs.axisId == rhs.axisId)")
-//        print("baseline: \(lhs.baseline == rhs.baseline)")
-//        print("gridlines: \(lhs.gridlines == rhs.gridlines)")
-//        print("labels: \(lhs.labels == rhs.labels)")
-//        print("titleLabel: \(lhs.titleLabel == rhs.titleLabel)")
-//        print("title: \(lhs.title == rhs.title)")
-//        print("isZeroBased: \(lhs.isZeroBased == rhs.isZeroBased)")
-        
         return lhs.axisId == rhs.axisId &&
             lhs.baseline == rhs.baseline &&
             lhs.gridlines == rhs.gridlines &&

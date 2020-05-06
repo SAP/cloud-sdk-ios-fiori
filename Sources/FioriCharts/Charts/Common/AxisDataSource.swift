@@ -90,57 +90,43 @@ class DefaultAxisDataSource: AxisDataSource {
         var stringValue = " "
         let d = abs(value)
         
-        if (d < 1e3)    // we can represent up to 999 directly
-        {
+        if d < 1e3 {   // we can represent up to 999 directly
             divisorValue = 1
-        }
-        else if (d < 1e6)    // 999k
-        {
+        } else if d < 1e6 {   // 999k
             stringValue = "K"
             divisorValue = 1e3
-        }
-        else if (d < 1e9)    // 999m
-        {
+        } else if d < 1e9 {    // 999m
             stringValue = "M"
             divisorValue = 1e6
-        }
-        else if (d < 1e12)    // 999b
-        {
+        } else if d < 1e12 {   // 999b
             stringValue = "B"
             divisorValue = 1e9
-        }
-        else if (d < 1e15)    // 999t
-        {
+        } else if d < 1e15 {   // 999t
             stringValue = "T"
             divisorValue = 1e12
-        }
-        else if (d < 1e18)    // 999q
-        {
+        } else if d < 1e18 {   // 999q
             stringValue = "Q"
             divisorValue = 1e15
-        }
-        else { // higher than 999 quadrillion we don't care
+        } else { // higher than 999 quadrillion we don't care
             stringValue = "Z"
             divisorValue = 1e18
         }
         
-        
         return (stringValue, divisorValue)
     }
     
-    private func numberFormatter(for value: Double, divisor: Double, abbreviatedFormatter: NumberFormatter) -> NumberFormatter
-    {
+    private func numberFormatter(for value: Double, divisor: Double, abbreviatedFormatter: NumberFormatter) -> NumberFormatter {
         let value = abs(value)
         
         let nf = abbreviatedFormatter
         
         // 100+
-        if (value >= 100) {
+        if value >= 100 {
             nf.maximumFractionDigits = 0
         }
         
         // 10 -> 100
-        if (100 > value && value >= 10) {
+        if 100 > value && value >= 10 {
             var numberOfFractionDigits = nf.maximumFractionDigits
             if numberOfFractionDigits > 1 || divisor > 1 {
                 numberOfFractionDigits = 1
@@ -150,7 +136,7 @@ class DefaultAxisDataSource: AxisDataSource {
         }
         
         // 0.001 -> 10
-        if (10 > value && value > 0.001) {
+        if 10 > value && value > 0.001 {
             var numberOfFractionDigits = nf.maximumFractionDigits
             if numberOfFractionDigits > 2 || divisor > 1 {
                 numberOfFractionDigits = 2
@@ -175,12 +161,11 @@ class DefaultAxisDataSource: AxisDataSource {
         var aNum = abs(num)
         var multiplier: Double = 100.0
         
-        if(abbreviatedFormatter.numberStyle == .percent)
-        {
+        if abbreviatedFormatter.numberStyle == .percent {
             if let multi = abbreviatedFormatter.multiplier {
                 multiplier = multi.doubleValue
             }
-            aNum *= multiplier;
+            aNum *= multiplier
         }
         
         /*
@@ -205,9 +190,8 @@ class DefaultAxisDataSource: AxisDataSource {
          */
         var formattedString = ""
         let suffix = useSuffix ? magnitude : ""
-        if abbreviatedFormatter.numberStyle == .percent
-        {
-            aNum /= multiplier;
+        if abbreviatedFormatter.numberStyle == .percent {
+            aNum /= multiplier
             formattedString = formatter.string(from: NSNumber(value: aNum)) ?? " "
             
             /*
@@ -228,12 +212,10 @@ class DefaultAxisDataSource: AxisDataSource {
                      */
                     let tmp = formattedString[..<index]
                     formattedString = "\(tmp)\(suffix)\(positiveSuffix)"
-                }
-                else {
+                } else {
                     formattedString = "\(valueString)\(suffix)\(positiveSuffix)"
                 }
-            }
-            else {
+            } else {
                 formattedString = "\(valueString)\(suffix)"
             }
         }
@@ -293,8 +275,7 @@ class DefaultAxisDataSource: AxisDataSource {
         
         if axis.abbreviatesLabels {
             return abbreviatedString(for: value, useSuffix: axis.isMagnitudedDisplayed, abbreviatedFormatter: axis.abbreviatedFormatter)
-        }
-        else {
+        } else {
             return axis.formatter.string(from: NSNumber(value: value)) ?? " "
         }
     }

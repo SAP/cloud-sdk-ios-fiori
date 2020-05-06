@@ -99,5 +99,6 @@ extension AreaMicroChartModel {
                                                       minLabel: Text("25M").foregroundColor(.yellow),
                                                       maxLabel: Text("70M").foregroundColor(.green))
     
+    /// test cases for area chart
     public static let allCases: [AreaMicroChartModel] = [.test1, .test2, .test3, .test4]
 }

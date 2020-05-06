@@ -58,6 +58,4 @@ public enum ChartType: String {
     
     /// donut chart
     case donut
-    
-    
 }

@@ -40,7 +40,7 @@ public struct ChartView: View {
     
     public var body: some View {
         Group {
-            if chartModel.data.isEmpty || chartModel.data.first?.count == 0 {
+            if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
                 NoDataView()
             } else if chartModel.chartType == .micro_bullet {
                 BulletMicroChart(chartModel)
