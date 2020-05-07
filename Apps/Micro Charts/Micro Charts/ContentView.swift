@@ -14,54 +14,72 @@ struct ContentView: View {
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
-    let charts: [(String, CGFloat, CGFloat, [ChartModel])] =
-        [("Stock", 280, 160, Tests.stockModels),
-         ("Line", 280, 160, Tests.lineModels),
-         ("Area", 280, 160, Tests.lineModels.map {
+    let charts: [(String, [ChartModel], [String])] =
+        [("Stock", Tests.stockModels, Tests.stockModelsDesc),
+         ("Line", Tests.lineModels, Tests.lineModelsDesc),
+         ("Area", Tests.lineModels.map {
             let model = $0.copy() as! ChartModel
             model.chartType = .area
             return model
-         }),
-         ("Micro Chart - Column", 280, 160, Tests.columnModels),
-         ("Donut", 180, 160, Tests.donutModels),
-         ("Micro Chart - Radial", 180, 160, Tests.radialModels),
-         ("Micro Chart - Harvey Ball", 240, 160, Tests.harveyBallModels),
-         ("Micro Chart - Bullet", 280, 120, Tests.bulletModles)
+         }, Tests.lineModelsDesc),
+         ("Donut", Tests.donutModels, Tests.donutModelsDesc),
+         ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
+         ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),
+         ("Micro Chart - Harvey Ball", Tests.harveyBallModels, Tests.harveyBallModelsDesc),
+         ("Micro Chart - Bullet", Tests.bulletModles, Tests.bulletModlesDesc)
     ]
     
     var body: some View {
         NavigationView {
             List {
                 ForEach(0 ..< charts.count) { index in
-                    VStack(alignment: .leading) {
-                        Text(self.charts[index].0)
-                            .font(.headline)
-                            .padding(.leading, 15)
-                            .padding(.top, 5)
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(alignment: .top, spacing: 0) {
-                                ForEach(self.charts[index].3) { model in
-                                    ChartView(model)
-                                        .frame(width: self.charts[index].1, height: self.charts[index].2 - 2)
-                                        .padding(.leading, 8)
-                                        .onTapGesture {
-                                            self.currentModel = model
-                                            self.showingDetail.toggle()
-                                    }
-                                }
-                            }
-                        }.frame(height: self.charts[index].2)
+                    NavigationLink(destination: ChartHomeView(info: self.charts[index])) {
+                        Text(self.charts[index].0).font(.headline)
                     }
                 }
             }.navigationBarTitle("Micro Charts")
-                .sheet(isPresented: $showingDetail) {
-                    DetailView(model: self.currentModel!)
-            }
         }
     }
 }
 
+struct ChartHomeView: View {
+    @State var showingDetail = false
+    @State var currentModel: ChartModel? = nil
+    
+    let info: (String, [ChartModel], [String])
+    
+    init(info: (String, [ChartModel], [String])) {
+        self.info = info
+    }
+    
+    var body: some View {
+        GeometryReader { proxy in
+            self.makeBody(in: proxy.size)
+        }
+        .navigationBarTitle(info.0)
+        .sheet(isPresented: $showingDetail) {
+            DetailView(model: self.currentModel!)
+        }
+    }
+    
+    func makeBody(in size: CGSize) -> some View {
+        let width = size.width - 32
+        return List {
+            ForEach(0 ..< self.info.1.count) { i in
+                VStack(alignment: .center) {
+                    ChartView(self.info.1[i])
+                        .frame(width: width, height: width / 2.14 )
+                        .onTapGesture {
+                                self.currentModel = self.info.1[i]
+                                self.showingDetail.toggle()
+                        }
+                    
+                    Text(self.info.2[i]).font(.subheadline)
+                }
+            }
+        }
+    }
+}
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

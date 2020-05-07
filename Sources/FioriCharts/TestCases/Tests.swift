@@ -39,7 +39,7 @@ public struct Tests {
         
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]]),
+                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]], categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range)),
         
         ChartModel(chartType: .line,
                    data: [[200, 170, 165, 183, nil, nil, nil],
@@ -55,6 +55,9 @@ public struct Tests {
         ChartModel(chartType: .line, data: [[]])
     ]
     
+    /// descriptions for line models
+    public static let lineModelsDesc = ["positive values, secondary y axis", "negative values, some x axis labels are nil", "mixed values", "mixed values 2", "long x axis labels, label layout style is \"range\"", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    
     /// bullet models for test
     public static let bulletModles = [
         ChartModel(chartType: .micro_bullet,
@@ -68,6 +71,9 @@ public struct Tests {
         
         ChartModel(chartType: .micro_bullet, data: [[]])
     ]
+    
+    /// descriptions for bullet models
+    public static let bulletModlesDesc = ["typical one", "customized colors for category", "data = [[nil]]", "data = [[]]"]
     
     /// column models for test
     public static let columnModels = [
@@ -88,6 +94,9 @@ public struct Tests {
         
         ChartModel(chartType: .micro_column, data: [[nil]])
     ]
+    
+    /// descriptions for column models
+    public static let columnModelsDesc = ["positive values, labels for dimensions", "mixed values, labels for dimensions", "positive values, no labels for dimensions", "data = [[nil]]"]
     
     /// harvey ball models for test
     public static let harveyBallModels = [
@@ -114,6 +123,9 @@ public struct Tests {
         ChartModel(chartType: .micro_harvey_ball, data: [[nil]])
     ]
     
+    /// descriptions for column models
+    public static let harveyBallModelsDesc = ["typical one", "close", "more than 100%", "one title is empty", "data = [[nil]]"]
+    
     /// donut models for test
     public static let donutModels = [
         ChartModel(chartType: .donut,
@@ -128,6 +140,9 @@ public struct Tests {
         ChartModel(chartType: .donut, data: [[nil]])
     ]
     
+    /// descriptions for column models
+    public static let donutModelsDesc = ["segments color from series color", "customized colors for segments", "data = [[nil]]"]
+    
     /// radial models for test
     public static let radialModels = [
         ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: Palette.hexColor(for: .primary3), 1: Palette.hexColor(for: .negative)]]),
@@ -140,6 +155,9 @@ public struct Tests {
         
         ChartModel(chartType: .micro_radial, data: [[nil]])
     ]
+    
+    /// descriptions for column models
+    public static let radialModelsDesc = ["typical one", "99%", "10%", "0%", "data = [[nil]]"]
     
     /// stock models for test
     public static let stockModels = [
@@ -165,7 +183,7 @@ public struct Tests {
                    data: [[16.52, 16.50, 0]],
                    titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 15:30:00"]]),
         
-        // intraday
+        // nil values
         ChartModel(chartType: .stock, data3d: [[[nil, nil, 19.21, 20.00, 20000], [16.52, 17.20, 17.48, 22.21, 60000], [18.50, 17.20, 17.48, 22.21, 60000], [24.50, 17.20, 17.48, 22.21, 60000]]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00"]]),
         
         ChartModel(chartType: .stock, data: [[16.52, 15.50, 18.67, 16.70, 16.90, 17.00, 16.32, 15.22, 16.89, 18.01, 18.22, 17.76, 16.82, 17.66]], titlesForCategory: [["2020-01-06 09:30:00", "2020-01-06 10:00:00", "2020-01-06 10:30:00", "2020-01-06 11:00:00", "2020-01-06 11:30:00", "2020-01-06 12:00:00", "2020-01-06 12:30:00", "2020-01-06 13:00:00", "2020-01-06 13:30:00", "2020-01-06 14:00:00", "2020-01-06 14:30:00", "2020-01-06 15:00:00", "2020-01-06 15:30:00", "2020-01-06 15:59:00"]]),
@@ -174,6 +192,9 @@ public struct Tests {
         
         ChartModel(chartType: .stock, data: [[]])
     ]
+    
+    /// descriptions for stock models
+    public static let stockModelsDesc = ["includes intraday: 1min, one day: 1min, 1year:1day, 3years:1week, last series is selected", "simple one", "intraday", "3 dimention data, first value is nil", "typical one", "data: [[nil]]", "data = [[]]"]
     
     /// all test models
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }

@@ -13,7 +13,9 @@ struct DetailView: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        GeometryReader { geometry in
+        //print(String(describing: model))
+        
+        return GeometryReader { geometry in
             if geometry.size.width <= geometry.size.height {
                 VStack(alignment: .leading, spacing: 0) {
                     ChartView(self.model).padding()
