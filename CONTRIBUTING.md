@@ -17,6 +17,8 @@ For now please know that a pull request has to pass all status checks to be cons
 
 We reserve the right to close or to not process pull requests.
 
+We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will install a pre-commit gith hook to run a SwiftLint check automatically before commmitting your sources. It will also add a run script to ensure that SwiftLint checks are getting executed when you are working within the Xcode project file.
+
 ## Legal stuff
 
 ### Contributors License Agreement
