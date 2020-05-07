@@ -494,7 +494,7 @@ class ChartUtility {
     }
     
     static func numOfDataItems(_ model: ChartModel) -> Int {
-        if let titles = model.titlesForCategory {
+        if let titles = model.titlesForCategory, model.currentSeriesIndex < titles.count {
             return titles[model.currentSeriesIndex].count
         }
         
@@ -553,11 +553,24 @@ class ChartUtility {
     static func categoryValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> String? {
         guard let categories = model.titlesForCategory else { return nil }
         
-        if seriesIndex < 0 || seriesIndex >= categories.count || categoryIndex < 0 || categoryIndex >= categories[seriesIndex].count {
-            return nil
+        if model.chartType == .stock {
+            if seriesIndex < 0 || seriesIndex >= categories.count || categoryIndex < 0 || categoryIndex >= categories[seriesIndex].count {
+                return nil
+            } else {
+                return categories[seriesIndex][categoryIndex]
+            }
+        } else {
+            var tmpSeriesIndex = seriesIndex
+            if seriesIndex < 0 || seriesIndex >= categories.count {
+                tmpSeriesIndex = 0
+            }
+            
+            if categoryIndex < 0 || categoryIndex >= categories[tmpSeriesIndex].count {
+                return nil
+            } else {
+                return categories[tmpSeriesIndex][categoryIndex]
+            }
         }
-        
-        return categories[seriesIndex][categoryIndex]
     }
     
     static func xPos(_ pos: CGFloat, layoutDirection: LayoutDirection, width: CGFloat) -> CGFloat {
