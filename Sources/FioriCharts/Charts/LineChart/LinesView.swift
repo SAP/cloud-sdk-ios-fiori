@@ -113,7 +113,7 @@ struct LinesView: View {
                                 endOffset: endOffset)
                         .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
                         .clipShape(Rectangle()
-                            .size(width: rect.size.width + self.pointRadius(at: i) * 2, height: rect.size.height + self.pointRadius(at: i) * 2)
+                            .size(width: rect.size.width + self.pointRadius(at: i) * 2 + 5, height: rect.size.height + self.pointRadius(at: i) * 2 + 5)
                             .offset(x: -1 * self.pointRadius(at: i), y: -1 * self.pointRadius(at: i)))
                 }
             }

@@ -14,10 +14,10 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var isHidden: Bool = false
     
     /// Diameter of the point.
-    @Published public var diameter: CGFloat = 4
+    @Published public var diameter: CGFloat
     
     /// Allowed gap between dots before they run into eachother and are hidden.
-    @Published public var gap: CGFloat = 2
+    @Published public var gap: CGFloat
     
     /// Stroke color for the point.
     @Published public var strokeColor: HexColor = Palette.hexColor(for: .primary2)
@@ -28,7 +28,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     public let id = UUID()
     
     public init(isHidden: Bool = false,
-                diameter: Double = 4,
+                diameter: Double = 7,
                 strokeColor: HexColor = Palette.hexColor(for: .primary2),
                 gap: Double = 2) {
         self._isHidden = Published(initialValue: isHidden)

@@ -28,7 +28,8 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/CCCCCC.png&text=+)          Hex color: CCCCCC
     /// (light variant) ![](https://dummyimage.com/48x18/EBEBF5.png&text=+)          Hex color: EBEBF5        alpha: 30%
     case primary4
-    
+    case primary5
+    case primary6
     /// Standard text color, with variants for light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)        Hex color: 5899DA
     /// (light variant) ![](https://dummyimage.com/48x18/74B3F0.png&text=+)        Hex color: 74B3F0
@@ -99,16 +100,20 @@ public class Palette {
     /// hex color from a ColorStyle
     public class func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
-        case . background:
+        case .background:
             return HexColor(lightColor: "FFFFFF", darkColor: "000000")
-        case.primary1:
+        case .primary1:
             return HexColor(lightColor: "32636A", darkColor: "FFFFFF")
-        case.primary2:
+        case .primary2:
             return HexColor(lightColor: "515559", darkColor: "FFFFFF")
-        case.primary3:
+        case .primary3:
             return HexColor(lightColor: "6A6D70", darkColor: "EBEBF599")
-        case.primary4:
+        case .primary4:
             return HexColor(lightColor: "CCCCCC", darkColor: "EBEBF54D")
+        case .primary5:
+            return HexColor(lightColor: "FAFAFA", darkColor: "2C2C2E")
+        case .primary6:
+            return HexColor(lightColor: "FFFFFF", darkColor: "1C1C1E")
         case .chart1:
             return HexColor(lightColor: "5899DA", darkColor: "74B3F0")
         case .chart2:

@@ -61,14 +61,33 @@ struct LineIndicatorView: View {
                 LineShape(pos1: CGPoint(x: x, y: rect.origin.y),
                           pos2: CGPoint(x: x, y: rect.origin.y + rect.size.height),
                           layoutDirection: layoutDirection)
-                    .stroke(Palette.hexColor(for: .primary1).color(colorScheme), lineWidth: 1)
+                    .stroke(Palette.hexColor(for: .primary2).color(colorScheme), lineWidth: 1)
+                
+                SelectionAnchorShape()
+                    .rotation(Angle(degrees: 180))
+                    .fill(Color.black)
+                    .frame(width: 9, height: 4)
+                    .position(x: x, y: 2)
+                
+                SelectionAnchorShape()
+                    .fill(Color.black)
+                    .frame(width: 9, height: 4)
+                    .position(x: x, y: rect.origin.y + rect.size.height - 2)
                 
                 ForEach(seriesIndexes, id: \.self) { i in
-                    Circle()
-                        .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
-                        .frame(width: CGFloat(self.model.seriesAttributes[i].point.diameter + 4),
-                               height: CGFloat(self.model.seriesAttributes[i].point.diameter + 4))
-                        .position(CGPoint(x: x, y: yPosDict[i] ?? 0))
+                    ZStack {
+                        Circle()
+                            .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
+                            .frame(width: self.model.seriesAttributes[i].point.diameter + 5.0,
+                                   height: self.model.seriesAttributes[i].point.diameter + 5.0)
+                            .position(CGPoint(x: x, y: yPosDict[i] ?? 0))
+                        
+                        Circle().stroke(Palette.hexColor(for: .primary6).color(self.colorScheme),
+                                        style: StrokeStyle(lineWidth: 4))
+                            .frame(width: self.model.seriesAttributes[i].point.diameter + 9.0,
+                                   height: self.model.seriesAttributes[i].point.diameter + 9.0)
+                            .position(CGPoint(x: x, y: yPosDict[i] ?? 0))
+                    }
                 }
             }
         }

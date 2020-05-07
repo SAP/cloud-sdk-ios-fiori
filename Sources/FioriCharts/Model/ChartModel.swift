@@ -738,7 +738,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             for i in 0 ..< count {
                 let color = colors[i % colors.count]
-                let pointAttr = ChartPointAttributes(isHidden: false, diameter: 6, strokeColor: color, gap: 2)
+                let pointAttr = ChartPointAttributes(isHidden: false, diameter: 7, strokeColor: color, gap: 2)
                 let seriesPalette = ChartSeriesPalette(colors: [color])
                 result.append(ChartSeriesAttributes(palette: seriesPalette, lineWidth: 2, point: pointAttr, firstLineCapDiameter: 0, lastLineCapDiameter: 0))
             }
