@@ -26,6 +26,7 @@ struct HarveyBallMicroChart: View {
         }
     }
     
+    // swiftlint:disable force_unwrapping
     func chartView(in size: CGSize) -> some View {
         let radius = min(size.width, size.height) / 2
         

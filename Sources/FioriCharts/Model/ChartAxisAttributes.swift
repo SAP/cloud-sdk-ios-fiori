@@ -167,6 +167,7 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
         self._title = Published(initialValue: title)
     }
     
+    // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
         return ChartAxisAttributes(axisId: self.axisId,
                                    baseline: (self.baseline.copy() as! ChartBaselineAttributes),
@@ -231,8 +232,8 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
+    // swiftlint:disable force_cast
     public override func copy(with zone: NSZone? = nil) -> Any {
-        
         let copy = ChartNumericAxisAttributes(axisId: axisId,
                                               baseline: (baseline.copy() as! ChartBaselineAttributes),
                                               gridlines: (gridlines.copy() as! ChartGridlineAttributes),
@@ -400,6 +401,7 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
         self.init(labelLayoutStyle: .allOrNothing)
     }
     
+    // swiftlint:disable force_cast
     public override func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartCategoryAxisAttributes(axisId: axisId,
                                                baseline: (baseline.copy() as! ChartBaselineAttributes),

@@ -28,8 +28,9 @@ class ChartUtility {
         return result
     }
     
+    // swiftlint:disable cyclomatic_complexity
     static func calculateDataElementsForAxisTickValues (_ model: ChartModel, secondaryRange: Bool) -> ChartModel.DataElementsForAxisTickValues {
-        if model.data.isEmpty || model.data.first?.count == 0 {
+        if model.data.isEmpty || model.data.first?.isEmpty ?? true {
             return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, adjustToNiceValues: true, fudgeYAxisRange: false, secondaryRange: secondaryRange)
         }
         
@@ -487,9 +488,8 @@ class ChartUtility {
     static func xAxisBaselinePosition(_ model: ChartModel) -> CGFloat {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        
         let axisValues = indexes.isEmpty ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
-        
+      
         return (axisValues.plotBaselineValue - axisValues.plotMinimum) * axisValues.plotScale
     }
     

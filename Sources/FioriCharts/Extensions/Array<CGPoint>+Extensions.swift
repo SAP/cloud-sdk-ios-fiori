@@ -17,7 +17,9 @@ extension Array where Element == CGPoint {
     var minY: CGFloat { return reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.y) } }
     
     func boundingBox() -> CGRect {
-        guard count > 0 else { return .zero }
+        if isEmpty {
+            return .zero
+        }
         return CGRect(origin: CGPoint(x: minX, y: minY), size: CGSize(width: maxX - minX, height: maxY - minY))
     }
     

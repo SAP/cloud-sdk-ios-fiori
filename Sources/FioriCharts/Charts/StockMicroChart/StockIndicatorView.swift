@@ -23,6 +23,7 @@ struct StockIndicatorView: View {
         }
     }
     
+    // swiftlint:disable force_unwrapping
     func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var priceStr: String = ""

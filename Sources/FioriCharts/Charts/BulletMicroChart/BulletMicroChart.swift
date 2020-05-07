@@ -31,7 +31,7 @@ public struct BulletMicroChart: View {
                 if tmp.isEmpty || tmp.first == nil {
                     NoDataView()
                 } else {
-                    if thresholds.count > 0 {
+                    if !thresholds.isEmpty {
                         // draw threshold lines
                         self.thresholdsView(size: proxy.size, thresholds: thresholds)
                     }

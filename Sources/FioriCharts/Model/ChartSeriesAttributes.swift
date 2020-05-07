@@ -51,6 +51,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
         self._lastLineCapDiameter = Published(initialValue: CGFloat(lastLineCapDiameter))
     }
     
+    // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
         return ChartSeriesAttributes(palette: (self.palette.copy() as! ChartSeriesPalette),
                                      lineWidth: Double(self.lineWidth),

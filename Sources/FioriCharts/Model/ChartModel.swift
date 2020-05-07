@@ -26,7 +26,7 @@ let model = ChartModel(chartType: .line,
 */
 
 public class ChartModel: ObservableObject, Identifiable, NSCopying {
-
+    
     /// An internal data structure to hold a single piece of data or an array of data
     public enum DimensionData<T>: CustomStringConvertible, Equatable where T: Equatable {
         
@@ -109,7 +109,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// seires -> category -> dimension (either a single value or an array)
     @Published var data: [[DimensionData<CGFloat?>]]
-
+    
     /// titles for category
     @Published var titlesForCategory: [[String?]]?
     
@@ -132,7 +132,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// snap to point when dragging a chart
     @Published public var snapToPoint: Bool = false
-  
+    
     /// seires attributes
     @Published public var seriesAttributes: [ChartSeriesAttributes]
     
@@ -146,7 +146,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /**
      Provides attributes for the category axis.
-
+     
      - For stock, clustered column, line, and combo charts this is the X axis.
      - For bar charts this is the Y axis.
      */
@@ -154,7 +154,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /**
      Provides attributes for the primary numeric axis.
-
+     
      - For stock, clustered column, line, and combo charts this is the Y axis.
      - For bar charts this is the X axis.
      */
@@ -204,7 +204,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - `MCDefaultCategorySelectionIndex` This is the default behavior, where the given selection will be considered as the initial selection.
      - `MCDefaultCategorySelectionFirst` The first category will be considered as the default selection.
      - `MCDefaultCategorySelectionLast` The last gategory will be considered as the default selection.
-    */
+     */
     @Published public var defaultCategorySelectionMode: ChartCategorySelectionMode = .index
     
     /// When false a state is allowed in which no series is selected/active.
@@ -364,18 +364,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         // go through series
         for i in 0 ..< data.count {
             let range: ClosedRange<CGFloat> = {
-                var allValues: [CGFloat] = []
-
-                // single value
-                if let _ = data[i].first?.value {
-                    allValues = data[i].compactMap { $0.value! }
-                } else if let _ = data[i].first?.values {
-                    allValues = data[i].compactMap { $0.values!.first! }
-                }
-
+                let allValues = data[i]
+                    .compactMap { $0.first }
+                    .compactMap { $0 }
+                
                 let min = allValues.min() ?? 0
                 let max = allValues.max() ?? (min + 1)
-
+                
                 guard min != max else { return min...max+1 }
                 return min...max
             }()
@@ -430,7 +425,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 self._titlesForCategory = Published(initialValue: modifiedTitlesForCategory)
             }
         }
-    
+        
         var tmpData: [[DimensionData<CGFloat?>]] = []
         for (i, c) in data.enumerated() {
             var s: [DimensionData<CGFloat?>] = []
@@ -476,7 +471,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 axis.abbreviatesLabels = false
             }
             axis.baseline.isHidden = true
-
+            
             self._numericAxis = Published(initialValue: axis)
         }
         
@@ -542,14 +537,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         // go through series
         for i in 0 ..< data.count {
             let range: ClosedRange<CGFloat> = {
-                //var allValues: [CGFloat] = []
                 let allValues: [CGFloat] = data[i]
-                                            .compactMap { $0 }
-                                            .map { CGFloat($0) }
+                    .compactMap { $0 }
+                    .map { CGFloat($0) }
                 
                 let min = allValues.min() ?? 0
                 let max = allValues.max() ?? (min + 1)
-    
+                
                 guard min != max else { return min...max+1 }
                 return min...max
             }()
@@ -711,13 +705,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         // go through series
         for i in 0 ..< data3d.count {
             let range: ClosedRange<CGFloat> = {
-                //let allValues: [CGFloat] = data3d[i].compactMap { CGFloat($0.first!!) }
-                let allValues: [CGFloat] = data3d[i].compactMap { $0.first! }
+                let allValues: [CGFloat] = data3d[i]
+                    .compactMap { $0.first }
+                    .compactMap { $0 }
                     .map { CGFloat($0) }
                 
                 let min = allValues.min() ?? 0
                 let max = allValues.max() ?? (min + 1)
-    
+                
                 guard min != max else { return min...max+1 }
                 return min...max
             }()
@@ -759,13 +754,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let c0 = categoryTitles[0],
-        let c1 = categoryTitles[1],
-        let c2 = categoryTitles[count - 2],
-        let c3 = categoryTitles[count - 1],
-        let startTime = ChartUtility.date(from: c0),
-        let secondTime = ChartUtility.date(from: c1),
-        let timeBeforeEndTime = ChartUtility.date(from: c2),
-        let endTime = ChartUtility.date(from: c3) {
+            let c1 = categoryTitles[1],
+            let c2 = categoryTitles[count - 2],
+            let c3 = categoryTitles[count - 1],
+            let startTime = ChartUtility.date(from: c0),
+            let secondTime = ChartUtility.date(from: c1),
+            let timeBeforeEndTime = ChartUtility.date(from: c2),
+            let endTime = ChartUtility.date(from: c3) {
             let df = DateFormatter()
             df.dateFormat = "yyyy-MM-dd HH:mm:ss"
             var dataChanged = false
@@ -805,10 +800,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T) -> T {
         if data.isEmpty {
-             return T(0)
-        } else {
-            var minValue = ranges.first!.lowerBound
-            var maxValue = ranges.first!.upperBound
+            return T(0)
+        } else if let range = ranges.first {
+            var minValue = range.lowerBound
+            var maxValue = range.upperBound
             for i in ranges {
                 minValue = min(minValue, i.lowerBound)
                 maxValue = max(maxValue, i.upperBound)
@@ -816,6 +811,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             let diff = abs(maxValue - minValue) <= 0.000001 ? 1 : (maxValue - minValue)
             return abs(value) / T(diff)
+        } else {
+            return T(0)
         }
     }
     
@@ -827,6 +824,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
+    // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartModel(chartType: self.chartType,
                               data: self.data,
@@ -838,8 +836,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               selectedSeriesIndex: self.selectedSeriesIndex,
                               userInteractionEnabled: self.userInteractionEnabled,
                               seriesAttributes: self.seriesAttributes.map {
-                                  let copy = $0.copy() as! ChartSeriesAttributes
-                                  return copy
+                                let copy = $0.copy() as! ChartSeriesAttributes
+                                return copy
                               },
                               categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
                               numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
@@ -920,19 +918,17 @@ extension ChartModel {
     func dataItemsIn(seriesIndex: Int, dimensionIndex: Int = 0) -> [MicroChartDataItem] {
         var res: [MicroChartDataItem] = []
         
-        guard seriesIndex < data.count, data[seriesIndex].count > 0 else {
+        guard seriesIndex < data.count, !data[seriesIndex].isEmpty else {
             return res
         }
         
-        for i in 0 ..< data[seriesIndex].count {
-            if data[seriesIndex][i].count > dimensionIndex {
-                if let value = data[seriesIndex][i][dimensionIndex] {
-                    let item = MicroChartDataItem(value: CGFloat(value),
-                                                  displayValue: labelAt(seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: dimensionIndex),
-                                                  label: titleAt(seriesIndex: seriesIndex, categoryIndex: i),
-                                                  color: colorAt(seriesIndex: seriesIndex, categoryIndex: i))
-                    res.append(item)
-                }
+        for i in 0 ..< data[seriesIndex].count where data[seriesIndex][i].count > dimensionIndex {
+            if let value = data[seriesIndex][i][dimensionIndex] {
+                let item = MicroChartDataItem(value: CGFloat(value),
+                                              displayValue: labelAt(seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: dimensionIndex),
+                                              label: titleAt(seriesIndex: seriesIndex, categoryIndex: i),
+                                              color: colorAt(seriesIndex: seriesIndex, categoryIndex: i))
+                res.append(item)
             }
         }
         
@@ -1000,8 +996,8 @@ extension ChartModel: CustomStringConvertible {
         }
         
         return """
-{
-    "ChartModel": {
+        {
+        "ChartModel": {
         "chartType": "\(chartType.rawValue)",
         "data": \(String(describing: data)),
         "titlesForCategory": \(titlesForCategoryDesc),
@@ -1021,18 +1017,18 @@ extension ChartModel: CustomStringConvertible {
         "indexesOfSecondaryValueAxis": \(String(describing: indexesOfSecondaryValueAxis.sorted())),
         "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
         "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted()))
-    }
-}
-"""
+        }
+        }
+        """
     }
 }
 
 /// Enum for available selection modes.
 public enum ChartSelectionMode {
-
+    
     /// Selects a single value in the currently selected series and category indices.
     case single
-
+    
     /// Selects one value in each series for the selected category index(es).
     case all
 }

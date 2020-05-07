@@ -32,6 +32,7 @@ struct RadialMicroChart: View {
         }
     }
     
+    //swiftlint:disable force_unwrapping
     func arcView(in size: CGSize) -> some View {
         let percentage = model.dataItemsIn(seriesIndex: 0).last
         
@@ -60,6 +61,7 @@ struct RadialMicroChart: View {
         }
     }
     
+    //swiftlint:disable force_unwrapping
     func chartView(in size: CGSize) -> some View {
         let total = model.dataItemsIn(seriesIndex: 0).first
         let percentage = model.dataItemsIn(seriesIndex: 0).last

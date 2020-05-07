@@ -22,6 +22,7 @@ struct AreaChart: View {
     }
 }
 
+// swiftlint:disable force_cast
 struct AreaChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
