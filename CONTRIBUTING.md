@@ -17,7 +17,7 @@ For now please know that a pull request has to pass all status checks to be cons
 
 We reserve the right to close or to not process pull requests.
 
-We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will install a pre-commit gith hook to run a SwiftLint check automatically before commmitting your sources. It will also add a run script to ensure that SwiftLint checks are getting executed when you are working within the Xcode project file.
+We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will install a pre-commit gith hook to run a SwiftLint check automatically before committing your sources. It will also add a run script to ensure that SwiftLint checks are getting executed when you are working within the Xcode project file.
 
 ## Legal stuff
 
@@ -36,6 +36,6 @@ If employees of a company contribute code, in **addition** to the individual agr
 A company representative authorized to do so needs to download, fill, and print
 the [Corporate Contributor License Agreement](https://github.com/SAP/openui5/blob/master/docs/SAP%20Corporate%20Contributor%20License%20Agreement.pdf) form. Then either:
 
--   Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com)
+-   Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [cloud-sdk-ios-fiori@sap.com](mailto:cloud-sdk-ios-fiori@sap.com)
 -   Fax it to: +49 6227 78-45813
 -   Send it by traditional letter to: *Industry Standards & Open Source Team, Dietmar-Hopp-Allee 16, 69190 Walldorf, Germany*
