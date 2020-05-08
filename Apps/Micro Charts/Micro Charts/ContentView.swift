@@ -37,7 +37,7 @@ struct ContentView: View {
                         Text(self.charts[index].0).font(.headline)
                     }
                 }
-            }.navigationBarTitle("Micro Charts")
+            }.navigationBarTitle("Fiori Charts")
         }
     }
 }
@@ -69,12 +69,12 @@ struct ChartHomeView: View {
                 VStack(alignment: .center) {
                     ChartView(self.info.1[i])
                         .frame(width: width, height: width / 2.14 )
-                        .onTapGesture {
-                                self.currentModel = self.info.1[i]
-                                self.showingDetail.toggle()
-                        }
-                    
+
                     Text(self.info.2[i]).font(.subheadline)
+                }
+                .onTapGesture {
+                        self.currentModel = self.info.1[i]
+                        self.showingDetail.toggle()
                 }
             }
         }
