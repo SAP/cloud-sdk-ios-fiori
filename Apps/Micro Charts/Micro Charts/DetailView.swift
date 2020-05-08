@@ -11,30 +11,54 @@ import FioriCharts
 
 struct DetailView: View {
     @ObservedObject var model: ChartModel
+    @State var isFullScreen: Bool = false
     
     var body: some View {
         //print(String(describing: model))
         
         return GeometryReader { geometry in
             if geometry.size.width <= geometry.size.height {
-                VStack(alignment: .leading, spacing: 0) {
-                    ChartView(self.model).padding()
-                        .frame(height: geometry.size.width * 2 / 3)
+                VStack(alignment: .center, spacing: 0) {
+                    ZStack(alignment: .topLeading) {
+                        HStack(alignment: .center) {
+                            ChartView(self.model).padding()
+                                .frame(height: geometry.size.width * 2 / 3)
+                        }.frame(height: self.isFullScreen ? (geometry.size.height - 32) : geometry.size.width * 2 / 3)
+                        
+                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                            .font(.body)
+                            .padding(8)
+                            .onTapGesture {
+                                self.isFullScreen.toggle()
+                        }
+                    }
                     
-                    Divider().edgesIgnoringSafeArea(.all)
-                    
-                    Settings(model: self.model)
+                    if !self.isFullScreen {
+                        Divider().edgesIgnoringSafeArea(.all)
+                        
+                        Settings(model: self.model)
+                    }
                 }
             }
             else {
                 HStack(spacing: 0) {
-                    ChartView(self.model).padding()
-                        .frame(width: geometry.size.width / 2)
+                    ZStack(alignment: .topLeading) {
+                        ChartView(self.model).padding()
+                            .frame(width: self.isFullScreen ? (geometry.size.width - 32) : geometry.size.width / 2)
+                        
+                        Image(systemName: "arrow.up.left.and.arrow.down.right")
+                            .font(.body)
+                            .padding(8)
+                            .onTapGesture {
+                                self.isFullScreen.toggle()
+                        }
+                    }
                     
-                    Divider().edgesIgnoringSafeArea(.all)
+                    if !self.isFullScreen {
+                        Divider().edgesIgnoringSafeArea(.all)
 
-                    Settings(model: self.model)
-                    
+                        Settings(model: self.model)
+                    }
                 }
             }
         }
