@@ -49,7 +49,7 @@ public struct SegmentedControl: View {
         }
     }
 
-    /// Custom cell title insets.
+    /// Custom title insets for each segment.
     public var titleInsets: EdgeInsets {
         get {
             return model.titleInset
