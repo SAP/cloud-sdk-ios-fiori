@@ -293,8 +293,6 @@ class ChartUtility {
         let dmin = min(dMin, dMax)
         let dmax = dMin == dMax ? (dMax + 1): max(dMin, dMax)
     
-        let plotBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
-        
         if !adjustToNiceValues || dmax - dmin < eps {
             //if the range is near the floating point limit,
             //let seq generate some equally spaced steps.
@@ -350,6 +348,7 @@ class ChartUtility {
             tickValues.reverse()
             tickPositions.reverse()
             
+            let plotBaselineValue: CGFloat = tickMaximum <= 0.0 ? tickMaximum : (tickMinimum < 0 ? 0 : tickMinimum)
             let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
             return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
         }
@@ -481,6 +480,7 @@ class ChartUtility {
         tickValues.reverse()
         tickPositions.reverse()
         
+        let plotBaselineValue: CGFloat = tickMaximum <= 0.0 ? tickMaximum : (tickMinimum < 0 ? 0 : tickMinimum)
         let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
     }
