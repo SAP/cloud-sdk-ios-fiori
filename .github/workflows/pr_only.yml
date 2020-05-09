@@ -1,0 +1,15 @@
+name: PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+
+  swift-api-assign-reviewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: MarcoEidinger/swift-api-assign-reviewer@1.0.0
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          configuration-path: ".github/configActions/swift-api-assign-reviewer.yml"
