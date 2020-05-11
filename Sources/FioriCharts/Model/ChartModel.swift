@@ -210,17 +210,22 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// When false a state is allowed in which no series is selected/active.
     @Published public var selectionRequired: Bool = false
     
-    @Published public var selectedSeriesIndex: Int?
+    @Published public var selectedSeriesIndex: Int? {
+        didSet {
+            if chartType == .stock {
+                if selectedSeriesIndex != nil {
+                    scale = 1.0
+                    startPos = 0
+                }
+            }
+        }
+    }
     
     /**
      Selects a category range, including the lower and and upper bounds of the range. The resulting selection(s) depend on the current `selectionMode`.
      */
     @Published public var selectedCategoryInRange: ClosedRange<Int>?
     @Published public var selectedDimensionInRange: ClosedRange<Int>?
-    
-    // scale is not allowed to be less than 1.0
-    @Published public var scale: CGFloat = 1.0
-    @Published public var startPos: Int = 0
     
     //
     // Flag that indicates if we should adjust to nice values, or use the data
@@ -242,6 +247,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     // Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
     // By default, all column based charts have this enabled and all line based don't.
     @Published public var fudgeYAxisRange = false
+    
+    /*
+     Internal runtime properties
+     */
+    // scale is not allowed to be less than 1.0
+    @Published var scale: CGFloat = 1.0
+    @Published var startPos: Int = 0
     
     /// internal property for series data range
     var ranges: [ClosedRange<CGFloat>]

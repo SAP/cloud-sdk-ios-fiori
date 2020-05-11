@@ -32,12 +32,8 @@ struct SettingsSelection: View {
                 
                 Stepper("Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
                     self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % max(1, self.model.numOfSeries())
-                    self.model.scale = 1.0
-                    self.model.startPos = 0
                 }, onDecrement:  {
                     self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
-                    self.model.scale = 1.0
-                    self.model.startPos = 0
                 })
                 
                 Text("Selected Category Indexes: TODO")
