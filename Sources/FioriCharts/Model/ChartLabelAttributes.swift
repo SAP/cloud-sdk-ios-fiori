@@ -57,7 +57,7 @@ extension ChartLabelAttributes: Equatable {
 extension ChartLabelAttributes: CustomStringConvertible {
     public var description: String {
         let nf = NumberFormatter()
-        nf.numberStyle = .decimal
+        nf.numberStyle = .none
         nf.maximumFractionDigits = 2
     
         return """

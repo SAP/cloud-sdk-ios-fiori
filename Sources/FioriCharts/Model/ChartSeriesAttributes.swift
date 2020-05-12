@@ -74,7 +74,7 @@ extension ChartSeriesAttributes: Equatable {
 extension ChartSeriesAttributes: CustomStringConvertible {
     public var description: String {
         let nf = NumberFormatter()
-        nf.numberStyle = .decimal
+        nf.numberStyle = .none
         nf.maximumFractionDigits = 2
         
         return """

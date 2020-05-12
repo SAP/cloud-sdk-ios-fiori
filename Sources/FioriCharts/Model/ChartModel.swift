@@ -124,11 +124,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// background color for the whole chart
     @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
     
-    @Published public var selectionEnabled: Bool = false
-    @Published public var zoomEnabled: Bool = false
-    
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
+    
+//    @Published public var selectionEnabled: Bool = false
+//    @Published public var zoomEnabled: Bool = false
     
     /// snap to point when dragging a chart
     @Published public var snapToPoint: Bool = false
@@ -1008,8 +1008,8 @@ extension ChartModel: CustomStringConvertible {
         }
         
         return """
-        {
-        "ChartModel": {
+{
+    "ChartModel": {
         "chartType": "\(chartType.rawValue)",
         "data": \(String(describing: data)),
         "titlesForCategory": \(titlesForCategoryDesc),
@@ -1018,8 +1018,6 @@ extension ChartModel: CustomStringConvertible {
         "titlesForAxis": \(titlesForAxisDesc),
         "numberOfGridlines": \(numberOfGridlines),
         "userInteractionEnabled": \(userInteractionEnabled),
-        "selectionEnabled": \(selectionEnabled),
-        "zoomEnabled": \(zoomEnabled),
         "snapToPoint": \(snapToPoint),
         "backgroundColor": \(String(describing: backgroundColor)),
         "seriesAttributes": \(String(describing: seriesAttributes)),
@@ -1028,15 +1026,28 @@ extension ChartModel: CustomStringConvertible {
         "secondaryNumericAxis": \(String(describing: secondaryNumericAxis)),
         "indexesOfSecondaryValueAxis": \(String(describing: indexesOfSecondaryValueAxis.sorted())),
         "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
-        "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted()))
-        }
-        }
-        """
+        "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted())),
+        "selectionMode": "\(selectionMode.rawValue)",
+        "defaultCategorySelectionMode": "\(defaultCategorySelectionMode.rawValue)",
+        "selectionRequired": \(selectionRequired),
+        "selectedSeriesIndex": "\(String(describing: selectedSeriesIndex))",
+        "selectedCategoryInRange": "\(String(describing: selectedCategoryInRange))",
+        "selectedDimensionInRange": "\(String(describing: selectedDimensionInRange))",
+        "adjustToNiceValues": \(adjustToNiceValues),
+        "fudgeYAxisRange": \(fudgeYAxisRange),
+        "scale": \(String(describing: scale)),
+        "startPos": \(String(describing: startPos)),
+        "ranges": "\(String(describing: ranges))",
+        "numericAxisTickValues": \(String(describing: numericAxisTickValues)),
+        "secondaryNumericAxisTickValues": \(String(describing: secondaryNumericAxisTickValues))
+    }
+}
+"""
     }
 }
 
 /// Enum for available selection modes.
-public enum ChartSelectionMode {
+public enum ChartSelectionMode: String {
     
     /// Selects a single value in the currently selected series and category indices.
     case single
@@ -1046,7 +1057,7 @@ public enum ChartSelectionMode {
 }
 
 /// Enum for default category selection.
-public enum ChartCategorySelectionMode {
+public enum ChartCategorySelectionMode: String {
     
     /// No default selection mode is defined. Any set selection will be used.
     case index
@@ -1059,7 +1070,7 @@ public enum ChartCategorySelectionMode {
 }
 
 /// Selection state for points and rects in the chart.
-enum ChartSelectionState {
+enum ChartSelectionState: String {
     case normal
     case selected
     case highlighted
@@ -1067,7 +1078,7 @@ enum ChartSelectionState {
 }
 
 /// value type for Numberic Axis
-enum ChartValueType {
+enum ChartValueType: String {
     case allPositive
     case allNegative
     case mixed

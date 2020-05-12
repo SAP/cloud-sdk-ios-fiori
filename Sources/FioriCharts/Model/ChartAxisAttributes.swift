@@ -112,6 +112,39 @@ struct AxisTickValues {
     let tickCount: UInt
 }
 
+extension AxisTickValues: CustomStringConvertible {
+    var description: String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .none
+        nf.maximumFractionDigits = 2
+        
+        return """
+{
+    "AxisTickValues": {
+        "plotMinimum": \(nf.string(from: NSNumber(value: Double(plotMinimum))) ?? ""),
+        "plotMaximum": \(nf.string(from: NSNumber(value: Double(plotMaximum))) ?? ""),
+        "plotBaselineValue": \(nf.string(from: NSNumber(value: Double(plotBaselineValue))) ?? ""),
+        "plotBaselinePosition": \(nf.string(from: NSNumber(value: Double(plotBaselinePosition))) ?? ""),
+        "tickMinimum": \(nf.string(from: NSNumber(value: Double(tickMinimum))) ?? ""),
+        "tickMaximum": \(nf.string(from: NSNumber(value: Double(tickMaximum))) ?? ""),
+        "dataMinimum": \(nf.string(from: NSNumber(value: Double(dataMinimum))) ?? ""),
+        "dataMaximum": \(nf.string(from: NSNumber(value: Double(dataMaximum))) ?? ""),
+        "plotRange": \(nf.string(from: NSNumber(value: Double(plotRange))) ?? ""),
+        "tickRange": \(nf.string(from: NSNumber(value: Double(tickRange))) ?? ""),
+        "dataRange": \(nf.string(from: NSNumber(value: Double(dataRange))) ?? ""),
+        "plotScale": \(nf.string(from: NSNumber(value: Double(plotScale))) ?? ""),
+        "tickScale": \(nf.string(from: NSNumber(value: Double(tickScale))) ?? ""),
+        "dataScale": \(nf.string(from: NSNumber(value: Double(dataScale))) ?? ""),
+        "tickStepSize": \(nf.string(from: NSNumber(value: Double(tickStepSize))) ?? ""),
+        "tickValues": \(String(describing: tickValues)),
+        "tickPositions": \(String(describing: tickPositions)),
+        "tickCount": \(String(describing: tickCount))
+    }
+}
+"""
+    }
+}
+
 public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {
     /// Provides an identifier that associates the axis with a position and orientation in the chart.
     @Published public var axisId: ChartAxisId?

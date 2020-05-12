@@ -32,7 +32,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
     
     public var description: String {
         let nf = NumberFormatter()
-            nf.numberStyle = .decimal
+            nf.numberStyle = .none
             nf.maximumFractionDigits = 2
         
             return """
@@ -88,7 +88,7 @@ public class ChartBaselineAttributes: ChartGridlineAttributes {
 
     public override var description: String {
         let nf = NumberFormatter()
-        nf.numberStyle = .decimal
+        nf.numberStyle = .none
         nf.maximumFractionDigits = 2
         
         return """
