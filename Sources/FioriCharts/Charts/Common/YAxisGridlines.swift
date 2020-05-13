@@ -10,6 +10,7 @@ import SwiftUI
 struct YAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.layoutDirection) var layoutDirection
     
     weak var axisDataSource: AxisDataSource? = nil
     var displayRange: ClosedRange<CGFloat>
@@ -31,7 +32,7 @@ struct YAxisGridlines: View {
         let secondary: Bool = indexes.isEmpty ? true : false
         
         var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, secondary: secondary) {
+        if let res = axisDataSource?.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary) {
             yAxisLabels = res
         }
         

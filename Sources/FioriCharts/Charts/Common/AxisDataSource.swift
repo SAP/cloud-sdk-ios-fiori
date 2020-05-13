@@ -15,7 +15,7 @@ protocol AxisDataSource: class {
     
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String
     
-    func yAxisLabels(_ model: ChartModel, rect: CGRect, secondary: Bool) -> [AxisTitle]
+    func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
     
     func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect)
 }
@@ -223,7 +223,7 @@ class DefaultAxisDataSource: AxisDataSource {
         return formattedString
     }
     
-    func yAxisLabels(_ model: ChartModel, rect: CGRect, secondary: Bool = false) -> [AxisTitle] {
+    func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
         let ticks = secondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
         let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         
@@ -235,7 +235,21 @@ class DefaultAxisDataSource: AxisDataSource {
             let val = ticks.tickValues[i]
             let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
-            let x = secondary ? (size.width / 2 + 1) : (rect.size.width - CGFloat(axis.baseline.width) - 1 - size.width / 2)
+            let x: CGFloat
+            if secondary {
+                if layoutDirection == .leftToRight {
+                    x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
+                } else {
+                    x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
+                }
+            } else {
+                if layoutDirection == .leftToRight {
+                    x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
+                } else {
+                    x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
+                }
+            }
+
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,

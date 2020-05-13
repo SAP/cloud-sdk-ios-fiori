@@ -31,12 +31,12 @@ struct XAxisView: View {
             xAxisLabels = res
         }
         
-        var baselineYPos: CGFloat = 0
-        var labelYPos: CGFloat = rect.size.height / 2
+        var baselineYPos: CGFloat = model.categoryAxis.baseline.width / 2
+        var labelYPos: CGFloat = model.categoryAxis.baseline.width + 3 + (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
         let valueType = model.valueType
         if valueType == .allNegative {
-            labelYPos = rect.size.height / 2
-            baselineYPos = rect.size.height
+            labelYPos = (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
+            baselineYPos = rect.size.height - model.categoryAxis.baseline.width / 2
         }
         
         return ZStack {

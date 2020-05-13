@@ -100,7 +100,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             if yAxisWidth == 0 {
                 useSecondary = true
             }
-            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, secondary: useSecondary)
+            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
             for label in yAxisLabels {
                 if abs(label.value) < 0.001 {
                     baselineYPos = label.pos.y
@@ -113,17 +113,17 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return HStack(alignment: .top, spacing: 0) {
             VStack(spacing: 0) {
-                YAxisView(axisDataSource: axisDataSource)
-                    .frame(height: yAxisRect.size.height)
-                    .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
-                    .zIndex(2)
-                    .environmentObject(self.model)
+                if yAxisWidth > 0 {
+                    YAxisView(axisDataSource: axisDataSource)
+                        .frame(height: yAxisRect.size.height)
+                        .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                        .environmentObject(self.model)
+                }
             }.frame(width: yAxisRect.size.width, height: rect.size.height)
             
             VStack(alignment: .leading, spacing: 0) {
                 if model.valueType == .allPositive {
                     GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
-                    //.zIndex(1)
                     
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
@@ -131,14 +131,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 } else if model.valueType == .allNegative {
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
+                        .zIndex(1)
                         .environmentObject(self.model)
                     
                     GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
-                    //.zIndex(1)
                 } else {
                     ZStack {
                         GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
-                        //.zIndex(1)
                         
                         XAxisView(axisDataSource: axisDataSource)
                             .frame(height: xAxisRect.height)
@@ -150,11 +149,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             
             // secondary numerix axis
             VStack(spacing: 0) {
-                YAxisView(axisDataSource: axisDataSource, secondary: true)
-                    .frame(height: secondaryYAxisRect.size.height)
-                    .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
-                    .zIndex(2)
-                    .environmentObject(self.model)
+                if secondaryYAxisWidth > 0 {
+                    YAxisView(axisDataSource: axisDataSource, secondary: true)
+                        .frame(height: secondaryYAxisRect.size.height)
+                        .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
+                        .zIndex(2)
+                        .environmentObject(self.model)
+                }
             }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
         }
     }
@@ -255,9 +256,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         var totalWidth: CGFloat = 0
         for label in labels {
             let size = label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-            height = max(height, size.height)
-            totalWidth += size.width + 2
+            // spacing btw baseline and labels are 3pt
+            height = max(height, size.height + model.categoryAxis.baseline.width + 3)
+            // min spacing btw labels are 4pt
+            totalWidth += size.width + 4
         }
+        totalWidth -= 4
         
         // show nothing
         if model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
@@ -294,15 +298,17 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             return axis.gridlines.width
         }
     
+        // min width is 20
         var width: CGFloat = 20
-        let labels = axisDataSource.yAxisLabels(model, rect: rect, secondary: secondary)
+        let labels = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
         for label in labels {
             let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
-            width = max(width, size.width)
+            // spacing btw baseline and labels are 3pt
+            width = max(width, size.width + axis.baseline.width / 2.0 + 3)
         }
         
-        return width + 6
+        return width
     }
 }
 
