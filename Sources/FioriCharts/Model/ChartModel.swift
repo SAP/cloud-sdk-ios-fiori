@@ -324,8 +324,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     var valueType: ChartValueType {
-        let range: ClosedRange<CGFloat> = ranges.reduce(ranges[0]) { (result, next) -> ClosedRange<CGFloat> in
-            return min(result.lowerBound, next.lowerBound) ... max(result.upperBound, next.upperBound)
+        let allIndexs = IndexSet(integersIn: 0 ..< data.count)
+        let indexes = indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let seriesIndex = indexes.isEmpty ? allIndexs.sorted() : indexes
+        
+        if seriesIndex.isEmpty {
+            return .allPositive
+        }
+        
+        let range: ClosedRange<CGFloat> = seriesIndex.reduce(ranges[seriesIndex[0]]) { (result, next) -> ClosedRange<CGFloat> in
+            return min(result.lowerBound, ranges[next].lowerBound) ... max(result.upperBound, ranges[next].upperBound)
         }
         
         if range.lowerBound >= 0 {

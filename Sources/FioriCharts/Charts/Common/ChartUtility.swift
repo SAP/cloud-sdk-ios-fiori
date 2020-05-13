@@ -348,7 +348,7 @@ class ChartUtility {
             tickValues.reverse()
             tickPositions.reverse()
             
-            let plotBaselineValue: CGFloat = tickMaximum <= 0.0 ? tickMaximum : (tickMinimum < 0 ? 0 : tickMinimum)
+            let plotBaselineValue: CGFloat = plotMaximum <= 0.0 ? plotMaximum : (plotMinimum < 0 ? 0 : plotMinimum)
             let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
             return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
         }
@@ -480,7 +480,7 @@ class ChartUtility {
         tickValues.reverse()
         tickPositions.reverse()
         
-        let plotBaselineValue: CGFloat = tickMaximum <= 0.0 ? tickMaximum : (tickMinimum < 0 ? 0 : tickMinimum)
+        let plotBaselineValue: CGFloat = plotMaximum <= 0.0 ? plotMaximum : (plotMinimum < 0 ? 0 : plotMinimum)
         let plotBaselinePosition = plotScale * (plotBaselineValue - plotMinimum)
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
     }
