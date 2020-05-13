@@ -427,7 +427,11 @@ class ChartUtility {
             j += 1
         }
         
-        tickCount = UInt(round((best.lmax - best.lmin) / best.lstep) + 1)
+        if best.lstep == 0 {
+            tickCount = 1
+        } else {
+            tickCount = UInt(round((best.lmax - best.lmin) / best.lstep) + 1)
+        }
         
         var rangeStart = dmin
         var rangeEnd = dmax

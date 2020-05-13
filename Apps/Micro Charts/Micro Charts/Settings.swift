@@ -50,7 +50,7 @@ struct Settings: View {
                     }
                     
                     Text("Number of Gridlines: \(model.numberOfGridlines)")
-                    Slider(value: $model.numberOfGridlines.double, in: 1...10, step: 1)
+                    Slider(value: $model.numberOfGridlines.double, in: 1...20, step: 1)
                 }
                 
                 Section(header: Text("Index Set")) {

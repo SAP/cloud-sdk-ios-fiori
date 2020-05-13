@@ -142,7 +142,15 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published public var colorsForCategory: [Int: [Int: HexColor]]
     
     /// number of gridlines for numeric axis
-    @Published public var numberOfGridlines: Int = 2
+    @Published public var numberOfGridlines: Int = 2 {
+        didSet {
+            if numberOfGridlines < 1 {
+                numberOfGridlines = 1
+            } else if numberOfGridlines > 20 {
+                numberOfGridlines = 20
+            }
+        }
+    }
     
     /**
      Provides attributes for the category axis.

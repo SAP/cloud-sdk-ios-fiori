@@ -25,13 +25,16 @@ struct StockMicroChart: View {
 
 class StockAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        var result: [AxisTitle] = []
         let width = rect.size.width
+        if width <= 0 {
+            return result
+        }
+        
         let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
         let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
-        
-        var result: [AxisTitle] = []
         
         guard let startDate = getDateAtIndex(model, index: startIndex),
             let endDate = getDateAtIndex(model, index: endIndex) else {
