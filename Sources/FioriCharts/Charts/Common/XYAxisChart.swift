@@ -162,26 +162,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     // swiftlint:disable function_body_length
     func GridLinesAndChartView(chartRect: CGRect, displayRange: ClosedRange<CGFloat>) -> some View {
-        // drag to show the indicator
-        let pan = LongPressGesture(minimumDuration: 0.5)
-            .sequenced(before: DragGesture())
-            .onChanged({ value in
-                switch value {
-                case .second(true, let drag):
-                    if let value = drag {
-                        self.showIndicator = true
-                        let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
-                        self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: value.location.y), rect: chartRect)
-                    }
-                default:
-                    break
-                }
-            })
-            .onEnded({ _ in
-                self.showIndicator = false
-            })
-        
-        // drag chart horizontally or drag to show the indicator
+        // pan chart horizontally or slide to show the indicator if it is not zoomed in
         let drag = DragGesture()
             .onChanged({ value in
                 // not zoomed in
@@ -192,6 +173,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     return
                 }
                 
+                self.showIndicator = false
                 self.draggingChartView = true
                 let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
                 let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
@@ -204,7 +186,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 }
             })
             .onEnded({ _ in
-                self.showIndicator = false
                 self.draggingChartView = false
                 self.lastStartPos = self.model.startPos
             })
@@ -231,11 +212,20 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return ZStack {
             self.chartView
-                .opacity(draggingChartView ? 0.4 : 1.0)
-                .gesture(pan)
-                .gesture(drag)
-                .gesture(mag)
-                .disabled(!model.userInteractionEnabled)
+                .opacity( (draggingChartView || showIndicator) ? 0.4 : 1.0)
+            
+            Background(tappedCallback: { (location) in
+                print("single tapped at \(location)")
+                self.showIndicator = true
+                let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
+                self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
+            }) { (location) in
+                print("double tapped at \(location)")
+                self.showIndicator = false
+            }
+            .gesture(drag)
+            .gesture(mag)
+            .disabled(!model.userInteractionEnabled)
             
             XAxisGridlines(axisDataSource: axisDataSource)
                 .environmentObject(model)
@@ -245,6 +235,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             if self.showIndicator {
                 indicatorView
             }
+            
         }.frame(width: chartRect.size.width, height: chartRect.size.height)
     }
     
@@ -309,6 +300,57 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
         
         return width
+    }
+}
+
+struct Background: UIViewRepresentable {
+    var tappedCallback: ((CGPoint) -> Void)
+    var doubleTappedCallback: ((CGPoint) -> Void)
+    
+    func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
+        let v = UIView(frame: .zero)
+        let gesture = UITapGestureRecognizer(target: context.coordinator,
+                                             action: #selector(Coordinator.tapped))
+        v.addGestureRecognizer(gesture)
+        
+        // double tap used to cancel the selection
+        let doubleTapGesture = UITapGestureRecognizer(target: context.coordinator,
+                                                      action: #selector(Coordinator.doubleTapped))
+        doubleTapGesture.numberOfTapsRequired = 2
+        
+        v.addGestureRecognizer(doubleTapGesture)
+        
+        return v
+    }
+    
+    class Coordinator: NSObject {
+        var tappedCallback: ((CGPoint) -> Void)
+        var doubleTappedCallback: ((CGPoint) -> Void)
+        
+        init(tappedCallback: @escaping ((CGPoint) -> Void), doubleTappedCallback: @escaping ((CGPoint) -> Void)) {
+            self.tappedCallback = tappedCallback
+            self.doubleTappedCallback = doubleTappedCallback
+        }
+        
+        @objc func tapped(gesture: UITapGestureRecognizer) {
+            let point = gesture.location(in: gesture.view)
+            
+            self.tappedCallback(point)
+        }
+        
+        @objc func doubleTapped(gesture: UITapGestureRecognizer) {
+            let point = gesture.location(in: gesture.view)
+        
+            self.doubleTappedCallback(point)
+        }
+    }
+    
+    func makeCoordinator() -> Background.Coordinator {
+        return Coordinator(tappedCallback: self.tappedCallback, doubleTappedCallback: self.doubleTappedCallback)
+    }
+    
+    func updateUIView(_ uiView: UIView,
+                      context: UIViewRepresentableContext<Background>) {
     }
 }
 

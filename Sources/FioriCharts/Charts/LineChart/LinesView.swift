@@ -26,7 +26,7 @@ struct LinesView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         ZStack {
-            model.backgroundColor.color(colorScheme)
+            //model.backgroundColor.color(colorScheme)
             
             self.makeLinesBody(in: rect, secondary: false)
             

@@ -73,7 +73,7 @@ struct StockLinesView: View {
         let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
         
         return ZStack {
-            model.backgroundColor.color(colorScheme)
+            //model.backgroundColor.color(colorScheme)
             if !noData {
                 ZStack {
                     HStack(spacing: 0) {
