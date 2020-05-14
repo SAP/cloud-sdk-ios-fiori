@@ -121,9 +121,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// app to provide this to format values from numeric axis
     public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
     
-    /// background color for the whole chart
-    @Published public var backgroundColor: HexColor = Palette.hexColor(for: .background)
-    
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
     
@@ -361,7 +358,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]],
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
-                backgroundColor: HexColor,
                 selectedSeriesIndex: Int?,
                 userInteractionEnabled: Bool,
                 seriesAttributes: [ChartSeriesAttributes],
@@ -377,7 +373,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._colorsForCategory = Published(initialValue: colorsForCategory)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
-        self._backgroundColor = Published(initialValue: backgroundColor)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
@@ -860,7 +855,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               colorsForCategory: self.colorsForCategory,
                               titlesForAxis: self.titlesForAxis,
                               labelsForDimension: self.labelsForDimension,
-                              backgroundColor: self.backgroundColor,
                               selectedSeriesIndex: self.selectedSeriesIndex,
                               userInteractionEnabled: self.userInteractionEnabled,
                               seriesAttributes: self.seriesAttributes.map {
@@ -900,7 +894,6 @@ extension ChartModel: Equatable {
             lhs.colorsForCategory == rhs.colorsForCategory &&
             lhs.titlesForAxis == rhs.titlesForAxis &&
             lhs.labelsForDimension == rhs.labelsForDimension &&
-            lhs.backgroundColor == rhs.backgroundColor &&
             lhs.selectedSeriesIndex == rhs.selectedSeriesIndex &&
             lhs.userInteractionEnabled == rhs.userInteractionEnabled &&
             lhs.seriesAttributes == rhs.seriesAttributes &&
@@ -1035,7 +1028,6 @@ extension ChartModel: CustomStringConvertible {
         "numberOfGridlines": \(numberOfGridlines),
         "userInteractionEnabled": \(userInteractionEnabled),
         "snapToPoint": \(snapToPoint),
-        "backgroundColor": \(String(describing: backgroundColor)),
         "seriesAttributes": \(String(describing: seriesAttributes)),
         "categoryAxis": \(String(describing: categoryAxis)),
         "numericAxis": \(String(describing: numericAxis)),
