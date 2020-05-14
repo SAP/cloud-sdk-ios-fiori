@@ -65,12 +65,12 @@ struct LineIndicatorView: View {
                 
                 SelectionAnchorShape()
                     .rotation(Angle(degrees: 180))
-                    .fill(Color.black)
+                    .fill(Palette.hexColor(for: .primary2).color(colorScheme))
                     .frame(width: 9, height: 4)
                     .position(x: x, y: 2)
                 
                 SelectionAnchorShape()
-                    .fill(Color.black)
+                    .fill(Palette.hexColor(for: .primary2).color(colorScheme))
                     .frame(width: 9, height: 4)
                     .position(x: x, y: rect.origin.y + rect.size.height - 2)
                 
