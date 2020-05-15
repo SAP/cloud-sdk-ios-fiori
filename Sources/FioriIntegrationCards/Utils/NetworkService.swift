@@ -11,7 +11,7 @@ import UIKit
 enum NetworkRouter: String {
     typealias RawValue = String
     
-    static let baseURLString = "http://veui5infra.dhcp.wdf.sap.corp:8080/sapui5-sdk-dist/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/samples"
+    static let baseURLString = "https://openui5.hana.ondemand.com/1.77.2/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/samples"
     
     case image      = "image/"
     
