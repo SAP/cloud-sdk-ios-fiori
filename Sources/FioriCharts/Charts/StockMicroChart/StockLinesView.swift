@@ -23,6 +23,7 @@ struct StockLinesView: View {
         }
     }
     
+    //swiftlint:disable function_body_length
     func makeBody(in rect: CGRect) -> some View {
         let displayRange = ChartUtility.displayRange(model)
         var noData = false
@@ -71,40 +72,64 @@ struct StockLinesView: View {
         let rgba = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].rgba(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].rgba(colorScheme)
         let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
         let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
+        let gradientColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: 0.0)
         
         return ZStack {
             if !noData {
-                ZStack {
-                    HStack(spacing: 0) {
-                        LinesShape(points: data,
-                                   displayRange: displayRange,
-                                   layoutDirection: self.layoutDirection,
-                                   fill: true,
-                                   startOffset: startOffset,
-                                   endOffset: endOffset)
-                            .fill(LinearGradient(gradient:
-                                Gradient(colors: [fillColor, model.seriesAttributes[seriesIndex].palette.colors[4].color(self.colorScheme)]),
-                                                 startPoint: .top,
-                                                 endPoint: .bottom))
-                            .frame(width: width, height: height)
-                            .clipped()
-                        Spacer(minLength: 0)
-                    }.frame(width: rect.size.width, height: height)
+                HStack(spacing: 0) {
+                    LinesShape(points: data,
+                               displayRange: displayRange,
+                               layoutDirection: self.layoutDirection,
+                               fill: true,
+                               startOffset: startOffset,
+                               endOffset: endOffset)
+                        .fill(LinearGradient(gradient:
+                            Gradient(colors: [fillColor, gradientColor]),
+                                             startPoint: .top,
+                                             endPoint: .bottom))
+                        .frame(width: width, height: height)
+                        .clipped()
                     
-                    HStack(spacing: 0) {
-                        LinesShape(points: data,
-                                   displayRange: displayRange,
-                                   layoutDirection: self.layoutDirection,
-                                   startOffset: startOffset,
-                                   endOffset: endOffset)
-                            .stroke(strokeColor, lineWidth: model.seriesAttributes[seriesIndex].lineWidth)
-                            .frame(width: width, height: height)
-                            .clipped()
                         Spacer(minLength: 0)
-                    }.frame(width: rect.size.width, height: height)
-                }
+                }.frame(width: rect.size.width, height: height)
+            
+                HStack(spacing: 0) {
+                    LinesShape(points: data,
+                               displayRange: displayRange,
+                               layoutDirection: self.layoutDirection,
+                               startOffset: startOffset,
+                               endOffset: endOffset)
+                        .stroke(strokeColor, lineWidth: model.seriesAttributes[seriesIndex].lineWidth)
+                        .frame(width: width, height: height)
+                        .clipped()
+                    
+                    Spacer(minLength: 0)
+                }.frame(width: rect.size.width, height: height)
+                
+                HStack(spacing: 0) {
+                    PointsShape(points: data,
+                            displayRange: displayRange,
+                            layoutDirection: self.layoutDirection,
+                            radius: self.pointRadius(at: seriesIndex),
+                            gap: self.model.seriesAttributes[seriesIndex].point.gap,
+                            startOffset: startOffset,
+                            endOffset: endOffset)
+                    .fill(strokeColor)
+                    .frame(width: width, height: height)
+                    .clipShape(Rectangle()
+                        .size(width: width + self.pointRadius(at: seriesIndex) * 2 + 5, height: rect.size.height + self.pointRadius(at: seriesIndex) * 2 + 5)
+                        .offset(x: -1 * self.pointRadius(at: seriesIndex), y: -1 * self.pointRadius(at: seriesIndex)))
+                
+                    Spacer(minLength: 0)
+                }.frame(width: rect.size.width, height: height)
             }
         }
+    }
+    
+    func pointRadius(at index: Int) -> CGFloat {
+        let pointAttr = model.seriesAttributes[index].point
+        
+        return pointAttr.isHidden ? 0 : CGFloat(pointAttr.diameter/2)
     }
 }
 

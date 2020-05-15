@@ -748,9 +748,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)
-            let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke), Palette.hexColor(for: .stockUpFill), Palette.hexColor(for: .stockDownFill), Palette.hexColor(for: .stockFillEndColor)]
+            let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke)]
             let palette = ChartSeriesPalette(colors: colors)
             let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
+            sa.point.isHidden = true
             return Array(repeating: sa, count: count)
             
         default:

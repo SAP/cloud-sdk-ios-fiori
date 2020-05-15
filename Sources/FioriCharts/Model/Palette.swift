@@ -75,18 +75,6 @@ public enum ColorStyle: String, CaseIterable {
     /// Semantic stroke color for line when stock goes down.
     /// (light variant) ![](https://dummyimage.com/48x18/AB2217.png&text=+)        Hex color: AB2217
     case stockDownStroke
-    
-    /// Semanticfill color for gradient start color when stock goes up.
-    /// (light variant) ![](https://dummyimage.com/48x18/7EFAA1.png&text=+)        Hex color: 7EFAA1
-    case stockUpFill
-    
-    /// Semantic fill color for gradient start color when stock goes up.
-    /// (light variant) ![](https://dummyimage.com/48x18/EDD3D2.png&text=+)        Hex color: EDD3D2
-    case stockDownFill
-    
-    /// Semantic fill color for gradient end color.
-    /// (light variant) ![](https://dummyimage.com/48x18/FCFDFC.png&text=+)        Hex color: FCFDFC
-    case stockFillEndColor
 }
 
 extension ColorStyle: CustomDebugStringConvertible {
@@ -146,12 +134,6 @@ public class Palette {
             return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .stockDownStroke:
             return HexColor(lightColor: "EE6868", darkColor: "EE6868")
-        case .stockUpFill:
-            return HexColor(lightColor: "19A97966", darkColor: "19A97966")
-        case .stockDownFill:
-            return HexColor(lightColor: "EE686866", darkColor: "EE686866")
-        case .stockFillEndColor:
-            return HexColor(lightColor: "FCFDFC", darkColor: "000000")
         }
     }
 }

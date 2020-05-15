@@ -160,7 +160,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
     }
     
-    // swiftlint:disable function_body_length
     func GridLinesAndChartView(chartRect: CGRect, displayRange: ClosedRange<CGFloat>) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         let drag = DragGesture()
@@ -212,15 +211,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return ZStack {
             self.chartView
-                .opacity( (draggingChartView || showIndicator) ? 0.4 : 1.0)
+                .opacity( (draggingChartView || showIndicator) ? 0.25 : 1.0)
             
             Background(tappedCallback: { (location) in
-                print("single tapped at \(location)")
                 self.showIndicator = true
                 let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
                 self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
-            }) { (location) in
-                print("double tapped at \(location)")
+            }) { (_) in
                 self.showIndicator = false
             }
             .gesture(drag)

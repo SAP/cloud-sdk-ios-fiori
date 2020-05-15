@@ -26,7 +26,6 @@ struct StockIndicatorView: View {
     // swiftlint:disable force_unwrapping
     func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
-        var priceStr: String = ""
         var closestPoint: CGPoint? = nil
         
         if let tmp = model.selectedCategoryInRange {
@@ -48,24 +47,48 @@ struct StockIndicatorView: View {
             let y = rect.size.height - (CGFloat(price) - minVal) * rect.size.height / max(maxVal - minVal, 1) + rect.origin.y
             
             closestPoint = CGPoint(x: x, y: y)
-        
-            priceStr = String(Double(price))
         }
+        
+        let seriesIndex = model.currentSeriesIndex
+        var isPriceGoingUp = true
+        if let startPrice = ChartUtility.dimensionValue(model, categoryIndex: 0), let endPrice = ChartUtility.dimensionValue(model, categoryIndex: ChartUtility.lastValidDimIndex(model)) {
+            if startPrice > endPrice {
+                isPriceGoingUp = false
+            }
+        }
+        
+        let strokeColor = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].color(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].color(colorScheme)
         
         return ZStack {
             if closestDataIndex >= 0 {
                 LineShape(pos1: CGPoint(x: x, y: rect.origin.y),
                           pos2: CGPoint(x: x, y: rect.origin.y + rect.size.height),
                           layoutDirection: layoutDirection)
-                    .stroke(Palette.hexColor(for: .primary1).color(colorScheme), lineWidth: 1)
+                    .stroke(Palette.hexColor(for: .primary2).color(colorScheme), lineWidth: 1)
+                
+                SelectionAnchorShape()
+                    .rotation(Angle(degrees: 180))
+                    .fill(Palette.hexColor(for: .primary2).color(colorScheme))
+                    .frame(width: 9, height: 4)
+                    .position(x: x, y: 2)
+                
+                SelectionAnchorShape()
+                    .fill(Palette.hexColor(for: .primary2).color(colorScheme))
+                    .frame(width: 9, height: 4)
+                    .position(x: x, y: rect.origin.y + rect.size.height - 2)
                 
                 if closestPoint != nil {
-                    Text(priceStr)
-                        .font(.caption)
-                        .foregroundColor(Palette.hexColor(for: .primary1).color(colorScheme))
-                        .position(x: x, y: rect.origin.y)
+                    Circle()
+                        .fill(strokeColor)
+                        .frame(width: self.model.seriesAttributes[seriesIndex].point.diameter + 5.0,
+                               height: self.model.seriesAttributes[seriesIndex].point.diameter + 5.0)
+                        .position(closestPoint!)
                     
-                    IndicatorPoint().position(closestPoint!)
+                    Circle().stroke(Palette.hexColor(for: .primary6).color(self.colorScheme),
+                                    style: StrokeStyle(lineWidth: 4))
+                        .frame(width: self.model.seriesAttributes[seriesIndex].point.diameter + 9.0,
+                               height: self.model.seriesAttributes[seriesIndex].point.diameter + 9.0)
+                        .position(closestPoint!)
                 }
             }
         }
