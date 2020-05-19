@@ -527,7 +527,7 @@ class ChartUtility {
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
-        let val = model.plotItem(at: seriesIndex, category: categoryIndex, dimension: dimensionIndex)
+        let val = model.plotItemValue(at: seriesIndex, category: categoryIndex, dimension: dimensionIndex)
         
         if let realVal = val {
             return CGFloat(realVal)
