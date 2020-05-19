@@ -236,10 +236,35 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /**
      The currently selected plot items for the ChartView
-     format: [seriesIndex0: ClosedRange<Int>,seriesIndex1:ClosedRange<Int>, ... ]
+     format: [first is selected series range, second is selected category range]
      */
-
-    @Published public var selections: [ClosedRange<Int>]?
+    @Published public internal(set) var selections: [ClosedRange<Int>]?
+    
+    /// Returns plot item value  for given indexes of series, category and dimension.
+    public func plotItemValue(at series: Int, category: Int, dimension: Int) -> Double? {
+        if series < 0 || series >= data.count || data[series].isEmpty || category < 0 || category >= data[series].count {
+            return nil
+        }
+                
+        switch data[series][category] {
+        case .single(let val):
+            if dimension == 0 {
+                if let realVal = val {
+                    return Double(realVal)
+                }
+            }
+                
+            return nil
+        case .array(let vals):
+            if dimension >= 0 && dimension < vals.count {
+                if let realVal = vals[dimension] {
+                    return Double(realVal)
+                }
+            }
+                
+            return nil
+        }
+    }
     
     /**
      a publisher to notify the changes of chart selections

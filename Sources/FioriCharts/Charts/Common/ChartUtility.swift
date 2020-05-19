@@ -527,19 +527,13 @@ class ChartUtility {
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
-        if model.data.count < seriesIndex || model.data[seriesIndex].isEmpty || categoryIndex < 0 || model.data[seriesIndex].count < categoryIndex {
+        let val = model.plotItem(at: seriesIndex, category: categoryIndex, dimension: dimensionIndex)
+        
+        if let realVal = val {
+            return CGFloat(realVal)
+        } else {
             return nil
         }
-        
-        if let value = model.data[seriesIndex][categoryIndex].value {
-            return value
-        } else if let values = model.data[seriesIndex][categoryIndex].values {
-            if values.count > dimensionIndex {
-                return values[dimensionIndex]
-            }
-        }
-        
-        return nil
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> CGFloat? {

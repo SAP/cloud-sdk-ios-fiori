@@ -13,12 +13,12 @@ import Combine
 struct DetailView: View {
     @ObservedObject var model: ChartModel
     @State var isFullScreen: Bool = false
-    @State var cancellableSet: Set<AnyCancellable> = []
+    //@State var cancellableSet: Set<AnyCancellable> = []
     
     init(model: ChartModel) {
         self.model = model
         
-        model.selectionDidChangePublisher
+        /*model.selectionDidChangePublisher
         .subscribe(on: RunLoop.main)
         .sink(receiveValue: { (selections) in
             if let selections = selections {
@@ -30,7 +30,7 @@ struct DetailView: View {
                 print("No selections")
             }
         })
-        .store(in: &cancellableSet)
+        .store(in: &cancellableSet)*/
     }
     
     var body: some View {
