@@ -218,6 +218,9 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
                 self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
             }) { (_) in
+                // clear selections
+                self.model.selectedCategoryInRange = nil
+                self.model.selections = nil
                 self.showIndicator = false
             }
             .gesture(drag)

@@ -527,7 +527,7 @@ class ChartUtility {
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
-        if model.data.count < seriesIndex || model.data[seriesIndex].isEmpty || model.data[seriesIndex].count < categoryIndex {
+        if model.data.count < seriesIndex || model.data[seriesIndex].isEmpty || categoryIndex < 0 || model.data[seriesIndex].count < categoryIndex {
             return nil
         }
         

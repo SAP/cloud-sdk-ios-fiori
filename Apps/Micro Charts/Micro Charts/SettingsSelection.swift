@@ -36,7 +36,7 @@ struct SettingsSelection: View {
                     self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
                 })
                 
-                Text("Selected Category Indexes: TODO")
+                Text("Selected Category Indexes: \(String(describing: model.selectedCategoryInRange))")
                 Text("Selected Dimension Indexes: TODO")
             }
         }

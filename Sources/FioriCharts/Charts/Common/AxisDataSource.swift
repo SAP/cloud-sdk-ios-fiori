@@ -273,8 +273,13 @@ class DefaultAxisDataSource: AxisDataSource {
         if xPos - rect.origin.x - rect.size.width > 1 {
             closestDataIndex -= 1
         }
+//        print("selected index = \(index), closestDataIndex = \(closestDataIndex) toPoint = \(toPoint)")
         
         model.selectedCategoryInRange = closestDataIndex ... closestDataIndex
+        let tmpSelections: [ClosedRange<Int>] = [model.currentSeriesIndex ... model.currentSeriesIndex, closestDataIndex ... closestDataIndex]
+        if tmpSelections != model.selections {
+            model.selections = [model.currentSeriesIndex ... model.currentSeriesIndex, closestDataIndex ... closestDataIndex]
+        }
     }
     
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String {

@@ -8,6 +8,8 @@
 
 import Foundation
 import SwiftUI
+import Combine
+
 // swiftlint:disable file_length
 
 /**
@@ -206,9 +208,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      Used in combination with: `select(category:)`, `select(categoriesInRange:)`, `select(series:)`, `select(dimension:)`.
      If no series is selected through `select(series:)`, the first series will be used.
      For Scatter and Bubble charts, if no dimension is defined through `select(dimension:)`, the Y axis dimension will be used.
-     - `MCDefaultCategorySelectionIndex` This is the default behavior, where the given selection will be considered as the initial selection.
-     - `MCDefaultCategorySelectionFirst` The first category will be considered as the default selection.
-     - `MCDefaultCategorySelectionLast` The last gategory will be considered as the default selection.
+     - `index` This is the default behavior, where the given selection will be considered as the initial selection.
+     - `first` The first category will be considered as the default selection.
+     - `last` The last gategory will be considered as the default selection.
      */
     @Published public var defaultCategorySelectionMode: ChartCategorySelectionMode = .index
     
@@ -231,6 +233,36 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var selectedCategoryInRange: ClosedRange<Int>?
     @Published public var selectedDimensionInRange: ClosedRange<Int>?
+    
+    /**
+     The currently selected plot items for the ChartView
+     format: [seriesIndex0: ClosedRange<Int>,seriesIndex1:ClosedRange<Int>, ... ]
+     */
+
+    @Published public var selections: [ClosedRange<Int>]?
+    
+    /**
+     a publisher to notify the changes of chart selections
+     usage:
+        var cancellableSet: Set<AnyCancellable> = []
+
+        model.selectionDidChangePublisher
+        .subscribe(on: RunLoop.main)
+        .sink(receiveValue: { (selections) in
+         if let selections = selections {
+             if selections.count == 2 {
+                 print("Selected series: \(selections[0]), selected categoies: \(selections[1])")
+             }
+         }
+         else {
+             print("No selections")
+         }
+        })
+        .store(in: &cancellableSet)
+     */
+    lazy public private(set) var selectionDidChangePublisher: AnyPublisher<[ClosedRange<Int>]?, Never> = {
+        $selections.eraseToAnyPublisher()
+    }()
     
     //
     // Flag that indicates if we should adjust to nice values, or use the data

@@ -8,10 +8,30 @@
 
 import SwiftUI
 import FioriCharts
+import Combine
 
 struct DetailView: View {
     @ObservedObject var model: ChartModel
     @State var isFullScreen: Bool = false
+    @State var cancellableSet: Set<AnyCancellable> = []
+    
+    init(model: ChartModel) {
+        self.model = model
+        
+        model.selectionDidChangePublisher
+        .subscribe(on: RunLoop.main)
+        .sink(receiveValue: { (selections) in
+            if let selections = selections {
+                if selections.count == 2 {
+                    print("MicroCharts: Selected series: \(selections[0]), selected categoies: \(selections[1])")
+                }
+            }
+            else {
+                print("No selections")
+            }
+        })
+        .store(in: &cancellableSet)
+    }
     
     var body: some View {
         //print(String(describing: model))
@@ -21,7 +41,8 @@ struct DetailView: View {
                 VStack(alignment: .center, spacing: 0) {
                     ZStack(alignment: .topLeading) {
                         HStack(alignment: .center) {
-                            ChartView(self.model).padding()
+                            ChartView(self.model)
+                                .padding()
                                 .frame(height: geometry.size.width * 2 / 3)
                         }.frame(height: self.isFullScreen ? (geometry.size.height - 32) : geometry.size.width * 2 / 3)
                         
