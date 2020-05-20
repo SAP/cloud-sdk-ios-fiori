@@ -475,6 +475,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
                 selectedSeriesIndex: Int?,
+                selectionMode: ChartSelectionMode,
+                selections: [ClosedRange<Int>]?,
                 userInteractionEnabled: Bool,
                 seriesAttributes: [ChartSeriesAttributes],
                 categoryAxis: ChartCategoryAxisAttributes,
@@ -490,6 +492,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._selectionMode = Published(initialValue: selectionMode)
+        self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
         self._categoryAxis = Published(initialValue: categoryAxis)
@@ -527,6 +531,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
                 selectedSeriesIndex: Int? = nil,
+                selectionMode: ChartSelectionMode = .single,
+                selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
@@ -544,6 +550,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._selectionMode = Published(initialValue: selectionMode)
+        self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
@@ -699,6 +707,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
                 selectedSeriesIndex: Int? = nil,
+                selectionMode: ChartSelectionMode = .single,
+                selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
@@ -716,6 +726,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._selectionMode = Published(initialValue: selectionMode)
+        self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
@@ -973,6 +985,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               titlesForAxis: self.titlesForAxis,
                               labelsForDimension: self.labelsForDimension,
                               selectedSeriesIndex: self.selectedSeriesIndex,
+                              selectionMode: self.selectionMode,
+                              selections: self.selections,
                               userInteractionEnabled: self.userInteractionEnabled,
                               seriesAttributes: self.seriesAttributes.map {
                                 let copy = $0.copy() as! ChartSeriesAttributes
@@ -1153,6 +1167,7 @@ extension ChartModel: CustomStringConvertible {
         "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
         "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted())),
         "selectionMode": "\(selectionMode.rawValue)",
+        "selections": "\(String(describing: selections))",
         "selectionRequired": \(selectionRequired),
         "selectedSeriesIndex": "\(String(describing: selectedSeriesIndex))",
         "adjustToNiceValues": \(adjustToNiceValues),
