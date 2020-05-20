@@ -201,18 +201,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - single : Selects a single value in the currently selected series and category indices.
      - all : Selects one value in each series for the selected category index(es).
      */
-    @Published public var selectionMode: ChartSelectionMode = .single
-    
-    /**
-     Default category selection mode for the chart. Defines how the initial selection is handled. Only valid values are selected.
-     Used in combination with: `select(category:)`, `select(categoriesInRange:)`, `select(series:)`, `select(dimension:)`.
-     If no series is selected through `select(series:)`, the first series will be used.
-     For Scatter and Bubble charts, if no dimension is defined through `select(dimension:)`, the Y axis dimension will be used.
-     - `index` This is the default behavior, where the given selection will be considered as the initial selection.
-     - `first` The first category will be considered as the default selection.
-     - `last` The last gategory will be considered as the default selection.
-     */
-    @Published public var defaultCategorySelectionMode: ChartCategorySelectionMode = .index
+    @Published public var selectionMode: ChartSelectionMode = .single {
+        didSet {
+            if let prevSelections = selections {
+                if selectionMode == .single {
+                    selections = [currentSeriesIndex ... currentSeriesIndex, prevSelections[1]]
+                } else {
+                    selections = [0 ... data.count - 1, prevSelections[1]]
+                }
+            }
+        }
+    }
     
     /// When false a state is allowed in which no series is selected/active.
     @Published public var selectionRequired: Bool = false
@@ -223,22 +222,82 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 if selectedSeriesIndex != nil {
                     scale = 1.0
                     startPos = 0
+                    if selections != nil {
+                        selections = nil
+                    }
                 }
             }
         }
     }
     
     /**
-     Selects a category range, including the lower and and upper bounds of the range. The resulting selection(s) depend on the current `selectionMode`.
-     */
-    @Published public var selectedCategoryInRange: ClosedRange<Int>?
-    @Published public var selectedDimensionInRange: ClosedRange<Int>?
-    
-    /**
-     The currently selected plot items for the ChartView
+     Internal stored property for the selection state
      format: [first is selected series range, second is selected category range]
      */
-    @Published public internal(set) var selections: [ClosedRange<Int>]?
+    @Published private var _selections: [ClosedRange<Int>]?
+    
+    /**
+     Set / get current selection state for the chart view
+     nil means no selection
+     format: [first is selected series range, second is selected category range]
+    */
+    public var selections: [ClosedRange<Int>]? {
+        get {
+            return _selections
+        }
+        set {
+            if let values = newValue {
+                if values.count == 2 {
+                    let validSeriesRange: ClosedRange<Int> = 0 ... data.count - 1
+                    let selectedSeriesRange = values[0]
+                    let selectedCategoryRange = values[1]
+                    //let selectedCategoryIndex = selectedCategoryRange.lowerBound
+                    
+                    if chartType == .stock {
+                        // singe sereis
+                        if selectedSeriesRange.count == 1 {
+                            if validSeriesRange.contains(selectedSeriesRange.lowerBound) {
+                                let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
+                                // check if selectedCategoryRange is valid
+                                if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
+                                    _selections = newValue
+                                }
+                            }
+                        }
+                    } else {
+                        // singe sereis
+                        if selectedSeriesRange.count == 1 {
+                            if validSeriesRange.contains(selectedSeriesRange.lowerBound) {
+                                let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
+                                // check if selectedCategoryRange is valid
+                                if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
+                                    _selections = newValue
+                                }
+                            }
+                        } else { // multiple series
+                            // single category selection is allowed only
+                            if selectedCategoryRange.count == 1 {
+                                // check if selectedSeriesRange is valid
+                                if selectedSeriesRange.count == 1 {
+                                    let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
+                                    if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
+                                        _selections = newValue
+                                    }
+                                } else if validSeriesRange == selectedSeriesRange {
+                                    let validCategoryRange = 0 ... data[0].count - 1
+                                    if validCategoryRange.contains(selectedCategoryRange.lowerBound) {
+                                        _selections = newValue
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                _selections = nil
+            }
+        }
+    }
     
     /// Returns plot item value  for given indexes of series, category and dimension.
     public func plotItemValue(at series: Int, category: Int, dimension: Int) -> Double? {
@@ -286,7 +345,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         .store(in: &cancellableSet)
      */
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<[ClosedRange<Int>]?, Never> = {
-        $selections.eraseToAnyPublisher()
+        $_selections.eraseToAnyPublisher()
     }()
     
     //
@@ -1094,11 +1153,8 @@ extension ChartModel: CustomStringConvertible {
         "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
         "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted())),
         "selectionMode": "\(selectionMode.rawValue)",
-        "defaultCategorySelectionMode": "\(defaultCategorySelectionMode.rawValue)",
         "selectionRequired": \(selectionRequired),
         "selectedSeriesIndex": "\(String(describing: selectedSeriesIndex))",
-        "selectedCategoryInRange": "\(String(describing: selectedCategoryInRange))",
-        "selectedDimensionInRange": "\(String(describing: selectedDimensionInRange))",
         "adjustToNiceValues": \(adjustToNiceValues),
         "fudgeYAxisRange": \(fudgeYAxisRange),
         "scale": \(String(describing: scale)),

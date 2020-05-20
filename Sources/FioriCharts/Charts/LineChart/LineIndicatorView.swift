@@ -26,8 +26,11 @@ struct LineIndicatorView: View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var x: CGFloat = 0
         var yPosDict = [Int: CGFloat]()
-        if let tmp = model.selectedCategoryInRange {
-            selectedCategoryRange = tmp
+
+        var selectedSeries: ClosedRange = 0 ... 0
+        if let tmp = model.selections {
+            selectedCategoryRange = tmp[1]
+            selectedSeries = tmp[0]
         }
         
         let closestDataIndex = selectedCategoryRange.lowerBound
@@ -49,7 +52,9 @@ struct LineIndicatorView: View {
                 
                 if let value = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: closestDataIndex) {
                     let y = rect.size.height - (CGFloat(value) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound) + rect.origin.y
-                    yPosDict[i] = y
+                    if selectedSeries.contains(i) {
+                        yPosDict[i] = y
+                    }
                 }
             }
         }

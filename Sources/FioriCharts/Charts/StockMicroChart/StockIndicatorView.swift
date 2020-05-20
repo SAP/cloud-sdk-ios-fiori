@@ -28,8 +28,8 @@ struct StockIndicatorView: View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var closestPoint: CGPoint? = nil
         
-        if let tmp = model.selectedCategoryInRange {
-            selectedCategoryRange = tmp
+        if let tmp = model.selections {
+            selectedCategoryRange = tmp[1]
         }
         
         let closestDataIndex = selectedCategoryRange.lowerBound

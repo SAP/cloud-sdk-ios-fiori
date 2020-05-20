@@ -275,10 +275,12 @@ class DefaultAxisDataSource: AxisDataSource {
         }
 //        print("selected index = \(index), closestDataIndex = \(closestDataIndex) toPoint = \(toPoint)")
         
-        model.selectedCategoryInRange = closestDataIndex ... closestDataIndex
-        let tmpSelections: [ClosedRange<Int>] = [model.currentSeriesIndex ... model.currentSeriesIndex, closestDataIndex ... closestDataIndex]
+        let selectedCategoryInRange: ClosedRange<Int> = closestDataIndex ... closestDataIndex
+        let seriesRange: ClosedRange<Int> = model.chartType == .stock ? (model.currentSeriesIndex ... model.currentSeriesIndex) : (model.selectionMode == .single ? model.currentSeriesIndex ... model.currentSeriesIndex : 0 ... model.data.count - 1)
+        
+        let tmpSelections: [ClosedRange<Int>] = [seriesRange, selectedCategoryInRange]
         if tmpSelections != model.selections {
-            model.selections = [model.currentSeriesIndex ... model.currentSeriesIndex, closestDataIndex ... closestDataIndex]
+            model.selections = [seriesRange, selectedCategoryInRange]
         }
     }
     

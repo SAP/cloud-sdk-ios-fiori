@@ -40,9 +40,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     var indicatorView: Indicator
     var axisDataSource: AxisDataSource
     
-    //    @State var closestPoint:CGPoint = .zero
-    //    @State var closestDataIndex:Int = 0
-    @State var showIndicator = false
     @State var draggingChartView = false
     
     // scale is not allowed to be less than 1.0
@@ -166,13 +163,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .onChanged({ value in
                 // not zoomed in
                 if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
-                    self.showIndicator = true
                     let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
                     self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: value.location.y), rect: chartRect)
                     return
                 }
                 
-                self.showIndicator = false
+                if self.model.selections != nil {
+                    self.model.selections = nil
+                }
                 self.draggingChartView = true
                 let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
                 let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
@@ -192,7 +190,9 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         // zoom in & out
         let mag = MagnificationGesture()
             .onChanged({ value in
-                self.showIndicator = false
+                if self.model.selections != nil {
+                    self.model.selections = nil
+                }
                 let count = ChartUtility.numOfDataItems(self.model)
                 let maxScale = max(1, CGFloat(count - 1) / 2)
                 let tmp = self.lastScale * value.magnitude
@@ -211,17 +211,16 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return ZStack {
             self.chartView
-                .opacity( (draggingChartView || showIndicator) ? 0.25 : 1.0)
+                .opacity( (draggingChartView || self.model.selections != nil) ? 0.25 : 1.0)
             
             Background(tappedCallback: { (location) in
-                self.showIndicator = true
                 let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
                 self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
             }) { (_) in
                 // clear selections
-                self.model.selectedCategoryInRange = nil
-                self.model.selections = nil
-                self.showIndicator = false
+                if self.model.selections != nil {
+                    self.model.selections = nil
+                }
             }
             .gesture(drag)
             .gesture(mag)
@@ -232,10 +231,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             YAxisGridlines(displayRange: displayRange, axisDataSource: axisDataSource)
                 .environmentObject(model)
             
-            if self.showIndicator {
-                indicatorView
-            }
-            
+            indicatorView
         }.frame(width: chartRect.size.width, height: chartRect.size.height)
     }
     
