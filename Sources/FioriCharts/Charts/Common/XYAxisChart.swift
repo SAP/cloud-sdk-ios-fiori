@@ -213,6 +213,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             self.chartView
                 .opacity( (draggingChartView || self.model.selections != nil) ? 0.25 : 1.0)
             
+            XAxisGridlines(axisDataSource: axisDataSource)
+                .environmentObject(model)
+            YAxisGridlines(displayRange: displayRange, axisDataSource: axisDataSource)
+                .environmentObject(model)
+            
+            indicatorView
+            
             Background(tappedCallback: { (location) in
                 let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
                 self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
@@ -225,13 +232,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .gesture(drag)
             .gesture(mag)
             .disabled(!model.userInteractionEnabled)
-            
-            XAxisGridlines(axisDataSource: axisDataSource)
-                .environmentObject(model)
-            YAxisGridlines(displayRange: displayRange, axisDataSource: axisDataSource)
-                .environmentObject(model)
-            
-            indicatorView
         }.frame(width: chartRect.size.width, height: chartRect.size.height)
     }
     

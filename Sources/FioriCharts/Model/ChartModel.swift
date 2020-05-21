@@ -234,7 +234,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      Internal stored property for the selection state
      format: [first is selected series range, second is selected category range]
      */
-    @Published private var _selections: [ClosedRange<Int>]?
+    @Published private var _selections: [ClosedRange<Int>]? = nil
     
     /**
      Set / get current selection state for the chart view
@@ -493,7 +493,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._labelsForDimension = Published(initialValue: labelsForDimension)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
         self._selectionMode = Published(initialValue: selectionMode)
-        self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
         self._categoryAxis = Published(initialValue: categoryAxis)
@@ -520,6 +519,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             result.append(range)
         }
         ranges = result
+        
+        self.selections = selections
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -551,7 +552,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
         self._selectionMode = Published(initialValue: selectionMode)
-        self.__selections = Published(initialValue: selections)
+        //self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
@@ -697,6 +698,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             result.append(range)
         }
         ranges = result
+        
+        self.selections = selections
     }
     
     // swiftlint:disable function_body_length
@@ -727,7 +730,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
         self._selectionMode = Published(initialValue: selectionMode)
-        self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
         var intradayIndex: [Int] = []
@@ -870,6 +872,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             result.append(range)
         }
         ranges = result
+        
+        self.selections = selections
     }
     
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
