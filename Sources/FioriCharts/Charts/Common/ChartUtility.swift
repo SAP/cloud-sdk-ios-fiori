@@ -31,14 +31,14 @@ class ChartUtility {
     // swiftlint:disable cyclomatic_complexity
     static func calculateDataElementsForAxisTickValues (_ model: ChartModel, secondaryRange: Bool) -> ChartModel.DataElementsForAxisTickValues {
         if model.data.isEmpty || model.data.first?.isEmpty ?? true {
-            return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, adjustToNiceValues: true, fudgeYAxisRange: false, secondaryRange: secondaryRange)
+            return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, allowLooseLabels: false, fudgeYAxisRange: false, adjustToNiceValues: true, secondaryRange: secondaryRange)
         }
         
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes = secondaryRange ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         
         if indexes.isEmpty {
-            return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, adjustToNiceValues: true, fudgeYAxisRange: false, secondaryRange: secondaryRange)
+            return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, allowLooseLabels: false, fudgeYAxisRange: false, adjustToNiceValues: true, secondaryRange: secondaryRange)
         }
         
         var currentSeriesIndex: Int = 0
@@ -111,7 +111,9 @@ class ChartUtility {
             }
         }
         
-        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, adjustToNiceValues: model.adjustToNiceValues, fudgeYAxisRange: model.fudgeYAxisRange, secondaryRange: secondaryRange)
+        let axisAttributes = secondaryRange ? model.secondaryNumericAxis : model.numericAxis
+        
+        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, allowLooseLabels: axisAttributes.allowLooseLabels, fudgeYAxisRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues, secondaryRange: secondaryRange)
     }
     
     static func calculateRangeProperties(_ model: ChartModel, dataElements: ChartModel.DataElementsForAxisTickValues, secondaryRange: Bool) -> AxisTickValues {
@@ -120,28 +122,31 @@ class ChartUtility {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
         }
         
-        var allowLooseLabel = true
-        if model.chartType == .line || model.chartType == .area || model.chartType == .stock || model.chartType == .combo {
-            allowLooseLabel = false
-        }
+        let axisAttributes = secondaryRange ? model.secondaryNumericAxis : model.numericAxis
+        
+//        var allowLooseLabel = axisAttributes.allowLooseLabels
+//        if model.chartType == .line || model.chartType == .area || model.chartType == .stock || model.chartType == .combo {
+//            allowLooseLabel = false
+//        }
         
         let dmin = dataElements.dataMinimum
         let dmax = dataElements.dataMaximum
-        var fudgeRange: Bool = false
         
-        switch model.chartType {
-        case .bubble, .scatter, .stackedColumn, .waterfall, .combo:
-            fudgeRange = true
-            
-        default:
-            fudgeRange = false
-        }
+//        var fudgeRange: Bool = false
+//
+//        switch model.chartType {
+//        case .bubble, .scatter, .stackedColumn, .waterfall, .combo:
+//            fudgeRange = true
+//
+//        default:
+//            fudgeRange = false
+//        }
         
-        var useLooseLabels = allowLooseLabel
+        var useLooseLabels = axisAttributes.allowLooseLabels
         //
         // Create value axis tick properties based on min/max and if we need to adjust to nice values.
         //
-        if allowLooseLabel {
+        if useLooseLabels {
             let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
             
             // If the baseline is at zero we aim to always show the baseline with a tick.
@@ -150,7 +155,7 @@ class ChartUtility {
             }
         }
         
-        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: useLooseLabels, fudgeRange: fudgeRange, adjustToNiceValues: model.adjustToNiceValues)
+        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: useLooseLabels, fudgeRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues)
     }
     
     // swiftlint:disable function_parameter_count

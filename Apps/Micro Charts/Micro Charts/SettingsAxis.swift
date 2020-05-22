@@ -19,6 +19,18 @@ struct SettingsAxis: View {
                     Text("Is Zero Based")
                 }
                 
+                Toggle(isOn: $axis.allowLooseLabels) {
+                    Text("Allow Loose Labels")
+                }
+                
+                Toggle(isOn: $axis.fudgeAxisRange) {
+                    Text("Fudge Axis Range")
+                }
+                
+                Toggle(isOn: $axis.adjustToNiceValues) {
+                    Text("Adjust To Nice Values")
+                }
+                
                 Toggle(isOn: $axis.abbreviatesLabels) {
                     Text("Is Abbreviated Labels")
                 }

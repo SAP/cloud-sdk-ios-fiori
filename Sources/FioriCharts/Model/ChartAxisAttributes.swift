@@ -233,7 +233,22 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
  - Line, column, and combo charts display the numeric axis as the Y axis.
  */
 public class ChartNumericAxisAttributes: ChartAxisAttributes {
-    public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, isMagnitudedDisplayed: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?) {
+    public init(axisId: ChartAxisId? = nil,
+                baseline: ChartBaselineAttributes? = nil,
+                gridlines: ChartGridlineAttributes? = nil,
+                labels: ChartLabelAttributes? = nil,
+                titleLabel: ChartLabelAttributes? = nil,
+                title: String? = nil,
+                isZeroBased: Bool = true,
+                allowLooseLabels: Bool = false,
+                fudgeAxisRange: Bool = false,
+                adjustToNiceValues: Bool = true,
+                abbreviatesLabels: Bool = true,
+                isMagnitudedDisplayed: Bool = true,
+                explicitMin: Double? = nil,
+                explicitMax: Double? = nil,
+                formatter: NumberFormatter?,
+                abbreviatedFormatter: NumberFormatter?) {
         if let formatter = formatter {
             self._formatter = Published(initialValue: formatter)
         } else {
@@ -253,6 +268,9 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         }
         
         self._isZeroBased = Published(initialValue: isZeroBased)
+        self._allowLooseLabels = Published(initialValue: allowLooseLabels)
+        self._fudgeAxisRange = Published(initialValue: fudgeAxisRange)
+        self._adjustToNiceValues = Published(initialValue: adjustToNiceValues)
         self._abbreviatesLabels = Published(initialValue: abbreviatesLabels)
         self._isMagnitudedDisplayed = Published(initialValue: isMagnitudedDisplayed)
         self._explicitMin = Published(initialValue: ChartUtility.cgfloatOptional(from: explicitMin))
@@ -262,7 +280,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     }
     
     public convenience init() {
-        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: true, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: true, allowLooseLabels: false, fudgeAxisRange: false, adjustToNiceValues: true, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
     // swiftlint:disable force_cast
@@ -274,6 +292,9 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
                                               titleLabel: (titleLabel.copy() as! ChartLabelAttributes),
                                               title: title,
                                               isZeroBased: isZeroBased,
+                                              allowLooseLabels: allowLooseLabels,
+                                              fudgeAxisRange: fudgeAxisRange,
+                                              adjustToNiceValues: adjustToNiceValues,
                                               abbreviatesLabels: abbreviatesLabels,
                                               isMagnitudedDisplayed: isMagnitudedDisplayed,
                                               explicitMin: ChartUtility.doubleOptional(from: explicitMin),
@@ -306,6 +327,9 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         "titleLabel": \(String(describing: titleLabel)),
         "title": "\(String(describing: title))",
         "isZeroBased": \(isZeroBased),
+        "allowLooseLabels": \(allowLooseLabels),
+        "fudgeYAxisRange": \(fudgeAxisRange),
+        "adjustToNiceValues": \(adjustToNiceValues),
         "abbreviatesLabels": \(abbreviatesLabels),
         "isMagnitudedDisplayed": \(isMagnitudedDisplayed),
         "explicitMin": "\(String(describing: explicitMin))",
@@ -325,6 +349,32 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
      Default is true.
      */
     @Published public var isZeroBased: Bool
+    
+    /***
+     Allows labels to exceed the data range.
+     It is inconsistent when it comes to enabling it.
+        • ellipse - yes
+        • waterfall - yes
+        • stacked column - no
+        • line - no
+        • column - no
+        • combo - yes
+    */
+    @Published public var allowLooseLabels = false
+    
+   /***
+     Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
+     By default, all column based charts have this enabled and all line based don't.
+    */
+    @Published public var fudgeAxisRange = false
+    
+    /***
+     Flag that indicates if we should adjust to nice values, or use the data
+     minimum and maximum to calculate the range.
+    
+     Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
+    */
+    @Published public var adjustToNiceValues = true
     
     /**
      Formatter used for the axis gridline labels.
@@ -420,14 +470,30 @@ public enum ChartCategoryAxisLabelLayoutStyle: CustomStringConvertible {
  */
 public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     
-    public init(axisId: ChartAxisId? = nil, baseline: ChartBaselineAttributes? = nil, gridlines: ChartGridlineAttributes? = nil, labels: ChartLabelAttributes? = nil, titleLabel: ChartLabelAttributes? = nil, title: String? = nil, isZeroBased: Bool = true, abbreviatesLabels: Bool = true, isMagnitudedDisplayed: Bool = true, explicitMin: Double? = nil, explicitMax: Double? = nil, formatter: NumberFormatter?, abbreviatedFormatter: NumberFormatter?, labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
+    public init(axisId: ChartAxisId? = nil,
+                baseline: ChartBaselineAttributes? = nil,
+                gridlines: ChartGridlineAttributes? = nil,
+                labels: ChartLabelAttributes? = nil,
+                titleLabel: ChartLabelAttributes? = nil,
+                title: String? = nil,
+                isZeroBased: Bool = true,
+                allowLooseLabels: Bool = false,
+                fudgeAxisRange: Bool = false,
+                adjustToNiceValues: Bool = true,
+                abbreviatesLabels: Bool = true,
+                isMagnitudedDisplayed: Bool = true,
+                explicitMin: Double? = nil,
+                explicitMax: Double? = nil,
+                formatter: NumberFormatter?,
+                abbreviatedFormatter: NumberFormatter?,
+                labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
         self._labelLayoutStyle = Published(initialValue: labelLayoutStyle)
         
-        super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title, isZeroBased: isZeroBased, abbreviatesLabels: abbreviatesLabels, isMagnitudedDisplayed: isMagnitudedDisplayed, explicitMin: explicitMin, explicitMax: explicitMax, formatter: formatter, abbreviatedFormatter: abbreviatedFormatter)
+        super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title, isZeroBased: isZeroBased, allowLooseLabels: allowLooseLabels, fudgeAxisRange: fudgeAxisRange, adjustToNiceValues: adjustToNiceValues, abbreviatesLabels: abbreviatesLabels, isMagnitudedDisplayed: isMagnitudedDisplayed, explicitMin: explicitMin, explicitMax: explicitMax, formatter: formatter, abbreviatedFormatter: abbreviatedFormatter)
     }
     
     public convenience init(labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
-        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil, labelLayoutStyle: labelLayoutStyle)
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: false, allowLooseLabels: false, fudgeAxisRange: false, adjustToNiceValues: true, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil, labelLayoutStyle: labelLayoutStyle)
     }
     
     public convenience init() {
@@ -443,6 +509,9 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
                                                titleLabel: (titleLabel.copy() as! ChartLabelAttributes),
                                                title: title,
                                                isZeroBased: isZeroBased,
+                                               allowLooseLabels: allowLooseLabels,
+                                               fudgeAxisRange: fudgeAxisRange,
+                                               adjustToNiceValues: adjustToNiceValues,
                                                abbreviatesLabels: abbreviatesLabels,
                                                isMagnitudedDisplayed: isMagnitudedDisplayed,
                                                explicitMin: ChartUtility.doubleOptional(from: explicitMin),
@@ -464,6 +533,9 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
         "titleLabel": \(String(describing: titleLabel)),
         "title": "\(String(describing: title))",
         "isZeroBased": \(isZeroBased),
+        "allowLooseLabels": \(allowLooseLabels),
+        "fudgeYAxisRange": \(fudgeAxisRange),
+        "adjustToNiceValues": \(adjustToNiceValues),
         "abbreviatesLabels": \(abbreviatesLabels),
         "isMagnitudedDisplayed": \(isMagnitudedDisplayed),
         "explicitMin": "\(String(describing: explicitMin))",

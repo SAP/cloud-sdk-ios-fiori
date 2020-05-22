@@ -348,27 +348,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         $_selections.eraseToAnyPublisher()
     }()
     
-    //
-    // Flag that indicates if we should adjust to nice values, or use the data
-    // minimum and maximum to calculate the range.
-    //
-    // Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
-    //
-    // There is also a "loose label" variable as well, which allows labels to exceed the data range.
-    // It is inconsistent when it comes to enabling it.
-    //    • ellipse - yes
-    //    • waterfall - yes
-    //    • stacked column - no
-    //    • line - no
-    //    • column - no
-    //    • combo - yes
-    @Published public var adjustToNiceValues = true
-    
-    //
-    // Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
-    // By default, all column based charts have this enabled and all line based don't.
-    @Published public var fudgeYAxisRange = false
-    
     /*
      Internal runtime properties
      */
@@ -394,9 +373,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         let numberOfGridlines: Int
         
-        let adjustToNiceValues: Bool
+        let allowLooseLabels: Bool
         
         let fudgeYAxisRange: Bool
+        
+        let adjustToNiceValues: Bool
         
         let secondaryRange: Bool
     }
@@ -613,12 +594,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let numericAxis = numericAxis {
             self._numericAxis = Published(initialValue: numericAxis)
         } else {
-            let axis = ChartNumericAxisAttributes()
-            if chartType == .stock {
-                axis.isZeroBased = false
-                axis.abbreviatesLabels = false
-            }
-            axis.baseline.isHidden = true
+            let axis = ChartModel.createDefaultNumericAixs(chartType: chartType)
             
             self._numericAxis = Published(initialValue: axis)
         }
@@ -626,10 +602,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let secondaryNumericAxis = secondaryNumericAxis {
             self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         } else {
-            let axis = ChartNumericAxisAttributes()
-            if chartType != .stock {
-                axis.baseline.isHidden = true
-            }
+            let axis = ChartModel.createDefaultNumericAixs(chartType: chartType)
+            
             self._secondaryNumericAxis = Published(initialValue: axis)
         }
         
@@ -784,20 +758,15 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let numericAxis = numericAxis {
             self._numericAxis = Published(initialValue: numericAxis)
         } else {
-            let axis = ChartNumericAxisAttributes()
-            if chartType == .stock {
-                axis.isZeroBased = false
-                axis.abbreviatesLabels = false
-            } else {
-                axis.baseline.isHidden = true
-            }
+            let axis = ChartModel.createDefaultNumericAixs(chartType: chartType)
             self._numericAxis = Published(initialValue: axis)
         }
         
         if let secondaryNumericAxis = secondaryNumericAxis {
             self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         } else {
-            self._secondaryNumericAxis = Published(initialValue: ChartNumericAxisAttributes())
+            let axis = ChartModel.createDefaultNumericAixs(chartType: chartType)
+            self._secondaryNumericAxis = Published(initialValue: axis)
         }
         
         if let categoryAxis = categoryAxis {
@@ -944,6 +913,29 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         return nil
+    }
+    
+    static func createDefaultNumericAixs(chartType: ChartType) -> ChartNumericAxisAttributes {
+        let axis = ChartNumericAxisAttributes()
+        if chartType == .stock {
+            axis.isZeroBased = false
+            axis.abbreviatesLabels = false
+        } else {
+            axis.baseline.isHidden = true
+        }
+        if chartType == .line || chartType == .area || chartType == .stock || chartType == .combo {
+            axis.allowLooseLabels = false
+        } else {
+            axis.allowLooseLabels = true
+        }
+        
+        if chartType == .bubble || chartType == .scatter || chartType == .stackedColumn || chartType == .waterfall || chartType == .combo {
+            axis.fudgeAxisRange = true
+        } else {
+            axis.allowLooseLabels = false
+        }
+        
+        return axis
     }
     
     func normalizedValue<T: BinaryFloatingPoint>(for value: T, seriesIndex: Int) -> T {
@@ -1174,8 +1166,6 @@ extension ChartModel: CustomStringConvertible {
         "selections": "\(String(describing: selections))",
         "selectionRequired": \(selectionRequired),
         "selectedSeriesIndex": "\(String(describing: selectedSeriesIndex))",
-        "adjustToNiceValues": \(adjustToNiceValues),
-        "fudgeYAxisRange": \(fudgeYAxisRange),
         "scale": \(String(describing: scale)),
         "startPos": \(String(describing: startPos)),
         "ranges": "\(String(describing: ranges))",
