@@ -39,6 +39,9 @@ struct SettingsAxis: View {
                     Text("Is Magnituded Displayed")
                 }
                 
+                Text("Explicit Min: \(String(describing: axis.explicitMin))")
+                Text("Explicit Max: \(String(describing: axis.explicitMax))")
+                
                 Picker(selection: $axis.formatter.numberStyle, label: Text("Number Formatter Style")) {
                     Text("decimal").tag(NumberFormatter.Style.decimal)
                     Text("percent").tag(NumberFormatter.Style.percent)
@@ -61,7 +64,7 @@ struct SettingsAxis: View {
                     Text("none").tag(NumberFormatter.Style.none)
                 }
                 
-                Button(action: {
+                /*Button(action: {
                     self.axis.explicitMin = nil
                     self.axis.explicitMax = nil
                 }) {
@@ -77,7 +80,7 @@ struct SettingsAxis: View {
                     Text("Set explicitMin & explicitMax -10k, 10k")
                         .padding()
                         .border(Color.black)
-                }
+                }*/
             }
             
             Section(header: Text("Line")) {

@@ -15,6 +15,14 @@ struct SettingsSelection: View {
     var body: some View {
         Form {
             Section(header: Text("Selection")) {
+                Toggle(isOn: $model.userInteractionEnabled) {
+                    Text("Enable User Interaction")
+                }
+                
+                Toggle(isOn: $model.snapToPoint) {
+                    Text("Snap to point only")
+                }
+                
                 Toggle(isOn: $model.selectionRequired) {
                     Text("Selection Required")
                 }
