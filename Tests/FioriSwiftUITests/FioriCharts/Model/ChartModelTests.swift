@@ -141,6 +141,91 @@ class ChartModelTests: XCTestCase {
         XCTAssertEqual(model, modelCopy)
     }
     
+    func testCreateTickFunc() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[22, 30, 40, 50, 65]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]]
+        )
+        
+        let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: false, adjustToNiceValues: true)
+        print(axisTickValues)
+        XCTAssertEqual(axisTickValues.dataMinimum, 21)
+        XCTAssertEqual(axisTickValues.dataMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickMinimum, 20)
+        XCTAssertEqual(axisTickValues.tickMaximum, 60)
+        XCTAssertEqual(axisTickValues.plotMinimum, 20)
+        XCTAssertEqual(axisTickValues.plotMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickValues, [60.0, 40.0, 20.0])
+    }
+    
+    func testCreateTickFunc2() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[22, 30, 40, 50, 65]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]]
+        )
+        
+        let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 20, rangeEnd: 66, desiredTickCount: 3, looseLabels: true, fudgeRange: false, adjustToNiceValues: true)
+        print(axisTickValues)
+        XCTAssertEqual(axisTickValues.dataMinimum, 20)
+        XCTAssertEqual(axisTickValues.dataMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickMinimum, 0)
+        XCTAssertEqual(axisTickValues.tickMaximum, 80)
+        XCTAssertEqual(axisTickValues.plotMinimum, 0)
+        XCTAssertEqual(axisTickValues.plotMaximum, 80)
+        XCTAssertEqual(axisTickValues.tickValues, [80.0, 40.0, 0.0])
+    }
+    
+    func testCreateTickFunc3() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[22, 30, 40, 50, 65]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]]
+        )
+        
+        let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: true, fudgeRange: false, adjustToNiceValues: true)
+        //print(axisTickValues)
+        XCTAssertEqual(axisTickValues.dataMinimum, 21)
+        XCTAssertEqual(axisTickValues.dataMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickMinimum, 20)
+        XCTAssertEqual(axisTickValues.tickMaximum, 80)
+        XCTAssertEqual(axisTickValues.plotMinimum, 20)
+        XCTAssertEqual(axisTickValues.plotMaximum, 80)
+        XCTAssertEqual(axisTickValues.tickValues, [80.0, 60.0, 40.0, 20.0])
+    }
+    
+    func testCreateTickFunc4() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[22, 30, 40, 50, 65]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]]
+        )
+        
+        let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: false, adjustToNiceValues: false)
+        //print(axisTickValues)
+        XCTAssertEqual(axisTickValues.dataMinimum, 21)
+        XCTAssertEqual(axisTickValues.dataMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickMinimum, 21)
+        XCTAssertEqual(axisTickValues.tickMaximum, 66)
+        XCTAssertEqual(axisTickValues.plotMinimum, 21)
+        XCTAssertEqual(axisTickValues.plotMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickValues, [66.0, 43.5, 21.0])
+    }
+    
+    func testCreateTickFunc5() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[22, 30, 40, 50, 65]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]]
+        )
+        
+        let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: true, adjustToNiceValues: false)
+        //print(axisTickValues)
+        XCTAssertEqual(axisTickValues.dataMinimum, 21)
+        XCTAssertEqual(axisTickValues.dataMaximum, 66)
+        XCTAssertEqual(axisTickValues.tickMinimum, 19.2)
+        XCTAssertEqual(axisTickValues.tickMaximum, 67.8)
+        XCTAssertEqual(axisTickValues.plotMinimum, 19.2)
+        XCTAssertEqual(axisTickValues.plotMaximum, 67.8)
+        XCTAssertEqual(axisTickValues.tickValues, [69.6, 45.3, 21.0])
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
