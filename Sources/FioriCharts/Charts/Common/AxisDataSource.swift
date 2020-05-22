@@ -273,10 +273,22 @@ class DefaultAxisDataSource: AxisDataSource {
         if xPos - rect.origin.x - rect.size.width > 1 {
             closestDataIndex -= 1
         }
-//        print("selected index = \(index), closestDataIndex = \(closestDataIndex) toPoint = \(toPoint)")
+        
+        var curSeriesIndex = model.currentSeriesIndex
+        var minYDistance = CGFloat(Int.max)
+        if model.selectionMode == .single && model.chartType != .stock {
+            for seriesIndex in 0 ... max(model.data.count - 1, 0) {
+                if let y = ChartUtility.plotItemYPosition(model, seriesIndex: seriesIndex, categoryIndex: closestDataIndex, rect: rect) {
+                    if abs(y - toPoint.y) < minYDistance {
+                        curSeriesIndex = seriesIndex
+                        minYDistance = abs(y - toPoint.y)
+                    }
+                }
+            }
+        }
         
         let selectedCategoryInRange: ClosedRange<Int> = closestDataIndex ... closestDataIndex
-        let seriesRange: ClosedRange<Int> = model.chartType == .stock ? (model.currentSeriesIndex ... model.currentSeriesIndex) : (model.selectionMode == .single ? model.currentSeriesIndex ... model.currentSeriesIndex : 0 ... model.data.count - 1)
+        let seriesRange: ClosedRange<Int> = model.chartType == .stock ? (curSeriesIndex ... curSeriesIndex) : (model.selectionMode == .single ? curSeriesIndex ... curSeriesIndex : 0 ... model.data.count - 1)
         
         let tmpSelections: [ClosedRange<Int>] = [seriesRange, selectedCategoryInRange]
         if tmpSelections != model.selections {

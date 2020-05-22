@@ -25,22 +25,27 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
+                   selections: [0...0, 2...6],
                    indexesOfSecondaryValueAxis: [1]),
         
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
+                   selections: [0...0, 5...8],
                    indexesOfSecondaryValueAxis: [0, 1]),
         
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
+                   selections: [0...0, 7...7],
                    indexesOfSecondaryValueAxis: [1]),
         
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
-                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]], categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range)),
+                   titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]],
+                   selections: [3...3, 7...7],
+                   categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range)),
         
         ChartModel(chartType: .line,
                    data: [[200, 170, 165, 183, nil, nil, nil],
@@ -57,7 +62,7 @@ public struct Tests {
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, secondary y axis", "negative values, some x axis labels are nil", "mixed values", "mixed values 2", "long x axis labels, label layout style is \"range\"", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    public static let lineModelsDesc = ["positive values, secondary y axis, preselected range selection", "negative values, some x axis labels are nil, preselected range selection", "mixed values, preselected range selection", "mixed values 2, preselected single selection", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
     
     /// bullet models for test
     public static let bulletModles = [

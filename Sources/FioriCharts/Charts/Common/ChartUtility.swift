@@ -494,6 +494,21 @@ class ChartUtility {
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
     }
     
+    static func plotItemYPosition(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, rect: CGRect) -> CGFloat? {
+        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let secondary = indexes.contains(seriesIndex) ? false : true
+        let range = ChartUtility.displayRange(model, secondary: secondary)
+    
+        if let value = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) {
+            let y = rect.size.height - (CGFloat(value) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound) + rect.origin.y
+            
+            return y
+        }
+        
+        return nil
+    }
+    
     static func xAxisBaselinePosition(_ model: ChartModel) -> CGFloat {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()

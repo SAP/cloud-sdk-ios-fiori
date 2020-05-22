@@ -23,6 +23,12 @@ struct Settings: View {
                     Toggle(isOn: $model.snapToPoint) {
                         Text("Snap to point only")
                     }
+                    
+                    Stepper("Stock Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
+                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % max(1, self.model.numOfSeries())
+                    }, onDecrement:  {
+                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
+                    })
                 }
                 
                 NavigationLink("Selection", destination: SettingsSelection(model: model))

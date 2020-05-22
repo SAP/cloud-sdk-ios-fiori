@@ -24,13 +24,7 @@ struct SettingsSelection: View {
                     Text("All").tag(ChartSelectionMode.all)
                 }
                 
-                //Text("Series Index: \")
-                
-                Stepper("Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
-                    self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % max(1, self.model.numOfSeries())
-                }, onDecrement:  {
-                    self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
-                })
+                Text("Selections: \(String(describing: model.selections))")
             }
         }
     }
