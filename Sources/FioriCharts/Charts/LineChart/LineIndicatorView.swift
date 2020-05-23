@@ -49,8 +49,8 @@ struct LineIndicatorView: View {
         let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
-        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth
-        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth
+        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth - CGFloat(model.startPos)
+        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth - CGFloat(model.startPos)
         
         let displayRange = ChartUtility.displayRange(model)
         let seconaryDisplayRange = ChartUtility.displayRange(model, secondary: true)

@@ -163,8 +163,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .onChanged({ value in
                 // not zoomed in
                 if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
-                    let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
-                    self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: value.location.y), rect: chartRect)
+//                    let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
+                    let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect)
+                    
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item])
                     return
                 }
                 
@@ -220,13 +222,26 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            Background(tappedCallback: { (location) in
-                let x = ChartUtility.xPos(location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
-                self.axisDataSource.closestDataPoint(self.model, toPoint: CGPoint(x: x, y: location.y), rect: chartRect)
-            }) { (_) in
+            Background(tappedCallback: { (point) in
+//                let x = ChartUtility.xPos(point.x,
+//                                          layoutDirection: self.layoutDirection,
+//                                          width: chartRect.size.width)
+                
+                let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect)
+ 
+                ChartUtility.updateSelections(self.model, selectedPlotItems: [item])
+            }, doubleTappedCallback: { (_) in
                 // clear selections
                 if self.model.selections != nil {
                     self.model.selections = nil
+                }
+            }) { (points) in
+                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 {
+                    let firstItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.0, rect: chartRect)
+                    let lastItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.1, rect: chartRect)
+                    let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
+                    
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: items)
                 }
             }
             .gesture(drag)
@@ -302,6 +317,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
 struct Background: UIViewRepresentable {
     var tappedCallback: ((CGPoint) -> Void)
     var doubleTappedCallback: ((CGPoint) -> Void)
+    var longPressedCallback: (((CGPoint, CGPoint)) -> Void)
     
     func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
         let v = UIView(frame: .zero)
@@ -316,16 +332,29 @@ struct Background: UIViewRepresentable {
         
         v.addGestureRecognizer(doubleTapGesture)
         
+        // long pressed gesture to do range selection
+        let longPressedGesture = UILongPressGestureRecognizer(target: context.coordinator,
+                                                              action: #selector(Coordinator.longPressed(gesture:)))
+        longPressedGesture.numberOfTouchesRequired = 2
+        longPressedGesture.minimumPressDuration = 0.5
+        longPressedGesture.allowableMovement = 5
+        
+        v.addGestureRecognizer(longPressedGesture)
+        
         return v
     }
     
     class Coordinator: NSObject {
         var tappedCallback: ((CGPoint) -> Void)
         var doubleTappedCallback: ((CGPoint) -> Void)
+        var longPressedCallback: (((CGPoint, CGPoint)) -> Void)
         
-        init(tappedCallback: @escaping ((CGPoint) -> Void), doubleTappedCallback: @escaping ((CGPoint) -> Void)) {
+        init(tappedCallback: @escaping ((CGPoint) -> Void),
+             doubleTappedCallback: @escaping ((CGPoint) -> Void),
+             longPressedCallback: @escaping (((CGPoint, CGPoint)) -> Void)) {
             self.tappedCallback = tappedCallback
             self.doubleTappedCallback = doubleTappedCallback
+            self.longPressedCallback = longPressedCallback
         }
         
         @objc func tapped(gesture: UITapGestureRecognizer) {
@@ -339,10 +368,19 @@ struct Background: UIViewRepresentable {
         
             self.doubleTappedCallback(point)
         }
+        
+        @objc func longPressed(gesture: UILongPressGestureRecognizer) {
+            let first = gesture.location(ofTouch: 0, in: gesture.view)
+            let second = gesture.location(ofTouch: 1, in: gesture.view)
+            
+            self.longPressedCallback((first, second))
+        }
     }
     
     func makeCoordinator() -> Background.Coordinator {
-        return Coordinator(tappedCallback: self.tappedCallback, doubleTappedCallback: self.doubleTappedCallback)
+        return Coordinator(tappedCallback: self.tappedCallback,
+                           doubleTappedCallback: self.doubleTappedCallback,
+                           longPressedCallback: self.longPressedCallback)
     }
     
     func updateUIView(_ uiView: UIView,

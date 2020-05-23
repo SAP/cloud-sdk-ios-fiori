@@ -16,8 +16,6 @@ protocol AxisDataSource: class {
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String
     
     func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
-    
-    func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect)
 }
 
 class DefaultAxisDataSource: AxisDataSource {
@@ -257,43 +255,6 @@ class DefaultAxisDataSource: AxisDataSource {
         }
         
         return yAxisLabels
-    }
-    
-    func closestDataPoint(_ model: ChartModel, toPoint: CGPoint, rect: CGRect) {
-        let width = rect.size.width
-        
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        let index: Int = Int((toPoint.x - startOffset) / unitWidth + 0.5) + startIndex
-        
-        var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))
-        
-        let xPos = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
-        if xPos - rect.origin.x - rect.size.width > 1 {
-            closestDataIndex -= 1
-        }
-        
-        var curSeriesIndex = model.currentSeriesIndex
-        var minYDistance = CGFloat(Int.max)
-        if model.selectionMode == .single && model.chartType != .stock {
-            for seriesIndex in 0 ... max(model.data.count - 1, 0) {
-                if let y = ChartUtility.plotItemYPosition(model, seriesIndex: seriesIndex, categoryIndex: closestDataIndex, rect: rect) {
-                    if abs(y - toPoint.y) < minYDistance {
-                        curSeriesIndex = seriesIndex
-                        minYDistance = abs(y - toPoint.y)
-                    }
-                }
-            }
-        }
-        
-        let selectedCategoryInRange: ClosedRange<Int> = closestDataIndex ... closestDataIndex
-        let seriesRange: ClosedRange<Int> = model.chartType == .stock ? (curSeriesIndex ... curSeriesIndex) : (model.selectionMode == .single ? curSeriesIndex ... curSeriesIndex : 0 ... model.data.count - 1)
-        
-        let tmpSelections: [ClosedRange<Int>] = [seriesRange, selectedCategoryInRange]
-        if tmpSelections != model.selections {
-            model.selections = [seriesRange, selectedCategoryInRange]
-        }
     }
     
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String {
