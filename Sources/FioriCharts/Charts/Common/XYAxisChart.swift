@@ -163,10 +163,9 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .onChanged({ value in
                 // not zoomed in
                 if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
-//                    let x = ChartUtility.xPos(value.location.x, layoutDirection: self.layoutDirection, width: chartRect.size.width)
-                    let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect)
+                    let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect, layoutDirection: self.layoutDirection)
                     
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item])
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: false)
                     return
                 }
                 
@@ -222,14 +221,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            Background(tappedCallback: { (point) in
-//                let x = ChartUtility.xPos(point.x,
-//                                          layoutDirection: self.layoutDirection,
-//                                          width: chartRect.size.width)
-                
-                let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect)
+            Background(tappedCallback: { (point) in            
+                let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
  
-                ChartUtility.updateSelections(self.model, selectedPlotItems: [item])
+                ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
             }, doubleTappedCallback: { (_) in
                 // clear selections
                 if self.model.selections != nil {
@@ -237,11 +232,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 }
             }) { (points) in
                 if self.model.selectionMode == .single || self.model.numOfSeries() == 1 {
-                    let firstItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.0, rect: chartRect)
-                    let lastItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.1, rect: chartRect)
+                    let firstItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.0, rect: chartRect, layoutDirection: self.layoutDirection)
+                    let lastItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.1, rect: chartRect, layoutDirection: self.layoutDirection)
                     let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
                     
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: items)
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
                 }
             }
             .gesture(drag)
