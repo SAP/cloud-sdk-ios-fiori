@@ -11,6 +11,7 @@ import SwiftUI
 import Combine
 
 // swiftlint:disable file_length
+//swiftlint:disable type_body_length
 
 /**
 A common data model for all charts. Chart properties can be initialized in init() or changed after init().
@@ -140,13 +141,21 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// format: [seriesIndex1:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexN: HexColor], ... , seriesIndexN:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexM: HexColor]]
     @Published public var colorsForCategory: [Int: [Int: HexColor]]
     
+    @Published private var _numberOfGridlines: Int = 2
+    
     /// number of gridlines for numeric axis
-    @Published public var numberOfGridlines: Int = 2 {
-        didSet {
-            if numberOfGridlines < 1 {
-                numberOfGridlines = 1
-            } else if numberOfGridlines > 20 {
-                numberOfGridlines = 20
+    public var numberOfGridlines: Int {
+        get {
+            return _numberOfGridlines
+        }
+        
+        set {
+            if newValue < 1 {
+                _numberOfGridlines = 2
+            } else if newValue > 20 {
+                _numberOfGridlines = 20
+            } else {
+                _numberOfGridlines = newValue
             }
         }
     }
@@ -174,7 +183,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var secondaryNumericAxis: ChartNumericAxisAttributes
     
-     @Published public var indexOfStockSeries: Int {
+    @Published public var indexOfStockSeries: Int {
         didSet {
             if chartType == .stock {
                 scale = 1.0
@@ -294,32 +303,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             } else {
                 _selections = nil
             }
-        }
-    }
-    
-    /// Returns plot item value  for given indexes of series, category and dimension.
-    public func plotItemValue(at series: Int, category: Int, dimension: Int) -> Double? {
-        if series < 0 || series >= data.count || data[series].isEmpty || category < 0 || category >= data[series].count {
-            return nil
-        }
-                
-        switch data[series][category] {
-        case .single(let val):
-            if dimension == 0 {
-                if let realVal = val {
-                    return Double(realVal)
-                }
-            }
-                
-            return nil
-        case .array(let vals):
-            if dimension >= 0 && dimension < vals.count {
-                if let realVal = vals[dimension] {
-                    return Double(realVal)
-                }
-            }
-                
-            return nil
         }
     }
     
@@ -445,6 +428,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
+    var currentSeriesIndex: Int {
+        if chartType == .stock {
+            return indexOfStockSeries
+        }
+
+        return 0
+    }
+    
     public let id = UUID()
     
     public init(chartType: ChartType,
@@ -453,14 +444,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]],
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
-                indexOfStockSeries: Int = 0,
+                numberOfGridlines: Int = 2,
+                selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode,
                 selections: [ClosedRange<Int>]?,
-                userInteractionEnabled: Bool,
+                userInteractionEnabled: Bool = false,
+                snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes],
                 categoryAxis: ChartCategoryAxisAttributes,
                 numericAxis: ChartNumericAxisAttributes,
                 secondaryNumericAxis: ChartNumericAxisAttributes,
+                indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: IndexSet,
                 indexesOfColumnSeries: IndexSet,
                 indexesOfTotalsCategories: IndexSet) {
@@ -470,9 +464,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._colorsForCategory = Published(initialValue: colorsForCategory)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
+        self._selectionRequired = Published(initialValue: selectionRequired)
         self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
+        self._snapToPoint = Published(initialValue: snapToPoint)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
@@ -499,7 +495,37 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         ranges = result
         
+        self.numberOfGridlines = numberOfGridlines
         self.selections = selections
+    }
+    
+    // swiftlint:disable force_cast
+    public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ChartModel(chartType: self.chartType,
+                              data: self.data,
+                              titlesForCategory: self.titlesForCategory,
+                              colorsForCategory: self.colorsForCategory,
+                              titlesForAxis: self.titlesForAxis,
+                              labelsForDimension: self.labelsForDimension,
+                              numberOfGridlines: self.numberOfGridlines,
+                              selectionRequired: self.selectionRequired,
+                              selectionMode: self.selectionMode,
+                              selections: self.selections,
+                              userInteractionEnabled: self.userInteractionEnabled,
+                              snapToPoint: self.snapToPoint,
+                              seriesAttributes: self.seriesAttributes.map {
+                                let copy = $0.copy() as! ChartSeriesAttributes
+                                return copy
+                              },
+                              categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
+                              numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
+                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
+                              indexOfStockSeries: self.indexOfStockSeries,
+                              indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
+                              indexesOfColumnSeries: self.indexesOfColumnSeries,
+                              indexesOfTotalsCategories: self.indexesOfTotalsCategories)
+        
+        return copy
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -510,14 +536,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
-                indexOfStockSeries: Int = 0,
+                numberOfGridlines: Int = 2,
+                selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode = .single,
                 selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
+                snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
                 indexesOfTotalsCategories: [Int]? = nil) {
@@ -528,11 +557,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
         }
         
+        self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
-        //self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
+        self._snapToPoint = Published(initialValue: snapToPoint)
         
         var intradayIndex: [Int] = []
         if chartType != .stock {
@@ -671,6 +701,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         ranges = result
         
+        self.numberOfGridlines = numberOfGridlines
         self.selections = selections
     }
     
@@ -681,14 +712,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
-                indexOfStockSeries: Int = 0,
+                numberOfGridlines: Int = 2,
+                selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode = .single,
                 selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
+                snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
                 indexesOfTotalsCategories: [Int]? = nil) {
@@ -699,10 +733,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
         }
         
+        self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
+        self._snapToPoint = Published(initialValue: snapToPoint)
         
         var intradayIndex: [Int] = []
         if chartType != .stock {
@@ -840,9 +876,66 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         ranges = result
         
+        self.numberOfGridlines = numberOfGridlines
         self.selections = selections
     }
     
+    /// number of series in the chart model
+    public func numOfSeries() -> Int {
+        return data.count
+    }
+    
+    /// number of categories in the series
+    public func numOfCategories(in seriesId: Int) -> Int {
+        if seriesId >= data.count {
+            return 0
+        } else {
+            return data[seriesId].count
+        }
+    }
+    
+    /// Returns plot item value  for given indexes of series, category and dimension.
+    public func plotItemValue(at series: Int, category: Int, dimension: Int) -> Double? {
+        if series < 0 || series >= data.count || data[series].isEmpty || category < 0 || category >= data[series].count {
+            return nil
+        }
+                
+        switch data[series][category] {
+        case .single(let val):
+            if dimension == 0 {
+                if let realVal = val {
+                    return Double(realVal)
+                }
+            }
+                
+            return nil
+        case .array(let vals):
+            if dimension >= 0 && dimension < vals.count {
+                if let realVal = vals[dimension] {
+                    return Double(realVal)
+                }
+            }
+                
+            return nil
+        }
+    }
+    
+    // Returns the category title at specified index of series and category
+    public func categoryTitles(at series: Int, category: Int) -> String? {
+        if let titles = titlesForCategory {
+            if series < 0 || series >= titles.count || titles[series].isEmpty || category < 0 || category >= titles[series].count {
+                return nil
+            }
+            
+            return titles[series][category]
+        }
+        
+        return nil
+    }
+    
+    /**
+            internal functions
+     */
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
         switch chartType {
         case .stock:
@@ -959,54 +1052,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return abs(value) / T(diff)
         } else {
             return T(0)
-        }
-    }
-    
-    public var currentSeriesIndex: Int {
-        if chartType == .stock {
-            return indexOfStockSeries
-        }
-
-        return 0
-    }
-    
-    // swiftlint:disable force_cast
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ChartModel(chartType: self.chartType,
-                              data: self.data,
-                              titlesForCategory: self.titlesForCategory,
-                              colorsForCategory: self.colorsForCategory,
-                              titlesForAxis: self.titlesForAxis,
-                              labelsForDimension: self.labelsForDimension,
-                              indexOfStockSeries: self.indexOfStockSeries,
-                              selectionMode: self.selectionMode,
-                              selections: self.selections,
-                              userInteractionEnabled: self.userInteractionEnabled,
-                              seriesAttributes: self.seriesAttributes.map {
-                                let copy = $0.copy() as! ChartSeriesAttributes
-                                return copy
-                              },
-                              categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
-                              numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
-                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
-                              indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
-                              indexesOfColumnSeries: self.indexesOfColumnSeries,
-                              indexesOfTotalsCategories: self.indexesOfTotalsCategories)
-        
-        return copy
-    }
-    
-    /// number of series in the chart model
-    public func numOfSeries() -> Int {
-        return data.count
-    }
-    
-    /// number of categories in the series
-    public func numOfCategories(in seriesId: Int) -> Int {
-        if seriesId >= data.count {
-            return 0
-        } else {
-            return data[seriesId].count
         }
     }
 }
