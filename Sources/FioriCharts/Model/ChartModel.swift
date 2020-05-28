@@ -174,6 +174,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var secondaryNumericAxis: ChartNumericAxisAttributes
     
+     @Published public var indexOfStockSeries: Int {
+        didSet {
+            if chartType == .stock {
+                scale = 1.0
+                startPos = 0
+                if selections != nil {
+                    selections = nil
+                }
+            }
+        }
+    }
+    
     /**
      Indicates indexes of column series for combo chart.
      - Given indexes of series will be treated as column and the rest series will be treated as line.
@@ -215,20 +227,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// When false a state is allowed in which no series is selected/active.
     @Published public var selectionRequired: Bool = false
-    
-    @Published public var selectedSeriesIndex: Int? {
-        didSet {
-            if chartType == .stock {
-                if selectedSeriesIndex != nil {
-                    scale = 1.0
-                    startPos = 0
-                    if selections != nil {
-                        selections = nil
-                    }
-                }
-            }
-        }
-    }
     
     /**
      Internal stored property for the selection state
@@ -455,7 +453,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]],
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
-                selectedSeriesIndex: Int?,
+                indexOfStockSeries: Int = 0,
                 selectionMode: ChartSelectionMode,
                 selections: [ClosedRange<Int>]?,
                 userInteractionEnabled: Bool,
@@ -472,7 +470,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._colorsForCategory = Published(initialValue: colorsForCategory)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
-        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
@@ -512,7 +510,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
-                selectedSeriesIndex: Int? = nil,
+                indexOfStockSeries: Int = 0,
                 selectionMode: ChartSelectionMode = .single,
                 selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
@@ -531,7 +529,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         //self.__selections = Published(initialValue: selections)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
@@ -683,7 +681,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 colorsForCategory: [Int: [Int: HexColor]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
-                selectedSeriesIndex: Int? = nil,
+                indexOfStockSeries: Int = 0,
                 selectionMode: ChartSelectionMode = .single,
                 selections: [ClosedRange<Int>]? = nil,
                 userInteractionEnabled: Bool = false,
@@ -702,7 +700,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._selectedSeriesIndex = Published(initialValue: selectedSeriesIndex)
+        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         
@@ -965,11 +963,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     public var currentSeriesIndex: Int {
-        if let current = selectedSeriesIndex {
-            return current
-        } else {
-            return 0
+        if chartType == .stock {
+            return indexOfStockSeries
         }
+
+        return 0
     }
     
     // swiftlint:disable force_cast
@@ -980,7 +978,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               colorsForCategory: self.colorsForCategory,
                               titlesForAxis: self.titlesForAxis,
                               labelsForDimension: self.labelsForDimension,
-                              selectedSeriesIndex: self.selectedSeriesIndex,
+                              indexOfStockSeries: self.indexOfStockSeries,
                               selectionMode: self.selectionMode,
                               selections: self.selections,
                               userInteractionEnabled: self.userInteractionEnabled,
@@ -1021,7 +1019,7 @@ extension ChartModel: Equatable {
             lhs.colorsForCategory == rhs.colorsForCategory &&
             lhs.titlesForAxis == rhs.titlesForAxis &&
             lhs.labelsForDimension == rhs.labelsForDimension &&
-            lhs.selectedSeriesIndex == rhs.selectedSeriesIndex &&
+            lhs.indexOfStockSeries == rhs.indexOfStockSeries &&
             lhs.userInteractionEnabled == rhs.userInteractionEnabled &&
             lhs.seriesAttributes == rhs.seriesAttributes &&
             lhs.categoryAxis == rhs.categoryAxis &&
@@ -1165,7 +1163,7 @@ extension ChartModel: CustomStringConvertible {
         "selectionMode": "\(selectionMode.rawValue)",
         "selections": "\(String(describing: selections))",
         "selectionRequired": \(selectionRequired),
-        "selectedSeriesIndex": "\(String(describing: selectedSeriesIndex))",
+        "indexOfStockSeries": "\(String(describing: indexOfStockSeries))",
         "scale": \(String(describing: scale)),
         "startPos": \(String(describing: startPos)),
         "ranges": "\(String(describing: ranges))",

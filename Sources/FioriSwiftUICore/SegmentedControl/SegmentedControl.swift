@@ -19,7 +19,7 @@ Selection is mutually exclusive.
  var segmentedControl: SegmentedControl!
  var cancellableSet: Set<AnyCancellable> = []
  
- segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.selectedSeriesIndex)
+ segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
  segmentedControl.selectionDidChangePublisher
      .store(in: &cancellableSet)
  ```

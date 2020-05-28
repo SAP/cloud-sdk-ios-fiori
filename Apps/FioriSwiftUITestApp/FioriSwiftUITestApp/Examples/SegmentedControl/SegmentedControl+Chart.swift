@@ -22,9 +22,9 @@ struct SegmentedControl_Chart: View {
     var segmentedControl: SegmentedControl!
     
     init() {
-        segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.selectedSeriesIndex)
+        segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
         segmentedControl.selectionDidChangePublisher
-            .assign(to: \.stockModel.selectedSeriesIndex, on: self)
+            .assign(to: \.stockModel.indexOfStockSeries, on: self)
             .store(in: &cancellableSet)
     }
 
@@ -37,7 +37,7 @@ struct SegmentedControl_Chart: View {
     }
     
     var chartView: some View {
-        if stockModel.selectedSeriesIndex != nil {
+        if stockModel.numOfSeries() > 0 {
             return AnyView(ChartView(stockModel))
                 
         } else {

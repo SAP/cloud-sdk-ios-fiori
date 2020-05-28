@@ -44,11 +44,13 @@ struct Settings: View {
                 }
                 
                 Section(header: Text("Index Set")) {
-                    Stepper("Stock Series Index: \(self.model.currentSeriesIndex)", onIncrement: {
-                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex + 1) % max(1, self.model.numOfSeries())
-                    }, onDecrement:  {
-                        self.model.selectedSeriesIndex = (self.model.currentSeriesIndex - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
-                    })
+                    if model.chartType == .stock {
+                        Stepper("Index of Stock Series: \(self.model.indexOfStockSeries)", onIncrement: {
+                            self.model.indexOfStockSeries = (self.model.indexOfStockSeries + 1) % max(1, self.model.numOfSeries())
+                        }, onDecrement:  {
+                            self.model.indexOfStockSeries = (self.model.indexOfStockSeries - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
+                        })
+                    }
                     
                     NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfSecondaryValueAxis)) { Text("Indexes Of Secondary Value Axis:")
                     }
