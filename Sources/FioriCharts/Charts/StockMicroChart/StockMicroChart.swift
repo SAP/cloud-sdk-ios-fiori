@@ -25,6 +25,14 @@ struct StockMicroChart: View {
 
 class StockAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    }
+
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+    }
+    
+    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         var result: [AxisTitle] = []
         let width = rect.size.width
         if width <= 0 {
@@ -42,19 +50,31 @@ class StockAxisDataSource: DefaultAxisDataSource {
         }
         
         let duration = endDate.timeIntervalSince(startDate)
-        
-        if duration < 60 {
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .second, rect: rect)
-        } else if duration < 3600 {
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .minute, rect: rect)
-        } else if duration < 3600 * 24 { // hour
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .hour, rect: rect)
-        } else if duration < 3600 * 24 * 60 { // day
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .day, rect: rect)
-        } else if duration < 3600 * 24 * 31 * 14 { // month
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .month, rect: rect)
-        } else { // year
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: .year, rect: rect)
+        let component = calendarComponentForXAxisLables(with: duration)
+        if model.categoryAxis.labelLayoutStyle == .allOrNothing {
+            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: component, rect: rect)
+        } else {
+            let indexes: Set = [startIndex, endIndex]
+            let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+            for i in indexes {
+                let tmpTitle = xAxisFormattedString(model, index: i, component: component)
+                if let title = tmpTitle {
+                    var offset: CGFloat = 0
+                    if isLabel {
+                        let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+                        if i == startIndex {
+                            offset = min(size.width, (rect.size.width - 2) / 2) / 2
+                        } else {
+                            offset = -min(size.width, (rect.size.width - 2) / 2) / 2
+                        }
+                    }
+                    
+                    result.append(AxisTitle(index: i,
+                                            title: title,
+                                            pos: CGPoint(x: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth,
+                                                         y: 0)))
+                }
+            }
         }
         
         // trim results if there are too many
@@ -75,11 +95,6 @@ class StockAxisDataSource: DefaultAxisDataSource {
         return result
     }
     
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisLabels(model, rect: rect)
-    }
-    
-    // swiftlint:disable cyclomatic_complexity
     func findData(_ model: ChartModel, startIndex: Int, endIndex: Int, component: Calendar.Component, rect: CGRect, skipFirst: Bool = false) -> [AxisTitle] {
         var result: [AxisTitle] = []
         
@@ -90,57 +105,11 @@ class StockAxisDataSource: DefaultAxisDataSource {
             if prev == -1 && skipFirst {
                 prev = cur
             } else if cur != prev {
-                switch component {
-                case .month:
-                    result.append(AxisTitle(index: i,
-                                            title: monthAbbreviationFromInt(cur),
-                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
-                    
-                case .day:
-                    let components = Calendar.current.dateComponents([.month, .day], from: date)
-                    var title: String = ""
-                    if let month = components.month {
-                        title.append(String(month))
-                    }
-                    
-                    if let day = components.day {
-                        if !title.isEmpty {
-                            title.append("/")
-                        }
-                        title.append(String(day))
-                    }
-                    
-                    result.append(AxisTitle(index: i,
-                                            title: title,
-                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
-                    
-                case .hour, .minute:
-                    let components = Calendar.current.dateComponents([.hour, .minute], from: date)
-                    var title: String = ""
-                    if let hour = components.hour {
-                        title.append(String(hour))
-                    }
-                    
-                    if let minute = components.minute {
-                        if !title.isEmpty {
-                            title.append(":")
-                        }
-                        if minute < 10 {
-                            title.append("0")
-                        }
-                        
-                        title.append(String(minute))
-                    }
-                    
-                    result.append(AxisTitle(index: i,
-                                            title: title,
-                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
-                    
-                default:
-                    result.append(AxisTitle(index: i,
-                                            title: String(cur),
-                                            pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect), y: 0)))
-                }
+                let title = xAxisFormattedString(model, index: i, component: component)
+                result.append(AxisTitle(index: i,
+                                        title: title ?? " ",
+                                        pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect),
+                                                     y: 0)))
                 
                 prev = cur
             }
@@ -177,6 +146,71 @@ class StockAxisDataSource: DefaultAxisDataSource {
     func monthAbbreviationFromInt(_ month: Int) -> String {
         let ma = Calendar.current.shortMonthSymbols
         return ma[month - 1]
+    }
+    
+    func calendarComponentForXAxisLables(with duration: TimeInterval) -> Calendar.Component {
+        if duration < 60 {
+            return .second
+        } else if duration < 3600 {
+            return .minute
+        } else if duration < 3600 * 24 { // hour
+            return .hour
+        } else if duration < 3600 * 24 * 60 { // day
+            return .day
+        } else if duration < 3600 * 24 * 31 * 14 { // month
+            return .month
+        } else { // year
+            return .year
+        }
+    }
+    
+    func xAxisFormattedString(_ model: ChartModel, index: Int, component: Calendar.Component) -> String? {
+        guard let date = getDateAtIndex(model, index: index) else { return nil }
+        let cur = Calendar.current.component(component, from: date)
+        
+        switch component {
+        case .month:
+            return monthAbbreviationFromInt(cur)
+            
+        case .day:
+            let components = Calendar.current.dateComponents([.month, .day], from: date)
+            var title: String = ""
+            if let month = components.month {
+                title.append(String(month))
+            }
+            
+            if let day = components.day {
+                if !title.isEmpty {
+                    title.append("/")
+                }
+                title.append(String(day))
+            }
+            
+            return title
+            
+        case .hour, .minute:
+            let components = Calendar.current.dateComponents([.hour, .minute], from: date)
+            var title: String = ""
+            if let hour = components.hour {
+                title.append(String(hour))
+            }
+            
+            if let minute = components.minute {
+                if !title.isEmpty {
+                    title.append(":")
+                }
+                if minute < 10 {
+                    title.append("0")
+                }
+                
+                title.append(String(minute))
+            }
+            
+            return title
+            
+        default:
+            return String(cur)
+        }
     }
 }
 
