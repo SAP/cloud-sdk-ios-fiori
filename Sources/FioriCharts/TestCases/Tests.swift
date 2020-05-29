@@ -38,7 +38,23 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
-                   selections: [0...0, 7...7],
+                    selections: [0...0, 7...7],
+                   seriesAttributes: [
+                        ChartSeriesAttributes(palette:
+                            ChartSeriesPalette(colors: [Palette.hexColor(for: .chart4)],
+                                               fillColor: Palette.hexColor(for: .chart5)),
+                                              lineWidth: 2,
+                                              point: nil,
+                                              firstLineCapDiameter: 0,
+                                              lastLineCapDiameter: 0),
+                        ChartSeriesAttributes(palette:
+                        ChartSeriesPalette(colors: [Palette.hexColor(for: .chart8)],
+                                           fillColor: Palette.hexColor(for: .chart9)),
+                                          lineWidth: 3,
+                                          point: ChartPointAttributes(isHidden: false, diameter: 20, strokeColor: Palette.hexColor(for: .chart1), gap: 2),
+                                          firstLineCapDiameter: 0,
+                                          lastLineCapDiameter: 0)
+                    ],
                    indexesOfSecondaryValueAxis: [1]),
         
         ChartModel(chartType: .line,

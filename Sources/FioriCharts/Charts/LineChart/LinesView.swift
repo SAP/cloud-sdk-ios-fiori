@@ -87,7 +87,7 @@ struct LinesView: View {
                                baselinePosition: baselinePosition,
                                startOffset: startOffset,
                                endOffset: endOffset)
-                        .fill(self.model.seriesAttributes[i].palette.colors[0].color(self.colorScheme))
+                        .fill(self.model.seriesAttributes[i].palette.fillColor.color(self.colorScheme))
                         .opacity(self.fill ? 0.4 : 0)
                         .frame(width: rect.size.width, height: rect.size.height)
                         .clipped()

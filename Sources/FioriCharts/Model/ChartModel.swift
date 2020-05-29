@@ -643,7 +643,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 for i in seriesAttributes.count ..< data.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
                 }
-                self._seriesAttributes = Published(initialValue: seriesAttributes)
+                self._seriesAttributes = Published(initialValue: tmp)
             }
         } else {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
@@ -817,7 +817,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 for i in seriesAttributes.count ..< data3d.count {
                     tmp.append(seriesAttributes[i % seriesAttributes.count])
                 }
-                self._seriesAttributes = Published(initialValue: seriesAttributes)
+                self._seriesAttributes = Published(initialValue: tmp)
             }
         } else {
             let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data3d.count)

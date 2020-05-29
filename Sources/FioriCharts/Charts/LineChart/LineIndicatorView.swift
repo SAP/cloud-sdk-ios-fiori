@@ -98,7 +98,7 @@ struct LineIndicatorView: View {
                            baselinePosition: baselinePosition,
                            startOffset: 0,
                            endOffset: 0)
-                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.colors[0].color(self.colorScheme))
+                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.fillColor.color(self.colorScheme))
                     .opacity(0.4)
                     .frame(width: endSelectionPos - startSelectionPos, height: rect.size.height)
                     .position(x: (endSelectionPos + startSelectionPos) / 2.0, y: rect.size.height / 2.0)
