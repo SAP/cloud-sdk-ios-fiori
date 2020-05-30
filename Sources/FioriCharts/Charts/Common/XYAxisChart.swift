@@ -231,7 +231,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     self.model.selections = nil
                 }
             }) { (points) in
-                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 {
+                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
                     let firstItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.0, rect: chartRect, layoutDirection: self.layoutDirection)
                     let lastItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.1, rect: chartRect, layoutDirection: self.layoutDirection)
                     let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
