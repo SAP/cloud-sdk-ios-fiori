@@ -21,7 +21,7 @@ class ChartSeriesPaletteTests: XCTestCase {
     func testInit() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let sp = ChartSeriesPalette(colors: [Palette.hexColor(for: .primary2)],
+        let sp = ChartSeriesPalette(colors: [Palette.hexColor(for: .primary2)], fillColor: Palette.hexColor(for: .primary1),
                                     labelColor: HexColor(lightColor: "121212", darkColor: "ffffffff"),
                                     positiveMaxColor: HexColor(lightColor: "112233", darkColor: "345678"),
                                     positiveMinColor: HexColor(lightColor: "220011", darkColor: "abcdef"),
@@ -29,6 +29,7 @@ class ChartSeriesPaletteTests: XCTestCase {
                                     negativeMinColor: HexColor(lightColor: "778899", darkColor: "880099cc"))
         
         XCTAssertEqual(sp.colors, [Palette.hexColor(for: .primary2)])
+        XCTAssertEqual(sp.fillColor, Palette.hexColor(for: .primary1))
         XCTAssertEqual(sp.labelColor, HexColor(lightColor: "121212", darkColor: "ffffffff"))
         XCTAssertEqual(sp.positiveMaxColor, HexColor(lightColor: "112233", darkColor: "345678"))
         XCTAssertEqual(sp.positiveMinColor, HexColor(lightColor: "220011", darkColor: "abcdef"))
@@ -48,7 +49,7 @@ class ChartSeriesPaletteTests: XCTestCase {
     }
     
     func testCopy() throws {
-        let sp = ChartSeriesPalette(colors: [Palette.hexColor(for: .primary2)],
+        let sp = ChartSeriesPalette(colors: [Palette.hexColor(for: .primary2)], fillColor: Palette.hexColor(for: .primary1),
                                     labelColor: HexColor(lightColor: "121212", darkColor: "ffffffff"),
                                     positiveMaxColor: HexColor(lightColor: "112233", darkColor: "345678"),
                                     positiveMinColor: HexColor(lightColor: "220011", darkColor: "abcdef"),
