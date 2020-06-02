@@ -37,7 +37,7 @@ The FioriCharts module is planned to replace the *RoambiChartKit* charting libra
 
 The API is designed for backwards compatibility to the existing SAPFiori charting APIs, but is optimized for SwiftUI.
 
-Upcoming releases of SAPFiori will dynamically link to FioriSwiftUI framework; applications linking SAPFiori should include this package and its eponymous package product as a dependency.
+[API Reference](https://sap.github.io/cloud-sdk-ios-fiori/charts/index.html)
 
 ### Fiori Integration Cards
 The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integration Cards](https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/index.html).  These types of cards are common in UI5 dashboard and overview page user contexts.  In native iOS apps, we are focusing initially on the dashboard use case, and also considering Cards as ideal for Annotation-style views--in maps, or AR experiences.  
@@ -53,6 +53,7 @@ The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integ
 | Adaptive Card | tbd |
 | Component Card | :x: |
 
+[API Reference](https://sap.github.io/cloud-sdk-ios-fiori/integrationCards/index.html)
 
 ## Requirements
 
@@ -79,9 +80,9 @@ If you are concerned about bundle size you can use either one of the individual 
 
 ## Limitations
 
-Both modules are currently in development, and should not yet be used productively.  API's may change before release.
+Both modules are currently in development, and should not yet be used productively. Breaking changes may occur in 0.x.x release(s)
 
-Several functional limitations exist at present, which are planned for resolution before initial release.  Please check the Issues tab for an up-to-date view of the backlog and issue status.
+Several functional limitations exist at present, which are planned for resolution before milestone release 1.0.0. Please check the Issues tab for an up-to-date view of the backlog and issue status.
 
 Key gaps which are present at time of open-source project launch:
 
