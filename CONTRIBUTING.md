@@ -9,7 +9,7 @@ We welcome any type of contribution, not only code. You can help and
 
 ## Submitting code and pull request handling
 
-We are currently busy finalizing our first open-source release.
+We are currently busy finalizing our open-source milestone release.
 
 Soon we'll enhance this section to provide more instructions on how to submit a great pull request.
 
