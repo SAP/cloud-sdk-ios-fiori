@@ -235,17 +235,10 @@ class DefaultAxisDataSource: AxisDataSource {
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
             let x: CGFloat
             if secondary {
-                if layoutDirection == .leftToRight {
-                    x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
-                } else {
-                    x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
-                }
+                x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
+
             } else {
-                if layoutDirection == .leftToRight {
-                    x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-                } else {
-                    x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-                }
+                x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
             }
 
             yAxisLabels.append(AxisTitle(index: i,
