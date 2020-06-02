@@ -6,16 +6,16 @@
 # https://help.github.com/en/articles/about-code-owners
 
 # Default owners for everything in the repo
-*									@cloud-sdk-ios-fiori-admin
+*                                 @SAP/cloud-sdk-ios-fiori-admin
 
 # Owners for Cards
-Sources/FioriIntegrationCards/*  	@sstadelman @ShawnMa16
+Sources/FioriIntegrationCards/*   @sstadelman @ShawnMa16
 
 # Owners for Charts
-Sources/FioriCharts/*  				@shengxu7 @billzhou0223
+Sources/FioriCharts/*             @shengxu7 @billzhou0223
 
 # Owners for SwiftUI Controls
-Sources/FioriSwiftUI/*  			@SAP/cloud-sdk-ios-fiori-team
+Sources/FioriSwiftUI/*            @SAP/cloud-sdk-ios-fiori-team
 
 # Owners for GitHub Integration
-.github/*  							@MarcoEidinger @billzhou0223
+.github/*                         @MarcoEidinger @billzhou0223
