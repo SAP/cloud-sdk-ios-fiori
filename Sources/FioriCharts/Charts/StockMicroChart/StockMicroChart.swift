@@ -77,21 +77,6 @@ class StockAxisDataSource: DefaultAxisDataSource {
             }
         }
         
-        // trim results if there are too many
-        if result.count > 6 {
-            let ratio = Float(result.count) / 4
-            var tmp: [AxisTitle] = []
-            for i in 1...5 {
-                var index = Int(Float(i) * ratio - 0.5)
-                if index >= result.count {
-                    index = result.count - 1
-                }
-                tmp.append(result[index])
-            }
-            
-            return tmp
-        }
-        
         return result
     }
     
@@ -99,28 +84,31 @@ class StockAxisDataSource: DefaultAxisDataSource {
         var result: [AxisTitle] = []
         
         var prev = -1
+        var prevXPos: CGFloat = -100000
+        var prevLabelWidth: CGFloat = 0
         for i in startIndex...endIndex {
             guard let date = getDateAtIndex(model, index: i) else { return result }
             let cur = Calendar.current.component(component, from: date)
             if prev == -1 && skipFirst {
                 prev = cur
             } else if cur != prev {
-                let title = xAxisFormattedString(model, index: i, component: component)
-                result.append(AxisTitle(index: i,
-                                        title: title ?? " ",
-                                        pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect),
-                                                     y: 0)))
-                
-                prev = cur
+                if let title = xAxisFormattedString(model, index: i, component: component) {
+                    let label = AxisTitle(index: i,
+                                          title: title,
+                                          pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect),
+                                                       y: 0))
+                    
+                    let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+                                    
+                    // check if the gap btw two adjacent labels is less than 4pt
+                    if label.pos.x >= prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
+                        prevXPos = label.pos.x
+                        prevLabelWidth = size.width
+                        result.append(label)
+                        prev = cur
+                    }
+                }
             }
-        }
-        
-        if let tmp = result.last, abs(tmp.pos.x - rect.size.width) < 1 {
-            result.removeLast()
-        }
-        
-        if let tmp = result.first, abs(tmp.pos.x) < 1 {
-            result.removeFirst()
         }
         
         return result
@@ -164,12 +152,29 @@ class StockAxisDataSource: DefaultAxisDataSource {
         }
     }
     
+    //swiftlint:disable cyclomatic_complexity
     func xAxisFormattedString(_ model: ChartModel, index: Int, component: Calendar.Component) -> String? {
         guard let date = getDateAtIndex(model, index: index) else { return nil }
         let cur = Calendar.current.component(component, from: date)
         
         switch component {
+        case .year:
+            let components = Calendar.current.dateComponents([.year, .month], from: date)
+            if let month = components.month {
+                if month > 3 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                    return nil
+                }
+            }
+            return String(cur)
+            
         case .month:
+            let components = Calendar.current.dateComponents([.month, .day], from: date)
+            if let day = components.day {
+                if day > 7 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                    return nil
+                }
+            }
+            
             return monthAbbreviationFromInt(cur)
             
         case .day:
@@ -196,6 +201,10 @@ class StockAxisDataSource: DefaultAxisDataSource {
             }
             
             if let minute = components.minute {
+                if component == .hour && minute != 0 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                    return nil
+                }
+                
                 if !title.isEmpty {
                     title.append(":")
                 }

@@ -32,7 +32,6 @@ struct LinesView: View {
         }
     }
     
-    // swiftlint:disable function_body_length
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var noData = false

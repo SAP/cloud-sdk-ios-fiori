@@ -251,17 +251,26 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         var height: CGFloat = 16
         var totalWidth: CGFloat = 0
+        var prevXPos: CGFloat = -100000
+        var prevLabelWidth: CGFloat = 0
         for label in labels {
             let size = label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
             // spacing btw baseline and labels are 3pt
             height = max(height, size.height + model.categoryAxis.baseline.width + 3)
+            
+            // check if the gap btw two adjacent labels is greater than 4pt
+            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
+                totalWidth += rect.size.width
+            }
             // min spacing btw labels are 4pt
             totalWidth += size.width + 4
+            prevXPos = label.pos.x
+            prevLabelWidth = size.width
         }
         totalWidth -= 4
         
         // show nothing
-        if model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
+        if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
             height = 0
         }
         
