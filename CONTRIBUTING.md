@@ -11,13 +11,19 @@ We welcome any type of contribution, not only code. You can help and
 
 We are currently busy finalizing our open-source milestone release.
 
-Soon we'll enhance this section to provide more instructions on how to submit a great pull request.
+Soon we'll enhance this section to provide more instructions on how to submit a great pull request. We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 For now please know that a pull request has to pass all status checks to be considered for review by project maintainers.
 
 We reserve the right to close or to not process pull requests.
 
-We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will install a pre-commit gith hook to run a SwiftLint check automatically before committing your sources. It will also add a run script to ensure that SwiftLint checks are getting executed when you are working within the Xcode project file.
+We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will
+- install various git hooks
+  - to run a SwiftLint check automatically before pushing your sources to remote
+  - to ensure your commit messages will be formatted according to the Conventional Commit standards 
+- install Xcode project file and adds a run script to ensure that SwiftLint checks are getting executed when you are working within XCode
+
+If you choose to run the script please make sure your dev machine has `python` and `npm`
 
 ## Legal stuff
 

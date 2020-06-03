@@ -2,10 +2,8 @@
 
 set -eu
 
-# install git pre-commit hook
-rm -f .git/hooks/pre-commit
-ln -s ../../scripts/pre-commit.sh .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
+# install various git hooks
+bash scripts/installGitHooks.sh
 
 # generate xcoce project file
 rm -f -r ./FioriSwiftUI.xcodeproj

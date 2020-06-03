@@ -13,3 +13,16 @@ jobs:
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ".github/configActions/swift-api-assign-reviewer.yml"
+
+  conventionalcommit-verification:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v1
+        with:
+            configFile: '.github/configActions/commitlint.config.js'
+
