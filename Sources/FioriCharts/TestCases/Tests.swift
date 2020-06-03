@@ -17,7 +17,6 @@ public struct Tests {
                    data: [[200, 170, 165, 143, 166, 82, 110],
                           [45, 20, 50, 40, 60, 45, 55].map { $0 / 100.0 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                   selections: [1...1, 2...4],
                    numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
                    secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
                    indexesOfSecondaryValueAxis: [1]),
@@ -25,7 +24,7 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
-                   selections: [0...0, 2...6],
+                   selections: [0...0, 2...2],
                    indexesOfSecondaryValueAxis: [1]),
         
         ChartModel(chartType: .line,
@@ -38,7 +37,6 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[1.8, 2.2, 1.1, 0.7, -0.2, -0.8, -0.6, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 }, [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
-                    selections: [0...0, 7...7],
                    seriesAttributes: [
                         ChartSeriesAttributes(palette:
                             ChartSeriesPalette(colors: [Palette.hexColor(for: .chart4)],
@@ -78,7 +76,7 @@ public struct Tests {
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, secondary y axis, preselected range selection", "negative values, some x axis labels are nil, preselected range selection", "mixed values, preselected range selection", "mixed values 2, preselected single selection", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    public static let lineModelsDesc = ["positive values, secondary y axis", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
     
     /// bullet models for test
     public static let bulletModles = [

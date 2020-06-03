@@ -55,7 +55,7 @@ struct PointsShape: Shape {
         }
         
         let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(data.count - 1, 1))
-        var lastPoint = CGPoint(x: -gap, y: 0)
+        var lastPoint = CGPoint(x: -2 * radius - gap, y: 0)
         
         for i in 0 ..< data.count {
             if let val = data[i] {
