@@ -247,7 +247,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         let labels = axisDataSource.xAxisLabels(model, rect: rect)
-        if labels.isEmpty { return 16 }
+        if labels.isEmpty || (model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden) {
+            return 16
+        }
+        
+        if !model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden {
+            return max(16, model.categoryAxis.baseline.width)
+        }
         
         var height: CGFloat = 16
         var totalWidth: CGFloat = 0
@@ -274,7 +280,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             height = 0
         }
         
-        return height + model.categoryAxis.baseline.width
+        return height + model.categoryAxis.baseline.width + 3
     }
     
     func yAxisLabelsMaxWidth(_ rect: CGRect, secondary: Bool = false) -> CGFloat {
