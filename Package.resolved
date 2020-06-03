@@ -14,9 +14,9 @@
         "package": "ObservableArray",
         "repositoryURL": "https://github.com/sstadelman/observable-array.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "abb849c3bb73359b85bfd8588bc15480536f4d00",
-          "version": null
+          "version": "1.1.0"
         }
       },
       {
@@ -24,17 +24,17 @@
         "repositoryURL": "https://github.com/objcio/tiny-networking",
         "state": {
           "branch": null,
-          "revision": "6676e026109376e6aa51af4830cc5eab57397573",
-          "version": "0.3.0"
+          "revision": "15a416c762e2a91f9eac73b3fbe55adf571c3aba",
+          "version": "0.4.0"
         }
       },
       {
         "package": "Zip",
         "repositoryURL": "https://github.com/marmelroy/Zip.git",
         "state": {
-          "branch": "master",
+          "branch": null,
           "revision": "80b1c3005ee25b4c7ce46c4029ac3347e8d5e37e",
-          "version": null
+          "version": "2.0.0"
         }
       }
     ]
