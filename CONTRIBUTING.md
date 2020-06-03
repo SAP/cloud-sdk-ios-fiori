@@ -11,7 +11,7 @@ We welcome any type of contribution, not only code. You can help and
 
 We are currently busy finalizing our first open-source release.
 
-Soon we'll enhance this section to provide more instructions on how to submit a great pull request.
+Soon we'll enhance this section to provide more instructions on how to submit a great pull request. We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
 
 For now please know that a pull request has to pass all status checks to be considered for review by project maintainers.
 
