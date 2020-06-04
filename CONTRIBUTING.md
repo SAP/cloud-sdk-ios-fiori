@@ -9,18 +9,21 @@ We welcome any type of contribution, not only code. You can help and
 
 ## Submitting code and pull request handling
 
-We are currently busy finalizing our open-source milestone release.
+All contributions are handled via Pull Requests (PRs). We are currently busy finalizing our open-source milestone release so your PR _must_ target the [`master`](https://github.com/SAP/cloud-sdk-ios-fiori/tree/master) branch.
 
-Soon we'll enhance this section to provide more instructions on how to submit a great pull request. We are using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
+Quick checklist summary before submitting a PR:
 
-For now please know that a pull request has to pass all status checks to be considered for review by project maintainers.
+* 🔎 Make sure tests are added or updated to accommodate your changes. When possible, add tests to verify bug fixes and prevent future regressions.
+* 👌 Verify that tests pass and code is free of SwiftLint violations 
+* 📖 Check that your commit message follows Conventional Commit standards and has a meaningful description of what it is about
+* 👍 Push it!
 
 We reserve the right to close or to not process pull requests.
 
 We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will
 - install various git hooks
   - to run a SwiftLint check automatically before pushing your sources to remote
-  - to ensure your commit messages will be formatted according to the Conventional Commit standards 
+  - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
 - install Xcode project file and adds a run script to ensure that SwiftLint checks are getting executed when you are working within XCode
 
 If you choose to run the script please make sure your dev machine has `python` and `npm`
