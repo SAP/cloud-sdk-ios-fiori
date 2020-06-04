@@ -2,9 +2,8 @@
 
 ![](https://github.com/SAP/cloud-sdk-ios-fiori/workflows/CI/badge.svg)
 ![](https://github.com/SAP/cloud-sdk-ios-fiori/workflows/SwiftLint/badge.svg)
-
-[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3962/badge?latest)](https://bestpractices.coreinfrastructure.org/projects/3962)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 SwiftUI implementation of SAP Fiori for iOS Design Language.
 
