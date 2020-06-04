@@ -1,16 +1,8 @@
 name: Jazzy
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - '.github/workflows/jazzy.yml'
-      - '.jazzy.yaml'
-      - '**/*.md'
-      - '**/*.jpg'
-      - 'Gemfile*'
-      - 'Package*'
-      - 'Sources/**/*.swift'
+  release:
+    types: [published]
 
 jobs:
   Jazzy:
