@@ -65,7 +65,8 @@ public struct ColumnMicroChart: View {
                             
                             Rectangle()
                                 .fill(item.color.color(self.colorScheme))
-                                .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
+                                .frame(width: barWidth,
+                                       height: wholeBarsHeight * abs(max(0, item.value)) / valueRange)
                         }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
                     }
                 }.frame(width: size.width, height: positiveBarsHeight + positiveLablesHeight)

@@ -14,6 +14,10 @@ public struct Tests {
     /// line and area models for test
     public static let lineModels = [
         ChartModel(chartType: .line,
+                    data: [[200, 170, 165, 143, 166, 82, 110]],
+                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]),
+        
+        ChartModel(chartType: .line,
                    data: [[200, 170, 165, 143, 166, 82, 110],
                           [45, 20, 50, 40, 60, 45, 55].map { $0 / 100.0 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
@@ -76,7 +80,7 @@ public struct Tests {
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, secondary y axis", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
     
     /// bullet models for test
     public static let bulletModles = [
