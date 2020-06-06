@@ -108,7 +108,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     /// chart type
-    @Published public var chartType: ChartType
+    @Published public var chartType: ChartType {
+        didSet {
+            if chartType != .line || chartType != .area || chartType != .combo {
+                _indexesOfSecondaryValueAxis = IndexSet()
+            }
+        }
+    }
     
     /// seires -> category -> dimension (either a single value or an array)
     @Published var data: [[DimensionData<CGFloat?>]]
@@ -214,7 +220,21 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The secondary value index works with .line, .area and .combo charts only.
      - Given series indexes will assign the corresponding series to the secondary value axis.
      */
-    @Published public var indexesOfSecondaryValueAxis: IndexSet = IndexSet()
+    @Published private var _indexesOfSecondaryValueAxis: IndexSet = IndexSet()
+    public var indexesOfSecondaryValueAxis: IndexSet {
+        get {
+            return _indexesOfSecondaryValueAxis
+        }
+        set {
+            if chartType == .line || chartType == .area || chartType == .combo {
+                let allIndexs = IndexSet(integersIn: 0 ..< data.count)
+                let validIndex = newValue.intersection(allIndexs)
+                _indexesOfSecondaryValueAxis = validIndex
+            } else {
+                _indexesOfSecondaryValueAxis = IndexSet()
+            }
+        }
+    }
     
     /// selection state
     /**
@@ -473,7 +493,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        self._indexesOfSecondaryValueAxis = Published(initialValue: indexesOfSecondaryValueAxis)
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
         
@@ -497,6 +516,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
+        self.indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis
     }
     
     // swiftlint:disable force_cast
@@ -650,17 +670,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
-        if let indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfSecondaryValueAxis {
-                if seriesIndex >= 0 && seriesIndex < data.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfSecondaryValueAxis = Published(initialValue: IndexSet(validIndexes))
-        }
-        
         if let indexesOfColumnSeries = indexesOfColumnSeries {
             var validIndexes: [Int] = []
             for seriesIndex in indexesOfColumnSeries {
@@ -703,6 +712,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
+        if let isva = indexesOfSecondaryValueAxis {
+            self.indexesOfSecondaryValueAxis = IndexSet(isva)
+        }
     }
     
     // swiftlint:disable function_body_length
@@ -824,17 +836,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
-        if let indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfSecondaryValueAxis {
-                if seriesIndex >= 0 && seriesIndex < data3d.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfSecondaryValueAxis = Published(initialValue: IndexSet(validIndexes))
-        }
-        
         if let indexesOfColumnSeries = indexesOfColumnSeries {
             var validIndexes: [Int] = []
             for seriesIndex in indexesOfColumnSeries {
@@ -878,6 +879,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
+        if let isva = indexesOfSecondaryValueAxis {
+            self.indexesOfSecondaryValueAxis = IndexSet(isva)
+        }
     }
     
     /// number of series in the chart model

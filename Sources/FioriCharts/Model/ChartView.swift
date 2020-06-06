@@ -58,6 +58,8 @@ public struct ChartView: View {
                 LineChart(chartModel)
             } else if chartModel.chartType == .area {
                 AreaChart(chartModel)
+            } else if chartModel.chartType == .column {
+                ColumnChart(chartModel)
             } else {
                 NoDataView()
             }
