@@ -22,6 +22,11 @@ struct ContentView: View {
             model.chartType = .area
             return model
          }, Tests.lineModelsDesc),
+         ("Column", Tests.lineModels.map {
+            let model = $0.copy() as! ChartModel
+            model.chartType = .column
+            return model
+         }, Tests.lineModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
          ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
          ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),
