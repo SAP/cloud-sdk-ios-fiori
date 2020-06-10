@@ -36,27 +36,43 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
     func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         var ret: [AxisTitle] = []
         let maxDataCount = model.numOfCategories(in: 0)
-        let startIndex = 0
-        let endIndex = maxDataCount - 1
-
+        var startIndex = -1
+        var endIndex = maxDataCount - 1
+        
         if endIndex < 0 {
             return ret
         }
     
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
+        
+        for index in 0...endIndex {
+            let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
+            if startIndex == -1 {
+                if x >= CGFloat(model.startPos) {
+                    startIndex = index
+                }
+            }
+            
+            if x < CGFloat(model.startPos) + rect.size.width {
+                endIndex = index
+            }
+        }
+        
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
-            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * rect.size.width
+            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - CGFloat(model.startPos)
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
-                    x = rect.origin.x + min(size.width, (rect.size.width - 2) / 2) / 2
+                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - CGFloat(model.startPos)
+                    x = max(0, tmpX) + min(size.width, (rect.size.width - 2) / 2) / 2
                 } else {
-                    x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * rect.size.width - min(size.width, (rect.size.width - 2) / 2) / 2
+                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - CGFloat(model.startPos)
+                    x =  min(tmpX, rect.size.width) - min(size.width, (rect.size.width - 2) / 2) / 2
                 }
             }
             
