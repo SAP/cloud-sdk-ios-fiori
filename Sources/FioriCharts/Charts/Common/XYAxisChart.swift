@@ -31,6 +31,24 @@ enum DragState {
     }
 }
 
+struct AxisDataSourceEnvironmentKey: EnvironmentKey {
+    static let defaultValue: AxisDataSource = DefaultAxisDataSource()
+    
+}
+
+//swiftlint:disable implicit_getter
+extension EnvironmentValues {
+    var axisDataSource: AxisDataSource {
+        get {
+            return self[AxisDataSourceEnvironmentKey]
+        }
+        
+        set {
+            self[AxisDataSourceEnvironmentKey] = newValue
+        }
+    }
+}
+
 struct XYAxisChart<Content: View, Indicator: View>: View {
     @ObservedObject var model: ChartModel
     @Environment(\.colorScheme) var colorScheme
@@ -57,6 +75,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         self.indicatorView = indicatorView
         self.axisDataSource = axisDataSource
         
+        //self.environment(\.axisDataSource, axisDataSource)
         lastScale = 0
         lastStartPos = 0
     }
@@ -65,6 +84,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
         }.padding(8)
+        .environment(\.axisDataSource, axisDataSource)
     }
     
     // swiftlint:disable function_body_length
@@ -163,7 +183,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             .onChanged({ value in
                 // not zoomed in
                 if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
-                    let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect, layoutDirection: self.layoutDirection)
+                    let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect, layoutDirection: self.layoutDirection)
                     
                     ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: false)
                     return
@@ -222,7 +242,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             indicatorView
             
             Background(tappedCallback: { (point) in            
-                let item = ChartUtility.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
+                let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
  
                 ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
             }, doubleTappedCallback: { (_) in
@@ -232,9 +252,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 }
             }) { (points) in
                 if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
-                    let firstItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.0, rect: chartRect, layoutDirection: self.layoutDirection)
-                    let lastItem = ChartUtility.closestSelectedPlotItem(self.model, atPoint: points.1, rect: chartRect, layoutDirection: self.layoutDirection)
-                    let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
+                    let items = self.axisDataSource.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1], rect: chartRect, layoutDirection: self.layoutDirection)
                     
                     ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
                 }
