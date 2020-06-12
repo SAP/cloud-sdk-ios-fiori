@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 /// An enum for setting the segment mode in `SegmentedControl`
-public enum SegmentWidthMode {
-    /// Fixed size for all the segments
+@frozen public enum SegmentWidthMode: Equatable {
+    /// Fixed width for all the segments
     case fixed(CGFloat)
-    /// Auto - fitting
+    /// Width based on content width
     case intrinsic
-    /// This will take the longest title in the segments as the width.
+    /// Width equal to the maximum width among all segments
     case maximum
+    /// Equal width to fill the space
+    case equal
 }
