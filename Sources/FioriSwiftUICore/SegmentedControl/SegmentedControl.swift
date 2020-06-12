@@ -102,7 +102,7 @@ public struct SegmentedControl: View {
         }
     }
     
-    /// Content inset for the segmented control. Currently support leading and trailing insets.
+    /// Content inset for the segmented control.
     public var contentInset: EdgeInsets {
         get {
             let leadingAndTrailing: CGFloat = horizontalSizeClass == .compact ? 16 : 48
@@ -124,9 +124,23 @@ public struct SegmentedControl: View {
         }
     }
     
+    /// A Boolean value indicates whether empty selection is allowed. Default to `true`.
+    public var allowEmptySelection: Bool {
+        get {
+            return model.allowEmptySelection
+        }
+        set {
+            model.allowEmptySelection = newValue
+        }
+    }
+    
+    /// A `Publisher` which signals selection change.
     lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
+    
+    /// :nodoc:
+    public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
         
     @ObservedObject private var model: Model = Model()
     
@@ -146,92 +160,101 @@ public struct SegmentedControl: View {
         self.titles      = segmentTitles
         self.titleInsets        = titleInsets
         self.interItemSpacing   = interItemSpacing
-        self.model.isEnable     = true
         self.selectedIndex      = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(fontColor: .gray, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
-            .selected: SegmentAttributes(fontColor: .blue, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .blue),
-            .disabled: SegmentAttributes(fontColor: .gray, font: UIFont.preferredFont(forTextStyle: .subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
+            .normal: SegmentAttributes(textColor: .gray, font: Font.system(.subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
+            .selected: SegmentAttributes(textColor: .blue, font: Font.system(.subheadline), borderColor: .blue),
+            .disabled: SegmentAttributes(textColor: .gray, font: Font.system(.subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
         ]
-        
-        self.model.segmentWidthMode = .intrinsic
         
         if let _contentInset = contentInset {
             self.contentInset = _contentInset
         }
     }
     
-    /// :nodoc:
     public var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(alignment: .center, spacing: self.model.interItemSpacing) {
-                ForEach(self.model.titles.indices, id: \.self) { index in
-                    Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, size: self.getSegmentSize(at: index))
-                        .onTapGesture {
-                            if self.model.isEnable {
-                                self.selectionDidChange(index: index)
-                            }
-                        }
+        Group {
+            if model.segmentWidthMode == .equal {
+                getHStack()
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    getHStack()
+                }
+                .onPreferenceChange(SegmentPreferenceKey.self) { sizes in
+                    switch self.model.segmentWidthMode {
+                    case .maximum:
+                        let size = sizes.max { $0.width < $1.width } ?? .zero
+                        self._maxSegmentWidth = size.width
+                    default:
+                        break
+                    }
                 }
             }
-            .padding([.top, .bottom], 8)
-            .padding(.leading, model.contentInset?.leading ?? (horizontalSizeClass == .compact ? 16 : 48))
-            .padding(.trailing, model.contentInset?.trailing ?? (horizontalSizeClass == .compact ? 16 : 48))
         }
-    }
-
-    private func selectionDidChange(index: Int?) {
-        if selectedIndex != index {
-            self.model.selectedIndex = index
+        .frame(width: nil, height: _height)
+        .onPreferenceChange(HStackPreferenceKey.self) { heights in
+            guard let height = heights.first, self._height != height else {
+                return
+            }
+            
+            self._height = height
+            self._heightDidChangePublisher.send(height)
         }
     }
     
-    private func getSegmentSize(at index: Int) -> CGSize {
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-
+    @State private var _height: CGFloat = 0
+    
+    // For `SegmentWidthMode.maximum`
+    @State private var _maxSegmentWidth: CGFloat? = nil
+    
+    /// :nodoc:
+    private func getHStack() -> some View {
+        return HStack(alignment: .center, spacing: self.model.interItemSpacing) {
+            ForEach(self.model.titles.indices, id: \.self) { index in
+                Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
+                    .onTapGesture {
+                        if self.model.isEnable {
+                            self.selectionDidChange(index: index)
+                        }
+                }
+                .background(SegmentPreferenceSetter())
+                .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
+                .overlay(ButtonOverlayView(isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes))
+            }
+        }
+        .padding(contentInset)
+        .lineLimit(1)
+        .background(HStackPreferenceSetter())
+    }
+    
+    private var _segmentWidth: CGFloat? {
+        let width: CGFloat?
+    
         switch self.model.segmentWidthMode {
         case .fixed(let _width):
             width = _width
-        case .intrinsic:
-            width = getSizeForString(self.titles[index]).width
         case .maximum:
-            for title in titles {
-                width = max(width, getSizeForString(title).width)
+            width = self._maxSegmentWidth
+        default:
+            width = nil
+        }
+    
+        return width
+    }
+
+    private func selectionDidChange(index: Int?) {
+        if allowEmptySelection {
+            if selectedIndex == index {
+                model.selectedIndex = nil
+            } else {
+                model.selectedIndex = index
             }
-        default :
-            width = getSizeForString(self.titles[index]).width
+        } else {
+            if selectedIndex != index {
+                model.selectedIndex = index
+            }
         }
-        
-        for title in titles {
-            height = max(height, getSizeForString(title).height)
-        }
-        
-        return CGSize(width: width + titleInsets.leading + titleInsets.trailing,
-                      height: height + titleInsets.top + titleInsets.bottom)
-    }
-    
-    private func largestFont() -> UIFont {
-        var fonts: [UIFont] = []
-        if let normalFont = segmentAttributes[.normal]?.font {
-            fonts.append(normalFont.withSize(segmentAttributes[.normal]?.fontSize ?? normalFont.pointSize))
-        }
-        if let selectedFont = segmentAttributes[.selected]?.font {
-            fonts.append(selectedFont.withSize(segmentAttributes[.selected]?.fontSize ?? selectedFont.pointSize))
-        }
-        if let disabledFont = segmentAttributes[.disabled]?.font {
-            fonts.append(disabledFont.withSize(segmentAttributes[.disabled]?.fontSize ?? disabledFont.pointSize))
-        }
-        
-        let sortedFont = fonts.sorted { (font1, font2) -> Bool in
-            return font1.pointSize < font2.pointSize
-        }
-        return sortedFont.last ?? UIFont.preferredFont(forTextStyle: .subheadline)
-    }
-    
-    private func getSizeForString(_ string: String) -> CGSize {
-        return (string as NSString).size(withAttributes: [NSAttributedString.Key.font : largestFont()])
     }
 }
 
@@ -240,32 +263,105 @@ extension SegmentedControl {
         
         let title: String
         
-        var isSelected: Bool
+        let isSelected: Bool
         
-        var isEnable: Bool
-                
-        var segmentAttributes: [ControlState: SegmentAttributes]
-                
-        var size: CGSize
-
+        let isEnable: Bool
+        
+        let segmentAttributes: [ControlState: SegmentAttributes]
+        
+        let insets: EdgeInsets
+        
         var body: some View {
-            Text(self.title)
-                .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.getFont() : self.segmentAttributes[.normal]?.getFont()) : self.segmentAttributes[.disabled]?.getFont())
-                .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.fontColor : self.segmentAttributes[.normal]?.fontColor) : (self.segmentAttributes[.disabled]?.fontColor))
-                .frame(width: self.size.width, height: self.size.height)
-                .overlay(ButtonOverlayView(isSelected: self.isSelected, isEnable: self.isEnable, segmentAttributes: self.segmentAttributes))
+            Group {
+                Text(self.title)
+                    .padding(insets)
+                    .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
+                    .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
+            }
         }
     }
     
     class Model: ObservableObject {
-        @Published var titles: [String]!
+        @Published var titles: [String] = []
         @Published var selectedIndex: Int?
-        @Published var interItemSpacing: CGFloat!
-        @Published var titleInset: EdgeInsets!
-        @Published var segmentAttributes: [ControlState: SegmentAttributes]!
+        @Published var interItemSpacing: CGFloat = 6
+        @Published var titleInset: EdgeInsets = EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
+        @Published var segmentAttributes: [ControlState: SegmentAttributes] = [:]
         @Published var contentInset: EdgeInsets?
-        @Published var isEnable: Bool!
-        @Published var segmentWidthMode: SegmentWidthMode!
+        @Published var isEnable: Bool = true
+        @Published var segmentWidthMode: SegmentWidthMode = .intrinsic
+        @Published var allowEmptySelection: Bool = true
+    }
+    
+    struct HStackPreferenceKey: PreferenceKey {
+        typealias Value = [CGFloat]
+
+        static var defaultValue: [CGFloat] = []
+        
+        static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
+            value.append(contentsOf: nextValue())
+        }
+    }
+    
+    struct HStackPreferenceSetter: View {
+        var body: some View {
+            GeometryReader { geometry in
+                Rectangle()
+                    .fill(Color.clear)
+                    .preference(key: HStackPreferenceKey.self,
+                                value: [geometry.size.height])
+            }
+        }
+    }
+    
+    struct SegmentPreferenceKey: PreferenceKey {
+        typealias Value = [CGSize]
+
+        static var defaultValue: [CGSize] = []
+        
+        static func reduce(value: inout [CGSize], nextValue: () -> [CGSize]) {
+            value.append(contentsOf: nextValue())
+        }
+    }
+    
+    struct SegmentPreferenceSetter: View {
+        var body: some View {
+            GeometryReader { geometry in
+                Rectangle()
+                    .fill(Color.clear)
+                    .preference(key: SegmentPreferenceKey.self,
+                                value: [geometry.size])
+            }
+        }
+    }
+    
+    struct SegmentFrame: ViewModifier {
+        let segmentWidthMode: SegmentWidthMode
+        
+        // width for mode other than `.equal`
+        let width: CGFloat?
+        
+        func body(content: Content) -> some View {
+            Group {
+                if segmentWidthMode == .equal {
+                    content.frame(minWidth: 0, maxWidth: .infinity)
+                } else if segmentWidthMode == .maximum {
+                    content.fixedSize().frame(width: width)
+                } else {
+                    content.frame(width: width)
+                }
+            }
+        }
+    }
+}
+
+extension EdgeInsets {
+    var horizontal: CGFloat {
+        return leading + trailing
+    }
+    
+    var vertical: CGFloat {
+        return top + bottom
     }
 }
 
