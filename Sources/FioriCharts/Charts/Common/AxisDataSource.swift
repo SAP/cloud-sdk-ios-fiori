@@ -16,6 +16,16 @@ protocol AxisDataSource: class {
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String
     
     func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
+    
+    func plotData(_ model: ChartModel) -> [[ChartPlotRectData]]
+    
+    func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat)
+    
+    // single selection
+    func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int)
+    
+    // range selection
+    func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)]
 }
 
 class DefaultAxisDataSource: AxisDataSource {
@@ -266,4 +276,80 @@ class DefaultAxisDataSource: AxisDataSource {
             return axis.formatter.string(from: NSNumber(value: value)) ?? " "
         }
     }
+    
+    func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
+        return []
+    }
+    
+    func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
+        //return (0, 0, 0, 0)
+        let width = rect.size.width
+        let startPosIn = CGFloat(model.startPos)
+        
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let startIndex = Int(startPosIn / unitWidth)
+        
+        var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = -startPosIn.truncatingRemainder(dividingBy: unitWidth)
+        
+        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosIn - width).truncatingRemainder(dividingBy: unitWidth)
+        
+        if endIndex > ChartUtility.lastValidDimIndex(model) {
+            endIndex = ChartUtility.lastValidDimIndex(model)
+        }
+        
+        return (startIndex, endIndex, startOffset, endOffset)
+    }
+    
+    func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
+        let width = rect.size.width
+        
+        let x = ChartUtility.xPos(atPoint.x,
+                                  layoutDirection: layoutDirection,
+                                  width: width)
+        let point = CGPoint(x: x, y: atPoint.y)
+        
+        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
+        
+        var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))
+        
+        let xPos = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
+        if xPos - rect.origin.x - rect.size.width > 1 {
+            closestDataIndex -= 1
+        }
+        
+        var curSeriesIndex = model.currentSeriesIndex
+        if model.selectionMode == .single {
+            var minYDistance = CGFloat(Int.max)
+            if model.selectionMode == .single && model.chartType != .stock {
+                for seriesIndex in 0 ... max(model.data.count - 1, 0) {
+                    if let y = ChartUtility.plotItemYPosition(model, seriesIndex: seriesIndex, categoryIndex: closestDataIndex, rect: rect) {
+                        if abs(y - point.y) < minYDistance {
+                            curSeriesIndex = seriesIndex
+                            minYDistance = abs(y - point.y)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return (curSeriesIndex, closestDataIndex)
+    }
+    
+    // range selection
+    func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
+        if let p0 = atPoints.first, let p1 = atPoints.last {
+            let firstItem = closestSelectedPlotItem(model, atPoint: p0, rect: rect, layoutDirection: layoutDirection)
+            let lastItem = closestSelectedPlotItem(model, atPoint: p1, rect: rect, layoutDirection: layoutDirection)
+            let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
+            
+            return items
+        }
+        
+        return []
+    }
+
 }

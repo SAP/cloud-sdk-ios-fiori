@@ -15,6 +15,8 @@ struct ChartPlotRectData: Identifiable, Hashable {
     let categoryIndex: Int
     let value: CGFloat
     let rect: CGRect
+    var selected: Bool = false
+    
     var pos: CGPoint {
         let x = rect.origin.x + rect.size.width * 0.5
         let y = rect.origin.y + rect.size.height * 0.5
@@ -27,11 +29,13 @@ struct ChartPlotRectData: Identifiable, Hashable {
          x: CGFloat,
          y: CGFloat,
          width: CGFloat,
-         height: CGFloat) {
+         height: CGFloat,
+         selected: Bool = false) {
         self.seriesIndex = seriesIndex
         self.categoryIndex = categoryIndex
         self.value = value
         self.rect = CGRect(x: x, y: y, width: width, height: height)
+        self.selected = selected
     }
     
     func hash(into hasher: inout Hasher) {

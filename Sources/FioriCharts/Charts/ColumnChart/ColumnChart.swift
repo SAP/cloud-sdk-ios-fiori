@@ -83,6 +83,166 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         
         return ret
     }
+    
+    override func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
+        var result: [[ChartPlotRectData]] = []
+        let seriesCount = model.numOfSeries()
+        let maxDataCount = model.numOfCategories(in: 0)
+        
+        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
+        let columnWidth = clusterWidth / CGFloat(seriesCount)
+        
+        let tickValues = model.numericAxisTickValues
+        let yScale = tickValues.plotScale
+        let baselinePosition = tickValues.plotBaselinePosition
+        let baselineValue = tickValues.plotBaselineValue
+        let corruptDataHeight = yScale / 1000
+        
+        var clusteredX: CGFloat
+        //
+        // Loop through data points
+        //
+        for categoryIndex in 0 ..< maxDataCount {
+            var seriesResult: [ChartPlotRectData] = []
+            
+            //
+            // Loop through series
+            //
+            for seriesIndex in 0 ..< seriesCount {
+                //
+                // Calculate and define clustered column x positions.
+                //
+                clusteredX = columnXIncrement * CGFloat(categoryIndex)
+                clusteredX += columnWidth * CGFloat(seriesIndex)
+                var columnHeight = corruptDataHeight
+                var clusteredY = baselinePosition
+                var rawValue: CGFloat = 0
+                //
+                // Fetch value
+                //
+                let value = model.plotItemValue(at: seriesIndex, category: categoryIndex, dimension: 0)
+                
+                if let val = value {
+                    rawValue = CGFloat(val)
+                    if val >= 0.0 {
+                        columnHeight = yScale * (CGFloat(val) - baselineValue)
+                    } else {
+                        columnHeight = -yScale * (CGFloat(val) - baselineValue)
+                        clusteredY = baselinePosition - columnHeight
+                    }
+                }
+                
+                seriesResult.append(ChartPlotRectData(seriesIndex: seriesIndex,
+                                                      categoryIndex: categoryIndex,
+                                                      value: rawValue,
+                                                      x: clusteredX,
+                                                      y: clusteredY,
+                                                      width: columnWidth,
+                                                      height: columnHeight))
+            }
+            
+            result.append(seriesResult)
+        }
+        
+        return result
+    }
+    
+    override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
+        var startIndex = -1
+        var endIndex = -1
+        var startOffset: CGFloat = 0
+        var endOffset: CGFloat = 0
+        
+        let pd = plotData(model)
+        for plotSeries in pd {
+            if startIndex == -1 {
+                if let first = plotSeries.first, let last = plotSeries.last {
+                    let firstX = first.rect.origin.x * model.scale * rect.size.width
+                    if (CGFloat(model.startPos) >= firstX && CGFloat(model.startPos) <= last.rect.maxX * model.scale * rect.size.width) || firstX >= CGFloat(model.startPos) {
+                        startIndex = first.categoryIndex
+                        startOffset = firstX - CGFloat(model.startPos)
+                    }
+                }
+            }
+            
+            if let first = plotSeries.first, let last = plotSeries.last {
+                if (CGFloat(model.startPos) + rect.size.width) >= first.rect.origin.x * model.scale * rect.size.width {
+                    endIndex = first.categoryIndex
+                    endOffset = last.rect.maxX * model.scale * rect.size.width - CGFloat(model.startPos) - rect.size.width
+                }
+            }
+        }
+        
+        if startIndex > endIndex {
+            endIndex = startIndex
+        }
+        
+        return (startIndex, endIndex, startOffset, endOffset)
+    }
+    
+    override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
+        let width = rect.size.width
+        let pd = plotData(model)
+        
+        for plotSeries in pd {
+            for plotCat in plotSeries {
+                let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
+                let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                
+                if atPoint.x >= xMin && atPoint.x <= xMax {
+                    return (plotCat.seriesIndex, plotCat.categoryIndex)
+                }
+            }
+        }
+        
+        return (-1, -1)
+    }
+    
+    // range selection
+    override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
+        if atPoints.count != 2 {
+            return []
+        }
+
+        let width = rect.size.width
+        let pd = plotData(model)
+        let points = atPoints.sorted { $0.x <= $1.x }
+        var res: [(Int, Int)] = []
+        
+        for (index, pt) in points.enumerated() {
+            var selectedSeriesIndex: Int = -1
+            var selectedCategoryIndex: Int = -1
+            for plotSeries in pd {
+                for plotCat in plotSeries {
+                    let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
+                    let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+
+                    if (xMin >= pt.x || (pt.x >= xMin && pt.x <= xMax)) && selectedSeriesIndex == -1 && index == 0 {
+                        selectedSeriesIndex = plotCat.seriesIndex
+                        selectedCategoryIndex = plotCat.categoryIndex
+
+                        res.append((selectedSeriesIndex, selectedCategoryIndex))
+                    }
+                    
+                    if index == 1 {
+                        if pt.x >= xMin {
+                            selectedSeriesIndex = plotCat.seriesIndex
+                            selectedCategoryIndex = plotCat.categoryIndex
+                        } else {
+                            if selectedSeriesIndex > -1 {
+                                res.append((selectedSeriesIndex, selectedCategoryIndex))
+                                return res
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return res
+    }
+
 }
 
 // swiftlint:disable force_cast

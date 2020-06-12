@@ -517,49 +517,16 @@ class ChartUtility {
         return (axisValues.plotBaselineValue - axisValues.plotMinimum) * axisValues.plotScale
     }
     
-    static func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
-        let width = rect.size.width
-        
-        let x = ChartUtility.xPos(atPoint.x,
-                                  layoutDirection: layoutDirection,
-                                  width: width)
-        let point = CGPoint(x: x, y: atPoint.y)
-        
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
-        
-        var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))
-        
-        let xPos = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
-        if xPos - rect.origin.x - rect.size.width > 1 {
-            closestDataIndex -= 1
-        }
-        
-        var curSeriesIndex = model.currentSeriesIndex
-        if model.selectionMode == .single {
-            var minYDistance = CGFloat(Int.max)
-            if model.selectionMode == .single && model.chartType != .stock {
-                for seriesIndex in 0 ... max(model.data.count - 1, 0) {
-                    if let y = ChartUtility.plotItemYPosition(model, seriesIndex: seriesIndex, categoryIndex: closestDataIndex, rect: rect) {
-                        if abs(y - point.y) < minYDistance {
-                            curSeriesIndex = seriesIndex
-                            minYDistance = abs(y - point.y)
-                        }
-                    }
-                }
-            }
-        }
-        
-        return (curSeriesIndex, closestDataIndex)
-    }
-    
     static func updateSelections(_ model: ChartModel, selectedPlotItems: [(Int, Int)], isTap: Bool = true) {
         if selectedPlotItems.isEmpty {
             return
         }
         if let firstItem = selectedPlotItems.first, let lastItem = selectedPlotItems.last {
+            // cancel the selections if nothing is selected
+            if firstItem.1 == -1 || lastItem.1 == -1 {
+                model.selections = nil
+            }
+            
             let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 ... lastItem.1
             
             let seriesRange: ClosedRange<Int>
