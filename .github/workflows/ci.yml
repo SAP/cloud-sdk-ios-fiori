@@ -19,7 +19,25 @@ jobs:
       run: xcodebuild -enableCodeCoverage YES -derivedDataPath Build/ -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build test
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
-    - name: SonarCloud Scan
+    - name: Upload coverage for sonar job
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage
+        path: sonarqube-generic-coverage.xml
+
+  sonar:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: Download coverage from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: coverage
+    - name: Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
