@@ -23,8 +23,11 @@ struct SegmentedControl_Chart: View {
     
     init() {
         segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
+        let stockModel = self.stockModel
         segmentedControl.selectionDidChangePublisher
-            .assign(to: \.stockModel.indexOfStockSeries, on: self)
+            .sink(receiveValue: { (index) in
+                stockModel.indexOfStockSeries = index ?? 0
+            })
             .store(in: &cancellableSet)
     }
 
