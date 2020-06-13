@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Example is taken from https://github.com/SonarSource/sonar-scanning-examples/blob/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
+
 set -euo pipefail
 
 function convert_file {
@@ -6,9 +9,13 @@ function convert_file {
   local file_name="$2"
   local xccov_options="$3"
 
+  # Modification: escape special characters if present in file name, e.g Array<CGPoint>+Extensions.swift to Array&lt;CGPoint&gt;+Extensions.swift
   local file_name_escaped="$2"
   file_name_escaped=${file_name_escaped//</&lt;}
   file_name_escaped=${file_name_escaped//>/&gt;}
+
+  # Modification: remove prefix caused by GitHub action
+  file_name_escaped=${file_name_escaped#*cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/}
 
   echo "  <file path=\"$file_name_escaped\">"
   xcrun xccov view $xccov_options --file "$file_name" "$xccovarchive_file" | \
