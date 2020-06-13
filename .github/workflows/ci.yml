@@ -18,7 +18,7 @@ jobs:
     - name: Build and Test (with code coverage)
       run: xcodebuild -enableCodeCoverage YES -derivedDataPath Build/ -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build test
     - name: Create code coverage report
-      run: xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
+      run: ./scripts/xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
