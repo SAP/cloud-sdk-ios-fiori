@@ -18,8 +18,8 @@ public struct Tests {
                     titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]),
         
         ChartModel(chartType: .line,
-                   data: [[200, 170, 165, 143, 166, 82, 110],
-                          [45, 20, 50, 40, 60, 45, 55].map { $0 / 100.0 }],
+                   data: [[200, 170, 165, 143, 166, 112, 110],
+                          [150, 120, 130, 135, 120, 138, 137]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                    numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
                    secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),

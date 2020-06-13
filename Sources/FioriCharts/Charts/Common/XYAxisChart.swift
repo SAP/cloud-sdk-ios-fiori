@@ -194,12 +194,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 }
                 self.draggingChartView = true
                 let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
-                let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
+                let tmpX = self.layoutDirection == .leftToRight ? (CGFloat(self.lastStartPos) - value.translation.width) : (CGFloat(self.lastStartPos) + value.translation.width)
                 if self.model.snapToPoint {
-                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItems(self.model) - 1)
-                    let closestIndex = Int(CGFloat(tmp) / unitWidth)
-                    self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
+                    self.model.startPos = Int(self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: chartRect)).clamp(low: 0, high: maxPos)
                 } else {
+                    let tmp = Int(tmpX)
                     self.model.startPos = tmp.clamp(low: 0, high: maxPos)
                 }
             })

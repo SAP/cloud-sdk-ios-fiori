@@ -527,7 +527,7 @@ class ChartUtility {
                 model.selections = nil
             }
             
-            let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 ... lastItem.1
+            let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 <= lastItem.1 ? firstItem.1 ... lastItem.1 : lastItem.1 ... firstItem.1
             
             let seriesRange: ClosedRange<Int>
             if model.chartType == .stock {

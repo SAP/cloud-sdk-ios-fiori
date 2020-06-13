@@ -22,7 +22,7 @@ struct ColumnSeriesView: View {
                 HStack(alignment: .bottom, spacing: 0) {
                     ForEach(plotSeries, id: \.self) { item in
                         Rectangle()
-                            .fill(self.isSelectionView && !item.selected ? Color.clear : self.model.seriesAttributes[item.seriesIndex].palette.fillColor.color(self.colorScheme))
+                            .fill(self.columnColor(for: item))
                             .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: item.rect.size.height * self.rect.size.height)
                     }
                 }
@@ -32,7 +32,7 @@ struct ColumnSeriesView: View {
                     ForEach(plotSeries, id: \.self) { item in
                         VStack(alignment: .center, spacing: 0) {
                             Rectangle()
-                                .fill(self.isSelectionView && !item.selected ? Color.clear : self.model.seriesAttributes[item.seriesIndex].palette.fillColor.color(self.colorScheme))
+                                .fill(self.columnColor(for: item))
                                 .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: item.rect.size.height * self.rect.size.height)
                             Spacer(minLength: 0)
                         }
@@ -47,14 +47,14 @@ struct ColumnSeriesView: View {
                             VStack(spacing: 0) {
                                 Spacer(minLength: 0)
                                 Rectangle()
-                                    .fill(self.isSelectionView && !item.selected ? Color.clear : self.model.seriesAttributes[item.seriesIndex].palette.fillColor.color(self.colorScheme))
+                                    .fill(self.columnColor(for: item))
                                     .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: self.columnHeight(from: item, isPositiveArea: true) * self.rect.size.height)
                             }.frame(height: (1 - self.tickValues.plotBaselinePosition) * self.rect.size.height)
                             
                             // negative area
                             VStack(spacing: 0) {
                                 Rectangle()
-                                    .fill(self.isSelectionView && !item.selected ? Color.clear : self.model.seriesAttributes[item.seriesIndex].palette.fillColor.color(self.colorScheme))
+                                    .fill(self.columnColor(for: item))
                                     .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale,
                                            height: self.columnHeight(from: item, isPositiveArea: false) * self.rect.size.height)
                                 Spacer(minLength: 0)
@@ -62,6 +62,18 @@ struct ColumnSeriesView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    func columnColor(for item: ChartPlotRectData) -> Color {
+        if !isSelectionView {
+            return model.seriesAttributes[item.seriesIndex].palette.colors[0].color(colorScheme)
+        } else {
+            if item.selected {
+                return model.seriesAttributes[item.seriesIndex].palette.fillColor.color(colorScheme)
+            } else {
+                return .clear
             }
         }
     }
