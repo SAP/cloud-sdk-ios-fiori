@@ -7,8 +7,8 @@ function convert_file {
   local xccov_options="$3"
 
   local file_name_escaped="$2"
-  file_name_escaped=${s//</&lt;}
-  file_name_escaped=${s//>/&gt;}
+  file_name_escaped=${file_name_escaped//</&lt;}
+  file_name_escaped=${file_name_escaped//>/&gt;}
 
   echo "  <file path=\"$file_name_escaped\">"
   xcrun xccov view $xccov_options --file "$file_name" "$xccovarchive_file" | \
