@@ -19,6 +19,8 @@ protocol AxisDataSource: class {
     
     func plotData(_ model: ChartModel) -> [[ChartPlotRectData]]
     
+    func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat
+    
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat)
     
     // single selection
@@ -279,6 +281,14 @@ class DefaultAxisDataSource: AxisDataSource {
     
     func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
         return []
+    }
+    
+    func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
+        let unitWidth: CGFloat = model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let categoryIndex = Int(x / unitWidth)
+        let x = CGFloat(categoryIndex) * unitWidth
+        
+        return x
     }
     
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {

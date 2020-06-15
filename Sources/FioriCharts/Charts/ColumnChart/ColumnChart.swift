@@ -148,6 +148,16 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         return result
     }
     
+    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
+        let maxDataCount = model.numOfCategories(in: 0)
+        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
+        let unitWidth = columnXIncrement * model.scale * rect.size.width
+        let categoryIndex = Int(x / unitWidth + 0.5)
+        let clusteredX = columnXIncrement * CGFloat(categoryIndex) * model.scale * rect.size.width
+        
+        return clusteredX
+    }
+    
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         var startIndex = -1
         var endIndex = -1
@@ -184,13 +194,16 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
         let pd = plotData(model)
+        let x = ChartUtility.xPos(atPoint.x,
+                                  layoutDirection: layoutDirection,
+                                  width: width)
         
         for plotSeries in pd {
             for plotCat in plotSeries {
                 let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
                 let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
                 
-                if atPoint.x >= xMin && atPoint.x <= xMax {
+                if x >= xMin && x <= xMax {
                     return (plotCat.seriesIndex, plotCat.categoryIndex)
                 }
             }
@@ -207,7 +220,13 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
 
         let width = rect.size.width
         let pd = plotData(model)
-        let points = atPoints.sorted { $0.x <= $1.x }
+        let points = atPoints.map { (pt) -> CGPoint in
+            let x = ChartUtility.xPos(pt.x,
+                                      layoutDirection: layoutDirection,
+                                      width: width)
+            return CGPoint(x: x, y: pt.y)
+        }.sorted { $0.x <= $1.x }
+
         var res: [(Int, Int)] = []
         
         for (index, pt) in points.enumerated() {
