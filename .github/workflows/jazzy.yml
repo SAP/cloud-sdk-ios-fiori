@@ -26,7 +26,6 @@ jobs:
           name: API Docs
           path: docs
       - name: Push to gh-pages
-        if: github.event_name == 'push'
         run: |
           git config --global user.email "${GITHUB_ACTOR}"
           git config --global user.name "${GITHUB_ACTOR}@users.noreply.github.com"
