@@ -40,8 +40,8 @@ public class DataFetcher: Decodable {
         load()
     }
     
-    public func load() {
-        request?.send()
+    public func load(baseURL: String? = nil) {
+        request?.send(baseURL: baseURL)
     }
     
     private var subscribers = Set<AnyCancellable>()

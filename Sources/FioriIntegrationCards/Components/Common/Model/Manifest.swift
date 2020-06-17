@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Zip
 
 public class Manifest: Decodable, Identifiable, ObservableObject {
     @Published public var app: App
@@ -15,6 +16,8 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
     public var id: String {
         return app.id
     }
+    
+    public var baseURL: String?
     
     enum CodingKeys: String, CodingKey {
         case app = "sap.app"
@@ -28,6 +31,35 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         
         let tempCard = try _container.decode(Card.self, forKey: .card)
         _card = Published(initialValue: tempCard)
+    }
+    
+    public init(with fileName: String) throws {
+        let destinationDir = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: true)
+        if FileManager.default.fileExists(atPath: destinationDir.path) {
+            baseURL = destinationDir.absoluteString
+        } else {
+            let sourceFile = Bundle.main.url(forResource: fileName, withExtension: ".zip")!
+            do {
+                try Zip.unzipFile(sourceFile, destination: FileManager.default.temporaryDirectory, overwrite: true, password: nil)
+                baseURL = destinationDir.absoluteString
+            } catch {
+                print(error)
+            }
+        }
+        
+        var _model: Manifest!
+        let path = destinationDir.appendingPathComponent("manifest.json")
+        do {
+            let data = try Data(contentsOf: path)
+            _model = try JSONDecoder().decode(Manifest.self, from: data)
+        } catch {
+            print(error)
+        }
+        
+        self.app    = _model.app
+        self.card   = _model.card
+        
+        self.card.loadDataIfNeeded(baseURL: self.baseURL)
     }
 }
 

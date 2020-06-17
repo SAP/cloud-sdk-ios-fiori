@@ -65,6 +65,15 @@ public enum Card: Decodable, Identifiable, CustomStringConvertible {
             throw DecodingError.dataCorrupted(context)
         }
     }
+    
+    public func loadDataIfNeeded(baseURL: String?) {
+        switch self {
+        case .timeline(let card):
+            card.baseURL.send(baseURL)
+        default:
+            break
+        }
+    }
 }
 
 extension Card: Hashable {

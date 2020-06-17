@@ -49,20 +49,20 @@ struct ContentView: View {
     var body: some View {
         TabView {
             NavigationView() {
-                List(TestCardBundle.allCases) { bundle in
+                List(BundleTestCases.allCases) { bundle in
                     NavigationLink(destination: LoadingView(card: bundle)) {
                         Text(bundle.rawValue)
                     }
                 }.navigationBarTitle("Test Cases")
             }.tabItem { Text("Test Cases") }
-            CollectionView<[Manifest], Card>(data: TestCardBundle.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card })
+            CollectionView<[Manifest], Card>(data: BundleTestCases.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card })
             .tabItem({ Text("Collection View") })
         }
     }
 }
 
 struct LoadingView: View {
-    let card: TestCardBundle
+    let card: BundleTestCases
     
     @State var isLoading = true
     @State var loadingMessage = "Loading ..."
