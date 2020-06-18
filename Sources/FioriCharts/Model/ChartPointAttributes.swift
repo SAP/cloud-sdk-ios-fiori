@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FioriSwiftUICore
 
 public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     
@@ -20,7 +21,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var gap: CGFloat
     
     /// Stroke color for the point.
-    @Published public var strokeColor: HexColor = Palette.hexColor(for: .primary2)
+    @Published public var strokeColor: HexColor = .preferredHexColor(forStyle: .primary2)
     
     /// Line width for the point's stroked path.
     //@Published public var lineWidth: CGFloat  = 0
@@ -29,7 +30,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     
     public init(isHidden: Bool = false,
                 diameter: Double = 7,
-                strokeColor: HexColor = Palette.hexColor(for: .primary2),
+                strokeColor: HexColor = .preferredHexColor(forStyle: .primary2),
                 gap: Double = 2) {
         self._isHidden = Published(initialValue: isHidden)
         self._diameter = Published(initialValue: CGFloat(diameter))
