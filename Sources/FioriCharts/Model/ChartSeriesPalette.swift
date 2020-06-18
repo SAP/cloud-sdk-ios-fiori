@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FioriSwiftUICore
 
 public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     
@@ -17,7 +18,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 negativeMaxColor: HexColor,
                 negativeMinColor: HexColor) {
         if colors.isEmpty {
-            self._colors = Published(initialValue: [Palette.hexColor(for: .primary1)])
+            self._colors = Published(initialValue: [.preferredHexColor(forStyle: .primary1)])
         } else {
             self._colors = Published(initialValue: colors)
         }
@@ -31,19 +32,19 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     }
 
     public convenience init(colors: [HexColor], labelColor: HexColor) {
-        let color = colors.first ?? Palette.hexColor(for: .primary1)
+        let color = colors.first ?? .preferredHexColor(forStyle: .primary1)
         
         self.init(colors: colors, fillColor: color, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
     }
     
     public convenience init(colors: [HexColor], fillColor: HexColor) {
-        let color = colors.first ?? Palette.hexColor(for: .primary1)
+        let color = colors.first ?? .preferredHexColor(forStyle: .primary1)
         
         self.init(colors: colors, fillColor: fillColor, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
     
     public convenience init(colors: [HexColor]) {
-        let color = colors.first ?? Palette.hexColor(for: .primary1)
+        let color = colors.first ?? .preferredHexColor(forStyle: .primary1)
         
         self.init(colors: colors, fillColor: color, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }

@@ -8,13 +8,14 @@
 
 import SwiftUI
 import FioriCharts
+import FioriSwiftUICore
 
 struct SettingColor: View {
     @Environment(\.colorScheme) var colorScheme
     @Binding var color: HexColor
     var title: String?
     
-    let colorOptions: [HexColor] = ColorStyle.allCases.map() {Palette.hexColor(for:$0)}
+    let colorOptions: [HexColor] = ColorStyle.allCases.map() {.preferredHexColor(forStyle: $0)}
     
     var body: some View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import FioriCharts
+import FioriSwiftUICore
 
 struct SettingsColorForCategory: View {
     @ObservedObject var model: ChartModel

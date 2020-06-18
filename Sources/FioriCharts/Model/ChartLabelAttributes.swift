@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import FioriSwiftUICore
 
 public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
@@ -27,7 +28,7 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    public init(color: HexColor = Palette.hexColor(for: .primary3),
+    public init(color: HexColor = .preferredHexColor(forStyle: .primary3),
                 fontSize: Double = 12,
                 offset: Double = 0,
                 isHidden: Bool = false) {
