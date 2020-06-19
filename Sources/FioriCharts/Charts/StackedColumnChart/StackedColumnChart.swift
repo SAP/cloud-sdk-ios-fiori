@@ -1,15 +1,13 @@
 //
-//  ColumnChart.swift
+//  SwiftUIView.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 6/3/20.
+//  Created by Xu, Sheng on 6/15/20.
 //
 
 import SwiftUI
 
-let ColumnGapFraction: CGFloat = 0.333333
-
-struct ColumnChart: View {
+struct StackedColumnChart: View {
     @ObservedObject var model: ChartModel
 
     public init(_ chartModel: ChartModel) {
@@ -18,13 +16,13 @@ struct ColumnChart: View {
     
     var body: some View {
         XYAxisChart(model,
-                    axisDataSource: ColumnAxisDataSource(),
-                    chartView: ColumnView(model),
-                    indicatorView: ColumnIndicatorView(model))
+                    axisDataSource: StackedColumnAxisDataSource(),
+                    chartView: StackedColumnView(model),
+                    indicatorView: StackedColumnIndicatorView(model))
     }
 }
 
-class ColumnAxisDataSource: DefaultAxisDataSource {
+class StackedColumnAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -95,13 +93,15 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let columnWidth = clusterWidth / CGFloat(seriesCount)
         
         let tickValues = model.numericAxisTickValues
         let yScale = tickValues.plotScale
         let baselinePosition = tickValues.plotBaselinePosition
         let baselineValue = tickValues.plotBaselineValue
         let corruptDataHeight = yScale / 1000
+        
+        var positiveStackHeights = Array(repeating: CGFloat(0), count: maxDataCount)
+        var negativeStackHeights = Array(repeating: CGFloat(0), count: maxDataCount)
         
         var clusteredX: CGFloat
         //
@@ -118,7 +118,6 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
                 // Calculate and define clustered column x positions.
                 //
                 clusteredX = columnXIncrement * CGFloat(categoryIndex)
-                clusteredX += columnWidth * CGFloat(seriesIndex)
                 var columnHeight = corruptDataHeight
                 var clusteredY = baselinePosition
                 var rawValue: CGFloat = 0
@@ -131,9 +130,12 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
                     rawValue = CGFloat(val)
                     if val >= 0.0 {
                         columnHeight = yScale * (CGFloat(val) - baselineValue)
+                        clusteredY = baselinePosition + positiveStackHeights[categoryIndex]
+                        positiveStackHeights[categoryIndex] += columnHeight
                     } else {
                         columnHeight = -yScale * (CGFloat(val) - baselineValue)
-                        clusteredY = baselinePosition - columnHeight
+                        clusteredY = baselinePosition - negativeStackHeights[categoryIndex] - columnHeight
+                        negativeStackHeights[categoryIndex] += columnHeight
                     }
                 }
                 
@@ -142,7 +144,7 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
                                                       value: rawValue,
                                                       x: clusteredX,
                                                       y: clusteredY,
-                                                      width: columnWidth,
+                                                      width: clusterWidth,
                                                       height: columnHeight))
             }
             
@@ -197,8 +199,10 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         for plotCat in pd[startIndex] {
             let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
             let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
-  
-            if x >= xMin && x <= xMax {
+            let yMax = (1.0 - plotCat.rect.minY) * rect.size.height
+            let yMin = (1.0 - plotCat.rect.maxY) * rect.size.height
+            
+            if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -233,8 +237,8 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
             if maxX - minX < clusterWidth {
                 let startIndex = Int((maxX + CGFloat(model.startPos)) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
                 if let plotCat = pd[startIndex].first {
-                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - CGFloat(model.startPos)
-
+                    let rightX = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                    
                     if minX > rightX {
                         return [(-1, -1), (-1, -1)]
                     }
@@ -247,7 +251,7 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
             
             if let plotCat = pd[startIndex].first {
                 let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
                 
                 if index == 0 {
                     if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {
@@ -272,17 +276,17 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
 }
 
 // swiftlint:disable force_cast
-struct ColumnChart_Previews: PreviewProvider {
+struct StackedColumnChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
            let model = $0.copy() as! ChartModel
-           model.chartType = .column
+            model.chartType = .stackedColumn
            return model
         }
         
         return Group {
             ForEach(models) {
-                ColumnChart($0)
+                StackedColumnChart($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

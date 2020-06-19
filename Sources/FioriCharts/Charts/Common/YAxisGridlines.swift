@@ -9,16 +9,17 @@ import SwiftUI
 
 struct YAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     
-    weak var axisDataSource: AxisDataSource? = nil
-    var displayRange: ClosedRange<CGFloat>
+    //weak var axisDataSource: AxisDataSource? = nil
+    //var displayRange: ClosedRange<CGFloat>
     
-    init(displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
-        self.displayRange = displayRange
-        self.axisDataSource = axisDataSource
-    }
+//    init(displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
+//        self.displayRange = displayRange
+//        self.axisDataSource = axisDataSource
+//    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -31,10 +32,7 @@ struct YAxisGridlines: View {
         let indexes =  model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         let secondary: Bool = indexes.isEmpty ? true : false
         
-        var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary) {
-            yAxisLabels = res
-        }
+        var yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var valueToRemove: CGFloat = displayRange.lowerBound
@@ -76,8 +74,9 @@ struct YAxisGridlines_Previews: PreviewProvider {
     static var previews: some View {
         let axisDataSource = DefaultAxisDataSource()
         
-        return YAxisGridlines(displayRange: 0...2000, axisDataSource: axisDataSource)
+        return YAxisGridlines()
             .environmentObject(Tests.stockModels[1])
+            .environment(\.axisDataSource, axisDataSource)
             .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)
