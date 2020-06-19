@@ -93,13 +93,3 @@ extension HexColor: CustomStringConvertible {
                """
     }
 }
-
-extension HexColor {
-    /// Specifies a style and returns the corresponding `HexColor` from the latest version of preset color palette used by `ThemeManager`.
-    ///
-    /// - parameter forStyle: `ColorStyle` enum from the color palette.
-    /// - Returns: `HexColor`
-    public static func preferredHexColor(forStyle style: ColorStyle) -> HexColor {
-        return ThemeManager.shared.hexColor(for: style)
-    }
-}

@@ -43,13 +43,7 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?) -> Color {
-        let uiColor: UIColor = self.color(for: style, background: scheme)
-        return Color(uiColor)
-    }
-    
-    /// :nodoc:
-    internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?) -> UIColor {
-        return UIColor { [unowned self] traitCollection in
+        let uiColor: UIColor = UIColor { [unowned self] traitCollection in
             func getPaletteColor(_ variant: ColorVariant) -> UIColor {
                 let scheme: ColorScheme = variant == .light ? .dark : .light
                 let components = self.palette.hexColor(for: style).rgba(scheme)
@@ -64,5 +58,6 @@ public class ThemeManager {
                 return getPaletteColor(.light)
             }
         }
+        return Color(uiColor)
     }
 }

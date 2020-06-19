@@ -12,7 +12,6 @@ struct XAxisView: View {
     @EnvironmentObject var model: ChartModel
     weak var axisDataSource: AxisDataSource? = nil
     
-    @Environment(\.colorScheme) var colorScheme
     @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     
     init(axisDataSource: AxisDataSource? = nil) {
@@ -46,7 +45,7 @@ struct XAxisView: View {
                         // category labels
                         Text(title.title)
                             .font(.system(size: self.model.categoryAxis.labels.fontSize))
-                            .foregroundColor(self.model.categoryAxis.labels.color.color(self.colorScheme))
+                            .foregroundColor(self.model.categoryAxis.labels.color)
                             .frame(maxWidth: rect.size.width / 2)
                             .position(x: title.pos.x, y: labelYPos)
 
@@ -60,7 +59,7 @@ struct XAxisView: View {
                 LineShape(pos1: .zero,
                           pos2: CGPoint(x: rect.size.width, y: 0))
                     .offset(x: 0, y: baselineYPos)
-                    .stroke(model.categoryAxis.baseline.color.color(self.colorScheme),
+                    .stroke(model.categoryAxis.baseline.color,
                             style: StrokeStyle(
                                 lineWidth: self.model.categoryAxis.baseline.width,
                                 dash: [self.model.categoryAxis.baseline.dashPatternLength, self.model.categoryAxis.baseline.dashPatternGap]))

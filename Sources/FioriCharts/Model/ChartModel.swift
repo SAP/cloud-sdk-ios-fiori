@@ -145,8 +145,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// colors for any category in any series
     /// it is optional. this color overwrite the color from seriesAttributes
-    /// format: [seriesIndex1:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexN: HexColor], ... , seriesIndexN:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexM: HexColor]]
-    @Published public var colorsForCategory: [Int: [Int: HexColor]]
+    /// format: [seriesIndex1:  [catrgoryIndex1: Color,  ..., catrgoryIndexN: Color], ... , seriesIndexN:  [catrgoryIndex1: Color,  ..., catrgoryIndexM: Color]]
+    @Published public var colorsForCategory: [Int: [Int: Color]]
     
     @Published private var _numberOfGridlines: Int = 2
     
@@ -459,12 +459,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    let palette: Palette = PaletteVersion.v4.rawValue
-    
     public init(chartType: ChartType,
                 data: [[DimensionData<CGFloat?>]],
                 titlesForCategory: [[String?]]?,
-                colorsForCategory: [Int: [Int: HexColor]],
+                colorsForCategory: [Int: [Int: Color]],
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
                 numberOfGridlines: Int = 2,
@@ -556,7 +554,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public init(chartType: ChartType,
                 data: [[Double?]],
                 titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: HexColor]]? = nil,
+                colorsForCategory: [Int: [Int: Color]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
                 numberOfGridlines: Int = 2,
@@ -577,7 +575,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
+            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
         }
         
         self._selectionRequired = Published(initialValue: selectionRequired)
@@ -724,7 +722,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public init(chartType: ChartType,
                 data3d: [[[Double?]]],
                 titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: HexColor]]? = nil,
+                colorsForCategory: [Int: [Int: Color]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
                 numberOfGridlines: Int = 2,
@@ -745,7 +743,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
+            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
         }
         
         self._selectionRequired = Published(initialValue: selectionRequired)
@@ -947,14 +945,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)
-            let colors: [HexColor] = [.preferredHexColor(forStyle: .stockUpStroke), .preferredHexColor(forStyle: .stockDownStroke)]
+            let colors: [Color] = [.preferredColor(forStyle: .stockUpStroke), .preferredColor(forStyle: .stockDownStroke)]
             let palette = ChartSeriesPalette(colors: colors)
             let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
             sa.point.isHidden = true
             return Array(repeating: sa, count: count)
             
         default:
-            let colors: [HexColor] = [.preferredHexColor(forStyle: .chart1), .preferredHexColor(forStyle: .chart2), .preferredHexColor(forStyle: .chart3), .preferredHexColor(forStyle: .chart4), .preferredHexColor(forStyle: .chart5), .preferredHexColor(forStyle: .chart6), .preferredHexColor(forStyle: .chart7), .preferredHexColor(forStyle: .chart8), .preferredHexColor(forStyle: .chart9), .preferredHexColor(forStyle: .chart10), .preferredHexColor(forStyle: .chart11)]
+            let colors: [Color] = [.preferredColor(forStyle: .chart1), .preferredColor(forStyle: .chart2), .preferredColor(forStyle: .chart3), .preferredColor(forStyle: .chart4), .preferredColor(forStyle: .chart5), .preferredColor(forStyle: .chart6), .preferredColor(forStyle: .chart7), .preferredColor(forStyle: .chart8), .preferredColor(forStyle: .chart9), .preferredColor(forStyle: .chart10), .preferredColor(forStyle: .chart11)]
             let count = min(colors.count, max(1, seriesCount))
             //var pointAttributes: [ChartPointAttributes] = []
             var result: [ChartSeriesAttributes] = []
@@ -1084,15 +1082,15 @@ extension ChartModel: Equatable {
 }
 
 extension ChartModel {
-    func colorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
-        var result: HexColor!
+    func colorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
+        var result: Color!
         
         if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
             result = val
         }
         
         if seriesAttributes.isEmpty {
-            result = .preferredHexColor(forStyle: .primary2)
+            result = .preferredColor(forStyle: .primary2)
         } else {
             let count = seriesAttributes.count
             result = seriesAttributes[categoryIndex%count].palette.colors[0]

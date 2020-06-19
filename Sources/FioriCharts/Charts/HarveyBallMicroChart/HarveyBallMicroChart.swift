@@ -10,7 +10,6 @@ import SwiftUI
 
 struct HarveyBallMicroChart: View {
     @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     
     // the difference of outer and inner radius range from 5...20
     private static let minDepth: CGFloat = 5
@@ -42,23 +41,23 @@ struct HarveyBallMicroChart: View {
                 Spacer()
                 ZStack(alignment: .center) {
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                        .strokeBorder(total!.color.color(self.colorScheme), lineWidth: radius)
+                        .strokeBorder(total!.color, lineWidth: radius)
                         .frame(width: radius * 2, height: radius * 2)
                     
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(fraction!.value) * 360 / Double(total!.value)))
-                        .strokeBorder(fraction!.color.color(self.colorScheme), lineWidth: (radius - depth))
+                        .strokeBorder(fraction!.color, lineWidth: (radius - depth))
                     .frame(width: (radius - depth) * 2, height: (radius - depth) * 2)
                 }
                 
                 VStack(alignment: .center) {
                     if fraction!.label != nil {
                         Text(fraction!.label!)
-                            .foregroundColor(fraction!.color.color(self.colorScheme))
+                            .foregroundColor(fraction!.color)
                     }
                     
                     if total!.label != nil {
                         Text(total!.label!)
-                            .foregroundColor(total!.color.color(self.colorScheme))
+                            .foregroundColor(total!.color)
                     }
                 }
                 Spacer()
