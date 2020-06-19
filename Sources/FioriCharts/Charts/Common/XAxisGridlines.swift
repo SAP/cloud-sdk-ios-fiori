@@ -9,15 +9,9 @@ import SwiftUI
 
 struct XAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
-    
-    weak var axisDataSource: AxisDataSource? = nil
-    
     @Environment(\.colorScheme) var colorScheme
-    
-    init(axisDataSource: AxisDataSource? = nil) {
-        self.axisDataSource = axisDataSource
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -26,12 +20,10 @@ struct XAxisGridlines: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        var xAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.xAxisGridlines(model, rect: rect) {
-            xAxisLabels = res
-            if let first = xAxisLabels.first, abs(first.pos.x) < 0.001 {
-                xAxisLabels.removeFirst()
-            }
+        var xAxisLabels: [AxisTitle] = axisDataSource.xAxisGridlines(model, rect: rect)
+        
+        if let first = xAxisLabels.first, abs(first.pos.x) < 0.001 {
+            xAxisLabels.removeFirst()
         }
         
         return ZStack {
@@ -59,7 +51,9 @@ struct XAxisGridlines_Previews: PreviewProvider {
         
         return Group {
             ForEach(Tests.stockModels) {
-                XAxisGridlines(axisDataSource: axisDataSource).environmentObject($0)
+                XAxisGridlines()
+                    .environmentObject($0)
+                    .environment(\.axisDataSource, axisDataSource)
             }
             .frame(width: 300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

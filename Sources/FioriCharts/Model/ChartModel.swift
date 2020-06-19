@@ -383,6 +383,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let secondaryRange: Bool
     }
     
+    // need to invalidate it if the data has been changed
+    var plotDataCache: [[ChartPlotRectData]]? = nil
+    
     /// cache for AxisTickValues
     var numericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
     

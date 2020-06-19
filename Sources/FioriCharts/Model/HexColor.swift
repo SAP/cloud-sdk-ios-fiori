@@ -55,7 +55,7 @@ public struct HexColor: Hashable {
         return (
             r: Double(r) / 255,
             g: Double(g) / 255,
-            b:  Double(b) / 255,
+            b: Double(b) / 255,
             a: Double(a) / 255)
     }
     

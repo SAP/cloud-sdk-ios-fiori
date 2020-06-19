@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColumnSeriesView: View {
-    let model: ChartModel
+    @ObservedObject var model: ChartModel
     let tickValues: AxisTickValues
     let plotSeries: [ChartPlotRectData]
     let colorScheme: ColorScheme

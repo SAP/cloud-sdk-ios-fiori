@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 protocol AxisDataSource: class {
+    var isEnoughSpaceToShowXAxisLables: Bool { get set }
+    
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
@@ -31,6 +33,8 @@ protocol AxisDataSource: class {
 }
 
 class DefaultAxisDataSource: AxisDataSource {
+    var isEnoughSpaceToShowXAxisLables: Bool = true
+    
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         var ret: [AxisTitle] = []
         
