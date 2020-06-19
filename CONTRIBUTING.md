@@ -27,7 +27,7 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
 - install Xcode project file and adds a run script to ensure that SwiftLint checks are getting executed when you are working within XCode
 
 If you choose to run the script please make sure your dev machine has
-- `python` (with `pip` as package manager which is included with 3.4+) and
+- `python` 3.7+ (includes `pip` as package manager)
   - tip: you can use [pyenv](https://github.com/pyenv/pyenv) to manage and switch between multiple python versions
 - `npm` (with `npx` as package runner which is included with 5.2+)
 
