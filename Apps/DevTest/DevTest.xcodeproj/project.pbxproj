@@ -36,6 +36,8 @@
 		AB75F733249AC35300328E53 /* HTTPTimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */; };
 		AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */; };
 		AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75F736249AC36700328E53 /* BundleTestCases.swift */; };
+		ABFF2BD2249BE03600ED7D30 /* ObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */; };
+		ABFF2BD4249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */; };
 		F6B9469D2422D2880041F5D0 /* employee.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469C2422D2880041F5D0 /* employee.json */; };
 		F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */; };
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
@@ -109,6 +111,8 @@
 		AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HTTPTimelineVariants.card.zip; sourceTree = "<group>"; };
 		AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = TimelineVariants.card.zip; sourceTree = "<group>"; };
 		AB75F736249AC36700328E53 /* BundleTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleTestCases.swift; sourceTree = "<group>"; };
+		ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ObjectVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HTTPObjectVariants.card.zip; sourceTree = "<group>"; };
 		F6B9469C2422D2880041F5D0 /* employee.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee.json; sourceTree = "<group>"; };
 		F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tineline_mainfest.json; sourceTree = "<group>"; };
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */,
+				ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */,
 				AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */,
 				AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */,
 				AB75F736249AC36700328E53 /* BundleTestCases.swift */,
@@ -349,6 +355,7 @@
 				F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */,
 				F6B97A4524492469009BABD6 /* adativecard-embedded5.card.zip in Resources */,
 				F6B97A4624492469009BABD6 /* adativecard-embedded2.card.zip in Resources */,
+				ABFF2BD2249BE03600ED7D30 /* ObjectVariants.card.zip in Resources */,
 				1BADC44823DA28E1006CC945 /* table.json in Resources */,
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,
 				1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */,
@@ -358,6 +365,7 @@
 				F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */,
 				F6B946A22422D7450041F5D0 /* employees.json in Resources */,
 				1B583CD823D926590003F30C /* Assets.xcassets in Resources */,
+				ABFF2BD4249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip in Resources */,
 				F6B97A4724492469009BABD6 /* adativecard-embedded1.card.zip in Resources */,
 				F6B97A152449159A009BABD6 /* card-explorer-numeric-list-card.card.zip in Resources */,
 				F6B97A1F2449159A009BABD6 /* card-explorer-object-card.card.zip in Resources */,

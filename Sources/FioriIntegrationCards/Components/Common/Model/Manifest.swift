@@ -33,6 +33,21 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         _card = Published(initialValue: tempCard)
     }
     
+    public init(withCardBundleAt path: URL) throws {
+        var _model: Manifest!
+        let _path = path.appendingPathComponent("manifest.json")
+        do {
+            let data = try Data(contentsOf: _path)
+            _model = try JSONDecoder().decode(Manifest.self, from: data)
+        } catch {
+            print(error)
+        }
+        self.app        = _model.app
+        self.card       = _model.card
+        self.baseURL    = path.absoluteString
+        self.card.loadDataIfNeeded(baseURL: self.baseURL)
+    }
+    
     public init(with fileName: String) throws {
         let destinationDir = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: true)
         if FileManager.default.fileExists(atPath: destinationDir.path) {

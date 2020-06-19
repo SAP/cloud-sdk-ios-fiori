@@ -10,6 +10,7 @@ import Foundation
 import AnyCodable
 import Combine
 import TinyNetworking
+import ObservableArray
 
 /// JSON data must be in `array` form
 open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
@@ -32,6 +33,9 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                 }
             }, receiveValue: { [unowned self] object in
                 self.content = self.template.replacingPlaceholders(withValuesIn: object)
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
+                }
             })
             .store(in: &subscribers)
     }
@@ -62,7 +66,9 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                 } else if let dict = object as? JSONDictionary {
                     self.content = [self.template.replacingPlaceholders(withValuesIn: dict)]
                 }
-                print(self.content)
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
+                }
             })
             .store(in: &subscribers)
     }
@@ -91,6 +97,9 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
                     self.content = zip(self.template, array).map({ $0.0.replacingPlaceholders(withValuesIn: $0.1) }) as? Template
                 } else if let dict = object as? JSONDictionary {
                     self.content = self.template.replacingPlaceholders(withValuesIn: dict)
+                }
+                DispatchQueue.main.async {
+                    self.objectWillChange.send()
                 }
             })
             .store(in: &subscribers)

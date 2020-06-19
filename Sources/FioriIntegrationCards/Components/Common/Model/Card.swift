@@ -70,8 +70,14 @@ public enum Card: Decodable, Identifiable, CustomStringConvertible {
         switch self {
         case .timeline(let card):
             card.baseURL.send(baseURL)
-        default:
-            break
+        case .object(let card):
+            card.baseURL.send(baseURL)
+        case .table(let card):
+            card.baseURL.send(baseURL)
+        case .list(let card):
+            card.baseURL.send(baseURL)
+        case .analytical(let card):
+            card.baseURL.send(baseURL)
         }
     }
 }
