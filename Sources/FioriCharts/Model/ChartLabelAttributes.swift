@@ -12,7 +12,7 @@ import FioriSwiftUICore
 public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
     /// Text color for the label.
-    @Published public var color: HexColor
+    @Published public var color: Color
     
     /// Size of the label font in points.
     @Published public var fontSize: CGFloat
@@ -28,7 +28,7 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    public init(color: HexColor = .preferredHexColor(forStyle: .primary3),
+    public init(color: Color = .preferredColor(forStyle: .primary3),
                 fontSize: Double = 12,
                 offset: Double = 0,
                 isHidden: Bool = false) {

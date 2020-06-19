@@ -12,7 +12,7 @@ import FioriSwiftUICore
 /// Gridline properties for an Axis.
 public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying, CustomStringConvertible {
     public init(width: Double = 1,
-                color: HexColor = .preferredHexColor(forStyle: .primary4),
+                color: Color = .preferredColor(forStyle: .primary4),
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 3,
                 isHidden: Bool = false) {
@@ -51,7 +51,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
     
     @Published public var width: CGFloat
 
-    @Published public var color: HexColor
+    @Published public var color: Color
 
     @Published public var dashPatternLength: CGFloat
     @Published public var dashPatternGap: CGFloat
@@ -65,7 +65,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
 public class ChartBaselineAttributes: ChartGridlineAttributes {
 
     public init(width: Double = 1,
-                color: HexColor = .preferredHexColor(forStyle: .primary3),
+                color: Color = .preferredColor(forStyle: .primary3),
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 0,
                 isHidden: Bool = false,

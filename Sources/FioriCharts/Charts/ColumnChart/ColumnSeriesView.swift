@@ -11,7 +11,6 @@ struct ColumnSeriesView: View {
     let model: ChartModel
     let tickValues: AxisTickValues
     let plotSeries: [ChartPlotRectData]
-    let colorScheme: ColorScheme
     let rect: CGRect
     let isSelectionView: Bool
     
@@ -68,10 +67,10 @@ struct ColumnSeriesView: View {
     
     func columnColor(for item: ChartPlotRectData) -> Color {
         if !isSelectionView {
-            return model.seriesAttributes[item.seriesIndex].palette.colors[0].color(colorScheme)
+            return model.seriesAttributes[item.seriesIndex].palette.colors[0]
         } else {
             if item.selected {
-                return model.seriesAttributes[item.seriesIndex].palette.fillColor.color(colorScheme)
+                return model.seriesAttributes[item.seriesIndex].palette.fillColor
             } else {
                 return .clear
             }

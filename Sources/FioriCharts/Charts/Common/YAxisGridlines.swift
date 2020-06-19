@@ -9,7 +9,6 @@ import SwiftUI
 
 struct YAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     
     weak var axisDataSource: AxisDataSource? = nil
@@ -62,7 +61,7 @@ struct YAxisGridlines: View {
                         // grid lines
                         LineShape(pos1: CGPoint(x: 0, y: label.pos.y),
                                   pos2: CGPoint(x: rect.size.width, y: label.pos.y))
-                            .stroke(self.model.numericAxis.gridlines.color.color(self.colorScheme),
+                            .stroke(self.model.numericAxis.gridlines.color,
                                     style: StrokeStyle(lineWidth: self.model.numericAxis.gridlines.width,
                                                        dash: [self.model.numericAxis.gridlines.dashPatternLength, self.model.numericAxis.gridlines.dashPatternGap]))
                     }

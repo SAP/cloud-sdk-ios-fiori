@@ -51,7 +51,6 @@ extension EnvironmentValues {
 
 struct XYAxisChart<Content: View, Indicator: View>: View {
     @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     
     var chartView: Content
