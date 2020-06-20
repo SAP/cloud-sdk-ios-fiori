@@ -82,8 +82,8 @@ struct StockIndicatorView: View {
         
         let strokeColor = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0] : model.seriesAttributes[seriesIndex].palette.colors[1]
         let fillColor = strokeColor.opacity(0.4)
-        let selectionIndicatorColor: Color = .preferredColor(forStyle: .primary2)
-        let circleColor: Color = .preferredColor(forStyle: .primary6)
+        let selectionIndicatorColor: Color = .preferredColor(.primary2)
+        let circleColor: Color = .preferredColor(.primary6)
         
         return ZStack {
             // range selection ui

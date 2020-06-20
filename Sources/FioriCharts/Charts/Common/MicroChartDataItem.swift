@@ -24,7 +24,7 @@ public struct MicroChartDataItem: Identifiable {
         if let color = color {
             self.color = color
         } else {
-            self.color = .preferredColor(forStyle: .primary2)
+            self.color = .preferredColor(.primary2)
         }
     }
 }
