@@ -2,7 +2,7 @@
 //  HexColor.swift
 //  FioriSwiftUICore
 //
-//  Created by Guo, Justin on 6/14/20.
+//  Created by Xu, Sheng on 6/14/20.
 //
 
 import Foundation

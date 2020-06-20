@@ -87,8 +87,8 @@ struct LineIndicatorView: View {
         }
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         let range = secondarySeriesIndexes.contains(selectedSeriesRange.lowerBound) ? seconaryDisplayRange : displayRange
-        let selectionIndicatorColor: Color = .preferredColor(forStyle: .primary2)
-        let circleColor: Color = .preferredColor(forStyle: .primary6)
+        let selectionIndicatorColor: Color = .preferredColor(.primary2)
+        let circleColor: Color = .preferredColor(.primary6)
         
         return ZStack {
             // range selection ui

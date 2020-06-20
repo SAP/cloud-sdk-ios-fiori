@@ -28,7 +28,7 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    public init(color: Color = .preferredColor(forStyle: .primary3),
+    public init(color: Color = .preferredColor(.primary3),
                 fontSize: Double = 12,
                 offset: Double = 0,
                 isHidden: Bool = false) {
