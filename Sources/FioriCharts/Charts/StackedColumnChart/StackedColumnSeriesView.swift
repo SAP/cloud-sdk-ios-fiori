@@ -68,11 +68,10 @@ struct StackedColumnSeriesView: View {
     
     func columnColor(for item: ChartPlotRectData) -> Color {
         if !isSelectionView {
-            //return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
-            return model.seriesAttributes[item.seriesIndex].palette.colors[0].color(colorScheme)
+            return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
         } else {
             if item.selected {
-                return model.seriesAttributes[item.seriesIndex].palette.fillColor.color(colorScheme)
+                return model.fillColorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
             } else {
                 return .clear
             }
@@ -81,11 +80,8 @@ struct StackedColumnSeriesView: View {
     
     func columnHeight(from rectData: ChartPlotRectData, isPositiveArea: Bool) -> CGFloat {
         if (rectData.value >= 0 && isPositiveArea) || (rectData.value < 0 && !isPositiveArea) {
-            //print("columnHeight: seriesIndex = \(rectData.seriesIndex), catIndex = \(rectData.categoryIndex), value = \(rectData.value), height = \(rectData.rect.size.height), isPositiveArea = \(isPositiveArea)")
-            
             return rectData.rect.size.height
         } else {
-            //print("columnHeight: seriesIndex = \(rectData.seriesIndex), catIndex = \(rectData.categoryIndex), value = \(rectData.value), height = 0, isPositiveArea = \(isPositiveArea)")
             return 0
         }
     }
