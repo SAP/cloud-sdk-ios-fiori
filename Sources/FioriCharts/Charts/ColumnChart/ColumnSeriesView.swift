@@ -68,10 +68,10 @@ struct ColumnSeriesView: View {
     
     func columnColor(for item: ChartPlotRectData) -> Color {
         if !isSelectionView {
-            return model.seriesAttributes[item.seriesIndex].palette.colors[0].color(colorScheme)
+            return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
         } else {
             if item.selected {
-                return model.seriesAttributes[item.seriesIndex].palette.fillColor.color(colorScheme)
+                return model.fillColorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
             } else {
                 return .clear
             }

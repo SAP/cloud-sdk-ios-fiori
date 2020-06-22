@@ -45,7 +45,7 @@ public struct Tests {
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
                    colorsForCategory: [0: [4: Palette.hexColor(for: .negative), 5: Palette.hexColor(for: .negative), 6: Palette.hexColor(for: .negative)]],
-                   selections: [0...0, 5...8],
+                   selections: [0...0, 4...8],
                    indexesOfSecondaryValueAxis: [0, 1]),
         
         ChartModel(chartType: .line,

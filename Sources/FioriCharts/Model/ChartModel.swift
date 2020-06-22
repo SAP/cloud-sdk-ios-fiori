@@ -1089,12 +1089,27 @@ extension ChartModel {
             return val
         }
         
-        if seriesAttributes.isEmpty {
-            return Palette.hexColor(for: .primary2)
-        } else {
+        if !seriesAttributes.isEmpty {
             let count = seriesAttributes.count
-            return seriesAttributes[categoryIndex%count].palette.colors[0]
+            if let color = seriesAttributes[seriesIndex % count].palette.colors.first {
+                return color
+            }
         }
+        
+        return Palette.hexColor(for: .primary2)
+    }
+    
+    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+        if !seriesAttributes.isEmpty {
+            let count = seriesAttributes.count
+            if let color = seriesAttributes[seriesIndex % count].palette._fillColor {
+                return color
+            } else { // use primary color
+                return colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
+            }
+        }
+            
+        return Palette.hexColor(for: .primary2)
     }
     
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {
