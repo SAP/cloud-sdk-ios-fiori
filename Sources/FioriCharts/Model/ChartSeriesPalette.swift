@@ -11,7 +11,7 @@ import FioriSwiftUICore
 
 public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     public init(colors: [Color],
-                fillColor: Color,
+                fillColor: Color? = nil,
                 labelColor: Color,
                 positiveMaxColor: Color,
                 positiveMinColor: Color,
@@ -23,7 +23,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
             self._colors = Published(initialValue: colors)
         }
         
-        self._fillColor = Published(initialValue: fillColor)
+        self.__fillColor = Published(initialValue: fillColor)
         self._labelColor = Published(initialValue: labelColor)
         self._positiveMaxColor = Published(initialValue: positiveMaxColor)
         self._positiveMinColor = Published(initialValue: positiveMinColor)
@@ -32,9 +32,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     }
 
     public convenience init(colors: [Color], labelColor: Color) {
-        let color = colors.first ?? .preferredColor(.primary1)
-        
-        self.init(colors: colors, fillColor: color, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
+        self.init(colors: colors, fillColor: nil, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
     }
     
     public convenience init(colors: [Color], fillColor: Color) {
@@ -46,12 +44,12 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     public convenience init(colors: [Color]) {
         let color = colors.first ?? .preferredColor(.primary1)
         
-        self.init(colors: colors, fillColor: color, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
+        self.init(colors: colors, fillColor: nil, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
         return ChartSeriesPalette(colors: self.colors,
-                                  fillColor: self.fillColor,
+                                  fillColor: self._fillColor,
                                   labelColor: self.labelColor,
                                   positiveMaxColor: self.positiveMaxColor,
                                   positiveMinColor: self.positiveMinColor,
@@ -63,8 +61,22 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     /// One color only for charts except stock requires multiple colors
     @Published public var colors: [Color]
 
+    @Published var _fillColor: Color?
+    
     /// Color used to render fill area or range selection for the series.
     @Published public var fillColor: Color
+    
+    public var fillColor: Color {
+        if let color = _fillColor {
+            return color
+        } else {
+            if let color = colors.first {
+                return color
+            } else {
+                return .preferredColor(.primary1)
+            }
+        }
+    }
     
     /// Color used to render labels for the series.
     @Published public var labelColor: Color
@@ -102,7 +114,7 @@ extension ChartSeriesPalette: CustomStringConvertible {
 {
     "ChartSeriesPalette": {
         "colors": \(String(describing: colors)),
-        "fillColor": \(String(describing: fillColor)),
+        "fillColor": \(String(describing: _fillColor)),
         "labelColor": \(String(describing: labelColor)),
         "positiveMaxColor": \(String(describing: positiveMaxColor)),
         "positiveMinColor": \(String(describing: positiveMinColor)),

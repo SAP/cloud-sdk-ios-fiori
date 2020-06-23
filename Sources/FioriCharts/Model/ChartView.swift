@@ -60,6 +60,8 @@ public struct ChartView: View {
                 AreaChart(chartModel)
             } else if chartModel.chartType == .column {
                 ColumnChart(chartModel)
+            } else if chartModel.chartType == .stackedColumn {
+                StackedColumnChart(chartModel)
             } else {
                 NoDataView()
             }

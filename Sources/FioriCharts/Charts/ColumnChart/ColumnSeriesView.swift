@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ColumnSeriesView: View {
-    let model: ChartModel
+    @ObservedObject var model: ChartModel
     let tickValues: AxisTickValues
     let plotSeries: [ChartPlotRectData]
     let rect: CGRect
@@ -67,10 +67,10 @@ struct ColumnSeriesView: View {
     
     func columnColor(for item: ChartPlotRectData) -> Color {
         if !isSelectionView {
-            return model.seriesAttributes[item.seriesIndex].palette.colors[0]
+            return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
         } else {
             if item.selected {
-                return model.seriesAttributes[item.seriesIndex].palette.fillColor
+                return model.fillColorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex).color(colorScheme)
             } else {
                 return .clear
             }
