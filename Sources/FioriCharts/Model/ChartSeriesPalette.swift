@@ -64,8 +64,6 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     @Published var _fillColor: Color?
     
     /// Color used to render fill area or range selection for the series.
-    @Published public var fillColor: Color
-    
     public var fillColor: Color {
         if let color = _fillColor {
             return color

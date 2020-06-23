@@ -1086,8 +1086,10 @@ extension ChartModel: Equatable {
 
 extension ChartModel {
     func colorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
-        var result: Color!
-
+        if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
+            return val
+        }
+        
         if !seriesAttributes.isEmpty {
             let count = seriesAttributes.count
             if let color = seriesAttributes[seriesIndex % count].palette.colors.first {
@@ -1095,7 +1097,7 @@ extension ChartModel {
             }
         }
         
-        return Palette.hexColor(for: .primary2)
+        return .preferredColor(.primary2)
     }
     
     func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
@@ -1108,7 +1110,7 @@ extension ChartModel {
             }
         }
             
-        return Palette.hexColor(for: .primary2)
+        return .preferredColor(.primary2)
     }
     
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {
