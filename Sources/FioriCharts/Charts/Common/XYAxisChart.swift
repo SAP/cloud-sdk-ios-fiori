@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-enum DragState {
-    case inactive
-    case pressing
-    case dragging(translation: CGSize)
-    
-    var translation: CGSize {
-        switch self {
-        case .inactive, .pressing:
-            return .zero
-        case .dragging(let translation):
-            return translation
-        }
-    }
-    
-    var isPressing: Bool {
-        switch self {
-        case .pressing, .dragging:
-            return true
-        case .inactive:
-            return false
-        }
-    }
-}
-
 struct AxisDataSourceEnvironmentKey: EnvironmentKey {
     static let defaultValue: AxisDataSource = DefaultAxisDataSource()
     
@@ -57,13 +33,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     var indicatorView: Indicator
     var axisDataSource: AxisDataSource
     
-    @State var draggingChartView = false
-    
-    // scale is not allowed to be less than 1.0
-    @State var lastScale: CGFloat = 1.0
-    @State var lastStartPos: Int = 0
-    @GestureState var dragState = DragState.inactive
-    //@State private var xAxisHeight:CGFloat = 20
     @State private var yAxisWidth: CGFloat = 20
     @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     @State private var yAxisSize: CGSize = CGSize(width: 20, height: 0)
@@ -73,10 +42,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         self.chartView = chartView
         self.indicatorView = indicatorView
         self.axisDataSource = axisDataSource
-        
-        //self.environment(\.axisDataSource, axisDataSource)
-        lastScale = 0
-        lastStartPos = 0
     }
     
     var body: some View {
@@ -91,11 +56,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         let xAxisHeight = xAxisLabelsMaxHeight(rect)
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
-        
-        let displayRange = ChartUtility.displayRange(model)
         let chartWidth = rect.size.width - yAxisWidth - secondaryYAxisWidth
         
         let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
+        //let xAxisRect, yAxisRect, secondaryYAxisRect: CGRect
         switch model.valueType {
         case .allPositive:
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
@@ -139,7 +103,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 if model.valueType == .allPositive {
-                    GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                    GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                        .frame(width: chartRect.width, height: chartRect.height)
                     
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
@@ -150,10 +115,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         .zIndex(1)
                         .environmentObject(self.model)
                     
-                    GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                    GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                    .frame(width: chartRect.width, height: chartRect.height)
                 } else {
                     ZStack {
-                        GridLinesAndChartView(chartRect: chartRect, displayRange: displayRange)
+                        GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                        .frame(width: chartRect.width, height: chartRect.height)
                         
                         XAxisView(axisDataSource: axisDataSource)
                             .frame(height: xAxisRect.height)
@@ -176,100 +143,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
     }
     
-    func GridLinesAndChartView(chartRect: CGRect, displayRange: ClosedRange<CGFloat>) -> some View {
-        // pan chart horizontally or slide to show the indicator if it is not zoomed in
-        let drag = DragGesture()
-            .onChanged({ value in
-                // not zoomed in
-                if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
-                    let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: value.location, rect: chartRect, layoutDirection: self.layoutDirection)
-                    
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: false)
-                    return
-                }
-                
-                if self.model.selections != nil {
-                    self.model.selections = nil
-                }
-                self.draggingChartView = true
-                let maxPos = Int(chartRect.size.width * (self.model.scale - 1))
-                let tmp = self.layoutDirection == .leftToRight ? (self.lastStartPos - Int(value.translation.width)) : (self.lastStartPos + Int(value.translation.width))
-                if self.model.snapToPoint {
-                    let unitWidth: CGFloat = chartRect.size.width * self.model.scale / CGFloat(ChartUtility.numOfDataItems(self.model) - 1)
-                    let closestIndex = Int(CGFloat(tmp) / unitWidth)
-                    self.model.startPos = Int(CGFloat(closestIndex) * unitWidth).clamp(low: 0, high: maxPos)
-                } else {
-                    self.model.startPos = tmp.clamp(low: 0, high: maxPos)
-                }
-            })
-            .onEnded({ _ in
-                self.draggingChartView = false
-                self.lastStartPos = self.model.startPos
-            })
-        
-        // zoom in & out
-        let mag = MagnificationGesture()
-            .onChanged({ value in
-                if self.model.selections != nil {
-                    self.model.selections = nil
-                }
-                let count = ChartUtility.numOfDataItems(self.model)
-                let maxScale = max(1, CGFloat(count - 1) / 2)
-                let tmp = self.lastScale * value.magnitude
-                self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
-                let width = chartRect.size.width
-                let midPos: CGFloat = (CGFloat(self.lastStartPos) + width / 2) / (self.lastScale * width)
-                
-                let maxPos: Int = Int(width * (self.model.scale - 1))
-                self.model.startPos = Int(midPos * width * self.model.scale - width/2).clamp(low: 0, high: maxPos)
-            })
-            .onEnded({ _ in
-                self.lastScale = self.model.scale
-                self.lastStartPos = self.model.startPos
-            })
-            .exclusively(before: drag)
-        
-        return ZStack {
-            self.chartView
-                .opacity( (draggingChartView || self.model.selections != nil) ? 0.25 : 1.0)
-            
-            XAxisGridlines(axisDataSource: axisDataSource)
-                .environmentObject(model)
-            YAxisGridlines(displayRange: displayRange, axisDataSource: axisDataSource)
-                .environmentObject(model)
-            
-            indicatorView
-            
-            Background(tappedCallback: { (point) in            
-                let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
- 
-                ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-            }, doubleTappedCallback: { (_) in
-                // clear selections
-                if self.model.selections != nil {
-                    self.model.selections = nil
-                }
-            }) { (points) in
-                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
-                    let items = self.axisDataSource.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1], rect: chartRect, layoutDirection: self.layoutDirection)
-                    
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
-                }
-            }
-            .gesture(drag)
-            .gesture(mag)
-            .disabled(!model.userInteractionEnabled)
-        }.frame(width: chartRect.size.width, height: chartRect.size.height)
-    }
-    
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         let labels = axisDataSource.xAxisLabels(model, rect: rect)
         if labels.isEmpty || (model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden) {
-            return 16
+            return 0
         }
         
         if !model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden {
-            return max(16, model.categoryAxis.baseline.width)
+            return max(0, model.categoryAxis.baseline.width)
         }
         
         var height: CGFloat = 16
@@ -294,6 +175,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         // show nothing
         if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
+            axisDataSource.isEnoughSpaceToShowXAxisLables = false
             height = 0
         }
         
@@ -341,97 +223,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
 }
 
-struct Background: UIViewRepresentable {
-    var tappedCallback: ((CGPoint) -> Void)
-    var doubleTappedCallback: ((CGPoint) -> Void)
-    var longPressedCallback: (((CGPoint, CGPoint)) -> Void)
-    
-    func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
-        let v = UIView(frame: .zero)
-        let gesture = UITapGestureRecognizer(target: context.coordinator,
-                                             action: #selector(Coordinator.tapped))
-        v.addGestureRecognizer(gesture)
-        
-        // double tap used to cancel the selection
-        let doubleTapGesture = UITapGestureRecognizer(target: context.coordinator,
-                                                      action: #selector(Coordinator.doubleTapped))
-        doubleTapGesture.numberOfTapsRequired = 2
-        
-        v.addGestureRecognizer(doubleTapGesture)
-        
-        // long pressed gesture to do range selection
-        let longPressedGesture = UILongPressGestureRecognizer(target: context.coordinator,
-                                                              action: #selector(Coordinator.longPressed(gesture:)))
-        longPressedGesture.numberOfTouchesRequired = 2
-        longPressedGesture.minimumPressDuration = 0.5
-        longPressedGesture.allowableMovement = 5
-        
-        v.addGestureRecognizer(longPressedGesture)
-        
-        return v
-    }
-    
-    class Coordinator: NSObject {
-        var tappedCallback: ((CGPoint) -> Void)
-        var doubleTappedCallback: ((CGPoint) -> Void)
-        var longPressedCallback: (((CGPoint, CGPoint)) -> Void)
-        
-        init(tappedCallback: @escaping ((CGPoint) -> Void),
-             doubleTappedCallback: @escaping ((CGPoint) -> Void),
-             longPressedCallback: @escaping (((CGPoint, CGPoint)) -> Void)) {
-            self.tappedCallback = tappedCallback
-            self.doubleTappedCallback = doubleTappedCallback
-            self.longPressedCallback = longPressedCallback
-        }
-        
-        @objc func tapped(gesture: UITapGestureRecognizer) {
-            let point = gesture.location(in: gesture.view)
-            
-            self.tappedCallback(point)
-        }
-        
-        @objc func doubleTapped(gesture: UITapGestureRecognizer) {
-            let point = gesture.location(in: gesture.view)
-        
-            self.doubleTappedCallback(point)
-        }
-        
-        @objc func longPressed(gesture: UILongPressGestureRecognizer) {
-            let first = gesture.location(ofTouch: 0, in: gesture.view)
-            let second = gesture.location(ofTouch: 1, in: gesture.view)
-            
-            self.longPressedCallback((first, second))
-        }
-    }
-    
-    func makeCoordinator() -> Background.Coordinator {
-        return Coordinator(tappedCallback: self.tappedCallback,
-                           doubleTappedCallback: self.doubleTappedCallback,
-                           longPressedCallback: self.longPressedCallback)
-    }
-    
-    func updateUIView(_ uiView: UIView,
-                      context: UIViewRepresentableContext<Background>) {
-    }
-}
-
-struct XAxisSizePreferenceKey: PreferenceKey {
-    typealias Value = [CGSize]
-    static let defaultValue: Value = []
-    
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value.append(contentsOf: nextValue())
-    }
-}
-
-struct SizeModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content.overlay(GeometryReader { proxy in
-            Color.clear.preference(key: XAxisSizePreferenceKey.self, value: [proxy.size])
-        })
-    }
-}
-
 extension Comparable {
     func clamp(low: Self, high: Self) -> Self {
         if self > high {
@@ -449,7 +240,7 @@ struct XYAxisChart_Previews: PreviewProvider {
         XYAxisChart(Tests.lineModels[0],
                     axisDataSource: DefaultAxisDataSource(),
                     chartView: LinesView(Tests.lineModels[0]),
-                    indicatorView: StockIndicatorView(Tests.lineModels[0]))
+                    indicatorView: LineIndicatorView(Tests.lineModels[0]))
             .frame(width: 300, height: 400)
             .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }

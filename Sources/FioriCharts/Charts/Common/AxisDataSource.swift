@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 
 protocol AxisDataSource: class {
+    var isEnoughSpaceToShowXAxisLables: Bool { get set }
+    
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
@@ -18,6 +20,8 @@ protocol AxisDataSource: class {
     func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
     
     func plotData(_ model: ChartModel) -> [[ChartPlotRectData]]
+    
+    func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat
     
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat)
     
@@ -29,6 +33,8 @@ protocol AxisDataSource: class {
 }
 
 class DefaultAxisDataSource: AxisDataSource {
+    var isEnoughSpaceToShowXAxisLables: Bool = true
+    
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         var ret: [AxisTitle] = []
         
@@ -279,6 +285,14 @@ class DefaultAxisDataSource: AxisDataSource {
     
     func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
         return []
+    }
+    
+    func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
+        let unitWidth: CGFloat = model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let categoryIndex = Int(x / unitWidth)
+        let x = CGFloat(categoryIndex) * unitWidth
+        
+        return x
     }
     
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {

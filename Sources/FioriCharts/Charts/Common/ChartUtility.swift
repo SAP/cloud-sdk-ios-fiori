@@ -42,17 +42,33 @@ class ChartUtility {
         }
         
         var currentSeriesIndex: Int = 0
-        var dmin: CGFloat
-        var dmax: CGFloat
+        var dmin: CGFloat = 0
+        var dmax: CGFloat = 0
         if model.chartType == .stock {
             currentSeriesIndex = model.currentSeriesIndex
             dmin = CGFloat(model.ranges[model.currentSeriesIndex].lowerBound)
             dmax = CGFloat(model.ranges[model.currentSeriesIndex].upperBound)
+        } else if model.chartType == .stackedColumn {
+            for seriesIndex in 0 ..< model.numOfSeries() {
+                let seriesMin = CGFloat(model.ranges[seriesIndex].lowerBound)
+                let seriesMax = CGFloat(model.ranges[seriesIndex].upperBound)
+                if seriesMin < 0 {
+                    dmin += seriesMin
+                } else {
+                    dmin = min(dmin, seriesMin)
+                }
+                
+                if seriesMax > 0 {
+                    dmax += seriesMax
+                } else {
+                    dmax = max(dmax, seriesMax)
+                }
+            }
         } else {
             let dataRange: ClosedRange<CGFloat> = indexes.reduce(model.ranges[indexes[0]]) { (result, i) -> ClosedRange<CGFloat> in
-                let dmin = min(result.lowerBound, model.ranges[i].lowerBound)
-                let dmax = max(result.upperBound, model.ranges[i].upperBound)
-                return dmin...dmax
+                let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
+                let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
+                return seriesMin...seriesMax
             }
             
             dmin = dataRange.lowerBound
@@ -527,14 +543,14 @@ class ChartUtility {
                 model.selections = nil
             }
             
-            let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 ... lastItem.1
+            let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 <= lastItem.1 ? firstItem.1 ... lastItem.1 : lastItem.1 ... firstItem.1
             
             let seriesRange: ClosedRange<Int>
             if model.chartType == .stock {
                 seriesRange = model.currentSeriesIndex ... model.currentSeriesIndex
             } else {
                 if model.selectionMode == .single {
-                    if firstItem == lastItem {
+                    if selectedPlotItems.count == 1 {
                         seriesRange = firstItem.0 ... firstItem.0
                     } else {
                         // renge selection

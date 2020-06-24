@@ -27,6 +27,11 @@ struct ContentView: View {
             model.chartType = .column
             return model
          }, Tests.lineModelsDesc),
+         ("Stacked Column", Tests.lineModels.map {
+            let model = $0.copy() as! ChartModel
+            model.chartType = .stackedColumn
+            return model
+         }, Tests.lineModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
          ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
          ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),

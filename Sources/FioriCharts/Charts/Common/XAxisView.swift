@@ -39,7 +39,7 @@ struct XAxisView: View {
         }
         
         return ZStack {
-            if !xAxisLabels.isEmpty && !self.model.categoryAxis.labels.isHidden {
+            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !self.model.categoryAxis.labels.isHidden {
                 ForEach(xAxisLabels) { title in
                     if !self.model.categoryAxis.labels.isHidden {
                         // category labels

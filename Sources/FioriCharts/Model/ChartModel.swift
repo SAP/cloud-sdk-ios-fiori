@@ -384,6 +384,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let secondaryRange: Bool
     }
     
+    // need to invalidate it if the data has been changed
+    var plotDataCache: [[ChartPlotRectData]]? = nil
+    
     /// cache for AxisTickValues
     var numericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
     
@@ -1083,18 +1086,18 @@ extension ChartModel: Equatable {
 
 extension ChartModel {
     func colorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
-        var result: Color!
-        
         if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
-            result = val
-        } else if seriesAttributes.isEmpty {
-            result = .preferredColor(.primary2)
-        } else {
-            let count = seriesAttributes.count
-            result = seriesAttributes[categoryIndex%count].palette.colors[0]
+            return val
         }
         
-        return result
+        if !seriesAttributes.isEmpty {
+            let count = seriesAttributes.count
+            if let color = seriesAttributes[seriesIndex % count].palette.colors.first {
+                return color
+            }
+        }
+        
+        return .preferredColor(.primary2)
     }
     
     func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
@@ -1106,7 +1109,7 @@ extension ChartModel {
                 return colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
             }
         }
-            
+        
         return .preferredColor(.primary2)
     }
     
