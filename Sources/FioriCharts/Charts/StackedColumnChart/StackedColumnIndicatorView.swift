@@ -9,7 +9,6 @@ import SwiftUI
 
 struct StackedColumnIndicatorView: View {
     @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.axisDataSource) var axisDataSource
     
@@ -70,7 +69,7 @@ struct StackedColumnIndicatorView: View {
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
                     ForEach(displayPlotData, id: \.self) { series in
-                        StackedColumnSeriesView(model: self.model, tickValues: tickValues, plotSeries: series, colorScheme: self.colorScheme, rect: rect, isSelectionView: true)
+                        StackedColumnSeriesView(model: self.model, tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: true)
                     }
                     
                     Spacer(minLength: 0)

@@ -18,7 +18,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 negativeMaxColor: Color,
                 negativeMinColor: Color) {
         if colors.isEmpty {
-            self._colors = Published(initialValue: [Palette.hexColor(for: .primary1)])
+            self._colors = Published(initialValue: [.preferredColor(.primary1)])
         } else {
             self._colors = Published(initialValue: colors)
         }
@@ -65,8 +65,6 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     @Published var _fillColor: Color?
     
     /// Color used to render fill area or range selection for the series.
-    @Published public var fillColor: Color
-    
     public var fillColor: Color {
         if let color = _fillColor {
             return color
