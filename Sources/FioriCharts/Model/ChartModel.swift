@@ -945,14 +945,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)
-            let colors: [Color] = [.preferredColor(forStyle: .stockUpStroke), .preferredColor(forStyle: .stockDownStroke)]
+            let colors: [Color] = [.preferredColor(.stockUpStroke), .preferredColor(.stockDownStroke)]
             let palette = ChartSeriesPalette(colors: colors)
             let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
             sa.point.isHidden = true
             return Array(repeating: sa, count: count)
             
         default:
-            let colors: [Color] = [.preferredColor(forStyle: .chart1), .preferredColor(forStyle: .chart2), .preferredColor(forStyle: .chart3), .preferredColor(forStyle: .chart4), .preferredColor(forStyle: .chart5), .preferredColor(forStyle: .chart6), .preferredColor(forStyle: .chart7), .preferredColor(forStyle: .chart8), .preferredColor(forStyle: .chart9), .preferredColor(forStyle: .chart10), .preferredColor(forStyle: .chart11)]
+            let colors: [Color] = [.preferredColor(.chart1), .preferredColor(.chart2), .preferredColor(.chart3), .preferredColor(.chart4), .preferredColor(.chart5), .preferredColor(.chart6), .preferredColor(.chart7), .preferredColor(.chart8), .preferredColor(.chart9), .preferredColor(.chart10), .preferredColor(.chart11)]
             let count = min(colors.count, max(1, seriesCount))
             //var pointAttributes: [ChartPointAttributes] = []
             var result: [ChartSeriesAttributes] = []
@@ -1087,10 +1087,8 @@ extension ChartModel {
         
         if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
             result = val
-        }
-        
-        if seriesAttributes.isEmpty {
-            result = .preferredColor(forStyle: .primary2)
+        } else if seriesAttributes.isEmpty {
+            result = .preferredColor(.primary2)
         } else {
             let count = seriesAttributes.count
             result = seriesAttributes[categoryIndex%count].palette.colors[0]

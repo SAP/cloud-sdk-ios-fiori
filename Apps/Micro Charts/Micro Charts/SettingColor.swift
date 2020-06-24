@@ -14,7 +14,7 @@ struct SettingColor: View {
     @Binding var color: Color
     var title: String?
     
-    let colorOptions: [Color] = ColorStyle.allCases.map() {.preferredColor(forStyle: $0)}
+    let colorOptions: [Color] = ColorStyle.allCases.map() {.preferredColor($0)}
     
     var body: some View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {
