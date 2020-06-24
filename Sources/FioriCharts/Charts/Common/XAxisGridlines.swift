@@ -9,13 +9,8 @@ import SwiftUI
 
 struct XAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
-    
-    weak var axisDataSource: AxisDataSource? = nil
-    
-    init(axisDataSource: AxisDataSource? = nil) {
-        self.axisDataSource = axisDataSource
-    }
     
     var body: some View {
         GeometryReader { proxy in

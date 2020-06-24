@@ -21,10 +21,10 @@ class ChartLineAttributesTests: XCTestCase {
     func testChartGridlineAttributes() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let ga = ChartGridlineAttributes(width: 2, color: HexColor(lightColor: "121212", darkColor: "ffffffff"), dashPatternLength: 1, dashPatternGap: 0, isHidden: true)
+        let ga = ChartGridlineAttributes(width: 2, color: .gray, dashPatternLength: 1, dashPatternGap: 0, isHidden: true)
         
         XCTAssertEqual(ga.width, 2.0)
-        XCTAssertEqual(ga.color, HexColor(lightColor: "121212", darkColor: "ffffffff"))
+        XCTAssertEqual(ga.color, .gray)
         XCTAssertEqual(ga.dashPatternLength, 1.0)
         XCTAssertEqual(ga.dashPatternGap, 0.0)
         XCTAssertEqual(ga.isHidden, true)
@@ -33,7 +33,7 @@ class ChartLineAttributesTests: XCTestCase {
     func testChartGridlineAttributesCopy() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let ga = ChartGridlineAttributes(width: 2, color: HexColor(lightColor: "121212", darkColor: "ffffffff"), dashPatternLength: 1, dashPatternGap: 0, isHidden: true)
+        let ga = ChartGridlineAttributes(width: 2, color: .preferredColor(.chart1), dashPatternLength: 1, dashPatternGap: 0, isHidden: true)
         
         let gaCopy = ga.copy() as! ChartGridlineAttributes
         XCTAssertEqual(ga, gaCopy)
@@ -43,10 +43,10 @@ class ChartLineAttributesTests: XCTestCase {
     }
     
     func testChartBaselineAttributes() throws {
-        let ga = ChartBaselineAttributes(width: 2, color: HexColor(lightColor: "121212", darkColor: "ffffffff"), dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: 0, position: 2)
+        let ga = ChartBaselineAttributes(width: 2, color: .gray, dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: 0, position: 2)
         
         XCTAssertEqual(ga.width, 2.0)
-        XCTAssertEqual(ga.color, HexColor(lightColor: "121212", darkColor: "ffffffff"))
+        XCTAssertEqual(ga.color, .gray)
         XCTAssertEqual(ga.dashPatternLength, 1.0)
         XCTAssertEqual(ga.dashPatternGap, 0.0)
         XCTAssertEqual(ga.isHidden, false)
@@ -55,7 +55,7 @@ class ChartLineAttributesTests: XCTestCase {
     }
     
     func testChartBaselineAttributesCopy() throws {
-        let ga = ChartBaselineAttributes(width: 2, color: HexColor(lightColor: "121212", darkColor: "ffffffff"), dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: 0, position: 2)
+        let ga = ChartBaselineAttributes(width: 2, color: .preferredColor(.chart1), dashPatternLength: 1, dashPatternGap: 0, isHidden: false, value: 0, position: 2)
         
         let gaCopy = ga.copy() as! ChartBaselineAttributes
         XCTAssertEqual(ga, gaCopy)

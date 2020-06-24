@@ -65,6 +65,18 @@ struct ColumnSeriesView: View {
         }
     }
     
+    func columnColor(for item: ChartPlotRectData) -> Color {
+        if !isSelectionView {
+            return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex)
+        } else {
+            if item.selected {
+                return model.fillColorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex)
+            } else {
+                return .clear
+            }
+        }
+    }
+    
     func columnHeight(from rectData: ChartPlotRectData, isPositiveArea: Bool) -> CGFloat {
         if (rectData.value >= 0 && isPositiveArea) || (rectData.value < 0 && !isPositiveArea) {
             return rectData.rect.size.height

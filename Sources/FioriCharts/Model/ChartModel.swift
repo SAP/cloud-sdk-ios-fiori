@@ -1097,6 +1097,19 @@ extension ChartModel {
         return result
     }
     
+    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
+        if !seriesAttributes.isEmpty {
+            let count = seriesAttributes.count
+            if let color = seriesAttributes[seriesIndex % count].palette._fillColor {
+                return color
+            } else { // use primary color
+                return colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
+            }
+        }
+            
+        return .preferredColor(.primary2)
+    }
+    
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {
         guard let tmp = labelsForDimension, seriesIndex < tmp.count, categoryIndex < tmp[seriesIndex].count, dimensionIndex < tmp[seriesIndex][categoryIndex].count else {
             return nil
