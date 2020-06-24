@@ -38,9 +38,12 @@
 		AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75F736249AC36700328E53 /* BundleTestCases.swift */; };
 		ABFF2BD2249BE03600ED7D30 /* ObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */; };
 		ABFF2BD4249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */; };
+<<<<<<< HEAD
 		ABFF2C3D24A407EE00ED7D30 /* TableVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */; };
 		ABFF2C4324A40BE800ED7D30 /* AnalyticalVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */; };
 		ABFF2C4524A40E8E00ED7D30 /* ListVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */; };
+=======
+>>>>>>> 63798e27a437812c26c9d4ff2d2d4e447dc30d09
 		F6B9469D2422D2880041F5D0 /* employee.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469C2422D2880041F5D0 /* employee.json */; };
 		F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */; };
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
@@ -115,9 +118,12 @@
 		AB75F736249AC36700328E53 /* BundleTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleTestCases.swift; sourceTree = "<group>"; };
 		ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ObjectVariants.card.zip; sourceTree = "<group>"; };
 		ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HTTPObjectVariants.card.zip; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = TableVariants.card.zip; sourceTree = "<group>"; };
 		ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = AnalyticalVariants.card.zip; sourceTree = "<group>"; };
 		ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ListVariants.card.zip; sourceTree = "<group>"; };
+=======
+>>>>>>> 63798e27a437812c26c9d4ff2d2d4e447dc30d09
 		F6B9469C2422D2880041F5D0 /* employee.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee.json; sourceTree = "<group>"; };
 		F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tineline_mainfest.json; sourceTree = "<group>"; };
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
@@ -216,9 +222,12 @@
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */,
 				ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */,
 				ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */,
+=======
+>>>>>>> 63798e27a437812c26c9d4ff2d2d4e447dc30d09
 				ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */,
 				ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */,
 				AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */,
