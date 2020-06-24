@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FioriSwiftUICore
 
 struct SelectionItem: Identifiable {
     let categoryIndex: Int
@@ -87,6 +88,8 @@ struct LineIndicatorView: View {
         }
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         let range = secondarySeriesIndexes.contains(selectedSeriesRange.lowerBound) ? seconaryDisplayRange : displayRange
+        let selectionIndicatorColor: Color = .preferredColor(forStyle: .primary2)
+        let circleColor: Color = .preferredColor(forStyle: .primary6)
         
         return ZStack {
             // range selection ui
@@ -129,16 +132,16 @@ struct LineIndicatorView: View {
                 LineShape(pos1: CGPoint(x: item.xPosition, y: rect.origin.y),
                           pos2: CGPoint(x: item.xPosition, y: rect.origin.y + rect.size.height),
                           layoutDirection: self.layoutDirection)
-                    .stroke(Palette.hexColor(for: .primary2).color(self.colorScheme), lineWidth: 1)
+                    .stroke(selectionIndicatorColor, lineWidth: 1)
                 
                 SelectionAnchorShape()
                     .rotation(Angle(degrees: 180))
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: 2)
                 
                 SelectionAnchorShape()
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: rect.origin.y + rect.size.height - 2)
                 
@@ -150,8 +153,7 @@ struct LineIndicatorView: View {
                                    height: self.model.seriesAttributes[i].point.diameter + 5.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
                         
-                        Circle().stroke(Palette.hexColor(for: .primary6).color(self.colorScheme),
-                                        style: StrokeStyle(lineWidth: 4))
+                        Circle().stroke(circleColor, style: StrokeStyle(lineWidth: 4))
                             .frame(width: self.model.seriesAttributes[i].point.diameter + 9.0,
                                    height: self.model.seriesAttributes[i].point.diameter + 9.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))

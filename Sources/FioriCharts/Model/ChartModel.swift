@@ -9,9 +9,10 @@
 import Foundation
 import SwiftUI
 import Combine
+import FioriSwiftUICore
 
 // swiftlint:disable file_length
-//swiftlint:disable type_body_length
+// swiftlint:disable type_body_length
 
 /**
 A common data model for all charts. Chart properties can be initialized in init() or changed after init().
@@ -457,6 +458,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     public let id = UUID()
+    
+    let palette: Palette = PaletteVersion.v4.rawValue
     
     public init(chartType: ChartType,
                 data: [[DimensionData<CGFloat?>]],
@@ -944,14 +947,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)
-            let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke)]
+            let colors: [HexColor] = [.preferredHexColor(forStyle: .stockUpStroke), .preferredHexColor(forStyle: .stockDownStroke)]
             let palette = ChartSeriesPalette(colors: colors)
             let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
             sa.point.isHidden = true
             return Array(repeating: sa, count: count)
             
         default:
-            let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2), Palette.hexColor(for: .chart3), Palette.hexColor(for: .chart4), Palette.hexColor(for: .chart5), Palette.hexColor(for: .chart6), Palette.hexColor(for: .chart7), Palette.hexColor(for: .chart8), Palette.hexColor(for: .chart9), Palette.hexColor(for: .chart10), Palette.hexColor(for: .chart11)]
+            let colors: [HexColor] = [.preferredHexColor(forStyle: .chart1), .preferredHexColor(forStyle: .chart2), .preferredHexColor(forStyle: .chart3), .preferredHexColor(forStyle: .chart4), .preferredHexColor(forStyle: .chart5), .preferredHexColor(forStyle: .chart6), .preferredHexColor(forStyle: .chart7), .preferredHexColor(forStyle: .chart8), .preferredHexColor(forStyle: .chart9), .preferredHexColor(forStyle: .chart10), .preferredHexColor(forStyle: .chart11)]
             let count = min(colors.count, max(1, seriesCount))
             //var pointAttributes: [ChartPointAttributes] = []
             var result: [ChartSeriesAttributes] = []
@@ -1082,16 +1085,20 @@ extension ChartModel: Equatable {
 
 extension ChartModel {
     func colorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+        var result: HexColor!
+        
         if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
-            return val
+            result = val
         }
         
         if seriesAttributes.isEmpty {
-            return Palette.hexColor(for: .primary2)
+            result = .preferredHexColor(forStyle: .primary2)
         } else {
             let count = seriesAttributes.count
-            return seriesAttributes[categoryIndex%count].palette.colors[0]
+            result = seriesAttributes[categoryIndex%count].palette.colors[0]
         }
+        
+        return result
     }
     
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {

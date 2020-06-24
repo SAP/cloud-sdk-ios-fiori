@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import FioriSwiftUICore
 
 public struct MicroChartDataItem: Identifiable {
     public var value: CGFloat
@@ -23,7 +24,7 @@ public struct MicroChartDataItem: Identifiable {
         if let color = color {
             self.color = color
         } else {
-            self.color = Palette.hexColor(for: .primary2)
+            self.color = .preferredHexColor(forStyle: .primary2)
         }
     }
 }
