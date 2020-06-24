@@ -1100,7 +1100,7 @@ extension ChartModel {
         return .preferredColor(.primary2)
     }
     
-    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
         if !seriesAttributes.isEmpty {
             let count = seriesAttributes.count
             if let color = seriesAttributes[seriesIndex % count].palette._fillColor {

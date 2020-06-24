@@ -7,8 +7,10 @@
 
 @testable import FioriCharts
 import XCTest
+import SwiftUI
 
 class ChartLabelAttributesTests: XCTestCase {
+    let color: Color = .preferredColor(.primary2)
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,19 +23,18 @@ class ChartLabelAttributesTests: XCTestCase {
     func testInit() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let labelAttributes = ChartLabelAttributes(color: Palette.hexColor(for: .primary2),
+        let labelAttributes = ChartLabelAttributes(color: color,
                                                    fontSize: 12,
                                                    offset: 0,
                                                    isHidden: false)
-        
-        XCTAssertEqual(labelAttributes.color, Palette.hexColor(for: .primary2))
+        XCTAssertEqual(labelAttributes.color.resolvedColor(with: .light), color.resolvedColor(with: .light))
         XCTAssertEqual(labelAttributes.fontSize, 12)
         XCTAssertEqual(labelAttributes.offset, 0)
         XCTAssertEqual(labelAttributes.isHidden, false)
     }
 
     func testCopy() throws {
-        let labelAttributes = ChartLabelAttributes(color: Palette.hexColor(for: .primary2),
+        let labelAttributes = ChartLabelAttributes(color: color,
                                                    fontSize: 12,
                                                    offset: 0,
                                                    isHidden: true)
