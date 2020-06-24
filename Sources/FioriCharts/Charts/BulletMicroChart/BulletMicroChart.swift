@@ -15,7 +15,6 @@ public struct BulletMicroChart: View {
     }
     
     @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @State var mode: Mode? = .standard
     
     init(_ model: ChartModel) {
@@ -123,7 +122,7 @@ public struct BulletMicroChart: View {
             ForEach(thresholds) {
                 LineShape(pos1: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y - 3),
                           pos2: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y + chartHeight + 6))
-                    .stroke($0.color.color(self.colorScheme),
+                    .stroke($0.color,
                             style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
             }
         }

@@ -11,7 +11,6 @@ import FioriSwiftUICore
 
 struct StockIndicatorView: View {
     @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     
     public init(_ model: ChartModel) {
@@ -81,12 +80,10 @@ struct StockIndicatorView: View {
             }
         }
         
-        let rgba = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].rgba(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].rgba(colorScheme)
-        let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-        let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
-        // let gradientColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: 0.0)
-        let selectionIndicatorColor: Color = .preferredColor(forStyle: .esriEdit)
-        let circleColor: Color = .preferredColor(forStyle: .esriEdit)
+        let strokeColor = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0] : model.seriesAttributes[seriesIndex].palette.colors[1]
+        let fillColor = strokeColor.opacity(0.4)
+        let selectionIndicatorColor: Color = .preferredColor(forStyle: .primary2)
+        let circleColor: Color = .preferredColor(forStyle: .primary6)
         
         return ZStack {
             // range selection ui

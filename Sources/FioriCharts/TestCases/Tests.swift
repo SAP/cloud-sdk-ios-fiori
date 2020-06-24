@@ -44,17 +44,17 @@ public struct Tests {
                    titlesForCategory: [["Ja", "Fe", "Ma", "Ap", "Ma", "Ju", "Ju", "Au", "Se", "Oc", "No", "De"]],
                    seriesAttributes: [
                         ChartSeriesAttributes(palette:
-                            ChartSeriesPalette(colors: [.preferredHexColor(forStyle: .chart4)],
-                                               fillColor: .preferredHexColor(forStyle: .chart5)),
+                            ChartSeriesPalette(colors: [.preferredColor(forStyle: .chart4)],
+                                               fillColor: .preferredColor(forStyle: .chart5)),
                                               lineWidth: 2,
                                               point: nil,
                                               firstLineCapDiameter: 0,
                                               lastLineCapDiameter: 0),
                         ChartSeriesAttributes(palette:
-                        ChartSeriesPalette(colors: [.preferredHexColor(forStyle: .chart8)],
-                                           fillColor: .preferredHexColor(forStyle: .chart9)),
+                        ChartSeriesPalette(colors: [.preferredColor(forStyle: .chart8)],
+                                           fillColor: .preferredColor(forStyle: .chart9)),
                                           lineWidth: 3,
-                                          point: ChartPointAttributes(isHidden: false, diameter: 20, strokeColor: .preferredHexColor(forStyle: .chart1), gap: 2),
+                                          point: ChartPointAttributes(isHidden: false, diameter: 20, strokeColor: .preferredColor(forStyle: .chart1), gap: 2),
                                           firstLineCapDiameter: 0,
                                           lastLineCapDiameter: 0)
                     ],
@@ -90,7 +90,7 @@ public struct Tests {
         
         ChartModel(chartType: .micro_bullet,
                    data: [[35, 50, 70], [0, 20, 50, 100]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .chart1), 1: .preferredHexColor(forStyle: .chart2), 2: .preferredHexColor(forStyle: .chart2), 3: .preferredHexColor(forStyle: .chart3)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .chart1), 1: .preferredColor(forStyle: .chart2), 2: .preferredColor(forStyle: .chart2), 3: .preferredColor(forStyle: .chart3)]]),
         
         ChartModel(chartType: .micro_bullet, data: [[nil]]),
         
@@ -110,7 +110,7 @@ public struct Tests {
         ChartModel(chartType: .micro_column,
                    data: [[200, 170, -165, 143, 166, 112, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                   colorsForCategory: [0: [2: .preferredHexColor(forStyle: .negative)]],
+                   colorsForCategory: [0: [2: .preferredColor(forStyle: .negative)]],
                    labelsForDimension: [["$200K", "avg", "-165K", nil, "$166K", "$112K", "$110K"]]),
         
         ChartModel(chartType: .micro_column,
@@ -128,22 +128,22 @@ public struct Tests {
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 8]],
                    titlesForCategory: [["360 Mrd", "8 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary3), 1: .preferredHexColor(forStyle: .negative)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .primary3), 1: .preferredColor(forStyle: .negative)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 352]],
                    titlesForCategory: [["360 Mrd", "352 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary3), 1: .preferredHexColor(forStyle: .positive)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .primary3), 1: .preferredColor(forStyle: .positive)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 400]],
                    titlesForCategory: [["360 Mrd", "400 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary4), 1: .preferredHexColor(forStyle: .positive)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .primary4), 1: .preferredColor(forStyle: .positive)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[100, 8]],
                    titlesForCategory: [["100 Mrd", ""]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary4), 1: .preferredHexColor(forStyle: .critical)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .primary4), 1: .preferredColor(forStyle: .critical)]]),
         
         ChartModel(chartType: .micro_harvey_ball, data: [[nil]])
     ]
@@ -160,7 +160,7 @@ public struct Tests {
         ChartModel(chartType: .donut,
                    data: [[142.50, 332.05, 247.18, 228.82, 83.45]],
                    titlesForCategory: [["Trucks", "Vans", "Leasing", "Service", "Rentals"]],
-                   colorsForCategory: [0: [0: .preferredHexColor(forStyle: .chart1), 1: .preferredHexColor(forStyle: .chart2), 2: .preferredHexColor(forStyle: .chart3), 3: .preferredHexColor(forStyle: .chart4), 4: .preferredHexColor(forStyle: .chart5)]]),
+                   colorsForCategory: [0: [0: .preferredColor(forStyle: .chart1), 1: .preferredColor(forStyle: .chart2), 2: .preferredColor(forStyle: .chart3), 3: .preferredColor(forStyle: .chart4), 4: .preferredColor(forStyle: .chart5)]]),
         
         ChartModel(chartType: .donut, data: [[nil]])
     ]
@@ -170,13 +170,13 @@ public struct Tests {
     
     /// radial models for test
     public static let radialModels = [
-        ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary3), 1: .preferredHexColor(forStyle: .negative)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredColor(forStyle: .primary3), 1: .preferredColor(forStyle: .negative)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 99]], colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary3), 1: .preferredHexColor(forStyle: .positive)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 99]], colorsForCategory: [0: [0: .preferredColor(forStyle: .primary3), 1: .preferredColor(forStyle: .positive)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 10]], colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary4), 1: .preferredHexColor(forStyle: .critical)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 10]], colorsForCategory: [0: [0: .preferredColor(forStyle: .primary4), 1: .preferredColor(forStyle: .critical)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: .preferredHexColor(forStyle: .primary4), 1: .preferredHexColor(forStyle: .critical)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: .preferredColor(forStyle: .primary4), 1: .preferredColor(forStyle: .critical)]]),
         
         ChartModel(chartType: .micro_radial, data: [[nil]])
     ]

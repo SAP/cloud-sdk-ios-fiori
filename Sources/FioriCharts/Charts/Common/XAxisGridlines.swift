@@ -13,8 +13,6 @@ struct XAxisGridlines: View {
     
     weak var axisDataSource: AxisDataSource? = nil
     
-    @Environment(\.colorScheme) var colorScheme
-    
     init(axisDataSource: AxisDataSource? = nil) {
         self.axisDataSource = axisDataSource
     }
@@ -42,7 +40,7 @@ struct XAxisGridlines: View {
                         LineShape(pos1: .zero,
                                   pos2: CGPoint(x: 0, y: rect.size.height),
                                   layoutDirection: self.layoutDirection)
-                            .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
+                            .stroke(self.model.categoryAxis.gridlines.color,
                                     style: StrokeStyle(lineWidth: self.model.categoryAxis.gridlines.width,
                                                        dash: [self.model.categoryAxis.gridlines.dashPatternLength, self.model.categoryAxis.gridlines.dashPatternGap]))
                             .offset(x: title.pos.x)
