@@ -234,10 +234,3 @@ public struct Tests {
     /// all test models
     public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
 }
-
-extension NumberFormatter {
-    convenience init(style: NumberFormatter.Style) {
-        self.init()
-        self.numberStyle = style
-    }
-}
