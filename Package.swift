@@ -24,7 +24,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/objcio/tiny-networking", from: "0.2.0"),
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
-        .package(url: "https://github.com/sstadelman/observable-array.git", from: "1.1.0"),
+        .package(url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
         .package(url: "https://github.com/marmelroy/Zip.git", from: "2.0.0")
     ],
     targets: [
