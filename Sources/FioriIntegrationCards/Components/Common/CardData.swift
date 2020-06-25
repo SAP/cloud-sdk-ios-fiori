@@ -60,7 +60,7 @@ class CardData: Decodable {
             jsonPublisher.send(data)
         } else if let request = request {
             dataPublisher.send(request.fetchedData)
-            request.send()
+//            request.send()
         }
     }
     

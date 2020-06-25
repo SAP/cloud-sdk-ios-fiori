@@ -342,6 +342,7 @@
 				F6B97A232449159A009BABD6 /* card-explorer-highlight-list-card.card.zip in Resources */,
 				1BADC44B23DA28E1006CC945 /* corporate_benefits.json in Resources */,
 				1B583CDE23D926590003F30C /* LaunchScreen.storyboard in Resources */,
+				AB75F733249AC35300328E53 /* HTTPTimelineVariants.card.zip in Resources */,
 				1BADC44A23DA28E1006CC945 /* list.json in Resources */,
 				F6B97A222449159A009BABD6 /* card-explorer-stacked-column-card.card.zip in Resources */,
 				F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */,
@@ -349,6 +350,7 @@
 				1BADC44623DA28E1006CC945 /* component.json in Resources */,
 				F6B947C2242C072F0041F5D0 /* table0.json in Resources */,
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
+				AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */,
 				F6B97A1C2449159A009BABD6 /* card-explorer-quick-links-list-card.card.zip in Resources */,
 				F6B97A162449159A009BABD6 /* card-explorer-simple-calendar-card.card.zip in Resources */,
 				F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */,
@@ -391,6 +393,7 @@
 				1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */,
 				F6B97A262449174C009BABD6 /* TestCases.swift in Sources */,
 				1B583CD223D926560003F30C /* AppDelegate.swift in Sources */,
+				AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */,
 				1B583CD423D926560003F30C /* SceneDelegate.swift in Sources */,
 				1B583CD623D926560003F30C /* ContentView.swift in Sources */,
 			);

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Zip
 
 public class Manifest: Decodable, Identifiable, ObservableObject {
     @Published public var app: App

@@ -43,20 +43,61 @@ class Request: Decodable {
         withCredentials = try container.decodeIfPresent(Bool.self, forKey: .withCredentials) ?? false
     }
     
-    func send() {
-        
-        // TODO: build URLRequest from the request configurations parsed and retrieved from App.dataSources
-        let url = URL(string: self.url)!
+    func send(baseURL: String?) {
+        if let url = URL(string: self.url), self.url.isValidURL {
+            if let data = getDataFromBundle(bundleURL: url) {
+                self.fetchedData.send(data)
+            } else {
+                loadDataFromNetwork(baseURL: baseURL)
+            }
+            print("got data from \(url.absoluteString) without baseURL")
+        } else {
+            if let baseURL = baseURL {
+                if let finalURL = URL(string: self.url, relativeTo: URL(string: baseURL)) {
+                    if let data = getDataFromBundle(bundleURL: finalURL) {
+                        self.fetchedData.send(data)
+                    } else {
+                        loadDataFromNetwork(baseURL: baseURL)
+                    }
+                }
+            }
+        }
+    }
+    
+    func getDataFromBundle(bundleURL: URL) -> Data? {
+        guard bundleURL.isFileURL else {
+            return nil
+        }
+        do {
+            let data = try Data(contentsOf: bundleURL)
+            return data
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    func loadDataFromNetwork(baseURL: String?) {
+        var urlRequest: URLRequest!
+        do {
+            if let _baseURL = baseURL {
+                urlRequest = try NetworkRouter.getURLRequest(with: self, baseURL: URL(string: _baseURL))
+            } else {
+                urlRequest = try NetworkRouter.getURLRequest(with: self)
+            }
+        } catch {
+            print(error.localizedDescription)
+        }
         
         subscription = URLSession.shared
-            .dataTaskPublisher(for: url)
+            .dataTaskPublisher(for: urlRequest)
             .map(\.data)
             .sink(receiveCompletion: { completion in
                 switch completion {
-                    case .failure(let error):
-                        print("Retrieving data failed with error \(error)")
-                    case .finished:
-                        self.fetchedData.send(completion: .finished)
+                case .failure(let error):
+                    print("Retrieving data failed with error \(error)")
+                case .finished:
+                    self.fetchedData.send(completion: .finished)
                 }
             }, receiveValue: { object in
                 self.fetchedData.send(object)
