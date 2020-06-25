@@ -88,7 +88,7 @@ class ChartModelTests: XCTestCase {
     func testBulletModel() throws {
         let model = ChartModel(chartType: .micro_bullet,
                                data: [[35, nil, 70], [0, 20, 50, 100]],
-                               colorsForCategory: [0: [0: Palette.hexColor(for: .chart1), 1: Palette.hexColor(for: .chart2), 2: Palette.hexColor(for: .chart2), 3: Palette.hexColor(for: .chart3)]])
+                               colorsForCategory: [0: [0: .preferredColor(.chart1), 1: .preferredColor(.chart2), 2: .preferredColor(.chart2), 3: .preferredColor(.chart3)]])
         
         let modelCopy = model.copy() as! ChartModel
         XCTAssertTrue(model.data == modelCopy.data)
@@ -100,7 +100,7 @@ class ChartModelTests: XCTestCase {
         let model = ChartModel(chartType: .micro_column,
                                data: [[200, 170, -165, 143, 166, 112, 110]],
                                titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                               colorsForCategory: [0: [2: Palette.hexColor(for: .negative)]],
+                               colorsForCategory: [0: [2: .preferredColor(.negative)]],
                                labelsForDimension: [["$200K", "avg", "-165K", nil, "$166K", "$112K", "$110K"]])
         
         let modelCopy = model.copy() as! ChartModel

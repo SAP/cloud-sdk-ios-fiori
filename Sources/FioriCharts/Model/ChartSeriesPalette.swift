@@ -6,18 +6,19 @@
 //
 
 import Foundation
+import SwiftUI
+import FioriSwiftUICore
 
 public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
-    
-    public init(colors: [HexColor],
-                fillColor: HexColor? = nil,
-                labelColor: HexColor,
-                positiveMaxColor: HexColor,
-                positiveMinColor: HexColor,
-                negativeMaxColor: HexColor,
-                negativeMinColor: HexColor) {
+    public init(colors: [Color],
+                fillColor: Color? = nil,
+                labelColor: Color,
+                positiveMaxColor: Color,
+                positiveMinColor: Color,
+                negativeMaxColor: Color,
+                negativeMinColor: Color) {
         if colors.isEmpty {
-            self._colors = Published(initialValue: [Palette.hexColor(for: .primary1)])
+            self._colors = Published(initialValue: [.preferredColor(.primary1)])
         } else {
             self._colors = Published(initialValue: colors)
         }
@@ -30,18 +31,19 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
         self._negativeMinColor = Published(initialValue: negativeMinColor)
     }
 
-    public convenience init(colors: [HexColor], labelColor: HexColor) {
+
+    public convenience init(colors: [Color], labelColor: Color) {
         self.init(colors: colors, fillColor: nil, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
     }
     
-    public convenience init(colors: [HexColor], fillColor: HexColor) {
-        let color = colors.first ?? Palette.hexColor(for: .primary1)
+    public convenience init(colors: [Color], fillColor: Color) {
+        let color = colors.first ?? .preferredColor(.primary1)
         
         self.init(colors: colors, fillColor: fillColor, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
     
-    public convenience init(colors: [HexColor]) {
-        let color = colors.first ?? Palette.hexColor(for: .primary1)
+    public convenience init(colors: [Color]) {
+        let color = colors.first ?? .preferredColor(.primary1)
         
         self.init(colors: colors, fillColor: nil, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
@@ -58,38 +60,37 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
 
     /// Primary color of the series. Used to render the series' lines.
     /// One color only for charts except stock requires multiple colors
-    @Published public var colors: [HexColor]
+    @Published public var colors: [Color]
 
-    @Published var _fillColor: HexColor?
-    /// Color used to render fill area or range selection for the series.
-    //@Published public var fillColor: HexColor
+    @Published var _fillColor: Color?
     
-    public var fillColor: HexColor {
+    /// Color used to render fill area or range selection for the series.
+    public var fillColor: Color {
         if let color = _fillColor {
             return color
         } else {
             if let color = colors.first {
                 return color
             } else {
-                return Palette.hexColor(for: .primary1)
+                return .preferredColor(.primary1)
             }
         }
     }
     
     /// Color used to render labels for the series.
-    @Published public var labelColor: HexColor
+    @Published public var labelColor: Color
 
     /// Color of the maximum positive value (furthest from the zero baseline).
-    @Published public var positiveMaxColor: HexColor
+    @Published public var positiveMaxColor: Color
 
     /// Color of the minimum positive value (closest to the zero baseline).
-    @Published public var positiveMinColor: HexColor
+    @Published public var positiveMinColor: Color
 
     /// Color of the maximum negative value (closest to the zero baseline).
-    @Published public var negativeMaxColor: HexColor
+    @Published public var negativeMaxColor: Color
 
     /// Color of the minimum positive value (furthest from the zero baseline).
-    @Published public var negativeMinColor: HexColor
+    @Published public var negativeMinColor: Color
     
     public let id = UUID()
 }

@@ -5,11 +5,10 @@
 //  Created by Xu, Sheng on 4/30/20.
 //
 
-@testable import FioriCharts
+@testable import FioriSwiftUICore
 import XCTest
 
 class HexColorTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -23,41 +22,40 @@ class HexColorTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let color = HexColor()
         
-        let lightColor = color.rgba(.light)
-        XCTAssertEqual(Int(255 * lightColor.r), 0x0)
-        XCTAssertEqual(Int(255 * lightColor.g), 0x0)
-        XCTAssertEqual(Int(255 * lightColor.b), 0x0)
-        XCTAssertEqual(Int(255 * lightColor.a), 0xff)
+        // Light foreground color should be initialized using .dark color scheme
+        let lightForegroundColor = color.rgba(.dark)
+        XCTAssertEqual(Int(255 * lightForegroundColor.r), 0x0)
+        XCTAssertEqual(Int(255 * lightForegroundColor.g), 0x0)
+        XCTAssertEqual(Int(255 * lightForegroundColor.b), 0x0)
+        XCTAssertEqual(Int(255 * lightForegroundColor.a), 0xff)
         
-        let darkColor = color.rgba(.dark)
-        XCTAssertEqual(Int(255 * darkColor.r), 0xff)
-        XCTAssertEqual(Int(255 * darkColor.g), 0xff)
-        XCTAssertEqual(Int(255 * darkColor.b), 0xff)
-        XCTAssertEqual(Int(255 * darkColor.a), 0xff)
+        // Dark foreground color should be initialized using .dark color scheme
+        let darkForegroundColor = color.rgba(.light)
+        XCTAssertEqual(Int(255 * darkForegroundColor.r), 0xff)
+        XCTAssertEqual(Int(255 * darkForegroundColor.g), 0xff)
+        XCTAssertEqual(Int(255 * darkForegroundColor.b), 0xff)
+        XCTAssertEqual(Int(255 * darkForegroundColor.a), 0xff)
     }
     
     func testInit() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let color = HexColor(lightColor: "12345678", darkColor: "abCDef")
-        let lightColor = color.rgba(.light)
-        XCTAssertEqual(Int(255 * lightColor.r), 0x12)
-        XCTAssertEqual(Int(255 * lightColor.g), 0x34)
-        XCTAssertEqual(Int(255 * lightColor.b), 0x56)
-        XCTAssertEqual(Int(255 * lightColor.a), 0x78)
         
-        let darkColor = color.rgba(.dark)
-        XCTAssertEqual(Int(255 * darkColor.r), 0xab)
-        XCTAssertEqual(Int(255 * darkColor.g), 0xcd)
-        XCTAssertEqual(Int(255 * darkColor.b), 0xef)
-        XCTAssertEqual(Int(255 * darkColor.a), 0xff)
+        // Expected result:
+        //  - For .light color scheme, should return the dark variant of a HexColor
+        //  - For .dark color scheme, should return the light variant of a HexColor
+        let color = HexColor(lightColor: "12345678", darkColor: "abCDef")
+        
+        let lightForegroundColor = color.rgba(.dark)
+        XCTAssertEqual(Int(255 * lightForegroundColor.r), 0x12)
+        XCTAssertEqual(Int(255 * lightForegroundColor.g), 0x34)
+        XCTAssertEqual(Int(255 * lightForegroundColor.b), 0x56)
+        XCTAssertEqual(Int(255 * lightForegroundColor.a), 0x78)
+        
+        let darkForegroundColor = color.rgba(.light)
+        XCTAssertEqual(Int(255 * darkForegroundColor.r), 0xab)
+        XCTAssertEqual(Int(255 * darkForegroundColor.g), 0xcd)
+        XCTAssertEqual(Int(255 * darkForegroundColor.b), 0xef)
+        XCTAssertEqual(Int(255 * darkForegroundColor.a), 0xff)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }

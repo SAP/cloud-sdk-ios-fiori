@@ -11,7 +11,6 @@ import SwiftUI
 public struct ColumnMicroChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
-    @Environment(\.colorScheme) var colorScheme
     
     public init(_ chartModel: ChartModel) {
         self.model = chartModel
@@ -60,11 +59,11 @@ public struct ColumnMicroChart: View {
                                 Text(self.columnLabel(for: item, positive: true) ?? "")
                                     .lineLimit(1)
                                     .font(.caption)
-                                    .foregroundColor(item.color.color(self.colorScheme))
+                                    .foregroundColor(item.color)
                             }
                             
                             Rectangle()
-                                .fill(item.color.color(self.colorScheme))
+                                .fill(item.color)
                                 .frame(width: barWidth,
                                        height: wholeBarsHeight * abs(max(0, item.value)) / valueRange)
                         }.frame(width: barWidth, height: positiveBarsHeight + positiveLablesHeight)
@@ -77,14 +76,14 @@ public struct ColumnMicroChart: View {
                         ForEach(columns) { item in
                             VStack(alignment: .center, spacing: 0) {
                                 Rectangle()
-                                    .fill(item.value > 0 ? Color.clear : item.color.color(self.colorScheme))
+                                    .fill(item.value > 0 ? Color.clear : item.color)
                                     .frame(width: barWidth, height: wholeBarsHeight * abs(item.value) / valueRange)
                                 
                                 if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
                                     Text(self.columnLabel(for: item, positive: false) ?? "")
                                         .lineLimit(1)
                                         .font(.caption)
-                                        .foregroundColor(item.color.color(self.colorScheme))
+                                        .foregroundColor(item.color)
                                 }
                                 
                                 Spacer(minLength: 0)

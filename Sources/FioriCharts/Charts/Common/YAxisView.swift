@@ -10,7 +10,6 @@ import SwiftUI
 
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     
     weak var axisDataSource: AxisDataSource? = nil
@@ -56,7 +55,7 @@ struct YAxisView: View {
                     Text(label.title)
                         .fixedSize()
                         .font(.system(size: axis.labels.fontSize))
-                        .foregroundColor(axis.labels.color.color(self.colorScheme))
+                        .foregroundColor(axis.labels.color)
                         .position(x: label.pos.x,
                                   y: label.pos.y)
                 }
@@ -66,7 +65,7 @@ struct YAxisView: View {
                 // left base line
                 LineShape(pos1: CGPoint(x: 0, y: 0),
                           pos2: CGPoint(x: 0, y: rect.size.height + model.categoryAxis.baseline.width))
-                    .stroke(axis.baseline.color.color(self.colorScheme),
+                    .stroke(axis.baseline.color,
                             style: StrokeStyle(lineWidth: axis.baseline.width,
                                                dash: [axis.baseline.dashPatternLength, axis.baseline.dashPatternGap]))
                     .frame(width: axis.baseline.width, height: rect.size.height)
