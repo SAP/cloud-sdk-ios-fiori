@@ -1,0 +1,85 @@
+{
+    "_version": "1.14.0",
+    "sap.app": {
+        "id": "card.explorer.line.card",
+        "type": "card",
+        "title": "Sample of a Line Chart",
+        "subTitle": "Sample of a Line Chart"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://line-chart"
+        }
+    },
+    "sap.card": {
+        "type": "Analytical",
+        "header": {
+            "type": "Numeric",
+            "data": {
+                "request": {
+                    "url": "./headerData.json"
+                }
+            },
+            "title": "Project Cloud Transformation",
+            "subTitle": "Forecasted goal achievement depending on business logic and other important information",
+            "unitOfMeasurement": "EUR",
+            "mainIndicator": {
+                "number": "{n}",
+                "unit": "{u}",
+                "trend": "{trend}",
+                "state": "{valueColor}"
+            },
+            "details": "Project Cloud Transformation details and additional information",
+            "sideIndicators": [{
+                    "title": "Long title",
+                    "number": "3252.234",
+                    "unit": "K"
+                },
+                {
+                    "title": "Long Deviation Long Deviation",
+                    "number": "22.43",
+                    "unit": "%"
+                }
+            ]
+        },
+        "content": {
+            "chartType": "Line",
+            "legend": {
+                "visible": false
+            },
+            "plotArea": {
+                "dataLabel": {
+                    "visible": false,
+                    "showTotal": true
+                }
+            },
+            "title": {
+                "text": "Stacked column chart",
+                "visible": true,
+                "alignment": "Bottom"
+            },
+            "measureAxis": "valueAxis",
+            "dimensionAxis": "categoryAxis",
+            "data": {
+                "request": {
+                    "url":"./contentData.json"
+                },
+                "path": "/list"
+            },
+            "dimensions": [{
+                "label": "Weeks",
+                "value": "{Week}"
+            }],
+            "measures": [{
+                    "label": "Revenue",
+                    "value": "{Revenue}"
+                },
+                {
+                    "label": "Cost",
+                    "value": "{Cost}"
+                }
+            ]
+        }
+    }
+}

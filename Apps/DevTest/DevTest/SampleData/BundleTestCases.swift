@@ -15,6 +15,9 @@ enum BundleTestCases: String, CaseIterable, Identifiable {
     case HTTPObjectVarients         = "HTTPObjectVariants.card"
     case BundleTimelineVarients     = "TimelineVariants.card"
     case BundleObjectVarients       = "ObjectVariants.card"
+    case BundleTableVarients        = "TableVariants.card"
+    case BundleAnalyticalVarients   = "AnalyticalVariants.card"
+    case BundleListVarients         = "ListVariants.card"
     
     var id: String {
         return rawValue
