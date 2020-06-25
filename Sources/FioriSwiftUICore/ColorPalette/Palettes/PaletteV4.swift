@@ -18,6 +18,7 @@ struct PaletteV4: PaletteProvider {
     
     private init() {}
     
+    //swiftlint:disable function_body_length
     func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case .primary1:
