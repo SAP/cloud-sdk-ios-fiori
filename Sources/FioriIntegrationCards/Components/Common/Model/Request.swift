@@ -50,7 +50,6 @@ class Request: Decodable {
             } else {
                 loadDataFromNetwork(baseURL: baseURL)
             }
-            print("got data from \(url.absoluteString) without baseURL")
         } else {
             if let baseURL = baseURL {
                 if let finalURL = URL(string: self.url, relativeTo: URL(string: baseURL)) {
