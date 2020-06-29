@@ -17,7 +17,7 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         return app.id
     }
     
-    public var baseURL: String?
+    public var baseURL: URL?
     
     enum CodingKeys: String, CodingKey {
         case app = "sap.app"
@@ -44,19 +44,19 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         }
         self.app        = _model.app
         self.card       = _model.card
-        self.baseURL    = path.absoluteString
+        self.baseURL    = path
         self.card.loadDataIfNeeded(baseURL: self.baseURL)
     }
     
     public init(with fileName: String) throws {
         let destinationDir = FileManager.default.temporaryDirectory.appendingPathComponent(fileName, isDirectory: true)
         if FileManager.default.fileExists(atPath: destinationDir.path) {
-            baseURL = destinationDir.absoluteString
+            baseURL = destinationDir
         } else {
             let sourceFile = Bundle.main.url(forResource: fileName, withExtension: ".zip")!
             do {
                 try Zip.unzipFile(sourceFile, destination: FileManager.default.temporaryDirectory, overwrite: true, password: nil)
-                baseURL = destinationDir.absoluteString
+                baseURL = destinationDir
             } catch {
                 print(error)
             }

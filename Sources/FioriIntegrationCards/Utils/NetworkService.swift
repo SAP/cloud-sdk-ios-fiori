@@ -23,7 +23,7 @@ enum NetworkRouter: String {
         return urlRequest
     }
     
-    public static func getURLRequest(with requestObject: Request, baseURL: URL? = nil) throws -> URLRequest {
+    static func getURLRequest(with requestObject: Request, baseURL: URL? = nil) throws -> URLRequest {
         guard let url = URL(string: requestObject.url, relativeTo: baseURL) else {
             throw NetworkError.invalidURL(url: requestObject.url)
         }

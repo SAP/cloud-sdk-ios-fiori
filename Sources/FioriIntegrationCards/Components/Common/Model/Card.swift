@@ -66,7 +66,7 @@ public enum Card: Decodable, Identifiable, CustomStringConvertible {
         }
     }
 
-    public func loadDataIfNeeded(baseURL: String?) {
+    public func loadDataIfNeeded(baseURL: URL?) {
         switch self {
         case .timeline(let card):
             card.baseURL.send(baseURL)

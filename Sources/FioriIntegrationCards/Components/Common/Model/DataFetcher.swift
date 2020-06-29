@@ -40,7 +40,7 @@ public class DataFetcher: Decodable {
         load()
     }
     
-    public func load(baseURL: String? = nil) {
+    public func load(baseURL: URL? = nil) {
         request?.send(baseURL: baseURL)
     }
     

@@ -43,7 +43,7 @@ class Request: Decodable {
         withCredentials = try container.decodeIfPresent(Bool.self, forKey: .withCredentials) ?? false
     }
     
-    func send(baseURL: String?) {
+    func send(baseURL: URL?) {
         if let url = URL(string: self.url), self.url.isValidURL {
             if let data = getDataFromBundle(bundleURL: url) {
                 self.fetchedData.send(data)
@@ -52,7 +52,7 @@ class Request: Decodable {
             }
         } else {
             if let baseURL = baseURL {
-                if let finalURL = URL(string: self.url, relativeTo: URL(string: baseURL)) {
+                if let finalURL = URL(string: self.url, relativeTo: baseURL) {
                     if let data = getDataFromBundle(bundleURL: finalURL) {
                         self.fetchedData.send(data)
                     } else {
@@ -76,11 +76,11 @@ class Request: Decodable {
         }
     }
     
-    func loadDataFromNetwork(baseURL: String?) {
+    func loadDataFromNetwork(baseURL: URL?) {
         var urlRequest: URLRequest!
         do {
             if let _baseURL = baseURL {
-                urlRequest = try NetworkRouter.getURLRequest(with: self, baseURL: URL(string: _baseURL))
+                urlRequest = try NetworkRouter.getURLRequest(with: self, baseURL: _baseURL)
             } else {
                 urlRequest = try NetworkRouter.getURLRequest(with: self)
             }

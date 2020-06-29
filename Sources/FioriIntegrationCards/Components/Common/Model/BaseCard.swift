@@ -157,7 +157,7 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
     
     public let headerPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
     public let contentPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
-    public let baseURL: CurrentValueSubject<String?, Never> = CurrentValueSubject<String?, Never>(nil)
+    public let baseURL: CurrentValueSubject<URL?, Never> = CurrentValueSubject<URL?, Never>(nil)
     required public init(from decoder: Decoder) throws {
         
         // MARK: - Decode `header`, `content`, `template`, and 3 data fetchers
