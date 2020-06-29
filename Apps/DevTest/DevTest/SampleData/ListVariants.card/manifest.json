@@ -1,0 +1,40 @@
+{
+    "_version": "1.14.0",
+    "sap.app": {
+        "id": "card.explorer.highlight.list.card",
+        "type": "card",
+        "title": "Sample of a List with Highlight",
+        "subTitle": "Sample of a List with Highlight"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://list"
+        }
+    },
+    "sap.card": {
+        "type": "List",
+        "header": {
+            "title": "List Card with Top 5 Products",
+            "subTitle": "These are the top sellers this month",
+            "icon": {
+                "src": "sap-icon://desktop-mobile"
+            },
+            "status": {
+                "text": "5 of 20"
+            }
+        },
+        "content": {
+            "data": {
+                "request": {
+                    "url": "./data.json"
+                } 
+            },
+            "item": {
+                "title": "{Name}",
+                "description": "{Description}",
+                "highlight": "{Highlight}"
+            }
+        }
+    }
+}

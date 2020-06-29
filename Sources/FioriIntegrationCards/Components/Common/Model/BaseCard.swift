@@ -10,11 +10,18 @@ import Foundation
 import AnyCodable
 import Combine
 import TinyNetworking
+import ObservableArray
 
 /// JSON data must be in `array` form
 open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
     
-    @Published var content: Template?
+    @Published var content: Template? {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
@@ -40,7 +47,13 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
 /// JSON data must be in `array` form
 open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
     
-    @Published var content: [Template] = []
+    @Published var content: [Template] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
@@ -69,7 +82,13 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
 
 open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard<Template> where Template.Element: Placeholding {
     
-    @Published var content: Template? = nil
+    @Published var content: Template? = nil {
+        didSet {
+            DispatchQueue.main.async {
+                self.objectWillChange.send()
+            }
+        }
+    }
     
     required public init(from decoder: Decoder) throws {
         try super.init(from: decoder)
@@ -138,7 +157,7 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
     
     public let headerPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
     public let contentPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
-    
+    public let baseURL: CurrentValueSubject<URL?, Never> = CurrentValueSubject<URL?, Never>(nil)
     required public init(from decoder: Decoder) throws {
         
         // MARK: - Decode `header`, `content`, `template`, and 3 data fetchers
@@ -176,12 +195,29 @@ open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
             })
             .store(in: &subscribers)
         
+        baseURL
+            .sink {[unowned self] (url) in
+                guard url != nil else {
+                    return
+                }
+                self._contentData?.load(baseURL: url)
+                self._cardData?.load(baseURL: url)
+                self._headerData?.load(baseURL: url)
+        }
+        .store(in: &subscribers)
+        
         if let headerData = _headerData ?? _cardData {
-            headerPublisher.send(headerData.json)
+            headerData.json.sink {[unowned self] _ in
+                self.headerPublisher.send(headerData.json)
+            }
+            .store(in: &subscribers)
         }
         
         if let contentData = _contentData ?? _cardData {
-            contentPublisher.send(contentData.json)
+            contentData.json.sink {[unowned self] _ in
+                self.contentPublisher.send(contentData.json)
+            }
+            .store(in: &subscribers)
         }
     }
     

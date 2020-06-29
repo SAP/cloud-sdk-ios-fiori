@@ -91,7 +91,6 @@ Several functional limitations exist at present, which are planned for resolutio
 Key gaps which are present at time of open-source project launch:
 
  - **FioriIntegrationCards** networking must be refactored to eliminate dependency on **TinyNetworking**, and support injection of `SAPURLSession` http client
- - **FioriIntegrationCards** currently handles only data which is in-line json; must be augmented to support resolving relative data files, and remote URIs
  - **FioriIntegrationCards** and **FioriCharts** requires design specifications to improve UI
  - **FioriCharts** must support point and range selection, equivalent to the current implementation in **SAPFiori**.
  - **FioriIntegrationCards** and **FioriCharts** must support theming with **NUI** nss stylesheets, as currently supported by **SAPFiori**. 
