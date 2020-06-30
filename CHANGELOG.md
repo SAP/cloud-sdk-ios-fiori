@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit guidelines.
 
+## 0.5.3 (2020-06-30)
+
+### ⚠ BREAKING CHANGES
+
+* **FioriIntegrationCards**: Class name changed
+
+### Features
+
+* 🎸 add stacked column chart and improve column chart ([9ed685b](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/9ed685bb9b26466b7ac6435fb7e82bbb60cecc6f))
+* 🎸 color palettes and theme manager ([#66](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/issues/66)) ([bfbc5fd](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/bfbc5fd236038ababe865a93d287cfe4eefe5dfb))
+* 🎸 support colorsForCategory for column and stacked column ([4f88c4d](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/4f88c4dc310a2fb1276e436a1c3407ffa97e6dd9))
+* 🎸 Support fetching data with Request object ([#68](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/issues/68)) ([4689b12](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/4689b1255aed5cb78f3ec45de1dde0a2d0db6c0f)), closes [#33](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/issues/33)
+* 🎸 add custom views of FioriCharts to Xcode library ([bc23d6e](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/bc23d6e89fff122c40dea26eb53b529ca3665e41))
+
+
+### Bug Fixes
+
+* project ‘FioriSwiftUI’ is damaged and cannot be opened ([8c324df](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/8c324df954582ceb339469a66dd5fef57c789be4))
+* rename BaseBaseCard to BackingCard ([e998644](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/commit/e998644ce3ff2010c7e05e4d3c120c7a45c82e6b)), closes [#59](https://github.com/MarcoEidinger/cloud-sdk-ios-fiori/issues/59)
+
 ## 0.5.2 (2020-06-12)
 
 ### ⚠ BREAKING CHANGES

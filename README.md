@@ -40,14 +40,14 @@ The FioriCharts module is planned to replace the *RoambiChartKit* charting libra
 | Area | :white_check_mark: | :white_check_mark: |
 | Line | :white_check_mark: | :white_check_mark: |
 | Column | :white_check_mark: | :white_check_mark: |
-| Stacked Column | :white_check_mark: | :soon: |
+| Stacked Column | :white_check_mark: | :white_check_mark: |
 | Bar | :white_check_mark: | :soon: |
 | Stacked Bar | :x: | :soon: |
 | Bubble | :white_check_mark: | :soon: |
 | Waterfall | :white_check_mark: | :soon: |
 | Combo | :white_check_mark: | :soon: |
 | Donut | :x: | :white_check_mark: |
-| Bullet | :x: | :soon: |
+| Bullet | :x: | :white_check_mark: |
 | Stacked Bullet | :x: | :soon: |
 | Harvey Ball | :x: | :white_check_mark: |
 | Radial | :x: | :white_check_mark: |
