@@ -12,7 +12,7 @@ import Combine
 import FioriCharts
 
 /// Content data `path` should resolve to JSON array
-public class AnalyticalCard: BaseBaseCard {
+public class AnalyticalCard: BackingCard {
     
     @Published var content: AnalyticalContent?
     @Published var chartData: AnalyticalData?

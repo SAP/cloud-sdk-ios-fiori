@@ -32,6 +32,7 @@ struct ContentView: View {
             model.chartType = .stackedColumn
             return model
          }, Tests.lineModelsDesc),
+         ("Waterfall", Tests.waterfallModels, Tests.waterfallModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
          ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
          ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),

@@ -8,23 +8,21 @@
 
 import SwiftUI
 import FioriCharts
+import FioriSwiftUICore
 
 struct SettingColor: View {
-    @Environment(\.colorScheme) var colorScheme
-    @Binding var color: HexColor
+    @Binding var color: Color
     var title: String?
     
-    let colorOptions: [HexColor] = ColorStyle.allCases.map() {Palette.hexColor(for:$0)}
+    let colorOptions: [Color] = ColorStyle.allCases.map() {.preferredColor($0)}
     
     var body: some View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {
-            ForEach(colorOptions, id: \.self) { hex in
+            ForEach(colorOptions, id: \.self) { color in
                 Rectangle()
-                    .fill(hex.color(self.colorScheme))
-                    .tag(hex)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 6)
-                            .stroke(Color.gray, lineWidth: 1))
+                    .fill(color)
+                    .tag(color)
+                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.gray, lineWidth: 1))
                     .frame(width: 60, height: 20)
             }
         }

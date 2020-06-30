@@ -8,13 +8,8 @@
 import SwiftUI
 
 struct ColumnView: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
-    
-    init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -48,7 +43,7 @@ struct ColumnView: View {
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
                     ForEach(curPlotData, id: \.self) { series in
-                        ColumnSeriesView(model: self.model, tickValues: tickValues, plotSeries: series, colorScheme: self.colorScheme, rect: rect, isSelectionView: false)
+                        ColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: false)
                     }
                     
                     Spacer(minLength: 0)
@@ -71,7 +66,8 @@ struct ColumnView_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                ColumnView($0)
+                ColumnView()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

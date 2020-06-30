@@ -8,6 +8,7 @@
 
 import SwiftUI
 import FioriCharts
+import FioriSwiftUICore
 
 struct SettingsSeries: View {
     @Binding var seriesAttr: ChartSeriesAttributes

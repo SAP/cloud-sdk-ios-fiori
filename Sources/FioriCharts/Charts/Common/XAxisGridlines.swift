@@ -11,7 +11,6 @@ struct XAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         GeometryReader { proxy in
@@ -34,7 +33,7 @@ struct XAxisGridlines: View {
                         LineShape(pos1: .zero,
                                   pos2: CGPoint(x: 0, y: rect.size.height),
                                   layoutDirection: self.layoutDirection)
-                            .stroke(self.model.categoryAxis.gridlines.color.color(self.colorScheme),
+                            .stroke(self.model.categoryAxis.gridlines.color,
                                     style: StrokeStyle(lineWidth: self.model.categoryAxis.gridlines.width,
                                                        dash: [self.model.categoryAxis.gridlines.dashPatternLength, self.model.categoryAxis.gridlines.dashPatternGap]))
                             .offset(x: title.pos.x)

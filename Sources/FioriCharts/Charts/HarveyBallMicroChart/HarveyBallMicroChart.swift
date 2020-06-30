@@ -9,16 +9,11 @@
 import SwiftUI
 
 struct HarveyBallMicroChart: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     
     // the difference of outer and inner radius range from 5...20
     private static let minDepth: CGFloat = 5
     private static let maxDepth: CGFloat = 20
-    
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -42,23 +37,23 @@ struct HarveyBallMicroChart: View {
                 Spacer()
                 ZStack(alignment: .center) {
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                        .strokeBorder(total!.color.color(self.colorScheme), lineWidth: radius)
+                        .strokeBorder(total!.color, lineWidth: radius)
                         .frame(width: radius * 2, height: radius * 2)
                     
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(fraction!.value) * 360 / Double(total!.value)))
-                        .strokeBorder(fraction!.color.color(self.colorScheme), lineWidth: (radius - depth))
+                        .strokeBorder(fraction!.color, lineWidth: (radius - depth))
                     .frame(width: (radius - depth) * 2, height: (radius - depth) * 2)
                 }
                 
                 VStack(alignment: .center) {
                     if fraction!.label != nil {
                         Text(fraction!.label!)
-                            .foregroundColor(fraction!.color.color(self.colorScheme))
+                            .foregroundColor(fraction!.color)
                     }
                     
                     if total!.label != nil {
                         Text(total!.label!)
-                            .foregroundColor(total!.color.color(self.colorScheme))
+                            .foregroundColor(total!.color)
                     }
                 }
                 Spacer()
@@ -73,7 +68,8 @@ struct HarveyBallMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.harveyBallModels) {
-                HarveyBallMicroChart($0)
+                HarveyBallMicroChart()
+                    .environmentObject($0)
                     .frame(width: 400, height: 200)
                     .previewLayout(.sizeThatFits)
             }

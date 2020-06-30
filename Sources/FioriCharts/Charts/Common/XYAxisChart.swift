@@ -26,7 +26,7 @@ extension EnvironmentValues {
 }
 
 struct XYAxisChart<Content: View, Indicator: View>: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     
     var chartView: Content
@@ -37,8 +37,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     @State private var yAxisSize: CGSize = CGSize(width: 20, height: 0)
     
-    init(_ chartModel: ChartModel, axisDataSource: AxisDataSource, chartView: Content, indicatorView: Indicator) {
-        self.model = chartModel
+    init(axisDataSource: AxisDataSource, chartView: Content, indicatorView: Indicator) {
+//        self.model = chartModel
         self.chartView = chartView
         self.indicatorView = indicatorView
         self.axisDataSource = axisDataSource
@@ -103,7 +103,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             
             VStack(alignment: .leading, spacing: 0) {
                 if model.valueType == .allPositive {
-                    GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                     
                     XAxisView(axisDataSource: axisDataSource)
@@ -115,11 +115,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         .zIndex(1)
                         .environmentObject(self.model)
                     
-                    GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                     .frame(width: chartRect.width, height: chartRect.height)
                 } else {
                     ZStack {
-                        GridLinesAndChartView(model, chartView: chartView, indicatorView: indicatorView)
+                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                         
                         XAxisView(axisDataSource: axisDataSource)
@@ -158,7 +158,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         var prevXPos: CGFloat = -100000
         var prevLabelWidth: CGFloat = 0
         for label in labels {
-            let size = label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+            let size: CGSize = label.title.isEmpty ? .zero : label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
             // spacing btw baseline and labels are 3pt
             height = max(height, size.height + model.categoryAxis.baseline.width + 3)
             
@@ -167,9 +167,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 totalWidth += rect.size.width
             }
             // min spacing btw labels are 4pt
-            totalWidth += size.width + 4
-            prevXPos = label.pos.x
-            prevLabelWidth = size.width
+            if size.width > 0 {
+                totalWidth += size.width + 4
+                prevXPos = label.pos.x
+                prevLabelWidth = size.width
+            }
         }
         totalWidth -= 4
         
@@ -237,10 +239,10 @@ extension Comparable {
 
 struct XYAxisChart_Previews: PreviewProvider {
     static var previews: some View {
-        XYAxisChart(Tests.lineModels[0],
-                    axisDataSource: DefaultAxisDataSource(),
-                    chartView: LinesView(Tests.lineModels[0]),
-                    indicatorView: LineIndicatorView(Tests.lineModels[0]))
+        XYAxisChart(axisDataSource: DefaultAxisDataSource(),
+                    chartView: LinesView(),
+                    indicatorView: LineIndicatorView())
+            .environmentObject(Tests.lineModels[0])
             .frame(width: 300, height: 400)
             .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }

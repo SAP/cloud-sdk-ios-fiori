@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct LineChart: View {
-    @ObservedObject var model: ChartModel
-
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
+    @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model,
-                    axisDataSource: DefaultAxisDataSource(),
-                    chartView: LinesView(model),
-                    indicatorView: LineIndicatorView(model))
+        XYAxisChart(axisDataSource: DefaultAxisDataSource(),
+                    chartView: LinesView(),
+                    indicatorView: LineIndicatorView())
     }
 }
 
@@ -26,7 +21,8 @@ struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.lineModels) {
-                LineChart($0)
+                LineChart()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

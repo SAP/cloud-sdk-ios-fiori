@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct StackedColumnChart: View {
-    @ObservedObject var model: ChartModel
-
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
+    @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model,
-                    axisDataSource: StackedColumnAxisDataSource(),
-                    chartView: StackedColumnView(model),
-                    indicatorView: StackedColumnIndicatorView(model))
+        XYAxisChart(axisDataSource: StackedColumnAxisDataSource(),
+                    chartView: StackedColumnView(),
+                    indicatorView: StackedColumnIndicatorView())
     }
 }
 
@@ -286,7 +281,8 @@ struct StackedColumnChart_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                StackedColumnChart($0)
+                StackedColumnChart()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

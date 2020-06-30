@@ -9,13 +9,8 @@
 import SwiftUI
 
 struct StockLinesView: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -69,10 +64,9 @@ struct StockLinesView: View {
             }
         }
         
-        let rgba = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].rgba(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].rgba(colorScheme)
-        let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-        let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
-        let gradientColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: 0.0)
+        let strokeColor = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0] : model.seriesAttributes[seriesIndex].palette.colors[1]
+        let fillColor = strokeColor.opacity(0.4)
+        let gradientColor = strokeColor.opacity(0.0)
         
         return ZStack {
             if !noData {
@@ -137,7 +131,8 @@ struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) {
-                StockLinesView($0)
+                StockLinesView()
+                    .environmentObject($0)
             }
             .frame(width: 300, height: 200)
             .previewLayout(.sizeThatFits)

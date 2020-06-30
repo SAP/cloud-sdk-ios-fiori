@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FioriSwiftUICore
 
 struct SelectionItem: Identifiable {
     let categoryIndex: Int
@@ -19,13 +20,8 @@ struct SelectionItem: Identifiable {
 }
 
 struct LineIndicatorView: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -87,6 +83,8 @@ struct LineIndicatorView: View {
         }
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         let range = secondarySeriesIndexes.contains(selectedSeriesRange.lowerBound) ? seconaryDisplayRange : displayRange
+        let selectionIndicatorColor: Color = .preferredColor(.primary2)
+        let circleColor: Color = .preferredColor(.primary6)
         
         return ZStack {
             // range selection ui
@@ -98,7 +96,7 @@ struct LineIndicatorView: View {
                            baselinePosition: baselinePosition,
                            startOffset: 0,
                            endOffset: 0)
-                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.fillColor.color(self.colorScheme))
+                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.fillColor)
                     .opacity(0.4)
                     .frame(width: endSelectionPos - startSelectionPos, height: rect.size.height)
                     .position(x: (endSelectionPos + startSelectionPos) / 2.0, y: rect.size.height / 2.0)
@@ -108,7 +106,7 @@ struct LineIndicatorView: View {
                            layoutDirection: self.layoutDirection,
                            startOffset: 0,
                            endOffset: 0)
-                    .stroke(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.colors[0].color(self.colorScheme),
+                    .stroke(self.model.seriesAttributes[selectedSeriesRange.lowerBound].palette.colors[0],
                             lineWidth: self.model.seriesAttributes[selectedSeriesRange.lowerBound].lineWidth)
                     .frame(width: endSelectionPos - startSelectionPos, height: rect.size.height)
                     .position(x: (endSelectionPos + startSelectionPos) / 2.0, y: rect.size.height / 2.0)
@@ -120,7 +118,7 @@ struct LineIndicatorView: View {
                             gap: self.model.seriesAttributes[selectedSeriesRange.lowerBound].point.gap,
                             startOffset: 0,
                             endOffset: 0)
-                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].point.strokeColor.color(self.colorScheme))
+                    .fill(self.model.seriesAttributes[selectedSeriesRange.lowerBound].point.strokeColor)
                     .frame(width: endSelectionPos - startSelectionPos, height: rect.size.height)
                     .position(x: (endSelectionPos + startSelectionPos) / 2.0, y: rect.size.height / 2.0)
             }
@@ -129,29 +127,28 @@ struct LineIndicatorView: View {
                 LineShape(pos1: CGPoint(x: item.xPosition, y: rect.origin.y),
                           pos2: CGPoint(x: item.xPosition, y: rect.origin.y + rect.size.height),
                           layoutDirection: self.layoutDirection)
-                    .stroke(Palette.hexColor(for: .primary2).color(self.colorScheme), lineWidth: 1)
+                    .stroke(selectionIndicatorColor, lineWidth: 1)
                 
                 SelectionAnchorShape()
                     .rotation(Angle(degrees: 180))
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: 2)
                 
                 SelectionAnchorShape()
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: rect.origin.y + rect.size.height - 2)
                 
                 ForEach(item.seriesIndexes, id: \.self) { i in
                     ZStack {
                         Circle()
-                            .fill(self.model.seriesAttributes[i].point.strokeColor.color(self.colorScheme))
+                            .fill(self.model.seriesAttributes[i].point.strokeColor)
                             .frame(width: self.model.seriesAttributes[i].point.diameter + 5.0,
                                    height: self.model.seriesAttributes[i].point.diameter + 5.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
                         
-                        Circle().stroke(Palette.hexColor(for: .primary6).color(self.colorScheme),
-                                        style: StrokeStyle(lineWidth: 4))
+                        Circle().stroke(circleColor, style: StrokeStyle(lineWidth: 4))
                             .frame(width: self.model.seriesAttributes[i].point.diameter + 9.0,
                                    height: self.model.seriesAttributes[i].point.diameter + 9.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
@@ -170,7 +167,8 @@ struct LineIndicatorView: View {
 
 struct LineIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        LineIndicatorView(Tests.lineModels[0])
+        LineIndicatorView()
+            .environmentObject(Tests.lineModels[0])
             .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)

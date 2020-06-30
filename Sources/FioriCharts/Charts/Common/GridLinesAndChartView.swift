@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct GridLinesAndChartView<Content: View, Indicator: View>: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
-    @Environment(\.colorScheme) var colorScheme
     @Environment(\.layoutDirection) var layoutDirection
     @State var draggingChartView = false
     
@@ -22,8 +21,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     var chartView: Content
     var indicatorView: Indicator
     
-    init(_ chartModel: ChartModel, chartView: Content, indicatorView: Indicator) {
-            self.model = chartModel
+    init(chartView: Content, indicatorView: Indicator) {
             self.chartView = chartView
             self.indicatorView = indicatorView
         }
@@ -244,11 +242,11 @@ enum DragState {
 struct GridLinesAndChartView_Previews: PreviewProvider {
     static var previews: some View {
         //GridLinesAndChartView()
-        GridLinesAndChartView(Tests.lineModels[0],
-                chartView: LinesView(Tests.lineModels[0]),
-                indicatorView: LineIndicatorView(Tests.lineModels[0]))
-        .environment(\.axisDataSource, DefaultAxisDataSource())
-        .frame(width: 300, height: 400)
-        .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
+        GridLinesAndChartView(chartView: LinesView(),
+                indicatorView: LineIndicatorView())
+            .environmentObject(Tests.lineModels[0])
+            .environment(\.axisDataSource, DefaultAxisDataSource())
+            .frame(width: 300, height: 400)
+            .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }

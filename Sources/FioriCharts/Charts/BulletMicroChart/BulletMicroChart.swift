@@ -14,13 +14,8 @@ public struct BulletMicroChart: View {
         case standard, delta
     }
     
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @State var mode: Mode? = .standard
-    
-    init(_ model: ChartModel) {
-        self.model = model
-    }
     
     public var body: some View {
         let tmp = model.dataItemsIn(seriesIndex: 0)
@@ -123,7 +118,7 @@ public struct BulletMicroChart: View {
             ForEach(thresholds) {
                 LineShape(pos1: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y - 3),
                           pos2: CGPoint(x: self.model.normalizedValue(for: $0.value) * size.width, y: y + chartHeight + 6))
-                    .stroke($0.color.color(self.colorScheme),
+                    .stroke($0.color,
                             style: StrokeStyle(lineWidth: 3, lineCap: .round, lineJoin: .miter, miterLimit: 0, dash: [1, 1], dashPhase: 0))
             }
         }
@@ -134,7 +129,8 @@ struct BulletMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.bulletModles) {
-                BulletMicroChart($0)
+                BulletMicroChart()
+                    .environmentObject($0)
                     .frame(width: 320, height: 94)
             }
         }

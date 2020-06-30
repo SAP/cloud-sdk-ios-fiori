@@ -7,15 +7,11 @@
 //
 
 import SwiftUI
+import FioriSwiftUICore
 
 struct StockIndicatorView: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -80,10 +76,10 @@ struct StockIndicatorView: View {
             }
         }
         
-        let rgba = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0].rgba(colorScheme) : model.seriesAttributes[seriesIndex].palette.colors[1].rgba(colorScheme)
-        let strokeColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a)
-        let fillColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: rgba.a * 0.4)
-        //let gradientColor = Color(.sRGB, red: rgba.r, green: rgba.g, blue: rgba.b, opacity: 0.0)
+        let strokeColor = isPriceGoingUp ? model.seriesAttributes[seriesIndex].palette.colors[0] : model.seriesAttributes[seriesIndex].palette.colors[1]
+        let fillColor = strokeColor.opacity(0.4)
+        let selectionIndicatorColor: Color = .preferredColor(.primary2)
+        let circleColor: Color = .preferredColor(.primary6)
         
         return ZStack {
             // range selection ui
@@ -126,16 +122,16 @@ struct StockIndicatorView: View {
                 LineShape(pos1: CGPoint(x: item.xPosition, y: rect.origin.y),
                           pos2: CGPoint(x: item.xPosition, y: rect.origin.y + rect.size.height),
                           layoutDirection: self.layoutDirection)
-                    .stroke(Palette.hexColor(for: .primary2).color(self.colorScheme), lineWidth: 1)
+                    .stroke(selectionIndicatorColor, lineWidth: 1)
                 
                 SelectionAnchorShape()
                     .rotation(Angle(degrees: 180))
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: 2)
                 
                 SelectionAnchorShape()
-                    .fill(Palette.hexColor(for: .primary2).color(self.colorScheme))
+                    .fill(selectionIndicatorColor)
                     .frame(width: 9, height: 4)
                     .position(x: item.xPosition, y: rect.origin.y + rect.size.height - 2)
                 
@@ -147,8 +143,7 @@ struct StockIndicatorView: View {
                                    height: self.model.seriesAttributes[i].point.diameter + 5.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
                         
-                        Circle().stroke(Palette.hexColor(for: .primary6).color(self.colorScheme),
-                                        style: StrokeStyle(lineWidth: 4))
+                        Circle().stroke(circleColor, style: StrokeStyle(lineWidth: 4))
                             .frame(width: self.model.seriesAttributes[i].point.diameter + 9.0,
                                    height: self.model.seriesAttributes[i].point.diameter + 9.0)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
@@ -167,7 +162,8 @@ struct StockIndicatorView: View {
 
 struct StockIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        StockIndicatorView(Tests.stockModels[1])
+        StockIndicatorView()
+            .environmentObject(Tests.stockModels[1])
             .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)

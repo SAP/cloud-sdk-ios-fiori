@@ -22,6 +22,30 @@ enum NetworkRouter: String {
         
         return urlRequest
     }
+    
+    static func getURLRequest(with requestObject: Request, baseURL: URL? = nil) throws -> URLRequest {
+        guard let url = URL(string: requestObject.url, relativeTo: baseURL) else {
+            throw NetworkError.invalidURL(url: requestObject.url)
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod                       = requestObject.method
+        urlRequest.allowsConstrainedNetworkAccess   = requestObject.withCredentials
+        
+        if requestObject.method == "POST" {
+            do {
+                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestObject.parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+        
+        for header in requestObject.headers {
+            urlRequest.setValue(header.value, forHTTPHeaderField: header.key)
+        }
+        
+        return urlRequest
+    }
 }
 
 public class NetworkService {

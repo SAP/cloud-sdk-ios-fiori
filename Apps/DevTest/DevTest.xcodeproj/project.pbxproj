@@ -33,12 +33,20 @@
 		1BADC44C23DA28E1006CC945 /* analytical.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC44223DA28E1006CC945 /* analytical.json */; };
 		1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB36A9924317FFC00714778 /* CollectionView.swift */; };
 		AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB328EC124048A9900148FDC /* SAP-icons.ttf */; };
+
+		AB75F733249AC35300328E53 /* HTTPTimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */; };
+		AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */; };
+		AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75F736249AC36700328E53 /* BundleTestCases.swift */; };
+		ABFF2BD2249BE03600ED7D30 /* ObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */; };
+		ABFF2BD4249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */; };
+		ABFF2C3D24A407EE00ED7D30 /* TableVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */; };
+		ABFF2C4324A40BE800ED7D30 /* AnalyticalVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */; };
+		ABFF2C4524A40E8E00ED7D30 /* ListVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */; };
 		F6B9469D2422D2880041F5D0 /* employee.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469C2422D2880041F5D0 /* employee.json */; };
 		F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */; };
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
 		F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A32422D76B0041F5D0 /* timeline_manifest.json */; };
 		F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947362426BBBF0041F5D0 /* LowCode.json */; };
-		F6B947C2242C072F0041F5D0 /* table0.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B947C1242C072F0041F5D0 /* table0.json */; };
 		F6B97A122449159A009BABD6 /* card-explorer-icon-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B979FF24491598009BABD6 /* card-explorer-icon-list-card.card.zip */; };
 		F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0024491598009BABD6 /* card-explorer-activities-timeline-card.card.zip */; };
 		F6B97A142449159A009BABD6 /* card-explorer-members-timeline-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = F6B97A0124491598009BABD6 /* card-explorer-members-timeline-card.card.zip */; };
@@ -103,12 +111,19 @@
 		1BADC44223DA28E1006CC945 /* analytical.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = analytical.json; sourceTree = "<group>"; };
 		1BB36A9924317FFC00714778 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		AB328EC124048A9900148FDC /* SAP-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAP-icons.ttf"; sourceTree = "<group>"; };
+		AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HTTPTimelineVariants.card.zip; sourceTree = "<group>"; };
+		AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = TimelineVariants.card.zip; sourceTree = "<group>"; };
+		AB75F736249AC36700328E53 /* BundleTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleTestCases.swift; sourceTree = "<group>"; };
+		ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ObjectVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HTTPObjectVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = TableVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = AnalyticalVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ListVariants.card.zip; sourceTree = "<group>"; };
 		F6B9469C2422D2880041F5D0 /* employee.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee.json; sourceTree = "<group>"; };
 		F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tineline_mainfest.json; sourceTree = "<group>"; };
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
 		F6B946A32422D76B0041F5D0 /* timeline_manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = timeline_manifest.json; sourceTree = "<group>"; };
 		F6B947362426BBBF0041F5D0 /* LowCode.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LowCode.json; sourceTree = "<group>"; };
-		F6B947C1242C072F0041F5D0 /* table0.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = table0.json; sourceTree = "<group>"; };
 		F6B979FF24491598009BABD6 /* card-explorer-icon-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-icon-list-card.card.zip"; sourceTree = "<group>"; };
 		F6B97A0024491598009BABD6 /* card-explorer-activities-timeline-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-activities-timeline-card.card.zip"; sourceTree = "<group>"; };
 		F6B97A0124491598009BABD6 /* card-explorer-members-timeline-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-members-timeline-card.card.zip"; sourceTree = "<group>"; };
@@ -202,6 +217,14 @@
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */,
+				ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */,
+				ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */,
+				ABFF2BD3249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip */,
+				ABFF2BD1249BE03500ED7D30 /* ObjectVariants.card.zip */,
+				AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */,
+				AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */,
+				AB75F736249AC36700328E53 /* BundleTestCases.swift */,
 				F6B97A252449174C009BABD6 /* TestCases.swift */,
 				F6B97A4124492468009BABD6 /* adativecard-embedded1.card.zip */,
 				F6B97A4024492468009BABD6 /* adativecard-embedded2.card.zip */,
@@ -235,7 +258,6 @@
 				1BADC44123DA28E1006CC945 /* corporate_benefits.json */,
 				1BADC44223DA28E1006CC945 /* analytical.json */,
 				F6B947362426BBBF0041F5D0 /* LowCode.json */,
-				F6B947C1242C072F0041F5D0 /* table0.json */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -326,18 +348,22 @@
 				F6B97A232449159A009BABD6 /* card-explorer-highlight-list-card.card.zip in Resources */,
 				1BADC44B23DA28E1006CC945 /* corporate_benefits.json in Resources */,
 				1B583CDE23D926590003F30C /* LaunchScreen.storyboard in Resources */,
+				AB75F733249AC35300328E53 /* HTTPTimelineVariants.card.zip in Resources */,
 				1BADC44A23DA28E1006CC945 /* list.json in Resources */,
 				F6B97A222449159A009BABD6 /* card-explorer-stacked-column-card.card.zip in Resources */,
 				F6B946A42422D76B0041F5D0 /* timeline_manifest.json in Resources */,
 				1BADC44423DA28E1006CC945 /* quicklinks_manifest.json in Resources */,
 				1BADC44623DA28E1006CC945 /* component.json in Resources */,
-				F6B947C2242C072F0041F5D0 /* table0.json in Resources */,
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
+				AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */,
+				ABFF2C4524A40E8E00ED7D30 /* ListVariants.card.zip in Resources */,
 				F6B97A1C2449159A009BABD6 /* card-explorer-quick-links-list-card.card.zip in Resources */,
 				F6B97A162449159A009BABD6 /* card-explorer-simple-calendar-card.card.zip in Resources */,
 				F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */,
 				F6B97A4524492469009BABD6 /* adativecard-embedded5.card.zip in Resources */,
 				F6B97A4624492469009BABD6 /* adativecard-embedded2.card.zip in Resources */,
+				ABFF2C4324A40BE800ED7D30 /* AnalyticalVariants.card.zip in Resources */,
+				ABFF2BD2249BE03600ED7D30 /* ObjectVariants.card.zip in Resources */,
 				1BADC44823DA28E1006CC945 /* table.json in Resources */,
 				1BADC44723DA28E1006CC945 /* timeline.json in Resources */,
 				1B583CDB23D926590003F30C /* Preview Assets.xcassets in Resources */,
@@ -347,6 +373,7 @@
 				F6B947372426BBBF0041F5D0 /* LowCode.json in Resources */,
 				F6B946A22422D7450041F5D0 /* employees.json in Resources */,
 				1B583CD823D926590003F30C /* Assets.xcassets in Resources */,
+				ABFF2BD4249BE7FC00ED7D30 /* HTTPObjectVariants.card.zip in Resources */,
 				F6B97A4724492469009BABD6 /* adativecard-embedded1.card.zip in Resources */,
 				F6B97A152449159A009BABD6 /* card-explorer-numeric-list-card.card.zip in Resources */,
 				F6B97A1F2449159A009BABD6 /* card-explorer-object-card.card.zip in Resources */,
@@ -357,6 +384,7 @@
 				1BADC44923DA28E1006CC945 /* contentstack-benefits_manifest.json in Resources */,
 				F6B97A142449159A009BABD6 /* card-explorer-members-timeline-card.card.zip in Resources */,
 				F6B9469D2422D2880041F5D0 /* employee.json in Resources */,
+				ABFF2C3D24A407EE00ED7D30 /* TableVariants.card.zip in Resources */,
 				F6B97A4924492469009BABD6 /* adativecard-embedded6.card.zip in Resources */,
 				F6B97A122449159A009BABD6 /* card-explorer-icon-list-card.card.zip in Resources */,
 				F6B97A4424492469009BABD6 /* adativecard-embedded3.card.zip in Resources */,
@@ -373,6 +401,7 @@
 				1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */,
 				F6B97A262449174C009BABD6 /* TestCases.swift in Sources */,
 				1B583CD223D926560003F30C /* AppDelegate.swift in Sources */,
+				AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */,
 				1B583CD423D926560003F30C /* SceneDelegate.swift in Sources */,
 				1B583CD623D926560003F30C /* ContentView.swift in Sources */,
 			);

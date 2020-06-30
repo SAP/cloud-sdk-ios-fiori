@@ -14,17 +14,12 @@ struct RadialMicroChart: View {
         case rightSide
     }
     
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @State var mode: RadialMicroChart.Mode? = .inside
     
     // the difference of outer and inner radius range from 5...20
     private static let minDepth: CGFloat = 5
     private static let maxDepth: CGFloat = 20
-    
-    init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -48,7 +43,7 @@ struct RadialMicroChart: View {
                     if mode == .inside {
                         Text(str)
                             .font(Font.system(.largeTitle))
-                            .foregroundColor(percentage!.color.color(colorScheme))
+                            .foregroundColor(percentage!.color)
                     }
                 }
                 Spacer()
@@ -76,9 +71,9 @@ struct RadialMicroChart: View {
         
         return ZStack {
             ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                .strokeBorder(total!.color.color(colorScheme), lineWidth: depth)
+                .strokeBorder(total!.color, lineWidth: depth)
             ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: ratio * 360))
-                .strokeBorder(percentage!.color.color(colorScheme), lineWidth: depth)
+                .strokeBorder(percentage!.color, lineWidth: depth)
         }.frame(width: radius * 2, height: radius * 2, alignment: .topLeading)
     }
 }
@@ -87,7 +82,8 @@ struct RadialMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.radialModels) {
-                RadialMicroChart($0)
+                RadialMicroChart()
+                    .environmentObject($0)
                     .frame(height: 200, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

@@ -9,9 +9,10 @@
 import Foundation
 import SwiftUI
 import Combine
+import FioriSwiftUICore
 
 // swiftlint:disable file_length
-//swiftlint:disable type_body_length
+// swiftlint:disable type_body_length
 
 /**
 A common data model for all charts. Chart properties can be initialized in init() or changed after init().
@@ -144,8 +145,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// colors for any category in any series
     /// it is optional. this color overwrite the color from seriesAttributes
-    /// format: [seriesIndex1:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexN: HexColor], ... , seriesIndexN:  [catrgoryIndex1: HexColor,  ..., catrgoryIndexM: HexColor]]
-    @Published public var colorsForCategory: [Int: [Int: HexColor]]
+    /// format: [seriesIndex1:  [catrgoryIndex1: Color,  ..., catrgoryIndexN: Color], ... , seriesIndexN:  [catrgoryIndex1: Color,  ..., catrgoryIndexM: Color]]
+    @Published public var colorsForCategory: [Int: [Int: Color]]
     
     @Published private var _numberOfGridlines: Int = 2
     
@@ -213,7 +214,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
      - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
      */
-    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet()
+    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet() {
+        didSet {
+            // invalide plot data cache to recreate plot data
+            if chartType == .waterfall {
+                plotDataCache = nil
+            }
+        }
+    }
     
     /**
      Indicates secondary value axis series indexes for line based charts.
@@ -357,7 +365,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published var startPos: Int = 0
     
     /// internal property for series data range
-    var ranges: [ClosedRange<CGFloat>]
+    var ranges: [ClosedRange<CGFloat>] = []
     
     /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
@@ -399,11 +407,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
-            if numericAxisTickValuesCache.count > 10 {
+            if numericAxisTickValuesCache.count >= 1 {
                 numericAxisTickValuesCache.removeAll()
             }
             
             numericAxisTickValuesCache[de] = result
+            plotDataCache = nil
             
             return result
         }
@@ -464,7 +473,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public init(chartType: ChartType,
                 data: [[DimensionData<CGFloat?>]],
                 titlesForCategory: [[String?]]?,
-                colorsForCategory: [Int: [Int: HexColor]],
+                colorsForCategory: [Int: [Int: Color]],
                 titlesForAxis: [ChartAxisId: String]?,
                 labelsForDimension: [[DimensionData<String?>]]?,
                 numberOfGridlines: Int = 2,
@@ -499,23 +508,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues = data[i]
-                    .compactMap { $0.first }
-                    .compactMap { $0 }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
@@ -556,7 +549,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public init(chartType: ChartType,
                 data: [[Double?]],
                 titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: HexColor]]? = nil,
+                colorsForCategory: [Int: [Int: Color]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[String?]]? = nil,
                 numberOfGridlines: Int = 2,
@@ -577,7 +570,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
+            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
         }
         
         self._selectionRequired = Published(initialValue: selectionRequired)
@@ -685,33 +678,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfTotalsCategories {
-                if seriesIndex >= 0 && seriesIndex < data.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
         }
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues: [CGFloat] = data[i]
-                    .compactMap { $0 }
-                    .map { CGFloat($0) }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
@@ -724,7 +694,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public init(chartType: ChartType,
                 data3d: [[[Double?]]],
                 titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: HexColor]]? = nil,
+                colorsForCategory: [Int: [Int: Color]]? = nil,
                 titlesForAxis: [ChartAxisId: String]? = nil,
                 labelsForDimension: [[[String?]]]? = nil,
                 numberOfGridlines: Int = 2,
@@ -745,7 +715,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
         } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: HexColor]]())
+            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
         }
         
         self._selectionRequired = Published(initialValue: selectionRequired)
@@ -851,40 +821,59 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfTotalsCategories {
-                if seriesIndex >= 0 && seriesIndex < data3d.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
         }
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data3d.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues: [CGFloat] = data3d[i]
-                    .compactMap { $0.first }
-                    .compactMap { $0 }
-                    .map { CGFloat($0) }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
         if let isva = indexesOfSecondaryValueAxis {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
         }
+    }
+    
+    private func updateRange() {
+        var result: [ClosedRange<CGFloat>] = []
+        // go through series
+        for i in 0 ..< data.count {
+            let range: ClosedRange<CGFloat> = {
+                if chartType == .waterfall {
+                    let firstValue = plotItemValue(at: 0, category: 0, dimension: 0)
+                    var dmin: CGFloat = 0
+                    if let fv = firstValue {
+                        dmin = CGFloat(fv)
+                    }
+                    var dmax: CGFloat = dmin
+                    var subTotal: CGFloat = 0
+                    
+                    for index in 0 ..< numOfCategories(in: 0) {
+                        let isSubTotal = index == 0 ? true : indexesOfTotalsCategories.contains(index)
+                        let value = plotItemValue(at: 0, category: index, dimension: 0) ?? 0
+                        let curValue: CGFloat = isSubTotal ? CGFloat(value) : subTotal + CGFloat(value)
+                    
+                        dmin = min(dmin, curValue)
+                        dmax = max(dmax, curValue)
+                        subTotal = curValue
+                    }
+                    
+                    return dmin ... dmax
+                    
+                } else {
+                    let allValues = data[i]
+                        .compactMap { $0.first }
+                        .compactMap { $0 }
+                    
+                    let dmin = allValues.min() ?? 0
+                    let dmax = allValues.max() ?? (dmin + 1)
+                    
+                    guard dmin != dmax else { return dmin ... dmax + 1 }
+                    return dmin ... dmax
+                }
+            }()
+            result.append(range)
+        }
+        ranges = result
     }
     
     /// number of series in the chart model
@@ -947,14 +936,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)
-            let colors = [Palette.hexColor(for: .stockUpStroke), Palette.hexColor(for: .stockDownStroke)]
+            let colors: [Color] = [.preferredColor(.stockUpStroke), .preferredColor(.stockDownStroke)]
             let palette = ChartSeriesPalette(colors: colors)
             let sa = ChartSeriesAttributes(palette: palette, lineWidth: 2, point: nil, firstLineCapDiameter: 0, lastLineCapDiameter: 0)
             sa.point.isHidden = true
             return Array(repeating: sa, count: count)
             
         default:
-            let colors = [Palette.hexColor(for: .chart1), Palette.hexColor(for: .chart2), Palette.hexColor(for: .chart3), Palette.hexColor(for: .chart4), Palette.hexColor(for: .chart5), Palette.hexColor(for: .chart6), Palette.hexColor(for: .chart7), Palette.hexColor(for: .chart8), Palette.hexColor(for: .chart9), Palette.hexColor(for: .chart10), Palette.hexColor(for: .chart11)]
+            let colors: [Color] = [.preferredColor(.chart1), .preferredColor(.chart2), .preferredColor(.chart3), .preferredColor(.chart4), .preferredColor(.chart5), .preferredColor(.chart6), .preferredColor(.chart7), .preferredColor(.chart8), .preferredColor(.chart9), .preferredColor(.chart10), .preferredColor(.chart11)]
             let count = min(colors.count, max(1, seriesCount))
             //var pointAttributes: [ChartPointAttributes] = []
             var result: [ChartSeriesAttributes] = []
@@ -1084,7 +1073,7 @@ extension ChartModel: Equatable {
 }
 
 extension ChartModel {
-    func colorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+    func colorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
         if let c = colorsForCategory[seriesIndex], let val = c[categoryIndex] {
             return val
         }
@@ -1096,10 +1085,10 @@ extension ChartModel {
             }
         }
         
-        return Palette.hexColor(for: .primary2)
+        return .preferredColor(.primary2)
     }
     
-    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> HexColor {
+    func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
         if !seriesAttributes.isEmpty {
             let count = seriesAttributes.count
             if let color = seriesAttributes[seriesIndex % count].palette._fillColor {
@@ -1108,8 +1097,8 @@ extension ChartModel {
                 return colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
             }
         }
-            
-        return Palette.hexColor(for: .primary2)
+        
+        return .preferredColor(.primary2)
     }
     
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {

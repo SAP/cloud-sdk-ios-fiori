@@ -43,25 +43,27 @@ public struct ChartView: View {
             if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
                 NoDataView()
             } else if chartModel.chartType == .micro_bullet {
-                BulletMicroChart(chartModel)
+                BulletMicroChart().environmentObject(chartModel)
             } else if chartModel.chartType == .micro_harvey_ball {
-                HarveyBallMicroChart(chartModel)
+                HarveyBallMicroChart().environmentObject(chartModel)
             } else if chartModel.chartType == .micro_radial {
-                RadialMicroChart(chartModel)
+                RadialMicroChart().environmentObject(chartModel)
             } else if chartModel.chartType == .micro_column {
-                ColumnMicroChart(chartModel)
+                ColumnMicroChart().environmentObject(chartModel)
             } else if chartModel.chartType == .stock {
-                StockMicroChart(chartModel)
+                StockMicroChart().environmentObject(chartModel)
             } else if chartModel.chartType == .donut {
-                DonutChart(chartModel)
+                DonutChart().environmentObject(chartModel)
             } else if chartModel.chartType == .line {
-                LineChart(chartModel)
+                LineChart().environmentObject(chartModel)
             } else if chartModel.chartType == .area {
-                AreaChart(chartModel)
+                AreaChart().environmentObject(chartModel)
             } else if chartModel.chartType == .column {
-                ColumnChart(chartModel)
+                ColumnChart().environmentObject(chartModel)
             } else if chartModel.chartType == .stackedColumn {
-                StackedColumnChart(chartModel)
+                StackedColumnChart().environmentObject(chartModel)
+            } else if chartModel.chartType == .waterfall {
+                WaterfallChart().environmentObject(chartModel)
             } else {
                 NoDataView()
             }

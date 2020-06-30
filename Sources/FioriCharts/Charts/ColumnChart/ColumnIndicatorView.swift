@@ -8,14 +8,9 @@
 import SwiftUI
 
 struct ColumnIndicatorView: View {
-    @ObservedObject var model: ChartModel
-    @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.axisDataSource) var axisDataSource
-    
-    init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -70,7 +65,7 @@ struct ColumnIndicatorView: View {
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
                     ForEach(displayPlotData, id: \.self) { series in
-                        ColumnSeriesView(model: self.model, tickValues: tickValues, plotSeries: series, colorScheme: self.colorScheme, rect: rect, isSelectionView: true)
+                        ColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: true)
                     }
                     
                     Spacer(minLength: 0)
@@ -93,7 +88,8 @@ struct ColumnSelectionView_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                ColumnIndicatorView($0)
+                ColumnIndicatorView()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }
