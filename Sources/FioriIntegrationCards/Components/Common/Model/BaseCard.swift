@@ -115,7 +115,7 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
     }
 }
 
-open class BaseCard<Template: Decodable & Placeholding>: BaseBaseCard {
+open class BaseCard<Template: Decodable & Placeholding>: BackingCard {
     
     var template: Template!
     
@@ -145,7 +145,7 @@ internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
     static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
 }
 
-open class BaseBaseCard: Decodable, ObservableObject, Identifiable {
+open class BackingCard: Decodable, ObservableObject, Identifiable {
     
     open var id: String = UUID().uuidString
     
