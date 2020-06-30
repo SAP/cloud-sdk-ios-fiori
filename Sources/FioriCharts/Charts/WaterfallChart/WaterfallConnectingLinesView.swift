@@ -56,8 +56,16 @@ struct WaterfallConnectingLinesView: View {
     }
 }
 
-//struct WaterfallConnectingLinesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WaterfallConnectingLinesView()
-//    }
-//}
+struct WaterfallConnectingLinesView_Previews: PreviewProvider {
+    static var previews: some View {
+        let model = Tests.waterfallModels[0]
+        let axisDataSource = WaterfallAxisDataSource()
+        
+        return WaterfallConnectingLinesView(curCatIndex: 1,
+                                            columnWidth: 30,
+                                            clusterSpace: 10, height: 200)
+            .environmentObject(model)
+            .environment(\.axisDataSource, axisDataSource)
+            .frame(width: 300, height: 200)
+    }
+}

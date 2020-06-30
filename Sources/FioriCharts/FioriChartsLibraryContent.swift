@@ -53,6 +53,19 @@ struct LibraryContent : LibraryContentProvider {
             ChartView(ChartModel(chartType: .micro_bullet, data: [[35, 50, 70], [0, 20, 50, 100]], colorsForCategory: [0: [0: .preferredColor(.chart1), 1: .preferredColor(.chart2), 2: .preferredColor(.chart2), 3: .preferredColor(.chart3)]])),
             title: "Micro Bullet Chart"
         )
+        LibraryItem(
+            ChartModel(chartType: .waterfall,
+                       data: [[27, 3, 29, -2, -5, 52]],
+                       titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
+                       colorsForCategory: [0: [0: .preferredColor(.positive),
+                                               1: .preferredColor(.positive),
+                                               2: .preferredColor(.positive),
+                                               3: .preferredColor(.chart2),
+                                               4: .preferredColor(.chart2),
+                                               5: .preferredColor(.chart1)]],
+                       indexesOfTotalsCategories: [5]),
+            title: "Waterfall Chart"
+        )
     }
 }
 #endif

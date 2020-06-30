@@ -87,8 +87,14 @@ struct WaterfallIndicatorView: View {
     }
 }
 
-//struct WaterfallIndicatorView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WaterfallIndicatorView()
-//    }
-//}
+struct WaterfallIndicatorView_Previews: PreviewProvider {
+    static var previews: some View {
+        let axisDataSource = WaterfallAxisDataSource()
+        
+        return WaterfallIndicatorView()
+            .environmentObject(Tests.waterfallModels[0])
+            .environment(\.axisDataSource, axisDataSource)
+            .frame(width: 300, height: 200)
+            
+    }
+}

@@ -87,8 +87,15 @@ struct WaterfallSeriesView: View {
     }
 }
 
-//struct WaterfallSeriesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WaterfallSeriesView()
-//    }
-//}
+struct WaterfallSeriesView_Previews: PreviewProvider {
+    static var previews: some View {
+        let model = Tests.waterfallModels[0]
+        let axisDataSource = WaterfallAxisDataSource()
+        let pd = axisDataSource.plotData(model)
+        
+        return WaterfallSeriesView(plotSeries: pd[0],
+                                   rect: CGRect(x: 0, y: 0, width: 300, height: 200),
+                                   isSelectionView: false)
+            .environmentObject(model)
+    }
+}
