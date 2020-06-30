@@ -877,64 +877,71 @@
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 19,
+      "line": 26,
       "symbol": "OneOneCard.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 45,
+      "line": 58,
       "symbol": "OneManyCard.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 70,
+      "line": 83,
       "symbol": "ManyManyCard",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 74,
+      "line": 93,
       "symbol": "ManyManyCard.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 99,
+      "line": 118,
       "symbol": "BaseCard",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 103,
+      "line": 122,
       "symbol": "BaseCard.init(from:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 129,
-      "symbol": "BaseBaseCard",
+      "line": 148,
+      "symbol": "BackingCard",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 139,
-      "symbol": "BaseBaseCard.headerPublisher",
+      "line": 158,
+      "symbol": "BackingCard.headerPublisher",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
-      "line": 140,
-      "symbol": "BaseBaseCard.contentPublisher",
+      "line": 159,
+      "symbol": "BackingCard.contentPublisher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 160,
+      "symbol": "BackingCard.baseURL",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
@@ -982,7 +989,14 @@
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
-      "line": 70,
+      "line": 69,
+      "symbol": "Card.loadDataIfNeeded(baseURL:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 85,
       "symbol": "Card",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -997,7 +1011,7 @@
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataFetcher.swift",
       "line": 43,
-      "symbol": "DataFetcher.load()",
+      "symbol": "DataFetcher.load(baseURL:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
@@ -1094,28 +1108,49 @@
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 11,
+      "line": 12,
       "symbol": "Manifest",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 12,
+      "line": 13,
       "symbol": "Manifest.app",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 13,
+      "line": 14,
       "symbol": "Manifest.card",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 34,
+      "line": 20,
+      "symbol": "Manifest.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 36,
+      "symbol": "Manifest.init(withCardBundleAt:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 51,
+      "symbol": "Manifest.init(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 81,
       "symbol": "Manifest",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -1731,14 +1766,14 @@
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkService.swift",
-      "line": 27,
+      "line": 51,
       "symbol": "NetworkService",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkService.swift",
-      "line": 29,
+      "line": 53,
       "symbol": "NetworkService.shared",
       "symbol_kind": "source.lang.swift.decl.var.static",
       "warning": "undocumented"
@@ -1808,7 +1843,7 @@
     },
     {
       "file": "/Users/runner/runners/2.263.0/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/String+Extensions.swift",
-      "line": 12,
+      "line": 25,
       "symbol": "String.asURL()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

@@ -17,7 +17,7 @@
       <div class="content-wrapper">
         <p>
           <a href="../index.html">FioriCharts Docs</a>
-          <span class="no-mobile"> (67% documented)</span>
+          <span class="no-mobile"> (66% documented)</span>
         </p>
     
     
@@ -56,9 +56,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:11FioriCharts23ChartGridlineAttributesC5width5color17dashPatternLength0hI3Gap8isHiddenACSd_AA8HexColorVS2dSbtcfc"></a>
+                      <a name="/s:11FioriCharts23ChartGridlineAttributesC5width5color17dashPatternLength0hI3Gap8isHiddenACSd_7SwiftUI5ColorVS2dSbtcfc"></a>
                       <a name="//apple_ref/swift/Method/init(width:color:dashPatternLength:dashPatternGap:isHidden:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts23ChartGridlineAttributesC5width5color17dashPatternLength0hI3Gap8isHiddenACSd_AA8HexColorVS2dSbtcfc">init(width:<wbr>color:<wbr>dashPatternLength:<wbr>dashPatternGap:<wbr>isHidden:<wbr>)</a>
+                      <a class="token" href="#/s:11FioriCharts23ChartGridlineAttributesC5width5color17dashPatternLength0hI3Gap8isHiddenACSd_7SwiftUI5ColorVS2dSbtcfc">init(width:<wbr>color:<wbr>dashPatternLength:<wbr>dashPatternGap:<wbr>isHidden:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -74,7 +74,7 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="nv">color</span><span class="p">:</span> <span class="kt"><a href="../Structs/HexColor.html">HexColor</a></span> <span class="o">=</span> <span class="kt"><a href="../Classes/Palette.html">Palette</a></span><span class="o">.</span><span class="nf">hexColor</span><span class="p">(</span><span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">primary4</span><span class="p">),</span>
+            <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span> <span class="o">=</span> <span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">primary4</span><span class="p">),</span>
             <span class="nv">dashPatternLength</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
             <span class="nv">dashPatternGap</span><span class="p">:</span> <span class="kt">Double</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
             <span class="nv">isHidden</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
@@ -168,9 +168,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:11FioriCharts23ChartGridlineAttributesC5colorAA8HexColorVvp"></a>
+                      <a name="/s:11FioriCharts23ChartGridlineAttributesC5color7SwiftUI5ColorVvp"></a>
                       <a name="//apple_ref/swift/Property/color" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts23ChartGridlineAttributesC5colorAA8HexColorVvp">color</a>
+                      <a class="token" href="#/s:11FioriCharts23ChartGridlineAttributesC5color7SwiftUI5ColorVvp">color</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -186,7 +186,7 @@
                           <div class="language">
                             <p class="aside-title">Swift</p>
                             <pre class="highlight swift"><code><span class="kd">@Published</span>
-<span class="kd">public</span> <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt"><a href="../Structs/HexColor.html">HexColor</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
@@ -377,9 +377,6 @@
                 <li class="nav-group-task">
                   <a href="../Classes/ChartSeriesPalette.html">ChartSeriesPalette</a>
                 </li>
-                <li class="nav-group-task">
-                  <a href="../Classes/Palette.html">Palette</a>
-                </li>
               </ul>
             </li>
             <li class="nav-group-name">
@@ -400,8 +397,13 @@
                 <li class="nav-group-task">
                   <a href="../Enums/ChartType.html">ChartType</a>
                 </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
                 <li class="nav-group-task">
-                  <a href="../Enums/ColorStyle.html">ColorStyle</a>
+                  <a href="../Extensions/NumberFormatter.html">NumberFormatter</a>
                 </li>
               </ul>
             </li>
@@ -419,9 +421,6 @@
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/ColumnMicroChart.html">ColumnMicroChart</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/HexColor.html">HexColor</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/LineShape.html">LineShape</a>
