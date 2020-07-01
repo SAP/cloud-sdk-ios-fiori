@@ -9,13 +9,9 @@
 import SwiftUI
 
 public struct ColumnMicroChart: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
-    
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
-    
+
     public var body: some View {
         GeometryReader { proxy in
             self.columnsView(in: proxy.size)
@@ -150,7 +146,8 @@ struct ColumnMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.columnModels) {
-                ColumnMicroChart($0)
+                ColumnMicroChart()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

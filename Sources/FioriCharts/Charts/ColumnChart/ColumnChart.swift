@@ -10,17 +10,12 @@ import SwiftUI
 let ColumnGapFraction: CGFloat = 0.333333
 
 struct ColumnChart: View {
-    @ObservedObject var model: ChartModel
-
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
+    @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model,
-                    axisDataSource: ColumnAxisDataSource(),
-                    chartView: ColumnView(model),
-                    indicatorView: ColumnIndicatorView(model))
+        XYAxisChart(axisDataSource: ColumnAxisDataSource(),
+                    chartView: ColumnView(),
+                    indicatorView: ColumnIndicatorView())
     }
 }
 
@@ -282,7 +277,8 @@ struct ColumnChart_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                ColumnChart($0)
+                ColumnChart()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

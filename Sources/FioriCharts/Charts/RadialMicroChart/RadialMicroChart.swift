@@ -14,16 +14,12 @@ struct RadialMicroChart: View {
         case rightSide
     }
     
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @State var mode: RadialMicroChart.Mode? = .inside
     
     // the difference of outer and inner radius range from 5...20
     private static let minDepth: CGFloat = 5
     private static let maxDepth: CGFloat = 20
-    
-    init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -86,7 +82,8 @@ struct RadialMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.radialModels) {
-                RadialMicroChart($0)
+                RadialMicroChart()
+                    .environmentObject($0)
                     .frame(height: 200, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

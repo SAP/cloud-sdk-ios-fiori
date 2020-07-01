@@ -10,12 +10,8 @@ import SwiftUI
 import FioriSwiftUICore
 
 struct StockIndicatorView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -166,7 +162,8 @@ struct StockIndicatorView: View {
 
 struct StockIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        StockIndicatorView(Tests.stockModels[1])
+        StockIndicatorView()
+            .environmentObject(Tests.stockModels[1])
             .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)

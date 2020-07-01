@@ -5,7 +5,6 @@
 //  Created by Xu, Sheng on 12/11/19.
 //  Copyright © 2019 sstadelman. All rights reserved.
 //
-
 import Foundation
 import SwiftUI
 import FioriSwiftUICore
@@ -92,6 +91,94 @@ public struct Tests {
     
     /// descriptions for line models
     public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    
+    /// waterfall models for test
+    public static let waterfallModels = [
+        ChartModel(chartType: .waterfall,
+                   data: [[27, 3, 29, -2, -5, 52]],
+                   titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
+                   colorsForCategory: [0: [0: .preferredColor(.positive),
+                                           1: .preferredColor(.positive),
+                                           2: .preferredColor(.positive),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart1)]],
+                   indexesOfTotalsCategories: [5]),
+        
+        ChartModel(chartType: .waterfall,
+                   data: [[27, 8, 24, -2, -5, 52]],
+                   titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
+                   colorsForCategory: [0: [0: .preferredColor(.positive),
+                                           1: .preferredColor(.positive),
+                                           2: .preferredColor(.positive),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart1)]],
+                   indexesOfTotalsCategories: [2, 5]),
+        
+        ChartModel(chartType: .waterfall,
+                   data: [[27, 8, 24, -2, -5, 52]],
+                   titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
+                   colorsForCategory: [0: [0: .preferredColor(.positive),
+                                           1: .preferredColor(.positive),
+                                           2: .preferredColor(.positive),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart1)]],
+                   numericAxis: ChartNumericAxisAttributes(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: true, allowLooseLabels: true, fudgeAxisRange: false, adjustToNiceValues: true, abbreviatesLabels: true, isMagnitudedDisplayed: false, explicitMin: 10, explicitMax: 100, formatter: nil, abbreviatedFormatter: nil),
+                   indexesOfTotalsCategories: [2, 5]),
+        
+        ChartModel(chartType: .waterfall,
+                   data: [[-27, -8, -6, 2, 5, -52]],
+                   titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
+                   colorsForCategory: [0: [0: .preferredColor(.positive),
+                                           1: .preferredColor(.positive),
+                                           2: .preferredColor(.positive),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart1)]],
+                   indexesOfTotalsCategories: [5]),
+        
+        ChartModel(chartType: .waterfall,
+                   data: [[250, -100, 150, -20, -20, -20, -15, 75, -15, 60, -10, -5, 45]],
+                   titlesForCategory: [["Sales", nil, "Gross Margin", nil, nil, nil, nil, "EBITDA", nil, "EBIT", nil, nil, "Net Income"]],
+                   colorsForCategory: [0: [1: .preferredColor(.chart2),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart2),
+                                           6: .preferredColor(.chart2),
+                                           8: .preferredColor(.chart2),
+                                           10: .preferredColor(.chart2),
+                                           11: .preferredColor(.chart2)]],
+                   indexesOfTotalsCategories: [0, 2, 7, 9, 12]),
+        
+        ChartModel(chartType: .waterfall,
+                   data: [[250, -300, 150, -50, nil, -100, -15, -75, -15, 60, -10, -5, 45]],
+                   titlesForCategory: [["Sales", nil, "Gross Margin", nil, nil, nil, nil, "EBITDA", nil, "EBIT", nil, nil, "Net Income"]],
+                   colorsForCategory: [0: [1: .preferredColor(.chart2),
+                                           2: .preferredColor(.chart2),
+                                           3: .preferredColor(.chart2),
+                                           4: .preferredColor(.chart2),
+                                           5: .preferredColor(.chart2),
+                                           6: .preferredColor(.chart2),
+                                           8: .preferredColor(.chart2),
+                                           10: .preferredColor(.chart2),
+                                           11: .preferredColor(.chart2)]],
+                   indexesOfTotalsCategories: [0, 7, 9, 12]),
+        
+        ChartModel(chartType: .waterfall, data: [[nil]]),
+        
+        ChartModel(chartType: .waterfall, data: [[]])
+    ]
+    
+    /// descriptions for column models
+    public static let waterfallModelsDesc = ["Headcount Movement Last 12 Months, 5 is the total index",
+                                             "Headcount Movement Last 12 Months, 2 and 5 are total indexes",
+                                             "Headcount Movement Last 12 Months, explicitMax = 100",
+                                             "Headcount Movement Last 12 Months, negative value",
+                                             "Net Income Construction EBITDA",
+                                             "Net Income Construction EBITDA, nil value, negative total values",
+                                             "data = [[nil]]", "data = [[]]"]
     
     /// bullet models for test
     public static let bulletModles = [
@@ -232,5 +319,5 @@ public struct Tests {
     public static let stockModelsDesc = ["includes intraday: 1min, one day: 1min, 1year:1day, 3years:1week, last series is selected", "simple one", "intraday", "3 dimention data, first value is nil", "typical one", "data: [[nil]]", "data = [[]]"]
     
     /// all test models
-    public static let allCases = [stockModels, lineModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
+    public static let allCases = [stockModels, lineModels, waterfallModels, donutModels, columnModels, harveyBallModels, radialModels, bulletModles].flatMap { $0 }
 }

@@ -1,13 +1,13 @@
 //
-//  ColumnIndicatorView.swift
+//  WaterfallIndicatorView.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 6/3/20.
+//  Created by Xu, Sheng on 6/23/20.
 //
 
 import SwiftUI
 
-struct ColumnIndicatorView: View {
+struct WaterfallIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.axisDataSource) var axisDataSource
@@ -19,7 +19,6 @@ struct ColumnIndicatorView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let tickValues = model.numericAxisTickValues
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -55,17 +54,28 @@ struct ColumnIndicatorView: View {
             }
             displayPlotData.append(ss)
         }
-        
+           
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
                 NoDataView()
             } else {
-                HStack(alignment: .bottom, spacing: clusterSpace) {
+                HStack(alignment: .bottom, spacing: 0) {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
+                    
                     ForEach(displayPlotData, id: \.self) { series in
-                        ColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: true)
+                        HStack(alignment: .bottom, spacing: 0) {
+                            WaterfallSeriesView(plotSeries: series,
+                                                rect: rect,
+                                                isSelectionView: true)
+                            
+                            if series.first?.categoryIndex != self.model.numOfCategories(in: 0) - 1 {
+                                Rectangle()
+                                    .fill(Color.clear)
+                                    .frame(width: clusterSpace, height: 1)
+                            }
+                        }
                     }
                     
                     Spacer(minLength: 0)
@@ -77,22 +87,14 @@ struct ColumnIndicatorView: View {
     }
 }
 
-// swiftlint:disable force_cast
-struct ColumnSelectionView_Previews: PreviewProvider {
+struct WaterfallIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
-           model.chartType = .column
-           return model
-        }
+        let axisDataSource = WaterfallAxisDataSource()
         
-        return Group {
-            ForEach(models) {
-                ColumnIndicatorView()
-                    .environmentObject($0)
-                    .frame(width: 330, height: 220, alignment: .topLeading)
-                    .previewLayout(.sizeThatFits)
-            }
-        }
+        return WaterfallIndicatorView()
+            .environmentObject(Tests.waterfallModels[0])
+            .environment(\.axisDataSource, axisDataSource)
+            .frame(width: 300, height: 200)
+            
     }
 }

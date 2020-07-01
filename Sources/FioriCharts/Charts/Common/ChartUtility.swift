@@ -118,7 +118,7 @@ class ChartUtility {
             //
             // Check if we need to clamp the baseline at zero and adjust accordingly.
             //
-            if model.numericAxis.isZeroBased {
+            if model.numericAxis.isZeroBased || model.chartType == .waterfall || model.chartType == .stackedColumn {
                 if dmin >= 0.0 && dmax >= dmin {
                     dmin = 0.0
                 } else if dmax <= 0.0 && dmin <= dmax {

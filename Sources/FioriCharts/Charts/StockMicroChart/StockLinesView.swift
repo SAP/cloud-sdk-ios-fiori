@@ -9,12 +9,8 @@
 import SwiftUI
 
 struct StockLinesView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ chartModel: ChartModel) {
-        self.model = chartModel
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -135,7 +131,8 @@ struct StockLinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) {
-                StockLinesView($0)
+                StockLinesView()
+                    .environmentObject($0)
             }
             .frame(width: 300, height: 200)
             .previewLayout(.sizeThatFits)

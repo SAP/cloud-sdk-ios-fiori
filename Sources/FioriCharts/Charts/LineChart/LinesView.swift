@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct LinesView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
     @State var fill: Bool = false
     
-    public init(_ chartModel: ChartModel, fill: Bool = false) {
-        self.model = chartModel
+    public init(fill: Bool = false) {
         self._fill = State(initialValue: fill)
     }
     
@@ -112,7 +111,8 @@ struct LinesView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.lineModels) {
-                LinesView($0)
+                LinesView()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

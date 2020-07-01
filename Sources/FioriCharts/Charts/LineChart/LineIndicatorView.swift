@@ -20,12 +20,8 @@ struct SelectionItem: Identifiable {
 }
 
 struct LineIndicatorView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    
-    public init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -171,7 +167,8 @@ struct LineIndicatorView: View {
 
 struct LineIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        LineIndicatorView(Tests.lineModels[0])
+        LineIndicatorView()
+            .environmentObject(Tests.lineModels[0])
             .frame(width: 300, height: 200, alignment: .topLeading)
             .padding(32)
             .previewLayout(.sizeThatFits)

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StackedColumnSeriesView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
 
     let tickValues: AxisTickValues
     let plotSeries: [ChartPlotRectData]

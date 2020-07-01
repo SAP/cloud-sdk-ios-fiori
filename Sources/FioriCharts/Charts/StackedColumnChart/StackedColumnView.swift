@@ -8,12 +8,8 @@
 import SwiftUI
 
 struct StackedColumnView: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
-    
-    init(_ model: ChartModel) {
-        self.model = model
-    }
     
     var body: some View {
         GeometryReader { proxy in
@@ -47,7 +43,7 @@ struct StackedColumnView: View {
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
                     ForEach(curPlotData, id: \.self) { series in
-                        StackedColumnSeriesView(model: self.model, tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: false)
+                        StackedColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: false)
                     }
                     
                     Spacer(minLength: 0)
@@ -70,7 +66,8 @@ struct StackedColumnView_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                StackedColumnView($0)
+                StackedColumnView()
+                    .environmentObject($0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

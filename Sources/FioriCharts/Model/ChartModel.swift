@@ -214,7 +214,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
      - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
      */
-    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet()
+    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet() {
+        didSet {
+            // invalide plot data cache to recreate plot data
+            if chartType == .waterfall {
+                plotDataCache = nil
+            }
+        }
+    }
     
     /**
      Indicates secondary value axis series indexes for line based charts.
@@ -358,7 +365,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published var startPos: Int = 0
     
     /// internal property for series data range
-    var ranges: [ClosedRange<CGFloat>]
+    var ranges: [ClosedRange<CGFloat>] = []
     
     /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
@@ -400,11 +407,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
-            if numericAxisTickValuesCache.count > 10 {
+            if numericAxisTickValuesCache.count >= 1 {
                 numericAxisTickValuesCache.removeAll()
             }
             
             numericAxisTickValuesCache[de] = result
+            plotDataCache = nil
             
             return result
         }
@@ -500,23 +508,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
         self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues = data[i]
-                    .compactMap { $0.first }
-                    .compactMap { $0 }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
@@ -686,33 +678,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfTotalsCategories {
-                if seriesIndex >= 0 && seriesIndex < data.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
         }
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues: [CGFloat] = data[i]
-                    .compactMap { $0 }
-                    .map { CGFloat($0) }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
@@ -852,40 +821,59 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfTotalsCategories {
-                if seriesIndex >= 0 && seriesIndex < data3d.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(validIndexes))
+            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
         }
         
-        var result: [ClosedRange<CGFloat>] = []
-        // go through series
-        for i in 0 ..< data3d.count {
-            let range: ClosedRange<CGFloat> = {
-                let allValues: [CGFloat] = data3d[i]
-                    .compactMap { $0.first }
-                    .compactMap { $0 }
-                    .map { CGFloat($0) }
-                
-                let min = allValues.min() ?? 0
-                let max = allValues.max() ?? (min + 1)
-                
-                guard min != max else { return min...max+1 }
-                return min...max
-            }()
-            result.append(range)
-        }
-        ranges = result
+        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
         if let isva = indexesOfSecondaryValueAxis {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
         }
+    }
+    
+    private func updateRange() {
+        var result: [ClosedRange<CGFloat>] = []
+        // go through series
+        for i in 0 ..< data.count {
+            let range: ClosedRange<CGFloat> = {
+                if chartType == .waterfall {
+                    let firstValue = plotItemValue(at: 0, category: 0, dimension: 0)
+                    var dmin: CGFloat = 0
+                    if let fv = firstValue {
+                        dmin = CGFloat(fv)
+                    }
+                    var dmax: CGFloat = dmin
+                    var subTotal: CGFloat = 0
+                    
+                    for index in 0 ..< numOfCategories(in: 0) {
+                        let isSubTotal = index == 0 ? true : indexesOfTotalsCategories.contains(index)
+                        let value = plotItemValue(at: 0, category: index, dimension: 0) ?? 0
+                        let curValue: CGFloat = isSubTotal ? CGFloat(value) : subTotal + CGFloat(value)
+                    
+                        dmin = min(dmin, curValue)
+                        dmax = max(dmax, curValue)
+                        subTotal = curValue
+                    }
+                    
+                    return dmin ... dmax
+                    
+                } else {
+                    let allValues = data[i]
+                        .compactMap { $0.first }
+                        .compactMap { $0 }
+                    
+                    let dmin = allValues.min() ?? 0
+                    let dmax = allValues.max() ?? (dmin + 1)
+                    
+                    guard dmin != dmax else { return dmin ... dmax + 1 }
+                    return dmin ... dmax
+                }
+            }()
+            result.append(range)
+        }
+        ranges = result
     }
     
     /// number of series in the chart model
