@@ -42,13 +42,13 @@ struct StackedColumnIndicatorView: View {
             selectedSeriesRange = tmp[0]
         }
         
-        var displayPlotData: [[ChartPlotRectData]] = []
+        var displayPlotData: [[ChartPlotData]] = []
         
         for pdSeries in curPlotData {
-            var ss: [ChartPlotRectData] = []
+            var ss: [ChartPlotData] = []
             for pdCategory in pdSeries {
                 if selectedSeriesRange.contains(pdCategory.seriesIndex) && selectedCategoryRange.contains(pdCategory.categoryIndex) {
-                    ss.append(ChartPlotRectData(seriesIndex: pdCategory.seriesIndex, categoryIndex: pdCategory.categoryIndex, value: pdCategory.value, x: pdCategory.rect.origin.x, y: pdCategory.rect.origin.y, width: pdCategory.rect.size.width, height: pdCategory.rect.size.height, selected: true))
+                    ss.append(pdCategory.changeSelected(selected: true))
                 } else {
                     ss.append(pdCategory)
                 }

@@ -19,7 +19,7 @@ protocol AxisDataSource: class {
     
     func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
     
-    func plotData(_ model: ChartModel) -> [[ChartPlotRectData]]
+    func plotData(_ model: ChartModel) -> [[ChartPlotData]]
     
     func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat
     
@@ -283,7 +283,7 @@ class DefaultAxisDataSource: AxisDataSource {
         }
     }
     
-    func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
+    func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         return []
     }
     

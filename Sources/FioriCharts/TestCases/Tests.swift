@@ -180,6 +180,52 @@ public struct Tests {
                                              "Net Income Construction EBITDA, nil value, negative total values",
                                              "data = [[nil]]", "data = [[]]"]
     
+    /// line and area models for test
+    public static let comboModels = [
+        ChartModel(chartType: .combo,
+                   data: [[200, 170, 165, 143, 166, 112, 110],
+                          [150, 120, 130, 135, 120, 138, 137]],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                   indexesOfSecondaryValueAxis: [1],
+                   indexesOfColumnSeries: [0]),
+        
+        ChartModel(chartType: .combo,
+                   data: [[2.50, 2.20, 1.60, 2.80, 1.70, 0.90, 0.80, 1.95, 1.75, 1.33, 2.44, 1.40, 1.25, 1.80].map { $0 * 100 },
+                          [1.95, 1.75, 1.33, 2.44, 1.40, 1.25, 1.90, 1.65, 1.85, 1.43, 1.64, 1.74, 1.55, 1.68].map { $0 * 100 },
+                          [2.62, 2.25, 1.90, 2.48, 1.87, 0.92, 1.28, 1.35, 1.45, 1.53, 2.04, 1.94, 1.85, 1.65].map { $0 * 100 },
+                          [1.65, 1.95, 1.63, 2.04, 1.74, 1.65, 1.38, 1.75, 1.70, 1.63, 2.14, 1.64, 1.45, 1.50].map { $0 * 100 },
+                          [2.25, 2.02, 1.86, 2.28, 1.37, 1.29, 0.88, 1.05, 1.15, 1.30, 1.54, 1.84, 1.45, 1.60].map { $0 * 100 },
+                          [1.15, 1.35, 1.73, 2.24, 1.84, 1.55, 1.98, 2.15, 2.35, 2.45, 2.40, 2.00, 1.55, 1.20].map { $0 * 100 }],
+                   titlesForCategory: [["Adam Humprey", "Jimmy Patrick", "Franck Syren", "Alex Kilgo", "Kim Kilgo", "Sean Long", "Flash Ek-Ularnpun", "Lili Lin", "Luka Ning", "Rodhan Hickey", "Natasha Girotra", "Megan Zurcher", "Joan Wood", "Stanley Thomas Stadelman Jr."]],
+                   indexesOfSecondaryValueAxis: [3, 4, 5],
+                   indexesOfColumnSeries: [0, 1, 2]),
+        
+        ChartModel(chartType: .combo,
+                   data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
+                   titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
+                   selections: [0...0, 2...2],
+                   indexesOfSecondaryValueAxis: [1],
+                   indexesOfColumnSeries: [0]),
+        
+        ChartModel(chartType: .combo,
+                   data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
+                          [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
+                   colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
+                   selections: [0...0, 4...8],
+                   indexesOfSecondaryValueAxis: [0, 1],
+                   indexesOfColumnSeries: [1]),
+        
+        ChartModel(chartType: .micro_bullet, data: [[nil]])
+    ]
+    
+    /// descriptions for combo models
+    public static let comboModelsDesc = ["positive values, secondary y axis",
+                                         "6 series, long category labels",
+                                         "negative values, some x axis labels are nil, preselected single selection",
+                                         "mixed values, preselected range selection",
+                                         "data = [[nil]]", "data = [[]]"]
+    
     /// bullet models for test
     public static let bulletModles = [
         ChartModel(chartType: .micro_bullet,

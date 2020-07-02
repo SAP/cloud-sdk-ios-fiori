@@ -9,7 +9,7 @@
 import SwiftUI
 
 public struct ColumnMicroChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
 
     public var body: some View {
@@ -146,8 +146,7 @@ struct ColumnMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.columnModels) {
-                ColumnMicroChart()
-                    .environmentObject($0)
+                ColumnMicroChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

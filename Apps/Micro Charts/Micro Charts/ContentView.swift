@@ -12,7 +12,6 @@ import FioriCharts
 
 struct ContentView: View {
     @State var showingDetail = false
-    @State var currentModel: ChartModel? = nil
     
     let charts: [(String, [ChartModel], [String])] =
         [("Stock", Tests.stockModels, Tests.stockModelsDesc),
@@ -33,6 +32,7 @@ struct ContentView: View {
             return model
          }, Tests.lineModelsDesc),
          ("Waterfall", Tests.waterfallModels, Tests.waterfallModelsDesc),
+         ("Combo", Tests.comboModels, Tests.comboModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
          ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
          ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),

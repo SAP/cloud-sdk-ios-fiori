@@ -11,7 +11,7 @@ struct StackedColumnSeriesView: View {
     @EnvironmentObject var model: ChartModel
 
     let tickValues: AxisTickValues
-    let plotSeries: [ChartPlotRectData]
+    let plotSeries: [ChartPlotData]
     let rect: CGRect
     let isSelectionView: Bool
     
@@ -65,7 +65,7 @@ struct StackedColumnSeriesView: View {
         }
     }
     
-    func columnColor(for item: ChartPlotRectData) -> Color {
+    func columnColor(for item: ChartPlotData) -> Color {
         if !isSelectionView {
             return model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex)
         } else {
@@ -77,7 +77,7 @@ struct StackedColumnSeriesView: View {
         }
     }
     
-    func columnHeight(from rectData: ChartPlotRectData, isPositiveArea: Bool) -> CGFloat {
+    func columnHeight(from rectData: ChartPlotData, isPositiveArea: Bool) -> CGFloat {
         if (rectData.value >= 0 && isPositiveArea) || (rectData.value < 0 && !isPositiveArea) {
             return rectData.rect.size.height
         } else {
