@@ -206,14 +206,14 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
         }
         .store(in: &subscribers)
         
-        if let headerData = _headerData ?? _cardData {
+        if let headerData = combinedData(cardData: _cardData, headerOrContentData: _headerData) {
             headerData.json.sink {[unowned self] _ in
                 self.headerPublisher.send(headerData.json)
             }
             .store(in: &subscribers)
         }
         
-        if let contentData = _contentData ?? _cardData {
+        if let contentData = combinedData(cardData: _cardData, headerOrContentData: _contentData) {
             contentData.json.sink {[unowned self] _ in
                 self.contentPublisher.send(contentData.json)
             }
@@ -223,5 +223,20 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
     
     public var objectWillChange: ObservableObjectPublisher = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
+    
+    func combinedData(cardData: DataFetcher?, headerOrContentData: DataFetcher?) -> DataFetcher? {
+        
+        // prioritize the data in header or content
+        guard let outputDataWithPath = headerOrContentData else {
+            return cardData
+        }
+        
+        // if data exists in the card level, combine it with the path from header or content level
+        if let actualData = cardData?.json.value?.0 {
+            outputDataWithPath.json.send((actualData, outputDataWithPath.path))
+        }
+        
+        return outputDataWithPath
+    }
     
 }
