@@ -33,7 +33,6 @@
 		1BADC44C23DA28E1006CC945 /* analytical.json in Resources */ = {isa = PBXBuildFile; fileRef = 1BADC44223DA28E1006CC945 /* analytical.json */; };
 		1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BB36A9924317FFC00714778 /* CollectionView.swift */; };
 		AB328EC224048A9C00148FDC /* SAP-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB328EC124048A9900148FDC /* SAP-icons.ttf */; };
-
 		AB75F733249AC35300328E53 /* HTTPTimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F732249AC35300328E53 /* HTTPTimelineVariants.card.zip */; };
 		AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */; };
 		AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB75F736249AC36700328E53 /* BundleTestCases.swift */; };
@@ -42,6 +41,10 @@
 		ABFF2C3D24A407EE00ED7D30 /* TableVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */; };
 		ABFF2C4324A40BE800ED7D30 /* AnalyticalVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */; };
 		ABFF2C4524A40E8E00ED7D30 /* ListVariants.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */; };
+		ABFF2CB324ABEA9200ED7D30 /* InlineTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABFF2CB224ABEA9200ED7D30 /* InlineTestCases.swift */; };
+		ABFF2CD724AE571F00ED7D30 /* analytical_dataInCardLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2CD524AE571F00ED7D30 /* analytical_dataInCardLevel.json */; };
+		ABFF2CD924AE573400ED7D30 /* list_dataInCardLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2CD824AE573400ED7D30 /* list_dataInCardLevel.json */; };
+		ABFF2CDB24AE57C100ED7D30 /* timeline_dataInCardLevel.json in Resources */ = {isa = PBXBuildFile; fileRef = ABFF2CDA24AE57C100ED7D30 /* timeline_dataInCardLevel.json */; };
 		F6B9469D2422D2880041F5D0 /* employee.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469C2422D2880041F5D0 /* employee.json */; };
 		F6B9469F2422D2C80041F5D0 /* tineline_mainfest.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */; };
 		F6B946A22422D7450041F5D0 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = F6B946A12422D7450041F5D0 /* employees.json */; };
@@ -119,6 +122,10 @@
 		ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = TableVariants.card.zip; sourceTree = "<group>"; };
 		ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = AnalyticalVariants.card.zip; sourceTree = "<group>"; };
 		ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = ListVariants.card.zip; sourceTree = "<group>"; };
+		ABFF2CB224ABEA9200ED7D30 /* InlineTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InlineTestCases.swift; sourceTree = "<group>"; };
+		ABFF2CD524AE571F00ED7D30 /* analytical_dataInCardLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = analytical_dataInCardLevel.json; sourceTree = "<group>"; };
+		ABFF2CD824AE573400ED7D30 /* list_dataInCardLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = list_dataInCardLevel.json; sourceTree = "<group>"; };
+		ABFF2CDA24AE57C100ED7D30 /* timeline_dataInCardLevel.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = timeline_dataInCardLevel.json; sourceTree = "<group>"; };
 		F6B9469C2422D2880041F5D0 /* employee.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee.json; sourceTree = "<group>"; };
 		F6B9469E2422D2C80041F5D0 /* tineline_mainfest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tineline_mainfest.json; sourceTree = "<group>"; };
 		F6B946A12422D7450041F5D0 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
@@ -217,6 +224,7 @@
 		1BADC43823DA28E1006CC945 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
+				ABFF2CCF24AE56A200ED7D30 /* DataInCardLevel */,
 				ABFF2C4424A40E8E00ED7D30 /* ListVariants.card.zip */,
 				ABFF2C4224A40BE700ED7D30 /* AnalyticalVariants.card.zip */,
 				ABFF2C3C24A407ED00ED7D30 /* TableVariants.card.zip */,
@@ -226,6 +234,7 @@
 				AB75F734249AC35A00328E53 /* TimelineVariants.card.zip */,
 				AB75F736249AC36700328E53 /* BundleTestCases.swift */,
 				F6B97A252449174C009BABD6 /* TestCases.swift */,
+				ABFF2CB224ABEA9200ED7D30 /* InlineTestCases.swift */,
 				F6B97A4124492468009BABD6 /* adativecard-embedded1.card.zip */,
 				F6B97A4024492468009BABD6 /* adativecard-embedded2.card.zip */,
 				F6B97A3E24492468009BABD6 /* adativecard-embedded3.card.zip */,
@@ -260,6 +269,16 @@
 				F6B947362426BBBF0041F5D0 /* LowCode.json */,
 			);
 			path = SampleData;
+			sourceTree = "<group>";
+		};
+		ABFF2CCF24AE56A200ED7D30 /* DataInCardLevel */ = {
+			isa = PBXGroup;
+			children = (
+				ABFF2CDA24AE57C100ED7D30 /* timeline_dataInCardLevel.json */,
+				ABFF2CD524AE571F00ED7D30 /* analytical_dataInCardLevel.json */,
+				ABFF2CD824AE573400ED7D30 /* list_dataInCardLevel.json */,
+			);
+			path = DataInCardLevel;
 			sourceTree = "<group>";
 		};
 		F6B9469B2422D2540041F5D0 /* ObjectVariants */ = {
@@ -357,6 +376,7 @@
 				1BADC44C23DA28E1006CC945 /* analytical.json in Resources */,
 				AB75F735249AC35A00328E53 /* TimelineVariants.card.zip in Resources */,
 				ABFF2C4524A40E8E00ED7D30 /* ListVariants.card.zip in Resources */,
+				ABFF2CDB24AE57C100ED7D30 /* timeline_dataInCardLevel.json in Resources */,
 				F6B97A1C2449159A009BABD6 /* card-explorer-quick-links-list-card.card.zip in Resources */,
 				F6B97A162449159A009BABD6 /* card-explorer-simple-calendar-card.card.zip in Resources */,
 				F6B97A132449159A009BABD6 /* card-explorer-activities-timeline-card.card.zip in Resources */,
@@ -382,8 +402,10 @@
 				F6B97A242449159A009BABD6 /* adativecard-embedded.card.zip in Resources */,
 				F6B97A1D2449159A009BABD6 /* card-explorer-table-card.card.zip in Resources */,
 				1BADC44923DA28E1006CC945 /* contentstack-benefits_manifest.json in Resources */,
+				ABFF2CD724AE571F00ED7D30 /* analytical_dataInCardLevel.json in Resources */,
 				F6B97A142449159A009BABD6 /* card-explorer-members-timeline-card.card.zip in Resources */,
 				F6B9469D2422D2880041F5D0 /* employee.json in Resources */,
+				ABFF2CD924AE573400ED7D30 /* list_dataInCardLevel.json in Resources */,
 				ABFF2C3D24A407EE00ED7D30 /* TableVariants.card.zip in Resources */,
 				F6B97A4924492469009BABD6 /* adativecard-embedded6.card.zip in Resources */,
 				F6B97A122449159A009BABD6 /* card-explorer-icon-list-card.card.zip in Resources */,
@@ -400,6 +422,7 @@
 			files = (
 				1BB36A9A24317FFC00714778 /* CollectionView.swift in Sources */,
 				F6B97A262449174C009BABD6 /* TestCases.swift in Sources */,
+				ABFF2CB324ABEA9200ED7D30 /* InlineTestCases.swift in Sources */,
 				1B583CD223D926560003F30C /* AppDelegate.swift in Sources */,
 				AB75F737249AC36700328E53 /* BundleTestCases.swift in Sources */,
 				1B583CD423D926560003F30C /* SceneDelegate.swift in Sources */,
