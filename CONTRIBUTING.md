@@ -9,7 +9,7 @@ We welcome any type of contribution, not only code. You can help and
 
 ## Submitting code and pull request handling
 
-All contributions are handled via Pull Requests (PRs). We are currently busy finalizing our open-source milestone release so your PR _must_ target the [`master`](https://github.com/SAP/cloud-sdk-ios-fiori/tree/master) branch.
+All contributions are handled via Pull Requests (PRs). We are currently busy finalizing our open-source milestone release so your PR _must_ target the [`main`](https://github.com/SAP/cloud-sdk-ios-fiori/tree/main) branch.
 
 Quick checklist summary before submitting a PR:
 
