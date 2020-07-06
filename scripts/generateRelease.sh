@@ -3,4 +3,4 @@
 
 npx standard-version --tag-prefix '' --dry-run # --release-as '0.6.0'
 
-# Run `git push --follow-tags origin master` to publish
+# Run `git push --follow-tags origin main` to publish
