@@ -65,7 +65,7 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
 public class ChartBaselineAttributes: ChartGridlineAttributes {
 
     public init(width: Double = 1,
-                color: Color = .preferredColor(.primary3),
+                color: Color = .preferredColor(.primary4),
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 0,
                 isHidden: Bool = false,

@@ -39,31 +39,33 @@ public struct ChartView: View {
     }
     
     public var body: some View {
-        Group {
+        return Group {
             if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
                 NoDataView()
             } else if chartModel.chartType == .micro_bullet {
-                BulletMicroChart().environmentObject(chartModel)
+                BulletMicroChart(model: chartModel)
             } else if chartModel.chartType == .micro_harvey_ball {
-                HarveyBallMicroChart().environmentObject(chartModel)
+                HarveyBallMicroChart(model: chartModel)
             } else if chartModel.chartType == .micro_radial {
-                RadialMicroChart().environmentObject(chartModel)
+                RadialMicroChart(model: chartModel)
             } else if chartModel.chartType == .micro_column {
-                ColumnMicroChart().environmentObject(chartModel)
+                ColumnMicroChart(model: chartModel)
             } else if chartModel.chartType == .stock {
-                StockMicroChart().environmentObject(chartModel)
+                StockMicroChart(model: chartModel)
             } else if chartModel.chartType == .donut {
-                DonutChart().environmentObject(chartModel)
+                DonutChart(model: chartModel)
             } else if chartModel.chartType == .line {
-                LineChart().environmentObject(chartModel)
+                LineChart(model: chartModel)
             } else if chartModel.chartType == .area {
-                AreaChart().environmentObject(chartModel)
+                AreaChart(model: chartModel)
             } else if chartModel.chartType == .column {
-                ColumnChart().environmentObject(chartModel)
+                ColumnChart(model: chartModel)
             } else if chartModel.chartType == .stackedColumn {
-                StackedColumnChart().environmentObject(chartModel)
+                StackedColumnChart(model: chartModel)
             } else if chartModel.chartType == .waterfall {
-                WaterfallChart().environmentObject(chartModel)
+                WaterfallChart(model: chartModel)
+            } else if chartModel.chartType == .combo {
+                ComboChart(model: chartModel)
             } else {
                 NoDataView()
             }

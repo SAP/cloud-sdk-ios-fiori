@@ -43,20 +43,31 @@ struct Settings: View {
                     Slider(value: $model.numberOfGridlines.double, in: 1...20, step: 1)
                 }
                 
-                Section(header: Text("Index Set")) {
-                    if model.chartType == .stock {
-                        Stepper("Index of Stock Series: \(self.model.indexOfStockSeries)", onIncrement: {
-                            self.model.indexOfStockSeries = (self.model.indexOfStockSeries + 1) % max(1, self.model.numOfSeries())
-                        }, onDecrement:  {
-                            self.model.indexOfStockSeries = (self.model.indexOfStockSeries - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
-                        })
+                if model.chartType == .line || model.chartType == .area || model.chartType == .combo || model.chartType == .waterfall {
+                    Section(header: Text("Index Set")) {
+                        if model.chartType == .stock {
+                            Stepper("Index of Stock Series: \(self.model.indexOfStockSeries)", onIncrement: {
+                                self.model.indexOfStockSeries = (self.model.indexOfStockSeries + 1) % max(1, self.model.numOfSeries())
+                            }, onDecrement:  {
+                                self.model.indexOfStockSeries = (self.model.indexOfStockSeries - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
+                            })
+                        }
+                        
+                        if model.chartType == .line || model.chartType == .area || model.chartType == .combo {
+                            NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfSecondaryValueAxis, num: model.numOfSeries())) { Text("Indexes Of Secondary Value Axis:")
+                            }
+                        }
+                        
+                        if model.chartType == .combo {
+                            NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfColumnSeries, num: model.numOfSeries())) { Text("Indexes Of Column Series")
+                            }
+                        }
+                        
+                        if model.chartType == .waterfall {
+                            NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfTotalsCategories, num: model.numOfCategories(in: 0))) { Text("Indexes Of Totals Categoriess")
+                            }
+                        }
                     }
-                    
-                    NavigationLink(destination: SettingsIndexSet(indexSet: $model.indexesOfSecondaryValueAxis)) { Text("Indexes Of Secondary Value Axis:")
-                    }
-                    
-                    Text("Indexes Of Column Series: \(String(describing: model.indexesOfColumnSeries.sorted()))")
-                    Text("Indexes Of Totals Categories: \(String(describing: model.indexesOfTotalsCategories.sorted()))")
                 }
             }.navigationBarTitle("Configuration", displayMode: .inline)
         }

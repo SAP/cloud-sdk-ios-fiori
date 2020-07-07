@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HarveyBallMicroChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     // the difference of outer and inner radius range from 5...20
     private static let minDepth: CGFloat = 5
@@ -68,8 +68,7 @@ struct HarveyBallMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.harveyBallModels) {
-                HarveyBallMicroChart()
-                    .environmentObject($0)
+                HarveyBallMicroChart(model: $0)
                     .frame(width: 400, height: 200)
                     .previewLayout(.sizeThatFits)
             }

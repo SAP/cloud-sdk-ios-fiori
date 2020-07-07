@@ -14,7 +14,7 @@ struct RadialMicroChart: View {
         case rightSide
     }
     
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     @State var mode: RadialMicroChart.Mode? = .inside
     
     // the difference of outer and inner radius range from 5...20
@@ -82,8 +82,7 @@ struct RadialMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.radialModels) {
-                RadialMicroChart()
-                    .environmentObject($0)
+                RadialMicroChart(model: $0)
                     .frame(height: 200, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

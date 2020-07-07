@@ -14,7 +14,7 @@ public struct BulletMicroChart: View {
         case standard, delta
     }
     
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     @State var mode: Mode? = .standard
     
     public var body: some View {
@@ -129,8 +129,7 @@ struct BulletMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.bulletModles) {
-                BulletMicroChart()
-                    .environmentObject($0)
+                BulletMicroChart(model: $0)
                     .frame(width: 320, height: 94)
             }
         }

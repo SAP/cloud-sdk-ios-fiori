@@ -12,7 +12,7 @@ struct WaterfallSeriesView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     
-    let plotSeries: [ChartPlotRectData]
+    let plotSeries: [ChartPlotData]
     let rect: CGRect
     let isSelectionView: Bool
     
@@ -22,15 +22,15 @@ struct WaterfallSeriesView: View {
         let columnHeight = plotSeries.first != nil ? plotSeries[0].rect.size.height * rect.size.height : 0
         
         return VStack(alignment: .center, spacing: 0) {
-            ForEach(plotSeries) { item in
+            ForEach(plotSeries, id: \.self) { item in
                 VStack(spacing: 0) {
                     Spacer(minLength: 0)
-                    
+  
                     ZStack {
                         if columnHeight < 1 {
                             LineShape(pos1: .zero, pos2: CGPoint(x: columnWidth, y: 0), layoutDirection: self.layoutDirection)
-                            .stroke(Color.preferredColor(.primary4), lineWidth: 1)
-                            .frame(width: columnWidth, height: 1)
+                                .stroke(Color.preferredColor(.primary4), lineWidth: 1)
+                                .frame(width: columnWidth, height: 1)
                         } else {
                             Rectangle()
                                 .inset(by: -0.5)
@@ -38,25 +38,6 @@ struct WaterfallSeriesView: View {
                                 .frame(width: columnWidth,
                                        height: item.rect.size.height * self.rect.size.height)
                         }
-                        
-                        /*if !self.isSelectionView {
-                            VStack(alignment: .center, spacing: 0) {
-                                if !(self.isSubTotal(categoryIndex: item.categoryIndex) && item.value < 0) {
-                                    LineShape(pos1: .zero, pos2: CGPoint(x: columnWidth, y: 0), layoutDirection: self.layoutDirection)
-                                        .stroke(Color.preferredColor(.primary4), lineWidth: 1)
-                                        .frame(width: columnWidth, height: 1)
-                                }
-
-                                Spacer(minLength: 0)
-                                
-                                if showTwoLines && !self.isSubTotal(categoryIndex: item.categoryIndex) || (self.isSubTotal(categoryIndex: item.categoryIndex) && item.value < 0) {
-                                    LineShape(pos1: .zero, pos2: CGPoint(x: columnWidth, y: 0), layoutDirection: self.layoutDirection)
-                                        .stroke(Color.preferredColor(.primary4), lineWidth: 1)
-                                        .frame(width: columnWidth, height: 1)
-                                }
-                            }.frame(width: columnWidth,
-                                    height: item.rect.size.height * self.rect.size.height)
-                        }*/
                     }
                     
                     Rectangle()
@@ -68,7 +49,7 @@ struct WaterfallSeriesView: View {
         }
     }
     
-    func columnColor(for item: ChartPlotRectData) -> Color {
+    func columnColor(for item: ChartPlotData) -> Color {
         if !isSelectionView {
             return model.colorAt(seriesIndex: item.seriesIndex,
                                  categoryIndex: item.categoryIndex)

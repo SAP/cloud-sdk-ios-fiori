@@ -57,6 +57,10 @@ struct LibraryContent : LibraryContentProvider {
             ChartView(ChartModel(chartType: .waterfall, data: [[27, 3, 29, -2, -5, 52]], titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]], colorsForCategory: [0: [0: .preferredColor(.positive), 1: .preferredColor(.positive), 2: .preferredColor(.positive), 3: .preferredColor(.chart2), 4: .preferredColor(.chart2), 5: .preferredColor(.chart1)]], indexesOfTotalsCategories: [5])),
             title: "Waterfall Chart"
         )
+        LibraryItem(
+            ChartView(ChartModel(chartType: .combo, data: [[200, 170, 165, 143, 166, 112, 110], [150, 120, 130, 135, 120, 138, 137]], titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]], indexesOfSecondaryValueAxis: [1], indexesOfColumnSeries: [0])),
+            title: "Combo Chart"
+        )
     }
 }
 #endif

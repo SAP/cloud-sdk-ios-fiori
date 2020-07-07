@@ -11,19 +11,50 @@ import FioriCharts
 
 struct SettingsIndexSet: View {
     @Binding var indexSet: IndexSet
+    let num: Int
     
     var body: some View {
-        Picker(selection: $indexSet, label: Text("Index set")) {
-            Text("[]").tag(IndexSet())
-            Text("[0]").tag(IndexSet(integer: 0))
-            Text("[1]").tag(IndexSet(integer: 1))
-            Text("[0, 1]").tag(IndexSet(integersIn: 0...1))
+        let combinations = combine(n: num)
+    
+        return Picker(selection: $indexSet, label: Text("Index set")) {
+            ForEach(combinations, id: \.self) {
+                Text("\(String(describing: $0.sorted()))").tag(IndexSet($0))
+            }
+        }
+    }
+    
+    func combine(n: Int) -> [[Int]] {
+        var res:[[Int]] = []
+        var cur:[Int] = []
+        
+        for i in 0 ... n {
+            dfs(n: n, index: 0, k: i, cur: &cur, res: &res)
+        }
+        
+        return res
+    }
+    
+    func dfs(n: Int, index: Int, k: Int, cur: inout [Int], res: inout [[Int]]) {
+        // find one
+        if k == 0 {
+            res.append(cur)
+            return
+        }
+        
+        for i in index ..< n {
+            // append one
+            cur.append(i)
+            
+            dfs(n: n, index: i + 1, k: k - 1, cur: &cur, res: &res)
+            
+            // pop out
+            cur.removeLast(1)
         }
     }
 }
 
 struct SettingsIndexSet_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsIndexSet(indexSet: .constant(Tests.lineModels[2].indexesOfSecondaryValueAxis))
+        SettingsIndexSet(indexSet: .constant(Tests.lineModels[1].indexesOfSecondaryValueAxis), num: 2)
     }
 }

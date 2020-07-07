@@ -9,12 +9,13 @@
 import SwiftUI
 
 struct StockMicroChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     var body: some View {
         XYAxisChart(axisDataSource: StockAxisDataSource(),
                     chartView: StockLinesView(),
                     indicatorView: StockIndicatorView())
+            .environmentObject(model)
     }
 }
 
@@ -222,8 +223,7 @@ struct StockMicroChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.stockModels) { model in
-                StockMicroChart()
-                    .environmentObject(model)
+                StockMicroChart(model: model)
                     .frame(height: 260)
                     .previewLayout(.sizeThatFits)
             }

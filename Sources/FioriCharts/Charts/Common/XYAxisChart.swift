@@ -53,13 +53,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     // swiftlint:disable function_body_length
     func makeBody(in rect: CGRect) -> some View {
-        let xAxisHeight = xAxisLabelsMaxHeight(rect)
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
         let chartWidth = rect.size.width - yAxisWidth - secondaryYAxisWidth
+        let xAxisHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height   ))
         
         let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
-        //let xAxisRect, yAxisRect, secondaryYAxisRect: CGRect
         switch model.valueType {
         case .allPositive:
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)

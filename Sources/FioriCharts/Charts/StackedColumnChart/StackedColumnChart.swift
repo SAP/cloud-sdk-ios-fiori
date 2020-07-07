@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct StackedColumnChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     var body: some View {
         XYAxisChart(axisDataSource: StackedColumnAxisDataSource(),
                     chartView: StackedColumnView(),
                     indicatorView: StackedColumnIndicatorView())
+            .environmentObject(model)
     }
 }
 
@@ -77,12 +78,12 @@ class StackedColumnAxisDataSource: DefaultAxisDataSource {
         return ret
     }
     
-    override func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
+    override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
         }
         
-        var result: [[ChartPlotRectData]] = []
+        var result: [[ChartPlotData]] = []
         let seriesCount = model.numOfSeries()
         let maxDataCount = model.numOfCategories(in: 0)
         
@@ -103,7 +104,7 @@ class StackedColumnAxisDataSource: DefaultAxisDataSource {
         // Loop through data points
         //
         for categoryIndex in 0 ..< maxDataCount {
-            var seriesResult: [ChartPlotRectData] = []
+            var seriesResult: [ChartPlotData] = []
             
             //
             // Loop through series
@@ -134,13 +135,14 @@ class StackedColumnAxisDataSource: DefaultAxisDataSource {
                     }
                 }
                 
-                seriesResult.append(ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: categoryIndex,
-                                                      value: rawValue,
-                                                      x: clusteredX,
-                                                      y: clusteredY,
-                                                      width: clusterWidth,
-                                                      height: columnHeight))
+                seriesResult.append(ChartPlotData.rect(rect:
+                    ChartPlotRectData(seriesIndex: seriesIndex,
+                                      categoryIndex: categoryIndex,
+                                      value: rawValue,
+                                      x: clusteredX,
+                                      y: clusteredY,
+                                      width: clusterWidth,
+                                      height: columnHeight)))
             }
             
             result.append(seriesResult)
@@ -281,8 +283,7 @@ struct StackedColumnChart_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                StackedColumnChart()
-                    .environmentObject($0)
+                StackedColumnChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

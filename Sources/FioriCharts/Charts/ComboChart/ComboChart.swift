@@ -1,26 +1,24 @@
 //
-//  ColumnChart.swift
+//  ComboChart.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 6/3/20.
+//  Created by Xu, Sheng on 6/30/20.
 //
 
 import SwiftUI
 
-let ColumnGapFraction: CGFloat = 0.333333
-
-struct ColumnChart: View {
+struct ComboChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: ColumnAxisDataSource(),
-                    chartView: ColumnView(),
-                    indicatorView: ColumnIndicatorView())
+        XYAxisChart(axisDataSource: ComboAxisDataSource(),
+                    chartView: ComboView(),
+                    indicatorView: ComboIndicatorView())
             .environmentObject(model)
     }
 }
 
-class ColumnAxisDataSource: DefaultAxisDataSource {
+class ComboAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -32,33 +30,18 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
     func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         var ret: [AxisTitle] = []
         let maxDataCount = model.numOfCategories(in: 0)
-        var startIndex = -1
-        var endIndex = maxDataCount - 1
+        let (startIndex, endIndex, _, _) = displayCategoryIndexesAndOffsets(model, rect: rect)
         
-        if endIndex < 0 {
-            return ret
-        }
-    
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        
-        for index in 0...endIndex {
-            let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
-            if startIndex == -1 {
-                if x >= CGFloat(model.startPos) {
-                    startIndex = index
-                }
-            }
-            
-            if x < CGFloat(model.startPos) + rect.size.width {
-                endIndex = index
-            }
-        }
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
             var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - CGFloat(model.startPos)
+            if x < 0 || x > rect.size.width {
+                continue
+            }
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
@@ -86,20 +69,18 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         }
         
         var result: [[ChartPlotData]] = []
-        let seriesCount = model.numOfSeries()
+        let columnSeries = model.indexesOfColumnSeries.sorted()
+        let columnSeriesCount = max(1, columnSeries.count)
         let maxDataCount = model.numOfCategories(in: 0)
+        let seriesCount = model.numOfSeries()
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let columnWidth = clusterWidth / CGFloat(seriesCount)
-        
-        let tickValues = model.numericAxisTickValues
-        let yScale = tickValues.plotScale
-        let baselinePosition = tickValues.plotBaselinePosition
-        let baselineValue = tickValues.plotBaselineValue
-        let corruptDataHeight = yScale / 1000
+        let columnWidth = clusterWidth / CGFloat(columnSeriesCount)
+        let corruptDataHeight: CGFloat = 1.0 / 1000000
         
         var clusteredX: CGFloat
+        
         //
         // Loop through data points
         //
@@ -113,8 +94,15 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
                 //
                 // Calculate and define clustered column x positions.
                 //
+                let isSeconday = model.indexesOfSecondaryValueAxis.contains(seriesIndex)
+                
+                let tickValues = isSeconday ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
+                let yScale = tickValues.plotScale
+                let baselinePosition = tickValues.plotBaselinePosition
+                let baselineValue = tickValues.plotBaselineValue
+                
                 clusteredX = columnXIncrement * CGFloat(categoryIndex)
-                clusteredX += columnWidth * CGFloat(seriesIndex)
+                clusteredX += columnWidth * CGFloat((columnSeries.firstIndex(of: seriesIndex) ?? 0))
                 var columnHeight = corruptDataHeight
                 var clusteredY = baselinePosition
                 var rawValue: CGFloat = 0
@@ -123,23 +111,45 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
                 //
                 let value = model.plotItemValue(at: seriesIndex, category: categoryIndex, dimension: 0)
                 
-                if let val = value {
-                    rawValue = CGFloat(val)
-                    if val >= 0.0 {
-                        columnHeight = yScale * (CGFloat(val) - baselineValue)
-                    } else {
-                        columnHeight = -yScale * (CGFloat(val) - baselineValue)
-                        clusteredY = baselinePosition - columnHeight
+                // it is a column series
+                if columnSeries.contains(seriesIndex) {
+                    if let val = value {
+                        rawValue = CGFloat(val)
+                        if val >= 0.0 {
+                            columnHeight = yScale * (CGFloat(val) - baselineValue)
+                        } else {
+                            columnHeight = -yScale * (CGFloat(val) - baselineValue)
+                            clusteredY = baselinePosition - columnHeight
+                        }
                     }
+                    
+                    seriesResult.append(ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: seriesIndex,
+                                                                                   categoryIndex: categoryIndex,
+                                                                                   value: rawValue,
+                                                                                   x: clusteredX,
+                                                                                   y: clusteredY,
+                                                                                   width: columnWidth,
+                                                                                   height: columnHeight)))
+                } else { // it is a line series
+                    clusteredX = columnXIncrement * CGFloat(categoryIndex) + clusterWidth / 2.0
+                    
+                    if let val = value {
+                        rawValue = CGFloat(val)
+                        if val >= 0.0 {
+                            columnHeight = yScale * (CGFloat(val) - baselineValue)
+                            clusteredY = baselinePosition + columnHeight
+                        } else {
+                            columnHeight = -yScale * (CGFloat(val) - baselineValue)
+                            clusteredY = baselinePosition - columnHeight
+                        }
+                    }
+                    
+                    seriesResult.append(ChartPlotData.point(point: ChartPlotPointData(seriesIndex: seriesIndex,
+                                                                                   categoryIndex: categoryIndex,
+                                                                                   value: rawValue,
+                                                                                   x: clusteredX,
+                                                                                   y: clusteredY)))
                 }
-                
-                seriesResult.append(ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: categoryIndex,
-                                                      value: rawValue,
-                                                      x: clusteredX,
-                                                      y: clusteredY,
-                                                      width: columnWidth,
-                                                      height: columnHeight)))
             }
             
             result.append(seriesResult)
@@ -166,10 +176,10 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         let unitWidth = columnXIncrement * model.scale * rect.size.width
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
-        let startIndex = Int(CGFloat(model.startPos) / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        let startIndex = Int(CGFloat(model.startPos) / unitWidth - 1).clamp(low: 0, high: maxDataCount - 1)
         let startOffset = columnXIncrement * CGFloat(startIndex) * model.scale * rect.size.width - CGFloat(model.startPos)
         
-        let endIndex = Int((CGFloat(model.startPos) + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
+        let endIndex = Int((CGFloat(model.startPos) + rect.size.width) / unitWidth + 1).clamp(low: startIndex, high: maxDataCount - 1)
         let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - CGFloat(model.startPos) - rect.size.width
         
         return (startIndex, endIndex, startOffset, endOffset)
@@ -190,16 +200,37 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
             return (-1, -1)
         }
 
+        var foundSeriesIndex = -1
+        var foundCategoryIndex = -1
         for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
-            let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
-            
-            if x >= xMin && x <= xMax {
-                return (plotCat.seriesIndex, plotCat.categoryIndex)
+            if plotCat.isPlotRectData {
+                let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
+                let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                let yMax = (1.0 - plotCat.rect.minY) * rect.size.height
+                let yMin = (1.0 - plotCat.rect.maxY) * rect.size.height
+                
+                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                    foundSeriesIndex = plotCat.seriesIndex
+                    foundCategoryIndex = plotCat.categoryIndex
+                }
+            } else { // it is a point
+                let diameter = model.seriesAttributes[plotCat.seriesIndex].point.diameter
+                let xMin = plotCat.pos.x * model.scale * width - diameter - CGFloat(model.startPos)
+                let xMax = plotCat.pos.x * model.scale * width + diameter - CGFloat(model.startPos)
+                
+                let yMax = (1.0 - plotCat.pos.y) * rect.size.height + diameter
+                let yMin = (1.0 - plotCat.pos.y) * rect.size.height - diameter
+                
+                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                    foundSeriesIndex = plotCat.seriesIndex
+                    foundCategoryIndex = plotCat.categoryIndex
+                    
+                    return (foundSeriesIndex, foundCategoryIndex)
+                }
             }
         }
         
-        return (-1, -1)
+        return (foundSeriesIndex, foundCategoryIndex)
     }
     
     // range selection
@@ -267,18 +298,11 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
     }
 }
 
-// swiftlint:disable force_cast
-struct ColumnChart_Previews: PreviewProvider {
+struct ComboChart_Previews: PreviewProvider {
     static var previews: some View {
-        let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
-           model.chartType = .column
-           return model
-        }
-        
-        return Group {
-            ForEach(models) {
-                ColumnChart(model: $0)
+        Group {
+            ForEach(Tests.comboModels) {
+                ComboChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

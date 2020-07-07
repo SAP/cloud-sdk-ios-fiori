@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct AreaChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
   
     var body: some View {
         XYAxisChart(axisDataSource: DefaultAxisDataSource(),
                     chartView: LinesView(fill: true),
                     indicatorView: LineIndicatorView())
+            .environmentObject(model)
     }
 }
 
@@ -28,8 +29,7 @@ struct AreaChart_Previews: PreviewProvider {
         
         return Group {
             ForEach(models) {
-                AreaChart()
-                    .environmentObject($0)
+                AreaChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

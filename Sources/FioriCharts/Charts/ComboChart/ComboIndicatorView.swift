@@ -1,13 +1,13 @@
 //
-//  WaterfallIndicatorView.swift
+//  ComboIndicatorView.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 6/23/20.
+//  Created by Xu, Sheng on 6/30/20.
 //
 
 import SwiftUI
 
-struct WaterfallIndicatorView: View {
+struct ComboIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.axisDataSource) var axisDataSource
@@ -19,11 +19,18 @@ struct WaterfallIndicatorView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        ZStack {
+            makeComboColumnIndicatorView(in: rect)
+            ComboLinesIndicatorView()
+        }
+    }
+    
+    func makeComboColumnIndicatorView(in rect: CGRect) -> some View {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
         let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
-
+        
         let pd = axisDataSource.plotData(model)
         let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
         let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
@@ -54,28 +61,19 @@ struct WaterfallIndicatorView: View {
             }
             displayPlotData.append(ss)
         }
-           
+        
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
                 NoDataView()
             } else {
-                HStack(alignment: .bottom, spacing: 0) {
+                HStack(alignment: .bottom, spacing: clusterSpace) {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
-                    
                     ForEach(displayPlotData, id: \.self) { series in
-                        HStack(alignment: .bottom, spacing: 0) {
-                            WaterfallSeriesView(plotSeries: series,
-                                                rect: rect,
-                                                isSelectionView: true)
-                            
-                            if series.first?.categoryIndex != self.model.numOfCategories(in: 0) - 1 {
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: clusterSpace, height: 1)
-                            }
-                        }
+                        ComboSeriesView(plotSeries: series,
+                                        rect: rect,
+                                        isSelectionView: true)
                     }
                     
                     Spacer(minLength: 0)
@@ -87,14 +85,8 @@ struct WaterfallIndicatorView: View {
     }
 }
 
-struct WaterfallIndicatorView_Previews: PreviewProvider {
+struct ComboIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = WaterfallAxisDataSource()
-        
-        return WaterfallIndicatorView()
-            .environmentObject(Tests.waterfallModels[0])
-            .environment(\.axisDataSource, axisDataSource)
-            .frame(width: 300, height: 200)
-            
+        ComboIndicatorView()
     }
 }
