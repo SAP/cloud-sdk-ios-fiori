@@ -176,10 +176,10 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         let unitWidth = columnXIncrement * model.scale * rect.size.width
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
-        let startIndex = Int(CGFloat(model.startPos) / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        let startIndex = Int(CGFloat(model.startPos) / unitWidth - 1).clamp(low: 0, high: maxDataCount - 1)
         let startOffset = columnXIncrement * CGFloat(startIndex) * model.scale * rect.size.width - CGFloat(model.startPos)
         
-        let endIndex = Int((CGFloat(model.startPos) + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
+        let endIndex = Int((CGFloat(model.startPos) + rect.size.width) / unitWidth + 1).clamp(low: startIndex, high: maxDataCount - 1)
         let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - CGFloat(model.startPos) - rect.size.width
         
         return (startIndex, endIndex, startOffset, endOffset)

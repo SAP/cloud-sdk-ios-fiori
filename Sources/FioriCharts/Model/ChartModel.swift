@@ -114,6 +114,13 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             if chartType != .line || chartType != .area || chartType != .combo {
                 _indexesOfSecondaryValueAxis = IndexSet()
             }
+            
+            if chartType == .waterfall {
+                updateRange()
+            }
+            
+            // invalidate the plotDataCache
+            plotDataCache = nil
         }
     }
     
@@ -190,13 +197,25 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var secondaryNumericAxis: ChartNumericAxisAttributes
     
-    @Published public var indexOfStockSeries: Int {
-        didSet {
+    @Published private var _indexOfStockSeries: Int = 0
+    public var indexOfStockSeries: Int {
+        get {
+            return _indexOfStockSeries
+        }
+        set {
             if chartType == .stock {
-                scale = 1.0
-                startPos = 0
-                if selections != nil {
-                    selections = nil
+                let num = numOfSeries()
+                let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
+                
+                // check if it is valid index
+                if allIndexs.contains(newValue) {
+                    _indexOfStockSeries = newValue
+                    
+                    scale = 1.0
+                    startPos = 0
+                    if selections != nil {
+                        selections = nil
+                    }
                 }
             }
         }
@@ -206,7 +225,25 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      Indicates indexes of column series for combo chart.
      - Given indexes of series will be treated as column and the rest series will be treated as line.
      */
-    @Published public var indexesOfColumnSeries: IndexSet = IndexSet()
+    @Published private var _indexesOfColumnSeries: IndexSet = IndexSet()
+    public var indexesOfColumnSeries: IndexSet {
+        get {
+            return _indexesOfColumnSeries
+        }
+        set {
+            if chartType == .combo {
+                let num = numOfSeries()
+                let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
+                let validIndex = newValue.intersection(allIndexs)
+                _indexesOfColumnSeries = validIndex
+            } else {
+                _indexesOfColumnSeries = IndexSet()
+            }
+            
+            // invalidate the plotDataCache
+            plotDataCache = nil
+        }
+    }
     
     /**
      Indicates total indexes for waterfall chart.
@@ -214,12 +251,24 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - The corresponding category values in the provided data should correspond to the total sum of the preceding values.
      - If the corresponding category value is nil in the provided data, the chart will complete the sum of the total value, which can be retrieved through `plotItem(atSeries:category:)`.
      */
-    @Published public var indexesOfTotalsCategories: IndexSet = IndexSet() {
-        didSet {
-            // invalide plot data cache to recreate plot data
+    @Published private var _indexesOfTotalsCategories: IndexSet = IndexSet()
+    public var indexesOfTotalsCategories: IndexSet {
+        get {
+            return _indexesOfTotalsCategories
+        }
+        set {
             if chartType == .waterfall {
-                plotDataCache = nil
+                let num = numOfCategories(in: 0)
+                let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
+                let validIndex = newValue.intersection(allIndexs)
+                _indexesOfTotalsCategories = validIndex
+            } else {
+                _indexesOfTotalsCategories = IndexSet()
             }
+            
+            // invalidate the plotDataCache
+            updateRange()
+            plotDataCache = nil
         }
     }
     
@@ -235,12 +284,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         set {
             if chartType == .line || chartType == .area || chartType == .combo {
-                let allIndexs = IndexSet(integersIn: 0 ..< data.count)
+                let num = numOfSeries()
+                let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
                 let validIndex = newValue.intersection(allIndexs)
                 _indexesOfSecondaryValueAxis = validIndex
             } else {
                 _indexesOfSecondaryValueAxis = IndexSet()
             }
+            
+            // invalidate the plotDataCache
+            plotDataCache = nil
         }
     }
     
@@ -497,7 +550,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
         self._selectionRequired = Published(initialValue: selectionRequired)
-        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
+        //self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
@@ -505,14 +558,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        self._indexesOfColumnSeries = Published(initialValue: indexesOfColumnSeries)
-        self._indexesOfTotalsCategories = Published(initialValue: indexesOfTotalsCategories)
-        
-        updateRange()
         
         self.numberOfGridlines = numberOfGridlines
         self.selections = selections
+        
+        self.indexOfStockSeries = indexOfStockSeries
+        self.indexesOfColumnSeries = indexesOfColumnSeries
+        self.indexesOfTotalsCategories = indexesOfTotalsCategories
         self.indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis
+        
+        updateRange()
     }
     
     // swiftlint:disable force_cast
@@ -575,7 +630,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
@@ -666,28 +720,23 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
+        self.numberOfGridlines = numberOfGridlines
+        self.selections = selections
+        
+        self.indexOfStockSeries = indexOfStockSeries
         if let indexesOfColumnSeries = indexesOfColumnSeries {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfColumnSeries {
-                if seriesIndex >= 0 && seriesIndex < data.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfColumnSeries = Published(initialValue: IndexSet(validIndexes))
+            self.indexesOfColumnSeries = IndexSet(indexesOfColumnSeries)
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
+            self.indexesOfTotalsCategories = IndexSet(indexesOfTotalsCategories)
         }
         
-        updateRange()
-        
-        self.numberOfGridlines = numberOfGridlines
-        self.selections = selections
         if let isva = indexesOfSecondaryValueAxis {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
         }
+        
+        updateRange()
     }
     
     // swiftlint:disable function_body_length
@@ -720,7 +769,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
+        //self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
         self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
@@ -809,28 +858,23 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
+        self.numberOfGridlines = numberOfGridlines
+        self.selections = selections
+        
+        self.indexOfStockSeries = indexOfStockSeries
         if let indexesOfColumnSeries = indexesOfColumnSeries {
-            var validIndexes: [Int] = []
-            for seriesIndex in indexesOfColumnSeries {
-                if seriesIndex >= 0 && seriesIndex < data3d.count {
-                    validIndexes.append(seriesIndex)
-                }
-            }
-            validIndexes.sort()
-            self._indexesOfColumnSeries = Published(initialValue: IndexSet(validIndexes))
+            self.indexesOfColumnSeries = IndexSet(indexesOfColumnSeries)
         }
         
         if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            self._indexesOfTotalsCategories = Published(initialValue: IndexSet(indexesOfTotalsCategories))
+            self.indexesOfTotalsCategories = IndexSet(indexesOfTotalsCategories)
         }
         
-        updateRange()
-        
-        self.numberOfGridlines = numberOfGridlines
-        self.selections = selections
         if let isva = indexesOfSecondaryValueAxis {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
         }
+        
+        updateRange()
     }
     
     private func updateRange() {
