@@ -10,7 +10,7 @@ import SwiftUI
 struct WaterfallConnectingLinesView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.axisDataSource) var axisDataSource
-    @Environment(\.layoutDirection) var layoutDirection
+    @Environment(\.layoutDirection) var layoutDirection  
     
     let curCatIndex: Int
     let columnWidth: CGFloat
@@ -41,7 +41,7 @@ struct WaterfallConnectingLinesView: View {
         }
     }
 
-    func yPos(for item: ChartPlotRectData, isTotal: Bool, isStart: Bool) -> CGFloat {
+    func yPos(for item: ChartPlotData, isTotal: Bool, isStart: Bool) -> CGFloat {
         let isTop = (isTotal && item.value > 0) || (isStart && item.value > 0) || (!isStart && !isTotal && item.value < 0)
             
         if isTop {

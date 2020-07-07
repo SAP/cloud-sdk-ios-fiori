@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DonutChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     var body: some View {
         GeometryReader { proxy in
@@ -62,8 +62,7 @@ struct DonutChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.donutModels) {
-                DonutChart()
-                    .environmentObject($0)
+                DonutChart(model: $0)
                     .frame(width: 200, height: 200)
                     .previewLayout(.sizeThatFits)
             }

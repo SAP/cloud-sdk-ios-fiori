@@ -161,13 +161,13 @@ struct LinesShape_Previews: PreviewProvider {
             .previewLayout(.sizeThatFits)
             
             // pan left 10 points
-            LinesShape(points: [600, 700, 650, 750, 720, 720], startOffset: -10, endOffset: 90)
+            LinesShape(points: [600, 700, 650, 750, 720, 720], startOffset: -10.0, endOffset: 90.0)
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
                 .frame(width: 400, height: 200)
                 .previewLayout(.sizeThatFits)
             
-            // pan right 10 points
-            LinesShape(points: [600, 600, 700, 650, 750, 720], startOffset: -90, endOffset: 10)
+            // pan left 10 points
+            LinesShape(points: [600, 700, 650, 750, 720, 720], startOffset: 20.0, endOffset: -20.0)
                 .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
                 .frame(width: 400, height: 200)
                 .previewLayout(.sizeThatFits)

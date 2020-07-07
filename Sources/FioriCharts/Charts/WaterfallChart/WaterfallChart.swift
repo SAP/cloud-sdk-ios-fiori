@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WaterfallChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     var body: some View {
         XYAxisChart(axisDataSource: WaterfallAxisDataSource(),
@@ -19,12 +19,12 @@ struct WaterfallChart: View {
 }
 
 class WaterfallAxisDataSource: StackedColumnAxisDataSource {
-    override func plotData(_ model: ChartModel) -> [[ChartPlotRectData]] {
+    override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
         }
         
-        var result: [[ChartPlotRectData]] = []
+        var result: [[ChartPlotData]] = []
         let maxDataCount = model.numOfCategories(in: 0)
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
@@ -86,13 +86,13 @@ class WaterfallAxisDataSource: StackedColumnAxisDataSource {
                 origin = clusteredY
             }
             
-            let rectData = ChartPlotRectData(seriesIndex: 0,
-                                             categoryIndex: categoryIndex,
-                                             value: rawValue,
-                                             x: clusteredX,
-                                             y: clusteredY,
-                                             width: clusterWidth,
-                                             height: columnHeight)
+            let rectData = ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: 0,
+                                                                      categoryIndex: categoryIndex,
+                                                                      value: rawValue,
+                                                                      x: clusteredX,
+                                                                      y: clusteredY,
+                                                                      width: clusterWidth,
+                                                                      height: columnHeight))
             
             result.append([rectData])
         }
@@ -134,8 +134,7 @@ struct WaterfallChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.waterfallModels) {
-                WaterfallChart()
-                    .environmentObject($0)
+                WaterfallChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

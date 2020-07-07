@@ -85,13 +85,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             .exclusively(before: drag)
         
         return ZStack {
+            XAxisGridlines()
+                
+            YAxisGridlines()
+            
             chartView
                 .opacity((draggingChartView || self.model.selections != nil) ? 0.25 : 1.0)
-            
-            XAxisGridlines()
-                .environmentObject(model)
-            YAxisGridlines()
-                .environmentObject(model)
             
             indicatorView
             

@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct LineChart: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     
     var body: some View {
         XYAxisChart(axisDataSource: DefaultAxisDataSource(),
                     chartView: LinesView(),
                     indicatorView: LineIndicatorView())
+            .environmentObject(model)
     }
 }
 
@@ -21,8 +22,7 @@ struct LineChart_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             ForEach(Tests.lineModels) {
-                LineChart()
-                    .environmentObject($0)
+                LineChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }
