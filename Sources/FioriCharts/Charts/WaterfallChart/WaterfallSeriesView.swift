@@ -17,33 +17,30 @@ struct WaterfallSeriesView: View {
     let isSelectionView: Bool
     
     var body: some View {
-        // let showTwoLines: Bool = plotSeries[0].rect.size.height * self.rect.size.height * self.model.scale > 2.0
         let columnWidth: CGFloat = plotSeries.first != nil ? plotSeries[0].rect.size.width * self.rect.size.width * self.model.scale : 0
-        let columnHeight = plotSeries.first != nil ? plotSeries[0].rect.size.height * rect.size.height : 0
-        
+
         return VStack(alignment: .center, spacing: 0) {
             ForEach(plotSeries, id: \.self) { item in
                 VStack(spacing: 0) {
                     Spacer(minLength: 0)
-  
-                    ZStack {
-                        if columnHeight < 1 {
-                            LineShape(pos1: .zero, pos2: CGPoint(x: columnWidth, y: 0), layoutDirection: self.layoutDirection)
-                                .stroke(Color.preferredColor(.primary4), lineWidth: 1)
-                                .frame(width: columnWidth, height: 1)
-                        } else {
-                            Rectangle()
-                                .inset(by: -0.5)
-                                .fill(self.columnColor(for: item))
-                                .frame(width: columnWidth,
-                                       height: item.rect.size.height * self.rect.size.height)
-                        }
-                    }
+                        
+                    ZStack() {
+                        LineShape(pos1: CGPoint(x: 0, y: 0),
+                                  pos2: CGPoint(x: columnWidth, y: 0),
+                                  layoutDirection: self.layoutDirection)
+                            .stroke(Color.preferredColor(.primary4), lineWidth: 1)
+                        
+                        LineShape(pos1: CGPoint(x: 0, y: item.rect.size.height * self.rect.size.height),
+                                  pos2: CGPoint(x: columnWidth, y: item.rect.size.height * self.rect.size.height),
+                                  layoutDirection: self.layoutDirection)
+                            .stroke(Color.preferredColor(.primary4), lineWidth: 1)
+                    }.background(self.columnColor(for: item))
+                        .frame(width: columnWidth, height: item.rect.size.height * self.rect.size.height)
                     
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: columnWidth,
-                               height: columnHeight > 1 ? item.rect.origin.y * self.rect.size.height : item.rect.origin.y * self.rect.size.height - 1)
+                               height: item.rect.origin.y * self.rect.size.height)
                 }
             }
         }
@@ -80,3 +77,4 @@ struct WaterfallSeriesView_Previews: PreviewProvider {
             .environmentObject(model)
     }
 }
+
