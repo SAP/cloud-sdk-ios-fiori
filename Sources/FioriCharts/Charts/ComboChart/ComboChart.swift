@@ -30,18 +30,33 @@ class ComboAxisDataSource: DefaultAxisDataSource {
     func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         var ret: [AxisTitle] = []
         let maxDataCount = model.numOfCategories(in: 0)
-        let (startIndex, endIndex, _, _) = displayCategoryIndexesAndOffsets(model, rect: rect)
+        var startIndex = -1
+        var endIndex = maxDataCount - 1
         
+        if endIndex < 0 {
+            return ret
+        }
+    
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
+        
+        for index in 0...endIndex {
+            let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
+            if startIndex == -1 {
+                if x >= CGFloat(model.startPos) {
+                    startIndex = index
+                }
+            }
+            
+            if x < CGFloat(model.startPos) + rect.size.width {
+                endIndex = index
+            }
+        }
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
             var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - CGFloat(model.startPos)
-            if x < 0 || x > rect.size.width {
-                continue
-            }
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
@@ -62,7 +77,7 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         
         return ret
     }
-    
+        
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
