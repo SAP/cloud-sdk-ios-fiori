@@ -1,0 +1,66 @@
+{
+	"_version": "1.15.0",
+	"sap.app": {
+		"id": "dwp.sample.quicklink",
+		"type": "card",
+		"title": "Quick Links Homepages",
+		"subTitle": "Links to your Product Homepages"
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "sap-icon://favorite-list"
+		}
+	},
+	"sap.card": {
+		"type": "List",
+		"header": {
+			"title": "Quick Links",
+			"icon": {
+				"src": "sap-icon://favorite-list"
+			}
+		},
+		"content": {
+			"data": {
+				"json": [
+					{
+						"Name": "Success Factors",
+						"icon": "./successfactors.png",
+						"url": "https://www.successfactors.com",
+                        "something": {
+                            "else": "is",
+                            "hidden": {
+                                "here": ";)"
+                            }
+                        }
+					},
+					{
+						"Name": "Ariba",
+						"icon": "./ariba.png",
+						"url": "https://www.ariba.com"
+					},
+					{
+						"Name": "Concur",
+						"icon": "./concur.png",
+						"url": "https://www.concur.com"
+
+					}
+				]
+			},
+			"item": {
+				"icon": {
+					"src": "{icon}"
+				},
+				"title": "{Name}",
+				"description": "{Description}",
+				"actions": [
+					{
+						"type": "Navigation",
+						"url": "{url}"
+
+					}
+				]
+			}
+		}
+	}
+}

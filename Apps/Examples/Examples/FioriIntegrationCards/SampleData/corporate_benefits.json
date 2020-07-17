@@ -1,0 +1,45 @@
+{
+    "_version": "1.15.0",
+    "sap.app": {
+        "id": "dwp.demo.contentstack.benefits.list.card",
+        "type": "card",
+        "i18n": "i18n/i18n.properties",
+        "title": "Benefits",
+        "subTitle": "Show your corporate benefits"
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "sap-icon://waiver"
+        }
+    },
+    "sap.card": {
+        "type": "List",
+        "header": {
+            "title": "Corporate Benefits",
+            "subTitle": "for Production Environment",
+            "icon": {
+                "src": "sap-icon://waiver"
+            },
+            "status": {
+                "text": "today"
+            }
+        },
+        "content": {
+            "data": {
+                "request": {
+                    "url": "https://cdn.contentstack.io/v3/content_types/benefits/entries?api_key=blt54bd0530745ed7c1&access_token=blt18126d388a843c7d&environment=production&locale=en-us"
+                },
+                "path": "/entries"
+            },
+            "item": {
+                "icon": {
+                    "src": "{image/url}"
+                },
+                "title": "{title}",
+                "description": "{description}"
+            },
+            "maxItems": 6
+        }
+    }
+}
