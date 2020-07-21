@@ -2,13 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Micro Charts/Micro Charts.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:DevTest/DevTest.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:DevTest/../FioriSwiftUITestApp/FioriSwiftUITestApp.xcodeproj">
+      location = "group:Examples/Examples.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:../FioriSwiftUI.xcodeproj">
