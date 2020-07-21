@@ -57,7 +57,7 @@ struct IntegrationCardsContentView: View {
             .tabItem { Text("Test Cases") }
             CollectionView<[Manifest], Card>(data: InlineTestCases.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card })
                 .tabItem({ Text("Collection View") })
-        }
+        }.navigationBarTitle("FioriIntegrationCards")
     }
 }
 

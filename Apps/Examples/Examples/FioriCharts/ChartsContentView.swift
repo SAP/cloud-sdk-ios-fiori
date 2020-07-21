@@ -47,7 +47,7 @@ struct ChartsContentView: View {
                     Text(self.charts[index].0).font(.headline)
                 }
             }
-        }
+        }.navigationBarTitle("FioriCharts")
     }
 }
 

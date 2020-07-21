@@ -17,7 +17,7 @@ struct CoreContentView: View {
             destination: SegmentedControl_Chart()) {
                 Text("Segmented Control")
             }
-        }
+        }.navigationBarTitle("FioriSwiftUICore")
     }
 }
 
