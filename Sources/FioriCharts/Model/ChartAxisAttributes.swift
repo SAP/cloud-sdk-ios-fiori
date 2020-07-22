@@ -254,6 +254,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             self._formatter = Published(initialValue: formatter)
         }
         
@@ -264,6 +265,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             self._abbreviatedFormatter = Published(initialValue: formatter)
         }
         
