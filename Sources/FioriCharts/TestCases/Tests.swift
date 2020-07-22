@@ -180,6 +180,68 @@ public struct Tests {
                                              "Net Income Construction EBITDA, nil value, negative total values",
                                              "data = [[nil]]", "data = [[]]"]
     
+    public static let bubbleModels = [
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }}),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[4 ... 7]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }},
+                   selections: [0...0, 0...0]),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[8 ... 13]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }},
+                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1]),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 13]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }})
+    ]
+    
+    /// descriptions for column models
+    public static let bubbleModelsDesc = ["X Axis: year built or last renovated, \nY Axis: kBtu/sq.ft, \nZ Axis: sqft, \nSeries: Airport, Convention Centers, Education, Health & Human Services",
+                                          "Series: Hospitals, Libraries, Museums and Art, Offices, preselected a single category",
+                                          "Series: last 6 categories, preselected a series",
+                                          "Series: all 14 categories"]
+    
+    public static let scattrerModels = [
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 1]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }
+        }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[2 ... 3]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }
+        }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[4 ... 5]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.eui, building.sqFt]
+                    }
+        })
+    ]
+    
+    /// descriptions for column models
+    public static let scatterModelsDesc = ["Series Airport, Convention Centers",
+                                          "Series Education, Health & Human Services",
+                                          "Series Hospitals, Libraries"]
+    
     /// line and area models for test
     public static let comboModels = [
         ChartModel(chartType: .combo,

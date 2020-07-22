@@ -11,6 +11,7 @@ import SwiftUI
 enum ChartPlotData: Hashable {
     case point(point: ChartPlotPointData)
     case rect(rect: ChartPlotRectData)
+    case ellipse(ellipse: ChartPlotEllipseData)
     
     var plotRectData: ChartPlotRectData? {
         switch self {
@@ -30,11 +31,22 @@ enum ChartPlotData: Hashable {
         }
     }
     
+    var plotEclipseData: ChartPlotEllipseData? {
+        switch self {
+        case .ellipse(let data):
+            return data
+        default:
+            return nil
+        }
+    }
+    
     var seriesIndex: Int {
         switch self {
         case .point(let data):
             return data.seriesIndex
         case .rect(let data):
+            return data.seriesIndex
+        case .ellipse(let data):
             return data.seriesIndex
         }
     }
@@ -45,6 +57,8 @@ enum ChartPlotData: Hashable {
             return data.categoryIndex
         case .rect(let data):
             return data.categoryIndex
+        case .ellipse(let data):
+            return data.categoryIndex
         }
     }
     
@@ -53,6 +67,8 @@ enum ChartPlotData: Hashable {
         case .point(let data):
             return data.selected
         case .rect(let data):
+            return data.selected
+        case .ellipse(let data):
             return data.selected
         }
     }
@@ -63,6 +79,8 @@ enum ChartPlotData: Hashable {
             return CGRect(origin: data.point, size: .zero)
         case .rect(let data):
             return data.rect
+        case .ellipse(let data):
+            return data.rect
         }
     }
     
@@ -72,6 +90,8 @@ enum ChartPlotData: Hashable {
             return data.point
         case .rect(let data):
             return data.pos
+        case .ellipse(let data):
+            return data.point
         }
     }
     
@@ -81,6 +101,8 @@ enum ChartPlotData: Hashable {
             return data.value
         case .rect(let data):
             return data.value
+        case .ellipse(let data):
+            return data.values.first ?? 0
         }
     }
     
@@ -98,6 +120,8 @@ enum ChartPlotData: Hashable {
         case .point(let data):
             hasher.combine(data)
         case .rect(let data):
+            hasher.combine(data)
+        case .ellipse(let data):
             hasher.combine(data)
         }
     }
@@ -124,6 +148,16 @@ enum ChartPlotData: Hashable {
                                          selected: selected)
             
             return ChartPlotData.rect(rect: copy)
+        case .ellipse(let data):
+            let copy = ChartPlotEllipseData(seriesIndex: data.seriesIndex,
+                                            categoryIndex: data.categoryIndex,
+                                            values: data.values,
+                                            x: data.point.x,
+                                            y: data.point.y,
+                                            radius: data.radius,
+                                            selected: selected)
+            
+            return ChartPlotData.ellipse(ellipse: copy)
         }
     }
 }
@@ -147,6 +181,48 @@ struct ChartPlotPointData: Identifiable, Hashable {
         self.categoryIndex = categoryIndex
         self.value = value
         self.point = CGPoint(x: x, y: y)
+        self.selected = selected
+    }
+    
+    mutating func changeSelected(selected: Bool) {
+        self.selected = selected
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(point.x)
+        hasher.combine(point.y)
+    }
+}
+
+struct ChartPlotEllipseData: Identifiable, Hashable {
+    let id = UUID()
+    
+    let seriesIndex: Int
+    let categoryIndex: Int
+    let values: [CGFloat]
+    let radius: CGFloat
+    let point: CGPoint
+    var selected: Bool = false
+    
+    var rect: CGRect {
+        let x = point.x - radius
+        let y = point.y - radius
+        
+        return CGRect(x: x, y: y, width: radius * 2, height: radius * 2)
+    }
+    
+    init(seriesIndex: Int,
+         categoryIndex: Int,
+         values: [CGFloat],
+         x: CGFloat,
+         y: CGFloat,
+         radius: CGFloat,
+         selected: Bool = false) {
+        self.seriesIndex = seriesIndex
+        self.categoryIndex = categoryIndex
+        self.values = values
+        self.point = CGPoint(x: x, y: y)
+        self.radius = radius
         self.selected = selected
     }
     

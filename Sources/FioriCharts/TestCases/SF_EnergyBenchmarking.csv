@@ -1,0 +1,471 @@
+SFPUC Code,Facility,Notes,Dpt.,General Building Category,Facility Type,ENERGY STAR Bldg Type,Year Built,Year Renov.,2013 Building Area (sq. ft.),2013 Site EUI (kBtu/sq.ft.),2013 ENERGY STAR rating
+1684,Moscone Center West,,CFD,Convention Centers,convention facility,Other,2002,,775000,74.3,N/A
+XXX,Moscone Center North & South,"Adjacent facilities combined for benchmarking, due to shared mechanical systems.",CFD,Convention Centers,convention facility,Other,1981,1992,1296000,58.3,N/A
+102,Bill Graham Civic Auditorium,"(2) Bill Graham Civic Auditorium and DPH Central Office receive steam from the Civic Center steam loop that is unmetered at individual facility level. For purposes of this report, the metered use at the steam loop is apportioned based on each building’s square footage, but may be over reported here due to leaks and other losses in the steam loop itself. A steam meter was installed at City Hall at the beginning of 2012.",RED,Performance Halls,performance hall,Other,1915,1989,302250,67.8,N/A
+XXX,War Memorial Veterans Building & Opera House,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,WMPAC,Performance Halls,performance hall,Other,1932,,529700,67.1,N/A
+468,Davies Symphony Hall / Zellerbach Rehearsal Hall,"Adjacent facilities combined for benchmarking, due to shared mechanical systems.",WMPAC,Performance Halls,performance hall,Other,1980,,229500,55.9,N/A
+317,GGP -- Sharon Arts Studio,,RPD,Museums and Art,art/cultural center,Other,1888,1992,11376,77.1,N/A
+378,Randall Museum,,RPD,Museums and Art,art/cultural center,Other,1951,,32030,72.3,N/A
+3,SOMArts Cultural Center,,SFAC,Museums and Art,art/cultural center,Other,1906,,17844,32.2,N/A
+302,Harvey Milk Center for the Arts,,RPD,Museums and Art,art/cultural center,Other,1950,2009,23125,28.9,N/A
+4,Mission Cultural Center for Latino Arts,,SFAC,Museums and Art,art/cultural center,Other,1948,,32230,28.3,N/A
+2,African American Art & Culture Complex,,SFAC,Museums and Art,art/cultural center,Other,1935,,34031,27.9,N/A
+5,Bayview Opera House,,SFAC,Museums and Art,art/cultural center,Other,1888,,14000,8.8,N/A
+1,Arts Commission Window Site / Gallery,,SFAC,Museums and Art,art/cultural center,Other,1914,,4163,8.7,N/A
+236,California Palace of the Legion of Honor,,FAMSF,Museums and Art,museum,Other,1924,1995,117665,282.7,N/A
+293,GGP -- Conservatory of Flowers,"Facilities in Golden Gate Park, in cases where electrical meters specific to the facility cannot be located.",RPD,Museums and Art,museum,Other,1879,2003,27900,212.2,N/A
+1333,Asian Art Museum,,AAM,Museums and Art,museum,Other,1917,2003,185000,194,N/A
+237,De Young Museum,,FAMSF,Museums and Art,museum,Other,2005,,292500,180.1,N/A
+697,California Academy of Sciences,,CAS,Museums and Art,museum,Other,2008,,426000,147.5,N/A
+292,Coit Tower,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Museums and Art,museum,Other,1933,2012,5687,54.1,N/A
+412,Argonne CDC,,SFUSD,Education,Childcare/Nursery School,Other,2001,,2500,106,N/A
+2018,Zaida T Rodriguez Early Education,,SFUSD,Education,Childcare/Nursery School,Other,1976,,1800,104.4,N/A
+69,Earl P Mills Community Center,,HSA,Education,childcare/nursery school,Other,1971,,15000,61,N/A
+1104,Noriega CDC,,SFUSD,Education,Childcare/Nursery School,Other,1951,,14700,49.4,N/A
+723,Junipero Serra Annex CDC,,SFUSD,Education,Childcare/Nursery School,Other,1970,,5800,50,N/A
+1074,Commodore Stockton CDC,,SFUSD,Education,Childcare/Nursery School,Other,1924,,21255,48.8,N/A
+420,Jefferson Early Education,,SFUSD,Education,Childcare/Nursery School,Other,1960,,2400,43.9,N/A
+1014,John McLaren CDC,,SFUSD,Education,Childcare/Nursery School,Other,1954,,57885,42.7,N/A
+1910,Sojourner Truth Child Center,,HSA,Education,childcare/nursery school,Other,1971,,5184,38.2,N/A
+820,Playmates Nursery,,SFUSD,Education,Childcare/Nursery School,Other,1954,,3000,34.8,N/A
+1133,Leola M Havard Early Education,,SFUSD,Education,Childcare/Nursery School,Other,1969,,74100,32.3,N/A
+416,Theresa Mahler CDC,,SFUSD,Education,Childcare/Nursery School,Other,1943,,5339,31.7,N/A
+414,Mission CDC,,SFUSD,Education,Childcare/Nursery School,Other,1976,,4100,29.9,N/A
+1911,MLK Child Care Center,,HSA,Education,childcare/nursery school,Other,1971,,7409,24.8,N/A
+1131,Tule Elk Park CDC,,SFUSD,Education,Childcare/Nursery School,Other,1923,,32000,26.3,N/A
+1019,San Miguel CDC,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFUSD,Education,Childcare/Nursery School,Other,1929,1953,52545,22.2,N/A
+419,SFUSD -- SPEd Medical Therapy Unit (Laguna),,SFUSD,Education,Childcare/Nursery School,Other,1972,,12400,15.2,N/A
+1908,Shorey Childrens Center,,HSA,Education,childcare/nursery school,Other,1971,,9700,7.7,N/A
+2034,Visitacion Valley Family Resource Center,,RED,Education,Childcare/Nursery School,Other,1940,,12000,6.4,N/A
+80,SFPD Academy,,SFPD,Education,college/adult education,Other,1966,,19332,159,N/A
+1137,GGP -- Senior Center,,RPD,Education,college/adult education,Other,1930,,5940,141.7,N/A
+424,CCSF -- Ocean Campus,,CCSF,Education,college/adult education,Other,1940,,931000,127.9,N/A
+721,Southeast Community Facility and Greenhouses  (5),,SFPUC,Education,college/adult education,Other,1986,,193400,99.8,N/A
+1037,CCSF -- Mission Center,,CCSF,Education,college/adult education,Other,1939,2005,138129,81.5,N/A
+426,CCSF -- Downtown Center,,CCSF,Education,college/adult education,Other,1978,,86038,61.5,N/A
+1797,Sheriff Community Programs / Five Keys Adult School,,SHF,Education,college/adult education,Other,1959,2004,10842,59.7,N/A
+1962,CCSF -- Chinatown / North Beach Center,,CCSF,Education,college/adult education,Other,2012,,157353,37.6,N/A
+422,CCSF -- Airport Campus,,CCSF,Education,college/adult education,Other,1975,,27753,31.4,N/A
+423,CCSF -- Alemany Campus,,CCSF,Education,college/adult education,Other,1911,,26400,24.7,N/A
+429,CCSF -- John Adams Center,,CCSF,Education,college/adult education,Other,1911,2009,151397,24.3,N/A
+1162,CCSF -- Evans Center,,CCSF,Education,college/adult education,Other,1984,,90000,21.9,N/A
+2038,CCSF -- Chinatown / North Beach Annex,,CCSF,Education,college/adult education,Other,2012,,29411,20.7,N/A
+1102,Francis Scott Key Elementary,,SFUSD,Education,K-12 School,K-12 School,1936,,52000,55.5,53
+1098,Lafayette Elementary,,SFUSD,Education,K-12 School,K-12 School,1927,,54283,54.8,68
+1088,Raoul Wallenberg High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1952,,62840,62.7,
+1001,Ida B Wells High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1910,,34300,57.7,
+1116,School of the Arts / Academy of Arts and Sciences,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1970,,209500,55.1,
+1394,Hilltop County Community High / Sunshine Building,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1937,,61442,55.1,
+1099,George Washington High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1936,,228800,53,
+1052,International Studies Academy at Enola Maxwell,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1971,,108400,48.6,
+1056,SF International High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1980,,33100,45.3,
+1051,Philip and Sala Burton High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1963,,230000,44.5,
+1084,Gateway High / KIPP San Francisco Bay Academy,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1913,,143237,42,N/A
+1064,John O'Connell High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1999,,130091,40.1,
+1078,Galileo High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1924,,242400,39.2,
+1798,Independence High (Old Laguna Honda),"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1908,,30114,37.2,
+1814,Downtown High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1936,,58760,36.9,
+1033,Thurgood Marshall High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1957,,149796,34.9,
+1044,Mission High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1922,,225000,32.7,
+1021,June Jordan High / City Arts and Tech High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1957,,151600,32.6,
+1059,Abraham Lincoln High,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1940,,330200,31.6,N/A
+1017,Balboa High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1928,,261700,30.5,
+1002,Lowell High,"High schools that appear to be eligible for the ENERGY STAR rating are indicated with green dots, and ENERGY STAR quartile results for high schools are included in the overall totals shown on page 14 of this report. However, the 1-100 scores for individual high schools are not listed due to unexpectedly positive scores. More detailed site surveys, as well as a more detailed assessment of the ENERGY STAR ratings for high schools in San Francisco’s climate may be warranted.",SFUSD,Education,K-12 School,K-12 School,1962,,245000,30.2,
+1035,Mission Education Center Elementary,,SFUSD,Education,K-12 School,K-12 School,1911,,27000,113.1,12
+1025,El Dorado Elementary,,SFUSD,Education,K-12 School,K-12 School,1953,,30300,99.3,8
+1392,Claire Lilienthal (K-2 Madison Campus),,SFUSD,Education,K-12 School,K-12 School,1910,,20855,76,29
+1012,Visitacion Valley Middle,,SFUSD,Education,K-12 School,K-12 School,1971,,113600,75.8,4
+1003,Jose Ortega Elementary,,SFUSD,Education,K-12 School,K-12 School,1953,,35180,69.6,33
+1107,Sunset Elementary,,SFUSD,Education,K-12 School,K-12 School,1951,,40150,69.5,31
+1106,Robert Louis Stevenson Elementary,,SFUSD,Education,K-12 School,K-12 School,1953,,47500,64.3,59
+1096,George Peabody Elementary,,SFUSD,Education,K-12 School,K-12 School,1976,,16229,61.7,28
+1046,Paul Revere Elementary,,SFUSD,Education,K-12 School,K-12 School,1928,1968,56400,57.3,34
+1027,Dr George Washington Carver Elementary,,SFUSD,Education,K-12 School,K-12 School,1974,,45500,54.5,26
+1071,Redding Elementary,,SFUSD,Education,K-12 School,K-12 School,1917,,26100,51.9,75
+1008,Sunnyside Elementary,,SFUSD,Education,K-12 School,K-12 School,1927,,30900,51.8,80
+1109,Ulloa Elementary,,SFUSD,Education,K-12 School,K-12 School,1952,,53000,51.7,70
+1038,Buena Vista / Horace Mann,,SFUSD,Education,K-12 School,K-12 School,1924,,68000,50.3,84
+1024,Hillcrest Elementary,,SFUSD,Education,K-12 School,K-12 School,1951,,60280,49.9,43
+1028,Malcolm X Elementary,,SFUSD,Education,K-12 School,K-12 School,1957,,50800,49.6,64
+1264,Rooftop Alternative (5-8 Mayeda Campus),,SFUSD,Education,K-12 School,K-12 School,1997,,21000,49.1,26
+1101,Alamo Elementary,,SFUSD,Education,K-12 School,K-12 School,1924,,50420,47.4,34
+1118,Clarendon Elementary,,SFUSD,Education,K-12 School,K-12 School,1962,,39500,47.1,80
+1082,Claire Lilienthal (3-8 Winfield Scott Campus),,SFUSD,Education,K-12 School,K-12 School,1930,,34000,47,71
+1100,Presidio Middle,,SFUSD,Education,K-12 School,K-12 School,1930,,140000,46.6,71
+1067,Civic Center Secondary at John Swett Campus,,SFUSD,Education,K-12 School,K-12 School,1912,,29060,46.2,34
+1089,New Traditions Elementary,,SFUSD,Education,K-12 School,K-12 School,1924,,26300,45.9,95
+1377,George Moscone Elementary,,SFUSD,Education,K-12 School,K-12 School,1997,,45108,45,35
+1105,A P Giannini Middle,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1954,,136392,44.6,N/A
+2040,Gateway Middle,,SFUSD,Education,K-12 School,K-12 School,1908,,31121,43.9,77
+1005,Longfellow Elementary,,SFUSD,Education,K-12 School,K-12 School,1960,,40500,43.3,75
+1110,Jefferson Elementary,,SFUSD,Education,K-12 School,K-12 School,1923,,42434,43.2,61
+1086,Dr William Cobb Elementary,,SFUSD,Education,K-12 School,K-12 School,1923,,36246,42.6,62
+1111,Lawton Elementary,,SFUSD,Education,K-12 School,K-12 School,1934,,64940,42.2,74
+1068,John Muir Elementary,,SFUSD,Education,K-12 School,K-12 School,1928,,53500,42.1,75
+1040,Harvey Milk Civil Rights Academy,,SFUSD,Education,K-12 School,K-12 School,1952,,30560,40.9,78
+1055,Bryant Elementary and CDC,,SFUSD,Education,K-12 School,K-12 School,1969,,32500,40.5,54
+1045,Leonard R Flynn Elementary,,SFUSD,Education,K-12 School,K-12 School,1926,,52700,40.3,77
+1061,Bessie Carmichael Elementary,,SFUSD,Education,K-12 School,K-12 School,2000,,56358,40.2,44
+1050,E R Taylor Elementary,,SFUSD,Education,K-12 School,K-12 School,1923,,56113,40.1,80
+1083,Rosa Parks Elementary / Raphael Weill CDC,,SFUSD,Education,K-12 School,K-12 School,1927,1964,66900,39.6,75
+1042,Everett Middle,,SFUSD,Education,K-12 School,K-12 School,1926,,155370,39.6,57
+1351,Argonne Elementary,,SFUSD,Education,K-12 School,K-12 School,1997,,52000,39.5,74
+1094,Sutro Elementary,,SFUSD,Education,K-12 School,K-12 School,1976,,32860,39.3,64
+1004,Sheridan Elementary,,SFUSD,Education,K-12 School,K-12 School,1975,,46335,39.2,74
+1114,Alice Fong Yu Elementary,,SFUSD,Education,K-12 School,K-12 School,1914,,59650,38.8,94
+1120,Marina Middle,,SFUSD,Education,K-12 School,K-12 School,1936,,152900,38.7,66
+1036,James Lick Middle,,SFUSD,Education,K-12 School,K-12 School,1932,,116000,37.9,78
+1010,Commodore Sloat Elementary,,SFUSD,Education,K-12 School,K-12 School,1977,,59200,37.8,73
+1097,Roosevelt Middle,,SFUSD,Education,K-12 School,K-12 School,1930,,121000,37.4,65
+1075,Chinese Education Center,,SFUSD,Education,K-12 School,K-12 School,1976,,10580,37.1,95
+1041,Alvarado Elementary,,SFUSD,Education,K-12 School,K-12 School,1926,,51700,37.1,96
+1081,John Yehall Chin Elementary,,SFUSD,Education,K-12 School,K-12 School,1914,,23100,37,76
+1020,Cleveland Elementary,,SFUSD,Education,K-12 School,K-12 School,1911,,34000,36.5,79
+1022,Monroe Elementary,,SFUSD,Education,K-12 School,K-12 School,1977,,53400,36.5,67
+1123,Dr Martin Luther King Middle,,SFUSD,Education,K-12 School,K-12 School,1940,,72210,36.3,65
+1115,Herbert Hoover Middle,,SFUSD,Education,K-12 School,K-12 School,1956,,132400,35.9,70
+1030,Dr Charles R Drew Elementary,,SFUSD,Education,K-12 School,K-12 School,1971,,55234,35.2,72
+1384,Tenderloin Elementary,,SFUSD,Education,K-12 School,K-12 School,1998,,61569,34.6,60
+1011,Glen Park Elementary,,SFUSD,Education,K-12 School,K-12 School,1936,,45200,34.3,93
+1130,Starr King Elementary,,SFUSD,Education,K-12 School,K-12 School,1955,,49900,34.1,90
+1016,James Denman Middle / Leadership High,,SFUSD,Education,K-12 School,K-12 School,1940,,150900,33.8,55
+1121,Lakeshore Elementary,,SFUSD,Education,K-12 School,K-12 School,1954,,56101,33.3,85
+1117,Rooftop Alternative (K-4 Burnett Campus),,SFUSD,Education,K-12 School,K-12 School,1952,,23300,33.3,93
+1009,Aptos Middle,,SFUSD,Education,K-12 School,K-12 School,1931,,168000,33.2,71
+1029,Bret Harte Elementary,,SFUSD,Education,K-12 School,K-12 School,1954,,79000,32.7,84
+1043,Sanchez Elementary,,SFUSD,Education,K-12 School,K-12 School,1927,,50500,32.5,90
+1060,Bessie Carmichael / Filipino Education Ctr (6-8),,SFUSD,Education,K-12 School,K-12 School,1975,,13654,32.3,85
+1125,Chinese Immersion Elementary at DeAvila,,SFUSD,Education,K-12 School,K-12 School,1926,,58582,32.1,91
+1057,Cesar Chavez Elementary,,SFUSD,Education,K-12 School,K-12 School,1926,,49100,32.1,88
+1053,Daniel Webster Elementary,,SFUSD,Education,K-12 School,K-12 School,1924,,42800,32.1,28
+1069,Creative Arts Charter,,SFUSD,Education,K-12 School,K-12 School,1962,,33117,31.3,94
+1080,Garfield Elementary,,SFUSD,Education,K-12 School,K-12 School,1979,,33800,31.3,61
+1072,Spring Valley Elementary,,SFUSD,Education,K-12 School,K-12 School,1912,,50400,31.1,94
+428,SFUSD -- 940 Filbert St (Yick Wo Elementary),"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1900,1925,37500,30.7,N/A
+1241,Jean Parker Elementary,,SFUSD,Education,K-12 School,K-12 School,1996,,46000,30.3,89
+1129,Miraloma Elementary,,SFUSD,Education,K-12 School,K-12 School,1952,,51900,30.2,94
+1013,Visitacion Valley Elementary,,SFUSD,Education,K-12 School,K-12 School,1936,,51400,29.9,97
+1023,SF Community School,,SFUSD,Education,K-12 School,K-12 School,1911,,66900,29.6,96
+1079,Francisco Middle,,SFUSD,Education,K-12 School,K-12 School,1926,,104897,29.2,81
+1006,West Portal Elementary,,SFUSD,Education,K-12 School,K-12 School,1927,,44700,29,84
+125,SF Public Montessori Elementary,,SFUSD,Education,K-12 School,K-12 School,1924,,64500,28.8,96
+1077,Sherman Elementary,,SFUSD,Education,K-12 School,K-12 School,1928,,56200,28.5,95
+1039,Edison Charter Academy Elementary,,SFUSD,Education,K-12 School,K-12 School,1927,,59200,27.5,90
+1091,Grattan Elementary,,SFUSD,Education,K-12 School,K-12 School,1971,,55420,27.5,96
+1112,Dianne Feinstein Elementary,,SFUSD,Education,K-12 School,K-12 School,2003,,62087,26.4,92
+1062,Marshall Elementary,,SFUSD,Education,K-12 School,K-12 School,1977,,34300,24.5,87
+1095,Frank McCoppin Elementary,,SFUSD,Education,K-12 School,K-12 School,1976,,32700,24.3,77
+1034,Fairmount Elementary,,SFUSD,Education,K-12 School,K-12 School,1976,,60960,22.3,96
+1049,Junipero Serra Elementary,,SFUSD,Education,K-12 School,K-12 School,1977,,34200,21.7,90
+1128,Yick Wo Elementary (under modernization),This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFUSD,Education,K-12 School,K-12 School,1983,,26000,20.7,N/A
+2017,Gordon J Lau Elementary,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1914,1956,63800,19.2,N/A
+1092,McKinley Elementary,,SFUSD,Education,K-12 School,K-12 School,1977,,45160,19.1,95
+1015,Guadalupe Elementary,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFUSD,Education,K-12 School,K-12 School,1922,,40777,17.7,N/A
+254,Ocean View Branch Library,,SFPL,Libraries,library,Other,2000,,4794,157.5,N/A
+241,Chinatown Him Mark Lai Branch Library,,SFPL,Libraries,library,Other,1921,1996,17858,111.8,N/A
+265,Western Addition Branch Library,,SFPL,Libraries,library,Other,1966,2008,8000,89.2,N/A
+264,West Portal Branch Library,,SFPL,Libraries,library,Other,1939,2007,8010,77,N/A
+45,Fire Station 38,,SFFD,Public Safety,fire station,Other,1960,,13400,78.7,N/A
+261,Richmond/Milton Marks Branch Library,,SFPL,Libraries,library,Other,1914,2009,13900,74.6,N/A
+248,Main Library,,SFPL,Libraries,library,Other,1996,,376000,73.6,N/A
+249,Marina Branch Library,,SFPL,Libraries,library,Other,1954,2007,7633,64.7,N/A
+260,Presidio Branch Library,,SFPL,Libraries,library,Other,1921,2011,10205,64.6,N/A
+238,Bayview/Anna E. Waden Branch Library,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFPL,Libraries,library,Other,2012,,9527,64.4,N/A
+256,Park Branch Library,,SFPL,Libraries,library,Other,1909,2011,8060,62.7,N/A
+259,Potrero Branch Library,,SFPL,Libraries,library,Other,1951,2010,5428,62.3,N/A
+255,Ortega Branch Library,,SFPL,Libraries,library,Other,2011,,9300,60.1,N/A
+252,Noe Valley/Sally Brunn Branch Library,,SFPL,Libraries,library,Other,1916,2008,6096,58.7,N/A
+1928,Ingleside Branch Library,,SFPL,Libraries,library,Other,2009,,6100,58.2,N/A
+1915,Portola Branch Library,,SFPL,Libraries,library,Other,2009,,6427,58.1,N/A
+251,Mission Branch Library,,SFPL,Libraries,library,Other,1916,1999,10479,56.6,N/A
+262,Sunset Branch Library,,SFPL,Libraries,library,Other,1918,2007,9434,54.6,N/A
+239,Anza Branch Library,,SFPL,Libraries,library,Other,1932,2011,8222,52.8,N/A
+1825,Bernal Heights Branch Library,,SFPL,Libraries,library,Other,1940,2010,8777,52.2,N/A
+263,Visitacion Valley Branch Library,,SFPL,Libraries,library,Other,2011,,9945,52.1,N/A
+250,Merced Branch Library,,SFPL,Libraries,library,Other,1958,2011,5832,47.5,N/A
+257,Parkside Branch Library,,SFPL,Libraries,library,Other,1951,2010,6822,41.9,N/A
+243,Excelsior Branch Library,,SFPL,Libraries,library,Other,1967,2005,8322,40.6,N/A
+253,North Beach Branch Library (Old Location),,SFPL,Libraries,library,Other,1959,,8455,40.4,N/A
+244,Glen Park Branch Library,,SFPL,Libraries,library,Other,2007,,7185,39.9,N/A
+242,Eureka Valley/Harvey Milk Branch Library,,SFPL,Libraries,library,Other,1961,2009,6465,35.6,N/A
+245,Golden Gate Valley Branch Library,,SFPL,Libraries,library,Other,1917,2011,7432,33.3,N/A
+784,Multi-Service Center South,,HSA,Health & Human Services,homeless service,Other,1924,,25600,278,N/A
+785,Multi-Service Center North,,HSA,Health & Human Services,homeless service,Other,1913,,37125,177.3,N/A
+1810,Mission Neighborhood Resource Center,,HSA,Health & Human Services,homeless service,Other,1922,,6500,135.9,N/A
+57,Hamilton Family Shelter,,HSA,Health & Human Services,homeless service,Other,1966,,50000,80.6,N/A
+184,Ocean Park Health Center (Health Center #5),,DPH,Health & Human Services,medical clinic,Other,1967,2009,16247,169.9,N/A
+186,San Francisco City Clinic,,DPH,Health & Human Services,medical clinic,Other,1930,,8000,148.9,N/A
+175,Southeast Health Center,,DPH,Health & Human Services,medical clinic,Other,1979,2012,14604,140.4,N/A
+178,Castro Mission Health Center (Health Center #1),,DPH,Health & Human Services,medical clinic,Other,1965,2008,15258,112.2,N/A
+179,Silver Avenue Health Center (Health Center #3),,DPH,Health & Human Services,medical clinic,Other,1967,2005,22950,96.4,N/A
+180,Chinatown Public Health Center (Health Center #4),,DPH,Health & Human Services,medical clinic,Other,1967,2010,22500,94.5,N/A
+185,Maxine Hall Health Center (Health Center #2),,DPH,Health & Human Services,medical clinic,Other,1966,2006,20590,93.5,N/A
+181,Curry Senior Service Center,,DPH,Health & Human Services,medical clinic,Other,1930,2006,11195,88.7,N/A
+757,Potrero Hill Health Center,,DPH,Health & Human Services,medical clinic,Other,1976,2012,8000,69.7,N/A
+183,Sunset Mental Health Services,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,DPH,Health & Human Services,mental health center,Medical Office,1949,1972,5500,63.1,55
+200,S Van Ness Mental Health / Mission Family Center,,DPH,Health & Human Services,mental health center,Medical Office,1958,,14700,48.9,62
+1285,South of Market Mental Health Services,,DPH,Health & Human Services,mental health center,Medical Office,1956,1998,13000,47.9,53
+1809,SE Child/Family Therapy Center,"Not qualified for ENERGY STAR rating, due to small size.",DPH,Health & Human Services,mental health center,Medical Office,1939,1998,3000,32.1,N.Q.
+1330,Chinatown Child Development Center,,DPH,Health & Human Services,mental health center,Medical Office,1950,1985,9250,30,81
+1456,Mission Mental Health Services,,DPH,Health & Human Services,mental health center,Medical Office,1943,2002,32000,23,93
+1956,Redwood Center,"Not qualified for ENERGY STAR rating for dormitories, due to inadequate number of rooms.",DPH,Health & Human Services,mental health center,Other,1939,,11000,10.6,N.Q.
+743,Animal Shelter,,ACC,Health & Human Services,veterinarian,Other,1931,1989,29500,234.2,N/A
+192,San Francisco General Hospital,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,DPH,Hospitals,hospital,Hospital,1915,1976,1370904,376.6,N/A
+191,Laguna Honda Hospital,"Not qualified for ENERGY STAR rating for hospitals. As a long-term care facility, Laguna Honda Hospital is not eligible for the hospital category. The square footage listed includes the new hospital buildings as of 2010 plus the square footage of old wings A, B, C, and H. The total excludes 120,000 square feet under remodel in buildings K, L, M, and O, which will be reoccupied in future years.",DPH,Hospitals,hospital,Hospital,1926,2010,717126,219.1,N.Q.
+1892,Temp Sewer Operations Office,"Not qualified for ENERGY STAR rating, due to small size.",SFPUC,Offices,office,General Office,2000,,2500,149.8,N.Q.
+474,Hall of Justice,"Not qualified for ENERGY STAR rating, due to more than 10% of the mixed-use facility being classified as “Other” space type.",RED,Offices,office,General Office,1959,,700000,126.2,N.Q.
+1402,SFUSD -- Administration - Franklin,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,Office,,1976,,78028,125.2,N/A
+20001,Moccasin Administration Building,"The ENERGY STAR rating of the Moccasin Administration Building assumes on-site energy generation. Located at the site of the SFPUC’s Moccasin Powerhouse in Moccasin, California, the all-electric facility obtains its energy from hydropower resources in the immediate vicinity. Therefore, the conversion and transmission losses of a typical facility are not applicable.",SFPUC,Offices,office,General Office,,,12241,113.1,66
+754,GGP -- McLaren Lodge and Annex,,RPD,Offices,office,General Office,1896,1950,17252,101.7,53
+1324,Enforcement Division,,SFMTA,Offices,office,General Office,1920,,8000,99.1,38
+1815,SFUSD -- 3045 Santiago Admin Building,,SFUSD,Offices,office,General Office,1954,,15334,94.2,N/A
+174,DPH Central Office,"(2) Bill Graham Civic Auditorium and DPH Central Office receive steam from the Civic Center steam loop that is unmetered at individual facility level. For purposes of this report, the metered use at the steam loop is apportioned based on each building’s square footage, but may be over reported here due to leaks and other losses in the steam loop itself. A steam meter was installed at City Hall at the beginning of 2012.",DPH,Offices,office,General Office,1932,,119000,90.6,N.Q.
+793,CHN Headquarters,,DPH,Offices,office,General Office,1923,1993,60000,85.3,55
+1124,SFUSD -- Academics and Professional Development,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,,,1973,,23400,82.2,N/A
+1404,Sheriff Training Facility,,SHF,Offices,office,General Office,1963,2002,19057,75.7,24
+1150,1660 Mission St,,RED,Offices,office,General Office,1990,,90619,74.5,48
+1973,GGP -- Park Aid Station / Natural Areas Program,"This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013. Not qualified for ENERGY STAR rating, due to small size.",RPD,Offices,office,,1902,2012,2733,74.1,N.Q.
+471,Women's Resource Center,,SHF,Offices,office,General Office,1959,,5920,69.2,30
+779,1680 Mission St,,DPW,Offices,office,General Office,1923,,41200,69,79
+808,30 Van Ness Ave,,RED,Offices,office,General Office,1965,,180939,67.8,63
+717,SFUSD -- Children's Center Administration Building,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,Office,,1930,,20000,66.6,N/A
+77,SFUSD -- Student Nutrition Services,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,office,,1932,,9900,66.6,N/A
+91,Human Services Agency Headquarters,,HSA,Offices,office,General Office,1979,,171385,64,74
+70,Investigations -- 160 South Van Ness,,HSA,Offices,office,General Office,1936,2002,14219,63.7,61
+1378,SFFD - Headquarters,,SFFD,Offices,emergency center,General Office,1912,1999,50000,61.4,71
+1703,SFUSD -- School Health Programs,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,office,,1950,,13900,58.7,N/A
+832,Social Services -- 1235 Mission,,HSA,Offices,office,General Office,1935,,124219,56.6,85
+1429,Library Support Services Building,,SFPL,Offices,office,General Office,1925,2001,43182,55.5,82
+1992,SFPUC -- 525 Golden Gate Ave,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFPUC,Offices,office,General Office,2012,,277511,53.7,90
+1339,Former Gloria R Davis Middle,,SFUSD,Offices,Office,,1976,,60700,52.9,N/A
+813,25 Van Ness Ave,,RED,Offices,office,General Office,1913,1985,130000,51,77
+1886,One South Van Ness (OSVN),,RED,Offices,office,General Office,1959,1989,655000,46.1,86
+425,CCSF -- Administrative Offices,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,CCSF,Offices,office,General Office,1949,1971,50521,45.7,N/A
+472,City Hall,,RED,Offices,office,General Office,1915,2000,516484,44.2,91
+88,MediCal -- 1440 Harrison,,HSA,Offices,office,General Office,1921,,52200,43.1,94
+1338,1155 Market St,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RED,Offices,office,General Office,1983,,158998,42.4,N/A
+1132,SFUSD -- Irving M Scott Building,,SFUSD,Offices,office,General Office,1895,,12300,40.8,N/A
+1343,Seneca First Stop Visit Cntr/Workforce Development,,HSA,Offices,office,General Office,1947,,8100,40.6,72
+1927,Airport Reprographics,,SFO,Offices,office,General Office,1967,,6000,39.6,41
+715,Public Defender's Office,,RED,Offices,office,General Office,1985,,52000,32.3,90
+1066,SFUSD -- Administration - Van Ness,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,Offices,Office,,1927,,241956,22.7,N/A
+1998,Bayside Office Space and Warehouse,,SFPUC,Offices,office,,1978,,50593,11,N.Q.
+202,35/45 Onondaga Building,"This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013. Not qualified for ENERGY STAR rating, due to lack of full-time occupants.",DPH,Offices,office,General Office,1928,1932,8747,6,N.Q.
+1918,Community Justice Center,,DPH,Offices,courthouse,Courthouse,1913,,18430,59.7,67
+1379,Fire Station 35 (Fire Boat House),,SFFD,Public Safety,fire station,Other,1908,1994,4712,198.4,N/A
+41,Fire Station 34,,SFFD,Public Safety,fire station,Other,1929,1998,4400,140.4,N/A
+30,Fire Station 22,,SFFD,Public Safety,fire station,Other,1962,,5900,130.4,N/A
+28,Fire Station 20,,SFFD,Public Safety,fire station,Other,1963,1997,10300,109.9,N/A
+51,Fire Station 43,,SFFD,Public Safety,fire station,Other,1970,1995,10800,108.3,N/A
+35,Fire Station 29,,SFFD,Public Safety,fire station,Other,1956,1996,8300,104.7,N/A
+38,Fire Station 31,,SFFD,Public Safety,fire station,Other,1913,,8500,103.2,N/A
+2007,Fire Fighting Training Center - Treasure Island,,SFFD,Public Safety,fire station,Other,,,5040,101.8,N/A
+23,Fire Station 16,,SFFD,Public Safety,fire station,Other,1938,1998,14000,97.3,N/A
+26,Fire Station 19,,SFFD,Public Safety,fire station,Other,1951,1998,11500,97.1,N/A
+18,Fire Station 11,,SFFD,Public Safety,fire station,Other,1956,1996,14000,93.9,N/A
+24,Fire Station 05,,SFFD,Public Safety,fire station,Other,1954,1984,12600,93.6,N/A
+22,Fire Station 15,,SFFD,Public Safety,fire station,Other,1957,1997,12138,91.9,N/A
+53,Fire Station 06,,SFFD,Public Safety,fire station,Other,1948,1998,13500,90.6,N/A
+29,Fire Station 21,,SFFD,Public Safety,fire station,Other,1958,1988,8000,90.5,N/A
+20,Fire Station 13,,SFFD,Public Safety,fire station,Other,1974,1999,18790,88.3,N/A
+17,Fire Station 10,,SFFD,Public Safety,fire station,Other,1956,,14300,84.3,N/A
+52,Fire Station 17,,SFFD,Public Safety,fire station,Other,1955,1996,12100,81,N/A
+56,Fire Station 07 / Division of Training,,SFFD,Public Safety,fire station,Other,1953,2003,33600,73.5,N/A
+48,Fire Station 40,,SFFD,Public Safety,fire station,Other,1931,1995,7350,73.3,N/A
+19,Fire Station 12,,SFFD,Public Safety,fire station,Other,1955,,11300,71.8,N/A
+44,Fire Station 37,,SFFD,Public Safety,fire station,Other,1915,1990,6950,68,N/A
+46,Fire Station 39,,SFFD,Public Safety,fire station,Other,1923,1998,8450,66.7,N/A
+54,Fire Station 08,,SFFD,Public Safety,fire station,Other,1940,1994,8000,63.1,N/A
+40,Fire Station 33,,SFFD,Public Safety,fire station,Other,1973,1998,5900,62.6,N/A
+39,Fire Station 32,,SFFD,Public Safety,fire station,Other,1941,1991,10900,62.3,N/A
+49,Fire Station 41,,SFFD,Public Safety,fire station,Other,1956,,9600,59.3,N/A
+36,Fire Station 03,,SFFD,Public Safety,fire station,Other,1973,,8000,53.2,N/A
+12,Fire Station 24,,SFFD,Public Safety,fire station,Other,1914,1997,7600,51.7,N/A
+33,Fire Station 26,,SFFD,Public Safety,fire station,Other,1968,1997,15000,51.2,N/A
+31,Fire Station 23,,SFFD,Public Safety,fire station,Other,1959,1996,12000,50.9,N/A
+13,Fire Station 44,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFFD,Public Safety,fire station,Other,1915,1998,8450,50.3,N/A
+32,Fire Station 25,,SFFD,Public Safety,fire station,Other,1916,,11420,50.3,N/A
+43,Fire Station 36,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFFD,Public Safety,fire station,Other,1961,1996,16100,44.7,N/A
+55,Fire Station 09,,SFFD,Public Safety,fire station,Other,1972,1995,21400,42.4,N/A
+27,Fire Station 02,,SFFD,Public Safety,fire station,Other,1994,,16920,42,N/A
+50,Fire Station 42,,SFFD,Public Safety,fire station,Other,1979,1998,9300,41.4,N/A
+2019,Fire Station 01,"This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013. Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFFD,Public Safety,fire stations,Other,2013,,15136,37.4,N/A
+21,Fire Station 14,,SFFD,Public Safety,fire station,Other,1973,,15900,35.8,N/A
+25,Fire Station 18,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",SFFD,Public Safety,fire station,Other,1951,1997,15900,31.1,N/A
+2006,Fire Station 48 - Treasure Island,,SFFD,Public Safety,fire station,Other,,,15000,30.4,N/A
+42,Old Fire Station 01,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFFD,Public Safety,fire station,Other,1953,1992,14100,29.3,N/A
+1170,Fire Station 49,,SFFD,Public Safety,fire station,Other,1958,2002,75000,12.7,N/A
+73,Central Police Station,,SFPD,Public Safety,police station,Other,1970,,8000,130.5,N/A
+74,Ingleside Police Station,,SFPD,Public Safety,police station,Other,1910,1990,18500,122.7,N/A
+78,Park Police Station,,SFPD,Public Safety,police station,Other,1910,1993,13700,112.2,N/A
+1213,Bayview Police Station,,SFPD,Public Safety,police station,Other,1996,,16000,90.7,N/A
+1924,SFPD Tactical Company,,SFPD,Public Safety,police station,Other,1941,2009,52125,79.4,N/A
+811,Mission Police Station,,SFPD,Public Safety,police station,Other,1994,,25000,76.8,N/A
+712,Northern Police Station,,SFPD,Public Safety,police station,Other,1988,1987,18000,74.3,N/A
+87,Taraval Police Station,,SFPD,Public Safety,police station,Other,1929,1994,18070,71.1,N/A
+84,Richmond Police Station,,SFPD,Public Safety,police station,Other,1910,1993,13000,60.5,N/A
+791,Tenderloin Police Station,,SFPD,Public Safety,police station,Other,2000,,27500,44.8,N/A
+1336,Emergency Operations Center,,DEM,Public Safety,emergency center,Other,1998,2010,56000,210.1,N/A
+92,"San Francisco County Jail, San Bruno Facility",,SHF,Public Safety,jail / correctional,Other,1934,2006,348202,133.6,N/A
+94,Youth Guidance Center,,JUV,Public Safety,jail / correctional,Other,1950,2006,210000,128,N/A
+1205,County Jail #1 & #2,,SHF,Public Safety,jail / correctional,Other,1994,,250000,41.4,N/A
+388,South Sunset Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1949,,1500,232.3,N/A
+1704,Sandy Tatum Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,2005,,20000,195.4,N/A
+408,Youngblood Coleman Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1960,,2135,147.8,N/A
+337,Laurel Hill Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1953,,1134,147.1,N/A
+327,James Rolph Jr Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1921,2008,2730,120.5,N/A
+401,Visitacion Valley Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,2003,,2600,98.7,N/A
+346,Merced Heights Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1950,,1136,96.9,N/A
+1141,GGP -- Golf Course Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1951,,2470,92.3,N/A
+567,Helen Wills Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,2005,,3082,91.5,N/A
+411,Lincoln Park Golf Course,,RPD,Recreation Facilities,clubhouse,Other,1936,,6329,85.8,N/A
+306,Jose Coronado Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1995,,933,79.4,N/A
+394,GGP -- Stow Lake Boathouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,clubhouse,Other,1945,,4647,78.4,N/A
+275,Argonne Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,2006,,1000,75.5,N/A
+316,Hayes Valley Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,2011,,2500,71.8,N/A
+307,Fulton Clubhouse and Playground,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,clubhouse,Other,1955,2012,1420,71.7,N/A
+386,Silver Terrace Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1953,,7842,61.4,N/A
+344,Mccoppin Square Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1955,,2000,54.7,N/A
+325,Jackson Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1912,,8060,51.4,N/A
+347,Midtown Terrace Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1961,,2176,50.4,N/A
+1446,Parque Ninos Unidos Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,2004,,2414,50.1,N/A
+561,Gilman Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1969,,1578,50,N/A
+341,Margaret S Hayward Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1922,,6717,48,N/A
+289,Christopher Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1971,,2337,41.2,N/A
+372,Wawona Clubhouse (Project Insight),,RPD,Recreation Facilities,clubhouse,Other,1950,,1830,39.3,N/A
+284,Cayuga Clubhouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,clubhouse,Other,2013,,2500,38.6,N/A
+371,Peixotto Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1955,,2000,30,N/A
+304,Excelsior Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1928,,2255,28.7,N/A
+730,Sunnyside Conservatory,,RPD,Recreation Facilities,clubhouse,Other,1900,2009,1536,27,N/A
+380,Richmond Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1916,,1200,26.2,N/A
+397,Sunnyside Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1969,,4412,25.5,N/A
+348,Cow Hollow Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1950,,675,23.4,N/A
+362,J. P. Murphy Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1950,2008,1820,23,N/A
+385,Sigmund Stern Grove / Trocadero Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1930,2005,12832,22.6,N/A
+381,Rochambeau Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,2004,,1482,22.1,N/A
+301,Douglas Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1926,,1072,22.1,N/A
+312,Grattan Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1949,,1854,20.6,N/A
+402,West Portal Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,2004,,2728,20.2,N/A
+324,Julius Kahn Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1922,,1105,20.1,N/A
+1311,Woh Hei Yuen Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1997,,5000,19.3,N/A
+355,Miraloma Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1949,,1352,17.4,N/A
+283,Cabrillo Clubhouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,clubhouse,Other,1931,2013,1420,17.1,N/A
+731,Boeddeker Park and Clubhouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,clubhouse,Other,1989,,3740,14.7,N/A
+329,Junipero Serra Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1955,2008,1700,14.7,N/A
+777,Alice Chalmers Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1951,,2505,11.7,N/A
+377,Presidio Heights Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1910,,958,11.7,N/A
+287,Willie Woo Woo Wong Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1927,,6000,11.5,N/A
+405,West Sunset Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1953,,13530,9.7,N/A
+335,Lake Merced Boathouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,park building,Other,1958,2013,15200,7.9,N/A
+1699,Pine Lake Park Clubhouse,,RPD,Recreation Facilities,clubhouse,Other,1950,,1242,7.4,N/A
+299,Crocker Amazon Clubhouse and Playground,,RPD,Recreation Facilities,clubhouse,Other,1955,1982,24040,7.1,N/A
+308,Moscone Rec Center,,RPD,Recreation Facilities,recreation center,Other,1924,2008,9650,131.5,N/A
+303,Eureka Valley Rec Center,,RPD,Recreation Facilities,recreation center,Other,1951,2004,17880,106.9,N/A
+328,Joseph Lee Rec Center,,RPD,Recreation Facilities,recreation center,Other,1950,2007,16383,91.4,N/A
+375,Potrero Hill Rec Center,,RPD,Recreation Facilities,recreation center,Other,1950,,18805,77.5,N/A
+366,Minnie & Lovie Ward Rec Center,,RPD,Recreation Facilities,recreation center,Other,2007,2008,19461,70.2,N/A
+1439,Richmond Rec Center,,RPD,Recreation Facilities,recreation center,Other,2000,,18470,67.2,N/A
+392,St. Mary's Rec Center and Playground,,RPD,Recreation Facilities,recreation center,Other,1949,,23307,59.6,N/A
+314,GGP -- County Fair Building/Hall Of Flowers,,RPD,Recreation Facilities,recreation center,Other,1961,1969,23477,58.8,N/A
+400,Upper Noe Rec Center,,RPD,Recreation Facilities,recreation center,Other,1950,2006,16447,58.5,N/A
+1172,Tenderloin Rec Center,,RPD,Recreation Facilities,recreation center,Other,1995,,10133,48.6,N/A
+398,Sunset Rec Center,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,recreation center,Other,1940,2012,16424,48,N/A
+279,Bernal Heights Rec Center,,RPD,Recreation Facilities,recreation center,Other,1932,,5008,42,N/A
+356,Mission Rec Center / Mission Arts Center,,RPD,Recreation Facilities,recreation center,Other,1984,2012,30850,40.3,N/A
+288,Betty Ann Ong Chinese Rec Center,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,recreation center,Other,1951,2012,24234,34.5,N/A
+359,GGP -- Model Yacht Clubhouse,"Facilities in Golden Gate Park, in cases where electrical meters specific to the facility cannot be located.",RPD,Recreation Facilities,recreation center,Other,1938,,3168,32.4,N/A
+755,Gene Friend Rec Center @ SOMA,,RPD,Recreation Facilities,recreation center,Other,1989,,16354,19.6,N/A
+1139,GGP -- Kezar Pavilion,,RPD,Recreation Facilities,recreation center,Other,1925,,24254,16.8,N/A
+387,Glen Park Rec Center / Glenridge Nursery School,,RPD,Recreation Facilities,recreation center,Other,1934,,22301,14,N/A
+373,Palega Rec Center,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,recreation center,Other,1928,2012,18397,7.5,N/A
+382,Rossi Swimming Pool and Playground,,RPD,Recreation Facilities,pool,Other,1958,,15162,433.3,N/A
+336,Charlie Sava Swimming Pool / Larsen Park,,RPD,Recreation Facilities,pool,Other,1957,2008,12900,433.1,N/A
+701,Coffman Pool / Herz Clubhouse and Playground,,RPD,Recreation Facilities,pool,Other,1957,2008,12289,378.2,N/A
+310,Garfield Pool and Garfield Square Clubhouse,,RPD,Recreation Facilities,pool,Other,1958,,21160,247,N/A
+365,North Beach Swimming Pool/Joe DiMaggio Playground,,RPD,Recreation Facilities,pool,Other,2004,2006,16384,240.5,N/A
+343,Martin Luther King Jr Swimming Pool,,RPD,Recreation Facilities,pool,Other,2001,,23851,222.4,N/A
+358,Mission Community Pool / Clubhouse,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,RPD,Recreation Facilities,pool,Other,1916,2012,8500,143.6,N/A
+315,Hamilton Rec Center and Pool,,RPD,Recreation Facilities,pool,Other,1953,2010,16988,122.4,N/A
+703,Balboa Swimming Pool,"Irregular natural gas use. Some or all natural gas use data is unknown, missing, or gas meter readings may be inaccurate.",RPD,Recreation Facilities,pool,Other,1962,,19000,32.4,N/A
+391,GGP -- Murphy Millwright's Cottage,,RPD,Recreation Facilities,park building,Other,1904,2011,2960,617.9,N/A
+409,SF Zoo,,RPD,Recreation Facilities,zoo,Other,1930,,65799,356.4,N/A
+331,GGP -- Kezar Stadium,,RPD,Recreation Facilities,stadium,Other,1924,,5000,280.1,N/A
+1299,GGP -- Beach Chalet and Visitor Center,,RPD,Recreation Facilities,restaurant,Other,1925,1996,18045,236.4,N/A
+363,GGP -- Music Concourse,,RPD,Recreation Facilities,park building,Other,1900,,5095,125.7,N/A
+81,SFPD Stables,,SFPD,Recreation Facilities,park building,Other,1935,,11800,72.8,N/A
+272,GGP -- Dutch Windmill,,RPD,Recreation Facilities,park building,Other,1902,,2500,54.8,N/A
+79,SFPD Pistol Range,,SFPD,Recreation Facilities,park building,Other,1942,1989,10000,53.9,N/A
+410,Candlestick Park Stadium,,RPD,Recreation Facilities,stadium,Other,1960,,500000,41.3,N/A
+1326,GGP -- Pioneer Log Cabin,,RPD,Recreation Facilities,park building,Other,1911,1931,2256,36.1,N/A
+1916,Camp Ida Smith,,SFPUC,Recreation Facilities,camp,Other,,,1200,11.5,N/A
+278,GGP -- Bercut Equitation Field,,RPD,Recreation Facilities,park building,Other,1930,,20632,11.3,N/A
+1383,Fay House,,RPD,Recreation Facilities,park building,Other,1912,,4536,1.2,N/A
+298,GGP -- Maintenance Yard and Nursery,,RPD,"Service, Repair, and Storage",corporation yard,Other,1957,,43947,223.2,N/A
+696,H. Hetchy-Warnerville Substation/Switchyard,,SFPUC,"Service, Repair, and Storage",corporation yard,Other,,,1835,216.1,N/A
+505,Kirkland Division - Motor Coach,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1949,,9352,166.1,N/A
+506,Cable Car Barn and Power House,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1906,1984,83741,160.8,N/A
+1900,Metro East Facility - LRV,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,2008,,180000,144.1,N/A
+571,Millbrae Yard,,SFPUC,"Service, Repair, and Storage",corporation yard,Other,,,60045,129.8,N/A
+572,City Distribution Division,,SFPUC,"Service, Repair, and Storage",corporation yard,Other,,,67500,119.6,N/A
+530,Cameron Beach (Geneva) Yard - LRV and Streetcar,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1984,,31514,117.1,N/A
+516,Woods Division - Motor Coach,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1976,,161719,100.3,N/A
+1702,Green Division and Annex - LRV,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1977,1983,208371,66.7,N/A
+778,Islais Creek - Motor Coach,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFMTA,"Service, Repair, and Storage",corporation yard,Other,2013,,16200,66.5,N/A
+553,Potrero Division - Trolley Coach,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1914,1990,101510,63.9,N/A
+523,Flynn Division - Motor Coach,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1941,1989,268947,57.5,N/A
+98,Old DT Corporation Yard,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,DT,"Service, Repair, and Storage",corporation yard,Other,1950,,45000,54.7,N/A
+107,Hall of Justice Gas Station,,GSA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1959,,4360,54.2,N/A
+1708,South Forks Maintenance Yard,,SFPUC,"Service, Repair, and Storage",corporation yard,Other,,,2900,52.5,N/A
+1393,1399 Marin - Maintenance Facility,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1972,,25100,51.7,N/A
+515,Presidio Division - Trolley Coach,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1912,,158381,49.2,N/A
+1468,Central Shops,,GSA,"Service, Repair, and Storage",corporation yard,Other,1959,,80577,48.6,N/A
+585,Sunol Yard,,SFPUC,"Service, Repair, and Storage",corporation yard,Other,,,12095,44.6,N/A
+111,DPW -- Corporation Yard,,DPW,"Service, Repair, and Storage",corporation yard,Other,1949,,102764,40.8,N/A
+396,GGP -- San Francisco Botanical Garden,"Facilities in Golden Gate Park, in cases where electrical meters specific to the facility cannot be located.",RPD,"Service, Repair, and Storage",corporation yard,Other,1955,,29763,35.6,N/A
+744,Scott Division,,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,1990,,116144,16.7,N/A
+2035,Bayshore Yard and Shop,This location was under construction or vacant for an extended period of time during a portion of calendar years 2012 or 2013.,SFMTA,"Service, Repair, and Storage",gas station/vehicle repair,Other,,,255420,8.9,N/A
+8,SFFD - Bureau of Equipment,,SFFD,"Service, Repair, and Storage",shop,Other,1918,,7000,65.3,N/A
+2012,ReproMail,,RED,"Service, Repair, and Storage",shop,Other,1935,,10469,55.8,N/A
+1032,SFUSD -- Buildings and Grounds,,SFUSD,"Service, Repair, and Storage",Shop,,1968,,40000,50.5,N/A
+1290,700 Pennsylvania - Maintenance of Way,,SFMTA,"Service, Repair, and Storage",shop,Other,1947,2000,99383,35.5,N/A
+1964,Sustainable Streets Division,,SFMTA,"Service, Repair, and Storage",shop,Other,1999,,90000,17.1,N/A
+1292,1401 Bryant - Overhead Lines,,SFMTA,"Service, Repair, and Storage",shop,Other,1897,1979,46000,13.6,N/A
+124,Paint Shop and Vehicle Parking,,SFMTA,"Service, Repair, and Storage",shop,Other,1958,,35021,4.2,N/A
+1031,SFUSD -- Warehouse/Transportation,Facility operations data required for ENERGY STAR rating is unavailable at time of report publication.,SFUSD,"Service, Repair, and Storage",Warehouse,,1946,,132000,22.4,N/A
+1929,651 Bryant - Power Utility Services,,SFPUC,"Service, Repair, and Storage",warehouse,Warehouse,1954,,14000,19.6,83
+756,Streetlight Warehouse,"Not qualified for ENERGY STAR rating, due to lack of full-time occupants.",SFPUC,"Service, Repair, and Storage",warehouse,Warehouse,1988,,6400,14.4,N.Q.
+103,Brooks Hall,"Not qualified for ENERGY STAR rating, due to lack of full-time occupants.",RED,"Service, Repair, and Storage",warehouse,Warehouse,1956,,90000,13.3,N.Q.
+1873,Burke Avenue Facility - Central Warehouse,,SFMTA,"Service, Repair, and Storage",warehouse,Warehouse,1969,,103231,12.5,42
+1222,Fine Arts Warehouse,,FAMSF,"Service, Repair, and Storage",warehouse,Warehouse,1983,,27440,6.2,73
+1802,Oakdale Office/Warehouse,"Not qualified for ENERGY STAR rating, due to lack of full-time occupants.",SFPUC,"Service, Repair, and Storage",warehouse,Warehouse,,,7800,5.8,N.Q.
+1428,SFPD Storage Facility,"Not qualified for ENERGY STAR rating, due to lack of full-time occupants.",SFPD,"Service, Repair, and Storage",warehouse,Warehouse,,,11000,1.3,N.Q.
+207,Civic Center Garage,,RPD,Parking Garages,parking garage,Other,1958,,355674,13,N/A
+1476,Union Square Garage,,RPD,Parking Garages,parking garage,Other,1941,,423780,11.9,N/A
+232,Portsmouth Square Garage,,RPD,Parking Garages,parking garage,Other,1962,,225480,9.6,N/A
+234,Vallejo Street Garage,,SFMTA,Parking Garages,parking garage,Other,1969,,62760,9.6,N/A
+706,Sixteenth & Hoff Garage,,SFMTA,Parking Garages,parking garage,Other,1996,,17284,9.2,N/A
+1796,Music Concourse Garage,,SFMTA,Parking Garages,parking garage,Other,2005,,300000,8.4,N/A
+211,Golden Gateway Garage,,SFMTA,Parking Garages,parking garage,Other,1965,,226800,8.3,N/A
+1214,SF General Hospital Garage,,SFMTA,Parking Garages,parking garage,Other,1996,,300000,8.1,N/A
+1235,Polk Bush Garage,,SFMTA,Parking Garages,parking garage,Other,1993,,70160,7.8,N/A
+233,Sutter Stockton Garage,,SFMTA,Parking Garages,parking garage,Other,1959,,717970,7.6,N/A
+222,Fifth & Mission Garage,,SFMTA,Parking Garages,parking garage,Other,1957,,992600,7.3,N/A
+215,Moscone Center Garage,,SFMTA,Parking Garages,parking garage,Other,1984,,255444,7.2,N/A
+716,St Mary's Square Parking Garage,,RPD,Parking Garages,parking garage,Other,1952,,245445,7,N/A
+208,Ellis O'Farrell Garage,,SFMTA,Parking Garages,parking garage,Other,1964,,304520,7,N/A
+216,Mission Bartlett Garage,,SFMTA,Parking Garages,parking garage,Other,1983,,113759,6.6,N/A
+231,Performing Arts Garage,,SFMTA,Parking Garages,parking garage,Other,1983,,209896,6.3,N/A
+1219,Japan Center Garage - Fillmore Street Annex,,SFMTA,Parking Garages,parking garage,Other,1965,,59308,6.2,N/A
+1921,North Beach Garage,,SFMTA,Parking Garages,parking garage,Other,2002,,82405,5.5,N/A
+2039,SFUSD -- 1340 Bush Garage,,SFUSD,Parking Garages,parking garage,Other,1969,,13316,5.1,N/A
+710,Lombard Street Garage,,SFMTA,Parking Garages,parking garage,Other,1988,,71263,5,N/A
+213,Japan Center Main Garage,,SFMTA,Parking Garages,parking garage,Other,1965,,237566,4.9,N/A
+509,Castro Station,,SFMTA,Transit Stations,muni station,Other,1972,,31000,77.3,N/A
+1221,Forest Hill Station,,SFMTA,Transit Stations,muni station,Other,1918,1986,26000,69.8,N/A
+513,Embarcadero Station,"The square footage and energy use listed for these shared stations represents the Muni portion only, excluding BART.",SFMTA,Transit Stations,muni station,Other,1972,,56000,66.3,N/A
+510,Church Station,,SFMTA,Transit Stations,muni station,Other,1972,,39000,56.1,N/A
+554,Powell Station,"The square footage and energy use listed for these shared stations represents the Muni portion only, excluding BART.",SFMTA,Transit Stations,muni station,Other,1972,,59000,53.6,N/A
+511,Civic Center Station,"The square footage and energy use listed for these shared stations represents the Muni portion only, excluding BART.",SFMTA,Transit Stations,muni station,Other,1972,,53000,52.1,N/A
+549,Van Ness Station,,SFMTA,Transit Stations,muni station,Other,1972,,42000,51.1,N/A
+504,Montgomery Station,"The square footage and energy use listed for these shared stations represents the Muni portion only, excluding BART.",SFMTA,Transit Stations,muni station,Other,1972,,57000,49.2,N/A
+485,San Francisco International Airport,"A significant portion of the Airport is in operation 24 hours per day. For EUI comparisons among facility types based on average hours of operation, see Appendix B.",SFO,Airport,airport,Other,1954,,42000,97.4,N/A
