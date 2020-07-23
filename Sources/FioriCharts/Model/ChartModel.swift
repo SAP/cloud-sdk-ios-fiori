@@ -122,6 +122,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             // invalidate the plotDataCache
             plotDataCache = nil
             numericAxisTickValuesCache.removeAll()
+            categoryAxisTickValues = nil
+            scale = 1.0
+            startPos = .zero
+            selections = nil
         }
     }
     
@@ -213,7 +217,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                     _indexOfStockSeries = newValue
                     
                     scale = 1.0
-                    startPos = 0
+                    startPos = .zero
                     if selections != nil {
                         selections = nil
                     }
@@ -417,10 +421,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /*
      Internal runtime properties
      */
-    // scale is not allowed to be less than 1.0
+    /// scale is not allowed to be less than 1.0
     @Published var scale: CGFloat = 1.0
-    @Published var startPos: Int = 0
-    @Published var startPosY: CGFloat = 0
+    
+    /// chart's bottom left position when panned or zoomed
+    @Published var startPos: CGPoint = .zero
     
     /// internal property for series data range
     var ranges: [ClosedRange<CGFloat>] = []
@@ -474,7 +479,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         if de.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
         } else if let result = numericAxisTickValuesCache[de] {
-//            print("return numericAxisTickValues from cache, count = \(numericAxisTickValuesCache.count)")
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
@@ -484,8 +488,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             numericAxisTickValuesCache[de] = result
             plotDataCache = nil
-            
-            print("create numericAxisTickValues in chartmodel, count = \(numericAxisTickValuesCache.count)")
             
             return result
         }

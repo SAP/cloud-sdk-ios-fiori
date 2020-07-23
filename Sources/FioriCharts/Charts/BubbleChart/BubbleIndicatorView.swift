@@ -32,8 +32,8 @@ struct BubbleIndicatorView: View {
         var x: CGFloat = 0
         var y: CGFloat = 0
         if selected {
-            x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - CGFloat(model.startPos)
-            y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + model.startPosY
+            x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - model.startPos.x
+            y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + model.startPos.y
         }
         return ZStack {
             if selected {
@@ -42,8 +42,8 @@ struct BubbleIndicatorView: View {
                     Circle()
                         .fill(self.model.colorAt(seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: categoryIndex))
                         .frame(width: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength, height: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
-                        .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - CGFloat(self.model.startPos),
-                                  y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + self.model.startPosY)
+                        .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
+                                  y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
                 }
                 
                 if selectedCategoryRange.count == 1 {

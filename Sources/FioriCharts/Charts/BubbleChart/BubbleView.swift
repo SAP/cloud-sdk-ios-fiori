@@ -18,8 +18,6 @@ struct BubbleView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-//        print("rect: \(rect), \(model.scale), \(model.startPos)")
-        
         let pd = axisDataSource.plotData(model)
         let minLength = min(rect.size.width, rect.size.height) * model.scale
         
@@ -29,17 +27,11 @@ struct BubbleView: View {
                     Circle()
                         .fill(self.model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex))
                         .frame(width: item.rect.size.width * minLength, height: item.rect.size.width * minLength)
-                        .position(x: item.pos.x * self.model.scale * rect.size.width - CGFloat(self.model.startPos),
-                                  y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPosY)
+                        .position(x: item.pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
+                                  y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
                 }
             }
         }.clipped()
-    }
-    
-    func yPosForBubble(item: ChartPlotData, rect: CGRect) -> CGFloat {
-        let y = item.pos.y * model.scale * rect.size.height - model.startPosY
-        // rect.size.height - item.pos.y * model.scale * rect.size.height + model.startPosY
-        return rect.size.height - y
     }
 }
 
