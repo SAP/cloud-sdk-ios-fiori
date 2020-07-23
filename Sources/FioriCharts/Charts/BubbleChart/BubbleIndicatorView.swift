@@ -60,7 +60,7 @@ struct BubbleIndicatorView: View {
                         .stroke(Color.preferredColor(.primary3), lineWidth: 1)
                 }
             }
-        }
+        }.clipped()
     }
 }
 

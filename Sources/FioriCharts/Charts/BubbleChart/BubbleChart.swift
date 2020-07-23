@@ -347,7 +347,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         
         let de = ChartUtility.calculateDataElementsForAxisTickValues(model, secondaryRange: false)
         model.numericAxisTickValuesCache[de] = valueAxisContext
-        print("bubble chart: update numericAxisTickValuesCache, count = \(model.numericAxisTickValuesCache.count)")
+//        print("bubble chart: update numericAxisTickValuesCache, count = \(model.numericAxisTickValuesCache.count)")
         
         // Reset the scales.
         xScale = categoryAxisContext.plotScale

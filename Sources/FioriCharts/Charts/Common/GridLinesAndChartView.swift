@@ -50,7 +50,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 }
                 self.draggingChartView = true
                 let maxPos = rect.size.width * (self.model.scale - 1)
-                let tmpX = self.layoutDirection == .leftToRight ? (CGFloat(self.lastStartPosX) - value.translation.width) : (CGFloat(self.lastStartPosX) + value.translation.width)
+                let tmpX = self.layoutDirection == .leftToRight ? (self.lastStartPosX - value.translation.width) : (self.lastStartPosX + value.translation.width)
                 if self.model.snapToPoint {
                     self.model.startPos.x = self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: rect)
                 } else {
@@ -83,12 +83,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 let tmp = self.lastScale * value.magnitude
                 self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
                 let width = rect.size.width
-                let maxPos = width * (self.model.scale - 1)
                 
-                let midPos: CGFloat = (CGFloat(self.lastStartPosX) + width / 2) / (self.lastScale * width)
-                self.model.startPos.x = max(0, min(midPos * width * self.model.scale - width/2, maxPos))
-                         
-                let middleY = self.lastStartPosY + rect.size.height * self.model.scale / 2
+                let middleX = (self.lastStartPosX + width / 2) * self.model.scale / self.lastScale
+                let tmpX = middleX - width / 2
+                self.model.startPos.x = max(0, min(tmpX, width * (self.model.scale - 1)))
+                
+                let middleY = (self.lastStartPosY + rect.size.height / 2) * self.model.scale / self.lastScale
                 let tmpY = middleY - rect.size.height / 2
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
@@ -96,16 +96,17 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 self.lastScale = self.model.scale
                 self.lastStartPosX = self.model.startPos.x
                 self.lastStartPosY = self.model.startPos.y
+                self.draggingChartView = false
             })
             .exclusively(before: drag)
-        
+
         return ZStack {
             XAxisGridlines()
                 
             YAxisGridlines()
             
             chartView
-                .opacity((draggingChartView || self.model.selections != nil) ? 0.25 : 1.0)
+                .opacity(self.alpha())
             
             indicatorView
             
@@ -131,6 +132,22 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             .gesture(drag)
             .gesture(mag)
             .disabled(!model.userInteractionEnabled)
+        }
+    }
+    
+    func alpha() -> Double {
+        if draggingChartView {
+            return 0.25
+        } else {
+            if model.chartType == .bubble || model.chartType == .scatter {
+                return 1
+            } else {
+                if model.selections != nil {
+                    return 0.25
+                } else {
+                    return 1
+                }
+            }
         }
     }
 }
