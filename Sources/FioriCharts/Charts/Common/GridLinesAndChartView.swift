@@ -15,7 +15,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     
     // scale is not allowed to be less than 1.0
     @State var lastScale: CGFloat = 1.0
-    @State var lastStartPos: Int = 0
+    @State var lastStartPosX: CGFloat = 0
     @State var lastStartPosY: CGFloat = 0
     @GestureState var dragState = DragState.inactive
     
@@ -49,22 +49,21 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     self.model.selections = nil
                 }
                 self.draggingChartView = true
-                let maxPos = Int(rect.size.width * (self.model.scale - 1))
-                let tmpX = self.layoutDirection == .leftToRight ? (CGFloat(self.lastStartPos) - value.translation.width) : (CGFloat(self.lastStartPos) + value.translation.width)
+                let maxPos = rect.size.width * (self.model.scale - 1)
+                let tmpX = self.layoutDirection == .leftToRight ? (CGFloat(self.lastStartPosX) - value.translation.width) : (CGFloat(self.lastStartPosX) + value.translation.width)
                 if self.model.snapToPoint {
-                    self.model.startPos = Int(self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: rect)).clamp(low: 0, high: maxPos)
+                    self.model.startPos.x = self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: rect)
                 } else {
-                    let tmp = Int(tmpX)
-                    self.model.startPos = tmp.clamp(low: 0, high: maxPos)
+                    self.model.startPos.x = max(0, min(tmpX, maxPos))
                 }
+                
                 let tmpY = self.lastStartPosY + value.translation.height
-                self.model.startPosY = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
-                print("yMove = \(value.translation), tmpY = \(tmpY), posY = \(self.model.startPosY)")
+                self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
             .onEnded({ _ in
                 self.draggingChartView = false
-                self.lastStartPos = self.model.startPos
-                self.lastStartPosY = self.model.startPosY
+                self.lastStartPosX = self.model.startPos.x
+                self.lastStartPosY = self.model.startPos.y
             })
         
         // zoom in & out
@@ -84,23 +83,19 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 let tmp = self.lastScale * value.magnitude
                 self.model.scale = tmp.clamp(low: 1.0, high: maxScale)
                 let width = rect.size.width
-                let maxPos: Int = Int(width * (self.model.scale - 1))
+                let maxPos = width * (self.model.scale - 1)
                 
-                let midPos: CGFloat = (CGFloat(self.lastStartPos) + width / 2) / (self.lastScale * width)
-                self.model.startPos = Int(midPos * width * self.model.scale - width/2).clamp(low: 0, high: maxPos)
-                
-//                let midPos: CGFloat = (CGFloat(self.lastStartPos) + width / 2) * self.model.scale
-//                self.model.startPos = Int(midPos - width/2).clamp(low: 0, high: maxPos)
-                
+                let midPos: CGFloat = (CGFloat(self.lastStartPosX) + width / 2) / (self.lastScale * width)
+                self.model.startPos.x = max(0, min(midPos * width * self.model.scale - width/2, maxPos))
+                         
                 let middleY = self.lastStartPosY + rect.size.height * self.model.scale / 2
                 let tmpY = middleY - rect.size.height / 2
-                self.model.startPosY = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
-               print("tmpY = \(tmpY), posY = \(self.model.startPosY)")
+                self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
             .onEnded({ _ in
                 self.lastScale = self.model.scale
-                self.lastStartPos = self.model.startPos
-                self.lastStartPosY = self.model.startPosY
+                self.lastStartPosX = self.model.startPos.x
+                self.lastStartPosY = self.model.startPos.y
             })
             .exclusively(before: drag)
         

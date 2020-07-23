@@ -35,10 +35,9 @@ class StockAxisDataSource: DefaultAxisDataSource {
             return result
         }
         
-        let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int((startPosInFloat / unitWidth).rounded(.up))
-        let endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.down))
+        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
+        let endIndex = Int(((model.startPos.x + width) / unitWidth).rounded(.down))
         
         guard let startDate = getDateAtIndex(model, index: startIndex),
             let endDate = getDateAtIndex(model, index: endIndex) else {
@@ -51,7 +50,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: component, rect: rect)
         } else {
             let indexes: Set = [startIndex, endIndex]
-            let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+            let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
             for i in indexes {
                 let tmpTitle = xAxisFormattedString(model, index: i, component: component)
                 if let title = tmpTitle {
@@ -117,8 +116,8 @@ class StockAxisDataSource: DefaultAxisDataSource {
         
         let width = rect.size.width
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }

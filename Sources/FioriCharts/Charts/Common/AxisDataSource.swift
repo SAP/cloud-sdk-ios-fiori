@@ -45,12 +45,11 @@ class DefaultAxisDataSource: AxisDataSource {
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
-        let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
-        let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
-        let endIndex = max(min(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), count - 1), startIndex)
+        let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
+        let endIndex = max(min(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
@@ -79,12 +78,11 @@ class DefaultAxisDataSource: AxisDataSource {
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
-        let startPosInFloat = CGFloat(model.startPos)
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
-        let startIndex = min(Int((startPosInFloat / unitWidth).rounded(.up)), count - 1)
-        let endIndex = min(max(Int(((startPosInFloat + width) / unitWidth).rounded(.down)), startIndex), count - 1)
+        let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
+        let endIndex = min(max(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) :
             ((startIndex != endIndex) ? [startIndex, endIndex] : [startIndex])
@@ -298,7 +296,7 @@ class DefaultAxisDataSource: AxisDataSource {
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         //return (0, 0, 0, 0)
         let width = rect.size.width
-        let startPosIn = CGFloat(model.startPos)
+        let startPosIn = model.startPos.x
         
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
         let startIndex = Int(startPosIn / unitWidth)
@@ -324,8 +322,8 @@ class DefaultAxisDataSource: AxisDataSource {
         let point = CGPoint(x: x, y: atPoint.y)
         
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int((CGFloat(model.startPos) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - CGFloat(model.startPos).truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
         
         var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))

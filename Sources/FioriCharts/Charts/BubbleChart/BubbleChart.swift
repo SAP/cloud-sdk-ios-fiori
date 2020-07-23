@@ -43,7 +43,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         
         if model.scale == 1.0 {
             let tmpPositions = ticks.tickPositions.map {
-                rect.origin.x + $0 * rect.size.width * model.scale - CGFloat(model.startPos)
+                rect.origin.x + $0 * rect.size.width * model.scale - model.startPos.x
             }
             
             if model.categoryAxis.labelLayoutStyle == .range {
@@ -58,7 +58,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             }
         } else {
             let range = ticks.plotRange / model.scale
-            let plotMinimum = CGFloat(model.startPos) * ticks.plotRange / (model.scale * rect.size.width) + ticks.plotMinimum
+            let plotMinimum = model.startPos.x * ticks.plotRange / (model.scale * rect.size.width) + ticks.plotMinimum
             let stepValue = range / CGFloat(max(1, tickCount - 1))
             
             for index in 0 ..< tickCount {
@@ -110,7 +110,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         } else {
             yAxisLabelsCount = max(Int(ticks.tickCount), 2)
             let range = ticks.plotRange / model.scale
-            let plotMinimum = model.startPosY * ticks.plotRange / (model.scale * rect.size.height) + ticks.plotMinimum
+            let plotMinimum = model.startPos.y * ticks.plotRange / (model.scale * rect.size.height) + ticks.plotMinimum
             let plotMaximum = plotMinimum + range
             let stepValue = range / CGFloat(max(1, yAxisLabelsCount - 1))
             let stepPosition = 1.0 / CGFloat(max(1, yAxisLabelsCount - 1))
@@ -422,8 +422,8 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         for series in pd {
             for plotCat in series {
                 let radius = plotCat.rect.size.width * min(rect.size.width, rect.size.height) * model.scale / 2.0
-                let xPos = plotCat.pos.x * model.scale * rect.size.width - CGFloat(model.startPos)
-                let yPos = (1 - plotCat.pos.y * model.scale) * rect.size.height + model.startPosY
+                let xPos = plotCat.pos.x * model.scale * rect.size.width - model.startPos.x
+                let yPos = (1 - plotCat.pos.y * model.scale) * rect.size.height + model.startPos.y
                 
                 let xMin = xPos - radius
                 let xMax = xPos + radius

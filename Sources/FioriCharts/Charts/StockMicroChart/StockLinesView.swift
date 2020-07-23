@@ -24,15 +24,14 @@ struct StockLinesView: View {
         var noData = false
         var width = rect.size.width
         let height = rect.size.height
-        let startPosInFloat = CGFloat(model.startPos)
         
         let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
-        let startIndex = Int(startPosInFloat / unitWidth)
+        let startIndex = Int(model.startPos.x / unitWidth)
         
-        var endIndex = Int(((startPosInFloat + width) / unitWidth).rounded(.up))
-        let startOffset: CGFloat = -startPosInFloat.truncatingRemainder(dividingBy: unitWidth)
+        var endIndex = Int(((model.startPos.x + width) / unitWidth).rounded(.up))
+        let startOffset: CGFloat = -model.startPos.x.truncatingRemainder(dividingBy: unitWidth)
         
-        var endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
+        var endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - model.startPos.x - width).truncatingRemainder(dividingBy: unitWidth)
     
         if endIndex > ChartUtility.lastValidDimIndex(model) {
             endIndex = ChartUtility.lastValidDimIndex(model)
@@ -44,8 +43,8 @@ struct StockLinesView: View {
         if ChartUtility.isIntraDay(model) {
             let count = ChartUtility.lastValidDimIndex(model)
             
-            width =  min(CGFloat(count) * unitWidth - startPosInFloat, rect.size.width)
-            endOffset = (CGFloat(endIndex) * unitWidth - startPosInFloat - width).truncatingRemainder(dividingBy: unitWidth)
+            width =  min(CGFloat(count) * unitWidth - model.startPos.x, rect.size.width)
+            endOffset = (CGFloat(endIndex) * unitWidth - model.startPos.x - width).truncatingRemainder(dividingBy: unitWidth)
         }
         
         let seriesIndex = model.currentSeriesIndex

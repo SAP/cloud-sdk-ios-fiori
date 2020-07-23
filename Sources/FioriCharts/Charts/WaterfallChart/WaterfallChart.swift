@@ -112,14 +112,14 @@ class WaterfallAxisDataSource: StackedColumnAxisDataSource {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         
-        let startIndex = Int((x + CGFloat(model.startPos)) / (columnXIncrement * model.scale * rect.size.width))
+        let startIndex = Int((x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width))
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
         
         for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
-            let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+            let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
+            let xMax = plotCat.rect.maxX * model.scale * width - model.startPos.x
             
             if x >= xMin && x <= xMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
