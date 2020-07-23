@@ -33,12 +33,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     var indicatorView: Indicator
     var axisDataSource: AxisDataSource
     
-    @State private var yAxisWidth: CGFloat = 20
-    @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
-    @State private var yAxisSize: CGSize = CGSize(width: 20, height: 0)
-    
     init(axisDataSource: AxisDataSource, chartView: Content, indicatorView: Indicator) {
-//        self.model = chartModel
         self.chartView = chartView
         self.indicatorView = indicatorView
         self.axisDataSource = axisDataSource
@@ -219,20 +214,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // spacing btw baseline and labels are 3pt
             width = max(width, size.width + axis.baseline.width / 2.0 + 3)
         }
+        if model.chartType == .bubble || model.chartType == .scatter {
+            model.yAxisMaxWidth = max(width, model.yAxisMaxWidth)
         
-        return width
-    }
-}
-
-extension Comparable {
-    func clamp(low: Self, high: Self) -> Self {
-        if self > high {
-            return high
-        } else if self < low {
-            return low
+            return model.yAxisMaxWidth
+        } else {
+            return width
         }
-        
-        return self
     }
 }
 

@@ -125,6 +125,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             categoryAxisTickValues = nil
             scale = 1.0
             startPos = .zero
+            yAxisMaxWidth = 20
             selections = nil
         }
     }
@@ -441,6 +442,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// Maximum value for z axis values used bubble/scatter chart only
     var zDataMinimumValue: CGFloat?
+    
+    /// used in bubble and scatter
+    var yAxisMaxWidth: CGFloat = 20
     
     /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
