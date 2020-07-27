@@ -486,11 +486,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
-            if numericAxisTickValuesCache.count >= 10 {
+            if numericAxisTickValuesCache.count >= 1 {
                 numericAxisTickValuesCache.removeAll()
             }
             
             numericAxisTickValuesCache[de] = result
+            scale = 1
+            startPos = .zero
+            yAxisMaxWidth = 20
             plotDataCache = nil
             
             return result
@@ -507,7 +510,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
-            if numericAxisTickValuesCache.count > 10 {
+            if numericAxisTickValuesCache.count > 1 {
                 numericAxisTickValuesCache.removeAll()
             }
             

@@ -40,21 +40,28 @@ struct BubbleView: View {
             let selectedSeriesRange = tmp[0]
             
             if selectedSeriesRange.contains(item.seriesIndex) {
-                //print("BubbleView: alpha = 0.66")
                 return 0.66
             } else {
-                //print("BubbleView: alpha = 0.25")
                 return 0.25
             }
         } else {
-            //print("BubbleView: alpha = 0.8")
-            return 0.8
+            return 1.0
         }
     }
 }
 
-//struct BubbleView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BubbleView()
-//    }
-//}
+struct BubbleView_Previews: PreviewProvider {
+    static var previews: some View {
+        let ds = BubbleAxisDataSource()
+        
+        return Group {
+            ForEach(Tests.bubbleModels) {
+                BubbleView()
+                .environmentObject($0)
+                    .environment(\.axisDataSource, ds)
+                    .frame(width: 330, height: 330, alignment: .topLeading)
+                    .previewLayout(.sizeThatFits)
+            }
+        }
+    }
+}

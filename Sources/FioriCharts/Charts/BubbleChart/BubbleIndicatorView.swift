@@ -66,6 +66,16 @@ struct BubbleIndicatorView: View {
 
 struct BubbleIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        BubbleIndicatorView()
+        let ds = BubbleAxisDataSource()
+        
+        return Group {
+            ForEach(Tests.bubbleModels) {
+                BubbleIndicatorView()
+                .environmentObject($0)
+                    .environment(\.axisDataSource, ds)
+                    .frame(width: 330, height: 330, alignment: .topLeading)
+                    .previewLayout(.sizeThatFits)
+            }
+        }
     }
 }
