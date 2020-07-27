@@ -205,6 +205,18 @@ public struct Tests {
                    data3d: Array(SFBuildingFacilityTypes[0 ... 13]).map { type in
                     SFBuildingFacilities[type]!.map { building in
                         [building.yearRennovated, building.eui, building.sqFt]
+                    }}),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.eui, building.yearRennovated, building.sqFt]
+                    }}),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
+                    SFBuildingFacilities[type]!.map { building in
+                        [building.yearRennovated, building.sqFt, building.eui]
                     }})
     ]
     
@@ -212,7 +224,9 @@ public struct Tests {
     public static let bubbleModelsDesc = ["X Axis: year built or last renovated, \nY Axis: kBtu/sq.ft, \nZ Axis: sqft, \nSeries: Airport, Convention Centers, Education, Health & Human Services",
                                           "Series: Hospitals, Libraries, Museums and Art, Offices, preselected a single category",
                                           "Series: last 6 categories, preselected a series",
-                                          "Series: all 14 categories"]
+                                          "Series: all 14 categories",
+                                          "X Axis: kBtu/sq.ft, \nY Axis: year built or last renovated, \nZ Axis: sqft",
+                                          "X Axis: year built or last renovated, \nY Axis: sqft, \nZ Axis: kBtu/sq.ft",]
     
     public static let scattrerModels = [
         ChartModel(chartType: .scatter,

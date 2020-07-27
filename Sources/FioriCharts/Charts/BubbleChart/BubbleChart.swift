@@ -320,35 +320,16 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         if bubblePlotFrame.maxY > 1 {
             maxOffsetY = (bubblePlotFrame.maxY - 1.0) / 1.5
         }
-
-        newMin = dataRange.lowerBound - (dataRange.upperBound - dataRange.lowerBound) * minOffsetY
-        newMax = dataRange.upperBound + (dataRange.upperBound - dataRange.lowerBound) * maxOffsetY
-
-        if model.numericAxis.allowLooseLabels {
-            useLooseLabels = true
-            
-            let valueAxisBaselineValue = newMax < 0.0 ? newMax : max(0.0, newMin)
-            
-            // If the baseline is at zero we aim to always show the baseline with a tick.
-            if valueAxisBaselineValue == 0.0{
-                useLooseLabels = false
-            }
-            
-            model.numericAxis.allowLooseLabels = useLooseLabels
-        }
         
-        valueAxisContext = ChartUtility.axisCreateTicks(model,
-                                                        rangeStart: newMin,
-                                                        rangeEnd: newMax,
-                                                        desiredTickCount: UInt(model.numberOfGridlines),
-                                                        looseLabels: model.numericAxis.allowLooseLabels,
-                                                        fudgeRange: model.numericAxis.fudgeAxisRange,
-                                                        adjustToNiceValues: model.numericAxis.adjustToNiceValues)
+        newMin = dataRange.lowerBound - valueAxisContext.dataRange * minOffsetY
+        newMax = dataRange.upperBound + valueAxisContext.dataRange * maxOffsetY
         
-        let de = ChartUtility.calculateDataElementsForAxisTickValues(model, secondaryRange: false)
-        model.numericAxisTickValuesCache[de] = valueAxisContext
-//        print("bubble chart: update numericAxisTickValuesCache, count = \(model.numericAxisTickValuesCache.count)")
+        model.numericAxis.explicitMin = newMin
+        model.numericAxis.explicitMax = newMax
         
+        // retrieve it
+        valueAxisContext = model.numericAxisTickValues
+                
         // Reset the scales.
         xScale = categoryAxisContext.plotScale
         yScale = valueAxisContext.plotScale
@@ -397,11 +378,6 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         
         model.plotDataCache = result
         
-//        for cc in result {
-//            for item in cc {
-//                print("\(item.seriesIndex), \(item.categoryIndex): \(item.rect)")
-//            }
-//        }
         return result
     }
     
@@ -414,7 +390,8 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
     }
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
-        let pd = plotData(model)
+        // reverse series order to select high series index first
+        let pd = plotData(model).reversed()
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: rect.size.width)
@@ -446,8 +423,14 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
     }
 }
 
-//struct BubbleChart_Previews: PreviewProvider {
-//    static var previews: some View {
-//        BubbleChart()
-//    }
-//}
+struct BubbleChart_Previews: PreviewProvider {
+    static var previews: some View {
+    Group {
+            ForEach(Tests.bubbleModels) {
+                BubbleChart(model: $0)
+                    .frame(width: 330, height: 330, alignment: .topLeading)
+                    .previewLayout(.sizeThatFits)
+            }
+        }
+    }
+}
