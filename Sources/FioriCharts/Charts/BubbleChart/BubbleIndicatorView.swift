@@ -35,12 +35,14 @@ struct BubbleIndicatorView: View {
             x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - model.startPos.x
             y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + model.startPos.y
         }
+        
         return ZStack {
             if selected {
                 // selected bubbles
                 ForEach(selectedCategoryRange, id: \.self) { categoryIndex in
                     Circle()
                         .fill(self.model.colorAt(seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: categoryIndex))
+                        .opacity(0.8)
                         .frame(width: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength, height: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
                         .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
                                   y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)

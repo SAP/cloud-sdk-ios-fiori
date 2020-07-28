@@ -21,31 +21,35 @@ struct BubbleView: View {
         let pd = axisDataSource.plotData(model)
         let minLength = min(rect.size.width, rect.size.height) * model.scale
         
-        return ZStack {
-            ForEach(pd, id: \.self) { category in
-                ForEach(category, id: \.self) { item in
-                    Circle()
-                        .fill(self.model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex))
-                        .opacity(self.alpha(for: item))
-                        .frame(width: item.rect.size.width * minLength, height: item.rect.size.width * minLength)
-                        .position(x: item.pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
-                                  y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
+        var displayPlotData: [ChartPlotData] = []
+        for category in pd {
+            for item in category {
+                if self.isInVisableArea(for: item, rect: rect) {
+                    displayPlotData.append(item)
                 }
+            }
+        }
+        
+        return ZStack {
+            ForEach(displayPlotData, id: \.self) { item in
+                Circle()
+                    .fill(self.model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex))
+                    .opacity(self.model.selections != nil ? 0.25 : 0.8)
+                    .frame(width: item.rect.size.width * minLength, height: item.rect.size.width * minLength)
+                    .position(x: item.pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
+                              y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
             }
         }.clipped()
     }
     
-    func alpha(for item: ChartPlotData) -> Double {
-        if let tmp = model.selections {
-            let selectedSeriesRange = tmp[0]
-            
-            if selectedSeriesRange.contains(item.seriesIndex) {
-                return 0.66
-            } else {
-                return 0.25
-            }
+    func isInVisableArea(for item: ChartPlotData, rect: CGRect) -> Bool {
+        let x = item.pos.x * model.scale * rect.size.width - model.startPos.x
+        let y = (1 - item.pos.y * model.scale) * rect.size.height + model.startPos.y
+        
+        if x >= 0 && x <= rect.size.width && y >= 0 && y <= rect.size.height {
+            return true
         } else {
-            return 1.0
+            return false
         }
     }
 }
@@ -57,7 +61,7 @@ struct BubbleView_Previews: PreviewProvider {
         return Group {
             ForEach(Tests.bubbleModels) {
                 BubbleView()
-                .environmentObject($0)
+                    .environmentObject($0)
                     .environment(\.axisDataSource, ds)
                     .frame(width: 330, height: 330, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)

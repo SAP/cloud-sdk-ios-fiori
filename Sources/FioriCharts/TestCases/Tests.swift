@@ -181,7 +181,7 @@ public struct Tests {
                                              "data = [[nil]]", "data = [[]]"]
     
     public static let bubbleModels = [
-        ChartModel(chartType: .bubble,
+         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
                     SFBuildingFacilities[type]!.map { building in
                         [building.yearRennovated, building.eui, building.sqFt]
@@ -217,7 +217,10 @@ public struct Tests {
                    data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
                     SFBuildingFacilities[type]!.map { building in
                         [building.yearRennovated, building.sqFt, building.eui]
-                    }})
+                    }}),
+        
+        ChartModel(chartType: .bubble,
+                   data3d: [[[1954.0, 97.4, 42000.0]], [[2002.0, 74.3, 77500], [1992.0, 58.3, 129600.0]], [[1924.0, 278, 25600.0], [1913.0, 177.3, 37125.0]]])
     ]
     
     /// descriptions for column models
@@ -226,7 +229,8 @@ public struct Tests {
                                           "Series: last 6 categories, preselected a series",
                                           "Series: all 14 categories",
                                           "X Axis: kBtu/sq.ft, \nY Axis: year built or last renovated, \nZ Axis: sqft",
-                                          "X Axis: year built or last renovated, \nY Axis: sqft, \nZ Axis: kBtu/sq.ft",]
+                                          "X Axis: year built or last renovated, \nY Axis: sqft, \nZ Axis: kBtu/sq.ft",
+                                          "Simple example"]
     
     public static let scattrerModels = [
         ChartModel(chartType: .scatter,

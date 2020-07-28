@@ -74,7 +74,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             let value = tickValues[index]
         
             let nf = NumberFormatter()
-            nf.numberStyle = .decimal
+            nf.numberStyle = .none
             nf.maximumFractionDigits = 0
             
             let title = nf.string(from: NSNumber(value: Float(value))) ?? ""

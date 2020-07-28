@@ -214,13 +214,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // spacing btw baseline and labels are 3pt
             width = max(width, size.width + axis.baseline.width / 2.0 + 3)
         }
-        if model.chartType == .bubble || model.chartType == .scatter {
-            model.yAxisMaxWidth = max(width, model.yAxisMaxWidth)
         
-            return model.yAxisMaxWidth
-        } else {
-            return width
-        }
+        return width
     }
 }
 

@@ -61,6 +61,10 @@ struct LibraryContent : LibraryContentProvider {
             ChartView(ChartModel(chartType: .combo, data: [[200, 170, 165, 143, 166, 112, 110], [150, 120, 130, 135, 120, 138, 137]], titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]], indexesOfSecondaryValueAxis: [1], indexesOfColumnSeries: [0])),
             title: "Combo Chart"
         )
+        LibraryItem(
+            ChartView(ChartModel(chartType: .bubble, data3d: [[[1954.0, 97.4, 42000.0]], [[2002.0, 74.3, 77500], [1992.0, 58.3, 129600.0]], [[1924.0, 278, 25600.0], [1913.0, 177.3, 37125.0]]])),
+            title: "Bubble Chart"
+        )
     }
 }
 #endif
