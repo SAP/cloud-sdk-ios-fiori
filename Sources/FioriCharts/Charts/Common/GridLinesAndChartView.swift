@@ -136,17 +136,13 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     }
     
     func alpha() -> Double {
-        if draggingChartView {
-            return 0.25
+        if model.chartType == .bubble || model.chartType == .scatter {
+            return 1
         } else {
-            if model.chartType == .bubble || model.chartType == .scatter {
-                return 1
+            if model.selections != nil {
+                return 0.25
             } else {
-                if model.selections != nil {
-                    return 0.25
-                } else {
-                    return 1
-                }
+                return 1
             }
         }
     }
@@ -272,7 +268,6 @@ enum DragState {
 
 struct GridLinesAndChartView_Previews: PreviewProvider {
     static var previews: some View {
-        //GridLinesAndChartView()
         GridLinesAndChartView(chartView: LinesView(),
                 indicatorView: LineIndicatorView())
             .environmentObject(Tests.lineModels[0])
