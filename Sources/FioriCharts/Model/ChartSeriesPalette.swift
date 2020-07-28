@@ -31,7 +31,6 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
         self._negativeMinColor = Published(initialValue: negativeMinColor)
     }
 
-
     public convenience init(colors: [Color], labelColor: Color) {
         self.init(colors: colors, fillColor: nil, labelColor: labelColor, positiveMaxColor: labelColor, positiveMinColor: labelColor, negativeMaxColor: labelColor, negativeMinColor: labelColor)
     }

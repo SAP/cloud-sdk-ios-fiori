@@ -108,7 +108,7 @@ enum ChartPlotData: Hashable {
     
     var isPlotRectData: Bool {
         switch self {
-        case .rect(_ ):
+        case .rect:
             return true
         default:
             return false
@@ -277,4 +277,3 @@ struct ChartPlotRectData: Identifiable, Hashable {
         hasher.combine(rect.size.height)
     }
 }
-

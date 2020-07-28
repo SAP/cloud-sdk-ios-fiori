@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct WaterfallSeriesView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
@@ -24,7 +23,7 @@ struct WaterfallSeriesView: View {
                 VStack(spacing: 0) {
                     Spacer(minLength: 0)
                         
-                    ZStack() {
+                    ZStack {
                         LineShape(pos1: CGPoint(x: 0, y: 0),
                                   pos2: CGPoint(x: columnWidth, y: 0),
                                   layoutDirection: self.layoutDirection)
@@ -77,4 +76,3 @@ struct WaterfallSeriesView_Previews: PreviewProvider {
             .environmentObject(model)
     }
 }
-

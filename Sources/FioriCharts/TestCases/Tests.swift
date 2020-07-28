@@ -180,44 +180,52 @@ public struct Tests {
                                              "Net Income Construction EBITDA, nil value, negative total values",
                                              "data = [[nil]]", "data = [[]]"]
     
+    //swiftlint:disable force_unwrapping
+    /// bubble models
     public static let bubbleModels = [
          ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }}),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[4 ... 7]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }},
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   },
                    selections: [0...0, 0...0]),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[8 ... 13]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }},
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   },
                    selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1]),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 13]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }}),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.eui, building.yearRennovated, building.sqFt]
-                    }}),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.eui, building.yearRennovated, building.sqFt]
+                        }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.sqFt, building.eui]
-                    }}),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.sqFt, building.eui]
+                        }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: [[[1954.0, 97.4, 42000.0]], [[2002.0, 74.3, 77500], [1992.0, 58.3, 129600.0]], [[1924.0, 278, 25600.0], [1913.0, 177.3, 37125.0]]])
@@ -232,27 +240,29 @@ public struct Tests {
                                           "X Axis: year built or last renovated, \nY Axis: sqft, \nZ Axis: kBtu/sq.ft",
                                           "Simple example"]
     
+    //swiftlint:disable force_unwrapping
+    /// scatter models
     public static let scattrerModels = [
         ChartModel(chartType: .scatter,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 1]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }
-        }),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   }),
         
         ChartModel(chartType: .scatter,
                    data3d: Array(SFBuildingFacilityTypes[2 ... 3]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }
-        }),
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   }),
         
         ChartModel(chartType: .scatter,
                    data3d: Array(SFBuildingFacilityTypes[4 ... 5]).map { type in
-                    SFBuildingFacilities[type]!.map { building in
-                        [building.yearRennovated, building.eui, building.sqFt]
-                    }
-        })
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui, building.sqFt]
+                        }
+                   })
     ]
     
     /// descriptions for column models
