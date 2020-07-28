@@ -492,7 +492,7 @@ let SFBuildings: [SFBuilding] = [
     SFBuilding(pucCode: "511", facility: "Civic Center Station", bldgCategory: "Transit Stations", facilityType: "muni station", yearBuilt: 1972.0, yearRennovated: nil, sqFt: 53000.0, eui: 52.1),
     SFBuilding(pucCode: "549", facility: "Van Ness Station", bldgCategory: "Transit Stations", facilityType: "muni station", yearBuilt: 1972.0, yearRennovated: nil, sqFt: 42000.0, eui: 51.1),
     SFBuilding(pucCode: "504", facility: "Montgomery Station", bldgCategory: "Transit Stations", facilityType: "muni station", yearBuilt: 1972.0, yearRennovated: nil, sqFt: 57000.0, eui: 49.2),
-    SFBuilding(pucCode: "485", facility: "San Francisco International Airport", bldgCategory: "Airport", facilityType: "airport", yearBuilt: 1954.0, yearRennovated: nil, sqFt: 42000.0, eui: 97.4),
+    SFBuilding(pucCode: "485", facility: "San Francisco International Airport", bldgCategory: "Airport", facilityType: "airport", yearBuilt: 1954.0, yearRennovated: nil, sqFt: 42000.0, eui: 97.4)
 ]
 
 /*
@@ -513,7 +513,7 @@ let SFBuildings: [SFBuilding] = [
  */
 let SFBuildingFacilityTypes = Array(Set(SFBuildings.map { $0.bldgCategory })).sorted()
 
-var SFBuildingFacilities: [String: [SFBuilding]]  {
+var SFBuildingFacilities: [String: [SFBuilding]] {
     var facilities: [String: [SFBuilding]] = [:]
     
     for facilityType in SFBuildingFacilityTypes {

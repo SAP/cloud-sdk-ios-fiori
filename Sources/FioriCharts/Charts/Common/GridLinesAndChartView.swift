@@ -33,6 +33,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
         }
     }
     
+    //swiftlint:disable function_body_length
     func makeBody(in rect: CGRect) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         let drag = DragGesture()

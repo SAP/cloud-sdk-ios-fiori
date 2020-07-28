@@ -29,7 +29,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
     
     func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         if model.plotDataCache == nil {
-            let _ = plotData(model)
+            _ = plotData(model)
         }
         
         guard let ticks = model.categoryAxisTickValues else {
@@ -145,6 +145,8 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         return yAxisLabels
     }
     
+    //swiftlint:disable cyclomatic_complexity
+    //swiftlint:disable function_body_length
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
@@ -188,8 +190,8 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             let zBaselineWithinPlot: Bool = zDataMaximumValue > 0.0 && zDataMinimumValue < 0.0
             
             let zPlotMinimum = !zBaselineWithinPlot ? zDataMinimumValue - zRange * 0.66 : zDataMinimumValue
-            let zPlotMaximum = !zBaselineWithinPlot ? zDataMaximumValue + zRange * 0.66 : zDataMaximumValue;
-            let zPlotRange = zPlotMaximum - zPlotMinimum;
+            let zPlotMaximum = !zBaselineWithinPlot ? zDataMaximumValue + zRange * 0.66 : zDataMaximumValue
+            let zPlotRange = zPlotMaximum - zPlotMinimum
 
             if zPlotRange == 0 {
                 zScale = 0
@@ -238,13 +240,11 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 if dataDimSize >= 3 {
                     radius = value[2] <= 0 ? 0 : zScale * (abs(value[2]) - zBaselineValue) / 2
 
-                    if (useAreaOfBubblesNotWidthOfBubbles)
-                    {
+                    if useAreaOfBubblesNotWidthOfBubbles {
                         let tmpRadius = sqrt(radius * 2 / CGFloat.pi) / 2
                         radius = value[2] <= 0 ? 0 : tmpRadius
                     }
                 }
-                
 
                 let ellipseData = ChartPlotEllipseData(seriesIndex: seriesIndex,
                                                            categoryIndex: valueIndex,
@@ -254,7 +254,6 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                                                            radius: radius,
                                                            selected: false)
                 
-
                 seriesPlotData.append(ChartPlotData.ellipse(ellipse: ellipseData))
                 bubblePlotFrame = bubblePlotFrame.union(ellipseData.rect)
             }
@@ -280,7 +279,6 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         if bubblePlotFrame.maxX > 1 {
             maxOffsetX = (bubblePlotFrame.maxX - 1.0) / 1.5
         }
-
         
         var newMin = xDataMinimumValue - (xDataMaximumValue - xDataMinimumValue) * minOffsetX
         var newMax = xDataMaximumValue + (xDataMaximumValue - xDataMinimumValue) * maxOffsetX
@@ -292,8 +290,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         // If the baseline is at zero we aim to always show the baseline with a tick.
         var useLooseLabels = true
         let tmpValue = newMax < 0.0 ? newMax : max(0, newMin)
-        if (tmpValue == 0)
-        {
+        if tmpValue == 0 {
             useLooseLabels = false
         }
         
@@ -345,7 +342,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             
             // Loop through data points
             for valueIndex in 0 ..< valueCount {
-                let ellipse = result[seriesIndex][valueIndex].plotEclipseData!
+                let ellipse = result[seriesIndex][valueIndex].plotEclipseData ?? ChartPlotEllipseData(seriesIndex: seriesIndex, categoryIndex: valueIndex, values: [0, 0, 0], x: 0, y: 0, radius: 0.1)
 
                 //
                 // Make sure the value is legal
@@ -358,8 +355,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 if dataDimSize >= 3 {
                     radius = ellipse.values[2] <= 0 ? 0 : zScale * (abs(ellipse.values[2]) - zBaselineValue) / 2
 
-                    if (useAreaOfBubblesNotWidthOfBubbles)
-                    {
+                    if useAreaOfBubblesNotWidthOfBubbles {
                         let tmpRadius = sqrt(radius * 2 / CGFloat.pi) / 2
                         radius = value[2] <= 0 ? 0 : tmpRadius
                     }
@@ -407,7 +403,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 let yMin = yPos - radius
                 let yMax = yPos + radius
                 
-                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax{
+                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
                     return (plotCat.seriesIndex, plotCat.categoryIndex)
                 }
             }
@@ -416,8 +412,6 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         return (-1, -1)
     }
     
-    // range selection
-    // swiftlint:disable cyclomatic_complexity
     override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
         return []
     }
@@ -425,7 +419,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
 
 struct BubbleChart_Previews: PreviewProvider {
     static var previews: some View {
-    Group {
+        Group {
             ForEach(Tests.bubbleModels) {
                 BubbleChart(model: $0)
                     .frame(width: 330, height: 330, alignment: .topLeading)

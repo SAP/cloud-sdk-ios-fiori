@@ -18,7 +18,8 @@ struct ComboLinesIndicatorView: View {
         }
     }
     
-    // swiftlint:disable function_body_length
+    //swiftlint:disable function_body_length
+    //swiftlint:disable cyclomatic_complexity
     func makeBody(rect: CGRect) -> some View {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs)

@@ -821,7 +821,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             var tmpZMin: CGFloat?
             var tmpZMax: CGFloat?
             
-            for (_, c) in data3d.enumerated() {
+            for c in data3d {
                 var titles: [String?] = Array(repeating: nil, count: c.count)
                 
                 for (j, d) in c.enumerated() {
@@ -883,7 +883,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 } else {
                     // change the data order from x y z to y z x
                     if chartType == .bubble || chartType == .scatter {
-                        if d.count > 0 {
+                        if !d.isEmpty {
                             let dimX = d[0]
                             var dimYZX = d.dropFirst()
                             dimYZX.append(dimX)
