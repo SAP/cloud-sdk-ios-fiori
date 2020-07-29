@@ -18,7 +18,8 @@ struct ComboLinesIndicatorView: View {
         }
     }
     
-    // swiftlint:disable function_body_length
+    //swiftlint:disable function_body_length
+    //swiftlint:disable cyclomatic_complexity
     func makeBody(rect: CGRect) -> some View {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs)
@@ -53,7 +54,7 @@ struct ComboLinesIndicatorView: View {
                 
                 for i in 0 ..< model.data.count {
                     if selectedSeriesIndexes.contains(i) {
-                        xPos = pd[index][i].pos.x * model.scale * rect.size.width - CGFloat(model.startPos)
+                        xPos = pd[index][i].pos.x * model.scale * rect.size.width - model.startPos.x
                         yPos[i] = (1.0 - pd[index][i].pos.y) * rect.size.height
                     }
                 }
@@ -72,8 +73,8 @@ struct ComboLinesIndicatorView: View {
             }
         }
         
-        let startSelectionPos = pd[selectedCategoryRange.lowerBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - CGFloat(model.startPos)
-        let endSelectionPos = pd[selectedCategoryRange.upperBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - CGFloat(model.startPos)
+        let startSelectionPos = pd[selectedCategoryRange.lowerBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - model.startPos.x
+        let endSelectionPos = pd[selectedCategoryRange.upperBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - model.startPos.x
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         let isSecondary = model.indexesOfSecondaryValueAxis.contains(selectedSeriesIndex)
         let range = ChartUtility.displayRange(model, secondary: isSecondary)

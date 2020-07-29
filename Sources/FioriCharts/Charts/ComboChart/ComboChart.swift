@@ -43,12 +43,12 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         for index in 0...endIndex {
             let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
             if startIndex == -1 {
-                if x >= CGFloat(model.startPos) {
+                if x >= model.startPos.x {
                     startIndex = index
                 }
             }
             
-            if x < CGFloat(model.startPos) + rect.size.width {
+            if x < model.startPos.x + rect.size.width {
                 endIndex = index
             }
         }
@@ -56,16 +56,16 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
-            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - CGFloat(model.startPos)
+            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - model.startPos.x
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
-                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - CGFloat(model.startPos)
+                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - model.startPos.x
                     x = max(0, tmpX) + min(size.width, (rect.size.width - 2) / 2) / 2
                 } else {
-                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - CGFloat(model.startPos)
+                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - model.startPos.x
                     x =  min(tmpX, rect.size.width) - min(size.width, (rect.size.width - 2) / 2) / 2
                 }
             }
@@ -191,11 +191,11 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         let unitWidth = columnXIncrement * model.scale * rect.size.width
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
-        let startIndex = Int(CGFloat(model.startPos) / unitWidth - 1).clamp(low: 0, high: maxDataCount - 1)
-        let startOffset = columnXIncrement * CGFloat(startIndex) * model.scale * rect.size.width - CGFloat(model.startPos)
+        let startIndex = Int(model.startPos.x / unitWidth - 1).clamp(low: 0, high: maxDataCount - 1)
+        let startOffset = columnXIncrement * CGFloat(startIndex) * model.scale * rect.size.width - model.startPos.x
         
-        let endIndex = Int((CGFloat(model.startPos) + rect.size.width) / unitWidth + 1).clamp(low: startIndex, high: maxDataCount - 1)
-        let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - CGFloat(model.startPos) - rect.size.width
+        let endIndex = Int((model.startPos.x + rect.size.width) / unitWidth + 1).clamp(low: startIndex, high: maxDataCount - 1)
+        let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - model.startPos.x - rect.size.width
         
         return (startIndex, endIndex, startOffset, endOffset)
     }
@@ -210,7 +210,7 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         
-        let startIndex = Int((x + CGFloat(model.startPos)) / (columnXIncrement * model.scale * rect.size.width))
+        let startIndex = Int((x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width))
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
@@ -219,8 +219,8 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         var foundCategoryIndex = -1
         for plotCat in pd[startIndex] {
             if plotCat.isPlotRectData {
-                let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
-                let xMax = plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
+                let xMax = plotCat.rect.maxX * model.scale * width - model.startPos.x
                 let yMax = (1.0 - plotCat.rect.minY) * rect.size.height
                 let yMin = (1.0 - plotCat.rect.maxY) * rect.size.height
                 
@@ -230,8 +230,8 @@ class ComboAxisDataSource: DefaultAxisDataSource {
                 }
             } else { // it is a point
                 let diameter = model.seriesAttributes[plotCat.seriesIndex].point.diameter
-                let xMin = plotCat.pos.x * model.scale * width - diameter - CGFloat(model.startPos)
-                let xMax = plotCat.pos.x * model.scale * width + diameter - CGFloat(model.startPos)
+                let xMin = plotCat.pos.x * model.scale * width - diameter - model.startPos.x
+                let xMax = plotCat.pos.x * model.scale * width + diameter - model.startPos.x
                 
                 let yMax = (1.0 - plotCat.pos.y) * rect.size.height + diameter
                 let yMin = (1.0 - plotCat.pos.y) * rect.size.height - diameter
@@ -273,9 +273,9 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         // both fingers locate between two clusters, nothing is selected
         if let maxX = points.last?.x, let minX = points.first?.x {
             if maxX - minX < clusterWidth {
-                let startIndex = Int((maxX + CGFloat(model.startPos)) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+                let startIndex = Int((maxX + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
                 if let plotCat = pd[startIndex].first {
-                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - CGFloat(model.startPos)
+                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - model.startPos.x
 
                     if minX > rightX {
                         return [(-1, -1), (-1, -1)]
@@ -285,11 +285,11 @@ class ComboAxisDataSource: DefaultAxisDataSource {
         }
         
         for (index, pt) in points.enumerated() {
-            let startIndex = Int((pt.x + CGFloat(model.startPos)) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+            let startIndex = Int((pt.x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
             
             if let plotCat = pd[startIndex].first {
-                let xMin = plotCat.rect.minX * model.scale * width - CGFloat(model.startPos)
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - CGFloat(model.startPos)
+                let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
+                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - model.startPos.x
                 
                 if index == 0 {
                     if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {

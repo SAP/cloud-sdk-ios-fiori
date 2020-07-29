@@ -243,7 +243,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
                 allowLooseLabels: Bool = false,
                 fudgeAxisRange: Bool = false,
                 adjustToNiceValues: Bool = true,
-                abbreviatesLabels: Bool = true,
+                abbreviatesLabels: Bool = false,
                 isMagnitudedDisplayed: Bool = true,
                 explicitMin: Double? = nil,
                 explicitMax: Double? = nil,
@@ -254,6 +254,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             self._formatter = Published(initialValue: formatter)
         }
         
@@ -264,6 +265,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         } else {
             let formatter = NumberFormatter()
             formatter.numberStyle = .decimal
+            formatter.maximumFractionDigits = 2
             self._abbreviatedFormatter = Published(initialValue: formatter)
         }
         
@@ -280,7 +282,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     }
     
     public convenience init() {
-        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: true, allowLooseLabels: false, fudgeAxisRange: false, adjustToNiceValues: true, abbreviatesLabels: true, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
+        self.init(axisId: nil, baseline: nil, gridlines: nil, labels: nil, titleLabel: nil, title: nil, isZeroBased: true, allowLooseLabels: false, fudgeAxisRange: false, adjustToNiceValues: true, abbreviatesLabels: false, isMagnitudedDisplayed: true, explicitMin: nil, explicitMax: nil, formatter: nil, abbreviatedFormatter: nil)
     }
     
     // swiftlint:disable force_cast

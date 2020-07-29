@@ -66,6 +66,8 @@ public struct ChartView: View {
                 WaterfallChart(model: chartModel)
             } else if chartModel.chartType == .combo {
                 ComboChart(model: chartModel)
+            } else if chartModel.chartType == .bubble {
+                BubbleChart(model: chartModel)
             } else {
                 NoDataView()
             }

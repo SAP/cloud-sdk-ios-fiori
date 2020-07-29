@@ -129,6 +129,20 @@ class ChartUtility {
         
         let axisAttributes = secondaryRange ? model.secondaryNumericAxis : model.numericAxis
         
+        var useLooseLabels = axisAttributes.allowLooseLabels
+        //
+        // Create value axis tick properties based on min/max and if we need to adjust to nice values.
+        //
+        if useLooseLabels {
+            let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
+            
+            // If the baseline is at zero we aim to always show the baseline with a tick.
+            if valueAxisBaselineValue == 0.0 {
+                useLooseLabels = false
+                axisAttributes.allowLooseLabels = useLooseLabels
+            }
+        }
+        
         return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, allowLooseLabels: axisAttributes.allowLooseLabels, fudgeYAxisRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues, secondaryRange: secondaryRange)
     }
     
@@ -168,10 +182,11 @@ class ChartUtility {
             // If the baseline is at zero we aim to always show the baseline with a tick.
             if valueAxisBaselineValue == 0.0 {
                 useLooseLabels = false
+                axisAttributes.allowLooseLabels = useLooseLabels
             }
         }
         
-        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines + 1), looseLabels: useLooseLabels, fudgeRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues)
+        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines), looseLabels: useLooseLabels, fudgeRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues)
     }
     
     // swiftlint:disable function_parameter_count
