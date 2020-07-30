@@ -74,3 +74,7 @@ FioriSwiftUI.xcodeproj
 **/project.xcworkspace/**
 
 **/.DS_Store
+
+# Snapshot references is a separate git repository which will be cloned by a shell script
+/Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
+/Apps/Examples/cloud-sdk-ios-fiori-snapshot-references/*
