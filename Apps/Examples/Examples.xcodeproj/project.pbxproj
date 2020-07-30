@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A1E99AF24D59D1500ED8A39 /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */; };
-		8A1E99B024D59D1500ED8A39 /* FioriSwiftUI in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A55795724C1286E0098003A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795624C1286E0098003A /* AppDelegate.swift */; };
 		8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795824C1286E0098003A /* SceneDelegate.swift */; };
@@ -16,7 +14,6 @@
 		8A55795D24C1286F0098003A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A55795C24C1286F0098003A /* Assets.xcassets */; };
 		8A55796024C1286F0098003A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A55795F24C1286F0098003A /* Preview Assets.xcassets */; };
 		8A55796324C1286F0098003A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A55796124C1286F0098003A /* LaunchScreen.storyboard */; };
-		8A55796E24C1286F0098003A /* ExamplesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55796D24C1286F0098003A /* ExamplesTests.swift */; };
 		8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55797A24C1293C0098003A /* SettingsColorForCategory.swift */; };
 		8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55797B24C1293C0098003A /* SettingsLabel.swift */; };
 		8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55797C24C1293C0098003A /* SettingColor.swift */; };
@@ -88,6 +85,26 @@
 		8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A557A1D24C12C940098003A /* IntegrationCardsContentView.swift */; };
 		8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A557A2124C12C9B0098003A /* CoreContentView.swift */; };
 		8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A557A2324C12F380098003A /* ChartDetailView.swift */; };
+		8A8B9BDA24D3DA580096000F /* AnalyticalCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B9BD924D3DA580096000F /* AnalyticalCardSnapshotTests.swift */; };
+		8A8B9BDC24D3DADA0096000F /* ListCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A8B9BDB24D3DADA0096000F /* ListCardSnapshotTests.swift */; };
+		8ACBFA1424F7F011009233DE /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8A4A31B824E3564F00B63AF0 /* FioriSwiftUI */; };
+		8ACBFA1524F7F011009233DE /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 8A17AA2C24E211CD00ED8131 /* SnapshotTesting */; };
+		8ACBFA1624F7F011009233DE /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8A4A31BB24E3568700B63AF0 /* FioriSwiftUI */; };
+		8ACBFA1824F7F033009233DE /* ObjectCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACBFA1724F7F033009233DE /* ObjectCardSnapshotTests.swift */; };
+		8AF60E1E24D34553003889A8 /* Snapshotting+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E0F24D34553003889A8 /* Snapshotting+Extensions.swift */; };
+		8AF60E1F24D34553003889A8 /* PresetViewImageConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1024D34553003889A8 /* PresetViewImageConfigs.swift */; };
+		8AF60E2024D34553003889A8 /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1124D34553003889A8 /* XCTestCase+Extensions.swift */; };
+		8AF60E2124D34553003889A8 /* SwiftUI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1224D34553003889A8 /* SwiftUI+Extensions.swift */; };
+		8AF60E2224D34553003889A8 /* BulletChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1424D34553003889A8 /* BulletChartSnapshotTests.swift */; };
+		8AF60E2324D34553003889A8 /* ColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1524D34553003889A8 /* ColumnChartSnapshotTests.swift */; };
+		8AF60E2424D34553003889A8 /* RadialChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1624D34553003889A8 /* RadialChartSnapshotTests.swift */; };
+		8AF60E2524D34553003889A8 /* DonutChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1724D34553003889A8 /* DonutChartSnapshotTests.swift */; };
+		8AF60E2624D34553003889A8 /* ComboChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1824D34553003889A8 /* ComboChartSnapshotTests.swift */; };
+		8AF60E2724D34553003889A8 /* WaterfallChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1924D34553003889A8 /* WaterfallChartSnapshotTests.swift */; };
+		8AF60E2824D34553003889A8 /* LineChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1A24D34553003889A8 /* LineChartSnapshotTests.swift */; };
+		8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */; };
+		8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */; };
+		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,13 +118,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8A4A31BD24E3568700B63AF0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A557A1624C129900098003A /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8A1E99B024D59D1500ED8A39 /* FioriSwiftUI in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,7 +152,6 @@
 		8A55796224C1286F0098003A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A55796424C1286F0098003A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A55796924C1286F0098003A /* ExamplesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExamplesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A55796D24C1286F0098003A /* ExamplesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExamplesTests.swift; sourceTree = "<group>"; };
 		8A55796F24C1286F0098003A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A55797A24C1293C0098003A /* SettingsColorForCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsColorForCategory.swift; sourceTree = "<group>"; };
 		8A55797B24C1293C0098003A /* SettingsLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLabel.swift; sourceTree = "<group>"; };
@@ -202,6 +227,23 @@
 		8A557A1D24C12C940098003A /* IntegrationCardsContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationCardsContentView.swift; sourceTree = "<group>"; };
 		8A557A2124C12C9B0098003A /* CoreContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreContentView.swift; sourceTree = "<group>"; };
 		8A557A2324C12F380098003A /* ChartDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartDetailView.swift; sourceTree = "<group>"; };
+		8A8B9BD924D3DA580096000F /* AnalyticalCardSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticalCardSnapshotTests.swift; sourceTree = "<group>"; };
+		8A8B9BDB24D3DADA0096000F /* ListCardSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardSnapshotTests.swift; sourceTree = "<group>"; };
+		8ACBFA1724F7F033009233DE /* ObjectCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCardSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E0F24D34553003889A8 /* Snapshotting+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Snapshotting+Extensions.swift"; sourceTree = "<group>"; };
+		8AF60E1024D34553003889A8 /* PresetViewImageConfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetViewImageConfigs.swift; sourceTree = "<group>"; };
+		8AF60E1124D34553003889A8 /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
+		8AF60E1224D34553003889A8 /* SwiftUI+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Extensions.swift"; sourceTree = "<group>"; };
+		8AF60E1424D34553003889A8 /* BulletChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1524D34553003889A8 /* ColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1624D34553003889A8 /* RadialChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1724D34553003889A8 /* DonutChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DonutChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1824D34553003889A8 /* ComboChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComboChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1924D34553003889A8 /* WaterfallChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterfallChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1A24D34553003889A8 /* LineChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChartSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarveyBallSnapshotTests.swift; sourceTree = "<group>"; };
+		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,7 +251,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A1E99AF24D59D1500ED8A39 /* FioriSwiftUI in Frameworks */,
+				8ACBFA1424F7F011009233DE /* FioriSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +259,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8ACBFA1624F7F011009233DE /* FioriSwiftUI in Frameworks */,
+				8ACBFA1524F7F011009233DE /* SnapshotTesting in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,7 +314,7 @@
 		8A55796C24C1286F0098003A /* ExamplesTests */ = {
 			isa = PBXGroup;
 			children = (
-				8A55796D24C1286F0098003A /* ExamplesTests.swift */,
+				8AF60E0E24D34553003889A8 /* SnapshotTests */,
 				8A55796F24C1286F0098003A /* Info.plist */,
 			);
 			path = ExamplesTests;
@@ -452,6 +496,46 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		8AF60E0E24D34553003889A8 /* SnapshotTests */ = {
+			isa = PBXGroup;
+			children = (
+				8AF60E2F24D34986003889A8 /* FioriIntegrationCards */,
+				8AF60E0F24D34553003889A8 /* Snapshotting+Extensions.swift */,
+				8AF60E1024D34553003889A8 /* PresetViewImageConfigs.swift */,
+				8AF60E1124D34553003889A8 /* XCTestCase+Extensions.swift */,
+				8AF60E1224D34553003889A8 /* SwiftUI+Extensions.swift */,
+				8AF60E1324D34553003889A8 /* FioriCharts */,
+			);
+			path = SnapshotTests;
+			sourceTree = "<group>";
+		};
+		8AF60E1324D34553003889A8 /* FioriCharts */ = {
+			isa = PBXGroup;
+			children = (
+				8AF60E1424D34553003889A8 /* BulletChartSnapshotTests.swift */,
+				8AF60E1524D34553003889A8 /* ColumnChartSnapshotTests.swift */,
+				8AF60E1624D34553003889A8 /* RadialChartSnapshotTests.swift */,
+				8AF60E1724D34553003889A8 /* DonutChartSnapshotTests.swift */,
+				8AF60E1824D34553003889A8 /* ComboChartSnapshotTests.swift */,
+				8AF60E1924D34553003889A8 /* WaterfallChartSnapshotTests.swift */,
+				8AF60E1A24D34553003889A8 /* LineChartSnapshotTests.swift */,
+				8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */,
+				8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */,
+			);
+			path = FioriCharts;
+			sourceTree = "<group>";
+		};
+		8AF60E2F24D34986003889A8 /* FioriIntegrationCards */ = {
+			isa = PBXGroup;
+			children = (
+				8ACBFA1724F7F033009233DE /* ObjectCardSnapshotTests.swift */,
+				8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */,
+				8A8B9BD924D3DA580096000F /* AnalyticalCardSnapshotTests.swift */,
+				8A8B9BDB24D3DADA0096000F /* ListCardSnapshotTests.swift */,
+			);
+			path = FioriIntegrationCards;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -470,7 +554,7 @@
 			);
 			name = Examples;
 			packageProductDependencies = (
-				8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */,
+				8A4A31B824E3564F00B63AF0 /* FioriSwiftUI */,
 			);
 			productName = Examples;
 			productReference = 8A55795324C1286E0098003A /* Examples.app */;
@@ -483,6 +567,7 @@
 				8A55796524C1286F0098003A /* Sources */,
 				8A55796624C1286F0098003A /* Frameworks */,
 				8A55796724C1286F0098003A /* Resources */,
+				8A4A31BD24E3568700B63AF0 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -490,6 +575,10 @@
 				8A55796B24C1286F0098003A /* PBXTargetDependency */,
 			);
 			name = ExamplesTests;
+			packageProductDependencies = (
+				8A17AA2C24E211CD00ED8131 /* SnapshotTesting */,
+				8A4A31BB24E3568700B63AF0 /* FioriSwiftUI */,
+			);
 			productName = ExamplesTests;
 			productReference = 8A55796924C1286F0098003A /* ExamplesTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -522,6 +611,9 @@
 				Base,
 			);
 			mainGroup = 8A55794A24C1286E0098003A;
+			packageReferences = (
+				8A17AA2B24E211CD00ED8131 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
+			);
 			productRefGroup = 8A55795424C1286E0098003A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -639,7 +731,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A55796E24C1286F0098003A /* ExamplesTests.swift in Sources */,
+				8AF60E2024D34553003889A8 /* XCTestCase+Extensions.swift in Sources */,
+				8A8B9BDA24D3DA580096000F /* AnalyticalCardSnapshotTests.swift in Sources */,
+				8AF60E2324D34553003889A8 /* ColumnChartSnapshotTests.swift in Sources */,
+				8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */,
+				8AF60E2624D34553003889A8 /* ComboChartSnapshotTests.swift in Sources */,
+				8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */,
+				8AF60E2824D34553003889A8 /* LineChartSnapshotTests.swift in Sources */,
+				8AF60E2724D34553003889A8 /* WaterfallChartSnapshotTests.swift in Sources */,
+				8AF60E2524D34553003889A8 /* DonutChartSnapshotTests.swift in Sources */,
+				8AF60E2424D34553003889A8 /* RadialChartSnapshotTests.swift in Sources */,
+				8AF60E2124D34553003889A8 /* SwiftUI+Extensions.swift in Sources */,
+				8AF60E1F24D34553003889A8 /* PresetViewImageConfigs.swift in Sources */,
+				8A8B9BDC24D3DADA0096000F /* ListCardSnapshotTests.swift in Sources */,
+				8ACBFA1824F7F033009233DE /* ObjectCardSnapshotTests.swift in Sources */,
+				8AF60E2224D34553003889A8 /* BulletChartSnapshotTests.swift in Sources */,
+				8AF60E1E24D34553003889A8 /* Snapshotting+Extensions.swift in Sources */,
+				8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,8 +999,28 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		8A17AA2B24E211CD00ED8131 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-snapshot-testing";
+			requirement = {
+				kind = exactVersion;
+				version = 1.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */ = {
+		8A17AA2C24E211CD00ED8131 /* SnapshotTesting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A17AA2B24E211CD00ED8131 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;
+			productName = SnapshotTesting;
+		};
+		8A4A31B824E3564F00B63AF0 /* FioriSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FioriSwiftUI;
+		};
+		8A4A31BB24E3568700B63AF0 /* FioriSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FioriSwiftUI;
 		};

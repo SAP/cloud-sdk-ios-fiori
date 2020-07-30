@@ -24,12 +24,27 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
 - install various git hooks
   - to run a SwiftLint check automatically before pushing your sources to remote
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
-- install Xcode project file and adds a run script to ensure that SwiftLint checks are getting executed when you are working within XCode
+- install Xcode project file
+- clone data related to Snapshot Testing
 
 If you choose to run the script please make sure your dev machine has
 - `python` 3.7+ (includes `pip` as package manager)
   - tip: you can use [pyenv](https://github.com/pyenv/pyenv) to manage and switch between multiple python versions
 - `npm` (with `npx` as package runner which is included with 5.2+)
+
+## Snapshot Testing
+
+In addition to unit tests we verify the visual correctness of our SwiftUI components with the help of [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). The central build will run those tests for pull requests.
+
+To run tests locally you have to download the snapshot reference files which is automatically handled by `setupForCollaborators.sh` script. As an alternative you can use shell script `/scripts/snapshottesting/cloneImages.sh`
+
+Tests can then manually executed in `Apps/Examples` app as part of its unit tests
+
+To add additional snapshot tests please follow this approach:
+1. write your tests. As example see `/Apps/Examples/ExamplesTests/SnapshotTests/FioriCharts/LineChartSnapshotTests.swift`
+2. run tests to record reference images
+3. push reference images (from `/Apps/Examples/cloud-sdk-ios-fiori-snapshot-references`) to its remote and create PR for companion  https://github.com/SAP/cloud-sdk-ios-fiori-snapshot-references repository
+4. finally push your code changes and create PR for this repository
 
 ## Legal stuff
 
