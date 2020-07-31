@@ -68,6 +68,8 @@ public struct ChartView: View {
                 ComboChart(model: chartModel)
             } else if chartModel.chartType == .bubble {
                 BubbleChart(model: chartModel)
+            } else if chartModel.chartType == .scatter {
+                ScatterChart(model: chartModel)
             } else {
                 NoDataView()
             }

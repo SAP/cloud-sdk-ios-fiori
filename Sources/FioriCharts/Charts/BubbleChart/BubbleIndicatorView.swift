@@ -42,8 +42,8 @@ struct BubbleIndicatorView: View {
                 ForEach(selectedCategoryRange, id: \.self) { categoryIndex in
                     Circle()
                         .fill(self.model.colorAt(seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: categoryIndex))
-                        .opacity(0.8)
-                        .frame(width: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength, height: pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
+                        .frame(width: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength,
+                               height: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
                         .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
                                   y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
                 }

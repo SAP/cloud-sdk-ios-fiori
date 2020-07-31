@@ -34,6 +34,7 @@ struct ChartsContentView: View {
          ("Waterfall", Tests.waterfallModels, Tests.waterfallModelsDesc),
          ("Combo", Tests.comboModels, Tests.comboModelsDesc),
          ("Bubble", Tests.bubbleModels, Tests.bubbleModelsDesc),
+         ("Scatter", Tests.scatterModels, Tests.scatterModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
          ("Micro Chart - Column", Tests.columnModels, Tests.columnModelsDesc),
          ("Micro Chart - Radial", Tests.radialModels, Tests.radialModelsDesc),

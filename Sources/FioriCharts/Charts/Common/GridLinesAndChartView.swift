@@ -111,28 +111,30 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            Background(tappedCallback: { (point, chartRect) in
-                let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                
-                ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-            }, doubleTappedCallback: { (_, _) in
-                // clear selections
-                if self.model.selections != nil {
-                    self.model.selections = nil
-                }
-            }) { (points, chartRect) in
-                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
-                    let items = self.axisDataSource.closestSelectedPlotItems(self.model,
-                                                                             atPoints: [points.0, points.1],
-                                                                             rect: chartRect,
-                                                                             layoutDirection: self.layoutDirection)
+            if model.userInteractionEnabled {
+                Background(tappedCallback: { (point, chartRect) in
+                    let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
                     
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
+                }, doubleTappedCallback: { (_, _) in
+                    // clear selections
+                    if self.model.selections != nil {
+                        self.model.selections = nil
+                    }
+                }) { (points, chartRect) in
+                    if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
+                        let items = self.axisDataSource.closestSelectedPlotItems(self.model,
+                                                                                 atPoints: [points.0, points.1],
+                                                                                 rect: chartRect,
+                                                                                 layoutDirection: self.layoutDirection)
+                        
+                        ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                    }
                 }
+                .gesture(drag)
+                .gesture(mag)
+                .disabled(!model.userInteractionEnabled)
             }
-            .gesture(drag)
-            .gesture(mag)
-            .disabled(!model.userInteractionEnabled)
         }
     }
     

@@ -569,7 +569,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: IndexSet,
                 indexesOfColumnSeries: IndexSet,
-                indexesOfTotalsCategories: IndexSet) {
+                indexesOfTotalsCategories: IndexSet,
+                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
         self._chartType = Published(initialValue: chartType)
         self._data = Published(initialValue: data)
         self._titlesForCategory = Published(initialValue: titlesForCategory)
@@ -593,6 +594,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self.indexesOfColumnSeries = indexesOfColumnSeries
         self.indexesOfTotalsCategories = indexesOfTotalsCategories
         self.indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis
+        
+        if let nalfh = numericAxisLabelFormatHandler {
+            self.numericAxisLabelFormatHandler = nalfh
+        }
         
         updateRange()
     }
@@ -621,7 +626,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               indexOfStockSeries: self.indexOfStockSeries,
                               indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
                               indexesOfColumnSeries: self.indexesOfColumnSeries,
-                              indexesOfTotalsCategories: self.indexesOfTotalsCategories)
+                              indexesOfTotalsCategories: self.indexesOfTotalsCategories,
+                              numericAxisLabelFormatHandler: self.numericAxisLabelFormatHandler)
         
         return copy
     }
@@ -647,7 +653,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
-                indexesOfTotalsCategories: [Int]? = nil) {
+                indexesOfTotalsCategories: [Int]? = nil,
+                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
         self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
@@ -760,6 +767,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
         }
         
+        if let nalfh = numericAxisLabelFormatHandler {
+            self.numericAxisLabelFormatHandler = nalfh
+        }
+        
         updateRange()
     }
     
@@ -783,7 +794,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
-                indexesOfTotalsCategories: [Int]? = nil) {
+                indexesOfTotalsCategories: [Int]? = nil,
+                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
         self._chartType = Published(initialValue: chartType)
         if let colorsForCategory = colorsForCategory {
             self._colorsForCategory = Published(initialValue: colorsForCategory)
@@ -968,6 +980,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         if let isva = indexesOfSecondaryValueAxis {
             self.indexesOfSecondaryValueAxis = IndexSet(isva)
+        }
+        
+        if let nalfh = numericAxisLabelFormatHandler {
+            self.numericAxisLabelFormatHandler = nalfh
         }
         
         updateRange()

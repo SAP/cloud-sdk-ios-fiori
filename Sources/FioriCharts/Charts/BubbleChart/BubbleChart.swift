@@ -76,8 +76,15 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             let nf = NumberFormatter()
             nf.numberStyle = .none
             nf.maximumFractionDigits = 0
+            var title = nf.string(from: NSNumber(value: Float(value))) ?? ""
             
-            let title = nf.string(from: NSNumber(value: Float(value))) ?? ""
+            // check the label format handler
+            if let labelHandler = model.numericAxisLabelFormatHandler {
+                if let titleFromApp = labelHandler(Double(value), .category) {
+                    title = titleFromApp
+                }
+            }
+            
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
@@ -156,9 +163,16 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         let seriesCount = model.numOfSeries()
         let dataDimSize = model.data.first?.first?.values?.count ?? 0
         
-        guard let xDataMinimumValue = model.xDataMinimumValue, let xDataMaximumValue = model.xDataMaximumValue, let zDataMinimumValue = model.zDataMinimumValue, let zDataMaximumValue = model.zDataMaximumValue, seriesCount > 0, dataDimSize >= 2 else {
+        guard let xDataMinimumValue = model.xDataMinimumValue, let xDataMaximumValue = model.xDataMaximumValue, seriesCount > 0, dataDimSize >= 2 else {
             return result
         }
+        
+        if model.chartType == .bubble && (model.zDataMinimumValue == nil || model.zDataMaximumValue == nil || dataDimSize < 3) {
+            return result
+        }
+        
+        let zDataMinimumValue = model.zDataMinimumValue ?? 0
+        let zDataMaximumValue = model.zDataMaximumValue ?? 0
         
         let dataRange: ClosedRange<CGFloat> = IndexSet(integersIn: 0 ..< seriesCount).reduce(model.ranges[0]) { (result, i) -> ClosedRange<CGFloat> in
             let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
@@ -185,7 +199,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
         var valueAxisContext = model.numericAxisTickValues
         
         // it is bubble
-        if dataDimSize >= 3 {
+        if model.chartType == .bubble {
             let zRange = zDataMaximumValue == zDataMinimumValue ? 1 :  zDataMaximumValue - zDataMinimumValue
             let zBaselineWithinPlot: Bool = zDataMaximumValue > 0.0 && zDataMinimumValue < 0.0
             
@@ -201,12 +215,13 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
             
             zBaselineValue = zPlotMaximum < 0.0 ? zPlotMaximum : max(0.0, zPlotMinimum)
         }
+        
         xScale = categoryAxisContext.dataScale
         yScale = valueAxisContext.dataScale
         
         let useAreaOfBubblesNotWidthOfBubbles = true
         var bubblePlotFrame = CGRect(x: 0, y: 0, width: 1, height: 1)
-        var value: [CGFloat] = Array(repeating: 0, count: 3)
+        var value: [CGFloat] = Array(repeating: 0, count: max(3, dataDimSize))
         
         // Loop through series
         for seriesIndex in 0 ..< seriesCount {
@@ -226,7 +241,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 value[0] = CGFloat(model.plotItemValue(at: seriesIndex, category: valueIndex, dimension: xDimIndex) ?? 0)
                 value[1] = CGFloat(model.plotItemValue(at: seriesIndex, category: valueIndex, dimension: 0) ?? 0)
                 // it is bubble
-                if dataDimSize >= 3 {
+                if model.chartType == .bubble {
                     let bubbleSizeValue = CGFloat(model.plotItemValue(at: seriesIndex, category: valueIndex, dimension: 1) ?? 0)
                     if bubbleSizeValue > 0 {
                         value[2] = bubbleSizeValue
@@ -237,7 +252,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 let y = yScale * (value[1] - valueAxisContext.dataMinimum)
 
                 var radius: CGFloat = 0.01
-                if dataDimSize >= 3 {
+                if model.chartType == .bubble {
                     radius = value[2] <= 0 ? 0 : zScale * (abs(value[2]) - zBaselineValue) / 2
 
                     if useAreaOfBubblesNotWidthOfBubbles {
@@ -352,7 +367,7 @@ class BubbleAxisDataSource: DefaultAxisDataSource {
                 let y = yScale * (ellipse.values[1] - valueAxisContext.plotMinimum)
 
                 var radius: CGFloat = 0.01
-                if dataDimSize >= 3 {
+                if model.chartType == .bubble {
                     radius = ellipse.values[2] <= 0 ? 0 : zScale * (abs(ellipse.values[2]) - zBaselineValue) / 2
 
                     if useAreaOfBubblesNotWidthOfBubbles {
