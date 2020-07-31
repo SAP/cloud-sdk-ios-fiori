@@ -170,70 +170,70 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 282,
+      "line": 284,
       "symbol": "ChartNumericAxisAttributes.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 287,
+      "line": 289,
       "symbol": "ChartNumericAxisAttributes.copy(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 320,
+      "line": 322,
       "symbol": "ChartNumericAxisAttributes.description",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 396,
+      "line": 398,
       "symbol": "ChartNumericAxisAttributes.abbreviatedFormatter",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 473,
+      "line": 475,
       "symbol": "ChartCategoryAxisAttributes.init(axisId:baseline:gridlines:labels:titleLabel:title:isZeroBased:allowLooseLabels:fudgeAxisRange:adjustToNiceValues:abbreviatesLabels:isMagnitudedDisplayed:explicitMin:explicitMax:formatter:abbreviatedFormatter:labelLayoutStyle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 495,
+      "line": 497,
       "symbol": "ChartCategoryAxisAttributes.init(labelLayoutStyle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 499,
+      "line": 501,
       "symbol": "ChartCategoryAxisAttributes.init()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 504,
+      "line": 506,
       "symbol": "ChartCategoryAxisAttributes.copy(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 526,
+      "line": 528,
       "symbol": "ChartCategoryAxisAttributes.description",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartAxisAttributes.swift",
-      "line": 555,
+      "line": 557,
       "symbol": "ChartAxisAttributes",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
@@ -373,70 +373,70 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 136,
+      "line": 141,
       "symbol": "ChartModel.titlesForAxis",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 201,
+      "line": 206,
       "symbol": "ChartModel.indexOfStockSeries",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 229,
+      "line": 234,
       "symbol": "ChartModel.indexesOfColumnSeries",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 255,
+      "line": 261,
       "symbol": "ChartModel.indexesOfTotalsCategories",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 281,
+      "line": 288,
       "symbol": "ChartModel.indexesOfSecondaryValueAxis",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 526,
-      "symbol": "ChartModel.init(chartType:data:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:)",
+      "line": 553,
+      "symbol": "ChartModel.init(chartType:data:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:numericAxisLabelFormatHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 574,
+      "line": 606,
       "symbol": "ChartModel.copy(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 604,
-      "symbol": "ChartModel.init(chartType:data:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:)",
+      "line": 637,
+      "symbol": "ChartModel.init(chartType:data:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:numericAxisLabelFormatHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 743,
-      "symbol": "ChartModel.init(chartType:data3d:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:)",
+      "line": 778,
+      "symbol": "ChartModel.init(chartType:data3d:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:numericAxisLabelFormatHandler:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartModel.swift",
-      "line": 964,
+      "line": 1076,
       "symbol": "ChartModel.categoryTitles(at:category:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -506,42 +506,42 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 35,
+      "line": 34,
       "symbol": "ChartSeriesPalette.init(colors:labelColor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 39,
+      "line": 38,
       "symbol": "ChartSeriesPalette.init(colors:fillColor:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 45,
+      "line": 44,
       "symbol": "ChartSeriesPalette.init(colors:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 51,
+      "line": 50,
       "symbol": "ChartSeriesPalette.copy(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 98,
+      "line": 97,
       "symbol": "ChartSeriesPalette",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriCharts/Model/ChartSeriesPalette.swift",
-      "line": 110,
+      "line": 109,
       "symbol": "ChartSeriesPalette",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
