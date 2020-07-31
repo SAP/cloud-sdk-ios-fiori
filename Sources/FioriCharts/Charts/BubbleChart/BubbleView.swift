@@ -35,7 +35,8 @@ struct BubbleView: View {
                 Circle()
                     .fill(self.model.colorAt(seriesIndex: item.seriesIndex, categoryIndex: item.categoryIndex))
                     .opacity(self.model.selections != nil ? 0.25 : 0.8)
-                    .frame(width: item.rect.size.width * minLength, height: item.rect.size.width * minLength)
+                    .frame(width: self.model.chartType == .scatter ? 10 : item.rect.size.width * minLength,
+                           height: self.model.chartType == .scatter ? 10 : item.rect.size.width * minLength)
                     .position(x: item.pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
                               y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
             }

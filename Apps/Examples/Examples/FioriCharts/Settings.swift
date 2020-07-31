@@ -43,7 +43,7 @@ struct Settings: View {
                     Slider(value: $model.numberOfGridlines.double, in: 1...20, step: 1)
                 }
                 
-                if model.chartType == .line || model.chartType == .area || model.chartType == .combo || model.chartType == .waterfall {
+                if model.chartType == .stock || model.chartType == .line || model.chartType == .area || model.chartType == .combo || model.chartType == .waterfall {
                     Section(header: Text("Index Set")) {
                         if model.chartType == .stock {
                             Stepper("Index of Stock Series: \(self.model.indexOfStockSeries)", onIncrement: {

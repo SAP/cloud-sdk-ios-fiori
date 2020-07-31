@@ -65,6 +65,10 @@ struct LibraryContent: LibraryContentProvider {
             ChartView(ChartModel(chartType: .bubble, data3d: [[[1954.0, 97.4, 42000.0]], [[2002.0, 74.3, 77500], [1992.0, 58.3, 129600.0]], [[1924.0, 278, 25600.0], [1913.0, 177.3, 37125.0]]])),
             title: "Bubble Chart"
         )
+        LibraryItem(
+            ChartView(ChartModel(chartType: .bubble, data3d: [[[1954.0, 97.4]], [[2002.0, 74.3], [1992.0, 58.3]], [[1924.0, 278], [1913.0, 177.3]]])),
+            title: "Scatter Chart"
+        )
     }
 }
 #endif

@@ -13,6 +13,7 @@ import Combine
 struct ChartDetailView: View {
     @ObservedObject var model: ChartModel
     @State var isFullScreen: Bool = false
+    @State var lenRatio: CGFloat = 1
 //    @State var cancellableSet: Set<AnyCancellable> = []
     
     init(model: ChartModel) {
@@ -37,31 +38,38 @@ struct ChartDetailView: View {
         //print(String(describing: model))
         
         return GeometryReader { geometry in
+            // Portrait mode
             if geometry.size.width <= geometry.size.height {
-                VStack(alignment: .center, spacing: 0) {
-                    ZStack(alignment: .topLeading) {
+                ZStack(alignment: .topLeading) {
+                    Image(systemName: "arrow.up.left.and.arrow.down.right")
+                        .font(.body)
+                        .padding(8)
+                        .onTapGesture {
+                            self.isFullScreen.toggle()
+                    }
+                    
+                    if self.isFullScreen {
+                        VStack {
+                            Slider(value: self.$lenRatio, in: 1.0 ... 3.0)
+                        }.padding(20)
+                    }
+                    
+                    VStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
                             ChartView(self.model)
                                 .padding()
-                                .frame(height: geometry.size.width * 2 / 3)
-                        }.frame(height: self.isFullScreen ? (geometry.size.height - 32) : geometry.size.width * 2 / 3)
+                                .frame(height: self.isFullScreen ? geometry.size.width * 2 * self.lenRatio / 3 : geometry.size.width * 2 / 3)
+                        }.frame(height: self.isFullScreen ? (geometry.size.height) : geometry.size.width * 2 / 3)
                         
-                        Image(systemName: "arrow.up.left.and.arrow.down.right")
-                            .font(.body)
-                            .padding(8)
-                            .onTapGesture {
-                                self.isFullScreen.toggle()
+                        if !self.isFullScreen {
+                            Divider().edgesIgnoringSafeArea(.all)
+                            
+                            Settings(model: self.model)
                         }
-                    }
-                    
-                    if !self.isFullScreen {
-                        Divider().edgesIgnoringSafeArea(.all)
-                        
-                        Settings(model: self.model)
                     }
                 }
             }
-            else {
+            else { // Landscape mode
                 HStack(spacing: 0) {
                     ZStack(alignment: .topLeading) {
                         ChartView(self.model).padding()

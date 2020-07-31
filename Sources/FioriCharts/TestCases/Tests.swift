@@ -188,6 +188,14 @@ public struct Tests {
                         SFBuildingFacilities[type]!.map { building in
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
                    }),
         
         ChartModel(chartType: .bubble,
@@ -196,7 +204,15 @@ public struct Tests {
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
                    },
-                   selections: [0...0, 0...0]),
+                   selections: [0...0, 0...0],
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[8 ... 13]).map { type in
@@ -204,13 +220,29 @@ public struct Tests {
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
                    },
-                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1]),
+                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1],
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
         
         ChartModel(chartType: .bubble,
                    data3d: Array(SFBuildingFacilityTypes[0 ... 13]).map { type in
                         SFBuildingFacilities[type]!.map { building in
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
                    }),
         
         ChartModel(chartType: .bubble,
@@ -218,6 +250,14 @@ public struct Tests {
                         SFBuildingFacilities[type]!.map { building in
                             [building.eui, building.yearRennovated, building.sqFt]
                         }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
                    }),
         
         ChartModel(chartType: .bubble,
@@ -225,6 +265,14 @@ public struct Tests {
                         SFBuildingFacilities[type]!.map { building in
                             [building.yearRennovated, building.sqFt, building.eui]
                         }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
                    }),
         
         ChartModel(chartType: .bubble,
@@ -242,33 +290,111 @@ public struct Tests {
     
     //swiftlint:disable force_unwrapping
     /// scatter models
-    public static let scattrerModels = [
-        ChartModel(chartType: .scatter,
-                   data3d: Array(SFBuildingFacilityTypes[0 ... 1]).map { type in
-                        SFBuildingFacilities[type]!.map { building in
-                            [building.yearRennovated, building.eui, building.sqFt]
-                        }
-                   }),
-        
-        ChartModel(chartType: .scatter,
+    public static let scatterModels = [
+         ChartModel(chartType: .scatter,
                    data3d: Array(SFBuildingFacilityTypes[2 ... 3]).map { type in
                         SFBuildingFacilities[type]!.map { building in
-                            [building.yearRennovated, building.eui, building.sqFt]
+                            [building.yearRennovated, building.eui]
                         }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
                    }),
         
         ChartModel(chartType: .scatter,
-                   data3d: Array(SFBuildingFacilityTypes[4 ... 5]).map { type in
+                   data3d: Array(SFBuildingFacilityTypes[4 ... 7]).map { type in
                         SFBuildingFacilities[type]!.map { building in
-                            [building.yearRennovated, building.eui, building.sqFt]
+                            [building.yearRennovated, building.eui]
                         }
-                   })
+                   },
+                   selections: [0...0, 0...0],
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[8 ... 13]).map { type in
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui]
+                        }
+                   },
+                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1],
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 13]).map { type in
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.eui]
+                        }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.eui, building.yearRennovated]
+                        }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: Array(SFBuildingFacilityTypes[0 ... 3]).map { type in
+                        SFBuildingFacilities[type]!.map { building in
+                            [building.yearRennovated, building.sqFt]
+                        }
+                   },
+                   numericAxisLabelFormatHandler: { val, axisId in
+                       if axisId == .y || axisId == .category {
+                           let intVal = Int(val)
+                           return "\(intVal)"
+                       } else {
+                           return nil
+                       }
+                   }),
+        
+        ChartModel(chartType: .scatter,
+                   data3d: [[[1954.0, 97.4]], [[2002.0, 74.3], [1992.0, 58.3]], [[1924.0, 278], [1913.0, 177.3]]])
     ]
     
     /// descriptions for column models
-    public static let scatterModelsDesc = ["Series Airport, Convention Centers",
-                                          "Series Education, Health & Human Services",
-                                          "Series Hospitals, Libraries"]
+    public static let scatterModelsDesc = ["X Axis: year built or last renovated, \nY Axis: kBtu/sq.ft, \nSeries: Education, Health & Human Services",
+                                           "Series: Hospitals, Libraries, Museums and Art, Offices, preselected a single category",
+                                           "Series: last 6 categories, preselected a series",
+                                           "Series: all 14 categories",
+                                           "X Axis: kBtu/sq.ft, \nY Axis: year built or last renovated",
+                                           "X Axis: year built or last renovated, \nY Axis: sqft",
+                                           "Simple example"]
     
     /// line and area models for test
     public static let comboModels = [
