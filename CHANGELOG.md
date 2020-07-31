@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit guidelines.
 
+## 0.5.5 (2020-07-31)
+
+### Features
+
+* 🎸 add scatter chart ([2dc3fd1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2dc3fd1a858007b2c4ffbbae440f41ff31c6d1c8))
+* 🎸 support for bubble chart ([#85](https://github.com/SAP/cloud-sdk-ios-fiori/issues/85)) ([4f77e3f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4f77e3f5e514b4483d83df89f1975d9cfbbb27e4))
+
+### Bug Fixes
+
+* fix visualization for iOS 14 widgets ([2dc3fd1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2dc3fd1a858007b2c4ffbbae440f41ff31c6d1c8)), closes [#87](https://github.com/SAP/cloud-sdk-ios-fiori/issues/87)
+
 ## 0.5.4 (2020-07-21)
 
 ### ⚠ BREAKING CHANGES
