@@ -131,11 +131,7 @@ See **Limitations**.
 
 ## Examples
 
-Functionality can be further explored with a demo app which are already part of this package. To work with this app, you must generate the xcodeproj file for the package.  
-
-From the root of the repo run  `swift package generate-xcodeproj`
-
-Then use `/Apps/Apps.xcworkspace` ton run `Examples`.
+Functionality can be further explored with a demo app  which is already part of this package (`Apps/Examples/Examples.xcodeproj`).
 
 <p>
 <img src="https://user-images.githubusercontent.com/4176826/88093416-d7fc3200-cb46-11ea-81a3-0fb12a6f9776.gif" alt="Demo app with examples" width="300" height="500">
