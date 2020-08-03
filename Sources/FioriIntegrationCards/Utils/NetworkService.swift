@@ -33,11 +33,7 @@ enum NetworkRouter: String {
         urlRequest.allowsConstrainedNetworkAccess   = requestObject.withCredentials
         
         if requestObject.method == "POST" {
-            do {
-                urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestObject.parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-            } catch let error {
-                print(error.localizedDescription)
-            }
+            urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestObject.parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
         }
         
         for header in requestObject.headers {

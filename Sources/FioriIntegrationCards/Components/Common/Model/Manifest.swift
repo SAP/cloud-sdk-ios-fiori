@@ -36,12 +36,10 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
     public init(withCardBundleAt path: URL) throws {
         var _model: Manifest!
         let _path = path.appendingPathComponent("manifest.json")
-        do {
-            let data = try Data(contentsOf: _path)
-            _model = try JSONDecoder().decode(Manifest.self, from: data)
-        } catch {
-            print(error)
-        }
+    
+        let data = try Data(contentsOf: _path)
+        _model = try JSONDecoder().decode(Manifest.self, from: data)
+    
         self.app        = _model.app
         self.card       = _model.card
         self.baseURL    = path
@@ -54,23 +52,16 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
             baseURL = destinationDir
         } else {
             let sourceFile = Bundle.main.url(forResource: fileName, withExtension: ".zip")!
-            do {
-                try Zip.unzipFile(sourceFile, destination: FileManager.default.temporaryDirectory, overwrite: true, password: nil)
-                baseURL = destinationDir
-            } catch {
-                print(error)
-            }
+            try Zip.unzipFile(sourceFile, destination: FileManager.default.temporaryDirectory, overwrite: true, password: nil)
+            baseURL = destinationDir
         }
         
         var _model: Manifest!
         let path = destinationDir.appendingPathComponent("manifest.json")
-        do {
-            let data = try Data(contentsOf: path)
-            _model = try JSONDecoder().decode(Manifest.self, from: data)
-        } catch {
-            print(error)
-        }
         
+        let data = try Data(contentsOf: path)
+        _model = try JSONDecoder().decode(Manifest.self, from: data)
+
         self.app    = _model.app
         self.card   = _model.card
         
