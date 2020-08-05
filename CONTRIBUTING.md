@@ -33,21 +33,6 @@ If you choose to run the script please make sure your dev machine has
 
 ## Legal stuff
 
-### Contributors License Agreement
+### Developer Certificate of Origin (DCO)
 
-We require you to agree and sign a Contributors License Agreement for code contribution.
-
-Sign your CLA [here](https://cla-assistant.io/SAP/cloud-sdk-ios-fiori). You only have to do it once 😊 
-
-This is common practice in all major Open Source projects. 
-
-### Company Contributors
-
-If employees of a company contribute code, in **addition** to the individual agreement above, there needs to be one company agreement submitted. This is mainly for the protection of the contributing employees.
-
-A company representative authorized to do so needs to download, fill, and print
-the [Corporate Contributor License Agreement](https://github.com/SAP/openui5/blob/master/docs/SAP%20Corporate%20Contributor%20License%20Agreement.pdf) form. Then either:
-
--   Scan it and e-mail it to [opensource@sap.com](mailto:opensource@sap.com) and [cloud-sdk-ios-fiori@sap.com](mailto:cloud-sdk-ios-fiori@sap.com)
--   Fax it to: +49 6227 78-45813
--   Send it by traditional letter to: *Industry Standards & Open Source Team, Dietmar-Hopp-Allee 16, 69190 Walldorf, Germany*
+Due to legal reasons, contributors will be asked to accept a DCO before they submit the first pull request to this projects, this happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).

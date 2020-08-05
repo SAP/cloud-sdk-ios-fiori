@@ -136,8 +136,3 @@ Functionality can be further explored with a demo app  which is already part of 
 <p>
 <img src="https://user-images.githubusercontent.com/4176826/88093416-d7fc3200-cb46-11ea-81a3-0fb12a6f9776.gif" alt="Demo app with examples" width="300" height="500">
 </p>
-
-## License
-
-Copyright (c) 2020 SAP SE or an SAP affiliate company. All rights reserved.
-This file is licensed under the Apache-2.0 license except as noted otherwise in the [LICENSE](/LICENSE) and [NOTICE](/NOTICE) files.
