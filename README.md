@@ -17,6 +17,7 @@
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3962/badge?latest)](https://bestpractices.coreinfrastructure.org/projects/3962)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP/cloud-sdk-ios-fiori)](https://api.reuse.software/info/github.com/SAP/cloud-sdk-ios-fiori)
 
 </div>
 
