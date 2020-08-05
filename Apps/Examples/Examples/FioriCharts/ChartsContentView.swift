@@ -69,7 +69,11 @@ struct ChartHomeView: View {
         }
         .navigationBarTitle(info.0)
         .sheet(isPresented: $showingDetail) {
-            ChartDetailView(model: self.currentModel!)
+            if self.currentModel != nil {
+                ChartDetailView(model: self.currentModel!)
+            } else {
+                Text("Error: try to switch model for same chart type")
+            }
         }
     }
     
