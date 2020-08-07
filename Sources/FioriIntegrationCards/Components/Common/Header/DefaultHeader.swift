@@ -34,7 +34,7 @@ extension DefaultHeader: Placeholding {
         let _subTitle    = subTitle?.replacingPlaceholders(withValuesIn: object)
         let _actions     = actions /// TODO:  implement replacingPlaceholders for `actions`
         let _icon        = icon?.replacingPlaceholders(withValuesIn: object)
-        let _status      = status?.replacingPlaceholders(withValuesIn: object)
+        let _status      = status
         return DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
     }
 }
