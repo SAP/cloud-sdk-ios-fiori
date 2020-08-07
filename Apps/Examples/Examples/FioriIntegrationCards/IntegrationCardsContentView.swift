@@ -59,12 +59,14 @@ struct IntegrationCardsContentView: View {
             #if swift(>=5.3)
             if #available(iOS 14.0, *) {
                 ScrollView {
+                    // wrap LazyVGrid in 2AnyView to avoid crash when using Xcode 12 to run on iOS 13.x, see https://developer.apple.com/forums/thread/650818
+                    AnyView(
                     LazyVGrid(columns: [ GridItem(spacing: 0), GridItem(spacing: 0)], spacing: 0) {
                         ForEach(InlineTestCases.allCases) { bundle in
                             LoadingView(card: bundle)
                         }
                     }
-                    .tabItem({ Text("Collection View") })
+                    .tabItem({ Text("Collection View") }))
                 }.tabItem { Text("Collection View") }
             }
             #endif
