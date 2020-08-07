@@ -26,8 +26,14 @@ public struct ListCardView: View {
     public var body: some View {
         VStack {
             Group {
-                HeaderView(model: model.header)
-                    .padding(.bottom, -30)
+                if ProcessInfo().isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 14, minorVersion: 0, patchVersion: 0)) {
+                    HeaderView(model: model.header)
+                        .padding(.bottom, -1)
+                } else {
+                    HeaderView(model: model.header)
+                        .padding(.bottom, -30)
+                }
+
                 Divider().accentColor(Color.primary)
                 VStack(alignment: .leading) {
                     ForEach(model.content) {
