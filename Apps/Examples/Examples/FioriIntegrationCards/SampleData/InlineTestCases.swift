@@ -10,9 +10,11 @@ import Foundation
 import FioriIntegrationCards
 
 enum InlineTestCases: String, CaseIterable, Identifiable {
-    case analytical = "analytical_dataInCardLevel"
-    case list       = "list_dataInCardLevel"
-    case timeLine   = "timeline_dataInCardLevel"
+    case analytical = "analytical"
+    case list       = "list"
+    case timeLine   = "timeline"
+    case object     = "object"
+    case table      = "table"
     
     var id: String {
         return rawValue
