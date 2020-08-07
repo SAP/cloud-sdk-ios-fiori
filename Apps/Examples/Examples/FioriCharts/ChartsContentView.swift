@@ -69,11 +69,7 @@ struct ChartHomeView: View {
         }
         .navigationBarTitle(info.0)
         .sheet(isPresented: $showingDetail) {
-            if self.currentModel != nil {
-                ChartDetailView(model: self.currentModel!)
-            } else {
-                Text("Error: try to switch model for same chart type")
-            }
+            ChartDetailView(model: self.currentModel!)
         }
     }
     
@@ -82,6 +78,7 @@ struct ChartHomeView: View {
         return List {
             ForEach(0 ..< self.info.1.count) { i in
                 VStack(alignment: .center) {
+                    Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
                     ChartView(self.info.1[i])
                         .frame(width: width, height: width / 2.14 )
 
