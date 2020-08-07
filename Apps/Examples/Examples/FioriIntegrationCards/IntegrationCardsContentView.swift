@@ -55,9 +55,22 @@ struct IntegrationCardsContentView: View {
                 }
             }
             .tabItem { Text("Test Cases") }
-            CollectionView<[Manifest], Card>(data: InlineTestCases.allCases.compactMap({ $0.manifest() }), layout: flowLayout(for:containerSize:sizes:), content: { $0.card })
-                .tabItem({ Text("Collection View") })
-        }.navigationBarTitle("FioriIntegrationCards")
+
+            #if swift(>=5.3)
+            if #available(iOS 14.0, *) {
+                ScrollView {
+                    LazyVGrid(columns: [ GridItem(spacing: 0), GridItem(spacing: 0)], spacing: 0) {
+                        ForEach(InlineTestCases.allCases) { bundle in
+                            LoadingView(card: bundle)
+                        }
+                    }
+                    .tabItem({ Text("Collection View") })
+                }.tabItem { Text("Collection View") }
+            }
+            #endif
+
+        }
+        .navigationBarTitle("FioriIntegrationCards")
     }
 }
 
