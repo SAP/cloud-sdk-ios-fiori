@@ -26,13 +26,6 @@ jobs:
         with:
             configFile: '.github/configActions/commitlint.config.js'
 
-  SwiftLint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: GitHub Action for SwiftLint
-        uses: norio-nomura/action-swiftlint@3.1.0
-
   ReuseComplianceCheck:
     runs-on: ubuntu-latest
     steps:
