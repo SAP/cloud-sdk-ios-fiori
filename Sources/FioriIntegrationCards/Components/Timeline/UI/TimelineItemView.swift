@@ -28,8 +28,8 @@ struct TimelineItemView: View {
         HStack(alignment: .top) {
             VStack {
                 SafeView(self.model.icon)
-                    .frame(width: iconWidth, height: iconWidth, alignment: .top)
                     .padding(.bottom, -30)
+                    .frame(width: iconWidth, height: iconWidth, alignment: .top)
                 if !self.isLast {
                     VerticalLine()
                         .stroke(Color.darkGray, lineWidth: 0.6)
