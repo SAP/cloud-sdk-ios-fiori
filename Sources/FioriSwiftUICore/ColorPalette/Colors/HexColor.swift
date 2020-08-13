@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import UIKit
 
 public struct HexColor: Hashable {
     /// :nodoc:
@@ -14,18 +15,32 @@ public struct HexColor: Hashable {
     
     /// Constructs a `HexColor` by defining a pair of hex colors to match `.light` and `.dark` background color scheme.
     ///
-    /// - parameter lightColor: a hex color (RGB or RGBA) for `.dark` background color scheme, default is `000000`.
-    /// - parameter darkColor: a hex color (RGB or RGBA) for `light` background color scheme, default is `FFFFFF`.
-    public init(lightColor: String? = nil, darkColor: String? = nil) {
-        self.colors = [.light: "000000FF", .dark: "FFFFFFFF"]
+    /// - parameters:
+    ///     - lightColor: a hex color (RGB or RGBA) for `dark` background color scheme, default is `000000`.
+    ///     - darkColor: a hex color (RGB or RGBA) for `light` background color scheme, default is `FFFFFF`.
+    ///     - elevatedLightColor: a hex color (RGB or RGBA) for `elevated` user interface in the `dark` background color scheme, default is `000000`.
+    ///     - elevatedDarkColor: a hex color (RGB or RGBA) for `elevated` user interface in the `light` background color scheme, default is `FFFFFF`.
+    public init(lightColor: String? = nil, darkColor: String? = nil, elevatedLightColor: String? = nil, elevatedDarkColor: String? = nil) {
+        self.colors = [.light: "000000FF", .dark: "FFFFFFFF", .elevatedLight: "000000FF", .elevatedDark: "FFFFFFFF"]
         
         if let color = lightColor {
             colors[.light] = color
             colors[.dark] = color
+            colors[.elevatedLight] = color
+            colors[.elevatedDark] = color
         }
         
         if let color = darkColor {
             colors.updateValue(color, forKey: .dark)
+            colors.updateValue(color, forKey: .elevatedDark)
+        }
+        
+        if let color = elevatedLightColor {
+            colors.updateValue(color, forKey: .elevatedLight)
+        }
+        
+        if let color = elevatedDarkColor {
+            colors.updateValue(color, forKey: .elevatedDark)
         }
     }
     
@@ -40,10 +55,12 @@ public struct HexColor: Hashable {
     
     /// Returns a RGBA values tuple that matches with the specified background color scheme from `HexColor`.
     ///
-    /// - parameter colorScheme: specifies the background color scheme.  Defaults to `.light`.
+    /// - parameters:
+    ///     - colorScheme: specifies the background color scheme.  Defaults to `.light`.
+    ///     - interfaceLevel: specifies the level of user interface.  Defaults to `.base`.
     /// - Returns: a tuple of RGBA values for corresponding `HexColor`.
-    public func rgba(_ colorScheme: ColorScheme = .light) -> (r: Double, g: Double, b: Double, a: Double) {
-        let hexString = hex(colorScheme)
+    public func rgba(_ colorScheme: ColorScheme = .light, _ interfaceLevel: UIUserInterfaceLevel = .base) -> (r: Double, g: Double, b: Double, a: Double) {
+        let hexString = hex(colorScheme, interfaceLevel)
         
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
@@ -66,11 +83,24 @@ public struct HexColor: Hashable {
     }
     
     /// :nodoc:
-    private func hex(_ colorScheme: ColorScheme = .light) -> String {
+    private func hex(_ colorScheme: ColorScheme = .light, _ interfaceLevel: UIUserInterfaceLevel = .base) -> String {
         let colorVariant: ColorVariant = colorScheme == .light ? .dark : .light
         
-        if let hex = colors[colorVariant] {
-            return hex
+        switch (colorVariant, interfaceLevel) {
+        case (_, .base):
+            if let hex = colors[colorVariant] {
+                return hex
+            }
+        case (.light, .elevated):
+            if let hex = colors[.elevatedLight] {
+                return hex
+            }
+        case (.dark, .elevated):
+            if let hex = colors[.elevatedDark] {
+                return hex
+            }
+        default:
+            return "FFFFFFFF"
         }
         
         return "FFFFFFFF"
@@ -81,7 +111,7 @@ extension HexColor: Equatable {
     /// :nodoc:
     public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
         return lhs.hex(.light) == rhs.hex(.light) &&
-            lhs.hex(.dark) == rhs.hex(.dark)
+            lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.light, .elevated) == rhs.hex(.light, .elevated) && lhs.hex(.dark, .elevated) == rhs.hex(.dark, .elevated)
     }
 }
 
@@ -89,7 +119,9 @@ extension HexColor: CustomStringConvertible {
     /// :nodoc:
     public var description: String {
         return """
-                 {"HexColor": {"light": "\(hex(.light))", "dark": "\(hex(.dark))"}}
+                 {"HexColor": {"base light": "\(hex(.light))", "base dark": "\(hex(.dark))",
+                               "elevated light": "\(hex(.light, .elevated))",
+                               "elevated dark": "\(hex(.dark, .elevated))"}}
                """
     }
 }
