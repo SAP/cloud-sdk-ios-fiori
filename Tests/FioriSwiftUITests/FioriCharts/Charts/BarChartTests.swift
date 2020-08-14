@@ -8,6 +8,7 @@
 import XCTest
 @testable import FioriCharts
 
+// swiftlint:disable force_unwrapping
 class BarChartTests: XCTestCase {
 
     override func setUpWithError() throws {

@@ -67,7 +67,7 @@ struct BarPlotView: View {
 struct BarPlotView_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-            let model = $0.copy() as! ChartModel
+            let model = $0
             model.chartType = .bar
             return model
         }
