@@ -74,14 +74,14 @@ class BarChartTests: XCTestCase {
 
         XCTAssertTrue(pd[0].count == 1)
         XCTAssertEqual(pd[0][0].rect.origin.x, 0, accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.origin.y, 0 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.width, 1.0 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.height, 0.111 , accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.origin.y, 0, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.width, 1.0, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.height, 0.111, accuracy: 0.001)
         
         XCTAssertEqual(pd[1][0].rect.origin.x, 0, accuracy: 0.001)
-        XCTAssertEqual(pd[1][0].rect.origin.y, 0.1481 , accuracy: 0.001)
-        XCTAssertEqual(pd[1][0].rect.size.width, 0.85 , accuracy: 0.001)
-        XCTAssertEqual(pd[1][0].rect.size.height, 0.111 , accuracy: 0.001)
+        XCTAssertEqual(pd[1][0].rect.origin.y, 0.1481, accuracy: 0.001)
+        XCTAssertEqual(pd[1][0].rect.size.width, 0.85, accuracy: 0.001)
+        XCTAssertEqual(pd[1][0].rect.size.height, 0.111, accuracy: 0.001)
     }
     
     func testNegativeValuesPlotData() throws {
@@ -94,14 +94,14 @@ class BarChartTests: XCTestCase {
 
         XCTAssertTrue(pd[0].count == 2)
         XCTAssertEqual(pd[0][0].rect.origin.x, 0.5909, accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.origin.y, 0 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.width, 0.409 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.height, 0.0319 , accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.origin.y, 0, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.width, 0.409, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.height, 0.0319, accuracy: 0.001)
         
         XCTAssertEqual(pd[1][1].rect.origin.x, 0.159, accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.origin.y, 0.1170 , accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.size.width, 0.8409 , accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.size.height, 0.0319 , accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.origin.y, 0.1170, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.size.width, 0.8409, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.size.height, 0.0319, accuracy: 0.001)
     }
     
     func testMixedValuesPlotData() throws {
@@ -114,14 +114,14 @@ class BarChartTests: XCTestCase {
 
         XCTAssertTrue(pd[0].count == 2)
         XCTAssertEqual(pd[4][0].rect.origin.x, 0.3333, accuracy: 0.001)
-        XCTAssertEqual(pd[4][0].rect.origin.y, 0.3404 , accuracy: 0.001)
-        XCTAssertEqual(pd[4][0].rect.size.width, 0.1428 , accuracy: 0.001)
-        XCTAssertEqual(pd[4][0].rect.size.height, 0.0319 , accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.origin.y, 0.3404, accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.size.width, 0.1428, accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.size.height, 0.0319, accuracy: 0.001)
         
         XCTAssertEqual(pd[4][1].rect.origin.x, 0.47619, accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.origin.y, 0.3723 , accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.size.width, 0.3928 , accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.size.height, 0.0319 , accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.origin.y, 0.3723, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.size.width, 0.3928, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.size.height, 0.0319, accuracy: 0.001)
     }
 
     func testPerformanceExample() throws {
@@ -133,7 +133,7 @@ class BarChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                let _ = dataSource.plotData(model)
+                _ = dataSource.plotData(model)
             }
         }
     }

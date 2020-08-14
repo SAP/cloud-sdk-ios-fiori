@@ -89,7 +89,7 @@ class ScatterChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                let _ = dataSource.plotData(model)
+                _ = dataSource.plotData(model)
             }
         }
     }
