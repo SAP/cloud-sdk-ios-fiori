@@ -74,9 +74,9 @@ class BubbleChartTests: XCTestCase {
         //print("pd = \(pd)")
         XCTAssertTrue(pd[0].count == 1)
         XCTAssertEqual(pd[0][0].rect.origin.x, 0.4502, accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.origin.y, 0.3177 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.width, 0.01384 , accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.height, 0.0138 , accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.origin.y, 0.3177, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.width, 0.01384, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.height, 0.0138, accuracy: 0.001)
     }
 
     func testPerformanceExample() throws {
@@ -86,7 +86,7 @@ class BubbleChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                let _ = dataSource.plotData(model)
+                _ = dataSource.plotData(model)
             }
         }
     }

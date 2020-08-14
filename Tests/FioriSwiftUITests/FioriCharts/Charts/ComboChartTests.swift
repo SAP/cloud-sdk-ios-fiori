@@ -8,6 +8,7 @@
 import XCTest
 @testable import FioriCharts
 
+//swiftlint:disable force_unwrapping
 class ComboChartTests: XCTestCase {
 
     let model1 = ChartModel(chartType: .combo,
