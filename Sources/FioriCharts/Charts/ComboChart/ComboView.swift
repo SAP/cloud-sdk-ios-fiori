@@ -50,10 +50,13 @@ struct ComboView: View {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
-                    ForEach(curPlotData, id: \.self) { series in
-                        ComboSeriesView(plotSeries: series,
-                                        rect: rect,
-                                        isSelectionView: false)
+                    
+                    HStack(alignment: .bottom, spacing: clusterSpace) {
+                        ForEach(curPlotData, id: \.self) { series in
+                            ComboSeriesView(plotSeries: series,
+                                            rect: rect,
+                                            isSelectionView: false)
+                        }
                     }
                     
                     Spacer(minLength: 0)

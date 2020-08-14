@@ -96,7 +96,7 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model2.indexesOfColumnSeries = [0, 1, 2]
+        model2.indexesOfColumnSeries = [0, 1, 2, 3, 4]
         model2.indexesOfSecondaryValueAxis = [1, 3, 4]
         
         let dataSource = ComboAxisDataSource()
@@ -105,12 +105,12 @@ class ComboChartTests: XCTestCase {
         let axisValue1 = model2.numericAxisTickValues
         let axisValue2 = model2.secondaryNumericAxisTickValues
         
-        XCTAssertTrue(pd[0][0].rect.size.height - model2.data[0][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][1].rect.size.height - model2.data[1][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][2].rect.size.height - model2.data[2][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][3].rect.size.height - model2.data[3][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][4].rect.size.height - model2.data[4][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][5].rect.size.height - model2.data[5][0].first!! / axisValue1.plotRange < 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][1].rect.size.height, model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][3].rect.size.height, model2.data[3][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
     
     func testAllPrimaryNumericAxis() throws {
@@ -126,12 +126,12 @@ class ComboChartTests: XCTestCase {
         
         let axisValue1 = model2.numericAxisTickValues
         
-        XCTAssertTrue(pd[0][0].rect.size.height - model2.data[0][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][1].rect.size.height - model2.data[1][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][2].rect.size.height - model2.data[2][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][3].rect.size.height - model2.data[3][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][4].rect.size.height - model2.data[4][0].first!! / axisValue1.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][5].rect.size.height - model2.data[5][0].first!! / axisValue1.plotRange < 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][1].rect.size.height, 0, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][3].rect.size.height, 0, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
     
     func testAllSecondaryNumericAxis() throws {
@@ -147,12 +147,12 @@ class ComboChartTests: XCTestCase {
         
         let axisValue2 = model2.secondaryNumericAxisTickValues
         
-        XCTAssertTrue(pd[0][0].rect.size.height - model2.data[0][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][1].rect.size.height - model2.data[1][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][2].rect.size.height - model2.data[2][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][3].rect.size.height - model2.data[3][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][4].rect.size.height - model2.data[4][0].first!! / axisValue2.plotRange < 0.0001)
-        XCTAssertTrue(pd[0][5].rect.size.height - model2.data[5][0].first!! / axisValue2.plotRange < 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][1].rect.size.height, model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][3].rect.size.height, 0, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
 
     func testPerformanceExample() throws {

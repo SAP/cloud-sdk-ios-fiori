@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ColumnSeriesView: View {
     @EnvironmentObject var model: ChartModel
-    let tickValues: AxisTickValues
+    
     let plotSeries: [ChartPlotData]
     let rect: CGRect
     let isSelectionView: Bool
     
     var body: some View {
+        let tickValues = model.numericAxisTickValues
+        
         return Group {
             // positive values
             if tickValues.plotMinimum >= 0 {
@@ -48,7 +50,7 @@ struct ColumnSeriesView: View {
                                 Rectangle()
                                     .fill(self.columnColor(for: item))
                                     .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: self.columnHeight(from: item, isPositiveArea: true) * self.rect.size.height)
-                            }.frame(height: (1 - self.tickValues.plotBaselinePosition) * self.rect.size.height)
+                            }.frame(height: (1 - tickValues.plotBaselinePosition) * self.rect.size.height)
                             
                             // negative area
                             VStack(spacing: 0) {
@@ -57,7 +59,7 @@ struct ColumnSeriesView: View {
                                     .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale,
                                            height: self.columnHeight(from: item, isPositiveArea: false) * self.rect.size.height)
                                 Spacer(minLength: 0)
-                            }.frame(height: self.tickValues.plotBaselinePosition * self.rect.size.height)
+                            }.frame(height: tickValues.plotBaselinePosition * self.rect.size.height)
                         }
                     }
                 }
@@ -86,8 +88,18 @@ struct ColumnSeriesView: View {
     }
 }
 
-//struct ColumnSeriesView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ColumnSeriesView()
-//    }
-//}
+struct ColumnSeriesView_Previews: PreviewProvider {
+    static var previews: some View {
+        let model = Tests.lineModels[2]
+        model.chartType = .column
+        let axisDataSource = ColumnAxisDataSource()
+        let pd = axisDataSource.plotData(model)
+        
+        return ColumnSeriesView(plotSeries: pd[5],
+                                rect: CGRect(x: 0, y: 0, width: 300, height: 200),
+                                isSelectionView: false)
+            .environmentObject(model)
+            .environment(\.axisDataSource, axisDataSource)
+            .previewLayout(.sizeThatFits)
+    }
+}
