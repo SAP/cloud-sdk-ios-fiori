@@ -27,10 +27,10 @@ class BubbleChartTests: XCTestCase {
         let axisContext = model.numericAxisTickValues
         
         /// dataMaximum == 282.82751795046147
-        XCTAssertTrue(axisContext.dataMaximum - 282.827 < 0.01 )
+        XCTAssertEqual(axisContext.dataMaximum, 282.827, accuracy: 0.001 )
         XCTAssertTrue(axisContext.tickValues.count == 4)
-        XCTAssertTrue(axisContext.tickValues[0] - 300.0 < 0.1)
-        XCTAssertTrue(axisContext.tickValues[1] - 200.0 < 0.1)
+        XCTAssertEqual(axisContext.tickValues[0], 300.0, accuracy: 0.001)
+        XCTAssertEqual(axisContext.tickValues[1], 200.0, accuracy: 0.001)
     }
     
     func testChangeIsZeroBased() throws {
@@ -46,10 +46,10 @@ class BubbleChartTests: XCTestCase {
         let _ = dataSource.plotData(model2)
         let axisContext2 = model2.numericAxisTickValues
         
-        XCTAssertTrue(axisContext1.dataMinimum - 0 < 0.01 )
-        XCTAssertTrue(axisContext1.dataMaximum - 2247.26 < 0.01 )
-        XCTAssertTrue(axisContext2.dataMinimum - 1908 < 0.01 )
-        XCTAssertTrue(axisContext2.dataMaximum - 2247.26 < 0.01 )
+        XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.001 )
+        XCTAssertEqual(axisContext1.dataMaximum, 2247.26, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMinimum, 1908, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMaximum, 2247.26, accuracy: 0.001 )
     }
 
     func testCategoryAxisContext() throws {
@@ -59,10 +59,10 @@ class BubbleChartTests: XCTestCase {
         let _ = dataSource.plotData(model)
         if let axisContext = model.categoryAxisTickValues {
             /// dataMaximum == 2016.47
-            XCTAssertTrue(axisContext.dataMaximum - 2016.47 < 0.1)
+            XCTAssertEqual(axisContext.dataMaximum, 2016.4774, accuracy: 0.001)
             XCTAssertTrue(axisContext.tickValues.count == 3)
-            XCTAssertTrue(axisContext.tickValues[0] - 2030.0 < 0.1)
-            XCTAssertTrue(axisContext.tickValues[2] - 1890.0 < 0.1)
+            XCTAssertEqual(axisContext.tickValues[0], 2030.0, accuracy: 0.001)
+            XCTAssertEqual(axisContext.tickValues[2], 1890.0, accuracy: 0.001)
         }
     }
     
@@ -73,10 +73,10 @@ class BubbleChartTests: XCTestCase {
         let pd = dataSource.plotData(model)
         //print("pd = \(pd)")
         XCTAssertTrue(pd[0].count == 1)
-        XCTAssertTrue(pd[0][0].rect.origin.x - 0.4502 < 0.01)
-        XCTAssertTrue(pd[0][0].rect.origin.y - 0.3177 < 0.01)
-        XCTAssertTrue(pd[0][0].rect.size.width - 0.01384 < 0.01)
-        XCTAssertTrue(pd[0][0].rect.size.height - 0.0138 < 0.01)
+        XCTAssertEqual(pd[0][0].rect.origin.x, 0.4502, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.origin.y, 0.3177 , accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.width, 0.01384 , accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.height, 0.0138 , accuracy: 0.001)
     }
 
     func testPerformanceExample() throws {

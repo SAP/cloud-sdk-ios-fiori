@@ -169,8 +169,12 @@ class StackedColumnAxisDataSource: DefaultAxisDataSource {
         let unitWidth = columnXIncrement * model.scale * rect.size.width
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
-        let startIndex = Int(model.startPos.x / unitWidth).clamp(low: 0, high: maxDataCount - 1)
-        let startOffset = columnXIncrement * CGFloat(startIndex) * model.scale * rect.size.width - model.startPos.x
+        var startIndex = Int(model.startPos.x / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        var startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
+        if abs(startOffset) >= clusterWidth {
+            startIndex += 1
+            startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
+        }
         
         let endIndex = Int((model.startPos.x + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
         let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - model.startPos.x - rect.size.width

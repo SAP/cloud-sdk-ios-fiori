@@ -33,36 +33,36 @@ struct XAxisView: View {
         var baselineYPos: CGFloat = model.categoryAxis.baseline.width / 2
         var labelYPos: CGFloat = model.categoryAxis.baseline.width + 3 + (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
         let valueType = model.valueType
-        if valueType == .allNegative {
+        if valueType == .allNegative && model.chartType != .bar {
             labelYPos = (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
             baselineYPos = rect.size.height - model.categoryAxis.baseline.width / 2
         }
         
+        let axis = model.chartType == .bar ? model.numericAxis : model.categoryAxis
+        
         return ZStack {
-            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !self.model.categoryAxis.labels.isHidden {
+            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !axis.labels.isHidden {
                 ForEach(xAxisLabels) { title in
-                    if !self.model.categoryAxis.labels.isHidden {
+                    if !axis.labels.isHidden {
                         // category labels
                         Text(title.title)
-                            .font(.system(size: self.model.categoryAxis.labels.fontSize))
-                            .foregroundColor(self.model.categoryAxis.labels.color)
+                            .font(.system(size: axis.labels.fontSize))
+                            .foregroundColor(axis.labels.color)
                             .frame(maxWidth: rect.size.width / 2)
                             .position(x: title.pos.x, y: labelYPos)
-
-                            //.modifier(SizeModifier())
                     }
                 }
             }
             
             // base line
-            if !model.categoryAxis.baseline.isHidden {
+            if !axis.baseline.isHidden {
                 LineShape(pos1: .zero,
                           pos2: CGPoint(x: rect.size.width, y: 0))
                     .offset(x: 0, y: baselineYPos)
-                    .stroke(model.categoryAxis.baseline.color,
+                    .stroke(axis.baseline.color,
                             style: StrokeStyle(
-                                lineWidth: self.model.categoryAxis.baseline.width,
-                                dash: [self.model.categoryAxis.baseline.dashPatternLength, self.model.categoryAxis.baseline.dashPatternGap]))
+                                lineWidth: axis.baseline.width,
+                                dash: [axis.baseline.dashPatternLength, axis.baseline.dashPatternGap]))
             }
         }
     }

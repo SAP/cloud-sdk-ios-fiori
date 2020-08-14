@@ -12,14 +12,6 @@ struct YAxisGridlines: View {
     @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
     
-    //weak var axisDataSource: AxisDataSource? = nil
-    //var displayRange: ClosedRange<CGFloat>
-    
-    //    init(displayRange: ClosedRange<CGFloat>, axisDataSource: AxisDataSource? = nil) {
-    //        self.displayRange = displayRange
-    //        self.axisDataSource = axisDataSource
-    //    }
-    
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -33,35 +25,40 @@ struct YAxisGridlines: View {
         
         var yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
-        let displayRange = ChartUtility.displayRange(model, secondary: secondary)
-        var valueToRemove: CGFloat = displayRange.lowerBound
-        let valueType = model.valueType
-        if valueType == .allNegative {
-            valueToRemove = displayRange.upperBound
-        } else if valueType == .mixed {
-            valueToRemove = 0
-        }
-        
-        var indexToRemove = -1
-        for (i, label) in yAxisLabels.enumerated() {
-            if abs(valueToRemove.distance(to: label.value)) < 0.001 {
-                indexToRemove = i
-                break
+        if model.chartType != .bar {
+            let displayRange = ChartUtility.displayRange(model, secondary: secondary)
+            var valueToRemove: CGFloat = displayRange.lowerBound
+            let valueType = model.valueType
+            if valueType == .allNegative {
+                valueToRemove = displayRange.upperBound
+            } else if valueType == .mixed {
+                valueToRemove = 0
+            }
+            
+            var indexToRemove = -1
+            for (i, label) in yAxisLabels.enumerated() {
+                if abs(valueToRemove.distance(to: label.value)) < 0.001 {
+                    indexToRemove = i
+                    break
+                }
+            }
+            if indexToRemove >= 0 {
+                yAxisLabels.remove(at: indexToRemove)
             }
         }
-        if indexToRemove >= 0 {
-            yAxisLabels.remove(at: indexToRemove)
-        }
+        
+        let axis = model.chartType == .bar ? model.categoryAxis : model.numericAxis
+        
         return ZStack {
-            if !model.numericAxis.gridlines.isHidden {
+            if !axis.gridlines.isHidden {
                 ForEach(yAxisLabels) { label in
-                    if !self.model.numericAxis.gridlines.isHidden {
+                    if !axis.gridlines.isHidden {
                         // grid lines
                         LineShape(pos1: CGPoint(x: 0, y: label.pos.y),
                                   pos2: CGPoint(x: rect.size.width, y: label.pos.y))
-                            .stroke(self.model.numericAxis.gridlines.color,
-                                    style: StrokeStyle(lineWidth: self.model.numericAxis.gridlines.width,
-                                                       dash: [self.model.numericAxis.gridlines.dashPatternLength, self.model.numericAxis.gridlines.dashPatternGap]))
+                            .stroke(axis.gridlines.color,
+                                    style: StrokeStyle(lineWidth: axis.gridlines.width,
+                                                       dash: [axis.gridlines.dashPatternLength, axis.gridlines.dashPatternGap]))
                     }
                 }
             }
