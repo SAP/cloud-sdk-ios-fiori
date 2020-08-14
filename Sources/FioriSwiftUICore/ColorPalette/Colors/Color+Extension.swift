@@ -12,8 +12,8 @@ import UIKit
 extension Color {
     /// Extension to `Color`, to return colors from the latest version of preset color palette used by `ThemeManager`.
     ///
-    /// - parameter style: `ColorStyle` enum from the color palette.
     /// - parameters:
+    ///     - style: `ColorStyle` enum from the color palette.
     ///     - scheme: specifies whether the color should be used in front of a *light* background, or a *dark* background.  E.g. a "white" background is a "light" background.  A "dark blue" background is a "dark" background.  Defaults to `.device`.
     ///     - level: specifies whether the color sould be used in the *base* or *elevated* level of the interface. E.g. alerts and popovers will be assigned with the *elevated* interface level. Defaults to `.device`.
     /// - Returns: a dynamic color provider wrapped in `Color`
@@ -21,6 +21,12 @@ extension Color {
         return ThemeManager.shared.color(for: style, background: scheme, interface: level)
     }
     
+    /// Extension to `Color`, to resolve a static form of `Color` from the wrapped dynamic color provider.
+    ///
+    /// - parameters:
+    ///     - scheme: specifies whether the color should be used in front of a *light* background, or a *dark* background. Defaults to `.light`.
+    ///     - level: specifies whether the color sould be used in the *base* or *elevated* level of the interface. Defaults to `.base`.
+    /// - Returns: a static form of `Color`resolved from the dynamic color provider.
     public func resolvedColor(with scheme: ColorScheme? = .light, in level: UIUserInterfaceLevel? = .base) -> Color {
         let style: UITraitCollection = scheme == .light ? .init(userInterfaceStyle: .light) : .init(userInterfaceStyle: .dark)
         let level: UITraitCollection = .init(userInterfaceLevel: level ?? .base)
