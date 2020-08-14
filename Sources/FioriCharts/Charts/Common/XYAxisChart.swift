@@ -239,8 +239,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         if secondary && width > rect.size.width * 0.20 {
             width = rect.size.width * 0.20
-        }
-        else if !secondary && width > rect.size.width * 0.35 && !yAxisExpanded {
+        } else if !secondary && width > rect.size.width * 0.35 && !yAxisExpanded {
             width = rect.size.width * 0.35
         } else if !secondary && width > rect.size.width * 0.65 && yAxisExpanded {
             width = rect.size.width * 0.65

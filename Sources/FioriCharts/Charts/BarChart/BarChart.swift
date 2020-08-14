@@ -82,7 +82,6 @@ class BarAxisDataSource: DefaultAxisDataSource {
             if y >= 0 && y <= rect.size.height {
                 let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
                 
-                
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)
                 let x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
 
@@ -292,7 +291,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
 struct BarChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
+           let model = $0
            model.chartType = .bar
            return model
         }

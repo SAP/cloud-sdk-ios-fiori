@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import FioriCharts
 
+// swiftlint:disable force_unwrapping
 struct ChartsContentView: View {
     @State var showingDetail = false
     
