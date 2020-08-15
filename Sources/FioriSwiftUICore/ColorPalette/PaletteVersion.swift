@@ -21,6 +21,8 @@ extension PaletteVersion: RawRepresentable {
             self = .v3_2
         case PaletteV4.default:
             self = .v4
+        case PaletteV5.default:
+            self = .v5
         default:
             return nil
         }
@@ -35,6 +37,8 @@ extension PaletteVersion: RawRepresentable {
             return PaletteV3.default
         case .v4:
             return PaletteV4.default
+        case .v5:
+            return PaletteV5.default
         }
     }
 }
@@ -52,11 +56,18 @@ public enum PaletteVersion: CaseIterable {
     case v3_2
     
     /**
-     Snapshot of palette at SAP Fiori SDK version 4.0.
+     Snapshot of palette at SAP Fiori SDK version 4.0 and version 5.0.
      
-     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 4' styling.
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 3' styling.
      */
     case v4
+    
+    /**
+     Snapshot of palette at SAP Fiori SDK version 6.0.
+     
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 3' styling.
+     */
+    case v5
     
     /// Palette version which should be adopted by developer, if creating a custom palette from scratch.
     /// - Note: Creating a custom palette from scratch is very uncommon and not generally recommended: it is more typical and convenient to override specific colors of the current system-provided palette, using the `ThemeManager.shared.setColor(...)` or `ThemeManager.shared.setHexColor(...)` APIs.
@@ -87,6 +98,8 @@ public enum PaletteVersion: CaseIterable {
             return previous.obsoletedStyles().union([.tintColorTapStateLight, .tintColorTapStateDark, .tintColorLight, .tintColorDark])
         case .v4:
             return previous.obsoletedStyles().union([.backgroundGradientTop, .backgroundGradientBottom])
+        case .v5:
+            return previous.obsoletedStyles().union([.backgroundBase])
         default:
             return []
         }
@@ -97,10 +110,11 @@ public enum PaletteVersion: CaseIterable {
         case .v3_x:
             return PaletteVersion.initialSupportedStyles
         case .v3_2:
-            return [.negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .accent1, .accent1b, .accent2, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b]
+            return [.primary10, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .accent1, .accent1b, .accent2, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b]
         case .v4:
-            return [.navigationBar]
+            return [.navigationBar, .stockUpStroke, .stockDownStroke]
+        case .v5:
+            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackgrond, .secondaryGroupedBackgrond, .tertiaryGroupedBackgrond, .primaryBackgrond, .secondaryBackgrond, .tertiaryBackgrond, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryLabelContrast, .secondaryLabelContrast, .tertiaryLabelContrast, .quarternaryLabelContrast, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .toolBar, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeLabelContrast, .positiveLabelContrast, .criticalLabelContrast, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .negativeBackgroundContrast, .positiveBackgroundContrast, .criticalBackgroundContrast, .informationBackgroundContrast]
         }
     }
 }
-
