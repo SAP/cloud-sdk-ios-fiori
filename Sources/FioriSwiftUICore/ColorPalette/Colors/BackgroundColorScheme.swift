@@ -88,4 +88,3 @@ extension BackgroundColorScheme: CustomDebugStringConvertible {
         }
     }
 }
-

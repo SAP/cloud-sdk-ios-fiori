@@ -8,10 +8,14 @@
 import Foundation
 
 public enum ColorVariant {
-    /// Light color variant, which is used when `.colorScheme` sets to `.dark`.
+    /// Light color variant, which is used when `.colorScheme` sets to `.dark` and `.userInterfaceLevel` sets to `.base`.
     case light
-    /// Dark color variant, which is used when `.colorScheme` sets to `.light`.
+    /// Dark color variant, which is used when `.colorScheme` sets to `.light` and `.userInterfaceLevel` sets to `.base`.
     case dark
+    /// Elevated light color variant, which is used when `.colorScheme` sets to `.dark` and `.userInterfaceLevel` sets to `.elevated`.
+    case elevatedLight
+    /// Elevated light color variant, which is used when `.colorScheme` sets to `.light` and `.userInterfaceLevel` sets to `.elevated`.
+    case elevatedDark
     
     /// Helper function to return opposite color variant of current value.
     ///
@@ -22,6 +26,10 @@ public enum ColorVariant {
             return .dark
         case .dark:
             return .light
+        case .elevatedLight:
+            return .elevatedDark
+        case .elevatedDark:
+            return .elevatedLight
         }
     }
 }
@@ -33,6 +41,10 @@ extension ColorVariant: CustomDebugStringConvertible {
             return "light"
         case .dark:
             return "dark"
+        case .elevatedLight:
+            return "elevatedLight"
+        case .elevatedDark:
+            return "elevatedDark"
         }
     }
 }

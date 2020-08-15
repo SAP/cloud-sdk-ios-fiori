@@ -41,7 +41,7 @@ extension PaletteProvider {
         }
         
         // if the style was defined in one or more *older* palettes, iterate backwards from the palette version to find a valid value
-        while let previous = paletteVersion.previous() {
+        if let previous = paletteVersion.previous() {
             return previous.rawValue.hexColor(for: style).colors[variant]
         }
         

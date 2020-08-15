@@ -42,11 +42,20 @@ public class ThemeManager {
     }
     
     /// :nodoc:
-    internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?) -> Color {
+    internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?) -> Color {
         let uiColor: UIColor = UIColor { [unowned self] traitCollection in
             func getPaletteColor(_ variant: ColorVariant) -> UIColor {
                 let scheme: ColorScheme = variant == .light ? .dark : .light
-                let components = self.palette.hexColor(for: style).rgba(scheme)
+                let isElevatedInterfaceLevel = traitCollection.userInterfaceLevel == .elevated
+                let level: UIUserInterfaceLevel = {
+                    switch (level ?? .device, isElevatedInterfaceLevel) {
+                    case (.baseConstant, _), (.deviceInverse, true), (.device, false):
+                        return UIUserInterfaceLevel.base
+                    case (.elevatedConstant, _), (.deviceInverse, false), (.device, true):
+                        return UIUserInterfaceLevel.elevated
+                    }
+                }()
+                let components = self.palette.hexColor(for: style).rgba(scheme, level)
                 return UIColor.init(red: CGFloat(components.r), green: CGFloat(components.g),
                                     blue: CGFloat(components.b), alpha: CGFloat(components.a))
             }
