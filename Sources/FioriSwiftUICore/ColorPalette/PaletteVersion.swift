@@ -99,7 +99,7 @@ public enum PaletteVersion: CaseIterable {
         case .v4:
             return previous.obsoletedStyles().union([.backgroundGradientTop, .backgroundGradientBottom])
         case .v5:
-            return previous.obsoletedStyles().union([.backgroundBase])
+            return previous.obsoletedStyles().union([.navigationBar, .backgroundBase])
         default:
             return []
         }
@@ -114,7 +114,7 @@ public enum PaletteVersion: CaseIterable {
         case .v4:
             return [.navigationBar, .stockUpStroke, .stockDownStroke]
         case .v5:
-            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackgrond, .secondaryGroupedBackgrond, .tertiaryGroupedBackgrond, .primaryBackgrond, .secondaryBackgrond, .tertiaryBackgrond, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryLabelContrast, .secondaryLabelContrast, .tertiaryLabelContrast, .quarternaryLabelContrast, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .toolBar, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeLabelContrast, .positiveLabelContrast, .criticalLabelContrast, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .negativeBackgroundContrast, .positiveBackgroundContrast, .criticalBackgroundContrast, .informationBackgroundContrast]
+            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackgrond, .secondaryGroupedBackgrond, .tertiaryGroupedBackgrond, .primaryBackgrond, .secondaryBackgrond, .tertiaryBackgrond, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .header, .footer, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground]
         }
     }
 }
