@@ -163,9 +163,9 @@ public struct SegmentedControl: View {
         self.selectedIndex      = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(textColor: .gray, font: Font.system(.subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2)),
-            .selected: SegmentAttributes(textColor: .blue, font: Font.system(.subheadline), borderColor: .blue),
-            .disabled: SegmentAttributes(textColor: .gray, font: Font.system(.subheadline), borderColor: .init(red: 0.2, green: 0.2, blue: 0.2))
+            .normal: SegmentAttributes(textColor: Color.preferredColor(.primary3), font: Font.system(.subheadline), borderColor: Color.preferredColor(.primary4)),
+            .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.system(.subheadline), borderColor: Color.preferredColor(.tintColor)),
+            .disabled: SegmentAttributes(textColor: Color.preferredColor(.primary3), font: Font.system(.subheadline), borderColor: Color.preferredColor(.primary4))
         ]
         
         if let _contentInset = contentInset {

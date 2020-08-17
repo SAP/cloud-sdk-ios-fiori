@@ -33,7 +33,7 @@ struct SegmentedControl_Chart: View {
 
     var body: some View {
         
-        VStack(alignment: .center, spacing: 10) {
+        VStack(alignment: .center, spacing: 30) {
             segmentedControl
             chartView
         }
