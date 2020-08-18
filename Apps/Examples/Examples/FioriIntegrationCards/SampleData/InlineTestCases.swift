@@ -9,7 +9,13 @@
 import Foundation
 import FioriIntegrationCards
 
-enum InlineTestCases: String, CaseIterable, Identifiable {
+protocol CardTestCase {
+    var id: String { get }
+    func name() -> String
+    func manifest() -> Manifest?
+}
+
+enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case analytical = "analytical"
     case list       = "list"
     case timeLine   = "timeline"
@@ -17,6 +23,10 @@ enum InlineTestCases: String, CaseIterable, Identifiable {
     case table      = "table"
     
     var id: String {
+        return rawValue
+    }
+
+    func name() -> String {
         return rawValue
     }
     
