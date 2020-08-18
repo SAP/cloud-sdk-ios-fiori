@@ -57,10 +57,10 @@ class WaterfallChartTests: XCTestCase {
         let dataSource = WaterfallAxisDataSource()
         let pd = dataSource.plotData(model)
         
-        XCTAssertTrue(pd[2][0].rect.origin.y - 30.0 / axisValues.plotRange < 0.0001)
-        XCTAssertTrue(pd[2][0].rect.size.height - 29.0 / axisValues.plotRange < 0.0001)
-        XCTAssertTrue(pd[4][0].rect.origin.y - 52.0 / axisValues.plotRange < 0.0001)
-        XCTAssertTrue(pd[4][0].rect.size.height - 5.0 / axisValues.plotRange < 0.0001)
+        XCTAssertEqual(pd[2][0].rect.origin.y, 30.0 / axisValues.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[2][0].rect.size.height, 29.0 / axisValues.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[4][0].rect.origin.y, 52.0 / axisValues.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[4][0].rect.size.height, 5.0 / axisValues.plotRange, accuracy: 0.0001)
     }
     
     func testTotalIndex() throws {
@@ -84,7 +84,7 @@ class WaterfallChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                let _ = dataSource.plotData(model)
+                _ = dataSource.plotData(model)
             }
         }
     }

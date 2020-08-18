@@ -28,6 +28,7 @@ extension EnvironmentValues {
 struct XYAxisChart<Content: View, Indicator: View>: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
+    @State var yAxisExpanded: Bool = false
     
     var chartView: Content
     var indicatorView: Indicator
@@ -44,6 +45,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             self.makeBody(in: proxy.frame(in: .local))
         }.padding(8)
         .environment(\.axisDataSource, axisDataSource)
+        .contentShape(Rectangle())
     }
     
     // swiftlint:disable function_body_length
@@ -54,60 +56,77 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         let xAxisHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height   ))
         
         let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
-        switch model.valueType {
-        case .allPositive:
+        if model.chartType == .bar {
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
             secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
             xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
-        case .allNegative:
-            yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
-            secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
-            chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
-            xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
-        case .mixed:
-            yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
-            secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
-            chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
-            var baselineYPos: CGFloat = rect.size.height - xAxisHeight
-            var useSecondary = false
-            if yAxisWidth == 0 {
-                useSecondary = true
-            }
-            let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
-            for label in yAxisLabels {
-                if abs(label.value) < 0.001 {
-                    baselineYPos = label.pos.y
-                    break
+        } else {
+            switch model.valueType {
+            case .allPositive:
+                yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+                secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
+                chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
+                xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
+            case .allNegative:
+                yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+                secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
+                chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
+                xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
+            case .mixed:
+                yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
+                secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
+                chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
+                var baselineYPos: CGFloat = rect.size.height - xAxisHeight
+                var useSecondary = false
+                if yAxisWidth == 0 {
+                    useSecondary = true
                 }
+                let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
+                for label in yAxisLabels {
+                    if abs(label.value) < 0.001 {
+                        baselineYPos = label.pos.y
+                        break
+                    }
+                }
+                
+                xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
             }
-            
-            xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
+        }
+        
+        let doubleTapGesture = TapGesture(count: 2).onEnded {
+            self.yAxisExpanded.toggle()
         }
         
         return HStack(alignment: .top, spacing: 0) {
             VStack(spacing: 0) {
                 if yAxisWidth > 0 {
-                    YAxisView(axisDataSource: axisDataSource)
-                        .frame(height: yAxisRect.size.height)
-                        .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
-                        .environmentObject(self.model)
+                    if model.userInteractionEnabled {
+                        YAxisView(axisDataSource: axisDataSource)
+                            .frame(height: yAxisRect.size.height)
+                            .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                            .contentShape(Rectangle())
+                            .gesture(doubleTapGesture)
+                    } else {
+                        YAxisView(axisDataSource: axisDataSource)
+                                .frame(height: yAxisRect.size.height)
+                                .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                                .contentShape(Rectangle())
+                    }
                 }
             }.frame(width: yAxisRect.size.width, height: rect.size.height)
             
             VStack(alignment: .leading, spacing: 0) {
-                if model.valueType == .allPositive {
+                if model.chartType == .bar || model.valueType == .allPositive {
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                     
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
-                        .environmentObject(self.model)
                 } else if model.valueType == .allNegative {
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
                         .zIndex(1)
-                        .environmentObject(self.model)
                     
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                     .frame(width: chartRect.width, height: chartRect.height)
@@ -119,7 +138,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         XAxisView(axisDataSource: axisDataSource)
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
-                            .environmentObject(self.model)
                     }
                 }
             }
@@ -131,7 +149,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         .frame(height: secondaryYAxisRect.size.height)
                         .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
                         .zIndex(2)
-                        .environmentObject(self.model)
                 }
             }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
         }
@@ -178,6 +195,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         return height + model.categoryAxis.baseline.width + 3
     }
     
+    /**
+     Minimum: 20px from left edge of content area
+     Maximum: 35% of content area
+     Expanded State: when the y-axis label area its at its maximum width and values are still truncated, the user can double tap the y-axis label area to expand the y-axis label area to the right. This will increase the width of the labels up to 60% of the content area. Double tapping the expanded y-axis label area will return it to its maximum.
+     */
     func yAxisLabelsMaxWidth(_ rect: CGRect, secondary: Bool = false) -> CGFloat {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         var indexes: [Int] = allIndexs.sorted()
@@ -213,6 +235,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
             // spacing btw baseline and labels are 3pt
             width = max(width, size.width + axis.baseline.width / 2.0 + 3)
+        }
+        
+        if secondary && width > rect.size.width * 0.20 {
+            width = rect.size.width * 0.20
+        } else if !secondary && width > rect.size.width * 0.35 && !yAxisExpanded {
+            width = rect.size.width * 0.35
+        } else if !secondary && width > rect.size.width * 0.65 && yAxisExpanded {
+            width = rect.size.width * 0.65
         }
         
         return width

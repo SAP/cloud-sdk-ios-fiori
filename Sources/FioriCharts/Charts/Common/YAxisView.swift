@@ -11,6 +11,7 @@ import SwiftUI
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
+    @State var yAxisExpanded: Bool = false
     
     weak var axisDataSource: AxisDataSource? = nil
     let secondary: Bool
@@ -32,7 +33,7 @@ struct YAxisView: View {
             yAxisLabels = res
         }
 
-        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        let axis = model.chartType == .bar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
         let baselineX: CGFloat
         if secondary {
             if layoutDirection == .leftToRight {
@@ -53,11 +54,15 @@ struct YAxisView: View {
                 ForEach(yAxisLabels) { label in
                     // y axis lables
                     Text(label.title)
-                        .fixedSize()
+                        //.fixedSize()
                         .font(.system(size: axis.labels.fontSize))
                         .foregroundColor(axis.labels.color)
-                        .position(x: label.pos.x,
+                        .position(x: max(rect.size.width / 2, label.pos.x),
                                   y: label.pos.y)
+                        //.frame(width: (rect.size.width - max(rect.size.width / 2, label.pos.x)) * 2)
+                        .frame(maxWidth: rect.size.width)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                 }
             }
             
@@ -71,7 +76,7 @@ struct YAxisView: View {
                     .frame(width: axis.baseline.width, height: rect.size.height)
                     .position(x: baselineX, y: rect.size.height / 2)
             }
-        }
+        }.background(Color.clear)
     }
 }
 

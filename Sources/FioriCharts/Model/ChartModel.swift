@@ -125,7 +125,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             categoryAxisTickValues = nil
             scale = 1.0
             startPos = .zero
-            selections = nil
+            //selections = nil
         }
     }
     
@@ -1162,6 +1162,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let axis = ChartCategoryAxisAttributes()
         if chartType == .stock {
             axis.gridlines.isHidden = false
+        } else if chartType == .bar {
+            axis.gridlines.isHidden = false
+            axis.baseline.isHidden = true
         } else {
             axis.gridlines.isHidden = true
         }

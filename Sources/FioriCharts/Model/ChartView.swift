@@ -66,6 +66,8 @@ public struct ChartView: View {
                 WaterfallChart(model: chartModel)
             } else if chartModel.chartType == .combo {
                 ComboChart(model: chartModel)
+            } else if chartModel.chartType == .bar {
+                BarChart(model: chartModel)
             } else if chartModel.chartType == .bubble {
                 BubbleChart(model: chartModel)
             } else if chartModel.chartType == .scatter {
@@ -79,12 +81,15 @@ public struct ChartView: View {
 
 struct FUIChartView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            ForEach(Tests.allCases) {
-                ChartView($0)
-                    .frame(width: 300, height: 200)
-                    .previewLayout(.sizeThatFits)
-            }
+        let model1 = ChartModel(chartType: .line,
+                                data: [[200, 170, 165, 143, 166, 112, 110],
+                                       [150, 120, 130, 135, 120, 138, 137]],
+                                titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]])
+
+        return Group {
+            ChartView(model1)
+                .frame(width: 300, height: 200)
         }
+        .previewLayout(.sizeThatFits)
     }
 }

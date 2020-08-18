@@ -38,12 +38,15 @@ struct StackedColumnView: View {
             if pd.isEmpty {
                 NoDataView()
             } else {
-                HStack(alignment: .bottom, spacing: clusterSpace) {
+                HStack(alignment: .bottom, spacing: 0) {
                     Rectangle()
                         .fill(Color.clear)
                         .frame(width: gapBeforeFirstCoumn)
-                    ForEach(curPlotData, id: \.self) { series in
-                        StackedColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: false)
+                    
+                    HStack(alignment: .bottom, spacing: clusterSpace) {
+                        ForEach(curPlotData, id: \.self) { series in
+                            StackedColumnSeriesView(tickValues: tickValues, plotSeries: series, rect: rect, isSelectionView: false)
+                        }
                     }
                     
                     Spacer(minLength: 0)

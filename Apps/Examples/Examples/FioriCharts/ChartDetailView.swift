@@ -58,8 +58,8 @@ struct ChartDetailView: View {
                         HStack(alignment: .center) {
                             ChartView(self.model)
                                 .padding()
-                                .frame(height: self.isFullScreen ? geometry.size.width * 2 * self.lenRatio / 3 : geometry.size.width * 2 / 3)
-                        }.frame(height: self.isFullScreen ? (geometry.size.height) : geometry.size.width * 2 / 3)
+                                .frame(height: (self.model.chartType == .bar ? geometry.size.width : geometry.size.width * 2 / 3) * (self.isFullScreen ? self.lenRatio : 1))
+                        }.frame(height: self.isFullScreen ? geometry.size.height : (self.model.chartType == .bar ? geometry.size.width : geometry.size.width * 2 / 3))
                         
                         if !self.isFullScreen {
                             Divider().edgesIgnoringSafeArea(.all)

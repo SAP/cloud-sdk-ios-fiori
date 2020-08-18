@@ -10,6 +10,7 @@ import Foundation
 import SwiftUI
 import FioriCharts
 
+// swiftlint:disable force_unwrapping
 struct ChartsContentView: View {
     @State var showingDetail = false
     
@@ -33,6 +34,11 @@ struct ChartsContentView: View {
          }, Tests.lineModelsDesc),
          ("Waterfall", Tests.waterfallModels, Tests.waterfallModelsDesc),
          ("Combo", Tests.comboModels, Tests.comboModelsDesc),
+         ("Bar", Tests.lineModels.map {
+            let model = $0.copy() as! ChartModel
+            model.chartType = .bar
+            return model
+         }, Tests.lineModelsDesc),
          ("Bubble", Tests.bubbleModels, Tests.bubbleModelsDesc),
          ("Scatter", Tests.scatterModels, Tests.scatterModelsDesc),
          ("Donut", Tests.donutModels, Tests.donutModelsDesc),
@@ -80,7 +86,8 @@ struct ChartHomeView: View {
                 VStack(alignment: .center) {
                     Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
                     ChartView(self.info.1[i])
-                        .frame(width: width, height: width / 2.14 )
+                        .frame(width: width,
+                        height: self.info.1[i].chartType == .bar ? width : width / 2.14 )
 
                     Text(self.info.2[i]).font(.subheadline)
                 }

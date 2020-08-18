@@ -25,21 +25,45 @@ struct XAxisGridlines: View {
             xAxisLabels.removeFirst()
         }
         
+        let axis = model.chartType == .bar ? model.numericAxis : model.categoryAxis
+        let valueType = model.valueType
+        let ticks = model.numericAxisTickValues
+        let zeroX: CGFloat = rect.size.width * ticks.plotBaselinePosition
+        
         return ZStack {
-            if !xAxisLabels.isEmpty && !self.model.categoryAxis.gridlines.isHidden {
+            if !xAxisLabels.isEmpty && !axis.gridlines.isHidden {
                 ForEach(xAxisLabels) { title in
                     // grid lines
-                    if !self.model.categoryAxis.gridlines.isHidden {
+                    if !axis.gridlines.isHidden {
                         LineShape(pos1: .zero,
                                   pos2: CGPoint(x: 0, y: rect.size.height),
                                   layoutDirection: self.layoutDirection)
-                            .stroke(self.model.categoryAxis.gridlines.color,
-                                    style: StrokeStyle(lineWidth: self.model.categoryAxis.gridlines.width,
-                                                       dash: [self.model.categoryAxis.gridlines.dashPatternLength, self.model.categoryAxis.gridlines.dashPatternGap]))
+                            .stroke(axis.gridlines.color,
+                                    style: StrokeStyle(lineWidth: axis.gridlines.width,
+                                                       dash: [axis.gridlines.dashPatternLength, axis.gridlines.dashPatternGap]))
                             .offset(x: title.pos.x)
                     }
                 }
             }
+            
+            // a vertical line between negative bars and positive bars in Bar Chart
+            if model.chartType == .bar && valueType == .mixed {
+                LineShape(pos1: .zero,
+                      pos2: CGPoint(x: 0, y: rect.size.height),
+                      layoutDirection: self.layoutDirection)
+                .stroke(axis.gridlines.color,
+                        style: StrokeStyle(lineWidth: axis.gridlines.width,
+                                           dash: [axis.gridlines.dashPatternLength, 0]))
+                .offset(x: zeroX)
+            }
+        }
+    }
+    
+    func dashGap(label: AxisTitle, gap: CGFloat) -> CGFloat {
+        if model.chartType == .bar && abs(label.value) < 0.0001 {
+            return 0
+        } else {
+            return gap
         }
     }
 }

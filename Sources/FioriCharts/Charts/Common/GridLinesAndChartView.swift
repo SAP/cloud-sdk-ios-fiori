@@ -50,16 +50,20 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     self.model.selections = nil
                 }
                 self.draggingChartView = true
-                let maxPos = rect.size.width * (self.model.scale - 1)
+    
                 let tmpX = self.layoutDirection == .leftToRight ? (self.lastStartPosX - value.translation.width) : (self.lastStartPosX + value.translation.width)
-                if self.model.snapToPoint {
+                if self.model.snapToPoint && self.model.chartType != .bar {
                     self.model.startPos.x = self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: rect)
                 } else {
-                    self.model.startPos.x = max(0, min(tmpX, maxPos))
+                    self.model.startPos.x = max(0, min(tmpX, rect.size.width * (self.model.scale - 1)))
                 }
                 
                 let tmpY = self.lastStartPosY + value.translation.height
-                self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
+                if self.model.snapToPoint && self.model.chartType == .bar {
+                    self.model.startPos.y = self.axisDataSource.snapChartToPoint(self.model, at: tmpY, in: rect)
+                } else {
+                    self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
+                }
             })
             .onEnded({ _ in
                 self.draggingChartView = false
