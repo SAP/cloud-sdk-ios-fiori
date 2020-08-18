@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8A1E99AF24D59D1500ED8A39 /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */; };
 		8A1E99B024D59D1500ED8A39 /* FioriSwiftUI in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 8A1E99AE24D59D1500ED8A39 /* FioriSwiftUI */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A55795724C1286E0098003A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795624C1286E0098003A /* AppDelegate.swift */; };
 		8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795824C1286E0098003A /* SceneDelegate.swift */; };
 		8A55795B24C1286E0098003A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A55795A24C1286E0098003A /* ContentView.swift */; };
@@ -115,6 +116,7 @@
 
 /* Begin PBXFileReference section */
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
+		8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTestCases.swift; sourceTree = "<group>"; };
 		8A55795324C1286E0098003A /* Examples.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Examples.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A55795624C1286E0098003A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8A55795824C1286E0098003A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -356,6 +358,7 @@
 				8A5579C524C1293C0098003A /* analytical.json */,
 				8A5579C624C1293C0098003A /* adativecard-embedded1.card.zip */,
 				8A5579C724C1293C0098003A /* card-explorer-numeric-list-card.card.zip */,
+				8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
+				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,

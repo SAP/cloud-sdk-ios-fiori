@@ -32,10 +32,20 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         let tempCard = try _container.decode(Card.self, forKey: .card)
         _card = Published(initialValue: tempCard)
     }
-    
-    public init(withCardBundleAt path: URL) throws {
+
+/**
+    Initializer for a Manifest stored remotely
+     - Parameter path: base URL to card bundle stored on a server
+     - Parameter manifestPath: optional; specify path component for manifest.json if manifest.json is not stored as `manifest.json` in base folder
+
+     ## Code usage:
+     ```
+     let manifest = try Manifest(withCardBundleAt: URL(string: "https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/")!, manifestPath: "samples/data/manifest.json")
+     ```
+     */
+    public init(withCardBundleAt path: URL, manifestPath: String? = nil) throws {
         var _model: Manifest!
-        let _path = path.appendingPathComponent("manifest.json")
+        let _path = path.appendingPathComponent(manifestPath ?? "manifest.json")
         do {
             let data = try Data(contentsOf: _path)
             _model = try JSONDecoder().decode(Manifest.self, from: data)

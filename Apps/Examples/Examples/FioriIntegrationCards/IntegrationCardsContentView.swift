@@ -41,17 +41,21 @@ extension Card: View {
 struct IntegrationCardsContentView: View {
 
     let cards: [String]
+
+    private var testCases: [CardTestCase] = []
     
     init(cards: [String]) {
         self.cards = cards
+        self.testCases.append(contentsOf: InlineTestCases.allCases)
+        self.testCases.append(contentsOf: DataRequestTestCases.allCases)
     }
     
     var body: some View {
         TabView {
 
-            List(InlineTestCases.allCases) { bundle in
+            List(testCases, id: \.id) { bundle in
                 NavigationLink(destination: LoadingView(card: bundle)) {
-                    Text(bundle.rawValue)
+                    Text(bundle.name())
                 }
             }
             .tabItem { Text("Test Cases") }
@@ -77,7 +81,7 @@ struct IntegrationCardsContentView: View {
 }
 
 struct LoadingView: View {
-    let card: InlineTestCases
+    let card: CardTestCase
     
     @State var isLoading = true
     @State var loadingMessage = "Loading ..."
