@@ -136,78 +136,74 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Label Colors
     
     /// Standard color for primary label.
-    /// (dark variant) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363A
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363A
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFA
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFAB8 (alpha: 72%)
     case primaryLabel
     
     /// Standard color for secondary label.
-    /// (dark variant) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363AD9 (alpha: 85%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAD9 (alpha: 85%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363AD9 (alpha: 85%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAD9 (alpha: 85%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFAD9 (alpha: 85%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFAD9 (alpha: 85%)
     case secondaryLabel
     
     /// Standard color for tertiary label.
-    /// (dark variant) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363AB8 (alpha: 72%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAB8 (alpha: 72%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363AB8 (alpha: 72%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAB8 (alpha: 72%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFAB8 (alpha: 72%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFAB8 (alpha: 72%)
     case tertiaryLabel
     
     /// Standard color for quarternary label.
-    /// (dark variant) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363A8C (alpha: 55%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA8C (alpha: 55%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/32363A.png&text=+)          Hex value: 32363A8C (alpha: 55%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA8C (alpha: 55%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFA8C (alpha: 55%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex value: FAFAFA8C (alpha: 55%)
     case quarternaryLabel
-    
-    /// Standard color for primary label (contrast).
-    /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAB8 (alpha: 72%)
-    case primaryLabelContrast
-    
-    /// Standard color for secondary label (contrast).
-    /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAD9 (alpha: 85%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAD9 (alpha: 85%)
-    case secondaryLabelContrast
-    
-    /// Standard color for tertiary label (contrast).
-    /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAB8 (alpha: 72%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAB8 (alpha: 72%)
-    case tertiaryLabelContrast
-    
-    /// Standard color for quarternary label (contrast).
-    /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA8C (alpha: 55%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA8C (alpha: 55%)
-    case quarternaryLabelContrast
     
     // MARK: - Fill Colors
     
     /// Standard color for primary fill.
-    /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A59 (alpha: 35%)
-    /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A959 (alpha: 35%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A959 (alpha: 35%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A33 (alpha: 20%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A959 (alpha: 35%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A959 (alpha: 35%)
     case primaryFill
     
     /// Standard color for secondary fill.
-    /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A45 (alpha: 27%)
-    /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A945 (alpha: 27%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A945 (alpha: 27%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A29 (alpha: 16%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A945 (alpha: 27%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A945 (alpha: 27%)
     case secondaryFill
     
     /// Standard color for tertiary fill.
-    /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A30 (alpha: 19%)
-    /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A930 (alpha: 19%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A930 (alpha: 19%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A1F (alpha: 12%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A30 (alpha: 19%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A930 (alpha: 19%)
     case tertiaryFill
     
     /// Standard color for quarternary fill.
-    /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A1C (alpha: 11%)
-    /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A91C (alpha: 11%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A91C (alpha: 11%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A14 (alpha: 8%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A1C (alpha: 11%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A91C (alpha: 11%)
     case quarternaryFill
     
     // MARK: - Specific UI Materials Colors
     
-    /// Standard background color for `UINavigationBar`.
+    /// Standard background color for navigation bar or headers.
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5F
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)          Hex value: 2C3D4F
-    case navigationBar
+    case header
     
-    /// Standard background color for toolbar or tab bar.
+    /// Standard background color for toolbar, tab bar or footers.
     /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAEB (alpha: 92%)
     /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303EEB (alpha: 92%)
-    case toolBar
+    case footer
     
     /// Standard cell background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex color: FFFFFF00 (alpha: 0%)
@@ -251,12 +247,18 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/0A84FF.png&text=+)          Hex color: 0A84FF66 (alpha: 40%)
     case tintColorTapStateDark
     
+    /// Standard background color for `UINavigationBar`.
+    /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5F
+    /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)          Hex value: 2C3D4F
+    @available(*, deprecated, renamed: "header")
+    public static let navigationBar = ColorStyle.header
+    
     /// Top gradient color, originating at SAP Fiori `UINavigationBar`.  ![](https://dummyimage.com/48x18/445E75.png&text=+) Hex color: 445E75
-    @available(*, deprecated, renamed: "navigationBar")
-    public static let backgroundGradientTop = ColorStyle.navigationBar
+    @available(*, deprecated, renamed: "header")
+    public static let backgroundGradientTop = ColorStyle.header
     /// Bottom gradient color, originating at SAP Fiori `UINavigationBar`.  ![](https://dummyimage.com/48x18/3F566B.png&text=+) Hex color: 3F566B
-    @available(*, deprecated, renamed: "navigationBar")
-    public static let backgroundGradientBottom = ColorStyle.navigationBar
+    @available(*, deprecated, renamed: "header")
+    public static let backgroundGradientBottom = ColorStyle.header
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/F3F3F3.png&text=+)          Hex value: F3F3F3
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000
@@ -342,74 +344,53 @@ public enum ColorStyle: String, CaseIterable {
     case critical
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB0000
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF8888
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB0000
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF8888
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FF8888.png&text=+)      Hex color: FF8888
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FF8888.png&text=+)      Hex color: FF8888
     case negativeLabel
     
     /// Semantic color for "positive" (good) label, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E
-    /// (light variant) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)      Hex color: ABE2AB
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)      Hex color: ABE2AB
     case positiveLabel
     
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C
-    /// (light variant) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD64
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD64
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/FABD64.png&text=+)      Hex color: FABD64
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FABD64.png&text=+)      Hex color: FABD64
     case criticalLabel
     
-    /// Semantic color for "negative" (bad) label in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF8888
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF8888
-    case negativeLabelContrast
-    
-    /// Semantic color for "positive" (good) label in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB
-    /// (light variant) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB
-    case positiveLabelContrast
-    
-    /// Semantic color for "critical" (risky) label, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD64
-    /// (light variant) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD64
-    case criticalLabelContrast
-    
     /// Semantic color for "negative" (bad) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB000014 (alpha: 8%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF888824 (alpha: 14%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB000014 (alpha: 8%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF888824 (alpha: 14%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/BB0000.png&text=+)      Hex color: BB000024 (alpha: 14%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FF8888.png&text=+)      Hex color: FF888824 (alpha: 14%)
     case negativeBackground
     
     /// Semantic color for "positive" (good) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E14 (alpha: 8%)
-    /// (light variant) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB24 (alpha: 14%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E14 (alpha: 8%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB24 (alpha: 14%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/107E3E.png&text=+)      Hex color: 107E3E24 (alpha: 14%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)      Hex color: ABE2AB24 (alpha: 14%)
     case positiveBackground
     
     /// Semantic color for "critical" (risky) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C14 (alpha: 8%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD6424 (alpha: 14%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C14 (alpha: 8%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD6424 (alpha: 14%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/E9730C.png&text=+)      Hex color: E9730C24 (alpha: 14%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/FABD64.png&text=+)      Hex color: FABD6424 (alpha: 14%)
     case criticalBackground
     
     /// Semantic color for "information" (neutral) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)        Hex color: 0A6ED114 (alpha: 8%)
-    /// (light variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)        Hex color: 91C8F624 (alpha: 14%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)        Hex color: 0A6ED114 (alpha: 8%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)        Hex color: 91C8F624 (alpha: 14%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)      Hex color: 0A6ED124 (alpha: 14%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)      Hex color: 91C8F624 (alpha: 14%)
     case informationBackground
-    
-    /// Semantic color for "negative" (bad) background in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB000024 (alpha: 14%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8888.png&text=+)        Hex color: FF888824 (alpha: 14%)
-    case negativeBackgroundContrast
-    
-    /// Semantic color for "positive" (good) background in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E24 (alpha: 14%)
-    /// (light variant) ![](https://dummyimage.com/48x18/ABE2AB.png&text=+)        Hex color: ABE2AB24 (alpha: 14%)
-    case positiveBackgroundContrast
-    
-    /// Semantic color for "critical" (risky) background in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C24 (alpha: 14%)
-    /// (light variant) ![](https://dummyimage.com/48x18/FABD64.png&text=+)        Hex color: FABD6424 (alpha: 14%)
-    case criticalBackgroundContrast
-    
-    /// Semantic color for "information" (neutral) background in contrast mode, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)        Hex color: 0A6ED124 (alpha: 14%)
-    /// (light variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)        Hex color: 91C8F624 (alpha: 14%)
-    case informationBackgroundContrast
     
     // MARK: - Accent Colors
     

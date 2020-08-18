@@ -26,8 +26,9 @@ If applicable, add screenshots to help explain your problem.
 **Mobile (please complete the following information):**
  - Device: [e.g. iPhone 11]
  - OS: [e.g. iOS 13.3]
- - Swift Package: [e.g. Cards]
- - Version [e.g. 1.0.0 or master branch]
+ - Swift Package Product: [e.g. FioriCharts]
+ - Swift Package Version: [e.g. 1.0.0 or main branch]
+ - Xcode Version: [e.g. Xcode 11.6 or Xcode 12 beta 4]
  - SAP Cloud Platform SDK for iOS version [e.g. 5.0]
 
 **Additional context**
