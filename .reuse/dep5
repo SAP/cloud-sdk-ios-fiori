@@ -43,6 +43,7 @@ Files:
   Package.resolved
   sonar-project.properties
   scripts/**
+  translation_v2.json
   *.yaml
   *.yml
 Copyright:  2020 SAP SE or an SAP affiliate company and cloud-sdk-ios-fiori contributors

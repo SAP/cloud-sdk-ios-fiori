@@ -1,0 +1,20 @@
+{
+	"collections": [
+	  {
+		"collectionName": "cloud-sdk-ios-fiori",
+		"folders": [
+		  {
+			"startingFolderPath": "Sources/**/en.lproj/",
+			"sourceFilters": ["*.strings"],
+			"targetFolderPath": "../[langCode].lproj/"
+		  }
+		]
+	  }
+	],
+	"defaultConfiguration": {
+	  "xlfFolderPath": "/translation/XLF/[fullPath]",
+	  "pseudoLocFolderPath": "/translation/2Q/[fullPath]",
+	  "oneQFolderPath": "/translation/1Q/[fullPath]",
+	  "targetFileNamingConvention": "[fileName].[extension]"
+	}
+}
