@@ -58,4 +58,7 @@ public enum ChartType: String {
     
     /// donut chart
     case donut
+    
+    /// Stacked Bar Chart
+    case stackedBar
 }

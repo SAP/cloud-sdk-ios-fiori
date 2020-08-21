@@ -32,7 +32,7 @@ struct ColumnView: View {
         }
         let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
         let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0
-        print("ColumnView: chartWidth = \(chartWidth), startOffset = \(startOffset), endOffset = \(endOffset), gapBeforeFirstCoumn = \(gapBeforeFirstCoumn), width = \(rect.size.width)")
+        
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
                 NoDataView()

@@ -48,7 +48,7 @@ class ChartUtility {
             currentSeriesIndex = model.currentSeriesIndex
             dmin = CGFloat(model.ranges[model.currentSeriesIndex].lowerBound)
             dmax = CGFloat(model.ranges[model.currentSeriesIndex].upperBound)
-        } else if model.chartType == .stackedColumn {
+        } else if model.chartType == .stackedColumn || model.chartType == .stackedBar {
             for seriesIndex in 0 ..< model.numOfSeries() {
                 let seriesMin = CGFloat(model.ranges[seriesIndex].lowerBound)
                 let seriesMax = CGFloat(model.ranges[seriesIndex].upperBound)
@@ -118,7 +118,7 @@ class ChartUtility {
             //
             // Check if we need to clamp the baseline at zero and adjust accordingly.
             //
-            if model.chartType == .column || model.chartType == .bar || model.chartType == .waterfall || model.chartType == .stackedColumn || model.numericAxis.isZeroBased {
+            if model.chartType == .column || model.chartType == .bar || model.chartType == .stackedBar || model.chartType == .waterfall || model.chartType == .stackedColumn || model.numericAxis.isZeroBased {
                 if dmin >= 0.0 && dmax >= dmin {
                     dmin = 0.0
                 } else if dmax <= 0.0 && dmin <= dmax {

@@ -65,14 +65,20 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     
     /// Color used to render fill area or range selection for the series.
     public var fillColor: Color {
-        if let color = _fillColor {
-            return color
-        } else {
-            if let color = colors.first {
+        get {
+            if let color = _fillColor {
                 return color
             } else {
-                return .preferredColor(.primary1)
+                if let color = colors.first {
+                    return color
+                } else {
+                    return .preferredColor(.primary1)
+                }
             }
+        }
+        
+        set {
+            _fillColor = newValue
         }
     }
     

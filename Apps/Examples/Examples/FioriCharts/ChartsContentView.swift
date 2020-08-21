@@ -10,7 +10,6 @@ import Foundation
 import SwiftUI
 import FioriCharts
 
-// swiftlint:disable force_unwrapping
 struct ChartsContentView: View {
     @State var showingDetail = false
     
@@ -18,26 +17,46 @@ struct ChartsContentView: View {
         [("Stock", Tests.stockModels, Tests.stockModelsDesc),
          ("Line", Tests.lineModels, Tests.lineModelsDesc),
          ("Area", Tests.lineModels.map {
-            let model = $0.copy() as! ChartModel
-            model.chartType = .area
-            return model
+            if let model = $0.copy() as? ChartModel {
+                model.chartType = .area
+                return model
+            } else {
+                return $0
+            }
          }, Tests.lineModelsDesc),
          ("Column", Tests.lineModels.map {
-            let model = $0.copy() as! ChartModel
-            model.chartType = .column
-            return model
+            if let model = $0.copy() as? ChartModel {
+                model.chartType = .column
+                return model
+            } else {
+                return $0
+            }
          }, Tests.lineModelsDesc),
          ("Stacked Column", Tests.lineModels.map {
-            let model = $0.copy() as! ChartModel
-            model.chartType = .stackedColumn
-            return model
+            if let model = $0.copy() as? ChartModel {
+                model.chartType = .stackedColumn
+                return model
+            } else {
+                return $0
+            }
          }, Tests.lineModelsDesc),
          ("Waterfall", Tests.waterfallModels, Tests.waterfallModelsDesc),
          ("Combo", Tests.comboModels, Tests.comboModelsDesc),
          ("Bar", Tests.lineModels.map {
-            let model = $0.copy() as! ChartModel
-            model.chartType = .bar
-            return model
+            if let model = $0.copy() as? ChartModel {
+                model.chartType = .bar
+                return model
+            } else {
+                return $0
+            }
+         }, Tests.lineModelsDesc),
+         ("Stacked Bar", Tests.lineModels.map {
+            if let model = $0.copy() as? ChartModel {
+                model.chartType = .stackedBar
+                return model
+            } else {
+                return $0
+            }
          }, Tests.lineModelsDesc),
          ("Bubble", Tests.bubbleModels, Tests.bubbleModelsDesc),
          ("Scatter", Tests.scatterModels, Tests.scatterModelsDesc),
@@ -87,7 +106,7 @@ struct ChartHomeView: View {
                     Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
                     ChartView(self.info.1[i])
                         .frame(width: width,
-                        height: self.info.1[i].chartType == .bar ? width : width / 2.14 )
+                        height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
 
                     Text(self.info.2[i]).font(.subheadline)
                 }

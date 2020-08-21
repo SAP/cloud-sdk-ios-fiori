@@ -56,7 +56,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         let xAxisHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height   ))
         
         let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
-        if model.chartType == .bar {
+        if model.chartType == .bar || model.chartType == .stackedBar {
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
             secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
@@ -117,7 +117,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             }.frame(width: yAxisRect.size.width, height: rect.size.height)
             
             VStack(alignment: .leading, spacing: 0) {
-                if model.chartType == .bar || model.valueType == .allPositive {
+                if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                     

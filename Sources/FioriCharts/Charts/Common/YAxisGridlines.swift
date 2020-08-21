@@ -25,7 +25,7 @@ struct YAxisGridlines: View {
         
         var yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
-        if model.chartType != .bar {
+        if model.chartType != .bar || model.chartType != .stackedBar {
             let displayRange = ChartUtility.displayRange(model, secondary: secondary)
             var valueToRemove: CGFloat = displayRange.lowerBound
             let valueType = model.valueType
@@ -47,7 +47,7 @@ struct YAxisGridlines: View {
             }
         }
         
-        let axis = model.chartType == .bar ? model.categoryAxis : model.numericAxis
+        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : model.numericAxis
         
         return ZStack {
             if !axis.gridlines.isHidden {

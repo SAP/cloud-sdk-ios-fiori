@@ -1,28 +1,28 @@
 //
-//  BarChart.swift
+//  StackedBarChart.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 8/3/20.
+//  Created by Xu, Sheng on 8/18/20.
 //
 
 import SwiftUI
 
-struct BarChart: View {
+struct StackedBarChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: BarAxisDataSource(),
-                    chartView: BarPlotView(),
-                    indicatorView: BarIndicatorView())
+        XYAxisChart(axisDataSource: StackedBarAxisDataSource(),
+                    chartView: StackedBarPlotView(),
+                    indicatorView: StackedBarIndicatorView())
             .environmentObject(model)
     }
 }
 
-class BarAxisDataSource: DefaultAxisDataSource {
+class StackedBarAxisDataSource: DefaultAxisDataSource {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
-
+    
     override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: false)
     }
@@ -43,7 +43,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
             var x = rect.size.width * ticks.tickPositions[xAxisLabelsCount - 1 - i]
             let val = ticks.tickValues[xAxisLabelsCount - 1 - i]
             let title = yAxisFormattedString(model, value: Double(val), secondary: false)
-
+            
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)
                 let tmpX = x
@@ -77,14 +77,14 @@ class BarAxisDataSource: DefaultAxisDataSource {
         
         for i in labelsIndex {
             let y = rect.origin.y + (columnXIncrement * CGFloat(i) + clusterHeight / 2.0) * model.scale * rect.size.height - startPosY
-
+            
             // check if it is in display range
             if y >= 0 && y <= rect.size.height {
                 let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
                 
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)
                 let x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-
+                
                 yAxisLabels.append(AxisTitle(index: i,
                                              value: 0,
                                              title: title,
@@ -106,13 +106,16 @@ class BarAxisDataSource: DefaultAxisDataSource {
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let columnWidth = clusterWidth / CGFloat(seriesCount)
+        let columnWidth = clusterWidth
         
         let tickValues = model.numericAxisTickValues
         let yScale = tickValues.plotScale
         let baselinePosition = tickValues.plotBaselinePosition
         let baselineValue = tickValues.plotBaselineValue
         let corruptDataHeight = yScale / 1000
+        
+        var positiveStackHeights = Array(repeating: CGFloat(0), count: maxDataCount)
+        var negativeStackHeights = Array(repeating: CGFloat(0), count: maxDataCount)
         
         var clusteredX: CGFloat
         //
@@ -129,7 +132,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
                 // Calculate and define clustered column x positions.
                 //
                 clusteredX = columnXIncrement * CGFloat(categoryIndex)
-                clusteredX += columnWidth * CGFloat(seriesIndex)
+                //clusteredX += columnWidth * CGFloat(seriesIndex)
                 var columnHeight = corruptDataHeight
                 var clusteredY = baselinePosition
                 var rawValue: CGFloat = 0
@@ -140,21 +143,26 @@ class BarAxisDataSource: DefaultAxisDataSource {
                 
                 if let val = value {
                     rawValue = CGFloat(val)
+                    
                     if val >= 0.0 {
                         columnHeight = yScale * (CGFloat(val) - baselineValue)
+                        clusteredY = baselinePosition + positiveStackHeights[categoryIndex]
+                        positiveStackHeights[categoryIndex] += columnHeight
                     } else {
                         columnHeight = -yScale * (CGFloat(val) - baselineValue)
-                        clusteredY = baselinePosition - columnHeight
+                        clusteredY = baselinePosition - negativeStackHeights[categoryIndex] - columnHeight
+                        negativeStackHeights[categoryIndex] += columnHeight
                     }
                 }
                 
-                seriesResult.append(ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: categoryIndex,
-                                                      value: rawValue,
-                                                      x: clusteredY,
-                                                      y: clusteredX,
-                                                      width: columnHeight,
-                                                      height: columnWidth)))
+                seriesResult.append(ChartPlotData.rect(rect:
+                    ChartPlotRectData(seriesIndex: seriesIndex,
+                                      categoryIndex: categoryIndex,
+                                      value: rawValue,
+                                      x: clusteredY,
+                                      y: clusteredX,
+                                      width: columnHeight,
+                                      height: columnWidth)))
             }
             
             result.append(seriesResult)
@@ -178,7 +186,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         
         for i in (0 ... startIndex).reversed() {
             let y = rect.size.height * (model.scale - 1) - CGFloat(i) * unitHeight
-        
+            
             if y >= 0 {
                 return y
             }
@@ -205,7 +213,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         
         let endIndex = Int(endPosY / unitHeight).clamp(low: startIndex, high: maxDataCount - 1)
         let endOffset = unitHeight * CGFloat(endIndex) + clusterHeight - (rect.size.height * model.scale - model.startPos.y)
-
+        
         return (startIndex, endIndex, startOffset, endOffset)
     }
     
@@ -224,12 +232,15 @@ class BarAxisDataSource: DefaultAxisDataSource {
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
-
+        
         for plotCat in pd[startIndex] {
+            let xMin = plotCat.rect.minX * rect.size.width
+            let xMax = plotCat.rect.maxX * rect.size.width
+            
             let yMin = plotCat.rect.minY * model.scale * height - startPosY
             let yMax = plotCat.rect.maxY * model.scale * height - startPosY
-                
-            if y >= yMin && y <= yMax {
+            
+            if atPoint.x >= xMin && atPoint.x <= xMax && y >= yMin && y <= yMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -263,7 +274,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
                 let startIndex = Int((maxY + startPosY) / unitHeight).clamp(low: 0, high: maxDataCount - 1)
                 if let plotCat = pd[startIndex].first {
                     let downY = plotCat.rect.minY * model.scale * height + clusterHeight - startPosY
-
+                    
                     if minY > downY {
                         return [(-1, -1), (-1, -1)]
                     }
@@ -300,17 +311,17 @@ class BarAxisDataSource: DefaultAxisDataSource {
     }
 }
 
-struct BarChart_Previews: PreviewProvider {
+struct StackedBarChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
            let model = $0
-           model.chartType = .bar
+           model.chartType = .stackedBar
            return model
         }
         
         return Group {
             ForEach(models) {
-                BarChart(model: $0)
+                StackedBarChart(model: $0)
                     .frame(width: 330, height: 220, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

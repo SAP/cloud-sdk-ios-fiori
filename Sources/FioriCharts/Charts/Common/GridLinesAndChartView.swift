@@ -13,6 +13,8 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     @Environment(\.layoutDirection) var layoutDirection
     @State var draggingChartView = false
     
+    @State var gestureInProgress: Bool = false
+    
     // scale is not allowed to be less than 1.0
     @State var lastScale: CGFloat = 1.0
     @State var lastStartPosX: CGFloat = 0
@@ -38,7 +40,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         let drag = DragGesture()
             .onChanged({ value in
-                // not zoomed in
+                // not zoomed in, perform selection
                 if abs(self.model.scale.distance(to: 1.0)) < 0.001 {
                     let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: value.location, rect: rect, layoutDirection: self.layoutDirection)
                     
@@ -46,27 +48,21 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     return
                 }
                 
+                // pan the plot chart while it is zoomed in
                 if self.model.selections != nil {
                     self.model.selections = nil
                 }
                 self.draggingChartView = true
     
                 let tmpX = self.layoutDirection == .leftToRight ? (self.lastStartPosX - value.translation.width) : (self.lastStartPosX + value.translation.width)
-                if self.model.snapToPoint && self.model.chartType != .bar {
-                    self.model.startPos.x = self.axisDataSource.snapChartToPoint(self.model, at: tmpX, in: rect)
-                } else {
-                    self.model.startPos.x = max(0, min(tmpX, rect.size.width * (self.model.scale - 1)))
-                }
+                self.model.startPos.x = max(0, min(tmpX, rect.size.width * (self.model.scale - 1)))
                 
                 let tmpY = self.lastStartPosY + value.translation.height
-                if self.model.snapToPoint && self.model.chartType == .bar {
-                    self.model.startPos.y = self.axisDataSource.snapChartToPoint(self.model, at: tmpY, in: rect)
-                } else {
-                    self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
-                }
+                self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
             .onEnded({ _ in
                 self.draggingChartView = false
+                self.adjustStartPos(in: rect)
                 self.lastStartPosX = self.model.startPos.x
                 self.lastStartPosY = self.model.startPos.y
             })
@@ -98,12 +94,14 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
             .onEnded({ _ in
+                print("MagnificationGesture: ended")
                 self.lastScale = self.model.scale
+                self.adjustStartPos(in: rect)
                 self.lastStartPosX = self.model.startPos.x
                 self.lastStartPosY = self.model.startPos.y
                 self.draggingChartView = false
             })
-            .exclusively(before: drag)
+            //.exclusively(before: drag)
 
         return ZStack {
             XAxisGridlines()
@@ -118,13 +116,14 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             if model.userInteractionEnabled {
                 Background(tappedCallback: { (point, chartRect) in
                     let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                    
+                    //self.adjustStartPos(in: rect)
                     ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
                 }, doubleTappedCallback: { (_, _) in
                     // clear selections
                     if self.model.selections != nil {
                         self.model.selections = nil
                     }
+                    //self.adjustStartPos(in: rect)
                 }) { (points, chartRect) in
                     if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
                         let items = self.axisDataSource.closestSelectedPlotItems(self.model,
@@ -134,11 +133,24 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                         
                         ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
                     }
+                    //self.adjustStartPos(in: rect)
                 }
                 .gesture(drag)
                 .gesture(mag)
                 .disabled(!model.userInteractionEnabled)
             }
+        }
+    }
+    
+    func adjustStartPos(in rect: CGRect) {
+        if model.snapToPoint && (model.chartType != .bar && model.chartType != .stackedBar) {
+            let tmpX = model.startPos.x
+            self.model.startPos.x = axisDataSource.snapChartToPoint(model, at: tmpX, in: rect)
+        }
+        
+        if model.snapToPoint && (model.chartType == .bar || model.chartType == .stackedBar) {
+            let tmpY = self.model.startPos.y
+            model.startPos.y = axisDataSource.snapChartToPoint(model, at: tmpY, in: rect)
         }
     }
     

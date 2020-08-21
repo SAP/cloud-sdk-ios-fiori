@@ -1,14 +1,14 @@
 //
-//  BarChartTests.swift
+//  StackedBarChartTests.swift
 //  FioriSwiftUITests
 //
-//  Created by Xu, Sheng on 8/13/20.
+//  Created by Xu, Sheng on 8/20/20.
 //
 
 import XCTest
 @testable import FioriCharts
 
-class BarChartTests: XCTestCase {
+class StackedBarChartTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,9 +21,9 @@ class BarChartTests: XCTestCase {
     func testNumericAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //let dataSource = BarAxisDataSource()
+        //let dataSource = StackedBarAxisDataSource()
         let model = Tests.lineModels[0]
-        model.chartType = .bar
+        model.chartType = .stackedBar
         //let _ = dataSource.plotData(model)
         let axisContext = model.numericAxisTickValues
         
@@ -37,11 +37,11 @@ class BarChartTests: XCTestCase {
     func testChangeIsZeroBased() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //let dataSource = BarAxisDataSource()
+        //let dataSource = StackedBarAxisDataSource()
         guard let model = Tests.lineModels[0].copy() as? ChartModel else {
             return XCTFail("Test Case Authoring Error")
         }
-        model.chartType = .bar
+        model.chartType = .stackedBar
         let axisContext1 = model.numericAxisTickValues
         
         // change it
@@ -57,9 +57,9 @@ class BarChartTests: XCTestCase {
     func testYAxisLabels() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = StackedBarAxisDataSource()
         let model = Tests.lineModels[0]
-        model.chartType = .bar
+        model.chartType = .stackedBar
         let labels = dataSource.yAxisLabels(model, rect: CGRect(x: 0, y: 0, width: 200, height: 200))
         
         XCTAssertTrue(labels[0].title == "Jan")
@@ -69,9 +69,9 @@ class BarChartTests: XCTestCase {
     func testPositiveValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = StackedBarAxisDataSource()
         let model = Tests.lineModels[0]
-        model.chartType = .bar
+        model.chartType = .stackedBar
         let pd = dataSource.plotData(model)
 
         XCTAssertTrue(pd[0].count == 1)
@@ -89,50 +89,50 @@ class BarChartTests: XCTestCase {
     func testNegativeValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = StackedBarAxisDataSource()
         let model = Tests.lineModels[3]
-        model.chartType = .bar
+        model.chartType = .stackedBar
         let pd = dataSource.plotData(model)
 
         XCTAssertTrue(pd[0].count == 2)
-        XCTAssertEqual(pd[0][0].rect.origin.x, 0.5909, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.origin.x, 0.7777, accuracy: 0.001)
         XCTAssertEqual(pd[0][0].rect.origin.y, 0, accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.width, 0.409, accuracy: 0.001)
-        XCTAssertEqual(pd[0][0].rect.size.height, 0.0319, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.width, 0.2222, accuracy: 0.001)
+        XCTAssertEqual(pd[0][0].rect.size.height, 0.0638, accuracy: 0.001)
         
-        XCTAssertEqual(pd[1][1].rect.origin.x, 0.159, accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.origin.y, 0.1170, accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.size.width, 0.8409, accuracy: 0.001)
-        XCTAssertEqual(pd[1][1].rect.size.height, 0.0319, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.origin.x, 0.2716, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.origin.y, 0.0851, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.size.width, 0.4567, accuracy: 0.001)
+        XCTAssertEqual(pd[1][1].rect.size.height, 0.0638, accuracy: 0.001)
     }
     
     func testMixedValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = StackedBarAxisDataSource()
         let model = Tests.lineModels[4]
-        model.chartType = .bar
+        model.chartType = .stackedBar
         let pd = dataSource.plotData(model)
 
         XCTAssertTrue(pd[0].count == 2)
-        XCTAssertEqual(pd[4][0].rect.origin.x, 0.3333, accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.origin.x, 0.2314, accuracy: 0.001)
         XCTAssertEqual(pd[4][0].rect.origin.y, 0.3404, accuracy: 0.001)
-        XCTAssertEqual(pd[4][0].rect.size.width, 0.1428, accuracy: 0.001)
-        XCTAssertEqual(pd[4][0].rect.size.height, 0.0319, accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.size.width, 0.0991, accuracy: 0.001)
+        XCTAssertEqual(pd[4][0].rect.size.height, 0.0638, accuracy: 0.001)
         
-        XCTAssertEqual(pd[4][1].rect.origin.x, 0.47619, accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.origin.y, 0.3723, accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.size.width, 0.3928, accuracy: 0.001)
-        XCTAssertEqual(pd[4][1].rect.size.height, 0.0319, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.origin.x, 0.3305, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.origin.y, 0.3404, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.size.width, 0.2727, accuracy: 0.001)
+        XCTAssertEqual(pd[4][1].rect.size.height, 0.0638, accuracy: 0.001)
     }
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = BarAxisDataSource()
+        let dataSource = StackedBarAxisDataSource()
         guard let model = Tests.lineModels[0].copy() as? ChartModel else {
             return XCTFail("Test Case Authoring Error")
         }
-        model.chartType = .bar
+        model.chartType = .stackedBar
         
         self.measure {
             // Put the code you want to measure the time of here.

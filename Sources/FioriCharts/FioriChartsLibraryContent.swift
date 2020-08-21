@@ -73,6 +73,10 @@ struct LibraryContent: LibraryContentProvider {
             ChartView(ChartModel(chartType: .bar, data: [[200, 170, 165, 143, 166, 112, 110], [150, 120, 130, 135, 120, 138, 137]], titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]])),
             title: "Bar Chart"
         )
+        LibraryItem(
+            ChartView(ChartModel(chartType: .stackedBar, data: [[200, 170, 165, 143, 166, 112, 110], [150, 120, 130, 135, 120, 138, 137]], titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]])),
+            title: "Stacked Bar Chart"
+        )
     }
 }
 #endif

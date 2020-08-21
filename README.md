@@ -45,7 +45,7 @@ The FioriCharts module is planned to replace the *RoambiChartKit* charting libra
 | Column | :white_check_mark: | :white_check_mark: |
 | Stacked Column | :white_check_mark: | :white_check_mark: |
 | Bar | :white_check_mark: | :white_check_mark: |
-| Stacked Bar | :x: | :soon: |
+| Stacked Bar | :x: | :white_check_mark: |
 | Bubble | :white_check_mark: | :white_check_mark: |
 | Scatter | :white_check_mark: | :white_check_mark: |
 | Waterfall | :white_check_mark: | :white_check_mark: |
