@@ -50,7 +50,6 @@ struct StackedBarPlotView: View {
                             StackedBarPlotSeriesView(plotSeries: series,
                                               rect: rect,
                                               isSelectionView: false)
-                                //.frame(width: rect.size.width)
                         }
                     }
                     

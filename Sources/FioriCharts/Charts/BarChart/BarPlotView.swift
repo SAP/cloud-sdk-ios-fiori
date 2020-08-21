@@ -50,7 +50,6 @@ struct BarPlotView: View {
                             BarPlotSeriesView(plotSeries: series,
                                               rect: rect,
                                               isSelectionView: false)
-                                //.frame(width: rect.size.width)
                         }
                     }
                     

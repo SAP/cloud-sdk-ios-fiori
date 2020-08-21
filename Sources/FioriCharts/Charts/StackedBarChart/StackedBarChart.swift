@@ -132,7 +132,6 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
                 // Calculate and define clustered column x positions.
                 //
                 clusteredX = columnXIncrement * CGFloat(categoryIndex)
-                //clusteredX += columnWidth * CGFloat(seriesIndex)
                 var columnHeight = corruptDataHeight
                 var clusteredY = baselinePosition
                 var rawValue: CGFloat = 0

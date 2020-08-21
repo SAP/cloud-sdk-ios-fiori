@@ -94,14 +94,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) * rect.size.height))
             })
             .onEnded({ _ in
-                print("MagnificationGesture: ended")
                 self.lastScale = self.model.scale
                 self.adjustStartPos(in: rect)
                 self.lastStartPosX = self.model.startPos.x
                 self.lastStartPosY = self.model.startPos.y
                 self.draggingChartView = false
             })
-            //.exclusively(before: drag)
 
         return ZStack {
             XAxisGridlines()
@@ -116,14 +114,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             if model.userInteractionEnabled {
                 Background(tappedCallback: { (point, chartRect) in
                     let item = self.axisDataSource.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                    //self.adjustStartPos(in: rect)
                     ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
                 }, doubleTappedCallback: { (_, _) in
                     // clear selections
                     if self.model.selections != nil {
                         self.model.selections = nil
                     }
-                    //self.adjustStartPos(in: rect)
                 }) { (points, chartRect) in
                     if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
                         let items = self.axisDataSource.closestSelectedPlotItems(self.model,
@@ -133,7 +129,6 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                         
                         ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
                     }
-                    //self.adjustStartPos(in: rect)
                 }
                 .gesture(drag)
                 .gesture(mag)
