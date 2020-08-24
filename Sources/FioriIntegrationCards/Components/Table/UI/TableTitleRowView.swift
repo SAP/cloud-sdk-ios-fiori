@@ -19,8 +19,10 @@ struct TableTitleRowView: View {
                 }
                 .frame(width: geometry.size.width / CGFloat(self.model.count), height: 40, alignment: .leading)
             }
-            .padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
-            .background(Color(UIColor.lightGray.withAlphaComponent(0.3)))
+            .overlay(
+                Color(UIColor.lightGray.withAlphaComponent(0.3))
+                    .padding(EdgeInsets(top: 0, leading: -25, bottom: 0, trailing: -1))
+            )
         }
         .frame(height: 40)
     }
