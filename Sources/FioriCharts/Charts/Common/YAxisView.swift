@@ -33,7 +33,7 @@ struct YAxisView: View {
             yAxisLabels = res
         }
 
-        let axis = model.chartType == .bar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
+        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
         let baselineX: CGFloat
         if secondary {
             if layoutDirection == .leftToRight {

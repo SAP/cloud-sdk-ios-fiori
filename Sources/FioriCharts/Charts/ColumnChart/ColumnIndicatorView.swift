@@ -76,7 +76,6 @@ struct ColumnIndicatorView: View {
     }
 }
 
-// swiftlint:disable force_cast
 struct ColumnSelectionView_Previews: PreviewProvider {
     static var previews: some View {
         let model = Tests.lineModels[4]

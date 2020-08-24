@@ -25,7 +25,7 @@ struct XAxisGridlines: View {
             xAxisLabels.removeFirst()
         }
         
-        let axis = model.chartType == .bar ? model.numericAxis : model.categoryAxis
+        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.numericAxis : model.categoryAxis
         let valueType = model.valueType
         let ticks = model.numericAxisTickValues
         let zeroX: CGFloat = rect.size.width * ticks.plotBaselinePosition

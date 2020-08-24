@@ -1,14 +1,15 @@
 //
-//  BarPlotView.swift
+//  StackedBarIndicatorView.swift
 //  FioriCharts
 //
-//  Created by Xu, Sheng on 8/3/20.
+//  Created by Xu, Sheng on 8/18/20.
 //
 
 import SwiftUI
 
-struct BarPlotView: View {
+struct StackedBarIndicatorView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.axisDataSource) var axisDataSource
     
     var body: some View {
@@ -35,7 +36,28 @@ struct BarPlotView: View {
         }
         let chartHeight = startOffset < 0 ? (rect.size.height - startOffset + endOffset) : (rect.size.height + endOffset)
         let chartPosY = startOffset < 0 ? (rect.size.height + startOffset + endOffset) / 2.0 : (rect.size.height + endOffset) / 2.0
-    
+        
+        var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
+        var selectedSeriesRange: ClosedRange = 0 ... 0
+        if let tmp = model.selections {
+            selectedCategoryRange = tmp[1]
+            selectedSeriesRange = tmp[0]
+        }
+        
+        var displayPlotData: [[ChartPlotData]] = []
+        
+        for pdSeries in curPlotData {
+            var ss: [ChartPlotData] = []
+            for pdCategory in pdSeries {
+                if selectedSeriesRange.contains(pdCategory.seriesIndex) && selectedCategoryRange.contains(pdCategory.categoryIndex) {
+                    ss.append(pdCategory.changeSelected(selected: true))
+                } else {
+                    ss.append(pdCategory)
+                }
+            }
+            displayPlotData.append(ss)
+        }
+        
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
                 NoDataView()
@@ -46,10 +68,10 @@ struct BarPlotView: View {
                         .frame(width: gapBeforeFirstCoumn)
                     
                     VStack(alignment: .leading, spacing: clusterSpace) {
-                        ForEach(curPlotData, id: \.self) { series in
-                            BarPlotSeriesView(plotSeries: series,
+                        ForEach(displayPlotData, id: \.self) { series in
+                            StackedBarPlotSeriesView(plotSeries: series,
                                               rect: rect,
-                                              isSelectionView: false)
+                                              isSelectionView: true)
                         }
                     }
                     
@@ -63,23 +85,16 @@ struct BarPlotView: View {
     }
 }
 
-struct BarPlotView_Previews: PreviewProvider {
+struct StackedBarIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        let models: [ChartModel] = Tests.lineModels.map {
-            let model = $0
-            model.chartType = .bar
-            return model
-        }
+        let model = Tests.lineModels[4]
+        model.chartType = .bar
         let axisDataSource = BarAxisDataSource()
         
-        return Group {
-            ForEach(models) {
-                BarPlotView()
-                    .environmentObject($0)
-                    .environment(\.axisDataSource, axisDataSource)
-                    .frame(width: 220, height: 330, alignment: .topLeading)
-                    .previewLayout(.sizeThatFits)
-            }
-        }
+        return StackedBarIndicatorView()
+                .environmentObject(model)
+                .environment(\.axisDataSource, axisDataSource)
+                .frame(width: 330, height: 220, alignment: .topLeading)
+                .previewLayout(.sizeThatFits)
     }
 }

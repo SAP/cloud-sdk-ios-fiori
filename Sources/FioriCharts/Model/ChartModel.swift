@@ -1162,7 +1162,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let axis = ChartCategoryAxisAttributes()
         if chartType == .stock {
             axis.gridlines.isHidden = false
-        } else if chartType == .bar {
+        } else if chartType == .bar || chartType == .stackedBar {
             axis.gridlines.isHidden = false
             axis.baseline.isHidden = true
         } else {

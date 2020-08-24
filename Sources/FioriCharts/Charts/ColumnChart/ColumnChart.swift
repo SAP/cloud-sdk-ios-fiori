@@ -176,7 +176,6 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         let endIndex = Int((model.startPos.x + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
         let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - model.startPos.x - rect.size.width
         
-        print("ColumnChart: unitWidth = \(unitWidth), clusterWidth = \(clusterWidth), startIndex = \(startIndex), endIndex = \(endIndex), startOffset = \(startOffset), endOffset = \(endOffset)")
         return (startIndex, endIndex, startOffset, endOffset)
     }
     
