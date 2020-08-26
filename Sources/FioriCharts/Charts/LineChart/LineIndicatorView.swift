@@ -29,8 +29,6 @@ struct LineIndicatorView: View {
         }
     }
     
-    //swiftlint:disable function_body_length
-    //swiftlint:disable cyclomatic_complexity
     func makeBody(rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesRange: ClosedRange = 0 ... 0
