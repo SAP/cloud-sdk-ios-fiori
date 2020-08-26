@@ -315,7 +315,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - single : Selects a single value in the currently selected series and category indices.
      - all : Selects one value in each series for the selected category index(es).
      */
-    @Published public var _selectionMode: ChartSelectionMode = .single {
+    @Published private var _selectionMode: ChartSelectionMode = .single {
         didSet {
             selections = nil
             }
