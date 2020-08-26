@@ -119,6 +119,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 updateRange()
             }
             
+            if chartType == .donut {
+                selectionMode = .multiple
+            }
+            
             // invalidate the plotDataCache
             plotDataCache = nil
             numericAxisTickValuesCache.removeAll()
@@ -311,13 +315,25 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      - single : Selects a single value in the currently selected series and category indices.
      - all : Selects one value in each series for the selected category index(es).
      */
-    @Published public var selectionMode: ChartSelectionMode = .single {
+    @Published public var _selectionMode: ChartSelectionMode = .single {
         didSet {
-            if let prevSelections = selections {
-                if selectionMode == .single {
-                    selections = [currentSeriesIndex ... currentSeriesIndex, prevSelections[1]]
-                } else {
-                    selections = [0 ... data.count - 1, prevSelections[1]]
+            selections = nil
+            }
+        }
+
+    public var selectionMode: ChartSelectionMode {
+        get {
+            return _selectionMode
+        }
+        
+        set {
+            if chartType == .donut {
+                if newValue == .multiple {
+                    _selectionMode = newValue
+                }
+            } else {
+                if newValue != .multiple {
+                    _selectionMode = newValue
                 }
             }
         }
@@ -330,65 +346,40 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      Internal stored property for the selection state
      format: [first is selected series range, second is selected category range]
      */
-    @Published private var _selections: [ClosedRange<Int>]? = nil
+    @Published private var _selections: [Int: [Int]]? = nil
     
     /**
      Set / get current selection state for the chart view
      nil means no selection
-     format: [first is selected series range, second is selected category range]
+     format: [seriesIndex: [categoryIndex]]?,
+     selectin mode: single, single selection: [0: [0]]
+     selectin mode: single, range selection: [0: [0,1,2,3,4,5,6]]
+     selectin mode: all, [0: [0], 1: [0]]
+     multiple seletion for donut: [0: [0], 2: [0], 4: [0]]
     */
-    public var selections: [ClosedRange<Int>]? {
+    public var selections: [Int: [Int]]? {
         get {
             return _selections
         }
         set {
             if let values = newValue {
-                if values.count == 2 {
-                    let validSeriesRange: ClosedRange<Int> = 0 ... data.count - 1
-                    let selectedSeriesRange = values[0]
-                    let selectedCategoryRange = values[1]
-                    //let selectedCategoryIndex = selectedCategoryRange.lowerBound
+                let validSeriesSet = data.isEmpty ? Set<Int>() : Set(0 ..< data.count)
+                
+                for (seriesIndex, catIndices) in values {
+                    // check if seriesIndex is valid
+                    if !validSeriesSet.contains(seriesIndex) {
+                        return
+                    }
                     
-                    if chartType == .stock {
-                        // singe sereis
-                        if selectedSeriesRange.count == 1 {
-                            if validSeriesRange.contains(selectedSeriesRange.lowerBound) {
-                                let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
-                                // check if selectedCategoryRange is valid
-                                if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
-                                    _selections = newValue
-                                }
-                            }
-                        }
-                    } else {
-                        // singe sereis
-                        if selectedSeriesRange.count == 1 {
-                            if validSeriesRange.contains(selectedSeriesRange.lowerBound) {
-                                let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
-                                // check if selectedCategoryRange is valid
-                                if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
-                                    _selections = newValue
-                                }
-                            }
-                        } else { // multiple series
-                            // single category selection is allowed only
-                            if selectedCategoryRange.count == 1 {
-                                // check if selectedSeriesRange is valid
-                                if selectedSeriesRange.count == 1 {
-                                    let validCategoryRange = 0 ... data[selectedSeriesRange.lowerBound].count - 1
-                                    if validCategoryRange.contains(selectedCategoryRange.lowerBound) && validCategoryRange.contains(selectedCategoryRange.upperBound) {
-                                        _selections = newValue
-                                    }
-                                } else if validSeriesRange == selectedSeriesRange {
-                                    let validCategoryRange = 0 ... data[0].count - 1
-                                    if validCategoryRange.contains(selectedCategoryRange.lowerBound) {
-                                        _selections = newValue
-                                    }
-                                }
-                            }
-                        }
+                    let validCategorySet = data[seriesIndex].isEmpty ? Set<Int>() : Set(0 ..< data[seriesIndex].count)
+                    let categorySet = Set(catIndices)
+                    
+                    if catIndices.count != categorySet.count || !categorySet.isSubset(of: validCategorySet) {
+                        return
                     }
                 }
+                
+                _selections = values
             } else {
                 _selections = nil
             }
@@ -404,8 +395,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         .subscribe(on: RunLoop.main)
         .sink(receiveValue: { (selections) in
          if let selections = selections {
-             if selections.count == 2 {
-                 print("Selected series: \(selections[0]), selected categoies: \(selections[1])")
+             for (seriesIndex, catIndices) in selections {
+                 print("Selected series: \(seriesIndex), selected categoies: \(catIndices)")
              }
          }
          else {
@@ -414,7 +405,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         })
         .store(in: &cancellableSet)
      */
-    lazy public private(set) var selectionDidChangePublisher: AnyPublisher<[ClosedRange<Int>]?, Never> = {
+    lazy public private(set) var selectionDidChangePublisher: AnyPublisher<[Int: [Int]]?, Never> = {
         $_selections.eraseToAnyPublisher()
     }()
     
@@ -559,7 +550,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 numberOfGridlines: Int = 3,
                 selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode,
-                selections: [ClosedRange<Int>]?,
+                selections: [Int: [Int]]?,
                 userInteractionEnabled: Bool = false,
                 snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes],
@@ -578,8 +569,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
         self._selectionRequired = Published(initialValue: selectionRequired)
-        //self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
-        self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
         self._seriesAttributes = Published(initialValue: seriesAttributes)
@@ -588,8 +577,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         
         self.numberOfGridlines = numberOfGridlines
+        self.selectionMode = selectionMode
+        if chartType == .donut {
+            self.selectionMode = .multiple
+        }
         self.selections = selections
-        
         self.indexOfStockSeries = indexOfStockSeries
         self.indexesOfColumnSeries = indexesOfColumnSeries
         self.indexesOfTotalsCategories = indexesOfTotalsCategories
@@ -643,7 +635,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 numberOfGridlines: Int = 3,
                 selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode = .single,
-                selections: [ClosedRange<Int>]? = nil,
+                selections: [Int: [Int]]? = nil,
                 userInteractionEnabled: Bool = false,
                 snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
@@ -664,7 +656,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
         
@@ -752,6 +743,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self.numberOfGridlines = numberOfGridlines
+        self.selectionMode = selectionMode
+        if chartType == .donut {
+            self.selectionMode = .multiple
+        }
         self.selections = selections
         
         self.indexOfStockSeries = indexOfStockSeries
@@ -784,7 +779,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 numberOfGridlines: Int = 3,
                 selectionRequired: Bool = false,
                 selectionMode: ChartSelectionMode = .single,
-                selections: [ClosedRange<Int>]? = nil,
+                selections: [Int: [Int]]? = nil,
                 userInteractionEnabled: Bool = false,
                 snapToPoint: Bool = false,
                 seriesAttributes: [ChartSeriesAttributes]? = nil,
@@ -805,8 +800,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._titlesForAxis = Published(initialValue: titlesForAxis)
-        //self._indexOfStockSeries = Published(initialValue: indexOfStockSeries)
-        self._selectionMode = Published(initialValue: selectionMode)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
         
@@ -967,6 +960,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self.numberOfGridlines = numberOfGridlines
+        self.selectionMode = selectionMode
+        if chartType == .donut {
+            self.selectionMode = .multiple
+        }
         self.selections = selections
         
         self.indexOfStockSeries = indexOfStockSeries
@@ -1409,32 +1406,14 @@ extension ChartModel: CustomStringConvertible {
 /// Enum for available selection modes.
 public enum ChartSelectionMode: String {
     
-    /// Selects a single value in the currently selected series and category indices.
+    /// Only a range of category indices in one series selection is allowd
     case single
     
-    /// Selects one value in each series for the selected category index(es).
+    /// Only one category index of all sereis selection is allowed
     case all
-}
-
-/// Enum for default category selection.
-public enum ChartCategorySelectionMode: String {
     
-    /// No default selection mode is defined. Any set selection will be used.
-    case index
-    
-    /// First category of the selected series and dimension will be used.
-    case first
-    
-    /// Last category of the selected series and dimension will be used.
-    case last
-}
-
-/// Selection state for points and rects in the chart.
-enum ChartSelectionState: String {
-    case normal
-    case selected
-    case highlighted
-    case disabled
+    /// Any combination of category indices in any series selection is allowed
+    case multiple
 }
 
 /// value type for Numberic Axis

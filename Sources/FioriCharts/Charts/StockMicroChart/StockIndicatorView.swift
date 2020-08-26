@@ -24,14 +24,19 @@ struct StockIndicatorView: View {
     func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesRange: ClosedRange = model.indexOfStockSeries ... model.indexOfStockSeries
-        if let tmp = model.selections {
-            selectedCategoryRange = tmp[1]
-            selectedSeriesRange = tmp[0]
+        if let selections = model.selections {
+            var seriesIndices: [Int] = []
+            for (seriesIndex, catIndices) in selections {
+                seriesIndices.append(seriesIndex)
+                selectedCategoryRange = (catIndices.sorted().first ?? -1) ... (catIndices.sorted().last ?? -1)
+            }
+            seriesIndices.sort()
+            selectedSeriesRange = (seriesIndices.first ?? model.indexOfStockSeries) ... (seriesIndices.last ?? model.indexOfStockSeries)
         }
         
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
         let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         

@@ -50,7 +50,6 @@ struct ComboLinesView: View {
         
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        //let unitWidth = columnXIncrement * model.scale * rect.size.width
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
         let lineStartOffset = startOffset + clusterWidth / 2.0

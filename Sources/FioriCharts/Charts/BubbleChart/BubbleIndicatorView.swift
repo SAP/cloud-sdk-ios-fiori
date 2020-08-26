@@ -21,9 +21,14 @@ struct BubbleIndicatorView: View {
     func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesRange: ClosedRange<Int> = -1 ... -1
-        if let tmp = model.selections {
-            selectedCategoryRange = tmp[1]
-            selectedSeriesRange = tmp[0]
+        if let selections = model.selections {
+            var seriesIndices: [Int] = []
+            for (seriesIndex, catIndices) in selections {
+                seriesIndices.append(seriesIndex)
+                selectedCategoryRange = (catIndices.sorted().first ?? -1) ... (catIndices.sorted().last ?? -1)
+            }
+            seriesIndices.sort()
+            selectedSeriesRange = (seriesIndices.first ?? -1) ... (seriesIndices.last ?? -1)
         }
         
         let minLength = min(rect.size.width, rect.size.height) * model.scale

@@ -26,9 +26,14 @@ struct ComboLinesIndicatorView: View {
         
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesIndexes: [Int] = []
-        if let tmp = model.selections {
-            selectedCategoryRange = tmp[1]
-            selectedSeriesIndexes = tmp[0].filter({ (index) -> Bool in
+        if let selections = model.selections {
+            var seriesIndices: [Int] = []
+            for (seriesIndex, catIndices) in selections {
+                seriesIndices.append(seriesIndex)
+                selectedCategoryRange = (catIndices.sorted().first ?? -1) ... (catIndices.sorted().last ?? -1)
+            }
+            seriesIndices.sort()
+            selectedSeriesIndexes = seriesIndices.filter({ (index) -> Bool in
                 if lineIndexes.contains(index) {
                     return true
                 }

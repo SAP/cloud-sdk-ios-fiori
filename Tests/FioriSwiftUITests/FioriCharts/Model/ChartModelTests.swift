@@ -85,6 +85,50 @@ class ChartModelTests: XCTestCase {
         XCTAssertEqual(model, modelCopy)
     }
     
+    func testSelections1() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        let selectionsTriedToSet = [0: [1, 2, 3], 1: [0]]
+        model.selections = selectionsTriedToSet
+        
+        XCTAssertEqual(selectionsTriedToSet, model.selections)
+    }
+    
+    func testSelections2() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        let selectionsTriedToSet = [2: [1, 2, 3]]
+        model.selections = selectionsTriedToSet
+        
+        XCTAssertEqual(model.selections, nil)
+    }
+    
+    func testSelections3() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        let selectionsTriedToSet = [0: [1, 2, 2, 3]]
+        model.selections = selectionsTriedToSet
+        
+        XCTAssertEqual(model.selections, nil)
+    }
+    
+    func testSelections4() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        let selectionsTriedToSet = [1: [1, 2, 3, 20]]
+        model.selections = selectionsTriedToSet
+        
+        XCTAssertEqual(model.selections, nil)
+    }
+    
     func testBulletModel() throws {
         let model = ChartModel(chartType: .micro_bullet,
                                data: [[35, nil, 70], [0, 20, 50, 100]],

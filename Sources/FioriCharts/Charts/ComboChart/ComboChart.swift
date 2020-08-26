@@ -178,7 +178,7 @@ class ComboAxisDataSource: DefaultAxisDataSource {
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitWidth = columnXIncrement * model.scale * rect.size.width
+        let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
         let categoryIndex = Int(x / unitWidth + 0.5)
         let clusteredX = columnXIncrement * CGFloat(categoryIndex) * model.scale * rect.size.width
         
@@ -188,7 +188,7 @@ class ComboAxisDataSource: DefaultAxisDataSource {
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitWidth = columnXIncrement * model.scale * rect.size.width
+        let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
         let startIndex = Int(model.startPos.x / unitWidth - 1).clamp(low: 0, high: maxDataCount - 1)
