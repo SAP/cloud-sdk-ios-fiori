@@ -37,7 +37,7 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
-                   selections: [0...0, 2...2],
+                   selections: [0: [2]],
                    indexesOfSecondaryValueAxis: [1]),
         
         ChartModel(chartType: .line,
@@ -45,7 +45,7 @@ public struct Tests {
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
                    colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
-                   selections: [0...0, 4...8],
+                   selections: [0: [4, 5, 6, 7, 8]],
                    indexesOfSecondaryValueAxis: [0, 1]),
         
         ChartModel(chartType: .line,
@@ -72,7 +72,7 @@ public struct Tests {
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Janreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Decreallyloooooooooooooooooooooooooooooooooooooooooooooooooooooooglabel"]],
-                   selections: [3...3, 7...7],
+                   selections: [3: [7]],
                    categoryAxis: ChartCategoryAxisAttributes(labelLayoutStyle: .range)),
         
         ChartModel(chartType: .line,
@@ -204,7 +204,7 @@ public struct Tests {
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
                    },
-                   selections: [0...0, 0...0],
+                   selections: [0: [0]],
                    numericAxisLabelFormatHandler: { val, axisId in
                        if axisId == .y || axisId == .category {
                            let intVal = Int(val)
@@ -220,7 +220,7 @@ public struct Tests {
                             [building.yearRennovated, building.eui, building.sqFt]
                         }
                    },
-                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1],
+                   selections: [1: Array(0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1)],
                    numericAxisLabelFormatHandler: { val, axisId in
                        if axisId == .y || axisId == .category {
                            let intVal = Int(val)
@@ -312,7 +312,7 @@ public struct Tests {
                             [building.yearRennovated, building.eui]
                         }
                    },
-                   selections: [0...0, 0...0],
+                   selections: [0: [0]],
                    numericAxisLabelFormatHandler: { val, axisId in
                        if axisId == .y || axisId == .category {
                            let intVal = Int(val)
@@ -328,7 +328,7 @@ public struct Tests {
                             [building.yearRennovated, building.eui]
                         }
                    },
-                   selections: [1...1, 0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1],
+                   selections: [1: Array(0 ... SFBuildingFacilities[SFBuildingFacilityTypes[9]]!.count - 1)],
                    numericAxisLabelFormatHandler: { val, axisId in
                        if axisId == .y || axisId == .category {
                            let intVal = Int(val)
@@ -419,7 +419,7 @@ public struct Tests {
         ChartModel(chartType: .combo,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", nil, "Mar", nil, "May", nil, "Jul", nil, "Sep", "Oct", nil, "Dec"]],
-                   selections: [0...0, 2...2],
+                   selections: [0: [2]],
                    indexesOfSecondaryValueAxis: [1],
                    indexesOfColumnSeries: [0]),
         
@@ -428,7 +428,7 @@ public struct Tests {
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
                    colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
-                   selections: [0...0, 4...8],
+                   selections: [0: [4, 5, 6, 7, 8]],
                    indexesOfSecondaryValueAxis: [0, 1],
                    indexesOfColumnSeries: [1]),
         

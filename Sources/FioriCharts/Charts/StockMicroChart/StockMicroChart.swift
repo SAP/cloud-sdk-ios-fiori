@@ -35,7 +35,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
             return result
         }
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
         let endIndex = Int(((model.startPos.x + width) / unitWidth).rounded(.down))
         
@@ -115,7 +115,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
         }
         
         let width = rect.size.width
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         

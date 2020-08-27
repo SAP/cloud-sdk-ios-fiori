@@ -30,6 +30,7 @@ struct SettingsSelection: View {
                 Picker(selection: $model.selectionMode, label: Text("Selection Mode")) {
                     Text("Single").tag(ChartSelectionMode.single)
                     Text("All").tag(ChartSelectionMode.all)
+                    Text("Multiple").tag(ChartSelectionMode.multiple)
                 }
                 
                 Text("Selections: \(String(describing: model.selections))")

@@ -175,7 +175,7 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitHeight = columnXIncrement * model.scale * rect.size.height
+        let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
         
         let endPosY = rect.size.height * model.scale - x
@@ -197,7 +197,7 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitHeight = columnXIncrement * model.scale * rect.size.height
+        let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
         
         let endPosY = rect.size.height * model.scale - model.startPos.y
@@ -223,7 +223,7 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
         
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitHeight = columnXIncrement * model.scale * rect.size.height
+        let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         
         let endPosY = rect.size.height * model.scale - model.startPos.y
         let startPosY = endPosY - rect.size.height
@@ -262,7 +262,7 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
         
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitHeight = columnXIncrement * model.scale * rect.size.height
+        let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
         let endPosY = rect.size.height * model.scale - model.startPos.y
         let startPosY = endPosY - rect.size.height

@@ -35,19 +35,12 @@ struct StackedColumnIndicatorView: View {
         let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
         let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0
         
-        var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
-        var selectedSeriesRange: ClosedRange = 0 ... 0
-        if let tmp = model.selections {
-            selectedCategoryRange = tmp[1]
-            selectedSeriesRange = tmp[0]
-        }
-        
         var displayPlotData: [[ChartPlotData]] = []
         
         for pdSeries in curPlotData {
             var ss: [ChartPlotData] = []
             for pdCategory in pdSeries {
-                if selectedSeriesRange.contains(pdCategory.seriesIndex) && selectedCategoryRange.contains(pdCategory.categoryIndex) {
+                if let selections = model.selections, let catSelections = selections[pdCategory.seriesIndex], catSelections.contains(pdCategory.categoryIndex) {
                     ss.append(pdCategory.changeSelected(selected: true))
                 } else {
                     ss.append(pdCategory)

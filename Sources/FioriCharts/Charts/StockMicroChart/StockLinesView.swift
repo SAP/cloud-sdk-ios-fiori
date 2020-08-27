@@ -25,7 +25,7 @@ struct StockLinesView: View {
         var width = rect.size.width
         let height = rect.size.height
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let startIndex = Int(model.startPos.x / unitWidth)
         
         var endIndex = Int(((model.startPos.x + width) / unitWidth).rounded(.up))

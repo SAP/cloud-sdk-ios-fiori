@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
 class ChartUtility {
     static func cgfloatOptional(from value: Double?) -> CGFloat? {
         var result: CGFloat? = nil
@@ -552,10 +553,12 @@ class ChartUtility {
         if selectedPlotItems.isEmpty {
             return
         }
+        
         if let firstItem = selectedPlotItems.first, let lastItem = selectedPlotItems.last {
             // cancel the selections if nothing is selected
             if firstItem.1 == -1 || lastItem.1 == -1 {
                 model.selections = nil
+                return
             }
             
             let selectedCategoryInRange: ClosedRange<Int> = firstItem.1 <= lastItem.1 ? firstItem.1 ... lastItem.1 : lastItem.1 ... firstItem.1
@@ -570,8 +573,8 @@ class ChartUtility {
                     } else {
                         // renge selection
                         var prevSeriesIndex = model.currentSeriesIndex
-                        if let sels = model.selections {
-                            prevSeriesIndex = sels[0].lowerBound
+                        if let sels = model.selections, let firstItem = sels.first {
+                            prevSeriesIndex = firstItem.key
                         }
                         seriesRange = prevSeriesIndex ... prevSeriesIndex
                     }
@@ -580,9 +583,13 @@ class ChartUtility {
                 }
             }
             
-            let tmpSelections: [ClosedRange<Int>] = [seriesRange, selectedCategoryInRange]
+            var tmpSelections = [Int: [Int]]()
+            for seriesIndex in seriesRange {
+                tmpSelections[seriesIndex] = Array(selectedCategoryInRange)
+            }
+            
             if tmpSelections != model.selections {
-                model.selections = [seriesRange, selectedCategoryInRange]
+                model.selections = tmpSelections
             } else {
                 // clear selection if it is not range selection
                 if selectedCategoryInRange.count == 1 && isTap {

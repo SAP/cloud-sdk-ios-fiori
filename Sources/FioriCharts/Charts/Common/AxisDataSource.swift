@@ -45,7 +45,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
         let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
         let endIndex = max(min(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
@@ -78,7 +78,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(count - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
         let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
         let endIndex = min(max(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
@@ -286,7 +286,7 @@ class DefaultAxisDataSource: AxisDataSource {
     }
     
     func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        let unitWidth: CGFloat = model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let categoryIndex = Int(x / unitWidth)
         let x = CGFloat(categoryIndex) * unitWidth
         
@@ -298,7 +298,7 @@ class DefaultAxisDataSource: AxisDataSource {
         let width = rect.size.width
         let startPosIn = model.startPos.x
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let startIndex = Int(startPosIn / unitWidth)
         
         var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))
@@ -321,7 +321,7 @@ class DefaultAxisDataSource: AxisDataSource {
                                   width: width)
         let point = CGPoint(x: x, y: atPoint.y)
         
-        let unitWidth: CGFloat = width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1))
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
         let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
