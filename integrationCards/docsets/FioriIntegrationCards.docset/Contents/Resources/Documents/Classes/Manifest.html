@@ -17,7 +17,7 @@
       <div class="content-wrapper">
         <p>
           <a href="../index.html">FioriIntegrationCards Docs</a>
-          <span class="no-mobile"> (21% documented)</span>
+          <span class="no-mobile"> (22% documented)</span>
         </p>
     
     
@@ -192,9 +192,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:21FioriIntegrationCards8ManifestC16withCardBundleAtAC10Foundation3URLV_tKcfc"></a>
-                      <a name="//apple_ref/swift/Method/init(withCardBundleAt:)" class="dashAnchor"></a>
-                      <a class="token" href="#/s:21FioriIntegrationCards8ManifestC16withCardBundleAtAC10Foundation3URLV_tKcfc">init(withCardBundleAt:<wbr>)</a>
+                      <a name="/s:21FioriIntegrationCards8ManifestC16withCardBundleAt12manifestPathAC10Foundation3URLV_SSSgtKcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(withCardBundleAt:manifestPath:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:21FioriIntegrationCards8ManifestC16withCardBundleAt12manifestPathAC10Foundation3URLV_SSSgtKcfc">init(withCardBundleAt:<wbr>manifestPath:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -202,16 +202,51 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>Initializer for a Manifest stored remotely</p>
+
+<p>## Code usage:</p>
+<pre class="highlight swift"><code> <span class="k">let</span> <span class="nv">manifest</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Manifest</span><span class="p">(</span><span class="nv">withCardBundleAt</span><span class="p">:</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">string</span><span class="p">:</span> <span class="s">"https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/"</span><span class="p">)</span><span class="o">!</span><span class="p">,</span> <span class="nv">manifestPath</span><span class="p">:</span> <span class="s">"samples/data/manifest.json"</span><span class="p">)</span>
+</code></pre>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">withCardBundleAt</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">withCardBundleAt</span> <span class="nv">path</span><span class="p">:</span> <span class="kt">URL</span><span class="p">,</span> <span class="nv">manifestPath</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                           </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>path</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>base URL to card bundle stored on a server</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>manifestPath</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>optional; specify path component for manifest.json if manifest.json is not stored as <code>manifest.json</code> in base folder</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </section>
                     </div>

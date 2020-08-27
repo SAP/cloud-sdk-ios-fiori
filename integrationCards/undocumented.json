@@ -1136,21 +1136,14 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 36,
-      "symbol": "Manifest.init(withCardBundleAt:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 51,
+      "line": 61,
       "symbol": "Manifest.init(with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
-      "line": 81,
+      "line": 91,
       "symbol": "Manifest",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
