@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit guidelines.
 
+## 0.5.6 (2020-08-27)
+
+### Features
+
+* 🎸 color palette update ([e6a774a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e6a774a0be73cdc47306f056620c8744d55b2c9d))
+* 🎸 stacked bar chart ([d0f8029](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d0f802975eda31d37a5c8123acec04ec9acaa8ac))
+* 🎸 support contrast color display mode ([a138adb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a138adba89f8b7fda3ec96b1a1af812cfbcb3698))
+* 🎸 support multiple selection in donut chart ([#120](https://github.com/SAP/cloud-sdk-ios-fiori/issues/120)) ([831e0fb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/831e0fb934b4683de6294a5614b720176ae25fa5))
+* 🎸 bar chart ([1efba9a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1efba9ac5c30fc25f893cbe78df32a0f849ca707))
+* 🎸 request data for remote int. card (non-cardBundle) ([#113](https://github.com/SAP/cloud-sdk-ios-fiori/issues/113)) ([193316d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/193316dacfc068ca6bdfc22ed872b4117961d12a))
+
+### Bug Fixes
+
+* 🐛 add API doc for resolvedColor() method ([9d95a77](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9d95a778a57815af56db298e3573c726c0ebae9c))
+* 🐛 fix the flickering issue on main branch ([053a711](https://github.com/SAP/cloud-sdk-ios-fiori/commit/053a7115e241d03c7c98f22bf95c925156494924)), closes [#106](https://github.com/SAP/cloud-sdk-ios-fiori/issues/106)
+* 🐛 fix the problem that title row does not align with card ([8846532](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8846532e8a24ef555ddeffa44d936f0ee2696900)), closes [#117](https://github.com/SAP/cloud-sdk-ios-fiori/issues/117)
+* 🐛 fix lint issues ([e33be69](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e33be69b12feeaf90b02c5af11a34aba0beb9030))
+* 🐛 integration Card Header: no dynamic value for status ([2a7eae2](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2a7eae24c7dd879544b0df2a494264d10fffd6ab))
+* 🐛 truncated header in list card when running iOS 14 ([4912c47](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4912c47e835345d718be121d7640c9974bf7c8f3))
+
+
 ## 0.5.5 (2020-07-31)
 
 ### Features
