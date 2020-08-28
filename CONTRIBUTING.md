@@ -24,7 +24,6 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
 - install various git hooks
   - to run a SwiftLint check automatically before pushing your sources to remote
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
-- install Xcode project file
 - clone data related to Snapshot Testing
 
 If you choose to run the script please make sure your dev machine has

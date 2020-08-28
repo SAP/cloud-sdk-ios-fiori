@@ -15,7 +15,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Generate Xcode project
-      run: swift package generate-xcodeproj
-    - name: Build and Test (with code coverage)
-      run: xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build test
+    - name: Build and Test
+      run: xcodebuild -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build test
