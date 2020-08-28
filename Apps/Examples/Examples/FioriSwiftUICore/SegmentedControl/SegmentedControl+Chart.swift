@@ -49,12 +49,6 @@ struct SegmentedControl_Chart: View {
     }
 }
 
-struct NoDataView: View {
-    var body: some View {
-        Text("No Data")
-    }
-}
-
 struct DimensionSelector_Chart_Previews: PreviewProvider {
     static var previews: some View {
         SegmentedControl_Chart()
