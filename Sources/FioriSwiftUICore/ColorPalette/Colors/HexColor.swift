@@ -58,24 +58,12 @@ public struct HexColor: Hashable {
         }
     }
     
-    /// Returns a `Color` that matches with the specified background color scheme from `HexColor`.
-    ///
-    /// - parameter colorScheme: specifies the background color scheme.  Defaults to `.light`.
-    /// - Returns: `Color`
-    public func color(_ colorScheme: ColorScheme = .light) -> Color {
-        let (r, g, b, a) = rgba(colorScheme)
-        return Color(.sRGB, red: r, green: g, blue: b, opacity: a)
-    }
-    
-    /// Returns a RGBA values tuple that matches with the specified background color scheme from `HexColor`.
+    /// Returns a RGBA values tuple that matches with the specified hex color string.
     ///
     /// - parameters:
-    ///     - colorScheme: specifies the background color scheme.  Defaults to `.light`.
-    ///     - interfaceLevel: specifies the level of user interface.  Defaults to `.base`.
+    ///     - hexString: specifies the hex color string.
     /// - Returns: a tuple of RGBA values for corresponding `HexColor`.
-    public func rgba(_ colorScheme: ColorScheme = .light, _ interfaceLevel: UIUserInterfaceLevel = .base, _ displayMode: ColorDisplayMode = .normal) -> (r: Double, g: Double, b: Double, a: Double) {
-        let hexString = hex(colorScheme, interfaceLevel, displayMode)
-        
+    public func rgba(_ hexString: String) -> (r: Double, g: Double, b: Double, a: Double) {
         let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
@@ -96,36 +84,60 @@ public struct HexColor: Hashable {
             a: Double(a) / 255)
     }
     
-    /// :nodoc:
-    private func hex(_ colorScheme: ColorScheme = .light, _ interfaceLevel: UIUserInterfaceLevel = .base, _ displayMode: ColorDisplayMode = .normal) -> String {
-        let colorVariant: ColorVariant = colorScheme == .light ? .dark : .light
-        
-        switch (colorVariant, interfaceLevel, displayMode) {
-        case (_, .base, _):
-            if let hex = colors[colorVariant] {
-                return hex
+    /// Returns the string value that matches with the specified color variant from `HexColor`.
+    ///
+    /// - parameters:
+    ///     - variant: specifies the color variant.
+    /// - Returns: the string value for corresponding `HexColor` with specific color variant.
+    public func hex(_ variant: ColorVariant) -> String {
+        return colors[variant] ?? "FFFFFFFF"
+    }
+    
+    /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
+    ///
+    /// - parameters:
+    ///     - background: specifies the background color scheme, default is `.device`.
+    ///     - interface: specifies the user interface level, default is `.device`.
+    ///     - display: specifies the display mode, default is `.normal`.
+    /// - Returns: the string value for corresponding `HexColor` with specific color variant.
+    public func getVariant(background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> ColorVariant {
+        var variant = ColorVariant.dark
+        let traits = UIView().traitCollection
+        let isDarkInterfaceStyle = traits.userInterfaceStyle == .dark
+        let style: UIUserInterfaceStyle = {
+            switch (scheme ?? .device, isDarkInterfaceStyle) {
+            case (.lightConstant, _), (.deviceInverse, true), (.device, false):
+                return .light
+            case (.darkConstant, _), (.deviceInverse, false), (.device, true):
+                return .dark
             }
-        case (.light, .elevated, _):
-            if let hex = colors[.elevatedLight] {
-                return hex
+        }()
+        let isElevatedInterfaceLevel = traits.userInterfaceLevel == .elevated
+        let level: UIUserInterfaceLevel = {
+            switch (level ?? .device, isElevatedInterfaceLevel) {
+            case (.baseConstant, _), (.deviceInverse, true), (.device, false):
+                return .base
+            case (.elevatedConstant, _), (.deviceInverse, false), (.device, true):
+                return .elevated
             }
-        case (.dark, .elevated, _):
-            if let hex = colors[.elevatedDark] {
-                return hex
-            }
+        }()
+        switch (style, level, mode) {
+        case (.light, .base, .normal):
+            variant = .dark
+        case (.dark, .base, .normal):
+            variant = .light
+        case (.light, .elevated, .normal):
+            variant = .elevatedDark
+        case (.dark, .elevated, .normal):
+            variant = .elevatedLight
         case (.light, _, .contrast):
-            if let hex = colors[.contrastLight] {
-                return hex
-            }
+            variant = .contrastDark
         case (.dark, _, .contrast):
-            if let hex = colors[.contrastDark] {
-                return hex
-            }
+            variant = .contrastLight
         default:
-            return "FFFFFFFF"
+            break
         }
-        
-        return "FFFFFFFF"
+        return variant
     }
 }
 
@@ -133,7 +145,7 @@ extension HexColor: Equatable {
     /// :nodoc:
     public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
         return lhs.hex(.light) == rhs.hex(.light) &&
-            lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.light, .elevated) == rhs.hex(.light, .elevated) && lhs.hex(.dark, .elevated) == rhs.hex(.dark, .elevated) && lhs.hex(.light, .unspecified, .contrast) == rhs.hex(.light, .unspecified, .contrast) && lhs.hex(.dark, .unspecified, .contrast) == rhs.hex(.dark, .unspecified, .contrast)
+            lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.elevatedLight) == rhs.hex(.elevatedLight) && lhs.hex(.elevatedDark) == rhs.hex(.elevatedDark) && lhs.hex(.contrastLight) == rhs.hex(.contrastLight) && lhs.hex(.contrastDark) == rhs.hex(.contrastDark)
     }
 }
 
@@ -142,10 +154,10 @@ extension HexColor: CustomStringConvertible {
     public var description: String {
         return """
                  {"HexColor": {"base light": "\(hex(.light))", "base dark": "\(hex(.dark))",
-                               "elevated light": "\(hex(.light, .elevated))",
-                               "elevated dark": "\(hex(.dark, .elevated))",
-                               "contrast light": "\(hex(.light, .unspecified, .contrast))",
-                               "contrast dark": "\(hex(.dark, .unspecified, .contrast))",
+                               "elevated light": "\(hex(.elevatedLight))",
+                               "elevated dark": "\(hex(.elevatedDark))",
+                               "contrast light": "\(hex(.contrastLight))",
+                               "contrast dark": "\(hex(.contrastDark))",
                   }}
                """
     }

@@ -44,28 +44,11 @@ public class ThemeManager {
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
         let uiColor: UIColor = UIColor { [unowned self] traitCollection in
-            func getPaletteColor(_ variant: ColorVariant) -> UIColor {
-                let scheme: ColorScheme = variant == .light ? .dark : .light
-                let isElevatedInterfaceLevel = traitCollection.userInterfaceLevel == .elevated
-                let level: UIUserInterfaceLevel = {
-                    switch (level ?? .device, isElevatedInterfaceLevel) {
-                    case (.baseConstant, _), (.deviceInverse, true), (.device, false):
-                        return UIUserInterfaceLevel.base
-                    case (.elevatedConstant, _), (.deviceInverse, false), (.device, true):
-                        return UIUserInterfaceLevel.elevated
-                    }
-                }()
-                let components = self.palette.hexColor(for: style).rgba(scheme, level, mode ?? .normal)
-                return UIColor.init(red: CGFloat(components.r), green: CGFloat(components.g),
-                                    blue: CGFloat(components.b), alpha: CGFloat(components.a))
-            }
-            let isDarkInterfaceStyle = traitCollection.userInterfaceStyle == .dark
-            switch (scheme ?? .device, isDarkInterfaceStyle) {
-            case (.lightConstant, _), (.deviceInverse, true), (.device, false):
-                return getPaletteColor(.dark)
-            case (.darkConstant, _), (.deviceInverse, false), (.device, true):
-                return getPaletteColor(.light)
-            }
+            let variant = self.palette.hexColor(for: style).getVariant(background: scheme, interface: level, display: mode)
+            let hexColorString = self.palette.hexColor(for: style).hex(variant)
+            let components = self.palette.hexColor(for: style).rgba(hexColorString)
+            return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
+                           blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
         return Color(uiColor)
     }
