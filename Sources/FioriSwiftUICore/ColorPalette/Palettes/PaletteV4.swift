@@ -22,7 +22,7 @@ struct PaletteV4: PaletteProvider {
     func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case .primary1:
-            return HexColor(lightColor: "FFFFFF", darkColor: "32636A")
+            return HexColor(lightColor: "FFFFFF", darkColor: "32363A")
         case .primary2:
             return HexColor(lightColor: "FFFFFF", darkColor: "515559")
         case .primary3:

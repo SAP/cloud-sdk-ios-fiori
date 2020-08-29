@@ -22,7 +22,7 @@ public struct Palette: PaletteProvider {
     }
     
     /// :nodoc:
-    init(_ palette: PaletteProvider) {
+    public init(_ palette: PaletteProvider) {
         self._palette = palette
     }
     
