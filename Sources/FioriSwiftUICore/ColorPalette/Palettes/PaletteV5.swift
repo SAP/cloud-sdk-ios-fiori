@@ -32,7 +32,7 @@ struct PaletteV5: PaletteProvider {
         case .separator:
             return HexColor(lightColor: "8696A945", darkColor: "89919A69")
         case .primary1:
-            return HexColor(lightColor: "FFFFFF", darkColor: "32636A")
+            return HexColor(lightColor: "FAFAFA", darkColor: "32363A")
         case .primary2:
             return HexColor(lightColor: "EEF0F1", darkColor: "515456")
         case .primary3:
@@ -74,13 +74,13 @@ struct PaletteV5: PaletteProvider {
         case .quarternaryLabel:
             return HexColor(lightColor: "FAFAFA8C", darkColor: "32363A8C", contrastLightColor: "FAFAFA8C", contrastDarkColor: "FAFAFA8C")
         case .primaryFill:
-            return HexColor(lightColor: "89919A33", darkColor: "8696A959", contrastLightColor: "8696A959", contrastDarkColor: "8696A959")
+            return HexColor(lightColor: "8696A959", darkColor: "89919A33", contrastLightColor: "8696A959", contrastDarkColor: "8696A959")
         case .secondaryFill:
-            return HexColor(lightColor: "89919A29", darkColor: "8696A945", contrastLightColor: "8696A945", contrastDarkColor: "8696A945")
+            return HexColor(lightColor: "8696A945", darkColor: "89919A29", contrastLightColor: "8696A945", contrastDarkColor: "8696A945")
         case .tertiaryFill:
-            return HexColor(lightColor: "89919A1F", darkColor: "8696A930", contrastLightColor: "8696A930", contrastDarkColor: "8696A930")
+            return HexColor(lightColor: "8696A930", darkColor: "89919A1F", contrastLightColor: "8696A930", contrastDarkColor: "8696A930")
         case .quarternaryFill:
-            return HexColor(lightColor: "89919A14", darkColor: "8696A91C", contrastLightColor: "8696A91C", contrastDarkColor: "8696A91C")
+            return HexColor(lightColor: "8696A91C", darkColor: "89919A14", contrastLightColor: "8696A91C", contrastDarkColor: "8696A91C")
         case .header:
             return HexColor(lightColor: "2C3D4F", darkColor: "354A5F")
         case .footer:
@@ -90,7 +90,7 @@ struct PaletteV5: PaletteProvider {
         case .cellBackgroundTapState:
             return HexColor(lightColor: "8696A91C", darkColor: "89919A1C")
         case .tintColor:
-            return HexColor(lightColor: "D1E8FF", darkColor: "0A6ED1")
+            return HexColor(lightColor: "91C8F6", darkColor: "0A6ED1", contrastLightColor: "91C8F6", contrastDarkColor: "91C8F6")
         case .tintColorLight:
             return HexColor(lightColor: "0A84FF", darkColor: "D1E8FF")
         case .tintColorDark:
@@ -150,25 +150,25 @@ struct PaletteV5: PaletteProvider {
         case .esriEdit:
             return HexColor(lightColor: "FFF114", darkColor: "1B6DD2")
         case .negative:
-            return HexColor(lightColor: "FF453A", darkColor: "BB0000")
+            return HexColor(lightColor: "FF8888", darkColor: "BB0000")
         case .positive:
-            return HexColor(lightColor: "32D74B", darkColor: "107E3E")
+            return HexColor(lightColor: "ABE2AB", darkColor: "107E3E")
         case .critical:
-            return HexColor(lightColor: "FF9F0A", darkColor: "E9730C")
+            return HexColor(lightColor: "FABD64", darkColor: "E9730C")
         case .negativeLabel:
-            return HexColor(lightColor: "FF8888", darkColor: "BB0000", contrastLightColor: "FF8888")
+            return HexColor(lightColor: "FF8888", darkColor: "BB0000", contrastDarkColor: "FF8888")
         case .positiveLabel:
-            return HexColor(lightColor: "ABE2AB", darkColor: "07E3E", contrastLightColor: "ABE2AB")
+            return HexColor(lightColor: "ABE2AB", darkColor: "107E3E", contrastDarkColor: "ABE2AB")
         case .criticalLabel:
-            return HexColor(lightColor: "FABD64", darkColor: "E9730C", contrastLightColor: "FABD64")
+            return HexColor(lightColor: "FABD64", darkColor: "E9730C", contrastDarkColor: "FABD64")
         case .negativeBackground:
-            return HexColor(lightColor: "FF888824", darkColor: "BB000014", contrastLightColor: "FF888824", contrastDarkColor: "BB000024")
+            return HexColor(lightColor: "FF888824", darkColor: "BB000014", contrastDarkColor: "BB000024")
         case .positiveBackground:
-            return HexColor(lightColor: "ABE2AB24", darkColor: "107E3E14", contrastLightColor: "ABE2AB24", contrastDarkColor: "107E3E24")
+            return HexColor(lightColor: "ABE2AB24", darkColor: "107E3E14", contrastDarkColor: "107E3E24")
         case .criticalBackground:
-            return HexColor(lightColor: "FABD6424", darkColor: "E9730C14", contrastLightColor: "FABD6424", contrastDarkColor: "E9730C24")
+            return HexColor(lightColor: "FABD6424", darkColor: "E9730C14", contrastDarkColor: "E9730C24")
         case .informationBackground:
-            return HexColor(lightColor: "91C8F624", darkColor: "0A6ED114", contrastLightColor: "91C8F624", contrastDarkColor: "0A6ED124")
+            return HexColor(lightColor: "91C8F624", darkColor: "0A6ED114", contrastDarkColor: "0A6ED124")
         case .accent1:
             return HexColor(lightColor: "E38B16", darkColor: "E38B16")
         case .accent1b:
