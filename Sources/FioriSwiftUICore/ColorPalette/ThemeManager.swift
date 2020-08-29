@@ -47,8 +47,8 @@ public class ThemeManager {
             let variant = self.palette.hexColor(for: style).getVariant(background: scheme, interface: level, display: mode)
             let hexColorString = self.palette.hexColor(for: style).hex(variant)
             let components = self.palette.hexColor(for: style).rgba(hexColorString)
-            return UIColor.init(red: CGFloat(components.r), green: CGFloat(components.g),
-                                blue: CGFloat(components.b), alpha: CGFloat(components.a))
+            return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
+                           blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
         return Color(uiColor)
     }

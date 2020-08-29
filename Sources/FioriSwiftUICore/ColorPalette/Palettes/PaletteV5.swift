@@ -102,27 +102,27 @@ struct PaletteV5: PaletteProvider {
         case .tintColorTapStateDark:
             return HexColor(lightColor: "0A84FF66", darkColor: "0854A1")
         case .chart1:
-            return HexColor(lightColor: "E38B16")
+            return HexColor(lightColor: "74B3F0", darkColor: "5899DA")
         case .chart2:
-            return HexColor(lightColor: "D17F15")
+            return HexColor(lightColor: "E8743B", darkColor: "E8743B")
         case .chart3:
-            return HexColor(lightColor: "DC7474")
+            return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .chart4:
-            return HexColor(lightColor: "D04343")
+            return HexColor(lightColor: "ED4A7B", darkColor: "ED4A7B")
         case .chart5:
-            return HexColor(lightColor: "DB1F77")
+            return HexColor(lightColor: "945ECF", darkColor: "945ECF")
         case .chart6:
-            return HexColor(lightColor: "C0399F")
+            return HexColor(lightColor: "13A4B4", darkColor: "13A4B4")
         case .chart7:
-            return HexColor(lightColor: "6367DE")
+            return HexColor(lightColor: "5C66F5", darkColor: "525DF4")
         case .chart8:
-            return HexColor(lightColor: "5899DA")
+            return HexColor(lightColor: "C63FA4", darkColor: "BF399E")
         case .chart9:
-            return HexColor(lightColor: "2B78C5")
+            return HexColor(lightColor: "6C8893", darkColor: "6C8893")
         case .chart10:
-            return HexColor(lightColor: "13A4B4")
+            return HexColor(lightColor: "EE6868", darkColor: "EE6868")
         case .chart11:
-            return HexColor(lightColor: "0F828F")
+            return HexColor(lightColor: "387BB7", darkColor: "2F6497")
         case .stockUpStroke:
             return HexColor(lightColor: "19A979", darkColor: "19A979")
         case .stockDownStroke:
