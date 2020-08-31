@@ -383,6 +383,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             } else {
                 _selections = nil
             }
+            _selections = newValue
         }
     }
     
