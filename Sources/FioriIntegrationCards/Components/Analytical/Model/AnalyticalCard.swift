@@ -48,11 +48,14 @@ public class AnalyticalCard: BackingCard {
                 let data = self.chartDataTemplate.replacingPlaceholders(withValuesIn: object)
                 guard let chartType = ChartType(from: self.content!.chartType),
                     let series = data.measures.map({ $0.map({ $0.compactMap({ Double($0.value) }) })}) else { preconditionFailure() }
+                let sortedSeries = series.sorted { (array1, array2) -> Bool in
+                    return array1.reduce(0, +) < array2.reduce(0, +)
+                }
                 let labelsForDimension: [[String?]]? = data.measures?.map({ $0.map({ $0.label })})
                 let titlesForCategory: [[String?]]? = data.dimensions?.map({ $0.map({ $0.value }) })
                 //let axesTitles: [String]? = data.dimensions?.map({ $0.map({ $0.label }).first ?? "" })
                 
-                let model = ChartModel(chartType: chartType, data: series, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: nil, labelsForDimension: labelsForDimension)
+                let model = ChartModel(chartType: chartType, data: sortedSeries, titlesForCategory: titlesForCategory, colorsForCategory: nil, titlesForAxis: nil, labelsForDimension: labelsForDimension)
                 self.chartModel = model
             })
             .store(in: &subscribers)
