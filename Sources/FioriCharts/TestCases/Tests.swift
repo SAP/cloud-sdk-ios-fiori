@@ -85,12 +85,18 @@ public struct Tests {
                           [160, nil, 130, 170, nil, 190, 180]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
         ),
+        ChartModel(chartType: .line,
+                   data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
+                          [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
+                   titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
+                   colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
+                   selections: [0: [0, 1, 2, 7, 8], 1: [3, 5, 7]]),
         ChartModel(chartType: .line, data: [[nil]]),
         ChartModel(chartType: .line, data: [[]])
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "data = [[nil]]", "data = [[]]"]
+    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "Multiple selections", "data = [[nil]]", "data = [[]]"]
     
     /// waterfall models for test
     public static let waterfallModels = [
@@ -513,19 +519,26 @@ public struct Tests {
     /// donut models for test
     public static let donutModels = [
         ChartModel(chartType: .donut,
-                   data: [[142.50, 332.05, 247.18, 228.82]],
-                   titlesForCategory: [["Trucks", "Vans", "Leasing", "Service"]]),
-        
-        ChartModel(chartType: .donut,
-                   data: [[142.50, 332.05, 247.18, 228.82, 83.45]],
-                   titlesForCategory: [["Trucks", "Vans", "Leasing", "Service", "Rentals"]],
-                   colorsForCategory: [0: [0: .preferredColor(.chart1), 1: .preferredColor(.chart2), 2: .preferredColor(.chart3), 3: .preferredColor(.chart4), 4: .preferredColor(.chart5)]]),
+                   data: [[142.50], [332.05], [247.18], [228.82], [83.45]]),
 
+        ChartModel(chartType: .donut,
+                   data: [[142.50], [332.05], [247.18], [228.82], [83.45]],
+                   colorsForCategory: [0: [0: Color.red], 1: [0: Color.green], 2: [0: Color.blue]],
+                   selections: [1: [0], 3: [0]]),
+
+        ChartModel(chartType: .donut, data: [[-10], [20], [30], [40]]),
+        
+        ChartModel(chartType: .donut, data: [[1]]),
+
+        ChartModel(chartType: .donut, data: [[1], [1]]),
+        
+        ChartModel(chartType: .donut, data: [[0], [0], [0], [0]]),
+        
         ChartModel(chartType: .donut, data: [[nil]])
     ]
     
     /// descriptions for column models
-    public static let donutModelsDesc = ["segments color from series color", "customized colors for segments", "data = [[nil]]"]
+    public static let donutModelsDesc = ["A typical donut", "A donut with preselection and customized colors", "Data is -10, 20, 30, 40", "Data is 1", "Data is 1, 1", "Data is 0, 0, 0, 0", "Data = [[nil]]"]
     
     /// radial models for test
     public static let radialModels = [

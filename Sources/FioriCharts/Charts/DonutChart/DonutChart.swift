@@ -12,34 +12,46 @@ struct DonutChart: View {
     
     var body: some View {
         GeometryReader { proxy in
-            self.chartView(in: proxy.size)
+            self.makeBody(in: proxy.size)
         }
     }
     
-    func chartView(in size: CGSize) -> some View {
-        let diameter = min(size.width, size.height)
+    func makeBody(in size: CGSize) -> some View {
+        let diameter = max(min(size.width, size.height), 1)
         // 1pt gap -> degree of gap between segments
-        let GAP: Double = 360.0 / (Double(diameter) * Double.pi)
+        let GAP: CGFloat = 360.0 / (diameter * CGFloat.pi)
         
         // depth
-        let depth: CGFloat = diameter * (126.0 - 76.0) / ( 2.0 * 126.0)
+        let depth: CGFloat = diameter * 63.0 / 336.0
         
-        let segments: [MicroChartDataItem] = model.dataItemsIn(seriesIndex: 0)
-        let count = segments.count
-        let total = segments.reduce(into: 0) { (val, segment) in
-            val += Double(segment.value)
-        }
+        var segments: [ChartPlotRectData] = []
+        let seriesCount = model.numOfSeries()
         
-        let totalDegree: Double = count > 1 ? 360 - Double(count) * GAP : 360
+        var values: [CGFloat] = Array(repeating: 0, count: seriesCount)
+        let totalDegree: CGFloat = seriesCount > 1 ? 360 - CGFloat(seriesCount) * GAP : 360
+        var totalValue: CGFloat = 0
+        var startAngle: CGFloat = 0
+        var endAngle: CGFloat = 0
         
-        var startAngles: [Double] = Array(repeating: 0, count: count)
-        var endAngles: [Double] = Array(repeating: 0, count: count)
-        for i in 0 ..< count {
-            if i > 0 {
-                startAngles[i] = endAngles[i-1] + GAP
+        if seriesCount > 0 {
+            for seriesIndex in 0 ..< seriesCount {
+                let tmpValue = CGFloat(model.plotItemValue(at: seriesIndex, category: 0, dimension: 0) ?? 0)
+                values[seriesIndex] = tmpValue < 0 ? 0 : tmpValue
+                totalValue += values[seriesIndex]
             }
+            
+            for seriesIndex in 0 ..< seriesCount {
+                endAngle = totalValue == 0 ? 0 : startAngle + values[seriesIndex] * totalDegree / totalValue
 
-            endAngles[i] = startAngles[i] + Double(segments[i].value) * totalDegree / total
+                segments.append(ChartPlotRectData(seriesIndex: seriesIndex,
+                                                      categoryIndex: 0,
+                                                      value: CGFloat(values[seriesIndex]),
+                                                      x: 0,
+                                                      y: 0,
+                                                      width: startAngle,
+                                                      height: endAngle))
+                startAngle = totalValue == 0 ? 0 : endAngle + GAP
+            }
         }
         
         return HStack(alignment: .center) {
@@ -47,13 +59,58 @@ struct DonutChart: View {
                 NoDataView()
             } else {
                 ZStack {
-                    ForEach(0 ..< count) { i in
-                        ArcShape(startAngle: Angle(degrees: startAngles[i]), endAngle: Angle(degrees: endAngles[i]))
-                            .strokeBorder(segments[i].color, lineWidth: depth)
+                    ForEach(segments, id: \.self) { segment in
+                        ArcShape(startAngle: Angle(degrees: Double(segment.rect.size.width)),
+                                 endAngle: Angle(degrees: Double(segment.rect.size.height)),
+                                 insetAmount: depth / 2)
+                            .stroke(lineWidth: depth)
+                            .fill(self.model.colorAt(seriesIndex: segment.seriesIndex, categoryIndex: 0))
+                            .contentShape(ArcShape(startAngle: Angle(degrees: Double(segment.rect.size.width)),
+                                                   endAngle: Angle(degrees: Double(segment.rect.size.height)),
+                                                   insetAmount: depth / 2)
+                                .stroke(lineWidth: depth))
                             .frame(width: diameter, height: diameter)
+                            .opacity(self.displayState(for: segment.seriesIndex) ? 1 : 0.25)
+                            .ifApply(self.model.userInteractionEnabled) {
+                                $0.onTapGesture {
+                                    self.updateSelectedState(for: segment.seriesIndex)
+                                }
+                            }
                     }
                 }
             }
+        }.contentShape(Rectangle())
+    }
+    
+    func displayState(for seriesIndex: Int) -> Bool {
+        if let selections = model.selections {
+            if selections[seriesIndex] != nil {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return true
+        }
+    }
+    
+    func updateSelectedState(for seriesIndex: Int) {
+        if let selections = model.selections {
+            var tmpSelections = selections
+            // selected
+            if selections[seriesIndex] != nil {
+                tmpSelections[seriesIndex] = nil
+            } else {
+                tmpSelections[seriesIndex] = [0]
+            }
+            
+            if tmpSelections.isEmpty {
+                model.selections = nil
+            } else {
+                model.selections = tmpSelections
+            }
+        } else {
+            model.selections = [seriesIndex: [0]]
         }
     }
 }

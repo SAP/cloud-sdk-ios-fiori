@@ -34,7 +34,7 @@ struct LibraryContent: LibraryContentProvider {
             title: "Stacked Column Chart"
         )
         LibraryItem(
-            ChartView(ChartModel(chartType: .donut, data: [[142.50, 332.05, 247.18, 228.82, 83.45]], titlesForCategory: [["Trucks", "Vans", "Leasing", "Service", "Rentals"]], colorsForCategory: [0: [0: .preferredColor(.chart1), 1: .preferredColor(.chart2), 2: .preferredColor(.chart3), 3: .preferredColor(.chart4), 4: .preferredColor(.chart5)]])),
+            ChartView(ChartModel(chartType: .donut, data: [[10], [20], [30], [40]])),
             title: "Donut Chart"
         )
         LibraryItem(
