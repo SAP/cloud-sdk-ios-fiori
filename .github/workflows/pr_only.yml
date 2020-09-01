@@ -35,6 +35,8 @@ jobs:
 
   SnapshotTests:
     runs-on: macos-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
