@@ -318,8 +318,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published private var _selectionMode: ChartSelectionMode = .single {
         didSet {
             selections = nil
-            }
         }
+    }
 
     public var selectionMode: ChartSelectionMode {
         get {
@@ -327,15 +327,27 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         set {
+            // Note: Following workarounds for older swift compiler will be removed after Xcode 12 GA.
             if chartType == .donut {
                 if newValue == .multiple {
+                    #if swift(>=5.3)
                     _selectionMode = newValue
+                    #else
+                    __selectionMode = Published(initialValue: newValue)
+                    #endif
                 }
             } else {
                 if newValue != .multiple {
+                    #if swift(>=5.3)
                     _selectionMode = newValue
+                    #else
+                    __selectionMode = Published(initialValue: newValue)
+                    #endif
                 }
             }
+            #if swift(<5.3)
+            selections = nil
+            #endif
         }
     }
     
