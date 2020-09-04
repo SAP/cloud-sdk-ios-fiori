@@ -16,6 +16,7 @@ public struct PaletteHexColor {
     /// Alpha value for the color.
     public let alpha: CGFloat
     
+    /// :nodoc:
     public init(string: String, alpha: CGFloat? = 1.0) {
         self.string = string
         self.alpha = alpha ?? 1.0
