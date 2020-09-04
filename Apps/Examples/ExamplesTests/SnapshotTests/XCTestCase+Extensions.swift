@@ -47,6 +47,7 @@ extension XCTestCase {
             assertSnapshotAtCustomDir(
                 matching: vc,
                 as: .image(on: viewConfig, traits: .init(userInterfaceStyle: style)),
+                named: recordingInfo(),
                 record: isRecording,
                 file: file,
                 testName: referenceNamePrefix + "_dark")
@@ -54,10 +55,15 @@ extension XCTestCase {
             assertSnapshotAtCustomDir(
                 matching: vc,
                 as: .image(on: viewConfig, traits: .init(userInterfaceStyle: style)),
+                named: recordingInfo(),
                 record: isRecording,
                 file: file,
                 testName: referenceNamePrefix + "_light")
         }
+    }
+
+    func recordingInfo() -> String {
+            "recordedOn\(UIDevice.current.name)Running\(UIDevice.current.systemName)\(UIDevice.current.systemVersion)".replacingOccurrences(of: "\\W+", with: "", options: .regularExpression)
     }
 }
 
