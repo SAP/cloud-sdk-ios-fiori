@@ -79,19 +79,19 @@ public enum PaletteVersion: CaseIterable {
         return PaletteVersion.allCases[index - 1]
     }
     
-    func next() -> PaletteVersion? {
+    public func next() -> PaletteVersion? {
         guard let index = PaletteVersion.allCases.firstIndex(of: self), index < (PaletteVersion.allCases.count - 1) else { return nil }
         return PaletteVersion.allCases[index + 1]
     }
     
     static let initialSupportedStyles: Set<ColorStyle> = [.primary1, .primary2, .primary3, .primary4, .primary5, .primary6, .primary7, .primary8, .primary9, .tintColor, .tintColorLight, .tintColorDark, .tintColorTapState, .tintColorTapStateLight, .tintColorTapStateDark, .navigationBar, .backgroundGradientTop, .backgroundGradientBottom, .backgroundBase, .cellBackgroundTapState, .line, .chart1, .chart2, .chart3, .chart4, .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .negative, .critical, .positive, .map1, .map2, .map3, .map4, .map5, .map6, .map7, .map8, .map9, .map10, .esriEdit]
     
-    func supportedStyles() -> Set<ColorStyle> {
+    public func supportedStyles() -> Set<ColorStyle> {
         guard let previous = self.previous() else { return PaletteVersion.initialSupportedStyles }
         return previous.supportedStyles().subtracting(self.obsoletedStyles()).union(self.newStyles())
     }
     
-    func obsoletedStyles() -> Set<ColorStyle> {
+    public func obsoletedStyles() -> Set<ColorStyle> {
         guard let previous = self.previous() else { return [] }
         switch self {
         case .v3_2:
@@ -105,7 +105,7 @@ public enum PaletteVersion: CaseIterable {
         }
     }
     
-    func newStyles() -> Set<ColorStyle> {
+    public func newStyles() -> Set<ColorStyle> {
         switch self {
         case .v3_x:
             return PaletteVersion.initialSupportedStyles
