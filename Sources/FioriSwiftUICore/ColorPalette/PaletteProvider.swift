@@ -15,12 +15,26 @@ public protocol PaletteProvider {
     /// Required interface to supply color definitions for the `FUIColorStyle` and `FUIBackgroundColorScheme` combination.
     ///
     /// - Parameters:
+    ///   - style: Style for which color definition is required
+    ///   - variant: Color variant of color definition. Defaults to return `.light` variant, if none exists for `.dark`.
+    /// - Returns: Optional hex color code
+    @available(*, deprecated, renamed: "hexColor(for:)")
+    func hexColor(for style: ColorStyle, variant: ColorVariant) -> PaletteHexColor
+    
+    /// Required interface to supply color definitions for the `FUIColorStyle` and `FUIBackgroundColorScheme` combination.
+    ///
+    /// - Parameters:
     ///   - style: `ColorStyle` for which color definition is required
     /// - Returns: Hex color, a dictionary contains `.light` and `.dark` variant
     func hexColor(for style: ColorStyle) -> HexColor
 }
 
 extension PaletteProvider {
+    /// Default implementation of `hexColor(for:variant:)` function.
+    func hexColor(for style: ColorStyle, variant: ColorVariant) -> PaletteHexColor {
+        return PaletteHexColor(string: "FFFFFF")
+    }
+    
     /// Utility method which should be invoked by the `PaletteProvider`, when encountering a `ColorStyle` for which no known definition exists in the current palette.
     /// This is most likely to occur when basing the palette on a version `< .latest`, which might be missing definitions added in later palettes. Also, this might occur if
     /// the `FUIColorStyle` has been deprecated or removed from the API.
