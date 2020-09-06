@@ -9,14 +9,6 @@ import Foundation
 
 /// A struct for providing color palette.
 public struct Palette: PaletteProvider {
-    /// A function for getting `PaletteHexColor`
-    /// - Parameters:
-    ///   - style: `ColorStyle` for which color definition is required.
-    ///   - variant: `ColorVariant`  variant of color definition. Defaults to return .light variant, if none exists for .dark.
-    @available(*, deprecated, renamed: "hexColor(for:)")
-    public func hexColor(for style: ColorStyle, variant: ColorVariant) -> PaletteHexColor {
-        return self._palette.hexColor(for: style, variant: variant)
-    }
     
     /// A function for getting `HexColor` from palette
     /// - Parameters:
