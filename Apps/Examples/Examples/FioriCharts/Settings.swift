@@ -41,6 +41,11 @@ struct Settings: View {
                     
                     Text("Number of Gridlines: \(model.numberOfGridlines)")
                     Slider(value: $model.numberOfGridlines.double, in: 1...20, step: 1)
+                    
+                    Picker(selection: $model.xAxisLabelsPosition, label: Text("X Axis Labels Position")) {
+                        Text("Dynamic").tag(XAxisLabelsPosition.dynamic)
+                        Text("Fixed bottom").tag(XAxisLabelsPosition.fixedBottom)
+                    }
                 }
                 
                 if model.chartType == .stock || model.chartType == .line || model.chartType == .area || model.chartType == .combo || model.chartType == .waterfall {

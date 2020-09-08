@@ -57,9 +57,10 @@ struct YAxisView: View {
                         //.fixedSize()
                         .font(.system(size: axis.labels.fontSize))
                         .foregroundColor(axis.labels.color)
-                        .position(x: max(rect.size.width / 2, label.pos.x),
+//                        .position(x: min(rect.size.width / 2, label.pos.x),
+//                                  y: label.pos.y)
+                        .position(x: label.pos.x,
                                   y: label.pos.y)
-                        //.frame(width: (rect.size.width - max(rect.size.width / 2, label.pos.x)) * 2)
                         .frame(maxWidth: rect.size.width)
                         .lineLimit(1)
                         .truncationMode(.tail)

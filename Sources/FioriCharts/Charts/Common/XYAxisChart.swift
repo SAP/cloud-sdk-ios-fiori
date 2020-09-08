@@ -53,14 +53,17 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
         let chartWidth = rect.size.width - yAxisWidth - secondaryYAxisWidth
-        let xAxisHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height   ))
+        let xAxisBaselineHeight = model.categoryAxis.baseline.isHidden ? 0 : model.categoryAxis.baseline.width
+        let xAxisLabelsHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height))
+        let xAxisHeight = xAxisBaselineHeight + xAxisLabelsHeight
         
-        let xAxisRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
+        var xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
         if model.chartType == .bar || model.chartType == .stackedBar {
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
             secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
             xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
+            xAxisLabelsRect = .zero
         } else {
             switch model.valueType {
             case .allPositive:
@@ -68,15 +71,31 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
                 chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
                 xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
+                xAxisLabelsRect = .zero
             case .allNegative:
-                yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
-                secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
-                chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
-                xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
+                if model.xAxisLabelsPosition == .dynamic {
+                    yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+                    secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
+                    xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
+                    chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
+                    xAxisLabelsRect = .zero
+                } else {
+                    yAxisRect = CGRect(x: 0, y: xAxisBaselineHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
+                    secondaryYAxisRect = CGRect(x: 0, y: xAxisBaselineHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
+                    xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisBaselineHeight)
+                    chartRect = CGRect(x: yAxisWidth, y: xAxisBaselineHeight, width: chartWidth, height: rect.size.height - xAxisHeight)
+                    xAxisLabelsRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisLabelsHeight, width: chartWidth, height: xAxisLabelsHeight)
+                }
             case .mixed:
-                yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
-                secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
-                chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
+                if model.xAxisLabelsPosition == .dynamic {
+                    yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
+                    secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
+                    chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
+                } else {
+                    yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisLabelsHeight)
+                    secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisLabelsHeight)
+                    chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisLabelsHeight)
+                }
                 var baselineYPos: CGFloat = rect.size.height - xAxisHeight
                 var useSecondary = false
                 if yAxisWidth == 0 {
@@ -90,7 +109,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                 }
                 
-                xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
+                if model.xAxisLabelsPosition == .dynamic {
+                    xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
+                    xAxisLabelsRect = .zero
+                } else {
+                    xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisBaselineHeight)
+                    xAxisLabelsRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisLabelsHeight, width: chartWidth, height: xAxisLabelsHeight)
+                }
             }
         }
         
@@ -124,20 +149,32 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     XAxisView(axisDataSource: axisDataSource)
                         .frame(height: xAxisRect.height)
                 } else if model.valueType == .allNegative {
-                    XAxisView(axisDataSource: axisDataSource)
+                    XAxisView(axisDataSource: axisDataSource, isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                         .frame(height: xAxisRect.height)
                         .zIndex(1)
                     
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
-                    .frame(width: chartRect.width, height: chartRect.height)
+                        .frame(width: chartRect.width, height: chartRect.height)
+                    
+                    if model.xAxisLabelsPosition == .fixedBottom {
+                        XAxisView(axisDataSource: axisDataSource, isShowLabelsOnly: true)
+                            .frame(height: xAxisLabelsRect.height)
+                            .zIndex(1)
+                    }
                 } else {
                     ZStack {
                         GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                         
-                        XAxisView(axisDataSource: axisDataSource)
+                        XAxisView(axisDataSource: axisDataSource, isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
+                    }
+                    
+                    if model.xAxisLabelsPosition == .fixedBottom {
+                        XAxisView(axisDataSource: axisDataSource, isShowLabelsOnly: true)
+                            .frame(height: xAxisLabelsRect.height)
+                            .zIndex(1)
                     }
                 }
             }
@@ -155,6 +192,43 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
+        let labels = axisDataSource.xAxisLabels(model, rect: rect)
+        if labels.isEmpty || model.categoryAxis.labels.isHidden {
+            return 0
+        }
+        
+        var height: CGFloat = 16
+        var totalWidth: CGFloat = 0
+        var prevXPos: CGFloat = -100000
+        var prevLabelWidth: CGFloat = 0
+        for label in labels {
+            let size: CGSize = label.title.isEmpty ? .zero : label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+            // spacing btw baseline and labels are 3pt
+            height = max(height, size.height)
+            
+            // check if the gap btw two adjacent labels is greater than 4pt
+            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
+                totalWidth += rect.size.width
+            }
+            // min spacing btw labels are 4pt
+            if size.width > 0 {
+                totalWidth += size.width + 4
+                prevXPos = label.pos.x
+                prevLabelWidth = size.width
+            }
+        }
+        totalWidth -= 4
+        
+        // show nothing
+        if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
+            axisDataSource.isEnoughSpaceToShowXAxisLables = false
+            height = 0
+        }
+        
+        return height > 0 ? height + 3 : 0
+    }
+    
+    func xAxisMaxHeight(_ rect: CGRect) -> CGFloat {
         let labels = axisDataSource.xAxisLabels(model, rect: rect)
         if labels.isEmpty || (model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden) {
             return 0

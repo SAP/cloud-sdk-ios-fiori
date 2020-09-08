@@ -199,6 +199,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var numericAxis: ChartNumericAxisAttributes
     
+    @Published public var xAxisLabelsPosition: XAxisLabelsPosition = .dynamic
+
     /**
      Provides attributes for the secondary numeric axis.
      
@@ -1414,6 +1416,17 @@ extension ChartModel: CustomStringConvertible {
 }
 """
     }
+}
+
+/**
+ * X Axis Labels Position
+ */
+public enum XAxisLabelsPosition: String {
+    /// X Axis Labels positions itself differenttly based on chart type and ChartValueType
+    case `dynamic`
+    
+    /// X Axis Labels always positions at bottom
+    case fixedBottom
 }
 
 /// Enum for available selection modes.
