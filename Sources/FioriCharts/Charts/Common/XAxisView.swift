@@ -10,12 +10,17 @@ import SwiftUI
 
 struct XAxisView: View {
     @EnvironmentObject var model: ChartModel
+    let isShowBaselineOnly: Bool
+    let isShowLabelsOnly: Bool
+    
     weak var axisDataSource: AxisDataSource? = nil
     
     @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
     
-    init(axisDataSource: AxisDataSource? = nil) {
+    init(axisDataSource: AxisDataSource? = nil, isShowBaselineOnly: Bool = false, isShowLabelsOnly: Bool = false) {
         self.axisDataSource = axisDataSource
+        self.isShowBaselineOnly = isShowBaselineOnly
+        self.isShowLabelsOnly = isShowLabelsOnly
     }
     
     var body: some View {
@@ -38,10 +43,14 @@ struct XAxisView: View {
             baselineYPos = rect.size.height - model.categoryAxis.baseline.width / 2
         }
         
+        if isShowLabelsOnly {
+            labelYPos = 3 + (rect.size.height - 3) / 2
+        }
+        
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.numericAxis : model.categoryAxis
         
         return ZStack {
-            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !axis.labels.isHidden {
+            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !axis.labels.isHidden && !isShowBaselineOnly {
                 ForEach(xAxisLabels) { title in
                     if !axis.labels.isHidden {
                         // category labels
@@ -55,7 +64,7 @@ struct XAxisView: View {
             }
             
             // base line
-            if !axis.baseline.isHidden {
+            if !axis.baseline.isHidden && !isShowLabelsOnly {
                 LineShape(pos1: .zero,
                           pos2: CGPoint(x: rect.size.width, y: 0))
                     .offset(x: 0, y: baselineYPos)

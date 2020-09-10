@@ -57,9 +57,8 @@ struct YAxisView: View {
                         //.fixedSize()
                         .font(.system(size: axis.labels.fontSize))
                         .foregroundColor(axis.labels.color)
-                        .position(x: max(rect.size.width / 2, label.pos.x),
+                        .position(x: label.pos.x,
                                   y: label.pos.y)
-                        //.frame(width: (rect.size.width - max(rect.size.width / 2, label.pos.x)) * 2)
                         .frame(maxWidth: rect.size.width)
                         .lineLimit(1)
                         .truncationMode(.tail)
@@ -99,12 +98,6 @@ struct YAxisView_Previews: PreviewProvider {
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
-        }
-//        return YAxisView(axisDataSource: axisDataSource)
-//            .environmentObject(Tests.stockModels[1])
-//            .frame(width: 80, height: 200, alignment: .topLeading)
-//            .padding()
-//            .previewLayout(.sizeThatFits)
-        
+        }        
     }
 }

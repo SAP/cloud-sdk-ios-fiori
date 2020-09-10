@@ -83,8 +83,9 @@ class BarAxisDataSource: DefaultAxisDataSource {
                 let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
                 
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)
-                let x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-
+                var x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
+                x = max(rect.size.width / 2, x)
+                
                 yAxisLabels.append(AxisTitle(index: i,
                                              value: 0,
                                              title: title,

@@ -199,6 +199,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var numericAxis: ChartNumericAxisAttributes
     
+    @Published public var xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom
+
     /**
      Provides attributes for the secondary numeric axis.
      
@@ -570,6 +572,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 categoryAxis: ChartCategoryAxisAttributes,
                 numericAxis: ChartNumericAxisAttributes,
                 secondaryNumericAxis: ChartNumericAxisAttributes,
+                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: IndexSet,
                 indexesOfColumnSeries: IndexSet,
@@ -588,6 +591,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._categoryAxis = Published(initialValue: categoryAxis)
         self._numericAxis = Published(initialValue: numericAxis)
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
+        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         
         self.numberOfGridlines = numberOfGridlines
         self.selectionMode = selectionMode
@@ -628,6 +632,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
                               numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
                               secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
+                              xAxisLabelsPosition: self.xAxisLabelsPosition,
                               indexOfStockSeries: self.indexOfStockSeries,
                               indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
                               indexesOfColumnSeries: self.indexesOfColumnSeries,
@@ -655,6 +660,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
@@ -755,6 +761,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
+        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         self.numberOfGridlines = numberOfGridlines
         self.selectionMode = selectionMode
         if chartType == .donut {
@@ -799,6 +806,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 categoryAxis: ChartCategoryAxisAttributes? = nil,
                 numericAxis: ChartNumericAxisAttributes? = nil,
                 secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
                 indexOfStockSeries: Int = 0,
                 indexesOfSecondaryValueAxis: [Int]? = nil,
                 indexesOfColumnSeries: [Int]? = nil,
@@ -972,6 +980,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self._seriesAttributes = Published(initialValue: sa)
         }
         
+        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         self.numberOfGridlines = numberOfGridlines
         self.selectionMode = selectionMode
         if chartType == .donut {
@@ -1398,6 +1407,7 @@ extension ChartModel: CustomStringConvertible {
         "categoryAxis": \(String(describing: categoryAxis)),
         "numericAxis": \(String(describing: numericAxis)),
         "secondaryNumericAxis": \(String(describing: secondaryNumericAxis)),
+        "xAxisLabelsPosition": \(String(describing: xAxisLabelsPosition)),
         "indexesOfSecondaryValueAxis": \(String(describing: indexesOfSecondaryValueAxis.sorted())),
         "indexesOfColumnSeries": \(String(describing: indexesOfColumnSeries.sorted())),
         "indexesOfTotalsCategories": \(String(describing: indexesOfTotalsCategories.sorted())),
@@ -1414,6 +1424,17 @@ extension ChartModel: CustomStringConvertible {
 }
 """
     }
+}
+
+/**
+ * X Axis Labels Position
+ */
+public enum XAxisLabelsPosition: String {
+    /// X Axis Labels positions itself differenttly based on chart type and ChartValueType
+    case `dynamic`
+    
+    /// X Axis Labels always positions at bottom
+    case fixedBottom
 }
 
 /// Enum for available selection modes.

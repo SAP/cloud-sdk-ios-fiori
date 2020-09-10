@@ -247,12 +247,13 @@ class DefaultAxisDataSource: AxisDataSource {
             let val = ticks.tickValues[i]
             let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
-            let x: CGFloat
+            var x: CGFloat
             if secondary {
                 x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
-
+                x = min(rect.size.width / 2, x)
             } else {
                 x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
+                x = max(rect.size.width / 2, x)
             }
 
             yAxisLabels.append(AxisTitle(index: i,
