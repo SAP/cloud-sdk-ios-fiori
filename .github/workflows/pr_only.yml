@@ -47,8 +47,23 @@ jobs:
         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
     - name: Generate Xcode project
       run: swift package generate-xcodeproj
+    - name: Install xcbeautify tool
+      run:  |
+        brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
+        brew install swiftlint xcbeautify
     - name: Build Package
-      run: xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build
+      run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
     - name: Run snapshot tests
-      run: ./scripts/snapshottesting/runTests.sh
+      run: set -o pipefail && xcodebuild -project ./Apps/Examples/Examples.xcodeproj -scheme ExamplesTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)' test | xcbeautify
+    - name: Collect screenshot results on failure
+      if: failure()
+      run:  |
+        brew install chargepoint/xcparse/xcparse
+        ./scripts/snapshottesting/parseXcresult.sh
+    - name: Upload screenshot results on failure
+      if: failure()
+      uses: actions/upload-artifact@v1
+      with:
+        name: SnapshotTestResultImages
+        path: ./SnapshotTestResultImages
 
