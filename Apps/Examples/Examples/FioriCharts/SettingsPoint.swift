@@ -10,22 +10,23 @@ import SwiftUI
 import FioriCharts
 
 struct SettingsPoint: View {
+    @EnvironmentObject var model: ChartModel
     @Binding var point: ChartPointAttributes
     
     var body: some View {
-        Form {
+        let nf = NumberFormatter(style: .decimal)
+        nf.maximumFractionDigits = 0
+        
+        return Form {
             Section {
                 Toggle(isOn: $point.isHidden) {
                     Text("Is Hidden")
                 }
                 
-                Text("Diameter of the point: \(point.diameter)")
+                Text("Diameter of the point: \(nf.string(from: NSNumber(value: Double(point.diameter))) ?? "")")
                 Slider(value: $point.diameter, in: 0...20, step: 1)
                 
-//                Text("Line width for the point's stroked path: \(point.lineWidth)")
-//                Slider(value: $point.lineWidth, in: 0...10, step: 1)
-                
-                Text("Allowed gap between dots before they run into each other and are hidden: \(point.gap)")
+                Text("Allowed gap between dots before they run into each other and are hidden: \(nf.string(from: NSNumber(value: Double(point.gap))) ?? "")")
                 Slider(value: $point.gap, in: 0...10, step: 1)
                 
                 SettingColor(color: $point.strokeColor)

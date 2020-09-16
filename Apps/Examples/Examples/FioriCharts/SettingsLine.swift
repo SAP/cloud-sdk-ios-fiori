@@ -10,26 +10,30 @@ import SwiftUI
 import FioriCharts
 
 struct SettingsLine: View {
+    @EnvironmentObject var model: ChartModel
     @Binding var line: ChartGridlineAttributes
     
     var body: some View {
-        Form {
+        let nf = NumberFormatter(style: .decimal)
+        nf.maximumFractionDigits = 0
+        
+        return Form {
             Section(header: Text("Basic")) {
                 Toggle(isOn: $line.isHidden) {
                     Text("Is Hidden")
                 }
                 
-                Text("Line width: \(line.width)")
+                Text("Line width: \(nf.string(from: NSNumber(value: Double(line.width))) ?? "")")
                 Slider(value: $line.width, in: 1...10, step: 1)
                 
                 SettingColor(color: $line.color)
             }
             
             Section(header: Text("Dash Pattern")) {
-                Text("Length: \(line.dashPatternLength)")
+                Text("Length: \(nf.string(from: NSNumber(value: Double(line.dashPatternLength))) ?? "")")
                 Slider(value: $line.dashPatternLength, in: 1...20, step: 1)
                 
-                Text("Gap: \(line.dashPatternGap)")
+                Text("Gap: \(nf.string(from: NSNumber(value: Double(line.dashPatternGap))) ?? "")")
                 Slider(value: $line.dashPatternGap, in: 0...20, step: 1)
             }
         }.navigationBarTitle("Line Attributes")
