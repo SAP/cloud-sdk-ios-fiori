@@ -14,30 +14,13 @@ struct ChartDetailView: View {
     @ObservedObject var model: ChartModel
     @State var isFullScreen: Bool = false
     @State var lenRatio: CGFloat = 1
-//    @State var cancellableSet: Set<AnyCancellable> = []
-    
+  
     init(model: ChartModel) {
         self.model = model
-        
-//        model.selectionDidChangePublisher
-//        .subscribe(on: RunLoop.main)
-//        .sink(receiveValue: { (selections) in
-//            if let selections = selections {
-//                if selections.count == 2 {
-//                    print("MicroCharts: Selected series: \(selections[0]), selected categoies: \(selections[1])")
-//                }
-//            }
-//            else {
-//                print("No selections")
-//            }
-//        })
-//        .store(in: &cancellableSet)
     }
     
     var body: some View {
-        //print(String(describing: model))
-        
-        return GeometryReader { geometry in
+        GeometryReader { geometry in
             // Portrait mode
             if geometry.size.width <= geometry.size.height {
                 ZStack(alignment: .topLeading) {
@@ -64,7 +47,7 @@ struct ChartDetailView: View {
                         if !self.isFullScreen {
                             Divider().edgesIgnoringSafeArea(.all)
                             
-                            Settings(model: self.model)
+                            Settings().environmentObject(self.model)
                         }
                     }
                 }
@@ -86,7 +69,7 @@ struct ChartDetailView: View {
                     if !self.isFullScreen {
                         Divider().edgesIgnoringSafeArea(.all)
 
-                        Settings(model: self.model)
+                        Settings().environmentObject(self.model)
                     }
                 }
             }

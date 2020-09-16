@@ -10,14 +10,17 @@ import SwiftUI
 import FioriCharts
 
 struct Settings: View {
-    @ObservedObject var model: ChartModel
+    @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        NavigationView{
+        let nf = NumberFormatter(style: .decimal)
+        nf.maximumFractionDigits = 0
+        
+        return NavigationView{
             Form {                
                 NavigationLink("Selection", destination: SettingsSelection(model: model))
                 
-                NavigationLink("Series Collection", destination: SettingsSeriesCollection(model: model))
+                NavigationLink("Series Collection", destination: SettingsSeriesCollection())
                 
                 if model.colorsForCategory.count > 0 {
                     NavigationLink("Color for categories", destination: SettingsColorForCategory(model: model))
@@ -39,8 +42,8 @@ struct Settings: View {
                         Text("Secondary Numeric Axis")
                     }
                     
-                    Text("Number of Gridlines: \(model.numberOfGridlines)")
-                    Slider(value: $model.numberOfGridlines.double, in: 1...20, step: 1)
+                    Text("Number of Gridlines: \(nf.string(from: NSNumber(value: Double(model.numberOfGridlines))) ?? "")")
+                    Slider(value: $model.numberOfGridlines.double, in: -1...30, step: 1)
                     
                     Picker(selection: $model.xAxisLabelsPosition, label: Text("X Axis Labels Position")) {
                         Text("Dynamic").tag(XAxisLabelsPosition.dynamic)
@@ -88,6 +91,7 @@ extension Int {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings(model: Tests.stockModels[0])
+        Settings()
+            .environmentObject(Tests.stockModels[0])
     }
 }

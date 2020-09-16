@@ -63,24 +63,6 @@ struct SettingsAxis: View {
                     Text("ordinal").tag(NumberFormatter.Style.ordinal)
                     Text("none").tag(NumberFormatter.Style.none)
                 }
-                
-                /*Button(action: {
-                    self.axis.explicitMin = nil
-                    self.axis.explicitMax = nil
-                }) {
-                    Text("Set explicitMin & explicitMax nil")
-                        .padding()
-                        .border(Color.black)
-                }
-                
-                Button(action: {
-                    self.axis.explicitMin =  -10000
-                    self.axis.explicitMax = 10000
-                }) {
-                    Text("Set explicitMin & explicitMax -10k, 10k")
-                        .padding()
-                        .border(Color.black)
-                }*/
             }
             
             Section(header: Text("Line")) {
