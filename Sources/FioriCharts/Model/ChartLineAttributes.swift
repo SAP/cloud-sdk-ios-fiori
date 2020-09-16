@@ -16,10 +16,10 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
                 dashPatternLength: Double = 1,
                 dashPatternGap: Double = 3,
                 isHidden: Bool = false) {
-        self._width = Published(initialValue: CGFloat(width))
+        self._width = PublishedConstrainedValue(wrappedValue: CGFloat(width), 0...20)
         self._color = Published(initialValue: color)
-        self._dashPatternLength = Published(initialValue: CGFloat(dashPatternLength))
-        self._dashPatternGap = Published(initialValue: CGFloat(dashPatternGap))
+        self._dashPatternLength = PublishedConstrainedValue(wrappedValue: CGFloat(dashPatternLength), 0...20)
+        self._dashPatternGap = PublishedConstrainedValue(wrappedValue: CGFloat(dashPatternGap), 0...20)
         self._isHidden = Published(initialValue: isHidden)
     }
 
@@ -49,13 +49,11 @@ public class ChartGridlineAttributes: ObservableObject, Identifiable, NSCopying,
 """
     }
     
-    @Published public var width: CGFloat
-
+    @PublishedConstrainedValue(0...20) public var width: CGFloat = 1
     @Published public var color: Color
 
-    @Published public var dashPatternLength: CGFloat
-    @Published public var dashPatternGap: CGFloat
-    
+    @PublishedConstrainedValue(0...20) public var dashPatternLength: CGFloat = 1
+    @PublishedConstrainedValue(0...20) public var dashPatternGap: CGFloat = 0
     @Published public var isHidden: Bool
     
     public let id = UUID()

@@ -163,25 +163,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// it is optional. this color overwrite the color from seriesAttributes
     /// format: [seriesIndex1:  [catrgoryIndex1: Color,  ..., catrgoryIndexN: Color], ... , seriesIndexN:  [catrgoryIndex1: Color,  ..., catrgoryIndexM: Color]]
     @Published public var colorsForCategory: [Int: [Int: Color]]
-    
-    @Published private var _numberOfGridlines: Int = 3
-    
-    /// number of gridlines for numeric axis
-    public var numberOfGridlines: Int {
-        get {
-            return _numberOfGridlines
-        }
-        
-        set {
-            if newValue < 1 {
-                _numberOfGridlines = 2
-            } else if newValue > 20 {
-                _numberOfGridlines = 20
-            } else {
-                _numberOfGridlines = newValue
-            }
-        }
-    }
+
+    /// number of gridlines for numeric axis    
+    @PublishedConstrainedValue(1...20) public var numberOfGridlines: Int = 3
     
     /**
      Provides attributes for the category axis.
@@ -593,7 +577,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
         self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         
-        self.numberOfGridlines = numberOfGridlines
+        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
+        
         self.selectionMode = selectionMode
         if chartType == .donut {
             self.selectionMode = .multiple
@@ -762,8 +747,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
-        self.numberOfGridlines = numberOfGridlines
+        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
+        
         self.selectionMode = selectionMode
+        
         if chartType == .donut {
             self.selectionMode = .multiple
         }
@@ -981,8 +968,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
+        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
+        
         self.numberOfGridlines = numberOfGridlines
         self.selectionMode = selectionMode
+        
         if chartType == .donut {
             self.selectionMode = .multiple
         }

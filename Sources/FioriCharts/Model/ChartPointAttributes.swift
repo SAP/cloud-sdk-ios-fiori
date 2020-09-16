@@ -14,10 +14,10 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var isHidden: Bool = false
     
     /// Diameter of the point.
-    @Published public var diameter: CGFloat
+    @PublishedConstrainedValue(0...100) public var diameter: CGFloat = 7
     
     /// Allowed gap between dots before they run into eachother and are hidden.
-    @Published public var gap: CGFloat
+    @PublishedConstrainedValue(0...100) public var gap: CGFloat = 2
     
     /// Stroke color for the point.
     @Published public var strokeColor: Color = .preferredColor(.primary2)
@@ -32,9 +32,9 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
                 strokeColor: Color = .preferredColor(.primary2),
                 gap: Double = 2) {
         self._isHidden = Published(initialValue: isHidden)
-        self._diameter = Published(initialValue: CGFloat(diameter))
+        self._diameter = PublishedConstrainedValue(wrappedValue: CGFloat(diameter), 0...100)
         self._strokeColor = Published(initialValue: strokeColor)
-        self._gap = Published(initialValue: CGFloat(gap))
+        self._gap = PublishedConstrainedValue(wrappedValue: CGFloat(gap), 0...100)
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
@@ -72,5 +72,11 @@ extension ChartPointAttributes: Equatable {
             lhs.diameter == rhs.diameter &&
             lhs.strokeColor == rhs.strokeColor &&
             lhs.gap == rhs.gap
+    }
+}
+
+extension ChartPointAttributes: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(strokeColor)
     }
 }
