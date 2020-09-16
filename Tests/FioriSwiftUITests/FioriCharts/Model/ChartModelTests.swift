@@ -85,6 +85,22 @@ class ChartModelTests: XCTestCase {
         XCTAssertEqual(model, modelCopy)
     }
     
+    func testConstrainedMaxValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let model = ChartModel(chartType: .line, data: [[nil]], numberOfGridlines: 200)
+        
+        XCTAssertEqual(model.numberOfGridlines, 20)
+    }
+    
+    func testConstrainedMinValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let model = ChartModel(chartType: .line, data: [[nil]], numberOfGridlines: -200)
+        
+        XCTAssertEqual(model.numberOfGridlines, 1)
+    }
+    
     func testSelections1() throws {
         let model = ChartModel(chartType: .line,
                                data: [[200, 170, 165, 143, 166, 112, 110],

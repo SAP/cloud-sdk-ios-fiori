@@ -30,6 +30,26 @@ class ChartLineAttributesTests: XCTestCase {
         XCTAssertEqual(ga.isHidden, true)
     }
     
+    func testConstrainedMaxValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let ga = ChartGridlineAttributes(width: 30, color: .gray, dashPatternLength: 200, dashPatternGap: 200, isHidden: true)
+        
+        XCTAssertEqual(ga.width, 20)
+        XCTAssertEqual(ga.dashPatternLength, 20)
+        XCTAssertEqual(ga.dashPatternGap, 20)
+    }
+    
+    func testConstrainedMinValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let ga = ChartGridlineAttributes(width: -30, color: .gray, dashPatternLength: -200, dashPatternGap: -200, isHidden: true)
+        
+        XCTAssertEqual(ga.width, 0)
+        XCTAssertEqual(ga.dashPatternLength, 0)
+        XCTAssertEqual(ga.dashPatternGap, 00)
+    }
+    
     func testChartGridlineAttributesCopy() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

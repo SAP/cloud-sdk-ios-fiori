@@ -29,6 +29,25 @@ class ChartPointAttributesTests: XCTestCase {
         XCTAssertEqual(pa.gap, 1.0)
     }
     
+    func testConstrainedMaxValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let pa = ChartPointAttributes(isHidden: false, diameter: 200, strokeColor: .preferredColor(.chart8), gap: 200)
+        
+        XCTAssertEqual(pa.diameter, 100)
+        XCTAssertEqual(pa.gap, 100)
+    }
+    
+    func testConstrainedMinValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let pa = ChartPointAttributes(isHidden: false, diameter: -200, strokeColor: .preferredColor(.chart8), gap: -200)
+        
+        XCTAssertEqual(pa.diameter, 0)
+        XCTAssertEqual(pa.strokeColor.resolvedColor(with: .light), Color.preferredColor(.chart8).resolvedColor(with: .light))
+        XCTAssertEqual(pa.gap, 0)
+    }
+    
     func testCopy() throws {
         let pa = ChartPointAttributes(isHidden: false, diameter: 2, strokeColor: .preferredColor(.chart8), gap: 1)
         
