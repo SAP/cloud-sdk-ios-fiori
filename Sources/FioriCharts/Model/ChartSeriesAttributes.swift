@@ -18,13 +18,13 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var point: ChartPointAttributes
     
     /// Line width for current series
-    @Published public var lineWidth: CGFloat
+    @PublishedConstrainedValue(0...100) public var lineWidth: CGFloat = 1
     
     /// Diameter of line caps for first value
-    @Published public var firstLineCapDiameter: CGFloat
+    @PublishedConstrainedValue(0...100) public var firstLineCapDiameter: CGFloat = 0
     
     /// Diameter of line caps for last value
-    @Published public var lastLineCapDiameter: CGFloat
+    @PublishedConstrainedValue(0...100) public var lastLineCapDiameter: CGFloat = 0
     
     public let id = UUID()
     
@@ -39,7 +39,7 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
             self._palette = Published(initialValue: ChartSeriesPalette(colors: []))
         }
         
-        self._lineWidth = Published(initialValue: CGFloat(lineWidth))
+        self._lineWidth = PublishedConstrainedValue(wrappedValue: CGFloat(lineWidth), 0...100)
         
         if let point = point {
             self._point = Published(initialValue: point)
@@ -47,8 +47,8 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
             self._point = Published(initialValue: ChartPointAttributes())
         }
         
-        self._firstLineCapDiameter = Published(initialValue: CGFloat(firstLineCapDiameter))
-        self._lastLineCapDiameter = Published(initialValue: CGFloat(lastLineCapDiameter))
+        self._firstLineCapDiameter = PublishedConstrainedValue(wrappedValue: CGFloat(firstLineCapDiameter), 0...100)
+        self._lastLineCapDiameter = PublishedConstrainedValue(wrappedValue: CGFloat(lastLineCapDiameter), 0...100)
     }
     
     // swiftlint:disable force_cast
@@ -87,5 +87,11 @@ extension ChartSeriesAttributes: CustomStringConvertible {
     }
 }
 """
+    }
+}
+
+extension ChartSeriesAttributes: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(point)
     }
 }

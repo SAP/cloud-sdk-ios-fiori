@@ -15,13 +15,13 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
     @Published public var color: Color
     
     /// Size of the label font in points.
-    @Published public var fontSize: CGFloat
+    @PublishedConstrainedValue(0...100) public var fontSize: CGFloat = 12
 
     /// font weight
     // @Published public var fontWeight: CGFloat = 1
 
     /// Specifies how far from the axis labels should be rendered.
-    @Published public var offset: CGFloat
+    @PublishedConstrainedValue(-10...10) public var offset: CGFloat = 0
     
     /// True when the associated label(s) should be hidden.
     @Published public var isHidden: Bool
@@ -33,8 +33,8 @@ public class ChartLabelAttributes: ObservableObject, Identifiable, NSCopying {
                 offset: Double = 0,
                 isHidden: Bool = false) {
         self._color = Published(initialValue: color)
-        self._fontSize = Published(initialValue: CGFloat(fontSize))
-        self._offset = Published(initialValue: CGFloat(offset))
+        self._fontSize = PublishedConstrainedValue(wrappedValue: CGFloat(fontSize), 0...100)
+        self._offset = PublishedConstrainedValue(wrappedValue: CGFloat(offset), -10...10)
         self._isHidden = Published(initialValue: isHidden)
     }
         
