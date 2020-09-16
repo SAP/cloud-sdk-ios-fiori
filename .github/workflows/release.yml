@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: 'Dry Run'
+        required: true
+        default: 'true'
+      releaseVersion:
+        description: 'Notation has to be major.minor.patch (leave empty for automatic determination)'
+        required: false
+
+jobs:
+
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        token: ${{ secrets.PAT_ME_REPO }} # use PAT to being able to push to protected branch later on
+
+    - name: Fetch tags
+      run: git fetch --tags
+
+    - name: Configure CI Git User
+      run: |
+        git config user.name "Marco Eidinger"
+        git config user.email "marco.eidinger@sap.com"
+        git config push.followTags true
+        git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/$GITHUB_REPOSITORY
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_ME_REPO }}
+
+    - name: Get changelog
+      id: get_changelog
+      run: |
+        changelog=''
+
+        if ( ${{ github.event.inputs.releaseVersion == null }} ); then
+          changelog=`npx standard-version --tag-prefix '' --dry-run | sed -n '/^---$/,/^---$/p' | grep -v '^---$'`
+        else
+          changelog=`npx standard-version --tag-prefix '' --release-as '${{ github.event.inputs.releaseVersion }}' --dry-run | sed -n '/^---$/,/^---$/p' | grep -v '^---$'`
+        fi
+
+        changelog="${changelog//'%'/'%25'}"
+        changelog="${changelog//$'\n'/'%0A'}"
+        changelog="${changelog//$'\r'/'%0D'}"
+        echo "$changelog"
+        echo "::set-output name=changelog::$changelog"
+
+    - name: Determine next version number
+      if: github.event.inputs.releaseVersion == null
+      run: |
+        nextVersion=`npx standard-version --tag-prefix '' --dry-run | sed -n '/^---$/,/^---$/p' | grep -P -o '(\d+\.)(\d+\.)(\d)' | head -n 1`
+        echo "$nextVersion"
+        echo "::set-env name=NEXT_VERSION::$nextVersion"
+    - name: Manually next version number
+      if: github.event.inputs.releaseVersion != null
+      run: |
+        echo "::set-env name=NEXT_VERSION::${{ github.event.inputs.releaseVersion }}"
+        echo "${{ env.NEXT_VERSION }}"
+
+    - name: bump version - DRY RUN
+      if: github.event.inputs.dryRun == 'true'
+      run: |
+        if ( ${{ github.event.inputs.releaseVersion == null }} ); then
+          npx standard-version --tag-prefix '' --dry-run
+        else
+          npx standard-version --tag-prefix '' --release-as '${{ github.event.inputs.releaseVersion }}' --dry-run
+        fi
+    - name: bump version - AUTOMATIC
+      if: github.event.inputs.dryRun == 'false' && github.event.inputs.releaseVersion == null
+      run: npx standard-version --tag-prefix ''
+    - name: bump version - MANUAL VERSION NO.
+      if: github.event.inputs.dryRun == 'false' && github.event.inputs.releaseVersion != null
+      run: npx standard-version --tag-prefix '' --release-as '${{ github.event.inputs.releaseVersion }}'
+
+    - name: Publish tag # only possible on main branch
+      if: github.event.inputs.dryRun == 'false'
+      run: |
+        if ( ${{ contains(github.ref, 'main') }} ); then
+          git push --follow-tags origin main
+        else
+          exit 1
+        fi
+
+    - name: Publish GitHub release
+      uses: actions/create-release@v1.1.4
+      if: github.event.inputs.dryRun == 'false'
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT_ME_REPO }} # # use PAT to being able to push to protected branch later on
+      with:
+        tag_name: ${{ env.NEXT_VERSION }}
+        release_name: ${{ env.NEXT_VERSION }}
+        commitish: main
+        prerelease: true
+        body: |
+          ${{ steps.get_changelog.outputs.changelog }}
