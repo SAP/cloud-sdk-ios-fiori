@@ -10,14 +10,13 @@ import SwiftUI
 
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
     @State var yAxisExpanded: Bool = false
     
-    weak var axisDataSource: AxisDataSource? = nil
     let secondary: Bool
     
-    init(axisDataSource: AxisDataSource? = nil, secondary: Bool = false) {
-        self.axisDataSource = axisDataSource
+    init(secondary: Bool = false) {
         self.secondary = secondary
     }
     
@@ -28,10 +27,7 @@ struct YAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        var yAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary) {
-            yAxisLabels = res
-        }
+        let yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
 
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
         let baselineX: CGFloat
@@ -54,7 +50,6 @@ struct YAxisView: View {
                 ForEach(yAxisLabels) { label in
                     // y axis lables
                     Text(label.title)
-                        //.fixedSize()
                         .font(.system(size: axis.labels.fontSize))
                         .foregroundColor(axis.labels.color)
                         .position(x: label.pos.x,
@@ -85,15 +80,17 @@ struct YAxisView_Previews: PreviewProvider {
         
         return Group {
             ForEach(Tests.lineModels) {
-                YAxisView(axisDataSource: axisDataSource)
+                YAxisView()
                     .environmentObject($0)
+                    .environment(\.axisDataSource, axisDataSource)
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
             ForEach(Tests.lineModels) {
-                YAxisView(axisDataSource: axisDataSource, secondary: true)
+                YAxisView(secondary: true)
                     .environmentObject($0)
+                    .environment(\.axisDataSource, axisDataSource)
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

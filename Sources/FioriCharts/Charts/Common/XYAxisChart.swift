@@ -127,13 +127,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             VStack(spacing: 0) {
                 if yAxisWidth > 0 {
                     if model.userInteractionEnabled {
-                        YAxisView(axisDataSource: axisDataSource)
+                        YAxisView()
                             .frame(height: yAxisRect.size.height)
                             .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                             .contentShape(Rectangle())
                             .gesture(doubleTapGesture)
                     } else {
-                        YAxisView(axisDataSource: axisDataSource)
+                        YAxisView()
                                 .frame(height: yAxisRect.size.height)
                                 .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                                 .contentShape(Rectangle())
@@ -182,7 +182,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // secondary numerix axis
             VStack(spacing: 0) {
                 if secondaryYAxisWidth > 0 {
-                    YAxisView(axisDataSource: axisDataSource, secondary: true)
+                    YAxisView(secondary: true)
                         .frame(height: secondaryYAxisRect.size.height)
                         .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
                         .zIndex(2)
