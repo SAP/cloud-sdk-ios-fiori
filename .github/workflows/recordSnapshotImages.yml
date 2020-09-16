@@ -41,7 +41,7 @@ jobs:
       if: failure()
       uses: peter-evans/create-pull-request@v3
       with:
-        token: ${{ secrets.UPLOAD_SNAPSHOT_IMAGES }}
+        token: ${{ secrets.PAT_ME_REPO }}
         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
         commit-message: Create/update images
         committer: GitHub <noreply@github.com>
