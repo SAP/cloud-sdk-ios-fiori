@@ -33,6 +33,19 @@ class ChartSeriesAttributesTests: XCTestCase {
         XCTAssertEqual(sa.lineWidth, 3.0)
         XCTAssertEqual(sa.firstLineCapDiameter, 2.0)
         XCTAssertEqual(sa.lastLineCapDiameter, 4.0)
+    }
+    
+    func testCopy() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        /*
+         palette: ChartSeriesPalette? = nil,
+         lineWidth: Double = 1,
+         point: ChartPointAttributes? = nil,
+         firstLineCapDiameter: Double = 0,
+         lastLineCapDiameter: Double = 0)
+         */
+        let sa = ChartSeriesAttributes(palette: nil, lineWidth: 3, point: nil, firstLineCapDiameter: 2, lastLineCapDiameter: 4)
         
         let saCopy = sa.copy() as! ChartSeriesAttributes
         XCTAssertEqual(sa, saCopy)
@@ -41,6 +54,26 @@ class ChartSeriesAttributesTests: XCTestCase {
         XCTAssertTrue(sa != saCopy)
     }
 
+    func testConstrainedMinValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let sa = ChartSeriesAttributes(palette: nil, lineWidth: 300, point: nil, firstLineCapDiameter: 200, lastLineCapDiameter: 400)
+        
+        XCTAssertEqual(sa.lineWidth, 100)
+        XCTAssertEqual(sa.firstLineCapDiameter, 100)
+        XCTAssertEqual(sa.lastLineCapDiameter, 100)
+    }
+    
+    func testChartGridlineAttributesCopy() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let sa = ChartSeriesAttributes(palette: nil, lineWidth: -300, point: nil, firstLineCapDiameter: -200, lastLineCapDiameter: -400)
+        
+        XCTAssertEqual(sa.lineWidth, 0)
+        XCTAssertEqual(sa.firstLineCapDiameter, 0)
+        XCTAssertEqual(sa.lastLineCapDiameter, 0)
+    }
+    
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {

@@ -33,6 +33,30 @@ class ChartLabelAttributesTests: XCTestCase {
         XCTAssertEqual(labelAttributes.isHidden, false)
     }
 
+    func testConstrainedMaxValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let labelAttributes = ChartLabelAttributes(color: color,
+                                                   fontSize: 200,
+                                                   offset: 200,
+                                                   isHidden: false)
+        
+        XCTAssertEqual(labelAttributes.fontSize, 100)
+        XCTAssertEqual(labelAttributes.offset, 10)
+    }
+    
+    func testConstrainedMinValues() throws {
+        // This is an example of a functional test case.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let labelAttributes = ChartLabelAttributes(color: color,
+                                                   fontSize: -200,
+                                                   offset: -200,
+                                                   isHidden: false)
+        
+        XCTAssertEqual(labelAttributes.fontSize, 0)
+        XCTAssertEqual(labelAttributes.offset, -10)
+    }
+    
     func testCopy() throws {
         let labelAttributes = ChartLabelAttributes(color: color,
                                                    fontSize: 12,
