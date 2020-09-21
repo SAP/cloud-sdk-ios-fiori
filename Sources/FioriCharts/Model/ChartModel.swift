@@ -850,6 +850,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         - indexesOfTotalsCategories: indicates total indexes for waterfall chart.
         - numericAxisLabelFormatHandler: format values for labels of numeric axis
      */
+    //swiftlint:disable function_body_length
+    //swiftlint:disable cyclomatic_complexity
     public convenience init(chartType: ChartType,
                             data3d: [[[Double?]]],
                             titlesForCategory: [[String?]]? = nil,
