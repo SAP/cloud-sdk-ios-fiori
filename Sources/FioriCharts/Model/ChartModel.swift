@@ -1,6 +1,5 @@
 //
-//  FUIChartDataDirect.swift
-//  Micro Charts
+//  ChartModel.swift
 //
 //  Created by Xu, Sheng on 2/5/20.
 //  Copyright © 2020 sstadelman. All rights reserved.
@@ -136,37 +135,31 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// seires -> category -> dimension (either a single value or an array)
     @Published var data: [[DimensionData<CGFloat?>]]
     
-    /// titles for category
-    @Published var titlesForCategory: [[String?]]?
-    
-    /// labels for demension data
-    @Published var labelsForDimension: [[DimensionData<String?>]]?
-    
-    @Published public var titlesForAxis: [ChartAxisId: String]?
-    
-    /// app to provide this to format values from numeric axis
-    public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
-    
-    /// enable or disable user interaction
-    @Published public var userInteractionEnabled: Bool = false
-    
-//    @Published public var selectionEnabled: Bool = false
-//    @Published public var zoomEnabled: Bool = false
-    
-    /// snap to point when dragging a chart
-    @Published public var snapToPoint: Bool = false
+    /// seires attributes
+    @Published private var _seriesAttributes = [ChartSeriesAttributes]()
     
     /// seires attributes
-    @Published public var seriesAttributes: [ChartSeriesAttributes]
-    
-    /// colors for any category in any series
-    /// it is optional. this color overwrite the color from seriesAttributes
-    /// format: [seriesIndex1:  [catrgoryIndex1: Color,  ..., catrgoryIndexN: Color], ... , seriesIndexN:  [catrgoryIndex1: Color,  ..., catrgoryIndexM: Color]]
-    @Published public var colorsForCategory: [Int: [Int: Color]]
-
-    /// number of gridlines for numeric axis    
-    @PublishedConstrainedValue(1...20) public var numberOfGridlines: Int = 3
-    
+    public var seriesAttributes: [ChartSeriesAttributes] {
+        get {
+            return _seriesAttributes
+        }
+        
+        set {
+            if newValue.count == data.count {
+                _seriesAttributes = newValue
+            } else if newValue.isEmpty {
+                let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
+                _seriesAttributes = sa
+            } else {
+                var tmp = newValue
+                let count = newValue.count
+                for i in count ..< data.count {
+                    tmp.append(newValue[i % count])
+                }
+                _seriesAttributes = tmp
+            }
+        }
+    }
     /**
      Provides attributes for the category axis.
      
@@ -183,8 +176,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var numericAxis: ChartNumericAxisAttributes
     
-    @Published public var xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom
-
     /**
      Provides attributes for the secondary numeric axis.
      
@@ -192,7 +183,41 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
      */
     @Published public var secondaryNumericAxis: ChartNumericAxisAttributes
     
+    /// colors for any category in any series
+    /// it is optional. this color overwrite the color from seriesAttributes
+    /// format: [seriesIndex1:  [catrgoryIndex1: Color,  ..., catrgoryIndexN: Color], ... , seriesIndexN:  [catrgoryIndex1: Color,  ..., catrgoryIndexM: Color]]
+    @Published public var colorsForCategory: [Int: [Int: Color]] = [Int: [Int: Color]]()
+
+    /// titles for category
+    @Published var titlesForCategory: [[String?]]?
+    
+    /// labels for demension data
+    @Published var labelsForDimension: [[DimensionData<String?>]]?
+    
+    /// titles for Axis
+    @Published public var titlesForAxis: [ChartAxisId: String]?
+    
+    /// app to provide this to format values for labels of numeric axis
+    public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
+    
+    /// enable or disable user interaction
+    @Published public var userInteractionEnabled: Bool = false
+    
+//    @Published public var selectionEnabled: Bool = false
+//    @Published public var zoomEnabled: Bool = false
+    
+    /// snap to point when dragging a chart
+    @Published public var snapToPoint: Bool = false
+    
+    /// number of gridlines for numeric axis    
+    @PublishedConstrainedValue(1...20) public var numberOfGridlines: Int = 3
+    
+    /// the position of X Axis labels, .fixedBottom or .dynamic
+    @Published public var xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom
+
     @Published private var _indexOfStockSeries: Int = 0
+    
+    /// current selected index of stock chart if there are multiple
     public var indexOfStockSeries: Int {
         get {
             return _indexOfStockSeries
@@ -269,12 +294,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
+    @Published private var _indexesOfSecondaryValueAxis: IndexSet = IndexSet()
     /**
      Indicates secondary value axis series indexes for line based charts.
      - The secondary value index works with .line, .area and .combo charts only.
      - Given series indexes will assign the corresponding series to the secondary value axis.
      */
-    @Published private var _indexesOfSecondaryValueAxis: IndexSet = IndexSet()
     public var indexesOfSecondaryValueAxis: IndexSet {
         get {
             return _indexesOfSecondaryValueAxis
@@ -295,18 +320,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
-    /// selection state
-    /**
-     Determines which plot items should be selected for a category.
-     - single : Selects a single value in the currently selected series and category indices.
-     - all : Selects one value in each series for the selected category index(es).
-     */
     @Published private var _selectionMode: ChartSelectionMode = .single {
         didSet {
             selections = nil
         }
     }
 
+    /// selection state
+    /**
+     Determines which plot items should be selected for a category.
+     - single : Selects a single value in the currently selected series and category indices.
+     - all : Selects one value in each series for the selected category index(es).
+     */
     public var selectionMode: ChartSelectionMode {
         get {
             return _selectionMode
@@ -381,7 +406,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             } else {
                 _selections = nil
             }
-            _selections = newValue
         }
     }
     
@@ -540,60 +564,430 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    public init(chartType: ChartType,
-                data: [[DimensionData<CGFloat?>]],
-                titlesForCategory: [[String?]]?,
-                colorsForCategory: [Int: [Int: Color]],
-                titlesForAxis: [ChartAxisId: String]?,
-                labelsForDimension: [[DimensionData<String?>]]?,
-                numberOfGridlines: Int = 3,
-                selectionRequired: Bool = false,
-                selectionMode: ChartSelectionMode,
-                selections: [Int: [Int]]?,
-                userInteractionEnabled: Bool = false,
-                snapToPoint: Bool = false,
-                seriesAttributes: [ChartSeriesAttributes],
-                categoryAxis: ChartCategoryAxisAttributes,
-                numericAxis: ChartNumericAxisAttributes,
-                secondaryNumericAxis: ChartNumericAxisAttributes,
-                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
-                indexOfStockSeries: Int = 0,
-                indexesOfSecondaryValueAxis: IndexSet,
-                indexesOfColumnSeries: IndexSet,
-                indexesOfTotalsCategories: IndexSet,
-                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
+    init(chartType: ChartType,
+         data: [[DimensionData<CGFloat?>]],
+         titlesForCategory: [[String?]]? = nil,
+         colorsForCategory: [Int: [Int: Color]]? = nil,
+         titlesForAxis: [ChartAxisId: String]? = nil,
+         labelsForDimension: [[DimensionData<String?>]]? = nil,
+         numberOfGridlines: Int = 3,
+         selectionRequired: Bool = false,
+         selectionMode: ChartSelectionMode = .single,
+         selections: [Int: [Int]]?,
+         userInteractionEnabled: Bool = false,
+         snapToPoint: Bool = false,
+         seriesAttributes: [ChartSeriesAttributes]? = nil,
+         categoryAxis: ChartCategoryAxisAttributes? = nil,
+         numericAxis: ChartNumericAxisAttributes? = nil,
+         secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+         xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
+         indexOfStockSeries: Int = 0,
+         indexesOfSecondaryValueAxis: [Int]? = nil,
+         indexesOfColumnSeries: [Int]? = nil,
+         indexesOfTotalsCategories: [Int]? = nil,
+         numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
         self._chartType = Published(initialValue: chartType)
         self._data = Published(initialValue: data)
         self._titlesForCategory = Published(initialValue: titlesForCategory)
-        self._colorsForCategory = Published(initialValue: colorsForCategory)
+        if let colorsForCategory = colorsForCategory {
+            self._colorsForCategory = Published(initialValue: colorsForCategory)
+        } else {
+            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
+        }
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
+        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
-        self._seriesAttributes = Published(initialValue: seriesAttributes)
-        self._categoryAxis = Published(initialValue: categoryAxis)
-        self._numericAxis = Published(initialValue: numericAxis)
-        self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         
-        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
+        if let categoryAxis = categoryAxis {
+            self._categoryAxis = Published(initialValue: categoryAxis)
+        } else {
+            let axis = ChartModel.defaultCategoryAxisAttributes(chartType: chartType)
+            self._categoryAxis = Published(initialValue: axis)
+        }
+        
+        if let numericAxis = numericAxis {
+            self._numericAxis = Published(initialValue: numericAxis)
+        } else {
+            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
+            
+            self._numericAxis = Published(initialValue: axis)
+        }
+        
+        if let secondaryNumericAxis = secondaryNumericAxis {
+            self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
+        } else {
+            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
+            
+            self._secondaryNumericAxis = Published(initialValue: axis)
+        }
+        
+        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
         
         self.selectionMode = selectionMode
         if chartType == .donut {
             self.selectionMode = .multiple
         }
+        
         self.selections = selections
+        
         self.indexOfStockSeries = indexOfStockSeries
-        self.indexesOfColumnSeries = indexesOfColumnSeries
-        self.indexesOfTotalsCategories = indexesOfTotalsCategories
-        self.indexesOfSecondaryValueAxis = indexesOfSecondaryValueAxis
+        if let indexesOfColumnSeries = indexesOfColumnSeries {
+            self.indexesOfColumnSeries = IndexSet(indexesOfColumnSeries)
+        }
+        
+        if let indexesOfTotalsCategories = indexesOfTotalsCategories {
+            self.indexesOfTotalsCategories = IndexSet(indexesOfTotalsCategories)
+        }
+        
+        if let isva = indexesOfSecondaryValueAxis {
+            self.indexesOfSecondaryValueAxis = IndexSet(isva)
+        }
         
         if let nalfh = numericAxisLabelFormatHandler {
             self.numericAxisLabelFormatHandler = nalfh
         }
         
+        if let seriesAttributes = seriesAttributes {
+            self.seriesAttributes = seriesAttributes
+        } else {
+            self.seriesAttributes = []
+        }
+        
+        updateXZRange()
         updateRange()
+    }
+    
+    convenience init(chartType: ChartType,
+                     data: [[DimensionData<CGFloat?>]],
+                     titlesForCategory: [[String?]]? = nil,
+                     colorsForCategory: [Int: [Int: Color]],
+                     titlesForAxis: [ChartAxisId: String]? = nil,
+                     labelsForDimension: [[DimensionData<String?>] ]? = nil,
+                     numberOfGridlines: Int = 3,
+                     selectionRequired: Bool = false,
+                     selectionMode: ChartSelectionMode,
+                     selections: [Int: [Int]]?,
+                     userInteractionEnabled: Bool = false,
+                     snapToPoint: Bool = false,
+                     seriesAttributes: [ChartSeriesAttributes],
+                     categoryAxis: ChartCategoryAxisAttributes,
+                     numericAxis: ChartNumericAxisAttributes,
+                     secondaryNumericAxis: ChartNumericAxisAttributes,
+                     xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
+                     indexOfStockSeries: Int = 0,
+                     indexesOfSecondaryValueAxis: IndexSet,
+                     indexesOfColumnSeries: IndexSet,
+                     indexesOfTotalsCategories: IndexSet,
+                     numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
+        self.init(chartType: chartType,
+                  data: data,
+                  titlesForCategory: titlesForCategory,
+                  colorsForCategory: colorsForCategory,
+                  titlesForAxis: titlesForAxis,
+                  labelsForDimension: labelsForDimension,
+                  numberOfGridlines: numberOfGridlines,
+                  selectionRequired: selectionRequired,
+                  selectionMode: selectionMode,
+                  selections: selections,
+                  userInteractionEnabled: userInteractionEnabled,
+                  snapToPoint: snapToPoint,
+                  seriesAttributes: seriesAttributes,
+                  categoryAxis: categoryAxis,
+                  numericAxis: numericAxis,
+                  secondaryNumericAxis: secondaryNumericAxis,
+                  xAxisLabelsPosition: xAxisLabelsPosition,
+                  indexOfStockSeries: indexOfStockSeries,
+                  indexesOfSecondaryValueAxis: indexesOfSecondaryValueAxis.sorted(),
+                  indexesOfColumnSeries: indexesOfColumnSeries.sorted(),
+                  indexesOfTotalsCategories: indexesOfTotalsCategories.sorted(),
+                  numericAxisLabelFormatHandler: numericAxisLabelFormatHandler)
+    }
+    
+    /**
+     Initializes and returns a newly allocated ChartModel for most of chart types. The data should contain only two dimension array of double values.
+     
+     - Parameters:
+        - chartType: chart type
+        - data: two dimension array of double values.
+        - titlesForCategory: labels for x axis
+        - colorsForCategory: colors for any category in any series. it is optional. this color overwrite the color from seriesAttributes.
+        - titlesForAxis: titles for category and numeric Axis
+        - labelsForDimension: labels for demension data
+        - numberOfGridlines: number of gridlines for numeric axis
+        - selectionRequired: when false a state is allowed in which no series is selected/active.
+        - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
+        - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
+        - userInteractionEnabled: enable or disable user interaction
+        - snapToPoint: snap to point when dragging a chart
+        - seriesAttributes: seires attributes
+        - categoryAxis: attributes for the category axis.
+        - numericAxis: attributes for the primary numeric axis.
+        - secondaryNumericAxis: attributes for the secondary numeric axis.
+        - xAxisLabelsPosition: the position of X Axis labels, .fixedBottom or .dynamic
+        - indexOfStockSeries: current selected index of stock chart if there are multiple
+        - indexesOfSecondaryValueAxis: indicates secondary value axis series indexes for line based charts (.line, .area and .combo).
+        - indexesOfColumnSeries: indicates indexes of column series for combo chart.
+        - indexesOfTotalsCategories: indicates total indexes for waterfall chart.
+        - numericAxisLabelFormatHandler: format values for labels of numeric axis
+     */
+    public convenience init(chartType: ChartType,
+                            data: [[Double?]],
+                            titlesForCategory: [[String?]]? = nil,
+                            colorsForCategory: [Int: [Int: Color]]? = nil,
+                            titlesForAxis: [ChartAxisId: String]? = nil,
+                            labelsForDimension: [[String?]]? = nil,
+                            numberOfGridlines: Int = 3,
+                            selectionRequired: Bool = false,
+                            selectionMode: ChartSelectionMode = .single,
+                            selections: [Int: [Int]]? = nil,
+                            userInteractionEnabled: Bool = false,
+                            snapToPoint: Bool = false,
+                            seriesAttributes: [ChartSeriesAttributes]? = nil,
+                            categoryAxis: ChartCategoryAxisAttributes? = nil,
+                            numericAxis: ChartNumericAxisAttributes? = nil,
+                            secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                            xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
+                            indexOfStockSeries: Int = 0,
+                            indexesOfSecondaryValueAxis: [Int]? = nil,
+                            indexesOfColumnSeries: [Int]? = nil,
+                            indexesOfTotalsCategories: [Int]? = nil,
+                            numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
+        var tmpTitlesForCategory = titlesForCategory
+        var intradayIndex: [Int] = []
+        if chartType == .stock {
+            if let titles = titlesForCategory {
+                var modifiedTitlesForCategory: [[String?]] = []
+                for (i, category) in titles.enumerated() {
+                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
+                        intradayIndex.append(i)
+                        modifiedTitlesForCategory.append(modifiedTitles)
+                    } else {
+                        modifiedTitlesForCategory.append(category)
+                    }
+                }
+                tmpTitlesForCategory = modifiedTitlesForCategory
+            }
+        }
+        
+        var tmpData: [[DimensionData<CGFloat?>]] = []
+        for (i, c) in data.enumerated() {
+            var s: [DimensionData<CGFloat?>] = []
+            for (j, d) in c.enumerated() {
+                if intradayIndex.contains(i) && j == c.count - 1 {
+                    continue
+                } else {
+                    s.append(DimensionData.single(ChartUtility.cgfloatOptional(from: d)))
+                }
+            }
+            tmpData.append(s)
+        }
+
+        var tmpLabelsForDimension: [[DimensionData<String?>]]?
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String?>]] = []
+            for c in labels {
+                var s: [DimensionData<String?>] = []
+                for d in c {
+                    s.append(DimensionData.single(d))
+                }
+                tmpLabels.append(s)
+            }
+            
+            tmpLabelsForDimension = tmpLabels
+        }
+        
+        self.init(chartType: chartType,
+                  data: tmpData,
+                  titlesForCategory: tmpTitlesForCategory,
+                  colorsForCategory: colorsForCategory,
+                  titlesForAxis: titlesForAxis,
+                  labelsForDimension: tmpLabelsForDimension,
+                  numberOfGridlines: numberOfGridlines,
+                  selectionRequired: selectionRequired,
+                  selectionMode: selectionMode,
+                  selections: selections,
+                  userInteractionEnabled: userInteractionEnabled,
+                  snapToPoint: snapToPoint,
+                  seriesAttributes: seriesAttributes,
+                  categoryAxis: categoryAxis,
+                  numericAxis: numericAxis,
+                  secondaryNumericAxis: secondaryNumericAxis,
+                  xAxisLabelsPosition: xAxisLabelsPosition,
+                  indexOfStockSeries: indexOfStockSeries,
+                  indexesOfSecondaryValueAxis: indexesOfSecondaryValueAxis,
+                  indexesOfColumnSeries: indexesOfColumnSeries,
+                  indexesOfTotalsCategories: indexesOfTotalsCategories,
+                  numericAxisLabelFormatHandler: numericAxisLabelFormatHandler)
+    }
+    
+    /**
+     Initializes and returns a newly allocated ChartModel for bubble or stock charts. The data should only contain 3 dimension array of double values.
+     
+     - Parameters:
+        - chartType: chart type
+        - data3d: three dimension array of double values.
+        - titlesForCategory: labels for x axis
+        - colorsForCategory: colors for any category in any series. it is optional. this color overwrite the color from seriesAttributes.
+        - titlesForAxis: titles for category and numeric Axis
+        - labelsForDimension: labels for demension data
+        - numberOfGridlines: number of gridlines for numeric axis
+        - selectionRequired: when false a state is allowed in which no series is selected/active.
+        - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
+        - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
+        - userInteractionEnabled: enable or disable user interaction
+        - snapToPoint: snap to point when dragging a chart
+        - seriesAttributes: seires attributes
+        - categoryAxis: attributes for the category axis.
+        - numericAxis: attributes for the primary numeric axis.
+        - secondaryNumericAxis: attributes for the secondary numeric axis.
+        - xAxisLabelsPosition: the position of X Axis labels, .fixedBottom or .dynamic
+        - indexOfStockSeries: current selected index of stock chart if there are multiple
+        - indexesOfSecondaryValueAxis: indicates secondary value axis series indexes for line based charts (.line, .area and .combo).
+        - indexesOfColumnSeries: indicates indexes of column series for combo chart.
+        - indexesOfTotalsCategories: indicates total indexes for waterfall chart.
+        - numericAxisLabelFormatHandler: format values for labels of numeric axis
+     */
+    public convenience init(chartType: ChartType,
+                            data3d: [[[Double?]]],
+                            titlesForCategory: [[String?]]? = nil,
+                            colorsForCategory: [Int: [Int: Color]]? = nil,
+                            titlesForAxis: [ChartAxisId: String]? = nil,
+                            labelsForDimension: [[[String?]]]? = nil,
+                            numberOfGridlines: Int = 3,
+                            selectionRequired: Bool = false,
+                            selectionMode: ChartSelectionMode = .single,
+                            selections: [Int: [Int]]? = nil,
+                            userInteractionEnabled: Bool = false,
+                            snapToPoint: Bool = false,
+                            seriesAttributes: [ChartSeriesAttributes]? = nil,
+                            categoryAxis: ChartCategoryAxisAttributes? = nil,
+                            numericAxis: ChartNumericAxisAttributes? = nil,
+                            secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
+                            xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
+                            indexOfStockSeries: Int = 0,
+                            indexesOfSecondaryValueAxis: [Int]? = nil,
+                            indexesOfColumnSeries: [Int]? = nil,
+                            indexesOfTotalsCategories: [Int]? = nil,
+                            numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
+        var tmpTitlesForCategory = titlesForCategory
+        var intradayIndex: [Int] = []
+        if chartType == .stock {
+            if let titles = titlesForCategory {
+                var modifiedTitlesForCategory: [[String?]] = []
+                for (i, category) in titles.enumerated() {
+                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
+                        intradayIndex.append(i)
+                        modifiedTitlesForCategory.append(modifiedTitles)
+                    } else {
+                        modifiedTitlesForCategory.append(category)
+                    }
+                }
+                
+                tmpTitlesForCategory = modifiedTitlesForCategory
+            }
+        } else if chartType == .bubble ||  chartType == .scatter {
+            var modifiedTitlesForCategory: [[String?]] = []
+            
+            for c in data3d {
+                var titles: [String?] = Array(repeating: nil, count: c.count)
+                
+                for (j, d) in c.enumerated() {
+                    // check x value
+                    if let firstValue = d.first {
+                        if let value = firstValue {
+                            titles[j] = String(value)
+                        }
+                    }
+                }
+                
+                modifiedTitlesForCategory.append(titles)
+            }
+            
+            tmpTitlesForCategory = modifiedTitlesForCategory
+        }
+        
+        var tmpData: [[DimensionData<CGFloat?>]] = []
+        for (i, c) in data3d.enumerated() {
+            var s: [DimensionData<CGFloat?>] = []
+            for (j, d) in c.enumerated() {
+                if intradayIndex.contains(i) && j == c.count - 1 {
+                    continue
+                } else {
+                    if chartType == .bubble {
+                        // change the data order from x y z to y z x
+                        if d.count == 3 {
+                            let dimX = d[0]
+                            var dimYZX = d.dropFirst()
+                            dimYZX.append(dimX)
+                            let tmpD: [CGFloat?] = dimYZX.map { (v) in
+                                ChartUtility.cgfloatOptional(from: v)
+                            }
+                            
+                            s.append(DimensionData.array(tmpD))
+                        }
+                    } else if chartType == .scatter {
+                        // change the data order from x y to y x
+                        if d.count == 2 {
+                            let dimX = d[0]
+                            var dimYX = d.dropFirst()
+                            dimYX.append(dimX)
+                            let tmpD: [CGFloat?] = dimYX.map { (v) in
+                                ChartUtility.cgfloatOptional(from: v)
+                            }
+                            
+                            s.append(DimensionData.array(tmpD))
+                        }
+                    } else {
+                        let tmpD: [CGFloat?] = d.map { (v) in
+                            ChartUtility.cgfloatOptional(from: v)
+                        }
+                        
+                        s.append(DimensionData.array(tmpD))
+                    }
+                }
+            }
+            tmpData.append(s)
+        }
+
+        var tmpLabelsForDimension: [[DimensionData<String?>]]?
+        if let labels = labelsForDimension {
+            var tmpLabels: [[DimensionData<String?>]] = []
+            for c in labels {
+                var s: [DimensionData<String?>] = []
+                for d in c {
+                    s.append(DimensionData.array(d))
+                }
+                tmpLabels.append(s)
+            }
+            
+            tmpLabelsForDimension =  tmpLabels
+        }
+        
+        self.init(chartType: chartType,
+                  data: tmpData,
+                  titlesForCategory: tmpTitlesForCategory,
+                  colorsForCategory: colorsForCategory,
+                  titlesForAxis: titlesForAxis,
+                  labelsForDimension: tmpLabelsForDimension,
+                  numberOfGridlines: numberOfGridlines,
+                  selectionRequired: selectionRequired,
+                  selectionMode: selectionMode,
+                  selections: selections,
+                  userInteractionEnabled: userInteractionEnabled,
+                  snapToPoint: snapToPoint,
+                  seriesAttributes: seriesAttributes,
+                  categoryAxis: categoryAxis,
+                  numericAxis: numericAxis,
+                  secondaryNumericAxis: secondaryNumericAxis,
+                  xAxisLabelsPosition: xAxisLabelsPosition,
+                  indexOfStockSeries: indexOfStockSeries,
+                  indexesOfSecondaryValueAxis: indexesOfSecondaryValueAxis,
+                  indexesOfColumnSeries: indexesOfColumnSeries,
+                  indexesOfTotalsCategories: indexesOfTotalsCategories,
+                  numericAxisLabelFormatHandler: numericAxisLabelFormatHandler)
     }
     
     // swiftlint:disable force_cast
@@ -627,238 +1021,35 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return copy
     }
     
-    // swiftlint:disable cyclomatic_complexity
-    // swiftlint:disable function_body_length
-    public init(chartType: ChartType,
-                data: [[Double?]],
-                titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: Color]]? = nil,
-                titlesForAxis: [ChartAxisId: String]? = nil,
-                labelsForDimension: [[String?]]? = nil,
-                numberOfGridlines: Int = 3,
-                selectionRequired: Bool = false,
-                selectionMode: ChartSelectionMode = .single,
-                selections: [Int: [Int]]? = nil,
-                userInteractionEnabled: Bool = false,
-                snapToPoint: Bool = false,
-                seriesAttributes: [ChartSeriesAttributes]? = nil,
-                categoryAxis: ChartCategoryAxisAttributes? = nil,
-                numericAxis: ChartNumericAxisAttributes? = nil,
-                secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
-                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
-                indexOfStockSeries: Int = 0,
-                indexesOfSecondaryValueAxis: [Int]? = nil,
-                indexesOfColumnSeries: [Int]? = nil,
-                indexesOfTotalsCategories: [Int]? = nil,
-                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
-        self._chartType = Published(initialValue: chartType)
-        if let colorsForCategory = colorsForCategory {
-            self._colorsForCategory = Published(initialValue: colorsForCategory)
-        } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
-        }
-        
-        self._selectionRequired = Published(initialValue: selectionRequired)
-        self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
-        self._snapToPoint = Published(initialValue: snapToPoint)
-        
-        var intradayIndex: [Int] = []
-        if chartType != .stock {
-            self._titlesForCategory = Published(initialValue: titlesForCategory)
-        } else {
-            if let titles = titlesForCategory {
-                var modifiedTitlesForCategory: [[String?]] = []
-                for (i, category) in titles.enumerated() {
-                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
-                        intradayIndex.append(i)
-                        modifiedTitlesForCategory.append(modifiedTitles)
-                    } else {
-                        modifiedTitlesForCategory.append(category)
-                    }
-                }
-                
-                self._titlesForCategory = Published(initialValue: modifiedTitlesForCategory)
-            }
-        }
-        
-        var tmpData: [[DimensionData<CGFloat?>]] = []
-        for (i, c) in data.enumerated() {
-            var s: [DimensionData<CGFloat?>] = []
-            for (j, d) in c.enumerated() {
-                if intradayIndex.contains(i) && j == c.count - 1 {
-                    continue
-                } else {
-                    s.append(DimensionData.single(ChartUtility.cgfloatOptional(from: d)))
-                }
-            }
-            tmpData.append(s)
-        }
-        self._data = Published(initialValue: tmpData)
-        
-        if let labels = labelsForDimension {
-            var tmpLabels: [[DimensionData<String?>]] = []
-            for c in labels {
-                var s: [DimensionData<String?>] = []
-                for d in c {
-                    s.append(DimensionData.single(d))
-                }
-                tmpLabels.append(s)
-            }
-            self._labelsForDimension = Published(initialValue: tmpLabels)
-        }
-        
-        if let categoryAxis = categoryAxis {
-            self._categoryAxis = Published(initialValue: categoryAxis)
-        } else {
-            let axis = ChartModel.defaultCategoryAxisAttributes(chartType: chartType)
-            self._categoryAxis = Published(initialValue: axis)
-        }
-        
-        if let numericAxis = numericAxis {
-            self._numericAxis = Published(initialValue: numericAxis)
-        } else {
-            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
-            
-            self._numericAxis = Published(initialValue: axis)
-        }
-        
-        if let secondaryNumericAxis = secondaryNumericAxis {
-            self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        } else {
-            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
-            
-            self._secondaryNumericAxis = Published(initialValue: axis)
-        }
-        
-        if let seriesAttributes = seriesAttributes {
-            if seriesAttributes.count == data.count {
-                self._seriesAttributes = Published(initialValue: seriesAttributes)
-            } else {
-                var tmp = seriesAttributes
-                for i in seriesAttributes.count ..< data.count {
-                    tmp.append(seriesAttributes[i % seriesAttributes.count])
-                }
-                self._seriesAttributes = Published(initialValue: tmp)
-            }
-        } else {
-            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
-            self._seriesAttributes = Published(initialValue: sa)
-        }
-        
-        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
-        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
-        
-        self.selectionMode = selectionMode
-        
-        if chartType == .donut {
-            self.selectionMode = .multiple
-        }
-        self.selections = selections
-        
-        self.indexOfStockSeries = indexOfStockSeries
-        if let indexesOfColumnSeries = indexesOfColumnSeries {
-            self.indexesOfColumnSeries = IndexSet(indexesOfColumnSeries)
-        }
-        
-        if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            self.indexesOfTotalsCategories = IndexSet(indexesOfTotalsCategories)
-        }
-        
-        if let isva = indexesOfSecondaryValueAxis {
-            self.indexesOfSecondaryValueAxis = IndexSet(isva)
-        }
-        
-        if let nalfh = numericAxisLabelFormatHandler {
-            self.numericAxisLabelFormatHandler = nalfh
-        }
-        
-        updateRange()
-    }
-    
-    // swiftlint:disable function_body_length
-    public init(chartType: ChartType,
-                data3d: [[[Double?]]],
-                titlesForCategory: [[String?]]? = nil,
-                colorsForCategory: [Int: [Int: Color]]? = nil,
-                titlesForAxis: [ChartAxisId: String]? = nil,
-                labelsForDimension: [[[String?]]]? = nil,
-                numberOfGridlines: Int = 3,
-                selectionRequired: Bool = false,
-                selectionMode: ChartSelectionMode = .single,
-                selections: [Int: [Int]]? = nil,
-                userInteractionEnabled: Bool = false,
-                snapToPoint: Bool = false,
-                seriesAttributes: [ChartSeriesAttributes]? = nil,
-                categoryAxis: ChartCategoryAxisAttributes? = nil,
-                numericAxis: ChartNumericAxisAttributes? = nil,
-                secondaryNumericAxis: ChartNumericAxisAttributes? = nil,
-                xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
-                indexOfStockSeries: Int = 0,
-                indexesOfSecondaryValueAxis: [Int]? = nil,
-                indexesOfColumnSeries: [Int]? = nil,
-                indexesOfTotalsCategories: [Int]? = nil,
-                numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
-        self._chartType = Published(initialValue: chartType)
-        if let colorsForCategory = colorsForCategory {
-            self._colorsForCategory = Published(initialValue: colorsForCategory)
-        } else {
-            self._colorsForCategory = Published(initialValue: [Int: [Int: Color]]())
-        }
-        
-        self._selectionRequired = Published(initialValue: selectionRequired)
-        self._titlesForAxis = Published(initialValue: titlesForAxis)
-        self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
-        self._snapToPoint = Published(initialValue: snapToPoint)
-        
-        var intradayIndex: [Int] = []
-        if chartType == .stock {
-            if let titles = titlesForCategory {
-                var modifiedTitlesForCategory: [[String?]] = []
-                for (i, category) in titles.enumerated() {
-                    if let modifiedTitles = ChartModel.preprocessIntradayDataForStock(category) {
-                        intradayIndex.append(i)
-                        modifiedTitlesForCategory.append(modifiedTitles)
-                    } else {
-                        modifiedTitlesForCategory.append(category)
-                    }
-                }
-                
-                self._titlesForCategory = Published(initialValue: modifiedTitlesForCategory)
-            }
-        } else if chartType == .bubble ||  chartType == .scatter {
-            var tmpTitlesForCategory: [[String?]] = []
+    private func updateXZRange() {
+        if chartType == .bubble || chartType == .scatter {
             var tmpCatMin: CGFloat?
             var tmpCatMax: CGFloat?
             
             var tmpZMin: CGFloat?
             var tmpZMax: CGFloat?
             
-            for c in data3d {
-                var titles: [String?] = Array(repeating: nil, count: c.count)
-                
-                for (j, d) in c.enumerated() {
+            // the data order is y z x
+            for c in data {
+                for d in c {
                     // check x value
-                    if let firstValue = d.first {
-                        if let value = firstValue {
-                            titles[j] = String(value)
-                            if let tmpMin = tmpCatMin {
-                                tmpCatMin = min(tmpMin, CGFloat(value))
-                            } else {
-                                tmpCatMin = CGFloat(value)
-                            }
-                            
-                            if let tmpMax = tmpCatMax {
-                                tmpCatMax = max(tmpMax, CGFloat(value))
-                            } else {
-                                tmpCatMax = CGFloat(value)
-                            }
+                    if let value = chartType == .bubble ? d[2]: d[1] {
+                        if let tmpMin = tmpCatMin {
+                            tmpCatMin = min(tmpMin, CGFloat(value))
+                        } else {
+                            tmpCatMin = CGFloat(value)
+                        }
+                        
+                        if let tmpMax = tmpCatMax {
+                            tmpCatMax = max(tmpMax, CGFloat(value))
+                        } else {
+                            tmpCatMax = CGFloat(value)
                         }
                     }
                     
                     // check z value
-                    if d.count >= 3 {
-                        if let value = d[2] {
+                    if chartType == .bubble {
+                        if let value = d[1] {
                             if let tmpMin = tmpZMin {
                                 tmpZMin = min(tmpMin, CGFloat(value))
                             } else {
@@ -873,129 +1064,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                         }
                     }
                 }
-                
-                tmpTitlesForCategory.append(titles)
             }
-            
-            self._titlesForCategory = Published(initialValue: tmpTitlesForCategory)
+        
             self.xDataMinimumValue = tmpCatMin
             self.xDataMaximumValue = tmpCatMax
             self.zDataMinimumValue = tmpZMin
             self.zDataMaximumValue = tmpZMax
             
-        } else {
-            self._titlesForCategory = Published(initialValue: titlesForCategory)
         }
-        
-        var tmpData: [[DimensionData<CGFloat?>]] = []
-        for (i, c) in data3d.enumerated() {
-            var s: [DimensionData<CGFloat?>] = []
-            for (j, d) in c.enumerated() {
-                if intradayIndex.contains(i) && j == c.count - 1 {
-                    continue
-                } else {
-                    // change the data order from x y z to y z x
-                    if chartType == .bubble || chartType == .scatter {
-                        if !d.isEmpty {
-                            let dimX = d[0]
-                            var dimYZX = d.dropFirst()
-                            dimYZX.append(dimX)
-                            let tmpD: [CGFloat?] = dimYZX.map { (v) in
-                                ChartUtility.cgfloatOptional(from: v)
-                            }
-                            
-                            s.append(DimensionData.array(tmpD))
-                        }
-                    } else {
-                        let tmpD: [CGFloat?] = d.map { (v) in
-                            ChartUtility.cgfloatOptional(from: v)
-                        }
-                        
-                        s.append(DimensionData.array(tmpD))
-                    }
-                }
-            }
-            tmpData.append(s)
-        }
-        self._data = Published(initialValue: tmpData)
-        
-        if let labels = labelsForDimension {
-            var tmpLabels: [[DimensionData<String?>]] = []
-            for c in labels {
-                var s: [DimensionData<String?>] = []
-                for d in c {
-                    s.append(DimensionData.array(d))
-                }
-                tmpLabels.append(s)
-            }
-            self._labelsForDimension = Published(initialValue: tmpLabels)
-        }
-        
-        if let numericAxis = numericAxis {
-            self._numericAxis = Published(initialValue: numericAxis)
-        } else {
-            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
-            self._numericAxis = Published(initialValue: axis)
-        }
-        
-        if let secondaryNumericAxis = secondaryNumericAxis {
-            self._secondaryNumericAxis = Published(initialValue: secondaryNumericAxis)
-        } else {
-            let axis = ChartModel.defaultNumericAixsAttributes(chartType: chartType)
-            self._secondaryNumericAxis = Published(initialValue: axis)
-        }
-        
-        if let categoryAxis = categoryAxis {
-            self._categoryAxis = Published(initialValue: categoryAxis)
-        } else {
-            let axis = ChartModel.defaultCategoryAxisAttributes(chartType: chartType)
-            self._categoryAxis = Published(initialValue: axis)
-        }
-        
-        if let seriesAttributes = seriesAttributes {
-            if seriesAttributes.count == data3d.count {
-                self._seriesAttributes = Published(initialValue: seriesAttributes)
-            } else {
-                var tmp = seriesAttributes
-                for i in seriesAttributes.count ..< data3d.count {
-                    tmp.append(seriesAttributes[i % seriesAttributes.count])
-                }
-                self._seriesAttributes = Published(initialValue: tmp)
-            }
-        } else {
-            let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data3d.count)
-            self._seriesAttributes = Published(initialValue: sa)
-        }
-        
-        self._xAxisLabelsPosition = Published(initialValue: xAxisLabelsPosition)
-        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
-        
-        self.numberOfGridlines = numberOfGridlines
-        self.selectionMode = selectionMode
-        
-        if chartType == .donut {
-            self.selectionMode = .multiple
-        }
-        self.selections = selections
-        
-        self.indexOfStockSeries = indexOfStockSeries
-        if let indexesOfColumnSeries = indexesOfColumnSeries {
-            self.indexesOfColumnSeries = IndexSet(indexesOfColumnSeries)
-        }
-        
-        if let indexesOfTotalsCategories = indexesOfTotalsCategories {
-            self.indexesOfTotalsCategories = IndexSet(indexesOfTotalsCategories)
-        }
-        
-        if let isva = indexesOfSecondaryValueAxis {
-            self.indexesOfSecondaryValueAxis = IndexSet(isva)
-        }
-        
-        if let nalfh = numericAxisLabelFormatHandler {
-            self.numericAxisLabelFormatHandler = nalfh
-        }
-        
-        updateRange()
     }
     
     private func updateRange() {
@@ -1098,6 +1174,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             internal functions
      */
     static func initChartSeriesAttributes(chartType: ChartType, seriesCount: Int) -> [ChartSeriesAttributes] {
+        if seriesCount < 1 {
+            return [ChartSeriesAttributes]()
+        }
+        
         switch chartType {
         case .stock:
             let count = max(1, seriesCount)

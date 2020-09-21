@@ -101,6 +101,26 @@ class ChartModelTests: XCTestCase {
         XCTAssertEqual(model.numberOfGridlines, 1)
     }
     
+    func testSeriesAttributesOneValue() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        model.seriesAttributes = [ChartSeriesAttributes()]
+        
+        XCTAssertTrue(model.seriesAttributes.count == 2)
+    }
+    
+    func testSeriesAttributesEmptyArray() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        model.seriesAttributes = [ChartSeriesAttributes]()
+        
+        XCTAssertTrue(model.seriesAttributes.count == 2)
+    }
+    
     func testSelections1() throws {
         let model = ChartModel(chartType: .line,
                                data: [[200, 170, 165, 143, 166, 112, 110],
