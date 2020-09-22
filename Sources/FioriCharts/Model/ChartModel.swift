@@ -564,7 +564,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     public let id = UUID()
     
-    init(chartType: ChartType,
+    private init(chartType: ChartType,
          data: [[DimensionData<CGFloat?>]],
          titlesForCategory: [[String?]]? = nil,
          colorsForCategory: [Int: [Int: Color]]? = nil,
@@ -658,52 +658,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         
         updateXZRange()
         updateRange()
-    }
-    
-    convenience init(chartType: ChartType,
-                     data: [[DimensionData<CGFloat?>]],
-                     titlesForCategory: [[String?]]? = nil,
-                     colorsForCategory: [Int: [Int: Color]],
-                     titlesForAxis: [ChartAxisId: String]? = nil,
-                     labelsForDimension: [[DimensionData<String?>] ]? = nil,
-                     numberOfGridlines: Int = 3,
-                     selectionRequired: Bool = false,
-                     selectionMode: ChartSelectionMode,
-                     selections: [Int: [Int]]?,
-                     userInteractionEnabled: Bool = false,
-                     snapToPoint: Bool = false,
-                     seriesAttributes: [ChartSeriesAttributes],
-                     categoryAxis: ChartCategoryAxisAttributes,
-                     numericAxis: ChartNumericAxisAttributes,
-                     secondaryNumericAxis: ChartNumericAxisAttributes,
-                     xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom,
-                     indexOfStockSeries: Int = 0,
-                     indexesOfSecondaryValueAxis: IndexSet,
-                     indexesOfColumnSeries: IndexSet,
-                     indexesOfTotalsCategories: IndexSet,
-                     numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler? = nil) {
-        self.init(chartType: chartType,
-                  data: data,
-                  titlesForCategory: titlesForCategory,
-                  colorsForCategory: colorsForCategory,
-                  titlesForAxis: titlesForAxis,
-                  labelsForDimension: labelsForDimension,
-                  numberOfGridlines: numberOfGridlines,
-                  selectionRequired: selectionRequired,
-                  selectionMode: selectionMode,
-                  selections: selections,
-                  userInteractionEnabled: userInteractionEnabled,
-                  snapToPoint: snapToPoint,
-                  seriesAttributes: seriesAttributes,
-                  categoryAxis: categoryAxis,
-                  numericAxis: numericAxis,
-                  secondaryNumericAxis: secondaryNumericAxis,
-                  xAxisLabelsPosition: xAxisLabelsPosition,
-                  indexOfStockSeries: indexOfStockSeries,
-                  indexesOfSecondaryValueAxis: indexesOfSecondaryValueAxis.sorted(),
-                  indexesOfColumnSeries: indexesOfColumnSeries.sorted(),
-                  indexesOfTotalsCategories: indexesOfTotalsCategories.sorted(),
-                  numericAxisLabelFormatHandler: numericAxisLabelFormatHandler)
     }
     
     /**
@@ -1010,14 +964,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                                 let copy = $0.copy() as! ChartSeriesAttributes
                                 return copy
                               },
-                              categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
-                              numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
-                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
+                              categoryAxis: (self.categoryAxis.copy() as! ChartCategoryAxisAttributes),
+                              numericAxis: (self.numericAxis.copy() as! ChartNumericAxisAttributes),
+                              secondaryNumericAxis: (self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes),
                               xAxisLabelsPosition: self.xAxisLabelsPosition,
                               indexOfStockSeries: self.indexOfStockSeries,
-                              indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis,
-                              indexesOfColumnSeries: self.indexesOfColumnSeries,
-                              indexesOfTotalsCategories: self.indexesOfTotalsCategories,
+                              indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis.sorted(),
+                              indexesOfColumnSeries: self.indexesOfColumnSeries.sorted(),
+                              indexesOfTotalsCategories: self.indexesOfTotalsCategories.sorted(),
                               numericAxisLabelFormatHandler: self.numericAxisLabelFormatHandler)
         
         return copy
