@@ -10,6 +10,7 @@ import SwiftUI
 
 struct StockLinesView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {

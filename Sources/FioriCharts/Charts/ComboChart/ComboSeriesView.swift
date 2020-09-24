@@ -7,63 +7,51 @@
 
 import SwiftUI
 
-struct ComboSeriesView: View {
+struct ComboSeriesColumnView: View {
     @EnvironmentObject var model: ChartModel
     
-    let plotSeries: [ChartPlotData]
+    let plotColumn: ChartPlotData
     let rect: CGRect
     let isSelectionView: Bool
     
     var body: some View {
-        let seriesIndex = plotSeries.first?.seriesIndex ?? 0
+        let seriesIndex = plotColumn.seriesIndex
         let isSecondary = model.indexesOfSecondaryValueAxis.contains(seriesIndex)
         let tickValues = isSecondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
         
         return Group {
             // positive values
             if tickValues.plotMinimum >= 0 {
-                HStack(alignment: .bottom, spacing: 0) {
-                    ForEach(plotSeries, id: \.self) { item in
-                        Rectangle()
-                            .fill(self.columnColor(for: item))
-                            .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: item.rect.size.height * self.rect.size.height)
-                    }
-                }
+                Rectangle()
+                    .fill(self.columnColor(for: plotColumn))
+                    .frame(width: plotColumn.rect.size.width * self.rect.size.width * self.model.scale, height: plotColumn.rect.size.height * self.rect.size.height)
                 
             } else if tickValues.plotMaximum <= 0 { // negative values
-                HStack(alignment: .bottom, spacing: 0) {
-                    ForEach(plotSeries, id: \.self) { item in
-                        VStack(alignment: .center, spacing: 0) {
-                            Rectangle()
-                                .fill(self.columnColor(for: item))
-                                .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: item.rect.size.height * self.rect.size.height)
-                            Spacer(minLength: 0)
-                        }
-                    }
-                    
+                
+                VStack(alignment: .center, spacing: 0) {
+                    Rectangle()
+                        .fill(self.columnColor(for: plotColumn))
+                        .frame(width: plotColumn.rect.size.width * self.rect.size.width * self.model.scale, height: plotColumn.rect.size.height * self.rect.size.height)
+                    Spacer(minLength: 0)
                 }
             } else { // mixed values
-                HStack(alignment: .bottom, spacing: 0) {
-                    ForEach(plotSeries, id: \.self) { item in
-                        VStack(spacing: 0) {
-                            // positive area
-                            VStack(spacing: 0) {
-                                Spacer(minLength: 0)
-                                Rectangle()
-                                    .fill(self.columnColor(for: item))
-                                    .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale, height: self.columnHeight(from: item, isPositiveArea: true) * self.rect.size.height)
-                            }.frame(height: (1 - tickValues.plotBaselinePosition) * self.rect.size.height)
-                            
-                            // negative area
-                            VStack(spacing: 0) {
-                                Rectangle()
-                                    .fill(self.columnColor(for: item))
-                                    .frame(width: item.rect.size.width * self.rect.size.width * self.model.scale,
-                                           height: self.columnHeight(from: item, isPositiveArea: false) * self.rect.size.height)
-                                Spacer(minLength: 0)
-                            }.frame(height: tickValues.plotBaselinePosition * self.rect.size.height)
-                        }
-                    }
+                VStack(spacing: 0) {
+                    // positive area
+                    VStack(spacing: 0) {
+                        Spacer(minLength: 0)
+                        Rectangle()
+                            .fill(self.columnColor(for: plotColumn))
+                            .frame(width: plotColumn.rect.size.width * self.rect.size.width * self.model.scale, height: self.columnHeight(from: plotColumn, isPositiveArea: true) * self.rect.size.height)
+                    }.frame(height: (1 - tickValues.plotBaselinePosition) * self.rect.size.height)
+                    
+                    // negative area
+                    VStack(spacing: 0) {
+                        Rectangle()
+                            .fill(self.columnColor(for: plotColumn))
+                            .frame(width: plotColumn.rect.size.width * self.rect.size.width * self.model.scale,
+                                   height: self.columnHeight(from: plotColumn, isPositiveArea: false) * self.rect.size.height)
+                        Spacer(minLength: 0)
+                    }.frame(height: tickValues.plotBaselinePosition * self.rect.size.height)
                 }
             }
         }
@@ -86,6 +74,26 @@ struct ComboSeriesView: View {
             return rectData.rect.size.height
         } else {
             return 0
+        }
+    }
+}
+
+struct ComboSeriesView: View {
+    @EnvironmentObject var model: ChartModel
+    
+    let plotSeries: [ChartPlotData]
+    let rect: CGRect
+    let isSelectionView: Bool
+    
+    var body: some View {
+        let plots = plotSeries.compactMap {
+            model.indexesOfColumnSeries.contains($0.seriesIndex) ? $0 : nil
+        }
+        
+        return HStack(alignment: .bottom, spacing: 0) {
+            ForEach(plots, id: \.self) { item in
+                ComboSeriesColumnView(plotColumn: item, rect: rect, isSelectionView: isSelectionView)
+            }
         }
     }
 }
