@@ -92,6 +92,60 @@ class ComboChartTests: XCTestCase {
         XCTAssertTrue(plotPointData4 != nil)
     }
     
+    func testColumnWithDifferentAxisPositiveValues() throws {
+        let model = ChartModel(chartType: .combo,
+                               data: [[200, 120, 165, 143, 166, 130, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               indexesOfSecondaryValueAxis: [1],
+                               indexesOfColumnSeries: [0, 1])
+        
+        let dataSource = ComboAxisDataSource()
+        let pd = dataSource.plotData(model)
+        
+        let axisValue1 = model.numericAxisTickValues
+        let axisValue2 = model.secondaryNumericAxisTickValues
+        
+        XCTAssertEqual(pd[1][0].rect.size.height, model.data[0][1].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[1][1].rect.size.height, model.data[1][1].first!! / axisValue2.plotRange, accuracy: 0.0001)
+    }
+    
+    func testColumnWithDifferentAxisNegativeValues() throws {
+        let model = ChartModel(chartType: .combo,
+                               data: [[200, 120, 165, 143, 166, 130, 110].map { -$0 },
+                                      [150, 120, 130, 135, 120, 138, 137].map { -$0 }],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               indexesOfSecondaryValueAxis: [1],
+                               indexesOfColumnSeries: [0, 1])
+        
+        let dataSource = ComboAxisDataSource()
+        let pd = dataSource.plotData(model)
+        
+        let axisValue1 = model.numericAxisTickValues
+        let axisValue2 = model.secondaryNumericAxisTickValues
+        
+        XCTAssertEqual(pd[1][0].rect.size.height, abs(model.data[0][1].first!!) / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[1][1].rect.size.height, abs(model.data[1][1].first!!) / axisValue2.plotRange, accuracy: 0.0001)
+    }
+    
+    func testColumnWithDifferentAxisMixedValues() throws {
+        let model = ChartModel(chartType: .combo,
+                               data: [[200, 120, 165, 143, 166, 130, 110].map { $0 * ($0 > 150 ? 1 : (-1)) },
+                                      [150, 120, 130, 135, 120, 138, 137]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               indexesOfSecondaryValueAxis: [1],
+                               indexesOfColumnSeries: [0, 1])
+        
+        let dataSource = ComboAxisDataSource()
+        let pd = dataSource.plotData(model)
+        
+        let axisValue1 = model.numericAxisTickValues
+        let axisValue2 = model.secondaryNumericAxisTickValues
+        
+        XCTAssertEqual(pd[1][0].rect.size.height, abs(model.data[0][1].first!!) / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[1][1].rect.size.height, model.data[1][1].first!! / axisValue2.plotRange, accuracy: 0.0001)
+    }
+    
     func testSecondaryAxis() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

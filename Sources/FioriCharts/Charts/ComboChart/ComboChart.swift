@@ -249,7 +249,6 @@ class ComboAxisDataSource: DefaultAxisDataSource {
     }
     
     // range selection
-    // swiftlint:disable cyclomatic_complexity
     override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
         if atPoints.count != 2 {
             return []
@@ -289,19 +288,19 @@ class ComboAxisDataSource: DefaultAxisDataSource {
             
             if let plotCat = pd[startIndex].first {
                 let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - model.startPos.x
+                let xMax = xMin + clusterWidth
                 
                 if index == 0 {
-                    if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {
-                        res.append((plotCat.seriesIndex, plotCat.categoryIndex))
-                    } else if pt.x > xMax {
+                    if pt.x > xMax {
                         res.append((plotCat.seriesIndex, min(plotCat.categoryIndex + 1, maxDataCount - 1)))
+                    } else {
+                        res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                     }
                 } else {
-                    if pt.x >= xMin && pt.x <= xMax {
+                    if pt.x >= xMax {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                         return res
-                    } else if pt.x >= xMax {
+                    } else {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                         return res
                     }
