@@ -92,7 +92,7 @@ struct ComboSeriesView: View {
         
         return HStack(alignment: .bottom, spacing: 0) {
             ForEach(plots, id: \.self) { item in
-                ComboSeriesColumnView(plotColumn: item, rect: rect, isSelectionView: isSelectionView)
+                ComboSeriesColumnView(plotColumn: item, rect: self.rect, isSelectionView: self.isSelectionView)
             }
         }
     }
