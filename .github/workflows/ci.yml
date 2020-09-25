@@ -15,8 +15,14 @@ jobs:
     - uses: actions/checkout@v2
     - name: Generate Xcode project
       run: swift package generate-xcodeproj
-    - name: Build and Test (with code coverage)
-      run: xcodebuild -enableCodeCoverage YES -derivedDataPath Build/ -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build test
+    - name: Build and Test on iOS 14 / Xcode 12
+      run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=14.0,name=iPhone 11' clean build test | xcpretty
+      env:
+        DEVELOPER_DIR: '/Applications/Xcode_12.app/Contents/Developer'
+    - name: Build and Test on iOS 13 / Xcode 11
+      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -derivedDataPath Build/ -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=13.7,name=iPhone 11' clean build test | xcpretty
+      env:
+        DEVELOPER_DIR: '/Applications/Xcode_11.7.app/Contents/Developer'
     - name: Create code coverage report
       run: ./scripts/xccov-to-sonarqube-generic.sh Build/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
