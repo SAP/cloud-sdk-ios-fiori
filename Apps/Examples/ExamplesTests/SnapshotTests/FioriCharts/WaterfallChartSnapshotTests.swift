@@ -35,4 +35,24 @@ class WaterfallChartSnapshotTests: XCTestCase {
         // Headcount Movement Last 12 Months, negative value
         assertSnapshot(ChartView(Tests.waterfallModels[3]), for: referenceSize)
     }
+    
+    func testWaterfallChart5() throws {
+        // Headcount Movement Last 12 Months, negative value
+        assertSnapshot(ChartView(Tests.waterfallModels[4]), for: referenceSize)
+    }
+    
+    func testWaterfallChart6() throws {
+        // Headcount Movement Last 12 Months, negative value
+        assertSnapshot(ChartView(Tests.waterfallModels[5]), for: referenceSize)
+    }
+    
+    func testWaterfallChart7() throws {
+        // Headcount Movement Last 12 Months, negative value
+        assertSnapshot(ChartView(Tests.waterfallModels[6]), for: referenceSize)
+    }
+    
+    func testWaterfallChart8() throws {
+        // Headcount Movement Last 12 Months, negative value
+        assertSnapshot(ChartView(Tests.waterfallModels[7]), for: referenceSize)
+    }
 }

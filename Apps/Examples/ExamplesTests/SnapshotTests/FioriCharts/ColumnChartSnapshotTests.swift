@@ -12,6 +12,7 @@ import SwiftUI
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
+/// this is actually micro column chart snapshot tests
 class ColumnChartSnapshotTests: XCTestCase {
 
     func testColumnChartPositiveValues() throws {

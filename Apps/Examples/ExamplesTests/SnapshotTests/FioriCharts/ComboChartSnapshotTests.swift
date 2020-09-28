@@ -25,4 +25,12 @@ class ComboChartSnapshotTests: XCTestCase {
     func testComboChartNegativeValuesSingleSelection() throws {
         assertSnapshot(ChartView(Tests.comboModels[2]), for: referenceSize)
     }
+    
+    func testComboChartMixedValuesRangeSelection() throws {
+        assertSnapshot(ChartView(Tests.comboModels[3]), for: referenceSize)
+    }
+    
+    func testComboChartDataArrayEmpty() throws {
+        assertSnapshot(ChartView(Tests.comboModels[4]), for: referenceSize)
+    }
 }
