@@ -105,6 +105,13 @@
 		8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */; };
 		8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */; };
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
+		B8355ED525225A52001AB341 /* AreaChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */; };
+		B8355ED725227D1B001AB341 /* StackedColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */; };
+		B8355ED925227E7E001AB341 /* BarChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */; };
+		B8355EDB25227F05001AB341 /* StackedBarChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EDA25227F05001AB341 /* StackedBarChartSnapshotTests.swift */; };
+		B8355EDD25227F87001AB341 /* BubbleChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EDC25227F87001AB341 /* BubbleChartSnapshotTests.swift */; };
+		B8355EDF25227F9B001AB341 /* ScatterChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EDE25227F9B001AB341 /* ScatterChartSnapshotTests.swift */; };
+		B8355EE12522846B001AB341 /* RealColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EE02522846B001AB341 /* RealColumnChartSnapshotTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +251,13 @@
 		8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChartSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarveyBallSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355EDA25227F05001AB341 /* StackedBarChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedBarChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355EDC25227F87001AB341 /* BubbleChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355EDE25227F9B001AB341 /* ScatterChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScatterChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B8355EE02522846B001AB341 /* RealColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -514,13 +528,20 @@
 			children = (
 				8AF60E1424D34553003889A8 /* BulletChartSnapshotTests.swift */,
 				8AF60E1524D34553003889A8 /* ColumnChartSnapshotTests.swift */,
+				B8355EE02522846B001AB341 /* RealColumnChartSnapshotTests.swift */,
+				B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */,
 				8AF60E1624D34553003889A8 /* RadialChartSnapshotTests.swift */,
 				8AF60E1724D34553003889A8 /* DonutChartSnapshotTests.swift */,
 				8AF60E1824D34553003889A8 /* ComboChartSnapshotTests.swift */,
+				B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */,
+				B8355EDA25227F05001AB341 /* StackedBarChartSnapshotTests.swift */,
+				B8355EDC25227F87001AB341 /* BubbleChartSnapshotTests.swift */,
+				B8355EDE25227F9B001AB341 /* ScatterChartSnapshotTests.swift */,
 				8AF60E1924D34553003889A8 /* WaterfallChartSnapshotTests.swift */,
 				8AF60E1A24D34553003889A8 /* LineChartSnapshotTests.swift */,
 				8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */,
 				8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */,
+				B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */,
 			);
 			path = FioriCharts;
 			sourceTree = "<group>";
@@ -731,21 +752,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8355EDD25227F87001AB341 /* BubbleChartSnapshotTests.swift in Sources */,
 				8AF60E2024D34553003889A8 /* XCTestCase+Extensions.swift in Sources */,
 				8A8B9BDA24D3DA580096000F /* AnalyticalCardSnapshotTests.swift in Sources */,
 				8AF60E2324D34553003889A8 /* ColumnChartSnapshotTests.swift in Sources */,
+				B8355EE12522846B001AB341 /* RealColumnChartSnapshotTests.swift in Sources */,
 				8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */,
+				B8355ED925227E7E001AB341 /* BarChartSnapshotTests.swift in Sources */,
+				B8355ED725227D1B001AB341 /* StackedColumnChartSnapshotTests.swift in Sources */,
 				8AF60E2624D34553003889A8 /* ComboChartSnapshotTests.swift in Sources */,
 				8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */,
 				8AF60E2824D34553003889A8 /* LineChartSnapshotTests.swift in Sources */,
 				8AF60E2724D34553003889A8 /* WaterfallChartSnapshotTests.swift in Sources */,
 				8AF60E2524D34553003889A8 /* DonutChartSnapshotTests.swift in Sources */,
 				8AF60E2424D34553003889A8 /* RadialChartSnapshotTests.swift in Sources */,
+				B8355EDF25227F9B001AB341 /* ScatterChartSnapshotTests.swift in Sources */,
 				8AF60E2124D34553003889A8 /* SwiftUI+Extensions.swift in Sources */,
 				8AF60E1F24D34553003889A8 /* PresetViewImageConfigs.swift in Sources */,
 				8A8B9BDC24D3DADA0096000F /* ListCardSnapshotTests.swift in Sources */,
 				8ACBFA1824F7F033009233DE /* ObjectCardSnapshotTests.swift in Sources */,
 				8AF60E2224D34553003889A8 /* BulletChartSnapshotTests.swift in Sources */,
+				B8355EDB25227F05001AB341 /* StackedBarChartSnapshotTests.swift in Sources */,
+				B8355ED525225A52001AB341 /* AreaChartSnapshotTests.swift in Sources */,
 				8AF60E1E24D34553003889A8 /* Snapshotting+Extensions.swift in Sources */,
 				8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */,
 			);
