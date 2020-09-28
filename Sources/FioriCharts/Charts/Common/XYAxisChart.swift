@@ -146,10 +146,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                     
-                    XAxisView(axisDataSource: axisDataSource)
+                    XAxisView()
                         .frame(height: xAxisRect.height)
                 } else if model.valueType == .allNegative {
-                    XAxisView(axisDataSource: axisDataSource, isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
+                    XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                         .frame(height: xAxisRect.height)
                         .zIndex(1)
                     
@@ -157,7 +157,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         .frame(width: chartRect.width, height: chartRect.height)
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(axisDataSource: axisDataSource, isShowLabelsOnly: true)
+                        XAxisView(isShowLabelsOnly: true)
                             .frame(height: xAxisLabelsRect.height)
                             .zIndex(1)
                     }
@@ -166,13 +166,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                         GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
                         
-                        XAxisView(axisDataSource: axisDataSource, isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
+                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
                     }
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(axisDataSource: axisDataSource, isShowLabelsOnly: true)
+                        XAxisView(isShowLabelsOnly: true)
                             .frame(height: xAxisLabelsRect.height)
                             .zIndex(1)
                     }
@@ -223,50 +223,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
             axisDataSource.isEnoughSpaceToShowXAxisLables = false
             height = 0
+        } else {
+            axisDataSource.isEnoughSpaceToShowXAxisLables = true
         }
-        
+
         return height > 0 ? height + 3 : 0
-    }
-    
-    func xAxisMaxHeight(_ rect: CGRect) -> CGFloat {
-        let labels = axisDataSource.xAxisLabels(model, rect: rect)
-        if labels.isEmpty || (model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden) {
-            return 0
-        }
-        
-        if !model.categoryAxis.baseline.isHidden && model.categoryAxis.labels.isHidden {
-            return max(0, model.categoryAxis.baseline.width)
-        }
-        
-        var height: CGFloat = 16
-        var totalWidth: CGFloat = 0
-        var prevXPos: CGFloat = -100000
-        var prevLabelWidth: CGFloat = 0
-        for label in labels {
-            let size: CGSize = label.title.isEmpty ? .zero : label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-            // spacing btw baseline and labels are 3pt
-            height = max(height, size.height + model.categoryAxis.baseline.width + 3)
-            
-            // check if the gap btw two adjacent labels is greater than 4pt
-            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
-                totalWidth += rect.size.width
-            }
-            // min spacing btw labels are 4pt
-            if size.width > 0 {
-                totalWidth += size.width + 4
-                prevXPos = label.pos.x
-                prevLabelWidth = size.width
-            }
-        }
-        totalWidth -= 4
-        
-        // show nothing
-        if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
-            axisDataSource.isEnoughSpaceToShowXAxisLables = false
-            height = 0
-        }
-        
-        return height + model.categoryAxis.baseline.width + 3
     }
     
     /**

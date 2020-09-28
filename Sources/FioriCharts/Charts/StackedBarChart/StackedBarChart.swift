@@ -205,7 +205,7 @@ class StackedBarAxisDataSource: DefaultAxisDataSource {
         var startIndex = Int(startPosY / unitHeight).clamp(low: 0, high: maxDataCount - 1)
         var startOffset = unitHeight * CGFloat(startIndex) - startPosY
         
-        if abs(startOffset) >= clusterHeight {
+        if abs(startOffset) >= clusterHeight && startIndex < maxDataCount - 1 {
             startIndex += 1
             startOffset = unitHeight * CGFloat(startIndex) - startPosY
         }
