@@ -10,15 +10,12 @@ import SwiftUI
 
 struct XAxisView: View {
     @EnvironmentObject var model: ChartModel
+    @Environment(\.axisDataSource) var axisDataSource
+    
     let isShowBaselineOnly: Bool
     let isShowLabelsOnly: Bool
     
-    weak var axisDataSource: AxisDataSource? = nil
-    
-    @State private var xAxisSize: CGSize = CGSize(width: 0, height: 24)
-    
-    init(axisDataSource: AxisDataSource? = nil, isShowBaselineOnly: Bool = false, isShowLabelsOnly: Bool = false) {
-        self.axisDataSource = axisDataSource
+    init(isShowBaselineOnly: Bool = false, isShowLabelsOnly: Bool = false) {
         self.isShowBaselineOnly = isShowBaselineOnly
         self.isShowLabelsOnly = isShowLabelsOnly
     }
@@ -30,10 +27,7 @@ struct XAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        var xAxisLabels: [AxisTitle] = []
-        if let res = axisDataSource?.xAxisLabels(model, rect: rect) {
-            xAxisLabels = res
-        }
+        let xAxisLabels: [AxisTitle] = axisDataSource.xAxisLabels(model, rect: rect)
         
         var baselineYPos: CGFloat = model.categoryAxis.baseline.width / 2
         var labelYPos: CGFloat = model.categoryAxis.baseline.width + 3 + (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
@@ -48,18 +42,16 @@ struct XAxisView: View {
         }
         
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.numericAxis : model.categoryAxis
-        
+
         return ZStack {
-            if !xAxisLabels.isEmpty && (axisDataSource?.isEnoughSpaceToShowXAxisLables ?? true) && !axis.labels.isHidden && !isShowBaselineOnly {
-                ForEach(xAxisLabels) { title in
-                    if !axis.labels.isHidden {
-                        // category labels
-                        Text(title.title)
-                            .font(.system(size: axis.labels.fontSize))
-                            .foregroundColor(axis.labels.color)
-                            .frame(maxWidth: rect.size.width / 2)
-                            .position(x: title.pos.x, y: labelYPos)
-                    }
+            if !xAxisLabels.isEmpty && axisDataSource.isEnoughSpaceToShowXAxisLables && !axis.labels.isHidden && !isShowBaselineOnly {
+                ForEach(xAxisLabels) { label in
+                    // category labels
+                    Text(label.title)
+                        .font(.system(size: axis.labels.fontSize))
+                        .foregroundColor(axis.labels.color)
+                        .frame(maxWidth: rect.size.width / 2)
+                        .position(x: label.pos.x, y: labelYPos)
                 }
             }
             
@@ -84,13 +76,17 @@ struct XAxisView_Previews: PreviewProvider {
         
         return Group {
             ForEach(Tests.lineModels) {
-                XAxisView(axisDataSource: axisDataSource).environmentObject($0)
+                XAxisView()
+                    .environmentObject($0)
+                    .environment(\.axisDataSource, axisDataSource)
             }
             .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
             ForEach(Tests.stockModels) {
-                XAxisView(axisDataSource: axisStockDataSource).environmentObject($0)
+                XAxisView()
+                    .environmentObject($0)
+                    .environment(\.axisDataSource, axisStockDataSource)
             }
             .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

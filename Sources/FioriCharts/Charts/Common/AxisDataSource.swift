@@ -295,14 +295,13 @@ class DefaultAxisDataSource: AxisDataSource {
     }
     
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        //return (0, 0, 0, 0)
         let width = rect.size.width
         let startPosIn = model.startPos.x
+        let maxDataCount = model.numOfCategories(in: 0)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), 1)
+        let startIndex = Int(startPosIn / unitWidth).clamp(low: 0, high: maxDataCount - 1)
         
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let startIndex = Int(startPosIn / unitWidth)
-        
-        var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up))
+        var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
         let startOffset: CGFloat = -startPosIn.truncatingRemainder(dividingBy: unitWidth)
         
         let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosIn - width).truncatingRemainder(dividingBy: unitWidth)

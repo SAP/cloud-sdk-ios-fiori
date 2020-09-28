@@ -171,7 +171,7 @@ class StackedColumnAxisDataSource: DefaultAxisDataSource {
         
         var startIndex = Int(model.startPos.x / unitWidth).clamp(low: 0, high: maxDataCount - 1)
         var startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
-        if abs(startOffset) >= clusterWidth {
+        if abs(startOffset) >= clusterWidth && startIndex < maxDataCount - 1 {
             startIndex += 1
             startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
         }
