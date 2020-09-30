@@ -89,6 +89,9 @@ struct LineIndicatorView: View {
         let range = secondarySeriesIndexes.contains(selectedSeriesRange.lowerBound) ? seconaryDisplayRange : displayRange
         let selectionIndicatorColor: Color = .preferredColor(.primary2)
         let circleColor: Color = .preferredColor(.primary6)
+        let extraSelectedPointDiameterWidth = ChartView.Layout.extraSelectedPointRadiusWidth * 2
+        
+        let extraSelectedPointAndBorderDiameterWidth = (ChartView.Layout.extraSelectedPointRadiusWidth + ChartView.Layout.extraSelectedPointWhiteBoderRadiusWidth) * 2
         
         return ZStack {
             // range selection ui
@@ -148,13 +151,13 @@ struct LineIndicatorView: View {
                     ZStack {
                         Circle()
                             .fill(self.model.seriesAttributes[i].point.strokeColor)
-                            .frame(width: self.model.seriesAttributes[i].point.diameter + 5.0,
-                                   height: self.model.seriesAttributes[i].point.diameter + 5.0)
+                            .frame(width: self.model.seriesAttributes[i].point.diameter + extraSelectedPointDiameterWidth,
+                                   height: self.model.seriesAttributes[i].point.diameter + extraSelectedPointDiameterWidth)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
                         
                         Circle().stroke(circleColor, style: StrokeStyle(lineWidth: 4))
-                            .frame(width: self.model.seriesAttributes[i].point.diameter + 9.0,
-                                   height: self.model.seriesAttributes[i].point.diameter + 9.0)
+                            .frame(width: self.model.seriesAttributes[i].point.diameter + extraSelectedPointAndBorderDiameterWidth,
+                                   height: self.model.seriesAttributes[i].point.diameter + extraSelectedPointAndBorderDiameterWidth)
                             .position(CGPoint(x: item.xPosition, y: item.yPositions[i] ?? 0))
                     }
                 }
