@@ -242,6 +242,15 @@ class DefaultAxisDataSource: AxisDataSource {
         let yAxisLabelsCount = Int(ticks.tickCount)
         let height = rect.size.height
         
+        var maxPointRadius: CGFloat = 0
+        if model.chartType == .line || model.chartType == .area {
+            let maxPointDiameter = model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
+                return max(seriesAttribute.point.diameter, result)
+            }
+
+            maxPointRadius = maxPointDiameter / 2 + ChartView.Layout.extraSelectedPointRadiusWidth + ChartView.Layout.extraSelectedPointWhiteBoderRadiusWidth
+        }
+        
         var yAxisLabels: [AxisTitle] = []
         for i in 0 ..< yAxisLabelsCount {
             let val = ticks.tickValues[i]
@@ -249,11 +258,11 @@ class DefaultAxisDataSource: AxisDataSource {
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
             var x: CGFloat
             if secondary {
-                x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
-                x = min(rect.size.width / 2, x)
+                x = size.width / 2.0 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
+                x = min(rect.size.width / 2 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
             } else {
-                x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-                x = max(rect.size.width / 2, x)
+                x = rect.size.width - size.width / 2.0 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
+                x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
             }
 
             yAxisLabels.append(AxisTitle(index: i,

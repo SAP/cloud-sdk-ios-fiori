@@ -207,12 +207,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             height = max(height, size.height)
             
             // check if the gap btw two adjacent labels is greater than 4pt
-            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
+            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + ChartView.Layout.minSpacingBtwXAxisLabels {
                 totalWidth += rect.size.width
             }
             // min spacing btw labels are 4pt
             if size.width > 0 {
-                totalWidth += size.width + 4
+                totalWidth += size.width + ChartView.Layout.minSpacingBtwXAxisLabels
                 prevXPos = label.pos.x
                 prevLabelWidth = size.width
             }
@@ -262,22 +262,31 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             return axis.gridlines.width
         }
     
+        var maxPointRadius: CGFloat = 0
+        if model.chartType == .line || model.chartType == .area {
+            let maxPointDiameter = model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
+                return max(seriesAttribute.point.diameter, result)
+            }
+
+            maxPointRadius = maxPointDiameter / 2 + ChartView.Layout.extraSelectedPointRadiusWidth + ChartView.Layout.extraSelectedPointWhiteBoderRadiusWidth
+        }
+        
         // min width is 20
-        var width: CGFloat = 20
+        var width: CGFloat = ChartView.Layout.minYAxisViewWidth
         let labels = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
         for label in labels {
             let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
             // spacing btw baseline and labels are 3pt
-            width = max(width, size.width + axis.baseline.width / 2.0 + 3)
+            width = max(width, size.width + max(axis.baseline.width / 2.0, maxPointRadius) + ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline)
         }
         
-        if secondary && width > rect.size.width * 0.20 {
-            width = rect.size.width * 0.20
-        } else if !secondary && width > rect.size.width * 0.35 && !yAxisExpanded {
-            width = rect.size.width * 0.35
-        } else if !secondary && width > rect.size.width * 0.65 && yAxisExpanded {
-            width = rect.size.width * 0.65
+        if secondary && width > rect.size.width * ChartView.Layout.maxSecondaryYAxisViewWidthRatio {
+            width = rect.size.width * ChartView.Layout.maxSecondaryYAxisViewWidthRatio
+        } else if !secondary && width > rect.size.width * ChartView.Layout.maxYAxisViewWidthRatio && !yAxisExpanded {
+            width = rect.size.width * ChartView.Layout.maxYAxisViewWidthRatio
+        } else if !secondary && width > rect.size.width * ChartView.Layout.maxExpandedYAxisViewWidthRatio && yAxisExpanded {
+            width = rect.size.width * ChartView.Layout.maxExpandedYAxisViewWidthRatio
         }
         
         return width

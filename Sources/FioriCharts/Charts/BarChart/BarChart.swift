@@ -73,7 +73,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         let startPosY = endPosY - rect.size.height
         let (startIndex, endIndex, _, _) = displayCategoryIndexesAndOffsets(model, rect: rect)
         let labelsIndex = startIndex != endIndex ? Array(startIndex ... endIndex) : [startIndex]
-        let axis = model.numericAxis
+        let axis = model.categoryAxis
         
         for i in labelsIndex {
             let y = rect.origin.y + (columnXIncrement * CGFloat(i) + clusterHeight / 2.0) * model.scale * rect.size.height - startPosY
@@ -83,8 +83,8 @@ class BarAxisDataSource: DefaultAxisDataSource {
                 let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
                 
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)
-                var x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-                x = max(rect.size.width / 2, x)
+                var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
+                x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
                 
                 yAxisLabels.append(AxisTitle(index: i,
                                              value: 0,
