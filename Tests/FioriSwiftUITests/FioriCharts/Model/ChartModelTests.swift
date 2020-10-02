@@ -121,6 +121,16 @@ class ChartModelTests: XCTestCase {
         XCTAssertTrue(model.seriesAttributes.count == 2)
     }
     
+    func testSeriesAttributesMoreItemsThanDataCount() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]])
+        
+        model.seriesAttributes = Array(repeating: ChartSeriesAttributes(), count: 5)
+        
+        XCTAssertTrue(model.seriesAttributes.count == 5)
+    }
+    
     func testSelections1() throws {
         let model = ChartModel(chartType: .line,
                                data: [[200, 170, 165, 143, 166, 112, 110],
