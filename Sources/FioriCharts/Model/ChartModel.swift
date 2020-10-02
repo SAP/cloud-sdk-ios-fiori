@@ -145,7 +145,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         set {
-            if newValue.count == data.count {
+            // allow more number of ChartSeriesAttributes than number of data
+            if newValue.count >= data.count {
                 _seriesAttributes = newValue
             } else if newValue.isEmpty {
                 let sa = ChartModel.initChartSeriesAttributes(chartType: chartType, seriesCount: data.count)
