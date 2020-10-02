@@ -124,6 +124,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
         
         return HStack(alignment: .top, spacing: 0) {
+            // primary y axis
             VStack(spacing: 0) {
                 if yAxisWidth > 0 {
                     if model.userInteractionEnabled {
@@ -141,43 +142,43 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 }
             }.frame(width: yAxisRect.size.width, height: rect.size.height)
             
+            // plot view
             VStack(alignment: .leading, spacing: 0) {
                 if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
+                        .zIndex(3)
                     
                     XAxisView()
                         .frame(height: xAxisRect.height)
                 } else if model.valueType == .allNegative {
                     XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                         .frame(height: xAxisRect.height)
-                        .zIndex(1)
                     
                     GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
                         .frame(width: chartRect.width, height: chartRect.height)
+                        .zIndex(3)
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
                         XAxisView(isShowLabelsOnly: true)
                             .frame(height: xAxisLabelsRect.height)
-                            .zIndex(1)
                     }
                 } else {
                     ZStack {
-                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
-                        .frame(width: chartRect.width, height: chartRect.height)
-                        
                         XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
-                    }
+                        
+                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
+                            .frame(width: chartRect.width, height: chartRect.height)
+                    }.zIndex(3)
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
                         XAxisView(isShowLabelsOnly: true)
                             .frame(height: xAxisLabelsRect.height)
-                            .zIndex(1)
                     }
                 }
-            }
+            }.zIndex(2)
             
             // secondary numerix axis
             VStack(spacing: 0) {
