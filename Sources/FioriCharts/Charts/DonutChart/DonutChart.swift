@@ -95,22 +95,43 @@ struct DonutChart: View {
     }
     
     func updateSelectedState(for seriesIndex: Int) {
-        if let selections = model.selections {
-            var tmpSelections = selections
-            // selected
-            if selections[seriesIndex] != nil {
-                tmpSelections[seriesIndex] = nil
-            } else {
-                tmpSelections[seriesIndex] = [0]
-            }
-            
-            if tmpSelections.isEmpty {
+        switch model.selectionMode {
+        case .single:
+            if model.selections?[seriesIndex] != nil {
                 model.selections = nil
             } else {
+                model.selections = [seriesIndex: [0]]
+            }
+        case .all:
+            if model.selections != nil {
+                model.selections = nil
+            } else {
+                let seriesCount = model.numOfSeries()
+                var tmpSelections = [Int: [Int]]()
+                for i in 0 ..< seriesCount {
+                    tmpSelections[i] = [0]
+                }
+                
                 model.selections = tmpSelections
             }
-        } else {
-            model.selections = [seriesIndex: [0]]
+        case .multiple:
+            if let selections = model.selections {
+                var tmpSelections = selections
+                // selected
+                if selections[seriesIndex] != nil {
+                    tmpSelections[seriesIndex] = nil
+                } else {
+                    tmpSelections[seriesIndex] = [0]
+                }
+                
+                if tmpSelections.isEmpty {
+                    model.selections = nil
+                } else {
+                    model.selections = tmpSelections
+                }
+            } else {
+                model.selections = [seriesIndex: [0]]
+            }
         }
     }
 }
