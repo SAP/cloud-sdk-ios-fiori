@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ComboView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
@@ -27,16 +27,17 @@ struct ComboView: View {
     
     func makeComboColumnView(in rect: CGRect) -> some View {
         let maxDataCount = model.numOfCategories(in: 0)
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
         let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
         
-        let pd = axisDataSource.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
+        let pd = chartContext.plotData(model)
+        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
         var gapBeforeFirstCoumn: CGFloat = 0
         if let fs = curPlotData.first, let fl = fs.first {
-            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - model.startPos.x)
+            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - startPosX)
         }
     
         let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
@@ -70,11 +71,11 @@ struct ComboView: View {
 
 struct ComboView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = ComboAxisDataSource()
+        let chartContext = ComboChartContext()
         
         return ComboView()
             .environmentObject(Tests.comboModels[0])
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 300, height: 200)
     }
 }

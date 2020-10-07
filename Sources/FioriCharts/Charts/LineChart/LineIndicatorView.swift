@@ -45,12 +45,13 @@ struct LineIndicatorView: View {
         let count = ChartUtility.numOfDataItems(model)
         let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
         let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
-        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
-        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth - model.startPos.x
-        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth - model.startPos.x
+        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth - startPosX
+        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth - startPosX
         
         let displayRange = ChartUtility.displayRange(model)
         let seconaryDisplayRange = ChartUtility.displayRange(model, secondary: true)

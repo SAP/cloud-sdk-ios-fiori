@@ -11,7 +11,7 @@ struct AreaChart: View {
     @ObservedObject var model: ChartModel
   
     var body: some View {
-        XYAxisChart(axisDataSource: DefaultAxisDataSource(),
+        XYAxisChart(chartContext: DefaultChartContext(),
                     chartView: LinesView(fill: true),
                     indicatorView: LineIndicatorView())
             .environmentObject(model)

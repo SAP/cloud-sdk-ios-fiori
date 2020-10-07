@@ -13,14 +13,14 @@ struct ColumnChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: ColumnAxisDataSource(),
+        XYAxisChart(chartContext: ColumnChartContext(),
                     chartView: ColumnView(),
                     indicatorView: ColumnIndicatorView())
             .environmentObject(model)
     }
 }
 
-class ColumnAxisDataSource: DefaultAxisDataSource {
+class ColumnChartContext: DefaultChartContext {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -41,16 +41,16 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
     
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         for index in 0...endIndex {
             let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
             if startIndex == -1 {
-                if x >= model.startPos.x {
+                if x >= startPosX {
                     startIndex = index
                 }
             }
             
-            if x < model.startPos.x + rect.size.width {
+            if x < startPosX + rect.size.width {
                 endIndex = index
             }
         }
@@ -58,16 +58,16 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
         for (index, i) in labelsIndex.enumerated() {
-            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - model.startPos.x
+            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - startPosX
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
-                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - model.startPos.x
+                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - startPosX
                     x = max(0, tmpX) + min(size.width, (rect.size.width - 2) / 2) / 2
                 } else {
-                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - model.startPos.x
+                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - startPosX
                     x =  min(tmpX, rect.size.width) - min(size.width, (rect.size.width - 2) / 2) / 2
                 }
             }
@@ -165,16 +165,16 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
-        
-        var startIndex = Int(model.startPos.x / unitWidth).clamp(low: 0, high: maxDataCount - 1)
-        var startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
+        let startPosX = model.startPos.x * model.scale * rect.size.width
+        var startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        var startOffset = unitWidth * CGFloat(startIndex) - startPosX
         if abs(startOffset) >= clusterWidth && startIndex < maxDataCount - 1 {
             startIndex += 1
-            startOffset = unitWidth * CGFloat(startIndex) - model.startPos.x
+            startOffset = unitWidth * CGFloat(startIndex) - startPosX
         }
         
-        let endIndex = Int((model.startPos.x + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
-        let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - model.startPos.x - rect.size.width
+        let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
+        let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - startPosX - rect.size.width
         
         return (startIndex, endIndex, startOffset, endOffset)
     }
@@ -188,15 +188,15 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        
-        let startIndex = Int((x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width))
+        let startPosX = model.startPos.x * model.scale * width
+        let startIndex = Int((x + startPosX) / (columnXIncrement * model.scale * rect.size.width))
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
 
         for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
-            let xMax = plotCat.rect.maxX * model.scale * width - model.startPos.x
+            let xMin = plotCat.rect.minX * model.scale * width - startPosX
+            let xMax = plotCat.rect.maxX * model.scale * width - startPosX
             
             if x >= xMin && x <= xMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
@@ -214,6 +214,7 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         }
         
         let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         let pd = plotData(model)
         let points = atPoints.map { (pt) -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
@@ -231,9 +232,9 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         // both fingers locate between two clusters, nothing is selected
         if let maxX = points.last?.x, let minX = points.first?.x {
             if maxX - minX < clusterWidth {
-                let startIndex = Int((maxX + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+                let startIndex = Int((maxX + startPosX) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
                 if let plotCat = pd[startIndex].first {
-                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - model.startPos.x
+                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - startPosX
 
                     if minX > rightX {
                         return [(-1, -1), (-1, -1)]
@@ -243,11 +244,11 @@ class ColumnAxisDataSource: DefaultAxisDataSource {
         }
         
         for (index, pt) in points.enumerated() {
-            let startIndex = Int((pt.x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+            let startIndex = Int((pt.x + startPosX) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
             
             if let plotCat = pd[startIndex].first {
-                let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - model.startPos.x
+                let xMin = plotCat.rect.minX * model.scale * width - startPosX
+                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - startPosX
                 
                 if index == 0 {
                     if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {

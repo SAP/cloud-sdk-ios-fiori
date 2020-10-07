@@ -1,5 +1,5 @@
 //
-//  AxisDataSource.swift
+//  ChartContext.swift
 //  FioriCharts
 //
 //  Created by Xu, Sheng on 3/18/20.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-protocol AxisDataSource: class {
+protocol ChartContext: class {
     var isEnoughSpaceToShowXAxisLables: Bool { get set }
     
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
@@ -32,7 +32,7 @@ protocol AxisDataSource: class {
     func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)]
 }
 
-class DefaultAxisDataSource: AxisDataSource {
+class DefaultChartContext: ChartContext {
     var isEnoughSpaceToShowXAxisLables: Bool = true
     
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
@@ -44,12 +44,12 @@ class DefaultAxisDataSource: AxisDataSource {
         
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
-        
+        let startPosX = model.startPos.x * model.scale * width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
-        let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
-        let endIndex = max(min(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), count - 1), startIndex)
+        let startIndex = min(Int((startPosX / unitWidth).rounded(.up)), count - 1)
+        let endIndex = max(min(Int(((startPosX + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
         
@@ -77,12 +77,12 @@ class DefaultAxisDataSource: AxisDataSource {
         var ret: [AxisTitle] = []
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
-        
+        let startPosX = model.startPos.x * model.scale * width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
-        let startIndex = min(Int((model.startPos.x / unitWidth).rounded(.up)), count - 1)
-        let endIndex = min(max(Int(((model.startPos.x + width) / unitWidth).rounded(.down)), startIndex), count - 1)
+        let startIndex = min(Int((startPosX / unitWidth).rounded(.up)), count - 1)
+        let endIndex = min(max(Int(((startPosX + width) / unitWidth).rounded(.down)), startIndex), count - 1)
         
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) :
             ((startIndex != endIndex) ? [startIndex, endIndex] : [startIndex])
@@ -305,15 +305,15 @@ class DefaultAxisDataSource: AxisDataSource {
     
     func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         let width = rect.size.width
-        let startPosIn = model.startPos.x
+        let startPosX = model.startPos.x * model.scale * width
         let maxDataCount = model.numOfCategories(in: 0)
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), 1)
-        let startIndex = Int(startPosIn / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        let startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
         
-        var endIndex = Int(((startPosIn + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
-        let startOffset: CGFloat = -startPosIn.truncatingRemainder(dividingBy: unitWidth)
+        var endIndex = Int(((startPosX + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
+        let startOffset: CGFloat = -startPosX.truncatingRemainder(dividingBy: unitWidth)
         
-        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosIn - width).truncatingRemainder(dividingBy: unitWidth)
+        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
         
         if endIndex > ChartUtility.lastValidDimIndex(model) {
             endIndex = ChartUtility.lastValidDimIndex(model)
@@ -324,15 +324,15 @@ class DefaultAxisDataSource: AxisDataSource {
     
     func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
-        
+        let startPosX = model.startPos.x * model.scale * width
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: width)
         let point = CGPoint(x: x, y: atPoint.y)
         
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
         
         var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))

@@ -11,7 +11,7 @@ struct ScatterChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: BubbleAxisDataSource(),
+        XYAxisChart(chartContext: BubbleChartContext(),
                     chartView: BubbleView(),
                     indicatorView: BubbleIndicatorView())
             .environmentObject(model)

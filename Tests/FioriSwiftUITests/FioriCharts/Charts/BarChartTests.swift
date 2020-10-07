@@ -21,7 +21,6 @@ class BarChartTests: XCTestCase {
     func testNumericAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //let dataSource = BarAxisDataSource()
         let model = Tests.lineModels[0]
         model.chartType = .bar
         //let _ = dataSource.plotData(model)
@@ -37,7 +36,6 @@ class BarChartTests: XCTestCase {
     func testChangeIsZeroBased() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        //let dataSource = BarAxisDataSource()
         guard let model = Tests.lineModels[0].copy() as? ChartModel else {
             return XCTFail("Test Case Authoring Error")
         }
@@ -57,7 +55,7 @@ class BarChartTests: XCTestCase {
     func testYAxisLabels() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = BarChartContext()
         let model = Tests.lineModels[0]
         model.chartType = .bar
         let labels = dataSource.yAxisLabels(model, rect: CGRect(x: 0, y: 0, width: 200, height: 200))
@@ -69,7 +67,7 @@ class BarChartTests: XCTestCase {
     func testPositiveValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = BarChartContext()
         let model = Tests.lineModels[0]
         model.chartType = .bar
         let pd = dataSource.plotData(model)
@@ -89,7 +87,7 @@ class BarChartTests: XCTestCase {
     func testNegativeValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = BarChartContext()
         let model = Tests.lineModels[3]
         model.chartType = .bar
         let pd = dataSource.plotData(model)
@@ -109,7 +107,7 @@ class BarChartTests: XCTestCase {
     func testMixedValuesPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BarAxisDataSource()
+        let dataSource = BarChartContext()
         let model = Tests.lineModels[4]
         model.chartType = .bar
         let pd = dataSource.plotData(model)
@@ -128,7 +126,7 @@ class BarChartTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = BarAxisDataSource()
+        let dataSource = BarChartContext()
         guard let model = Tests.lineModels[0].copy() as? ChartModel else {
             return XCTFail("Test Case Authoring Error")
         }

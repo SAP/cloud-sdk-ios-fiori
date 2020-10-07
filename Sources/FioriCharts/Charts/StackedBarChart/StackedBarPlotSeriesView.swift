@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StackedBarPlotSeriesView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     let plotSeries: [ChartPlotData]
     let rect: CGRect
@@ -99,14 +99,14 @@ struct StackedBarPlotSeriesView_Previews: PreviewProvider {
     static var previews: some View {
         let model = Tests.lineModels[2]
         model.chartType = .stackedBar
-        let axisDataSource = BarAxisDataSource()
-        let pd = axisDataSource.plotData(model)
+        let chartContext = BarChartContext()
+        let pd = chartContext.plotData(model)
         
         return StackedBarPlotSeriesView(plotSeries: pd[5],
                               rect: CGRect(x: 0, y: 0, width: 300, height: 200),
                               isSelectionView: false)
                 .environmentObject(model)
-                .environment(\.axisDataSource, axisDataSource)
+                .environment(\.chartContext, chartContext)
                 .previewLayout(.sizeThatFits)
     }
 }

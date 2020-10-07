@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BubbleView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     var body: some View {
         GeometryReader { proxy in
@@ -18,7 +18,9 @@ struct BubbleView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let pd = axisDataSource.plotData(model)
+        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let startPosY = model.startPos.y * model.scale * rect.size.height
+        let pd = chartContext.plotData(model)
         let minLength = min(rect.size.width, rect.size.height) * model.scale
         
         var displayPlotData: [ChartPlotData] = []
@@ -37,15 +39,17 @@ struct BubbleView: View {
                     .opacity(self.model.selections != nil ? 0.25 : 0.8)
                     .frame(width: self.model.chartType == .scatter ? 10 : item.rect.size.width * minLength,
                            height: self.model.chartType == .scatter ? 10 : item.rect.size.width * minLength)
-                    .position(x: item.pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
-                              y: (1 - item.pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
+                    .position(x: item.pos.x * self.model.scale * rect.size.width - startPosX,
+                              y: (1 - item.pos.y * self.model.scale) * rect.size.height + startPosY)
             }
         }.clipped()
     }
     
     func isInVisableArea(for item: ChartPlotData, rect: CGRect) -> Bool {
-        let x = item.pos.x * model.scale * rect.size.width - model.startPos.x
-        let y = (1 - item.pos.y * model.scale) * rect.size.height + model.startPos.y
+        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let startPosY = model.startPos.y * model.scale * rect.size.height
+        let x = item.pos.x * model.scale * rect.size.width - startPosX
+        let y = (1 - item.pos.y * model.scale) * rect.size.height + startPosY
         
         if x >= 0 && x <= rect.size.width && y >= 0 && y <= rect.size.height {
             return true
@@ -57,13 +61,13 @@ struct BubbleView: View {
 
 struct BubbleView_Previews: PreviewProvider {
     static var previews: some View {
-        let ds = BubbleAxisDataSource()
+        let ds = BubbleChartContext()
         
         return Group {
             ForEach(Tests.bubbleModels) {
                 BubbleView()
                     .environmentObject($0)
-                    .environment(\.axisDataSource, ds)
+                    .environment(\.chartContext, ds)
                     .frame(width: 330, height: 330, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

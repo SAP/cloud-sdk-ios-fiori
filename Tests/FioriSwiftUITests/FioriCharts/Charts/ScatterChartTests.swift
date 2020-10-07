@@ -21,7 +21,7 @@ class ScatterChartTests: XCTestCase {
     func testNumericAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
         let _ = dataSource.plotData(model)
         let axisContext = model.numericAxisTickValues
@@ -36,7 +36,7 @@ class ScatterChartTests: XCTestCase {
     func testChangeIsZeroBased() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[4]
         let _ = dataSource.plotData(model)
         let axisContext1 = model.numericAxisTickValues
@@ -55,7 +55,7 @@ class ScatterChartTests: XCTestCase {
     func testCategoryAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
         let _ = dataSource.plotData(model)
         if let axisContext = model.categoryAxisTickValues {
@@ -70,7 +70,7 @@ class ScatterChartTests: XCTestCase {
     func testPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
         let pd = dataSource.plotData(model)
 
@@ -83,7 +83,7 @@ class ScatterChartTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
         
         self.measure {

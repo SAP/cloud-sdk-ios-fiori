@@ -42,7 +42,7 @@ class WaterfallChartTests: XCTestCase {
     func testPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = WaterfallAxisDataSource()
+        let dataSource = WaterfallChartContext()
         let pd = dataSource.plotData(model)
         
         XCTAssertTrue(pd.count == model.numOfCategories(in: 0))
@@ -54,7 +54,7 @@ class WaterfallChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         model.indexesOfTotalsCategories = [5]
         let axisValues = model.numericAxisTickValues
-        let dataSource = WaterfallAxisDataSource()
+        let dataSource = WaterfallChartContext()
         let pd = dataSource.plotData(model)
         
         XCTAssertEqual(pd[2][0].rect.origin.y, 30.0 / axisValues.plotRange, accuracy: 0.0001)
@@ -70,7 +70,7 @@ class WaterfallChartTests: XCTestCase {
         // change it
         model.indexesOfTotalsCategories = [5]
         
-        let dataSource = WaterfallAxisDataSource()
+        let dataSource = WaterfallChartContext()
         let pd = dataSource.plotData(model)
         
         XCTAssertTrue(pd[0][0].rect.origin.y == 0)
@@ -79,7 +79,7 @@ class WaterfallChartTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         
         self.measure {
             // Put the code you want to measure the time of here.

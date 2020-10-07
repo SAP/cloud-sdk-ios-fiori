@@ -10,7 +10,7 @@ import SwiftUI
 struct BubbleIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     var body: some View {
         GeometryReader { proxy in
@@ -19,6 +19,8 @@ struct BubbleIndicatorView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let startPosY = model.startPos.y * model.scale * rect.size.height
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesRange: ClosedRange<Int> = -1 ... -1
         if let selections = model.selections {
@@ -32,13 +34,13 @@ struct BubbleIndicatorView: View {
         }
         
         let minLength = min(rect.size.width, rect.size.height) * model.scale
-        let pd = axisDataSource.plotData(model)
+        let pd = chartContext.plotData(model)
         let selected = selectedCategoryRange.lowerBound >= 0 && selectedSeriesRange.lowerBound >= 0
         var x: CGFloat = 0
         var y: CGFloat = 0
         if selected {
-            x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - model.startPos.x
-            y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + model.startPos.y
+            x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - startPosX
+            y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + startPosY
         }
         
         return ZStack {
@@ -49,8 +51,8 @@ struct BubbleIndicatorView: View {
                         .fill(self.model.colorAt(seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: categoryIndex))
                         .frame(width: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength,
                                height: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
-                        .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - self.model.startPos.x,
-                                  y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + self.model.startPos.y)
+                        .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - startPosX,
+                                  y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + startPosY)
                 }
                 
                 if selectedCategoryRange.count == 1 {
@@ -73,13 +75,13 @@ struct BubbleIndicatorView: View {
 
 struct BubbleIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        let ds = BubbleAxisDataSource()
+        let ds = BubbleChartContext()
         
         return Group {
             ForEach(Tests.bubbleModels) {
                 BubbleIndicatorView()
                 .environmentObject($0)
-                    .environment(\.axisDataSource, ds)
+                    .environment(\.chartContext, ds)
                     .frame(width: 330, height: 330, alignment: .topLeading)
                     .previewLayout(.sizeThatFits)
             }

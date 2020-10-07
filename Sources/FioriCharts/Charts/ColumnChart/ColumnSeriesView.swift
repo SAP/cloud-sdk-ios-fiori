@@ -92,14 +92,14 @@ struct ColumnSeriesView_Previews: PreviewProvider {
     static var previews: some View {
         let model = Tests.lineModels[2]
         model.chartType = .column
-        let axisDataSource = ColumnAxisDataSource()
-        let pd = axisDataSource.plotData(model)
+        let chartContext = ColumnChartContext()
+        let pd = chartContext.plotData(model)
         
         return ColumnSeriesView(plotSeries: pd[5],
                                 rect: CGRect(x: 0, y: 0, width: 300, height: 200),
                                 isSelectionView: false)
             .environmentObject(model)
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .previewLayout(.sizeThatFits)
     }
 }

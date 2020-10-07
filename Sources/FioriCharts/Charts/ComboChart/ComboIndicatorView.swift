@@ -10,7 +10,7 @@ import SwiftUI
 struct ComboIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     var body: some View {
         GeometryReader { proxy in
@@ -27,16 +27,17 @@ struct ComboIndicatorView: View {
     
     func makeComboColumnIndicatorView(in rect: CGRect) -> some View {
         let maxDataCount = model.numOfCategories(in: 0)
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
         let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
         
-        let pd = axisDataSource.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
+        let pd = chartContext.plotData(model)
+        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
         var gapBeforeFirstCoumn: CGFloat = 0
         if let fs = curPlotData.first, let fl = fs.first {
-            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - model.startPos.x)
+            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - startPosX)
         }
         let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
         let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0

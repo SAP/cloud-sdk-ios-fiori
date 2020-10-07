@@ -41,7 +41,7 @@ class ComboChartTests: XCTestCase {
     func testPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model1)
 
         XCTAssertTrue(pd.count == model1.numOfCategories(in: 0))
@@ -55,7 +55,7 @@ class ComboChartTests: XCTestCase {
         // change it
         model1.indexesOfColumnSeries = [1]
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model1)
         
         let plotRectData: ChartPlotRectData? = pd[0][1].plotRectData
@@ -72,7 +72,7 @@ class ComboChartTests: XCTestCase {
         // change it
         model2.indexesOfColumnSeries = [1, 3, 5]
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model2)
         
         let plotRectData1: ChartPlotRectData? = pd[0][1].plotRectData
@@ -100,7 +100,7 @@ class ComboChartTests: XCTestCase {
                                indexesOfSecondaryValueAxis: [1],
                                indexesOfColumnSeries: [0, 1])
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model)
         
         let axisValue1 = model.numericAxisTickValues
@@ -118,7 +118,7 @@ class ComboChartTests: XCTestCase {
                                indexesOfSecondaryValueAxis: [1],
                                indexesOfColumnSeries: [0, 1])
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model)
         
         let axisValue1 = model.numericAxisTickValues
@@ -136,7 +136,7 @@ class ComboChartTests: XCTestCase {
                                indexesOfSecondaryValueAxis: [1],
                                indexesOfColumnSeries: [0, 1])
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model)
         
         let axisValue1 = model.numericAxisTickValues
@@ -154,7 +154,7 @@ class ComboChartTests: XCTestCase {
         model2.indexesOfColumnSeries = [0, 1, 2, 3, 4]
         model2.indexesOfSecondaryValueAxis = [1, 3, 4]
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model2)
         
         let axisValue1 = model2.numericAxisTickValues
@@ -176,7 +176,7 @@ class ComboChartTests: XCTestCase {
         model2.indexesOfColumnSeries = [0, 2, 4]
         model2.indexesOfSecondaryValueAxis = []
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model2)
         
         let axisValue1 = model2.numericAxisTickValues
@@ -197,7 +197,7 @@ class ComboChartTests: XCTestCase {
         model2.indexesOfColumnSeries = [0, 1, 2, 4]
         model2.indexesOfSecondaryValueAxis = [0, 1, 2, 3, 4, 5]
         
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         let pd = dataSource.plotData(model2)
         
         let axisValue2 = model2.secondaryNumericAxisTickValues
@@ -212,7 +212,7 @@ class ComboChartTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = ComboAxisDataSource()
+        let dataSource = ComboChartContext()
         
         self.measure {
             // Put the code you want to measure the time of here.

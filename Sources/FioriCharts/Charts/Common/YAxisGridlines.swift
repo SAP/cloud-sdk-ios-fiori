@@ -9,7 +9,7 @@ import SwiftUI
 
 struct YAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
@@ -23,7 +23,7 @@ struct YAxisGridlines: View {
         let indexes =  model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         let secondary: Bool = indexes.isEmpty ? true : false
         
-        var yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
+        var yAxisLabels: [AxisTitle] = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
         if model.chartType != .bar || model.chartType != .stackedBar {
             let displayRange = ChartUtility.displayRange(model, secondary: secondary)
@@ -68,11 +68,11 @@ struct YAxisGridlines: View {
 
 struct YAxisGridlines_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = DefaultAxisDataSource()
+        let chartContext = DefaultChartContext()
         
         return YAxisGridlines()
             .environmentObject(Tests.stockModels[1])
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)

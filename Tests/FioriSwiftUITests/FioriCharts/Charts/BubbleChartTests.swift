@@ -22,7 +22,7 @@ class BubbleChartTests: XCTestCase {
     func testNumericAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let _ = dataSource.plotData(model)
         let axisContext = model.numericAxisTickValues
         
@@ -36,7 +36,7 @@ class BubbleChartTests: XCTestCase {
     func testChangeIsZeroBased() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let model2 = Tests.bubbleModels[4]
         let _ = dataSource.plotData(model2)
         let axisContext1 = model2.numericAxisTickValues
@@ -55,7 +55,7 @@ class BubbleChartTests: XCTestCase {
     func testCategoryAxisContext() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let _ = dataSource.plotData(model)
         if let axisContext = model.categoryAxisTickValues {
             /// dataMaximum == 2016.47
@@ -69,7 +69,7 @@ class BubbleChartTests: XCTestCase {
     func testPlotData() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         let pd = dataSource.plotData(model)
         //print("pd = \(pd)")
         XCTAssertTrue(pd[0].count == 1)
@@ -81,7 +81,7 @@ class BubbleChartTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        let dataSource = BubbleAxisDataSource()
+        let dataSource = BubbleChartContext()
         
         self.measure {
             // Put the code you want to measure the time of here.
