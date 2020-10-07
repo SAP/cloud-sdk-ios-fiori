@@ -100,14 +100,14 @@ struct ComboSeriesView: View {
 
 struct ComboSeriesView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = ComboAxisDataSource()
-        let pd = axisDataSource.plotData(Tests.comboModels[0])
+        let chartContext = ComboChartContext()
+        let pd = chartContext.plotData(Tests.comboModels[0])
         
         return ComboSeriesView(plotSeries: pd[0],
                                rect: CGRect(x: 0, y: 0, width: 300, height: 200),
                                isSelectionView: false)
             .environmentObject(Tests.comboModels[0])
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 300, height: 200)
     }
 }

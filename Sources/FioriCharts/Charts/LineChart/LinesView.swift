@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LinesView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     @State var fill: Bool = false
     
@@ -34,7 +34,7 @@ struct LinesView: View {
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var noData = false
-        let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
+        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         
         if startIndex > endIndex {
             noData = true
@@ -52,8 +52,8 @@ struct LinesView: View {
             for i in indexes {
                 let category = model.data[i]
                 var s: [CGFloat?] = []
-                for i in startIndex...endIndex {
-                    if let val = category[i].first {
+                for j in startIndex...endIndex {
+                    if let val = category[j].first {
                         s.append(val)
                     }
                 }

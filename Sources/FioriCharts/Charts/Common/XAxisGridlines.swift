@@ -9,7 +9,7 @@ import SwiftUI
 
 struct XAxisGridlines: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
@@ -19,7 +19,7 @@ struct XAxisGridlines: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        var xAxisLabels: [AxisTitle] = axisDataSource.xAxisGridlines(model, rect: rect)
+        var xAxisLabels: [AxisTitle] = chartContext.xAxisGridlines(model, rect: rect)
         
         if let first = xAxisLabels.first, abs(first.pos.x) < 0.001 {
             xAxisLabels.removeFirst()
@@ -70,13 +70,13 @@ struct XAxisGridlines: View {
 
 struct XAxisGridlines_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = StockAxisDataSource()
+        let chartContext = StockChartContext()
         
         return Group {
             ForEach(Tests.stockModels) {
                 XAxisGridlines()
                     .environmentObject($0)
-                    .environment(\.axisDataSource, axisDataSource)
+                    .environment(\.chartContext, chartContext)
             }
             .frame(width: 300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

@@ -11,14 +11,14 @@ struct WaterfallChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: WaterfallAxisDataSource(),
+        XYAxisChart(chartContext: WaterfallChartContext(),
                     chartView: WaterfallView(),
                     indicatorView: WaterfallIndicatorView())
             .environmentObject(model)
     }
 }
 
-class WaterfallAxisDataSource: StackedColumnAxisDataSource {
+class WaterfallChartContext: StackedColumnChartContext {
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
@@ -104,6 +104,7 @@ class WaterfallAxisDataSource: StackedColumnAxisDataSource {
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * width
         let pd = plotData(model)
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
@@ -112,14 +113,14 @@ class WaterfallAxisDataSource: StackedColumnAxisDataSource {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         
-        let startIndex = Int((x + model.startPos.x) / (columnXIncrement * model.scale * rect.size.width))
+        let startIndex = Int((x + startPosX) / (columnXIncrement * model.scale * rect.size.width))
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
         
         for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - model.startPos.x
-            let xMax = plotCat.rect.maxX * model.scale * width - model.startPos.x
+            let xMin = plotCat.rect.minX * model.scale * width - startPosX
+            let xMax = plotCat.rect.maxX * model.scale * width - startPosX
             
             if x >= xMin && x <= xMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)

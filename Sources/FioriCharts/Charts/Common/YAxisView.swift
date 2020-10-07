@@ -10,7 +10,7 @@ import SwiftUI
 
 struct YAxisView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     @State var yAxisExpanded: Bool = false
     
@@ -27,7 +27,7 @@ struct YAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let yAxisLabels: [AxisTitle] = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
+        let yAxisLabels: [AxisTitle] = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
 
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
         let baselineX: CGFloat
@@ -76,13 +76,13 @@ struct YAxisView: View {
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = DefaultAxisDataSource()
+        let chartContext = DefaultChartContext()
         
         return Group {
             ForEach(Tests.lineModels) {
                 YAxisView()
                     .environmentObject($0)
-                    .environment(\.axisDataSource, axisDataSource)
+                    .environment(\.chartContext, chartContext)
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
@@ -90,7 +90,7 @@ struct YAxisView_Previews: PreviewProvider {
             ForEach(Tests.lineModels) {
                 YAxisView(secondary: true)
                     .environmentObject($0)
-                    .environment(\.axisDataSource, axisDataSource)
+                    .environment(\.chartContext, chartContext)
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

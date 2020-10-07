@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ComboLinesIndicatorView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
@@ -23,7 +23,7 @@ struct ComboLinesIndicatorView: View {
     func makeBody(rect: CGRect) -> some View {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs)
-        
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
         var selectedSeriesIndexes: [Int] = []
         if let selections = model.selections {
@@ -49,7 +49,7 @@ struct ComboLinesIndicatorView: View {
         
         let count = ChartUtility.numOfDataItems(model)
         let selectedSeriesIndex = selectedSeriesIndexes.first ?? 0
-        let pd = axisDataSource.plotData(model)
+        let pd = chartContext.plotData(model)
         var selectionItems: [SelectionItem] = []
         let catIndexes: Set = [selectedCategoryRange.lowerBound, selectedCategoryRange.upperBound]
         for index in catIndexes {
@@ -59,7 +59,7 @@ struct ComboLinesIndicatorView: View {
                 
                 for i in 0 ..< model.data.count {
                     if selectedSeriesIndexes.contains(i) {
-                        xPos = pd[index][i].pos.x * model.scale * rect.size.width - model.startPos.x
+                        xPos = pd[index][i].pos.x * model.scale * rect.size.width - startPosX
                         yPos[i] = (1.0 - pd[index][i].pos.y) * rect.size.height
                     }
                 }
@@ -78,8 +78,8 @@ struct ComboLinesIndicatorView: View {
             }
         }
         
-        let startSelectionPos = pd[selectedCategoryRange.lowerBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - model.startPos.x
-        let endSelectionPos = pd[selectedCategoryRange.upperBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - model.startPos.x
+        let startSelectionPos = pd[selectedCategoryRange.lowerBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - startPosX
+        let endSelectionPos = pd[selectedCategoryRange.upperBound][selectedSeriesIndex].pos.x * model.scale * rect.size.width - startPosX
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         let isSecondary = model.indexesOfSecondaryValueAxis.contains(selectedSeriesIndex)
         let range = ChartUtility.displayRange(model, secondary: isSecondary)
@@ -176,11 +176,11 @@ struct ComboLinesIndicatorView: View {
 
 struct ComboLinesIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = ComboAxisDataSource()
+        let chartContext = ComboChartContext()
         
         return ComboLinesIndicatorView()
             .environmentObject(Tests.comboModels[0])
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 300, height: 200)
     }
 }

@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-struct AxisDataSourceEnvironmentKey: EnvironmentKey {
-    static let defaultValue: AxisDataSource = DefaultAxisDataSource()
+struct ChartContentEnvironmentKey: EnvironmentKey {
+    static let defaultValue: ChartContext = DefaultChartContext()
     
 }
 
 //swiftlint:disable implicit_getter
 extension EnvironmentValues {
-    var axisDataSource: AxisDataSource {
+    var chartContext: ChartContext {
         get {
-            return self[AxisDataSourceEnvironmentKey]
+            return self[ChartContentEnvironmentKey]
         }
         
         set {
-            self[AxisDataSourceEnvironmentKey] = newValue
+            self[ChartContentEnvironmentKey] = newValue
         }
     }
 }
@@ -29,22 +29,23 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @State var yAxisExpanded: Bool = false
-    
+  
     var chartView: Content
     var indicatorView: Indicator
-    var axisDataSource: AxisDataSource
+    var chartContext: ChartContext
     
-    init(axisDataSource: AxisDataSource, chartView: Content, indicatorView: Indicator) {
+    init(chartContext: ChartContext, chartView: Content, indicatorView: Indicator) {
         self.chartView = chartView
         self.indicatorView = indicatorView
-        self.axisDataSource = axisDataSource
+        self.chartContext = chartContext
     }
     
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
-        }.padding(8)
-        .environment(\.axisDataSource, axisDataSource)
+        }
+        .padding(8)
+        .environment(\.chartContext, chartContext)
         .contentShape(Rectangle())
     }
     
@@ -101,7 +102,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 if yAxisWidth == 0 {
                     useSecondary = true
                 }
-                let yAxisLabels = axisDataSource.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
+                let yAxisLabels = chartContext.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
                 for label in yAxisLabels {
                     if abs(label.value) < 0.001 {
                         baselineYPos = label.pos.y
@@ -145,7 +146,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // plot view
             VStack(alignment: .leading, spacing: 0) {
                 if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
                         .frame(width: chartRect.width, height: chartRect.height)
                         .zIndex(3)
                     
@@ -155,7 +156,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
                         .frame(height: xAxisRect.height)
                     
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
                         .frame(width: chartRect.width, height: chartRect.height)
                         .zIndex(3)
                     
@@ -169,7 +170,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
                         
-                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView)
+                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
                             .frame(width: chartRect.width, height: chartRect.height)
                     }.zIndex(3)
                     
@@ -193,7 +194,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
-        let labels = axisDataSource.xAxisLabels(model, rect: rect)
+        let labels = chartContext.xAxisLabels(model, rect: rect)
         if labels.isEmpty || model.categoryAxis.labels.isHidden {
             return 0
         }
@@ -222,10 +223,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         // show nothing
         if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
-            axisDataSource.isEnoughSpaceToShowXAxisLables = false
+            chartContext.isEnoughSpaceToShowXAxisLables = false
             height = 0
         } else {
-            axisDataSource.isEnoughSpaceToShowXAxisLables = true
+            chartContext.isEnoughSpaceToShowXAxisLables = true
         }
 
         return height > 0 ? height + 3 : 0
@@ -274,7 +275,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         // min width is 20
         var width: CGFloat = ChartView.Layout.minYAxisViewWidth
-        let labels = axisDataSource.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
+        let labels = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
         
         for label in labels {
             let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
@@ -296,7 +297,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
 
 struct XYAxisChart_Previews: PreviewProvider {
     static var previews: some View {
-        XYAxisChart(axisDataSource: DefaultAxisDataSource(),
+        XYAxisChart(chartContext: DefaultChartContext(),
                     chartView: LinesView(),
                     indicatorView: LineIndicatorView())
             .environmentObject(Tests.lineModels[0])

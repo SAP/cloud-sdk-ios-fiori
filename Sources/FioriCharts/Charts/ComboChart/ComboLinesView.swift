@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ComboLinesView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
@@ -29,7 +29,7 @@ struct ComboLinesView: View {
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
         var noData = false
-        let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
+        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         
         if startIndex > endIndex {
             noData = true
@@ -105,11 +105,11 @@ struct ComboLinesView: View {
 
 struct ComboLinesView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisDataSource = ComboAxisDataSource()
+        let chartContext = ComboChartContext()
         
         return ComboLinesView()
             .environmentObject(Tests.comboModels[0])
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 300, height: 200)
     }
 }

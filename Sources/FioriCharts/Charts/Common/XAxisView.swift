@@ -10,7 +10,7 @@ import SwiftUI
 
 struct XAxisView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     let isShowBaselineOnly: Bool
     let isShowLabelsOnly: Bool
@@ -27,7 +27,7 @@ struct XAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let xAxisLabels: [AxisTitle] = axisDataSource.xAxisLabels(model, rect: rect)
+        let xAxisLabels: [AxisTitle] = chartContext.xAxisLabels(model, rect: rect)
         
         var baselineYPos: CGFloat = model.categoryAxis.baseline.width / 2
         var labelYPos: CGFloat = model.categoryAxis.baseline.width + 3 + (rect.size.height - model.categoryAxis.baseline.width - 3) / 2
@@ -44,7 +44,7 @@ struct XAxisView: View {
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.numericAxis : model.categoryAxis
 
         return ZStack {
-            if !xAxisLabels.isEmpty && axisDataSource.isEnoughSpaceToShowXAxisLables && !axis.labels.isHidden && !isShowBaselineOnly {
+            if !xAxisLabels.isEmpty && chartContext.isEnoughSpaceToShowXAxisLables && !axis.labels.isHidden && !isShowBaselineOnly {
                 ForEach(xAxisLabels) { label in
                     // category labels
                     Text(label.title)
@@ -71,14 +71,14 @@ struct XAxisView: View {
 
 struct XAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        let axisStockDataSource = StockAxisDataSource()
-        let axisDataSource = DefaultAxisDataSource()
+        let axisStockDataSource = StockChartContext()
+        let chartContext = DefaultChartContext()
         
         return Group {
             ForEach(Tests.lineModels) {
                 XAxisView()
                     .environmentObject($0)
-                    .environment(\.axisDataSource, axisDataSource)
+                    .environment(\.chartContext, chartContext)
             }
             .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
@@ -86,7 +86,7 @@ struct XAxisView_Previews: PreviewProvider {
             ForEach(Tests.stockModels) {
                 XAxisView()
                     .environmentObject($0)
-                    .environment(\.axisDataSource, axisStockDataSource)
+                    .environment(\.chartContext, axisStockDataSource)
             }
             .frame(width: 300, height: 20, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

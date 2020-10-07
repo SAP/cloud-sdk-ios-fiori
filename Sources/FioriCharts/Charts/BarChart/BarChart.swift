@@ -11,14 +11,14 @@ struct BarChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: BarAxisDataSource(),
+        XYAxisChart(chartContext: BarChartContext(),
                     chartView: BarPlotView(),
                     indicatorView: BarIndicatorView())
             .environmentObject(model)
     }
 }
 
-class BarAxisDataSource: DefaultAxisDataSource {
+class BarChartContext: DefaultChartContext {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -66,10 +66,10 @@ class BarAxisDataSource: DefaultAxisDataSource {
     override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
         var yAxisLabels: [AxisTitle] = []
         let maxDataCount = model.numOfCategories(in: 0)
-        
+        let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
-        let endPosY = rect.size.height * model.scale - model.startPos.y
+        let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
         let (startIndex, endIndex, _, _) = displayCategoryIndexesAndOffsets(model, rect: rect)
         let labelsIndex = startIndex != endIndex ? Array(startIndex ... endIndex) : [startIndex]
@@ -190,11 +190,12 @@ class BarAxisDataSource: DefaultAxisDataSource {
     
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
         let maxDataCount = model.numOfCategories(in: 0)
+        let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
         
-        let endPosY = rect.size.height * model.scale - model.startPos.y
+        let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
         var startIndex = Int(startPosY / unitHeight).clamp(low: 0, high: maxDataCount - 1)
         var startOffset = unitHeight * CGFloat(startIndex) - startPosY
@@ -205,13 +206,14 @@ class BarAxisDataSource: DefaultAxisDataSource {
         }
         
         let endIndex = Int(endPosY / unitHeight).clamp(low: startIndex, high: maxDataCount - 1)
-        let endOffset = unitHeight * CGFloat(endIndex) + clusterHeight - (rect.size.height * model.scale - model.startPos.y)
+        let endOffset = unitHeight * CGFloat(endIndex) + clusterHeight - (rect.size.height * model.scale - modelStartPosY)
 
         return (startIndex, endIndex, startOffset, endOffset)
     }
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let height = rect.size.height
+        let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let pd = plotData(model)
         let y = atPoint.y
         
@@ -219,7 +221,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         
-        let endPosY = rect.size.height * model.scale - model.startPos.y
+        let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
         let startIndex = Int((atPoint.y + startPosY) / unitHeight)
         if startIndex >= maxDataCount || startIndex < 0 {
@@ -246,6 +248,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         }
         
         let height = rect.size.height
+        let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let pd = plotData(model)
         let points = atPoints.sorted { $0.y <= $1.y }
         
@@ -255,7 +258,7 @@ class BarAxisDataSource: DefaultAxisDataSource {
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
-        let endPosY = rect.size.height * model.scale - model.startPos.y
+        let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
         
         // both fingers locate between two clusters, nothing is selected

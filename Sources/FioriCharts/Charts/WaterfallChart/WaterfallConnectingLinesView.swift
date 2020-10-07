@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WaterfallConnectingLinesView: View {
     @EnvironmentObject var model: ChartModel
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection  
     
     let curCatIndex: Int
@@ -19,7 +19,7 @@ struct WaterfallConnectingLinesView: View {
     
     var body: some View {
         let maxDataCount = model.numOfCategories(in: 0)
-        let pd = axisDataSource.plotData(model)
+        let pd = chartContext.plotData(model)
         let startPoint: CGPoint = CGPoint(x: columnWidth,
                                           y: yPos(for: pd[curCatIndex][0],
                                                   isTotal: isSubTotal(categoryIndex: curCatIndex),
@@ -59,13 +59,13 @@ struct WaterfallConnectingLinesView: View {
 struct WaterfallConnectingLinesView_Previews: PreviewProvider {
     static var previews: some View {
         let model = Tests.waterfallModels[0]
-        let axisDataSource = WaterfallAxisDataSource()
+        let chartContext = WaterfallChartContext()
         
         return WaterfallConnectingLinesView(curCatIndex: 1,
                                             columnWidth: 30,
                                             clusterSpace: 10, height: 200)
             .environmentObject(model)
-            .environment(\.axisDataSource, axisDataSource)
+            .environment(\.chartContext, chartContext)
             .frame(width: 300, height: 200)
     }
 }

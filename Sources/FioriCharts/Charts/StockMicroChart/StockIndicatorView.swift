@@ -23,6 +23,7 @@ struct StockIndicatorView: View {
     // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
         var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         var selectedSeriesRange: ClosedRange = model.indexOfStockSeries ... model.indexOfStockSeries
         if let selections = model.selections {
             var seriesIndices: [Int] = []
@@ -37,11 +38,11 @@ struct StockIndicatorView: View {
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
-        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
-        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth - model.startPos.x
-        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth - model.startPos.x
+        let startSelectionPos: CGFloat = CGFloat(selectedCategoryRange.lowerBound) * unitWidth - startPosX
+        let endSelectionPos: CGFloat = CGFloat(selectedCategoryRange.upperBound) * unitWidth - startPosX
         let range = ChartUtility.displayRange(model)
         var selectionItems: [SelectionItem] = []
         let catIndexes: Set = [selectedCategoryRange.lowerBound, selectedCategoryRange.upperBound]

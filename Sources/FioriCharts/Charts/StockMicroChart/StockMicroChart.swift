@@ -12,14 +12,14 @@ struct StockMicroChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(axisDataSource: StockAxisDataSource(),
+        XYAxisChart(chartContext: StockChartContext(),
                     chartView: StockLinesView(),
                     indicatorView: StockIndicatorView())
             .environmentObject(model)
     }
 }
 
-class StockAxisDataSource: DefaultAxisDataSource {
+class StockChartContext: DefaultChartContext {
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -35,9 +35,10 @@ class StockAxisDataSource: DefaultAxisDataSource {
             return result
         }
         
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
-        let endIndex = Int(((model.startPos.x + width) / unitWidth).rounded(.down))
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let endIndex = Int(((startPosX + width) / unitWidth).rounded(.down))
         
         guard let startDate = getDateAtIndex(model, index: startIndex),
             let endDate = getDateAtIndex(model, index: endIndex) else {
@@ -50,7 +51,7 @@ class StockAxisDataSource: DefaultAxisDataSource {
             result = findData(model, startIndex: startIndex, endIndex: endIndex, component: component, rect: rect)
         } else {
             let indexes: Set = [startIndex, endIndex]
-            let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+            let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
             for i in indexes {
                 let tmpTitle = xAxisFormattedString(model, index: i, component: component)
                 if let title = tmpTitle {
@@ -115,9 +116,10 @@ class StockAxisDataSource: DefaultAxisDataSource {
         }
         
         let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * rect.size.width
         let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let startIndex = Int((model.startPos.x / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - model.startPos.x.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
         return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }

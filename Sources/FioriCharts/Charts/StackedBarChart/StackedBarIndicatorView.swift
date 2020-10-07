@@ -10,7 +10,7 @@ import SwiftUI
 struct StackedBarIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
-    @Environment(\.axisDataSource) var axisDataSource
+    @Environment(\.chartContext) var chartContext
     
     var body: some View {
         GeometryReader { proxy in
@@ -20,15 +20,16 @@ struct StackedBarIndicatorView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         let maxDataCount = model.numOfCategories(in: 0)
+        let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
         let clusterSpace: CGFloat = rect.size.height * (1.0 - clusterHeight * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
         
-        let endPosY = rect.size.height * model.scale - model.startPos.y
+        let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
         
-        let pd = axisDataSource.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = axisDataSource.displayCategoryIndexesAndOffsets(model, rect: rect)
+        let pd = chartContext.plotData(model)
+        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
         var gapBeforeFirstCoumn: CGFloat = 0
         if let fs = curPlotData.first, let fl = fs.first {
@@ -82,11 +83,11 @@ struct StackedBarIndicatorView_Previews: PreviewProvider {
     static var previews: some View {
         let model = Tests.lineModels[4]
         model.chartType = .bar
-        let axisDataSource = BarAxisDataSource()
+        let chartContext = BarChartContext()
         
         return StackedBarIndicatorView()
                 .environmentObject(model)
-                .environment(\.axisDataSource, axisDataSource)
+                .environment(\.chartContext, chartContext)
                 .frame(width: 330, height: 220, alignment: .topLeading)
                 .previewLayout(.sizeThatFits)
     }
