@@ -83,8 +83,8 @@ class StackedBarChartContext: DefaultChartContext {
                 let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
                 
                 let size = title.boundingBoxSize(with: axis.labels.fontSize)                
-                var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
-                x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
+                var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
+                x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
                 
                 yAxisLabels.append(AxisTitle(index: i,
                                              value: 0,

@@ -49,7 +49,7 @@ struct SegmentedControl_Chart: View {
     }
 }
 
-struct NoDataView: View {
+private struct NoDataView: View {
     var body: some View {
         Text("No Data")
     }

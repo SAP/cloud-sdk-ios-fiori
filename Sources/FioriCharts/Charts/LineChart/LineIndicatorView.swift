@@ -90,9 +90,9 @@ struct LineIndicatorView: View {
         let range = secondarySeriesIndexes.contains(selectedSeriesRange.lowerBound) ? seconaryDisplayRange : displayRange
         let selectionIndicatorColor: Color = .preferredColor(.primary2)
         let circleColor: Color = .preferredColor(.primary6)
-        let extraSelectedPointDiameterWidth = ChartView.Layout.extraSelectedPointRadiusWidth * 2
+        let extraSelectedPointDiameterWidth = ChartViewLayout.extraSelectedPointRadiusWidth * 2
         
-        let extraSelectedPointAndBorderDiameterWidth = (ChartView.Layout.extraSelectedPointRadiusWidth + ChartView.Layout.extraSelectedPointWhiteBoderRadiusWidth) * 2
+        let extraSelectedPointAndBorderDiameterWidth = (ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth) * 2
         
         return ZStack {
             // range selection ui

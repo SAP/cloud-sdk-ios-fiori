@@ -72,7 +72,7 @@ class StockChartContext: DefaultChartContext {
                 }
             }
         }
-        
+
         return result
     }
     

@@ -83,7 +83,7 @@ struct ChartHomeView: View {
     @State var currentModel: ChartModel? = nil
     
     let info: (String, [ChartModel], [String])
-    
+        
     init(info: (String, [ChartModel], [String])) {
         self.info = info
     }
@@ -104,10 +104,27 @@ struct ChartHomeView: View {
             ForEach(0 ..< self.info.1.count) { i in
                 VStack(alignment: .center) {
                     Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
-                    ChartView(self.info.1[i])
+                    
+                    if self.info.2[i] == "Customized No Data View" {
+                        ChartView(self.info.1[i], noDataView: NoDataView {
+                            GeometryReader { proxy in
+                                VStack(alignment: .center) {
+                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+                                    Text("Customized No Data View")
+                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+                                }
+                                .frame(width: proxy.size.width, height: proxy.size.height)
+                                .border(Color.primary, width: 1)
+                            }
+                        })
                         .frame(width: width,
-                        height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
-
+                               height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
+                    } else {
+                        ChartView(self.info.1[i])
+                            .frame(width: width,
+                                   height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
+                    }
+ 
                     Text(self.info.2[i]).font(.subheadline)
                 }
                 .onTapGesture {
