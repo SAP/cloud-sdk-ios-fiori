@@ -39,7 +39,7 @@ struct StackedBarPlotView: View {
     
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
-                NoDataView()
+                EmptyView()
             } else {
                 VStack(alignment: .leading, spacing: 0) {
                     Rectangle()

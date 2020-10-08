@@ -36,7 +36,7 @@ struct ColumnView: View {
         
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
-                NoDataView()
+                EmptyView()
             } else {
                 HStack(alignment: .bottom, spacing: 0) {
                     Rectangle()

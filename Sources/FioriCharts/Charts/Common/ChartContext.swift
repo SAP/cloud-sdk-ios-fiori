@@ -248,7 +248,7 @@ class DefaultChartContext: ChartContext {
                 return max(seriesAttribute.point.diameter, result)
             }
 
-            maxPointRadius = maxPointDiameter / 2 + ChartView.Layout.extraSelectedPointRadiusWidth + ChartView.Layout.extraSelectedPointWhiteBoderRadiusWidth
+            maxPointRadius = maxPointDiameter / 2 + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
         }
         
         var yAxisLabels: [AxisTitle] = []
@@ -258,11 +258,11 @@ class DefaultChartContext: ChartContext {
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
             var x: CGFloat
             if secondary {
-                x = size.width / 2.0 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
-                x = min(rect.size.width / 2 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
+                x = size.width / 2.0 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
+                x = min(rect.size.width / 2 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             } else {
-                x = rect.size.width - size.width / 2.0 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline
-                x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartView.Layout.minSpacingBtwYAxisLabelAndBaseline, x)
+                x = rect.size.width - size.width / 2.0 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
+                x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             }
 
             yAxisLabels.append(AxisTitle(index: i,

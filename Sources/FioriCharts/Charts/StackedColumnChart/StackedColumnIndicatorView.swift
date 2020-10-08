@@ -52,7 +52,7 @@ struct StackedColumnIndicatorView: View {
         
         return VStack(alignment: .leading, spacing: 0) {
             if pd.isEmpty {
-                NoDataView()
+                EmptyView()
             } else {
                 HStack(alignment: .bottom, spacing: clusterSpace) {
                     Rectangle()
