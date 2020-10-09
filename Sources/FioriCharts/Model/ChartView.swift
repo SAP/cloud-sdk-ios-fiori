@@ -53,7 +53,7 @@ public struct ChartView<Content: View>: View {
      - parameter noDataView: this view will be shown if chartModel contains no data
      */
     public init(_ chartModel: ChartModel, noDataView: NoDataView<Content>) {
-        self.chartModel = chartModel
+        self._chartModel = ObservedObject(initialValue: chartModel)
         self.noDataView = noDataView
     }
     
@@ -107,7 +107,7 @@ extension ChartView where Content == EmptyView {
      - parameter chartModel: the chart model
      */
     public init(_ chartModel: ChartModel) {
-        self.chartModel = chartModel
+        self._chartModel = ObservedObject(initialValue: chartModel)
         self.noDataView = NoDataView()
     }
 }
