@@ -50,14 +50,14 @@ public struct NoDataView<Content: View>: View {
     /// the view body
     public var body: some View {
         GeometryReader { proxy in
-            if useDefault {
+            if self.useDefault {
                 Text("No Data")
                     .foregroundColor(.primary)
                     .font(.body)
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
                     .border(Color.primary, width: 1)
             } else {
-                content()
+                self.content()
             }
         }
     }

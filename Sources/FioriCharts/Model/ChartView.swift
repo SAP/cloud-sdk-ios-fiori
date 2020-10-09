@@ -60,7 +60,7 @@ public struct ChartView<Content: View>: View {
     public var body: some View {
         return Group {
             if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
-                noDataView
+                self.noDataView
             } else if chartModel.chartType == .micro_bullet {
                 BulletMicroChart(model: chartModel)
             } else if chartModel.chartType == .micro_harvey_ball {
@@ -94,7 +94,7 @@ public struct ChartView<Content: View>: View {
             } else if chartModel.chartType == .scatter {
                 ScatterChart(model: chartModel)
             } else {
-                noDataView
+                self.noDataView
             }
         }
     }
