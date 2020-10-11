@@ -5,10 +5,10 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  pull_request_target:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
@@ -33,6 +33,7 @@ jobs:
 
   sonar:
     needs: build
+    if: github.event_name == 'push' || github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -47,6 +48,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
-      if: github.repository == 'SAP/cloud-sdk-ios-fiori' && github.event_name == 'push'
 
 
