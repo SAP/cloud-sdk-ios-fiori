@@ -301,13 +301,8 @@ class ComboChartContext: DefaultChartContext {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                     }
                 } else {
-                    if pt.x >= xMax {
-                        res.append((plotCat.seriesIndex, plotCat.categoryIndex))
-                        return res
-                    } else {
-                        res.append((plotCat.seriesIndex, plotCat.categoryIndex))
-                        return res
-                    }
+                    res.append((plotCat.seriesIndex, plotCat.categoryIndex))
+                    return res
                 }
             }
         }

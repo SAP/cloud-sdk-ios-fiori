@@ -585,7 +585,13 @@ class ChartUtility {
             
             var tmpSelections = [Int: [Int]]()
             for seriesIndex in seriesRange {
-                tmpSelections[seriesIndex] = Array(selectedCategoryInRange)
+                // bubble and scatter chart could have different number of categories among series
+                let numOfCat = model.numOfCategories(in: seriesIndex)
+                if selectedCategoryInRange.upperBound < numOfCat {
+                    tmpSelections[seriesIndex] = Array(selectedCategoryInRange)
+                } else if selectedCategoryInRange.lowerBound <= numOfCat - 1 {
+                    tmpSelections[seriesIndex] = Array(selectedCategoryInRange.lowerBound ... numOfCat - 1)
+                }
             }
             
             if tmpSelections != model.selections {
