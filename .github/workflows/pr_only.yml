@@ -33,6 +33,30 @@ jobs:
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v1.1
 
+  CodeFormattingCheck:
+    runs-on: macos-latest
+    env:
+      MINT_PATH: ${{ github.workspace }}/mint
+    steps:
+      - uses: actions/checkout@v2
+      - name: Check for homebrew updates
+        run: brew update
+      - name: Cache Mint packages
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.MINT_PATH }}
+          key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+      - name: Install Mint
+        run: |
+          brew upgrade mint || brew install mint || true
+      - name: Install swiftformat via mint
+        run: |
+          mint bootstrap
+      - name: Format Swift code
+        run: mint run swiftformat --verbose .
+      - name: Verify formatted code is unchanged
+        run: git diff --exit-code HEAD
+
   SnapshotTests:
     runs-on: macos-latest
     env:

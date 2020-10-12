@@ -22,12 +22,14 @@ We reserve the right to close or to not process pull requests.
 
 We recommend to run `setupForCollaborators.sh` in root directory once to install helpful tools. For example, the script will
 - install various git hooks
-  - to run a SwiftLint check automatically before pushing your sources to remote
+  - automatic formatting with [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) as part of pre-commit
+  - to run a [SwiftLint](https://github.com/realm/SwiftLint) check automatically before pushing your sources to remote
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
 - install Xcode project file
 - clone data related to Snapshot Testing
 
 If you choose to run the script please make sure your dev machine has
+- `brew` package manager for macOS
 - `python` 3.7+ (includes `pip` as package manager)
   - tip: you can use [pyenv](https://github.com/pyenv/pyenv) to manage and switch between multiple python versions
 - `npm` (with `npx` as package runner which is included with 5.2+)
