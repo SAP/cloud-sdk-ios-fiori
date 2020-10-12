@@ -21,53 +21,51 @@ struct BubbleIndicatorView: View {
     func makeBody(in rect: CGRect) -> some View {
         let startPosX = model.startPos.x * model.scale * rect.size.width
         let startPosY = model.startPos.y * model.scale * rect.size.height
-        var selectedCategoryRange: ClosedRange<Int> = -1 ... -1
-        var selectedSeriesRange: ClosedRange<Int> = -1 ... -1
-        if let selections = model.selections {
-            var seriesIndices: [Int] = []
-            for (seriesIndex, catIndices) in selections {
-                seriesIndices.append(seriesIndex)
-                selectedCategoryRange = (catIndices.sorted().first ?? -1) ... (catIndices.sorted().last ?? -1)
-            }
-            seriesIndices.sort()
-            selectedSeriesRange = (seriesIndices.first ?? -1) ... (seriesIndices.last ?? -1)
+        
+        var selections: [Int: [Int]] = [:]
+        if let tmpSelections = model.selections {
+            selections = tmpSelections
         }
         
         let minLength = min(rect.size.width, rect.size.height) * model.scale
         let pd = chartContext.plotData(model)
-        let selected = selectedCategoryRange.lowerBound >= 0 && selectedSeriesRange.lowerBound >= 0
+        let singleSelected = selections.count == 1 && selections.first?.value.count == 1
         var x: CGFloat = 0
         var y: CGFloat = 0
-        if selected {
-            x = pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.x * model.scale * rect.size.width - startPosX
-            y = (1 - pd[selectedSeriesRange.lowerBound][selectedCategoryRange.lowerBound].pos.y * model.scale) * rect.size.height + startPosY
+        if singleSelected {
+            let seriesIndex = selections.first?.key ?? 0
+            let categoryIndex = selections[seriesIndex]?.first ?? 0
+            x = pd[seriesIndex][categoryIndex].pos.x * model.scale * rect.size.width - startPosX
+            y = (1 - pd[seriesIndex][categoryIndex].pos.y * model.scale) * rect.size.height + startPosY
         }
         
+        let seriesIndices = selections.keys.reversed()
+        
         return ZStack {
-            if selected {
-                // selected bubbles
-                ForEach(selectedCategoryRange, id: \.self) { categoryIndex in
+            ForEach(seriesIndices, id: \.self) { seriesIndex in
+                ForEach(selections[seriesIndex] ?? [], id: \.self) { categoryIndex in
                     Circle()
-                        .fill(self.model.colorAt(seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: categoryIndex))
-                        .frame(width: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength,
-                               height: self.model.chartType == .scatter ? 10 : pd[selectedSeriesRange.lowerBound][categoryIndex].rect.size.width * minLength)
-                        .position(x: pd[selectedSeriesRange.lowerBound][categoryIndex].pos.x * self.model.scale * rect.size.width - startPosX,
-                                  y: (1 - pd[selectedSeriesRange.lowerBound][categoryIndex].pos.y * self.model.scale) * rect.size.height + startPosY)
+                        .fill(self.model.colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex))
+                        .frame(width: self.model.chartType == .scatter ? 10 : pd[seriesIndex][categoryIndex].rect.size.width * minLength,
+                               height: self.model.chartType == .scatter ? 10 : pd[seriesIndex][categoryIndex].rect.size.width * minLength)
+                        .position(x: pd[seriesIndex][categoryIndex].pos.x * self.model.scale * rect.size.width - startPosX,
+                                  y: (1 - pd[seriesIndex][categoryIndex].pos.y * self.model.scale) * rect.size.height + startPosY)
                 }
+            }
+            
+            if singleSelected {
+                // horizontal line
+                LineShape(pos1: CGPoint(x: 0, y: y),
+                          pos2: CGPoint(x: rect.size.width, y: y),
+                          layoutDirection: layoutDirection)
+                    .stroke(Color.preferredColor(.primary3), lineWidth: 1)
                 
-                if selectedCategoryRange.count == 1 {
-                    // horizontal line
-                    LineShape(pos1: CGPoint(x: 0, y: y),
-                              pos2: CGPoint(x: rect.size.width, y: y),
-                              layoutDirection: layoutDirection)
-                        .stroke(Color.preferredColor(.primary3), lineWidth: 1)
-                    
-                    // vertical line
-                    LineShape(pos1: CGPoint(x: x, y: 0),
-                              pos2: CGPoint(x: x, y: rect.size.height),
-                              layoutDirection: layoutDirection)
-                        .stroke(Color.preferredColor(.primary3), lineWidth: 1)
-                }
+                // vertical line
+                LineShape(pos1: CGPoint(x: x, y: 0),
+                          pos2: CGPoint(x: x, y: rect.size.height),
+                          layoutDirection: layoutDirection)
+                    .stroke(Color.preferredColor(.primary3), lineWidth: 1)
+                //                }
             }
         }.clipped()
     }
