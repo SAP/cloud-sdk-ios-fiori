@@ -78,3 +78,6 @@ FioriSwiftUI.xcodeproj
 # Snapshot references is a separate git repository which will be cloned by a shell script
 /Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
 /Apps/Examples/cloud-sdk-ios-fiori-snapshot-references/*
+
+# Brewfile lock
+Brewfile.lock.json

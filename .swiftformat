@@ -1,0 +1,64 @@
+# https://github.com/nicklockwood/SwiftFormat/blob/master/Rules.md
+
+--allman false
+--assetliterals visual-width
+--beforemarks
+--binarygrouping none
+--categorymark "MARK: %c"
+--classthreshold 0
+--closingparen balanced
+--commas inline
+--conflictmarkers reject
+--decimalgrouping none
+--elseposition same-line
+--enumthreshold 0
+--exponentcase lowercase
+--exponentgrouping disabled
+--extensionacl on-extension
+--extensionlength 0
+--extensionmark "MARK: - %t + %c"
+--fractiongrouping disabled
+--fragment false
+--funcattributes preserve
+--groupedextension "MARK: %c"
+--guardelse auto
+--header strip
+--hexgrouping none
+--hexliteralcase lowercase
+--ifdef indent
+--importgrouping alphabetized
+--indent 4
+--indentcase false
+--lifecycle
+--linebreaks lf
+--markextensions always
+--marktypes always
+--maxwidth none
+--modifierorder
+--nospaceoperators
+--nowrapoperators
+--octalgrouping none
+--operatorfunc spaced
+--organizetypes class,enum,struct
+--patternlet inline
+--ranges spaced
+--self insert
+--selfrequired
+--semicolons inline
+--shortoptionals always
+--smarttabs enabled
+--stripunusedargs closure-only
+--structthreshold 0
+--tabwidth unspecified
+--trailingclosures
+--trimwhitespace nonblank-lines
+--typeattributes preserve
+--typemark "MARK: - %t"
+--varattributes preserve
+--voidtype void
+--wraparguments preserve
+--wrapcollections preserve
+--wrapparameters preserve
+--wrapreturntype preserve
+--xcodeindentation disabled
+--yodaswap always
