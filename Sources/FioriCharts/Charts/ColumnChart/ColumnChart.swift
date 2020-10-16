@@ -21,6 +21,54 @@ struct ColumnChart: View {
 }
 
 class ColumnChartContext: DefaultChartContext {
+    override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
+        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
+            return result
+        }
+        
+        var ret: [AxisTitle] = []
+        let maxDataCount = model.numOfCategories(in: 0)
+        var startIndex = -1
+        var endIndex = maxDataCount - 1
+        
+        if maxDataCount < 1 {
+            return ret
+        }
+    
+        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
+        let startPosX = model.startPos.x * model.scale
+        for index in 0...endIndex {
+            let x = (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale
+            if startIndex == -1 {
+                if x >= startPosX {
+                    startIndex = index
+                }
+            }
+
+            if x < startPosX + 1 {
+                endIndex = index
+            }
+        }
+        
+        for i in startIndex ... endIndex {
+            let x = (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale // - startPosX
+            
+            let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
+            let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+            
+            ret.append(AxisTitle(index: i,
+                                 title: title,
+                                 pos: CGPoint(x: x, y: 0),
+                                 size: size))
+        }
+        
+        model.xAxisLabels = [:]
+        model.xAxisLabels = [model.categoryAxis.labels.fontSize: ret]
+        
+        return ret
+    }
+    
     override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
         return xAxisGridLineLabels(model, rect: rect, isLabel: true)
     }
@@ -29,55 +77,57 @@ class ColumnChartContext: DefaultChartContext {
         return xAxisGridLineLabels(model, rect: rect, isLabel: false)
     }
     
-    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
-        var ret: [AxisTitle] = []
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         let maxDataCount = model.numOfCategories(in: 0)
-        var startIndex = -1
-        var endIndex = maxDataCount - 1
         
-        if endIndex < 0 {
-            return ret
+        if maxDataCount < 1 {
+            return []
         }
     
+        /// get xAxisLabels in relative position
+        let ret: [AxisTitle] = xAxisLabels(model)
+        
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
         let startPosX = model.startPos.x * model.scale * rect.size.width
-        for index in 0...endIndex {
-            let x = rect.origin.x + (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale * rect.size.width
-            if startIndex == -1 {
-                if x >= startPosX {
-                    startIndex = index
+        
+        if model.categoryAxis.labelLayoutStyle == .range {
+            var result: [AxisTitle] = []
+            if ret.count >= 1 {
+                var item = ret[0]
+                var x = item.pos.x * rect.size.width - startPosX
+                if isLabel {
+                    let tmpX = (item.pos.x - clusterWidth / 2.0) * rect.size.width - startPosX
+                    x = max(0, tmpX) + min(item.size.width, (rect.size.width - 2) / 2) / 2
+                }
+                item.x(x)
+                
+                result.append(item)
+                
+                if ret.count >= 2, let last = ret.last {
+                    var item = last
+                    var x = item.pos.x * rect.size.width - startPosX
+                    if isLabel {
+                        let tmpX = (item.pos.x + clusterWidth / 2.0) * rect.size.width - startPosX
+                        x =  min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    }
+                    item.x(x)
+                    
+                    result.append(item)
                 }
             }
             
-            if x < startPosX + rect.size.width {
-                endIndex = index
+            return result
+        } else {
+            let result: [AxisTitle] = ret.map { item in
+                var axisTitle = item
+                axisTitle.x(item.pos.x * rect.size.width - startPosX)
+                
+                return axisTitle
             }
+
+            return result
         }
-        
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
-        
-        for (index, i) in labelsIndex.enumerated() {
-            var x = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale * rect.size.width - startPosX
-            
-            let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
-            if model.categoryAxis.labelLayoutStyle == .range && isLabel {
-                let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-                if index == 0 {
-                    let tmpX = rect.origin.x + columnXIncrement * CGFloat(i) * model.scale * rect.size.width - startPosX
-                    x = max(0, tmpX) + min(size.width, (rect.size.width - 2) / 2) / 2
-                } else {
-                    let tmpX = rect.origin.x + (columnXIncrement * CGFloat(i) + clusterWidth) * model.scale * rect.size.width - startPosX
-                    x =  min(tmpX, rect.size.width) - min(size.width, (rect.size.width - 2) / 2) / 2
-                }
-            }
-            
-            ret.append(AxisTitle(index: i,
-                                 title: title,
-                                 pos: CGPoint(x: x, y: 0)))
-        }
-        
-        return ret
     }
     
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {

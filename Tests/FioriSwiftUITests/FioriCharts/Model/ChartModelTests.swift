@@ -49,8 +49,6 @@ class ChartModelTests: XCTestCase {
         
         modelCopy.chartType = .area
         XCTAssertTrue(model != modelCopy)
-        
-        //print(String(describing: modelCopy))
     }
     
     func testInit2() throws {
@@ -183,7 +181,6 @@ class ChartModelTests: XCTestCase {
         let modelCopy = model.copy() as! ChartModel
         XCTAssertTrue(model.data == modelCopy.data)
         XCTAssertEqual(model, modelCopy)
-        //print(String(describing: model))
     }
     
     func testColumnModel() throws {
@@ -196,7 +193,6 @@ class ChartModelTests: XCTestCase {
         let modelCopy = model.copy() as! ChartModel
         XCTAssertTrue(model.data == modelCopy.data)
         XCTAssertEqual(model, modelCopy)
-        //print(String(describing: model))
     }
     
     
@@ -226,7 +222,6 @@ class ChartModelTests: XCTestCase {
         XCTAssertTrue(model.indexesOfTotalsCategories == modelCopy.indexesOfTotalsCategories)
         
         XCTAssertEqual(model, modelCopy)
-//        print(String(describing: model))
     }
     
     func testCopy() throws {
@@ -247,7 +242,7 @@ class ChartModelTests: XCTestCase {
         )
         
         let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: false, adjustToNiceValues: true)
-        print(axisTickValues)
+
         XCTAssertEqual(axisTickValues.dataMinimum, 21)
         XCTAssertEqual(axisTickValues.dataMaximum, 66)
         XCTAssertEqual(axisTickValues.tickMinimum, 20)
@@ -264,7 +259,7 @@ class ChartModelTests: XCTestCase {
         )
         
         let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 20, rangeEnd: 66, desiredTickCount: 3, looseLabels: true, fudgeRange: false, adjustToNiceValues: true)
-        print(axisTickValues)
+
         XCTAssertEqual(axisTickValues.dataMinimum, 20)
         XCTAssertEqual(axisTickValues.dataMaximum, 66)
         XCTAssertEqual(axisTickValues.tickMinimum, 0)
@@ -281,7 +276,7 @@ class ChartModelTests: XCTestCase {
         )
         
         let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: true, fudgeRange: false, adjustToNiceValues: true)
-        //print(axisTickValues)
+
         XCTAssertEqual(axisTickValues.dataMinimum, 21)
         XCTAssertEqual(axisTickValues.dataMaximum, 66)
         XCTAssertEqual(axisTickValues.tickMinimum, 20)
@@ -298,7 +293,7 @@ class ChartModelTests: XCTestCase {
         )
         
         let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: false, adjustToNiceValues: false)
-        //print(axisTickValues)
+
         XCTAssertEqual(axisTickValues.dataMinimum, 21)
         XCTAssertEqual(axisTickValues.dataMaximum, 66)
         XCTAssertEqual(axisTickValues.tickMinimum, 21)
@@ -315,7 +310,7 @@ class ChartModelTests: XCTestCase {
         )
         
         let axisTickValues = ChartUtility.axisCreateTicks(model, rangeStart: 21, rangeEnd: 66, desiredTickCount: 3, looseLabels: false, fudgeRange: true, adjustToNiceValues: false)
-        //print(axisTickValues)
+
         XCTAssertEqual(axisTickValues.dataMinimum, 21)
         XCTAssertEqual(axisTickValues.dataMaximum, 66)
         XCTAssertEqual(axisTickValues.tickMinimum, 19.2)

@@ -28,100 +28,108 @@ class StockChartContext: DefaultChartContext {
         return xAxisGridLineLabels(model, rect: rect, isLabel: false)
     }
     
-    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
-        var result: [AxisTitle] = []
-        let width = rect.size.width
-        if width <= 0 {
+    override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
+        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
             return result
         }
         
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
+        var result: [AxisTitle] = []
+        let width: CGFloat = 1
+        
+        let startPosX = model.startPos.x * model.scale * width
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up))
-        let endIndex = Int(((startPosX + width) / unitWidth).rounded(.down))
+        let endIndex = max(Int(((startPosX + width) / unitWidth).rounded(.down)), startIndex)
         
         guard let startDate = getDateAtIndex(model, index: startIndex),
-            let endDate = getDateAtIndex(model, index: endIndex) else {
-                return result
+              let endDate = getDateAtIndex(model, index: endIndex) else {
+            return result
         }
         
         let duration = endDate.timeIntervalSince(startDate)
         let component = calendarComponentForXAxisLables(with: duration)
-        if model.categoryAxis.labelLayoutStyle == .allOrNothing {
-            result = findData(model, startIndex: startIndex, endIndex: endIndex, component: component, rect: rect)
-        } else {
-            let indexes: Set = [startIndex, endIndex]
-            let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-            for i in indexes {
-                let tmpTitle = xAxisFormattedString(model, index: i, component: component)
-                if let title = tmpTitle {
-                    var offset: CGFloat = 0
-                    if isLabel {
-                        let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-                        if i == startIndex {
-                            offset = min(size.width, (rect.size.width - 2) / 2) / 2
-                        } else {
-                            offset = -min(size.width, (rect.size.width - 2) / 2) / 2
-                        }
-                    }
+        
+        var prev = -1
+        for i in startIndex...endIndex {
+            guard let date = getDateAtIndex(model, index: i) else {
+                continue
+            }
+            
+            let cur = Calendar.current.component(component, from: date)
+            if cur != prev {
+                if let title = xAxisFormattedString(model, index: i, component: component) {
+                    let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+                    let x = CGFloat(i - startIndex) * unitWidth
                     
                     result.append(AxisTitle(index: i,
                                             title: title,
-                                            pos: CGPoint(x: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth,
-                                                         y: 0)))
+                                            pos: CGPoint(x: x, y: 0),
+                                            size: size))
+                    
+                    prev = cur
                 }
             }
         }
-
+        
+        model.xAxisLabels = [:]
+        model.xAxisLabels = [model.categoryAxis.labels.fontSize: result]
+        
         return result
     }
     
-    func findData(_ model: ChartModel, startIndex: Int, endIndex: Int, component: Calendar.Component, rect: CGRect, skipFirst: Bool = false) -> [AxisTitle] {
-        var result: [AxisTitle] = []
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+        let width = rect.size.width
+        if width <= 0 {
+            return []
+        }
         
-        var prev = -1
-        var prevXPos: CGFloat = -100000
-        var prevLabelWidth: CGFloat = 0
-        for i in startIndex...endIndex {
-            guard let date = getDateAtIndex(model, index: i) else { return result }
-            let cur = Calendar.current.component(component, from: date)
-            if prev == -1 && skipFirst {
-                prev = cur
-            } else if cur != prev {
-                if let title = xAxisFormattedString(model, index: i, component: component) {
-                    let label = AxisTitle(index: i,
-                                          title: title,
-                                          pos: CGPoint(x: calXPosforXAxisElement(model, dataIndex: i, rect: rect),
-                                                       y: 0))
+        /// get xAxisLabels in relative position
+        let ret = xAxisLabels(model)
+        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), ChartViewLayout.minUnitWidth)
+
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        
+        var prevXPos: CGFloat = -1000
+        if model.categoryAxis.labelLayoutStyle == .range && isLabel {
+            var result: [AxisTitle] = []
+            if ret.count >= 1 {
+                var item = ret[0]
+                let offset = min(item.size.width, (rect.size.width - 2) / 2) / 2
+                let x = startOffset + offset + item.pos.x * width
+                prevXPos = x + item.size.width / 2
+                
+                item.x(x)
+                result.append(item)
+                
+                if ret.count >= 2, let last = ret.last {
+                    var item = last
+                    let offset = -min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    let x = startOffset + offset + item.pos.x * width
                     
-                    let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-                                    
-                    // check if the gap btw two adjacent labels is less than 4pt
-                    if label.pos.x >= prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + 4 {
-                        prevXPos = label.pos.x
-                        prevLabelWidth = size.width
-                        result.append(label)
-                        prev = cur
+                    if x - prevXPos - item.size.width / 2 >= ChartViewLayout.minSpacingBtwXAxisLabels {
+                        item.x(x)
+                        
+                        result.append(item)
                     }
                 }
             }
+            
+            return result
+        } else {
+            var result: [AxisTitle] = []
+            for item in ret {
+                var axisTitle = item
+                let x = startOffset + item.pos.x * width
+                if x - prevXPos - item.size.width / 2 >= ChartViewLayout.minSpacingBtwXAxisLabels {
+                    axisTitle.x(x)
+                    result.append(axisTitle)
+                    prevXPos = x + item.size.width / 2
+                }
+            }
+
+            return result
         }
-        
-        return result
-    }
-    
-    func calXPosforXAxisElement(_ model: ChartModel, dataIndex: Int, rect: CGRect) -> CGFloat {
-        if dataIndex == 0 {
-            return rect.origin.x
-        }
-        
-        let width = rect.size.width
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let startIndex = Int((startPosX / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        
-        return rect.origin.x + startOffset + CGFloat(dataIndex - startIndex) * unitWidth
     }
     
     func getDateAtIndex(_ model: ChartModel, index: Int) -> Date? {

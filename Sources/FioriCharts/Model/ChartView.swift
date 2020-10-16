@@ -115,22 +115,33 @@ extension ChartView where Content == EmptyView {
 struct ChartViewLayout {
     /// Minimum: 20px from left edge of content area
     static let minYAxisViewWidth: CGFloat = 20
+    
     /// Maximum Y Axis Width: 35% of content area
     static let maxYAxisViewWidthRatio: CGFloat = 0.35
+    
     /// when the y-axis label area its at its maximum width and values are still truncated, the user can double tap the y-axis label area to expand the y-axis label area to the right. This will increase the width of the labels up to 60% of the content area.
     static let maxExpandedYAxisViewWidthRatio: CGFloat = 0.60
+    
     /// Maximum secondary Y Axis Width: 20% of content area
     static let maxSecondaryYAxisViewWidthRatio: CGFloat = 0.20
+    
     /// The minimum spacing bwteen y axis labels and baseline
     static let minSpacingBtwYAxisLabelAndBaseline: CGFloat = 3
+    
     /// The minimum spacing between y-axis gridline labels is 3px
     static let minSpacingBtwYAxisLabels: CGFloat = 3
+    
     ///A minimum of 4px padding is present on both the left and right of the x axis label if the text labels come in closely.
     static let minSpacingBtwXAxisLabels: CGFloat = 4
+    
     /// Extra diameter width for selected point in line/area chart
     static let extraSelectedPointRadiusWidth: CGFloat = 2.5
+    
     /// Extra white border radius width around selected point in line/area chart
     static let extraSelectedPointWhiteBoderRadiusWidth: CGFloat = 2
+    
+    /// Minimum unit width
+    static let minUnitWidth: CGFloat = 0.0000000001
 }
 
 struct FUIChartView_Previews: PreviewProvider {

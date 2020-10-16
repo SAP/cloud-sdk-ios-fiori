@@ -238,7 +238,7 @@ class ChartUtility {
     // @references
     // Talbot, J., Lin, S., Hanrahan, P. (2010) An Extension of Wilkinson's Algorithm for Positioning Tick Labels on Axes, InfoVis 2010.
     static func axisUtilExtended(_ model: ChartModel, _ dMin: CGFloat, _ dMax: CGFloat, _ m: UInt, _ Q: [CGFloat], _ loose: Bool, _ fudgeRange: Bool, _ w: [CGFloat], _ qLength: UInt, _ adjustToNiceValues: Bool) -> AxisTickValues {
-        //print("loose = \(loose), fudgeRange = \(fudgeRange), adjustToNiceValues = \(adjustToNiceValues)")
+
         let eps = CGFloat(1e-10)
         let maxIterations = 30
         

@@ -14,16 +14,26 @@ struct AxisTitle: Identifiable {
     let index: Int
     let value: CGFloat
     let title: String
-    let pos: CGPoint
+    
+    // relative postion
+    var pos: CGPoint
+    
+    // the size of title
+    let size: CGSize
     
     var id: Int {
         return index
     }
     
-    init(index: Int, value: CGFloat = 0, title: String, pos: CGPoint) {
+    init(index: Int, value: CGFloat = 0, title: String, pos: CGPoint, size: CGSize = .zero) {
         self.index = index
         self.value = value
         self.title = title
         self.pos = pos
+        self.size = size
+    }
+    
+    mutating func x(_ x: CGFloat) {
+        self.pos.x = x
     }
 }

@@ -63,6 +63,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 
                 let tmpY = (self.lastStartPosY * self.model.scale * rect.size.height + value.translation.height) / (self.model.scale * rect.size.height)
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) / max(self.model.scale, 1)))
+                self.model.xAxisLabels = [:]
+                
+                if model.chartType == .bubble || model.chartType == .scatter {
+                    self.model.yAxisLabels = [:]
+                    self.model.secondaryYAxisLabels = [:]
+                }
             })
             .onEnded({ _ in
                 self.draggingChartView = false
@@ -82,6 +88,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     maxScale = 10
                 } else {
                     let count = ChartUtility.numOfDataItems(self.model)
+                    if count <= 3 {
+                        return
+                    }
+                    
                     maxScale = max(1, CGFloat(count - 1) / 2)
                 }
             
@@ -96,6 +106,11 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 let middleY = (self.lastStartPosY * self.model.scale * rect.size.height + rect.size.height / 2) * self.model.scale / self.lastScale
                 let tmpY = (middleY - rect.size.height / 2) / (self.model.scale * rect.size.height)
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) / max(self.model.scale, 1)))
+                self.model.xAxisLabels = [:]
+                if model.chartType == .bubble || model.chartType == .scatter {
+                    self.model.yAxisLabels = [:]
+                    self.model.secondaryYAxisLabels = [:]
+                }
             })
             .onEnded({ _ in
                 self.lastScale = self.model.scale

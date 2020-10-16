@@ -71,7 +71,7 @@ class BubbleChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = BubbleChartContext()
         let pd = dataSource.plotData(model)
-        //print("pd = \(pd)")
+
         XCTAssertTrue(pd[0].count == 1)
         XCTAssertEqual(pd[0][0].rect.origin.x, 0.4502, accuracy: 0.001)
         XCTAssertEqual(pd[0][0].rect.origin.y, 0.3177, accuracy: 0.001)

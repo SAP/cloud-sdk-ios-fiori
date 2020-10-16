@@ -19,15 +19,11 @@ struct BarChart: View {
 }
 
 class BarChartContext: DefaultChartContext {
-    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
-    }
-
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
-    }
+    override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
+        if let result = model.yAxisLabels[model.numericAxis.labels.fontSize] {
+            return result
+        }
     
-    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
         let ticks = model.numericAxisTickValues
         let axis = model.numericAxis
         
@@ -37,63 +33,155 @@ class BarChartContext: DefaultChartContext {
         }
         
         var xAxisLabels: [AxisTitle] = []
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(0 ... xAxisLabelsCount - 1) : (xAxisLabelsCount == 1 ? [0] : [0, xAxisLabelsCount - 1])
-        
-        for (index, i) in labelsIndex.enumerated() {
-            var x = rect.size.width * ticks.tickPositions[xAxisLabelsCount - 1 - i]
+        for i in 0 ... xAxisLabelsCount - 1 {
+            let x = ticks.tickPositions[xAxisLabelsCount - 1 - i]
             let val = ticks.tickValues[xAxisLabelsCount - 1 - i]
             let title = yAxisFormattedString(model, value: Double(val), secondary: false)
-
-            if model.categoryAxis.labelLayoutStyle == .range && isLabel {
-                let size = title.boundingBoxSize(with: axis.labels.fontSize)
-                let tmpX = x
-                if index == 0 {
-                    x = max(0, tmpX) + min(size.width, (rect.size.width - 2) / 2) / 2
-                } else {
-                    x =  min(tmpX, rect.size.width) - min(size.width, (rect.size.width - 2) / 2) / 2
-                }
-            }
+            let size = title.boundingBoxSize(with: axis.labels.fontSize)
             
             xAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,
-                                         pos: CGPoint(x: x, y: 0)))
+                                         pos: CGPoint(x: x, y: 0),
+                                         size: size))
         }
+        
+        model.yAxisLabels = [:]
+        model.yAxisLabels = [model.numericAxis.labels.fontSize: xAxisLabels]
         
         return xAxisLabels
     }
     
-    override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    }
+
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+    }
+    
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+        let ret: [AxisTitle] = xAxisLabels(model)
+        
+        if model.categoryAxis.labelLayoutStyle == .range {
+            var result: [AxisTitle] = []
+            if ret.count >= 1 {
+                var item = ret[0]
+                var x = item.pos.x * rect.size.width
+                if isLabel {
+                    let tmpX = x
+                    x = max(0, tmpX) + min(item.size.width, (rect.size.width - 2) / 2) / 2
+                }
+                item.x(x)
+                
+                result.append(item)
+                
+                if ret.count >= 2, let last = ret.last {
+                    var item = last
+                    var x = item.pos.x * rect.size.width
+                    if isLabel {
+                        let tmpX = x
+                        x =  min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    }
+                    item.x(x)
+                    
+                    result.append(item)
+                }
+            }
+            
+            return result
+        } else {
+            let result: [AxisTitle] = ret.map { item in
+                var axisTitle = item
+                axisTitle.x(item.pos.x * rect.size.width)
+                
+                return axisTitle
+            }
+
+            return result
+        }
+    }
+    
+    override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle] {
+        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
+            return result
+        }
+        
         var yAxisLabels: [AxisTitle] = []
+        let maxDataCount = model.numOfCategories(in: 0)
+        let modelStartPosY = model.startPos.y * model.scale
+        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
+        let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
+        let unitHeight = max(columnXIncrement * model.scale, ChartViewLayout.minUnitWidth)
+        let endPosY = model.scale - modelStartPosY
+        let startPosY = endPosY - 1
+        
+        var startIndex = Int(startPosY / unitHeight).clamp(low: 0, high: maxDataCount - 1)
+        let startOffset = unitHeight * CGFloat(startIndex) - startPosY
+        
+        if abs(startOffset) >= clusterHeight && startIndex < maxDataCount - 1 {
+            startIndex += 1
+        }
+        let endIndex = Int(endPosY / unitHeight).clamp(low: startIndex, high: maxDataCount - 1)
+        
+        let labelsIndex = startIndex != endIndex ? Array(startIndex ... endIndex) : [startIndex]
+        let axis = model.categoryAxis
+        
+        for i in labelsIndex {
+            let y = (columnXIncrement * CGFloat(i) + clusterHeight / 2.0) * model.scale - startPosY
+
+            // check if it is in display range
+            if y >= 0 && y <= 1 {
+                let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
+                
+                let size = title.boundingBoxSize(with: axis.labels.fontSize)
+                yAxisLabels.append(AxisTitle(index: i,
+                                             value: 0,
+                                             title: title,
+                                             pos: .zero,
+                                             size: size))
+            }
+        }
+        
+        model.xAxisLabels = [:]
+        model.xAxisLabels = [model.categoryAxis.labels.fontSize: yAxisLabels]
+        
+        return yAxisLabels
+    }
+    
+    override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+        var res: [AxisTitle] = []
         let maxDataCount = model.numOfCategories(in: 0)
         let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
         let endPosY = rect.size.height * model.scale - modelStartPosY
         let startPosY = endPosY - rect.size.height
-        let (startIndex, endIndex, _, _) = displayCategoryIndexesAndOffsets(model, rect: rect)
-        let labelsIndex = startIndex != endIndex ? Array(startIndex ... endIndex) : [startIndex]
         let axis = model.categoryAxis
         
-        for i in labelsIndex {
+        let labels = yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        
+        for label in labels {
+            let i = label.index
             let y = rect.origin.y + (columnXIncrement * CGFloat(i) + clusterHeight / 2.0) * model.scale * rect.size.height - startPosY
 
             // check if it is in display range
             if y >= 0 && y <= rect.size.height {
-                let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
+                let title = label.title
+                let size = label.size
                 
-                let size = title.boundingBoxSize(with: axis.labels.fontSize)
                 var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
                 x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
                 
-                yAxisLabels.append(AxisTitle(index: i,
+                res.append(AxisTitle(index: i,
                                              value: 0,
                                              title: title,
-                                             pos: CGPoint(x: x, y: y)))
+                                             pos: CGPoint(x: x, y: y),
+                                             size: size))
             }
         }
         
-        return yAxisLabels
+        return res
     }
     
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
