@@ -1365,7 +1365,6 @@ extension ChartModel {
     }
 }
 
-
 extension ChartModel: CustomStringConvertible {
     public var description: String {
         let titlesForCategoryDesc: [[String]]
