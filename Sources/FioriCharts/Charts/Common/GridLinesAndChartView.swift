@@ -65,7 +65,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) / max(self.model.scale, 1)))
                 self.model.xAxisLabels = [:]
                 
-                if model.chartType == .bubble || model.chartType == .scatter {
+                if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.yAxisLabels = [:]
                     self.model.secondaryYAxisLabels = [:]
                 }
@@ -107,7 +107,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 let tmpY = (middleY - rect.size.height / 2) / (self.model.scale * rect.size.height)
                 self.model.startPos.y = max(0, min(tmpY, (self.model.scale - 1) / max(self.model.scale, 1)))
                 self.model.xAxisLabels = [:]
-                if model.chartType == .bubble || model.chartType == .scatter {
+                if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.yAxisLabels = [:]
                     self.model.secondaryYAxisLabels = [:]
                 }
