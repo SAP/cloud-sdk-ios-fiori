@@ -79,6 +79,8 @@ struct ChartsContentView: View {
 }
 
 struct ChartHomeView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
@@ -99,42 +101,88 @@ struct ChartHomeView: View {
     }
     
     func makeBody(in size: CGSize) -> some View {
-        let width = size.width - 32
-        return List {
-            ForEach(0 ..< self.info.1.count) { i in
-                VStack(alignment: .center) {
-                    Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
-                    
-                    if self.info.2[i] == "Customized No Data View" {
-                        ChartView(self.info.1[i], noDataView: NoDataView {
-                            GeometryReader { proxy in
-                                VStack(alignment: .center) {
-                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-                                    Text("Customized No Data View")
-                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-                                }
-                                .frame(width: proxy.size.width, height: proxy.size.height)
-                                .border(Color.primary, width: 1)
-                            }
-                        })
-                        .frame(width: width,
-                               height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
-                    } else {
-                        ChartView(self.info.1[i])
-                            .frame(width: width,
-                                   height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
+        var width: CGFloat
+        var numOfColumns: Int = 1
+        
+        if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+            if #available(iOS 14, *) {
+                //            width = max((size.width - 48) / 2, 1)
+                //            numOfColumns = 2
+
+                width = max((size.width - 64) / 3, 1)
+                numOfColumns = 3
+            } else {
+                width = max(min(size.width, size.height) / 2, 1)
+            }
+        } else if horizontalSizeClass == .compact {
+            width = max(size.width - 32, 1)
+        } else if verticalSizeClass == .compact {
+            width = max(min((size.height - 32) * 3 / 2, size.width - 32), 1)
+        } else {
+            width = max(min(size.width, size.height) - 32, 1)
+        }
+        
+        if #available(iOS 14, *) {
+            let columns: [GridItem] = Array(repeating: .init(.flexible()), count: numOfColumns)
+            
+            return AnyView(ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(0 ..< self.info.1.count) { i in
+                        self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+                            .padding(16)
                     }
- 
-                    Text(self.info.2[i]).font(.subheadline)
                 }
-                .onTapGesture {
-                    self.currentModel = self.info.1[i]
-                    self.showingDetail.toggle()
+            }.navigationBarTitle("FioriCharts"))
+        }
+        else {
+            return AnyView(List {
+                ForEach(0 ..< self.info.1.count) { i in
+                    HStack {
+                        Spacer(minLength: 0)
+                        
+                        self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+                        
+                        Spacer(minLength: 0)
+                    }
                 }
             }
+            .navigationBarTitle("FioriCharts"))
+        }
+    }
+    
+    func griditem(model: ChartModel, desc: String, width: CGFloat) -> some View {
+        VStack(alignment: .center, spacing: 8) {
+            Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
+            
+            if desc == "Customized No Data View" {
+                ChartView(model, noDataView: NoDataView {
+                    GeometryReader { proxy in
+                        VStack(alignment: .center) {
+                            Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+                            Text("Customized No Data View")
+                            Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+                        }
+                        .frame(width: proxy.size.width, height: proxy.size.height)
+                        .border(Color.primary, width: 3)
+                    }
+                })
+                .frame(width: width,
+                       height: width * 2 / 3)
+            } else {
+                ChartView(model)
+                    .frame(width: width,
+                           height: width * 2 / 3 )
+            }
+
+            Text(desc).font(.subheadline)
+        }
+        .onTapGesture {
+            self.currentModel = model
+            self.showingDetail.toggle()
         }
     }
 }
+
 
 struct ChartsContentView_Previews: PreviewProvider {
     static var previews: some View {

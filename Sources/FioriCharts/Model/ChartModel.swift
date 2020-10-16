@@ -125,6 +125,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             // invalidate the plotDataCache
             plotDataCache = nil
             numericAxisTickValuesCache.removeAll()
+            secondaryNumericAxisTickValuesCache.removeAll()
             categoryAxisTickValues = nil
             scale = 1.0
             startPos = .zero
@@ -263,7 +264,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             // invalidate the plotDataCache
             plotDataCache = nil
-            numericAxisTickValuesCache.removeAll()
         }
     }
     
@@ -292,6 +292,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             updateRange()
             plotDataCache = nil
             numericAxisTickValuesCache.removeAll()
+            secondaryNumericAxisTickValuesCache.removeAll()
         }
     }
     
@@ -318,6 +319,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             // invalidate the plotDataCache
             plotDataCache = nil
             numericAxisTickValuesCache.removeAll()
+            secondaryNumericAxisTickValuesCache.removeAll()
         }
     }
     
@@ -493,6 +495,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             }
             
             numericAxisTickValuesCache[de] = result
+            yAxisLabels = [:]
             scale = 1
             startPos = .zero
             plotDataCache = nil
@@ -501,22 +504,24 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
     }
     
+    /// cache for AxisTickValues
+    var secondaryNumericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
     /// axis tick values for secondary numeirc axis
     var secondaryNumericAxisTickValues: AxisTickValues {
         let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: true)
         
         if de.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        } else if let result = numericAxisTickValuesCache[de] {
+        } else if let result = secondaryNumericAxisTickValuesCache[de] {
             return result
         } else {
             let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
-            if numericAxisTickValuesCache.count > 1 {
-                numericAxisTickValuesCache.removeAll()
+            if secondaryNumericAxisTickValuesCache.count > 1 {
+                secondaryNumericAxisTickValuesCache.removeAll()
             }
             
-            numericAxisTickValuesCache[de] = result
-            
+            secondaryNumericAxisTickValuesCache[de] = result
+            secondaryYAxisLabels = [:]
             return result
         }
     }
@@ -553,6 +558,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
 
         return 0
     }
+    
+    /// Cached xAxisLabels
+    // dict: font size : [AxisTitle]
+    var xAxisLabels: [CGFloat: [AxisTitle]] = [:]
+    
+    /// Cached yAxisLabels
+    var yAxisLabels: [CGFloat: [AxisTitle]] = [:]
+    
+    /// Cached secondary yAxisLabels
+    var secondaryYAxisLabels: [CGFloat: [AxisTitle]] = [:]
     
     public let id = UUID()
     
@@ -1349,6 +1364,7 @@ extension ChartModel {
         return res
     }
 }
+
 
 extension ChartModel: CustomStringConvertible {
     public var description: String {

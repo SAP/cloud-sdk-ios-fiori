@@ -46,7 +46,7 @@ struct LineIndicatorView: View {
         let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
         let width = rect.size.width
         let startPosX = model.startPos.x * model.scale * width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         

@@ -10,12 +10,16 @@ import SwiftUI
 
 protocol ChartContext: class {
     var isEnoughSpaceToShowXAxisLables: Bool { get set }
+
+    func xAxisLabels(_ model: ChartModel) -> [AxisTitle]
     
     func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle]
     
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String
+    
+    func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
     
     func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle]
     
@@ -35,66 +39,90 @@ protocol ChartContext: class {
 class DefaultChartContext: ChartContext {
     var isEnoughSpaceToShowXAxisLables: Bool = true
     
-    func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        var ret: [AxisTitle] = []
-        
-        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 {
-            return ret
+    func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
+        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
+            return result
         }
         
+        var ret: [AxisTitle] = []
+        
         let count = ChartUtility.numOfDataItems(model)
-        let width = rect.size.width
+        let width: CGFloat = 1
         let startPosX = model.startPos.x * model.scale * width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = min(Int((startPosX / unitWidth).rounded(.up)), count - 1)
         let endIndex = max(min(Int(((startPosX + width) / unitWidth).rounded(.down)), count - 1), startIndex)
         
-        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) : (startIndex != endIndex ? [startIndex, endIndex] : [startIndex])
-        
-        for (index, i) in labelsIndex.enumerated() {
-            var offset: CGFloat = 0
+        for i in startIndex ... endIndex {
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
-            if model.categoryAxis.labelLayoutStyle == .range {
-                let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-                if index == 0 {
-                    offset = min(size.width, (rect.size.width - 2) / 2) / 2
-                } else {
-                    offset = -min(size.width, (rect.size.width - 2) / 2) / 2
-                }
-            }
+            let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
             
             ret.append(AxisTitle(index: i,
                                  title: title,
-                                 pos: CGPoint(x: rect.origin.x + startOffset + offset + CGFloat(i - startIndex) * unitWidth, y: 0)))
+                                 pos: CGPoint(x: CGFloat(i - startIndex) * unitWidth, y: 0),
+                                 size: size))
         }
+        
+        model.xAxisLabels = [:]
+        model.xAxisLabels = [model.categoryAxis.labels.fontSize: ret]
         
         return ret
     }
     
-    func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        var ret: [AxisTitle] = []
+    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 {
+            return []
+        }
+        
+        /// get xAxisLabels in relative position
+        let ret: [AxisTitle] = xAxisLabels(model)
+        
         let count = ChartUtility.numOfDataItems(model)
         let width = rect.size.width
         let startPosX = model.startPos.x * model.scale * width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), 1)
-        let startIndex = min(Int((startPosX / unitWidth).rounded(.up)), count - 1)
-        let endIndex = min(max(Int(((startPosX + width) / unitWidth).rounded(.down)), startIndex), count - 1)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         
         let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         
-        let labelsIndex = model.categoryAxis.labelLayoutStyle == .allOrNothing ? Array(startIndex ... endIndex) :
-            ((startIndex != endIndex) ? [startIndex, endIndex] : [startIndex])
-        
-        for i in labelsIndex {
-            let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
-            ret.append(AxisTitle(index: i,
-                                 title: title,
-                                 pos: CGPoint(x: rect.origin.x + startOffset + CGFloat(i - startIndex) * unitWidth, y: 0)))
+        if model.categoryAxis.labelLayoutStyle == .range {
+            var result: [AxisTitle] = []
+            if ret.count >= 1 {
+                var item = ret[0]
+                let offset = isLabel ? min(item.size.width, (rect.size.width - 2) / 2) / 2 : 0
+                let x = startOffset + offset + item.pos.x * width
+                item.x(x)
+                
+                result.append(item)
+                
+                if ret.count >= 2, let last = ret.last {
+                    var item = last
+                    let offset = isLabel ? -min(item.size.width, (rect.size.width - 2) / 2) / 2 : 0
+                    let x = startOffset + offset + item.pos.x * width
+                    item.x(x)
+                    
+                    result.append(item)
+                }
+            }
+            
+            return result
+        } else {
+            let result: [AxisTitle] = ret.map { item in
+                var axisTitle = item
+                axisTitle.x(startOffset + item.pos.x * width)
+                
+                return axisTitle
+            }
+
+            return result
         }
-        
-        return ret
+    }
+    
+    func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    }
+    
+    func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
     }
     
     private func numberMagnitude(from value: Double) -> (magnitude: String, divisor: Double) {
@@ -235,11 +263,58 @@ class DefaultChartContext: ChartContext {
         return formattedString
     }
     
-    func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+    func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+        if secondary {
+            if model.indexesOfSecondaryValueAxis.isEmpty {
+                return []
+            }
+            
+            if let result = model.secondaryYAxisLabels[model.secondaryNumericAxis.labels.fontSize] {
+                return result
+            }
+        } else {
+            if let result = model.yAxisLabels[model.numericAxis.labels.fontSize] {
+                return result
+            }
+        }
+
         let ticks = secondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
         let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         
         let yAxisLabelsCount = Int(ticks.tickCount)
+        
+        var yAxisLabels: [AxisTitle] = []
+        for i in 0 ..< yAxisLabelsCount {
+            let val = ticks.tickValues[i]
+            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
+            let size = title.boundingBoxSize(with: axis.labels.fontSize)
+
+            yAxisLabels.append(AxisTitle(index: i,
+                                         value: val,
+                                         title: title,
+                                         pos: .zero,
+                                         size: size))
+        }
+        
+        if secondary {
+            model.secondaryYAxisLabels = [:]
+            model.secondaryYAxisLabels = [model.secondaryNumericAxis.labels.fontSize: yAxisLabels]
+        } else {
+            model.yAxisLabels = [:]
+            model.yAxisLabels = [model.numericAxis.labels.fontSize: yAxisLabels]
+        }
+        
+        return yAxisLabels
+    }
+    
+    func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+        let res = yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        if res.isEmpty {
+            return []
+        }
+        
+        let ticks = secondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
+        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         let height = rect.size.height
         
         var maxPointRadius: CGFloat = 0
@@ -251,11 +326,9 @@ class DefaultChartContext: ChartContext {
             maxPointRadius = maxPointDiameter / 2 + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
         }
         
-        var yAxisLabels: [AxisTitle] = []
-        for i in 0 ..< yAxisLabelsCount {
-            let val = ticks.tickValues[i]
-            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
-            let size = title.boundingBoxSize(with: axis.labels.fontSize)
+        let result: [AxisTitle] = res.map { item in
+            let size = item.size
+            
             var x: CGFloat
             if secondary {
                 x = size.width / 2.0 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
@@ -264,14 +337,16 @@ class DefaultChartContext: ChartContext {
                 x = rect.size.width - size.width / 2.0 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
                 x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             }
-
-            yAxisLabels.append(AxisTitle(index: i,
-                                         value: val,
-                                         title: title,
-                                         pos: CGPoint(x: x, y: rect.origin.y + height * (1.0 - ticks.tickPositions[i]))))
+            let y = rect.origin.y + height * (1.0 - ticks.tickPositions[item.index])
+            
+            return AxisTitle(index: item.index,
+                             value: item.value,
+                             title: item.title,
+                             pos: CGPoint(x: x, y: y),
+                             size: size)
         }
-        
-        return yAxisLabels
+
+        return result
     }
     
     func yAxisFormattedString(_ model: ChartModel, value: Double, secondary: Bool) -> String {
@@ -307,7 +382,7 @@ class DefaultChartContext: ChartContext {
         let width = rect.size.width
         let startPosX = model.startPos.x * model.scale * width
         let maxDataCount = model.numOfCategories(in: 0)
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), 1)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
         
         var endIndex = Int(((startPosX + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
@@ -330,7 +405,7 @@ class DefaultChartContext: ChartContext {
                                   width: width)
         let point = CGPoint(x: x, y: atPoint.y)
         
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
         let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex

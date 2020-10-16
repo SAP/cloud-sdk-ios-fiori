@@ -204,7 +204,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         var prevXPos: CGFloat = -100000
         var prevLabelWidth: CGFloat = 0
         for label in labels {
-            let size: CGSize = label.title.isEmpty ? .zero : label.title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+            let size: CGSize = label.size
+            
             // spacing btw baseline and labels are 3pt
             height = max(height, size.height)
             
@@ -275,10 +276,11 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         // min width is 20
         var width: CGFloat = ChartViewLayout.minYAxisViewWidth
-        let labels = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
+        let labels = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
         
         for label in labels {
-            let size = label.title.boundingBoxSize(with: axis.labels.fontSize)
+            let size = label.size
+
             // spacing btw baseline and labels are 3pt
             width = max(width, size.width + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline)
         }

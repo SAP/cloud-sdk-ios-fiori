@@ -19,15 +19,11 @@ struct BubbleChart: View {
 }
 
 class BubbleChartContext: DefaultChartContext {
-    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
-    }
-
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
-    }
-    
-    func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+    override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
+        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
+            return result
+        }
+        
         if model.plotDataCache == nil {
             _ = plotData(model)
         }
@@ -37,6 +33,81 @@ class BubbleChartContext: DefaultChartContext {
         }
         
         var ret: [AxisTitle] = []
+        let tickCount = model.scale == 1.0 ? Int(ticks.tickCount) : max(Int(ticks.tickCount), 2)
+        
+        var tickValues: [CGFloat] = []
+        var tickPositions: [CGFloat] = []
+        let startPosX = model.startPos.x * model.scale
+        
+        if model.scale == 1.0 {
+            let tmpPositions = ticks.tickPositions.map {
+                $0 * model.scale - startPosX
+            }
+            
+            tickValues = ticks.tickValues.reversed()
+            tickPositions = tmpPositions.reversed()
+        } else {
+            let range = ticks.plotRange / model.scale
+            let plotMinimum = startPosX * ticks.plotRange / model.scale + ticks.plotMinimum
+            let stepValue = range / CGFloat(max(1, tickCount - 1))
+            
+            for index in 0 ..< tickCount {
+                let x = CGFloat(index) / CGFloat(max(1, tickCount - 1))
+                tickPositions.append(x)
+                let value = plotMinimum + CGFloat(index) * stepValue
+                tickValues.append(value)
+            }
+        }
+        
+        for index in 0 ..< tickCount {
+            let x = tickPositions[index]
+            let value = tickValues[index]
+        
+            let nf = NumberFormatter()
+            nf.numberStyle = .none
+            nf.maximumFractionDigits = 0
+            var title = nf.string(from: NSNumber(value: Float(value))) ?? ""
+            
+            // check the label format handler
+            if let labelHandler = model.numericAxisLabelFormatHandler {
+                if let titleFromApp = labelHandler(Double(value), .category) {
+                    title = titleFromApp
+                }
+            }
+            
+            let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
+            ret.append(AxisTitle(index: index,
+                                 value: value,
+                                 title: title,
+                                 pos: CGPoint(x: x, y: 0),
+                                 size: size))
+        }
+
+        model.xAxisLabels = [:]
+        model.xAxisLabels[model.categoryAxis.labels.fontSize] = ret
+        
+        return ret
+    }
+    
+    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    }
+
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+    }
+    
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+        if model.plotDataCache == nil {
+            _ = plotData(model)
+        }
+        
+        guard let ticks = model.categoryAxisTickValues else {
+            return []
+        }
+        
+        let ret: [AxisTitle] = xAxisLabels(model)
+        var result: [AxisTitle] = []
         let tickCount = model.categoryAxis.labelLayoutStyle == .range ? 2 : (model.scale == 1.0 ? Int(ticks.tickCount) : max(Int(ticks.tickCount), 2))
         var tickValues: [CGFloat] = []
         var tickPositions: [CGFloat] = []
@@ -72,35 +143,81 @@ class BubbleChartContext: DefaultChartContext {
         
         for index in 0 ..< tickCount {
             var x = tickPositions[index]
-            let value = tickValues[index]
-        
-            let nf = NumberFormatter()
-            nf.numberStyle = .none
-            nf.maximumFractionDigits = 0
-            var title = nf.string(from: NSNumber(value: Float(value))) ?? ""
-            
-            // check the label format handler
-            if let labelHandler = model.numericAxisLabelFormatHandler {
-                if let titleFromApp = labelHandler(Double(value), .category) {
-                    title = titleFromApp
-                }
-            }
+            var item = ret[index]
             
             if model.categoryAxis.labelLayoutStyle == .range && isLabel {
-                let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
                 if index == 0 {
-                    x = min(size.width, (rect.size.width - 2) / 2) / 2
+                    x = min(item.size.width, (rect.size.width - 2) / 2) / 2
                 } else {
-                    x = rect.size.width - min(size.width, (rect.size.width - 2) / 2) / 2
+                    if let last = ret.last {
+                        item = last
+                        
+                        x = rect.size.width - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    }
                 }
             }
             
-            ret.append(AxisTitle(index: index,
-                                 title: title,
-                                 pos: CGPoint(x: x, y: 0)))
+            result.append(AxisTitle(index: index,
+                                    value: item.value,
+                                    title: item.title,
+                                    pos: CGPoint(x: x, y: 0),
+                                    size: item.size))
         }
         
-        return ret
+        return result
+    }
+    
+    override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+        if let result = model.yAxisLabels[model.numericAxis.labels.fontSize] {
+            return result
+        }
+        
+        let ticks = model.numericAxisTickValues
+        let axis = model.numericAxis
+        
+        let yAxisLabelsCount: Int
+        var tickValues: [CGFloat] = []
+        var tickPositions: [CGFloat] = []
+        let startPosY = model.startPos.y * model.scale
+        
+        if model.scale == 1.0 {
+            yAxisLabelsCount = Int(ticks.tickCount)
+            tickValues = ticks.tickValues
+            tickPositions = ticks.tickPositions
+        } else {
+            yAxisLabelsCount = max(Int(ticks.tickCount), 2)
+            let range = ticks.plotRange / model.scale
+            let plotMinimum = startPosY * ticks.plotRange / model.scale + ticks.plotMinimum
+            let plotMaximum = plotMinimum + range
+            let stepValue = range / CGFloat(max(1, yAxisLabelsCount - 1))
+            let stepPosition = 1.0 / CGFloat(max(1, yAxisLabelsCount - 1))
+            for i in 0 ..< yAxisLabelsCount {
+                tickValues.append(plotMaximum - CGFloat(i) * stepValue)
+                tickPositions.append(1.0 - CGFloat(i) * stepPosition)
+            }
+        }
+        
+        let height: CGFloat = 1
+        
+        var yAxisLabels: [AxisTitle] = []
+        for i in 0 ..< yAxisLabelsCount {
+            let val = tickValues[i]
+            
+            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
+            let size = title.boundingBoxSize(with: axis.labels.fontSize)
+            let x = axis.baseline.width / 2.0 - 3 - size.width / 2.0
+
+            yAxisLabels.append(AxisTitle(index: i,
+                                         value: val,
+                                         title: title,
+                                         pos: CGPoint(x: x, y: height * (1.0 - tickPositions[i])),
+                                         size: size))
+        }
+        
+        model.yAxisLabels = [:]
+        model.yAxisLabels = [model.numericAxis.labels.fontSize: yAxisLabels]
+        
+        return yAxisLabels
     }
     
     override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
@@ -130,28 +247,24 @@ class BubbleChartContext: DefaultChartContext {
         }
         
         let height = rect.size.height
+        let ret = yAxisLabels(model)
+        var result: [AxisTitle] = []
         
-        var yAxisLabels: [AxisTitle] = []
         for i in 0 ..< yAxisLabelsCount {
+            let item = ret[i]
             let val = tickValues[i]
-            
-            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
-            let size = title.boundingBoxSize(with: axis.labels.fontSize)
-            let x: CGFloat
-            if secondary {
-                x = axis.baseline.width / 2.0 + 3 + size.width / 2.0
+            let size = item.size
+            let x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
+            let y = rect.origin.y + height * (1.0 - tickPositions[i])
 
-            } else {
-                x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-            }
-
-            yAxisLabels.append(AxisTitle(index: i,
+            result.append(AxisTitle(index: i,
                                          value: val,
-                                         title: title,
-                                         pos: CGPoint(x: x, y: rect.origin.y + height * (1.0 - tickPositions[i]))))
+                                         title: item.title,
+                                         pos: CGPoint(x: x, y: y),
+                                         size: size))
         }
         
-        return yAxisLabels
+        return result
     }
     
     //swiftlint:disable cyclomatic_complexity
