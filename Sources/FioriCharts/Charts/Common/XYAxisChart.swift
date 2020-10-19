@@ -311,4 +311,3 @@ struct XYAxisChart_Previews: PreviewProvider {
             .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }
-
