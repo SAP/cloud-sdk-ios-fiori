@@ -53,10 +53,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     func makeBody(in rect: CGRect) -> some View {
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
-        let chartWidth = rect.size.width - yAxisWidth - secondaryYAxisWidth
-        let xAxisBaselineHeight = model.categoryAxis.baseline.isHidden ? 0 : model.categoryAxis.baseline.width
+        let chartWidth = max(rect.size.width - yAxisWidth - secondaryYAxisWidth, 0)
+        let xAxisBaselineHeight = model.categoryAxis.baseline.isHidden ? 0 : min(model.categoryAxis.baseline.width, rect.size.height)
         let xAxisLabelsHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height))
-        let xAxisHeight = xAxisBaselineHeight + xAxisLabelsHeight
+        let xAxisHeight = min(xAxisBaselineHeight + xAxisLabelsHeight, rect.size.height)
         
         var xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
         if model.chartType == .bar || model.chartType == .stackedBar {
@@ -195,7 +195,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         let labels = chartContext.xAxisLabels(model, rect: rect)
-        if labels.isEmpty || model.categoryAxis.labels.isHidden {
+        if rect.size.width <= 0 || rect.size.height <= 0 || labels.isEmpty || model.categoryAxis.labels.isHidden {
             return 0
         }
         
@@ -230,7 +230,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             chartContext.isEnoughSpaceToShowXAxisLables = true
         }
 
-        return height > 0 ? height + 3 : 0
+        return height > 0 ? min(height + 3, rect.size.height) : 0
     }
     
     /**
@@ -239,6 +239,10 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
      Expanded State: when the y-axis label area its at its maximum width and values are still truncated, the user can double tap the y-axis label area to expand the y-axis label area to the right. This will increase the width of the labels up to 60% of the content area. Double tapping the expanded y-axis label area will return it to its maximum.
      */
     func yAxisLabelsMaxWidth(_ rect: CGRect, secondary: Bool = false) -> CGFloat {
+        if rect.size.width <= 0 || rect.size.height <= 0 {
+            return 0
+        }
+        
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         var indexes: [Int] = allIndexs.sorted()
         
@@ -307,3 +311,4 @@ struct XYAxisChart_Previews: PreviewProvider {
             .padding(.init(top: 10, leading: 0, bottom: 0, trailing: 16))
     }
 }
+
