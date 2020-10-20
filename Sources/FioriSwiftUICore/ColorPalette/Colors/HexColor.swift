@@ -100,10 +100,9 @@ public struct HexColor: Hashable {
     ///     - interface: specifies the user interface level, default is `.device`.
     ///     - display: specifies the display mode, default is `.normal`.
     /// - Returns: the string value for corresponding `HexColor` with specific color variant.
-    public func getVariant(background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> ColorVariant {
+    public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> ColorVariant {
         var variant = ColorVariant.dark
-        let traits = UIView().traitCollection
-        let isDarkInterfaceStyle = traits.userInterfaceStyle == .dark
+        let isDarkInterfaceStyle = collection.userInterfaceStyle == .dark
         let style: UIUserInterfaceStyle = {
             switch (scheme ?? .device, isDarkInterfaceStyle) {
             case (.lightConstant, _), (.deviceInverse, true), (.device, false):
@@ -112,7 +111,7 @@ public struct HexColor: Hashable {
                 return .dark
             }
         }()
-        let isElevatedInterfaceLevel = traits.userInterfaceLevel == .elevated
+        let isElevatedInterfaceLevel = collection.userInterfaceLevel == .elevated
         let level: UIUserInterfaceLevel = {
             switch (level ?? .device, isElevatedInterfaceLevel) {
             case (.baseConstant, _), (.deviceInverse, true), (.device, false):
