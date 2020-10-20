@@ -6,6 +6,7 @@
 //
 
 @testable import FioriSwiftUICore
+import UIKit
 import XCTest
 
 class HexColorTests: XCTestCase {
@@ -22,8 +23,10 @@ class HexColorTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let color = HexColor()
         
+        let traits = UIView().traitCollection
+        
         // Light foreground color should be initialized using .dark color scheme
-        let lightVariant = color.getVariant(background: .darkConstant, interface: .baseConstant, display: .normal)
+        let lightVariant = color.getVariant(traits: traits, background: .darkConstant, interface: .baseConstant, display: .normal)
         let lightColorString = color.hex(lightVariant)
         let lightForegroundColor = color.rgba(lightColorString)
         XCTAssertEqual(Int(255 * lightForegroundColor.r), 0x0)
@@ -32,7 +35,7 @@ class HexColorTests: XCTestCase {
         XCTAssertEqual(Int(255 * lightForegroundColor.a), 0xff)
         
         // Dark foreground color should be initialized using .dark color scheme
-        let darkVariant = color.getVariant(background: .lightConstant, interface: .baseConstant, display: .normal)
+        let darkVariant = color.getVariant(traits: traits, background: .lightConstant, interface: .baseConstant, display: .normal)
         let darkColorString = color.hex(darkVariant)
         let darkForegroundColor = color.rgba(darkColorString)
         XCTAssertEqual(Int(255 * darkForegroundColor.r), 0xff)
@@ -50,7 +53,9 @@ class HexColorTests: XCTestCase {
         //  - For .dark color scheme, should return the light variant of a HexColor
         let color = HexColor(lightColor: "12345678", darkColor: "abCDef")
         
-        let lightVariant = color.getVariant(background: .darkConstant, interface: .baseConstant, display: .normal)
+        let traits = UIView().traitCollection
+        
+        let lightVariant = color.getVariant(traits: traits, background: .darkConstant, interface: .baseConstant, display: .normal)
         let lightColorString = color.hex(lightVariant)
         let lightForegroundColor = color.rgba(lightColorString)
         XCTAssertEqual(Int(255 * lightForegroundColor.r), 0x12)
@@ -58,7 +63,7 @@ class HexColorTests: XCTestCase {
         XCTAssertEqual(Int(255 * lightForegroundColor.b), 0x56)
         XCTAssertEqual(Int(255 * lightForegroundColor.a), 0x78)
         
-        let darkVariant = color.getVariant(background: .lightConstant, interface: .baseConstant, display: .normal)
+        let darkVariant = color.getVariant(traits: traits, background: .lightConstant, interface: .baseConstant, display: .normal)
         let darkColorString = color.hex(darkVariant)
         let darkForegroundColor = color.rgba(darkColorString)
         XCTAssertEqual(Int(255 * darkForegroundColor.r), 0xab)
