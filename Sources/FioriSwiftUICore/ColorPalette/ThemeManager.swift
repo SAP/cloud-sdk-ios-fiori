@@ -43,10 +43,11 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
-        let uiColor: UIColor = UIColor { [unowned self] traitCollection in
-            let variant = self.palette.hexColor(for: style).getVariant(background: scheme, interface: level, display: mode)
-            let hexColorString = self.palette.hexColor(for: style).hex(variant)
-            let components = self.palette.hexColor(for: style).rgba(hexColorString)
+        let hexColor: HexColor = palette.hexColor(for: style)
+        let uiColor: UIColor = UIColor { traitCollection in
+            let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
+            let hexColorString = hexColor.hex(variant)
+            let components = hexColor.rgba(hexColorString)
             return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
                            blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
