@@ -53,17 +53,17 @@ struct PaletteV5: PaletteProvider {
             return HexColor(lightColor: "8696A9", darkColor: "89919A")
         case .shadow:
             return HexColor(lightColor: "000000")
-        case .primaryGroupedBackgrond:
+        case .primaryGroupedBackground:
             return HexColor(lightColor: "1C2228", darkColor: "EDEFF0", elevatedLightColor: "232A31", elevatedDarkColor: "EDEFF0")
-        case .secondaryGroupedBackgrond:
+        case .secondaryGroupedBackground:
             return HexColor(lightColor: "232A31", darkColor: "FFFFFF", elevatedLightColor: "29313A", elevatedDarkColor: "FFFFFF")
-        case .tertiaryGroupedBackgrond:
+        case .tertiaryGroupedBackground:
             return HexColor(lightColor: "29313A", darkColor: "FFFFFF", elevatedLightColor: "2F3943", elevatedDarkColor: "FFFFFF")
-        case .primaryBackgrond:
+        case .primaryBackground:
             return HexColor(lightColor: "232A31", darkColor: "FFFFFF", elevatedLightColor: "29313A", elevatedDarkColor: "FFFFFF")
-        case .secondaryBackgrond:
+        case .secondaryBackground:
             return HexColor(lightColor: "1C2228", darkColor: "F7F7F7", elevatedLightColor: "232A31", elevatedDarkColor: "F7F7F7")
-        case .tertiaryBackgrond:
+        case .tertiaryBackground:
             return HexColor(lightColor: "29313A", darkColor: "FFFFFF", elevatedLightColor: "2F3943", elevatedDarkColor: "FFFFFF")
         case .primaryLabel:
             return HexColor(lightColor: "FAFAFA", darkColor: "32363A", contrastLightColor: "FAFAFA", contrastDarkColor: "FAFAFA")
@@ -83,6 +83,10 @@ struct PaletteV5: PaletteProvider {
             return HexColor(lightColor: "8696A91C", darkColor: "89919A14", contrastLightColor: "8696A91C", contrastDarkColor: "8696A91C")
         case .header:
             return HexColor(lightColor: "2C3D4F", darkColor: "354A5F")
+        case .headerBlended:
+            return HexColor(lightColor: "1C2228A6", darkColor: "FFFFFFA6", contrastLightColor: "232A31A6", contrastDarkColor: "FFFFFFA6")
+        case .barTransparent:
+            return HexColor(lightColor: "23303ED9", darkColor: "23303ED9")
         case .footer:
             return HexColor(lightColor: "23303EEB", darkColor: "FAFAFAEB")
         case .cellBackground:
@@ -92,11 +96,11 @@ struct PaletteV5: PaletteProvider {
         case .tintColor:
             return HexColor(lightColor: "91C8F6", darkColor: "0A6ED1", contrastLightColor: "91C8F6", contrastDarkColor: "91C8F6")
         case .tintColorLight:
-            return HexColor(lightColor: "0A84FF", darkColor: "D1E8FF")
+            return HexColor(lightColor: "91C8F6", darkColor: "91C8F6")
         case .tintColorDark:
-            return HexColor(lightColor: "0A84FF", darkColor: "0A6ED1")
+            return HexColor(lightColor: "91C8F6", darkColor: "0A6ED1")
         case .tintColorTapState:
-            return HexColor(lightColor: "0A84FF66", darkColor: "0854A1")
+            return HexColor(lightColor: "91C8F666", darkColor: "0A6ED166", contrastLightColor: "91C8F666", contrastDarkColor: "91C8F666")
         case .tintColorTapStateLight:
             return HexColor(lightColor: "0A84FF66", darkColor: "74A5D5")
         case .tintColorTapStateDark:
