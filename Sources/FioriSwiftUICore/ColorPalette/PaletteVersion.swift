@@ -118,7 +118,7 @@ public enum PaletteVersion: CaseIterable {
         case .v4:
             return [.navigationBar, .stockUpStroke, .stockDownStroke]
         case .v5:
-            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackgrond, .secondaryGroupedBackgrond, .tertiaryGroupedBackgrond, .primaryBackgrond, .secondaryBackgrond, .tertiaryBackgrond, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .header, .footer, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground]
+            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackground, .secondaryGroupedBackground, .tertiaryGroupedBackground, .primaryBackground, .secondaryBackground, .tertiaryBackground, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .header, .footer, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground]
         }
     }
 }

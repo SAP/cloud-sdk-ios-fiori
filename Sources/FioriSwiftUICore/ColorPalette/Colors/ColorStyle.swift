@@ -94,21 +94,21 @@ public enum ColorStyle: String, CaseIterable {
     /// (base light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)              Hex color: 1C2228
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/EDEFF0.png&text=+)        Hex color: EDEFF0
     /// (elevated light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31
-    case primaryGroupedBackgrond
+    case primaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFF
     /// (base light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)              Hex color: 232A31
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)        Hex color: 29313A
-    case secondaryGroupedBackgrond
+    case secondaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFF
     /// (base light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)              Hex color: 29313A
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3943.png&text=+)        Hex color: 2F3943
-    case tertiaryGroupedBackgrond
+    case tertiaryGroupedBackground
     
     // MARK: - Background Colors
     
@@ -117,21 +117,21 @@ public enum ColorStyle: String, CaseIterable {
     /// (base light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)              Hex color: 232A31
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)        Hex color: 29313A
-    case primaryBackgrond
+    case primaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F7F7F7.png&text=+)              Hex color: F7F7F7
     /// (base light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)              Hex color: 1C2228
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/F7F7F7.png&text=+)        Hex color: F7F7F7
     /// (elevated light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31
-    case secondaryBackgrond
+    case secondaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFF
     /// (base light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)              Hex color: 29313A
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3943.png&text=+)        Hex color: 2F3943
-    case tertiaryBackgrond
+    case tertiaryBackground
     
     // MARK: - Label Colors
     
@@ -200,6 +200,18 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)          Hex value: 2C3D4F
     case header
     
+    /// Blended color for navigation bar or headers.
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFA6 (alpha: 65%)
+    /// (light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)          Hex value: 1C2228A6 (alpha: 65%)
+    /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFFA6 (alpha: 65%)
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31A6 (alpha: 65%)
+    case headerBlended
+    
+    /// Transparent color for navigation bar or tap bar.
+    /// (dark variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303ED9 (alpha: 85%)
+    /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303ED9 (alpha: 85%)
+    case barTransparent
+    
     /// Standard background color for toolbar, tab bar or footers.
     /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAEB (alpha: 92%)
     /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303EEB (alpha: 92%)
@@ -218,17 +230,17 @@ public enum ColorStyle: String, CaseIterable {
     /// Wraps `tintColorLight` and `tintColorDark`.
     /// Use `Color.preferredColor(forStyle:background:)` to select appropriate variant.
     /// (dark variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)          Hex color: 0A6ED1
-    /// (light variant) ![](https://dummyimage.com/48x18/D1E8FF.png&text=+)          Hex color: D1E8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)          Hex color: 91C8F6
     case tintColor
     
     /// Default light `tintColor`.
-    /// (dark variant) ![](https://dummyimage.com/48x18/D1E8FF.png&text=+)          Hex color: D1E8FF
-    /// (light variant) ![](https://dummyimage.com/48x18/0A84FF.png&text=+)          Hex color: 0A84FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)          Hex color: 91C8F6
+    /// (light variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)          Hex color: 91C8F6
     case tintColorLight
     
     /// Default dark `tintColor`.
     /// (dark variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)          Hex color: 0A6ED1
-    /// (light variant) ![](https://dummyimage.com/48x18/0A84FF.png&text=+)          Hex color: 0A84FF
+    /// (light variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)          Hex color: 0A6ED1
     case tintColorDark
     
     /// Wraps `tintColorTapStateLight` and `tintColorTapStateDark`.
