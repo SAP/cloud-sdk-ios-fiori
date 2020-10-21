@@ -92,12 +92,11 @@ public struct Tests {
                    colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
                    selections: [0: [0, 1, 2, 7, 8], 1: [3, 5, 7]]),
         ChartModel(chartType: .line, data: [[nil]]),
-        ChartModel(chartType: .line, data: [[]]),
         ChartModel(chartType: .line, data: [[]])
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "Multiple selections", "data = [[nil]]", "Default No Data View", "Customized No Data View"]
+    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "Multiple selections", "data = [[nil]]", "Default No Data View"]
     
     /// waterfall models for test
     public static let waterfallModels = [

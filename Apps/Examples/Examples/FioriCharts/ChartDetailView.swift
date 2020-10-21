@@ -10,6 +10,29 @@ import SwiftUI
 import FioriCharts
 import Combine
 
+struct ChartDetailConfigView: View {
+    @ObservedObject var model: ChartModel
+    @State var showingSettings = false
+
+    init(model: ChartModel) {
+        self.model = model
+    }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ChartView(self.model)
+                .padding(16)
+        }
+        .navigationBarItems(trailing: Button("Config") {
+            self.showingSettings.toggle()
+        })
+        .navigationBarTitle("Detail", displayMode: .inline)
+        .sheet(isPresented: $showingSettings) {
+            Settings().environmentObject(self.model)
+        }
+    }
+}
+
 struct ChartDetailView: View {
     @ObservedObject var model: ChartModel
     @State var isFullScreen: Bool = false
