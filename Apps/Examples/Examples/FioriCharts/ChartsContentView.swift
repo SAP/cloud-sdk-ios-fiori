@@ -12,6 +12,7 @@ import FioriCharts
 
 struct ChartsContentView: View {
     @State var showingDetail = false
+    @State var isPopUp = UserDefaults.standard.bool(forKey: "isPopUp")
     
     let charts: [(String, [ChartModel], [String])] =
         [("Stock", Tests.stockModels, Tests.stockModelsDesc),
@@ -70,7 +71,7 @@ struct ChartsContentView: View {
     var body: some View {
         List {
             ForEach(0 ..< charts.count) { index in
-                NavigationLink(destination: ChartHomeView(info: self.charts[index])) {
+                NavigationLink(destination: ChartHomeView(info: self.charts[index], isPopUp: self.$isPopUp)) {
                     Text(self.charts[index].0).font(.headline)
                 }
             }
@@ -79,62 +80,127 @@ struct ChartsContentView: View {
 }
 
 struct ChartHomeView: View {
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+
     @State var showingDetail = false
     @State var currentModel: ChartModel? = nil
     
     let info: (String, [ChartModel], [String])
-        
-    init(info: (String, [ChartModel], [String])) {
-        self.info = info
-    }
+    
+    @Binding var isPopUp: Bool
     
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.size)
         }
         .navigationBarTitle(info.0)
+        .navigationBarItems(trailing: Toggle("Popup", isOn: $isPopUp))
         .sheet(isPresented: $showingDetail) {
             ChartDetailView(model: self.currentModel!)
+        }
+        .onDisappear() {
+            UserDefaults.standard.set(self.isPopUp, forKey: "isPopUp")
         }
     }
     
     func makeBody(in size: CGSize) -> some View {
-        let width = size.width - 32
-        return List {
-            ForEach(0 ..< self.info.1.count) { i in
-                VStack(alignment: .center) {
+        var width: CGFloat
+
+        if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+            if #available(iOS 14, *) {
+                width = max((size.width - 48) / 2, 1)
+            } else {
+                width = max(min(size.width, size.height) / 2, 1)
+            }
+        } else if horizontalSizeClass == .compact {
+            width = max(size.width - 32, 1)
+        } else if verticalSizeClass == .compact {
+            width = max(min((size.height - 32) * 3 / 2, size.width - 32), 1)
+        } else {
+            width = max(min(size.width, size.height) - 32, 1)
+        }
+
+        // Xcode 12
+        #if swift(>=5.3)
+            // iOS 14, or greater
+            if #available(iOS 14, *) {
+                let numOfColumns: Int = horizontalSizeClass == .regular && verticalSizeClass == .regular ? 2 : 1
+            
+                let columns: [GridItem] = Array(repeating: .init(.flexible()), count: numOfColumns)
+
+                return AnyView(ScrollView {
+                    LazyVGrid(columns: columns) {
+                        ForEach(0 ..< self.info.1.count) { i in
+                            self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+                                .padding(8)
+                        }
+                    }.padding(8)
+                }.navigationBarTitle(info.0))
+            } else {
+                return AnyView(List {
+                    ForEach(0 ..< self.info.1.count) { i in
+                        HStack {
+                            Spacer(minLength: 0)
+
+                            self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+
+                            Spacer(minLength: 0)
+                        }
+                    }
+                }
+                .navigationBarTitle(info.0))
+            }
+        #else
+            return AnyView(List {
+                ForEach(0 ..< self.info.1.count) { i in
+                    HStack {
+                        Spacer(minLength: 0)
+
+                        self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+
+                        Spacer(minLength: 0)
+                    }
+                }
+            }
+            .navigationBarTitle(info.0))
+        #endif
+    }
+    
+    func griditem(model: ChartModel, desc: String, width: CGFloat) -> some View {
+        Group {
+            if self.isPopUp {
+                VStack(alignment: .center, spacing: 8) {
                     Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
                     
-                    if self.info.2[i] == "Customized No Data View" {
-                        ChartView(self.info.1[i], noDataView: NoDataView {
-                            GeometryReader { proxy in
-                                VStack(alignment: .center) {
-                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-                                    Text("Customized No Data View")
-                                    Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-                                }
-                                .frame(width: proxy.size.width, height: proxy.size.height)
-                                .border(Color.primary, width: 1)
-                            }
-                        })
+                    ChartView(model)
                         .frame(width: width,
-                               height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
-                    } else {
-                        ChartView(self.info.1[i])
-                            .frame(width: width,
-                                   height: self.info.1[i].chartType == .bar || self.info.1[i].chartType == .stackedBar ? width : width / 2.14 )
+                               height: width * 2 / 3 )
+                    
+                    Text(desc).font(.subheadline)
+                }.onTapGesture {
+                    self.currentModel = model
+                    if self.isPopUp {
+                        self.showingDetail.toggle()
                     }
- 
-                    Text(self.info.2[i]).font(.subheadline)
                 }
-                .onTapGesture {
-                    self.currentModel = self.info.1[i]
-                    self.showingDetail.toggle()
+            } else {
+                NavigationLink(destination: ChartDetailConfigView(model: model)) {
+                    VStack(alignment: .center, spacing: 8) {
+                        Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
+                        
+                        ChartView(model)
+                            .frame(width: width,
+                                   height: width * 2 / 3 )
+                        
+                        Text(desc).font(.subheadline)
+                    }
                 }
             }
         }
     }
 }
+
 
 struct ChartsContentView_Previews: PreviewProvider {
     static var previews: some View {
