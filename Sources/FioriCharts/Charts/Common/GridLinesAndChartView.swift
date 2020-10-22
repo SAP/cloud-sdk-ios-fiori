@@ -88,10 +88,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     maxScale = 10
                 } else {
                     let count: Int
-                    if model.chartType == .stock {
+                    if self.model.chartType == .stock {
                         count = ChartUtility.numOfDataItems(self.model)
                     } else {
-                        count = model.numOfCategories()
+                        count = self.model.numOfCategories()
                     }
                     
                     if count <= 3 {
