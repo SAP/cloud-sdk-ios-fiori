@@ -1085,6 +1085,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return data.count
     }
     
+    /// number of categories (determined by max of number of categories in all series) for charts except stock, bubble and scatter
+    public func numOfCategories() -> Int {
+        let counts = data.map { series in
+            series.count
+        }
+        
+        let maxCount = counts.max() ?? 0
+        
+        return max(0, maxCount)
+    }
+    
     /// number of categories in the series
     public func numOfCategories(in seriesId: Int) -> Int {
         if seriesId >= data.count {

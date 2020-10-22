@@ -26,7 +26,7 @@ class StackedColumnChartContext: ColumnChartContext {
         
         var result: [[ChartPlotData]] = []
         let seriesCount = model.numOfSeries()
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -95,7 +95,7 @@ class StackedColumnChartContext: ColumnChartContext {
     }
     
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
         let categoryIndex = Int(x / unitWidth + 0.5)
@@ -105,7 +105,7 @@ class StackedColumnChartContext: ColumnChartContext {
     }
     
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let startPosX = model.startPos.x * model.scale * rect.size.width
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
@@ -132,7 +132,7 @@ class StackedColumnChartContext: ColumnChartContext {
                                   layoutDirection: layoutDirection,
                                   width: width)
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         
         let startIndex = Int((x + startPosX) / (columnXIncrement * model.scale * rect.size.width))
@@ -173,7 +173,7 @@ class StackedColumnChartContext: ColumnChartContext {
         
         var res: [(Int, Int)] = []
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
 

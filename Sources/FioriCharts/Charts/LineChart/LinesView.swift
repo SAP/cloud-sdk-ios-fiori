@@ -50,12 +50,10 @@ struct LinesView: View {
         var data = [Int: [CGFloat?]]()
         if !noData {
             for i in indexes {
-                let category = model.data[i]
                 var s: [CGFloat?] = []
                 for j in startIndex...endIndex {
-                    if let val = category[j].first {
-                        s.append(val)
-                    }
+                    let val = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: j, dimensionIndex: 0)
+                    s.append(val)
                 }
                 data[i] = s
             }

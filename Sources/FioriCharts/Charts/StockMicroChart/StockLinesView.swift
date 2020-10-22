@@ -32,28 +32,34 @@ struct StockLinesView: View {
         var endIndex = Int(((startPosX + width) / unitWidth).rounded(.up))
         let startOffset: CGFloat = -startPosX.truncatingRemainder(dividingBy: unitWidth)
         
-        var endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
-    
         if endIndex > ChartUtility.lastValidDimIndex(model) {
             endIndex = ChartUtility.lastValidDimIndex(model)
         }
-
+        var endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
+    
         if startIndex > endIndex {
             noData = true
+            width = 0
         }
-        if ChartUtility.isIntraDay(model) {
+        if ChartUtility.isIntraDay(model) && !noData {
             let count = ChartUtility.lastValidDimIndex(model)
             
             width =  min(CGFloat(count) * unitWidth - startPosX, rect.size.width)
+            if width < 0 {
+                width = 0
+                noData = true
+            }
+            
             endOffset = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
         }
         
         let seriesIndex = model.currentSeriesIndex
         var data: [CGFloat?] = []
         if !noData {
-            let curDisplayData = model.data[seriesIndex][startIndex...endIndex]
-            data = curDisplayData.map { $0.first ?? 0 }
-            
+            for i in startIndex...endIndex {
+                let val = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: 0)
+                data.append(val)
+            }
         }
         
         var isPriceGoingUp = true

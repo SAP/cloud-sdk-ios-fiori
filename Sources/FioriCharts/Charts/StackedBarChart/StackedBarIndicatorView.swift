@@ -19,7 +19,7 @@ struct StackedBarIndicatorView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)

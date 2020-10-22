@@ -26,7 +26,7 @@ struct ComboView: View {
     }
     
     func makeComboColumnView(in rect: CGRect) -> some View {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let startPosX = model.startPos.x * model.scale * rect.size.width
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)

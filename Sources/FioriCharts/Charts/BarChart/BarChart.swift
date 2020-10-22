@@ -108,7 +108,7 @@ class BarChartContext: DefaultChartContext {
         }
         
         var yAxisLabels: [AxisTitle] = []
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let modelStartPosY = model.startPos.y * model.scale
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -151,7 +151,7 @@ class BarChartContext: DefaultChartContext {
     
     override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
         var res: [AxisTitle] = []
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterHeight = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -191,7 +191,7 @@ class BarChartContext: DefaultChartContext {
         
         var result: [[ChartPlotData]] = []
         let seriesCount = model.numOfSeries()
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -255,7 +255,7 @@ class BarChartContext: DefaultChartContext {
     }
     
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
@@ -277,7 +277,7 @@ class BarChartContext: DefaultChartContext {
     }
     
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
@@ -305,7 +305,7 @@ class BarChartContext: DefaultChartContext {
         let pd = plotData(model)
         let y = atPoint.y
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         
@@ -342,7 +342,7 @@ class BarChartContext: DefaultChartContext {
         
         var res: [(Int, Int)] = []
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
