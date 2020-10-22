@@ -48,7 +48,7 @@ struct ComboLinesView: View {
             noData = true
         }
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
         
@@ -58,17 +58,14 @@ struct ComboLinesView: View {
         var data = [Int: [CGFloat?]]()
         if !noData {
             for i in indexes {
-                let category = model.data[i]
                 var s: [CGFloat?] = []
-                for i in startIndex...endIndex {
-                    if let val = category[i].first {
-                        s.append(val)
-                    }
+                for j in startIndex...endIndex {
+                    let val = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: j, dimensionIndex: 0)
+                    s.append(val)
                 }
                 data[i] = s
             }
         }
-        //let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         
         return ZStack {
             ForEach(indexes, id: \.self) { i in

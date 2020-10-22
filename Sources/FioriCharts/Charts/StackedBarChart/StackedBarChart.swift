@@ -26,7 +26,7 @@ class StackedBarChartContext: BarChartContext {
         
         var result: [[ChartPlotData]] = []
         let seriesCount = model.numOfSeries()
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
@@ -97,7 +97,7 @@ class StackedBarChartContext: BarChartContext {
     }
     
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)
@@ -119,7 +119,7 @@ class StackedBarChartContext: BarChartContext {
     }
     
     override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let modelStartPosY = model.startPos.y * model.scale * rect.size.height
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
@@ -147,7 +147,7 @@ class StackedBarChartContext: BarChartContext {
         let pd = plotData(model)
         let y = atPoint.y
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         
@@ -187,7 +187,7 @@ class StackedBarChartContext: BarChartContext {
         
         var res: [(Int, Int)] = []
         
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
         let unitHeight = max(columnXIncrement * model.scale * rect.size.height, 1)
         let clusterHeight = columnXIncrement * model.scale * rect.size.height / (1.0 + ColumnGapFraction)

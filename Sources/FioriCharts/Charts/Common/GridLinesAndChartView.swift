@@ -87,7 +87,13 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     maxScale = 10
                 } else {
-                    let count = ChartUtility.numOfDataItems(self.model)
+                    let count: Int
+                    if model.chartType == .stock {
+                        count = ChartUtility.numOfDataItems(self.model)
+                    } else {
+                        count = model.numOfCategories()
+                    }
+                    
                     if count <= 3 {
                         return
                     }
