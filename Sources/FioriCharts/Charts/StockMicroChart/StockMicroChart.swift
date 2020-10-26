@@ -226,6 +226,70 @@ class StockChartContext: DefaultChartContext {
             return String(cur)
         }
     }
+    
+    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
+        let unitWidth: CGFloat = max(model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
+        let categoryIndex = Int(x / unitWidth)
+        let x = CGFloat(categoryIndex) * unitWidth
+        
+        return x
+    }
+    
+    override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
+        let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * width
+        let maxDataCount = model.numOfCategories(in: model.currentSeriesIndex)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
+        let startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        
+        var endIndex = Int(((startPosX + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
+        let startOffset: CGFloat = -startPosX.truncatingRemainder(dividingBy: unitWidth)
+        
+        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
+        
+        if endIndex > ChartUtility.lastValidDimIndex(model) {
+            endIndex = ChartUtility.lastValidDimIndex(model)
+        }
+        
+        return (startIndex, endIndex, startOffset, endOffset)
+    }
+    
+    override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
+        let width = rect.size.width
+        let startPosX = model.startPos.x * model.scale * width
+        let x = ChartUtility.xPos(atPoint.x,
+                                  layoutDirection: layoutDirection,
+                                  width: width)
+        let point = CGPoint(x: x, y: atPoint.y)
+        let count = ChartUtility.numOfDataItems(model)
+        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
+        let startIndex = Int((startPosX / unitWidth).rounded(.up))
+        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
+        
+        var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))
+        
+        let xPos = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
+        if xPos - rect.origin.x - rect.size.width > 1 {
+            closestDataIndex -= 1
+        }
+        
+        return (model.currentSeriesIndex, closestDataIndex)
+    }
+    
+    // range selection
+    override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
+        if let p0 = atPoints.first, let p1 = atPoints.last {
+            let firstItem = closestSelectedPlotItem(model, atPoint: p0, rect: rect, layoutDirection: layoutDirection)
+            let lastItem = closestSelectedPlotItem(model, atPoint: p1, rect: rect, layoutDirection: layoutDirection)
+            let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
+            
+            return items
+        }
+        
+        return []
+    }
+
 }
 
 struct StockMicroChart_Previews: PreviewProvider {

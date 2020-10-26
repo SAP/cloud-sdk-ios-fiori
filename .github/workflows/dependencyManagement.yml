@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Check Swift package dependencies
-      uses: MarcoEidinger/swift-package-dependencies-check@1.0.0
+      uses: MarcoEidinger/swift-package-dependencies-check@1.0.1
       with:
         isMutating: true
     - name: Create Pull Request
@@ -26,6 +26,7 @@ jobs:
   owasp-dep-check:
     runs-on: macos-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Run dependency-check (experimental for Swift)
       run: |
         brew install dependency-check

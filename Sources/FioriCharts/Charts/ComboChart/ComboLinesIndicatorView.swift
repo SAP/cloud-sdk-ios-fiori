@@ -47,7 +47,7 @@ struct ComboLinesIndicatorView: View {
             return AnyView(EmptyView())
         }
         
-        let count = ChartUtility.numOfDataItems(model)
+        let count = model.numOfCategories()
         let selectedSeriesIndex = selectedSeriesIndexes.first ?? 0
         let pd = chartContext.plotData(model)
         var selectionItems: [SelectionItem] = []
@@ -70,11 +70,9 @@ struct ComboLinesIndicatorView: View {
         
         var data = [CGFloat?]()
         if catIndexes.count == 2 {
-            let category = model.data[selectedSeriesIndex]
             for i in selectedCategoryRange.lowerBound ... selectedCategoryRange.upperBound {
-                if let val = category[i].first {
-                    data.append(val)
-                }
+                let val = ChartUtility.dimensionValue(model, seriesIndex: selectedSeriesIndex, categoryIndex: i, dimensionIndex: 0)
+                data.append(val)
             }
         }
         

@@ -66,11 +66,9 @@ struct StockIndicatorView: View {
         
         var data = [CGFloat?]()
         if catIndexes.count == 2 {
-            let category = model.data[selectedSeriesRange.lowerBound]
             for i in selectedCategoryRange.lowerBound ... selectedCategoryRange.upperBound {
-                if let val = category[i].first {
-                    data.append(val)
-                }
+                let val = ChartUtility.dimensionValue(model, seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: i, dimensionIndex: 0)
+                data.append(val)
             }
         }
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)

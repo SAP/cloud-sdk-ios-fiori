@@ -136,7 +136,7 @@ struct ChartHomeView: View {
                                 .padding(8)
                         }
                     }.padding(8)
-                }.navigationBarTitle(info.0))
+                })
             } else {
                 return AnyView(List {
                     ForEach(0 ..< self.info.1.count) { i in
@@ -148,8 +148,7 @@ struct ChartHomeView: View {
                             Spacer(minLength: 0)
                         }
                     }
-                }
-                .navigationBarTitle(info.0))
+                })
             }
         #else
             return AnyView(List {
@@ -162,8 +161,7 @@ struct ChartHomeView: View {
                         Spacer(minLength: 0)
                     }
                 }
-            }
-            .navigationBarTitle(info.0))
+            })
         #endif
     }
     

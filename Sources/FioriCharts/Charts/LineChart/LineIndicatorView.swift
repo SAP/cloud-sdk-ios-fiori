@@ -42,7 +42,7 @@ struct LineIndicatorView: View {
             selectedSeriesRange = (seriesIndices.first ?? 0) ... (seriesIndices.last ?? 0)
         }
         
-        let count = ChartUtility.numOfDataItems(model)
+        let count = model.numOfCategories()
         let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
         let width = rect.size.width
         let startPosX = model.startPos.x * model.scale * width
@@ -79,11 +79,9 @@ struct LineIndicatorView: View {
         
         var data = [CGFloat?]()
         if catIndexes.count == 2 {
-            let category = model.data[selectedSeriesRange.lowerBound]
             for i in selectedCategoryRange.lowerBound ... selectedCategoryRange.upperBound {
-                if let val = category[i].first {
-                    data.append(val)
-                }
+                let val = ChartUtility.dimensionValue(model, seriesIndex: selectedSeriesRange.lowerBound, categoryIndex: i, dimensionIndex: 0)
+                data.append(val)
             }
         }
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
