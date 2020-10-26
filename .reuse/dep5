@@ -23,9 +23,6 @@ Disclaimer: The code in this project may include calls to APIs (“API Calls”)
  and non-commercial test and evaluation of such API Calls. Nothing herein grants
  you any rights to use or access any SAP External Product, or provide any third
  parties the right to use of access any SAP External Product, through API Calls.
- Limitations:
- Note that you may use the software solely for the purpose of developing
- applications for use with 'SAP Cloud Platform Mobile Services'.
 
 # Source code and examples
 Files: Sources/** Tests/** Apps/** Package.swift
