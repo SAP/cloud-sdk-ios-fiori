@@ -238,6 +238,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                     if selections != nil {
                         selections = nil
                     }
+                    xAxisLabels = [:]
+                    yAxisLabels = [:]
+                    secondaryYAxisLabels = [:]
                 }
             }
         }
@@ -1085,15 +1088,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         return data.count
     }
     
-    /// number of categories (determined by max of number of categories in all series) for charts except stock, bubble and scatter
+    /// number of categories for charts except stock, bubble and scatter
     public func numOfCategories() -> Int {
         let counts = data.map { series in
             series.count
         }
         
         let maxCount = counts.max() ?? 0
+        let maxTitles = titlesForCategory?.first?.count ?? 0
         
-        return max(0, maxCount)
+        return max(0, max(maxTitles, maxCount))
     }
     
     /// number of categories in the series
