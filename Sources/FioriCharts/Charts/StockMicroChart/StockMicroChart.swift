@@ -14,7 +14,7 @@ struct StockMicroChart: View {
     var body: some View {
         XYAxisChart(chartContext: StockChartContext(),
                     chartView: StockLinesView(),
-                    indicatorView: StockIndicatorView())
+                    indicatorView: LineIndicatorView())
             .environmentObject(model)
     }
 }

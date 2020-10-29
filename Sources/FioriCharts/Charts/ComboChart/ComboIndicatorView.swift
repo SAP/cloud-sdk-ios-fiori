@@ -21,7 +21,7 @@ struct ComboIndicatorView: View {
     func makeBody(in rect: CGRect) -> some View {
         ZStack {
             makeComboColumnIndicatorView(in: rect)
-            ComboLinesIndicatorView()
+            LineIndicatorView()
         }
     }
     

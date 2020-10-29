@@ -90,7 +90,7 @@ public struct Tests {
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
                    colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
-                   selections: [0: [0, 1, 2, 7, 8], 1: [3, 5, 7]]),
+                   selections: [0: [0, 1, 2, 6, 7, 8, 11], 1: [0, 3, 4, 5, 7]]),
         ChartModel(chartType: .line, data: [[nil]]),
         ChartModel(chartType: .line, data: [[]]),
         ChartModel(chartType: .line, data: [[2]], titlesForCategory: [["Jan"]]),
@@ -108,7 +108,24 @@ public struct Tests {
     ]
     
     /// descriptions for line models
-    public static let lineModelsDesc = ["positive values, single series", "positive values, secondary y axis", "6 series, long category labels", "negative values, some x axis labels are nil, preselected single selection", "mixed values, preselected range selection", "mixed values 2, custom series attributes", "long x axis labels, label layout style is \"range\", preselected invalid selection", "nil values", "nil values 2", "Multiple selections", "data = [[nil]]", "No Data View, data = [[]]", "data = [[2]]", "data = [[2, 5]]", "[[2, 1, 3, 4], [5, 2, 3]], [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\"]", "[[2, 4, 6],[5, 2, 3, 4]], [\"Jan\", \"Feb\"]", "[[2, 4, 6, nil],[5, 2, 3, 4]], [\"Jan\", \"Feb\", \"nil\", \"nil\"]", "100"]
+    public static let lineModelsDesc = ["positive values, single series",
+                                        "positive values, secondary y axis",
+                                        "6 series, long category labels",
+                                        "negative values, some x axis labels are nil, preselected single selection",
+                                        "mixed values, preselected range selection",
+                                        "mixed values 2, custom series attributes",
+                                        "long x axis labels, label layout style is \"range\", preselected invalid selection",
+                                        "nil values",
+                                        "nil values 2",
+                                        "Multiple selections",
+                                        "data = [[nil]]",
+                                        "No Data View, data = [[]]",
+                                        "data = [[2]]",
+                                        "data = [[2, 5]]",
+                                        "[[2, 1, 3, 4], [5, 2, 3]], [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\"]",
+                                        "[[2, 4, 6],[5, 2, 3, 4]], [\"Jan\", \"Feb\"]",
+                                        "[[2, 4, 6, nil],[5, 2, 3, 4]], [\"Jan\", \"Feb\", \"nil\", \"nil\"]",
+                                        "100"]
     
     /// waterfall models for test
     public static let waterfallModels = [
@@ -457,11 +474,24 @@ public struct Tests {
                                      titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May"]],
                                      userInteractionEnabled: true,
                                      indexesOfColumnSeries: [1]),
+        
         ChartModel(chartType: .combo, data: [[2, 4, 6],
                                             [5, 2, 3, 4]],
                                      titlesForCategory: [["Jan", "Feb"]],
                                      userInteractionEnabled: true,
-                                     indexesOfColumnSeries: [1])
+                                     indexesOfColumnSeries: [1]),
+        
+        ChartModel(chartType: .combo,
+                   data: [[250, 220, 160, 280, 170, 90, 80, 195, 175, 133, 244, 140, 125, 180],
+                          [195, 175, 133, 244, 140, 125, 190, 165, 185, 143, 164, 174, 155, 168],
+                          [262, 225, 190, 248, 187, 92, 128, 135, 145, 153, 204, 194, 185, 165],
+                          [165, 195, 163, 204, 174, 165, 138, 175, 170, 163, 214, 164, 145, 150],
+                          [225, 202, 186, 227, 137, 129, 88, 105, 114, 130, 154, 184, 145, 160],
+                          [114, 135, 173, 224, 184, 155, 198, 215, 235, 245, 240, 200, 155, 120]],
+                   titlesForCategory: [["Adam Humprey", "Jimmy Patrick", "Franck Syren", "Alex Kilgo", "Kim Kilgo", "Sean Long", "Flash Ek-Ularnpun", "Lili Lin", "Luka Ning", "Rodhan Hickey", "Natasha Girotra", "Megan Zurcher", "Joan Wood", "Stanley Thomas Stadelman Jr."]],
+                   selections: [0: [2], 1: [3, 4, 5], 3: [1, 2, 3, 6], 4: [5, 6, 7, 10], 5: [9, 11, 12, 13]],
+                   indexesOfSecondaryValueAxis: [3, 4, 5],
+                   indexesOfColumnSeries: [0, 1, 2])
     ]
     
     /// descriptions for combo models
@@ -471,7 +501,8 @@ public struct Tests {
                                          "mixed values, preselected range selection",
                                          "data = [[nil]]", "data = [[]]",
                                          "[[2, 1, 3, 4], [5, 2, 3]], [\"Jan\", \"Feb\", \"Mar\", \"Apr\", \"May\"]",
-                                         "[[2, 4, 6],[5, 2, 3, 4]], [\"Jan\", \"Feb\"]"]
+                                         "[[2, 4, 6],[5, 2, 3, 4]], [\"Jan\", \"Feb\"]",
+                                         "Multiple Selections"]
     
     /// bullet models for test
     public static let bulletModles = [
