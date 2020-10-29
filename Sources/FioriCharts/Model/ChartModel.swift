@@ -383,7 +383,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         set {
             if let values = newValue {
-                let validSeriesSet = data.isEmpty ? Set<Int>() : Set(0 ..< data.count)
+                
+                let validSeriesSet: Set<Int>
+                if data.isEmpty {
+                    validSeriesSet = Set<Int>()
+                } else {
+                    if chartType == .stock {
+                        validSeriesSet = Set([indexOfStockSeries])
+                    } else {
+                        validSeriesSet = Set(0 ..< data.count)
+                    }
+                }
                 
                 for (seriesIndex, catIndices) in values {
                     // check if seriesIndex is valid

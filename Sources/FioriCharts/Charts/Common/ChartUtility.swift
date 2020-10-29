@@ -29,6 +29,65 @@ class ChartUtility {
         return result
     }
     
+    static func convertSelections(_ selections: [Int: [Int]]?) -> ([Int: [ClosedRange<Int>]], [Int: [Int]]) {
+        var closedRanges: [Int: [ClosedRange<Int>]] = [:]
+        var singles: [Int: [Int]] = [:]
+        
+        guard let values = selections else {
+            return (closedRanges, singles)
+        }
+
+        for seriesId in values.keys.sorted() {
+            if let catIds = values[seriesId]?.sorted() {
+                
+                var array1 = [ClosedRange<Int>]()
+                var array2 = [Int]()
+                
+                // scan it
+                var prevId = -1
+                var startId = -1
+                for catId in catIds {
+                    if prevId == -1 {
+                        prevId = catId
+                        startId = catId
+                    } else {
+                        if catId == prevId + 1 {
+                            prevId = catId
+                        } else {
+                            if prevId > startId {
+                                array1.append(startId...prevId)
+                            } else {
+                                array2.append(prevId)
+                            }
+                            
+                            // start new search
+                            prevId = catId
+                            startId = catId
+                        }
+                    }
+                }
+                
+                if prevId != -1 {
+                    if prevId > startId {
+                        array1.append(startId...prevId)
+                    } else {
+                        array2.append(prevId)
+                    }
+                }
+                
+                if !array1.isEmpty {
+                closedRanges[seriesId] = array1
+                }
+                
+                if !array2.isEmpty {
+                    singles[seriesId] = array2
+                }
+            }
+        }
+        
+        return (closedRanges, singles)
+    }
+    
     // swiftlint:disable cyclomatic_complexity
     static func calculateDataElementsForAxisTickValues (_ model: ChartModel, secondaryRange: Bool) -> ChartModel.DataElementsForAxisTickValues {
         if model.data.isEmpty || model.data.first?.isEmpty ?? true {
