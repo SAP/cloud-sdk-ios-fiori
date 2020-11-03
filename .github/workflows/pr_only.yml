@@ -40,20 +40,32 @@ jobs:
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
+    - name: Check for file changes in Sources folder
+      uses: getsentry/paths-filter@v2
+      id: changes
+      with:
+        filters: |
+          src:
+            - 'Sources/**'
     - name: Checkout Snapshot references
       uses: actions/checkout@v2
+      if: steps.changes.outputs.src == 'true'
       with:
         repository: SAP/cloud-sdk-ios-fiori-snapshot-references
         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
     - name: Generate Xcode project
+      if: steps.changes.outputs.src == 'true'
       run: swift package generate-xcodeproj
     - name: Install xcbeautify tool
+      if: steps.changes.outputs.src == 'true'
       run:  |
         brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
         brew install swiftlint xcbeautify
     - name: Build Package
+      if: steps.changes.outputs.src == 'true'
       run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
     - name: Run snapshot tests
+      if: steps.changes.outputs.src == 'true'
       run: set -o pipefail && xcodebuild -project ./Apps/Examples/Examples.xcodeproj -scheme ExamplesTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)' test | xcbeautify
     - name: Collect screenshot results on failure
       if: failure()
