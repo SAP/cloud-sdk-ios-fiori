@@ -105,6 +105,7 @@ class ChartUtility {
         return (rangeIndicator, selectionItems)
     }
     
+    //swiftlint:disable cyclomatic_complexity
     static func convertSelections(_ selections: [Int: [Int]]?) -> ([Int: [ClosedRange<Int>]], [Int: [Int]]) {
         var closedRanges: [Int: [ClosedRange<Int>]] = [:]
         var singles: [Int: [Int]] = [:]
