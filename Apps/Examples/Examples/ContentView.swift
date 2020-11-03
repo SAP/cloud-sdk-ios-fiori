@@ -30,6 +30,7 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle("Examples")
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }
