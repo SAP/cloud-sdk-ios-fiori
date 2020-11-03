@@ -28,11 +28,10 @@ struct ComboLinesView: View {
     
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
-        var noData = false
         let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         
         if startIndex > endIndex {
-            noData = true
+            return AnyView(EmptyView())
         }
         
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
@@ -45,7 +44,7 @@ struct ComboLinesView: View {
         let indexes: [Int] = lineIndexes.sorted()
         
         if indexes.isEmpty {
-            noData = true
+            return AnyView(EmptyView())
         }
         
         let maxDataCount = model.numOfCategories()
@@ -55,22 +54,12 @@ struct ComboLinesView: View {
         let lineStartOffset = startOffset + clusterWidth / 2.0
         let lineEndOffset = endOffset - clusterWidth / 2.0
         
-        var data = [Int: [CGFloat?]]()
-        if !noData {
-            for i in indexes {
-                var s: [CGFloat?] = []
-                for j in startIndex...endIndex {
-                    let val = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: j, dimensionIndex: 0)
-                    s.append(val)
-                }
-                data[i] = s
-            }
-        }
-        
-        return ZStack {
+        return AnyView(ZStack {
             ForEach(indexes, id: \.self) { i in
                 ZStack {
-                    LinesShape(points: data[i] ?? [],
+                    LinesShape(model: self.model,
+                               seriesIndex: i,
+                               categoryIndexRange: startIndex ... endIndex,
                                displayRange: displayRange,
                                layoutDirection: self.layoutDirection,
                                startOffset: lineStartOffset,
@@ -80,7 +69,9 @@ struct ComboLinesView: View {
                         .frame(width: rect.size.width, height: rect.size.height)
                         .clipped()
                     
-                    PointsShape(points: data[i] ?? [],
+                    PointsShape(model: self.model,
+                                seriesIndex: i,
+                                categoryIndexRange: startIndex ... endIndex,
                                 displayRange: displayRange,
                                 layoutDirection: self.layoutDirection,
                                 radius: self.pointRadius(at: i),
@@ -90,7 +81,7 @@ struct ComboLinesView: View {
                         .fill(self.model.seriesAttributes[i].point.strokeColor)
                 }
             }
-        }
+        })
     }
     
     func pointRadius(at index: Int) -> CGFloat {
