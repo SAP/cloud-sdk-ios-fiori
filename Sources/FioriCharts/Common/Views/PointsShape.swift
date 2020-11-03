@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct PointsShape: Shape {
-    let points: [CGFloat?]
+    let model: ChartModel
+    let seriesIndex: Int
+    let categoryIndexRange: ClosedRange<Int>
     
     // min and max value for the display range
     let displayRange: ClosedRange<CGFloat>
@@ -19,46 +21,35 @@ struct PointsShape: Shape {
     let startOffset: CGFloat
     let endOffset: CGFloat
     
-    public init(points: [CGFloat?], displayRange: ClosedRange<CGFloat>? = nil, layoutDirection: LayoutDirection = .leftToRight, radius: CGFloat = 2, gap: CGFloat = 2, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
-        self.points = points
+    public init(model: ChartModel, seriesIndex: Int, categoryIndexRange: ClosedRange<Int>, displayRange: ClosedRange<CGFloat>, layoutDirection: LayoutDirection = .leftToRight, radius: CGFloat = 2, gap: CGFloat = 2, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+        self.model = model
+        self.seriesIndex = seriesIndex
+        self.categoryIndexRange = categoryIndexRange
         
         self.layoutDirection = layoutDirection
         self.radius = radius
         self.gap = gap
         self.startOffset = startOffset
         self.endOffset = endOffset
-        
-        if let range = displayRange {
-            self.displayRange = range
-        } else {
-            let compactPoints = points.compactMap { $0 }
-            let minValue = CGFloat(compactPoints.min() ?? 0)
-            let maxValue = CGFloat(compactPoints.max() ?? CGFloat((minValue + 1)))
-            self.displayRange = minValue ... maxValue
-        }
+        self.displayRange = displayRange
     }
     
     public func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        if points.isEmpty {
+        if seriesIndex < 0 || seriesIndex >= model.numOfSeries() || categoryIndexRange.upperBound < 0 {
             return path
         }
         
-        let data: [CGFloat?] = points.map {
-            if let val = $0 {
-                let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
-                return rect.size.height - (CGFloat(val) - displayRange.lowerBound) * rect.size.height / range
-            } else {
-                return nil
-            }
-        }
-        
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(data.count - 1, 1))
+        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(categoryIndexRange.count - 1, 1))
         var lastPoint = CGPoint(x: -2 * radius - gap, y: 0)
+        let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
         
-        for i in 0 ..< data.count {
-            if let val = data[i] {
+        for i in 0 ..< categoryIndexRange.count {
+            let dataVal = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: i + categoryIndexRange.lowerBound, dimensionIndex: 0)
+            
+            if let tmpVal = dataVal { // cur point is not nil
+                let val = rect.size.height - (CGFloat(tmpVal) - displayRange.lowerBound) * rect.size.height / range
                 let p = CGPoint(x: ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width),
                                 y: val)
                 
@@ -75,14 +66,5 @@ struct PointsShape: Shape {
     
     func distance(p1: CGPoint, p2: CGPoint) -> CGFloat {
         return CGFloat(sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)))
-    }
-}
-
-struct PointsShape_Previews: PreviewProvider {
-    static var previews: some View {
-        PointsShape(points: [600, 700, 650, 750, 720])
-        .fill(Color.blue)
-        .frame(width: 400, height: 200)
-        .previewLayout(.sizeThatFits)
     }
 }

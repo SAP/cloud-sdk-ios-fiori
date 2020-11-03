@@ -29,6 +29,82 @@ class ChartUtility {
         return result
     }
     
+    static func lineSelections(_ model: ChartModel) -> [Int: [Int]]? {
+        let lineSelections: [Int: [Int]]?
+        
+        if model.chartType == .combo {
+            var tmpLineSelections = [Int: [Int]]()
+            let allIndexs = IndexSet(integersIn: 0 ..< model.numOfSeries())
+            let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs)
+            
+            if let tmpSelections = model.selections {
+                for (seriesId, sel) in tmpSelections {
+                    if lineIndexes.contains(seriesId) {
+                        tmpLineSelections[seriesId] = sel
+                    }
+                }
+            }
+            
+            // set result
+            if tmpLineSelections.isEmpty {
+                lineSelections = nil
+            } else {
+                lineSelections = tmpLineSelections
+            }
+        } else {
+            lineSelections = model.selections
+        }
+        
+        return lineSelections
+    }
+    
+    //swiftlint:disable force_unwrapping
+    static func convertSelectionsToSelectionItems(_ model: ChartModel) -> (String?, [SelectionItem]) {
+        guard let lineSelections = ChartUtility.lineSelections(model) else {
+            return (nil, [])
+        }
+        
+        var selectionItems = [SelectionItem]()
+        var rangeIndicator: String? = nil
+        
+        // it is empty
+        if lineSelections.isEmpty {
+            return (nil, [])
+        } else if lineSelections.count == 1 { // range selection or single selection
+            for (seriesIndex, catIndices) in lineSelections {
+                if catIndices.isEmpty {
+                    return (nil, [])
+                }
+                
+                var catIndexSet = Set<Int>()
+                let sorted = catIndices.sorted()
+                catIndexSet.insert(sorted.first!)
+                catIndexSet.insert(sorted.last!)
+                let catClosedRange = sorted.first! ... sorted.last!
+                
+                for catIndex in catIndexSet.sorted() {
+                    let item = SelectionItem(categoryIndex: catIndex, seriesIndexes: [seriesIndex])
+                    selectionItems.append(item)
+                }
+                
+                if catIndexSet.sorted().count >= 2 {
+                    let key = String("\(seriesIndex):\(catClosedRange.lowerBound):\(catClosedRange.upperBound)")
+                    rangeIndicator = key
+                }
+            }
+        } else { // .all
+            var seriesInices = [Int]()
+            for seriesIndex in lineSelections.keys.sorted() {
+                seriesInices.append(seriesIndex)
+            }
+            let catIndex = lineSelections[seriesInices[0]]?.first ?? 0
+            let item = SelectionItem(categoryIndex: catIndex, seriesIndexes: seriesInices)
+            selectionItems.append(item)
+        }
+        
+        return (rangeIndicator, selectionItems)
+    }
+    
     static func convertSelections(_ selections: [Int: [Int]]?) -> ([Int: [ClosedRange<Int>]], [Int: [Int]]) {
         var closedRanges: [Int: [ClosedRange<Int>]] = [:]
         var singles: [Int: [Int]] = [:]
@@ -86,6 +162,43 @@ class ChartUtility {
         }
         
         return (closedRanges, singles)
+    }
+    
+    static func convertSelectionsToDisplayItems(_ model: ChartModel) -> ([String], [Int], [String]) {
+        let lineSelections = ChartUtility.lineSelections(model)
+        let (rangeSelections, singleSelections) = ChartUtility.convertSelections(lineSelections)
+            
+        var singleLineIndicators = Set<Int>()
+        var singlePointIndicators = [String]()
+        var rangeIndicators = [String]()
+        
+        if rangeSelections.isEmpty && singleSelections.isEmpty {
+            return (rangeIndicators, singleLineIndicators.sorted(), singlePointIndicators)
+        }
+        
+        for (seriesId, crs) in rangeSelections {
+            for cr in crs {
+                singleLineIndicators.insert(cr.lowerBound)
+                singleLineIndicators.insert(cr.upperBound)
+                let key1 = String("\(seriesId):\(cr.lowerBound)")
+                let key2 = String("\(seriesId):\(cr.upperBound)")
+                singlePointIndicators.append(key1)
+                singlePointIndicators.append(key2)
+
+                let key = String("\(seriesId):\(cr.lowerBound):\(cr.upperBound)")
+                rangeIndicators.append(key)
+            }
+        }
+
+        for (seriesId, cats) in singleSelections {
+            for i in cats {
+                singleLineIndicators.insert(i)
+                let key = String("\(seriesId):\(i)")
+                singlePointIndicators.append(key)
+            }
+        }
+        
+        return (rangeIndicators.sorted(), singleLineIndicators.sorted(), singlePointIndicators.sorted())
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -612,7 +725,7 @@ class ChartUtility {
         if selectedPlotItems.isEmpty {
             return
         }
-        
+         
         if let firstItem = selectedPlotItems.first, let lastItem = selectedPlotItems.last {
             // cancel the selections if nothing is selected
             if firstItem.1 == -1 || lastItem.1 == -1 {

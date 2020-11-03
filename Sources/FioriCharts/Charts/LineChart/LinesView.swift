@@ -11,10 +11,12 @@ struct LinesView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
-    @State var fill: Bool = false
     
-    public init(fill: Bool = false) {
-        self._fill = State(initialValue: fill)
+    /// true is for Area Chart, false is for Line Chart
+    let fill: Bool
+    
+    init(fill: Bool = false) {
+        self.fill = fill
     }
     
     var body: some View {
@@ -33,69 +35,59 @@ struct LinesView: View {
     
     func makeLinesBody(in rect: CGRect, secondary: Bool) -> some View {
         let displayRange = ChartUtility.displayRange(model, secondary: secondary)
-        var noData = false
         let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
         
         if startIndex > endIndex {
-            noData = true
+            return AnyView(EmptyView())
         }
         
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes: [Int] = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        
-        if indexes.isEmpty {
-            noData = true
-        }
-        
-        var data = [Int: [CGFloat?]]()
-        if !noData {
-            for i in indexes {
-                var s: [CGFloat?] = []
-                for j in startIndex...endIndex {
-                    let val = ChartUtility.dimensionValue(model, seriesIndex: i, categoryIndex: j, dimensionIndex: 0)
-                    s.append(val)
-                }
-                data[i] = s
-            }
-        }
+    
         let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
         
-        return ZStack {
+        return AnyView(ZStack {
             ForEach(indexes, id: \.self) { i in
                 ZStack {
-                    LinesShape(points: data[i] ?? [],
-                               displayRange: displayRange,
-                               layoutDirection: self.layoutDirection,
-                               fill: self.fill,
-                               baselinePosition: baselinePosition,
-                               startOffset: startOffset,
-                               endOffset: endOffset)
+                    LinesShape(model: self.model,
+                                 seriesIndex: i,
+                                 categoryIndexRange: startIndex ... endIndex,
+                                 displayRange: displayRange,
+                                 layoutDirection: self.layoutDirection,
+                                 fill: self.fill,
+                                 baselinePosition: baselinePosition,
+                                 startOffset: startOffset,
+                                 endOffset: endOffset)
                         .fill(self.model.seriesAttributes[i].palette.fillColor)
                         .opacity(self.fill ? 0.4 : 0)
                         .frame(width: rect.size.width, height: rect.size.height)
                         .clipped()
-                    
-                    LinesShape(points: data[i] ?? [],
-                               displayRange: displayRange,
-                               layoutDirection: self.layoutDirection,
-                               startOffset: startOffset,
-                               endOffset: endOffset)
+
+                    LinesShape(model: self.model,
+                                 seriesIndex: i,
+                                 categoryIndexRange: startIndex ... endIndex,
+                                 displayRange: displayRange,
+                                 layoutDirection: self.layoutDirection,
+                                 startOffset: startOffset,
+                                 endOffset: endOffset)
                         .stroke(self.model.seriesAttributes[i].palette.colors[0],
                                 lineWidth: self.model.seriesAttributes[i].lineWidth)
                         .frame(width: rect.size.width, height: rect.size.height)
                         .clipped()
-                    
-                    PointsShape(points: data[i] ?? [],
-                                displayRange: displayRange,
-                                layoutDirection: self.layoutDirection,
-                                radius: self.pointRadius(at: i),
-                                gap: self.model.seriesAttributes[i].point.gap,
-                                startOffset: startOffset,
-                                endOffset: endOffset)
+
+                    PointsShape(model: self.model,
+                                  seriesIndex: i,
+                                  categoryIndexRange: startIndex ... endIndex,
+                                  displayRange: displayRange,
+                                  layoutDirection: self.layoutDirection,
+                                  radius: self.pointRadius(at: i),
+                                  gap: self.model.seriesAttributes[i].point.gap,
+                                  startOffset: startOffset,
+                                  endOffset: endOffset)
                         .fill(self.model.seriesAttributes[i].point.strokeColor)
                 }
             }
-        }
+        })
     }
     
     func pointRadius(at index: Int) -> CGFloat {

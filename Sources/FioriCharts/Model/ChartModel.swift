@@ -315,6 +315,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
                 let validIndex = newValue.intersection(allIndexs)
                 _indexesOfSecondaryValueAxis = validIndex
+                
+                yAxisLabels = [:]
+                secondaryYAxisLabels = [:]
             } else {
                 _indexesOfSecondaryValueAxis = IndexSet()
             }

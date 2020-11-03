@@ -54,16 +54,8 @@ struct StockLinesView: View {
         }
         
         let seriesIndex = model.currentSeriesIndex
-        var data: [CGFloat?] = []
-        if !noData {
-            for i in startIndex...endIndex {
-                let val = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: i, dimensionIndex: 0)
-                data.append(val)
-            }
-        }
         
         var isPriceGoingUp = true
-        
         if let startPrice = ChartUtility.dimensionValue(model, categoryIndex: 0), let endPrice = ChartUtility.dimensionValue(model, categoryIndex: ChartUtility.lastValidDimIndex(model)) {
             if startPrice > endPrice {
                 isPriceGoingUp = false
@@ -77,24 +69,28 @@ struct StockLinesView: View {
         return ZStack {
             if !noData {
                 HStack(spacing: 0) {
-                    LinesShape(points: data,
+                    LinesShape(model: model,
+                               seriesIndex: seriesIndex,
+                               categoryIndexRange: startIndex ... endIndex,
                                displayRange: displayRange,
                                layoutDirection: self.layoutDirection,
                                fill: true,
                                startOffset: startOffset,
                                endOffset: endOffset)
                         .fill(LinearGradient(gradient:
-                            Gradient(colors: [fillColor, gradientColor]),
+                                                Gradient(colors: [fillColor, gradientColor]),
                                              startPoint: .top,
                                              endPoint: .bottom))
                         .frame(width: width, height: height)
                         .clipped()
                     
-                        Spacer(minLength: 0)
+                    Spacer(minLength: 0)
                 }.frame(width: rect.size.width, height: height)
-            
+                
                 HStack(spacing: 0) {
-                    LinesShape(points: data,
+                    LinesShape(model: model,
+                               seriesIndex: seriesIndex,
+                               categoryIndexRange: startIndex ... endIndex,
                                displayRange: displayRange,
                                layoutDirection: self.layoutDirection,
                                startOffset: startOffset,
@@ -107,19 +103,21 @@ struct StockLinesView: View {
                 }.frame(width: rect.size.width, height: height)
                 
                 HStack(spacing: 0) {
-                    PointsShape(points: data,
-                            displayRange: displayRange,
-                            layoutDirection: self.layoutDirection,
-                            radius: self.pointRadius(at: seriesIndex),
-                            gap: self.model.seriesAttributes[seriesIndex].point.gap,
-                            startOffset: startOffset,
-                            endOffset: endOffset)
-                    .fill(strokeColor)
-                    .frame(width: width, height: height)
-                    .clipShape(Rectangle()
-                        .size(width: width + self.pointRadius(at: seriesIndex) * 2 + 5, height: rect.size.height + self.pointRadius(at: seriesIndex) * 2 + 5)
-                        .offset(x: -1 * self.pointRadius(at: seriesIndex), y: -1 * self.pointRadius(at: seriesIndex)))
-                
+                    PointsShape(model: model,
+                                seriesIndex: seriesIndex,
+                                categoryIndexRange: startIndex ... endIndex,
+                                displayRange: displayRange,
+                                layoutDirection: self.layoutDirection,
+                                radius: self.pointRadius(at: seriesIndex),
+                                gap: self.model.seriesAttributes[seriesIndex].point.gap,
+                                startOffset: startOffset,
+                                endOffset: endOffset)
+                        .fill(strokeColor)
+                        .frame(width: width, height: height)
+                        .clipShape(Rectangle()
+                                    .size(width: width + self.pointRadius(at: seriesIndex) * 2 + 5, height: rect.size.height + self.pointRadius(at: seriesIndex) * 2 + 5)
+                                    .offset(x: -1 * self.pointRadius(at: seriesIndex), y: -1 * self.pointRadius(at: seriesIndex)))
+                    
                     Spacer(minLength: 0)
                 }.frame(width: rect.size.width, height: height)
             }
