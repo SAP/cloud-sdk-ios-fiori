@@ -77,7 +77,7 @@ struct Settings: View {
                         }
                     }
                 }
-            }.navigationBarTitle("Configuration", displayMode: .inline)
+            }.navigationBarTitle("Configuration")
         }
     }
 }

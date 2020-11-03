@@ -168,14 +168,19 @@ struct ChartHomeView: View {
     func griditem(model: ChartModel, desc: String, width: CGFloat) -> some View {
         Group {
             if self.isPopUp {
-                VStack(alignment: .center, spacing: 8) {
-                    Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
+                VStack(alignment: .center, spacing: 0) {
+                    // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
+                    Text(self.currentModel?.id.uuidString ?? "")
+                        .frame(height: 0)
+                        .hidden()
                     
                     ChartView(model)
                         .frame(width: width,
                                height: width * 2 / 3 )
                     
-                    Text(desc).font(.subheadline)
+                    Spacer().frame(height: 8)
+                    
+                    Text(desc).font(.subheadline).foregroundColor(.primary)
                 }.onTapGesture {
                     self.currentModel = model
                     if self.isPopUp {
@@ -184,21 +189,20 @@ struct ChartHomeView: View {
                 }
             } else {
                 NavigationLink(destination: ChartDetailConfigView(model: model)) {
-                    VStack(alignment: .center, spacing: 8) {
-                        Text(self.currentModel?.id.uuidString ?? "").hidden() // workaround for Xcode 12 beta bug, see https://developer.apple.com/forums/thread/653247
-                        
+                    VStack(alignment: .center, spacing: 0) {
                         ChartView(model)
                             .frame(width: width,
                                    height: width * 2 / 3 )
                         
-                        Text(desc).font(.subheadline)
+                        Spacer().frame(height: 8)
+                        
+                        Text(desc).font(.subheadline).foregroundColor(.primary)
                     }
                 }
             }
         }
     }
 }
-
 
 struct ChartsContentView_Previews: PreviewProvider {
     static var previews: some View {
