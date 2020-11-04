@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-public class AreaMicroChartModel: ObservableObject, Identifiable {
+class AreaMicroChartModel: ObservableObject, Identifiable {
     @Published public var firstXLabel: Text?
     @Published public var lastXLabel: Text?
     @Published public var firstYLabel: Text?

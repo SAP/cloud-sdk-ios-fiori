@@ -13,7 +13,8 @@ struct Settings: View {
     @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        let nf = NumberFormatter(style: .decimal)
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
         nf.maximumFractionDigits = 0
         
         return NavigationView{

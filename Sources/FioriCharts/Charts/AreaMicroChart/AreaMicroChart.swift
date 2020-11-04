@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct AreaMicroChart: View {
+struct AreaMicroChart: View {
     enum Mode: Int {
         case standard, wide
     }

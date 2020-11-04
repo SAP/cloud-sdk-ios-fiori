@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct LineShape: Shape {
+struct LineShape: Shape {
     let pos1: CGPoint
     let pos2: CGPoint
     

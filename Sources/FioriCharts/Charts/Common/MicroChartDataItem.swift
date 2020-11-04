@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import FioriSwiftUICore
 
-public struct MicroChartDataItem: Identifiable {
+struct MicroChartDataItem: Identifiable {
     public var value: CGFloat
     public var label: String?
     public var displayValue: String?
