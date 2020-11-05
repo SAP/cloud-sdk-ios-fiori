@@ -14,7 +14,8 @@ struct SettingsLine: View {
     @Binding var line: ChartGridlineAttributes
     
     var body: some View {
-        let nf = NumberFormatter(style: .decimal)
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
         nf.maximumFractionDigits = 0
         
         return Form {

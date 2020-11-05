@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import FioriSwiftUICore
 
-/// test data for internal usage
+/// test data for all types of ChartView
 public struct Tests {
     /// line and area models for test
     public static let lineModels = [

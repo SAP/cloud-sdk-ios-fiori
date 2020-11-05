@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct ColumnMicroChart: View {
+struct ColumnMicroChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
 

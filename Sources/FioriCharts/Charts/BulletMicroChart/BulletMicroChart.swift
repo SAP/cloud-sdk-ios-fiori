@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-public struct BulletMicroChart: View {
+struct BulletMicroChart: View {
     enum Mode: CaseIterable {
         case standard, delta
     }
