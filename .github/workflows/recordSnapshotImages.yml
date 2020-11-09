@@ -7,6 +7,10 @@ on:
         description: 'Action'
         required: true
         default: 'recordSnapshotTests'
+      xcodeVersion:
+        description: 'Xcode Version'
+        required: true
+        default: '12.1' # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md#xcode
 
 jobs:
 
@@ -14,7 +18,7 @@ jobs:
     if: github.event.inputs.actionName == 'recordSnapshotTests'
     runs-on: macos-latest
     env:
-      DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_${{ github.event.inputs.xcodeVersion }}.app/Contents/Developer
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
