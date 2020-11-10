@@ -1,13 +1,5 @@
-//
-//  TestCases.swift
-//  DevTest
-//
-//  Created by Stan Stadelman on 4/16/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import Foundation
 import FioriIntegrationCards
+import Foundation
 import Zip
 
 enum TestCardBundle: String, CaseIterable, Identifiable {
@@ -16,7 +8,7 @@ enum TestCardBundle: String, CaseIterable, Identifiable {
     case analyticLine = "card-explorer-line-card"
     case listHighlight = "card-explorer-highlight-list-card"
     case listIcon = "card-explorer-icon-list-card"
-// TODO:   case listNumeric = "card-explorer-numeric-list-card"
+    // TODO: case listNumeric = "card-explorer-numeric-list-card"
     case listLinks = "card-explorer-quick-links-list-card"
     case object = "card-explorer-object-card"
     case table = "card-explorer-table-card"
@@ -32,11 +24,10 @@ enum TestCardBundle: String, CaseIterable, Identifiable {
     case adaptive6 = "adativecard-embedded6"
     
     var id: String {
-        return rawValue
+        rawValue
     }
     
     func path() -> URL? {
-
         let destinationDir = FileManager.default.temporaryDirectory.appendingPathComponent(rawValue, isDirectory: true)
         if FileManager.default.fileExists(atPath: destinationDir.path) {
             return destinationDir

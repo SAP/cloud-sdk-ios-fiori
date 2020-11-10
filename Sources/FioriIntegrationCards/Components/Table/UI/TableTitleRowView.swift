@@ -1,11 +1,3 @@
-//
-//  TableTitleRowView.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 2/3/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct TableTitleRowView: View {

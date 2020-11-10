@@ -1,71 +1,62 @@
-//
-//  SegmentedControl.swift
-//  FioriSwiftUICore
-//
-//  Created by Ma, Xiao on 3/17/20.
-//  Copyright © 2020 Ma, Xiao. All rights reserved.
-//
-
+import Combine
 import Foundation
 import SwiftUI
-import Combine
-/**
-A SegmentedControl object is a horizontal control made of multiple segments, each segment functioning as a discrete button.
-Selection is mutually exclusive.
- 
- ## Code usage:
- ```
- let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
- var segmentedControl: SegmentedControl!
- var cancellableSet: Set<AnyCancellable> = []
- 
- segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
- segmentedControl.selectionDidChangePublisher
-     .store(in: &cancellableSet)
- ```
- */
 
+/**
+ A SegmentedControl object is a horizontal control made of multiple segments, each segment functioning as a discrete button.
+ Selection is mutually exclusive.
+ 
+  ## Code usage:
+  ```
+  let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+  var segmentedControl: SegmentedControl!
+  var cancellableSet: Set<AnyCancellable> = []
+ 
+  segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
+  segmentedControl.selectionDidChangePublisher
+      .store(in: &cancellableSet)
+  ```
+ */
 public struct SegmentedControl: View {
-    
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
     /// Titles for the segments
     public var titles: [String] {
         get {
-            return model.titles
+            self.model.titles
         }
         set {
-            model.titles = newValue
+            self.model.titles = newValue
         }
     }
     
     /// A dictionary for setting attributes.
     public var segmentAttributes: [ControlState: SegmentAttributes] {
         get {
-            return model.segmentAttributes
+            self.model.segmentAttributes
         }
         set {
-            model.segmentAttributes = newValue
+            self.model.segmentAttributes = newValue
         }
     }
 
     /// Custom title insets for each segment.
     public var titleInsets: EdgeInsets {
         get {
-            return model.titleInset
+            self.model.titleInset
         }
         set {
-            model.titleInset = newValue
+            self.model.titleInset = newValue
         }
     }
     
-    ///The space between two segments. Default value is 6.
+    /// The space between two segments. Default value is 6.
     public var interItemSpacing: CGFloat {
         get {
-            return model.interItemSpacing
+            self.model.interItemSpacing
         }
         set {
-            model.interItemSpacing = newValue
+            self.model.interItemSpacing = newValue
         }
     }
     
@@ -76,74 +67,73 @@ public struct SegmentedControl: View {
      */
     public var selectedIndex: Int? {
         get {
-            return model.selectedIndex
+            self.model.selectedIndex
         }
         set {
             guard self.isEnable else {
                 return
             }
-            if let value = newValue, (value < 0 || value >= self.titles.count) {
+            if let value = newValue, value < 0 || value >= self.titles.count {
                 return
             }
-            model.selectedIndex = newValue
+            self.model.selectedIndex = newValue
         }
     }
 
     /// If set to false, previous selection will be removed.
     public var isEnable: Bool {
         get {
-            return model.isEnable
+            self.model.isEnable
         }
         set {
             if !newValue {
                 self.selectionDidChange(index: nil)
             }
-            model.isEnable = newValue
+            self.model.isEnable = newValue
         }
     }
     
     /// Content inset for the segmented control.
     public var contentInset: EdgeInsets {
         get {
-            let leadingAndTrailing: CGFloat = horizontalSizeClass == .compact ? 16 : 48
+            let leadingAndTrailing: CGFloat = self.horizontalSizeClass == .compact ? 16 : 48
             let defaultInset = EdgeInsets(top: 8, leading: leadingAndTrailing, bottom: 8, trailing: leadingAndTrailing)
-            return model.contentInset ?? defaultInset
+            return self.model.contentInset ?? defaultInset
         }
         set {
-            return model.contentInset = newValue
+            self.model.contentInset = newValue
         }
     }
     
     /// Segment width, default is `.intrinsic`
     public var segmentWidthMode: SegmentWidthMode {
         get {
-            return model.segmentWidthMode
+            self.model.segmentWidthMode
         }
         set {
-            model.segmentWidthMode = newValue
+            self.model.segmentWidthMode = newValue
         }
     }
     
     /// A Boolean value indicates whether empty selection is allowed. Default to `true`.
     public var allowEmptySelection: Bool {
         get {
-            return model.allowEmptySelection
+            self.model.allowEmptySelection
         }
         set {
-            model.allowEmptySelection = newValue
+            self.model.allowEmptySelection = newValue
         }
     }
     
     /// A `Publisher` which signals selection change.
-    lazy public private(set) var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
+    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
         self.model.$selectedIndex.eraseToAnyPublisher()
     }()
     
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
         
-    @ObservedObject private var model: Model = Model()
-    
+    @ObservedObject private var model = Model()
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
@@ -154,13 +144,14 @@ public struct SegmentedControl: View {
     ///   - contentInset: Option, content inset for the segmented control. Currently support leading and trailing insets.
     public init(segmentTitles: [String],
                 interItemSpacing: CGFloat = 6,
-                titleInsets: EdgeInsets = EdgeInsets.init(top: 8, leading: 8, bottom: 8, trailing: 8),
+                titleInsets: EdgeInsets = EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8),
                 selectedIndex: Int? = nil,
-                contentInset: EdgeInsets? = nil) {
-        self.titles      = segmentTitles
-        self.titleInsets        = titleInsets
-        self.interItemSpacing   = interItemSpacing
-        self.selectedIndex      = selectedIndex
+                contentInset: EdgeInsets? = nil)
+    {
+        self.titles = segmentTitles
+        self.titleInsets = titleInsets
+        self.interItemSpacing = interItemSpacing
+        self.selectedIndex = selectedIndex
         
         self.model.segmentAttributes = [
             .normal: SegmentAttributes(textColor: Color.preferredColor(.primary3), font: Font.system(.subheadline), borderColor: Color.preferredColor(.primary4)),
@@ -210,20 +201,20 @@ public struct SegmentedControl: View {
     
     /// :nodoc:
     private func getHStack() -> some View {
-        return HStack(alignment: .center, spacing: self.model.interItemSpacing) {
+        HStack(alignment: .center, spacing: self.model.interItemSpacing) {
             ForEach(self.model.titles.indices, id: \.self) { index in
                 Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
                     .onTapGesture {
                         if self.model.isEnable {
                             self.selectionDidChange(index: index)
                         }
-                }
-                .background(SegmentPreferenceSetter())
-                .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
-                .overlay(ButtonOverlayView(isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes))
+                    }
+                    .background(SegmentPreferenceSetter())
+                    .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
+                    .overlay(ButtonOverlayView(isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes))
             }
         }
-        .padding(contentInset)
+        .padding(self.contentInset)
         .lineLimit(1)
         .background(HStackPreferenceSetter())
     }
@@ -244,15 +235,15 @@ public struct SegmentedControl: View {
     }
 
     private func selectionDidChange(index: Int?) {
-        if allowEmptySelection {
-            if selectedIndex == index {
-                model.selectedIndex = nil
+        if self.allowEmptySelection {
+            if self.selectedIndex == index {
+                self.model.selectedIndex = nil
             } else {
-                model.selectedIndex = index
+                self.model.selectedIndex = index
             }
         } else {
-            if selectedIndex != index {
-                model.selectedIndex = index
+            if self.selectedIndex != index {
+                self.model.selectedIndex = index
             }
         }
     }
@@ -260,7 +251,6 @@ public struct SegmentedControl: View {
 
 extension SegmentedControl {
     struct Segment: View {
-        
         let title: String
         
         let isSelected: Bool
@@ -285,7 +275,7 @@ extension SegmentedControl {
         @Published var titles: [String] = []
         @Published var selectedIndex: Int?
         @Published var interItemSpacing: CGFloat = 6
-        @Published var titleInset: EdgeInsets = EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
+        @Published var titleInset = EdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
         @Published var segmentAttributes: [ControlState: SegmentAttributes] = [:]
         @Published var contentInset: EdgeInsets?
         @Published var isEnable: Bool = true
@@ -357,11 +347,11 @@ extension SegmentedControl {
 
 extension EdgeInsets {
     var horizontal: CGFloat {
-        return leading + trailing
+        leading + trailing
     }
     
     var vertical: CGFloat {
-        return top + bottom
+        top + bottom
     }
 }
 
@@ -370,5 +360,3 @@ struct DimensionSelector_Previews: PreviewProvider {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
-
-

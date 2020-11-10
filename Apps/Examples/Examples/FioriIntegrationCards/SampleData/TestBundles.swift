@@ -1,11 +1,3 @@
-//
-//  TestCases.swift
-//  DevTest
-//
-//  Created by Stan Stadelman on 4/16/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import Foundation
 
 enum TestBundles: String, CaseIterable {

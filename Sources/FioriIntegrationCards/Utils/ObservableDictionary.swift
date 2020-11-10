@@ -1,17 +1,9 @@
-//
-//  ObservableDictionary.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/26/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
-import Foundation
-import Combine
 import AnyCodable
+import Combine
+import Foundation
 
-extension Dictionary where Key == String, Value == Any {
-    public func resolve<T>(keyPath: Key?, separator: String.Element = "/") -> T? {
+public extension Dictionary where Key == String, Value == Any {
+    func resolve<T>(keyPath: Key?, separator: String.Element = "/") -> T? {
         var current: Any? = self
         let keyPath = keyPath ?? Key(separator)
         
@@ -27,8 +19,8 @@ extension Dictionary where Key == String, Value == Any {
     }
 }
 
-extension Array where Element == JSONDictionary {
-    public func resolve<T>(keyPath: Element.Key?, separator: String.Element = "/") -> T? {
+public extension Array where Element == JSONDictionary {
+    func resolve<T>(keyPath: Element.Key?, separator: String.Element = "/") -> T? {
         var current: Any? = self
         let keyPath = keyPath ?? Element.Key(separator)
 
@@ -45,66 +37,68 @@ extension Array where Element == JSONDictionary {
 }
 
 public final class ObservableDictionary<Key: Hashable, Value>: Collection, ObservableObject {
-    
     public let objectWillChange = ObservableObjectPublisher()
     
     public typealias DictionaryType = [Key: Value]
     private var dictionary: DictionaryType {
         didSet {
-            objectWillChange.send()
+            self.objectWillChange.send()
         }
     }
     
     public init(_ dictionary: [Key: Value]) {
         self.dictionary = dictionary
     }
-    //Collection: these are the access methods
+
+    // Collection: these are the access methods
 //    public typealias IndexDistance = DictionaryType.IndexDistance
     public typealias Indices = DictionaryType.Indices
     public typealias Iterator = DictionaryType.Iterator
     public typealias SubSequence = DictionaryType.SubSequence
     
     public var startIndex: Index {
-        return dictionary.startIndex
+        self.dictionary.startIndex
     }
     
     public var endIndex: DictionaryType.Index {
-        return dictionary.endIndex
+        self.dictionary.endIndex
     }
     
     public subscript(position: Index) -> Iterator.Element {
-        return dictionary[position]
+        self.dictionary[position]
     }
     
     public subscript(bounds: Range<Index>) -> SubSequence {
-        return dictionary[bounds]
+        self.dictionary[bounds]
     }
+
     public var indices: Indices {
-        return dictionary.indices
+        self.dictionary.indices
     }
     
     public subscript(key: Key) -> Value? {
         get {
-            return dictionary[key]
+            self.dictionary[key]
         }
         set {
-            dictionary[key] = newValue
+            self.dictionary[key] = newValue
         }
     }
+
     public func index(after i: Index) -> Index {
-        return dictionary.index(after: i)
+        self.dictionary.index(after: i)
     }
     
-    //Sequence: iteration is implemented here
+    // Sequence: iteration is implemented here
     public func makeIterator() -> DictionaryIterator<Key, Value> {
-        return dictionary.makeIterator()
+        self.dictionary.makeIterator()
     }
     
-    //IndexableBase
+    // IndexableBase
     public typealias Index = DictionaryType.Index
     
     public func resolve<T>(keyPath: String, separator: String.Element = ".") -> T? where Key == String, Value == Any {
-        return dictionary.resolve(keyPath: keyPath, separator: separator)
+        self.dictionary.resolve(keyPath: keyPath, separator: separator)
     }
 }
 

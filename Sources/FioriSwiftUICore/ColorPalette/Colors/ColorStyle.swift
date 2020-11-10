@@ -1,12 +1,4 @@
-//
-//  ColorStyle.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 6/14/20.
-//
-
 public enum ColorStyle: String, CaseIterable {
-    
     // MARK: - Basic Palette Colors
     
     /// Standard base color, with variants for light and dark color schemes.

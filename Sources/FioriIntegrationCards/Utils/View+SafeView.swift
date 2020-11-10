@@ -1,16 +1,7 @@
-//
-//  View+SafeView.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
 extension View {
-    
     func SafeView(_ value: AnyBodyProducing?) -> AnyView {
         switch value {
         case .none:

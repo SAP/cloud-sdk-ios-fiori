@@ -1,10 +1,3 @@
-//
-//  BackgroundColorScheme.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 6/17/20.
-//
-
 import Foundation
 
 /// Color scheme scenario, describing how the *foreground* color of the content should be configured to use appropriate color variants based on *background* color scheme.

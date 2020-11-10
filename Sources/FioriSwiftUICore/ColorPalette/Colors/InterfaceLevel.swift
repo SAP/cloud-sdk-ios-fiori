@@ -1,10 +1,3 @@
-//
-//  InterfaceLevel.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 8/11/20.
-//
-
 import Foundation
 
 public enum InterfaceLevel: String, CaseIterable {

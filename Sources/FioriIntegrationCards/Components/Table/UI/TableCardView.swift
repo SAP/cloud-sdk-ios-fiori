@@ -1,15 +1,6 @@
-//
-//  TableCardView.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 2/3/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 public struct TableCardView: View {
-    
     @ObservedObject var model: TableCard
     
     public init(model: TableCard) {

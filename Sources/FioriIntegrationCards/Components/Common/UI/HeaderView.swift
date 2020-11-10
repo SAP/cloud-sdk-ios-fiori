@@ -1,15 +1,6 @@
-//
-//  HeaderView.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import SwiftUI
 
 struct HeaderView: View {
-    
     let model: Header
     
     var body: some View {
@@ -17,17 +8,16 @@ struct HeaderView: View {
     }
     
     func makeBody() -> AnyView {
-        switch model {
-            case .default(let value):
-                return AnyView(DefaultHeaderView(model: value))
-            case .numeric(let value):
-                return AnyView(NumericHeaderView(model: value))
+        switch self.model {
+        case .default(let value):
+            return AnyView(DefaultHeaderView(model: value))
+        case .numeric(let value):
+            return AnyView(NumericHeaderView(model: value))
         }
     }
 }
 
 private struct DefaultHeaderView: View {
-    
     let model: DefaultHeader
 
     init(model: DefaultHeader) {
@@ -51,12 +41,10 @@ private struct DefaultHeaderView: View {
 }
 
 private struct NumericHeaderView: View {
-    
     let model: NumericHeader
     
     var body: some View {
         VStack(alignment: .leading) {
-            
             SafeText(model.title).font(.headline)
             HStack {
                 SafeText(model.subTitle).foregroundColor(Color.gray)

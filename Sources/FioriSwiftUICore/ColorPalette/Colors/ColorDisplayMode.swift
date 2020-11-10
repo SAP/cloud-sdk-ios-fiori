@@ -1,10 +1,3 @@
-//
-//  ColorDisplayMode.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 8/17/20.
-//
-
 import Foundation
 
 public enum ColorDisplayMode: String, CaseIterable {

@@ -1,11 +1,3 @@
-//
-//  ListItem.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 import UIKit
 
@@ -16,30 +8,30 @@ struct ListItem: Decodable, RawBindable, Identifiable {
     let highlight: Highlight?
     
     var id: String {
-        return _uuid.uuidString
+        self._uuid.uuidString
     }
-    private let _uuid: UUID = UUID()
+
+    private let _uuid = UUID()
     
     init(data: [String: Any], binding: ListItemBinding) {
-        
         if let path = binding.icon?.src {
-            icon = Icon(src: path.replacingPlaceholders(withValuesIn: data))
+            self.icon = Icon(src: path.replacingPlaceholders(withValuesIn: data))
         } else {
-            icon = nil
+            self.icon = nil
         }
         
         if let path = binding.title {
-            title = path.replacingPlaceholders(withValuesIn: data)
+            self.title = path.replacingPlaceholders(withValuesIn: data)
         } else {
-            title = nil
+            self.title = nil
         }
         
         if let path = binding.description {
-            description = path.replacingPlaceholders(withValuesIn: data)
+            self.description = path.replacingPlaceholders(withValuesIn: data)
         } else {
-            description = nil
+            self.description = nil
         }
-        highlight = nil
+        self.highlight = nil
 //        if let path = binding.highlight {
 //            let value = path.replacingPlaceholders(withValuesIn: data)
 //            highlight = Highlight(rawValue: value) ?? Highlight.none

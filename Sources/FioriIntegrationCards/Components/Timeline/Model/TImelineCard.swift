@@ -1,6 +1,6 @@
 //
 //  TimelineCard.swift
-//  
+//
 //
 //  Created by Ma, Xiao on 1/23/20.
 //
@@ -10,7 +10,7 @@ open class TimelineCard: OneManyCard<TimelineItem> {}
 
 extension TimelineCard: Hashable {
     public static func == (lhs: TimelineCard, rhs: TimelineCard) -> Bool {
-        return lhs.header == rhs.header &&
+        lhs.header == rhs.header &&
             lhs.content == rhs.content
     }
     

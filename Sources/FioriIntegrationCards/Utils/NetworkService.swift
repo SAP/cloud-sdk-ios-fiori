@@ -1,10 +1,3 @@
-//
-//  NetworkService.swift
-//  AnyCodable
-//
-//  Created by Ma, Xiao on 2/17/20.
-//
-
 import Foundation
 import UIKit
 
@@ -13,7 +6,7 @@ enum NetworkRouter: String {
     
     static let baseURLString = "https://openui5.hana.ondemand.com/1.77.2/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/samples"
     
-    case image      = "image/"
+    case image = "image/"
     
     static func getIconURL(name: String) throws -> URLRequest {
         let url = try baseURLString.asURL()
@@ -29,13 +22,13 @@ enum NetworkRouter: String {
         }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod                       = requestObject.method
-        urlRequest.allowsConstrainedNetworkAccess   = requestObject.withCredentials
+        urlRequest.httpMethod = requestObject.method
+        urlRequest.allowsConstrainedNetworkAccess = requestObject.withCredentials
         
         if requestObject.method == "POST" {
             do {
                 urlRequest.httpBody = try JSONSerialization.data(withJSONObject: requestObject.parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
-            } catch let error {
+            } catch {
                 print(error.localizedDescription)
             }
         }
@@ -49,13 +42,12 @@ enum NetworkRouter: String {
 }
 
 public class NetworkService {
-    
-    public static let shared: NetworkService = NetworkService()
+    public static let shared = NetworkService()
     
     private init() {}
             
     private func makeRequest(_ urlRequest: URLRequest, _ callback: @escaping (Result<Data, NetworkError>) -> Void) {
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, _, error) in
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, _, error in
             if error != nil {
                 callback(.failure(.badAccess))
             }
@@ -70,10 +62,9 @@ public class NetworkService {
 }
 
 extension NetworkService {
-    
     func getIcon(iconName: String, _ callback: @escaping (_ succeed: Bool, _ icon: UIImage?, _ errMessage: String?) -> Void) {
         let urlRequest = try! NetworkRouter.getIconURL(name: iconName)
-        self.makeRequest(urlRequest) { (result) in
+        self.makeRequest(urlRequest) { result in
             switch result {
             case .failure(let error):
                 callback(false, nil, error.localizedDescription)

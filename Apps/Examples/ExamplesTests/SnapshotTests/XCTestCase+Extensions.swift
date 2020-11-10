@@ -1,18 +1,10 @@
-//
-//  XCTestCase+Extensions.swift
-//  ExamplesTests
-//
-//  Created by Eidinger, Marco on 7/15/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
 import Foundation
-import XCTest
 import SnapshotTesting
 import SwiftUI
+import XCTest
 
 extension XCTestCase {
-    internal struct SnapshotTest {
+    enum SnapshotTest {
         static var isRecordMode: Bool = false
         static var configs: [SnapshotTestViewConfig] = {
             let configs = PresetViewImageConfigs()
@@ -22,7 +14,7 @@ extension XCTestCase {
 }
 
 extension XCTestCase {
-    open override func setUpWithError() throws {
+    override open func setUpWithError() throws {
         let device = UIDevice.current.name
         if device != "iPhone SE (2nd generation)" {
             fatalError("Switch to using iPhone SE (2nd generation) for these tests.")
@@ -34,7 +26,7 @@ extension XCTestCase {
 }
 
 extension XCTestCase {
-    internal func assertSnapShotAsImage(
+    func assertSnapShotAsImage(
         matching vc: UIViewController,
         with style: UIUserInterfaceStyle = .light,
         on viewConfig: ViewImageConfig,
@@ -47,51 +39,52 @@ extension XCTestCase {
             assertSnapshotAtCustomDir(
                 matching: vc,
                 as: .image(on: viewConfig, traits: .init(userInterfaceStyle: style)),
-                named: recordingInfo(),
+                named: self.recordingInfo(),
                 record: isRecording,
                 file: file,
-                testName: referenceNamePrefix + "_dark")
+                testName: referenceNamePrefix + "_dark"
+            )
         default:
             assertSnapshotAtCustomDir(
                 matching: vc,
                 as: .image(on: viewConfig, traits: .init(userInterfaceStyle: style)),
-                named: recordingInfo(),
+                named: self.recordingInfo(),
                 record: isRecording,
                 file: file,
-                testName: referenceNamePrefix + "_light")
+                testName: referenceNamePrefix + "_light"
+            )
         }
     }
 
     func recordingInfo() -> String {
-            "recordedOn\(UIDevice.current.name)Running\(UIDevice.current.systemName)\(UIDevice.current.systemVersion)".replacingOccurrences(of: "\\W+", with: "", options: .regularExpression)
+        "recordedOn\(UIDevice.current.name)Running\(UIDevice.current.systemName)\(UIDevice.current.systemVersion)".replacingOccurrences(of: "\\W+", with: "", options: .regularExpression)
     }
 }
 
 extension XCTestCase {
-    internal func assertSnapshot<V: SwiftUI.View>(_ view: V, for size: CGSize? = nil, configs: [SnapshotTestViewConfig] = SnapshotTest.configs, recordAs referenceNamePrefix: String = #function, file name: StaticString = #file) {
+    func assertSnapshot<V: SwiftUI.View>(_ view: V, for size: CGSize? = nil, configs: [SnapshotTestViewConfig] = SnapshotTest.configs, recordAs referenceNamePrefix: String = #function, file name: StaticString = #file) {
         let vc = view.toVC(size: size)
         for c in configs {
-            assertSnapShotAsImage(matching: vc, with: .dark, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in:name)
-            assertSnapShotAsImage(matching: vc, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
+            self.assertSnapShotAsImage(matching: vc, with: .dark, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
+            self.assertSnapShotAsImage(matching: vc, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
         }
     }
 
-    internal func assertSnapshot<V: SwiftUI.View>(_ view: V, for size: CGSize? = nil, configs: [SnapshotTestViewConfig] = SnapshotTest.configs, style: UIUserInterfaceStyle? = nil, recordAs referenceNamePrefix: String = #function, file name: StaticString = #file) {
+    func assertSnapshot<V: SwiftUI.View>(_ view: V, for size: CGSize? = nil, configs: [SnapshotTestViewConfig] = SnapshotTest.configs, style: UIUserInterfaceStyle? = nil, recordAs referenceNamePrefix: String = #function, file name: StaticString = #file) {
         let vc = view.toVC(size: size)
         for c in configs {
             switch style {
             case .some:
-                assertSnapShotAsImage(matching: vc, with: style!, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in:name)
+                self.assertSnapShotAsImage(matching: vc, with: style!, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
             case .none:
-                assertSnapShotAsImage(matching: vc, with: .dark, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in:name)
-                assertSnapShotAsImage(matching: vc, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
+                self.assertSnapShotAsImage(matching: vc, with: .dark, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
+                self.assertSnapShotAsImage(matching: vc, on: c.config, isRecording: SnapshotTest.isRecordMode, recordAs: referenceNamePrefix + c.identifier, in: name)
             }
-
         }
     }
 }
 
-fileprivate func assertSnapshotAtCustomDir<Value, Format>(
+private func assertSnapshotAtCustomDir<Value, Format>(
     matching value: @autoclosure () throws -> Value,
     as snapshotting: Snapshotting<Value, Format>,
     named name: String? = nil,

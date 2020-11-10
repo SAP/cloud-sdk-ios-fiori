@@ -1,27 +1,19 @@
-//
-//  DataRequestTestCases.swift
-//  Examples
-//
-//  Created by Eidinger, Marco on 8/17/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import Foundation
 import FioriIntegrationCards
+import Foundation
 
 enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case ListDataRequestStaticData = "list (load data with request)"
 
     var id: String {
-        return rawValue
+        rawValue
     }
 
     func name() -> String {
-        return rawValue
+        rawValue
     }
 
     func path() -> URL? {
-        return nil
+        nil
     }
 
     func manifest() -> Manifest? {
@@ -33,4 +25,3 @@ enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
         return nil
     }
 }
-
