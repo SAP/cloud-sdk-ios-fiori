@@ -1,15 +1,6 @@
-//
-//  ListCardView.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/18/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import SwiftUI
 
 struct ListItemView: View {
-
     let icon: Icon?
     let title: String?
     let description: String?

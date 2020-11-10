@@ -1,18 +1,9 @@
-//
-//  ListCardView.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
-import SwiftUI
-import Combine
 import AnyCodable
+import Combine
 import ObservableArray
+import SwiftUI
 
 public struct ListCardView: View {
-    
     @ObservedObject var model: ListCard
       
     public init(model: ListCard) {
@@ -50,5 +41,5 @@ public struct ListCardView: View {
         ).padding(16)
     }
     
-    private var sinks: Set<AnyCancellable> = Set<AnyCancellable>()
+    private var sinks = Set<AnyCancellable>()
 }

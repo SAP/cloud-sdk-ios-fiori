@@ -1,11 +1,3 @@
-//
-//  App.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/22/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 
 public struct App: Codable, Identifiable, Hashable {
@@ -25,11 +17,10 @@ public struct App: Codable, Identifiable, Hashable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(String.self, forKey: .id)
-        type = try container.decode(String.self, forKey: .type)
-        title = try container.decodeIfPresent(String.self, forKey: .title)
-        subTitle = try container.decodeIfPresent(String.self, forKey: .subTitle)
-        dataSources = try container.decodeIfPresent([String: DataSource].self, forKey: .dataSources) ?? [:]
-        
+        self.id = try container.decode(String.self, forKey: .id)
+        self.type = try container.decode(String.self, forKey: .type)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.subTitle = try container.decodeIfPresent(String.self, forKey: .subTitle)
+        self.dataSources = try container.decodeIfPresent([String: DataSource].self, forKey: .dataSources) ?? [:]
     }
 }

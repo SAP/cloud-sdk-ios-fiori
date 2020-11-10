@@ -1,12 +1,5 @@
-//
-//  AnalyticalContent.swift
-//  FioriIntegrationCards
-//
-//  Created by Stan Stadelman on 4/3/20.
-//
-
-import Foundation
 import FioriCharts
+import Foundation
 
 public struct AnalyticalContent: Decodable {
     public let chartType: String
@@ -23,18 +16,17 @@ public struct AnalyticalContent: Decodable {
         self.title = title
         self.measureAxis = measureAxis
         self.dimensionAxis = dimensionAxis
-
     }
 }
 
 extension AnalyticalContent: Placeholding {
     public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalContent {
-        let _chartType       = chartType.replacingPlaceholders(withValuesIn: object)
-        let _measureAxis     = measureAxis?.replacingPlaceholders(withValuesIn: object)
-        let _dimensionAxis   = dimensionAxis?.replacingPlaceholders(withValuesIn: object)
-        let _legend          = legend?.replacingPlaceholders(withValuesIn: object)
-        let _title           = title?.replacingPlaceholders(withValuesIn: object)
-        let _plotArea        = plotArea?.replacingPlaceholders(withValuesIn: object)
+        let _chartType = self.chartType.replacingPlaceholders(withValuesIn: object)
+        let _measureAxis = self.measureAxis?.replacingPlaceholders(withValuesIn: object)
+        let _dimensionAxis = self.dimensionAxis?.replacingPlaceholders(withValuesIn: object)
+        let _legend = self.legend?.replacingPlaceholders(withValuesIn: object)
+        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
+        let _plotArea = self.plotArea?.replacingPlaceholders(withValuesIn: object)
         
         return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis)
     }

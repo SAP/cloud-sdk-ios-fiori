@@ -1,10 +1,3 @@
-//
-//  PaletteProvider.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 6/14/20.
-//
-
 import Foundation
 
 /// Protocol defining available color palette provider.
@@ -21,7 +14,6 @@ public protocol PaletteProvider {
 }
 
 extension PaletteProvider {
-    
     /// Utility method which should be invoked by the `PaletteProvider`, when encountering a `ColorStyle` for which no known definition exists in the current palette.
     /// This is most likely to occur when basing the palette on a version `< .latest`, which might be missing definitions added in later palettes. Also, this might occur if
     /// the `FUIColorStyle` has been deprecated or removed from the API.

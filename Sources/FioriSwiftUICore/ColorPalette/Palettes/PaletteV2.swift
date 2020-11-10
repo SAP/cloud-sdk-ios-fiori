@@ -1,18 +1,11 @@
-//
-//  PaletteV2.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 6/16/20.
-//
-
 import Foundation
 
 struct PaletteV2: PaletteProvider {
     /// :nodoc:
-    public let uuid: UUID = UUID()
+    public let uuid = UUID()
 
     /// :nodoc:
-    public static let `default`: Palette = Palette(PaletteV2())
+    public static let `default` = Palette(PaletteV2())
 
     let version: PaletteVersion = .v3_x
 

@@ -1,24 +1,17 @@
-//
-//  PaletteV5.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 8/10/20.
-//
-
 import Foundation
 
 struct PaletteV5: PaletteProvider {
     /// :nodoc:
-    public let uuid: UUID = UUID()
+    public let uuid = UUID()
     
     /// :nodoc:
-    public static let `default`: Palette = Palette(PaletteV5())
+    public static let `default` = Palette(PaletteV5())
     
     let version: PaletteVersion = .v5
     
     private init() {}
     
-    //swiftlint:disable function_body_length
+    // swiftlint:disable function_body_length
     func hexColor(for colorStyle: ColorStyle) -> HexColor {
         switch colorStyle {
         case .shell:

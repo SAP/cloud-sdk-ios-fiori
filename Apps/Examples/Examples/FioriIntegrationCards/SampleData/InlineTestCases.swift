@@ -1,13 +1,5 @@
-//
-//  InlineTestCases.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 6/30/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import Foundation
 import FioriIntegrationCards
+import Foundation
 
 protocol CardTestCase {
     var id: String { get }
@@ -16,18 +8,18 @@ protocol CardTestCase {
 }
 
 enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
-    case analytical = "analytical"
-    case list       = "list"
-    case timeLine   = "timeline"
-    case object     = "object"
-    case table      = "table"
+    case analytical
+    case list
+    case timeLine = "timeline"
+    case object
+    case table
     
     var id: String {
-        return rawValue
+        rawValue
     }
 
     func name() -> String {
-        return rawValue
+        rawValue
     }
     
     func path() -> URL? {

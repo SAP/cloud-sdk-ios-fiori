@@ -1,30 +1,21 @@
-//
-//  BundleTestCases.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 6/17/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import Foundation
 import FioriIntegrationCards
+import Foundation
 import Zip
 
 enum BundleTestCases: String, CaseIterable, Identifiable {
-    case HTTPTimelineVarients       = "HTTPTimelineVariants.card"
-    case HTTPObjectVarients         = "HTTPObjectVariants.card"
-    case BundleTimelineVarients     = "TimelineVariants.card"
-    case BundleObjectVarients       = "ObjectVariants.card"
-    case BundleTableVarients        = "TableVariants.card"
-    case BundleAnalyticalVarients   = "AnalyticalVariants.card"
-    case BundleListVarients         = "ListVariants.card"
+    case HTTPTimelineVarients = "HTTPTimelineVariants.card"
+    case HTTPObjectVarients = "HTTPObjectVariants.card"
+    case BundleTimelineVarients = "TimelineVariants.card"
+    case BundleObjectVarients = "ObjectVariants.card"
+    case BundleTableVarients = "TableVariants.card"
+    case BundleAnalyticalVarients = "AnalyticalVariants.card"
+    case BundleListVarients = "ListVariants.card"
     
     var id: String {
-        return rawValue
+        rawValue
     }
     
     func path() -> URL? {
-        
         let destinationDir = FileManager.default.temporaryDirectory.appendingPathComponent(rawValue, isDirectory: true)
         if FileManager.default.fileExists(atPath: destinationDir.path) {
             return destinationDir
@@ -45,7 +36,7 @@ enum BundleTestCases: String, CaseIterable, Identifiable {
             return nil
         }
         do {
-            let model = try Manifest.init(withCardBundleAt: url)
+            let model = try Manifest(withCardBundleAt: url)
             return model
         } catch {
             print(error.localizedDescription)

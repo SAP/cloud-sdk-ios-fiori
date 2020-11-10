@@ -1,24 +1,16 @@
-//
-//  ContentView.swift
-//  DevTest
-//
-//  Created by Stadelman, Stan on 1/22/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
-import ObservableArray
 import FioriIntegrationCards
+import ObservableArray
+import SwiftUI
 
 extension String: Identifiable {
     public var id: String {
-        return self
+        self
     }
 }
 
 extension Card: View {
     public var body: some View {
-        return makeView()
+        makeView()
             .frame(maxWidth: 425, alignment: .topLeading)
     }
     
@@ -39,7 +31,6 @@ extension Card: View {
 }
 
 struct IntegrationCardsContentView: View {
-
     let cards: [String]
 
     private var testCases: [CardTestCase] = []
@@ -52,7 +43,6 @@ struct IntegrationCardsContentView: View {
     
     var body: some View {
         TabView {
-
             List(testCases, id: \.id) { bundle in
                 NavigationLink(destination: LoadingView(card: bundle)) {
                     Text(bundle.name())
@@ -61,20 +51,19 @@ struct IntegrationCardsContentView: View {
             .tabItem { Text("Test Cases") }
 
             #if swift(>=5.3)
-            if #available(iOS 14.0, *) {
-                ScrollView {
-                    // wrap LazyVGrid in 2AnyView to avoid crash when using Xcode 12 to run on iOS 13.x, see https://developer.apple.com/forums/thread/650818
-                    AnyView(
-                    LazyVGrid(columns: [ GridItem(spacing: 0), GridItem(spacing: 0)], spacing: 0) {
-                        ForEach(InlineTestCases.allCases) { bundle in
-                            LoadingView(card: bundle)
-                        }
-                    }
-                    .tabItem({ Text("Collection View") }))
-                }.tabItem { Text("Collection View") }
-            }
+                if #available(iOS 14.0, *) {
+                    ScrollView {
+                        // wrap LazyVGrid in 2AnyView to avoid crash when using Xcode 12 to run on iOS 13.x, see https://developer.apple.com/forums/thread/650818
+                        AnyView(
+                            LazyVGrid(columns: [GridItem(spacing: 0), GridItem(spacing: 0)], spacing: 0) {
+                                ForEach(InlineTestCases.allCases) { bundle in
+                                    LoadingView(card: bundle)
+                                }
+                            }
+                            .tabItem { Text("Collection View") })
+                    }.tabItem { Text("Collection View") }
+                }
             #endif
-
         }
         .navigationBarTitle("FioriIntegrationCards")
     }
@@ -88,13 +77,12 @@ struct LoadingView: View {
     @State var model: Manifest?
     
     var body: some View {
-        VStack{
+        VStack {
             if isLoading {
                 Text(loadingMessage)
                     .font(.headline)
                     .foregroundColor(.primary)
-            }
-            else {
+            } else {
                 model?.card.body
             }
         }.onAppear {
@@ -103,8 +91,7 @@ struct LoadingView: View {
                 
                 if self.model != nil {
                     self.isLoading = false
-                }
-                else {
+                } else {
                     self.loadingMessage = "Failed to load \(self.card)"
                 }
             }
@@ -125,6 +112,6 @@ func getManifest(for card: String) -> Manifest? {
 
 struct IntegrationCardsContentView_Previews: PreviewProvider {
     static var previews: some View {
-        IntegrationCardsContentView(cards: ["LowCode", "timeline", "table", "list" , "object", "analytical"])
+        IntegrationCardsContentView(cards: ["LowCode", "timeline", "table", "list", "object", "analytical"])
     }
 }

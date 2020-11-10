@@ -1,10 +1,3 @@
-//
-//  SegmentAttribute.swift
-//  FioriSwiftUICore
-//
-//  Created by Ma, Xiao on 4/28/20.
-//
-
 import Foundation
 import SwiftUI
 
@@ -24,9 +17,10 @@ public struct SegmentAttributes {
     ///   - borderColor: Border color for segments
     public init(textColor: Color? = nil,
                 font: Font? = nil,
-                borderColor: Color? = nil) {
-        self.textColor      = textColor
-        self.font           = font
-        self.borderColor    = borderColor
+                borderColor: Color? = nil)
+    {
+        self.textColor = textColor
+        self.font = font
+        self.borderColor = borderColor
     }
 }

@@ -1,10 +1,3 @@
-//
-//  HexColor.swift
-//  FioriSwiftUICore
-//
-//  Created by Xu, Sheng on 6/14/20.
-//
-
 import Foundation
 import SwiftUI
 import UIKit
@@ -26,35 +19,35 @@ public struct HexColor: Hashable {
         self.colors = [.light: "000000FF", .dark: "FFFFFFFF", .elevatedLight: "000000FF", .elevatedDark: "FFFFFFFF", .contrastLight: "000000FF", .contrastDark: "FFFFFFFF"]
         
         if let color = lightColor {
-            colors[.light] = color
-            colors[.dark] = color
-            colors[.elevatedLight] = color
-            colors[.elevatedDark] = color
-            colors[.contrastLight] = color
-            colors[.contrastDark] = color
+            self.colors[.light] = color
+            self.colors[.dark] = color
+            self.colors[.elevatedLight] = color
+            self.colors[.elevatedDark] = color
+            self.colors[.contrastLight] = color
+            self.colors[.contrastDark] = color
         }
         
         if let color = darkColor {
-            colors.updateValue(color, forKey: .dark)
-            colors.updateValue(color, forKey: .elevatedDark)
-            colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .dark)
+            self.colors.updateValue(color, forKey: .elevatedDark)
+            self.colors.updateValue(color, forKey: .contrastDark)
         }
         
         if let color = elevatedLightColor {
-            colors.updateValue(color, forKey: .elevatedLight)
+            self.colors.updateValue(color, forKey: .elevatedLight)
         }
         
         if let color = elevatedDarkColor {
-            colors.updateValue(color, forKey: .elevatedDark)
+            self.colors.updateValue(color, forKey: .elevatedDark)
         }
         
         if let color = contrastLightColor {
-            colors.updateValue(color, forKey: .contrastLight)
-            colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .contrastLight)
+            self.colors.updateValue(color, forKey: .contrastDark)
         }
         
         if let color = contrastDarkColor {
-            colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .contrastDark)
         }
     }
     
@@ -70,9 +63,9 @@ public struct HexColor: Hashable {
         let a, r, g, b: UInt64
         switch hex.count {
         case 6: // RGB (24-bit)
-            (r, g, b, a) = (int >> 16, int >> 8 & 0xFF, int & 0xFF, 255)
+            (r, g, b, a) = (int >> 16, int >> 8 & 0xff, int & 0xff, 255)
         case 8: // RGBA (32-bit)
-            (r, g, b, a) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (r, g, b, a) = (int >> 24, int >> 16 & 0xff, int >> 8 & 0xff, int & 0xff)
         default:
             (r, g, b, a) = (0, 0, 0, 255)
         }
@@ -81,7 +74,8 @@ public struct HexColor: Hashable {
             r: Double(r) / 255,
             g: Double(g) / 255,
             b: Double(b) / 255,
-            a: Double(a) / 255)
+            a: Double(a) / 255
+        )
     }
     
     /// Returns the string value that matches with the specified color variant from `HexColor`.
@@ -90,7 +84,7 @@ public struct HexColor: Hashable {
     ///     - variant: specifies the color variant.
     /// - Returns: the string value for corresponding `HexColor` with specific color variant.
     public func hex(_ variant: ColorVariant) -> String {
-        return colors[variant] ?? "FFFFFFFF"
+        self.colors[variant] ?? "FFFFFFFF"
     }
     
     /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
@@ -143,7 +137,7 @@ public struct HexColor: Hashable {
 extension HexColor: Equatable {
     /// :nodoc:
     public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
-        return lhs.hex(.light) == rhs.hex(.light) &&
+        lhs.hex(.light) == rhs.hex(.light) &&
             lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.elevatedLight) == rhs.hex(.elevatedLight) && lhs.hex(.elevatedDark) == rhs.hex(.elevatedDark) && lhs.hex(.contrastLight) == rhs.hex(.contrastLight) && lhs.hex(.contrastDark) == rhs.hex(.contrastDark)
     }
 }
@@ -151,13 +145,13 @@ extension HexColor: Equatable {
 extension HexColor: CustomStringConvertible {
     /// :nodoc:
     public var description: String {
-        return """
-                 {"HexColor": {"base light": "\(hex(.light))", "base dark": "\(hex(.dark))",
-                               "elevated light": "\(hex(.elevatedLight))",
-                               "elevated dark": "\(hex(.elevatedDark))",
-                               "contrast light": "\(hex(.contrastLight))",
-                               "contrast dark": "\(hex(.contrastDark))",
-                  }}
-               """
+        """
+          {"HexColor": {"base light": "\(self.hex(.light))", "base dark": "\(self.hex(.dark))",
+                        "elevated light": "\(self.hex(.elevatedLight))",
+                        "elevated dark": "\(self.hex(.elevatedDark))",
+                        "contrast light": "\(self.hex(.contrastLight))",
+                        "contrast dark": "\(self.hex(.contrastDark))",
+           }}
+        """
     }
 }

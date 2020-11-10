@@ -1,10 +1,3 @@
-//
-//  AnalyticalDataLabel.swift
-//  FioriIntegrationCards
-//
-//  Created by Ma, Xiao on 3/11/20.
-//
-
 import Foundation
 
 public struct AnalyticalDataLabel: Decodable {

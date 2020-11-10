@@ -1,15 +1,6 @@
-//
-//  TimelineItemView.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 2/4/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct TimelineItemView: View {
-    
     var model: TimelineItem
     
     let isLast: Bool
@@ -21,7 +12,7 @@ struct TimelineItemView: View {
     init(model: TimelineItem, isLast: Bool) {
         self.model = model
         self.isLast = isLast
-        self.model.icon?.size = iconWidth
+        self.model.icon?.size = self.iconWidth
     }
     
     var body: some View {
@@ -62,8 +53,8 @@ struct TimelineItemView: View {
 struct VerticalLine: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
-        let startPoint: CGPoint = CGPoint(x: (rect.minX + rect.maxX)/2, y: rect.minY)
-        let endPoint: CGPoint   = CGPoint(x: (rect.minX + rect.maxX)/2, y: rect.maxY)
+        let startPoint = CGPoint(x: (rect.minX + rect.maxX) / 2, y: rect.minY)
+        let endPoint = CGPoint(x: (rect.minX + rect.maxX) / 2, y: rect.maxY)
         path.move(to: startPoint)
         path.addLine(to: endPoint)
         return path
@@ -71,7 +62,6 @@ struct VerticalLine: Shape {
 }
 
 struct Bubble: View {
-    
     let borderColor: Color
     
     var body: some View {
@@ -81,7 +71,6 @@ struct Bubble: View {
 }
 
 struct BubbleShape: Shape {
-    
     let cornerRadius: CGFloat
     let triangleSide: CGFloat
     
@@ -93,20 +82,20 @@ struct BubbleShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        let leftTop: CGPoint        = CGPoint(x: rect.minX + self.cornerRadius, y: rect.minY + self.cornerRadius)
-        let rightTop: CGPoint       = CGPoint(x: rect.maxX - self.cornerRadius, y: rect.minY + self.cornerRadius)
-        let rightBottom: CGPoint    = CGPoint(x: rect.maxX - self.cornerRadius, y: rect.maxY - self.cornerRadius)
-        let leftBottom: CGPoint     = CGPoint(x: rect.minX + self.cornerRadius, y: rect.maxY - self.cornerRadius)
+        let leftTop = CGPoint(x: rect.minX + self.cornerRadius, y: rect.minY + self.cornerRadius)
+        let rightTop = CGPoint(x: rect.maxX - self.cornerRadius, y: rect.minY + self.cornerRadius)
+        let rightBottom = CGPoint(x: rect.maxX - self.cornerRadius, y: rect.maxY - self.cornerRadius)
+        let leftBottom = CGPoint(x: rect.minX + self.cornerRadius, y: rect.maxY - self.cornerRadius)
         
-        let triangleTop: CGPoint    = CGPoint(x: rect.minX, y: rect.minY + self.cornerRadius + self.triangleSide)
-        let triangleBottom: CGPoint = CGPoint(x: rect.minX, y: rect.minY + self.cornerRadius + self.triangleSide * 3)
-        let triangleLeft: CGPoint   = CGPoint(x: rect.minX - self.triangleSide, y: rect.minY + self.cornerRadius + self.triangleSide * 2)
+        let triangleTop = CGPoint(x: rect.minX, y: rect.minY + self.cornerRadius + self.triangleSide)
+        let triangleBottom = CGPoint(x: rect.minX, y: rect.minY + self.cornerRadius + self.triangleSide * 3)
+        let triangleLeft = CGPoint(x: rect.minX - self.triangleSide, y: rect.minY + self.cornerRadius + self.triangleSide * 2)
         
         // draw rounded rectangle, closewise
-        path.addArc(center: leftTop, radius: self.cornerRadius, startAngle: .radians(.pi), endAngle: .radians(-.pi/2), clockwise: false)
-        path.addArc(center: rightTop, radius: self.cornerRadius, startAngle: .radians(-.pi/2), endAngle: .radians(0), clockwise: false)
-        path.addArc(center: rightBottom, radius: self.cornerRadius, startAngle: .radians(0), endAngle: .radians(.pi/2), clockwise: false)
-        path.addArc(center: leftBottom, radius: self.cornerRadius, startAngle: .radians(.pi/2), endAngle: .radians(.pi), clockwise: false)
+        path.addArc(center: leftTop, radius: self.cornerRadius, startAngle: .radians(.pi), endAngle: .radians(-.pi / 2), clockwise: false)
+        path.addArc(center: rightTop, radius: self.cornerRadius, startAngle: .radians(-.pi / 2), endAngle: .radians(0), clockwise: false)
+        path.addArc(center: rightBottom, radius: self.cornerRadius, startAngle: .radians(0), endAngle: .radians(.pi / 2), clockwise: false)
+        path.addArc(center: leftBottom, radius: self.cornerRadius, startAngle: .radians(.pi / 2), endAngle: .radians(.pi), clockwise: false)
         
         // draw triangle
         path.addLine(to: triangleBottom)

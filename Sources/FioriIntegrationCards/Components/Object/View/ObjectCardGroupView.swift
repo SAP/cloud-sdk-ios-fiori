@@ -1,15 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stadelman, Stan on 1/22/20.
-//
-
-import SwiftUI
 import Combine
+import SwiftUI
 
 public struct ObjectCardGroupView: View {
-    
     var model: ObjectGroup
     
     public var body: some View {

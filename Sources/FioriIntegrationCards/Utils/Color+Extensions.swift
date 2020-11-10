@@ -1,17 +1,9 @@
-//
-//  Color+Extensions.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 2/3/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 enum StatusState: String {
-    case waring     = "Warning"
-    case error      = "Error"
-    case success    = "Success"
+    case waring = "Warning"
+    case error = "Error"
+    case success = "Success"
 }
 
 extension Color {
@@ -33,18 +25,18 @@ extension Color {
     }
     
     static let darkGray = {
-        return Color(UIColor.darkGray)
+        Color(UIColor.darkGray)
     }()
     
     static let lightGray = {
-        return Color(UIColor.lightGray)
+        Color(UIColor.lightGray)
     }()
     
     static func getTrendColor(trend: String?) -> Color {
         guard let _trend = trend else {
             return .black
         }
-        return _trend == "Down" ? Color(red: 187/255, green: 0, blue: 0) : .green
+        return _trend == "Down" ? Color(red: 187 / 255, green: 0, blue: 0) : .green
     }
     
     static func getLinkColor(type: String?) -> Color {

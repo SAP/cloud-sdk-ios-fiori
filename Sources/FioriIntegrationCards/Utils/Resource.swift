@@ -1,15 +1,7 @@
-//
-//  Resource.swift
-//  SwiftTalk2
-//
-//  Created by Chris Eidhof on 27.06.19.
-//  Copyright © 2019 Chris Eidhof. All rights reserved.
-//
-
-import Foundation
-import TinyNetworking
 import Combine
+import Foundation
 import SwiftUI
+import TinyNetworking
 
 final class Resource<A>: ObservableObject {
     @Published var value: A? = nil
@@ -29,7 +21,7 @@ final class Resource<A>: ObservableObject {
     }
     
     func reload() {
-        URLSession.shared.load(endpoint) { result in
+        URLSession.shared.load(self.endpoint) { result in
             DispatchQueue.main.async {
                 self.value = try? result.get()
             }

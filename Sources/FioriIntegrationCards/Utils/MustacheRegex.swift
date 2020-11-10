@@ -1,16 +1,8 @@
-//
-//  MustacheRegex.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/19/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 
 extension Array where Element == NSRange {
     func maxRange() -> Int {
-        return self.reduce(0) { (prev, next) in
+        self.reduce(0) { prev, next in
             let maxNext = NSMaxRange(next)
             return Swift.max(prev, maxNext)
         }
@@ -18,7 +10,6 @@ extension Array where Element == NSRange {
 }
 
 extension String {
-    
     private static let mustacheRegex = try! NSRegularExpression(pattern: #"\{\{?(?<mustache>(#[a-zA-Z0-9\/])?[a-zA-Z0-9\/]+.[a-zA-Z0-9\/])*\}?\}"#, options: [])
     private static let mustacheKeyname = "mustache"
     
@@ -28,13 +19,13 @@ extension String {
         var counterIndex: Int = 0
         while !shouldStop {
             guard counterIndex < self.count else { shouldStop = true; break }
-            if let match = String.mustacheRegex.firstMatch(in: self, options: [], range: NSRange(counterIndex..<self.count)) {
+            if let match = String.mustacheRegex.firstMatch(in: self, options: [], range: NSRange(counterIndex ..< self.count)) {
                 let range = match.range(withName: String.mustacheKeyname)
                 if range.location != NSNotFound {
                     placeholders.append((keyname: NSString(string: self).substring(with: range), replacementRange: match.range))
                 }
             } else { shouldStop = true; break }
-            counterIndex = placeholders.map({ $0.replacementRange }).maxRange() + 1
+            counterIndex = placeholders.map { $0.replacementRange }.maxRange() + 1
         }
         return placeholders
     }
@@ -67,7 +58,7 @@ extension String {
             // feed keypath to utility, to read from [String: Any] structure, to get substitute valuex
             
             if let value = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
-                return Double(String(describing: value))// mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(describing: value))
+                return Double(String(describing: value)) // mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(describing: value))
             }
         }
         return nil // Double(mutableString)!
@@ -91,7 +82,7 @@ extension String {
     }
 }
 
-///TODO: Open Source
+// TODO: Open Source
 // from here: https://github.com/onmyway133/Omnia, used under MIT license
 public typealias JSONDictionary = [String: Any]
 public typealias JSONArray = [JSONDictionary]
@@ -129,7 +120,7 @@ enum `Any` {
         var current: Any? = object
         
         keyPath?.split(separator: separator).forEach { component in
-            if let maybeInt = Int(component), let array = current as? Array<Any> {
+            if let maybeInt = Int(component), let array = current as? [Any] {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
                 current = dictionary[String(component)]
