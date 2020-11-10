@@ -11,6 +11,10 @@ on:
         description: 'Xcode Version'
         required: true
         default: '12.1' # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md#xcode
+      snapshotRef:
+        description: 'Snapshot Ref (branch name or tag)'
+        required: true
+        default: 'main'
 
 jobs:
 
@@ -27,6 +31,7 @@ jobs:
       with:
         repository: SAP/cloud-sdk-ios-fiori-snapshot-references
         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
+        ref: ${{ github.event.inputs.snapshotRef }}
     - name: Delete old snapshot references (when recording)
       if: github.event.inputs.actionName == 'recordSnapshotTestImages'
       run:  |
