@@ -1,6 +1,53 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) for commit guidelines.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.9.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/0.5.6...0.9.0) (2020-11-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* ✏️ change micro charts from public to internal
+
+### Features
+
+* 🎸 a chart is determined by the max of data or axis label ([2296c1a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2296c1ac20d13a39a4205d7c9cd24c2bc96b292d))
+* 🎸 add multiple selection for donut chart ([b8c7359](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b8c73597fe095bd63b555cbe94b00a952f3a311d))
+* 🎸 add nav/popup mode for test app ([#159](https://github.com/SAP/cloud-sdk-ios-fiori/issues/159)) ([cf0b96c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cf0b96c1a3d7172471984b31845782e641af3e3f))
+* 🎸 add new mode fixedBottom for x axis labels ([4748180](https://github.com/SAP/cloud-sdk-ios-fiori/commit/4748180b55be68624be1647328281d1d9c057e38))
+* 🎸 add validation for numeric properties in chart models ([0cebe97](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0cebe974a8a71be7ab5506ace150b3ee43955799))
+* 🎸 add xAxisLabelsPosition to init() ([76a3611](https://github.com/SAP/cloud-sdk-ios-fiori/commit/76a36118ef3a09331ca6a12d6c22175b56fa1bdd))
+* 🎸 allow ChartView to pass a NoDataView to customize it ([13a1ae3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/13a1ae3c1bdf7bcb630764ad1637d474b78bfbca))
+* 🎸 allow more number of ChartSeriesAttributes than number ([e4176cc](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e4176cc4cf00b9070b78c0d5ac2e15414be288d3))
+* 🎸 improve color palette ([d6a8837](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d6a883731f12fcd02ea936a0c3456e4218576328))
+* 🎸 refactor line and point shapes ([42d7e7c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/42d7e7c27fd03566690a70ed1fd9c575f8d70af3))
+* 🎸 small improvements to test app ([df83ff0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/df83ff06855e91fc20e3bf91f243993d42bc876e))
+* 🎸 support .single and .all selection mode for donut chart ([2e2e0d4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2e2e0d43c7cd974a2659904ec856d552c4df1180))
+* 🎸 support both y axes for column insdex of combo chart ([18d3ac7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/18d3ac7eaa465f78511a5c3c41e46dc608c2778c))
+* 🎸 support more variants of data format in chart model ([a99bd80](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a99bd80b4eac0cb60c7d783615fcc61821e2c571))
+* 🎸 support to display multiple selctions for line charts ([9095261](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9095261d6350a2474f76aa716152356a3536025e))
+
+
+### Bug Fixes
+
+* 🐛 adjust spacing between axis's labels and baseline ([c0025f4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c0025f465649e8ae79de6f5b66530c428684e006))
+* 🐛 color issue caused by order of series on analytical card ([a10b808](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a10b808702f0ea2db18a63a89e654a9d2003616f))
+* 🐛 color palette issues for integration ([994b619](https://github.com/SAP/cloud-sdk-ios-fiori/commit/994b619fbffb139d925786c2136338842131ec6f))
+* 🐛 compiler error for selectionMode of ChartModel on Xcode 11 ([71ea4c8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/71ea4c8f9ef5116858764d4c29fdaaaf9ae242cb))
+* 🐛 fix ui update issue and refactor code ([711526f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/711526f792e9a9f0b8d9f3f1f3652d2a90347276))
+* 🐛 fix x axis ui update issue ([1ec70b0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1ec70b0ce90ed389d963f34de402a46923920db3))
+* 🐛 fix xcode 11 compile bug ([793457b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/793457b6d46ebd19c0e2bf4f1b80dbe0c243e0d1))
+* 🐛 fix xcode 11 compile issue ([dd36c50](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd36c50f8e55b41ce89a28139b9920d73e2eda67))
+* 🐛 fix xcode 11 compile issue ([b0ea42d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b0ea42d565322ea764c70a3a9fb04b0939cbf962))
+* 🐛 improve hex color initialization ([30fbd90](https://github.com/SAP/cloud-sdk-ios-fiori/commit/30fbd90fce5bdfe43f8cd21d6b1da8c8c3602f28))
+* 🐛 improve test app ([c189fc5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c189fc55991fce202001afa1020e3305d699f87f))
+* 🐛 prevent chart frame size to be negative ([#155](https://github.com/SAP/cloud-sdk-ios-fiori/issues/155)) ([598052b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/598052bb31d87815f0f98a496a95c96c4fda0ef6))
+* 🐛 selection mode .all in bubble & scatter chart ([125bdb9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/125bdb90b00d438677c1853d9e291d7f1ab3d78f))
+* 🐛 show chart plot on top of axes and grid lines ([7f90c02](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7f90c02353f2eed68b0eecfb9edfcf0ecd13e21c))
+* 🐛 xcode 11 compile issue ([d70690a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d70690aa44abc743fc98963119b56e029240c146))
+
+
+* ✏️ change micro charts from public to internal ([e129a97](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e129a97e051ea6de4d4f0f8dd5742f07d845a5d4))
 
 ## 0.5.6 (2020-08-27)
 
