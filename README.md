@@ -23,9 +23,7 @@
 
 ***
 
-This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).  
-
-> This project is in development, and should not yet be used productively.
+This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
@@ -109,7 +107,6 @@ Key gaps which are present at time of open-source project launch:
  - **FioriIntegrationCards** networking must be refactored to eliminate dependency on **TinyNetworking**, and support injection of `SAPURLSession` http client
  - **FioriIntegrationCards** currently handles only data which is in-line json; must be augmented to support resolving relative data files, and remote URIs
  - **FioriIntegrationCards** and **FioriCharts** requires design specifications to improve UI
- - **FioriCharts** must support point and range selection, equivalent to the current implementation in **SAPFiori**.
  - **FioriIntegrationCards** and **FioriCharts** must support theming with **NUI** nss stylesheets, as currently supported by **SAPFiori**. 
 
 ## Known Issues
