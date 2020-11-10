@@ -9,112 +9,112 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 92,
+      "line": 95,
       "symbol": "BackedDouble",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 93,
+      "line": 96,
       "symbol": "BackedDouble.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 115,
+      "line": 118,
       "symbol": "BackedDouble",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 116,
+      "line": 119,
       "symbol": "BackedDouble.replacingPlaceholders(withValuesIn:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 127,
+      "line": 130,
       "symbol": "DataCategory",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 129,
+      "line": 132,
       "symbol": "DataCategory.names",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 130,
+      "line": 133,
       "symbol": "DataCategory.points",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 133,
+      "line": 136,
       "symbol": "DataCategory",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 134,
+      "line": 137,
       "symbol": "DataCategory.replacingPlaceholders(withValuesIn:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 141,
+      "line": 144,
       "symbol": "DataPoint",
       "symbol_kind": "source.lang.swift.decl.struct",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 143,
+      "line": 146,
       "symbol": "DataPoint.series",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 144,
+      "line": 147,
       "symbol": "DataPoint.value",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 145,
+      "line": 148,
       "symbol": "DataPoint.secondaryValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 146,
+      "line": 149,
       "symbol": "DataPoint.tertiaryValue",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 149,
+      "line": 152,
       "symbol": "DataPoint",
       "symbol_kind": "source.lang.swift.decl.extension",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
-      "line": 150,
+      "line": 153,
       "symbol": "DataPoint.replacingPlaceholders(withValuesIn:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

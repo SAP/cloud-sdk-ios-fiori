@@ -17,7 +17,7 @@
       <div class="content-wrapper">
         <p>
           <a href="../index.html">FioriCharts Docs</a>
-          <span class="no-mobile"> (66% documented)</span>
+          <span class="no-mobile"> (76% documented)</span>
         </p>
     
     
@@ -46,6 +46,7 @@
                     <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ChartSeriesAttributes</span> <span class="p">:</span> <span class="kt">ObservableObject</span><span class="p">,</span> <span class="kt">Identifiable</span><span class="p">,</span> <span class="kt">NSCopying</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ChartSeriesAttributes</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
 <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ChartSeriesAttributes</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ChartSeriesAttributes</span><span class="p">:</span> <span class="kt">Hashable</span></code></pre>
 
                   </div>
                 </div>
@@ -131,7 +132,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+                            <pre class="highlight swift"><code><span class="kd"><a href="../Structs/PublishedConstrainedValue.html">@PublishedConstrainedValue</a></span>
 <span class="kd">public</span> <span class="k">var</span> <span class="nv">lineWidth</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                           </div>
@@ -159,7 +160,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+                            <pre class="highlight swift"><code><span class="kd"><a href="../Structs/PublishedConstrainedValue.html">@PublishedConstrainedValue</a></span>
 <span class="kd">public</span> <span class="k">var</span> <span class="nv">firstLineCapDiameter</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                           </div>
@@ -187,7 +188,7 @@
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+                            <pre class="highlight swift"><code><span class="kd"><a href="../Structs/PublishedConstrainedValue.html">@PublishedConstrainedValue</a></span>
 <span class="kd">public</span> <span class="k">var</span> <span class="nv">lastLineCapDiameter</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
 
                           </div>
@@ -331,6 +332,32 @@
                       </section>
                     </div>
                   </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:SH4hash4intoys6HasherVz_tF"></a>
+                      <a name="//apple_ref/swift/Method/hash(into:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:SH4hash4intoys6HasherVz_tF">hash(into:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hash</span><span class="p">(</span><span class="n">into</span> <span class="nv">hasher</span><span class="p">:</span> <span class="k">inout</span> <span class="kt">Hasher</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </section>
@@ -343,9 +370,6 @@
             <li class="nav-group-name">
               <a href="../Classes.html">Classes</a>
               <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="../Classes/AreaMicroChartModel.html">AreaMicroChartModel</a>
-                </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ChartAxisAttributes.html">ChartAxisAttributes</a>
                 </li>
@@ -396,13 +420,8 @@
                 <li class="nav-group-task">
                   <a href="../Enums/ChartType.html">ChartType</a>
                 </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="../Extensions.html">Extensions</a>
-              <ul class="nav-group-tasks">
                 <li class="nav-group-task">
-                  <a href="../Extensions/NumberFormatter.html">NumberFormatter</a>
+                  <a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a>
                 </li>
               </ul>
             </li>
@@ -410,25 +429,13 @@
               <a href="../Structs.html">Structures</a>
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
-                  <a href="../Structs/AreaMicroChart.html">AreaMicroChart</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/BulletMicroChart.html">BulletMicroChart</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ChartView.html">ChartView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ColumnMicroChart.html">ColumnMicroChart</a>
+                  <a href="../Structs/NoDataView.html">NoDataView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LineShape.html">LineShape</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/LinesShape.html">LinesShape</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MicroChartDataItem.html">MicroChartDataItem</a>
+                  <a href="../Structs/PublishedConstrainedValue.html">PublishedConstrainedValue</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Tests.html">Tests</a>
@@ -449,7 +456,7 @@
       <div class="footer-wrapper">
         <section id="footer">
           <p>© 2020 <a class="link" href="https://github.com/SAP/cloud-sdk-ios-fiori" target="_blank" rel="external">https://github.com/SAP/cloud-sdk-ios-fiori</a> under Apache-2.0.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
     </div>

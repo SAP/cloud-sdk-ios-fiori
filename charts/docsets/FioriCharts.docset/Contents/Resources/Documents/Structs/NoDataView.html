@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MicroChartDataItem Structure Reference</title>
+    <title>NoDataView Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -11,13 +11,13 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/MicroChartDataItem" class="dashAnchor"></a>
-    <a title="MicroChartDataItem Structure Reference"></a>
+    <a name="//apple_ref/swift/Struct/NoDataView" class="dashAnchor"></a>
+    <a title="NoDataView Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p>
           <a href="../index.html">FioriCharts Docs</a>
-          <span class="no-mobile"> (66% documented)</span>
+          <span class="no-mobile"> (76% documented)</span>
         </p>
     
     
@@ -30,7 +30,7 @@
             <a href="../index.html">FioriCharts Reference</a>
             <img id="carat" src="../img/carat.png" />
           </span>
-          MicroChartDataItem Structure Reference
+          NoDataView Structure Reference
         </p>
       </div>
     </div>
@@ -39,15 +39,33 @@
         <article class="main-content">
           <section>
             <section class="section">
-              <h1>MicroChartDataItem</h1>
+              <h1>NoDataView</h1>
                 <div class="declaration">
                   <div class="language">
                     
-                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">MicroChartDataItem</span> <span class="p">:</span> <span class="kt">Identifiable</span></code></pre>
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">NoDataView</span><span class="o">&lt;</span><span class="kt">Content</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">View</span> <span class="k">where</span> <span class="kt">Content</span> <span class="p">:</span> <span class="kt">View</span></code></pre>
 
                   </div>
                 </div>
-              <p>Undocumented</p>
+              <p>A no data view is shown when there is no data</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code> <span class="c1">/// default NoDataView</span>
+ <span class="k">let</span> <span class="nv">noDataView</span> <span class="o">=</span> <span class="kt">NoDataView</span><span class="p">()</span>
+
+ <span class="c1">/// provide your own ViewBuilder to create the no data view</span>
+ <span class="k">let</span> <span class="nv">noDataView</span> <span class="o">=</span> <span class="kt">NoDataView</span> <span class="p">{</span>
+     <span class="kt">GeometryReader</span> <span class="p">{</span> <span class="n">proxy</span> <span class="k">in</span>
+         <span class="kt">VStack</span><span class="p">(</span><span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">center</span><span class="p">)</span> <span class="p">{</span>
+             <span class="kt">Text</span><span class="p">(</span><span class="s">"☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹"</span><span class="p">)</span>
+             <span class="kt">Text</span><span class="p">(</span><span class="s">"Customized No Data View"</span><span class="p">)</span>
+             <span class="kt">Text</span><span class="p">(</span><span class="s">"☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹"</span><span class="p">)</span>
+         <span class="p">}</span>
+         <span class="o">.</span><span class="nf">frame</span><span class="p">(</span><span class="nv">width</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nv">height</span><span class="p">:</span> <span class="n">proxy</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+         <span class="o">.</span><span class="nf">border</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">primary</span><span class="p">,</span> <span class="nv">width</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+     <span class="p">}</span>
+ <span class="p">}</span>
+
+</code></pre>
 
             </section>
             <section class="section task-group-section">
@@ -56,9 +74,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:11FioriCharts18MicroChartDataItemV5value12CoreGraphics7CGFloatVvp"></a>
-                      <a name="//apple_ref/swift/Property/value" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts18MicroChartDataItemV5value12CoreGraphics7CGFloatVvp">value</a>
+                      <a name="/s:11FioriCharts10NoDataViewV7contentACyxGxyc_tcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(content:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10NoDataViewV7contentACyxGxyc_tcfc">init(content:<wbr>)</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -66,14 +84,14 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>provide your own ViewBuilder to create the no data view</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">CGFloat</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="kd">@ViewBuilder</span> <span class="nv">content</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Content</span><span class="p">)</span></code></pre>
 
                           </div>
                         </div>
@@ -83,9 +101,9 @@
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:11FioriCharts18MicroChartDataItemV5labelSSSgvp"></a>
-                      <a name="//apple_ref/swift/Property/label" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts18MicroChartDataItemV5labelSSSgvp">label</a>
+                      <a name="/s:11FioriCharts10NoDataViewV4bodyQrvp"></a>
+                      <a name="//apple_ref/swift/Property/body" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10NoDataViewV4bodyQrvp">body</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -93,26 +111,39 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>the view body</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">label</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="n">some</span> <span class="kt">View</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                           </div>
                         </div>
                       </section>
                     </div>
                   </li>
+                </ul>
+              </div>
+              <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Available%20where%20%60Content%60%20%3D%3D%20%60EmptyView%60"></a>
+                  <a name="//apple_ref/swift/Section/Available where `Content` == `EmptyView`" class="dashAnchor"></a>
+                  <div class="section-name-container">
+                    <a class="section-name-link" href="#/Available%20where%20%60Content%60%20%3D%3D%20%60EmptyView%60"></a>
+                    <h3 class="section-name"><p>Available where <code>Content</code> == <code>EmptyView</code></p>
+</h3>
+                  </div>
+                </div>
+                <ul>
                   <li class="item">
                     <div>
                       <code>
-                      <a name="/s:11FioriCharts18MicroChartDataItemV12displayValueSSSgvp"></a>
-                      <a name="//apple_ref/swift/Property/displayValue" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts18MicroChartDataItemV12displayValueSSSgvp">displayValue</a>
+                      <a name="/s:11FioriCharts10NoDataViewVAA7SwiftUI05EmptyE0VRszrlEACyAFGycfc"></a>
+                      <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10NoDataViewVAA7SwiftUI05EmptyE0VRszrlEACyAFGycfc">init()</a>
                       </code>
                     </div>
                     <div class="height-container">
@@ -120,67 +151,14 @@
                       <section class="section">
                         <div class="pointer"></div>
                         <div class="abstract">
-                          <p>Undocumented</p>
+                          <p>the default no data view</p>
 
                         </div>
                         <div class="declaration">
                           <h4>Declaration</h4>
                           <div class="language">
                             <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">displayValue</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:11FioriCharts18MicroChartDataItemV5color7SwiftUI5ColorVvp"></a>
-                      <a name="//apple_ref/swift/Property/color" class="dashAnchor"></a>
-                      <a class="token" href="#/s:11FioriCharts18MicroChartDataItemV5color7SwiftUI5ColorVvp">color</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          <p>Undocumented</p>
-
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">color</span><span class="p">:</span> <span class="kt">Color</span></code></pre>
-
-                          </div>
-                        </div>
-                      </section>
-                    </div>
-                  </li>
-                  <li class="item">
-                    <div>
-                      <code>
-                      <a name="/s:s12IdentifiableP2id2IDQzvp"></a>
-                      <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                      <a class="token" href="#/s:s12IdentifiableP2id2IDQzvp">id</a>
-                      </code>
-                    </div>
-                    <div class="height-container">
-                      <div class="pointer-container"></div>
-                      <section class="section">
-                        <div class="pointer"></div>
-                        <div class="abstract">
-                          
-                        </div>
-                        <div class="declaration">
-                          <h4>Declaration</h4>
-                          <div class="language">
-                            <p class="aside-title">Swift</p>
-                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">()</span></code></pre>
 
                           </div>
                         </div>
@@ -199,9 +177,6 @@
             <li class="nav-group-name">
               <a href="../Classes.html">Classes</a>
               <ul class="nav-group-tasks">
-                <li class="nav-group-task">
-                  <a href="../Classes/AreaMicroChartModel.html">AreaMicroChartModel</a>
-                </li>
                 <li class="nav-group-task">
                   <a href="../Classes/ChartAxisAttributes.html">ChartAxisAttributes</a>
                 </li>
@@ -252,13 +227,8 @@
                 <li class="nav-group-task">
                   <a href="../Enums/ChartType.html">ChartType</a>
                 </li>
-              </ul>
-            </li>
-            <li class="nav-group-name">
-              <a href="../Extensions.html">Extensions</a>
-              <ul class="nav-group-tasks">
                 <li class="nav-group-task">
-                  <a href="../Extensions/NumberFormatter.html">NumberFormatter</a>
+                  <a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a>
                 </li>
               </ul>
             </li>
@@ -266,25 +236,13 @@
               <a href="../Structs.html">Structures</a>
               <ul class="nav-group-tasks">
                 <li class="nav-group-task">
-                  <a href="../Structs/AreaMicroChart.html">AreaMicroChart</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/BulletMicroChart.html">BulletMicroChart</a>
-                </li>
-                <li class="nav-group-task">
                   <a href="../Structs/ChartView.html">ChartView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/ColumnMicroChart.html">ColumnMicroChart</a>
+                  <a href="../Structs/NoDataView.html">NoDataView</a>
                 </li>
                 <li class="nav-group-task">
-                  <a href="../Structs/LineShape.html">LineShape</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/LinesShape.html">LinesShape</a>
-                </li>
-                <li class="nav-group-task">
-                  <a href="../Structs/MicroChartDataItem.html">MicroChartDataItem</a>
+                  <a href="../Structs/PublishedConstrainedValue.html">PublishedConstrainedValue</a>
                 </li>
                 <li class="nav-group-task">
                   <a href="../Structs/Tests.html">Tests</a>
@@ -305,7 +263,7 @@
       <div class="footer-wrapper">
         <section id="footer">
           <p>© 2020 <a class="link" href="https://github.com/SAP/cloud-sdk-ios-fiori" target="_blank" rel="external">https://github.com/SAP/cloud-sdk-ios-fiori</a> under Apache-2.0.</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </div>
     </div>
