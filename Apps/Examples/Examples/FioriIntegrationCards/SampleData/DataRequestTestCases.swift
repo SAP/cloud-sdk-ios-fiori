@@ -9,7 +9,10 @@ enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
     }
 
     func name() -> String {
-        rawValue
+        switch self {
+        default:
+            return rawValue.prefix(1).capitalized + rawValue.dropFirst()
+        }
     }
 
     func path() -> URL? {

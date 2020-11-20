@@ -13,13 +13,19 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case timeLine = "timeline"
     case object
     case table
+    case listWithManifestParameters
     
     var id: String {
         rawValue
     }
 
     func name() -> String {
-        rawValue
+        switch self {
+        case .listWithManifestParameters:
+            return "List (with Manifest Parameters)"
+        default:
+            return rawValue.prefix(1).capitalized + rawValue.dropFirst()
+        }
     }
     
     func path() -> URL? {

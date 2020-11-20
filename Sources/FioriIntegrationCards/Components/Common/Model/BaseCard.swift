@@ -29,7 +29,7 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                     print("FINISHED")
                 }
             }, receiveValue: { [unowned self] object in
-                self.content = self.template.replacingPlaceholders(withValuesIn: object)
+                self.content = self.template.replacingPlaceholders(withValuesIn: object).replacingPlaceholders(withValuesIn: configuration?.parameters)
             })
             .store(in: &subscribers)
     }
@@ -61,9 +61,9 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                 }
             }, receiveValue: { [unowned self] object in
                 if let array = object as? JSONArray {
-                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0) }
+                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0).replacingPlaceholders(withValuesIn: configuration?.parameters as Any) }
                 } else if let dict = object as? JSONDictionary {
-                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict)]
+                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: configuration?.parameters as Any)]
                 }
             })
             .store(in: &subscribers)
@@ -97,7 +97,7 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
                 if let array = object as? JSONArray {
                     self.content = zip(self.template, array).map { $0.0.replacingPlaceholders(withValuesIn: $0.1) } as? Template
                 } else if let dict = object as? JSONDictionary {
-                    self.content = self.template.replacingPlaceholders(withValuesIn: dict)
+                    self.content = self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: configuration?.parameters as Any)
                 }
             })
             .store(in: &subscribers)
@@ -131,7 +131,7 @@ open class BaseCard<Template: Decodable & Placeholding>: BackingCard {
 // MARK: - union of all content-related keys across the cards
 
 internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
-    case header, data, content, item, groups, row
+    case header, data, content, item, groups, row, configuration
     
     static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
 }
@@ -140,22 +140,37 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
     open var id: String = UUID().uuidString
     
     @Published var header: Header
-        
+    @Published var configuration: Configuration?
+
     internal let _headerData: DataFetcher?
+    internal let _configurationData: DataFetcher?
     internal let _cardData: DataFetcher?
     internal let _contentData: DataFetcher?
-    
+
     public let headerPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
+    public let configurationPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
     public let contentPublisher = CurrentValueSubject<CurrentValueSubject<(Data, String?)?, Never>?, Never>(nil)
     public let baseURL = CurrentValueSubject<URL?, Never>(nil)
     public required init(from decoder: Decoder) throws {
-        // MARK: - Decode `header`, `content`, `template`, and 3 data fetchers
+        // MARK: - Decode `header`, `configuration`, `content`, `template`, and 3 data fetchers
         
         let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
         
         let tempHeader = try container.decode(Header.self, forKey: .header)
         _header = Published(initialValue: tempHeader)
-        
+
+        let tempConfig = try container.decodeIfPresent(Configuration.self, forKey: .configuration)
+        _configuration = Published(initialValue: tempConfig ?? nil)
+
+        // MARK: get nested data from configuration node
+
+        if tempConfig != nil {
+            let configurationContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .configuration)
+            self._configurationData = try configurationContainer.decodeIfPresent(DataFetcher.self, forKey: .data)
+        } else {
+            self._configurationData = nil
+        }
+
         // MARK: get nested data from header node
 
         let headerContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .header)
@@ -186,6 +201,23 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
                 self.header = self.header.replacingPlaceholders(withValuesIn: $0)
             })
             .store(in: &self.subscribers)
+
+        self.configurationPublisher
+            .compactMap { $0?.value }
+            .tryMap { (try JSONSerialization.jsonObject(with: $0.0, options: .mutableContainers), $0.1) }
+            .map { `Any`.resolve($0.0, keyPath: $0.1, separator: "/") }
+            .sink(receiveCompletion: {
+                switch $0 {
+                case .failure(let error):
+                    print(error)
+                case .finished:
+                    return
+                }
+            }, receiveValue: { [unowned self] in
+
+                self.configuration = self.configuration
+            })
+            .store(in: &self.subscribers)
         
         self.baseURL
             .sink { [unowned self] url in
@@ -201,6 +233,13 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
         if let headerData = combinedData(cardData: _cardData, headerOrContentData: _headerData) {
             headerData.json.sink { [unowned self] _ in
                 self.headerPublisher.send(headerData.json)
+            }
+            .store(in: &self.subscribers)
+        }
+
+        if let configurationData = combinedData(cardData: _cardData, headerOrContentData: _configurationData) {
+            configurationData.json.sink { [unowned self] _ in
+                self.configurationPublisher.send(configurationData.json)
             }
             .store(in: &self.subscribers)
         }

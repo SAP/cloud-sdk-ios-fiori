@@ -10,7 +10,7 @@ extension Array where Element == NSRange {
 }
 
 extension String {
-    private static let mustacheRegex = try! NSRegularExpression(pattern: #"\{\{?(?<mustache>(#[a-zA-Z0-9\/])?[a-zA-Z0-9\/]+.[a-zA-Z0-9\/])*\}?\}"#, options: [])
+    private static let mustacheRegex = try! NSRegularExpression(pattern: #"\{\{?(?<mustache>(#[a-zA-Z0-9\/])?[a-zA-Z0-9\/._]+.[a-zA-Z0-9\/])*\}?\}"#, options: [])
     private static let mustacheKeyname = "mustache"
     
     func mustachePlaceholders() -> [(String, NSRange)] {
@@ -39,8 +39,8 @@ extension String {
             // split on `/`, to support multi-level key paths
 //            let keyPath = sub.0.split(separator: "/").map { String($0) }
             // feed keypath to utility, to read from [String: Any] structure, to get substitute value
-            
-            if let value = `Any`.resolve(object, keyPath: sub.0, separator: "/") {
+            var separator: String.Element = sub.0.contains(".") ? "." : "/"
+            if let value = `Any`.resolve(object, keyPath: sub.0, separator: separator) {
                 mutableString = mutableString.replacingCharacters(in: Range(sub.1, in: mutableString)!, with: String(describing: value))
             }
         }
@@ -118,12 +118,45 @@ extension Bool: Initializable {
 enum `Any` {
     static func resolve(_ object: Any, keyPath: String?, separator: String.Element = ".") -> Any? {
         var current: Any? = object
-        
-        keyPath?.split(separator: separator).forEach { component in
+
+        if keyPath == "parameters.TODAY_ISO" {
+            let today = Date()
+            let df = DateFormatter()
+            df.dateFormat = "MM/dd/yyyy"
+            return df.string(from: today)
+        } else if keyPath == "parameters.NOW_ISO" {
+            let today = Date()
+            let df = DateFormatter()
+            df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+            return df.string(from: today)
+        } else if keyPath == "parameters.LOCALE" {
+            return Locale.current.languageCode
+        }
+
+        let keyPathComponents = keyPath?.split(separator: separator)
+        keyPathComponents?.forEach { component in
+
             if let maybeInt = Int(component), let array = current as? [Any] {
                 current = array[maybeInt]
             } else if let dictionary = current as? JSONDictionary {
-                current = dictionary[String(component)]
+                if separator == "." {
+                    if let foundValue = dictionary[String(component)] {
+                        if let configParameter = foundValue as? Configuration.Parameter {
+                            let value = configParameter.value
+                            if let stringValue = value as? String {
+                                current = stringValue.replacingPlaceholders(withValuesIn: object)
+                            } else {
+                                current = configParameter.value
+                            }
+                        }
+                    } else {
+                        if keyPathComponents?.last == component {
+                            current = nil
+                        }
+                    }
+                } else {
+                    current = dictionary[String(component)]
+                }
             }
         }
         
