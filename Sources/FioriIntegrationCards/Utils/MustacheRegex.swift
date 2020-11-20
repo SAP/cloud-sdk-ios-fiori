@@ -10,7 +10,7 @@ extension Array where Element == NSRange {
 }
 
 extension String {
-    private static let mustacheRegex = try! NSRegularExpression(pattern: #"\{\{?(?<mustache>(#[a-zA-Z0-9\/])?[a-zA-Z0-9\/._]+.[a-zA-Z0-9\/])*\}?\}"#, options: [])
+    private static let mustacheRegex = try! NSRegularExpression(pattern: #"\{\{?(?<mustache>(#[a-zA-Z0-9\/])?[a-zA-Z0-9\/._]+.[a-zA-Z0-9\/])*\}?\}"#, options: []) // swiftlint:disable:this force_try
     private static let mustacheKeyname = "mustache"
     
     func mustachePlaceholders() -> [(String, NSRange)] {

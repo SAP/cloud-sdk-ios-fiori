@@ -29,7 +29,7 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                     print("FINISHED")
                 }
             }, receiveValue: { [unowned self] object in
-                self.content = self.template.replacingPlaceholders(withValuesIn: object).replacingPlaceholders(withValuesIn: configuration?.parameters)
+                self.content = self.template.replacingPlaceholders(withValuesIn: object).replacingPlaceholders(withValuesIn: self.configuration?.parameters)
             })
             .store(in: &subscribers)
     }
@@ -61,9 +61,9 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                 }
             }, receiveValue: { [unowned self] object in
                 if let array = object as? JSONArray {
-                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0).replacingPlaceholders(withValuesIn: configuration?.parameters as Any) }
+                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any) }
                 } else if let dict = object as? JSONDictionary {
-                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: configuration?.parameters as Any)]
+                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any)]
                 }
             })
             .store(in: &subscribers)
@@ -97,7 +97,7 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
                 if let array = object as? JSONArray {
                     self.content = zip(self.template, array).map { $0.0.replacingPlaceholders(withValuesIn: $0.1) } as? Template
                 } else if let dict = object as? JSONDictionary {
-                    self.content = self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: configuration?.parameters as Any)
+                    self.content = self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any)
                 }
             })
             .store(in: &subscribers)
@@ -160,7 +160,7 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
         _header = Published(initialValue: tempHeader)
 
         let tempConfig = try container.decodeIfPresent(Configuration.self, forKey: .configuration)
-        _configuration = Published(initialValue: tempConfig ?? nil)
+        _configuration = Published(initialValue: tempConfig)
 
         // MARK: get nested data from configuration node
 

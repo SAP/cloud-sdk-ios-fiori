@@ -1,5 +1,7 @@
 import Foundation
 
+// swiftlint:disable nesting
+
 // https://github.com/SAP/openui5/blob/9933af837bb387c3275af3bc31fbec7bf17678b5/src/sap.ui.integration/src/sap/ui/integration/schemas/sap-card.json#L34
 
 /// Represents configuration with parameters, destinations, and filters, which can be used inside the card
