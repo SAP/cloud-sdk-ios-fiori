@@ -7,10 +7,10 @@ public struct AnalyticalPlotArea: Decodable {
 }
 
 extension AnalyticalPlotArea: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalPlotArea {
-        let _dataLabel = self.dataLabel?.replacingPlaceholders(withValuesIn: object)
-        let _categoryAxisText = self.categoryAxisText?.replacingPlaceholders(withValuesIn: object)
-        let _valueAxisText = self.valueAxisText?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalPlotArea {
+        let _dataLabel = self.dataLabel?.replacingPlaceholders(withValuesIn: objects)
+        let _categoryAxisText = self.categoryAxisText?.replacingPlaceholders(withValuesIn: objects)
+        let _valueAxisText = self.valueAxisText?.replacingPlaceholders(withValuesIn: objects)
         return AnalyticalPlotArea(dataLabel: _dataLabel, categoryAxisText: _categoryAxisText, valueAxisText: _valueAxisText)
     }
 }

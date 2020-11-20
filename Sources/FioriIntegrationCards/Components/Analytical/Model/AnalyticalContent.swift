@@ -20,13 +20,13 @@ public struct AnalyticalContent: Decodable {
 }
 
 extension AnalyticalContent: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalContent {
-        let _chartType = self.chartType.replacingPlaceholders(withValuesIn: object)
-        let _measureAxis = self.measureAxis?.replacingPlaceholders(withValuesIn: object)
-        let _dimensionAxis = self.dimensionAxis?.replacingPlaceholders(withValuesIn: object)
-        let _legend = self.legend?.replacingPlaceholders(withValuesIn: object)
-        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
-        let _plotArea = self.plotArea?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalContent {
+        let _chartType = self.chartType.replacingPlaceholders(withValuesIn: objects)
+        let _measureAxis = self.measureAxis?.replacingPlaceholders(withValuesIn: objects)
+        let _dimensionAxis = self.dimensionAxis?.replacingPlaceholders(withValuesIn: objects)
+        let _legend = self.legend?.replacingPlaceholders(withValuesIn: objects)
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _plotArea = self.plotArea?.replacingPlaceholders(withValuesIn: objects)
         
         return .init(chartType: _chartType, legend: _legend, plotArea: _plotArea, title: _title, measureAxis: _measureAxis, dimensionAxis: _dimensionAxis)
     }

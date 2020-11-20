@@ -14,16 +14,16 @@ public struct TableColumn: Identifiable, Decodable, Hashable {
 }
 
 extension TableColumn: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> TableColumn {
-        let _value = self.value?.replacingPlaceholders(withValuesIn: object)
-        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
-        let _width = self.width?.replacingPlaceholders(withValuesIn: object)
-        let _icon = self.icon?.replacingPlaceholders(withValuesIn: object)
-        let _state = self.state?.replacingPlaceholders(withValuesIn: object)
-        let _url = self.url?.replacingPlaceholders(withValuesIn: object)
-        let _target = self.target?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> TableColumn {
+        let _value = self.value?.replacingPlaceholders(withValuesIn: objects)
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _width = self.width?.replacingPlaceholders(withValuesIn: objects)
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
+        let _state = self.state?.replacingPlaceholders(withValuesIn: objects)
+        let _url = self.url?.replacingPlaceholders(withValuesIn: objects)
+        let _target = self.target?.replacingPlaceholders(withValuesIn: objects)
         let _identifier = self.identifier
-        let _progressIndicator = self.progressIndicator?.replacingPlaceholders(withValuesIn: object)
+        let _progressIndicator = self.progressIndicator?.replacingPlaceholders(withValuesIn: objects)
         return TableColumn(title: _title, width: _width, value: _value, icon: _icon, state: _state, url: _url, target: _target, identifier: _identifier, progressIndicator: _progressIndicator)
     }
 }

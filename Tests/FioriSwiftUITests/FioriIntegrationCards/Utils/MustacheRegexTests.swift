@@ -29,6 +29,23 @@ class MustacheRegex: XCTestCase {
         let jsonData = parameterJSON.data(using: .utf8)!
         let configurationParameter = try JSONDecoder().decode(Configuration.Parameter.self, from: jsonData)
 
+        let string = "Today is {dateString} which feels {{parameters.mood}}"
+        let resolved = string.replacingPlaceholders(withValuesIn: ["dateString": "09-07-2020"], ["mood": configurationParameter])
+
+        XCTAssertEqual(resolved, "Today is 09-07-2020 which feels good")
+    }
+
+    func testReplacingPlaceHoldersForDataAndUserDefinedManifestParameters() throws {
+        let parameterJSON = """
+        {
+        "value": "good",
+        "type": "string"
+        }
+        """
+
+        let jsonData = parameterJSON.data(using: .utf8)!
+        let configurationParameter = try JSONDecoder().decode(Configuration.Parameter.self, from: jsonData)
+
         let string = "Today is {{parameters.mood}}"
         let resolved = string.replacingPlaceholders(withValuesIn: ["mood": configurationParameter])
 

@@ -6,9 +6,9 @@ public struct Action: Decodable, Hashable {
 }
 
 extension Action: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Action {
-        let _type = self.type?.replacingPlaceholders(withValuesIn: object)
-        let _url = self.url?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> Action {
+        let _type = self.type?.replacingPlaceholders(withValuesIn: objects)
+        let _url = self.url?.replacingPlaceholders(withValuesIn: objects)
         return Action(type: _type, url: _url)
     }
 }

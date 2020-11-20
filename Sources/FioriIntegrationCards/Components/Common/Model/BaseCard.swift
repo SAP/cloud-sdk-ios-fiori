@@ -29,7 +29,7 @@ open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                     print("FINISHED")
                 }
             }, receiveValue: { [unowned self] object in
-                self.content = self.template.replacingPlaceholders(withValuesIn: object).replacingPlaceholders(withValuesIn: self.configuration?.parameters)
+                self.content = self.template.replacingPlaceholders(withValuesIn: object, self.configuration?.parameters)
             })
             .store(in: &subscribers)
     }
@@ -61,9 +61,9 @@ open class OneManyCard<Template: Decodable & Placeholding>: BaseCard<Template> {
                 }
             }, receiveValue: { [unowned self] object in
                 if let array = object as? JSONArray {
-                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any) }
+                    self.content = array.map { self.template.replacingPlaceholders(withValuesIn: $0, self.configuration?.parameters as Any) }
                 } else if let dict = object as? JSONDictionary {
-                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any)]
+                    self.content = [self.template.replacingPlaceholders(withValuesIn: dict, self.configuration?.parameters as Any)]
                 }
             })
             .store(in: &subscribers)
@@ -95,9 +95,9 @@ open class ManyManyCard<Template: Decodable & Placeholding & Sequence>: BaseCard
                 }
             }, receiveValue: { [unowned self] object in
                 if let array = object as? JSONArray {
-                    self.content = zip(self.template, array).map { $0.0.replacingPlaceholders(withValuesIn: $0.1) } as? Template
+                    self.content = zip(self.template, array).map { $0.0.replacingPlaceholders(withValuesIn: $0.1, self.configuration?.parameters as Any) } as? Template
                 } else if let dict = object as? JSONDictionary {
-                    self.content = self.template.replacingPlaceholders(withValuesIn: dict).replacingPlaceholders(withValuesIn: self.configuration?.parameters as Any)
+                    self.content = self.template.replacingPlaceholders(withValuesIn: dict, self.configuration?.parameters as Any)
                 }
             })
             .store(in: &subscribers)
@@ -131,9 +131,9 @@ open class BaseCard<Template: Decodable & Placeholding>: BackingCard {
 // MARK: - union of all content-related keys across the cards
 
 internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
-    case header, data, content, item, groups, row, configuration
+    case header, data, content, item, groups, row, configuration, maxItems
     
-    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row]
+    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row, .maxItems]
 }
 
 open class BackingCard: Decodable, ObservableObject, Identifiable {
@@ -141,6 +141,7 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
     
     @Published var header: Header
     @Published var configuration: Configuration?
+    @Published var maxItems: Int? = nil
 
     internal let _headerData: DataFetcher?
     internal let _configurationData: DataFetcher?
@@ -155,12 +156,23 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
         // MARK: - Decode `header`, `configuration`, `content`, `template`, and 3 data fetchers
         
         let container = try decoder.container(keyedBy: BaseCardCodingKeys.self)
-        
-        let tempHeader = try container.decode(Header.self, forKey: .header)
-        _header = Published(initialValue: tempHeader)
 
         let tempConfig = try container.decodeIfPresent(Configuration.self, forKey: .configuration)
         _configuration = Published(initialValue: tempConfig)
+
+        var tempHeader: Header!
+        if tempConfig == nil {
+            tempHeader = try container.decode(Header.self, forKey: .header)
+        } else {
+            tempHeader = try container.decode(Header.self, forKey: .header).replacingPlaceholders(withValuesIn: tempConfig?.parameters as Any)
+        }
+        _header = Published(initialValue: tempHeader)
+
+        if let context = decoder.userInfo[.cardContext] as? CardDecodingContext {
+            context.configuration = tempConfig
+        } else {
+            fatalError("Incorrect decoder. Use FioriIntegrationCards.CardDecoder")
+        }
 
         // MARK: get nested data from configuration node
 
@@ -184,6 +196,8 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
 
         let contentContainer = try container.nestedContainer(keyedBy: BaseCardCodingKeys.self, forKey: .content)
         self._contentData = try contentContainer.decodeIfPresent(DataFetcher.self, forKey: .data)
+
+        self.decodeContentMaxItems(contentContainer, tempConfig)
         
         self.headerPublisher
             .compactMap { $0?.value }
@@ -198,7 +212,7 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
                 }
             }, receiveValue: { [unowned self] in
                 
-                self.header = self.header.replacingPlaceholders(withValuesIn: $0)
+                self.header = self.header.replacingPlaceholders(withValuesIn: $0, self.configuration?.parameters)
             })
             .store(in: &self.subscribers)
 
@@ -251,7 +265,20 @@ open class BackingCard: Decodable, ObservableObject, Identifiable {
             .store(in: &self.subscribers)
         }
     }
-    
+
+    fileprivate func decodeContentMaxItems(_ contentContainer: KeyedDecodingContainer<BaseCardCodingKeys>, _ tempConfig: Configuration?) {
+        do {
+            if let maxItemsIntValue = try contentContainer.decodeIfPresent(Int.self, forKey: .maxItems) {
+                self.maxItems = maxItemsIntValue
+            }
+        } catch {
+            if let maxItemsStringValue = try? contentContainer.decodeIfPresent(String.self, forKey: .maxItems) {
+                let maxItemsIntValue = Int(maxItemsStringValue.replacingPlaceholders(withValuesInSingle: tempConfig?.parameters as Any))
+                self.maxItems = maxItemsIntValue ?? 99
+            }
+        }
+    }
+
     public var objectWillChange = ObservableObjectPublisher()
     internal var subscribers = Set<AnyCancellable>()
     
