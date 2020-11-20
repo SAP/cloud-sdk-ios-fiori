@@ -13,7 +13,6 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case timeLine = "timeline"
     case object
     case table
-    case listWithManifestParameters
     
     var id: String {
         rawValue
@@ -21,8 +20,6 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
 
     func name() -> String {
         switch self {
-        case .listWithManifestParameters:
-            return "List (with Manifest Parameters)"
         default:
             return rawValue.prefix(1).capitalized + rawValue.dropFirst()
         }
@@ -39,7 +36,7 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
         }
         do {
             let data = try Data(contentsOf: path)
-            return try JSONDecoder().decode(Manifest.self, from: data)
+            return try CardDecoder().decode(Manifest.self, from: data)
         } catch {
             print(error)
         }

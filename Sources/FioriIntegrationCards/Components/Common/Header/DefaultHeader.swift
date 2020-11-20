@@ -21,12 +21,12 @@ extension DefaultHeader: Equatable {
 }
 
 extension DefaultHeader: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> DefaultHeader {
-        let _type = self.type?.replacingPlaceholders(withValuesIn: object)
-        let _title = self.title.replacingPlaceholders(withValuesIn: object)
-        let _subTitle = self.subTitle?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> DefaultHeader {
+        let _type = self.type?.replacingPlaceholders(withValuesIn: objects)
+        let _title = self.title.replacingPlaceholders(withValuesIn: objects)
+        let _subTitle = self.subTitle?.replacingPlaceholders(withValuesIn: objects)
         let _actions = self.actions // TODO: implement replacingPlaceholders for `actions`
-        let _icon = self.icon?.replacingPlaceholders(withValuesIn: object)
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
         let _status = self.status
         return DefaultHeader(type: _type, title: _title, subTitle: _subTitle, actions: _actions, icon: _icon, status: _status)
     }

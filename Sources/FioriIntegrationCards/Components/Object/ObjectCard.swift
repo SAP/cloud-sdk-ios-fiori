@@ -15,7 +15,7 @@ extension ObjectCard: Hashable {
 }
 
 extension Array: Placeholding where Element: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> [Element] {
-        map { $0.replacingPlaceholders(withValuesIn: object) }
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> [Element] {
+        map { $0.replacingPlaceholders(withValuesIn: objects) }
     }
 }

@@ -6,9 +6,9 @@ public struct AnalyticalMeasureDimension: Decodable {
 }
 
 extension AnalyticalMeasureDimension: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalMeasureDimension {
-        let _label = self.label.replacingPlaceholders(withValuesIn: object)
-        let _value = self.value.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalMeasureDimension {
+        let _label = self.label.replacingPlaceholders(withValuesIn: objects)
+        let _value = self.value.replacingPlaceholders(withValuesIn: objects)
         return .init(label: _label, value: _value)
     }
 }

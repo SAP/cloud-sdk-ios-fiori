@@ -28,20 +28,20 @@ public struct ListCardItem: Decodable, Identifiable, Hashable {
 }
 
 extension ListCardItem: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> ListCardItem {
-        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
-        let _description = self.description?.replacingPlaceholders(withValuesIn: object)
-        let _info = self.info?.replacingPlaceholders(withValuesIn: object)
-        let _highlight = self.highlight?.replacingPlaceholders(withValuesIn: object)
-        let _icon = self.icon?.replacingPlaceholders(withValuesIn: object)
-        let _actions = self.actions?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> ListCardItem {
+        let _title: String? = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _description: String? = self.description?.replacingPlaceholders(withValuesIn: objects)
+        let _info = self.info?.replacingPlaceholders(withValuesIn: objects)
+        let _highlight = self.highlight?.replacingPlaceholders(withValuesIn: objects)
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
+        let _actions = self.actions?.replacingPlaceholders(withValuesIn: objects)
         return ListCardItem(title: _title, description: _description, info: _info, highlight: _highlight, icon: _icon, actions: _actions)
     }
 }
 
 extension Array where Element == String {
-    func replacingPlaceholders(withValuesIn object: Any) -> [String] {
-        map { $0.replacingPlaceholders(withValuesIn: object) }
+    func replacingPlaceholders(withValuesIn objects: Any...) -> [String] {
+        map { $0.replacingPlaceholders(withValuesIn: objects) }
     }
 }
 

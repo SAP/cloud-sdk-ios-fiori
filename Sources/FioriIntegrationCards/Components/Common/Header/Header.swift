@@ -24,12 +24,12 @@ public enum Header: Decodable, Hashable {
 }
 
 extension Header: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Header {
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> Header {
         switch self {
         case .default(let header):
-            return .default(header.replacingPlaceholders(withValuesIn: object))
+            return .default(header.replacingPlaceholders(withValuesIn: objects))
         case .numeric(let header):
-            return .numeric(header.replacingPlaceholders(withValuesIn: object))
+            return .numeric(header.replacingPlaceholders(withValuesIn: objects))
         }
     }
 }

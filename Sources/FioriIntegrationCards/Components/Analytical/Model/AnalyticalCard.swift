@@ -106,10 +106,10 @@ public struct BackedDouble: Decodable {
 }
 
 extension BackedDouble: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> BackedDouble {
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> BackedDouble {
         guard self.value == nil,
               let _placeholder = placeholder else { return self }
-        let converted = _placeholder.replacingPlaceholders(withValuesIn: object)
+        let converted = _placeholder.replacingPlaceholders(withValuesIn: objects)
         let _value = Double(converted)
         return BackedDouble(value: _value, placeholder: _placeholder)
     }
@@ -122,9 +122,9 @@ public struct DataCategory: Identifiable, Decodable {
 }
 
 extension DataCategory: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> DataCategory {
-        let _names = self.names.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _points = self.points.map { $0.replacingPlaceholders(withValuesIn: object) }
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> DataCategory {
+        let _names = self.names.map { $0.replacingPlaceholders(withValuesIn: objects) }
+        let _points = self.points.map { $0.replacingPlaceholders(withValuesIn: objects) }
         return DataCategory(names: _names, points: _points)
     }
 }
@@ -138,11 +138,11 @@ public struct DataPoint: Identifiable, Decodable {
 }
 
 extension DataPoint: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> DataPoint {
-        let _series = self.series.replacingPlaceholders(withValuesIn: object)
-        let _value = self.value.replacingPlaceholders(withValuesIn: object)
-        let _secondaryValue = self.secondaryValue?.replacingPlaceholders(withValuesIn: object)
-        let _tertiaryValue = self.tertiaryValue?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> DataPoint {
+        let _series = self.series.replacingPlaceholders(withValuesIn: objects)
+        let _value = self.value.replacingPlaceholders(withValuesIn: objects)
+        let _secondaryValue = self.secondaryValue?.replacingPlaceholders(withValuesIn: objects)
+        let _tertiaryValue = self.tertiaryValue?.replacingPlaceholders(withValuesIn: objects)
         return DataPoint(series: _series, value: _value, secondaryValue: _secondaryValue, tertiaryValue: _tertiaryValue)
     }
 }

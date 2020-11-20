@@ -40,7 +40,7 @@ public class Manifest: Decodable, Identifiable, ObservableObject {
         let _path = path.appendingPathComponent(manifestPath ?? "manifest.json")
         do {
             let data = try Data(contentsOf: _path)
-            _model = try JSONDecoder().decode(Manifest.self, from: data)
+            _model = try CardDecoder().decode(Manifest.self, from: data)
         } catch {
             print(error)
         }

@@ -12,14 +12,14 @@ public struct ObjectGroupItem: Decodable, Identifiable, Hashable {
 }
 
 extension ObjectGroupItem: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> ObjectGroupItem {
-        let _icon = self.icon?.replacingPlaceholders(withValuesIn: object)
-        let _label = self.label.replacingPlaceholders(withValuesIn: object)
-        let _value = self.value.replacingPlaceholders(withValuesIn: object)
-        let _type = self.type?.replacingPlaceholders(withValuesIn: object)
-        let _url = self.url?.replacingPlaceholders(withValuesIn: object)
-        let _target = self.target?.replacingPlaceholders(withValuesIn: object)
-        let _emailSubject = self.emailSubject?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> ObjectGroupItem {
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
+        let _label = self.label.replacingPlaceholders(withValuesIn: objects)
+        let _value = self.value.replacingPlaceholders(withValuesIn: objects)
+        let _type: String? = self.type?.replacingPlaceholders(withValuesIn: objects)
+        let _url: String? = self.url?.replacingPlaceholders(withValuesIn: objects)
+        let _target: String? = self.target?.replacingPlaceholders(withValuesIn: objects)
+        let _emailSubject: String? = self.emailSubject?.replacingPlaceholders(withValuesIn: objects)
         return ObjectGroupItem(icon: _icon, label: _label, value: _value, type: _type, url: _url, target: _target, emailSubject: _emailSubject)
     }
 }

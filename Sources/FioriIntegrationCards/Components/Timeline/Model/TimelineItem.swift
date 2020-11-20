@@ -11,13 +11,13 @@ public struct TimelineItem: Identifiable, Decodable, Hashable {
 }
 
 extension TimelineItem: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> TimelineItem {
-        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
-        let _description = self.description?.replacingPlaceholders(withValuesIn: object)
-        let _dateTime = self.dateTime?.replacingPlaceholders(withValuesIn: object)
-        let _owner = self.owner?.replacingPlaceholders(withValuesIn: object)
-        let _ownerImage = self.ownerImage?.replacingPlaceholders(withValuesIn: object)
-        let _icon = self.icon?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> TimelineItem {
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _description = self.description?.replacingPlaceholders(withValuesIn: objects)
+        let _dateTime = self.dateTime?.replacingPlaceholders(withValuesIn: objects)
+        let _owner = self.owner?.replacingPlaceholders(withValuesIn: objects)
+        let _ownerImage = self.ownerImage?.replacingPlaceholders(withValuesIn: objects)
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
         return TimelineItem(title: _title, description: _description, dateTime: _dateTime, owner: _owner, ownerImage: _ownerImage, icon: _icon)
     }
 }

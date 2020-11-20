@@ -43,6 +43,10 @@ public struct Configuration: Decodable, Hashable {
                 self.value = stringValue
             } else if let boolValue = try? container.decodeIfPresent(Bool.self, forKey: .value) {
                 self.value = boolValue
+            } else if let intValue = try? container.decodeIfPresent(Int.self, forKey: .value) {
+                self.value = intValue
+            } else if let floatValue = try? container.decodeIfPresent(Float.self, forKey: .value) {
+                self.value = floatValue
             } else {
                 self.value = nil
             }

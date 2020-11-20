@@ -16,8 +16,8 @@ public struct TableCardView: View {
                     if model.content.first?.columns != nil {
                         TableTitleRowView(model: model.content.first!.columns!)
                     }
-                    ForEach(model.content) {
-                        TableRowView(model: $0)
+                    ForEach(0 ..< (model.maxItems ?? model.content.count), id: \.self) {
+                        TableRowView(model: self.model.content[$0])
                             .frame(height: 30)
                             .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
                     }

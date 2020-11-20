@@ -13,9 +13,9 @@ public struct AnalyticalData: Decodable {
 }
 
 extension AnalyticalData: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalData {
-        guard let array = object as? JSONArray else {
-            print("WARN: \(object) must be an array.")
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalData {
+        guard let array = objects.first as? JSONArray else {
+            print("WARN: \(objects.first) must be an array.")
             return self
         }
         

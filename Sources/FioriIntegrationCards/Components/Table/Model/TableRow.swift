@@ -7,9 +7,9 @@ public struct TableRow: Identifiable, Decodable, Hashable {
 }
 
 extension TableRow: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> TableRow {
-        let _columns = self.columns?.map { $0.replacingPlaceholders(withValuesIn: object) }
-        let _actions = self.actions?.map { $0.replacingPlaceholders(withValuesIn: object) }
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> TableRow {
+        let _columns = self.columns?.map { $0.replacingPlaceholders(withValuesIn: objects) }
+        let _actions = self.actions?.map { $0.replacingPlaceholders(withValuesIn: objects) }
         return TableRow(columns: _columns, actions: _actions /* , id: id */ )
     }
 }

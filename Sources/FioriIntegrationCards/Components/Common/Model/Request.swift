@@ -27,11 +27,27 @@ class Request: Decodable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.url = try container.decode(String.self, forKey: .url)
+        var theUrl = try container.decode(String.self, forKey: .url)
+
+        let context = decoder.userInfo[.cardContext] as? CardDecodingContext
+        if let config = context?.configuration {
+            self.url = theUrl.replacingPlaceholders(withValuesIn: config.parameters)
+        } else {
+            self.url = theUrl
+        }
+
         self.mode = try container.decodeIfPresent(String.self, forKey: .mode) ?? "cors"
         self.method = try container.decodeIfPresent(String.self, forKey: .mode) ?? "GET"
         self.headers = try container.decodeIfPresent([String: String].self, forKey: .headers) ?? [:]
-        self.parameters = try container.decodeIfPresent([String: String].self, forKey: .parameters) ?? [:]
+        var theParameters = try container.decodeIfPresent([String: String].self, forKey: .parameters) ?? [:]
+
+        if let config = context?.configuration {
+            for (key, value) in theParameters {
+                theParameters[key] = value.replacingPlaceholders(withValuesIn: config.parameters)
+            }
+        }
+        self.parameters = theParameters
+
         self.withCredentials = try container.decodeIfPresent(Bool.self, forKey: .withCredentials) ?? false
     }
     

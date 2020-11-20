@@ -32,6 +32,26 @@ enum NetworkRouter: String {
                 print(error.localizedDescription)
             }
         }
+
+        if
+            requestObject.method == "GET",
+            var components = URLComponents(string: requestObject.url)
+        {
+            var queryItems: [URLQueryItem] = []
+
+            for parameter in requestObject.parameters {
+                queryItems.append(URLQueryItem(name: parameter.key, value: parameter.value))
+            }
+            components.queryItems = queryItems
+
+            // the following encoding is needed as otherwise the example of https://sapui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/explore/parameters will not work
+            components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "+", with: "%2B")
+            components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "$", with: "%24")
+            components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: ":", with: "%3A")
+            components.percentEncodedQuery = components.percentEncodedQuery?.replacingOccurrences(of: "'", with: "%27")
+
+            urlRequest.url = components.url(relativeTo: baseURL)
+        }
         
         for header in requestObject.headers {
             urlRequest.setValue(header.value, forHTTPHeaderField: header.key)

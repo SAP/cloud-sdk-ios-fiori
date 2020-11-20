@@ -58,10 +58,10 @@ public enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
 }
 
 extension Highlight: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Highlight {
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> Highlight {
         switch self {
         case .placeholder(let placeholder):
-            let value = placeholder.replacingPlaceholders(withValuesIn: object)
+            let value = placeholder.replacingPlaceholders(withValuesIn: objects)
             return Highlight(rawValue: value) ?? .none
         default:
             return self

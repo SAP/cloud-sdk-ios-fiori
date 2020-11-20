@@ -67,12 +67,12 @@ public struct AnalyticalLegend: Decodable {
 }
 
 extension AnalyticalLegend: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalLegend {
-        let _title = self.title?.replacingPlaceholders(withValuesIn: object)
-        let _drawingEffect = DrawingEffect(rawValue: String(describing: drawingEffect?.rawValue ?? self._drawingEffectBacking).replacingPlaceholders(withValuesIn: object))
-        let _isHierarchical = self._isHierarchicalBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
-        let _isScrollable = self._isScrollableBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
-        let _isVisible = self._isVisibleBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalLegend {
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _drawingEffect = DrawingEffect(rawValue: String(describing: drawingEffect?.rawValue ?? self._drawingEffectBacking).replacingPlaceholders(withValuesIn: objects))
+        let _isHierarchical = self._isHierarchicalBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
+        let _isScrollable = self._isScrollableBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
+        let _isVisible = self._isVisibleBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
         return AnalyticalLegend(title: _title, drawingEffect: _drawingEffect, isHierarchical: _isHierarchical, isScrollable: _isScrollable, isVisible: _isVisible)
     }
 }

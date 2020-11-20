@@ -7,9 +7,9 @@ public struct ObjectGroup: Decodable, Identifiable, Hashable {
 }
 
 extension ObjectGroup: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> ObjectGroup {
-        let _title = self.title.replacingPlaceholders(withValuesIn: object)
-        let _items = self.items.map { $0.replacingPlaceholders(withValuesIn: object) }
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> ObjectGroup {
+        let _title = self.title.replacingPlaceholders(withValuesIn: objects)
+        let _items = self.items.map { $0.replacingPlaceholders(withValuesIn: objects) }
         return ObjectGroup(title: _title, items: _items)
     }
 }
