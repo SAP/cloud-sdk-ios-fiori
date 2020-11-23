@@ -35,23 +35,21 @@ jobs:
 
   CodeFormattingCheck:
     runs-on: macos-latest
-    env:
-      MINT_PATH: ${{ github.workspace }}/mint
     steps:
       - uses: actions/checkout@v2
-      - name: Check for homebrew updates
-        run: brew update
       - name: Cache Mint packages
-        uses: actions/cache@v1
+        id: mint-cache
+        uses: actions/cache@v2
         with:
-          path: ${{ env.MINT_PATH }}
+          path: /usr/local/lib/mint
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}
+          restore-keys: ${{ runner.os }}-mint-
       - name: Install Mint
         run: |
           brew upgrade mint || brew install mint || true
       - name: Install swiftformat via mint
-        run: |
-          mint bootstrap
+        if: steps.mint-cache.outputs.cache-hit != 'true'
+        run: mint bootstrap
       - name: Format Swift code
         run: mint run swiftformat --verbose .
       - name: Verify formatted code is unchanged
