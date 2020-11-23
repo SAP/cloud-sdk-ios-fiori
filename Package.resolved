@@ -20,15 +20,6 @@
         }
       },
       {
-        "package": "TinyNetworking",
-        "repositoryURL": "https://github.com/objcio/tiny-networking",
-        "state": {
-          "branch": null,
-          "revision": "a9af2917018e513c77061139fe3ce4e4d67cf259",
-          "version": "0.4.1"
-        }
-      },
-      {
         "package": "Zip",
         "repositoryURL": "https://github.com/marmelroy/Zip.git",
         "state": {

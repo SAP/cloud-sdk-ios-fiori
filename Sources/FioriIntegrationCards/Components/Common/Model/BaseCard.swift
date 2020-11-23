@@ -2,7 +2,6 @@ import AnyCodable
 import Combine
 import Foundation
 import ObservableArray
-import TinyNetworking
 
 /// JSON data must be in `array` form
 open class OneOneCard<Template: Decodable & Placeholding>: BaseCard<Template> {
