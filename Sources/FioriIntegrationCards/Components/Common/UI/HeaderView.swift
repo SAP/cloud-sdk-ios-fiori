@@ -52,11 +52,11 @@ private struct NumericHeaderView: View {
                 SafeText(model.unitOfMeasurement).foregroundColor(Color.gray)
             }
             HStack {
-                SafeText(model.mainIndicator?.number).foregroundColor(Color.getTrendColor(trend: model.mainIndicator?.trend))
+                SafeText(model.mainIndicator?.number).foregroundColor(self.kpiColor())
                     .font(.system(size: 40)).fixedSize(horizontal: false, vertical: true)
                 VStack {
-                    PolygonView(trend: model.mainIndicator?.trend)
-                    SafeText(model.mainIndicator?.unit)
+                    PolygonView(trend: model.mainIndicator?.trend, state: model.mainIndicator?.state)
+                    SafeText(model.mainIndicator?.unit).foregroundColor(self.kpiColor())
                 }.padding(.trailing, 50)
                 
                 VStack {
@@ -77,5 +77,9 @@ private struct NumericHeaderView: View {
             }.padding(.bottom, 10)
             SafeText(model.details).foregroundColor(Color.gray).font(.system(size: 15))
         }
+    }
+
+    func kpiColor() -> Color {
+        Color.getKpiColor(trend: self.model.mainIndicator?.trend, state: self.model.mainIndicator?.state)
     }
 }

@@ -47,10 +47,11 @@ public struct AnalyticalCardView: View {
 
 struct PolygonView: View {
     let trend: String?
+    let state: String?
     
     var body: some View {
         PolygonShape(sides: 3)
-            .fill(Color.getTrendColor(trend: trend))
+            .fill(Color.getKpiColor(trend: trend, state: state))
             .frame(width: 15, height: 15)
             .rotationEffect(.degrees(trend == "Down" ? 90 : -90))
     }

@@ -132,7 +132,7 @@ open class BaseCard<Template: Decodable & Placeholding>: BackingCard {
 internal enum BaseCardCodingKeys: CodingKey, CaseIterable {
     case header, data, content, item, groups, row, configuration, maxItems
     
-    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row, .maxItems]
+    static let contentKeys: [BaseCardCodingKeys] = [.item, .groups, .row, .maxItems, .data]
 }
 
 open class BackingCard: Decodable, ObservableObject, Identifiable {

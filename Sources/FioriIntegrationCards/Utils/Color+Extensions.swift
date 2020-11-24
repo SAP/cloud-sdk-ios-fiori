@@ -4,6 +4,8 @@ enum StatusState: String {
     case waring = "Warning"
     case error = "Error"
     case success = "Success"
+    case good = "Good"
+    case critical = "Critical"
 }
 
 extension Color {
@@ -15,9 +17,9 @@ extension Color {
         switch _status {
         case .error:
             return Color.red
-        case .success:
+        case .success, .good:
             return Color.green
-        case .waring:
+        case .waring, .critical:
             return Color.orange
         case .none:
             return Color.black
@@ -37,6 +39,14 @@ extension Color {
             return .black
         }
         return _trend == "Down" ? Color(red: 187 / 255, green: 0, blue: 0) : .green
+    }
+
+    static func getKpiColor(trend: String?, state: String?) -> Color {
+        if state != nil {
+            return Color.forStatus(status: state)
+        } else {
+            return Color.getTrendColor(trend: trend)
+        }
     }
     
     static func getLinkColor(type: String?) -> Color {
