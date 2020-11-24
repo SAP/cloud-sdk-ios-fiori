@@ -10,6 +10,7 @@ protocol CardTestCase {
 enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case analytical
     case list
+    case listicon
     case timeLine = "timeline"
     case object
     case table
@@ -20,6 +21,8 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
 
     func name() -> String {
         switch self {
+        case .listicon:
+            return "List (Icons)"
         default:
             return rawValue.prefix(1).capitalized + rawValue.dropFirst()
         }
