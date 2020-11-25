@@ -23,9 +23,9 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     func name() -> String {
         switch self {
         case .listicon:
-            return "List (Icons)"
+            return "List (feat. icons)"
         case .listnumeric:
-            return "List (Numeric)"
+            return "List (feat. numeric header)"
         default:
             return rawValue.prefix(1).capitalized + rawValue.dropFirst()
         }

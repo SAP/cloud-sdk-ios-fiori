@@ -31,14 +31,17 @@ extension Card: View {
 }
 
 struct IntegrationCardsContentView: View {
-    let cards: [String]
-
     private var testCases: [CardTestCase] = []
     
-    init(cards: [String]) {
-        self.cards = cards
-        self.testCases.append(contentsOf: InlineTestCases.allCases)
-        self.testCases.append(contentsOf: DataRequestTestCases.allCases)
+    init(testCases: [CardTestCase]? = nil) {
+        if testCases == nil {
+            self.testCases.append(contentsOf: InlineTestCases.allCases)
+            self.testCases.append(contentsOf: DataRequestTestCases.allCases)
+            self.testCases.append(contentsOf: [BundleTestCases.HTTPTimelineVarients, BundleTestCases.BundleTableVarients])
+            self.testCases = self.testCases.sorted(by: { $0.name() < $1.name() })
+        } else {
+            self.testCases = testCases!
+        }
     }
     
     var body: some View {
@@ -66,6 +69,11 @@ struct IntegrationCardsContentView: View {
             #endif
         }
         .navigationBarTitle("FioriIntegrationCards")
+        .navigationBarItems(trailing:
+            Button("UI5 Integration Card Reference") {
+                UIApplication.shared.open(URL(string: "https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/index.html#/exploreOverview/types")!)
+            }
+        )
     }
 }
 
@@ -108,10 +116,4 @@ func getManifest(for card: String) -> Manifest? {
         print(error)
     }
     return nil
-}
-
-struct IntegrationCardsContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        IntegrationCardsContentView(cards: ["LowCode", "timeline", "table", "list", "object", "analytical"])
-    }
 }

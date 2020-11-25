@@ -2,7 +2,7 @@ import FioriIntegrationCards
 import Foundation
 import Zip
 
-enum BundleTestCases: String, CaseIterable, Identifiable {
+enum BundleTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case HTTPTimelineVarients = "HTTPTimelineVariants.card"
     case HTTPObjectVarients = "HTTPObjectVariants.card"
     case BundleTimelineVarients = "TimelineVariants.card"
@@ -13,6 +13,17 @@ enum BundleTestCases: String, CaseIterable, Identifiable {
     
     var id: String {
         rawValue
+    }
+
+    func name() -> String {
+        switch self {
+        case .HTTPTimelineVarients:
+            return "Card Bundle - remote (feat. timeline with owners)"
+        case .BundleTableVarients:
+            return "Card Bundle - local (feat. table)"
+        default:
+            return self.id
+        }
     }
     
     func path() -> URL? {
