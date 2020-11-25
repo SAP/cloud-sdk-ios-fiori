@@ -5,10 +5,8 @@ public final class Info: Decodable, AnyBodyProducing {
     var state: String?
 
     func body() -> AnyView {
-        AnyView(
-            Text(self.value ?? "")
-                .foregroundColor(.forStatus(status: self.state))
-        )
+        let safeText: AnyView = .SafeText(self.value)
+        return AnyView(safeText.foregroundColor(.forStatus(status: self.state)))
     }
 
     init(value: String?, state: String?) {
