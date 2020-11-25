@@ -29,12 +29,22 @@ struct TimelineItemView: View {
             }
             .frame(width: iconWidth)
             .padding(EdgeInsets(top: 6, leading: 6, bottom: 0, trailing: 12))
-            
+
             VStack(alignment: .leading, spacing: 0) {
-                self.SafeText(self.model.title?.value).font(.body)
-                    .padding(.bottom, 4)
-                self.SafeText(self.model.dateTime?.value).font(.footnote).foregroundColor(.gray)
-                    .padding(.bottom, 8)
+                HStack {
+                    VStack(alignment: .leading) {
+                        AsyncImageView(url: self.model.ownerImage?.value).frame(width: 45, height: 45, alignment: .center)
+                    }
+                    VStack(alignment: .leading, spacing: 0) {
+                        self.SafeText(self.model.owner?.value)
+                            .font(Font.body.bold())
+                            .padding(.bottom, 4)
+                        self.SafeText(self.model.title?.value).font(.body)
+                            .padding(.bottom, 4)
+                        self.SafeText(self.model.dateTime?.value).font(.footnote).foregroundColor(.gray)
+                            .padding(.bottom, 8)
+                    }
+                }
                 self.SafeText(self.model.description?.value).font(.body)
             }
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
