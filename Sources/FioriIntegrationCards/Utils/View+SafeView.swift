@@ -12,6 +12,10 @@ extension View {
     }
     
     func SafeText(_ string: String?) -> AnyView {
+        Self.SafeText(string)
+    }
+
+    static func SafeText(_ string: String?) -> AnyView {
         switch string {
         case .none:
             return AnyView(EmptyView())

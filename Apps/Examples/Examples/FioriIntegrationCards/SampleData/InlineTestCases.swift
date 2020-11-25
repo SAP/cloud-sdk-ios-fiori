@@ -11,6 +11,7 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
     case analytical
     case list
     case listicon
+    case listnumeric
     case timeLine = "timeline"
     case object
     case table
@@ -23,6 +24,8 @@ enum InlineTestCases: String, CaseIterable, Identifiable, CardTestCase {
         switch self {
         case .listicon:
             return "List (Icons)"
+        case .listnumeric:
+            return "List (Numeric)"
         default:
             return rawValue.prefix(1).capitalized + rawValue.dropFirst()
         }

@@ -19,7 +19,7 @@ public class ListCard: OneManyCard<ListCardItem> {}
 public struct ListCardItem: Decodable, Identifiable, Hashable {
     public let title: String?
     public let description: String?
-    public let info: [String]?
+    public let info: Info?
     public let highlight: Highlight?
     public let icon: Icon?
     public let actions: [Action]?

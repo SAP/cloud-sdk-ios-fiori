@@ -21,4 +21,13 @@ class ListCardSnapshotTests: XCTestCase {
             XCTFail("Not the correct card")
         }
     }
+
+    func testListCardNumeric() throws {
+        let card = InlineTestCases.listnumeric.manifest()!.card
+        if case .list(let listCard) = card {
+            assertSnapshot(ListCardView(model: listCard), configs: [SnapshotTestViewConfig(config: .iPhoneX(.portrait), identifier: "iPhoneX_portrait")], style: .light)
+        } else {
+            XCTFail("Not the correct card")
+        }
+    }
 }
