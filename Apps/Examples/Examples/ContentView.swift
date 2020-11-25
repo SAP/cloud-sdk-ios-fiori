@@ -1,10 +1,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let oneMany = ["table", "list", "timeline"]
-    private let manyMany = ["LowCode", "object", "analytical"]
-    private let cards: [String] = ["LowCode", "timeline", "table", "list", "object", "analytical"]
-
     var body: some View {
         NavigationView {
             List {
@@ -13,7 +9,7 @@ struct ContentView: View {
                     Text("Charts")
                 }
                 NavigationLink(
-                    destination: IntegrationCardsContentView(cards: cards)) {
+                    destination: IntegrationCardsContentView()) {
                     Text("Integration Cards")
                 }
                 NavigationLink(
@@ -24,11 +20,5 @@ struct ContentView: View {
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }

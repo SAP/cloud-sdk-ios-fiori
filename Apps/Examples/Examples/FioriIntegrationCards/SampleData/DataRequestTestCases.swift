@@ -2,8 +2,8 @@ import FioriIntegrationCards
 import Foundation
 
 enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
-    case data = "list (load data with request)"
-    case parameters
+    case data = "list (feat. requesting data)"
+    case parameters = "manifest Parameters"
 
     var id: String {
         rawValue
