@@ -1,0 +1,9 @@
+
+sources:
+  - ./../Sources/FioriSwiftUICore/Components/
+templates:
+  - ./../sourcery/stencils/pre_phase/
+output:
+  ./../Sources/FioriSwiftUICore/_generated/Components
+args:
+  prune: true
