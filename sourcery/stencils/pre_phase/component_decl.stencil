@@ -1,0 +1,25 @@
+{# Utility function which returns the correct Style struct, for the unwrapped (non-optional) var type #}
+{% macro _StyleType unwrappedTypeName %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" %}
+TextStyle
+{% elif unwrappedTypeName == "Data" %}
+ImageStyle
+{% else %}
+NothingStyle
+{% endif %}
+{% endmacro %}
+
+{% macro StyleType unwrappedTypeName %}{% set tmp %}{% call _StyleType unwrappedTypeName %}{% endset %}{{tmp|removeNewlines}}{% endmacro %}
+// sourcery:file:Component+Protocols.generated.swift
+import SwiftUI
+{% for type in types.implementing._ComponentGenerating %}
+
+{% for variable in type.variables where variable|!annotated:"no_style" %}
+{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
+
+public protocol {{NAME | upperFirstLetter}}Component {
+    var {{variable.name}}: {{variable.typeName}} { get }
+}
+{% endfor %}
+{% endfor %}
+// sourcery:end

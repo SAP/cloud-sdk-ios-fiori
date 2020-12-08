@@ -1,0 +1,125 @@
+{% macro _StyleType unwrappedTypeName %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" %}
+TextStyle
+{% elif unwrappedTypeName == "Image" %}
+ImageStyle
+{% else %}
+NothingStyle
+{% endif %}
+{% endmacro %}
+
+{% macro ViewBuilderInitParam model_type %}{#
+#}{% for p in model_type.annotations.add_view_builder_params|split:': ' %}{% if forloop.first %}@ViewBuilder {{p}}{% else %}: @escaping () -> {{p}}{% endif %}{% endfor %}{#
+#}{% endmacro %}
+
+{% macro ViewBuilderTemplateType add_view_builder_params %}{#
+#}{% for annotation in add_view_builder_params|split:', ' %}{#
+#}{% for p in annotation|split:': ' %}{% if forloop.last %}{{p}}: View{% endif %}{% endfor %}{% endfor %}{#
+#}{% endmacro %}
+
+{% macro AddEnvPropDecl add_env_props %}{#
+#}{% for p in add_env_props|split:', ' %}{#
+#}@Environment(\.{{p}}) internal var {{p}}{#
+#}{% endfor %}{#
+#}{% endmacro %}
+
+{% macro ModelInitParam model_type %}{#
+#}{% map model_type.inheritedTypes into all_variables using y %}{#
+#}{% map type[y].allVariables into OUTPUT using z %}{{z.name}}: {{z.typeName.name}}{% if z.typeName.isOptional %} = nil{% endif %}{% endmap %}{{OUTPUT|join:', '}}{% endmap %}{#
+#}{{ all_variables|join:', ' }}{#
+#}{% endmacro %}
+
+
+{% macro ModelInitParamBinding model_type %}{#
+#}{% map model_type.inheritedTypes into all_variables using y %}{% map type[y].allVariables into OUTPUT using z %}{{z.name}}: {{z.name}}{% endmap %}{{OUTPUT|join:', '}}{% endmap %}{#
+#}{{ all_variables|join:', ' }}{#
+#}{% endmacro %}
+
+{% macro ViewBuilderParamBinding model_type isClosure %}{#
+#}{% for p in model_type.annotations.add_view_builder_params|split:', ' %}{% for prop in p|split:': ' %}{% if forloop.first %}self.{{prop}} = {{prop}}{% if isClosure %}(){% endif %}{% endif %}{% endfor %}{% endfor %}{#
+#}{% endmacro %}
+
+{% macro StyleType unwrappedTypeName %}{% set tmp %}{% call _StyleType unwrappedTypeName %}{% endset %}{{tmp|removeNewlines}}{% endmacro %}
+{% for MODEL_TYPE in types.protocols|annotated:"generated_component" %}
+{% set VIEW_TYPE_NAME %}{{ MODEL_TYPE.name|replace:"Model","" }}{% endset %}
+{% set HAS_GENERICS %}{{MODEL_TYPE.annotations.add_view_builder_params}}{% endset %}
+// sourcery:file:ViewModels/{{VIEW_TYPE_NAME}}+Model.generated.swift
+import SwiftUI
+
+public struct {{ VIEW_TYPE_NAME }}{% if HAS_GENERICS %}<{% call ViewBuilderTemplateType MODEL_TYPE.annotations.add_view_builder_params %}>{% endif %} {
+    let model: {{MODEL_TYPE.name }}
+    {% for property in MODEL_TYPE.annotations.add_view_builder_params|split:', ' %}
+    let {{property }}
+    {% endfor %}
+
+    public init(model: {{ MODEL_TYPE.name }}{% if HAS_GENERICS %}, {% call ViewBuilderInitParam MODEL_TYPE %}{% endif %}) {
+        self.model = model
+        {% call ViewBuilderParamBinding MODEL_TYPE true %}
+    }
+    {% if MODEL_TYPE|annotated:"add_view_builder_params" %}
+        
+    public init(model: {{ MODEL_TYPE.name }}{% for p in MODEL_TYPE.annotations.add_view_builder_params|split:', ' %}, {{p}}{% endfor %}) {
+        self.model = model
+        {% call ViewBuilderParamBinding MODEL_TYPE false %}
+    }
+    {% endif %}
+
+    {% for x in MODEL_TYPE.inheritedTypes %}
+        {% for y in type[x].allVariables where y|!annotated:"no_style" %}
+    @Environment(\.{{y.name}}Style) internal var {{y.name}}Style: {% call StyleType y.unwrappedTypeName %}
+    @Environment(\.{{y.name}}Modifier) internal var {{y.name}}Modifier: AnyViewModifier
+        {% endfor %}
+    {% endfor %}
+    {% call AddEnvPropDecl MODEL_TYPE.annotations.add_env_props %}
+}
+
+extension {{ VIEW_TYPE_NAME }} {
+    private struct Model: {{MODEL_TYPE.name}} {
+        {% for x in MODEL_TYPE.inheritedTypes %}
+        {% for y in type[x].allVariables %}
+        let {{y.name}}: {{y.typeName.name}}
+        {% endfor %}
+        {% endfor %}
+    }
+    
+    public init({% call ModelInitParam MODEL_TYPE %}{% if HAS_GENERICS %}, {% call ViewBuilderInitParam MODEL_TYPE %}{% endif %}) {
+        self.model = Model({% call ModelInitParamBinding MODEL_TYPE %})
+        {% call ViewBuilderParamBinding MODEL_TYPE true %}
+    }
+    {% if HAS_GENERICS %}
+    public init({% call ModelInitParam MODEL_TYPE %}{% if HAS_GENERICS %}, {{MODEL_TYPE.annotations.add_view_builder_params}}{% endif %}) {
+        self.model = Model({% call ModelInitParamBinding MODEL_TYPE %})
+        {% call ViewBuilderParamBinding MODEL_TYPE false %}
+    }
+    {% endif %}
+}
+{% if MODEL_TYPE|annotated:"add_view_builder_params" %}
+{% for property in MODEL_TYPE.annotations.add_view_builder_params|split:', ' %}
+{% set GENERIC_PROPERTY %}{% for v in property|split:': ' %}{% if forloop.first %}{{v}}{% endif %}{% endfor %}{% endset %}
+{% set GENERIC_NAME %}{% for v in property|split:': ' %}{% if forloop.last %}{{v}}{% endif %}{% endfor %}{% endset %}
+extension {{VIEW_TYPE_NAME}} where {{ GENERIC_NAME }} == EmptyView {
+    public init(model: {{MODEL_TYPE.name}}) {
+        self.init(model: model, {{GENERIC_PROPERTY}}: { EmptyView() })
+    }
+    
+    public init({% call ModelInitParam MODEL_TYPE %}) {
+        self.init({% call ModelInitParamBinding MODEL_TYPE %}, {{GENERIC_PROPERTY}}: EmptyView())
+    }
+}
+{% endfor %}
+{% endif %}
+
+
+// TODO: Extend {{ VIEW_TYPE_NAME }} to implement View in separate file
+// place at FioriSwiftUICore/Views/{{ VIEW_TYPE_NAME }}+View.swift
+/*
+import SwiftUI
+
+extension {{ VIEW_TYPE_NAME }}: View {
+    public var body: some View { 
+        <# View body #> 
+    }
+}
+*/
+// sourcery:end
+{% endfor %}

@@ -1,0 +1,182 @@
+{% macro ParameterListFromExplicitAnnotation variable tuple_prefix %}{#
+#}{% set isTuple variable.annotations.swiftui_view_mod_param|default:''|contains:',' %}{#
+#}{% for p in variable.annotations.swiftui_view_mod_param|split:', ' %}{#
+    #}{% for n in p|split:':' %}{#
+        #}{% if forloop.first %}{#
+        #}{% set stripped_var_name %}{{n|replace:'_ ',''}}{% endset %}{#
+        #}{%if not n|hasPrefix:'_ ' %}{{stripped_var_name}}: {% endif %}{#
+        #}{% if isTuple %}{{tuple_prefix}}{% endif %}{{stripped_var_name}}{#
+        #}{% endif %}{#
+        #}{%endfor%}{#
+        #}{% if not forloop.last %}, {% endif %}{#
+        #}{% endfor %}{% endmacro %}
+
+{% macro ParameterBinding variable instance_var_prefix isTuple %}{% if isTuple %}({% endif %}{#
+#}{% if variable|annotated: "swiftui_view_mod_param" %}{#
+#}{% call ParameterListFromExplicitAnnotation variable instance_var_prefix %}{#
+#}{% elif variable|annotated: "swiftui_view_mod_param_true" %}true{#
+#}{% else %}{{variable.name|replace:'_', ''}}{% endif %}{% if isTuple %}){% endif %}{#
+#}{% endmacro %}
+
+{#
+    GENERATOR PROCEDURE
+#}
+{% for type in types.implementing._StyleGenerating %}
+{% set SwiftUIConcreteViewType %}{{type.name|replace:"Style",''}}{% endset %}
+// sourcery:file:Styles/{{type.name}}+Extensions.generated.swift
+import SwiftUI
+
+// MARK: - Public 'View Modifier'-style interface 
+{#
+    USED MACROS: ParameterBinding, ParameterListFromExplicitAnnotation
+
+    Generates semantic API setters for each style
+    e.g.:
+
+    public extension TextStyle {
+        func font(_ value: Font) -> TextStyle {
+            var new = self
+            new._font = value
+            return new
+        }
+    }
+
+ sourcery instructions: 
+ 1. public API should imitate related `ViewModifier` API, with annotation "swiftui_view_mod_param"
+ 2. return type should reflect the concrete `View` type, with annotation "return_concrete"
+      or `some View` with annotation "return_some_view"
+ 3. binding of public API parameters to internal property according to the following:
+    a. multiple parameter functions are bound to a tuple, with parameter names matching the public function
+    b. single parameter functions are mapped directly between `_<parameter_name>` and public function, 
+         unless explicitly declared in "swiftui_view_mod_param"
+#}
+public extension {{type.name }} {
+{% for variable in type.variables %}
+{% set name %}{{variable.name|replace:'_', ''}}{% endset %}
+{% set isTuple variable.annotations.swiftui_view_mod_param|default:''|contains:',' %}
+    func {{name}}({% if variable|annotated: "swiftui_view_mod_param" %}{#
+        #}{{variable.annotations.swiftui_view_mod_param}}{#
+        #}{% elif variable|annotated: "swiftui_view_mod_param_true" %}{#
+        #}{% else %}{#
+        #}_ {{name}}: {{ variable.typeName.unwrappedTypeName }}{% endif %}) -> {{type.name }} {
+        var new = self
+        new.{{variable.name}} = {% call ParameterBinding variable '' isTuple %}
+        return new
+    } 
+{% endfor %}
+}
+
+{#
+    USED MACROS: none
+
+    Generates the `apply` method, which invokes each of the private `_apply(...)` methods
+#}
+public extension {{SwiftUIConcreteViewType}} {
+    @ViewBuilder
+    func applying(_ style: {{type.name|upperFirstLetter}}) -> some View {
+        self
+    {% for variable in type.variables|annotated:"return_concrete" %}
+    {% set name %}{{variable.name|replace:'_', ''}}{% endset %}
+            ._apply{{name|upperFirstLetter}}(style.{{variable.name}})
+    {% endfor %}
+    {% for variable in type.variables|annotated:"return_some_view" %}
+    {% set name %}{{variable.name|replace:'_', ''}}{% endset %}
+            ._apply{{name|upperFirstLetter}}(style.{{variable.name}})
+    {% endfor %}
+    }
+}
+
+{% macro ApplyingStyleBody variable %}
+{% set isTuple variable.annotations.swiftui_view_mod_param|default:''|contains:',' %}
+{% set name %}{% if variable|annotated:"swiftui_view_mod_func_name" %}{#
+    #}{{variable.annotations.swiftui_view_mod_func_name}}{#
+#}{% else %}{#
+    #}{{variable.name|replace:'_', ''}}{#
+#}{% endif %}{% endset %}
+{% set arg_list %}{% if variable|annotated: "swiftui_view_mod_param" and isTuple %}{#
+    #}{% call ParameterListFromExplicitAnnotation variable "value!." %}{#
+#}{% elif variable|annotated: "swiftui_view_mod_param_true" %}{#
+#}{% else %}{#
+    #}value!{#
+#}{% endif %}{% endset %}
+{% if variable|annotated:"return_concrete" %}
+        guard value != nil else { return self }
+        return self.{{name}}({{arg_list}})
+{% elif variable|annotated:"return_some_view" %}
+        if value != nil {
+            self.{{name}}({{arg_list}})
+        } else {
+            self
+        }
+{% endif %}{% endmacro %}
+{#
+    USED MACROS: ApplyingStyleBody
+
+    Generates private API for applying attributes of the Style to the concrete View type
+    // accounts for nil values
+    e.g.:
+
+    fileprivate extension Text {
+        func _applyFontWeight(_ value: Font.Weight?) -> Text {
+            guard value != nil else { return self }
+            return self.fontWeight(value!)
+        }
+#}
+
+fileprivate extension {{SwiftUIConcreteViewType}} {
+    {% for variable in type.variables|annotated:"return_concrete" %}
+    {% set name %}{{variable.name|replace:'_', ''}}{% endset %}
+
+    func _apply{{name|upperFirstLetter}}(_ value: {{variable.typeName}}) -> {{SwiftUIConcreteViewType}} {
+        {% call ApplyingStyleBody variable %}
+    }
+    {% endfor %}
+}
+
+{#
+    USED MACROS: ApplyingStyleBody
+
+    Generates private API for applying attributes of the Style to `some View`
+    // accounts for nil values
+    e.g.:
+
+    fileprivate extension View {
+        func _applyFont(_ value: Font?) -> some View {
+            return Group {
+                if value != nil {
+                    self.font(value!)
+                } else {
+                    self
+                }
+            }
+        }
+#}
+fileprivate extension View {
+    {% for variable in type.variables|annotated:"return_some_view" %}
+    {% set name %}{{variable.name|replace:'_', ''}}{% endset %}
+
+    @ViewBuilder
+    func _apply{{name|upperFirstLetter}}(_ value: {{variable.typeName}}) -> some View {
+        {% call ApplyingStyleBody variable %}
+    }
+    {% endfor %}
+}
+
+{#
+    USED MACROS: none
+    
+    Generates public `merge()` function for upserting changes from v2 instance to v1.
+*/#}
+public extension {{type.name}} {
+    func merging(_ style: {{type.name|upperFirstLetter}}) -> {{type.name}} {
+        var new = self
+    {% for variable in type.variables %}
+        if let value = style.{{variable.name}} { 
+            new.{{variable.name}} = value 
+        }
+    {% endfor %}
+        return new
+    }
+}
+// sourcery:end
+{% endfor %}

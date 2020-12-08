@@ -1,0 +1,38 @@
+{# Utility function which returns the correct Style struct, for the unwrapped (non-optional) var type #}
+{% macro _StyleType unwrappedTypeName %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" %}
+TextStyle
+{% elif unwrappedTypeName == "Image" %}
+ImageStyle
+{% else %}
+NothingStyle
+{% endif %}
+{% endmacro %}
+
+{% macro StyleType unwrappedTypeName %}{% set tmp %}{% call _StyleType unwrappedTypeName %}{% endset %}{{tmp|removeNewlines}}{% endmacro %}
+// sourcery:file:EnvironmentKey+Styles.generated.swift
+import SwiftUI
+{% for type in types.implementing._ComponentGenerating %}
+{% for variable in type.variables where variable|!annotated:"no_style" %}
+{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
+{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
+
+struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
+    public static let defaultValue: {{ AStyle }} = {{ AStyle }}()
+}
+
+struct {{NAME | upperFirstLetter }}ModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
+    public static let defaultValue: [String] = []
+}
+
+struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+{% endfor %}
+{% endfor %}
+// sourcery:end
