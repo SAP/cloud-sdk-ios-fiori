@@ -9,39 +9,52 @@ import SwiftUI
 
 struct PointsShape: Shape {
     let model: ChartModel
+    let chartContext: ChartContext
     let seriesIndex: Int
     let categoryIndexRange: ClosedRange<Int>
-    
-    // min and max value for the display range
-    let displayRange: ClosedRange<CGFloat>
     let layoutDirection: LayoutDirection
-    let radius: CGFloat
-    /// Allowed gap between dots before they run into eachother and are hidden.
-    let gap: CGFloat
-    let startOffset: CGFloat
-    let endOffset: CGFloat
     
-    public init(model: ChartModel, seriesIndex: Int, categoryIndexRange: ClosedRange<Int>, displayRange: ClosedRange<CGFloat>, layoutDirection: LayoutDirection = .leftToRight, radius: CGFloat = 2, gap: CGFloat = 2, startOffset: CGFloat = 0, endOffset: CGFloat = 0) {
+    public init(model: ChartModel, chartContext: ChartContext, seriesIndex: Int, categoryIndexRange: ClosedRange<Int>, layoutDirection: LayoutDirection = .leftToRight) {
         self.model = model
+        self.chartContext = chartContext
         self.seriesIndex = seriesIndex
         self.categoryIndexRange = categoryIndexRange
-        
         self.layoutDirection = layoutDirection
-        self.radius = radius
-        self.gap = gap
-        self.startOffset = startOffset
-        self.endOffset = endOffset
-        self.displayRange = displayRange
     }
     
     public func path(in rect: CGRect) -> Path {
         var path = Path()
-        
         if seriesIndex < 0 || seriesIndex >= model.numOfSeries() || categoryIndexRange.upperBound < 0 {
             return path
         }
         
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(categoryIndexRange.count - 1, 1))
+        let maxDataCount = model.numOfCategories()
+        let stepWidth: CGFloat
+        let offsetX: CGFloat
+        if model.chartType == .combo {
+            let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+            let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
+            stepWidth = columnXIncrement
+            offsetX = clusterWidth / 2.0
+        } else {
+            stepWidth = max(1 / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
+            offsetX = 0
+        }
+        
+        let secondary = model.indexesOfSecondaryValueAxis.contains(seriesIndex)
+        let displayRange = ChartUtility.displayRange(model, secondary: secondary)
+        
+        let pointAttr = model.seriesAttributes[seriesIndex].point
+        let radius: CGFloat = CGFloat(pointAttr.diameter/2)
+        /// Allowed gap between dots before they run into eachother and are hidden.
+        let gap: CGFloat = CGFloat(pointAttr.gap)
+        
+        let tmpScaleX = chartContext.scaleX(model, plotViewSize: rect.size)
+        let tmpScaleY = chartContext.scaleY(model, plotViewSize: rect.size)
+        let tmpStartPosition = chartContext.startPosition(model, plotViewSize: rect.size)
+        let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
+        let startPosY = tmpStartPosition.y * tmpScaleY * rect.size.height
+        
         var lastPoint = CGPoint(x: -2 * radius - gap, y: 0)
         let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
         
@@ -49,11 +62,11 @@ struct PointsShape: Shape {
             let dataVal = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: i + categoryIndexRange.lowerBound, dimensionIndex: 0)
             
             if let tmpVal = dataVal { // cur point is not nil
-                let val = rect.size.height - (CGFloat(tmpVal) - displayRange.lowerBound) * rect.size.height / range
-                let p = CGPoint(x: ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width),
-                                y: val)
-                
-                if p.x >= 0 && p.x <= rect.size.width && distance(p1: lastPoint, p2: p) >= (2 * radius + gap) {
+                let val = (1 - (tmpVal - displayRange.lowerBound)/range) * tmpScaleY * rect.size.height - startPosY
+                let x = (stepWidth * CGFloat(i + categoryIndexRange.lowerBound) + offsetX) * tmpScaleX * rect.size.width - startPosX
+                let p = CGPoint(x: ChartUtility.xPos(x, layoutDirection: layoutDirection, width: rect.size.width), y: val)
+
+                if p.x >= -1 && p.x <= rect.size.width + 1 && distance(p1: lastPoint, p2: p) >= (2 * radius + gap) {
                     path.move(to: p)
                     path.addRelativeArc(center: p, radius: radius, startAngle: Angle(degrees: 0), delta: Angle(degrees: 360))
                     lastPoint = p

@@ -15,7 +15,7 @@ struct ChartsContentView: View {
     @State var isPopUp = UserDefaults.standard.bool(forKey: "isPopUp")
     
     let charts: [(String, [ChartModel], [String])] =
-        [("Stock", Tests.stockModels, Tests.stockModelsDesc),
+        [
          ("Line", Tests.lineModels, Tests.lineModelsDesc),
          ("Area", Tests.lineModels.map {
             if let model = $0.copy() as? ChartModel {
@@ -25,6 +25,7 @@ struct ChartsContentView: View {
                 return $0
             }
          }, Tests.lineModelsDesc),
+         ("Stock", Tests.stockModels, Tests.stockModelsDesc),
          ("Column", Tests.lineModels.map {
             if let model = $0.copy() as? ChartModel {
                 model.chartType = .column
@@ -173,7 +174,7 @@ struct ChartHomeView: View {
                     Text(self.currentModel?.id.uuidString ?? "")
                         .frame(height: 0)
                         .hidden()
-                    
+
                     ChartView(model)
                         .frame(width: width,
                                height: width * 2 / 3 )
@@ -193,7 +194,7 @@ struct ChartHomeView: View {
                         ChartView(model)
                             .frame(width: width,
                                    height: width * 2 / 3 )
-                        
+
                         Spacer().frame(height: 8)
                         
                         Text(desc).font(.subheadline).foregroundColor(.primary)

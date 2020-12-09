@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 
-// swiftlint:disable file_length
 class ChartUtility {
     static func cgfloatOptional(from value: Double?) -> CGFloat? {
         var result: CGFloat? = nil
@@ -27,179 +26,6 @@ class ChartUtility {
         }
         
         return result
-    }
-    
-    static func lineSelections(_ model: ChartModel) -> [Int: [Int]]? {
-        let lineSelections: [Int: [Int]]?
-        
-        if model.chartType == .combo {
-            var tmpLineSelections = [Int: [Int]]()
-            let allIndexs = IndexSet(integersIn: 0 ..< model.numOfSeries())
-            let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs)
-            
-            if let tmpSelections = model.selections {
-                for (seriesId, sel) in tmpSelections {
-                    if lineIndexes.contains(seriesId) {
-                        tmpLineSelections[seriesId] = sel
-                    }
-                }
-            }
-            
-            // set result
-            if tmpLineSelections.isEmpty {
-                lineSelections = nil
-            } else {
-                lineSelections = tmpLineSelections
-            }
-        } else {
-            lineSelections = model.selections
-        }
-        
-        return lineSelections
-    }
-    
-    //swiftlint:disable force_unwrapping
-    static func convertSelectionsToSelectionItems(_ model: ChartModel) -> (String?, [SelectionItem]) {
-        guard let lineSelections = ChartUtility.lineSelections(model) else {
-            return (nil, [])
-        }
-        
-        var selectionItems = [SelectionItem]()
-        var rangeIndicator: String? = nil
-        
-        // it is empty
-        if lineSelections.isEmpty {
-            return (nil, [])
-        } else if lineSelections.count == 1 { // range selection or single selection
-            for (seriesIndex, catIndices) in lineSelections {
-                if catIndices.isEmpty {
-                    return (nil, [])
-                }
-                
-                var catIndexSet = Set<Int>()
-                let sorted = catIndices.sorted()
-                catIndexSet.insert(sorted.first!)
-                catIndexSet.insert(sorted.last!)
-                let catClosedRange = sorted.first! ... sorted.last!
-                
-                for catIndex in catIndexSet.sorted() {
-                    let item = SelectionItem(categoryIndex: catIndex, seriesIndexes: [seriesIndex])
-                    selectionItems.append(item)
-                }
-                
-                if catIndexSet.sorted().count >= 2 {
-                    let key = String("\(seriesIndex):\(catClosedRange.lowerBound):\(catClosedRange.upperBound)")
-                    rangeIndicator = key
-                }
-            }
-        } else { // .all
-            var seriesInices = [Int]()
-            for seriesIndex in lineSelections.keys.sorted() {
-                seriesInices.append(seriesIndex)
-            }
-            let catIndex = lineSelections[seriesInices[0]]?.first ?? 0
-            let item = SelectionItem(categoryIndex: catIndex, seriesIndexes: seriesInices)
-            selectionItems.append(item)
-        }
-        
-        return (rangeIndicator, selectionItems)
-    }
-    
-    //swiftlint:disable cyclomatic_complexity
-    static func convertSelections(_ selections: [Int: [Int]]?) -> ([Int: [ClosedRange<Int>]], [Int: [Int]]) {
-        var closedRanges: [Int: [ClosedRange<Int>]] = [:]
-        var singles: [Int: [Int]] = [:]
-        
-        guard let values = selections else {
-            return (closedRanges, singles)
-        }
-
-        for seriesId in values.keys.sorted() {
-            if let catIds = values[seriesId]?.sorted() {
-                
-                var array1 = [ClosedRange<Int>]()
-                var array2 = [Int]()
-                
-                // scan it
-                var prevId = -1
-                var startId = -1
-                for catId in catIds {
-                    if prevId == -1 {
-                        prevId = catId
-                        startId = catId
-                    } else {
-                        if catId == prevId + 1 {
-                            prevId = catId
-                        } else {
-                            if prevId > startId {
-                                array1.append(startId...prevId)
-                            } else {
-                                array2.append(prevId)
-                            }
-                            
-                            // start new search
-                            prevId = catId
-                            startId = catId
-                        }
-                    }
-                }
-                
-                if prevId != -1 {
-                    if prevId > startId {
-                        array1.append(startId...prevId)
-                    } else {
-                        array2.append(prevId)
-                    }
-                }
-                
-                if !array1.isEmpty {
-                closedRanges[seriesId] = array1
-                }
-                
-                if !array2.isEmpty {
-                    singles[seriesId] = array2
-                }
-            }
-        }
-        
-        return (closedRanges, singles)
-    }
-    
-    static func convertSelectionsToDisplayItems(_ model: ChartModel) -> ([String], [Int], [String]) {
-        let lineSelections = ChartUtility.lineSelections(model)
-        let (rangeSelections, singleSelections) = ChartUtility.convertSelections(lineSelections)
-            
-        var singleLineIndicators = Set<Int>()
-        var singlePointIndicators = [String]()
-        var rangeIndicators = [String]()
-        
-        if rangeSelections.isEmpty && singleSelections.isEmpty {
-            return (rangeIndicators, singleLineIndicators.sorted(), singlePointIndicators)
-        }
-        
-        for (seriesId, crs) in rangeSelections {
-            for cr in crs {
-                singleLineIndicators.insert(cr.lowerBound)
-                singleLineIndicators.insert(cr.upperBound)
-                let key1 = String("\(seriesId):\(cr.lowerBound)")
-                let key2 = String("\(seriesId):\(cr.upperBound)")
-                singlePointIndicators.append(key1)
-                singlePointIndicators.append(key2)
-
-                let key = String("\(seriesId):\(cr.lowerBound):\(cr.upperBound)")
-                rangeIndicators.append(key)
-            }
-        }
-
-        for (seriesId, cats) in singleSelections {
-            for i in cats {
-                singleLineIndicators.insert(i)
-                let key = String("\(seriesId):\(i)")
-                singlePointIndicators.append(key)
-            }
-        }
-        
-        return (rangeIndicators.sorted(), singleLineIndicators.sorted(), singlePointIndicators.sorted())
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -249,59 +75,45 @@ class ChartUtility {
             dmax = dataRange.upperBound
         }
         
-        if secondaryRange {
-            //
-            // Check if explicit min is defined, otherwise use data min.
-            //
-            if let emin = model.secondaryNumericAxis.explicitMin {
-                dmin = emin
+        if model.chartType == .bubble || model.chartType == .scatter {
+            if let tmpMin = model.yDataMinimumValue {
+                dmin = min(tmpMin, dmin)
             }
-            
-            //
-            // Check if explicit max is defined, otherwise use data max.
-            //
-            if let emax = model.secondaryNumericAxis.explicitMax {
-                dmax = emax
-            }
-            
-            //
-            // Check if we need to clamp the baseline at zero and adjust accordingly.
-            //
-            if model.secondaryNumericAxis.isZeroBased {
-                if dmin >= 0.0 && dmax >= dmin {
-                    dmin = 0.0
-                } else if dmax <= 0.0 && dmin <= dmax {
-                    dmax = 0.0
-                }
-            }
-        } else {
-            //
-            // Check if explicit min is defined, otherwise use data min.
-            //
-            if let emin = model.numericAxis.explicitMin {
-                dmin = emin
-            }
-            
-            //
-            // Check if explicit max is defined, otherwise use data max.
-            //
-            if let emax = model.numericAxis.explicitMax {
-                dmax = emax
-            }
-            
-            //
-            // Check if we need to clamp the baseline at zero and adjust accordingly.
-            //
-            if model.chartType == .column || model.chartType == .bar || model.chartType == .stackedBar || model.chartType == .waterfall || model.chartType == .stackedColumn || model.numericAxis.isZeroBased {
-                if dmin >= 0.0 && dmax >= dmin {
-                    dmin = 0.0
-                } else if dmax <= 0.0 && dmin <= dmax {
-                    dmax = 0.0
-                }
+            if let tmpMax = model.yDataMaximumValue {
+                dmax = max(tmpMax, dmax)
             }
         }
         
         let axisAttributes = secondaryRange ? model.secondaryNumericAxis : model.numericAxis
+        //
+        // Check if explicit min is defined, otherwise use data min.
+        //
+        if let emin = axisAttributes.explicitMin {
+            dmin = emin
+        }
+        
+        //
+        // Check if explicit max is defined, otherwise use data max.
+        //
+        if let emax = axisAttributes.explicitMax {
+            dmax = emax
+        }
+        
+        //
+        // Check if we need to clamp the baseline at zero and adjust accordingly.
+        //
+        if model.chartType == .column || model.chartType == .bar || model.chartType == .stackedBar || model.chartType == .waterfall || model.chartType == .stackedColumn || axisAttributes.isZeroBased {
+            if dmin >= 0.0 && dmax >= dmin {
+                dmin = 0.0
+            } else if dmax <= 0.0 && dmin <= dmax {
+                dmax = 0.0
+            }
+        }
+        
+        var useNiceValue = axisAttributes.adjustToNiceValues
+        if axisAttributes.explicitMin != nil || axisAttributes.explicitMax != nil {
+            useNiceValue = false
+        }
         
         var useLooseLabels = axisAttributes.allowLooseLabels
         //
@@ -313,11 +125,10 @@ class ChartUtility {
             // If the baseline is at zero we aim to always show the baseline with a tick.
             if valueAxisBaselineValue == 0.0 {
                 useLooseLabels = false
-                axisAttributes.allowLooseLabels = useLooseLabels
             }
         }
         
-        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, allowLooseLabels: axisAttributes.allowLooseLabels, fudgeYAxisRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues, secondaryRange: secondaryRange)
+        return ChartModel.DataElementsForAxisTickValues(noData: false, dataMinimum: dmin, dataMaximum: dmax, currentSeriesIndex: currentSeriesIndex, numberOfGridlines: model.numberOfGridlines, allowLooseLabels: useLooseLabels, fudgeYAxisRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: useNiceValue, secondaryRange: secondaryRange)
     }
     
     static func calculateRangeProperties(_ model: ChartModel, dataElements: ChartModel.DataElementsForAxisTickValues, secondaryRange: Bool) -> AxisTickValues {
@@ -326,41 +137,10 @@ class ChartUtility {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
         }
         
-        let axisAttributes = secondaryRange ? model.secondaryNumericAxis : model.numericAxis
-        
-//        var allowLooseLabel = axisAttributes.allowLooseLabels
-//        if model.chartType == .line || model.chartType == .area || model.chartType == .stock || model.chartType == .combo {
-//            allowLooseLabel = false
-//        }
-        
         let dmin = dataElements.dataMinimum
         let dmax = dataElements.dataMaximum
-        
-//        var fudgeRange: Bool = false
-//
-//        switch model.chartType {
-//        case .bubble, .scatter, .stackedColumn, .waterfall, .combo:
-//            fudgeRange = true
-//
-//        default:
-//            fudgeRange = false
-//        }
-        
-        var useLooseLabels = axisAttributes.allowLooseLabels
-        //
-        // Create value axis tick properties based on min/max and if we need to adjust to nice values.
-        //
-        if useLooseLabels {
-            let valueAxisBaselineValue: CGFloat = dmax < 0.0 ? dmax : max(0.0, dmin)
-            
-            // If the baseline is at zero we aim to always show the baseline with a tick.
-            if valueAxisBaselineValue == 0.0 {
-                useLooseLabels = false
-                axisAttributes.allowLooseLabels = useLooseLabels
-            }
-        }
-        
-        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines), looseLabels: useLooseLabels, fudgeRange: axisAttributes.fudgeAxisRange, adjustToNiceValues: axisAttributes.adjustToNiceValues)
+                
+        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines), looseLabels: dataElements.allowLooseLabels, fudgeRange: dataElements.fudgeYAxisRange, adjustToNiceValues: dataElements.adjustToNiceValues)
     }
     
     // swiftlint:disable function_parameter_count
@@ -699,21 +479,6 @@ class ChartUtility {
         return AxisTickValues(plotMinimum: plotMinimum, plotMaximum: plotMaximum, plotBaselineValue: plotBaselineValue, plotBaselinePosition: plotBaselinePosition, tickMinimum: tickMinimum, tickMaximum: tickMaximum, dataMinimum: dataMinimum, dataMaximum: dataMaximum, plotRange: plotRange, tickRange: tickRange, dataRange: dataRange, plotScale: plotScale, tickScale: tickScale, dataScale: dataScale, tickStepSize: tickStepSize, tickValues: tickValues, tickPositions: tickPositions, tickCount: tickCount)
     }
     
-    static func plotItemYPosition(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, rect: CGRect) -> CGFloat? {
-        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
-        let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        let secondary = indexes.contains(seriesIndex) ? false : true
-        let range = ChartUtility.displayRange(model, secondary: secondary)
-    
-        if let value = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) {
-            let y = rect.size.height - (CGFloat(value) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound) + rect.origin.y
-            
-            return y
-        }
-        
-        return nil
-    }
-    
     static func xAxisBaselinePosition(_ model: ChartModel) -> CGFloat {
         let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
         let indexes = model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
@@ -778,33 +543,14 @@ class ChartUtility {
         }
     }
     
-    static func numOfDataItems(_ model: ChartModel) -> Int {
-        if let titles = model.titlesForCategory, model.currentSeriesIndex < titles.count {
-            return titles[model.currentSeriesIndex].count
-        }
-        
-        return model.data[model.currentSeriesIndex].count
-    }
-    
     static func displayRange(_ model: ChartModel, secondary: Bool = false) -> ClosedRange<CGFloat> {
-        if secondary {
-            let axisValues = model.secondaryNumericAxisTickValues
-            return axisValues.plotMinimum ... axisValues.plotMaximum
-        } else {
-            let axisValues = model.numericAxisTickValues
-            return axisValues.plotMinimum ... axisValues.plotMaximum
-        }
+        let axisValues = secondary ? model.secondaryNumericAxisTickValues : model.numericAxisTickValues
+        
+        return axisValues.plotMinimum ... axisValues.plotMaximum
     }
     
     static func lastValidDimIndex(_ model: ChartModel) -> Int {
         return model.data[model.currentSeriesIndex].count - 1
-    }
-    
-    static func isIntraDay(_ model: ChartModel) -> Bool {
-        let countA = model.titlesForCategory?[model.currentSeriesIndex].count ?? 0
-        let countB = ChartUtility.lastValidDimIndex(model) + 1
-        
-        return countA != countB
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
@@ -861,18 +607,8 @@ class ChartUtility {
     }
     
     /*
-     Stock chart functions only
-     */
-    static func categoryValueInDate(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Date? {
-        guard let dateString = categoryValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) else { return nil }
-        
-        return date(from: dateString)
-    }
-    
-    static func categoryValueInDate(_ model: ChartModel, categoryIndex: Int) -> Date? {
-        return categoryValueInDate(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
-    }
-    
+     Convert category label to date
+     */    
     static func date(from s: String) -> Date? {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"

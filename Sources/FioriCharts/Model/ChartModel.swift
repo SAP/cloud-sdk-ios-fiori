@@ -122,13 +122,22 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 selectionMode = .multiple
             }
             
-            // invalidate the plotDataCache
-            plotDataCache = nil
+            // invalidate cache data
             numericAxisTickValuesCache.removeAll()
             secondaryNumericAxisTickValuesCache.removeAll()
+            yDataMinimumValue = nil
+            yDataMaximumValue = nil
             categoryAxisTickValues = nil
-            scale = 1.0
-            startPos = .zero
+            
+            xAxisLabels = [:]
+            stockXAxisLabels = [:]
+            yAxisLabels = [:]
+            secondaryYAxisLabels = [:]
+            scaleX = 1
+            scaleY = 1
+            centerPosition = nil
+            plotDataCache = nil
+            path = [[[Path]]]()
             //selections = nil
         }
     }
@@ -212,7 +221,24 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     @Published public var snapToPoint: Bool = false
     
     /// number of gridlines for numeric axis    
-    @PublishedConstrainedValue(1...20) public var numberOfGridlines: Int = 3
+    @PublishedConstrainedValue(2...20) public var numberOfGridlines: Int = 3 {
+        didSet {
+            // invalidate cache data
+            numericAxisTickValuesCache.removeAll()
+            secondaryNumericAxisTickValuesCache.removeAll()
+            yDataMinimumValue = nil
+            yDataMaximumValue = nil
+            categoryAxisTickValues = nil
+            
+            yAxisLabels = [:]
+            secondaryYAxisLabels = [:]
+            scaleX = 1
+            scaleY = 1
+            centerPosition = nil
+            plotDataCache = nil
+            path = [[[Path]]]()
+        }
+    }
     
     /// the position of X Axis labels, .fixedBottom or .dynamic
     @Published public var xAxisLabelsPosition: XAxisLabelsPosition = .fixedBottom
@@ -233,14 +259,20 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 if allIndexs.contains(newValue) {
                     _indexOfStockSeries = newValue
                     
-                    scale = 1.0
-                    startPos = .zero
+                    // invalidate cache data
+                    numericAxisTickValuesCache.removeAll()
+                    xAxisLabels = [:]
+                    stockXAxisLabels = [:]
+                    yAxisLabels = [:]
+                    scaleX = 1
+                    scaleY = 1
+                    centerPosition = nil
+                    plotDataCache = nil
+                    path = [[[Path]]]()
+                    
                     if selections != nil {
                         selections = nil
                     }
-                    xAxisLabels = [:]
-                    yAxisLabels = [:]
-                    secondaryYAxisLabels = [:]
                 }
             }
         }
@@ -264,9 +296,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             } else {
                 _indexesOfColumnSeries = IndexSet()
             }
+
+            // invalidate cache data
+            numericAxisTickValuesCache.removeAll()
+            secondaryNumericAxisTickValuesCache.removeAll()
             
-            // invalidate the plotDataCache
+            yAxisLabels = [:]
+            secondaryYAxisLabels = [:]
+            scaleX = 1
+            scaleY = 1
+            centerPosition = nil
             plotDataCache = nil
+            path = [[[Path]]]()
         }
     }
     
@@ -290,12 +331,17 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             } else {
                 _indexesOfTotalsCategories = IndexSet()
             }
+        
+            // invalidate cache data
+            numericAxisTickValuesCache = []
             
-            // invalidate the plotDataCache
             updateRange()
+            yAxisLabels = [:]
+            scaleX = 1
+            scaleY = 1
+            centerPosition = nil
             plotDataCache = nil
-            numericAxisTickValuesCache.removeAll()
-            secondaryNumericAxisTickValuesCache.removeAll()
+            path = [[[Path]]]()
         }
     }
     
@@ -315,17 +361,21 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 let allIndexs = num > 0 ? IndexSet(integersIn: 0 ..< num): IndexSet(integer: 0)
                 let validIndex = newValue.intersection(allIndexs)
                 _indexesOfSecondaryValueAxis = validIndex
+            
+                // invalidate cache data
+                numericAxisTickValuesCache.removeAll()
+                secondaryNumericAxisTickValuesCache.removeAll()
                 
                 yAxisLabels = [:]
                 secondaryYAxisLabels = [:]
+                scaleX = 1
+                scaleY = 1
+                centerPosition = nil
+                plotDataCache = nil
+                path = [[[Path]]]()
             } else {
                 _indexesOfSecondaryValueAxis = IndexSet()
             }
-            
-            // invalidate the plotDataCache
-            plotDataCache = nil
-            numericAxisTickValuesCache.removeAll()
-            secondaryNumericAxisTickValuesCache.removeAll()
         }
     }
     
@@ -442,29 +492,108 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         $_selections.eraseToAnyPublisher()
     }()
     
+    @Published public var centerPosition: CGPoint? = nil
+    
+    /// private: X direction scale factor, scale is not allowed to be less than 1.0
+    @Published private var _scaleX: CGFloat = 1.0
+    
+    /// X direction scale factor, scale is not allowed to be less than 1.0
+    public var scaleX: CGFloat {
+        get {
+            return _scaleX
+        }
+        
+        set {
+            if newValue < 1 {
+                _scaleX = 1.0
+            } else {
+                _scaleX =  newValue
+            }
+        }
+    }
+    
+    /// private: Y direction scale factor, scale is not allowed to be less than 1.0
+    @Published private var _scaleY: CGFloat = 1.0
+    
+    /// Y direction scale factor, scale is not allowed to be less than 1.0
+    public var scaleY: CGFloat {
+        get {
+            return _scaleY
+        }
+        
+        set {
+            if newValue < 0 {
+                _scaleY = 0
+            }
+            
+            if newValue < 1 {
+                _scaleY = 1.0
+            } else {
+                _scaleY =  newValue
+            }
+        }
+    }
+    
+    /// enable/disable X direction scale by gesture
+    @Published public var scaleXEnabled: Bool = true
+    
+    /// enable/disable Y direction scale by gesture
+    @Published public var scaleYEnabled: Bool = false
+    
+    /// enable/disable Y direction scale by gesture
+    @Published public var readableScaleEnabled: Bool = true {
+        didSet {
+            if readableScaleEnabled == false {
+                _scaleX = 1.0
+                _scaleY = 1.0
+                centerPosition = CGPoint(x: 0.5, y: 0.5)
+            } else {
+                _scaleX = 1.0
+                _scaleY = 1.0
+                centerPosition = nil
+            }
+            
+            if chartType == .stock {
+                xAxisLabels = [:]
+            }
+        }
+    }
+    
     /*
-     Internal runtime properties
-     */
-    /// scale is not allowed to be less than 1.0
-    @Published var scale: CGFloat = 1.0
+      Internal runtime properties
+      */
     
-    /// chart's bottom left position when panned or zoomed
-    @Published var startPos: CGPoint = .zero
+    /// value type: .allPositive, .allNegative or .mixed
+    var valueType: ChartValueType {
+        let allIndexs = IndexSet(integersIn: 0 ..< data.count)
+        let indexes = indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let seriesIndex = indexes.isEmpty ? allIndexs.sorted() : indexes
+        
+        if seriesIndex.isEmpty {
+            return .allPositive
+        }
+        
+        let range: ClosedRange<CGFloat> = seriesIndex.reduce(ranges[seriesIndex[0]]) { (result, next) -> ClosedRange<CGFloat> in
+            return min(result.lowerBound, ranges[next].lowerBound) ... max(result.upperBound, ranges[next].upperBound)
+        }
+        
+        if range.lowerBound >= 0 {
+            return .allPositive
+        } else if range.upperBound <= 0 {
+            return .allNegative
+        } else {
+            return .mixed
+        }
+    }
     
-    /// internal property for series data range
-    var ranges: [ClosedRange<CGFloat>] = []
-    
-    /// Minimum value for category axis values used bubble/scatter chart only
-    var xDataMinimumValue: CGFloat?
-    
-    /// Maximum value for category axis values used bubble/scatter chart only
-    var xDataMaximumValue: CGFloat?
-    
-    /// Minimum value for z axis values used bubble/scatter chart only
-    var zDataMaximumValue: CGFloat?
-    
-    /// Maximum value for z axis values used bubble/scatter chart only
-    var zDataMinimumValue: CGFloat?
+    ///
+    var currentSeriesIndex: Int {
+        if chartType == .stock {
+            return indexOfStockSeries
+        }
+
+        return 0
+    }
     
     /// internal property used to hash AxisTickValues
     struct DataElementsForAxisTickValues: Hashable {
@@ -490,100 +619,97 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         let secondaryRange: Bool
     }
     
+    /// axis tick values for primary numeirc axis
+    var numericAxisTickValues: AxisTickValues {
+        if let value = numericAxisTickValuesCache.first {
+            return value
+        }
+        
+        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: false)
+
+        let result: AxisTickValues
+        if de.noData {
+            result = AxisTickValues()
+        } else {
+            result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
+        }
+
+        numericAxisTickValuesCache.append(result)
+
+        return result
+    }
+    
+    /// axis tick values for secondary numeirc axis
+    var secondaryNumericAxisTickValues: AxisTickValues {
+        if let value = secondaryNumericAxisTickValuesCache.first {
+            return value
+        }
+        
+        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: true)
+
+        let result: AxisTickValues
+        if de.noData {
+            result = AxisTickValues()
+        } else {
+            result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
+        }
+
+        secondaryNumericAxisTickValuesCache.append(result)
+        
+        return result
+    }
+    
+    ///
+    var cancellableSet: Set<AnyCancellable> = []
+    
+    /// internal property for series data range
+    var ranges: [ClosedRange<CGFloat>] = []
+    
+    /// Minimum value for category axis values used bubble/scatter chart only
+    var xDataMinimumValue: CGFloat?
+    
+    /// Maximum value for category axis values used bubble/scatter chart only
+    var xDataMaximumValue: CGFloat?
+    
+    /// Minimum value for numeric axis values used bubble/scatter chart only
+    var yDataMinimumValue: CGFloat?
+    
+    /// Maximum value for numeric axis values used bubble/scatter chart only
+    var yDataMaximumValue: CGFloat?
+    
+    /// Minimum value for z axis values used bubble/scatter chart only
+    var zDataMaximumValue: CGFloat?
+    
+    /// Maximum value for z axis values used bubble/scatter chart only
+    var zDataMinimumValue: CGFloat?
+    
     // need to invalidate it if the data has been changed
     var plotDataCache: [[ChartPlotData]]? = nil
     
     /// cache for AxisTickValues
-    var numericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
-    
-    /// axis tick values for primary numeirc axis
-    var numericAxisTickValues: AxisTickValues {
-        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: false)
-        
-        if de.noData {
-            return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        } else if let result = numericAxisTickValuesCache[de] {
-            return result
-        } else {
-            let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: false)
-            if numericAxisTickValuesCache.count >= 1 {
-                numericAxisTickValuesCache.removeAll()
-            }
-            
-            numericAxisTickValuesCache[de] = result
-            yAxisLabels = [:]
-            scale = 1
-            startPos = .zero
-            plotDataCache = nil
-            
-            return result
-        }
-    }
+    var numericAxisTickValuesCache: [AxisTickValues] = []
     
     /// cache for AxisTickValues
-    var secondaryNumericAxisTickValuesCache = [DataElementsForAxisTickValues: AxisTickValues]()
-    /// axis tick values for secondary numeirc axis
-    var secondaryNumericAxisTickValues: AxisTickValues {
-        let de = ChartUtility.calculateDataElementsForAxisTickValues(self, secondaryRange: true)
-        
-        if de.noData {
-            return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
-        } else if let result = secondaryNumericAxisTickValuesCache[de] {
-            return result
-        } else {
-            let result = ChartUtility.calculateRangeProperties(self, dataElements: de, secondaryRange: true)
-            if secondaryNumericAxisTickValuesCache.count > 1 {
-                secondaryNumericAxisTickValuesCache.removeAll()
-            }
-            
-            secondaryNumericAxisTickValuesCache[de] = result
-            secondaryYAxisLabels = [:]
-            return result
-        }
-    }
+    var secondaryNumericAxisTickValuesCache: [AxisTickValues] = []
     
     /// axis tick values for category axis, only bubble/scatter uses this
     var categoryAxisTickValues: AxisTickValues?
     
-    var valueType: ChartValueType {
-        let allIndexs = IndexSet(integersIn: 0 ..< data.count)
-        let indexes = indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
-        let seriesIndex = indexes.isEmpty ? allIndexs.sorted() : indexes
-        
-        if seriesIndex.isEmpty {
-            return .allPositive
-        }
-        
-        let range: ClosedRange<CGFloat> = seriesIndex.reduce(ranges[seriesIndex[0]]) { (result, next) -> ClosedRange<CGFloat> in
-            return min(result.lowerBound, ranges[next].lowerBound) ... max(result.upperBound, ranges[next].upperBound)
-        }
-        
-        if range.lowerBound >= 0 {
-            return .allPositive
-        } else if range.upperBound <= 0 {
-            return .allNegative
-        } else {
-            return .mixed
-        }
-    }
-    
-    var currentSeriesIndex: Int {
-        if chartType == .stock {
-            return indexOfStockSeries
-        }
-
-        return 0
-    }
-    
     /// Cached xAxisLabels
     // dict: font size : [AxisTitle]
     var xAxisLabels: [CGFloat: [AxisTitle]] = [:]
+    
+    // Cached xAxisLabels for stock chart, dict: [Year.hashValue : [AxisTitle], Month.hashValue : [AxisTitle]]
+    var stockXAxisLabels: [Int: [AxisTitle]] = [:]
     
     /// Cached yAxisLabels
     var yAxisLabels: [CGFloat: [AxisTitle]] = [:]
     
     /// Cached secondary yAxisLabels
     var secondaryYAxisLabels: [CGFloat: [AxisTitle]] = [:]
+    
+    /// Cached path
+    var path = [[[Path]]]()
     
     public let id = UUID()
     
@@ -598,6 +724,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                  selectionMode: ChartSelectionMode = .single,
                  selections: [Int: [Int]]?,
                  userInteractionEnabled: Bool = false,
+                 centerPosition: CGPoint? = nil,
+                 scaleX: CGFloat = 1.0,
+                 scaleY: CGFloat = 1.0,
+                 scaleXEnabled: Bool = false,
+                 scaleYEnabled: Bool = false,
+                 readableScaleEnabled: Bool = true,
                  snapToPoint: Bool = false,
                  seriesAttributes: [ChartSeriesAttributes]? = nil,
                  categoryAxis: ChartCategoryAxisAttributes? = nil,
@@ -619,7 +751,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         self._titlesForAxis = Published(initialValue: titlesForAxis)
         self._labelsForDimension = Published(initialValue: labelsForDimension)
-        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 1...20)
+        self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 2...20)
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
@@ -679,8 +811,18 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             self.seriesAttributes = []
         }
         
+        self._centerPosition = Published(initialValue: centerPosition)
+        self.scaleX = scaleX
+        self.scaleY = scaleY
+        self._scaleXEnabled = Published(initialValue: scaleXEnabled)
+        self._scaleYEnabled = Published(initialValue: scaleYEnabled)
+        self._readableScaleEnabled = Published(initialValue: readableScaleEnabled)
+        
         updateXZRange()
         updateRange()
+        updateNumericAxisTickValue()
+        updateSecondaryNumericAxisTickValue()
+        updateCategoryAxisLabels()
     }
     
     /**
@@ -721,6 +863,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                             selectionMode: ChartSelectionMode = .single,
                             selections: [Int: [Int]]? = nil,
                             userInteractionEnabled: Bool = false,
+                            centerPosition: CGPoint? = nil,
+                            scaleX: CGFloat = 1.0,
+                            scaleY: CGFloat = 1.0,
+                            scaleXEnabled: Bool = false,
+                            scaleYEnabled: Bool = false,
+                            readableScaleEnabled: Bool = true,
                             snapToPoint: Bool = false,
                             seriesAttributes: [ChartSeriesAttributes]? = nil,
                             categoryAxis: ChartCategoryAxisAttributes? = nil,
@@ -752,13 +900,16 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         var tmpData: [[DimensionData<CGFloat?>]] = []
         for (i, c) in data.enumerated() {
             var s: [DimensionData<CGFloat?>] = []
-            for (j, d) in c.enumerated() {
-                if intradayIndex.contains(i) && j == c.count - 1 {
-                    continue
-                } else {
-                    s.append(DimensionData.single(ChartUtility.cgfloatOptional(from: d)))
-                }
+
+            for d in c {
+                s.append(DimensionData.single(ChartUtility.cgfloatOptional(from: d)))
             }
+            
+            // remove last data since it is a just a placeholder for intraday stock
+            if intradayIndex.contains(i) && !s.isEmpty {
+                s.removeLast()
+            }
+            
             tmpData.append(s)
         }
 
@@ -787,6 +938,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                   selectionMode: selectionMode,
                   selections: selections,
                   userInteractionEnabled: userInteractionEnabled,
+                  centerPosition: centerPosition,
+                  scaleX: scaleX,
+                  scaleY: scaleY,
+                  scaleXEnabled: scaleXEnabled,
+                  scaleYEnabled: scaleYEnabled,
+                  readableScaleEnabled: readableScaleEnabled,
                   snapToPoint: snapToPoint,
                   seriesAttributes: seriesAttributes,
                   categoryAxis: categoryAxis,
@@ -840,6 +997,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                             selectionMode: ChartSelectionMode = .single,
                             selections: [Int: [Int]]? = nil,
                             userInteractionEnabled: Bool = false,
+                            centerPosition: CGPoint? = nil,
+                            scaleX: CGFloat = 1.0,
+                            scaleY: CGFloat = 1.0,
+                            scaleXEnabled: Bool = false,
+                            scaleYEnabled: Bool = false,
+                            readableScaleEnabled: Bool = true,
                             snapToPoint: Bool = false,
                             seriesAttributes: [ChartSeriesAttributes]? = nil,
                             categoryAxis: ChartCategoryAxisAttributes? = nil,
@@ -891,43 +1054,46 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         var tmpData: [[DimensionData<CGFloat?>]] = []
         for (i, c) in data3d.enumerated() {
             var s: [DimensionData<CGFloat?>] = []
-            for (j, d) in c.enumerated() {
-                if intradayIndex.contains(i) && j == c.count - 1 {
-                    continue
-                } else {
-                    if chartType == .bubble {
-                        // change the data order from x y z to y z x
-                        if d.count == 3 {
-                            let dimX = d[0]
-                            var dimYZX = d.dropFirst()
-                            dimYZX.append(dimX)
-                            let tmpD: [CGFloat?] = dimYZX.map { (v) in
-                                ChartUtility.cgfloatOptional(from: v)
-                            }
-                            
-                            s.append(DimensionData.array(tmpD))
-                        }
-                    } else if chartType == .scatter {
-                        // change the data order from x y to y x
-                        if d.count == 2 {
-                            let dimX = d[0]
-                            var dimYX = d.dropFirst()
-                            dimYX.append(dimX)
-                            let tmpD: [CGFloat?] = dimYX.map { (v) in
-                                ChartUtility.cgfloatOptional(from: v)
-                            }
-                            
-                            s.append(DimensionData.array(tmpD))
-                        }
-                    } else {
-                        let tmpD: [CGFloat?] = d.map { (v) in
+
+            for d in c {
+                if chartType == .bubble {
+                    // change the data order from x y z to y z x
+                    if d.count == 3 {
+                        let dimX = d[0]
+                        var dimYZX = d.dropFirst()
+                        dimYZX.append(dimX)
+                        let tmpD: [CGFloat?] = dimYZX.map { (v) in
                             ChartUtility.cgfloatOptional(from: v)
                         }
                         
                         s.append(DimensionData.array(tmpD))
                     }
+                } else if chartType == .scatter {
+                    // change the data order from x y to y x
+                    if d.count == 2 {
+                        let dimX = d[0]
+                        var dimYX = d.dropFirst()
+                        dimYX.append(dimX)
+                        let tmpD: [CGFloat?] = dimYX.map { (v) in
+                            ChartUtility.cgfloatOptional(from: v)
+                        }
+                        
+                        s.append(DimensionData.array(tmpD))
+                    }
+                } else {
+                    let tmpD: [CGFloat?] = d.map { (v) in
+                        ChartUtility.cgfloatOptional(from: v)
+                    }
+                    
+                    s.append(DimensionData.array(tmpD))
                 }
             }
+            
+            // remove last data since it is a just a placeholder for intraday stock
+            if intradayIndex.contains(i) && !s.isEmpty {
+                s.removeLast()
+            }
+            
             tmpData.append(s)
         }
 
@@ -956,6 +1122,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                   selectionMode: selectionMode,
                   selections: selections,
                   userInteractionEnabled: userInteractionEnabled,
+                  centerPosition: centerPosition,
+                  scaleX: scaleX,
+                  scaleY: scaleY,
+                  scaleXEnabled: scaleXEnabled,
+                  scaleYEnabled: scaleYEnabled,
+                  readableScaleEnabled: readableScaleEnabled,
                   snapToPoint: snapToPoint,
                   seriesAttributes: seriesAttributes,
                   categoryAxis: categoryAxis,
@@ -982,6 +1154,12 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               selectionMode: self.selectionMode,
                               selections: self.selections,
                               userInteractionEnabled: self.userInteractionEnabled,
+                              centerPosition: self.centerPosition,
+                              scaleX: self.scaleX,
+                              scaleY: self.scaleY,
+                              scaleXEnabled: self.scaleXEnabled,
+                              scaleYEnabled: self.scaleYEnabled,
+                              readableScaleEnabled: readableScaleEnabled,
                               snapToPoint: self.snapToPoint,
                               seriesAttributes: self.seriesAttributes.map {
                                 let copy = $0.copy() as! ChartSeriesAttributes
@@ -1096,6 +1274,129 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         ranges = result
     }
     
+    func updateCategoryAxisLabels() {
+        if self.chartType == .stock {
+            categoryAxis.labels.$fontSize
+                .subscribe(on: RunLoop.main)
+                .sink {_ in
+                    self.stockXAxisLabels = [:]
+                }.store(in: &cancellableSet)
+        }
+    }
+    
+    func updateNumericAxisTickValue() {
+        numericAxis.$isZeroBased
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$explicitMin
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$explicitMax
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$formatter
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$abbreviatesLabels
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$isMagnitudedDisplayed
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+        
+        numericAxis.$abbreviatedFormatter
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: false)
+            }.store(in: &cancellableSet)
+    }
+    
+    ///
+    func updateSecondaryNumericAxisTickValue() {
+        if indexesOfSecondaryValueAxis.isEmpty {
+            return
+        }
+        
+        secondaryNumericAxis.$isZeroBased
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$explicitMin
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$explicitMax
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$formatter
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$abbreviatesLabels
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$isMagnitudedDisplayed
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+        
+        secondaryNumericAxis.$abbreviatedFormatter
+            .subscribe(on: RunLoop.main)
+            .sink {_ in
+                self.invalidateNumericAxisCache(for: true)
+            }.store(in: &cancellableSet)
+    }
+    
+    func invalidateNumericAxisCache(for secondary: Bool) {
+        if secondary {
+            secondaryNumericAxisTickValuesCache = []
+            secondaryYAxisLabels = [:]
+        } else {
+            numericAxisTickValuesCache = []
+            yAxisLabels = [:]
+        }
+        
+        yDataMinimumValue = nil
+        yDataMaximumValue = nil
+        categoryAxisTickValues = nil
+        yAxisLabels = [:]
+        scaleX = 1
+        scaleY = 1
+        centerPosition = nil
+        plotDataCache = nil
+        path = [[[Path]]]()
+    }
+    
     /// number of series in the chart model
     public func numOfSeries() -> Int {
         return data.count
@@ -1103,6 +1404,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// number of categories for charts except stock, bubble and scatter
     public func numOfCategories() -> Int {
+        if chartType == .stock {
+            if let titles = titlesForCategory, currentSeriesIndex < titles.count {
+                return titles[currentSeriesIndex].count
+            }
+            
+            return 0
+        }
+        
         let counts = data.map { series in
             series.count
         }
@@ -1115,6 +1424,14 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     /// number of categories in the series
     public func numOfCategories(in seriesId: Int) -> Int {
+        if chartType == .stock {
+            if let titles = titlesForCategory, seriesId < titles.count {
+                return titles[seriesId].count
+            }
+            
+            return 0
+        }
+        
         if seriesId >= data.count {
             return 0
         } else {
@@ -1323,7 +1640,13 @@ extension ChartModel: Equatable {
             lhs.secondaryNumericAxis == rhs.secondaryNumericAxis &&
             lhs.indexesOfSecondaryValueAxis == rhs.indexesOfSecondaryValueAxis &&
             lhs.indexesOfColumnSeries == rhs.indexesOfColumnSeries &&
-            lhs.indexesOfTotalsCategories == rhs.indexesOfTotalsCategories
+            lhs.indexesOfTotalsCategories == rhs.indexesOfTotalsCategories &&
+            lhs._scaleX == rhs._scaleX &&
+            lhs._scaleY == rhs._scaleY &&
+            lhs.scaleXEnabled == rhs.scaleXEnabled &&
+            lhs.scaleYEnabled == rhs.scaleYEnabled &&
+            lhs.readableScaleEnabled == rhs.readableScaleEnabled &&
+            lhs.centerPosition == rhs.centerPosition
     }
 }
 
@@ -1341,6 +1664,21 @@ extension ChartModel {
         }
         
         return .preferredColor(.primary2)
+    }
+    
+    func columnColor(seriesIndex: Int, categoryIndex: Int) -> Color {
+        if let tmpSelections = selections {
+            let fillColor = fillColorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
+            let selected = tmpSelections[seriesIndex]?.contains(categoryIndex) ?? false
+            
+            if selected {
+                return fillColor
+            } else {
+                return fillColor.opacity(0.4)
+            }
+        } else {
+            return colorAt(seriesIndex: seriesIndex, categoryIndex: categoryIndex)
+        }
     }
     
     func fillColorAt(seriesIndex: Int, categoryIndex: Int) -> Color {
@@ -1476,8 +1814,12 @@ extension ChartModel: CustomStringConvertible {
         "selections": "\(String(describing: selections))",
         "selectionRequired": \(selectionRequired),
         "indexOfStockSeries": "\(String(describing: indexOfStockSeries))",
-        "scale": \(String(describing: scale)),
-        "startPos": \(String(describing: startPos)),
+        "scaleX": \(String(describing: scaleX)),
+        "scaleY": \(String(describing: scaleY)),
+        "scaleXEnabled": \(String(describing: scaleXEnabled)),
+        "scaleYEnabled": \(String(describing: scaleYEnabled)),
+        "readableScaleEnabled": \(String(describing: readableScaleEnabled)),
+        "centerPosition": \(String(describing: centerPosition)),
         "ranges": "\(String(describing: ranges))",
         "numericAxisTickValues": \(String(describing: numericAxisTickValues)),
         "secondaryNumericAxisTickValues": \(String(describing: secondaryNumericAxisTickValues))

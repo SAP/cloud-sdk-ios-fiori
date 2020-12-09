@@ -142,6 +142,12 @@ struct ChartViewLayout {
     
     /// Minimum unit width
     static let minUnitWidth: CGFloat = 0.0000000001
+    
+    ///
+    static let minDataWidth: CGFloat = 20
+    
+    ///
+    static let columnGapFraction: CGFloat = 0.333333
 }
 
 struct FUIChartView_Previews: PreviewProvider {
