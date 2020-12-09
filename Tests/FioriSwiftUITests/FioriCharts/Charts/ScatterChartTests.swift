@@ -43,13 +43,17 @@ class ScatterChartTests: XCTestCase {
         
         // change it
         model.numericAxis.isZeroBased = false
+        model.plotDataCache = nil
+        model.numericAxisTickValuesCache = []
+        model.yDataMinimumValue = nil
+        model.yDataMaximumValue = nil
         let _ = dataSource.plotData(model)
         let axisContext2 = model.numericAxisTickValues
         
         XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.001 )
         XCTAssertEqual(axisContext1.dataMaximum, 2025.4133, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMinimum, 1908.0, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMaximum, 2025.4133, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMinimum, 1907.3066, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMaximum, 2012.693, accuracy: 0.001 )
     }
 
     func testCategoryAxisContext() throws {

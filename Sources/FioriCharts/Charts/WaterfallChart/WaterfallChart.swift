@@ -11,10 +11,10 @@ struct WaterfallChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: WaterfallChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: WaterfallChartContext(),
                     chartView: WaterfallView(),
-                    indicatorView: WaterfallIndicatorView())
-            .environmentObject(model)
+                    indicatorView: EmptyView())
     }
 }
 
@@ -27,8 +27,8 @@ class WaterfallChartContext: StackedColumnChartContext {
         var result: [[ChartPlotData]] = []
         let maxDataCount = model.numOfCategories(in: 0)
         
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
         
         let tickValues = model.numericAxisTickValues
         let yScale = tickValues.plotScale
@@ -102,32 +102,98 @@ class WaterfallChartContext: StackedColumnChartContext {
         return result
     }
     
-    override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
-        let width = rect.size.width
-        let startPosX = model.startPos.x * model.scale * width
-        let pd = plotData(model)
-        let x = ChartUtility.xPos(atPoint.x,
-                                  layoutDirection: layoutDirection,
-                                  width: width)
-        
-        let maxDataCount = model.numOfCategories(in: 0)
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        
-        let startIndex = Int((x + startPosX) / (columnXIncrement * model.scale * rect.size.width))
-        if startIndex >= maxDataCount || startIndex < 0 {
-            return (-1, -1)
+    override func plotPath(_ model: ChartModel) -> [[[Path]]] {
+        if !model.path.isEmpty {
+            return model.path
         }
         
-        for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - startPosX
-            let xMax = plotCat.rect.maxX * model.scale * width - startPosX
-            
-            if x >= xMin && x <= xMax {
-                return (plotCat.seriesIndex, plotCat.categoryIndex)
+        var result = [[[Path]]]()
+        let seriesCount = model.numOfSeries()
+
+        for seriesIndex in 0 ..< max(1, seriesCount) {
+            let columnsPath = plotColumnPath(model, for: seriesIndex)
+            let linesPath = connectingLinesPath(model, for: seriesIndex)
+
+            var seriesPath = [[Path]]()
+            for categoryIndex in 0 ..< columnsPath.count {
+                let columnPath = columnsPath[categoryIndex].first ?? Path()
+                let linePath = linesPath.count > categoryIndex ? linesPath[categoryIndex] : Path()
+                seriesPath.append([columnPath, linePath])
             }
+
+            result.append(seriesPath)
+        }
+
+        model.path = result
+
+        return result
+    }
+    
+    func connectingLinesPath(_ model: ChartModel, for seriesIndex: Int) -> [Path] {
+        let maxDataCount = model.numOfCategories(in: 0)
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
+        let pd = plotData(model)
+        var seriesPath = [Path]()
+        
+        for categoryIndex in 0 ..< maxDataCount {
+            var path = Path()
+            
+            let startX = columnXIncrement * CGFloat(categoryIndex)
+            let endX = columnXIncrement * CGFloat(categoryIndex) + clusterWidth
+            
+            // top line and bottom line
+            if model.plotItemValue(at: seriesIndex, category: categoryIndex, dimension: 0) != nil {
+                let isTotal = isSubTotal(model, categoryIndex: categoryIndex)
+                
+                // only top line
+                if isTotal {
+                    let topY = yPos(model, for: pd[categoryIndex][0], isStart: true)
+                    path.move(to: CGPoint(x: startX, y: topY))
+                    path.addLine(to: CGPoint(x: startX + clusterWidth, y: topY))
+                } else {
+                    let item = pd[categoryIndex][0]
+                    path.move(to: CGPoint(x: startX, y: 1.0 - item.rect.minY))
+                    path.addLine(to: CGPoint(x: startX + clusterWidth, y: 1.0 - item.rect.minY))
+                    
+                    path.move(to: CGPoint(x: startX, y: 1.0 - item.rect.maxY))
+                    path.addLine(to: CGPoint(x: startX + clusterWidth, y: 1.0 - item.rect.maxY))
+                }
+
+                // connecting line to next column
+                if categoryIndex < maxDataCount - 1, model.plotItemValue(at: seriesIndex, category: categoryIndex + 1, dimension: 0) != nil {
+                    let startPoint: CGPoint = CGPoint(x: endX, y: yPos(model, for: pd[categoryIndex][0], isStart: true))
+                    
+                    let endPoint: CGPoint = categoryIndex == maxDataCount - 1 ? startPoint : CGPoint(x: columnXIncrement * CGFloat(categoryIndex + 1),
+                                                                                                     y: yPos(model, for: pd[categoryIndex + 1][0], isStart: false))
+                    
+                    if categoryIndex < maxDataCount - 1 {
+                        path.move(to: startPoint)
+                        path.addLine(to: endPoint)
+                    }
+                }
+            }
+            
+            seriesPath.append(path)
         }
         
-        return (-1, -1)
+        return seriesPath
+    }
+    
+    func yPos(_ model: ChartModel, for item: ChartPlotData, isStart: Bool) -> CGFloat {
+        let isTotal = isSubTotal(model, categoryIndex: item.categoryIndex)
+        
+        let isTop = (isTotal && item.value > 0) || (isStart && item.value > 0) || (!isStart && !isTotal && item.value < 0)
+            
+        if isTop {
+            return (1.0 - item.rect.maxY)
+        } else {
+            return (1.0 - item.rect.minY)
+        }
+    }
+    
+    func isSubTotal(_ model: ChartModel, categoryIndex: Int) -> Bool {
+        return categoryIndex == 0 ? true : model.indexesOfTotalsCategories.contains(categoryIndex)
     }
 }
 
