@@ -11,24 +11,14 @@ import FioriCharts
 
 struct SettingsAxis: View {
     @Binding var axis: ChartNumericAxisAttributes
+    @State var textExplicitMin: String = ""
+    @State var textExplicitMax: String = ""
     
     var body: some View {
         Form {
             Section(header: Text("Basic")) {
                 Toggle(isOn: $axis.isZeroBased) {
                     Text("Is Zero Based")
-                }
-                
-                Toggle(isOn: $axis.allowLooseLabels) {
-                    Text("Allow Loose Labels")
-                }
-                
-                Toggle(isOn: $axis.fudgeAxisRange) {
-                    Text("Fudge Axis Range")
-                }
-                
-                Toggle(isOn: $axis.adjustToNiceValues) {
-                    Text("Adjust To Nice Values")
                 }
                 
                 Toggle(isOn: $axis.abbreviatesLabels) {
@@ -39,8 +29,25 @@ struct SettingsAxis: View {
                     Text("Is Magnituded Displayed")
                 }
                 
-                Text("Explicit Min: \(String(describing: axis.explicitMin))")
-                Text("Explicit Max: \(String(describing: axis.explicitMax))")
+                HStack(alignment: .center) {
+                    Text("Explicit Min: ")
+                    
+                    TextField("", text: $textExplicitMin, onCommit:  {
+                        if let val = NumberFormatter().number(from: self.textExplicitMin){
+                            self.axis.explicitMin = CGFloat(truncating: val)
+                        }
+                    }).textFieldStyle(RoundedBorderTextFieldStyle())
+                }
+                
+                HStack(alignment: .center) {
+                    Text("Explicit Max: ")
+
+                    TextField("", text: $textExplicitMax, onCommit:  { 
+                        if let val = NumberFormatter().number(from: self.textExplicitMax){
+                            self.axis.explicitMax = CGFloat(truncating: val)
+                        }
+                    }).textFieldStyle(RoundedBorderTextFieldStyle())
+                }
                 
                 Picker(selection: $axis.formatter.numberStyle, label: Text("Number Formatter Style")) {
                     Text("decimal").tag(NumberFormatter.Style.decimal)

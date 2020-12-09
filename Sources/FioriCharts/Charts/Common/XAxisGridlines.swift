@@ -12,6 +12,8 @@ struct XAxisGridlines: View {
     @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
     
+    let plotViewSize: CGSize
+    
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -19,29 +21,43 @@ struct XAxisGridlines: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        var xAxisLabels: [AxisTitle] = chartContext.xAxisGridlines(model, rect: rect)
-        
-        if let first = xAxisLabels.first, abs(first.pos.x) < 0.001 {
-            xAxisLabels.removeFirst()
+        let labels: [AxisTitle] = chartContext.xAxisGridlines(model, rect: rect, plotViewSize: plotViewSize)
+        var indexToRemove = -1
+        if let first = labels.first, abs(first.pos.x) < 0.001 {
+            indexToRemove = first.index
         }
         
+        var isShowLabels = [Bool]()
+        for label in labels {
+            if label.pos.x >= -1 && label.pos.x <= rect.size.width + 1 {
+                isShowLabels.append(true)
+            } else {
+                isShowLabels.append(false)
+            }
+        }
+        if indexToRemove >= 0 && indexToRemove < labels.count {
+            isShowLabels[indexToRemove] = false
+        }
+
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.numericAxis : model.categoryAxis
         let valueType = model.valueType
         let ticks = model.numericAxisTickValues
         let zeroX: CGFloat = rect.size.width * ticks.plotBaselinePosition
+        let dash = [axis.gridlines.dashPatternLength, axis.gridlines.dashPatternGap]
         
         return ZStack {
-            if !xAxisLabels.isEmpty && !axis.gridlines.isHidden {
-                ForEach(xAxisLabels) { title in
-                    // grid lines
-                    if !axis.gridlines.isHidden {
-                        LineShape(pos1: .zero,
-                                  pos2: CGPoint(x: 0, y: rect.size.height),
-                                  layoutDirection: self.layoutDirection)
-                            .stroke(axis.gridlines.color,
-                                    style: StrokeStyle(lineWidth: axis.gridlines.width,
-                                                       dash: [axis.gridlines.dashPatternLength, axis.gridlines.dashPatternGap]))
-                            .offset(x: title.pos.x)
+            if !axis.gridlines.isHidden {
+                ForEach(0..<labels.count, id: \.self) { index in
+                    Group {
+                        if isShowLabels[index] {
+                            LineShape(pos1: .zero,
+                                      pos2: CGPoint(x: 0, y: rect.size.height),
+                                      layoutDirection: self.layoutDirection)
+                                .stroke(axis.gridlines.color, style: StrokeStyle(lineWidth: axis.gridlines.width, dash: dash))
+                                .offset(x: labels[index].pos.x)
+                        } else {
+                            EmptyView()
+                        }
                     }
                 }
             }
@@ -56,7 +72,7 @@ struct XAxisGridlines: View {
                                            dash: [axis.gridlines.dashPatternLength, 0]))
                 .offset(x: zeroX)
             }
-        }
+        }.animation(nil)
     }
     
     func dashGap(label: AxisTitle, gap: CGFloat) -> CGFloat {
@@ -70,13 +86,11 @@ struct XAxisGridlines: View {
 
 struct XAxisGridlines_Previews: PreviewProvider {
     static var previews: some View {
-        let chartContext = StockChartContext()
-        
         return Group {
             ForEach(Tests.stockModels) {
-                XAxisGridlines()
+                XAxisGridlines(plotViewSize: CGSize(width: 300, height: 200))
                     .environmentObject($0)
-                    .environment(\.chartContext, chartContext)
+                    .environment(\.chartContext, StockChartContext())
             }
             .frame(width: 300, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
