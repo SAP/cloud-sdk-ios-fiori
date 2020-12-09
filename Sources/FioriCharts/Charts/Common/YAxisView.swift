@@ -15,9 +15,11 @@ struct YAxisView: View {
     @State var yAxisExpanded: Bool = false
     
     let secondary: Bool
+    let plotViewSize: CGSize
     
-    init(secondary: Bool = false) {
+    init(secondary: Bool = false, plotViewSize: CGSize) {
         self.secondary = secondary
+        self.plotViewSize = plotViewSize
     }
     
     var body: some View {
@@ -27,8 +29,19 @@ struct YAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let yAxisLabels: [AxisTitle] = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
-
+        let labels: [AxisTitle] = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary, rect: rect, plotViewSize: plotViewSize)
+    
+        var isShowLabels = [Bool]()
+        var preYPos: CGFloat = -10000
+        for label in labels {
+            if label.pos.y >= -1 && label.pos.y <= rect.size.height + 1 && label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
+                isShowLabels.append(true)
+                preYPos = label.pos.y
+            } else {
+                isShowLabels.append(false)
+            }
+        }
+        
         let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
         let baselineX: CGFloat
         if secondary {
@@ -47,16 +60,22 @@ struct YAxisView: View {
         
         return ZStack {
             if !axis.labels.isHidden {
-                ForEach(yAxisLabels) { label in
+                ForEach(0..<labels.count, id: \.self) { index in
                     // y axis lables
-                    Text(label.title)
-                        .font(.system(size: axis.labels.fontSize))
-                        .foregroundColor(axis.labels.color)
-                        .position(x: label.pos.x,
-                                  y: label.pos.y)
-                        .frame(maxWidth: rect.size.width)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                    Group {
+                        if isShowLabels[index] {
+                            Text(labels[index].title)
+                                .font(.system(size: axis.labels.fontSize))
+                                .foregroundColor(axis.labels.color)
+                                .position(x: labels[index].pos.x,
+                                          y: labels[index].pos.y)
+                                .frame(maxWidth: rect.size.width)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        } else {
+                            EmptyView()
+                        }
+                    }
                 }
             }
             
@@ -70,27 +89,26 @@ struct YAxisView: View {
                     .frame(width: axis.baseline.width, height: rect.size.height)
                     .position(x: baselineX, y: rect.size.height / 2)
             }
-        }.background(Color.clear)
+        }
+        .animation(nil)
     }
 }
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        let chartContext = DefaultChartContext()
-        
-        return Group {
+        Group {
             ForEach(Tests.lineModels) {
-                YAxisView()
+                YAxisView(plotViewSize: CGSize(width: 300, height: 200))
                     .environmentObject($0)
-                    .environment(\.chartContext, chartContext)
+                    .environment(\.chartContext, LineChartContext())
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
             ForEach(Tests.lineModels) {
-                YAxisView(secondary: true)
+                YAxisView(secondary: true, plotViewSize: CGSize(width: 300, height: 200))
                     .environmentObject($0)
-                    .environment(\.chartContext, chartContext)
+                    .environment(\.chartContext, LineChartContext())
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)

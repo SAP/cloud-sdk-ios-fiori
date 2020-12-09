@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct AxisTitle: Identifiable {
+struct AxisTitle: Identifiable, Hashable {
     // the index in model.data for x & y axis
     let index: Int
     let value: CGFloat
@@ -35,5 +35,12 @@ struct AxisTitle: Identifiable {
     
     mutating func x(_ x: CGFloat) {
         self.pos.x = x
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(pos.x)
+        hasher.combine(pos.y)
+        hasher.combine(size.width)
+        hasher.combine(size.height)
     }
 }

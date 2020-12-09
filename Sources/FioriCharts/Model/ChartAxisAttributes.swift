@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+
 /**
  Identifiers for different axes presented by the chart.
  
@@ -110,6 +111,31 @@ struct AxisTickValues {
      *  Amount of ticks that are to be represented.
      */
     let tickCount: UInt
+    
+    init(plotMinimum: CGFloat, plotMaximum: CGFloat, plotBaselineValue: CGFloat, plotBaselinePosition: CGFloat, tickMinimum: CGFloat, tickMaximum: CGFloat, dataMinimum: CGFloat, dataMaximum: CGFloat, plotRange: CGFloat, tickRange: CGFloat, dataRange: CGFloat, plotScale: CGFloat, tickScale: CGFloat, dataScale: CGFloat, tickStepSize: CGFloat, tickValues: [CGFloat], tickPositions: [CGFloat], tickCount: UInt) {
+        self.plotMinimum = plotMinimum
+        self.plotMaximum = plotMaximum
+        self.plotBaselineValue = plotBaselineValue
+        self.plotBaselinePosition = plotBaselinePosition
+        self.tickMinimum = tickMinimum
+        self.tickMaximum = tickMaximum
+        self.dataMinimum = dataMinimum
+        self.dataMaximum = dataMaximum
+        self.plotRange = plotRange
+        self.tickRange = tickRange
+        self.dataRange = dataRange
+        self.plotScale = plotScale
+        self.tickScale = tickScale
+        self.dataScale = dataScale
+        self.tickStepSize = tickStepSize
+        self.tickValues = tickValues
+        self.tickPositions = tickPositions
+        self.tickCount = tickCount
+    }
+    
+    init() {
+        self.init(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
+    }
 }
 
 extension AxisTickValues: CustomStringConvertible {
@@ -362,13 +388,13 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
         • column - no
         • combo - yes
     */
-    @Published public var allowLooseLabels = false
+    @Published var allowLooseLabels = false
     
    /***
      Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
      By default, all column based charts have this enabled and all line based don't.
     */
-    @Published public var fudgeAxisRange = false
+    @Published var fudgeAxisRange = false
     
     /***
      Flag that indicates if we should adjust to nice values, or use the data
@@ -376,7 +402,7 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     
      Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
     */
-    @Published public var adjustToNiceValues = true
+    @Published var adjustToNiceValues = true
     
     /**
      Formatter used for the axis gridline labels.

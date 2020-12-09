@@ -96,7 +96,7 @@ class ChartModelTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let model = ChartModel(chartType: .line, data: [[nil]], numberOfGridlines: -200)
         
-        XCTAssertEqual(model.numberOfGridlines, 1)
+        XCTAssertEqual(model.numberOfGridlines, 2)
     }
     
     func testSeriesAttributesOneValue() throws {

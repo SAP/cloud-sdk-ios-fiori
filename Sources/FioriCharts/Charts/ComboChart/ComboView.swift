@@ -19,63 +19,84 @@ struct ComboView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        ZStack {
-            makeComboColumnView(in: rect)
-            ComboLinesView()
+        let width = rect.size.width
+        
+        let allIndexs = IndexSet(integersIn: 0 ..< model.numOfSeries())
+        let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs).sorted()
+        let columnIndexes = model.indexesOfColumnSeries.sorted()
+        
+        let categoryIndexRange = chartContext.displayCategoryIndexes(model, rect: rect)
+        let categoryIndices = Array(categoryIndexRange)
+        let maxDataCount = model.numOfCategories()
+        let lineStartIndex = categoryIndexRange.lowerBound//max(0, categoryIndexRange.lowerBound - 1)
+        let lineEndIndex = min(categoryIndexRange.upperBound + 1, maxDataCount - 1)
+        
+        // calculate CGAffineTransform for layoutDirection
+        let mirror = layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
+
+        let translateX: CGFloat
+        let startPosition = chartContext.startPosition(model, plotViewSize: rect.size)
+        let scaleX = chartContext.scaleX(model, plotViewSize: rect.size)
+        let scaleY = chartContext.scaleY(model, plotViewSize: rect.size)
+        
+        if layoutDirection == .rightToLeft {
+            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * width
+        } else {
+            translateX = -startPosition.x * scaleX * width
         }
+        let translateY = -startPosition.y * scaleY * rect.size.height
+        
+        return ZStack {
+            // column series view
+            ForEach(0..<categoryIndices.count, id: \.self) { index in
+                ColumnSeriesView(seriesIndices: columnIndexes, categoryIndex: categoryIndices[index])
+            }.clipped()
+            
+            // line series view
+            ForEach(0..<lineIndexes.count, id: \.self) { seriesIndex in
+                ZStack {
+                    LineChartSeriesLineShape(path: self.model.path, seriesIndex: lineIndexes[seriesIndex], startIndex: lineStartIndex, endIndex: lineEndIndex)
+                        .transform(mirror)   // apply layoutDirection
+                        .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
+                        .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                        .stroke(self.model.seriesAttributes[lineIndexes[seriesIndex]].palette.colors[0],
+                                lineWidth: self.model.seriesAttributes[lineIndexes[seriesIndex]].lineWidth)
+                        .frame(width: rect.size.width, height: rect.size.height)
+                        .clipped()
+                    
+                    if !self.model.seriesAttributes[lineIndexes[seriesIndex]].point.isHidden {
+                        PointsShape(model: self.model,
+                                    chartContext: self.chartContext,
+                                    seriesIndex: lineIndexes[seriesIndex],
+                                    categoryIndexRange: categoryIndexRange,
+                                    layoutDirection: self.layoutDirection)
+                            .fill(self.model.seriesAttributes[lineIndexes[seriesIndex]].point.strokeColor)
+                            .clipShape(Rectangle()
+                                        .size(width: width + self.pointRadius(at: lineIndexes[seriesIndex]) * 2 + 5,
+                                              height: rect.size.height + self.pointRadius(at: lineIndexes[seriesIndex]) * 2 + 5)
+                                        .offset(x: -1 * self.pointRadius(at: lineIndexes[seriesIndex]),
+                                                y: -1 * self.pointRadius(at: lineIndexes[seriesIndex])))
+                    } else {
+                        EmptyView()
+                    }
+                }
+            }.opacity(self.model.selections != nil ? 0.25 : 1)
+        }
+        .frame(width: rect.size.width, height: rect.size.height)
     }
     
-    func makeComboColumnView(in rect: CGRect) -> some View {
-        let maxDataCount = model.numOfCategories()
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
+    func pointRadius(at index: Int) -> CGFloat {
+        let pointAttr = model.seriesAttributes[index].point
         
-        let pd = chartContext.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
-        let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
-        var gapBeforeFirstCoumn: CGFloat = 0
-        if let fs = curPlotData.first, let fl = fs.first {
-            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - startPosX)
-        }
-    
-        let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
-        let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0
-        
-        return VStack(alignment: .leading, spacing: 0) {
-            if pd.isEmpty {
-                EmptyView()
-            } else {
-                HStack(alignment: .bottom, spacing: clusterSpace) {
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(width: gapBeforeFirstCoumn)
-                    
-                    HStack(alignment: .bottom, spacing: clusterSpace) {
-                        ForEach(curPlotData, id: \.self) { series in
-                            ComboSeriesView(plotSeries: series,
-                                            rect: rect,
-                                            isSelectionView: false)
-                        }
-                    }
-                    
-                    Spacer(minLength: 0)
-                }
-                .frame(width: chartWidth)
-                .position(x: chartPosX, y: rect.size.height / 2.0)
-            }
-        }.clipped()
+        return CGFloat(pointAttr.diameter/2)
     }
 }
 
 struct ComboView_Previews: PreviewProvider {
     static var previews: some View {
-        let chartContext = ComboChartContext()
-        
-        return ComboView()
+        ComboView()
             .environmentObject(Tests.comboModels[0])
-            .environment(\.chartContext, chartContext)
+            .environment(\.chartContext, ComboChartContext())
             .frame(width: 300, height: 200)
     }
 }

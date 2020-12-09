@@ -58,7 +58,8 @@ class BarChartTests: XCTestCase {
         let dataSource = BarChartContext()
         let model = Tests.lineModels[0]
         model.chartType = .bar
-        let labels = dataSource.yAxisLabels(model, rect: CGRect(x: 0, y: 0, width: 200, height: 200))
+        let size = CGSize(width: 200, height: 200)
+        let labels = dataSource.yAxisLabels(model, rect: CGRect(origin: .zero, size: size), plotViewSize: size)
         
         XCTAssertTrue(labels[0].title == "Jan")
         XCTAssertTrue(labels[6].title == "Jul")

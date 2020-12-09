@@ -43,13 +43,17 @@ class BubbleChartTests: XCTestCase {
         
         // change it
         model2.numericAxis.isZeroBased = false
+        model2.plotDataCache = nil
+        model2.numericAxisTickValuesCache = []
+        model2.yDataMinimumValue = nil
+        model2.yDataMaximumValue = nil
         let _ = dataSource.plotData(model2)
         let axisContext2 = model2.numericAxisTickValues
         
         XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.001 )
         XCTAssertEqual(axisContext1.dataMaximum, 2247.26, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMinimum, 1908, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMaximum, 2247.26, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMinimum, 1906.008, accuracy: 0.001 )
+        XCTAssertEqual(axisContext2.dataMaximum, 2016.477, accuracy: 0.001 )
     }
 
     func testCategoryAxisContext() throws {
