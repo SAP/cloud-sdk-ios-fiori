@@ -11,10 +11,10 @@ struct AreaChart: View {
     @ObservedObject var model: ChartModel
   
     var body: some View {
-        XYAxisChart(chartContext: DefaultChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: LineChartContext(),
                     chartView: LinesView(fill: true),
                     indicatorView: LineIndicatorView())
-            .environmentObject(model)
     }
 }
 

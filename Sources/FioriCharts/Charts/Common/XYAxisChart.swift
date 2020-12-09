@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChartContentEnvironmentKey: EnvironmentKey {
     static let defaultValue: ChartContext = DefaultChartContext()
-    
 }
 
 //swiftlint:disable implicit_getter
@@ -26,7 +25,7 @@ extension EnvironmentValues {
 }
 
 struct XYAxisChart<Content: View, Indicator: View>: View {
-    @EnvironmentObject var model: ChartModel
+    @ObservedObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @State var yAxisExpanded: Bool = false
   
@@ -34,7 +33,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     var indicatorView: Indicator
     var chartContext: ChartContext
     
-    init(chartContext: ChartContext, chartView: Content, indicatorView: Indicator) {
+    init(model: ChartModel, chartContext: ChartContext, chartView: Content, indicatorView: Indicator) {
+        self.model = model
         self.chartView = chartView
         self.indicatorView = indicatorView
         self.chartContext = chartContext
@@ -45,11 +45,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             self.makeBody(in: proxy.frame(in: .local))
         }
         .padding(8)
-        .environment(\.chartContext, chartContext)
         .contentShape(Rectangle())
+        .environmentObject(model)
+        .environment(\.chartContext, chartContext)
     }
     
     // swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
         let yAxisWidth = yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
@@ -102,7 +104,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 if yAxisWidth == 0 {
                     useSecondary = true
                 }
-                let yAxisLabels = chartContext.yAxisLabels(model, rect: chartRect, layoutDirection: layoutDirection, secondary: useSecondary)
+                let yAxisLabels = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: useSecondary, rect: chartRect, plotViewSize: rect.size)
                 for label in yAxisLabels {
                     if abs(label.value) < 0.001 {
                         baselineYPos = label.pos.y
@@ -129,13 +131,13 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             VStack(spacing: 0) {
                 if yAxisWidth > 0 {
                     if model.userInteractionEnabled {
-                        YAxisView()
+                        YAxisView(plotViewSize: chartRect.size)
                             .frame(height: yAxisRect.size.height)
                             .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                             .contentShape(Rectangle())
                             .gesture(doubleTapGesture)
                     } else {
-                        YAxisView()
+                        YAxisView(plotViewSize: chartRect.size)
                                 .frame(height: yAxisRect.size.height)
                                 .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                                 .contentShape(Rectangle())
@@ -146,36 +148,36 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // plot view
             VStack(alignment: .leading, spacing: 0) {
                 if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
                         .frame(width: chartRect.width, height: chartRect.height)
                         .zIndex(3)
                     
-                    XAxisView()
+                    XAxisView(plotViewSize: chartRect.size)
                         .frame(height: xAxisRect.height)
                 } else if model.valueType == .allNegative {
-                    XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
+                    XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
                         .frame(height: xAxisRect.height)
                     
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
+                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
                         .frame(width: chartRect.width, height: chartRect.height)
                         .zIndex(3)
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(isShowLabelsOnly: true)
+                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
                             .frame(height: xAxisLabelsRect.height)
                     }
                 } else {
                     ZStack {
-                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false)
+                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
                             .frame(height: xAxisRect.height)
                             .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
                         
-                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scale: model.scale, startPosX: model.startPos.x, startPosY: model.startPos.y)
+                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
                             .frame(width: chartRect.width, height: chartRect.height)
                     }.zIndex(3)
                     
                     if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(isShowLabelsOnly: true)
+                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
                             .frame(height: xAxisLabelsRect.height)
                     }
                 }
@@ -184,7 +186,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             // secondary numerix axis
             VStack(spacing: 0) {
                 if secondaryYAxisWidth > 0 {
-                    YAxisView(secondary: true)
+                    YAxisView(secondary: true, plotViewSize: chartRect.size)
                         .frame(height: secondaryYAxisRect.size.height)
                         .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
                         .zIndex(2)
@@ -194,40 +196,24 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
-        let labels = chartContext.xAxisLabels(model, rect: rect)
-        if rect.size.width <= 0 || rect.size.height <= 0 || labels.isEmpty || model.categoryAxis.labels.isHidden {
+        if rect.size.width <= 0 || rect.size.height <= 0 || model.categoryAxis.labels.isHidden {
             return 0
         }
         
         var height: CGFloat = 16
-        var totalWidth: CGFloat = 0
-        var prevXPos: CGFloat = -100000
-        var prevLabelWidth: CGFloat = 0
+        let labels = chartContext.xAxisLabels(model, rect: rect, plotViewSize: rect.size)
+        if labels.isEmpty {
+            return 0
+        }
+        
         for label in labels {
+            if label.pos.x < 0 || label.pos.x > rect.size.width {
+                continue
+            }
             let size: CGSize = label.size
             
             // spacing btw baseline and labels are 3pt
             height = max(height, size.height)
-            
-            // check if the gap btw two adjacent labels is greater than 4pt
-            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + ChartViewLayout.minSpacingBtwXAxisLabels {
-                totalWidth += rect.size.width
-            }
-            // min spacing btw labels are 4pt
-            if size.width > 0 {
-                totalWidth += size.width + ChartViewLayout.minSpacingBtwXAxisLabels
-                prevXPos = label.pos.x
-                prevLabelWidth = size.width
-            }
-        }
-        totalWidth -= 4
-        
-        // show nothing
-        if model.chartType != .stock && model.categoryAxis.labelLayoutStyle == .allOrNothing && totalWidth > rect.size.width {
-            chartContext.isEnoughSpaceToShowXAxisLables = false
-            height = 0
-        } else {
-            chartContext.isEnoughSpaceToShowXAxisLables = true
         }
 
         return height > 0 ? min(height + 3, rect.size.height) : 0
@@ -275,7 +261,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 return max(seriesAttribute.point.diameter, result)
             }
 
-            maxPointRadius = maxPointDiameter / 2 + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
+            maxPointRadius = maxPointDiameter / 2 // + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
         }
         
         // min width is 20
@@ -303,7 +289,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
 
 struct XYAxisChart_Previews: PreviewProvider {
     static var previews: some View {
-        XYAxisChart(chartContext: DefaultChartContext(),
+        XYAxisChart(model: Tests.lineModels[0],
+                    chartContext: LineChartContext(),
                     chartView: LinesView(),
                     indicatorView: LineIndicatorView())
             .environmentObject(Tests.lineModels[0])

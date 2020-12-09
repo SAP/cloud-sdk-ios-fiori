@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-enum ChartPlotData: Hashable {
+enum ChartPlotData: Hashable, Identifiable {
     case point(point: ChartPlotPointData)
     case rect(rect: ChartPlotRectData)
     case ellipse(ellipse: ChartPlotEllipseData)
@@ -124,6 +124,10 @@ enum ChartPlotData: Hashable {
         case .ellipse(let data):
             hasher.combine(data)
         }
+    }
+    
+    var id: String {
+        String("\(seriesIndex)+\(categoryIndex)")
     }
     
     func changeSelected(selected: Bool) -> ChartPlotData {

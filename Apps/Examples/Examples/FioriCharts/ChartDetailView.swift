@@ -78,7 +78,8 @@ struct ChartDetailView: View {
             else { // Landscape mode
                 HStack(spacing: 0) {
                     ZStack(alignment: .topLeading) {
-                        ChartView(self.model).padding()
+                        ChartView(self.model)
+                            .padding()
                             .frame(width: self.isFullScreen ? (geometry.size.width - 32) : geometry.size.width / 2)
                         
                         Image(systemName: "arrow.up.left.and.arrow.down.right")

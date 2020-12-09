@@ -7,20 +7,29 @@
 
 import SwiftUI
 
-let ColumnGapFraction: CGFloat = 0.333333
-
 struct ColumnChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: ColumnChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: ColumnChartContext(),
                     chartView: ColumnView(),
-                    indicatorView: ColumnIndicatorView())
-            .environmentObject(model)
+                    indicatorView: EmptyView())
     }
 }
 
 class ColumnChartContext: DefaultChartContext {
+    override func columnWidth(_ model: ChartModel) -> CGFloat {
+        let seriesCount = model.numOfSeries()
+        let maxDataCount = model.numOfCategories()
+        
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
+        let columnWidth = clusterWidth / CGFloat(max(1, seriesCount))
+        
+        return columnWidth
+    }
+    
     override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
         if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
             return result
@@ -28,31 +37,15 @@ class ColumnChartContext: DefaultChartContext {
         
         var ret: [AxisTitle] = []
         let maxDataCount = model.numOfCategories()
-        var startIndex = -1
-        var endIndex = maxDataCount - 1
-        
+
         if maxDataCount < 1 {
             return ret
         }
-    
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let startPosX = model.startPos.x * model.scale
-        for index in 0...endIndex {
-            let x = (columnXIncrement * CGFloat(index) + clusterWidth / 2.0) * model.scale
-            if startIndex == -1 {
-                if x >= startPosX {
-                    startIndex = index
-                }
-            }
-
-            if x < startPosX + 1 {
-                endIndex = index
-            }
-        }
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
         
-        for i in startIndex ... endIndex {
-            let x = (columnXIncrement * CGFloat(i) + clusterWidth / 2.0) * model.scale // - startPosX
+        for i in 0 ..< maxDataCount {
+            let x = (columnXIncrement * CGFloat(i) + clusterWidth / 2.0)
             
             let title = ChartUtility.categoryValue(model, categoryIndex: i) ?? ""
             let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
@@ -69,15 +62,16 @@ class ColumnChartContext: DefaultChartContext {
         return ret
     }
     
-    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
-    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
+    // swiftlint:disable cyclomatic_complexity
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
         let maxDataCount = model.numOfCategories()
         
         if maxDataCount < 1 {
@@ -87,28 +81,48 @@ class ColumnChartContext: DefaultChartContext {
         /// get xAxisLabels in relative position
         let ret: [AxisTitle] = xAxisLabels(model)
         
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
+        let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
+        let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
+        let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
+        let unitWidth = max(columnXIncrement * tmpScaleX * rect.size.width, ChartViewLayout.minUnitWidth)
+        var startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
+        if model.categoryAxis.labelLayoutStyle == .range {
+            if tmpStartPosition.x > CGFloat(startIndex) * columnXIncrement + clusterWidth {
+                startIndex += 1
+            }
+        } else {
+            if tmpStartPosition.x > CGFloat(startIndex) * columnXIncrement + clusterWidth / 2 {
+                startIndex += 1
+            }
+        }
+        
+        if startIndex >= maxDataCount {
+            return []
+        }
+        
+        let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
+        let catIndexRange = startIndex ... endIndex
         
         if model.categoryAxis.labelLayoutStyle == .range {
             var result: [AxisTitle] = []
-            if ret.count >= 1 {
-                var item = ret[0]
-                var x = item.pos.x * rect.size.width - startPosX
+            if catIndexRange.count >= 1 {
+                var item = ret[catIndexRange.lowerBound]
+                var x = item.pos.x * tmpScaleX * rect.size.width - startPosX
                 if isLabel {
-                    let tmpX = (item.pos.x - clusterWidth / 2.0) * rect.size.width - startPosX
+                    let tmpX = (item.pos.x - clusterWidth / 2.0) * tmpScaleX * rect.size.width - startPosX
                     x = max(0, tmpX) + min(item.size.width, (rect.size.width - 2) / 2) / 2
                 }
                 item.x(x)
                 
                 result.append(item)
                 
-                if ret.count >= 2, let last = ret.last {
-                    var item = last
-                    var x = item.pos.x * rect.size.width - startPosX
+                if catIndexRange.count >= 2 {
+                    var item = ret[catIndexRange.upperBound]
+                    var x = item.pos.x * tmpScaleX * rect.size.width - startPosX
                     if isLabel {
-                        let tmpX = (item.pos.x + clusterWidth / 2.0) * rect.size.width - startPosX
+                        let tmpX = (item.pos.x + clusterWidth / 2.0) * tmpScaleX * rect.size.width - startPosX
                         x =  min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
                     }
                     item.x(x)
@@ -119,11 +133,14 @@ class ColumnChartContext: DefaultChartContext {
             
             return result
         } else {
-            let result: [AxisTitle] = ret.map { item in
-                var axisTitle = item
-                axisTitle.x(item.pos.x * rect.size.width - startPosX)
+            var result = [AxisTitle]()
+
+            for label in ret {
+                let x = label.pos.x * tmpScaleX * rect.size.width - startPosX
+                var axisTitle = label
+                axisTitle.x(x)
                 
-                return axisTitle
+                result.append(axisTitle)
             }
 
             return result
@@ -139,9 +156,9 @@ class ColumnChartContext: DefaultChartContext {
         let seriesCount = model.numOfSeries()
         let maxDataCount = model.numOfCategories()
         
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let columnWidth = clusterWidth / CGFloat(seriesCount)
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
+        let columnWidth = clusterWidth / CGFloat(max(1, seriesCount))
         
         let tickValues = model.numericAxisTickValues
         let yScale = tickValues.plotScale
@@ -200,33 +217,52 @@ class ColumnChartContext: DefaultChartContext {
         return result
     }
     
-    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
+    override func plotPath(_ model: ChartModel) -> [[[Path]]] {
+        if !model.path.isEmpty {
+            return model.path
+        }
+    
+        var result = [[[Path]]]()
+        let seriesCount = model.numOfSeries()
+        
+        for seriesIndex in 0 ..< seriesCount {
+            let seriesPath = plotColumnPath(model, for: seriesIndex)
+            
+            result.append(seriesPath)
+        }
+
+        model.path = result
+        
+        return result
+    }
+    
+    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat) -> CGFloat {
         let maxDataCount = model.numOfCategories()
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
-        let categoryIndex = Int(x / unitWidth + 0.5)
-        let clusteredX = columnXIncrement * CGFloat(categoryIndex) * model.scale * rect.size.width
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let unitWidth = max(columnXIncrement, ChartViewLayout.minUnitWidth)
+        let categoryIndex = Int(x / unitWidth + 0.5).clamp(low: 0, high: maxDataCount)
+        let clusteredX = columnXIncrement * CGFloat(categoryIndex)
         
         return clusteredX
     }
     
-    override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
+    override func displayCategoryIndexes(_ model: ChartModel, rect: CGRect) -> ClosedRange<Int> {
+        let tmpScaleX = scaleX(model, plotViewSize: rect.size)
+        let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let maxDataCount = model.numOfCategories()
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let unitWidth = max(columnXIncrement * model.scale * rect.size.width, 1)
-        let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
-        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let unitWidth = max(columnXIncrement * tmpScaleX * rect.size.width, ChartViewLayout.minUnitWidth)
+        let clusterWidth = columnXIncrement * tmpScaleX * rect.size.width / (1.0 + ChartViewLayout.columnGapFraction)
+        let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
         var startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
-        var startOffset = unitWidth * CGFloat(startIndex) - startPosX
+        let startOffset = unitWidth * CGFloat(startIndex) - startPosX
         if abs(startOffset) >= clusterWidth && startIndex < maxDataCount - 1 {
             startIndex += 1
-            startOffset = unitWidth * CGFloat(startIndex) - startPosX
         }
         
         let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
-        let endOffset = columnXIncrement * CGFloat(endIndex) * model.scale * rect.size.width + clusterWidth - startPosX - rect.size.width
         
-        return (startIndex, endIndex, startOffset, endOffset)
+        return startIndex ... endIndex
     }
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
@@ -235,18 +271,21 @@ class ColumnChartContext: DefaultChartContext {
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: width)
+        let tmpScaleX = scaleX(model, plotViewSize: rect.size)
+        let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         
         let maxDataCount = model.numOfCategories()
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let startPosX = model.startPos.x * model.scale * width
-        let startIndex = Int((x + startPosX) / (columnXIncrement * model.scale * rect.size.width))
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let unitWidth = max(columnXIncrement * tmpScaleX * rect.size.width, ChartViewLayout.minUnitWidth)
+        let startPosX = tmpStartPosition.x * tmpScaleX * width
+        let startIndex = Int((x + startPosX) / unitWidth)
         if startIndex >= maxDataCount || startIndex < 0 {
             return (-1, -1)
         }
 
         for plotCat in pd[startIndex] {
-            let xMin = plotCat.rect.minX * model.scale * width - startPosX
-            let xMax = plotCat.rect.maxX * model.scale * width - startPosX
+            let xMin = plotCat.rect.minX * tmpScaleX * width - startPosX
+            let xMax = plotCat.rect.maxX * tmpScaleX * width - startPosX
             
             if x >= xMin && x <= xMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
@@ -264,7 +303,15 @@ class ColumnChartContext: DefaultChartContext {
         }
         
         let width = rect.size.width
-        let startPosX = model.startPos.x * model.scale * rect.size.width
+        let tmpScaleX = scaleX(model, plotViewSize: rect.size)
+        let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
+        
+        let maxDataCount = model.numOfCategories()
+        let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
+        let clusterWidth = columnXIncrement * tmpScaleX * rect.size.width / (1.0 + ChartViewLayout.columnGapFraction)
+        let unitWidth = max(columnXIncrement * tmpScaleX * rect.size.width, ChartViewLayout.minUnitWidth)
+        let startPosX = tmpStartPosition.x * tmpScaleX * width
+
         let pd = plotData(model)
         let points = atPoints.map { (pt) -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
@@ -274,17 +321,13 @@ class ColumnChartContext: DefaultChartContext {
         }.sorted { $0.x <= $1.x }
         
         var res: [(Int, Int)] = []
-        
-        let maxDataCount = model.numOfCategories()
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement * model.scale * rect.size.width / (1.0 + ColumnGapFraction)
 
         // both fingers locate between two clusters, nothing is selected
         if let maxX = points.last?.x, let minX = points.first?.x {
             if maxX - minX < clusterWidth {
-                let startIndex = Int((maxX + startPosX) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+                let startIndex = Int((maxX + startPosX) / unitWidth).clamp(low: 0, high: maxDataCount - 1)
                 if let plotCat = pd[startIndex].first {
-                    let rightX = plotCat.rect.minX * model.scale * width + clusterWidth - startPosX
+                    let rightX = plotCat.rect.minX * tmpScaleX * width + clusterWidth - startPosX
 
                     if minX > rightX {
                         return [(-1, -1), (-1, -1)]
@@ -294,11 +337,11 @@ class ColumnChartContext: DefaultChartContext {
         }
         
         for (index, pt) in points.enumerated() {
-            let startIndex = Int((pt.x + startPosX) / (columnXIncrement * model.scale * rect.size.width)).clamp(low: 0, high: maxDataCount - 1)
+            let startIndex = Int((pt.x + startPosX) / unitWidth).clamp(low: 0, high: maxDataCount - 1)
             
             if let plotCat = pd[startIndex].first {
-                let xMin = plotCat.rect.minX * model.scale * width - startPosX
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * model.scale * width - startPosX
+                let xMin = plotCat.rect.minX * tmpScaleX * width - startPosX
+                let xMax = xMin + clusterWidth//plotCat.rect.maxX * tmpScaleX * width - startPosX
                 
                 if index == 0 {
                     if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {

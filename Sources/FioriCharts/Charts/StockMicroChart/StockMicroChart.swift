@@ -12,42 +12,61 @@ struct StockMicroChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: StockChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: StockChartContext(),
                     chartView: StockLinesView(),
                     indicatorView: LineIndicatorView())
-            .environmentObject(model)
     }
 }
 
-class StockChartContext: DefaultChartContext {
-    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
-    }
-
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+class StockChartContext: LineChartContext {
+    var lastCategoryIndexRangeForXAxisView = -1 ... -1
+    
+    override func plotPath(_ model: ChartModel) -> [[[Path]]] {
+        if !model.path.isEmpty {
+            return model.path
+        }
+        
+        var result = [[[Path]]]()
+        
+        for seriesIndex in 0 ..< model.numOfSeries() {
+            if seriesIndex == model.indexOfStockSeries {
+                let seriesPath = plotLinePath(model, for: seriesIndex)
+                result.append(seriesPath)
+            } else {
+                result.append([[Path()]])
+            }
+        }
+    
+        model.path = result
+        
+        return result
     }
     
-    override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
-        if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
+    override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+    }
+
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+    }
+    
+    func stockXAxisLabels(_ model: ChartModel, plotViewSize: CGSize) -> [AxisTitle] {
+        let count = model.numOfCategories()
+        if count < 1 {
+            return []
+        }
+        
+        let component = calendarComponentForXAxisLables(model, plotViewSize: plotViewSize)
+        if let result = model.stockXAxisLabels[component.hashValue] {
             return result
         }
         
+        let width: CGFloat = 1        
+        let startIndex = 0
+        let endIndex = count - 1
+        let unitWidth = max(width / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         var result: [AxisTitle] = []
-        let width: CGFloat = 1
-        
-        let startPosX = model.startPos.x * model.scale * width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), ChartViewLayout.minUnitWidth)
-        let startIndex = Int((startPosX / unitWidth).rounded(.up))
-        let endIndex = max(Int(((startPosX + width) / unitWidth).rounded(.down)), startIndex)
-        
-        guard let startDate = getDateAtIndex(model, index: startIndex),
-              let endDate = getDateAtIndex(model, index: endIndex) else {
-            return result
-        }
-        
-        let duration = endDate.timeIntervalSince(startDate)
-        let component = calendarComponentForXAxisLables(with: duration)
         
         var prev = -1
         for i in startIndex...endIndex {
@@ -59,59 +78,70 @@ class StockChartContext: DefaultChartContext {
             if cur != prev {
                 if let title = xAxisFormattedString(model, index: i, component: component) {
                     let size = title.boundingBoxSize(with: model.categoryAxis.labels.fontSize)
-                    let x = CGFloat(i - startIndex) * unitWidth
+                    let x = CGFloat(i) * unitWidth
                     
-                    result.append(AxisTitle(index: i,
-                                            title: title,
-                                            pos: CGPoint(x: x, y: 0),
-                                            size: size))
+                    let label = AxisTitle(index: i,
+                                          title: title,
+                                          pos: CGPoint(x: x, y: 0),
+                                          size: size)
+                    result.append(label)
                     
                     prev = cur
                 }
             }
         }
         
-        model.xAxisLabels = [:]
-        model.xAxisLabels = [model.categoryAxis.labels.fontSize: result]
+        model.stockXAxisLabels[component.hashValue] = result
         
         return result
     }
     
-    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
-        let width = rect.size.width
-        if width <= 0 {
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
+        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 {
             return []
         }
         
         /// get xAxisLabels in relative position
-        let ret = xAxisLabels(model)
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), ChartViewLayout.minUnitWidth)
-
-        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
+        let tmpRet: [AxisTitle] = stockXAxisLabels(model, plotViewSize: plotViewSize)
         
-        var prevXPos: CGFloat = -1000
-        if model.categoryAxis.labelLayoutStyle == .range && isLabel {
+        let count = model.numOfCategories()
+        let width = rect.size.width
+        
+        let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
+        let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
+        let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
+        let unitWidth: CGFloat = max(width * tmpScaleX / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
+        let startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: count - 1)
+        let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: count - 1)
+        let catIndexRange = startIndex ... endIndex
+        
+        let ret = tmpRet.compactMap { (label) -> AxisTitle? in
+            let x = label.pos.x * tmpScaleX * width - startPosX
+            if label.index >= startIndex && label.index <= endIndex && x >= 0 && x <= width {
+                return label
+            } else {
+                return nil
+            }
+        }
+        var prevXPos: CGFloat = CGFloat(Int.min)
+        
+        if model.categoryAxis.labelLayoutStyle == .range {
             var result: [AxisTitle] = []
-            if ret.count >= 1 {
+            if catIndexRange.count >= 1 {
                 var item = ret[0]
-                let offset = min(item.size.width, (rect.size.width - 2) / 2) / 2
-                let x = startOffset + offset + item.pos.x * width
-                prevXPos = x + item.size.width / 2
                 
+                let offset = isLabel ? min(item.size.width, (rect.size.width - 2) / 2) / 2 : 0
+                let x = item.pos.x * tmpScaleX * rect.size.width - startPosX + offset
                 item.x(x)
+                
                 result.append(item)
                 
-                if ret.count >= 2, let last = ret.last {
-                    var item = last
-                    let offset = -min(item.size.width, (rect.size.width - 2) / 2) / 2
-                    let x = startOffset + offset + item.pos.x * width
+                if ret.count >= 2 {
+                    var item = ret[ret.count - 1]
+                    let x = item.pos.x * tmpScaleX * rect.size.width - startPosX - offset
+                    item.x(x)
                     
-                    if x - prevXPos - item.size.width / 2 >= ChartViewLayout.minSpacingBtwXAxisLabels {
-                        item.x(x)
-                        
-                        result.append(item)
-                    }
+                    result.append(item)
                 }
             }
             
@@ -120,7 +150,7 @@ class StockChartContext: DefaultChartContext {
             var result: [AxisTitle] = []
             for item in ret {
                 var axisTitle = item
-                let x = startOffset + item.pos.x * width
+                let x = item.pos.x * tmpScaleX * width - startPosX
                 if x - prevXPos - item.size.width / 2 >= ChartViewLayout.minSpacingBtwXAxisLabels {
                     axisTitle.x(x)
                     result.append(axisTitle)
@@ -131,9 +161,9 @@ class StockChartContext: DefaultChartContext {
             return result
         }
     }
-    
+
     func getDateAtIndex(_ model: ChartModel, index: Int) -> Date? {
-        return ChartUtility.categoryValueInDate(model, categoryIndex: index)
+        return categoryValueInDate(model, categoryIndex: index)
     }
     
     func monthAbbreviationFromInt(_ month: Int) -> String {
@@ -141,7 +171,34 @@ class StockChartContext: DefaultChartContext {
         return ma[month - 1]
     }
     
-    func calendarComponentForXAxisLables(with duration: TimeInterval) -> Calendar.Component {
+    func calendarComponentForXAxisLables(_ model: ChartModel, plotViewSize: CGSize) -> Calendar.Component {
+        let count = model.numOfCategories()
+        if count < 2 {
+            return .minute
+        }
+        
+        let width: CGFloat = 1
+        let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
+        let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
+        let startPosX = tmpStartPosition.x * tmpScaleX * width
+        let unitWidth = max(width * tmpScaleX / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
+        var startIndex = Int((startPosX / unitWidth).rounded(.up))
+        var endIndex = max(Int(((startPosX + width) / unitWidth).rounded(.down)), startIndex)
+    
+        if startIndex == endIndex {
+            if endIndex == count - 1 {
+                startIndex = endIndex - 1
+            } else {
+                endIndex = startIndex + 1
+            }
+        }
+        guard let startDate = getDateAtIndex(model, index: startIndex),
+              let endDate = getDateAtIndex(model, index: endIndex) else {
+            return .minute
+        }
+        
+        let duration = endDate.timeIntervalSince(startDate) // / TimeInterval(max(1, endIndex - startIndex))
+    
         if duration < 60 {
             return .second
         } else if duration < 3600 {
@@ -227,69 +284,15 @@ class StockChartContext: DefaultChartContext {
         }
     }
     
-    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        let unitWidth: CGFloat = max(model.scale * rect.size.width / CGFloat(max(ChartUtility.numOfDataItems(model) - 1, 1)), 1)
-        let categoryIndex = Int(x / unitWidth)
-        let x = CGFloat(categoryIndex) * unitWidth
+    func categoryValueInDate(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> Date? {
+        guard let dateString = ChartUtility.categoryValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) else { return nil }
         
-        return x
+        return ChartUtility.date(from: dateString)
     }
     
-    override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        let width = rect.size.width
-        let startPosX = model.startPos.x * model.scale * width
-        let maxDataCount = model.numOfCategories(in: model.currentSeriesIndex)
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
-        let startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
-        
-        var endIndex = Int(((startPosX + width) / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
-        let startOffset: CGFloat = -startPosX.truncatingRemainder(dividingBy: unitWidth)
-        
-        let endOffset: CGFloat = (CGFloat(endIndex) * unitWidth - startPosX - width).truncatingRemainder(dividingBy: unitWidth)
-        
-        if endIndex > ChartUtility.lastValidDimIndex(model) {
-            endIndex = ChartUtility.lastValidDimIndex(model)
-        }
-        
-        return (startIndex, endIndex, startOffset, endOffset)
+    func categoryValueInDate(_ model: ChartModel, categoryIndex: Int) -> Date? {
+        return categoryValueInDate(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
     }
-    
-    override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
-        let width = rect.size.width
-        let startPosX = model.startPos.x * model.scale * width
-        let x = ChartUtility.xPos(atPoint.x,
-                                  layoutDirection: layoutDirection,
-                                  width: width)
-        let point = CGPoint(x: x, y: atPoint.y)
-        let count = ChartUtility.numOfDataItems(model)
-        let unitWidth: CGFloat = max(width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
-        let startIndex = Int((startPosX / unitWidth).rounded(.up))
-        let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
-        
-        var closestDataIndex = index.clamp(low: 0, high: ChartUtility.lastValidDimIndex(model))
-        
-        let xPos = rect.origin.x + startOffset + CGFloat(closestDataIndex - startIndex) * unitWidth
-        if xPos - rect.origin.x - rect.size.width > 1 {
-            closestDataIndex -= 1
-        }
-        
-        return (model.currentSeriesIndex, closestDataIndex)
-    }
-    
-    // range selection
-    override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
-        if let p0 = atPoints.first, let p1 = atPoints.last {
-            let firstItem = closestSelectedPlotItem(model, atPoint: p0, rect: rect, layoutDirection: layoutDirection)
-            let lastItem = closestSelectedPlotItem(model, atPoint: p1, rect: rect, layoutDirection: layoutDirection)
-            let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
-            
-            return items
-        }
-        
-        return []
-    }
-
 }
 
 struct StockMicroChart_Previews: PreviewProvider {
