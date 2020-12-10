@@ -1,12 +1,5 @@
-//
-//  PublishedConstrainedValue.swift
-//  
-//
-//  Created by Xu, Sheng on 9/9/20.
-//
-
-import Foundation
 import Combine
+import Foundation
 
 /**
   A property wrapper combined both @ConstrainedValue and @Published
@@ -30,12 +23,12 @@ public struct PublishedConstrainedValue<Value: Strideable> {
     /// The property that can be accessed with the `$` syntax and allows access to
     /// the `Publisher`
     public var projectedValue: AnyPublisher<Value, Never> {
-        subject.eraseToAnyPublisher()
+        self.subject.eraseToAnyPublisher()
     }
     
     @available(*, unavailable, message: """
-               @PublishedConstrainedValue is only available on properties of classes
-               """)
+    @PublishedConstrainedValue is only available on properties of classes
+    """)
     
     /// Allow wrappedValue to be specified to be unavailable within property wrapper types that have the static subscript
     /// ensuring that such property wrapper types could only be applied to instance properties of a class
@@ -53,7 +46,7 @@ public struct PublishedConstrainedValue<Value: Strideable> {
         storage storageKeyPath: ReferenceWritableKeyPath<EnclosingSelf, Self>
     ) -> Value where EnclosingSelf.ObjectWillChangePublisher == ObservableObjectPublisher {
         get {
-            return object[keyPath: storageKeyPath].value
+            object[keyPath: storageKeyPath].value
         }
         set {
             object.objectWillChange.send()

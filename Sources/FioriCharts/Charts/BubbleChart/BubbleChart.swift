@@ -1,10 +1,3 @@
-//
-//  BubbleChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/13/20.
-//
-
 import SwiftUI
 
 struct BubbleChart: View {
@@ -18,14 +11,14 @@ struct BubbleChart: View {
     }
 }
 
-class BubbleChartContext: DefaultChartContext {    
+class BubbleChartContext: DefaultChartContext {
     override func xAxisLabels(_ model: ChartModel) -> [AxisTitle] {
         if let result = model.xAxisLabels[model.categoryAxis.labels.fontSize] {
             return result
         }
         
         if model.plotDataCache == nil {
-            _ = plotData(model)
+            _ = self.plotData(model)
         }
         
         guard let ticks = model.categoryAxisTickValues else {
@@ -92,15 +85,15 @@ class BubbleChartContext: DefaultChartContext {
     }
     
     override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
     override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
     override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
-        let ret: [AxisTitle] = xAxisLabels(model)
+        let ret: [AxisTitle] = self.xAxisLabels(model)
         var result: [AxisTitle] = []
         let startPos = startPosition(model, plotViewSize: plotViewSize)
         var loopEnd = false
@@ -148,7 +141,7 @@ class BubbleChartContext: DefaultChartContext {
         }
         
         if model.plotDataCache == nil {
-            _ = plotData(model)
+            _ = self.plotData(model)
         }
         
         let ticks = model.numericAxisTickValues
@@ -173,7 +166,7 @@ class BubbleChartContext: DefaultChartContext {
             for i in 0 ..< yAxisLabelsCount {
                 let value = plotMaximum - CGFloat(i) * stepValue
                 tickValues.append(value)
-                tickPositions.append((value - ticks.plotMinimum)/ticks.plotRange)
+                tickPositions.append((value - ticks.plotMinimum) / ticks.plotRange)
             }
         }
         
@@ -200,7 +193,7 @@ class BubbleChartContext: DefaultChartContext {
     
     override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
         let startPos = startPosition(model, plotViewSize: plotViewSize)
-        let ret = yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        let ret = self.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
         var result: [AxisTitle] = []
         let axis = model.numericAxis
         for item in ret {
@@ -208,16 +201,16 @@ class BubbleChartContext: DefaultChartContext {
 
             result.append(AxisTitle(index: item.index,
                                     value: item.value,
-                                         title: item.title,
-                                         pos: CGPoint(x: x, y: (item.pos.y - startPos.y) * model.scaleY * rect.size.height),
-                                         size: item.size))
+                                    title: item.title,
+                                    pos: CGPoint(x: x, y: (item.pos.y - startPos.y) * model.scaleY * rect.size.height),
+                                    size: item.size))
         }
         
         return result
     }
     
-    //swiftlint:disable cyclomatic_complexity
-    //swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
@@ -231,7 +224,7 @@ class BubbleChartContext: DefaultChartContext {
             return result
         }
         
-        if model.chartType == .bubble && (model.zDataMinimumValue == nil || model.zDataMaximumValue == nil || dataDimSize < 3) {
+        if model.chartType == .bubble, model.zDataMinimumValue == nil || model.zDataMaximumValue == nil || dataDimSize < 3 {
             return result
         }
         
@@ -241,7 +234,7 @@ class BubbleChartContext: DefaultChartContext {
         let dataRange: ClosedRange<CGFloat> = IndexSet(integersIn: 0 ..< seriesCount).reduce(model.ranges[0]) { (result, i) -> ClosedRange<CGFloat> in
             let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
             let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
-            return seriesMin...seriesMax
+            return seriesMin ... seriesMax
         }
         
         var xScale: CGFloat
@@ -264,7 +257,7 @@ class BubbleChartContext: DefaultChartContext {
         
         // it is bubble
         if model.chartType == .bubble {
-            let zRange = zDataMaximumValue == zDataMinimumValue ? 1 :  zDataMaximumValue - zDataMinimumValue
+            let zRange = zDataMaximumValue == zDataMinimumValue ? 1 : zDataMaximumValue - zDataMinimumValue
             let zBaselineWithinPlot: Bool = zDataMaximumValue > 0.0 && zDataMinimumValue < 0.0
             
             let zPlotMinimum = !zBaselineWithinPlot ? zDataMinimumValue - zRange * 0.66 : zDataMinimumValue
@@ -326,12 +319,12 @@ class BubbleChartContext: DefaultChartContext {
                 }
 
                 let ellipseData = ChartPlotEllipseData(seriesIndex: seriesIndex,
-                                                           categoryIndex: valueIndex,
-                                                           values: value,
-                                                           x: x,
-                                                           y: y,
-                                                           radius: radius,
-                                                           selected: false)
+                                                       categoryIndex: valueIndex,
+                                                       values: value,
+                                                       x: x,
+                                                       y: y,
+                                                       radius: radius,
+                                                       selected: false)
                 
                 seriesPlotData.append(ChartPlotData.ellipse(ellipse: ellipseData))
                 bubblePlotFrame = bubblePlotFrame.union(ellipseData.rect)
@@ -458,16 +451,16 @@ class BubbleChartContext: DefaultChartContext {
     }
     
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat) -> CGFloat {
-        return x
+        x
     }
     
     override func displayCategoryIndexes(_ model: ChartModel, rect: CGRect) -> ClosedRange<Int> {
-        return 0...0
+        0 ... 0
     }
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         // reverse series order to select high series index first
-        let pd = plotData(model).reversed()
+        let pd = self.plotData(model).reversed()
         let startPos = startPosition(model, plotViewSize: rect.size)
         let startPosX = startPos.x * model.scaleX * rect.size.width
         let startPosY = startPos.y * model.scaleX * rect.size.height
@@ -486,7 +479,7 @@ class BubbleChartContext: DefaultChartContext {
                 let yMin = yPos - radius
                 let yMax = yPos + radius
                 
-                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                if x >= xMin, x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                     return (plotCat.seriesIndex, plotCat.categoryIndex)
                 }
             }
@@ -496,7 +489,7 @@ class BubbleChartContext: DefaultChartContext {
     }
     
     override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
-        return []
+        []
     }
 }
 

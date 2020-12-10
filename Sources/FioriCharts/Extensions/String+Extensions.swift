@@ -1,19 +1,12 @@
-//
-//  String+Extensions.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/11/20.
-//
-
 import Foundation
 import SwiftUI
 
 extension String {
     func boundingBoxSize(with fontSize: CGFloat) -> CGSize {
         #if os(iOS) || os(tvOS) || os(watchOS)
-        let font = UIFont.systemFont(ofSize: fontSize)
+            let font = UIFont.systemFont(ofSize: fontSize)
         #elseif os(macOS)
-        let font = NSFont.systemFont(ofSize: fontSize)
+            let font = NSFont.systemFont(ofSize: fontSize)
         #endif
         
         let size = (self as NSString)

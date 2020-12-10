@@ -1,10 +1,3 @@
-//
-//  LineRangeIndicatorView.swift
-//  
-//
-//  Created by Xu, Sheng on 11/2/20.
-//
-
 import SwiftUI
 
 struct LineRangeIndicatorView: View {
@@ -42,7 +35,7 @@ struct LineRangeIndicatorView: View {
         return ZStack {
             // range fill
             LineChartSeriesFillShape(path: self.model.path, seriesIndex: seriesIndex, startIndex: startIndex + 1, endIndex: endIndex)
-                .transform(mirror)   // apply layoutDirection
+                .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                 .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
                 .fill(lineFillColor)
@@ -50,7 +43,7 @@ struct LineRangeIndicatorView: View {
             
             // range stroke line
             LineChartSeriesLineShape(path: model.path, seriesIndex: seriesIndex, startIndex: startIndex + 1, endIndex: endIndex)
-                .transform(mirror)   // apply layoutDirection
+                .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                 .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
                 .stroke(lineStrokeColor, lineWidth: lineWidth)

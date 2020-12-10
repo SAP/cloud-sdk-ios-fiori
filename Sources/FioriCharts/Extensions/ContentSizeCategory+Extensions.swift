@@ -1,33 +1,24 @@
-//
-//  ContentSizeCategory+Extensions.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/17/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
 extension ContentSizeCategory {
     static var orderedSizes: [ContentSizeCategory] {
-        return [.extraSmall,
-                .small,
-                .medium,
-                .large,
-                .extraLarge,
-                .extraExtraLarge,
-                .extraExtraExtraLarge,
-                .accessibilityMedium,
-                .accessibilityLarge,
-                .accessibilityExtraLarge,
-                .accessibilityExtraExtraLarge,
-                .accessibilityExtraExtraExtraLarge
-            ]
+        [.extraSmall,
+         .small,
+         .medium,
+         .large,
+         .extraLarge,
+         .extraExtraLarge,
+         .extraExtraExtraLarge,
+         .accessibilityMedium,
+         .accessibilityLarge,
+         .accessibilityExtraLarge,
+         .accessibilityExtraExtraLarge,
+         .accessibilityExtraExtraExtraLarge]
     }
 
     static func < (lhs: ContentSizeCategory, rhs: ContentSizeCategory) -> Bool {
-        var sizes = orderedSizes
+        var sizes = self.orderedSizes
         while sizes.contains(lhs) {
             sizes.removeFirst()
         }
@@ -35,7 +26,7 @@ extension ContentSizeCategory {
     }
 
     static func > (lhs: ContentSizeCategory, rhs: ContentSizeCategory) -> Bool {
-        var sizes = orderedSizes
+        var sizes = self.orderedSizes
         while sizes.contains(lhs) {
             sizes.removeLast()
         }

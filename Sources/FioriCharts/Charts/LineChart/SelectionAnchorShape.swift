@@ -1,10 +1,3 @@
-//
-//  SelectionAnchorShape.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 5/7/20.
-//
-
 import SwiftUI
 
 struct SelectionAnchorShape: Shape {

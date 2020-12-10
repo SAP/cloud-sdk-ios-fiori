@@ -1,15 +1,7 @@
-//
-//  ScatterChartTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 7/30/20.
-//
-
-import XCTest
 @testable import FioriCharts
+import XCTest
 
 class ScatterChartTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -23,7 +15,7 @@ class ScatterChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
-        let _ = dataSource.plotData(model)
+        _ = dataSource.plotData(model)
         let axisContext = model.numericAxisTickValues
         
         /// dataMaximum == 279.85333333333335
@@ -38,7 +30,7 @@ class ScatterChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[4]
-        let _ = dataSource.plotData(model)
+        _ = dataSource.plotData(model)
         let axisContext1 = model.numericAxisTickValues
         
         // change it
@@ -47,13 +39,13 @@ class ScatterChartTests: XCTestCase {
         model.numericAxisTickValuesCache = []
         model.yDataMinimumValue = nil
         model.yDataMaximumValue = nil
-        let _ = dataSource.plotData(model)
+        _ = dataSource.plotData(model)
         let axisContext2 = model.numericAxisTickValues
         
-        XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.001 )
-        XCTAssertEqual(axisContext1.dataMaximum, 2025.4133, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMinimum, 1907.3066, accuracy: 0.001 )
-        XCTAssertEqual(axisContext2.dataMaximum, 2012.693, accuracy: 0.001 )
+        XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.001)
+        XCTAssertEqual(axisContext1.dataMaximum, 2025.4133, accuracy: 0.001)
+        XCTAssertEqual(axisContext2.dataMinimum, 1907.3066, accuracy: 0.001)
+        XCTAssertEqual(axisContext2.dataMaximum, 2012.693, accuracy: 0.001)
     }
 
     func testCategoryAxisContext() throws {
@@ -61,7 +53,7 @@ class ScatterChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = BubbleChartContext()
         let model = Tests.scatterModels[0]
-        let _ = dataSource.plotData(model)
+        _ = dataSource.plotData(model)
         if let axisContext = model.categoryAxisTickValues {
             /// dataMaximum == 2012.69
             XCTAssertEqual(axisContext.dataMaximum, 2012.6933, accuracy: 0.001)
@@ -97,5 +89,4 @@ class ScatterChartTests: XCTestCase {
             }
         }
     }
-
 }

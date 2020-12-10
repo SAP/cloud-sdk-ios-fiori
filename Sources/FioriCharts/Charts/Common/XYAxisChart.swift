@@ -1,21 +1,14 @@
-//
-//  XYAxisChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/19/20.
-//
-
 import SwiftUI
 
 struct ChartContentEnvironmentKey: EnvironmentKey {
     static let defaultValue: ChartContext = DefaultChartContext()
 }
 
-//swiftlint:disable implicit_getter
+// swiftlint:disable implicit_getter
 extension EnvironmentValues {
     var chartContext: ChartContext {
         get {
-            return self[ChartContentEnvironmentKey]
+            self[ChartContentEnvironmentKey]
         }
         
         set {
@@ -53,22 +46,22 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     // swiftlint:disable function_body_length
     // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
-        let yAxisWidth = yAxisLabelsMaxWidth(rect)
-        let secondaryYAxisWidth = yAxisLabelsMaxWidth(rect, secondary: true)
+        let yAxisWidth = self.yAxisLabelsMaxWidth(rect)
+        let secondaryYAxisWidth = self.yAxisLabelsMaxWidth(rect, secondary: true)
         let chartWidth = max(rect.size.width - yAxisWidth - secondaryYAxisWidth, 0)
-        let xAxisBaselineHeight = model.categoryAxis.baseline.isHidden ? 0 : min(model.categoryAxis.baseline.width, rect.size.height)
-        let xAxisLabelsHeight = xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height))
+        let xAxisBaselineHeight = self.model.categoryAxis.baseline.isHidden ? 0 : min(self.model.categoryAxis.baseline.width, rect.size.height)
+        let xAxisLabelsHeight = self.xAxisLabelsMaxHeight(CGRect(x: 0, y: 0, width: chartWidth, height: rect.size.height))
         let xAxisHeight = min(xAxisBaselineHeight + xAxisLabelsHeight, rect.size.height)
         
         var xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect: CGRect
-        if model.chartType == .bar || model.chartType == .stackedBar {
+        if self.model.chartType == .bar || self.model.chartType == .stackedBar {
             yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
             secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
             chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height - xAxisHeight)
             xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
             xAxisLabelsRect = .zero
         } else {
-            switch model.valueType {
+            switch self.model.valueType {
             case .allPositive:
                 yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height - xAxisHeight)
                 secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
@@ -76,7 +69,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 xAxisRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisHeight, width: chartWidth, height: xAxisHeight)
                 xAxisLabelsRect = .zero
             case .allNegative:
-                if model.xAxisLabelsPosition == .dynamic {
+                if self.model.xAxisLabelsPosition == .dynamic {
                     yAxisRect = CGRect(x: 0, y: xAxisHeight, width: yAxisWidth, height: rect.size.height - xAxisHeight)
                     secondaryYAxisRect = CGRect(x: 0, y: xAxisHeight, width: secondaryYAxisWidth, height: rect.size.height - xAxisHeight)
                     xAxisRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: xAxisHeight)
@@ -90,7 +83,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     xAxisLabelsRect = CGRect(x: yAxisWidth, y: rect.size.height - xAxisLabelsHeight, width: chartWidth, height: xAxisLabelsHeight)
                 }
             case .mixed:
-                if model.xAxisLabelsPosition == .dynamic {
+                if self.model.xAxisLabelsPosition == .dynamic {
                     yAxisRect = CGRect(x: 0, y: 0, width: yAxisWidth, height: rect.size.height)
                     secondaryYAxisRect = CGRect(x: 0, y: 0, width: secondaryYAxisWidth, height: rect.size.height)
                     chartRect = CGRect(x: yAxisWidth, y: 0, width: chartWidth, height: rect.size.height)
@@ -104,7 +97,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 if yAxisWidth == 0 {
                     useSecondary = true
                 }
-                let yAxisLabels = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: useSecondary, rect: chartRect, plotViewSize: rect.size)
+                let yAxisLabels = self.chartContext.yAxisLabels(self.model, layoutDirection: self.layoutDirection, secondary: useSecondary, rect: chartRect, plotViewSize: rect.size)
                 for label in yAxisLabels {
                     if abs(label.value) < 0.001 {
                         baselineYPos = label.pos.y
@@ -112,7 +105,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                 }
                 
-                if model.xAxisLabelsPosition == .dynamic {
+                if self.model.xAxisLabelsPosition == .dynamic {
                     xAxisRect = CGRect(x: yAxisWidth, y: baselineYPos, width: chartWidth, height: xAxisHeight)
                     xAxisLabelsRect = .zero
                 } else {
@@ -133,14 +126,14 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     if model.userInteractionEnabled {
                         YAxisView(plotViewSize: chartRect.size)
                             .frame(height: yAxisRect.size.height)
-                            .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
                             .contentShape(Rectangle())
                             .gesture(doubleTapGesture)
                     } else {
                         YAxisView(plotViewSize: chartRect.size)
-                                .frame(height: yAxisRect.size.height)
-                                .position(x: yAxisRect.size.width/2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
-                                .contentShape(Rectangle())
+                            .frame(height: yAxisRect.size.height)
+                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                            .contentShape(Rectangle())
                     }
                 }
             }.frame(width: yAxisRect.size.width, height: rect.size.height)
@@ -188,7 +181,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                 if secondaryYAxisWidth > 0 {
                     YAxisView(secondary: true, plotViewSize: chartRect.size)
                         .frame(height: secondaryYAxisRect.size.height)
-                        .position(x: secondaryYAxisRect.size.width/2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
+                        .position(x: secondaryYAxisRect.size.width / 2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
                         .zIndex(2)
                 }
             }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
@@ -196,12 +189,12 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
-        if rect.size.width <= 0 || rect.size.height <= 0 || model.categoryAxis.labels.isHidden {
+        if rect.size.width <= 0 || rect.size.height <= 0 || self.model.categoryAxis.labels.isHidden {
             return 0
         }
         
         var height: CGFloat = 16
-        let labels = chartContext.xAxisLabels(model, rect: rect, plotViewSize: rect.size)
+        let labels = self.chartContext.xAxisLabels(self.model, rect: rect, plotViewSize: rect.size)
         if labels.isEmpty {
             return 0
         }
@@ -229,19 +222,19 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             return 0
         }
         
-        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
+        let allIndexs = IndexSet(integersIn: 0 ..< self.model.data.count)
         var indexes: [Int] = allIndexs.sorted()
         
         // For clustered line, area and combo charts this is the secondary Y axis.
-        if model.chartType == .line || model.chartType == .area || model.chartType == .combo {
-            indexes = secondary ? model.indexesOfSecondaryValueAxis.sorted() : model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        if self.model.chartType == .line || self.model.chartType == .area || self.model.chartType == .combo {
+            indexes = secondary ? self.model.indexesOfSecondaryValueAxis.sorted() : self.model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         } else {
             if secondary {
                 return 0
             }
         }
         
-        let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
+        let axis = secondary ? self.model.secondaryNumericAxis : self.model.numericAxis
         
         if indexes.isEmpty {
             return 0
@@ -256,9 +249,9 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
     
         var maxPointRadius: CGFloat = 0
-        if model.chartType == .line || model.chartType == .area {
-            let maxPointDiameter = model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
-                return max(seriesAttribute.point.diameter, result)
+        if self.model.chartType == .line || self.model.chartType == .area {
+            let maxPointDiameter = self.model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
+                max(seriesAttribute.point.diameter, result)
             }
 
             maxPointRadius = maxPointDiameter / 2 // + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
@@ -266,7 +259,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         // min width is 20
         var width: CGFloat = ChartViewLayout.minYAxisViewWidth
-        let labels = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        let labels = self.chartContext.yAxisLabels(self.model, layoutDirection: self.layoutDirection, secondary: secondary)
         
         for label in labels {
             let size = label.size
@@ -277,9 +270,9 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         if secondary && width > rect.size.width * ChartViewLayout.maxSecondaryYAxisViewWidthRatio {
             width = rect.size.width * ChartViewLayout.maxSecondaryYAxisViewWidthRatio
-        } else if !secondary && width > rect.size.width * ChartViewLayout.maxYAxisViewWidthRatio && !yAxisExpanded {
+        } else if !secondary && width > rect.size.width * ChartViewLayout.maxYAxisViewWidthRatio && !self.yAxisExpanded {
             width = rect.size.width * ChartViewLayout.maxYAxisViewWidthRatio
-        } else if !secondary && width > rect.size.width * ChartViewLayout.maxExpandedYAxisViewWidthRatio && yAxisExpanded {
+        } else if !secondary && width > rect.size.width * ChartViewLayout.maxExpandedYAxisViewWidthRatio && self.yAxisExpanded {
             width = rect.size.width * ChartViewLayout.maxExpandedYAxisViewWidthRatio
         }
         

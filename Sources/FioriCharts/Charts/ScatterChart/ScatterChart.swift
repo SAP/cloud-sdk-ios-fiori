@@ -1,10 +1,3 @@
-//
-//  ScatterChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/29/20.
-//
-
 import SwiftUI
 
 struct ScatterChart: View {

@@ -1,10 +1,3 @@
-//
-//  SFBuilding.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/13/20.
-//
-
 import Foundation
 
 class SFBuilding {

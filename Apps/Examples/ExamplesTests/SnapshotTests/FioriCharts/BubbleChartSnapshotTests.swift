@@ -1,19 +1,10 @@
-//
-//  BubbleChartSnapshotTests.swift
-//  ExamplesTests
-//
-//  Created by Xu, Sheng on 9/28/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import XCTest
-import SwiftUI
 @testable import FioriCharts
+import SwiftUI
+import XCTest
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
 class BubbleChartSnapshotTests: XCTestCase {
-
     func testBubbleChart1() throws {
         // Headcount Movement Last 12 Months, 5 is the total index
         assertSnapshot(ChartView(Tests.bubbleModels[0]), for: referenceSize)
@@ -24,7 +15,7 @@ class BubbleChartSnapshotTests: XCTestCase {
         assertSnapshot(ChartView(Tests.bubbleModels[1]), for: referenceSize)
     }
 
-    func testBubbleChart3() throws{
+    func testBubbleChart3() throws {
         // Headcount Movement Last 12 Months, explicitMax = 100
         assertSnapshot(ChartView(Tests.bubbleModels[2]), for: referenceSize)
     }
@@ -48,5 +39,4 @@ class BubbleChartSnapshotTests: XCTestCase {
         // Headcount Movement Last 12 Months, negative value
         assertSnapshot(ChartView(Tests.bubbleModels[6]), for: referenceSize)
     }
-
 }
