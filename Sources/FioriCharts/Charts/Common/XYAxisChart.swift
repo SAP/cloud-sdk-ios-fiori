@@ -4,7 +4,6 @@ struct ChartContentEnvironmentKey: EnvironmentKey {
     static let defaultValue: ChartContext = DefaultChartContext()
 }
 
-// swiftlint:disable implicit_getter
 extension EnvironmentValues {
     var chartContext: ChartContext {
         get {

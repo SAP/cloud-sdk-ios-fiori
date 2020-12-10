@@ -12,8 +12,8 @@ struct SettingColor: View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {
             ForEach(0 ..< colorOptions.count, id: \.self) { index in
                 Rectangle()
-                    .fill(colorOptions[index])
-                    .tag(colorOptions[index])
+                    .fill(self.colorOptions[index])
+                    .tag(self.colorOptions[index])
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.gray, lineWidth: 1))
                     .frame(width: 60, height: 20)
             }

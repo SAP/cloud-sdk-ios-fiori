@@ -32,17 +32,17 @@ struct ColumnSeriesView: View {
         let translateY = -startPosition.y * scaleY * rect.size.height
         
         return ZStack {
-            ForEach(0 ..< seriesIndices.count, id: \.self) { index in
+            ForEach(0 ..< self.seriesIndices.count, id: \.self) { index in
                 ColumnChartCategoryShape(chartType: self.model.chartType,
                                          plotBaselinePosition: self.model.numericAxisTickValues.plotBaselinePosition,
                                          path: self.model.path,
-                                         seriesIndex: seriesIndices[index],
+                                         seriesIndex: self.seriesIndices[index],
                                          categoryIndex: self.categoryIndex,
                                          animateScale: self.animateScale)
                     .transform(mirror) // apply layoutDirection
                     .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                     .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
-                    .fill(self.model.columnColor(seriesIndex: seriesIndices[index], categoryIndex: self.categoryIndex))
+                    .fill(self.model.columnColor(seriesIndex: self.seriesIndices[index], categoryIndex: self.categoryIndex))
             }
         }
     }
