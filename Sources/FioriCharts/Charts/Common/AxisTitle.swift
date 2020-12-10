@@ -1,11 +1,3 @@
-//
-//  AxisTitle.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
@@ -22,7 +14,7 @@ struct AxisTitle: Identifiable, Hashable {
     let size: CGSize
     
     var id: Int {
-        return index
+        self.index
     }
     
     init(index: Int, value: CGFloat = 0, title: String, pos: CGPoint, size: CGSize = .zero) {
@@ -38,9 +30,9 @@ struct AxisTitle: Identifiable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(pos.x)
-        hasher.combine(pos.y)
-        hasher.combine(size.width)
-        hasher.combine(size.height)
+        hasher.combine(self.pos.x)
+        hasher.combine(self.pos.y)
+        hasher.combine(self.size.width)
+        hasher.combine(self.size.height)
     }
 }

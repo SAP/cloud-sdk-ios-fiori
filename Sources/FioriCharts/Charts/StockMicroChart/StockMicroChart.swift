@@ -1,11 +1,3 @@
-//
-//  StockMicroChart.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/18/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct StockMicroChart: View {
@@ -44,11 +36,11 @@ class StockChartContext: LineChartContext {
     }
     
     override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
     override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
     func stockXAxisLabels(_ model: ChartModel, plotViewSize: CGSize) -> [AxisTitle] {
@@ -57,19 +49,19 @@ class StockChartContext: LineChartContext {
             return []
         }
         
-        let component = calendarComponentForXAxisLables(model, plotViewSize: plotViewSize)
+        let component = self.calendarComponentForXAxisLables(model, plotViewSize: plotViewSize)
         if let result = model.stockXAxisLabels[component.hashValue] {
             return result
         }
         
-        let width: CGFloat = 1        
+        let width: CGFloat = 1
         let startIndex = 0
         let endIndex = count - 1
         let unitWidth = max(width / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         var result: [AxisTitle] = []
         
         var prev = -1
-        for i in startIndex...endIndex {
+        for i in startIndex ... endIndex {
             guard let date = getDateAtIndex(model, index: i) else {
                 continue
             }
@@ -102,7 +94,7 @@ class StockChartContext: LineChartContext {
         }
         
         /// get xAxisLabels in relative position
-        let tmpRet: [AxisTitle] = stockXAxisLabels(model, plotViewSize: plotViewSize)
+        let tmpRet: [AxisTitle] = self.stockXAxisLabels(model, plotViewSize: plotViewSize)
         
         let count = model.numOfCategories()
         let width = rect.size.width
@@ -117,13 +109,13 @@ class StockChartContext: LineChartContext {
         
         let ret = tmpRet.compactMap { (label) -> AxisTitle? in
             let x = label.pos.x * tmpScaleX * width - startPosX
-            if label.index >= startIndex && label.index <= endIndex && x >= 0 && x <= width {
+            if label.index >= startIndex, label.index <= endIndex, x >= 0, x <= width {
                 return label
             } else {
                 return nil
             }
         }
-        var prevXPos: CGFloat = CGFloat(Int.min)
+        var prevXPos = CGFloat(Int.min)
         
         if model.categoryAxis.labelLayoutStyle == .range {
             var result: [AxisTitle] = []
@@ -163,7 +155,7 @@ class StockChartContext: LineChartContext {
     }
 
     func getDateAtIndex(_ model: ChartModel, index: Int) -> Date? {
-        return categoryValueInDate(model, categoryIndex: index)
+        self.categoryValueInDate(model, categoryIndex: index)
     }
     
     func monthAbbreviationFromInt(_ month: Int) -> String {
@@ -193,7 +185,8 @@ class StockChartContext: LineChartContext {
             }
         }
         guard let startDate = getDateAtIndex(model, index: startIndex),
-              let endDate = getDateAtIndex(model, index: endIndex) else {
+              let endDate = getDateAtIndex(model, index: endIndex)
+        else {
             return .minute
         }
         
@@ -214,7 +207,7 @@ class StockChartContext: LineChartContext {
         }
     }
     
-    //swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable cyclomatic_complexity
     func xAxisFormattedString(_ model: ChartModel, index: Int, component: Calendar.Component) -> String? {
         guard let date = getDateAtIndex(model, index: index) else { return nil }
         let cur = Calendar.current.component(component, from: date)
@@ -223,7 +216,7 @@ class StockChartContext: LineChartContext {
         case .year:
             let components = Calendar.current.dateComponents([.year, .month], from: date)
             if let month = components.month {
-                if month > 3 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                if month > 3, model.categoryAxis.labelLayoutStyle == .allOrNothing {
                     return nil
                 }
             }
@@ -232,12 +225,12 @@ class StockChartContext: LineChartContext {
         case .month:
             let components = Calendar.current.dateComponents([.month, .day], from: date)
             if let day = components.day {
-                if day > 7 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                if day > 7, model.categoryAxis.labelLayoutStyle == .allOrNothing {
                     return nil
                 }
             }
             
-            return monthAbbreviationFromInt(cur)
+            return self.monthAbbreviationFromInt(cur)
             
         case .day:
             let components = Calendar.current.dateComponents([.month, .day], from: date)
@@ -263,7 +256,7 @@ class StockChartContext: LineChartContext {
             }
             
             if let minute = components.minute {
-                if component == .hour && minute != 0 && model.categoryAxis.labelLayoutStyle == .allOrNothing {
+                if component == .hour, minute != 0, model.categoryAxis.labelLayoutStyle == .allOrNothing {
                     return nil
                 }
                 
@@ -291,7 +284,7 @@ class StockChartContext: LineChartContext {
     }
     
     func categoryValueInDate(_ model: ChartModel, categoryIndex: Int) -> Date? {
-        return categoryValueInDate(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
+        self.categoryValueInDate(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
     }
 }
 
@@ -306,4 +299,3 @@ struct StockMicroChart_Previews: PreviewProvider {
         }
     }
 }
-    

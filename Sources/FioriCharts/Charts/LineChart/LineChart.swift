@@ -1,10 +1,3 @@
-//
-//  LineChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/13/20.
-//
-
 import SwiftUI
 
 struct LineChart: View {

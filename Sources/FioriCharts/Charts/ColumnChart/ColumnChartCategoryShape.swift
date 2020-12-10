@@ -1,10 +1,3 @@
-//
-//  ColumnChartCategoryShape.swift
-//  
-//
-//  Created by Xu, Sheng on 12/9/20.
-//
-
 import SwiftUI
 
 struct ColumnChartCategoryShape: Shape {
@@ -25,24 +18,24 @@ struct ColumnChartCategoryShape: Shape {
     //    }
     
     func path(in rect: CGRect) -> Path {
-        guard seriesIndex >= 0, categoryIndex >= 0, path.count > seriesIndex, !path[seriesIndex].isEmpty, path[seriesIndex].count > categoryIndex, !path[seriesIndex][categoryIndex].isEmpty else {
+        guard self.seriesIndex >= 0, self.categoryIndex >= 0, self.path.count > self.seriesIndex, !self.path[self.seriesIndex].isEmpty, self.path[self.seriesIndex].count > self.categoryIndex, !self.path[self.seriesIndex][self.categoryIndex].isEmpty else {
             return Path()
         }
         
         var animateWidth: CGFloat = rect.size.width
         var animateHeight: CGFloat = rect.size.height
-        let baselinePosition: CGFloat = 1 - plotBaselinePosition
+        let baselinePosition: CGFloat = 1 - self.plotBaselinePosition
         let animTransform: CGAffineTransform
         
-        if chartType == .bar || chartType == .stackedBar {
-            animateWidth = rect.size.width * animateScale
+        if self.chartType == .bar || self.chartType == .stackedBar {
+            animateWidth = rect.size.width * self.animateScale
             animTransform = CGAffineTransform(translationX: (1 - baselinePosition) * (rect.size.width - animateWidth), y: 0)
         } else { // column & stacked column chart
-            animateHeight = rect.size.height * animateScale
+            animateHeight = rect.size.height * self.animateScale
             animTransform = CGAffineTransform(translationX: 0, y: baselinePosition * (rect.size.height - animateHeight))
         }
         
-        return path[seriesIndex][categoryIndex][0]
+        return self.path[self.seriesIndex][self.categoryIndex][0]
             .applying(CGAffineTransform(scaleX: animateWidth, y: animateHeight))
             .applying(animTransform)
     }

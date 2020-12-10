@@ -1,13 +1,6 @@
-//
-//  ChartSeriesPalette.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 4/2/20.
-//
-
+import FioriSwiftUICore
 import Foundation
 import SwiftUI
-import FioriSwiftUICore
 
 public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     public init(colors: [Color],
@@ -16,7 +9,8 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 positiveMaxColor: Color,
                 positiveMinColor: Color,
                 negativeMaxColor: Color,
-                negativeMinColor: Color) {
+                negativeMinColor: Color)
+    {
         if colors.isEmpty {
             self._colors = Published(initialValue: [.preferredColor(.primary1)])
         } else {
@@ -48,13 +42,13 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
-        return ChartSeriesPalette(colors: self.colors,
-                                  fillColor: self._fillColor,
-                                  labelColor: self.labelColor,
-                                  positiveMaxColor: self.positiveMaxColor,
-                                  positiveMinColor: self.positiveMinColor,
-                                  negativeMaxColor: self.negativeMaxColor,
-                                  negativeMinColor: self.negativeMinColor)
+        ChartSeriesPalette(colors: self.colors,
+                           fillColor: self._fillColor,
+                           labelColor: self.labelColor,
+                           positiveMaxColor: self.positiveMaxColor,
+                           positiveMinColor: self.positiveMinColor,
+                           negativeMaxColor: self.negativeMaxColor,
+                           negativeMinColor: self.negativeMinColor)
     }
 
     /// Primary color of the series. Used to render the series' lines.
@@ -78,7 +72,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
         }
         
         set {
-            _fillColor = newValue
+            self._fillColor = newValue
         }
     }
     
@@ -102,7 +96,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
 
 extension ChartSeriesPalette: Equatable {
     public static func == (lhs: ChartSeriesPalette, rhs: ChartSeriesPalette) -> Bool {
-        return lhs.colors == rhs.colors &&
+        lhs.colors == rhs.colors &&
             lhs.fillColor == rhs.fillColor &&
             lhs.labelColor == rhs.labelColor &&
             lhs.positiveMaxColor == rhs.positiveMaxColor &&
@@ -114,18 +108,18 @@ extension ChartSeriesPalette: Equatable {
 
 extension ChartSeriesPalette: CustomStringConvertible {
     public var description: String {
-        return """
-{
-    "ChartSeriesPalette": {
-        "colors": \(String(describing: colors)),
-        "fillColor": \(String(describing: _fillColor)),
-        "labelColor": \(String(describing: labelColor)),
-        "positiveMaxColor": \(String(describing: positiveMaxColor)),
-        "positiveMinColor": \(String(describing: positiveMinColor)),
-        "negativeMaxColor": \(String(describing: negativeMaxColor)),
-        "negativeMinColor": \(String(describing: negativeMinColor))
-    }
-}
-"""
+        """
+        {
+            "ChartSeriesPalette": {
+                "colors": \(String(describing: self.colors)),
+                "fillColor": \(String(describing: self._fillColor)),
+                "labelColor": \(String(describing: self.labelColor)),
+                "positiveMaxColor": \(String(describing: self.positiveMaxColor)),
+                "positiveMinColor": \(String(describing: self.positiveMinColor)),
+                "negativeMaxColor": \(String(describing: self.negativeMaxColor)),
+                "negativeMinColor": \(String(describing: self.negativeMinColor))
+            }
+        }
+        """
     }
 }

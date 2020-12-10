@@ -1,11 +1,3 @@
-//
-//  Color+Extensions.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/11/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
@@ -17,9 +9,9 @@ extension Color {
         let a, r, g, b: UInt64
         switch hex.count {
         case 6: // RGB (24-bit)
-            (r, g, b, a) = (int >> 16, int >> 8 & 0xFF, int & 0xFF, 255)
+            (r, g, b, a) = (int >> 16, int >> 8 & 0xff, int & 0xff, 255)
         case 8: // ARGB (32-bit)
-            (r, g, b, a) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (r, g, b, a) = (int >> 24, int >> 16 & 0xff, int >> 8 & 0xff, int & 0xff)
         default:
             (r, g, b, a) = (0, 0, 0, 255)
         }
@@ -28,7 +20,7 @@ extension Color {
             .sRGB,
             red: Double(r) / 255,
             green: Double(g) / 255,
-            blue:  Double(b) / 255,
+            blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
     }

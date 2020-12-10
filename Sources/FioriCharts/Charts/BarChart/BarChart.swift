@@ -1,10 +1,3 @@
-//
-//  BarChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 8/3/20.
-//
-
 import SwiftUI
 
 struct BarChart: View {
@@ -53,21 +46,21 @@ class BarChartContext: ColumnChartContext {
     }
     
     override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
     override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
     override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
-        let tmpLabels = xAxisLabels(model)
+        let tmpLabels = self.xAxisLabels(model)
         let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
         let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
         let startX = tmpStartPosition.x * tmpScaleX * rect.size.width
         let labels = tmpLabels.compactMap { (label) -> AxisTitle? in
             let x = label.pos.x * tmpScaleX * rect.size.width - startX
-            if x >= 0 && x <= rect.size.width + 0.1 {
+            if x >= 0, x <= rect.size.width + 0.1 {
                 return label
             } else {
                 return nil
@@ -78,7 +71,7 @@ class BarChartContext: ColumnChartContext {
             var result: [AxisTitle] = []
             if labels.count >= 1 {
                 var item = labels[0]
-                var x = item.pos.x * tmpScaleX *  rect.size.width - startX
+                var x = item.pos.x * tmpScaleX * rect.size.width - startX
                 if isLabel {
                     let tmpX = x
                     x = max(0, tmpX) + min(item.size.width, (rect.size.width - 2) / 2) / 2
@@ -89,10 +82,10 @@ class BarChartContext: ColumnChartContext {
                 
                 if labels.count >= 2, let last = labels.last {
                     var item = last
-                    var x = item.pos.x * tmpScaleX *  rect.size.width - startX
+                    var x = item.pos.x * tmpScaleX * rect.size.width - startX
                     if isLabel {
                         let tmpX = x
-                        x =  min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                        x = min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
                     }
                     item.x(x)
                     
@@ -104,7 +97,7 @@ class BarChartContext: ColumnChartContext {
         } else {
             let result: [AxisTitle] = labels.map { item in
                 var axisTitle = item
-                axisTitle.x(item.pos.x * tmpScaleX *  rect.size.width - startX)
+                axisTitle.x(item.pos.x * tmpScaleX * rect.size.width - startX)
                 
                 return axisTitle
             }
@@ -150,23 +143,23 @@ class BarChartContext: ColumnChartContext {
         let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
         let startPosY = tmpStartPosition.y * tmpScaleY * rect.size.height
         let axis = model.categoryAxis
-        let labels = yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        let labels = self.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
         
         for label in labels {
             let y = label.pos.y * tmpScaleY * rect.size.height - startPosY
             
             // check if it is in display range
 //            if y >= 0 && y <= rect.size.height {
-                let size = label.size
+            let size = label.size
                 
-                var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
-                x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
+            var x = rect.size.width - size.width / 2.0 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
+            x = max(rect.size.width / 2 - axis.baseline.width / 2.0 - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
                 
-                res.append(AxisTitle(index: label.index,
-                                     value: label.value,
-                                     title: label.title,
-                                     pos: CGPoint(x: x, y: y),
-                                     size: size))
+            res.append(AxisTitle(index: label.index,
+                                 value: label.value,
+                                 title: label.title,
+                                 pos: CGPoint(x: x, y: y),
+                                 size: size))
 //            }
         }
         
@@ -227,12 +220,12 @@ class BarChartContext: ColumnChartContext {
                 }
                 
                 seriesResult.append(ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: categoryIndex,
-                                                      value: rawValue,
-                                                      x: clusteredY,
-                                                      y: clusteredX,
-                                                      width: columnHeight,
-                                                      height: columnWidth)))
+                                                                               categoryIndex: categoryIndex,
+                                                                               value: rawValue,
+                                                                               x: clusteredY,
+                                                                               y: clusteredX,
+                                                                               width: columnHeight,
+                                                                               height: columnWidth)))
             }
             
             result.append(seriesResult)
@@ -256,7 +249,7 @@ class BarChartContext: ColumnChartContext {
         var startIndex = Int(startPosY / unitHeight).clamp(low: 0, high: maxDataCount - 1)
         let startOffset = unitHeight * CGFloat(startIndex) - startPosY
         
-        if abs(startOffset) >= clusterHeight && startIndex < maxDataCount - 1 {
+        if abs(startOffset) >= clusterHeight, startIndex < maxDataCount - 1 {
             startIndex += 1
         }
         
@@ -268,7 +261,7 @@ class BarChartContext: ColumnChartContext {
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let height = rect.size.height
         
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let y = atPoint.y
         
         let maxDataCount = model.numOfCategories()
@@ -288,7 +281,7 @@ class BarChartContext: ColumnChartContext {
             let yMin = plotCat.rect.minY * tmpScaleY * height - startPosY
             let yMax = plotCat.rect.maxY * tmpScaleY * height - startPosY
                 
-            if y >= yMin && y <= yMax {
+            if y >= yMin, y <= yMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -308,7 +301,7 @@ class BarChartContext: ColumnChartContext {
         let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let startPosY = tmpStartPosition.y * tmpScaleY * rect.size.height
         
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let points = atPoints.sorted { $0.y <= $1.y }
         
         var res: [(Int, Int)] = []
@@ -346,7 +339,7 @@ class BarChartContext: ColumnChartContext {
                         res.append((plotCat.seriesIndex, min(plotCat.categoryIndex + 1, maxDataCount - 1)))
                     }
                 } else {
-                    if pt.y >= yMin && pt.y <= yMax {
+                    if pt.y >= yMin, pt.y <= yMax {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                         return res
                     } else if pt.y >= yMax {
@@ -364,9 +357,9 @@ class BarChartContext: ColumnChartContext {
 struct BarChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0
-           model.chartType = .bar
-           return model
+            let model = $0
+            model.chartType = .bar
+            return model
         }
         
         return Group {

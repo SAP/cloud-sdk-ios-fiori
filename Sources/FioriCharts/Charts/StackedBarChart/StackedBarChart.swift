@@ -1,10 +1,3 @@
-//
-//  StackedBarChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 8/18/20.
-//
-
 import SwiftUI
 
 struct StackedBarChart: View {
@@ -111,7 +104,7 @@ class StackedBarChartContext: BarChartContext {
         let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
         let startPosY = tmpStartPosition.y * tmpScaleY * rect.size.height
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         
         let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
@@ -125,7 +118,7 @@ class StackedBarChartContext: BarChartContext {
             let yMin = plotCat.rect.minY * tmpScaleY * height - startPosY
             let yMax = plotCat.rect.maxY * tmpScaleY * height - startPosY
             
-            if atPoint.x >= xMin && atPoint.x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+            if atPoint.x >= xMin, atPoint.x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -137,9 +130,9 @@ class StackedBarChartContext: BarChartContext {
 struct StackedBarChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0
-           model.chartType = .stackedBar
-           return model
+            let model = $0
+            model.chartType = .stackedBar
+            return model
         }
         
         return Group {

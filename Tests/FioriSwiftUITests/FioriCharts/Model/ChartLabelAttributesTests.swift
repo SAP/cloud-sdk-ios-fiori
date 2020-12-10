@@ -1,13 +1,6 @@
-//
-//  ChartLabelAttributesTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 4/30/20.
-//
-
 @testable import FioriCharts
-import XCTest
 import SwiftUI
+import XCTest
 
 class ChartLabelAttributesTests: XCTestCase {
     let color: Color = .preferredColor(.primary2)
@@ -27,7 +20,7 @@ class ChartLabelAttributesTests: XCTestCase {
                                                    fontSize: 12,
                                                    offset: 0,
                                                    isHidden: false)
-        XCTAssertEqual(labelAttributes.color.resolvedColor(with: .light), color.resolvedColor(with: .light))
+        XCTAssertEqual(labelAttributes.color.resolvedColor(with: .light), self.color.resolvedColor(with: .light))
         XCTAssertEqual(labelAttributes.fontSize, 12)
         XCTAssertEqual(labelAttributes.offset, 0)
         XCTAssertEqual(labelAttributes.isHidden, false)
@@ -63,7 +56,7 @@ class ChartLabelAttributesTests: XCTestCase {
                                                    offset: 0,
                                                    isHidden: true)
         
-        let labelAttributesCopy = labelAttributes.copy()as! ChartLabelAttributes
+        let labelAttributesCopy = labelAttributes.copy() as! ChartLabelAttributes
         
         XCTAssertEqual(labelAttributes, labelAttributesCopy)
     }
@@ -74,5 +67,4 @@ class ChartLabelAttributesTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

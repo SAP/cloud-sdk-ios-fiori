@@ -1,26 +1,17 @@
-//
-//  Array<CGPoint>.swift
-//  Micro Charts
-//
-//  Created by Stan Stadelman on 12/5/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
 extension Array where Element == CGPoint {
-    
-    var maxX: CGFloat { return reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.x) } }
-    var minX: CGFloat { return reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.x) } }
-    var maxY: CGFloat { return reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.y) } }
-    var minY: CGFloat { return reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.y) } }
+    var maxX: CGFloat { reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.x) } }
+    var minX: CGFloat { reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.x) } }
+    var maxY: CGFloat { reduce(CGFloat.leastNormalMagnitude) { Swift.max($0, $1.y) } }
+    var minY: CGFloat { reduce(CGFloat.greatestFiniteMagnitude) { Swift.min($0, $1.y) } }
     
     func boundingBox() -> CGRect {
         if isEmpty {
             return .zero
         }
-        return CGRect(origin: CGPoint(x: minX, y: minY), size: CGSize(width: maxX - minX, height: maxY - minY))
+        return CGRect(origin: CGPoint(x: self.minX, y: self.minY), size: CGSize(width: self.maxX - self.minX, height: self.maxY - self.minY))
     }
     
     func normalized(in size: CGSize, boundingBox: CGRect? = nil) -> [CGPoint] {
@@ -32,7 +23,7 @@ extension Array where Element == CGPoint {
         }
         
         let normalized: [CGPoint] = self
-            .map({ CGPoint(x: $0.x / box.width * size.width, y: $0.y / box.height * size.height) })
+            .map { CGPoint(x: $0.x / box.width * size.width, y: $0.y / box.height * size.height) }
             .map { $0.applying(.inverted(in: size.height)) }
         return normalized
     }
@@ -46,12 +37,12 @@ extension Array where Element == CGPoint {
             
             switch chartItemType {
             case .maxFill, .innerMaxFill:
-                p.addLine(to: CGPoint(x: size.width, y: 0))     // top right
-                p.addLine(to: .zero)                            // top left
+                p.addLine(to: CGPoint(x: size.width, y: 0)) // top right
+                p.addLine(to: .zero) // top left
                 p.closeSubpath()
             case .minFill, .innerMinFill:
-                p.addLine(to: CGPoint(x: size.width, y: size.height))   // bottom right
-                p.addLine(to: CGPoint(x: 0, y: size.height))            // bottom left
+                p.addLine(to: CGPoint(x: size.width, y: size.height)) // bottom right
+                p.addLine(to: CGPoint(x: 0, y: size.height)) // bottom left
                 p.closeSubpath()
             default:
                 break

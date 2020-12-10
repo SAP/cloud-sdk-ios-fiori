@@ -1,13 +1,6 @@
-//
-//  ChartPointAttributesTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 4/30/20.
-//
-
 @testable import FioriCharts
-import XCTest
 import SwiftUI
+import XCTest
 
 class ChartPointAttributesTests: XCTestCase {
     override func setUpWithError() throws {

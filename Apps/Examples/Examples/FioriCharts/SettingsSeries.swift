@@ -1,14 +1,6 @@
-//
-//  SettingsSeries.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/12/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
 import FioriSwiftUICore
+import SwiftUI
 
 struct SettingsSeries: View {
     @EnvironmentObject var model: ChartModel
@@ -21,7 +13,7 @@ struct SettingsSeries: View {
         
         return Form {
             Section(header: Text("Palette")) {
-                ForEach(0 ..< self.seriesAttr.palette.colors.count) { i in
+                ForEach(0 ..< self.seriesAttr.palette.colors.count, id: \.self) { i in
                     SettingColor(color: self.$seriesAttr.palette.colors[i], title: "Primary Color \(i)")
                 }
                 
@@ -44,29 +36,28 @@ struct SettingsSeries: View {
             
             Section(header: Text("Line")) {
                 Text("Line Width: \(nf.string(from: NSNumber(value: Double(seriesAttr.lineWidth))) ?? "")")
-                Slider(value: $seriesAttr.lineWidth, in: 1...10, step: 1)
+                Slider(value: $seriesAttr.lineWidth, in: 1 ... 10, step: 1)
                 
                 Text("First Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(seriesAttr.firstLineCapDiameter))) ?? "")")
-                Slider(value: $seriesAttr.firstLineCapDiameter, in: 0...10, step: 1)
+                Slider(value: $seriesAttr.firstLineCapDiameter, in: 0 ... 10, step: 1)
 
                 Text("Last Line Cap Diameter: \(nf.string(from: NSNumber(value: Double(seriesAttr.lastLineCapDiameter))) ?? "")")
-                Slider(value: $seriesAttr.lastLineCapDiameter, in: 0...10, step: 1)
+                Slider(value: $seriesAttr.lastLineCapDiameter, in: 0 ... 10, step: 1)
             }
         }.navigationBarTitle("Series")
     }
 }
-
 
 struct SettingsSeriesCollection: View {
     @EnvironmentObject var model: ChartModel
     
     var body: some View {
         Form {
-            ForEach(0 ..< self.model.seriesAttributes.count) { i in
+            ForEach(0 ..< self.model.seriesAttributes.count, id: \.self) { i in
                 NavigationLink(destination:
                     SettingsSeries(seriesAttr: self.$model.seriesAttributes[i])) {
-                        Text("Series \(i)")
-                    }
+                    Text("Series \(i)")
+                }
             }
         }.navigationBarTitle("Series Collection")
     }
