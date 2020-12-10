@@ -1,10 +1,3 @@
-//
-//  HexColorTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 4/30/20.
-//
-
 @testable import FioriSwiftUICore
 import UIKit
 import XCTest

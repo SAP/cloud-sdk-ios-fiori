@@ -1,10 +1,3 @@
-//
-//  WaterfallChartConnectingLinesShape.swift
-//  
-//
-//  Created by Xu, Sheng on 12/9/20.
-//
-
 import SwiftUI
 
 struct WaterfallChartConnectingLinesShape: Shape {
@@ -14,13 +7,13 @@ struct WaterfallChartConnectingLinesShape: Shape {
     let endIndex: Int
     
     func path(in rect: CGRect) -> Path {
-        guard seriesIndex >= 0, startIndex >= 0, startIndex <= endIndex, path.count > seriesIndex, !path[seriesIndex].isEmpty, path[seriesIndex].count > endIndex else {
+        guard self.seriesIndex >= 0, self.startIndex >= 0, self.startIndex <= self.endIndex, self.path.count > self.seriesIndex, !self.path[self.seriesIndex].isEmpty, self.path[self.seriesIndex].count > self.endIndex else {
             return Path()
         }
         
         var seriesPath = Path()
-        for index in startIndex ... endIndex {
-            let categoryPath = path[seriesIndex][index]
+        for index in self.startIndex ... self.endIndex {
+            let categoryPath = self.path[self.seriesIndex][index]
             
             if let linePath = categoryPath.last {
                 seriesPath.addPath(linePath)

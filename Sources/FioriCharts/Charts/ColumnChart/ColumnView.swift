@@ -1,10 +1,3 @@
-//
-//  ColumnView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/3/20.
-//
-
 import SwiftUI
 
 struct ColumnView: View {
@@ -20,8 +13,8 @@ struct ColumnView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let seriesCount = model.numOfSeries()
-        let categoryIndexRange = chartContext.displayCategoryIndexes(model, rect: rect)
+        let seriesCount = self.model.numOfSeries()
+        let categoryIndexRange = self.chartContext.displayCategoryIndexes(self.model, rect: rect)
         let categoryIndices = Array(categoryIndexRange)
         
         return ZStack {

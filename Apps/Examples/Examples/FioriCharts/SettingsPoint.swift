@@ -1,13 +1,5 @@
-//
-//  SettingsPoint.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/10/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct SettingsPoint: View {
     @EnvironmentObject var model: ChartModel
@@ -25,10 +17,10 @@ struct SettingsPoint: View {
                 }
                 
                 Text("Diameter of the point: \(nf.string(from: NSNumber(value: Double(point.diameter))) ?? "")")
-                Slider(value: $point.diameter, in: 0...20, step: 1)
+                Slider(value: $point.diameter, in: 0 ... 20, step: 1)
                 
                 Text("Allowed gap between dots before they run into each other and are hidden: \(nf.string(from: NSNumber(value: Double(point.gap))) ?? "")")
-                Slider(value: $point.gap, in: 0...10, step: 1)
+                Slider(value: $point.gap, in: 0 ... 10, step: 1)
                 
                 SettingColor(color: $point.strokeColor)
             }

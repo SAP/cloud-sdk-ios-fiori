@@ -1,10 +1,3 @@
-//
-//  LinesShapeView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 2/26/20.
-//
-
 import SwiftUI
 
 struct LinesShape: Shape {
@@ -39,26 +32,26 @@ struct LinesShape: Shape {
     public func path(in rect: CGRect) -> Path {
         var path = Path()
         
-        if seriesIndex < 0 || seriesIndex >= model.numOfSeries() || categoryIndexRange.upperBound < 0 {
+        if self.seriesIndex < 0 || self.seriesIndex >= self.model.numOfSeries() || self.categoryIndexRange.upperBound < 0 {
             return path
         }
 
-        let stepWidth = (rect.size.width - startOffset + endOffset) / CGFloat(max(categoryIndexRange.count - 1, 1))
-        var prevPt: CGPoint? = nil
-        let fillOrigY: CGFloat = rect.size.height * (1.0 - baselinePosition)
+        let stepWidth = (rect.size.width - self.startOffset + self.endOffset) / CGFloat(max(self.categoryIndexRange.count - 1, 1))
+        var prevPt: CGPoint?
+        let fillOrigY: CGFloat = rect.size.height * (1.0 - self.baselinePosition)
         
-        var subPath: Path? = nil
+        var subPath: Path?
         
-        for i in 0 ..< categoryIndexRange.count {
-            let dataVal = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: i + categoryIndexRange.lowerBound, dimensionIndex: 0)
+        for i in 0 ..< self.categoryIndexRange.count {
+            let dataVal = ChartUtility.dimensionValue(self.model, seriesIndex: self.seriesIndex, categoryIndex: i + self.categoryIndexRange.lowerBound, dimensionIndex: 0)
             if let tmpVal = dataVal { // cur point is not nil
-                let val = yPosition(from: tmpVal, in: rect)
-                let x = ChartUtility.xPos(startOffset + stepWidth * CGFloat(i), layoutDirection: layoutDirection, width: rect.size.width)
+                let val = self.yPosition(from: tmpVal, in: rect)
+                let x = ChartUtility.xPos(self.startOffset + stepWidth * CGFloat(i), layoutDirection: self.layoutDirection, width: rect.size.width)
                 let p2 = CGPoint(x: x, y: val)
                 
                 // prev point is not nil
                 if let p1 = prevPt {
-                    if curve {
+                    if self.curve {
                         let midPoint = CGPoint.midPoint(p1: p1, p2: p2)
                         subPath?.addQuadCurve(to: midPoint, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p1))
                         subPath?.addQuadCurve(to: p2, control: CGPoint.controlPointForPoints(p1: midPoint, p2: p2))
@@ -68,7 +61,7 @@ struct LinesShape: Shape {
                 } else { // prev point is nil
                     subPath = Path()
                     
-                    if fill {
+                    if self.fill {
                         subPath?.move(to: CGPoint(x: x, y: fillOrigY))
                         subPath?.addLine(to: p2)
                     } else {
@@ -79,7 +72,7 @@ struct LinesShape: Shape {
                 prevPt = p2
             } else { // cur point is nil
                 if let p1 = prevPt { // prev point is not nil
-                    if fill {
+                    if self.fill {
                         subPath?.addLine(to: CGPoint(x: p1.x, y: fillOrigY))
                         subPath?.closeSubpath()
                     }
@@ -95,7 +88,7 @@ struct LinesShape: Shape {
             }
         }
         
-        if fill, let p1 = prevPt { // prev point is not nil
+        if self.fill, let p1 = prevPt { // prev point is not nil
             subPath?.addLine(to: CGPoint(x: p1.x, y: fillOrigY))
             subPath?.closeSubpath()
         }
@@ -108,17 +101,17 @@ struct LinesShape: Shape {
     }
     
     func yPosition(from val: CGFloat, in rect: CGRect) -> CGFloat {
-        if displayRange.upperBound == displayRange.lowerBound {
+        if self.displayRange.upperBound == self.displayRange.lowerBound {
             return 0
         } else {
-            return rect.size.height - (val - displayRange.lowerBound) * rect.size.height / (displayRange.upperBound - displayRange.lowerBound)
+            return rect.size.height - (val - self.displayRange.lowerBound) * rect.size.height / (self.displayRange.upperBound - self.displayRange.lowerBound)
         }
     }
 }
 
 extension CGPoint {
     static func midPoint(p1: CGPoint, p2: CGPoint) -> CGPoint {
-        return CGPoint(
+        CGPoint(
             x: p1.x + (p2.x - p1.x) / 2,
             y: p1.y + (p2.y - p1.y) / 2
         )

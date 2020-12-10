@@ -1,10 +1,3 @@
-//
-//  ChartAxisAttributes.swift
-//  AnyCodable
-//
-//  Created by Xu, Sheng on 3/4/20.
-//
-
 import Foundation
 import SwiftUI
 
@@ -16,7 +9,6 @@ import SwiftUI
  The type of axis will vary depending on the type of chart presented. As an example, for scatter, bubble, and bar charts the `x` axis is a numeric axis; but for all other chart types the `x` axis is the category axis.
  */
 public enum ChartAxisId: String {
-    
     /// X axis. Normally the category or horizontal axis.
     case x
     /// Y axis. Normally the value or vertical axis.
@@ -145,29 +137,29 @@ extension AxisTickValues: CustomStringConvertible {
         nf.maximumFractionDigits = 2
         
         return """
-{
-    "AxisTickValues": {
-        "plotMinimum": \(nf.string(from: NSNumber(value: Double(plotMinimum))) ?? ""),
-        "plotMaximum": \(nf.string(from: NSNumber(value: Double(plotMaximum))) ?? ""),
-        "plotBaselineValue": \(nf.string(from: NSNumber(value: Double(plotBaselineValue))) ?? ""),
-        "plotBaselinePosition": \(nf.string(from: NSNumber(value: Double(plotBaselinePosition))) ?? ""),
-        "tickMinimum": \(nf.string(from: NSNumber(value: Double(tickMinimum))) ?? ""),
-        "tickMaximum": \(nf.string(from: NSNumber(value: Double(tickMaximum))) ?? ""),
-        "dataMinimum": \(nf.string(from: NSNumber(value: Double(dataMinimum))) ?? ""),
-        "dataMaximum": \(nf.string(from: NSNumber(value: Double(dataMaximum))) ?? ""),
-        "plotRange": \(nf.string(from: NSNumber(value: Double(plotRange))) ?? ""),
-        "tickRange": \(nf.string(from: NSNumber(value: Double(tickRange))) ?? ""),
-        "dataRange": \(nf.string(from: NSNumber(value: Double(dataRange))) ?? ""),
-        "plotScale": \(nf.string(from: NSNumber(value: Double(plotScale))) ?? ""),
-        "tickScale": \(nf.string(from: NSNumber(value: Double(tickScale))) ?? ""),
-        "dataScale": \(nf.string(from: NSNumber(value: Double(dataScale))) ?? ""),
-        "tickStepSize": \(nf.string(from: NSNumber(value: Double(tickStepSize))) ?? ""),
-        "tickValues": \(String(describing: tickValues)),
-        "tickPositions": \(String(describing: tickPositions)),
-        "tickCount": \(String(describing: tickCount))
-    }
-}
-"""
+        {
+            "AxisTickValues": {
+                "plotMinimum": \(nf.string(from: NSNumber(value: Double(self.plotMinimum))) ?? ""),
+                "plotMaximum": \(nf.string(from: NSNumber(value: Double(self.plotMaximum))) ?? ""),
+                "plotBaselineValue": \(nf.string(from: NSNumber(value: Double(self.plotBaselineValue))) ?? ""),
+                "plotBaselinePosition": \(nf.string(from: NSNumber(value: Double(self.plotBaselinePosition))) ?? ""),
+                "tickMinimum": \(nf.string(from: NSNumber(value: Double(self.tickMinimum))) ?? ""),
+                "tickMaximum": \(nf.string(from: NSNumber(value: Double(self.tickMaximum))) ?? ""),
+                "dataMinimum": \(nf.string(from: NSNumber(value: Double(self.dataMinimum))) ?? ""),
+                "dataMaximum": \(nf.string(from: NSNumber(value: Double(self.dataMaximum))) ?? ""),
+                "plotRange": \(nf.string(from: NSNumber(value: Double(self.plotRange))) ?? ""),
+                "tickRange": \(nf.string(from: NSNumber(value: Double(self.tickRange))) ?? ""),
+                "dataRange": \(nf.string(from: NSNumber(value: Double(self.dataRange))) ?? ""),
+                "plotScale": \(nf.string(from: NSNumber(value: Double(self.plotScale))) ?? ""),
+                "tickScale": \(nf.string(from: NSNumber(value: Double(self.tickScale))) ?? ""),
+                "dataScale": \(nf.string(from: NSNumber(value: Double(self.dataScale))) ?? ""),
+                "tickStepSize": \(nf.string(from: NSNumber(value: Double(self.tickStepSize))) ?? ""),
+                "tickValues": \(String(describing: self.tickValues)),
+                "tickPositions": \(String(describing: self.tickPositions)),
+                "tickCount": \(String(describing: self.tickCount))
+            }
+        }
+        """
     }
 }
 
@@ -228,26 +220,26 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
     
     // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
-        return ChartAxisAttributes(axisId: self.axisId,
-                                   baseline: (self.baseline.copy() as! ChartBaselineAttributes),
-                                   gridlines: (self.gridlines.copy() as! ChartGridlineAttributes),
-                                   labels: (self.labels.copy() as! ChartLabelAttributes),
-                                   titleLabel: (self.titleLabel.copy() as! ChartLabelAttributes),
-                                   title: self.title)
+        ChartAxisAttributes(axisId: self.axisId,
+                            baseline: self.baseline.copy() as! ChartBaselineAttributes,
+                            gridlines: self.gridlines.copy() as! ChartGridlineAttributes,
+                            labels: self.labels.copy() as! ChartLabelAttributes,
+                            titleLabel: self.titleLabel.copy() as! ChartLabelAttributes,
+                            title: self.title)
     }
     
     public var description: String {
-        return """
-{
-    "ChartAxisAttributes": {
-        "baseline": \(String(describing: baseline)),
-        "gridlines": \(String(describing: gridlines)),
-        "labels": \(String(describing: labels)),
-        "titleLabel": \(String(describing: titleLabel)),
-        "title": "\(String(describing: title))"
-    }
-}
-"""
+        """
+        {
+            "ChartAxisAttributes": {
+                "baseline": \(String(describing: self.baseline)),
+                "gridlines": \(String(describing: self.gridlines)),
+                "labels": \(String(describing: self.labels)),
+                "titleLabel": \(String(describing: self.titleLabel)),
+                "title": "\(String(describing: self.title))"
+            }
+        }
+        """
     }
 }
 
@@ -274,7 +266,8 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
                 explicitMin: Double? = nil,
                 explicitMax: Double? = nil,
                 formatter: NumberFormatter?,
-                abbreviatedFormatter: NumberFormatter?) {
+                abbreviatedFormatter: NumberFormatter?)
+    {
         if let formatter = formatter {
             self._formatter = Published(initialValue: formatter)
         } else {
@@ -312,61 +305,61 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     }
     
     // swiftlint:disable force_cast
-    public override func copy(with zone: NSZone? = nil) -> Any {
+    override public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartNumericAxisAttributes(axisId: axisId,
-                                              baseline: (baseline.copy() as! ChartBaselineAttributes),
-                                              gridlines: (gridlines.copy() as! ChartGridlineAttributes),
-                                              labels: (labels.copy() as! ChartLabelAttributes),
-                                              titleLabel: (titleLabel.copy() as! ChartLabelAttributes),
+                                              baseline: baseline.copy() as! ChartBaselineAttributes,
+                                              gridlines: gridlines.copy() as! ChartGridlineAttributes,
+                                              labels: labels.copy() as! ChartLabelAttributes,
+                                              titleLabel: titleLabel.copy() as! ChartLabelAttributes,
                                               title: title,
-                                              isZeroBased: isZeroBased,
-                                              allowLooseLabels: allowLooseLabels,
-                                              fudgeAxisRange: fudgeAxisRange,
-                                              adjustToNiceValues: adjustToNiceValues,
-                                              abbreviatesLabels: abbreviatesLabels,
-                                              isMagnitudedDisplayed: isMagnitudedDisplayed,
-                                              explicitMin: ChartUtility.doubleOptional(from: explicitMin),
-                                              explicitMax: ChartUtility.doubleOptional(from: explicitMax),
-                                              formatter: formatter.copy() as? NumberFormatter,
-                                              abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter)
+                                              isZeroBased: self.isZeroBased,
+                                              allowLooseLabels: self.allowLooseLabels,
+                                              fudgeAxisRange: self.fudgeAxisRange,
+                                              adjustToNiceValues: self.adjustToNiceValues,
+                                              abbreviatesLabels: self.abbreviatesLabels,
+                                              isMagnitudedDisplayed: self.isMagnitudedDisplayed,
+                                              explicitMin: ChartUtility.doubleOptional(from: self.explicitMin),
+                                              explicitMax: ChartUtility.doubleOptional(from: self.explicitMax),
+                                              formatter: self.formatter.copy() as? NumberFormatter,
+                                              abbreviatedFormatter: self.abbreviatedFormatter.copy() as? NumberFormatter)
         
         return copy
     }
     
     func myCustomDesc(for nf: NumberFormatter) -> String {
-        return """
-{
-    "NumberFormatter": {
-        "numberStyle": \(nf.numberStyle.rawValue),
-        "minimumFractionDigits": \(nf.minimumFractionDigits),
-        "maximumFractionDigits": \(nf.maximumFractionDigits)
-    }
-}
-"""
+        """
+        {
+            "NumberFormatter": {
+                "numberStyle": \(nf.numberStyle.rawValue),
+                "minimumFractionDigits": \(nf.minimumFractionDigits),
+                "maximumFractionDigits": \(nf.maximumFractionDigits)
+            }
+        }
+        """
     }
     
-    public override var description: String {
-        return """
-{
-    "ChartNumericAxisAttributes": {
-        "baseline": \(String(describing: baseline)),
-        "gridlines": \(String(describing: gridlines)),
-        "labels": \(String(describing: labels)),
-        "titleLabel": \(String(describing: titleLabel)),
-        "title": "\(String(describing: title))",
-        "isZeroBased": \(isZeroBased),
-        "allowLooseLabels": \(allowLooseLabels),
-        "fudgeYAxisRange": \(fudgeAxisRange),
-        "adjustToNiceValues": \(adjustToNiceValues),
-        "abbreviatesLabels": \(abbreviatesLabels),
-        "isMagnitudedDisplayed": \(isMagnitudedDisplayed),
-        "explicitMin": "\(String(describing: explicitMin))",
-        "explicitMax": "\(String(describing: explicitMax))",
-        "formatter": \(myCustomDesc(for: formatter)),
-        "abbreviatedFormatter": \(myCustomDesc(for: abbreviatedFormatter))
-    }
-}
-"""
+    override public var description: String {
+        """
+        {
+            "ChartNumericAxisAttributes": {
+                "baseline": \(String(describing: baseline)),
+                "gridlines": \(String(describing: gridlines)),
+                "labels": \(String(describing: labels)),
+                "titleLabel": \(String(describing: titleLabel)),
+                "title": "\(String(describing: title))",
+                "isZeroBased": \(self.isZeroBased),
+                "allowLooseLabels": \(self.allowLooseLabels),
+                "fudgeYAxisRange": \(self.fudgeAxisRange),
+                "adjustToNiceValues": \(self.adjustToNiceValues),
+                "abbreviatesLabels": \(self.abbreviatesLabels),
+                "isMagnitudedDisplayed": \(self.isMagnitudedDisplayed),
+                "explicitMin": "\(String(describing: self.explicitMin))",
+                "explicitMax": "\(String(describing: self.explicitMax))",
+                "formatter": \(self.myCustomDesc(for: self.formatter)),
+                "abbreviatedFormatter": \(self.myCustomDesc(for: self.abbreviatedFormatter))
+            }
+        }
+        """
     }
     
     /**
@@ -379,29 +372,29 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     @Published public var isZeroBased: Bool
     
     /***
-     Allows labels to exceed the data range.
-     It is inconsistent when it comes to enabling it.
-        • ellipse - yes
-        • waterfall - yes
-        • stacked column - no
-        • line - no
-        • column - no
-        • combo - yes
-    */
+      Allows labels to exceed the data range.
+      It is inconsistent when it comes to enabling it.
+         • ellipse - yes
+         • waterfall - yes
+         • stacked column - no
+         • line - no
+         • column - no
+         • combo - yes
+     */
     @Published var allowLooseLabels = false
     
-   /***
-     Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
-     By default, all column based charts have this enabled and all line based don't.
-    */
+    /***
+      Flag that indicates wether the Y Axis should be adjusted to better fit the available space.
+      By default, all column based charts have this enabled and all line based don't.
+     */
     @Published var fudgeAxisRange = false
     
     /***
-     Flag that indicates if we should adjust to nice values, or use the data
-     minimum and maximum to calculate the range.
+      Flag that indicates if we should adjust to nice values, or use the data
+      minimum and maximum to calculate the range.
     
-     Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
-    */
+      Chart scale is adjusted so that gridlines (ticks) fall on "nice" values. Explicit min/max overrides this.
+     */
     @Published var adjustToNiceValues = true
     
     /**
@@ -497,7 +490,6 @@ public enum ChartCategoryAxisLabelLayoutStyle: CustomStringConvertible {
  - Line, column, and combo charts display the category axis as the X axis.
  */
 public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
-    
     public init(axisId: ChartAxisId? = nil,
                 baseline: ChartBaselineAttributes? = nil,
                 gridlines: ChartGridlineAttributes? = nil,
@@ -514,7 +506,8 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
                 explicitMax: Double? = nil,
                 formatter: NumberFormatter?,
                 abbreviatedFormatter: NumberFormatter?,
-                labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle) {
+                labelLayoutStyle: ChartCategoryAxisLabelLayoutStyle)
+    {
         self._labelLayoutStyle = Published(initialValue: labelLayoutStyle)
         
         super.init(axisId: axisId, baseline: baseline, gridlines: gridlines, labels: labels, titleLabel: titleLabel, title: title, isZeroBased: isZeroBased, allowLooseLabels: allowLooseLabels, fudgeAxisRange: fudgeAxisRange, adjustToNiceValues: adjustToNiceValues, abbreviatesLabels: abbreviatesLabels, isMagnitudedDisplayed: isMagnitudedDisplayed, explicitMin: explicitMin, explicitMax: explicitMax, formatter: formatter, abbreviatedFormatter: abbreviatedFormatter)
@@ -529,12 +522,12 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     }
     
     // swiftlint:disable force_cast
-    public override func copy(with zone: NSZone? = nil) -> Any {
+    override public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartCategoryAxisAttributes(axisId: axisId,
-                                               baseline: (baseline.copy() as! ChartBaselineAttributes),
-                                               gridlines: (gridlines.copy() as! ChartGridlineAttributes),
-                                               labels: (labels.copy() as! ChartLabelAttributes),
-                                               titleLabel: (titleLabel.copy() as! ChartLabelAttributes),
+                                               baseline: baseline.copy() as! ChartBaselineAttributes,
+                                               gridlines: gridlines.copy() as! ChartGridlineAttributes,
+                                               labels: labels.copy() as! ChartLabelAttributes,
+                                               titleLabel: titleLabel.copy() as! ChartLabelAttributes,
                                                title: title,
                                                isZeroBased: isZeroBased,
                                                allowLooseLabels: allowLooseLabels,
@@ -546,34 +539,34 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
                                                explicitMax: ChartUtility.doubleOptional(from: explicitMax),
                                                formatter: formatter.copy() as? NumberFormatter,
                                                abbreviatedFormatter: abbreviatedFormatter.copy() as? NumberFormatter,
-                                               labelLayoutStyle: labelLayoutStyle)
+                                               labelLayoutStyle: self.labelLayoutStyle)
         
         return copy
     }
     
-    public override var description: String {
-        return """
-{
-    "ChartCategoryAxisAttributes": {
-        "baseline": \(String(describing: baseline)),
-        "gridlines": \(String(describing: gridlines)),
-        "labels": \(String(describing: labels)),
-        "titleLabel": \(String(describing: titleLabel)),
-        "title": "\(String(describing: title))",
-        "isZeroBased": \(isZeroBased),
-        "allowLooseLabels": \(allowLooseLabels),
-        "fudgeYAxisRange": \(fudgeAxisRange),
-        "adjustToNiceValues": \(adjustToNiceValues),
-        "abbreviatesLabels": \(abbreviatesLabels),
-        "isMagnitudedDisplayed": \(isMagnitudedDisplayed),
-        "explicitMin": "\(String(describing: explicitMin))",
-        "explicitMax": "\(String(describing: explicitMax))",
-        "formatter": \(myCustomDesc(for: formatter)),
-        "abbreviatedFormatter": \(myCustomDesc(for: abbreviatedFormatter)),
-        "labelLayoutStyle": "\(String(describing: labelLayoutStyle))"
-    }
-}
-"""
+    override public var description: String {
+        """
+        {
+            "ChartCategoryAxisAttributes": {
+                "baseline": \(String(describing: baseline)),
+                "gridlines": \(String(describing: gridlines)),
+                "labels": \(String(describing: labels)),
+                "titleLabel": \(String(describing: titleLabel)),
+                "title": "\(String(describing: title))",
+                "isZeroBased": \(isZeroBased),
+                "allowLooseLabels": \(allowLooseLabels),
+                "fudgeYAxisRange": \(fudgeAxisRange),
+                "adjustToNiceValues": \(adjustToNiceValues),
+                "abbreviatesLabels": \(abbreviatesLabels),
+                "isMagnitudedDisplayed": \(isMagnitudedDisplayed),
+                "explicitMin": "\(String(describing: explicitMin))",
+                "explicitMax": "\(String(describing: explicitMax))",
+                "formatter": \(myCustomDesc(for: formatter)),
+                "abbreviatedFormatter": \(myCustomDesc(for: abbreviatedFormatter)),
+                "labelLayoutStyle": "\(String(describing: self.labelLayoutStyle))"
+            }
+        }
+        """
     }
     
     /// Defines the manner in which labels will be presented when they are provided by the data source, and not hidden.
@@ -582,7 +575,7 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
 
 extension ChartAxisAttributes: Equatable {
     public static func == (lhs: ChartAxisAttributes, rhs: ChartAxisAttributes) -> Bool {
-        return lhs.axisId == rhs.axisId &&
+        lhs.axisId == rhs.axisId &&
             lhs.baseline == rhs.baseline &&
             lhs.gridlines == rhs.gridlines &&
             lhs.labels == rhs.labels &&
@@ -591,10 +584,10 @@ extension ChartAxisAttributes: Equatable {
     }
 }
 
-extension ChartNumericAxisAttributes {
+public extension ChartNumericAxisAttributes {
     /// conform to Equatable
-    public static func == (lhs: ChartNumericAxisAttributes, rhs: ChartNumericAxisAttributes) -> Bool {
-        return lhs.axisId == rhs.axisId &&
+    static func == (lhs: ChartNumericAxisAttributes, rhs: ChartNumericAxisAttributes) -> Bool {
+        lhs.axisId == rhs.axisId &&
             lhs.baseline == rhs.baseline &&
             lhs.gridlines == rhs.gridlines &&
             lhs.labels == rhs.labels &&
@@ -610,10 +603,10 @@ extension ChartNumericAxisAttributes {
     }
 }
 
-extension ChartCategoryAxisAttributes {
+public extension ChartCategoryAxisAttributes {
     /// conform to Equatable
-    public static func == (lhs: ChartCategoryAxisAttributes, rhs: ChartCategoryAxisAttributes) -> Bool {
-        return lhs.axisId == rhs.axisId &&
+    static func == (lhs: ChartCategoryAxisAttributes, rhs: ChartCategoryAxisAttributes) -> Bool {
+        lhs.axisId == rhs.axisId &&
             lhs.baseline == rhs.baseline &&
             lhs.gridlines == rhs.gridlines &&
             lhs.labels == rhs.labels &&

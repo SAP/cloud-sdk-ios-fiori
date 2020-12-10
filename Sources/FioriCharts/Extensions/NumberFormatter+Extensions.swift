@@ -1,10 +1,3 @@
-//
-//  NumberFormatter+Extensions.swift
-//  
-//
-//  Created by Eidinger, Marco on 6/26/20.
-//
-
 import Foundation
 
 extension NumberFormatter {

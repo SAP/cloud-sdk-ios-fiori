@@ -1,10 +1,3 @@
-//
-//  ComboChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/30/20.
-//
-
 import SwiftUI
 
 struct ComboChart: View {
@@ -69,7 +62,7 @@ class ComboChartContext: ColumnChartContext {
                 let baselineValue = tickValues.plotBaselineValue
                 
                 clusteredX = columnXIncrement * CGFloat(categoryIndex)
-                clusteredX += columnWidth * CGFloat((columnSeries.firstIndex(of: seriesIndex) ?? 0))
+                clusteredX += columnWidth * CGFloat(columnSeries.firstIndex(of: seriesIndex) ?? 0)
                 var columnHeight = corruptDataHeight
                 var clusteredY = baselinePosition
                 var rawValue: CGFloat = 0
@@ -112,10 +105,10 @@ class ComboChartContext: ColumnChartContext {
                     }
                     
                     seriesResult.append(ChartPlotData.point(point: ChartPlotPointData(seriesIndex: seriesIndex,
-                                                                                   categoryIndex: categoryIndex,
-                                                                                   value: rawValue,
-                                                                                   x: clusteredX,
-                                                                                   y: clusteredY)))
+                                                                                      categoryIndex: categoryIndex,
+                                                                                      value: rawValue,
+                                                                                      x: clusteredX,
+                                                                                      y: clusteredY)))
                 }
             }
             
@@ -149,7 +142,7 @@ class ComboChartContext: ColumnChartContext {
 
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: width)
@@ -176,7 +169,7 @@ class ComboChartContext: ColumnChartContext {
                 let yMax = (1.0 - plotCat.rect.minY - tmpStartPosition.y) * tmpScaleY * rect.size.height
                 let yMin = (1.0 - plotCat.rect.maxY - tmpStartPosition.y) * tmpScaleY * rect.size.height
                 
-                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                if x >= xMin, x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                     foundSeriesIndex = plotCat.seriesIndex
                     foundCategoryIndex = plotCat.categoryIndex
                 }
@@ -186,9 +179,9 @@ class ComboChartContext: ColumnChartContext {
                 let xMax = plotCat.pos.x * tmpScaleX * width + diameter - startPosX
                 
                 let yMax = (1.0 - plotCat.pos.y - tmpStartPosition.y) * tmpScaleY * rect.size.height + diameter
-                let yMin = (1.0 - plotCat.pos.y -  tmpStartPosition.y) * tmpScaleY * rect.size.height - diameter
+                let yMin = (1.0 - plotCat.pos.y - tmpStartPosition.y) * tmpScaleY * rect.size.height - diameter
                 
-                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                if x >= xMin, x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                     foundSeriesIndex = plotCat.seriesIndex
                     foundCategoryIndex = plotCat.categoryIndex
                     
@@ -207,7 +200,7 @@ class ComboChartContext: ColumnChartContext {
         }
         
         let width = rect.size.width
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let points = atPoints.map { (pt) -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
                                       layoutDirection: layoutDirection,

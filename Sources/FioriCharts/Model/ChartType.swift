@@ -1,16 +1,7 @@
-//
-//  ChartType.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/22/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import Foundation
 
 /// Available chart types. Use this enum to define chart type to present.
 public enum ChartType: String {
-
     /// Line Chart
     case line
 

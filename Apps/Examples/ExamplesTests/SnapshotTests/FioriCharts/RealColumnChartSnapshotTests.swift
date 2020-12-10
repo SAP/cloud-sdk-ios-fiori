@@ -1,19 +1,10 @@
-//
-//  RealColumnChartSnapshotTests.swift
-//  ExamplesTests
-//
-//  Created by Xu, Sheng on 9/28/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import XCTest
-import SwiftUI
 @testable import FioriCharts
+import SwiftUI
+import XCTest
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
 class RealColumnChartSnapshotTests: XCTestCase {
-
     func testColumnChartPositiveValuesSingleSeries() throws {
         if let chart = Tests.lineModels[0].copy() as? ChartModel {
             chart.chartType = .column
@@ -30,7 +21,7 @@ class RealColumnChartSnapshotTests: XCTestCase {
         }
     }
 
-    func testColumnChart6SeriesLongCategoryLabels() throws{
+    func testColumnChart6SeriesLongCategoryLabels() throws {
         if let chart = Tests.lineModels[2].copy() as? ChartModel {
             chart.chartType = .column
             
@@ -101,5 +92,4 @@ class RealColumnChartSnapshotTests: XCTestCase {
             assertSnapshot(ChartView(chart), for: referenceSize)
         }
     }
-
 }

@@ -1,10 +1,3 @@
-//
-//  View+Extensions.swift
-//  
-//
-//  Created by Xu, Sheng on 8/26/20.
-//
-
 import Foundation
 import SwiftUI
 

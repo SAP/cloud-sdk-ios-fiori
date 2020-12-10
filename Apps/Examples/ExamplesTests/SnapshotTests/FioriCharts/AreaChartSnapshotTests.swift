@@ -1,20 +1,11 @@
-//
-//  AreaChartSnapshotTests.swift
-//  ExamplesTests
-//
-//  Created by Xu, Sheng on 9/28/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import XCTest
 import SwiftUI
+import XCTest
 
 @testable import FioriCharts
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
 class AreaChartSnapshotTests: XCTestCase {
-
     func testAreaChartPositiveValuesSingleSeries() throws {
         if let chart = Tests.lineModels[0].copy() as? ChartModel {
             chart.chartType = .area
@@ -31,7 +22,7 @@ class AreaChartSnapshotTests: XCTestCase {
         }
     }
 
-    func testAreaChart6SeriesLongCategoryLabels() throws{
+    func testAreaChart6SeriesLongCategoryLabels() throws {
         if let chart = Tests.lineModels[2].copy() as? ChartModel {
             chart.chartType = .area
             

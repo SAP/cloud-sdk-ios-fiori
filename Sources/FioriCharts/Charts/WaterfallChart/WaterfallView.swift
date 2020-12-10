@@ -1,10 +1,3 @@
-//
-//  WaterfallView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/23/20.
-//
-
 import SwiftUI
 
 struct WaterfallView: View {
@@ -21,19 +14,19 @@ struct WaterfallView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         // only check first series
-        let maxDataCount = model.numOfCategories(in: 0)
+        let maxDataCount = self.model.numOfCategories(in: 0)
         let width = rect.size.width
-        let categoryIndexRange = chartContext.displayCategoryIndexes(model, rect: rect)
+        let categoryIndexRange = self.chartContext.displayCategoryIndexes(self.model, rect: rect)
         
         // calculate CGAffineTransform for layoutDirection
-        let mirror = layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
+        let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
 
         let translateX: CGFloat
-        let startPosition = chartContext.startPosition(model, plotViewSize: rect.size)
-        let scaleX = chartContext.scaleX(model, plotViewSize: rect.size)
-        let scaleY = chartContext.scaleY(model, plotViewSize: rect.size)
+        let startPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
+        let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
+        let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
         
-        if layoutDirection == .rightToLeft {
+        if self.layoutDirection == .rightToLeft {
             translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * width
         } else {
             translateX = -startPosition.x * scaleX * width
@@ -45,7 +38,7 @@ struct WaterfallView: View {
                 Group {
                     if categoryIndexRange.contains(categoryIndex) {
                         ColumnChartCategoryShape(chartType: self.model.chartType, plotBaselinePosition: self.model.numericAxisTickValues.plotBaselinePosition, path: self.model.path, seriesIndex: 0, categoryIndex: categoryIndex, animateScale: self.animateScale)
-                            .transform(mirror)   // apply layoutDirection
+                            .transform(mirror) // apply layoutDirection
                             .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                             .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
                             .fill(self.model.columnColor(seriesIndex: 0, categoryIndex: categoryIndex))
@@ -56,7 +49,7 @@ struct WaterfallView: View {
             }
             
             WaterfallChartConnectingLinesShape(path: model.path, seriesIndex: 0, startIndex: categoryIndexRange.lowerBound, endIndex: categoryIndexRange.upperBound)
-                .transform(mirror)   // apply layoutDirection
+                .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                 .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
                 .stroke(Color.preferredColor(.primary4), lineWidth: 1)

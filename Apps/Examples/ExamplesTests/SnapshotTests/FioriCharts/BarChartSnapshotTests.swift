@@ -1,19 +1,10 @@
-//
-//  BarChartSnapshotTests.swift
-//  ExamplesTests
-//
-//  Created by Xu, Sheng on 9/28/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import XCTest
-import SwiftUI
 @testable import FioriCharts
+import SwiftUI
+import XCTest
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
 class BarChartSnapshotTests: XCTestCase {
-
     func testBarChartPositiveValuesSingleSeries() throws {
         if let chart = Tests.lineModels[0].copy() as? ChartModel {
             chart.chartType = .bar
@@ -30,7 +21,7 @@ class BarChartSnapshotTests: XCTestCase {
         }
     }
 
-    func testBarChart6SeriesLongCategoryLabels() throws{
+    func testBarChart6SeriesLongCategoryLabels() throws {
         if let chart = Tests.lineModels[2].copy() as? ChartModel {
             chart.chartType = .bar
             
@@ -101,5 +92,4 @@ class BarChartSnapshotTests: XCTestCase {
             assertSnapshot(ChartView(chart), for: referenceSize)
         }
     }
-
 }

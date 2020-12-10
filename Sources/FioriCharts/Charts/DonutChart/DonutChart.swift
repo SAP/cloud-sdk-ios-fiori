@@ -1,10 +1,3 @@
-//
-//  DonutChart.swift
-//  FioriSwiftUI
-//
-//  Created by Xu, Sheng on 2/24/20.
-//
-
 import SwiftUI
 
 struct DonutChart: View {
@@ -25,7 +18,7 @@ struct DonutChart: View {
         let depth: CGFloat = diameter * 63.0 / 336.0
         
         var segments: [ChartPlotRectData] = []
-        let seriesCount = model.numOfSeries()
+        let seriesCount = self.model.numOfSeries()
         
         var values: [CGFloat] = Array(repeating: 0, count: seriesCount)
         let totalDegree: CGFloat = seriesCount > 1 ? 360 - CGFloat(seriesCount) * GAP : 360
@@ -44,40 +37,34 @@ struct DonutChart: View {
                 endAngle = totalValue == 0 ? 0 : startAngle + values[seriesIndex] * totalDegree / totalValue
 
                 segments.append(ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: 0,
-                                                      value: CGFloat(values[seriesIndex]),
-                                                      x: 0,
-                                                      y: 0,
-                                                      width: startAngle,
-                                                      height: endAngle))
+                                                  categoryIndex: 0,
+                                                  value: CGFloat(values[seriesIndex]),
+                                                  x: 0,
+                                                  y: 0,
+                                                  width: startAngle,
+                                                  height: endAngle))
                 startAngle = totalValue == 0 ? 0 : endAngle + GAP
             }
         }
         
-        return HStack(alignment: .center) {
-            if segments.isEmpty {
-                EmptyView()
-            } else {
-                ZStack {
-                    ForEach(segments, id: \.self) { segment in
-                        ArcShape(startAngle: Angle(degrees: Double(segment.rect.size.width)),
-                                 endAngle: Angle(degrees: Double(segment.rect.size.height)),
-                                 insetAmount: depth / 2)
-                            .stroke(lineWidth: depth)
-                            .fill(self.model.colorAt(seriesIndex: segment.seriesIndex, categoryIndex: 0))
-                            .contentShape(ArcShape(startAngle: Angle(degrees: Double(segment.rect.size.width)),
-                                                   endAngle: Angle(degrees: Double(segment.rect.size.height)),
-                                                   insetAmount: depth / 2)
-                                .stroke(lineWidth: depth))
-                            .frame(width: diameter, height: diameter)
-                            .opacity(self.displayState(for: segment.seriesIndex) ? 1 : 0.25)
-                            .ifApply(self.model.userInteractionEnabled) {
-                                $0.onTapGesture {
-                                    self.updateSelectedState(for: segment.seriesIndex)
-                                }
-                            }
+        return ZStack {
+            ForEach(0 ..< segments.count, id: \.self) { index in
+                ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
+                         endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
+                         insetAmount: depth / 2)
+                    .stroke(lineWidth: depth)
+                    .fill(self.model.colorAt(seriesIndex: segments[index].seriesIndex, categoryIndex: 0))
+                    .contentShape(ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
+                                           endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
+                                           insetAmount: depth / 2)
+                            .stroke(lineWidth: depth))
+                    .frame(width: diameter, height: diameter)
+                    .opacity(self.displayState(for: segments[index].seriesIndex) ? 1 : 0.25)
+                    .ifApply(self.model.userInteractionEnabled) {
+                        $0.onTapGesture {
+                            self.updateSelectedState(for: segments[index].seriesIndex)
+                        }
                     }
-                }
             }
         }.contentShape(Rectangle())
     }
@@ -95,24 +82,24 @@ struct DonutChart: View {
     }
     
     func updateSelectedState(for seriesIndex: Int) {
-        switch model.selectionMode {
+        switch self.model.selectionMode {
         case .single:
-            if model.selections?[seriesIndex] != nil {
-                model.selections = nil
+            if self.model.selections?[seriesIndex] != nil {
+                self.model.selections = nil
             } else {
-                model.selections = [seriesIndex: [0]]
+                self.model.selections = [seriesIndex: [0]]
             }
         case .all:
-            if model.selections != nil {
-                model.selections = nil
+            if self.model.selections != nil {
+                self.model.selections = nil
             } else {
-                let seriesCount = model.numOfSeries()
+                let seriesCount = self.model.numOfSeries()
                 var tmpSelections = [Int: [Int]]()
                 for i in 0 ..< seriesCount {
                     tmpSelections[i] = [0]
                 }
                 
-                model.selections = tmpSelections
+                self.model.selections = tmpSelections
             }
         case .multiple:
             if let selections = model.selections {
@@ -125,12 +112,12 @@ struct DonutChart: View {
                 }
                 
                 if tmpSelections.isEmpty {
-                    model.selections = nil
+                    self.model.selections = nil
                 } else {
-                    model.selections = tmpSelections
+                    self.model.selections = tmpSelections
                 }
             } else {
-                model.selections = [seriesIndex: [0]]
+                self.model.selections = [seriesIndex: [0]]
             }
         }
     }

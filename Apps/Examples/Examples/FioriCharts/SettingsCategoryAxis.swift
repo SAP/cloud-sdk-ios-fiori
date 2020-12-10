@@ -1,13 +1,5 @@
-//
-//  SettingsCategoryAxis.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/10/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct SettingsCategoryAxis: View {
     @EnvironmentObject var model: ChartModel
@@ -31,12 +23,12 @@ struct SettingsCategoryAxis: View {
                 
             Section(header: Text("Line")) {
                 NavigationLink(destination:
-                SettingsBaseline(line: $axis.baseline)) {
+                    SettingsBaseline(line: $axis.baseline)) {
                     Text("Baseline")
                 }
                 
                 NavigationLink(destination:
-                SettingsLine(line: $axis.gridlines)) {
+                    SettingsLine(line: $axis.gridlines)) {
                     Text("Gridlines")
                 }
             }

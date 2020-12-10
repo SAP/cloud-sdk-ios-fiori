@@ -1,13 +1,5 @@
-//
-//  SettingsAxis.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct SettingsAxis: View {
     @Binding var axis: ChartNumericAxisAttributes
@@ -32,8 +24,8 @@ struct SettingsAxis: View {
                 HStack(alignment: .center) {
                     Text("Explicit Min: ")
                     
-                    TextField("", text: $textExplicitMin, onCommit:  {
-                        if let val = NumberFormatter().number(from: self.textExplicitMin){
+                    TextField("", text: $textExplicitMin, onCommit: {
+                        if let val = NumberFormatter().number(from: self.textExplicitMin) {
                             self.axis.explicitMin = CGFloat(truncating: val)
                         }
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
@@ -42,8 +34,8 @@ struct SettingsAxis: View {
                 HStack(alignment: .center) {
                     Text("Explicit Max: ")
 
-                    TextField("", text: $textExplicitMax, onCommit:  { 
-                        if let val = NumberFormatter().number(from: self.textExplicitMax){
+                    TextField("", text: $textExplicitMax, onCommit: {
+                        if let val = NumberFormatter().number(from: self.textExplicitMax) {
                             self.axis.explicitMax = CGFloat(truncating: val)
                         }
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
@@ -74,12 +66,12 @@ struct SettingsAxis: View {
             
             Section(header: Text("Line")) {
                 NavigationLink(destination:
-                SettingsBaseline(line: $axis.baseline)) {
+                    SettingsBaseline(line: $axis.baseline)) {
                     Text("Baseline")
                 }
                 
                 NavigationLink(destination:
-                SettingsLine(line: $axis.gridlines)) {
+                    SettingsLine(line: $axis.gridlines)) {
                     Text("Gridlines")
                 }
             }
