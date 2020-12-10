@@ -160,7 +160,7 @@ class DefaultChartContext: ChartContext {
         let startPosX = tmpStartPosition.x * tmpScaleX * width
         let unitWidth: CGFloat = max(width * tmpScaleX / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
-        let endIndex = Int((startPosX + rect.size.width) / unitWidth).clamp(low: startIndex, high: maxDataCount - 1)
+        let endIndex = Int(((startPosX + rect.size.width) / unitWidth).rounded(.up)).clamp(low: startIndex, high: maxDataCount - 1)
         let catIndexRange = startIndex ... endIndex
         
         if model.categoryAxis.labelLayoutStyle == .range {
