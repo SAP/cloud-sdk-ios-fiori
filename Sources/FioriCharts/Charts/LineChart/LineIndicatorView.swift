@@ -170,6 +170,8 @@ struct LineIndicatorView: View {
 
         return (singleLineIndicators.sorted(), singlePointIndicators.sorted(), rangeIndicators.sorted())
     }
+
+    // swiftlint:enable cyclomatic_complexity
     
     func lineSelections(_ model: ChartModel) -> [Int: [Int]]? {
         let lineSelections: [Int: [Int]]?

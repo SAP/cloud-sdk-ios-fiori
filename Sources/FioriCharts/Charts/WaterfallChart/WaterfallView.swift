@@ -4,7 +4,7 @@ struct WaterfallView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
-    @State private var animateScale: CGFloat = 0
+    @State private var animateScale: CGFloat = 1
     
     var body: some View {
         GeometryReader { proxy in
@@ -14,9 +14,9 @@ struct WaterfallView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         // only check first series
-        let maxDataCount = self.model.numOfCategories(in: 0)
         let width = rect.size.width
         let categoryIndexRange = self.chartContext.displayCategoryIndexes(self.model, rect: rect)
+        let categoryIndices = Array(categoryIndexRange)
         
         // calculate CGAffineTransform for layoutDirection
         let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
@@ -34,21 +34,23 @@ struct WaterfallView: View {
         let translateY = -startPosition.y * scaleY * rect.size.height
         
         return ZStack {
-            ForEach(0 ..< maxDataCount, id: \.self) { categoryIndex in
-                Group {
-                    if categoryIndexRange.contains(categoryIndex) {
-                        ColumnChartCategoryShape(chartType: self.model.chartType, plotBaselinePosition: self.model.numericAxisTickValues.plotBaselinePosition, path: self.model.path, seriesIndex: 0, categoryIndex: categoryIndex, animateScale: self.animateScale)
-                            .transform(mirror) // apply layoutDirection
-                            .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
-                            .fill(self.model.columnColor(seriesIndex: 0, categoryIndex: categoryIndex))
-                    } else {
-                        EmptyView()
-                    }
-                }
+            ForEach(0 ..< categoryIndices.count, id: \.self) { index in
+                ColumnChartCategoryShape(chartType: self.model.chartType,
+                                         plotBaselinePosition: self.model.numericAxisTickValues.plotBaselinePosition,
+                                         path: self.model.path,
+                                         seriesIndex: 0,
+                                         categoryIndex: categoryIndices[index],
+                                         animateScale: self.animateScale)
+                    .transform(mirror) // apply layoutDirection
+                    .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
+                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                    .fill(self.model.columnColor(seriesIndex: 0, categoryIndex: categoryIndices[index]))
             }
             
-            WaterfallChartConnectingLinesShape(path: model.path, seriesIndex: 0, startIndex: categoryIndexRange.lowerBound, endIndex: categoryIndexRange.upperBound)
+            WaterfallChartConnectingLinesShape(path: model.path,
+                                               seriesIndex: 0,
+                                               startIndex: categoryIndexRange.lowerBound,
+                                               endIndex: categoryIndexRange.upperBound)
                 .transform(mirror) // apply layoutDirection
                 .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
                 .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
@@ -57,9 +59,6 @@ struct WaterfallView: View {
         }
         .frame(width: rect.size.width, height: rect.size.height)
         .clipped()
-        .onAppear {
-            self.animateScale = 1
-        }
     }
 }
 
