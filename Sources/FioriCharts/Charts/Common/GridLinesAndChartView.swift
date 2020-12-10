@@ -34,8 +34,6 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
         }
     }
     
-    // swiftlint:disable function_body_length
-    // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         _ = chartContext.plotPath(model)
