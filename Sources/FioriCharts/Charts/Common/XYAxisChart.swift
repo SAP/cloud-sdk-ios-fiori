@@ -186,6 +186,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
         }
     }
+
+    // swiftlint:enable [function_body_length cyclomatic_complexity]
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         if rect.size.width <= 0 || rect.size.height <= 0 || self.model.categoryAxis.labels.isHidden {
