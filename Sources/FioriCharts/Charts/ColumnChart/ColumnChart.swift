@@ -1,10 +1,3 @@
-//
-//  ColumnChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/3/20.
-//
-
 import SwiftUI
 
 struct ColumnChart: View {
@@ -63,11 +56,11 @@ class ColumnChartContext: DefaultChartContext {
     }
     
     override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
     override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
     // swiftlint:disable cyclomatic_complexity
@@ -79,7 +72,7 @@ class ColumnChartContext: DefaultChartContext {
         }
     
         /// get xAxisLabels in relative position
-        let ret: [AxisTitle] = xAxisLabels(model)
+        let ret: [AxisTitle] = self.xAxisLabels(model)
         
         let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
@@ -123,7 +116,7 @@ class ColumnChartContext: DefaultChartContext {
                     var x = item.pos.x * tmpScaleX * rect.size.width - startPosX
                     if isLabel {
                         let tmpX = (item.pos.x + clusterWidth / 2.0) * tmpScaleX * rect.size.width - startPosX
-                        x =  min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                        x = min(tmpX, rect.size.width) - min(item.size.width, (rect.size.width - 2) / 2) / 2
                     }
                     item.x(x)
                     
@@ -201,12 +194,12 @@ class ColumnChartContext: DefaultChartContext {
                 }
                 
                 seriesResult.append(ChartPlotData.rect(rect: ChartPlotRectData(seriesIndex: seriesIndex,
-                                                      categoryIndex: categoryIndex,
-                                                      value: rawValue,
-                                                      x: clusteredX,
-                                                      y: clusteredY,
-                                                      width: columnWidth,
-                                                      height: columnHeight)))
+                                                                               categoryIndex: categoryIndex,
+                                                                               value: rawValue,
+                                                                               x: clusteredX,
+                                                                               y: clusteredY,
+                                                                               width: columnWidth,
+                                                                               height: columnHeight)))
             }
             
             result.append(seriesResult)
@@ -256,7 +249,7 @@ class ColumnChartContext: DefaultChartContext {
         let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
         var startIndex = Int(startPosX / unitWidth).clamp(low: 0, high: maxDataCount - 1)
         let startOffset = unitWidth * CGFloat(startIndex) - startPosX
-        if abs(startOffset) >= clusterWidth && startIndex < maxDataCount - 1 {
+        if abs(startOffset) >= clusterWidth, startIndex < maxDataCount - 1 {
             startIndex += 1
         }
         
@@ -267,7 +260,7 @@ class ColumnChartContext: DefaultChartContext {
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: width)
@@ -287,7 +280,7 @@ class ColumnChartContext: DefaultChartContext {
             let xMin = plotCat.rect.minX * tmpScaleX * width - startPosX
             let xMax = plotCat.rect.maxX * tmpScaleX * width - startPosX
             
-            if x >= xMin && x <= xMax {
+            if x >= xMin, x <= xMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -312,7 +305,7 @@ class ColumnChartContext: DefaultChartContext {
         let unitWidth = max(columnXIncrement * tmpScaleX * rect.size.width, ChartViewLayout.minUnitWidth)
         let startPosX = tmpStartPosition.x * tmpScaleX * width
 
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let points = atPoints.map { (pt) -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
                                       layoutDirection: layoutDirection,
@@ -341,7 +334,7 @@ class ColumnChartContext: DefaultChartContext {
             
             if let plotCat = pd[startIndex].first {
                 let xMin = plotCat.rect.minX * tmpScaleX * width - startPosX
-                let xMax = xMin + clusterWidth//plotCat.rect.maxX * tmpScaleX * width - startPosX
+                let xMax = xMin + clusterWidth // plotCat.rect.maxX * tmpScaleX * width - startPosX
                 
                 if index == 0 {
                     if (pt.x < xMin && pt.x < 0) || (pt.x >= xMin && pt.x <= xMax) {
@@ -350,7 +343,7 @@ class ColumnChartContext: DefaultChartContext {
                         res.append((plotCat.seriesIndex, min(plotCat.categoryIndex + 1, maxDataCount - 1)))
                     }
                 } else {
-                    if pt.x >= xMin && pt.x <= xMax {
+                    if pt.x >= xMin, pt.x <= xMax {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                         return res
                     } else if pt.x >= xMax {
@@ -369,9 +362,9 @@ class ColumnChartContext: DefaultChartContext {
 struct ColumnChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
-           model.chartType = .column
-           return model
+            let model = $0.copy() as! ChartModel
+            model.chartType = .column
+            return model
         }
         
         return Group {

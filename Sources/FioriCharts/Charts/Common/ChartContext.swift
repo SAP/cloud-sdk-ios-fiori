@@ -1,15 +1,8 @@
-//
-//  ChartContext.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/18/20.
-//
-
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 
-protocol ChartContext: class {
+protocol ChartContext: AnyObject {
     func scaleX(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat
     
     func scaleY(_ model: ChartModel, plotViewSize: CGSize) -> CGFloat
@@ -52,9 +45,9 @@ protocol ChartContext: class {
 class DefaultChartContext: ChartContext {
     /// top left position
     func startPosition(_ model: ChartModel, plotViewSize: CGSize) -> CGPoint {
-        let pos = centerPosition(model, plotViewSize: plotViewSize)
-        let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
-        let tmpScaleY = scaleY(model, plotViewSize: plotViewSize)
+        let pos = self.centerPosition(model, plotViewSize: plotViewSize)
+        let tmpScaleX = self.scaleX(model, plotViewSize: plotViewSize)
+        let tmpScaleY = self.scaleY(model, plotViewSize: plotViewSize)
         
         let x = min(1 - 0.5 / tmpScaleX, max(0, pos.x - 0.5 / tmpScaleX))
         let y = min(1 - 0.5 / tmpScaleY, max(0, pos.y - 0.5 / tmpScaleY))
@@ -62,19 +55,19 @@ class DefaultChartContext: ChartContext {
         return CGPoint(x: x, y: y)
     }
     
-    func centerPosition(_ model: ChartModel, plotViewSize: CGSize) -> CGPoint {                
+    func centerPosition(_ model: ChartModel, plotViewSize: CGSize) -> CGPoint {
         if let pos = model.centerPosition {
             // check if it is valid for different size of views
-            let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
-            let tmpScaleY = scaleY(model, plotViewSize: plotViewSize)
+            let tmpScaleX = self.scaleX(model, plotViewSize: plotViewSize)
+            let tmpScaleY = self.scaleY(model, plotViewSize: plotViewSize)
             
-            let x = max(0.5/tmpScaleX, min(1 - 0.5/tmpScaleX, pos.x))
-            let y = max(0.5/tmpScaleY, min(1 - 0.5/tmpScaleY, pos.y))
+            let x = max(0.5 / tmpScaleX, min(1 - 0.5 / tmpScaleX, pos.x))
+            let y = max(0.5 / tmpScaleY, min(1 - 0.5 / tmpScaleY, pos.y))
 
             return CGPoint(x: x, y: y)
         } else {
-            let x = 0.5 / scaleX(model, plotViewSize: plotViewSize)
-            let y = 0.5 / scaleY(model, plotViewSize: plotViewSize)
+            let x = 0.5 / self.scaleX(model, plotViewSize: plotViewSize)
+            let y = 0.5 / self.scaleY(model, plotViewSize: plotViewSize)
             return CGPoint(x: x, y: y)
         }
     }
@@ -84,7 +77,7 @@ class DefaultChartContext: ChartContext {
             return model.scaleX
         }
         
-        let rs = readableScale(model, plotViewSize: plotViewSize)
+        let rs = self.readableScale(model, plotViewSize: plotViewSize)
         
         return model.scaleX * rs
     }
@@ -94,7 +87,7 @@ class DefaultChartContext: ChartContext {
             return model.scaleY
         }
         
-        let rs = readableScale(model, plotViewSize: plotViewSize)
+        let rs = self.readableScale(model, plotViewSize: plotViewSize)
         
         return model.scaleY * rs
     }
@@ -106,8 +99,8 @@ class DefaultChartContext: ChartContext {
         
         let width = model.chartType == .bar || model.chartType == .stackedBar ? plotViewSize.height : plotViewSize.width
         
-        if model.readableScaleEnabled && width > 0 {
-            let dataWidth = columnWidth(model) * width
+        if model.readableScaleEnabled, width > 0 {
+            let dataWidth = self.columnWidth(model) * width
             if dataWidth < ChartViewLayout.minDataWidth {
                 let ratio = ChartViewLayout.minDataWidth / dataWidth
                 return ratio
@@ -131,7 +124,7 @@ class DefaultChartContext: ChartContext {
         
         var ret: [AxisTitle] = []
         
-        let count = model.numOfCategories() 
+        let count = model.numOfCategories()
         let width: CGFloat = 1
         let unitWidth: CGFloat = max(width / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         
@@ -157,13 +150,13 @@ class DefaultChartContext: ChartContext {
         }
         
         /// get xAxisLabels in relative position
-        let ret: [AxisTitle] = xAxisLabels(model)
+        let ret: [AxisTitle] = self.xAxisLabels(model)
         
         let maxDataCount = model.numOfCategories()
         let width = rect.size.width
         
-        let tmpScaleX = scaleX(model, plotViewSize: plotViewSize)
-        let tmpStartPosition = startPosition(model, plotViewSize: plotViewSize)
+        let tmpScaleX = self.scaleX(model, plotViewSize: plotViewSize)
+        let tmpStartPosition = self.startPosition(model, plotViewSize: plotViewSize)
         let startPosX = tmpStartPosition.x * tmpScaleX * width
         let unitWidth: CGFloat = max(width * tmpScaleX / CGFloat(max(maxDataCount - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCount - 1)
@@ -194,10 +187,10 @@ class DefaultChartContext: ChartContext {
         } else {
             var result = [AxisTitle]()
 
-            if catIndexRange.lowerBound >= 0 && catIndexRange.upperBound < ret.count {
+            if catIndexRange.lowerBound >= 0, catIndexRange.upperBound < ret.count {
                 for index in catIndexRange {
                     let x = ret[index].pos.x * tmpScaleX * rect.size.width - startPosX
-                    if x > -1 && x <= rect.size.width + 1 {
+                    if x > -1, x <= rect.size.width + 1 {
                         var axisTitle = ret[index]
                         axisTitle.x(x)
                         
@@ -211,11 +204,11 @@ class DefaultChartContext: ChartContext {
     }
     
     func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
     
     func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
     private func numberMagnitude(from value: Double) -> (magnitude: String, divisor: Double) {
@@ -223,21 +216,21 @@ class DefaultChartContext: ChartContext {
         var stringValue = " "
         let d = abs(value)
         
-        if d < 1e3 {   // we can represent up to 999 directly
+        if d < 1e3 { // we can represent up to 999 directly
             divisorValue = 1
-        } else if d < 1e6 {   // 999k
+        } else if d < 1e6 { // 999k
             stringValue = "K"
             divisorValue = 1e3
-        } else if d < 1e9 {    // 999m
+        } else if d < 1e9 { // 999m
             stringValue = "M"
             divisorValue = 1e6
-        } else if d < 1e12 {   // 999b
+        } else if d < 1e12 { // 999b
             stringValue = "B"
             divisorValue = 1e9
-        } else if d < 1e15 {   // 999t
+        } else if d < 1e15 { // 999t
             stringValue = "T"
             divisorValue = 1e12
-        } else if d < 1e18 {   // 999q
+        } else if d < 1e18 { // 999q
             stringValue = "Q"
             divisorValue = 1e15
         } else { // higher than 999 quadrillion we don't care
@@ -259,7 +252,7 @@ class DefaultChartContext: ChartContext {
         }
         
         // 10 -> 100
-        if 100 > value && value >= 10 {
+        if value < 100, value >= 10 {
             var numberOfFractionDigits = nf.maximumFractionDigits
             if numberOfFractionDigits > 1 || divisor > 1 {
                 numberOfFractionDigits = 1
@@ -269,7 +262,7 @@ class DefaultChartContext: ChartContext {
         }
         
         // 0.001 -> 10
-        if 10 > value && value > 0.001 {
+        if value < 10, value > 0.001 {
             var numberOfFractionDigits = nf.maximumFractionDigits
             if numberOfFractionDigits > 2 || divisor > 1 {
                 numberOfFractionDigits = 2
@@ -279,7 +272,7 @@ class DefaultChartContext: ChartContext {
         }
         
         // Scientific
-        if 0 != value && (value < 0.001 || value >= 1E18) {
+        if value != 0, value < 0.001 || value >= 1e18 {
             nf.numberStyle = .scientific
             nf.positiveFormat = "#E0"
             nf.negativeFormat = "#E0"
@@ -304,13 +297,13 @@ class DefaultChartContext: ChartContext {
         /*
          Find the magnitude for the value. The suffix is a " " by default because Joel originally implemented it this way for the medium charts. Probably just to guarantee the these strings were always the same length?
          */
-        let (magnitude, divisor) = numberMagnitude(from: aNum)
+        let (magnitude, divisor) = self.numberMagnitude(from: aNum)
         aNum /= divisor
         
         /*
          Fetch the correct formatter for the value.
          */
-        let formatter = numberFormatter(for: aNum, divisor: divisor, abbreviatedFormatter: abbreviatedFormatter)
+        let formatter = self.numberFormatter(for: aNum, divisor: divisor, abbreviatedFormatter: abbreviatedFormatter)
         
         /*
          Undo the application of fabs.
@@ -379,7 +372,7 @@ class DefaultChartContext: ChartContext {
         var yAxisLabels: [AxisTitle] = []
         for i in 0 ..< yAxisLabelsCount {
             let val = ticks.tickValues[i]
-            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
+            let title = self.yAxisFormattedString(model, value: Double(val), secondary: secondary)
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
 
             yAxisLabels.append(AxisTitle(index: i,
@@ -401,7 +394,7 @@ class DefaultChartContext: ChartContext {
     }
     
     func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
-        let res = yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
+        let res = self.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
         if res.isEmpty {
             return []
         }
@@ -413,14 +406,14 @@ class DefaultChartContext: ChartContext {
         var maxPointRadius: CGFloat = 0
         if model.chartType == .line || model.chartType == .area {
             let maxPointDiameter = model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
-                return max(seriesAttribute.point.diameter, result)
+                max(seriesAttribute.point.diameter, result)
             }
 
             maxPointRadius = maxPointDiameter / 2 + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
         }
         
-        let tmpScaleY = scaleY(model, plotViewSize: plotViewSize)
-        let startPositionY = startPosition(model, plotViewSize: plotViewSize).y * tmpScaleY * rect.size.height
+        let tmpScaleY = self.scaleY(model, plotViewSize: plotViewSize)
+        let startPositionY = self.startPosition(model, plotViewSize: plotViewSize).y * tmpScaleY * rect.size.height
         var result = [AxisTitle]()
         for item in res {
             let size = item.size
@@ -434,7 +427,7 @@ class DefaultChartContext: ChartContext {
                 x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             }
             let y = height * (1.0 - ticks.tickPositions[item.index]) * tmpScaleY - startPositionY
-            if y >= 0 && y <= height {
+            if y >= 0, y <= height {
                 result.append(AxisTitle(index: item.index,
                                         value: item.value,
                                         title: item.title,
@@ -457,14 +450,14 @@ class DefaultChartContext: ChartContext {
         let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         
         if axis.abbreviatesLabels {
-            return abbreviatedString(for: value, useSuffix: axis.isMagnitudedDisplayed, abbreviatedFormatter: axis.abbreviatedFormatter)
+            return self.abbreviatedString(for: value, useSuffix: axis.isMagnitudedDisplayed, abbreviatedFormatter: axis.abbreviatedFormatter)
         } else {
             return axis.formatter.string(from: NSNumber(value: value)) ?? " "
         }
     }
     
     func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
-        return []
+        []
     }
     
     func plotLinePath(_ model: ChartModel, for seriesIndex: Int) -> [[Path]] {
@@ -487,7 +480,7 @@ class DefaultChartContext: ChartContext {
             offsetX = 0
         }
         
-        var prevPt: CGPoint? = nil
+        var prevPt: CGPoint?
         let fillOrigY: CGFloat = rect.size.height * (1.0 - baselinePosition)
         
         for i in 0 ..< maxDataCount {
@@ -531,7 +524,7 @@ class DefaultChartContext: ChartContext {
             return [[Path()]]
         }
         
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let maxDataCount = model.numOfCategories()
         var seriesPath = [[Path]]()
         
@@ -540,7 +533,7 @@ class DefaultChartContext: ChartContext {
             
             let rect: CGRect
             if model.chartType == .column || model.chartType == .stackedColumn || model.chartType == .combo || model.chartType == .waterfall {
-                if model.chartType == .combo && !model.indexesOfColumnSeries.contains(seriesIndex) {
+                if model.chartType == .combo, !model.indexesOfColumnSeries.contains(seriesIndex) {
                     rect = .zero
                 } else {
                     rect = CGRect(origin: CGPoint(x: pdr.rect.origin.x, y: 1 - pdr.rect.origin.y - pdr.rect.size.height), size: pdr.rect.size)
@@ -562,7 +555,7 @@ class DefaultChartContext: ChartContext {
     }
     
     func plotPath(_ model: ChartModel) -> [[[Path]]] {
-        return [[[Path]]]()
+        [[[Path]]]()
     }
     
     func snapChartToPoint(_ model: ChartModel, at x: CGFloat) -> CGFloat {
@@ -576,8 +569,8 @@ class DefaultChartContext: ChartContext {
     
     func displayCategoryIndexes(_ model: ChartModel, rect: CGRect) -> ClosedRange<Int> {
         let width = rect.size.width
-        let tmpScaleX = scaleX(model, plotViewSize: rect.size)
-        let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
+        let tmpScaleX = self.scaleX(model, plotViewSize: rect.size)
+        let tmpStartPosition = self.startPosition(model, plotViewSize: rect.size)
         let maxDataCount = model.numOfCategories()
         
         let startPosX = tmpStartPosition.x * tmpScaleX * width
@@ -591,9 +584,9 @@ class DefaultChartContext: ChartContext {
     func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         let width = rect.size.width
         
-        let tmpScaleX = scaleX(model, plotViewSize: rect.size)
-        let tmpScaleY = scaleY(model, plotViewSize: rect.size)
-        let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
+        let tmpScaleX = self.scaleX(model, plotViewSize: rect.size)
+        let tmpScaleY = self.scaleY(model, plotViewSize: rect.size)
+        let tmpStartPosition = self.startPosition(model, plotViewSize: rect.size)
         let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
@@ -603,7 +596,7 @@ class DefaultChartContext: ChartContext {
         let unitWidth: CGFloat = max(width * tmpScaleX / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
         let startIndex = Int((startPosX / unitWidth).rounded(.up))
         let startOffset: CGFloat = (unitWidth - startPosX.truncatingRemainder(dividingBy: unitWidth)).truncatingRemainder(dividingBy: unitWidth)
-        let index: Int = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
+        let index = Int((point.x - startOffset) / unitWidth + 0.5) + startIndex
         
         var closestDataIndex = index.clamp(low: 0, high: count - 1)
         
@@ -613,7 +606,7 @@ class DefaultChartContext: ChartContext {
         }
         
         var curSeriesIndex = model.currentSeriesIndex
-        if model.selectionMode == .single && model.chartType != .stock {
+        if model.selectionMode == .single, model.chartType != .stock {
             var minYDistance = CGFloat(Int.max)
             
             for seriesIndex in 0 ... max(model.data.count - 1, 0) {
@@ -631,10 +624,10 @@ class DefaultChartContext: ChartContext {
     }
     
     // range selection
-    func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {        
+    func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
         if let p0 = atPoints.first, let p1 = atPoints.last {
-            let firstItem = closestSelectedPlotItem(model, atPoint: p0, rect: rect, layoutDirection: layoutDirection)
-            let lastItem = closestSelectedPlotItem(model, atPoint: p1, rect: rect, layoutDirection: layoutDirection)
+            let firstItem = self.closestSelectedPlotItem(model, atPoint: p0, rect: rect, layoutDirection: layoutDirection)
+            let lastItem = self.closestSelectedPlotItem(model, atPoint: p1, rect: rect, layoutDirection: layoutDirection)
             let items = [firstItem, lastItem].sorted { $0.1 <= $1.1 }
             
             return items

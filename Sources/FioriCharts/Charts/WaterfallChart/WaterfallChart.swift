@@ -1,10 +1,3 @@
-//
-//  WaterfallChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/23/20.
-//
-
 import SwiftUI
 
 struct WaterfallChart: View {
@@ -112,7 +105,7 @@ class WaterfallChartContext: StackedColumnChartContext {
 
         for seriesIndex in 0 ..< max(1, seriesCount) {
             let columnsPath = plotColumnPath(model, for: seriesIndex)
-            let linesPath = connectingLinesPath(model, for: seriesIndex)
+            let linesPath = self.connectingLinesPath(model, for: seriesIndex)
 
             var seriesPath = [[Path]]()
             for categoryIndex in 0 ..< columnsPath.count {
@@ -133,7 +126,7 @@ class WaterfallChartContext: StackedColumnChartContext {
         let maxDataCount = model.numOfCategories(in: 0)
         let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
         let clusterWidth = columnXIncrement / (1.0 + ChartViewLayout.columnGapFraction)
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         var seriesPath = [Path]()
         
         for categoryIndex in 0 ..< maxDataCount {
@@ -144,11 +137,11 @@ class WaterfallChartContext: StackedColumnChartContext {
             
             // top line and bottom line
             if model.plotItemValue(at: seriesIndex, category: categoryIndex, dimension: 0) != nil {
-                let isTotal = isSubTotal(model, categoryIndex: categoryIndex)
+                let isTotal = self.isSubTotal(model, categoryIndex: categoryIndex)
                 
                 // only top line
                 if isTotal {
-                    let topY = yPos(model, for: pd[categoryIndex][0], isStart: true)
+                    let topY = self.yPos(model, for: pd[categoryIndex][0], isStart: true)
                     path.move(to: CGPoint(x: startX, y: topY))
                     path.addLine(to: CGPoint(x: startX + clusterWidth, y: topY))
                 } else {
@@ -162,10 +155,10 @@ class WaterfallChartContext: StackedColumnChartContext {
 
                 // connecting line to next column
                 if categoryIndex < maxDataCount - 1, model.plotItemValue(at: seriesIndex, category: categoryIndex + 1, dimension: 0) != nil {
-                    let startPoint: CGPoint = CGPoint(x: endX, y: yPos(model, for: pd[categoryIndex][0], isStart: true))
+                    let startPoint = CGPoint(x: endX, y: yPos(model, for: pd[categoryIndex][0], isStart: true))
                     
                     let endPoint: CGPoint = categoryIndex == maxDataCount - 1 ? startPoint : CGPoint(x: columnXIncrement * CGFloat(categoryIndex + 1),
-                                                                                                     y: yPos(model, for: pd[categoryIndex + 1][0], isStart: false))
+                                                                                                     y: self.yPos(model, for: pd[categoryIndex + 1][0], isStart: false))
                     
                     if categoryIndex < maxDataCount - 1 {
                         path.move(to: startPoint)
@@ -181,7 +174,7 @@ class WaterfallChartContext: StackedColumnChartContext {
     }
     
     func yPos(_ model: ChartModel, for item: ChartPlotData, isStart: Bool) -> CGFloat {
-        let isTotal = isSubTotal(model, categoryIndex: item.categoryIndex)
+        let isTotal = self.isSubTotal(model, categoryIndex: item.categoryIndex)
         
         let isTop = (isTotal && item.value > 0) || (isStart && item.value > 0) || (!isStart && !isTotal && item.value < 0)
             
@@ -193,7 +186,7 @@ class WaterfallChartContext: StackedColumnChartContext {
     }
     
     func isSubTotal(_ model: ChartModel, categoryIndex: Int) -> Bool {
-        return categoryIndex == 0 ? true : model.indexesOfTotalsCategories.contains(categoryIndex)
+        categoryIndex == 0 ? true : model.indexesOfTotalsCategories.contains(categoryIndex)
     }
 }
 

@@ -1,10 +1,3 @@
-//
-//  SwiftUIView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/15/20.
-//
-
 import SwiftUI
 
 struct StackedColumnChart: View {
@@ -109,7 +102,7 @@ class StackedColumnChartContext: ColumnChartContext {
         let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let startPosX = tmpStartPosition.x * tmpScaleX * width
         
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: width)
@@ -128,7 +121,7 @@ class StackedColumnChartContext: ColumnChartContext {
             let yMax = (1.0 - plotCat.rect.minY - tmpStartPosition.y) * tmpScaleY * rect.size.height
             let yMin = (1.0 - plotCat.rect.maxY - tmpStartPosition.y) * tmpScaleY * rect.size.height
             
-            if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+            if x >= xMin, x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                 return (plotCat.seriesIndex, plotCat.categoryIndex)
             }
         }
@@ -147,7 +140,7 @@ class StackedColumnChartContext: ColumnChartContext {
         let tmpScaleX = scaleX(model, plotViewSize: rect.size)
         let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let startPosX = tmpStartPosition.x * tmpScaleX * width
-        let pd = plotData(model)
+        let pd = self.plotData(model)
         let points = atPoints.map { (pt) -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
                                       layoutDirection: layoutDirection,
@@ -189,7 +182,7 @@ class StackedColumnChartContext: ColumnChartContext {
                         res.append((plotCat.seriesIndex, min(plotCat.categoryIndex + 1, maxDataCount - 1)))
                     }
                 } else {
-                    if pt.x >= xMin && pt.x <= xMax {
+                    if pt.x >= xMin, pt.x <= xMax {
                         res.append((plotCat.seriesIndex, plotCat.categoryIndex))
                         return res
                     } else if pt.x >= xMax {
@@ -208,9 +201,9 @@ class StackedColumnChartContext: ColumnChartContext {
 struct StackedColumnChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
+            let model = $0.copy() as! ChartModel
             model.chartType = .stackedColumn
-           return model
+            return model
         }
         
         return Group {

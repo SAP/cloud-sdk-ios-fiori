@@ -1,17 +1,9 @@
-//
-//  ChartUtility.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/8/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
 class ChartUtility {
     static func cgfloatOptional(from value: Double?) -> CGFloat? {
-        var result: CGFloat? = nil
+        var result: CGFloat?
         if let v = value {
             result = CGFloat(v)
         }
@@ -20,7 +12,7 @@ class ChartUtility {
     }
     
     static func doubleOptional(from value: CGFloat?) -> Double? {
-        var result: Double? = nil
+        var result: Double?
         if let v = value {
             result = Double(v)
         }
@@ -29,7 +21,7 @@ class ChartUtility {
     }
     
     // swiftlint:disable cyclomatic_complexity
-    static func calculateDataElementsForAxisTickValues (_ model: ChartModel, secondaryRange: Bool) -> ChartModel.DataElementsForAxisTickValues {
+    static func calculateDataElementsForAxisTickValues(_ model: ChartModel, secondaryRange: Bool) -> ChartModel.DataElementsForAxisTickValues {
         if model.data.isEmpty || model.data.first?.isEmpty ?? true {
             return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, allowLooseLabels: false, fudgeYAxisRange: false, adjustToNiceValues: true, secondaryRange: secondaryRange)
         }
@@ -68,7 +60,7 @@ class ChartUtility {
             let dataRange: ClosedRange<CGFloat> = indexes.reduce(model.ranges[indexes[0]]) { (result, i) -> ClosedRange<CGFloat> in
                 let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
                 let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
-                return seriesMin...seriesMax
+                return seriesMin ... seriesMax
             }
             
             dmin = dataRange.lowerBound
@@ -103,9 +95,9 @@ class ChartUtility {
         // Check if we need to clamp the baseline at zero and adjust accordingly.
         //
         if model.chartType == .column || model.chartType == .bar || model.chartType == .stackedBar || model.chartType == .waterfall || model.chartType == .stackedColumn || axisAttributes.isZeroBased {
-            if dmin >= 0.0 && dmax >= dmin {
+            if dmin >= 0.0, dmax >= dmin {
                 dmin = 0.0
-            } else if dmax <= 0.0 && dmin <= dmax {
+            } else if dmax <= 0.0, dmin <= dmax {
                 dmax = 0.0
             }
         }
@@ -132,7 +124,6 @@ class ChartUtility {
     }
     
     static func calculateRangeProperties(_ model: ChartModel, dataElements: ChartModel.DataElementsForAxisTickValues, secondaryRange: Bool) -> AxisTickValues {
-        
         if dataElements.noData {
             return AxisTickValues(plotMinimum: 0, plotMaximum: 1, plotBaselineValue: 0, plotBaselinePosition: 0, tickMinimum: 0, tickMaximum: 1, dataMinimum: 0, dataMaximum: 1, plotRange: 1, tickRange: 1, dataRange: 1, plotScale: 1, tickScale: 1, dataScale: 1, tickStepSize: 1, tickValues: [0, 1], tickPositions: [0, 1], tickCount: 2)
         }
@@ -140,7 +131,7 @@ class ChartUtility {
         let dmin = dataElements.dataMinimum
         let dmax = dataElements.dataMaximum
                 
-        return axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines), looseLabels: dataElements.allowLooseLabels, fudgeRange: dataElements.fudgeYAxisRange, adjustToNiceValues: dataElements.adjustToNiceValues)
+        return self.axisCreateTicks(model, rangeStart: dmin, rangeEnd: dmax, desiredTickCount: UInt(model.numberOfGridlines), looseLabels: dataElements.allowLooseLabels, fudgeRange: dataElements.fudgeYAxisRange, adjustToNiceValues: dataElements.adjustToNiceValues)
     }
     
     // swiftlint:disable function_parameter_count
@@ -163,10 +154,10 @@ class ChartUtility {
         //    w[1] = 0.25
         //    w[2] = 0.5
         
-        //let desiredTickCount = 3
-        //let looseLabels = true
+        // let desiredTickCount = 3
+        // let looseLabels = true
         
-        return axisUtilExtended(model, rangeStart, rangeEnd, desiredTickCount, Q, looseLabels, fudgeRange, w, UInt(Q.count), adjustToNiceValues)
+        return self.axisUtilExtended(model, rangeStart, rangeEnd, desiredTickCount, Q, looseLabels, fudgeRange, w, UInt(Q.count), adjustToNiceValues)
     }
     
     struct Best {
@@ -191,12 +182,11 @@ class ChartUtility {
     // @references
     // Talbot, J., Lin, S., Hanrahan, P. (2010) An Extension of Wilkinson's Algorithm for Positioning Tick Labels on Axes, InfoVis 2010.
     static func axisUtilExtended(_ model: ChartModel, _ dMin: CGFloat, _ dMax: CGFloat, _ m: UInt, _ Q: [CGFloat], _ loose: Bool, _ fudgeRange: Bool, _ w: [CGFloat], _ qLength: UInt, _ adjustToNiceValues: Bool) -> AxisTickValues {
-
         let eps = CGFloat(1e-10)
         let maxIterations = 30
         
         func modFloor(_ a: CGFloat, _ n: CGFloat) -> CGFloat {
-            return a - n * floor(a / n)
+            a - n * floor(a / n)
         }
         
         // Scoring functions, including the approximations for limiting the search
@@ -281,13 +271,13 @@ class ChartUtility {
         var tickCount: UInt = 0
         
         let dmin = min(dMin, dMax)
-        let dmax = dMin == dMax ? (dMax + 1): max(dMin, dMax)
+        let dmax = dMin == dMax ? (dMax + 1) : max(dMin, dMax)
     
         if !adjustToNiceValues || dmax - dmin < eps {
-            //if the range is near the floating point limit,
-            //let seq generate some equally spaced steps.
-            //return seq(from=dmin, to=dmax, length.out=m)
-            //return sequenceFromToByLength(dmin, dmax, m)
+            // if the range is near the floating point limit,
+            // let seq generate some equally spaced steps.
+            // return seq(from=dmin, to=dmax, length.out=m)
+            // return sequenceFromToByLength(dmin, dmax, m)
             
             let range: CGFloat = dmax - dmin
             var baselineWithinPlot: Bool = dmax > 0.0 && dmin < 0.0
@@ -402,7 +392,7 @@ class ChartUtility {
                             
                             let score = w[0] * s + w[1] * c + w[2] * g
                             
-                            if score > best.score && (!loose || (lmin <= dmin && lmax >= dmax)) {
+                            if score > best.score, !loose || (lmin <= dmin && lmax >= dmax) {
                                 best.lmin = lmin
                                 best.lmax = lmax
                                 best.lstep = lstep
@@ -427,9 +417,9 @@ class ChartUtility {
         var rangeEnd = dmax
         
         if fudgeRange {
-            if rangeStart <= best.lmin && rangeStart > 0.0 && rangeEnd >= rangeStart {
+            if rangeStart <= best.lmin, rangeStart > 0.0, rangeEnd >= rangeStart {
                 rangeStart -= best.lstep / CGFloat(tickCount)
-            } else if rangeEnd >= best.lmax && rangeEnd < 0.0 && rangeStart <= rangeEnd {
+            } else if rangeEnd >= best.lmax, rangeEnd < 0.0, rangeStart <= rangeEnd {
                 rangeEnd += best.lstep / CGFloat(tickCount)
             }
         }
@@ -536,7 +526,7 @@ class ChartUtility {
                 model.selections = tmpSelections
             } else {
                 // clear selection if it is not range selection
-                if selectedCategoryInRange.count == 1 && isTap {
+                if selectedCategoryInRange.count == 1, isTap {
                     model.selections = nil
                 }
             }
@@ -550,7 +540,7 @@ class ChartUtility {
     }
     
     static func lastValidDimIndex(_ model: ChartModel) -> Int {
-        return model.data[model.currentSeriesIndex].count - 1
+        model.data[model.currentSeriesIndex].count - 1
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> CGFloat? {
@@ -564,15 +554,15 @@ class ChartUtility {
     }
     
     static func dimensionValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> CGFloat? {
-        return dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
+        self.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
     
     static func dimensionValue(_ model: ChartModel, categoryIndex: Int) -> CGFloat? {
-        return dimensionValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
+        self.dimensionValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex, dimensionIndex: 0)
     }
     
     static func categoryValue(_ model: ChartModel, categoryIndex: Int) -> String? {
-        return categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
+        self.categoryValue(model, seriesIndex: model.currentSeriesIndex, categoryIndex: categoryIndex)
     }
     
     static func categoryValue(_ model: ChartModel, seriesIndex: Int, categoryIndex: Int) -> String? {
@@ -608,7 +598,7 @@ class ChartUtility {
     
     /*
      Convert category label to date
-     */    
+     */
     static func date(from s: String) -> Date? {
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd HH:mm:ss"

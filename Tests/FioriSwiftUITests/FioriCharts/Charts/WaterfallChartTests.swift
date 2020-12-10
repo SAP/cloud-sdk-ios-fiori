@@ -1,12 +1,5 @@
-//
-//  WaterfallChartTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 7/8/20.
-//
-
-import XCTest
 @testable import FioriCharts
+import XCTest
 
 class WaterfallChartTests: XCTestCase {
     let model = ChartModel(chartType: .waterfall,
@@ -31,7 +24,7 @@ class WaterfallChartTests: XCTestCase {
     func testAxisPlotRange() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let axisValues = model.numericAxisTickValues
+        let axisValues = self.model.numericAxisTickValues
         let plotMin = axisValues.plotMinimum
         let plotMax = axisValues.plotMaximum
         
@@ -43,19 +36,19 @@ class WaterfallChartTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = WaterfallChartContext()
-        let pd = dataSource.plotData(model)
+        let pd = dataSource.plotData(self.model)
         
-        XCTAssertTrue(pd.count == model.numOfCategories(in: 0))
-        XCTAssertTrue(pd[0].count == model.numOfSeries())
+        XCTAssertTrue(pd.count == self.model.numOfCategories(in: 0))
+        XCTAssertTrue(pd[0].count == self.model.numOfSeries())
     }
     
     func testPlotData2() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        model.indexesOfTotalsCategories = [5]
-        let axisValues = model.numericAxisTickValues
+        self.model.indexesOfTotalsCategories = [5]
+        let axisValues = self.model.numericAxisTickValues
         let dataSource = WaterfallChartContext()
-        let pd = dataSource.plotData(model)
+        let pd = dataSource.plotData(self.model)
         
         XCTAssertEqual(pd[2][0].rect.origin.y, 30.0 / axisValues.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[2][0].rect.size.height, 29.0 / axisValues.plotRange, accuracy: 0.0001)
@@ -68,10 +61,10 @@ class WaterfallChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model.indexesOfTotalsCategories = [5]
+        self.model.indexesOfTotalsCategories = [5]
         
         let dataSource = WaterfallChartContext()
-        let pd = dataSource.plotData(model)
+        let pd = dataSource.plotData(self.model)
         
         XCTAssertTrue(pd[0][0].rect.origin.y == 0)
         XCTAssertTrue(pd[5][0].rect.origin.y == 0)
@@ -88,5 +81,4 @@ class WaterfallChartTests: XCTestCase {
             }
         }
     }
-
 }

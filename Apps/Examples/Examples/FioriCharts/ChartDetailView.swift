@@ -1,14 +1,6 @@
-//
-//  DetailView.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
-import FioriCharts
 import Combine
+import FioriCharts
+import SwiftUI
 
 struct ChartDetailConfigView: View {
     @ObservedObject var model: ChartModel
@@ -19,7 +11,7 @@ struct ChartDetailConfigView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ChartView(self.model)
                 .padding(16)
         }
@@ -52,7 +44,7 @@ struct ChartDetailView: View {
                         .padding(8)
                         .onTapGesture {
                             self.isFullScreen.toggle()
-                    }
+                        }
                     
                     if self.isFullScreen {
                         VStack {
@@ -74,8 +66,7 @@ struct ChartDetailView: View {
                         }
                     }
                 }
-            }
-            else { // Landscape mode
+            } else { // Landscape mode
                 HStack(spacing: 0) {
                     ZStack(alignment: .topLeading) {
                         ChartView(self.model)
@@ -87,7 +78,7 @@ struct ChartDetailView: View {
                             .padding(8)
                             .onTapGesture {
                                 self.isFullScreen.toggle()
-                        }
+                            }
                     }
                     
                     if !self.isFullScreen {

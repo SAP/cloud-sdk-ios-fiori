@@ -1,15 +1,7 @@
-//
-//  ChartLineAttributesTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 4/30/20.
-//
-
 @testable import FioriCharts
 import XCTest
 
 class ChartLineAttributesTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -90,5 +82,4 @@ class ChartLineAttributesTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

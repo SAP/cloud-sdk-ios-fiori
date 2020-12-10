@@ -1,14 +1,6 @@
-//
-//  SettingsColorForCategory.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/17/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
 import FioriSwiftUICore
+import SwiftUI
 
 struct SettingsColorForCategory: View {
     @ObservedObject var model: ChartModel
@@ -17,9 +9,9 @@ struct SettingsColorForCategory: View {
         let seriesIds = [Int](model.colorsForCategory.keys.sorted())
         
         return Form {
-            ForEach(seriesIds, id: \.self) { i in
-                Section(header: Text("Series \(i)")) {
-                    SettingsColorForOneCategory(colors: self.model.colorsForCategory[i]!)
+            ForEach(0 ..< seriesIds.count, id: \.self) { index in
+                Section(header: Text("Series \(seriesIds[index])")) {
+                    SettingsColorForOneCategory(colors: self.model.colorsForCategory[seriesIds[index]]!)
                 }
             }
         }
@@ -35,17 +27,17 @@ struct SettingsColorForOneCategory: View {
             return (key, value)
         }.sorted { $0.0 < $1.0 }
         
-        return ForEach(colorTuples, id: \.0) { index, color in
+        return ForEach(0 ..< colorTuples.count, id: \.self) { index in
             HStack {
-                Text("Category \(index)")
+                Text("Category \(colorTuples[index].0)")
                 Spacer()
                 Rectangle()
-                    .fill(color)
+                    .fill(colorTuples[index].1)
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.gray, lineWidth: 1))
                     .frame(width: 80, height: 20)
             }
             
-            //SettingColor(color: .constant(color))
+            // SettingColor(color: .constant(color))
         }
     }
 }
