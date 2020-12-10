@@ -16,18 +16,17 @@ struct ColumnSeriesView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let width = rect.size.width
-        let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
+        let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: rect.size.width, ty: 0) : CGAffineTransform.identity
         
-        let translateX: CGFloat
         let startPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
         let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
         let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
         
+        let translateX: CGFloat
         if self.layoutDirection == .rightToLeft {
-            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * width
+            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * rect.size.width
         } else {
-            translateX = -startPosition.x * scaleX * width
+            translateX = -startPosition.x * scaleX * rect.size.width
         }
         let translateY = -startPosition.y * scaleY * rect.size.height
         

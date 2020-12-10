@@ -27,6 +27,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
         }
     }
     
+    // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         _ = self.chartContext.plotPath(self.model)
@@ -135,30 +136,29 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            if model.userInteractionEnabled {
-                Background(tappedCallback: { point, chartRect in
-                    let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-                }, doubleTappedCallback: { _, _ in
-                    // clear selections
-                    if self.model.selections != nil {
-                        self.model.selections = nil
-                    }
-                }) { points, chartRect in
-                    if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
-                        let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
-                                                                               rect: chartRect,
-                                                                               layoutDirection: self.layoutDirection)
-                        
-                        ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
-                    }
+            Background(tappedCallback: { point, chartRect in
+                let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
+                ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
+            }, doubleTappedCallback: { _, _ in
+                // clear selections
+                if self.model.selections != nil {
+                    self.model.selections = nil
                 }
-                .gesture(drag)
-                .gesture(mag)
-                .disabled(!model.userInteractionEnabled)
+            }) { points, chartRect in
+                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
+                    let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
+                                                                           rect: chartRect,
+                                                                           layoutDirection: self.layoutDirection)
+                    
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                }
             }
-        }
+            .gesture(drag)
+            .gesture(mag)
+        }.disabled(!self.model.userInteractionEnabled)
     }
+
+    // swiftlint:enable cyclomatic_complexity
     
     func adjustStartPosition(in rect: CGRect) {
         if self.model.snapToPoint {
