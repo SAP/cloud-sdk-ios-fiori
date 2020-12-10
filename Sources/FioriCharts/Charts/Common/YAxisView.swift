@@ -1,11 +1,3 @@
-//
-//  YAxisView.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct YAxisView: View {
@@ -29,7 +21,7 @@ struct YAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let labels: [AxisTitle] = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary, rect: rect, plotViewSize: plotViewSize)
+        let labels: [AxisTitle] = self.chartContext.yAxisLabels(self.model, layoutDirection: self.layoutDirection, secondary: self.secondary, rect: rect, plotViewSize: self.plotViewSize)
     
         var isShowLabels = [Bool]()
         var preYPos: CGFloat = -10000
@@ -42,16 +34,16 @@ struct YAxisView: View {
             }
         }
         
-        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
+        let axis = self.model.chartType == .bar || self.model.chartType == .stackedBar ? self.model.categoryAxis : (self.secondary ? self.model.secondaryNumericAxis : self.model.numericAxis)
         let baselineX: CGFloat
-        if secondary {
-            if layoutDirection == .leftToRight {
+        if self.secondary {
+            if self.layoutDirection == .leftToRight {
                 baselineX = axis.baseline.width / 2
             } else {
                 baselineX = -axis.baseline.width / 2
             }
         } else {
-            if layoutDirection == .leftToRight {
+            if self.layoutDirection == .leftToRight {
                 baselineX = rect.size.width + axis.baseline.width / 2
             } else {
                 baselineX = rect.size.width - axis.baseline.width / 2
@@ -60,7 +52,7 @@ struct YAxisView: View {
         
         return ZStack {
             if !axis.labels.isHidden {
-                ForEach(0..<labels.count, id: \.self) { index in
+                ForEach(0 ..< labels.count, id: \.self) { index in
                     // y axis lables
                     Group {
                         if isShowLabels[index] {
@@ -112,7 +104,6 @@ struct YAxisView_Previews: PreviewProvider {
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
-            
-        }        
+        }
     }
 }

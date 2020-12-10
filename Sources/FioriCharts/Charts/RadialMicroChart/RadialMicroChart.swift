@@ -1,11 +1,3 @@
-//
-//  RadialMicroChart.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/13/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct RadialMicroChart: View {
@@ -27,9 +19,9 @@ struct RadialMicroChart: View {
         }
     }
     
-    //swiftlint:disable force_unwrapping
+    // swiftlint:disable force_unwrapping
     func arcView(in size: CGSize) -> some View {
-        let percentage = model.dataItemsIn(seriesIndex: 0).last
+        let percentage = self.model.dataItemsIn(seriesIndex: 0).last
         
         let str = String(format: "%.1f%%", percentage?.value ?? 0)
         
@@ -56,10 +48,10 @@ struct RadialMicroChart: View {
         }
     }
     
-    //swiftlint:disable force_unwrapping
+    // swiftlint:disable force_unwrapping
     func chartView(in size: CGSize) -> some View {
-        let total = model.dataItemsIn(seriesIndex: 0).first
-        let percentage = model.dataItemsIn(seriesIndex: 0).last
+        let total = self.model.dataItemsIn(seriesIndex: 0).first
+        let percentage = self.model.dataItemsIn(seriesIndex: 0).last
         let radius = min(size.width, size.height) / 2
         var ratio: Double = 100
         if total!.value != 0 {

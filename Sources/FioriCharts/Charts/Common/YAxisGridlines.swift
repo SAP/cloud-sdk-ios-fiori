@@ -1,10 +1,3 @@
-//
-//  YAxisGridlines.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/23/20.
-//
-
 import SwiftUI
 
 struct YAxisGridlines: View {
@@ -21,17 +14,17 @@ struct YAxisGridlines: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let allIndexs = IndexSet(integersIn: 0 ..< model.data.count)
-        let indexes =  model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
+        let allIndexs = IndexSet(integersIn: 0 ..< self.model.data.count)
+        let indexes = self.model.indexesOfSecondaryValueAxis.symmetricDifference(allIndexs).sorted()
         let secondary: Bool = indexes.isEmpty ? true : false
         
-        let labels: [AxisTitle] = chartContext.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary, rect: rect, plotViewSize: plotViewSize)
+        let labels: [AxisTitle] = self.chartContext.yAxisLabels(self.model, layoutDirection: self.layoutDirection, secondary: secondary, rect: rect, plotViewSize: self.plotViewSize)
         
         var indexToRemove = -1
-        if model.chartType != .bar || model.chartType != .stackedBar {
-            let displayRange = ChartUtility.displayRange(model, secondary: secondary)
+        if self.model.chartType != .bar || self.model.chartType != .stackedBar {
+            let displayRange = ChartUtility.displayRange(self.model, secondary: secondary)
             var valueToRemove: CGFloat = displayRange.lowerBound
-            let valueType = model.valueType
+            let valueType = self.model.valueType
             if valueType == .allNegative {
                 valueToRemove = displayRange.upperBound
             } else if valueType == .mixed {
@@ -61,11 +54,11 @@ struct YAxisGridlines: View {
             isShowLabels[indexToRemove] = false
         }
             
-        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : model.numericAxis
+        let axis = self.model.chartType == .bar || self.model.chartType == .stackedBar ? self.model.categoryAxis : self.model.numericAxis
         let dash = [axis.gridlines.dashPatternLength, axis.gridlines.dashPatternGap]
         return ZStack {
             if !axis.gridlines.isHidden {
-                ForEach(0..<labels.count, id: \.self) { index in
+                ForEach(0 ..< labels.count, id: \.self) { index in
                     Group {
                         // grid lines
                         if isShowLabels[index] {
@@ -86,12 +79,11 @@ struct YAxisGridlines: View {
 
 struct YAxisGridlines_Previews: PreviewProvider {
     static var previews: some View {
-        return YAxisGridlines(plotViewSize: CGSize(width: 300, height: 200))
+        YAxisGridlines(plotViewSize: CGSize(width: 300, height: 200))
             .environmentObject(Tests.stockModels[1])
             .environment(\.chartContext, StockChartContext())
             .frame(width: 80, height: 200, alignment: .topLeading)
             .padding()
             .previewLayout(.sizeThatFits)
-        
     }
 }

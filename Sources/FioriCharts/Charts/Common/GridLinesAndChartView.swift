@@ -1,10 +1,3 @@
-//
-//  GridLinesAndChartView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/17/20.
-//
-
 import SwiftUI
 
 struct GridLinesAndChartView<Content: View, Indicator: View>: View {
@@ -36,10 +29,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     
     func makeBody(in rect: CGRect) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
-        _ = chartContext.plotPath(model)
+        _ = self.chartContext.plotPath(self.model)
         
         let drag = DragGesture()
-            .onChanged({ value in
+            .onChanged { value in
                 let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
                 let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
                 
@@ -65,10 +58,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 }
                 
                 let tmpX = self.layoutDirection == .leftToRight ? (tmpLastCenterPosition.x * scaleX * rect.size.width - value.translation.width) / (scaleX * rect.size.width) : (tmpLastCenterPosition.x * scaleX * rect.size.width + value.translation.width) / (scaleX * rect.size.width)
-                let x = max(0.5/scaleX, min(1 - 0.5/scaleX, tmpX))
+                let x = max(0.5 / scaleX, min(1 - 0.5 / scaleX, tmpX))
 
                 let tmpY = (tmpLastCenterPosition.y * scaleY * rect.size.height - value.translation.height) / (scaleY * rect.size.height)
-                let y = max(0.5/scaleY, min(1 -  0.5/scaleY, tmpY))
+                let y = max(0.5 / scaleY, min(1 - 0.5 / scaleY, tmpY))
                 self.model.centerPosition = CGPoint(x: x, y: y)
 
                 if self.model.chartType == .bubble || self.model.chartType == .scatter {
@@ -83,15 +76,15 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     self.model.yAxisLabels = [:]
                     self.model.secondaryYAxisLabels = [:]
                 }
-            })
-            .onEnded({ _ in
+            }
+            .onEnded { _ in
                 self.adjustStartPosition(in: rect)
                 self.lastCenterPosition = self.chartContext.centerPosition(self.model, plotViewSize: rect.size)
-            })
+            }
         
         // zoom in & out
         let mag = MagnificationGesture()
-            .onChanged({ value in
+            .onChanged { value in
                 if !self.model.scaleXEnabled && !self.model.scaleYEnabled {
                     return
                 }
@@ -124,13 +117,13 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.yAxisLabels = [:]
                 }
-            })
-            .onEnded({ _ in
+            }
+            .onEnded { _ in
                 self.lastScaleX = self.model.scaleX
                 self.lastScaleY = self.model.scaleY
                 
                 self.adjustStartPosition(in: rect)
-            })
+            }
 
         return ZStack {
             XAxisGridlines(plotViewSize: rect.size)
@@ -143,15 +136,15 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             indicatorView
             
             if model.userInteractionEnabled {
-                Background(tappedCallback: { (point, chartRect) in
+                Background(tappedCallback: { point, chartRect in
                     let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
                     ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-                }, doubleTappedCallback: { (_, _) in
+                }, doubleTappedCallback: { _, _ in
                     // clear selections
                     if self.model.selections != nil {
                         self.model.selections = nil
                     }
-                }) { (points, chartRect) in
+                }) { points, chartRect in
                     if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
                         let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
                                                                                rect: chartRect,
@@ -168,20 +161,20 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     }
     
     func adjustStartPosition(in rect: CGRect) {
-        if model.snapToPoint {
-            let tmpStartPosition = chartContext.startPosition(model, plotViewSize: rect.size)
-            let tmpCenterPosition = chartContext.centerPosition(model, plotViewSize: rect.size)
+        if self.model.snapToPoint {
+            let tmpStartPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
+            let tmpCenterPosition = self.chartContext.centerPosition(self.model, plotViewSize: rect.size)
             
-            if model.chartType == .bar || model.chartType == .stackedBar {
-                let tmpY = chartContext.snapChartToPoint(model, at: tmpStartPosition.y)
-                let tmpScaleY = chartContext.scaleY(model, plotViewSize: rect.size)
-                let y = max(0.5/tmpScaleY, min(1 -  0.5/tmpScaleY, tmpY + 0.5/tmpScaleY))
+            if self.model.chartType == .bar || self.model.chartType == .stackedBar {
+                let tmpY = self.chartContext.snapChartToPoint(self.model, at: tmpStartPosition.y)
+                let tmpScaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
+                let y = max(0.5 / tmpScaleY, min(1 - 0.5 / tmpScaleY, tmpY + 0.5 / tmpScaleY))
                 
                 self.model.centerPosition = CGPoint(x: tmpCenterPosition.x, y: y)
             } else {
-                let tmpX = chartContext.snapChartToPoint(model, at: tmpStartPosition.x)
-                let tmpScaleX = chartContext.scaleX(model, plotViewSize: rect.size)
-                let x = max(0.5/tmpScaleX, min(1 - 0.5/tmpScaleX, tmpX + 0.5/tmpScaleX))
+                let tmpX = self.chartContext.snapChartToPoint(self.model, at: tmpStartPosition.x)
+                let tmpScaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
+                let x = max(0.5 / tmpScaleX, min(1 - 0.5 / tmpScaleX, tmpX + 0.5 / tmpScaleX))
 
                 self.model.centerPosition = CGPoint(x: x, y: tmpCenterPosition.y)
             }
@@ -189,8 +182,8 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     }
     
     func alpha() -> Double {
-        if model.chartType == .line || model.chartType == .area || model.chartType == .stock {
-            if model.selections != nil {
+        if self.model.chartType == .line || self.model.chartType == .area || self.model.chartType == .stock {
+            if self.model.selections != nil {
                 return 0.25
             }
         }
@@ -200,9 +193,9 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
 }
 
 struct Background: UIViewRepresentable {
-    var tappedCallback: ((CGPoint, CGRect) -> Void)
-    var doubleTappedCallback: ((CGPoint, CGRect) -> Void)
-    var longPressedCallback: (((CGPoint, CGPoint), CGRect) -> Void)
+    var tappedCallback: (CGPoint, CGRect) -> Void
+    var doubleTappedCallback: (CGPoint, CGRect) -> Void
+    var longPressedCallback: ((CGPoint, CGPoint), CGRect) -> Void
     
     func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
         let v = UIView(frame: .zero)
@@ -230,13 +223,14 @@ struct Background: UIViewRepresentable {
     }
     
     class Coordinator: NSObject {
-        var tappedCallback: ((CGPoint, CGRect) -> Void)
-        var doubleTappedCallback: ((CGPoint, CGRect) -> Void)
-        var longPressedCallback: (((CGPoint, CGPoint), CGRect) -> Void)
+        var tappedCallback: (CGPoint, CGRect) -> Void
+        var doubleTappedCallback: (CGPoint, CGRect) -> Void
+        var longPressedCallback: ((CGPoint, CGPoint), CGRect) -> Void
         
         init(tappedCallback: @escaping ((CGPoint, CGRect) -> Void),
              doubleTappedCallback: @escaping ((CGPoint, CGRect) -> Void),
-             longPressedCallback: @escaping (((CGPoint, CGPoint), CGRect) -> Void)) {
+             longPressedCallback: @escaping (((CGPoint, CGPoint), CGRect) -> Void))
+        {
             self.tappedCallback = tappedCallback
             self.doubleTappedCallback = doubleTappedCallback
             self.longPressedCallback = longPressedCallback
@@ -266,14 +260,13 @@ struct Background: UIViewRepresentable {
     }
     
     func makeCoordinator() -> Background.Coordinator {
-        return Coordinator(tappedCallback: self.tappedCallback,
-                           doubleTappedCallback: self.doubleTappedCallback,
-                           longPressedCallback: self.longPressedCallback)
+        Coordinator(tappedCallback: self.tappedCallback,
+                    doubleTappedCallback: self.doubleTappedCallback,
+                    longPressedCallback: self.longPressedCallback)
     }
     
     func updateUIView(_ uiView: UIView,
-                      context: UIViewRepresentableContext<Background>) {
-    }
+                      context: UIViewRepresentableContext<Background>) {}
 }
 
 struct XAxisSizePreferenceKey: PreferenceKey {
@@ -320,7 +313,7 @@ enum DragState {
 struct GridLinesAndChartView_Previews: PreviewProvider {
     static var previews: some View {
         GridLinesAndChartView(chartView: LinesView(),
-                indicatorView: LineIndicatorView())
+                              indicatorView: LineIndicatorView())
             .environmentObject(Tests.lineModels[0])
             .environment(\.chartContext, LineChartContext())
             .frame(width: 300, height: 400)

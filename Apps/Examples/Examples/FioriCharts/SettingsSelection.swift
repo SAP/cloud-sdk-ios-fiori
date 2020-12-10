@@ -1,13 +1,5 @@
-//
-//  SettingsSelection.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/12/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct SettingsSelection: View {
     @ObservedObject var model: ChartModel
@@ -53,9 +45,9 @@ struct SettingsSelection: View {
                 HStack(alignment: .center) {
                     Text("Scale X: ")
                     
-                    TextField("", text: $textScaleX, onCommit:  {
+                    TextField("", text: $textScaleX, onCommit: {
                         var value: CGFloat = 1
-                        if let n = NumberFormatter().number(from: self.textScaleX){
+                        if let n = NumberFormatter().number(from: self.textScaleX) {
                             value = CGFloat(truncating: n)
                         }
                         
@@ -66,9 +58,9 @@ struct SettingsSelection: View {
                 HStack(alignment: .center) {
                     Text("Scale Y: ")
                     
-                    TextField("", text: $textScaleY, onCommit:  {
+                    TextField("", text: $textScaleY, onCommit: {
                         var value: CGFloat = 1
-                        if let n = NumberFormatter().number(from: self.textScaleY){
+                        if let n = NumberFormatter().number(from: self.textScaleY) {
                             value = CGFloat(truncating: n)
                         }
                         
@@ -79,17 +71,17 @@ struct SettingsSelection: View {
                 HStack(alignment: .center) {
                     Text("Pivot X: \(model.centerPosition?.x ?? 0.5)")
                     
-                    TextField("", text: $textPositionX, onCommit:  {
+                    TextField("", text: $textPositionX, onCommit: {
                         var point = CGPoint(x: 0.5, y: 0.5)
                         if let pt = self.model.centerPosition {
                             point = pt
                         }
                         
-                        if let n = NumberFormatter().number(from: self.textPositionX){
+                        if let n = NumberFormatter().number(from: self.textPositionX) {
                             point.x = CGFloat(truncating: n)
                         }
                         
-                        if let n = NumberFormatter().number(from: self.textPositionY){
+                        if let n = NumberFormatter().number(from: self.textPositionY) {
                             point.y = CGFloat(truncating: n)
                         }
                         
@@ -100,17 +92,17 @@ struct SettingsSelection: View {
                 HStack(alignment: .center) {
                     Text("Pivot Y: \(model.centerPosition?.y ?? 0.5)")
                     
-                    TextField("", text: $textPositionY, onCommit:  {
+                    TextField("", text: $textPositionY, onCommit: {
                         var point = CGPoint(x: 0.5, y: 0.5)
                         if let pt = self.model.centerPosition {
                             point = pt
                         }
                         
-                        if let n = NumberFormatter().number(from: self.textPositionX){
+                        if let n = NumberFormatter().number(from: self.textPositionX) {
                             point.x = CGFloat(truncating: n)
                         }
                         
-                        if let n = NumberFormatter().number(from: self.textPositionY){
+                        if let n = NumberFormatter().number(from: self.textPositionY) {
                             point.y = CGFloat(truncating: n)
                         }
                         
