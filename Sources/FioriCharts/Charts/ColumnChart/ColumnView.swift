@@ -4,7 +4,6 @@ struct ColumnView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
     @Environment(\.layoutDirection) var layoutDirection
-    @State private var animateScale: CGFloat = 1
     
     var body: some View {
         GeometryReader { proxy in
