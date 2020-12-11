@@ -524,7 +524,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     }
     
     /// enable/disable X direction scale by gesture
-    @Published public var scaleXEnabled: Bool = true
+    @Published public var scaleXEnabled: Bool = false
     
     /// enable/disable Y direction scale by gesture
     @Published public var scaleYEnabled: Bool = false
