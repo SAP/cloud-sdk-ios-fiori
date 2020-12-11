@@ -37,7 +37,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
                 
                 // not zoomed in, perform selection
-                if scaleX < 1.001 && scaleY < 1.001 {
+                if self.model.selectionEnabled && scaleX < 1.001 && scaleY < 1.001 {
                     let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: value.location, rect: rect, layoutDirection: self.layoutDirection)
                     
                     ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: false)
@@ -136,14 +136,26 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             indicatorView
             
             Background(tappedCallback: { point, chartRect in
+                if !self.model.selectionEnabled {
+                    return
+                }
+                
                 let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
                 ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
             }, doubleTappedCallback: { _, _ in
+                if !self.model.selectionEnabled {
+                    return
+                }
+                
                 // clear selections
                 if self.model.selections != nil {
                     self.model.selections = nil
                 }
             }) { points, chartRect in
+                if !self.model.selectionEnabled {
+                    return
+                }
+                
                 if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
                     let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
                                                                            rect: chartRect,
