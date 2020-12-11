@@ -17,6 +17,7 @@ public enum Tests {
                    data: [[200, 170, 165, 143, 166, 82, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
                    userInteractionEnabled: true,
+                   selectionEnabled: true,
                    scaleXEnabled: true),
         
         ChartModel(chartType: .line,
@@ -38,7 +39,8 @@ public enum Tests {
                           [114, 135, 173, 224, 184, 155, 198, 215, 235, 245, 240, 200, 155, 120]],
                    titlesForCategory: [["Adam Humprey", "Jimmy Patrick", "Franck Syren", "Alex Kilgo", "Kim Kilgo", "Sean Long", "Flash Ek-Ularnpun", "Lili Lin", "Luka Ning", "Rodhan Hickey", "Natasha Girotra", "Megan Zurcher", "Joan Wood", "Stanley Thomas Stadelman Jr."]],
                    userInteractionEnabled: true,
-                   scaleXEnabled: true),
+                   selectionEnabled: false,
+                   scaleXEnabled: false),
         
         ChartModel(chartType: .line,
                    data: [[-1.8, -2.2, -1.1, -0.7, -1.2, -2.3, -2.95, -1.4, -3.5, -4.4, -4.2, -3.1].map { $0 * 100000 }, [-3.3, -3.7, -3.55, -3.7, -3.3, -3.5, -3.5, -3.1, -3.4, -3.5, -3.0, -3.6].map { $0 * 100000 }],
