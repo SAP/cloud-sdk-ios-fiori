@@ -67,7 +67,7 @@ public struct Configuration: Decodable, Hashable {
 extension Configuration.Parameter: Equatable {
     public static func == (lhs: Configuration.Parameter, rhs: Configuration.Parameter) -> Bool {
         lhs.label == rhs.label &&
-            lhs.description == lhs.description &&
+            lhs.description == rhs.description &&
             lhs.type == rhs.type
     }
 }
