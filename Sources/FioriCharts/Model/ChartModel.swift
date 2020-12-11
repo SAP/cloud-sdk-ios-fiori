@@ -206,9 +206,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// enable or disable user interaction
     @Published public var userInteractionEnabled: Bool = false
     
-//    @Published public var selectionEnabled: Bool = false
-//    @Published public var zoomEnabled: Bool = false
-    
     /// snap to point when dragging a chart
     @Published public var snapToPoint: Bool = false
     
@@ -483,6 +480,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         $_selections.eraseToAnyPublisher()
     }()
     
+    /// the center postion of a chart in relative coordinate system, both x and y are range from 0 to 1
     @Published public var centerPosition: CGPoint? = nil
     
     /// private: X direction scale factor, scale is not allowed to be less than 1.0
@@ -497,6 +495,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         set {
             if newValue < 1 {
                 self._scaleX = 1.0
+            } else if newValue > 1024 {
+                self._scaleX = 1024
             } else {
                 self._scaleX = newValue
             }
@@ -513,12 +513,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         }
         
         set {
-            if newValue < 0 {
-                self._scaleY = 0
-            }
-            
             if newValue < 1 {
                 self._scaleY = 1.0
+            } else if newValue > 1024 {
+                self._scaleY = 1024
             } else {
                 self._scaleY = newValue
             }
@@ -543,12 +541,11 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                 self._scaleY = 1.0
                 self.centerPosition = nil
             }
-            
-            if self.chartType == .stock {
-                self.xAxisLabels = [:]
-            }
         }
     }
+    
+    /// enable/disable selection gestures
+    @Published public var selectionEnabled: Bool = false
     
     /*
      Internal runtime properties
@@ -714,6 +711,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                  selectionMode: ChartSelectionMode = .single,
                  selections: [Int: [Int]]?,
                  userInteractionEnabled: Bool = false,
+                 selectionEnabled: Bool = false,
                  centerPosition: CGPoint? = nil,
                  scaleX: CGFloat = 1.0,
                  scaleY: CGFloat = 1.0,
@@ -745,6 +743,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self._numberOfGridlines = PublishedConstrainedValue(wrappedValue: numberOfGridlines, 2 ... 20)
         self._selectionRequired = Published(initialValue: selectionRequired)
         self._userInteractionEnabled = Published(initialValue: userInteractionEnabled)
+        self._selectionEnabled = Published(initialValue: selectionEnabled)
         self._snapToPoint = Published(initialValue: snapToPoint)
         
         if let categoryAxis = categoryAxis {
@@ -827,10 +826,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         - titlesForAxis: titles for category and numeric Axis
         - labelsForDimension: labels for demension data
         - numberOfGridlines: number of gridlines for numeric axis
-        - selectionRequired: when false a state is allowed in which no series is selected/active.
         - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
         - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
         - userInteractionEnabled: enable or disable user interaction
+        - selectionEnabled: enable or disable user interaction for selection including single tap, double tap and two fingers long pressed
         - snapToPoint: snap to point when dragging a chart
         - seriesAttributes: seires attributes
         - categoryAxis: attributes for the category axis.
@@ -854,6 +853,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                             selectionMode: ChartSelectionMode = .single,
                             selections: [Int: [Int]]? = nil,
                             userInteractionEnabled: Bool = false,
+                            selectionEnabled: Bool = false,
                             centerPosition: CGPoint? = nil,
                             scaleX: CGFloat = 1.0,
                             scaleY: CGFloat = 1.0,
@@ -930,6 +930,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                   selectionMode: selectionMode,
                   selections: selections,
                   userInteractionEnabled: userInteractionEnabled,
+                  selectionEnabled: selectionEnabled,
                   centerPosition: centerPosition,
                   scaleX: scaleX,
                   scaleY: scaleY,
@@ -960,10 +961,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         - titlesForAxis: titles for category and numeric Axis
         - labelsForDimension: labels for demension data
         - numberOfGridlines: number of gridlines for numeric axis
-        - selectionRequired: when false a state is allowed in which no series is selected/active.
         - selectionMode: determines which plot items should be selected for a category. It could be single, all, multiple
         - selections: preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]
         - userInteractionEnabled: enable or disable user interaction
+        - selectionEnabled: enable or disable user interaction for selection including single tap, double tap and two fingers long pressed
         - snapToPoint: snap to point when dragging a chart
         - seriesAttributes: seires attributes
         - categoryAxis: attributes for the category axis.
@@ -985,10 +986,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                             titlesForAxis: [ChartAxisId: String]? = nil,
                             labelsForDimension: [[[String?]]]? = nil,
                             numberOfGridlines: Int = 3,
-                            selectionRequired: Bool = false,
                             selectionMode: ChartSelectionMode = .single,
                             selections: [Int: [Int]]? = nil,
                             userInteractionEnabled: Bool = false,
+                            selectionEnabled: Bool = false,
                             centerPosition: CGPoint? = nil,
                             scaleX: CGFloat = 1.0,
                             scaleY: CGFloat = 1.0,
@@ -1111,10 +1112,10 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                   titlesForAxis: titlesForAxis,
                   labelsForDimension: tmpLabelsForDimension,
                   numberOfGridlines: numberOfGridlines,
-                  selectionRequired: selectionRequired,
                   selectionMode: selectionMode,
                   selections: selections,
                   userInteractionEnabled: userInteractionEnabled,
+                  selectionEnabled: selectionEnabled,
                   centerPosition: centerPosition,
                   scaleX: scaleX,
                   scaleY: scaleY,
@@ -1147,6 +1148,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                               selectionMode: self.selectionMode,
                               selections: self.selections,
                               userInteractionEnabled: self.userInteractionEnabled,
+                              selectionEnabled: self.selectionEnabled,
                               centerPosition: self.centerPosition,
                               scaleX: self.scaleX,
                               scaleY: self.scaleY,
@@ -1627,6 +1629,7 @@ extension ChartModel: Equatable {
             lhs.labelsForDimension == rhs.labelsForDimension &&
             lhs.indexOfStockSeries == rhs.indexOfStockSeries &&
             lhs.userInteractionEnabled == rhs.userInteractionEnabled &&
+            lhs.selectionEnabled == rhs.selectionEnabled &&
             lhs.seriesAttributes == rhs.seriesAttributes &&
             lhs.categoryAxis == rhs.categoryAxis &&
             lhs.numericAxis == rhs.numericAxis &&
@@ -1806,6 +1809,7 @@ extension ChartModel: CustomStringConvertible {
                 "selectionMode": "\(self.selectionMode.rawValue)",
                 "selections": "\(String(describing: self.selections))",
                 "selectionRequired": \(self.selectionRequired),
+                "selectionEnabled": \(self.selectionEnabled),
                 "indexOfStockSeries": "\(String(describing: self.indexOfStockSeries))",
                 "scaleX": \(String(describing: self.scaleX)),
                 "scaleY": \(String(describing: self.scaleY)),

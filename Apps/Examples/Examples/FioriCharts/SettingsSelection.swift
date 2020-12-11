@@ -22,14 +22,16 @@ struct SettingsSelection: View {
         self._textPositionX = State(initialValue: nf.string(from: NSNumber(value: Double(point.x))) ?? "0.5")
         self._textPositionY = State(initialValue: nf.string(from: NSNumber(value: Double(point.y))) ?? "0.5")
     }
-
+    
     var body: some View {
         Form {
-            Section(header: Text("Selection")) {
+            Section(header: Text("Main Switch")) {
                 Toggle(isOn: $model.userInteractionEnabled) {
                     Text("User Interaction Enabled")
                 }
-                
+            }
+            
+            Section(header: Text("Zoom")) {
                 Toggle(isOn: $model.scaleXEnabled, label: {
                     Text("Scale X Enabled")
                 })
@@ -54,7 +56,7 @@ struct SettingsSelection: View {
                         self.model.scaleX = value
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-
+                
                 HStack(alignment: .center) {
                     Text("Scale Y: ")
                     
@@ -67,7 +69,9 @@ struct SettingsSelection: View {
                         self.model.scaleY = value
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-
+            }
+            
+            Section(header: Text("Pan")) {
                 HStack(alignment: .center) {
                     Text("Pivot X: \(model.centerPosition?.x ?? 0.5)")
                     
@@ -88,7 +92,7 @@ struct SettingsSelection: View {
                         self.model.centerPosition = point
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-
+                
                 HStack(alignment: .center) {
                     Text("Pivot Y: \(model.centerPosition?.y ?? 0.5)")
                     
@@ -113,6 +117,12 @@ struct SettingsSelection: View {
                 Toggle(isOn: $model.snapToPoint) {
                     Text("Snap to point only")
                 }
+            }
+            
+            Section(header: Text("Selection")) {
+                Toggle(isOn: $model.selectionEnabled, label: {
+                    Text("Selection Enabled")
+                })
                 
                 Picker(selection: $model.selectionMode, label: Text("Selection Mode")) {
                     Text("Single").tag(ChartSelectionMode.single)
