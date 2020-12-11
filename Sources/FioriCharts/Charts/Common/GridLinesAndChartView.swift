@@ -27,7 +27,6 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
         }
     }
     
-    // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
         // pan chart horizontally or slide to show the indicator if it is not zoomed in
         _ = self.chartContext.plotPath(self.model)
@@ -157,8 +156,6 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             .gesture(mag)
         }.disabled(!self.model.userInteractionEnabled)
     }
-
-    // swiftlint:enable cyclomatic_complexity
     
     func adjustStartPosition(in rect: CGRect) {
         if self.model.snapToPoint {
