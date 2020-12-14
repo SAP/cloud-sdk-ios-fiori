@@ -6,6 +6,8 @@
 	<array>
 		<string>SAP-icons.ttf</string>
 	</array>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Our application needs permission to write photos...</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

@@ -17,6 +17,14 @@ struct CoreContentView: View {
             destination: SegmentedControl_Chart()) {
                 Text("Segmented Control")
             }
+            NavigationLink(
+            destination: SignatureView()) {
+                Text("Signature View")
+            }
+            NavigationLink(
+            destination: UIList()) {
+                Text("Signature Inline View")
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }
