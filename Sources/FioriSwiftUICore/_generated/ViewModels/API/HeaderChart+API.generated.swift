@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
+public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.trendModifier) private var trendModifier
@@ -27,18 +26,18 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
 			self._kpi = kpi
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.HeaderChart.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle))
-	}
-	@ViewBuilder var trend: some View {
-		_trend().modifier(trendModifier.concat(Fiori.HeaderChart.trend))
-	}
-	@ViewBuilder var kpi: some View {
-		_kpi().modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.HeaderChart.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle))
+    }
+	var trend: some View {
+        _trend().modifier(trendModifier.concat(Fiori.HeaderChart.trend))
+    }
+	var kpi: some View {
+        _kpi().modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
+    }
 }
 
 extension HeaderChart where Title == Text,

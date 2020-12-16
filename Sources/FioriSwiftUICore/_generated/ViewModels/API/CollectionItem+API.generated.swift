@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
+public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View, ActionItems: View> {
     @Environment(\.detailImageModifier) private var detailImageModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
@@ -23,15 +22,15 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 			self._subtitle = subtitle
     }
 
-    @ViewBuilder var detailImage: some View {
-		_detailImage().modifier(detailImageModifier.concat(Fiori.CollectionItem.detailImage))
-	}
-	@ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.CollectionItem.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
-	}
+    var detailImage: some View {
+        _detailImage().modifier(detailImageModifier.concat(Fiori.CollectionItem.detailImage))
+    }
+	var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.CollectionItem.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
+    }
 }
 
 extension CollectionItem where DetailImage == _ConditionalContent<Image, EmptyView>,

@@ -11,7 +11,7 @@ import SwiftUI
 
 extension Fiori {
     enum SectionHeader {
-        typealias Title = EmptyModifier
+//        typealias Title = EmptyModifier
         typealias Attribute = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
@@ -26,6 +26,12 @@ extension Fiori {
                 }
             }
         */
+        
+        struct Title: ViewModifier {
+            func body(content: Content) -> some View {
+                content.font(.headline).foregroundColor(.preferredColor(.primary1))
+            }
+        }
         static let title = Title()
         static let attribute = Attribute()
     }

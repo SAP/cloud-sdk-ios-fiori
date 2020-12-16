@@ -1,171 +1,6 @@
 <%_ 
-
-//===----------------------------------------------------------------------===//
-//
-// This source file is part of the Swift Algorithms open source project
-//
-// Copyright (c) 2020 Apple Inc. and the Swift project authors
-// Licensed under Apache License v2.0 with Runtime Library Exception
-//
-// See https://swift.org/LICENSE.txt for license information
-//
-//===----------------------------------------------------------------------===//
-
-public struct Combinations<Base: Collection> {
-  /// The collection to iterate over for combinations.
-  public let base: Base
-  
-  @usableFromInline
-  internal var k: Int
-  
-  @usableFromInline
-  internal init(_ base: Base, k: Int) {
-    self.base = base
-    self.k = base.count < k ? -1 : k
-  }
-
-  @inlinable
-  public var count: Int {
-    func binomial(n: Int, k: Int) -> Int {
-      switch k {
-      case n, 0: return 1
-      case n...: return 0
-      case (n / 2 + 1)...: return binomial(n: n, k: n - k)
-      default: return n * binomial(n: n - 1, k: k - 1) / k
-      }
-    }
-    
-    return k >= 0
-      ? binomial(n: base.count, k: k)
-      : 0
-  }
-}
-
-extension Combinations: Sequence {
-  public struct Iterator: IteratorProtocol {
-    @usableFromInline
-    internal let base: Base
-    
-    @usableFromInline
-    internal var indexes: [Base.Index]
-    
-    @usableFromInline
-    internal var finished: Bool
-    
-    internal init(_ combinations: Combinations) {
-      self.base = combinations.base
-      self.finished = combinations.k < 0
-      self.indexes = combinations.k < 0
-        ? []
-        : Array(combinations.base.indices.prefix(combinations.k))
-    }
-    
-    /// Advances the current indices to the next set of combinations. If
-    /// `indexes.count == 3` and `base.count == 5`, the indices advance like
-    /// this:
-    ///
-    ///     [0, 1, 2]
-    ///     [0, 1, 3]
-    ///     [0, 1, 4] *
-    ///     // * `base.endIndex` reached in `indexes.last`
-    ///     // Advance penultimate index and propagate that change
-    ///     [0, 2, 3]
-    ///     [0, 2, 4] *
-    ///     [0, 3, 4] *
-    ///     [1, 2, 3]
-    ///     [1, 2, 4] *
-    ///     [1, 3, 4] *
-    ///     [2, 3, 4] *
-    ///     // Can't advance without needing to go past `base.endIndex`,
-    ///     // so the iteration is finished.
-    @usableFromInline
-    internal mutating func advance() {
-      guard !indexes.isEmpty else {
-        // Initial state for combinations of 0 elements is an empty array with
-        // `finished == false`. Even though no indexes are involved, advancing
-        // from that state means we are finished with iterating.
-        finished = true
-        return
-      }
-    
-      let i = indexes.count - 1
-      base.formIndex(after: &indexes[i])
-      if indexes[i] != base.endIndex { return }
-
-      var j = i
-      while indexes[i] == base.endIndex {
-        j -= 1
-        guard j >= 0 else {
-          // Finished iterating over combinations
-          finished = true
-          return
-        }
-        
-        base.formIndex(after: &indexes[j])
-        for k in indexes.indices[(j + 1)...] {
-          indexes[k] = base.index(after: indexes[k - 1])
-          if indexes[k] == base.endIndex {
-            break
-          }
-        }
-      }
-    }
-    
-    @inlinable
-    public mutating func next() -> [Base.Element]? {
-      if finished { return nil }
-      defer { advance() }
-      return indexes.map { i in base[i] }
-    }
-  }
-  
-  public func makeIterator() -> Iterator {
-    Iterator(self)
-  }
-}
-
-extension Combinations: LazySequenceProtocol where Base: LazySequenceProtocol {}
-extension Combinations: Equatable where Base: Equatable {}
-extension Combinations: Hashable where Base: Hashable {}
-
-//===----------------------------------------------------------------------===//
-// combinations(count:)
-//===----------------------------------------------------------------------===//
-
-extension Collection {
-  /// Returns a collection of combinations of this collection's elements, with
-  /// each combination having the specificed number of elements.
-  ///
-  /// This example prints the different combinations of three from an array of
-  /// four colors:
-  ///
-  ///     let colors = ["fuchsia", "cyan", "mauve", "magenta"]
-  ///     for combo in colors.combinations(ofCount k: 3) {
-  ///         print(combo.joined(separator: ", "))
-  ///     }
-  ///     // fuchsia, cyan, mauve
-  ///     // fuchsia, cyan, magenta
-  ///     // fuchsia, mauve, magenta
-  ///     // cyan, mauve, magenta
-  ///
-  /// The returned collection presents combinations in a consistent order, where
-  /// the indices in each combination are in ascending lexicographical order.
-  /// That is, in the example above, the combinations in order are the elements
-  /// at `[0, 1, 2]`, `[0, 1, 3]`, `[0, 2, 3]`, and finally `[1, 2, 3]`.
-  ///
-  /// If `k` is zero, the resulting sequence has exactly one element, an empty
-  /// array. If `k` is greater than the number of elements in this sequence,
-  /// the resulting sequence has no elements.
-  ///
-  /// - Parameter k: The number of elements to include in each combination.
-  ///
-  /// - Complexity: O(1)
-  @inlinable
-  public func combinations(ofCount k: Int) -> Combinations<Self> {
-    assert(k >= 0, "Can't have combinations with a negative number of elements.")
-    return Combinations(self, k: k)
-  }
-}
+import cloud_sdk_ios_sourcery_utils
+import Algorithms
 
 func indent(_ level: Int) -> String {
     return Array<String>(repeating: "\t", count: level).joined()
@@ -175,306 +10,14 @@ func carriageRet(_ level: Int) -> String {
     return "\n" + indent(level)
 }
 
-extension String {
-    func capitalizingFirst() -> String {
-        return prefix(1).capitalized + dropFirst()
-    }
-
-    func lowercasingFirst() -> String {
-        return prefix(1).lowercased() + dropFirst()
-    }
-}
-
-extension Array where Element == String {
-    func valuesBeforeColon() -> Array<Element> {
-        compactMap({ 
-            guard let split = $0.split(separator: ":")
-            .map({ $0.trimmingCharacters(in: .whitespacesAndNewlines) })
-            .first else { return nil }
-            return String(split)
-        })
-    }
-}
-extension Type {
-
-    var componentName: String {
-        name.replacingOccurrences(of: "Model", with: "")
-    }
-
-    var componentNameAsPropertyDecl: String {
-        componentName.lowercasingFirst()
-    }
-
-    var componentProperties: Array<Variable> {
-        inheritedTypes.compactMap({ type[$0] }).flatMap({ $0.allVariables })
-    }
-
-    func resolvedAnnotations(_ name: String) -> Array<String> {
-        if let string = self.annotations[name] as? String {
-            return [string]
-        } else if let array = self.annotations[name] as? Array<String> {
-            return array
-        } else {
-            return []
-        }
-    }
-
-    func add_env_propsDecls(indent level: Int) -> String {
-        resolvedAnnotations("add_env_props").map({ "@Environment(\\.\($0)) var \($0)" }).joined(separator: carriageRet(level))
-    }
-
-    func add_public_propsDecls(indent level: Int) -> String {
-        resolvedAnnotations("add_public_props").map({ "public let \($0)"}).joined(separator: carriageRet(level))
-    }
-
-    func componentResolvedViewBuilderDecls(indent level: Int) -> String {
-        componentProperties.map({ "@ViewBuilder var \($0.trimmedName): some View {\n\t\t\($0.concatenatedModifiers(component: componentName))\n\t}"}).joined(separator: carriageRet(level))
-    }
-
-    func defaultInit(indent level: Int) -> String {
-        var initParams = componentProperties.viewBuilderInitParams + resolvedAnnotations("add_public_props")
-        return initParams.map({ $0 }).joined(separator: ",\(carriageRet(level))")
-    }
-
-    func extensionModelInit() -> String {
-        var initParams = componentProperties.extensionModelInitParams + resolvedAnnotations("add_public_props")
-        return initParams.map({ $0 }).joined(separator: ", ")
-    }
-
-    func extensionModelInitParamsAssignment() -> String {
-        let add_public_props: [String] = resolvedAnnotations("add_public_props").valuesBeforeColon().map({ "\($0): \($0)"})
-        var initParamsAssignment = componentProperties.extensionModelInitParamsAssignment + add_public_props
-        return initParamsAssignment.map({ $0 }).joined(separator: ", ")
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var componentStyleName: String {
-        "\(componentName)tStyle"
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var componentStyleNameAsPropertyDecl: String {
-        componentStyleName.lowercasingFirst()
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var stylePropertyDecl: String {
-        "@Environment(\\.\(componentNameAsPropertyDecl)Style) var style: Any\(componentStyleName)"
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var componentStyleConfigurationName: String {
-        "\(componentStyleName)Configuration"
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var fioriComponentStyleName: String {
-        "Fiori\(componentStyleName)"
-    }
-
-    // Not used when Style/Configuration is not adopted
-    var fioriLayoutRouterName: String {
-        "Fiori\(componentName)LayoutRouter"
-    }
-
-    var usage: String {
-        "\(componentName) \(componentProperties.usage)"
-    }
-
-    var acmeUsage: String {
-        "\(componentName) \(componentProperties.acmeUsage)"
-    }
-
-    var fioriStyleImplEnumDecl: String {
-        """
-        extension Fiori {
-            enum \(componentName) {
-                \(componentProperties.typealiasViewModifierDecls)
-
-                // TODO: - substitute type-specific ViewModifier for EmptyModifier
-                /*
-                    // replace `typealias Subtitle = EmptyModifier` with: 
-
-                    struct Subtitle: ViewModifier {
-                        func body(content: Content) -> some View {
-                            content
-                                .font(.body)
-                                .foregroundColor(.preferredColor(.primary3))
-                        }
-                    }
-                */
-                \(componentProperties.staticViewModifierPropertyDecls)
-            }
-        }
-        """
-    }
-}
-
-extension Variable {
-    var swiftUITypeName: String {
-        switch self.typeName.unwrappedTypeName {
-        case "String", "[String]":
-            return "Text"
-        case "Image":
-            return "Image"
-        default:
-            return "Never"
-        }
-    }
-
-    var conditionalAssignment: String {
-        if isOptional {
-            return "\(trimmedName) != nil ? ViewBuilder.buildEither(first: \(toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
-        } else {
-            return toSwiftUI
-        }
-    }
-
-    var toSwiftUI: String {
-        switch self.typeName.unwrappedTypeName {
-            case "String":
-                return isOptional ? "Text(\(trimmedName)!)" : "Text(\(trimmedName))"
-            case "[String]":
-                return "Text(\(trimmedName).joined(separator: \", \"))"
-            case "Image":
-                return isOptional ? "\(trimmedName)!" : trimmedName
-            default:
-                return "\(swiftUITypeName)(\(trimmedName))" 
-                    return "\(swiftUITypeName)(\(trimmedName))"
-                return "\(swiftUITypeName)(\(trimmedName))" 
-        }
-    }
-
-    var emptyDefault: String {
-        if isOptional {
-            return " = nil"
-        } else if typeName.isArray {
-            return " = []"
-        } else {
-            return ""
-        }
-    }
-
-    func concatenatedModifiers(component: String) -> String {
-        "_\(trimmedName)().modifier(\(trimmedName)Modifier.concat(Fiori.\(component).\(trimmedName)))"
-    }
-
-    var trimmedName: String {
-        name.replacingOccurrences(of: "_", with: "")
-    }
-}
-
-extension Array where Element: Variable {
-    var templateParameterDecls: String {
-        map({ "\($0.trimmedName.capitalizingFirst()): View"}).joined(separator: ", ")
-    }
-
-    var viewBuilderInitParams: Array<String> {
-        map({ "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"})
-    }
-
-    var viewBuilderPropertyDecls: String {
-        map({ "private let _\($0.trimmedName): () -> \($0.trimmedName.capitalizingFirst())" }).joined(separator: "\n\t")
-    }
-
-    var viewModifierPropertyDecls: String {
-        map({ "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" }).joined(separator: "\n\t")
-    }
-
-    var viewBuilderInitParamAssignment: String {
-        map({ "self._\($0.trimmedName) = \($0.trimmedName)" }).joined(separator: "\n\t\t\t")
-    }
-
-    func configurationInitParams(component: String) -> String {
-        map({ "\($0.trimmedName): _\($0.trimmedName)().modifier(\($0.trimmedName)Modifier.concat(Fiori.\(component).\($0.trimmedName))).typeErased" }).joined(separator: ",\n\t\t\t")
-    }
-
-    var configurationPropertyDecls: String {
-        map({ "let \($0.trimmedName): AnyView" }).joined(separator: "\n\t")
-    }
-
-    var configurationPropertyViewBuilder: String {
-        map({ "configuration.\($0.trimmedName)"}).joined(separator: "\n\t\t\t")
-    }
-
-    var staticViewModifierPropertyDecls: String {
-        map({ "static let \($0.trimmedName) = \($0.trimmedName.capitalizingFirst())()" }).joined(separator: "\n\t\t")
-    }
-
-    var typealiasViewModifierDecls: String {
-        map({ "typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier" }).joined(separator: "\n\t\t")
-    }
-
-    var extensionContrainedWhereEmptyView: String {
-        map({ "\($0.trimmedName.capitalizingFirst()) == EmptyView" }).joined(separator: ", ")
-    }
-
-    var extensionConstrainedWhereConditionalContent: String {
-        map({ "\($0.trimmedName.capitalizingFirst()) == \($0.isOptional ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)"}).joined(separator: ",\n\t\t")
-    }
-
-    var extensionModelInitParams: Array<String> {
-        map({ "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" })
-    }
-
-    var extensionModelInitParamsAssignment: Array<String> {
-        map({ "\($0.trimmedName): model.\($0.name)"})
-    }
-
-    var extensionModelInitParamAssignments: String {
-        map({ "self._\($0.trimmedName) = { \($0.conditionalAssignment) }" }).joined(separator: "\n\t\t")
-    }
-
-    var usage: String {
-        reduce(into: Array<String>(), { prev, next in 
-            let label = prev.count > 0 ? "\(next.name):" : ""
-            prev.append("\(label) {\n\t\t\tconfiguration.\(next.name)\n\t\t}")
-        }).joined(separator: " ")
-    }
-
-    var acmeUsage: String {
-        reduce(into: Array<String>(), { prev, next in 
-            let label = prev.count > 0 ? "\(next.name):" : ""
-            prev.append("""
-            \(label) {
-                        VStack {
-                            configuration.\(next.name)
-                            Acme\(next.name.capitalizingFirst())View()
-                        }
-                    }
-            """)
-        }).joined(separator: " ")
-    } 
-
-    func extensionInitParamWhereEmptyView(scenario: Array<Element>) -> String {
-        var output: Array<String> = []
-        for variable in self {
-            if !scenario.contains(variable) {
-                output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
-            } 
-        }
-        return output.joined(separator: ",\n\t\t")
-    }
-
-    func extensionInitParamAssignmentWhereEmptyView(scenario: Array<Element>) -> String {
-        var output: Array<String> = []
-        for variable in self {
-            if scenario.contains(variable) {
-                output.append("\(variable.trimmedName): { EmptyView() }")
-            } else {
-                output.append("\(variable.trimmedName): \(variable.trimmedName)")
-            }
-        }
-        return output.joined(separator: ",\n\t\t\t")
-    }
-}
-
 let models = types.protocols.filter({ $0.annotations["generated_component"] != nil })
 
 for model in models {
 
-    let componentProperties = model.componentProperties
+    let componentProperties = model.flattenedComponentProperties(contextType: type)
     let styleName = model.componentStyleName
+
+    let templateParameterDecls = [componentProperties.templateParameterDecls, model.add_view_builder_paramsTemplateParameterDecls].joined(separator: ", ")
 
 
   func optionalPropertySequences(_ t: Type) -> [[Variable]] {
@@ -493,29 +36,29 @@ for model in models {
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
 import SwiftUI
 
-public struct <%= model.componentName %><<%= componentProperties.templateParameterDecls %>> {
+public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= componentProperties.viewModifierPropertyDecls %>
-    <%= model.add_env_propsDecls(indent: 1) %>
+    <%= model.add_env_propsDecls %>
     <%= model.add_public_propsDecls(indent: 1) %>
     <%= componentProperties.viewBuilderPropertyDecls %>
 
     public init(
-        <%= model.defaultInit(indent: 2) %>
+        <%= componentProperties.viewBuilderInitParams %>
         ) {
             <%= componentProperties.viewBuilderInitParamAssignment %>
     }
 
-    <%= model.componentResolvedViewBuilderDecls(indent: 1) %>
+    <%= componentProperties.resolvedViewModifierChain(type: model) %>
 }
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
     
     public init(model: <%= model.name %>) {
-        self.init(<%= model.extensionModelInitParamsAssignment() %>)
+        self.init(<%= componentProperties.extensionModelInitParamsAssignment %>)
     }
 
-    public init(<%= model.extensionModelInit() %>) {
-        <%= componentProperties.extensionModelInitParamAssignments %>
+    public init(<%= componentProperties.extensionModelInitParams %>) {
+        <%= componentProperties.extensionModelInitParamsAssignments %>
     }
 } 
 // sourcery:end
@@ -535,7 +78,7 @@ import SwiftUI
 
 // TODO: - Implement Fiori style definitions
 
-<%= model.fioriStyleImplEnumDecl %>
+<%= model.fioriStyleImplEnumDecl(componentProperties: componentProperties) %>
 
 // TODO: - Implement <%= model.componentName %> View body
 

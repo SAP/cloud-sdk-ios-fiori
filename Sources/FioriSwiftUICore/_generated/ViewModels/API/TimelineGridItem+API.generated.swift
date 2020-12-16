@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
+public struct TimelineGridItem<Title: View, Timestamp: View, Status: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.timestampModifier) private var timestampModifier
 	@Environment(\.statusModifier) private var statusModifier
@@ -23,15 +22,15 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 			self._status = status
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.TimelineGridItem.title))
-	}
-	@ViewBuilder var timestamp: some View {
-		_timestamp().modifier(timestampModifier.concat(Fiori.TimelineGridItem.timestamp))
-	}
-	@ViewBuilder var status: some View {
-		_status().modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.TimelineGridItem.title))
+    }
+	var timestamp: some View {
+        _timestamp().modifier(timestampModifier.concat(Fiori.TimelineGridItem.timestamp))
+    }
+	var status: some View {
+        _status().modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
+    }
 }
 
 extension TimelineGridItem where Title == Text,

@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
+public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.iconModifier) private var iconModifier
@@ -23,15 +22,15 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
 			self._icon = icon
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.KPIAnnotated.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.KPIAnnotated.subtitle))
-	}
-	@ViewBuilder var icon: some View {
-		_icon().modifier(iconModifier.concat(Fiori.KPIAnnotated.icon))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.KPIAnnotated.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.KPIAnnotated.subtitle))
+    }
+	var icon: some View {
+        _icon().modifier(iconModifier.concat(Fiori.KPIAnnotated.icon))
+    }
 }
 
 extension KPIAnnotated where Title == Text,
