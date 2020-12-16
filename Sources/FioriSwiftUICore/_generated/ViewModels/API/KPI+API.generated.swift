@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct KPI<Title: View, Icon: View> {
+public struct KPI<Title: View, Icon: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.iconModifier) private var iconModifier
     
@@ -19,12 +18,12 @@ public struct KPI<Title: View, Icon: View> {
 			self._icon = icon
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.KPI.title))
-	}
-	@ViewBuilder var icon: some View {
-		_icon().modifier(iconModifier.concat(Fiori.KPI.icon))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.KPI.title))
+    }
+	var icon: some View {
+        _icon().modifier(iconModifier.concat(Fiori.KPI.icon))
+    }
 }
 
 extension KPI where Title == Text,

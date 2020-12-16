@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribute: View, SecondaryAttribute: View, Timestamp: View, SecondaryTimestamp: View, Status: View, Substatus: View> {
+public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribute: View, SecondaryAttribute: View, Timestamp: View, SecondaryTimestamp: View, Status: View, Substatus: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -47,33 +46,33 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 			self._substatus = substatus
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.TimelineItem.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.TimelineItem.subtitle))
-	}
-	@ViewBuilder var footnote: some View {
-		_footnote().modifier(footnoteModifier.concat(Fiori.TimelineItem.footnote))
-	}
-	@ViewBuilder var attribute: some View {
-		_attribute().modifier(attributeModifier.concat(Fiori.TimelineItem.attribute))
-	}
-	@ViewBuilder var secondaryAttribute: some View {
-		_secondaryAttribute().modifier(secondaryAttributeModifier.concat(Fiori.TimelineItem.secondaryAttribute))
-	}
-	@ViewBuilder var timestamp: some View {
-		_timestamp().modifier(timestampModifier.concat(Fiori.TimelineItem.timestamp))
-	}
-	@ViewBuilder var secondaryTimestamp: some View {
-		_secondaryTimestamp().modifier(secondaryTimestampModifier.concat(Fiori.TimelineItem.secondaryTimestamp))
-	}
-	@ViewBuilder var status: some View {
-		_status().modifier(statusModifier.concat(Fiori.TimelineItem.status))
-	}
-	@ViewBuilder var substatus: some View {
-		_substatus().modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.TimelineItem.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.TimelineItem.subtitle))
+    }
+	var footnote: some View {
+        _footnote().modifier(footnoteModifier.concat(Fiori.TimelineItem.footnote))
+    }
+	var attribute: some View {
+        _attribute().modifier(attributeModifier.concat(Fiori.TimelineItem.attribute))
+    }
+	var secondaryAttribute: some View {
+        _secondaryAttribute().modifier(secondaryAttributeModifier.concat(Fiori.TimelineItem.secondaryAttribute))
+    }
+	var timestamp: some View {
+        _timestamp().modifier(timestampModifier.concat(Fiori.TimelineItem.timestamp))
+    }
+	var secondaryTimestamp: some View {
+        _secondaryTimestamp().modifier(secondaryTimestampModifier.concat(Fiori.TimelineItem.secondaryTimestamp))
+    }
+	var status: some View {
+        _status().modifier(statusModifier.concat(Fiori.TimelineItem.status))
+    }
+	var substatus: some View {
+        _substatus().modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
+    }
 }
 
 extension TimelineItem where Title == Text,

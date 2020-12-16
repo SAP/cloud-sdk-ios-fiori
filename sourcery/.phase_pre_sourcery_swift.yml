@@ -1,0 +1,11 @@
+
+sources:
+  - ./../Sources/FioriSwiftUICore/Components/
+templates:
+  - ./../sourcery/stencils/pre_phase/component_decl.swifttemplate
+  - ./../sourcery/stencils/pre_phase/component_decl_environment_key.stencil
+  - ./../sourcery/stencils/pre_phase/component_decl_environment_values.stencil
+output:
+  ./../Sources/FioriSwiftUICore/_generated/Components
+args:
+  prune: true

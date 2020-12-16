@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View> {
+public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -39,27 +38,27 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 			self._detailImage = detailImage
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.ObjectHeader.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
-	}
-	@ViewBuilder var footnote: some View {
-		_footnote().modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote))
-	}
-	@ViewBuilder var descriptionText: some View {
-		_descriptionText().modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText))
-	}
-	@ViewBuilder var status: some View {
-		_status().modifier(statusModifier.concat(Fiori.ObjectHeader.status))
-	}
-	@ViewBuilder var substatus: some View {
-		_substatus().modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus))
-	}
-	@ViewBuilder var detailImage: some View {
-		_detailImage().modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.ObjectHeader.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
+    }
+	var footnote: some View {
+        _footnote().modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote))
+    }
+	var descriptionText: some View {
+        _descriptionText().modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText))
+    }
+	var status: some View {
+        _status().modifier(statusModifier.concat(Fiori.ObjectHeader.status))
+    }
+	var substatus: some View {
+        _substatus().modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus))
+    }
+	var detailImage: some View {
+        _detailImage().modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
+    }
 }
 
 extension ObjectHeader where Title == Text,

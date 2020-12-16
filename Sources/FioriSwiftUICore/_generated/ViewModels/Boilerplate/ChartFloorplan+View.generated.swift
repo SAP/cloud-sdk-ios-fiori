@@ -1,6 +1,5 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 
 // TODO: Extend ChartFloorplan to implement View in separate file
 // place at FioriSwiftUICore/Views/ChartFloorplan+View.swift
@@ -26,7 +25,7 @@ extension Fiori {
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
-            // replace `typealias Subtitle = EmptyModifier` with: 
+            // replace `typealias Subtitle = EmptyModifier` with:
 
             struct Subtitle: ViewModifier {
                 func body(content: Content) -> some View {

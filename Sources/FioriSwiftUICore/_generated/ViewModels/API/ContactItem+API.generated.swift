@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct ContactItem<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, DetailImage: View> {
+public struct ContactItem<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -31,21 +30,21 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 			self._detailImage = detailImage
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.ContactItem.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.ContactItem.subtitle))
-	}
-	@ViewBuilder var footnote: some View {
-		_footnote().modifier(footnoteModifier.concat(Fiori.ContactItem.footnote))
-	}
-	@ViewBuilder var descriptionText: some View {
-		_descriptionText().modifier(descriptionTextModifier.concat(Fiori.ContactItem.descriptionText))
-	}
-	@ViewBuilder var detailImage: some View {
-		_detailImage().modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.ContactItem.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.ContactItem.subtitle))
+    }
+	var footnote: some View {
+        _footnote().modifier(footnoteModifier.concat(Fiori.ContactItem.footnote))
+    }
+	var descriptionText: some View {
+        _descriptionText().modifier(descriptionTextModifier.concat(Fiori.ContactItem.descriptionText))
+    }
+	var detailImage: some View {
+        _detailImage().modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
+    }
 }
 
 extension ContactItem where Title == Text,

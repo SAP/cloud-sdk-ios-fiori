@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxisTitle: View, SeriesTitles: View, CategoryAxisTitle: View> {
+public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxisTitle: View, SeriesTitles: View, CategoryAxisTitle: View, > {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.statusModifier) private var statusModifier
@@ -35,24 +34,24 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 			self._categoryAxisTitle = categoryAxisTitle
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle))
-	}
-	@ViewBuilder var status: some View {
-		_status().modifier(statusModifier.concat(Fiori.ChartFloorplan.status))
-	}
-	@ViewBuilder var valueAxisTitle: some View {
-		_valueAxisTitle().modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle))
-	}
-	@ViewBuilder var seriesTitles: some View {
-		_seriesTitles().modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles))
-	}
-	@ViewBuilder var categoryAxisTitle: some View {
-		_categoryAxisTitle().modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+    }
+	var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle))
+    }
+	var status: some View {
+        _status().modifier(statusModifier.concat(Fiori.ChartFloorplan.status))
+    }
+	var valueAxisTitle: some View {
+        _valueAxisTitle().modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle))
+    }
+	var seriesTitles: some View {
+        _seriesTitles().modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles))
+    }
+	var categoryAxisTitle: some View {
+        _categoryAxisTitle().modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
+    }
 }
 
 extension ChartFloorplan where Title == Text,

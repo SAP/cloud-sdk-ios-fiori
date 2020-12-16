@@ -1,9 +1,8 @@
-// Generated using Sourcery 1.0.0 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-public struct SectionHeader<Title: View, Attribute: View> {
+public struct SectionHeader<Title: View, Attribute: View, Action: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.attributeModifier) private var attributeModifier
     @Environment(\.colorScheme) var colorScheme
@@ -19,12 +18,12 @@ public struct SectionHeader<Title: View, Attribute: View> {
 			self._attribute = attribute
     }
 
-    @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.SectionHeader.title))
-	}
-	@ViewBuilder var attribute: some View {
-		_attribute().modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
-	}
+    var title: some View {
+        _title().modifier(titleModifier.concat(Fiori.SectionHeader.title))
+    }
+	var attribute: some View {
+        _attribute().modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
+    }
 }
 
 extension SectionHeader where Title == Text,
