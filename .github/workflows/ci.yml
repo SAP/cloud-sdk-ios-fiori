@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  pull_request_target:
 
 jobs:
   build:
@@ -14,7 +15,30 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Generate Xcode project
-      run: swift package generate-xcodeproj
-    - name: Build and Test on iOS 14 / Xcode 12
-      run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=14.2,name=iPhone 11' clean build test | xcpretty
+    - name: Build and Test on iOS 14 with Xcode 12
+      run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' clean build test | xcpretty
+    - name: Create code coverage report
+      run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
+    - name: Store coverage for sonar job
+      uses: actions/upload-artifact@v1
+      with:
+        name: coverage
+        path: sonarqube-generic-coverage.xml
+
+  sonar:
+    needs: build
+    if: github.event_name == 'push' || github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Get coverage from build job
+      uses: actions/download-artifact@v1
+      with:
+        name: coverage
+    - name: Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
