@@ -10,7 +10,7 @@ on:
       xcodeVersion:
         description: 'Xcode Version'
         required: true
-        default: '12.1' # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md#xcode
+        default: '12.2' # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md#xcode
       snapshotRef:
         description: 'Snapshot Ref (branch name or tag)'
         required: true

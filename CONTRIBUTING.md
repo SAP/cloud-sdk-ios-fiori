@@ -25,7 +25,6 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
   - automatic formatting with [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) as part of pre-commit
   - to run a [SwiftLint](https://github.com/realm/SwiftLint) check automatically before pushing your sources to remote
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
-- install Xcode project file
 - clone data related to Snapshot Testing
 - install [Sourcery](https://github.com/krzysztofzablocki/Sourcery/) to generate UI components
 
