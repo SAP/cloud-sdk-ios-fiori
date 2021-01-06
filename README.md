@@ -74,7 +74,7 @@ If you are only modifying the `ModelDefinitions.swift` contents, you only need t
 
 On success there will be two new files produced:  
 
-`Sources/FioriSwiftUICore/_generated/ViewModels/API/ProfileDetailItem+API.generated.swift`
+**Sources/FioriSwiftUICore/\_generated/ViewModels/API/ProfileDetailItem+API.generated.swift**
 ```swift
 import SwiftUI
 
@@ -125,7 +125,7 @@ extension PersonDetailItem where Title == Text,
 } 
 ```
 
-`Sources/FioriSwiftUICore/_generated/ViewModels/Boilerplate/ProfileDetailItem+View.generated.swift`
+**Sources/FioriSwiftUICore/\_generated/ViewModels/Boilerplate/ProfileDetailItem+View.generated.swift**
 ```swift
 // TODO: Extend PersonDetailItem to implement View in separate file
 // place at FioriSwiftUICore/Views/PersonDetailItem+View.swift
