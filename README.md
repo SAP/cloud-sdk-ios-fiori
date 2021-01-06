@@ -80,38 +80,38 @@ import SwiftUI
 
 public struct PersonDetailItem<Title: View, Subtitle: View, DetailImage: View> {
     @Environment(\.titleModifier) private var titleModifier
-	@Environment(\.subtitleModifier) private var subtitleModifier
-	@Environment(\.detailImageModifier) private var detailImageModifier
+    @Environment(\.subtitleModifier) private var subtitleModifier
+    @Environment(\.detailImageModifier) private var detailImageModifier
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     private let _title: () -> Title
-	private let _subtitle: () -> Subtitle
-	private let _detailImage: () -> DetailImage
+    private let _subtitle: () -> Subtitle
+    private let _detailImage: () -> DetailImage
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
-            self._title = title
-			self._subtitle = subtitle
-			self._detailImage = detailImage
+	@ViewBuilder subtitle: @escaping () -> Subtitle,
+	@ViewBuilder detailImage: @escaping () -> DetailImage
+    ) {
+        self._title = title
+	self._subtitle = subtitle
+	self._detailImage = detailImage
     }
 
     @ViewBuilder var title: some View {
-		_title().modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
-	}
-	@ViewBuilder var subtitle: some View {
-		_subtitle().modifier(subtitleModifier.concat(Fiori.PersonDetailItem.subtitle))
-	}
-	@ViewBuilder var detailImage: some View {
-		_detailImage().modifier(detailImageModifier.concat(Fiori.PersonDetailItem.detailImage))
-	}
+	_title().modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
+    }
+    @ViewBuilder var subtitle: some View {
+        _subtitle().modifier(subtitleModifier.concat(Fiori.PersonDetailItem.subtitle))
+    }
+    @ViewBuilder var detailImage: some View {
+	_detailImage().modifier(detailImageModifier.concat(Fiori.PersonDetailItem.detailImage))
+    }
 }
 
 extension PersonDetailItem where Title == Text,
-		Subtitle == _ConditionalContent<Text, EmptyView>,
-		DetailImage == _ConditionalContent<Image, EmptyView> {
+    Subtitle == _ConditionalContent<Text, EmptyView>,
+    DetailImage == _ConditionalContent<Image, EmptyView> {
     
     public init(model: PersonDetailItemModel) {
         self.init(title: model.title_, subtitle: model.subtitle_, detailImage: model.detailImage_)
@@ -119,8 +119,8 @@ extension PersonDetailItem where Title == Text,
 
     public init(title: String, subtitle: String? = nil, detailImage: Image? = nil) {
         self._title = { Text(title) }
-		self._subtitle = { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._detailImage = { detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView()) }
+	self._subtitle = { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) }
+	self._detailImage = { detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView()) }
     }
 } 
 ```
@@ -143,24 +143,24 @@ import SwiftUI
 extension Fiori {
     enum PersonDetailItem {
         typealias Title = EmptyModifier
-		typealias Subtitle = EmptyModifier
-		typealias DetailImage = EmptyModifier
+	typealias Subtitle = EmptyModifier
+	typealias DetailImage = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
-            // replace `typealias Subtitle = EmptyModifier` with: 
+        // replace `typealias Subtitle = EmptyModifier` with: 
 
-            struct Subtitle: ViewModifier {
-                func body(content: Content) -> some View {
-                    content
-                        .font(.body)
-                        .foregroundColor(.preferredColor(.primary3))
-                }
+        struct Subtitle: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .font(.body)
+                    .foregroundColor(.preferredColor(.primary3))
             }
+        }
         */
         static let title = Title()
-		static let subtitle = Subtitle()
-		static let detailImage = DetailImage()
+	static let subtitle = Subtitle()
+	static let detailImage = DetailImage()
     }
 }
 
@@ -203,9 +203,9 @@ extension Fiori {
             func body(content: Content) -> some View {
                     content
                         .font(.headline)
-                }
-        }
-        /* ... */
+            }
+    }
+    /* ... */
 ```
 
 This style will be applied in the computed variable in `ProfileDetailItem+API.generated.swift`, as a `ViewModifier` concatenation.
