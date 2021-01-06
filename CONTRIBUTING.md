@@ -27,6 +27,7 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
 - install Xcode project file
 - clone data related to Snapshot Testing
+- install [Sourcery](https://github.com/krzysztofzablocki/Sourcery/) to generate UI components
 
 If you choose to run the script please make sure your dev machine has
 - `brew` package manager for macOS

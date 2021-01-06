@@ -23,7 +23,7 @@ if [ $# -eq 0 ]; then
     	echo "warning: Homebrew is not installed, download from https://brew.sh/"
   	fi
 else
-	echo "warning: skipping installation of SwiftLint and SwiftFormat"
+	echo "warning: skipping installation of SwiftLint, SwiftFormat and Sourcery"
 fi
 
 # clone/update snapshot reference images
