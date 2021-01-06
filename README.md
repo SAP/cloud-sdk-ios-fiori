@@ -264,7 +264,7 @@ The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integ
 ## Requirements
 
 - iOS 13 or higher, macOS 10.15.4 or higher
-- Xcode 11.4 or higher
+- Xcode 12 or higher
 - Swift Package Manager
 
 ## Download and Installation
