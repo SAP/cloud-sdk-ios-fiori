@@ -10,6 +10,22 @@ import SwiftUI
 
 struct Drawing {
     public var points: [CGPoint] = [CGPoint]()
+    
+    public var maxX: CGFloat {
+        return points.max(by: { $0.x < $1.x })!.x
+    }
+    
+    public var maxY: CGFloat {
+        return points.max(by: { $0.y < $1.y })!.y
+    }
+    
+    public var minX: CGFloat {
+        return points.min(by: { $0.x < $1.x })!.x
+    }
+    
+    public var minY: CGFloat {
+        return points.min(by: { $0.y < $1.y })!.y
+    }
 }
 
 struct footnoteInfo {
@@ -72,9 +88,10 @@ struct SignatureView: View {
     
     @State private var currentDrawing: Drawing = Drawing()
     @State private var drawings: [Drawing] = [Drawing]()
-    @State private var imageStrokeColor: Color = Color.black
-    @State private var strokeWidth: CGFloat = 3.0
+    @State private var imageStrokeColor: Color = Color.black //
+    @State private var strokeWidth: CGFloat = 3.0 //
     @State private var rect1: CGRect = .zero
+    @State private var shouldRemoveWhitespace = true
     
     var body: some View {
         GeometryReader { geometry in
@@ -87,8 +104,31 @@ struct SignatureView: View {
                     }
                     Spacer()
                     Button(action: {
-                        let imageSaver = ImageSaver()
+                        if shouldRemoveWhitespace {
+                            var maxX = -1 * CGFloat.greatestFiniteMagnitude
+                            var maxY = -1 * CGFloat.greatestFiniteMagnitude
+                            var minX = CGFloat.greatestFiniteMagnitude
+                            var minY = CGFloat.greatestFiniteMagnitude
+                            
+                            for drawing in drawings {
+                                if drawing.maxX > maxX { maxX = drawing.maxX }
+                                if drawing.maxY > maxY { maxY = drawing.maxY }
+                                if drawing.minX < minX { minX = drawing.minX }
+                                if drawing.minY < minY { minY = drawing.minY }
+                            }
+                            
+                            print(minX)
+                            print(minY)
+                            print(maxX)
+                            print(maxY)
+                            print(rect1)
+                            let rectWidth = maxX - minX < 100 ? 100 : maxX - minX
+                            let rectHeight = maxY - minY < 100 ? 100 : maxY - minY
+                            rect1 = CGRect(x: minX+rect1.minX, y: minY+rect1.minY, width: rectWidth, height: rectHeight)
+                        }
                         
+                        let imageSaver = ImageSaver()
+                        print(rect1)
                         let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
                         imageSaver.writeToPhotoAlbum(image: uimage!)
                         drawings.removeAll()
