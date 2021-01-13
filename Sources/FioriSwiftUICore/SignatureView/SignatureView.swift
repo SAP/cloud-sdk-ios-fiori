@@ -50,7 +50,7 @@ struct DrawingPad: View {
                 self.add(drawing: self.currentDrawing, toPath: &path)
             }
             .stroke(self.color, lineWidth: self.lineWidth)
-               .background(Color(white: 1))//0.95))
+               .background(Color(white: 1))
                 .gesture(
                     DragGesture(minimumDistance: 0.1)
                         .onChanged({ (value) in
@@ -116,18 +116,12 @@ public struct SignatureView: View {
                                 if drawing.minY < minY { minY = drawing.minY }
                             }
                             
-                            print(minX)
-                            print(minY)
-                            print(maxX)
-                            print(maxY)
-                            print(rect1)
                             let rectWidth = maxX - minX < 100 ? 100 : maxX - minX
                             let rectHeight = maxY - minY < 100 ? 100 : maxY - minY
                             rect1 = CGRect(x: minX+rect1.minX, y: minY+rect1.minY, width: rectWidth, height: rectHeight)
                         }
                         
                         let imageSaver = ImageSaver()
-                        print(rect1)
                         let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
                         imageSaver.writeToPhotoAlbum(image: uimage!)
                         drawings.removeAll()
@@ -162,7 +156,6 @@ class ImageSaver: NSObject {
     }
 
     @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-        print("Save finished!")
     }
 }
 
