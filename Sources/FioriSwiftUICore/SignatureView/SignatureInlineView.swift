@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignatureViewInline: View {
+public struct SignatureViewInline: View {
     
     @State private var currentDrawing: Drawing = Drawing()
     @State private var drawings: [Drawing] = [Drawing]()

@@ -83,7 +83,7 @@ struct DrawingPad: View {
     
 }
 
-struct SignatureView: View {
+public struct SignatureView: View {
     
     @State private var currentDrawing: Drawing = Drawing()
     @State private var drawings: [Drawing] = [Drawing]()
