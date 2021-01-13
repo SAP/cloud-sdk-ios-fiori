@@ -1,8 +1,4 @@
-// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
-// DO NOT EDIT
-
 import SwiftUI
-
 
 public protocol TitleComponent {
     var title_: String { get }
@@ -118,4 +114,11 @@ public protocol LowerBoundTitleComponent {
 
 public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
+}
+
+// CUSTO_MOD
+// this would be generated based on SinglePropertyComponents.swift
+// cannot be verified as pre phase is not working :(
+public protocol ActivityItemsComponent {
+    var activityItems_: [ActivityItem] { get }
 }

@@ -218,6 +218,11 @@ This style will be applied in the computed variable in `ProfileDetailItem+API.ge
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   The sourcery generation templates will be expanded to support arbitary `@ViewBuilder` properties.  It is also planned to add a `post` phase, to generate ViewModel types which are compositions of other ViewModels. 
 
+### In Evaluation
+
+See [here](./Experiments.md)
+
+**TODO:** rework before merging back into migration or main branch !!
 
 ## FioriCharts
 The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.

@@ -1,10 +1,3 @@
-//
-//  ModelDefinitions.swift
-//  ThemingPrototype
-//
-//  Created by Stadelman, Stan on 8/20/20.
-//
-
 import Foundation
 
 // Standard Components
@@ -22,7 +15,7 @@ public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendCompon
 // sourcery: add_view_builder_params = "actionItems"
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: generated_component
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent {}
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsComponent, ActivityItemsBehavior {} // CUSTO_MOD
 
 // sourcery: generated_component
 public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
