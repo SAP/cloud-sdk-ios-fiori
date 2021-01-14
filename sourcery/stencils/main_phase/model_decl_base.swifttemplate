@@ -1,14 +1,11 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
 <%_ 
-import cloud_sdk_ios_sourcery_utils
-import Algorithms
-
-func indent(_ level: Int) -> String {
-    return Array<String>(repeating: "\t", count: level).joined()
-}
-
-func carriageRet(_ level: Int) -> String {
-    return "\n" + indent(level)
-}
 
 let models = types.protocols.filter({ $0.annotations["generated_component"] != nil })
 
@@ -17,8 +14,10 @@ for model in models {
     let componentProperties = model.flattenedComponentProperties(contextType: type)
     let styleName = model.componentStyleName
 
-    let templateParameterDecls = [componentProperties.templateParameterDecls, model.add_view_builder_paramsTemplateParameterDecls].joined(separator: ", ")
-
+    let templateParameterDecls = [
+            componentProperties.templateParameterDecls, 
+            model.add_view_builder_paramsTemplateParameterDecls
+        ].flatMap { $0 }.joined(separator: ", ")
 
   func optionalPropertySequences(_ t: Type) -> [[Variable]] {
       var sequences: [[Variable]] = []
@@ -64,23 +63,23 @@ extension <%= model.componentName %> where <%= componentProperties.extensionCons
 // sourcery:end
 
 // sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/<%= model.componentName %>+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement <%= model.componentName %> `View` body
 
-// TODO: Extend <%= model.componentName %> to implement View in separate file
-// place at FioriSwiftUICore/Views/<%= model.componentName %>+View.swift
-
-// Important: to make @Environment properties (e.g. horizontalSizeClass), available
-// in extensions, add as sourcery annotation in FioriSwiftUICore/Models/ModelDefinitions.swift
-// to declare a wrapped property
-// e.g.:  // sourcery: add_env_props = ["horizontalSizeClass"]
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
 /*
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
+// FIXME: - Implement Fiori style definitions
 
 <%= model.fioriStyleImplEnumDecl(componentProperties: componentProperties) %>
 
-// TODO: - Implement <%= model.componentName %> View body
+// FIXME: - Implement <%= model.componentName %> View body
 
 extension <%= model.componentName %>: View {
     public var body: some View { 
@@ -90,7 +89,7 @@ extension <%= model.componentName %>: View {
 */
 // sourcery:end
 
-// sourcery: file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
+// sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
 import SwiftUI
 <%_ 
     for optionalCombination in combinationsOfOptionals {

@@ -1,18 +1,19 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// TODO: Extend HeaderChart to implement View in separate file
-// place at FioriSwiftUICore/Views/HeaderChart+View.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/HeaderChart+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement HeaderChart `View` body
 
-// Important: to make @Environment properties (e.g. horizontalSizeClass), available
-// in extensions, add as sourcery annotation in FioriSwiftUICore/Models/ModelDefinitions.swift
-// to declare a wrapped property
-// e.g.:  // sourcery: add_env_props = ["horizontalSizeClass"]
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
 /*
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
+// FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum HeaderChart {
@@ -40,7 +41,7 @@ extension Fiori {
     }
 }
 
-// TODO: - Implement HeaderChart View body
+// FIXME: - Implement HeaderChart View body
 
 extension HeaderChart: View {
     public var body: some View { 

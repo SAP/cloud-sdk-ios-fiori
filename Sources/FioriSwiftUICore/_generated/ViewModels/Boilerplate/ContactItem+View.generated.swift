@@ -1,18 +1,19 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// TODO: Extend ContactItem to implement View in separate file
-// place at FioriSwiftUICore/Views/ContactItem+View.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ContactItem+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement ContactItem `View` body
 
-// Important: to make @Environment properties (e.g. horizontalSizeClass), available
-// in extensions, add as sourcery annotation in FioriSwiftUICore/Models/ModelDefinitions.swift
-// to declare a wrapped property
-// e.g.:  // sourcery: add_env_props = ["horizontalSizeClass"]
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
 /*
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
+// FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum ContactItem {
@@ -42,7 +43,7 @@ extension Fiori {
     }
 }
 
-// TODO: - Implement ContactItem View body
+// FIXME: - Implement ContactItem View body
 
 extension ContactItem: View {
     public var body: some View { 

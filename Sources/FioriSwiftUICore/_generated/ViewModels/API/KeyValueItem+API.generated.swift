@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct KeyValueItem<Key: View, Value: View, > {
+public struct KeyValueItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
     

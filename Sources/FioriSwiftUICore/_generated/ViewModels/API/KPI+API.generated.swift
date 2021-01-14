@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct KPI<Title: View, Icon: View, > {
+public struct KPI<Title: View, Icon: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.iconModifier) private var iconModifier
     
