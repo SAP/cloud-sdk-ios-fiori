@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View, > {
+public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.trendModifier) private var trendModifier

@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View, > {
+public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.iconModifier) private var iconModifier

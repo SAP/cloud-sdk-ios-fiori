@@ -1,18 +1,19 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-// TODO: Extend CollectionItem to implement View in separate file
-// place at FioriSwiftUICore/Views/CollectionItem+View.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/CollectionItem+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement CollectionItem `View` body
 
-// Important: to make @Environment properties (e.g. horizontalSizeClass), available
-// in extensions, add as sourcery annotation in FioriSwiftUICore/Models/ModelDefinitions.swift
-// to declare a wrapped property
-// e.g.:  // sourcery: add_env_props = ["horizontalSizeClass"]
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
 /*
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
+// FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum CollectionItem {
@@ -38,7 +39,7 @@ extension Fiori {
     }
 }
 
-// TODO: - Implement CollectionItem View body
+// FIXME: - Implement CollectionItem View body
 
 extension CollectionItem: View {
     public var body: some View { 

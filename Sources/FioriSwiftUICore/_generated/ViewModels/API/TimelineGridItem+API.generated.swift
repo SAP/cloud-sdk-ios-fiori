@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct TimelineGridItem<Title: View, Timestamp: View, Status: View, > {
+public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.timestampModifier) private var timestampModifier
 	@Environment(\.statusModifier) private var statusModifier

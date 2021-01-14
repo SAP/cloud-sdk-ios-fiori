@@ -1,8 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
+
 import SwiftUI
 
-public struct SectionHeader<Title: View, Attribute: View, Action: View> {
+public struct SectionHeader<Title: View, Attribute: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.attributeModifier) private var attributeModifier
     @Environment(\.colorScheme) var colorScheme
