@@ -92,7 +92,11 @@ public struct SignatureView: View {
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
     
-    var body: some View {
+    public init() {
+        
+    }
+    
+    public var body: some View {
         GeometryReader { geometry in
             VStack(alignment: .center) {
                 HStack {

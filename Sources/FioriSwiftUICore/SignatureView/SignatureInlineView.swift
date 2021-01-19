@@ -6,7 +6,28 @@
 //
 
 import SwiftUI
+/*
+extension SignatureViewInline: View {
+    class Model: ObservableObject {
+        @Published var imageStrokeColor: UIColor?
+        @Published var imageBackgroundColor: UIColor?
+        
+        var strokeWidth: CGFloat = 2.0 {
+            didSet {
+                bezierPath.lineWidth = strokeWidth
+            }
+        }
 
+        var strokeColor: UIColor = .preferredFioriColor(forStyle: .primary1) {
+            didSet {
+                if !bezierPath.isEmpty {
+                    strokeColor.setStroke()
+                }
+            }
+        }
+    }
+}
+*/
 public struct SignatureViewInline: View {
     
     @State private var currentDrawing: Drawing = Drawing()
@@ -18,8 +39,13 @@ public struct SignatureViewInline: View {
     @State private var rect1: CGRect = .zero
     @State var imageView: Image? = nil
     
+    //@ObservedObject private var model: Model = Model()
     
-    var body: some View {
+    public init() {
+        
+    }
+    
+    public var body: some View {
         GeometryReader { geometry in
             if !isSignatureEditable {
                 VStack {
