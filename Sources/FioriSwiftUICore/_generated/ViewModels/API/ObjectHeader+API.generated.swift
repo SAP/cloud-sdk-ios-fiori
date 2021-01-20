@@ -18,7 +18,7 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 	private let _descriptionText: DescriptionText
 	private let _status: Status
 	private let _substatus: Substatus
-	private let _detailImage: DetailImage
+	private let _detailImage: DetailImage 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -59,6 +59,7 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 	var detailImage: some View {
         _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
     }
+    
 }
 
 extension ObjectHeader where Title == Text,

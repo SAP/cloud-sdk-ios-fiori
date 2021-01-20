@@ -10,7 +10,7 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 
     private let _detailImage: DetailImage
 	private let _title: Title
-	private let _subtitle: Subtitle
+	private let _subtitle: Subtitle 
 
     public init(
         @ViewBuilder detailImage: @escaping () -> DetailImage,
@@ -31,6 +31,7 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 	var subtitle: some View {
         _subtitle.modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
     }
+    
 }
 
 extension CollectionItem where DetailImage == _ConditionalContent<Image, EmptyView>,

@@ -69,6 +69,17 @@ extension Type {
             .map({ "self._\($0) = \($0)()" })
     }
     
+    public var add_view_builder_paramsResolvedViewModifierChain: [String] {
+        resolvedAnnotations("add_view_builder_params")
+            .map {
+                """
+                var \($0): some View {
+                        _\($0)
+                    }
+                """
+            }
+    }
+    
     public var add_view_builder_paramsExtensionModelInitParamsChaining: [String] {
         resolvedAnnotations("add_view_builder_params")
             .map({ "\($0): \($0)" })

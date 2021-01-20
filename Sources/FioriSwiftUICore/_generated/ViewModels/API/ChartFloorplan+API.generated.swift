@@ -16,7 +16,7 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	private let _status: Status
 	private let _valueAxisTitle: ValueAxisTitle
 	private let _seriesTitles: SeriesTitles
-	private let _categoryAxisTitle: CategoryAxisTitle
+	private let _categoryAxisTitle: CategoryAxisTitle 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -52,6 +52,7 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	var categoryAxisTitle: some View {
         _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
     }
+    
 }
 
 extension ChartFloorplan where Title == Text,

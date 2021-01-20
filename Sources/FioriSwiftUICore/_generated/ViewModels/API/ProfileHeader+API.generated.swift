@@ -16,7 +16,7 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 	private let _footnote: Footnote
 	private let _descriptionText: DescriptionText
 	private let _detailImage: DetailImage
-	private let _actionItems: ActionItems
+	private let _actionItems: ActionItems 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -48,6 +48,9 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
     }
 	var detailImage: some View {
         _detailImage.modifier(detailImageModifier.concat(Fiori.ProfileHeader.detailImage))
+    }
+    var actionItems: some View {
+        _actionItems
     }
 }
 

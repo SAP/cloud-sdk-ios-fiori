@@ -80,7 +80,7 @@ import SwiftUI
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
-    <%= privatePropertyDecls %>
+    <%= privatePropertyDecls %> 
 
     public init(
         <%= viewBuilderInitParams %>
@@ -89,6 +89,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     }
 
     <%= componentProperties.resolvedViewModifierChain(type: model) %>
+    <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
 }
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {

@@ -12,7 +12,7 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
     private let _title: Title
 	private let _subtitle: Subtitle
 	private let _trend: Trend
-	private let _kpi: Kpi
+	private let _kpi: Kpi 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -38,6 +38,7 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
 	var kpi: some View {
         _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
     }
+    
 }
 
 extension HeaderChart where Title == Text,
