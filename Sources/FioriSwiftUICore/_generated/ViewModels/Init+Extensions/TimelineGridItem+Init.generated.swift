@@ -5,9 +5,9 @@ import SwiftUI
 
 extension TimelineGridItem where Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder timestamp: @escaping () -> Timestamp
-        ) {
+    ) {
         self.init(
             title: title,
 			timestamp: timestamp,
@@ -18,9 +18,9 @@ extension TimelineGridItem where Status == EmptyView {
 
 extension TimelineGridItem where Timestamp == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			timestamp: { EmptyView() },

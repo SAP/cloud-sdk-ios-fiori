@@ -5,10 +5,10 @@ import SwiftUI
 
 extension HeaderChart where Kpi == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder trend: @escaping () -> Trend
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -20,10 +20,10 @@ extension HeaderChart where Kpi == EmptyView {
 
 extension HeaderChart where Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder trend: @escaping () -> Trend,
 		@ViewBuilder kpi: @escaping () -> Kpi
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -35,10 +35,10 @@ extension HeaderChart where Subtitle == EmptyView {
 
 extension HeaderChart where Trend == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder kpi: @escaping () -> Kpi
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -50,9 +50,9 @@ extension HeaderChart where Trend == EmptyView {
 
 extension HeaderChart where Kpi == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder trend: @escaping () -> Trend
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -64,9 +64,9 @@ extension HeaderChart where Kpi == EmptyView, Subtitle == EmptyView {
 
 extension HeaderChart where Kpi == EmptyView, Trend == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -78,9 +78,9 @@ extension HeaderChart where Kpi == EmptyView, Trend == EmptyView {
 
 extension HeaderChart where Subtitle == EmptyView, Trend == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder kpi: @escaping () -> Kpi
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },

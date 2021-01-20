@@ -5,13 +5,13 @@ import SwiftUI
 
 extension ObjectItem where DescriptionText == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -26,13 +26,13 @@ extension ObjectItem where DescriptionText == EmptyView {
 
 extension ObjectItem where DetailImage == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -47,13 +47,13 @@ extension ObjectItem where DetailImage == EmptyView {
 
 extension ObjectItem where Footnote == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -68,13 +68,13 @@ extension ObjectItem where Footnote == EmptyView {
 
 extension ObjectItem where Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -89,13 +89,13 @@ extension ObjectItem where Status == EmptyView {
 
 extension ObjectItem where Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -110,13 +110,13 @@ extension ObjectItem where Substatus == EmptyView {
 
 extension ObjectItem where Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -131,12 +131,12 @@ extension ObjectItem where Subtitle == EmptyView {
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -151,12 +151,12 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -171,12 +171,12 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView {
 
 extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -191,12 +191,12 @@ extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView {
 
 extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -211,12 +211,12 @@ extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView 
 
 extension ObjectItem where DescriptionText == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -231,12 +231,12 @@ extension ObjectItem where DescriptionText == EmptyView, Subtitle == EmptyView {
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -251,12 +251,12 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView {
 
 extension ObjectItem where DetailImage == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -271,12 +271,12 @@ extension ObjectItem where DetailImage == EmptyView, Status == EmptyView {
 
 extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -291,12 +291,12 @@ extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView {
 
 extension ObjectItem where DetailImage == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -311,12 +311,12 @@ extension ObjectItem where DetailImage == EmptyView, Subtitle == EmptyView {
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -331,12 +331,12 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView {
 
 extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -351,12 +351,12 @@ extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView {
 
 extension ObjectItem where Footnote == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -371,12 +371,12 @@ extension ObjectItem where Footnote == EmptyView, Subtitle == EmptyView {
 
 extension ObjectItem where Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -391,12 +391,12 @@ extension ObjectItem where Status == EmptyView, Substatus == EmptyView {
 
 extension ObjectItem where Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -411,12 +411,12 @@ extension ObjectItem where Status == EmptyView, Subtitle == EmptyView {
 
 extension ObjectItem where Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -431,11 +431,11 @@ extension ObjectItem where Substatus == EmptyView, Subtitle == EmptyView {
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -450,11 +450,11 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -469,11 +469,11 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -488,11 +488,11 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -507,11 +507,11 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -526,11 +526,11 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -545,11 +545,11 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -564,11 +564,11 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -583,11 +583,11 @@ extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Su
 
 extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -602,11 +602,11 @@ extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Su
 
 extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -621,11 +621,11 @@ extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView,
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -640,11 +640,11 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Stat
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -659,11 +659,11 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Subs
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -678,11 +678,11 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Subt
 
 extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -697,11 +697,11 @@ extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substa
 
 extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -716,11 +716,11 @@ extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Subtit
 
 extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -735,11 +735,11 @@ extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView, Sub
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -754,11 +754,11 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -773,11 +773,11 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Subtitle 
 
 extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -792,11 +792,11 @@ extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, Subtit
 
 extension ObjectItem where Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -811,10 +811,10 @@ extension ObjectItem where Status == EmptyView, Substatus == EmptyView, Subtitle
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -829,10 +829,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -847,10 +847,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -865,10 +865,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -883,10 +883,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -901,10 +901,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -919,10 +919,10 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -937,10 +937,10 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -955,10 +955,10 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -973,10 +973,10 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -991,10 +991,10 @@ extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Su
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -1009,10 +1009,10 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Stat
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1027,10 +1027,10 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Stat
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1045,10 +1045,10 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Subs
 
 extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1063,10 +1063,10 @@ extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substa
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1081,9 +1081,9 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -1098,9 +1098,9 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder substatus: @escaping () -> Substatus
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1115,9 +1115,9 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1132,9 +1132,9 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1149,9 +1149,9 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 
 extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -1166,9 +1166,9 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 
 extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },

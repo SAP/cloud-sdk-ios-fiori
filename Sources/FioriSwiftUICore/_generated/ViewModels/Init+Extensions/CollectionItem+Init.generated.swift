@@ -5,9 +5,9 @@ import SwiftUI
 
 extension CollectionItem where DetailImage == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle
-        ) {
+    ) {
         self.init(
             detailImage: { EmptyView() },
 			title: title,
@@ -18,9 +18,9 @@ extension CollectionItem where DetailImage == EmptyView {
 
 extension CollectionItem where Subtitle == EmptyView {
     public init(
-        @ViewBuilder detailImage: @escaping () -> DetailImage,
+    @ViewBuilder detailImage: @escaping () -> DetailImage,
 		@ViewBuilder title: @escaping () -> Title
-        ) {
+    ) {
         self.init(
             detailImage: detailImage,
 			title: title,
