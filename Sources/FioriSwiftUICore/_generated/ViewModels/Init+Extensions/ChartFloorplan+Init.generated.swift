@@ -5,12 +5,12 @@ import SwiftUI
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -24,12 +24,12 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView {
 
 extension ChartFloorplan where Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -43,12 +43,12 @@ extension ChartFloorplan where Status == EmptyView {
 
 extension ChartFloorplan where Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -62,12 +62,12 @@ extension ChartFloorplan where Subtitle == EmptyView {
 
 extension ChartFloorplan where ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -81,11 +81,11 @@ extension ChartFloorplan where ValueAxisTitle == EmptyView {
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -99,11 +99,11 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyVi
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -117,11 +117,11 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, Subtitle == Empty
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -135,11 +135,11 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, ValueAxisTitle ==
 
 extension ChartFloorplan where Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -153,11 +153,11 @@ extension ChartFloorplan where Status == EmptyView, Subtitle == EmptyView {
 
 extension ChartFloorplan where Status == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -171,11 +171,11 @@ extension ChartFloorplan where Status == EmptyView, ValueAxisTitle == EmptyView 
 
 extension ChartFloorplan where Subtitle == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -189,10 +189,10 @@ extension ChartFloorplan where Subtitle == EmptyView, ValueAxisTitle == EmptyVie
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyView, Subtitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -206,10 +206,10 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyVi
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: subtitle,
@@ -223,10 +223,10 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, Status == EmptyVi
 
 extension ChartFloorplan where CategoryAxisTitle == EmptyView, Subtitle == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder status: @escaping () -> Status,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
@@ -240,10 +240,10 @@ extension ChartFloorplan where CategoryAxisTitle == EmptyView, Subtitle == Empty
 
 extension ChartFloorplan where Status == EmptyView, Subtitle == EmptyView, ValueAxisTitle == EmptyView {
     public init(
-        @ViewBuilder title: @escaping () -> Title,
+    @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
 		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-        ) {
+    ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },

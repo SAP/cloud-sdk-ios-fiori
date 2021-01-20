@@ -179,17 +179,17 @@ extension Array where Element: Variable {
         }).joined(separator: " ")
     }
 
-    public func extensionInitParamWhereEmptyView(scenario: Array<Element>) -> String {
+    public func extensionInitParamWhereEmptyView(scenario: Array<Element>) -> [String] {
         var output: Array<String> = []
         for variable in self {
             if !scenario.contains(variable) {
                 output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
             }
         }
-        return output.joined(separator: ",\n\t\t")
+        return output
     }
 
-    public func extensionInitParamAssignmentWhereEmptyView(scenario: Array<Element>) -> String {
+    public func extensionInitParamAssignmentWhereEmptyView(scenario: Array<Element>) -> [String] {
         var output: Array<String> = []
         for variable in self {
             if scenario.contains(variable) {
@@ -198,7 +198,7 @@ extension Array where Element: Variable {
                 output.append("\(variable.trimmedName): \(variable.trimmedName)")
             }
         }
-        return output.joined(separator: ",\n\t\t\t")
+        return output
     }
 }
 

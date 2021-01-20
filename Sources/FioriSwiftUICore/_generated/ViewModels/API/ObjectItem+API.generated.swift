@@ -11,15 +11,15 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	@Environment(\.statusModifier) private var statusModifier
 	@Environment(\.substatusModifier) private var substatusModifier
 	@Environment(\.detailImageModifier) private var detailImageModifier
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    private let _title: () -> Title
-	private let _subtitle: () -> Subtitle
-	private let _footnote: () -> Footnote
-	private let _descriptionText: () -> DescriptionText
-	private let _status: () -> Status
-	private let _substatus: () -> Substatus
-	private let _detailImage: () -> DetailImage
+	@Environment(\.horizontalSizeClass) var horizontalSizeClass
+
+    private let _title: Title
+	private let _subtitle: Subtitle
+	private let _footnote: Footnote
+	private let _descriptionText: DescriptionText
+	private let _status: Status
+	private let _substatus: Substatus
+	private let _detailImage: DetailImage
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -30,35 +30,35 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 		@ViewBuilder substatus: @escaping () -> Substatus,
 		@ViewBuilder detailImage: @escaping () -> DetailImage
         ) {
-            self._title = title
-			self._subtitle = subtitle
-			self._footnote = footnote
-			self._descriptionText = descriptionText
-			self._status = status
-			self._substatus = substatus
-			self._detailImage = detailImage
+            self._title = title()
+			self._subtitle = subtitle()
+			self._footnote = footnote()
+			self._descriptionText = descriptionText()
+			self._status = status()
+			self._substatus = substatus()
+			self._detailImage = detailImage()
     }
 
     var title: some View {
-        _title().modifier(titleModifier.concat(Fiori.ObjectItem.title))
+        _title.modifier(titleModifier.concat(Fiori.ObjectItem.title))
     }
 	var subtitle: some View {
-        _subtitle().modifier(subtitleModifier.concat(Fiori.ObjectItem.subtitle))
+        _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectItem.subtitle))
     }
 	var footnote: some View {
-        _footnote().modifier(footnoteModifier.concat(Fiori.ObjectItem.footnote))
+        _footnote.modifier(footnoteModifier.concat(Fiori.ObjectItem.footnote))
     }
 	var descriptionText: some View {
-        _descriptionText().modifier(descriptionTextModifier.concat(Fiori.ObjectItem.descriptionText))
+        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectItem.descriptionText))
     }
 	var status: some View {
-        _status().modifier(statusModifier.concat(Fiori.ObjectItem.status))
+        _status.modifier(statusModifier.concat(Fiori.ObjectItem.status))
     }
 	var substatus: some View {
-        _substatus().modifier(substatusModifier.concat(Fiori.ObjectItem.substatus))
+        _substatus.modifier(substatusModifier.concat(Fiori.ObjectItem.substatus))
     }
 	var detailImage: some View {
-        _detailImage().modifier(detailImageModifier.concat(Fiori.ObjectItem.detailImage))
+        _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectItem.detailImage))
     }
 }
 
@@ -71,16 +71,16 @@ extension ObjectItem where Title == Text,
 		DetailImage == _ConditionalContent<Image, EmptyView> {
     
     public init(model: ObjectItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, status: model.status_, substatus: model.substatus_, detailImage: model.detailImage_)
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, status: model.status_, substatus: model.substatus_, detailImage: model.detailImage_) 
     }
 
     public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: String? = nil, substatus: String? = nil, detailImage: Image? = nil) {
-        self._title = { Text(title) }
-		self._subtitle = { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._footnote = { footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._descriptionText = { descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._status = { status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._substatus = { substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView()) }
-		self._detailImage = { detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView()) }
+        self._title = Text(title)
+			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+			self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
+			self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
+			self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+			self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+			self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView()) 
     }
 } 

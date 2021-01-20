@@ -130,22 +130,32 @@ extension <%= model.componentName %>: View {
 */
 // sourcery:end
 
-// // sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
-// import SwiftUI
-// <%_ 
-//     for optionalCombination in combinationsOfOptionals {
-// -%>
+// sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
+import SwiftUI
+<%_ 
+    for optionalCombination in combinationsOfOptionals {
 
-// extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
-//     public init(
-//         <%= componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination) %>
-//         ) {
-//         self.init(
-//             <%= componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination) %>
-//         )
-//     }
-// }
-// <%_ } -%>
+        let extensionInitParamWhereEmptyView = [
+            componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination),
+            model.add_view_builder_paramsViewBuilderInitParams
+        ].flatMap { $0 }.joined(separator: ",\n\t\t")
 
-// // sourcery:end
+        let extensionInitParamAssignmentWhereEmptyView = [
+            componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination),
+            model.add_view_builder_paramsExtensionModelInitParamsChaining
+        ].flatMap { $0 }.joined(separator: ",\n\t\t\t")
+-%>
+
+extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
+    public init(
+    <%= extensionInitParamWhereEmptyView %>
+    ) {
+        self.init(
+            <%= extensionInitParamAssignmentWhereEmptyView %>
+        )
+    }
+}
+<%_ } -%>
+
+// sourcery:end
 <%_ } -%>
