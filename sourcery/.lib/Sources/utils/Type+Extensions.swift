@@ -21,6 +21,16 @@ extension Type {
         resolvedAnnotations("add_view_builder_params").map({ "\($0.capitalizingFirst()): View" })
     }
 }
+
+extension Type {
+    func viewBuilderProperties(in context: [String: Type]) -> [(name: String, type: String)] {
+        let componentProperties = flattenedComponentProperties(contextType: context).map { (name: $0.name, type: $0.name.capitalizingFirst()) }
+        let addViewBuilderProperties = resolvedAnnotations("add_view_builder_params").map { (name: $0, type: $0.capitalizingFirst()) }
+        return [componentProperties, addViewBuilderProperties].flatMap { $0 }
+    }
+}
+
+
 extension Type {
 
     public var componentName: String {
@@ -44,17 +54,34 @@ extension Type {
             return []
         }
     }
-
-    public var add_view_builder_paramsDecls: String {
-        resolvedAnnotations("add_view_builder_params").map({ "@Environment(\\.\($0)) var \($0)" }).joined(separator: "\n\t")
+    
+    public var add_view_builder_paramsViewBuilderPropertyDecls: [String] {
+        resolvedAnnotations("add_view_builder_params")
+            .map({ "private let _\($0): \($0.capitalizingFirst())" })
     }
     
-    public var add_env_propsDecls: String {
-        resolvedAnnotations("add_env_props").map({ "@Environment(\\.\($0)) var \($0)" }).joined(separator: "\n\t")
+    public var add_view_builder_paramsViewBuilderInitParams: [String] {
+        resolvedAnnotations("add_view_builder_params")
+            .map({ "@ViewBuilder \($0): @escaping () -> \($0.capitalizingFirst())"})
+    }
+    public var add_view_builder_paramsViewBuilderInitParamAssignment: [String] {
+        resolvedAnnotations("add_view_builder_params")
+            .map({ "self._\($0) = \($0)()" })
+    }
+    
+    public var add_view_builder_paramsExtensionModelInitParamsChaining: [String] {
+        resolvedAnnotations("add_view_builder_params")
+            .map({ "\($0): \($0)" })
+    }
+    
+    public var add_env_propsDecls: [String] {
+        resolvedAnnotations("add_env_props")
+            .map({ "@Environment(\\.\($0)) var \($0)" })
     }
 
     public func add_public_propsDecls(indent level: Int) -> String {
-        resolvedAnnotations("add_public_props").map({ "public let \($0)"}).joined(separator: carriageRet(level))
+        resolvedAnnotations("add_public_props")
+            .map({ "public let \($0)"}).joined(separator: carriageRet(level))
     }
 
 //    public func componentResolvedViewBuilderDecls(indent level: Int) -> String {

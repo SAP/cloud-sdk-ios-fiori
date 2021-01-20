@@ -17,3 +17,9 @@ extension Array where Element == String {
         })
     }
 }
+
+extension Array where Element == String {
+    public var viewModifierPropertyDecls: String {
+        map({ "@Environment(\\.\($0)Modifier) private var \($0)Modifier" }).joined(separator: "\n\t")
+    }
+}

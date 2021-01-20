@@ -15,9 +15,51 @@ for model in models {
     let styleName = model.componentStyleName
 
     let templateParameterDecls = [
-            componentProperties.templateParameterDecls, 
-            model.add_view_builder_paramsTemplateParameterDecls
-        ].flatMap { $0 }.joined(separator: ", ")
+        componentProperties.templateParameterDecls, 
+        model.add_view_builder_paramsTemplateParameterDecls
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let environmentPropertyDecls = [
+        componentProperties.viewModifierPropertyDecls,
+        model.add_env_propsDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let privatePropertyDecls = [
+        componentProperties.viewBuilderPropertyDecls,
+        model.add_view_builder_paramsViewBuilderPropertyDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let viewBuilderInitParams = [
+        componentProperties.viewBuilderInitParams,
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ",\n\t\t")
+
+    let viewBuilderInitParamAssignment = [
+        componentProperties.viewBuilderInitParamAssignment,
+        model.add_view_builder_paramsViewBuilderInitParamAssignment
+    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+
+    let extensionModelInitParams = [
+        componentProperties.extensionModelInitParams,
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsChaining = [
+        componentProperties.extensionModelInitParamsChaining,
+        model.add_view_builder_paramsExtensionModelInitParamsChaining
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsAssignments = [
+        componentProperties.extensionModelInitParamsAssignments,
+        model.add_view_builder_paramsViewBuilderInitParamAssignment
+    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+
+    let modelInitParam: String = "model: \(model.name)"
+
+    let modelInitParams = [ 
+        [modelInitParam],
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ", ")
 
   func optionalPropertySequences(_ t: Type) -> [[Variable]] {
       var sequences: [[Variable]] = []
@@ -36,15 +78,14 @@ for model in models {
 import SwiftUI
 
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
-    <%= componentProperties.viewModifierPropertyDecls %>
-    <%= model.add_env_propsDecls %>
-    <%= model.add_public_propsDecls(indent: 1) %>
-    <%= componentProperties.viewBuilderPropertyDecls %>
+    <%= environmentPropertyDecls %>
+
+    <%= privatePropertyDecls %>
 
     public init(
-        <%= componentProperties.viewBuilderInitParams %>
+        <%= viewBuilderInitParams %>
         ) {
-            <%= componentProperties.viewBuilderInitParamAssignment %>
+            <%= viewBuilderInitParamAssignment  %>
     }
 
     <%= componentProperties.resolvedViewModifierChain(type: model) %>
@@ -52,12 +93,12 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
     
-    public init(model: <%= model.name %>) {
-        self.init(<%= componentProperties.extensionModelInitParamsAssignment %>)
+    public init(<%= modelInitParams %>) {
+        self.init(<%= extensionModelInitParamsChaining %>) 
     }
 
-    public init(<%= componentProperties.extensionModelInitParams %>) {
-        <%= componentProperties.extensionModelInitParamsAssignments %>
+    public init(<%= extensionModelInitParams %>) {
+        <%= extensionModelInitParamsAssignments %> 
     }
 } 
 // sourcery:end
@@ -89,22 +130,22 @@ extension <%= model.componentName %>: View {
 */
 // sourcery:end
 
-// sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
-import SwiftUI
-<%_ 
-    for optionalCombination in combinationsOfOptionals {
--%>
+// // sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
+// import SwiftUI
+// <%_ 
+//     for optionalCombination in combinationsOfOptionals {
+// -%>
 
-extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
-    public init(
-        <%= componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination) %>
-        ) {
-        self.init(
-            <%= componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination) %>
-        )
-    }
-}
-<%_ } -%>
+// extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
+//     public init(
+//         <%= componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination) %>
+//         ) {
+//         self.init(
+//             <%= componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination) %>
+//         )
+//     }
+// }
+// <%_ } -%>
 
-// sourcery:end
+// // sourcery:end
 <%_ } -%>

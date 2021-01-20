@@ -61,10 +61,45 @@ extension Variable {
     public func resolvedViewModifierChain(type: Type) -> String {
         """
         var \(trimmedName): some View {
-                _\(trimmedName)().modifier(\(trimmedName)Modifier.concat(Fiori.\(type.componentName).\(trimmedName)))
+                _\(trimmedName).modifier(\(trimmedName)Modifier.concat(Fiori.\(type.componentName).\(trimmedName)))
             }
         """
     }
 }
+/*
+extension Variable: PublicAPIAttributes {
 
-
+    var typeNameString: String {
+        typeName.actualTypeName?.name ?? typeName.name
+    }
+}
+ */
+//extension Variable: PublicAPIProvider {
+//    func environmentPropertyDecl() -> PublicAPI {
+//        .environmentPropertyDecl(name: trimmedName, isPrivate: true)
+//    }
+//    func viewBuilderPropertyDecl() -> PublicAPI {
+//        .viewBuilderPropertyDecl(name: trimmedName, type: trimmedName.capitalizingFirst())
+//    }
+//    func viewBuilderInitParam() -> PublicAPI {
+//        .viewBuilderInitParam(name: trimmedName, type: trimmedName.capitalizingFirst())
+//    }
+//    func viewBuilderInitParamAssignment() -> PublicAPI {
+//        .viewBuilderInitParamAssignment(name: trimmedName)
+//    }
+//    func resolvedViewModifierChain(componentName: String) -> PublicAPI {
+//        .resolvedViewModifierChain(name: trimmedName, componentName: componentName)
+//    }
+//}
+//
+//extension Variable {
+//    func genericConstraint() -> ExtensionAPI {
+//        .genericConstraint(name: trimmedName.capitalizingFirst(), swiftUIType: swiftUITypeName, isConditional: isOptional)
+//    }
+//    func initParam() -> ExtensionAPI {
+//        .initParam(name: trimmedName, type: trimmedName.capitalizingFirst(), isConditional: isOptional)
+//    }
+//    func initParamAssignment() -> ExtensionAPI {
+//        .initParamAssignment(name: trimmedName, toSwiftUI: toSwiftUI, isConditional: isOptional)
+//    }
+//}
