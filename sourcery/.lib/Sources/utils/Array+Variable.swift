@@ -20,7 +20,7 @@ extension Array where Element == Variable {
      Title: View, Subtitle: View, ...
      ```
      */
-    public var templateParameterDecls: Array<String> {
+    public var templateParameterDecls: [String] {
         map({ "\($0.trimmedName.capitalizingFirst()): View"})
     }
     
@@ -32,20 +32,20 @@ extension Array where Element == Variable {
      ...
      ```
      */
-    public var viewModifierPropertyDecls: String {
-        map({ "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" }).joined(separator: "\n\t")
+    public var viewModifierPropertyDecls: [String] {
+        map({ "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" })
     }
     
     /**
      Formats private 'caching' properties to hold the developer-supplied ViewBuilder for each property
      ```
-     private let _title: () -> Title
-     private let _subtitle: () -> Subtitle
+     private let _title: Title
+     private let _subtitle: Subtitle
      ...
      ```
      */
-    public var viewBuilderPropertyDecls: String {
-        map({ "private let _\($0.trimmedName): () -> \($0.trimmedName.capitalizingFirst())" }).joined(separator: "\n\t")
+    public var viewBuilderPropertyDecls: [String] {
+        map({ "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" })
     }
     
     /**
@@ -56,8 +56,8 @@ extension Array where Element == Variable {
          @ViewBuilder subtitle: @escaping () -> Subtitle, ...
      ```
      */
-    public var viewBuilderInitParams: String {
-        map({ "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"}).joined(separator: ",\n\t\t")
+    public var viewBuilderInitParams: [String] {
+        map({ "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"})
     }
     
     /**
@@ -71,8 +71,8 @@ extension Array where Element == Variable {
             ...
      ```
      */
-    public var viewBuilderInitParamAssignment: String {
-        map({ "self._\($0.trimmedName) = \($0.trimmedName)" }).joined(separator: "\n\t\t\t")
+    public var viewBuilderInitParamAssignment: [String] {
+        map({ "self._\($0.trimmedName) = \($0.trimmedName)()" })
     }
     
     /**
@@ -102,17 +102,17 @@ extension Array where Element: Variable {
      ```
      init(/*...*/) { // starts here =>
         // Where content is non-optional
-        self._title = { Text(title) }
+        self._title = { Text(title) }()
 
         // Where content is optional (e.g. String?)
         self._subtitle = { subtitle != nil ?
             ViewBuilder.buildEither(first: Text(subtitle!)) :
             ViewBuilder.buildEither(second: EmptyView())
-        }
+        }()
      ```
      */
-    public var extensionModelInitParamsAssignments: String {
-        map({ "self._\($0.trimmedName) = { \($0.conditionalAssignment) }" }).joined(separator: "\n\t\t")
+    public var extensionModelInitParamsAssignments: [String] {
+        map({ "self._\($0.trimmedName) = \($0.conditionalAssignment)" })
     }
 }
 
@@ -148,12 +148,12 @@ extension Array where Element: Variable {
         map({ "\($0.trimmedName.capitalizingFirst()) == \($0.isOptional ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)"}).joined(separator: ",\n\t\t")
     }
 
-    public var extensionModelInitParams: String {
-        map({ "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" }).joined(separator: ", ")
+    public var extensionModelInitParams: [String] {
+        map({ "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" })
     }
 
-    public var extensionModelInitParamsAssignment: String {
-        map({ "\($0.trimmedName): model.\($0.name)"}).joined(separator: ", ")
+    public var extensionModelInitParamsChaining: [String] {
+        map({ "\($0.trimmedName): model.\($0.name)"})
     }
 
 
