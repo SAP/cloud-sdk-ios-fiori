@@ -41,7 +41,9 @@ extension ContactItem: View {
                 footnote
             }
             Spacer()
-//                actionItems
+            HStack(spacing: 8) {
+                actionItems
+            }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
     }

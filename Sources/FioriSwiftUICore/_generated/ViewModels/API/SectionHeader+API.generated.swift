@@ -9,7 +9,7 @@ public struct SectionHeader<Title: View, Attribute: View> {
 	@Environment(\.colorScheme) var colorScheme
 
     private let _title: Title
-	private let _attribute: Attribute
+	private let _attribute: Attribute 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -25,6 +25,7 @@ public struct SectionHeader<Title: View, Attribute: View> {
 	var attribute: some View {
         _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
     }
+    
 }
 
 extension SectionHeader where Title == Text,

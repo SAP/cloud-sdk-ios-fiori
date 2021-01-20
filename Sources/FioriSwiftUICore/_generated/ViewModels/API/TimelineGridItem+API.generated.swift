@@ -10,7 +10,7 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 
     private let _title: Title
 	private let _timestamp: Timestamp
-	private let _status: Status
+	private let _status: Status 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -31,6 +31,7 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 	var status: some View {
         _status.modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
     }
+    
 }
 
 extension TimelineGridItem where Title == Text,

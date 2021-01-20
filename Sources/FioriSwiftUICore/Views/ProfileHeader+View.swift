@@ -40,9 +40,8 @@ extension ProfileHeader: View {
                     footnote
                 }
                 descriptionText
-//                HStack(spacing: 8) {
-//                    actionItems
-//                }
+                Spacer()
+                    actionItems
             }
             .multilineTextAlignment(.center)
         } else {
@@ -56,9 +55,7 @@ extension ProfileHeader: View {
                 }
                 descriptionText
                 Spacer()
-//                HStack(spacing: 8) {
-//                    actionItems
-//                }
+                    actionItems
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
         }

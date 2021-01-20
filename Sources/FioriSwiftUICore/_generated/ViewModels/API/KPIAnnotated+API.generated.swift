@@ -10,7 +10,7 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
 
     private let _title: Title
 	private let _subtitle: Subtitle
-	private let _icon: Icon
+	private let _icon: Icon 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -31,6 +31,7 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
 	var icon: some View {
         _icon.modifier(iconModifier.concat(Fiori.KPIAnnotated.icon))
     }
+    
 }
 
 extension KPIAnnotated where Title == Text,

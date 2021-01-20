@@ -22,7 +22,7 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	private let _timestamp: Timestamp
 	private let _secondaryTimestamp: SecondaryTimestamp
 	private let _status: Status
-	private let _substatus: Substatus
+	private let _substatus: Substatus 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -73,6 +73,7 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	var substatus: some View {
         _substatus.modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
     }
+    
 }
 
 extension TimelineItem where Title == Text,

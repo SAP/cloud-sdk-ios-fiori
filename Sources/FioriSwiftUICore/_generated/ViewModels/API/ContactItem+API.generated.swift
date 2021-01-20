@@ -16,7 +16,7 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 	private let _footnote: Footnote
 	private let _descriptionText: DescriptionText
 	private let _detailImage: DetailImage
-	private let _actionItems: ActionItems
+	private let _actionItems: ActionItems 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -48,6 +48,9 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
     }
 	var detailImage: some View {
         _detailImage.modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
+    }
+    var actionItems: some View {
+        _actionItems
     }
 }
 

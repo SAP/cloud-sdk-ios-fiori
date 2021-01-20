@@ -8,7 +8,7 @@ public struct KPI<Title: View, Icon: View> {
 	@Environment(\.iconModifier) private var iconModifier
 
     private let _title: Title
-	private let _icon: Icon
+	private let _icon: Icon 
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -24,6 +24,7 @@ public struct KPI<Title: View, Icon: View> {
 	var icon: some View {
         _icon.modifier(iconModifier.concat(Fiori.KPI.icon))
     }
+    
 }
 
 extension KPI where Title == Text,

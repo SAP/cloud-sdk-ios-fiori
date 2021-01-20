@@ -8,7 +8,7 @@ public struct KeyValueItem<Key: View, Value: View> {
 	@Environment(\.valueModifier) private var valueModifier
 
     private let _key: Key
-	private let _value: Value
+	private let _value: Value 
 
     public init(
         @ViewBuilder key: @escaping () -> Key,
@@ -24,6 +24,7 @@ public struct KeyValueItem<Key: View, Value: View> {
 	var value: some View {
         _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value))
     }
+    
 }
 
 extension KeyValueItem where Key == Text,
