@@ -95,26 +95,6 @@ extension Type {
             .map({ "public let \($0)"}).joined(separator: carriageRet(level))
     }
 
-//    public func componentResolvedViewBuilderDecls(indent level: Int) -> String {
-//        componentProperties.map({ "@ViewBuilder var \($0.trimmedName): some View {\n\t\t\($0.concatenatedModifiers(component: componentName))\n\t}"}).joined(separator: carriageRet(level))
-//    }
-
-//    public func defaultInit(indent level: Int) -> String {
-//        let initParams = componentProperties.viewBuilderInitParams + resolvedAnnotations("add_public_props")
-//        return initParams.map({ $0 }).joined(separator: ",\(carriageRet(level))")
-//    }
-
-//    public func extensionModelInit() -> String {
-//        let initParams = componentProperties.extensionModelInitParams + resolvedAnnotations("add_public_props")
-//        return initParams.map({ $0 }).joined(separator: ", ")
-//    }
-
-//    public func extensionModelInitParamsAssignment() -> String {
-//        let add_public_props: [String] = resolvedAnnotations("add_public_props").valuesBeforeColon().map({ "\($0): \($0)"})
-//        let initParamsAssignment = componentProperties.extensionModelInitParamsAssignment + add_public_props
-//        return initParamsAssignment.map({ $0 }).joined(separator: ", ")
-//    }
-
     // Not used when Style/Configuration is not adopted
     public var componentStyleName: String {
         "\(componentName)tStyle"
