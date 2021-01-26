@@ -2,9 +2,11 @@ import SwiftUI
 
 extension ActivityItems: View {
     public var body: some View {
-        ActivityControlLayoutContainer(model.activityItems_) { activity in
+        ActivityControlLayoutContainer(activityItems) { activity in
             ActivityButtonView(image: activity.icon) {
-                model.didSelect(activity)
+                if let actionHandler = actionHandler {
+                    actionHandler(activity)
+                }
             }
         }
     }

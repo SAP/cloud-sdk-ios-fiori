@@ -14,6 +14,11 @@ but also contains experimental controls (new or existing ones modified) and thei
 
 Key-takaways:
 
+A control has up to three types of initializers (with multiple conditional implementations)
+- @ViewBuilder based initializer
+- Type-based initializer (e.g. passing `String` for title, `[ActivityItem]` for actionItems or `(ActivityItem) -> Void` as action handler)
+- Protocol-based initializer (i.e. passing a model conforming to model protocol(s), for example `ContactItemModel`)
+
 @ViewBuilder based initializers allow app developers to use any control(s), e.g. title can be an image
 
 ```swift
@@ -41,9 +46,9 @@ actionItems: {
 }
 ```
 
-A model-based initializer should back up any @ViewBuilder property as there is no such think of an arbitrary `@ViewBuilder` property unless we consider placeholder / extension points in the SDK controls which are not covered by the SDK controls itself
+any @ViewBuilder property should be backed up in  type-based or protocol-based initializer unless we consider placeholder/extension points in SDK controls which are not covered by SDK controls themselves
 
-Here is an example of using a composite control within a control
+Here is an example of using a composite control (`ActivityItems`) within a control (`ContactItem`)
 
 ```swift
 extension ContactItem where Title == Text,
@@ -57,6 +62,14 @@ ActionItems == _ConditionalContent<ActivityItems, EmptyView>
         self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItemsControl: ActivityItems(model: model))
     }
 
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItem]? = nil, actionItemHandler: ((ActivityItem) -> Void)? = nil) {
+        guard let actionItems = actionItems else {
+            self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: nil)
+            return
+        }
+        self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: ActivityItems(items: actionItems, action: handler))
+    }
+
     init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItemsControl: ActivityItems?) {
         self._title = Text(title)
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
@@ -68,11 +81,27 @@ ActionItems == _ConditionalContent<ActivityItems, EmptyView>
 }
 ```
 
-The component model currently defines the state. How to deal with **behavior**?
+The concrete type for a component (e.g actionItems) is debatable and could be handled via function/result builder
 
-This should be represented in a different protocol (e.g. ActivityItemsBehavior).
+```swift
+// instead of an array containing struct/class the proposal is to have a function builder (essentially for an array) of enums
+ContactItem(title: "aString", action: { (selectedActionItem) in {
+    print(selectedActionItem)
+}) {
+    .phone(6504224410)
+    .email("marco.eidinger@sap.com")
+}
 
-An app developer could conform the data model to this protocol but it is more likely that the app developer prefers to back this with a custom view model (or even prefers the  @ViewBuilder based initializer overall to interact with local view state easily). 
+// otherwise equivalent to
+
+ContactItem(title: "aString", actionItems: [.init(type: .email, data: "address@gmail.com")], action: { selectedActionItem in
+    print(selectedActionItem)
+})
+```
+
+In this proposal a component model needs to handle state **and behavior**. For the latter this should be represented in a different protocol (e.g. ActivityItemsBehavior).
+
+An app developer could conform the data model to this protocol but it is more likely that the app developer prefers to back this with a custom view model (or even prefers the @ViewBuilder based initializer overall to interact with local view state easily). 
 
 ```swift
 struct ContactItemActionItemsExample: View {
@@ -94,7 +123,7 @@ struct ContactItemActionItemsExample: View {
             EmptyView()
         }
         actionItems: {
-            FUIActivityControl(model: viewModel)
+            ActivityItems(model: viewModel)
         }
         .alert(isPresented: $viewModel.showingAlert, content: {
             Alert(title: Text("Important message"), message: Text("Performing activity for \(viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
@@ -123,15 +152,14 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel {
 }
 
 extension ContactItemActionItemsExampleViewModel: ActivityItemsBehavior {
-    func activityControl(didSelectActivity activityItem: ActivityItem) {
+    func didSelect(_ activityItem: ActivityItem) {
         switch activityItem.type {
         case .email:
-			// special process ing for email
+            print("send email to \(activityItem.data ?? "unknown")")
+            self.selectedActivity = activityItem
         default:
             print("don't know how to handle this activity")
         }
-
-		self.selectedActivity = activityItem
     }
 }
 ```

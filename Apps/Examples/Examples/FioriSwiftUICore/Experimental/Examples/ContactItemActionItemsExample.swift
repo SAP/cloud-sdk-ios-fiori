@@ -7,7 +7,7 @@ struct ContactItemActionItemsExample: View {
     var body: some View {
         VStack {
             ScrollView {
-                ExpHeaderView("Action Items", subtitle: "Option: Single ViewBuilder prop", desc: "pass a custom composite view to represent actionItems")
+                ExpHeaderView("Action Items", subtitle: "Option: ViewBuilder init - arbitrary use", desc: "pass an arbitrary view to represent actionItems")
 
                 ContactItem {
                     Text("Title")
@@ -24,12 +24,7 @@ struct ContactItemActionItemsExample: View {
                 }
                 .exampleHighlighting()
 
-                ExpHeaderView(nil, subtitle: "Option: Model-based Init Default implementation", desc: "difficult for view event handling")
-
-                ContactItem(model: viewModel)
-                    .exampleHighlighting()
-
-                ExpHeaderView(nil, subtitle: "Option: Composite Control / Container", desc: "pass a standard composite view to represent actionItems", back: .green, textColor: .white)
+                ExpHeaderView(nil, subtitle: "Option: ViewBuilder init - SDK reuse", desc: "pass an SDK standard composite view (control / container) to represent actionItems", back: .green, textColor: .white)
 
                 ContactItem {
                     Text("Title")
@@ -43,19 +38,39 @@ struct ContactItemActionItemsExample: View {
                     EmptyView()
                 } actionItems: {
                     if useCompositeControl {
-                        ActivityItems(model: viewModel)
+                        // equivalent to `ActivityItems(model: viewModel)`
+                        ActivityItems(items: viewModel.activityItems_) { selectedActivity in
+                            self.viewModel.selectedActivity = selectedActivity
+                        }
                     } else {
                         ActivityControlLayoutContainer(viewModel.activityItems_) { activity in
                             ActivityButtonView(activity) {
                                 self.viewModel.selectedActivity = activity
                             }
                         }
+
+                        // offer optional action handler which is backed by onTapGesture ??
+//                        ActivityControlLayoutContainer(viewModel.activityItems_, action: viewModel.didSelect) { activity in
+//                            Text(activity.id.uuidString)
+//                        }
                     }
                 }
                 .exampleHighlighting()
-                .alert(isPresented: $viewModel.showingAlert, content: {
-                    Alert(title: Text("Important message"), message: Text("Sending email to \(viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
-                })
+
+                ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "CodeGen changes needed to handle behavior protocol; optionally pass items via function builder")
+
+                ContactItem(title: "TitleString", subtitle: "SubtitleString", footnote: nil, descriptionText: nil, detailImage: nil, actionItems: [.init(type: .email, data: "address@gmail.com")], actionItemHandler: { selectedActivity in
+                    self.viewModel.selectedActivity = selectedActivity
+                }).exampleHighlighting()
+
+                ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "CodeGen changes needed to handle behavior protocol")
+
+                ContactItem(model: viewModel)
+                    .exampleHighlighting()
+
+                    .alert(isPresented: $viewModel.showingAlert, content: {
+                        Alert(title: Text("Important message"), message: Text("Sending email to \(viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
+                    })
             }
         }
     }
