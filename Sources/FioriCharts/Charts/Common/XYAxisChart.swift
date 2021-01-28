@@ -121,7 +121,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         }
     }
 
-    // swiftlint:disable cyclomatic_complexity
     func layout(in rect: CGRect) -> (xAxisRect: CGRect, xAxisLabelsRect: CGRect, yAxisRect: CGRect, secondaryYAxisRect: CGRect, chartRect: CGRect) {
         let yAxisWidth = self.yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = self.yAxisLabelsMaxWidth(rect, secondary: true)
@@ -194,8 +193,6 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         return (xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect)
     }
-    
-    // swiftlint:enable cyclomatic_complexity
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         if rect.size.width <= 0 || rect.size.height <= 0 || self.model.categoryAxis.labels.isHidden {
