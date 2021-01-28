@@ -6,44 +6,45 @@
 //
 
 import SwiftUI
-/*
-extension SignatureViewInline: View {
-    class Model: ObservableObject {
-        @Published var imageStrokeColor: UIColor?
-        @Published var imageBackgroundColor: UIColor?
-        
-        var strokeWidth: CGFloat = 2.0 {
-            didSet {
-                bezierPath.lineWidth = strokeWidth
-            }
-        }
 
-        var strokeColor: UIColor = .preferredFioriColor(forStyle: .primary1) {
-            didSet {
-                if !bezierPath.isEmpty {
-                    strokeColor.setStroke()
-                }
-            }
-        }
+extension SignatureViewInline {
+    class Model: ObservableObject {
+        @Published var imageStrokeColor: Color = Color.black
+        @Published var strokeWidth: CGFloat = 3.0
     }
 }
-*/
+
 public struct SignatureViewInline: View {
+    
+    public var strokeWidth: CGFloat {
+        get {
+            return model.strokeWidth
+        } set {
+            model.strokeWidth = newValue
+        }
+    }
+    
+    public var imageStrokeColor: Color {
+        get {
+            return model.imageStrokeColor
+        } set {
+            model.imageStrokeColor = newValue
+        }
+    }
+    
+    @ObservedObject private var model: Model = Model()
+    
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.black) {
+        self.strokeWidth = strokeWidth
+        self.imageStrokeColor = imageStrokeColor
+    }
     
     @State private var currentDrawing: Drawing = Drawing()
     @State private var drawings: [Drawing] = [Drawing]()
-    @State private var imageStrokeColor: Color = Color.black
-    @State private var strokeWidth: CGFloat = 3.0
     @State private var isSignatureEditable = false
     @State private var isSaved = false
     @State private var rect1: CGRect = .zero
-    @State var imageView: Image? = nil
-    
-    //@ObservedObject private var model: Model = Model()
-    
-    public init() {
-        
-    }
+    @State private var imageView: Image? = nil
     
     public var body: some View {
         GeometryReader { geometry in
@@ -54,16 +55,16 @@ public struct SignatureViewInline: View {
                         Spacer()
                     }
                     ZStack {
-                        Color.gray
+                        Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12)
                         Text("Tap to Sign")
                     }
                     .frame(width: geometry.size.width, height: 300)
                     .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.gray, lineWidth: 4)
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12), lineWidth: 4)
                     )
                     .onTapGesture {
-                        isSignatureEditable = true
+                        self.isSignatureEditable = true
                     }
                 }
             } else {
@@ -72,9 +73,9 @@ public struct SignatureViewInline: View {
                         Text("Signature*")
                         Spacer()
                         Button(action: {
-                            drawings.removeAll()
+                            self.drawings.removeAll()
                             isSaved = false
-                            self.imageView = nil
+                            imageView = nil
                             isSignatureEditable = false
                         }) {
                             Text("Cancel")
@@ -85,8 +86,8 @@ public struct SignatureViewInline: View {
                             if imageView == nil {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
-                                           color: $imageStrokeColor,
-                                           lineWidth: $strokeWidth)
+                                           color: $model.imageStrokeColor,
+                                           lineWidth: $model.strokeWidth)
                                     .background(RectGetter(rect: $rect1))
                                 HStack {
                                     Image(systemName: "xmark")
@@ -105,33 +106,30 @@ public struct SignatureViewInline: View {
                             RoundedRectangle(cornerRadius: 16)
                             .stroke(Color.gray, lineWidth: 4)
                             .background(Color.gray.opacity(0.5))
-                            
                         }
-                        
-                            
                     }
                     Divider()
                     HStack {
                         if !isSaved {
                             Button(action: {
-                                drawings.removeAll()
+                                self.drawings.removeAll()
                             }) {
                                 Text("Clear")
-                            }.disabled(drawings.isEmpty)
+                            }.disabled(self.drawings.isEmpty)
                             Spacer()
                             Button(action: {
-                                isSaved = true
+                                self.isSaved = true
                                 let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
-                                let imageview = Image(uiImage: uimage!)
-                                self.imageView = imageview
+                                let tempimageview = Image(uiImage: uimage!)
+                                self.imageView = tempimageview
                             }) {
                                 Text("Save")
-                            }.disabled(drawings.isEmpty)
+                            }.disabled(self.drawings.isEmpty)
                         } else {
                             Button(action: {
-                                drawings.removeAll()
+                                self.drawings.removeAll()
                                 self.imageView = nil
-                                isSaved = false
+                                self.isSaved = false
                             }) {
                                 Text("Re-enter Signature")
                             }
@@ -140,6 +138,5 @@ public struct SignatureViewInline: View {
                 }
             }
         }.frame(height: 500)
-        
     }
-}
+ }
