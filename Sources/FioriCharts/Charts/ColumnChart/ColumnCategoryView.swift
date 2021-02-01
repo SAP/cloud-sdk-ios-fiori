@@ -18,7 +18,6 @@ struct ColumnCategoryView: View {
     }
     
     // swiftlint:disable force_unwrapping
-    // swiftlint:disable function_body_length
     func makeBody(in rect: CGRect) -> some View {
         let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: rect.size.width, ty: 0) : CGAffineTransform.identity
         
