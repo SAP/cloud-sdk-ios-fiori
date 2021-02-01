@@ -529,7 +529,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     /// enable/disable Y direction scale by gesture
     @Published public var scaleYEnabled: Bool = false
     
-    /// enable/disable Y direction scale by gesture
+    /// when it is true there is a minimum width of a column (20 pts)
     @Published public var readableScaleEnabled: Bool = true {
         didSet {
             if self.readableScaleEnabled == false {
