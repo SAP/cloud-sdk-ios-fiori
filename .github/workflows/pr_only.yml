@@ -82,7 +82,7 @@ jobs:
       if: steps.changes.outputs.src == 'true'
       run:  |
         brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
-        brew install swiftlint xcbeautify
+        brew install xcbeautify
     - name: Build Package
       if: steps.changes.outputs.src == 'true'
       run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
