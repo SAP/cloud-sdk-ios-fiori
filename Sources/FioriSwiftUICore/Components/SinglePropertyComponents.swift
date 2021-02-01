@@ -32,5 +32,6 @@ internal struct _Component: _ComponentGenerating {
     let tags_: [String]
     let lowerBoundTitle_: String?
     let upperBoundTitle_: String?
-    var activities_: [ActivityItem] // need to be optional ?
+    // sourcery: no_style
+    var activityItems_: [ActivityItem] // use `sourcery --config sourcery/.phase_pre_sourcery.yml` to generate protocol `ActivityItemsComponent`
 }
