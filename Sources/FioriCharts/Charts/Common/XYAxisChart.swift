@@ -42,9 +42,86 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         .environment(\.chartContext, chartContext)
     }
     
-    // swiftlint:disable function_body_length
-    // swiftlint:disable cyclomatic_complexity
     func makeBody(in rect: CGRect) -> some View {
+        let (xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect) = self.layout(in: rect)
+        
+        let doubleTapGesture = TapGesture(count: 2).onEnded {
+            self.yAxisExpanded.toggle()
+        }
+        
+        let gridLinesAndChartView = GridLinesAndChartView(chartView: chartView,
+                                                          indicatorView: indicatorView,
+                                                          scaleX: model.scaleX,
+                                                          scaleY: self.model.scaleY,
+                                                          centerPosition: nil)
+            .frame(width: chartRect.width, height: chartRect.height)
+            .zIndex(3)
+        
+        return HStack(alignment: .top, spacing: 0) {
+            // primary y axis
+            VStack(spacing: 0) {
+                if yAxisRect.width > 0 {
+                    if model.userInteractionEnabled {
+                        YAxisView(plotViewSize: chartRect.size)
+                            .frame(height: yAxisRect.size.height)
+                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                            .contentShape(Rectangle())
+                            .gesture(doubleTapGesture)
+                    } else {
+                        YAxisView(plotViewSize: chartRect.size)
+                            .frame(height: yAxisRect.size.height)
+                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
+                            .contentShape(Rectangle())
+                    }
+                }
+            }.frame(width: yAxisRect.size.width, height: rect.size.height)
+            
+            // plot view
+            VStack(alignment: .leading, spacing: 0) {
+                if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
+                    gridLinesAndChartView
+                    
+                    XAxisView(plotViewSize: chartRect.size)
+                        .frame(height: xAxisRect.height)
+                } else if model.valueType == .allNegative {
+                    XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
+                        .frame(height: xAxisRect.height)
+                    
+                    gridLinesAndChartView
+                    
+                    if model.xAxisLabelsPosition == .fixedBottom {
+                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
+                            .frame(height: xAxisLabelsRect.height)
+                    }
+                } else {
+                    ZStack {
+                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
+                            .frame(height: xAxisRect.height)
+                            .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
+                        
+                        gridLinesAndChartView
+                    }.zIndex(3)
+                    
+                    if model.xAxisLabelsPosition == .fixedBottom {
+                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
+                            .frame(height: xAxisLabelsRect.height)
+                    }
+                }
+            }.zIndex(2)
+            
+            // secondary numerix axis
+            VStack(spacing: 0) {
+                if secondaryYAxisRect.width > 0 {
+                    YAxisView(secondary: true, plotViewSize: chartRect.size)
+                        .frame(height: secondaryYAxisRect.size.height)
+                        .position(x: secondaryYAxisRect.size.width / 2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
+                        .zIndex(2)
+                }
+            }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
+        }
+    }
+
+    func layout(in rect: CGRect) -> (xAxisRect: CGRect, xAxisLabelsRect: CGRect, yAxisRect: CGRect, secondaryYAxisRect: CGRect, chartRect: CGRect) {
         let yAxisWidth = self.yAxisLabelsMaxWidth(rect)
         let secondaryYAxisWidth = self.yAxisLabelsMaxWidth(rect, secondary: true)
         let chartWidth = max(rect.size.width - yAxisWidth - secondaryYAxisWidth, 0)
@@ -114,80 +191,8 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
             }
         }
         
-        let doubleTapGesture = TapGesture(count: 2).onEnded {
-            self.yAxisExpanded.toggle()
-        }
-        
-        return HStack(alignment: .top, spacing: 0) {
-            // primary y axis
-            VStack(spacing: 0) {
-                if yAxisWidth > 0 {
-                    if model.userInteractionEnabled {
-                        YAxisView(plotViewSize: chartRect.size)
-                            .frame(height: yAxisRect.size.height)
-                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
-                            .contentShape(Rectangle())
-                            .gesture(doubleTapGesture)
-                    } else {
-                        YAxisView(plotViewSize: chartRect.size)
-                            .frame(height: yAxisRect.size.height)
-                            .position(x: yAxisRect.size.width / 2, y: yAxisRect.origin.y + yAxisRect.size.height / 2)
-                            .contentShape(Rectangle())
-                    }
-                }
-            }.frame(width: yAxisRect.size.width, height: rect.size.height)
-            
-            // plot view
-            VStack(alignment: .leading, spacing: 0) {
-                if model.chartType == .bar || model.chartType == .stackedBar || model.valueType == .allPositive {
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
-                        .frame(width: chartRect.width, height: chartRect.height)
-                        .zIndex(3)
-                    
-                    XAxisView(plotViewSize: chartRect.size)
-                        .frame(height: xAxisRect.height)
-                } else if model.valueType == .allNegative {
-                    XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
-                        .frame(height: xAxisRect.height)
-                    
-                    GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
-                        .frame(width: chartRect.width, height: chartRect.height)
-                        .zIndex(3)
-                    
-                    if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
-                            .frame(height: xAxisLabelsRect.height)
-                    }
-                } else {
-                    ZStack {
-                        XAxisView(isShowBaselineOnly: model.xAxisLabelsPosition == .fixedBottom ? true : false, plotViewSize: chartRect.size)
-                            .frame(height: xAxisRect.height)
-                            .position(x: xAxisRect.size.width / 2, y: xAxisRect.origin.y + xAxisRect.size.height / 2)
-                        
-                        GridLinesAndChartView(chartView: chartView, indicatorView: indicatorView, scaleX: model.scaleX, scaleY: model.scaleY, centerPosition: nil)
-                            .frame(width: chartRect.width, height: chartRect.height)
-                    }.zIndex(3)
-                    
-                    if model.xAxisLabelsPosition == .fixedBottom {
-                        XAxisView(isShowLabelsOnly: true, plotViewSize: chartRect.size)
-                            .frame(height: xAxisLabelsRect.height)
-                    }
-                }
-            }.zIndex(2)
-            
-            // secondary numerix axis
-            VStack(spacing: 0) {
-                if secondaryYAxisWidth > 0 {
-                    YAxisView(secondary: true, plotViewSize: chartRect.size)
-                        .frame(height: secondaryYAxisRect.size.height)
-                        .position(x: secondaryYAxisRect.size.width / 2, y: secondaryYAxisRect.origin.y + secondaryYAxisRect.size.height / 2)
-                        .zIndex(2)
-                }
-            }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height)
-        }
+        return (xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect)
     }
-
-    // swiftlint:enable [function_body_length cyclomatic_complexity]
     
     func xAxisLabelsMaxHeight(_ rect: CGRect) -> CGFloat {
         if rect.size.width <= 0 || rect.size.height <= 0 || self.model.categoryAxis.labels.isHidden {
