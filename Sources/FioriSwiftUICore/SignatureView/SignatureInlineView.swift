@@ -14,6 +14,18 @@ extension SignatureViewInline {
     }
 }
 
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .foregroundColor(Color(.sRGB, red: 50/255, green: 54/255, blue: 58/255, opacity: 1))
+    }
+}
+
+extension Color {
+    static let lightGrayColor = Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12)
+    static let otherLightGrayColor = Color(.sRGB, red: 50/255, green: 54/255, blue: 58/255, opacity: 0.55)
+}
+
 public struct SignatureViewInline: View {
     
     public var strokeWidth: CGFloat {
@@ -55,18 +67,18 @@ public struct SignatureViewInline: View {
                         Spacer()
                     }
                     ZStack {
-                        Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12)
+                        Color.lightGrayColor
                         Text("Tap to Sign")
                     }
                     .frame(width: geometry.size.width, height: 300)
                     .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12), lineWidth: 4)
+                                .stroke(Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12), lineWidth: 1)
                     )
                     .onTapGesture {
                         self.isSignatureEditable = true
                     }
-                }
+                }.frame(height: 258)
             } else {
                 VStack {
                     HStack {
@@ -90,9 +102,13 @@ public struct SignatureViewInline: View {
                                            lineWidth: $model.strokeWidth)
                                     .background(RectGetter(rect: $rect1))
                                 HStack {
-                                    Image(systemName: "xmark")
-                                    Rectangle().background(Color.black).frame(width: 250, height: 1)
-                                }.padding([.leading, .trailing])
+                                    Text("X").foregroundColor(Color.otherLightGrayColor)
+                                        .font(.system(size: 17))
+                                        .fontWeight(.regular)
+                                        .kerning(-0.41)
+                                        .frame(width: 17, height: 22)
+                                    Rectangle().background(Color.otherLightGrayColor).frame(width: 270, height: 1)
+                                }.padding([.leading, .trailing]).padding(.bottom, 40)
                             } else {
                                 imageView
                             }
@@ -100,12 +116,12 @@ public struct SignatureViewInline: View {
                         
                         if !isSaved {
                             RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.gray, lineWidth: 4)
+                                .stroke(Color.lightGrayColor, lineWidth: 1)
                         } else {
                             
                             RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.gray, lineWidth: 4)
-                            .background(Color.gray.opacity(0.5))
+                                .stroke(Color.lightGrayColor, lineWidth: 1)
+                                .background(Color.lightGrayColor.opacity(0.5))
                         }
                     }
                     Divider()
@@ -137,6 +153,6 @@ public struct SignatureViewInline: View {
                     }
                 }
             }
-        }.frame(height: 500)
+        }.padding(16).frame(height: 298)
     }
  }

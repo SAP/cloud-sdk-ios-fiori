@@ -140,9 +140,13 @@ public struct SignatureView: View {
                            lineWidth: $strokeWidth)
                     .background(RectGetter(rect: $rect1))
                 HStack {
-                    Image(systemName: "xmark")
-                    Rectangle().background(Color.black).frame(width: 250, height: 1)
-                }.padding([.leading, .trailing])
+                    Text("X").foregroundColor(Color.otherLightGrayColor)
+                        .font(.system(size: 17))
+                        .fontWeight(.regular)
+                        .kerning(-0.41)
+                        .frame(width: 17, height: 22)
+                    Rectangle().background(Color.otherLightGrayColor).frame(width: 270, height: 1)
+                }.frame(height: 40).padding([.leading, .trailing]).padding(.bottom, 40)
             }
         }
     }
