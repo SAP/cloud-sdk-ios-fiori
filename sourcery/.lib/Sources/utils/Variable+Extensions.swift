@@ -3,13 +3,15 @@ import SourceryRuntime
 
 public extension Variable {
     var swiftUITypeName: String {
+        if let backingSwiftUIComponent = resolvedAnnotations("backingComponent").first {
+            return backingSwiftUIComponent
+        }
+
         switch self.typeName.unwrappedTypeName {
         case "String", "[String]":
             return "Text"
         case "Image":
             return "Image"
-        case "[ActivityItem]":
-            return "ActivityItems" // used for extension where condition _ConditionalContent<ActivityItem, EmptyView>
         default:
             return "Never"
         }
@@ -67,6 +69,16 @@ public extension Variable {
                     _\(self.trimmedName)
                 }
             """
+        }
+    }
+
+    func resolvedAnnotations(_ name: String) -> [String] {
+        if let string = self.annotations[name] as? String {
+            return [string]
+        } else if let array = self.annotations[name] as? [String] {
+            return array
+        } else {
+            return []
         }
     }
 }
