@@ -117,8 +117,8 @@ public extension LibraryPreviewData.Person {
     }
 }
 
-extension LibraryPreviewData.Person: ActivityItemsComponent {
-    public var activityItems_: [ActivityItem] {
+extension LibraryPreviewData.Person: ActionItemsComponent {
+    public var actionItems_: [ActivityItem]? {
         let activities: [ActivityItem] = Emails.map { .init(type: .email, data: $0) }
         return activities
     }

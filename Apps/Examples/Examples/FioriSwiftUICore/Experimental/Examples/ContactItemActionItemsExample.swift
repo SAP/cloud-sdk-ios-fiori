@@ -39,11 +39,11 @@ struct ContactItemActionItemsExample: View {
                 } actionItems: {
                     if useCompositeControl {
                         // equivalent to `ActivityItems(model: viewModel)`
-                        ActivityItems(items: viewModel.activityItems_) { selectedActivity in
+                        ActivityItems(items: viewModel.actionItems_ ?? []) { selectedActivity in
                             self.viewModel.selectedActivity = selectedActivity
                         }
                     } else {
-                        ActivityControlLayoutContainer(viewModel.activityItems_) { activity in
+                        ActivityControlLayoutContainer(viewModel.actionItems_!) { activity in
                             ActivityButtonView(activity) {
                                 self.viewModel.selectedActivity = activity
                             }
@@ -59,9 +59,9 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "CodeGen changes needed to handle behavior protocol; optionally pass items via function builder")
 
-                ContactItem(title: "TitleString", subtitle: "SubtitleString", footnote: nil, descriptionText: nil, detailImage: nil, actionItems: [.init(type: .email, data: "address@gmail.com")], actionItemHandler: { selectedActivity in
-                    self.viewModel.selectedActivity = selectedActivity
-                }).exampleHighlighting()
+//                ContactItem(title: "TitleString", subtitle: "SubtitleString", footnote: nil, descriptionText: nil, detailImage: nil, actionItems: [.init(type: .email, data: "address@gmail.com")], actionItemHandler: { selectedActivity in
+//                    self.viewModel.selectedActivity = selectedActivity
+//                }).exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "CodeGen changes needed to handle behavior protocol")
 
@@ -89,13 +89,13 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     }
 }
 
-extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActivityItemsComponent {
+extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsComponent {
     var title_: String { self.model.title_ }
     var subtitle_: String? { self.model.subtitle_ }
     var footnote_: String? { self.model.footnote_ }
     var descriptionText_: String? { self.model.descriptionText_ }
     var detailImage_: Image? { self.model.detailImage_ }
-    var activityItems_: [ActivityItem] {
+    var actionItems_: [ActivityItem]? {
         let activities: [ActivityItem] = [ActivityItem.email, .init(type: .email, data: "cba@gmail.com")]
         return activities
     }

@@ -6,12 +6,12 @@ public struct ActivityItems {
     internal var activityItems: [ActivityItem] = []
     internal var actionHandler: ((ActivityItem) -> Void)?
 
-    public init(model: ActivityItemsComponent & ActivityItemsBehavior) {
-        self.activityItems = model.activityItems_
+    public init(model: ActionItemsComponent & ActivityItemsBehavior) {
+        self.activityItems = model.actionItems_ ?? []
         self.actionHandler = model.didSelect(_:)
     }
 
-    public init(items: [ActivityItem], action: ((ActivityItem) -> Void)?) {
+    public init(items: [ActivityItem], action: ((ActivityItem) -> Void)? = nil) {
         self.activityItems = items
         self.actionHandler = action
     }

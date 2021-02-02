@@ -12,10 +12,9 @@ public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, FootnoteCo
 // sourcery: generated_component
 public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, KpiComponent {}
 
-// sourcery: add_view_builder_params = "actionItems"
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: generated_component
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsComponent, ActivityItemsBehavior {} // CUSTO_MOD
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActionItemsComponent, ActivityItemsBehavior {}
 
 // sourcery: generated_component
 public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}

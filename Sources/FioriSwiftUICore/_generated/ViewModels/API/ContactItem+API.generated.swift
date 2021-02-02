@@ -60,67 +60,19 @@ public extension ContactItem where Title == Text,
     Subtitle == _ConditionalContent<Text, EmptyView>,
     Footnote == _ConditionalContent<Text, EmptyView>,
     DescriptionText == _ConditionalContent<Text, EmptyView>,
-    DetailImage == _ConditionalContent<Image, EmptyView>
-{
-    init(model: ContactItemModel, @ViewBuilder actionItems: @escaping () -> ActionItems) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: actionItems)
-    }
-
-    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, @ViewBuilder actionItems: @escaping () -> ActionItems) {
-        self._title = Text(title)
-        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-        self._actionItems = actionItems()
-    }
-}
-
-// CUSTO_MOD
-public extension ContactItem where Title == Text,
-    Subtitle == _ConditionalContent<Text, EmptyView>,
-    Footnote == _ConditionalContent<Text, EmptyView>,
-    DescriptionText == _ConditionalContent<Text, EmptyView>,
     DetailImage == _ConditionalContent<Image, EmptyView>,
     ActionItems == _ConditionalContent<ActivityItems, EmptyView>
 {
     init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItemsControl: ActivityItems(model: model))
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_)
     }
 
-    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItem]? = nil, actionItemHandler: ((ActivityItem) -> Void)? = nil) {
-        guard let actionItems = actionItems else {
-            self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: nil)
-            return
-        }
-        self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: ActivityItems(items: actionItems, action: actionItemHandler))
-    }
-
-    internal init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItemsControl: ActivityItems?) {
+    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItem]? = nil) {
         self._title = Text(title)
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
         self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
         self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-        self._actionItems = actionItemsControl != nil ? ViewBuilder.buildEither(first: actionItemsControl!) : ViewBuilder.buildEither(second: EmptyView())
-    }
-}
-
-public extension ContactItem where ActionItems == EmptyView {
-    init(
-        @ViewBuilder title: @escaping () -> Title,
-        @ViewBuilder subtitle: @escaping () -> Subtitle,
-        @ViewBuilder footnote: @escaping () -> Footnote,
-        @ViewBuilder descriptionText: @escaping () -> DescriptionText,
-        @ViewBuilder detailImage: @escaping () -> DetailImage
-    ) {
-        self.init(
-            title: title,
-            subtitle: subtitle,
-            footnote: footnote,
-            descriptionText: descriptionText,
-            detailImage: detailImage,
-            actionItems: { EmptyView() }
-        )
+        self._actionItems = actionItems != nil ? ViewBuilder.buildEither(first: ActivityItems(items: actionItems!)) : ViewBuilder.buildEither(second: EmptyView())
     }
 }

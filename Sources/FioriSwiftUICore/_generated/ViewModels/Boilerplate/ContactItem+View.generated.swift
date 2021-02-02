@@ -19,6 +19,7 @@
  		typealias Footnote = EmptyModifier
  		typealias DescriptionText = EmptyModifier
  		typealias DetailImage = EmptyModifier
+ 		typealias ActionItems = EmptyModifier
 
          // TODO: - substitute type-specific ViewModifier for EmptyModifier
          /*
@@ -37,6 +38,7 @@
  		static let footnote = Footnote()
  		static let descriptionText = DescriptionText()
  		static let detailImage = DetailImage()
+ 		static let actionItems = ActionItems()
      }
  }
 

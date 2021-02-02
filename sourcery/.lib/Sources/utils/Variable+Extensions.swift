@@ -1,47 +1,44 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stadelman, Stan on 12/14/20.
-//
-
 import Foundation
 import SourceryRuntime
 
-extension Variable {
-    public var swiftUITypeName: String {
+public extension Variable {
+    var swiftUITypeName: String {
         switch self.typeName.unwrappedTypeName {
         case "String", "[String]":
             return "Text"
         case "Image":
             return "Image"
+        case "[ActivityItem]":
+            return "ActivityItems" // used for extension where condition _ConditionalContent<ActivityItem, EmptyView>
         default:
             return "Never"
         }
     }
 
-    public var conditionalAssignment: String {
+    var conditionalAssignment: String {
         if isOptional {
-            return "\(trimmedName) != nil ? ViewBuilder.buildEither(first: \(toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
+            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
         } else {
-            return toSwiftUI
+            return self.toSwiftUI
         }
     }
 
-    public var toSwiftUI: String {
+    var toSwiftUI: String {
         switch self.typeName.unwrappedTypeName {
-            case "String":
-                return isOptional ? "Text(\(trimmedName)!)" : "Text(\(trimmedName))"
-            case "[String]":
-                return "Text(\(trimmedName).joined(separator: \", \"))"
-            case "Image":
-                return isOptional ? "\(trimmedName)!" : trimmedName
-            default:
-                return "\(swiftUITypeName)(\(trimmedName))"
+        case "String":
+            return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
+        case "[String]":
+            return "Text(\(self.trimmedName).joined(separator: \", \"))"
+        case "Image":
+            return isOptional ? "\(self.trimmedName)!" : self.trimmedName
+        case "[ActivityItem]":
+            return isOptional ? "ActivityItems(items: \(self.trimmedName)!)" : self.trimmedName
+        default:
+            return "\(self.swiftUITypeName)(\(self.trimmedName))"
         }
     }
 
-    public var emptyDefault: String {
+    var emptyDefault: String {
         if isOptional {
             return " = nil"
         } else if typeName.isArray {
@@ -51,18 +48,25 @@ extension Variable {
         }
     }
 
-    public var trimmedName: String {
+    var trimmedName: String {
         name.replacingOccurrences(of: "_", with: "")
     }
 }
 
-
-extension Variable {
-    public func resolvedViewModifierChain(type: Type) -> String {
-        """
-        var \(trimmedName): some View {
-                _\(trimmedName).modifier(\(trimmedName)Modifier.concat(Fiori.\(type.componentName).\(trimmedName)))
-            }
-        """
+public extension Variable {
+    func resolvedViewModifierChain(type: Type) -> String {
+        if annotations.keys.contains("no_style") == false {
+            return """
+            var \(self.trimmedName): some View {
+                    _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)))
+                }
+            """
+        } else {
+            return """
+            var \(self.trimmedName): some View {
+                    _\(self.trimmedName)
+                }
+            """
+        }
     }
 }

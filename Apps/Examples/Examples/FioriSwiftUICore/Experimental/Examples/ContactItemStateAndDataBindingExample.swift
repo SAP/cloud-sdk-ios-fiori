@@ -83,7 +83,7 @@ extension EmailContactViewModel: ContactItemModel {
         nil
     }
 
-    var activityItems_: [ActivityItem] {
+    var actionItems_: [ActivityItem]? {
         []
     }
 
