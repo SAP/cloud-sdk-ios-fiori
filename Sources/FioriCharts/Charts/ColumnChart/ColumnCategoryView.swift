@@ -46,24 +46,26 @@ struct ColumnCategoryView: View {
         var radialGradient: RadialGradient?
         var imagePaint: ImagePaint?
         var color: Color?
-        var gradient: Any = 0
-        if let seriesGradient = chartCategoryShapeStyle[seriesIndex], let tmpGradient = seriesGradient[categoryIndex] {
-            gradient = tmpGradient
+        var tmpGradient: AnyShapeStyle?
+        if let seriesGradient = chartCategoryShapeStyle[seriesIndex], let tmpG = seriesGradient[categoryIndex] {
+            tmpGradient = tmpG
             useLocalUserSpace = true
-        } else if let tmpGradient = chartSeriesShapeStyle[seriesIndex] {
-            gradient = tmpGradient
+        } else if let tmpG = chartSeriesShapeStyle[seriesIndex] {
+            tmpGradient = tmpG
         }
         
-        if let tmp = gradient as? LinearGradient {
-            linearGradient = tmp
-        } else if let tmp = gradient as? RadialGradient {
-            radialGradient = tmp
-        } else if let tmp = gradient as? AngularGradient {
-            angularGradient = tmp
-        } else if let tmp = gradient as? ImagePaint {
-            imagePaint = tmp
-        } else if let tmp = gradient as? Color {
-            color = tmp
+        if let gradient = tmpGradient {
+            if let tmp = gradient.base as? LinearGradient {
+                linearGradient = tmp
+            } else if let tmp = gradient.base as? RadialGradient {
+                radialGradient = tmp
+            } else if let tmp = gradient.base as? AngularGradient {
+                angularGradient = tmp
+            } else if let tmp = gradient.base as? ImagePaint {
+                imagePaint = tmp
+            } else if let tmp = gradient.base as? Color {
+                color = tmp
+            }
         }
         
         let fillColor = self.model.colorAt(seriesIndex: self.seriesIndex, categoryIndex: self.categoryIndex)

@@ -74,20 +74,19 @@ struct LineSeriesView: View {
         var radialGradient: RadialGradient?
         var imagePaint: ImagePaint?
         var color: Color?
-        var gradient: Any = 0
-        if let tmpGradient = chartSeriesShapeStyle[seriesIndex] {
-            gradient = tmpGradient
-        }
-        if let tmp = gradient as? LinearGradient {
-            linearGradient = tmp
-        } else if let tmp = gradient as? RadialGradient {
-            radialGradient = tmp
-        } else if let tmp = gradient as? AngularGradient {
-            angularGradient = tmp
-        } else if let tmp = gradient as? ImagePaint {
-            imagePaint = tmp
-        } else if let tmp = gradient as? Color {
-            color = tmp
+
+        if let gradient = chartSeriesShapeStyle[seriesIndex] {
+            if let tmp = gradient.base as? LinearGradient {
+                linearGradient = tmp
+            } else if let tmp = gradient.base as? RadialGradient {
+                radialGradient = tmp
+            } else if let tmp = gradient.base as? AngularGradient {
+                angularGradient = tmp
+            } else if let tmp = gradient.base as? ImagePaint {
+                imagePaint = tmp
+            } else if let tmp = gradient.base as? Color {
+                color = tmp
+            }
         }
         
         let lineWidth = self.model.seriesAttributes[self.seriesIndex].lineWidth
