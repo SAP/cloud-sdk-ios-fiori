@@ -23,13 +23,13 @@
 
 ***
 
-This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).
+This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Language](https://experience.sap.com/fiori-design-ios/), and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
 </p>
 
-This project currently contains the two modules `FioriCharts` and `FioriIntegrationCards`
+This project currently contains the two modules [`FioriCharts`](https://sap.github.io/cloud-sdk-ios-fiori/charts/index.html) and [`FioriIntegrationCards`](https://sap.github.io/cloud-sdk-ios-fiori/integrationCards/index.html)
 
 ## FioriCharts
 The FioriCharts module is planned to replace the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
@@ -92,13 +92,17 @@ In both cases, **xcodebuild** tooling will manage cloning and updating the repos
 
 Three products are exposed by the `Package.swift` manifest.
 
-**FioriSwiftUI** as umbrella product will contain everything the package has to offer in the future.
+[**FioriSwiftUI**](https://sap.github.io/cloud-sdk-ios-fiori/) as umbrella product will contain everything the package has to offer in the future.
 
 ![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106921499-5ba8f500-670c-11eb-8176-7edeae829cc0.png)
 
 If you are concerned about bundle size you can use either one of the individual products **FioriCharts** or **FioriIntegrationCards**
 
 ![embedd_FioriCharts_FioriIntegrationCards](https://user-images.githubusercontent.com/9074514/106921545-65caf380-670c-11eb-91c5-9cf589de4869.png)
+
+> **IMPORTANT:** Don't have the **FioriSwiftUI**, the **FioriCharts** or **FioriIntegrationCards** embedded at the same time.
+> The **FioriSwiftUI** as mentioned is an umbrella product and will have dependency clashes if you would embedd the other two frameworks at the same time.
+> As shown above the **FioriCharts** and **FioriIntegrationCards** frameworks can be embedded at the same time.
 
 ## Limitations
 
