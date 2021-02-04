@@ -96,15 +96,15 @@ Three products are exposed by the `Package.swift` manifest.
 
 [**FioriSwiftUI**](https://sap.github.io/cloud-sdk-ios-fiori/) as umbrella product will contain everything the package has to offer in the future.
 
-!![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106921499-5ba8f500-670c-11eb-8176-7edeae829cc0.png)
+![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106930995-6c5e6880-6716-11eb-8e51-1f52f565f25f.png)
 
 If you are concerned about bundle size you can use either one of the individual products **FioriCharts**
 
-!![embedd_FioriCharts](https://user-images.githubusercontent.com/9074514/106924049-f9052880-670e-11eb-85b1-b0484e4dcee5.png)
+![embedd_FioriCharts](https://user-images.githubusercontent.com/9074514/106931080-80a26580-6716-11eb-8fc8-24c6296e7dfe.png)
 
 or **FioriIntegrationCards**
 
-![embedd_Fiori_IntegrationCards](https://user-images.githubusercontent.com/9074514/106924140-11754300-670f-11eb-936b-7fa161f2d3b4.png)
+![embedd_Fiori_IntegrationCards](https://user-images.githubusercontent.com/9074514/106931126-8a2bcd80-6716-11eb-8663-09f0bcc58bec.png)
 
 </br>
 
