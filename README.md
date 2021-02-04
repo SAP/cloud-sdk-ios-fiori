@@ -98,13 +98,18 @@ Three products are exposed by the `Package.swift` manifest.
 
 ![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106921499-5ba8f500-670c-11eb-8176-7edeae829cc0.png)
 
-If you are concerned about bundle size you can use either one of the individual products **FioriCharts** or **FioriIntegrationCards**
+If you are concerned about bundle size you can use either one of the individual products **FioriCharts**
 
-![embedd_FioriCharts_FioriIntegrationCards](https://user-images.githubusercontent.com/9074514/106921545-65caf380-670c-11eb-91c5-9cf589de4869.png)
+![embedd_FioriCharts](https://user-images.githubusercontent.com/9074514/106924049-f9052880-670e-11eb-85b1-b0484e4dcee5.png)
+
+or **FioriIntegrationCards**
+
+![embedd_Fiori_IntegrationCards](https://user-images.githubusercontent.com/9074514/106924140-11754300-670f-11eb-936b-7fa161f2d3b4.png)
+
+</br>
 
 > **IMPORTANT:** Don't have the **FioriSwiftUI**, the **FioriCharts** or **FioriIntegrationCards** embedded at the same time.
 > The **FioriSwiftUI** as mentioned is an umbrella product and will have dependency clashes if you would embedd the other two frameworks at the same time.
-> As shown above the **FioriCharts** and **FioriIntegrationCards** frameworks can be embedded at the same time.
 
 ## Limitations
 
