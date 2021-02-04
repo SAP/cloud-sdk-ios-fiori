@@ -33,5 +33,7 @@ internal struct _Component: _ComponentGenerating {
     let lowerBoundTitle_: String?
     let upperBoundTitle_: String?
     // sourcery: no_style
+    // sourcery: backingComponent=ActivityItems
+    // sourcery: backingComponentArgumentLabel=actionItemsControl
     var actionItems_: [ActivityItem]? // use `sourcery --config sourcery/.phase_pre_sourcery.yml` to generate protocol `ActionItemsComponent`
 }

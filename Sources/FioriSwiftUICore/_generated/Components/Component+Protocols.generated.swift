@@ -116,9 +116,9 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
 }
 
-// DANGEROUS: annotation below was introduced manually but this is a generated file and such change will be lost when running pre_phase !!!!!!
 public protocol ActionItemsComponent {
-    // sourcery: no_style
     // sourcery: backingComponent=ActivityItems
+    // sourcery: backingComponentArgumentLabel=actionItemsControl
+    // sourcery: no_style
     var actionItems_: [ActivityItem]? { get }
 }

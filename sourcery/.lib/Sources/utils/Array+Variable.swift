@@ -79,7 +79,7 @@ public extension Array where Element == Variable {
       }
       ```
       - important: This is the ONLY view which should be used by developers in the layout construction
-       */
+        */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
@@ -139,11 +139,23 @@ extension Array where Element: Variable {
     }
 
     public var extensionModelInitParams: [String] {
-        map { "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" }
+        map {
+            if let backingSwiftUIComponent = $0.backingSwiftUIComponent {
+                return "\($0.backingSwiftUIComponentArgumentLabel!): \(backingSwiftUIComponent)\($0.isOptional ? "?" : "")\($0.emptyDefault)"
+            } else {
+                return "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)"
+            }
+        }
     }
 
     public var extensionModelInitParamsChaining: [String] {
-        map { "\($0.trimmedName): model.\($0.name)" }
+        map {
+            if let backingComponentSwiftUIComponent = $0.backingSwiftUIComponent, let backingSwiftUIComponentArgumentLabel = $0.backingSwiftUIComponentArgumentLabel {
+                return "\(backingSwiftUIComponentArgumentLabel): \(backingComponentSwiftUIComponent)(model: model)"
+            } else {
+                return "\($0.trimmedName): model.\($0.name)"
+            }
+        }
     }
 
     var usage: String {

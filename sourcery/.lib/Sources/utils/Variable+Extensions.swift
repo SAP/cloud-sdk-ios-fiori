@@ -3,7 +3,7 @@ import SourceryRuntime
 
 public extension Variable {
     var swiftUITypeName: String {
-        if let backingSwiftUIComponent = resolvedAnnotations("backingComponent").first {
+        if let backingSwiftUIComponent = backingSwiftUIComponent {
             return backingSwiftUIComponent
         }
 
@@ -19,13 +19,25 @@ public extension Variable {
 
     var conditionalAssignment: String {
         if isOptional {
-            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
+            return "\(self.backingSwiftUIComponentArgumentLabel ?? self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
         } else {
             return self.toSwiftUI
         }
     }
 
+    var backingSwiftUIComponent: String? {
+        resolvedAnnotations("backingComponent").first
+    }
+
+    var backingSwiftUIComponentArgumentLabel: String? {
+        resolvedAnnotations("backingComponentArgumentLabel").first
+    }
+
     var toSwiftUI: String {
+        if let backingSwiftUIComponentLabel = backingSwiftUIComponentArgumentLabel {
+            return isOptional ? "\(backingSwiftUIComponentLabel)!" : backingSwiftUIComponentLabel
+        }
+
         switch self.typeName.unwrappedTypeName {
         case "String":
             return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
@@ -33,8 +45,6 @@ public extension Variable {
             return "Text(\(self.trimmedName).joined(separator: \", \"))"
         case "Image":
             return isOptional ? "\(self.trimmedName)!" : self.trimmedName
-        case "[ActivityItem]":
-            return isOptional ? "ActivityItems(items: \(self.trimmedName)!)" : self.trimmedName
         default:
             return "\(self.swiftUITypeName)(\(self.trimmedName))"
         }
