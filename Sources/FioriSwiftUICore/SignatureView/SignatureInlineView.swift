@@ -76,9 +76,11 @@ public struct SignatureViewInline: View {
                                 .stroke(Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12), lineWidth: 1)
                     )
                     .onTapGesture {
-                        self.isSignatureEditable = true
+                        withAnimation {
+                            self.isSignatureEditable = true
+                        }
                     }
-                }.frame(height: 258)
+                }
             } else {
                 VStack {
                     HStack {
@@ -114,6 +116,7 @@ public struct SignatureViewInline: View {
                             }
                         }.frame(width: geometry.size.width, height: 300)
                         
+                        
                         if !isSaved {
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.lightGrayColor, lineWidth: 1)
@@ -122,6 +125,7 @@ public struct SignatureViewInline: View {
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.lightGrayColor, lineWidth: 1)
                                 .background(Color.lightGrayColor.opacity(0.5))
+ 
                         }
                     }
                     Divider()
@@ -134,7 +138,9 @@ public struct SignatureViewInline: View {
                             }.disabled(self.drawings.isEmpty)
                             Spacer()
                             Button(action: {
-                                self.isSaved = true
+                                withAnimation {
+                                    self.isSaved = true
+                                }
                                 let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
                                 let tempimageview = Image(uiImage: uimage!)
                                 self.imageView = tempimageview
@@ -143,9 +149,11 @@ public struct SignatureViewInline: View {
                             }.disabled(self.drawings.isEmpty)
                         } else {
                             Button(action: {
-                                self.drawings.removeAll()
-                                self.imageView = nil
-                                self.isSaved = false
+                                withAnimation {
+                                    self.drawings.removeAll()
+                                    self.imageView = nil
+                                    self.isSaved = false
+                                }
                             }) {
                                 Text("Re-enter Signature")
                             }
