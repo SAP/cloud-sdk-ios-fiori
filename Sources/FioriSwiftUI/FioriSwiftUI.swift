@@ -1,3 +1,3 @@
 struct FioriSwiftUI {
-    var text = "Hello, World!"
+    var text = "Hello, World!" // not used
 }
