@@ -40,7 +40,7 @@ jobs:
     - name: Install xcbeautify tool
       run:  |
         brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
-        brew install swiftlint xcbeautify
+        brew install xcbeautify
     - name: Build Package
       run: set -o pipefail && xcodebuild -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
     - name: Run snapshot tests
