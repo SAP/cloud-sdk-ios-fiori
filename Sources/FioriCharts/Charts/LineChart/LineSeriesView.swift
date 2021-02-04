@@ -3,6 +3,7 @@ import SwiftUI
 struct LineSeriesView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
+    @Environment(\.chartSeriesShapeStyle) var chartSeriesShapeStyle
     @Environment(\.layoutDirection) var layoutDirection
     
     let seriesIndex: Int
@@ -20,6 +21,7 @@ struct LineSeriesView: View {
         }
     }
     
+    // swiftlint:disable force_unwrapping
     func makeBody(in rect: CGRect) -> some View {
         // calculate CGAffineTransform for layoutDirection
         let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: rect.size.width, ty: 0) : CGAffineTransform.identity
@@ -67,7 +69,34 @@ struct LineSeriesView: View {
             lineFillGradient = LinearGradient(gradient: Gradient(colors: [lineFillColor.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
         }
         
+        var linearGradient: LinearGradient?
+        var angularGradient: AngularGradient?
+        var radialGradient: RadialGradient?
+        var imagePaint: ImagePaint?
+        var color: Color?
+
+        if let gradient = chartSeriesShapeStyle[seriesIndex] {
+            if let tmp = gradient.base as? LinearGradient {
+                linearGradient = tmp
+            } else if let tmp = gradient.base as? RadialGradient {
+                radialGradient = tmp
+            } else if let tmp = gradient.base as? AngularGradient {
+                angularGradient = tmp
+            } else if let tmp = gradient.base as? ImagePaint {
+                imagePaint = tmp
+            } else if let tmp = gradient.base as? Color {
+                color = tmp
+            }
+        }
+        
+        let lineWidth = self.model.seriesAttributes[self.seriesIndex].lineWidth
+        let strokeLineShape = LineChartSeriesLineShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: startCategoryIndex, endIndex: endCategoryIndex)
+            .transform(mirror) // apply layoutDirection
+            .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
+            .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+        
         return ZStack {
+            // filled line area
             if self.fill {
                 LineChartSeriesFillShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: startCategoryIndex, endIndex: endCategoryIndex)
                     .transform(mirror) // apply layoutDirection
@@ -78,15 +107,26 @@ struct LineSeriesView: View {
                     .clipped()
             }
             
-            LineChartSeriesLineShape(path: self.model.path, seriesIndex: self.seriesIndex, startIndex: startCategoryIndex, endIndex: endCategoryIndex)
-                .transform(mirror) // apply layoutDirection
-                .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
-                .stroke(lineStrokeColor,
-                        lineWidth: self.model.seriesAttributes[self.seriesIndex].lineWidth)
-                .frame(width: rect.size.width, height: rect.size.height)
-                .clipped()
+            // stroke line
+            Group {
+                if linearGradient != nil {
+                    strokeLineShape.stroke(linearGradient!, lineWidth: lineWidth)
+                } else if angularGradient != nil {
+                    strokeLineShape.stroke(angularGradient!, lineWidth: lineWidth)
+                } else if radialGradient != nil {
+                    strokeLineShape.stroke(radialGradient!, lineWidth: lineWidth)
+                } else if color != nil {
+                    strokeLineShape.stroke(color!, lineWidth: lineWidth)
+                } else if imagePaint != nil {
+                    strokeLineShape.stroke(imagePaint!, lineWidth: lineWidth)
+                } else {
+                    strokeLineShape.stroke(lineStrokeColor, lineWidth: lineWidth)
+                }
+            }
+            .frame(width: rect.size.width, height: rect.size.height)
+            .clipped()
             
+            // points in the line
             if !self.model.seriesAttributes[self.seriesIndex].point.isHidden {
                 PointsShape(model: self.model,
                             chartContext: self.chartContext,

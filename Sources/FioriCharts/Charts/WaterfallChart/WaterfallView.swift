@@ -34,19 +34,12 @@ struct WaterfallView: View {
         let translateY = -startPosition.y * scaleY * rect.size.height
         
         return ZStack {
+            // columns
             ForEach(0 ..< categoryIndices.count, id: \.self) { index in
-                ColumnChartCategoryShape(chartType: self.model.chartType,
-                                         plotBaselinePosition: self.model.numericAxisTickValues.plotBaselinePosition,
-                                         path: self.model.path,
-                                         seriesIndex: 0,
-                                         categoryIndex: categoryIndices[index],
-                                         animateScale: self.animateScale)
-                    .transform(mirror) // apply layoutDirection
-                    .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
-                    .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
-                    .fill(self.model.columnColor(seriesIndex: 0, categoryIndex: categoryIndices[index]))
+                ColumnSeriesView(seriesIndices: [0], categoryIndex: categoryIndices[index])
             }
             
+            // connecting lines
             WaterfallChartConnectingLinesShape(path: model.path,
                                                seriesIndex: 0,
                                                startIndex: categoryIndexRange.lowerBound,
