@@ -94,11 +94,11 @@ Three products are exposed by the `Package.swift` manifest.
 
 **FioriSwiftUI** as umbrella product will contain everything the package has to offer in the future.
 
-![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106920144-159f6180-670b-11eb-95f3-70c9826ce754.png)
+![embedd_FioriSwiftUI](https://user-images.githubusercontent.com/9074514/106921499-5ba8f500-670c-11eb-8176-7edeae829cc0.png)
 
 If you are concerned about bundle size you can use either one of the individual products **FioriCharts** or **FioriIntegrationCards**
 
-![embedd_FioriCharts_FioriIntegrationCards](https://user-images.githubusercontent.com/9074514/106920119-0f10ea00-670b-11eb-94f2-a78df98f6dea.png)
+![embedd_FioriCharts_FioriIntegrationCards](https://user-images.githubusercontent.com/9074514/106921545-65caf380-670c-11eb-91c5-9cf589de4869.png)
 
 ## Limitations
 
