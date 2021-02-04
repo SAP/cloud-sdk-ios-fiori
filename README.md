@@ -84,9 +84,11 @@ The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integ
 The package is intended for consumption via Swift Package Manager.  
 
  - To add to your application target, navigate to the `File > Swift Packages > Add Package Dependency...` tab, then add the repository URL.
- - To add to your framework target, add the repository URL to your **Package.swift** manifest.
-
+ - To add to your framework target, add the repository URL to your [**Package.swift**](https://github.com/KevinMuessig/cloud-sdk-ios-fiori/blob/main/Package.swift) manifest.
+ 
 In both cases, **xcodebuild** tooling will manage cloning and updating the repository to your app or framework project.
+ 
+> **NOTE:** If the **Package.swift** file doesn't exist you need to manually create the file or copy the above linked file of the **cloud-sdk-ios-fiori** repository.
 
 ## Configuration
 
