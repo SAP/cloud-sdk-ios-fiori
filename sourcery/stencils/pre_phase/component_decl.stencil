@@ -29,4 +29,23 @@ public protocol {{NAME | upperFirstLetter}}Component {
 }
 {% endfor %}
 {% endfor %}
+
+{% for type in types.implementing._ComponentMultiPropGenerating %}
+{% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
+public protocol {{NAME | upperFirstLetter}}Component {
+{% for variable in type.variables where variable %}
+{% for key,value in variable.annotations %}
+{% if value == 1 %}
+	// sourcery: {{key}}
+{% else %}
+	// sourcery: {{key}}={{value}}
+{% endif %}
+{% endfor %}
+	var {{variable.name}}: {{variable.typeName}} { get }
+{% endfor %}
+{% for method in type.methods where method %}
+	func {{method.name}}
+{% endfor %}
+}
+{% endfor %}
 // sourcery:end

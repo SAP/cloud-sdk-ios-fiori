@@ -1,9 +1,9 @@
 // Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ContactItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivityItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ContactItem `View` body
+//TODO: Implement ActivityItem `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -16,13 +16,9 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ContactItem {
-        typealias Title = EmptyModifier
+    enum ActivityItem {
+        typealias Icon = EmptyModifier
 		typealias Subtitle = EmptyModifier
-		typealias Footnote = EmptyModifier
-		typealias DescriptionText = EmptyModifier
-		typealias DetailImage = EmptyModifier
-		typealias ActionItems = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -36,18 +32,14 @@ extension Fiori {
                 }
             }
         */
-        static let title = Title()
+        static let icon = Icon()
 		static let subtitle = Subtitle()
-		static let footnote = Footnote()
-		static let descriptionText = DescriptionText()
-		static let detailImage = DetailImage()
-		static let actionItems = ActionItems()
     }
 }
 
-// FIXME: - Implement ContactItem View body
+// FIXME: - Implement ActivityItem View body
 
-extension ContactItem: View {
+extension ActivityItem: View {
     public var body: some View {
         <# View body #>
     }

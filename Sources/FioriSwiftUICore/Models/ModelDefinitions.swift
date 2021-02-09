@@ -12,10 +12,6 @@ public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, FootnoteCo
 // sourcery: generated_component
 public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, KpiComponent {}
 
-// sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: generated_component
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActionItemsComponent, ActivityItemsBehavior {}
-
 // sourcery: generated_component
 public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
 
@@ -45,3 +41,15 @@ public protocol KPIAnnotatedModel: TitleComponent, SubtitleComponent, IconCompon
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
+
+// sourcery: generated_component
+public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol ActivityItemsModel: ActionItemsComponent {} // this should rather move to `post` phase ?
+
+// ----------------------------------------------------------------------------------------------------------------
+
+// sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: generated_component_composite
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}

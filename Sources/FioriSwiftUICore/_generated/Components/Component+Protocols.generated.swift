@@ -1,4 +1,8 @@
+// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
+
 import SwiftUI
+
 
 public protocol TitleComponent {
     var title_: String { get }
@@ -117,8 +121,9 @@ public protocol UpperBoundTitleComponent {
 }
 
 public protocol ActionItemsComponent {
-    // sourcery: backingComponent=ActivityItems
-    // sourcery: backingComponentArgumentLabel=actionItemsControl
-    // sourcery: no_style
-    var actionItems_: [ActivityItem]? { get }
+	// sourcery: backingComponent=ActivityItems
+	// sourcery: backingComponentArgumentLabel=actionItemsControl
+	// sourcery: no_style
+	var actionItems_: [ActivityItemDataType]? { get }
+	func didSelect(_ activityItem: ActivityItemDataType)
 }

@@ -118,14 +118,14 @@ public extension LibraryPreviewData.Person {
 }
 
 extension LibraryPreviewData.Person: ActionItemsComponent {
-    public var actionItems_: [ActivityItem]? {
-        let activities: [ActivityItem] = Emails.map { .init(type: .email, data: $0) }
+    public var actionItems_: [ActivityItemDataType]? {
+        let activities: [ActivityItemDataType] = Emails.map { .init(type: .email, data: $0) }
         return activities
     }
 }
 
 extension LibraryPreviewData.Person: ActivityItemsBehavior {
-    public func didSelect(_ activityItem: ActivityItem) {
+    public func didSelect(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
             print("LibraryPreviewData.Person: send email to \(activityItem.data ?? "unknown")")

@@ -39,7 +39,7 @@ struct ContactItemActionItemsExample: View {
                 } actionItems: {
                     if useCompositeControl {
                         // equivalent to `ActivityItems(model: viewModel)`
-                        ActivityItems(items: viewModel.actionItems_ ?? []) { selectedActivity in
+                        ActivityItems(actionItems: viewModel.actionItems_ ?? []) { selectedActivity in
                             self.viewModel.selectedActivity = selectedActivity
                         }
                     } else {
@@ -82,7 +82,7 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
     var model = LibraryPreviewData.Person.laurelosborn
     
     @Published var showingAlert = false
-    @Published var selectedActivity: ActivityItem? = nil {
+    @Published var selectedActivity: ActivityItemDataType? = nil {
         didSet {
             self.showingAlert.toggle()
         }
@@ -95,14 +95,14 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsC
     var footnote_: String? { self.model.footnote_ }
     var descriptionText_: String? { self.model.descriptionText_ }
     var detailImage_: Image? { self.model.detailImage_ }
-    var actionItems_: [ActivityItem]? {
-        let activities: [ActivityItem] = [ActivityItem.email, .init(type: .email, data: "cba@gmail.com")]
+    var actionItems_: [ActivityItemDataType]? {
+        let activities: [ActivityItemDataType] = [ActivityItemDataType.email, .init(type: .email, data: "cba@gmail.com")]
         return activities
     }
 }
 
 extension ContactItemActionItemsExampleViewModel: ActivityItemsBehavior {
-    func didSelect(_ activityItem: ActivityItem) {
+    func didSelect(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
             print("send email to \(activityItem.data ?? "unknown")")

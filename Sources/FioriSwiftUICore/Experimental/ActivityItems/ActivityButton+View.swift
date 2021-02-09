@@ -9,7 +9,7 @@ public struct ActivityButtonView: View {
         self.handle = handle
     }
 
-    public init(_ activity: ActivityItem, handle: @escaping () -> Void) {
+    public init(_ activity: ActivityItemDataType, handle: @escaping () -> Void) {
         self.image = activity.icon
         self.handle = handle
     }

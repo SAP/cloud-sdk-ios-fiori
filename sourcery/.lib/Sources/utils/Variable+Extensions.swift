@@ -2,6 +2,14 @@ import Foundation
 import SourceryRuntime
 
 public extension Variable {
+    var swiftUITypeNameBacked: String {
+        if let backingSwiftUIComponent = backingSwiftUIComponent {
+            return backingSwiftUIComponent
+        }
+
+        return swiftUITypeName
+    }
+
     var swiftUITypeName: String {
         if let backingSwiftUIComponent = backingSwiftUIComponent {
             return backingSwiftUIComponent
@@ -19,9 +27,17 @@ public extension Variable {
 
     var conditionalAssignment: String {
         if isOptional {
-            return "\(self.backingSwiftUIComponentArgumentLabel ?? self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
+            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
         } else {
             return self.toSwiftUI
+        }
+    }
+
+    var conditionalAssignmentBacked: String {
+        if isOptional {
+            return "\(self.backingSwiftUIComponentArgumentLabel ?? self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUIBacked)) : ViewBuilder.buildEither(second: EmptyView())"
+        } else {
+            return self.toSwiftUIBacked
         }
     }
 
@@ -34,6 +50,19 @@ public extension Variable {
     }
 
     var toSwiftUI: String {
+        switch self.typeName.unwrappedTypeName {
+        case "String":
+            return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
+        case "[String]":
+            return "Text(\(self.trimmedName).joined(separator: \", \"))"
+        case "Image":
+            return isOptional ? "\(self.trimmedName)!" : self.trimmedName
+        default:
+            return "\(self.swiftUITypeName)(\(self.trimmedName))"
+        }
+    }
+
+    var toSwiftUIBacked: String {
         if let backingSwiftUIComponentLabel = backingSwiftUIComponentArgumentLabel {
             return isOptional ? "\(backingSwiftUIComponentLabel)!" : backingSwiftUIComponentLabel
         }
@@ -46,7 +75,7 @@ public extension Variable {
         case "Image":
             return isOptional ? "\(self.trimmedName)!" : self.trimmedName
         default:
-            return "\(self.swiftUITypeName)(\(self.trimmedName))"
+            return "\(self.swiftUITypeNameBacked)(\(self.trimmedName))"
         }
     }
 

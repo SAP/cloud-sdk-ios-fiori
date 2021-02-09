@@ -83,11 +83,11 @@ extension EmailContactViewModel: ContactItemModel {
         nil
     }
 
-    var actionItems_: [ActivityItem]? {
+    var actionItems_: [ActivityItemDataType]? {
         []
     }
 
-    func didSelect(_ activityItem: ActivityItem) {}
+    func didSelect(_ activityItem: ActivityItemDataType) {}
 }
 
 extension EmailContactViewModel {

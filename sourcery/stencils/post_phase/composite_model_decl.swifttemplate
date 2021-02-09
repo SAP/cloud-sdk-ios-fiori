@@ -7,11 +7,9 @@
 <%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
 <%_
 
-let models = types.protocols.filter({ $0.annotations["generated_component"] != nil })
+let models = types.protocols.filter({ $0.annotations["generated_component_composite"] != nil })
 
 for model in models {
-
-    let closureProperties = model.closureProperties(contextType: type)
 
     let componentProperties = model.flattenedComponentProperties(contextType: type)
     let styleName = model.componentStyleName
@@ -28,7 +26,6 @@ for model in models {
 
     let privatePropertyDecls = [
         componentProperties.viewBuilderPropertyDecls,
-        closureProperties.privateClosurePropModelDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
@@ -44,19 +41,16 @@ for model in models {
 
     let extensionModelInitParams = [
         componentProperties.extensionModelInitParamsBacked,
-        closureProperties.extensionModelInitClosureParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsChaining = [
         componentProperties.extensionModelInitParamsBackedChaining,
-        closureProperties.extensionModelInitClosureParamsChaining,
         model.add_view_builder_paramsExtensionModelInitParamsChaining
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsAssignments = [
         componentProperties.extensionModelInitParamsBackedAssignments,
-        closureProperties.extensionModelInitClosureParamsAssignments,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 

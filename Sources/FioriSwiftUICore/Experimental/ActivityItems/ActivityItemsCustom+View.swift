@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension ActivityItems: View {
+extension ActivityItemsCustom: View {
     public var body: some View {
         ActivityControlLayoutContainer(activityItems) { activity in
             ActivityButtonView(image: activity.icon) {

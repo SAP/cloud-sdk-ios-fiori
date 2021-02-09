@@ -41,6 +41,10 @@ public extension Array where Element == Variable {
     var viewBuilderPropertyDecls: [String] {
         map { "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
     }
+
+    var dataTypePropertyDecls: [String] {
+        map { "var _\($0.trimmedName): \($0.typeName) = nil" }
+    }
     
     /**
      Formats list of init ViewBuilder parameters
@@ -107,6 +111,14 @@ public extension Array where Element: Variable {
     var extensionModelInitParamsAssignments: [String] {
         map { "self._\($0.trimmedName) = \($0.conditionalAssignment)" }
     }
+
+    var extensionModelInitParamsBackedAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.conditionalAssignmentBacked)" }
+    }
+
+    var extensionModelInitParamsDataTypeAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.trimmedName)" }
+    }
 }
 
 extension Array where Element: Variable {
@@ -139,6 +151,10 @@ extension Array where Element: Variable {
     }
 
     public var extensionModelInitParams: [String] {
+        map { "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" }
+    }
+
+    public var extensionModelInitParamsBacked: [String] {
         map {
             if let backingSwiftUIComponent = $0.backingSwiftUIComponent {
                 return "\($0.backingSwiftUIComponentArgumentLabel!): \(backingSwiftUIComponent)\($0.isOptional ? "?" : "")\($0.emptyDefault)"
@@ -148,7 +164,7 @@ extension Array where Element: Variable {
         }
     }
 
-    public var extensionModelInitParamsChaining: [String] {
+    public var extensionModelInitParamsBackedChaining: [String] {
         map {
             if let backingComponentSwiftUIComponent = $0.backingSwiftUIComponent, let backingSwiftUIComponentArgumentLabel = $0.backingSwiftUIComponentArgumentLabel {
                 return "\(backingSwiftUIComponentArgumentLabel): \(backingComponentSwiftUIComponent)(model: model)"
@@ -156,6 +172,10 @@ extension Array where Element: Variable {
                 return "\($0.trimmedName): model.\($0.name)"
             }
         }
+    }
+
+    public var extensionModelInitParamsChaining: [String] {
+        map { "\($0.trimmedName): model.\($0.name)" }
     }
 
     var usage: String {
@@ -199,5 +219,29 @@ extension Array where Element: Variable {
             }
         }
         return output
+    }
+}
+
+extension Array where Element: Variable {
+    var privateClosurePropModelDecls: [String] {
+        map { "var _\($0.trimmedName): \($0.typeName) = nil" }
+    }
+
+    var extensionModelInitClosureParamsChaining: [String] {
+        // return "\($0.trimmedName): model.\($0.name)"
+        map {
+            guard let method = $0.annotations["originalMethod"] as? SourceryRuntime.Method else { return "" }
+            return "\($0.trimmedName): model.\(method.selectorName)"
+        }
+    }
+
+    public var extensionModelInitClosureParams: [String] {
+        map {
+            "\($0.trimmedName): \($0.typeName) = nil"
+        }
+    }
+
+    var extensionModelInitClosureParamsAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.trimmedName)" }
     }
 }

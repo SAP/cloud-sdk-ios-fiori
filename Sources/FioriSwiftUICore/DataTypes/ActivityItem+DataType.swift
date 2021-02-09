@@ -28,9 +28,9 @@ extension ActivityItemType: Equatable {
 }
 
 // loose port of https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/Contact%20views.html#/s:8SAPFiori15FUIActivityItemV
-public struct ActivityItem: Identifiable {
-    public static var email: ActivityItem {
-        ActivityItem(type: .email)
+public struct ActivityItemDataType: Identifiable {
+    public static var email: ActivityItemDataType {
+        ActivityItemDataType(type: .email)
     }
 
     public private(set) var type: ActivityItemType
