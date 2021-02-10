@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-//#if swift(>=5.3)
+// #if swift(>=5.3)
 //    @available(iOS 14.0, *)
 //    struct ContactItemLibraryContent: LibraryContentProvider {
 //        @LibraryContentBuilder
@@ -10,7 +10,7 @@ import SwiftUI
 //                        category: .control)
 ////        LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn, actionItems: LibraryPreviewData.Person.laurelosborn.actionItems), title: "ContactItem w/ActionItems", category: .control)
 //        }
-//    
+//
 //        @LibraryContentBuilder
 //        func modifiers(base: TextStyle) -> [LibraryItem] {
 //            LibraryItem(
@@ -19,4 +19,4 @@ import SwiftUI
 //            )
 //        }
 //    }
-//#endif
+// #endif

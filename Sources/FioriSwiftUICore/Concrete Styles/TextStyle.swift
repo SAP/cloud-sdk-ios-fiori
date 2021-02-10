@@ -1,10 +1,3 @@
-//
-//  TextStyle.swift
-//  ThemingPrototype
-//
-//  Created by Stan Stadelman on 8/18/20.
-//
-
 import SwiftUI
 
 protocol _StyleGenerating {
@@ -29,10 +22,9 @@ internal extension TextStyle {
 }
 
 public struct TextStyle: IStyle, Decodable, _StyleGenerating {
-
     public init(font: Font? = nil) {
         if font != nil {
-            _font = font
+            self._font = font
         }
     }
         
@@ -63,13 +55,13 @@ public struct TextStyle: IStyle, Decodable, _StyleGenerating {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         if let fontColor = try container.decodeIfPresent(String.self, forKey: .fontColor) {
-            _foregroundColor = try Color(hexCode: fontColor)
+            self._foregroundColor = try Color(hexCode: fontColor)
         }
         
-        let fontSize  = try container.decodeIfPresent(Int.self, forKey: .fontSize) ?? 17
+        let fontSize = try container.decodeIfPresent(Int.self, forKey: .fontSize) ?? 17
         
         if let fontName = try container.decodeIfPresent(String.self, forKey: .fontName) {
-            _font = SwiftUI.Font.custom(fontName, size: CGFloat(fontSize))
+            self._font = SwiftUI.Font.custom(fontName, size: CGFloat(fontSize))
         }
     }
     
@@ -81,18 +73,14 @@ public struct TextStyle: IStyle, Decodable, _StyleGenerating {
     }
     
     func toViewModifier() -> AnyViewModifier {
-        return AnyViewModifier({ $0/*.modifier(TextStyleViewModifier(style: self))*/ })
+        AnyViewModifier { $0 /* .modifier(TextStyleViewModifier(style: self)) */ }
     }
-
 }
-
-
 
 public protocol IStyle {
 //    associatedtype Body: View
     func merging(_ style: Self) -> Self
 }
-
 
 public class AnyIStyle {
     public let value: Any
@@ -101,7 +89,7 @@ public class AnyIStyle {
     public init<T: IStyle>(_ value: T) {
         self.value = value
         self._merging = { any in
-            return value.merging(any as! T)
+            value.merging(any as! T)
         }
     }
 }
@@ -123,7 +111,7 @@ public enum Style: Decodable {
         case .text(let style):
             return style.toViewModifier()
         case .none:
-            return AnyViewModifier({$0.modifier(EmptyModifier()) })
+            return AnyViewModifier { $0.modifier(EmptyModifier()) }
         }
     }
 }
@@ -138,9 +126,8 @@ struct DUMMY {
     }
 }
 
-extension Color {
-    public init(hexCode: String) throws {
-        
+public extension Color {
+    init(hexCode: String) throws {
         if hexCode.hasPrefix("#") {
             let start = hexCode.index(hexCode.startIndex, offsetBy: 1)
             let hexColor = String(hexCode[start...])
@@ -175,7 +162,7 @@ extension Color {
         throw HexConversion.failed(hexCode)
     }
     
-    public enum HexConversion: Swift.Error {
+    enum HexConversion: Swift.Error {
         case failed(String)
         case invalidLength(String)
         

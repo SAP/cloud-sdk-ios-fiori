@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftUI
 
 // TODO: - Implement Fiori style definitions
 
@@ -11,16 +10,16 @@ extension Fiori {
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
-            // replace `typealias Subtitle = EmptyModifier` with:
+             // replace `typealias Subtitle = EmptyModifier` with:
 
-            struct Subtitle: ViewModifier {
-                func body(content: Content) -> some View {
-                    content
-                        .font(.body)
-                        .foregroundColor(.preferredColor(.primary3))
-                }
-            }
-        */
+             struct Subtitle: ViewModifier {
+                 func body(content: Content) -> some View {
+                     content
+                         .font(.body)
+                         .foregroundColor(.preferredColor(.primary3))
+                 }
+             }
+         */
         static let title = Title()
         static let timestamp = Timestamp()
         static let status = Status()

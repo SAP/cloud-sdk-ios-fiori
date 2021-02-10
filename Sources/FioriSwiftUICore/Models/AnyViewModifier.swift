@@ -1,8 +1,8 @@
+import SwiftUI
+
 // https://github.com/objcio/S01E220-swiftui-slides-styling-elements-with-view-modifiers/blob/16d3aefacc8acbb4931c6fb3e43975adf0f22f7d/Slides/ContentView.swift#L156
 
 // See https://talk.objc.io/episodes/S01E220-swiftui-slides-styling-elements-with-view-modifiers for further explanation
-
-import SwiftUI
 
 public struct AnyViewModifier: ViewModifier {
     var apply: (Content) -> AnyView
