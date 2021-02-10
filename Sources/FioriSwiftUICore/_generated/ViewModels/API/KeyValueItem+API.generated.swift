@@ -8,7 +8,7 @@ public struct KeyValueItem<Key: View, Value: View> {
 	@Environment(\.valueModifier) private var valueModifier
 
     private let _key: Key
-	private let _value: Value 
+	private let _value: Value
 
     public init(
         @ViewBuilder key: @escaping () -> Key,
@@ -29,13 +29,13 @@ public struct KeyValueItem<Key: View, Value: View> {
 
 extension KeyValueItem where Key == Text,
 		Value == _ConditionalContent<Text, EmptyView> {
-    
+
     public init(model: KeyValueItemModel) {
-        self.init(key: model.key_, value: model.value_) 
+        self.init(key: model.key_, value: model.value_)
     }
 
     public init(key: String, value: String? = nil) {
         self._key = Text(key)
-			self._value = value != nil ? ViewBuilder.buildEither(first: Text(value!)) : ViewBuilder.buildEither(second: EmptyView()) 
+		self._value = value != nil ? ViewBuilder.buildEither(first: Text(value!)) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

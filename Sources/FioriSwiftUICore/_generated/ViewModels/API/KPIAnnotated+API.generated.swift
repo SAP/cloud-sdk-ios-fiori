@@ -10,7 +10,7 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
 
     private let _title: Title
 	private let _subtitle: Subtitle
-	private let _icon: Icon 
+	private let _icon: Icon
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -37,14 +37,14 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
 extension KPIAnnotated where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Icon == _ConditionalContent<Image, EmptyView> {
-    
+
     public init(model: KPIAnnotatedModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, icon: model.icon_) 
+        self.init(title: model.title_, subtitle: model.subtitle_, icon: model.icon_)
     }
 
     public init(title: String, subtitle: String? = nil, icon: Image? = nil) {
         self._title = Text(title)
-			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView()) 
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

@@ -10,7 +10,7 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 
     private let _detailImage: DetailImage
 	private let _title: Title
-	private let _subtitle: Subtitle 
+	private let _subtitle: Subtitle
 
     public init(
         @ViewBuilder detailImage: @escaping () -> DetailImage,
@@ -37,14 +37,14 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 extension CollectionItem where DetailImage == _ConditionalContent<Image, EmptyView>,
 		Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView> {
-    
+
     public init(model: CollectionItemModel) {
-        self.init(detailImage: model.detailImage_, title: model.title_, subtitle: model.subtitle_) 
+        self.init(detailImage: model.detailImage_, title: model.title_, subtitle: model.subtitle_)
     }
 
     public init(detailImage: Image? = nil, title: String, subtitle: String? = nil) {
         self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-			self._title = Text(title)
-			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) 
+		self._title = Text(title)
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

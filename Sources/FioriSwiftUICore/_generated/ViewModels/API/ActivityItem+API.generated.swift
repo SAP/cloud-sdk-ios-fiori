@@ -36,6 +36,6 @@ extension ActivityItem where Icon == _ConditionalContent<Image, EmptyView>,
 
     public init(icon: Image? = nil, subtitle: String? = nil) {
         self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
-			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
     }
 }

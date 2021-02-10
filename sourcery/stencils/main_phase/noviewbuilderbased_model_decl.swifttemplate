@@ -38,7 +38,7 @@ for model in models {
     let extensionModelInitParamsAssignments = [
         componentProperties.extensionModelInitParamsDataTypeAssignments,
         closureProperties.extensionModelInitClosureParamsAssignments
-    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
 
     let modelInitParam: String = "model: \(model.name)"
 

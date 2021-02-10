@@ -58,7 +58,7 @@ for model in models {
         componentProperties.extensionModelInitParamsBackedAssignments,
         closureProperties.extensionModelInitClosureParamsAssignments,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
-    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
 
     let modelInitParam: String = "model: \(model.name)"
 

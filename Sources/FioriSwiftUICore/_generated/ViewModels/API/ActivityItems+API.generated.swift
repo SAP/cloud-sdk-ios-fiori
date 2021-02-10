@@ -15,6 +15,6 @@ public struct ActivityItems {
 
     public init(actionItems: [ActivityItemDataType]? = nil, didSelectClosure: ((ActivityItemDataType) -> Void)? = nil) {
         self._actionItems = actionItems
-			self._didSelectClosure = didSelectClosure
+		self._didSelectClosure = didSelectClosure
     }
 }
