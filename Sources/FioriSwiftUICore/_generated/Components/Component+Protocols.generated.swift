@@ -125,5 +125,5 @@ public protocol ActionItemsComponent {
 	// sourcery: backingComponentArgumentLabel=actionItemsControl
 	// sourcery: no_style
 	var actionItems_: [ActivityItemDataType]? { get }
-	func didSelect(_ activityItem: ActivityItemDataType)
+	func didSelect(_ activityItem: ActivityItemDataType) -> Void
 }

@@ -44,7 +44,7 @@ public protocol {{NAME | upperFirstLetter}}Component {
 	var {{variable.name}}: {{variable.typeName}} { get }
 {% endfor %}
 {% for method in type.methods where method %}
-	func {{method.name}}
+	func {{method.name}} -> {{method.returnTypeName}}
 {% endfor %}
 }
 {% endfor %}

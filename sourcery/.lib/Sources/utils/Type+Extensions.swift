@@ -173,10 +173,8 @@ extension Type {
 
             let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
 
-            // TODO: support no and multiple parameters
-            guard method.parameters.count == 1 else { fatalError("TODO: support no and multiple parameters") }
-
-            let typeName = TypeName("((\(method.parameters.first!.typeName)) -> \(method.returnTypeName))?")
+            let parameterListAsString: String = method.parameters.map({ "\($0.typeName)" }).joined(separator: ",")
+            let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
 
             var convertionAnnotations: [String: NSObject] = [:]
             convertionAnnotations["originalMethod"] = method
