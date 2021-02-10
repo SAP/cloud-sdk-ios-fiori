@@ -2,14 +2,14 @@ import SwiftUI
 
 struct ExperimentalContentView: View {
     private var experiments: [Experiment] = [
-        .init(view: ContactItemInitViewBuilderExample().asAnyView, label: "ContactItem - InitViewBuilder"),
-        .init(view: ContactItemInitModelExample().asAnyView, label: "ContactItem - InitModel"),
-        .init(view: ContactItemActionItemsExample().asAnyView, label: "ContactItem - Action Items"),
-        .init(view: ContactItemStateAndDataBindingExample(model: EmailContactViewModel.marco).asAnyView, label: "ContactItem - State and Data Binding Handling"),
-        .init(view: ThemingExample().asAnyView, label: "Theming (StyleCache)"),
-        .init(view: StylingModifierExample().asAnyView, label: "Styling (Modifier)"),
-        .init(view: StylingTextStyleExample().asAnyView, label: "Styling (TextStyle)"),
-        .init(view: KPIHeaderFreestyleExample().asAnyView, label: "KPI Header / Layout")
+        .init(view: ContactItemInitViewBuilderExample().asAnyView, label: "@ViewBuilder-based initializer (ContactItem)"),
+        .init(view: ContactItemInitModelExample().asAnyView, label: "ViewModel-based initializer (ContactItem)"),
+        .init(view: ContactItemStateAndDataBindingExample(model: EmailContactViewModel.mike).asAnyView, label: "Example: State and Data Binding (ContactItem)"),
+        .init(view: ContactItemActionItemsExample().asAnyView, label: "🧪 View - Action Items"),
+        .init(view: KPIHeaderFreestyleExample().asAnyView, label: "🚧 KPI Header / Layout"),
+        .init(view: ThemingExample().asAnyView, label: "🔬 Theming (StyleCache)"),
+        .init(view: StylingModifierExample().asAnyView, label: "🔬 Styling (Modifier)"),
+        .init(view: StylingTextStyleExample().asAnyView, label: "🔬 Styling (TextStyle)")
     ]
     var body: some View {
         List(experiments, id: \.id) { e in
@@ -19,7 +19,7 @@ struct ExperimentalContentView: View {
                     Text("\(e.label)")
                 }
             )
-        }.navigationBarTitle("Experimental")
+        }.navigationBarTitle("🚧 Experimental 🚧")
     }
 }
 

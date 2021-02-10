@@ -68,7 +68,7 @@ extension LibraryPreviewData.Person.Address {
 
 extension LibraryPreviewData.Person: ContactItemModel {
     public var footnote_: String? {
-        "footnote"
+        "Footnote: I am cool :)"
         // Features.joined(separator: ", ")
     }
 }
@@ -122,14 +122,11 @@ extension LibraryPreviewData.Person: ActionItemsComponent {
         let activities: [ActivityItemDataType] = Emails.map { .init(type: .email, data: $0) }
         return activities
     }
-}
 
-extension LibraryPreviewData.Person: ActivityItemsBehavior {
     public func didSelect(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
             print("LibraryPreviewData.Person: send email to \(activityItem.data ?? "unknown")")
-        // self.selectedActivity = activityItem
         default:
             print("don't know how to handle this activity")
         }

@@ -11,7 +11,7 @@ struct CoreContentView: View {
             }
             NavigationLink(
                 destination: ExperimentalContentView()) {
-                Text("Experimental Examples")
+                Text("🚧 Experimental 🚧")
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }

@@ -25,6 +25,5 @@ public struct ActivityButtonStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundColor(.blue)
-            .background(Color.green)
     }
 }

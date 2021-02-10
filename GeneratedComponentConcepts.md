@@ -1,23 +1,13 @@
-The [Example application](./Apps/Examples/Examples/FioriSwiftUICore/Experimental) contains established concept proposals like
+# Concepts and Proposals
 
-- Theming
-  
-  ![ThemingExample](https://user-images.githubusercontent.com/4176826/104635602-f86cfb00-5656-11eb-8338-3e082e4b03f6.gif)
-
-- State Handling
-  
-  ![StateHandling](https://user-images.githubusercontent.com/4176826/104635578-f014c000-5656-11eb-9d85-915d4d82cbac.gif)
-
-but also contains experimental controls (new or existing ones modified) and their usage. Example: KPI Header vs layout container
-
-<img width="1255" alt="KPIHeaderVsLayoutContainer" src="https://user-images.githubusercontent.com/4176826/104635511-da06ff80-5656-11eb-9005-dc20a34106bf.png">
-
-Key-takaways:
+## ViewModel initializers
 
 A control has up to three types of initializers (with multiple conditional implementations)
 - @ViewBuilder based initializer
 - Type-based initializer (e.g. passing `String` for title, `[ActivityItem]` for actionItems or `(ActivityItem) -> Void` as action handler)
 - Protocol-based initializer (i.e. passing a model conforming to model protocol(s), for example `ContactItemModel`)
+
+### @ViewBuilder based initializer
 
 @ViewBuilder based initializers allow app developers to use any control(s), e.g. title can be an image
 
@@ -46,7 +36,9 @@ actionItems: {
 }
 ```
 
-any @ViewBuilder property should be backed up in  type-based or protocol-based initializer unless we consider placeholder/extension points in SDK controls which are not covered by SDK controls themselves
+### Default SDK controls when using type-based / protocol-based initializer
+
+Any @ViewBuilder init argument should be backed by a default SDK control when the app developers users either type-based or protocol-based initializer.
 
 Here is an example of using a composite control (`ActivityItems`) within a control (`ContactItem`)
 
@@ -99,72 +91,11 @@ ContactItem(title: "aString", actionItems: [.init(type: .email, data: "address@g
 })
 ```
 
-In this proposal a component model needs to handle state **and behavior**. For the latter this should be represented in a different protocol (e.g. ActivityItemsBehavior).
+Note: An app developer can conform the data model to the ViewModel protocol but it is more likely that the app developer prefers to back this with a custom view model or even prefers the @ViewBuilder based initializer overall (to interact with local view state easily). 
 
-An app developer could conform the data model to this protocol but it is more likely that the app developer prefers to back this with a custom view model (or even prefers the @ViewBuilder based initializer overall to interact with local view state easily). 
+## Conditional Initializers
 
-```swift
-struct ContactItemActionItemsExample: View {
-    @ObservedObject var viewModel = ContactItemActionItemsExampleViewModel()
-    var body: some View {
-        ContactItem {
-            Text("Title")
-        }
-        subtitle: {
-            Text("SubTitle")
-        }
-        footnote: {
-            Text("Footnote")
-        }
-        descriptionText: {
-            Text("Description")
-        }
-        detailImage: {
-            EmptyView()
-        }
-        actionItems: {
-            ActivityItems(model: viewModel)
-        }
-        .alert(isPresented: $viewModel.showingAlert, content: {
-            Alert(title: Text("Important message"), message: Text("Performing activity for \(viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
-        })
-    }
-}
-
-class ContactItemActionItemsExampleViewModel: ObservableObject {
-    var model = LibraryPreviewData.Person.laurelosborn
-    
-    @Published var showingAlert = false
-    @Published var selectedActivity: ActivityItem? = nil {
-        didSet {
-            self.showingAlert.toggle()
-        }
-    }
-}
-
-extension ContactItemActionItemsExampleViewModel: ContactItemModel {
-    var title_: String { self.model.title_ }
-    var subtitle_: String? { self.model.subtitle_ }
-    var footnote_: String? { self.model.footnote_ }
-    var descriptionText_: String? { self.model.descriptionText_ }
-    var detailImage_: Image? { self.model.detailImage_ }
-	var activityItems_: [ActivityItem] { self.model.activityItems_ }
-}
-
-extension ContactItemActionItemsExampleViewModel: ActivityItemsBehavior {
-    func didSelect(_ activityItem: ActivityItem) {
-        switch activityItem.type {
-        case .email:
-            print("send email to \(activityItem.data ?? "unknown")")
-            self.selectedActivity = activityItem
-        default:
-            print("don't know how to handle this activity")
-        }
-    }
-}
-```
-
-A container / control shall support optionality, e.g. activityItems @ViewBuilder property does not need to be supplied by an app developer). This can be archived by conditional initializers on the extension of container/control. Sourcery-based code generation already supports this, see ContactItem+Init.generated.swift as example of such output
+ A container / control shall support optionality, e.g. activityItems @ViewBuilder property does not need to be supplied by an app developer). This can be archived by conditional initializers on the extension of container/control. Sourcery-based code generation already supports this, see ContactItem+Init.generated.swift as example of such output
 
 ```swift
 ContactItem {
@@ -204,6 +135,8 @@ extension ContactItem where ActionItems == EmptyView {
     }
 }
 ```
+
+## Collection containers
 
 A layout collection container shall provide option to style / handle individual elements and could be used directly by an app developer
 
@@ -249,3 +182,14 @@ KPIHeaderControl(data, id: \.title_).titleModifier({
     $0.font(.headline).foregroundColor(.red)
 })
 ```
+
+# Examples
+
+The [Example application](./Apps/Examples/Examples/FioriSwiftUICore/Experimental) contains established concept proposals like
+
+- Theming
+- State Handling
+
+but also contains experimental controls (new or existing ones modified) and their usage. Example: KPI Header (as semantic collection container) vs. layout collection container
+
+<img width="1255" alt="KPIHeaderVsLayoutContainer" src="https://user-images.githubusercontent.com/4176826/104635511-da06ff80-5656-11eb-9005-dc20a34106bf.png">

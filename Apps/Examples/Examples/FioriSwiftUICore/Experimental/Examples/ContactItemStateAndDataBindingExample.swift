@@ -44,7 +44,7 @@ class EmailContactViewModel: ObservableObject {
     }
 
     var email: String {
-        "Marco Eidinger"
+        "Jimmy Steward"
     }
 
     public init() {
@@ -56,7 +56,7 @@ class EmailContactViewModel: ObservableObject {
     }
 
     static var randomName: String {
-        "Mike \(String((0 ..< 10).map { _ in "abcdefghijklmnopqrstuvwxyz".randomElement()! }))"
+        "Mike \(["Palmers", "Chamers", "Balmers"].randomElement()!)"
     }
 }
 
@@ -91,5 +91,5 @@ extension EmailContactViewModel: ContactItemModel {
 }
 
 extension EmailContactViewModel {
-    static let marco = EmailContactViewModel()
+    static let mike = EmailContactViewModel()
 }

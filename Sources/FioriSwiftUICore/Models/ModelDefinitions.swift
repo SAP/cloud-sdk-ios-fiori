@@ -46,7 +46,7 @@ public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol ActivityItemsModel: ActionItemsComponent {} // this should rather move to `post` phase ?
+public protocol ActivityItemsModel: ActionItemsComponent {}
 
 // ----------------------------------------------------------------------------------------------------------------
 

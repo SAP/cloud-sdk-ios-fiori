@@ -34,6 +34,8 @@ This project currently contains three modules: `FioriSwiftUICore`, `FioriCharts`
 ## FioriSwiftUICore
 This module contains both the Fiori palette information which is already consumed in SAPFiori framework, as well as the SwiftUI migration code line, which is in-development in the `migration` branch.
 
+> **WARNING**: [concepts](./GeneratedComponentConcepts.md) and implementation for generated components is `in-development` and can change at any time!!! 
+
 ### Component Generation
 To ensure API consistency and to leverage common implementation logic, we use a component generation pattern when possible.  These scripts are located in the `sourcery/` directory, and should be executed as follows:
 
@@ -220,11 +222,11 @@ This style will be applied in the computed variable in `ProfileDetailItem+API.ge
 
 ### Advanced: suppress EnvironmentKey/Variables and Style generation
 
-Use sourcery tag `// sourcery: no_style` on property of a struct conforming to `_ComponentGenerating`.
+Use sourcery tag `// sourcery: no_style` on property of a type conforming to `_ComponentGenerating` (or `_ComponentMultiPropGenerating`).
 
-### Advanced: Standard component protocols with function
+### Advanced: Standard component protocols with functions
 
-To generate component protocol for single (or multiple) property **and** a function (as event handler) in `pre` phase you have to conform such struct to `_ComponentMultiPropGenerating` protocol.
+Define an internal protocol conforming to `_ComponentMultiPropGenerating` in order to generate a component protocol with functions (e.g. as event handlers) in `pre` phase.
 
 ### Advanced: Non @ViewBuilder injectable ViewModels
 
@@ -260,7 +262,7 @@ To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed 
 - `backingComponentArgumentLabel = <arbitraryName>`
 
 ```swift
-internal struct _ActionItems: _ComponentMultiPropGenerating {
+internal protocol _ActionItems: _ComponentMultiPropGenerating {
   // sourcery: no_style
   // sourcery: backingComponent=ActivityItems
   // sourcery: backingComponentArgumentLabel=actionItemsControl
@@ -321,12 +323,6 @@ extension ProfileHeader {
 
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   
-
-### In Evaluation
-
-See [here](./Experiments.md)
-
-**TODO:** rework before merging back into migration or main branch !!
 
 ## FioriCharts
 The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.

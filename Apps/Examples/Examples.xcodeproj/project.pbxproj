@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8A1FC1AE25D2ECB700CA3175 /* ContactItemActionItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1A625D2ECB700CA3175 /* ContactItemActionItemsExample.swift */; };
-		8A1FC1AF25D2ECB700CA3175 /* ContactItemStateAndDataBindingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1A725D2ECB700CA3175 /* ContactItemStateAndDataBindingExample.swift */; };
-		8A1FC1B025D2ECB700CA3175 /* StylingModifierExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1A825D2ECB700CA3175 /* StylingModifierExample.swift */; };
-		8A1FC1B125D2ECB700CA3175 /* ContactItemInitModelExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1A925D2ECB700CA3175 /* ContactItemInitModelExample.swift */; };
-		8A1FC1B225D2ECB700CA3175 /* ContactItemInitViewBuilderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1AA25D2ECB700CA3175 /* ContactItemInitViewBuilderExample.swift */; };
-		8A1FC1B325D2ECB700CA3175 /* KPIHeaderFreestyleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1AB25D2ECB700CA3175 /* KPIHeaderFreestyleExample.swift */; };
-		8A1FC1B425D2ECB700CA3175 /* ThemingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1AC25D2ECB700CA3175 /* ThemingExample.swift */; };
-		8A1FC1B525D2ECB700CA3175 /* StylingTextStyleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1FC1AD25D2ECB700CA3175 /* StylingTextStyleExample.swift */; };
 		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A52DBFD256D70C700F6F4FC /* listicon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DBFC256D70C700F6F4FC /* listicon.json */; };
 		8A52DC01256D758D00F6F4FC /* listnumeric.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DC00256D758D00F6F4FC /* listnumeric.json */; };
@@ -106,6 +98,14 @@
 		8ACBFA1524F7F011009233DE /* SnapshotTesting in Frameworks */ = {isa = PBXBuildFile; productRef = 8A17AA2C24E211CD00ED8131 /* SnapshotTesting */; };
 		8ACBFA1624F7F011009233DE /* FioriSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 8A4A31BB24E3568700B63AF0 /* FioriSwiftUI */; };
 		8ACBFA1824F7F033009233DE /* ObjectCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8ACBFA1724F7F033009233DE /* ObjectCardSnapshotTests.swift */; };
+		8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFA525D49967007448EC /* ContactItemActionItemsExample.swift */; };
+		8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFA625D49967007448EC /* ContactItemStateAndDataBindingExample.swift */; };
+		8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFA725D49967007448EC /* StylingModifierExample.swift */; };
+		8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFA825D49967007448EC /* ContactItemInitModelExample.swift */; };
+		8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFA925D49967007448EC /* ContactItemInitViewBuilderExample.swift */; };
+		8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFAA25D49967007448EC /* KPIHeaderFreestyleExample.swift */; };
+		8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFAB25D49967007448EC /* ThemingExample.swift */; };
+		8AD9DFB725D49967007448EC /* StylingTextStyleExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AD9DFAC25D49967007448EC /* StylingTextStyleExample.swift */; };
 		8AF60E1E24D34553003889A8 /* Snapshotting+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E0F24D34553003889A8 /* Snapshotting+Extensions.swift */; };
 		8AF60E1F24D34553003889A8 /* PresetViewImageConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1024D34553003889A8 /* PresetViewImageConfigs.swift */; };
 		8AF60E2024D34553003889A8 /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1124D34553003889A8 /* XCTestCase+Extensions.swift */; };
@@ -165,14 +165,6 @@
 
 /* Begin PBXFileReference section */
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
-		8A1FC1A625D2ECB700CA3175 /* ContactItemActionItemsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemActionItemsExample.swift; sourceTree = "<group>"; };
-		8A1FC1A725D2ECB700CA3175 /* ContactItemStateAndDataBindingExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemStateAndDataBindingExample.swift; sourceTree = "<group>"; };
-		8A1FC1A825D2ECB700CA3175 /* StylingModifierExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingModifierExample.swift; sourceTree = "<group>"; };
-		8A1FC1A925D2ECB700CA3175 /* ContactItemInitModelExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemInitModelExample.swift; sourceTree = "<group>"; };
-		8A1FC1AA25D2ECB700CA3175 /* ContactItemInitViewBuilderExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemInitViewBuilderExample.swift; sourceTree = "<group>"; };
-		8A1FC1AB25D2ECB700CA3175 /* KPIHeaderFreestyleExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPIHeaderFreestyleExample.swift; sourceTree = "<group>"; };
-		8A1FC1AC25D2ECB700CA3175 /* ThemingExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemingExample.swift; sourceTree = "<group>"; };
-		8A1FC1AD25D2ECB700CA3175 /* StylingTextStyleExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingTextStyleExample.swift; sourceTree = "<group>"; };
 		8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTestCases.swift; sourceTree = "<group>"; };
 		8A52DBFC256D70C700F6F4FC /* listicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = listicon.json; sourceTree = "<group>"; };
 		8A52DC00256D758D00F6F4FC /* listnumeric.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = listnumeric.json; sourceTree = "<group>"; };
@@ -267,6 +259,14 @@
 		8A8B9BD924D3DA580096000F /* AnalyticalCardSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticalCardSnapshotTests.swift; sourceTree = "<group>"; };
 		8A8B9BDB24D3DADA0096000F /* ListCardSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardSnapshotTests.swift; sourceTree = "<group>"; };
 		8ACBFA1724F7F033009233DE /* ObjectCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectCardSnapshotTests.swift; sourceTree = "<group>"; };
+		8AD9DFA525D49967007448EC /* ContactItemActionItemsExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemActionItemsExample.swift; sourceTree = "<group>"; };
+		8AD9DFA625D49967007448EC /* ContactItemStateAndDataBindingExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemStateAndDataBindingExample.swift; sourceTree = "<group>"; };
+		8AD9DFA725D49967007448EC /* StylingModifierExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingModifierExample.swift; sourceTree = "<group>"; };
+		8AD9DFA825D49967007448EC /* ContactItemInitModelExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemInitModelExample.swift; sourceTree = "<group>"; };
+		8AD9DFA925D49967007448EC /* ContactItemInitViewBuilderExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactItemInitViewBuilderExample.swift; sourceTree = "<group>"; };
+		8AD9DFAA25D49967007448EC /* KPIHeaderFreestyleExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KPIHeaderFreestyleExample.swift; sourceTree = "<group>"; };
+		8AD9DFAB25D49967007448EC /* ThemingExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemingExample.swift; sourceTree = "<group>"; };
+		8AD9DFAC25D49967007448EC /* StylingTextStyleExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylingTextStyleExample.swift; sourceTree = "<group>"; };
 		8AF60E0F24D34553003889A8 /* Snapshotting+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Snapshotting+Extensions.swift"; sourceTree = "<group>"; };
 		8AF60E1024D34553003889A8 /* PresetViewImageConfigs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresetViewImageConfigs.swift; sourceTree = "<group>"; };
 		8AF60E1124D34553003889A8 /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
@@ -311,21 +311,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8A1FC1A525D2ECB700CA3175 /* Examples */ = {
-			isa = PBXGroup;
-			children = (
-				8A1FC1A625D2ECB700CA3175 /* ContactItemActionItemsExample.swift */,
-				8A1FC1A725D2ECB700CA3175 /* ContactItemStateAndDataBindingExample.swift */,
-				8A1FC1A825D2ECB700CA3175 /* StylingModifierExample.swift */,
-				8A1FC1A925D2ECB700CA3175 /* ContactItemInitModelExample.swift */,
-				8A1FC1AA25D2ECB700CA3175 /* ContactItemInitViewBuilderExample.swift */,
-				8A1FC1AB25D2ECB700CA3175 /* KPIHeaderFreestyleExample.swift */,
-				8A1FC1AC25D2ECB700CA3175 /* ThemingExample.swift */,
-				8A1FC1AD25D2ECB700CA3175 /* StylingTextStyleExample.swift */,
-			);
-			path = Examples;
-			sourceTree = "<group>";
-		};
 		8A55794A24C1286E0098003A = {
 			isa = PBXGroup;
 			children = (
@@ -562,7 +547,7 @@
 		8A6D64AF25AE656400D2D76C /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
-				8A1FC1A525D2ECB700CA3175 /* Examples */,
+				8AD9DFA425D49967007448EC /* Examples */,
 				8A6D64B825AE711E00D2D76C /* Utilities */,
 				8A6D64BE25AE7A6D00D2D76C /* ExperimentalContentView.swift */,
 			);
@@ -576,6 +561,21 @@
 				8A6D64B925AE714100D2D76C /* ExampleHighlightingStyle.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8AD9DFA425D49967007448EC /* Examples */ = {
+			isa = PBXGroup;
+			children = (
+				8AD9DFA525D49967007448EC /* ContactItemActionItemsExample.swift */,
+				8AD9DFA625D49967007448EC /* ContactItemStateAndDataBindingExample.swift */,
+				8AD9DFA725D49967007448EC /* StylingModifierExample.swift */,
+				8AD9DFA825D49967007448EC /* ContactItemInitModelExample.swift */,
+				8AD9DFA925D49967007448EC /* ContactItemInitViewBuilderExample.swift */,
+				8AD9DFAA25D49967007448EC /* KPIHeaderFreestyleExample.swift */,
+				8AD9DFAB25D49967007448EC /* ThemingExample.swift */,
+				8AD9DFAC25D49967007448EC /* StylingTextStyleExample.swift */,
+			);
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		8AF60E0E24D34553003889A8 /* SnapshotTests */ = {
@@ -792,8 +792,8 @@
 			files = (
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
-				8A1FC1B325D2ECB700CA3175 /* KPIHeaderFreestyleExample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
+				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
 				8A6D64BA25AE714100D2D76C /* ExampleHighlightingStyle.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
@@ -801,32 +801,32 @@
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
-				8A1FC1B125D2ECB700CA3175 /* ContactItemInitModelExample.swift in Sources */,
+				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8A5579EF24C1293C0098003A /* TestCases.swift in Sources */,
 				8A5579E324C1293C0098003A /* InlineTestCases.swift in Sources */,
+				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
-				8A1FC1AF25D2ECB700CA3175 /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				8A557A1124C1293C0098003A /* SegmentedControl+Chart.swift in Sources */,
+				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
+				8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
+				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
-				8A1FC1B225D2ECB700CA3175 /* ContactItemInitViewBuilderExample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
+				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				8A5579E624C1293C0098003A /* TestBundles.swift in Sources */,
-				8A1FC1B425D2ECB700CA3175 /* ThemingExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
-				8A1FC1B525D2ECB700CA3175 /* StylingTextStyleExample.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
-				8A1FC1B025D2ECB700CA3175 /* StylingModifierExample.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
+				8AD9DFB725D49967007448EC /* StylingTextStyleExample.swift in Sources */,
 				8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */,
-				8A1FC1AE25D2ECB700CA3175 /* ContactItemActionItemsExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

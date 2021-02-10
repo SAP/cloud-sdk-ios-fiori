@@ -48,22 +48,11 @@ struct ContactItemActionItemsExample: View {
                                 self.viewModel.selectedActivity = activity
                             }
                         }
-
-                        // offer optional action handler which is backed by onTapGesture ??
-//                        ActivityControlLayoutContainer(viewModel.activityItems_, action: viewModel.didSelect) { activity in
-//                            Text(activity.id.uuidString)
-//                        }
                     }
                 }
                 .exampleHighlighting()
 
-                ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "CodeGen changes needed to handle behavior protocol; optionally pass items via function builder")
-
-//                ContactItem(title: "TitleString", subtitle: "SubtitleString", footnote: nil, descriptionText: nil, detailImage: nil, actionItems: [.init(type: .email, data: "address@gmail.com")], actionItemHandler: { selectedActivity in
-//                    self.viewModel.selectedActivity = selectedActivity
-//                }).exampleHighlighting()
-
-                ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "CodeGen changes needed to handle behavior protocol")
+                ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
                 ContactItem(model: viewModel)
                     .exampleHighlighting()
@@ -95,13 +84,14 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsC
     var footnote_: String? { self.model.footnote_ }
     var descriptionText_: String? { self.model.descriptionText_ }
     var detailImage_: Image? { self.model.detailImage_ }
+
     var actionItems_: [ActivityItemDataType]? {
-        let activities: [ActivityItemDataType] = [ActivityItemDataType.email, .init(type: .email, data: "cba@gmail.com")]
+        let activities: [ActivityItemDataType] = [
+            .init(type: .email, data: "Laurel@example.com"),
+            .init(type: .email, data: "Laurel@contoso.com")]
         return activities
     }
-}
 
-extension ContactItemActionItemsExampleViewModel: ActivityItemsBehavior {
     func didSelect(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
