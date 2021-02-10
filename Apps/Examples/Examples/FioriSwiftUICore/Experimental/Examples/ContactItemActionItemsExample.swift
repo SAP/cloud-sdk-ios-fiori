@@ -88,7 +88,8 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsC
     var actionItems_: [ActivityItemDataType]? {
         let activities: [ActivityItemDataType] = [
             .init(type: .email, data: "Laurel@example.com"),
-            .init(type: .email, data: "Laurel@contoso.com")]
+            .init(type: .email, data: "Laurel@contoso.com")
+        ]
         return activities
     }
 
