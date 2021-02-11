@@ -1,10 +1,3 @@
-//
-//  _ComponentGenerating.swift
-//  ThemingPrototype
-//
-//  Created by Stan Stadelman on 8/18/20.
-//
-
 import SwiftUI
 
 internal protocol _ComponentGenerating {}

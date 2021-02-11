@@ -16,7 +16,7 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 	private let _footnote: Footnote
 	private let _descriptionText: DescriptionText
 	private let _detailImage: DetailImage
-	private let _actionItems: ActionItems 
+	private let _actionItems: ActionItems
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -49,27 +49,29 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 	var detailImage: some View {
         _detailImage.modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
     }
-    var actionItems: some View {
+	var actionItems: some View {
         _actionItems
     }
+    
 }
 
 extension ContactItem where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		DetailImage == _ConditionalContent<Image, EmptyView> {
-    
-    public init(model: ContactItemModel, @ViewBuilder actionItems: @escaping () -> ActionItems) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: actionItems) 
+		DetailImage == _ConditionalContent<Image, EmptyView>,
+		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
+
+    public init(model: ContactItemModel) {
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItemsControl: ActivityItems(model: model))
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, @ViewBuilder actionItems: @escaping () -> ActionItems) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItemsControl: ActivityItems? = nil) {
         self._title = Text(title)
-			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-			self._actionItems = actionItems() 
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+		self._actionItems = actionItemsControl != nil ? ViewBuilder.buildEither(first: actionItemsControl!) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

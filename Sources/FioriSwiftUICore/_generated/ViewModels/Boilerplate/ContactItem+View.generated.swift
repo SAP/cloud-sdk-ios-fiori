@@ -22,6 +22,7 @@ extension Fiori {
 		typealias Footnote = EmptyModifier
 		typealias DescriptionText = EmptyModifier
 		typealias DetailImage = EmptyModifier
+		typealias ActionItems = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -40,14 +41,15 @@ extension Fiori {
 		static let footnote = Footnote()
 		static let descriptionText = DescriptionText()
 		static let detailImage = DetailImage()
+		static let actionItems = ActionItems()
     }
 }
 
 // FIXME: - Implement ContactItem View body
 
 extension ContactItem: View {
-    public var body: some View { 
-        <# View body #> 
+    public var body: some View {
+        <# View body #>
     }
 }
 */

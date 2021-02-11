@@ -156,4 +156,30 @@ extension Type {
         }
         """
     }
+
+    var closureProperties: [Variable] {
+        var closureProperties: [Variable] = []
+
+        for method in self.methods {
+            let v = Variable(name: "\(method.name)Closure", typeName: method.returnTypeName, type: Type(), accessLevel: (read: .internal, write: .internal), isComputed: true, isStatic: false, defaultValue: nil, attributes: [:], annotations: [:], definedInTypeName: method.definedInTypeName)
+            closureProperties.append(v)
+        }
+
+        return closureProperties
+    }
+
+    func closureProperties(contextType: [String: Type]) -> [Variable] {
+        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
+
+            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
+
+            let parameterListAsString: String = method.parameters.map({ "\($0.typeName)" }).joined(separator: ",")
+            let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
+
+            var convertionAnnotations: [String: NSObject] = [:]
+            convertionAnnotations["originalMethod"] = method
+
+            return Variable(name: name, typeName: typeName, type: Type(), accessLevel: (read: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!, write: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!), isComputed: true, isStatic: method.isStatic, defaultValue: nil, attributes: [:], annotations: convertionAnnotations, definedInTypeName: method.definedInTypeName)
+        }
+    }
 }

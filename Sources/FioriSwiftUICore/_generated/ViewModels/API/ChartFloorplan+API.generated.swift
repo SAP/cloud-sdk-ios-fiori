@@ -16,7 +16,7 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	private let _status: Status
 	private let _valueAxisTitle: ValueAxisTitle
 	private let _seriesTitles: SeriesTitles
-	private let _categoryAxisTitle: CategoryAxisTitle 
+	private let _categoryAxisTitle: CategoryAxisTitle
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -61,17 +61,17 @@ extension ChartFloorplan where Title == Text,
 		ValueAxisTitle == _ConditionalContent<Text, EmptyView>,
 		SeriesTitles == Text,
 		CategoryAxisTitle == _ConditionalContent<Text, EmptyView> {
-    
+
     public init(model: ChartFloorplanModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, status: model.status_, valueAxisTitle: model.valueAxisTitle_, seriesTitles: model.seriesTitles_, categoryAxisTitle: model.categoryAxisTitle_) 
+        self.init(title: model.title_, subtitle: model.subtitle_, status: model.status_, valueAxisTitle: model.valueAxisTitle_, seriesTitles: model.seriesTitles_, categoryAxisTitle: model.categoryAxisTitle_)
     }
 
     public init(title: String, subtitle: String? = nil, status: String? = nil, valueAxisTitle: String? = nil, seriesTitles: [String] = [], categoryAxisTitle: String? = nil) {
         self._title = Text(title)
-			self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
-			self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
-			self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView()) 
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
+		self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

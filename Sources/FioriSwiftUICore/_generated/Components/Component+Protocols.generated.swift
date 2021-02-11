@@ -119,3 +119,11 @@ public protocol LowerBoundTitleComponent {
 public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
 }
+
+public protocol ActionItemsComponent {
+	// sourcery: backingComponent=ActivityItems
+	// sourcery: backingComponentArgumentLabel=actionItemsControl
+	// sourcery: no_style
+	var actionItems_: [ActivityItemDataType]? { get }
+	func didSelect(_ activityItem: ActivityItemDataType) -> Void
+}

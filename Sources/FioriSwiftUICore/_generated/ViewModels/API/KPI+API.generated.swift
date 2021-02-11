@@ -8,7 +8,7 @@ public struct KPI<Title: View, Icon: View> {
 	@Environment(\.iconModifier) private var iconModifier
 
     private let _title: Title
-	private let _icon: Icon 
+	private let _icon: Icon
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -29,13 +29,13 @@ public struct KPI<Title: View, Icon: View> {
 
 extension KPI where Title == Text,
 		Icon == _ConditionalContent<Image, EmptyView> {
-    
+
     public init(model: KPIModel) {
-        self.init(title: model.title_, icon: model.icon_) 
+        self.init(title: model.title_, icon: model.icon_)
     }
 
     public init(title: String, icon: Image? = nil) {
         self._title = Text(title)
-			self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView()) 
+		self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
     }
-} 
+}

@@ -1,13 +1,6 @@
-//
-//  StyleCache.swift
-//  
-//
-//  Created by Stan Stadelman on 10/5/20.
-//
-
 import SwiftUI
 
-//public struct StyleSheet: Decodable {
+// public struct StyleSheet: Decodable {
 //    let palette: [String: Color]
 //
 //    var styles: [String: AnyViewModifier]
@@ -27,22 +20,26 @@ import SwiftUI
 //    public func addStyles([String: AnyViewModifier]) {
 //
 //    }
-//}
+// }
 
 public final class StyleCache: ObservableObject {
-
     static let shared = StyleCache()
     var styles: [String: AnyViewModifier] = [:]
     public static func upsertStyles(_ styles: [String: AnyViewModifier]) throws {
-        Self.shared.styles.merge(styles) { (lhs, rhs) -> AnyViewModifier in
-            return rhs
+        Self.shared.styles.merge(styles) { (_, rhs) -> AnyViewModifier in
+            rhs
         }
     }
+
+    public static func resetStyles() {
+        Self.shared.styles = [:]
+    }
+
     private init() {}
     
     func resolveModifier(for path: [String]) -> Result<AnyViewModifier, Error> {
         var isDirty = false
-        let modifier: AnyViewModifier = path.reduce(AnyViewModifier({ $0 })) { prevMod, nextClass in
+        let modifier: AnyViewModifier = path.reduce(AnyViewModifier { $0 }) { prevMod, nextClass in
             guard let mod = styles[nextClass] else { return prevMod }
             isDirty = true
             return AnyViewModifier { $0.modifier(prevMod.concat(mod)) }

@@ -33,6 +33,7 @@ included: # paths to include during linting. `--path` is ignored if present.
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Tests
   - Apps
+  - Sources/FioriSwiftUICore/_generated
 
 # configurable rules can be customized from this configuration file
 # binary rules can set their severity level
