@@ -1,17 +1,10 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stadelman, Stan on 12/14/20.
-//
-
 import Foundation
 import SourceryRuntime
 
 // MARK: Public API
-extension Array where Element == Variable {
-    
-    public func foo() -> String { "Foo" }
+
+public extension Array where Element == Variable {
+    func foo() -> String { "Foo" }
     /**
      Formats a list `View`-conforming generic parameter for struct declaration.
      
@@ -20,8 +13,8 @@ extension Array where Element == Variable {
      Title: View, Subtitle: View, ...
      ```
      */
-    public var templateParameterDecls: [String] {
-        map({ "\($0.trimmedName.capitalizingFirst()): View"})
+    var templateParameterDecls: [String] {
+        map { "\($0.trimmedName.capitalizingFirst()): View" }
     }
     
     /**
@@ -32,8 +25,9 @@ extension Array where Element == Variable {
      ...
      ```
      */
-    public var viewModifierPropertyDecls: [String] {
-        map({ "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" })
+    var viewModifierPropertyDecls: [String] {
+        filter { $0.annotations.keys.contains("no_style") == false }
+            .map { "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" }
     }
     
     /**
@@ -44,8 +38,12 @@ extension Array where Element == Variable {
      ...
      ```
      */
-    public var viewBuilderPropertyDecls: [String] {
-        map({ "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" })
+    var viewBuilderPropertyDecls: [String] {
+        map { "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
+    }
+
+    var dataTypePropertyDecls: [String] {
+        map { "var _\($0.trimmedName): \($0.typeName) = nil" }
     }
     
     /**
@@ -56,8 +54,8 @@ extension Array where Element == Variable {
          @ViewBuilder subtitle: @escaping () -> Subtitle, ...
      ```
      */
-    public var viewBuilderInitParams: [String] {
-        map({ "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"})
+    var viewBuilderInitParams: [String] {
+        map { "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())" }
     }
     
     /**
@@ -71,36 +69,35 @@ extension Array where Element == Variable {
             ...
      ```
      */
-    public var viewBuilderInitParamAssignment: [String] {
-        map({ "self._\($0.trimmedName) = \($0.trimmedName)()" })
+    var viewBuilderInitParamAssignment: [String] {
+        map { "self._\($0.trimmedName) = \($0.trimmedName)()" }
     }
     
     /**
-    Responsible for resolving view modifiers from default styling, and Environment property
+     Responsible for resolving view modifiers from default styling, and Environment property
      
-      Generates as follows:
-     ```
-     var title: some View {
-         _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
-     }
-     ```
-     - important: This is the ONLY view which should be used by developers in the layout construction
-     */
-    public func resolvedViewModifierChain(type: Type) -> String {
+       Generates as follows:
+      ```
+      var title: some View {
+          _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+      }
+      ```
+      - important: This is the ONLY view which should be used by developers in the layout construction
+        */
+    func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
 }
 
 // MARK: Public API Extension
 
-extension Array where Element: Variable {
-    
+public extension Array where Element: Variable {
     /**
      Formatted assignments for initializer which takes optional content.
      
      Uses `ViewBuilder.buildEither` to account for nil content injected via this API
      ```
-     init(/*...*/) { // starts here =>
+     init( /* ... */ ) { // starts here =>
         // Where content is non-optional
         self._title = { Text(title) }()
 
@@ -111,62 +108,85 @@ extension Array where Element: Variable {
         }()
      ```
      */
-    public var extensionModelInitParamsAssignments: [String] {
-        map({ "self._\($0.trimmedName) = \($0.conditionalAssignment)" })
+    var extensionModelInitParamsAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.conditionalAssignment)" }
+    }
+
+    var extensionModelInitParamsBackedAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.conditionalAssignmentBacked)" }
+    }
+
+    var extensionModelInitParamsDataTypeAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.trimmedName)" }
     }
 }
 
 extension Array where Element: Variable {
-
-
-
     func configurationInitParams(component: String) -> String {
-        map({ "\($0.trimmedName): _\($0.trimmedName)().modifier(\($0.trimmedName)Modifier.concat(Fiori.\(component).\($0.trimmedName))).typeErased" }).joined(separator: ",\n\t\t\t")
+        map { "\($0.trimmedName): _\($0.trimmedName)().modifier(\($0.trimmedName)Modifier.concat(Fiori.\(component).\($0.trimmedName))).typeErased" }.joined(separator: ",\n\t\t\t")
     }
 
     var configurationPropertyDecls: String {
-        map({ "let \($0.trimmedName): AnyView" }).joined(separator: "\n\t")
+        map { "let \($0.trimmedName): AnyView" }.joined(separator: "\n\t")
     }
 
     var configurationPropertyViewBuilder: String {
-        map({ "configuration.\($0.trimmedName)"}).joined(separator: "\n\t\t\t")
+        map { "configuration.\($0.trimmedName)" }.joined(separator: "\n\t\t\t")
     }
 
     var staticViewModifierPropertyDecls: String {
-        map({ "static let \($0.trimmedName) = \($0.trimmedName.capitalizingFirst())()" }).joined(separator: "\n\t\t")
+        map { "static let \($0.trimmedName) = \($0.trimmedName.capitalizingFirst())()" }.joined(separator: "\n\t\t")
     }
 
     var typealiasViewModifierDecls: String {
-        map({ "typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier" }).joined(separator: "\n\t\t")
+        map { "typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier" }.joined(separator: "\n\t\t")
     }
 
     public var extensionContrainedWhereEmptyView: String {
-        map({ "\($0.trimmedName.capitalizingFirst()) == EmptyView" }).joined(separator: ", ")
+        map { "\($0.trimmedName.capitalizingFirst()) == EmptyView" }.joined(separator: ", ")
     }
 
     public var extensionConstrainedWhereConditionalContent: String {
-        map({ "\($0.trimmedName.capitalizingFirst()) == \($0.isOptional ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)"}).joined(separator: ",\n\t\t")
+        map { "\($0.trimmedName.capitalizingFirst()) == \($0.isOptional ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)" }.joined(separator: ",\n\t\t")
     }
 
     public var extensionModelInitParams: [String] {
-        map({ "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" })
+        map { "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" }
+    }
+
+    public var extensionModelInitParamsBacked: [String] {
+        map {
+            if let backingSwiftUIComponent = $0.backingSwiftUIComponent {
+                return "\($0.backingSwiftUIComponentArgumentLabel!): \(backingSwiftUIComponent)\($0.isOptional ? "?" : "")\($0.emptyDefault)"
+            } else {
+                return "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)"
+            }
+        }
+    }
+
+    public var extensionModelInitParamsBackedChaining: [String] {
+        map {
+            if let backingComponentSwiftUIComponent = $0.backingSwiftUIComponent, let backingSwiftUIComponentArgumentLabel = $0.backingSwiftUIComponentArgumentLabel {
+                return "\(backingSwiftUIComponentArgumentLabel): \(backingComponentSwiftUIComponent)(model: model)"
+            } else {
+                return "\($0.trimmedName): model.\($0.name)"
+            }
+        }
     }
 
     public var extensionModelInitParamsChaining: [String] {
-        map({ "\($0.trimmedName): model.\($0.name)"})
+        map { "\($0.trimmedName): model.\($0.name)" }
     }
 
-
-
     var usage: String {
-        reduce(into: Array<String>(), { prev, next in
+        reduce(into: [String]()) { prev, next in
             let label = prev.count > 0 ? "\(next.name):" : ""
             prev.append("\(label) {\n\t\t\tconfiguration.\(next.name)\n\t\t}")
-        }).joined(separator: " ")
+        }.joined(separator: " ")
     }
 
     var acmeUsage: String {
-        reduce(into: Array<String>(), { prev, next in
+        reduce(into: [String]()) { prev, next in
             let label = prev.count > 0 ? "\(next.name):" : ""
             prev.append("""
             \(label) {
@@ -176,11 +196,11 @@ extension Array where Element: Variable {
                         }
                     }
             """)
-        }).joined(separator: " ")
+        }.joined(separator: " ")
     }
 
-    public func extensionInitParamWhereEmptyView(scenario: Array<Element>) -> [String] {
-        var output: Array<String> = []
+    public func extensionInitParamWhereEmptyView(scenario: [Element]) -> [String] {
+        var output: [String] = []
         for variable in self {
             if !scenario.contains(variable) {
                 output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
@@ -189,8 +209,8 @@ extension Array where Element: Variable {
         return output
     }
 
-    public func extensionInitParamAssignmentWhereEmptyView(scenario: Array<Element>) -> [String] {
-        var output: Array<String> = []
+    public func extensionInitParamAssignmentWhereEmptyView(scenario: [Element]) -> [String] {
+        var output: [String] = []
         for variable in self {
             if scenario.contains(variable) {
                 output.append("\(variable.trimmedName): { EmptyView() }")
@@ -202,4 +222,26 @@ extension Array where Element: Variable {
     }
 }
 
+extension Array where Element: Variable {
+    var privateClosurePropModelDecls: [String] {
+        map { "var _\($0.trimmedName): \($0.typeName) = nil" }
+    }
 
+    var extensionModelInitClosureParamsChaining: [String] {
+        // return "\($0.trimmedName): model.\($0.name)"
+        map {
+            guard let method = $0.annotations["originalMethod"] as? SourceryRuntime.Method else { return "" }
+            return "\($0.trimmedName): model.\(method.selectorName)"
+        }
+    }
+
+    public var extensionModelInitClosureParams: [String] {
+        map {
+            "\($0.trimmedName): \($0.typeName) = nil"
+        }
+    }
+
+    var extensionModelInitClosureParamsAssignments: [String] {
+        map { "self._\($0.trimmedName) = \($0.trimmedName)" }
+    }
+}

@@ -5,17 +5,19 @@
 <%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
 <%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
 <%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
-<%_ 
+<%_
 
 let models = types.protocols.filter({ $0.annotations["generated_component"] != nil })
 
 for model in models {
 
+    let closureProperties = model.closureProperties(contextType: type)
+
     let componentProperties = model.flattenedComponentProperties(contextType: type)
     let styleName = model.componentStyleName
 
     let templateParameterDecls = [
-        componentProperties.templateParameterDecls, 
+        componentProperties.templateParameterDecls,
         model.add_view_builder_paramsTemplateParameterDecls
     ].flatMap { $0 }.joined(separator: ", ")
 
@@ -26,6 +28,7 @@ for model in models {
 
     let privatePropertyDecls = [
         componentProperties.viewBuilderPropertyDecls,
+        closureProperties.privateClosurePropModelDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
@@ -40,23 +43,26 @@ for model in models {
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 
     let extensionModelInitParams = [
-        componentProperties.extensionModelInitParams,
+        componentProperties.extensionModelInitParamsBacked,
+        closureProperties.extensionModelInitClosureParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsChaining = [
-        componentProperties.extensionModelInitParamsChaining,
+        componentProperties.extensionModelInitParamsBackedChaining,
+        closureProperties.extensionModelInitClosureParamsChaining,
         model.add_view_builder_paramsExtensionModelInitParamsChaining
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsAssignments = [
-        componentProperties.extensionModelInitParamsAssignments,
+        componentProperties.extensionModelInitParamsBackedAssignments,
+        closureProperties.extensionModelInitClosureParamsAssignments,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
-    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
 
     let modelInitParam: String = "model: \(model.name)"
 
-    let modelInitParams = [ 
+    let modelInitParams = [
         [modelInitParam],
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
@@ -72,7 +78,7 @@ for model in models {
   }
 
   let combinationsOfOptionals = optionalPropertySequences(model).map({ $0 })
-  
+
   -%>
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
 import SwiftUI
@@ -80,7 +86,7 @@ import SwiftUI
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
-    <%= privatePropertyDecls %> 
+    <%= privatePropertyDecls %>
 
     public init(
         <%= viewBuilderInitParams %>
@@ -93,15 +99,15 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 }
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
-    
+
     public init(<%= modelInitParams %>) {
-        self.init(<%= extensionModelInitParamsChaining %>) 
+        self.init(<%= extensionModelInitParamsChaining %>)
     }
 
     public init(<%= extensionModelInitParams %>) {
-        <%= extensionModelInitParamsAssignments %> 
+        <%= extensionModelInitParamsAssignments %>
     }
-} 
+}
 // sourcery:end
 
 // sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift
@@ -124,8 +130,8 @@ import SwiftUI
 // FIXME: - Implement <%= model.componentName %> View body
 
 extension <%= model.componentName %>: View {
-    public var body: some View { 
-        <# View body #> 
+    public var body: some View {
+        <# View body #>
     }
 }
 */
@@ -133,7 +139,7 @@ extension <%= model.componentName %>: View {
 
 // sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
 import SwiftUI
-<%_ 
+<%_
     for optionalCombination in combinationsOfOptionals {
 
         let extensionInitParamWhereEmptyView = [

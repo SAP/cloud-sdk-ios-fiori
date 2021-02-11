@@ -1226,3 +1226,12 @@ public extension View {
         }
     }
 }
+
+
+
+
+	extension EnvironmentValues {
+	}
+
+	public extension View {
+	}

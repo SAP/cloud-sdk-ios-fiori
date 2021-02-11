@@ -1,0 +1,91 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%_
+
+let models = types.protocols.filter({ $0.annotations["generated_component_not_configurable"] != nil })
+
+for model in models {
+
+    let closureProperties = model.closureProperties(contextType: type)
+
+    let componentProperties = model.flattenedComponentProperties(contextType: type)
+
+    let environmentPropertyDecls = [
+        componentProperties.viewModifierPropertyDecls,
+        model.add_env_propsDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let privatePropertyDecls = [
+        componentProperties.dataTypePropertyDecls,
+        closureProperties.privateClosurePropModelDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let extensionModelInitParams = [
+        componentProperties.extensionModelInitParams,
+        closureProperties.extensionModelInitClosureParams
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsChaining = [
+        componentProperties.extensionModelInitParamsChaining,
+        closureProperties.extensionModelInitClosureParamsChaining
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsAssignments = [
+        componentProperties.extensionModelInitParamsDataTypeAssignments,
+        closureProperties.extensionModelInitClosureParamsAssignments
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
+
+    let modelInitParam: String = "model: \(model.name)"
+
+    let modelInitParams = [
+        [modelInitParam]
+    ].flatMap { $0 }.joined(separator: ", ")
+
+  -%>
+// sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
+import SwiftUI
+
+public struct <%= model.componentName %> {
+    <%= environmentPropertyDecls %>
+
+    <%= privatePropertyDecls %>
+
+    public init(<%= modelInitParams %>) {
+        self.init(<%= extensionModelInitParamsChaining %>)
+    }
+
+    public init(<%= extensionModelInitParams %>) {
+        <%= extensionModelInitParamsAssignments %>
+    }
+}
+// sourcery:end
+
+// sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/<%= model.componentName %>+View.swift`
+//TODO: Implement <%= model.componentName %> `View` body
+
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
+
+/*
+import SwiftUI
+
+// FIXME: - Implement Fiori style definitions
+
+// FIXME: - Implement <%= model.componentName %> View body
+
+extension <%= model.componentName %>: View {
+    public var body: some View {
+        <# View body #>
+    }
+}
+*/
+// sourcery:end
+<%_ } -%>

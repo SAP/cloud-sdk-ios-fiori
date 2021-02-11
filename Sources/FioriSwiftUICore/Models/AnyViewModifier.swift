@@ -1,11 +1,8 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stan Stadelman on 10/8/20.
-//
-
 import SwiftUI
+
+// https://github.com/objcio/S01E220-swiftui-slides-styling-elements-with-view-modifiers/blob/16d3aefacc8acbb4931c6fb3e43975adf0f22f7d/Slides/ContentView.swift#L156
+
+// See https://talk.objc.io/episodes/S01E220-swiftui-slides-styling-elements-with-view-modifiers for further explanation
 
 public struct AnyViewModifier: ViewModifier {
     var apply: (Content) -> AnyView
@@ -14,7 +11,8 @@ public struct AnyViewModifier: ViewModifier {
     public init<V: View>(_ transform: @escaping (Content) -> V) {
         self.apply = { AnyView(transform($0)) }
     }
+
     public func body(content: Content) -> AnyView {
-        apply(content)
+        self.apply(content)
     }
 }

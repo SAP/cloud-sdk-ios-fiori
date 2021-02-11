@@ -10,16 +10,16 @@ extension Fiori {
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
-            // replace `typealias Subtitle = EmptyModifier` with:
+             // replace `typealias Subtitle = EmptyModifier` with:
 
-            struct Subtitle: ViewModifier {
-                func body(content: Content) -> some View {
-                    content
-                        .font(.body)
-                        .foregroundColor(.preferredColor(.primary3))
-                }
-            }
-        */
+             struct Subtitle: ViewModifier {
+                 func body(content: Content) -> some View {
+                     content
+                         .font(.body)
+                         .foregroundColor(.preferredColor(.primary3))
+                 }
+             }
+         */
         static let title = Title()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
@@ -33,7 +33,7 @@ extension ProfileHeader: View {
         if horizontalSizeClass == .some(.compact) {
             VStack(spacing: 8) {
                 detailImage
-                        .frame(width: 128, height: 128)
+                    .frame(width: 128, height: 128)
                 VStack(spacing: 4) {
                     title
                     subtitle
@@ -41,7 +41,7 @@ extension ProfileHeader: View {
                 }
                 descriptionText
                 Spacer()
-                    actionItems
+                actionItems
             }
             .multilineTextAlignment(.center)
         } else {
@@ -55,10 +55,9 @@ extension ProfileHeader: View {
                 }
                 descriptionText
                 Spacer()
-                    actionItems
+                actionItems
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
         }
-        
     }
 }

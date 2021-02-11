@@ -35,4 +35,28 @@ struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
 
 {% endfor %}
 {% endfor %}
+
+{% for type in types.implementing._ComponentMultiPropGenerating %}
+	{% for variable in type.variables where variable|!annotated:"no_style" %}
+	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
+	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
+
+	struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
+		public static let defaultValue: {{ AStyle }} = {{ AStyle }}()
+	}
+
+	struct {{NAME | upperFirstLetter }}ModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	{% endfor %}
+	{% endfor %}
 // sourcery:end
