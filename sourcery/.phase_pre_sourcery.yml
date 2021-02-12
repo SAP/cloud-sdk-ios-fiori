@@ -2,7 +2,10 @@
 sources:
   - ./../Sources/FioriSwiftUICore/Components/
 templates:
-  - ./../sourcery/stencils/pre_phase/
+  include:
+    - ./../sourcery/stencils/pre_phase/
+  exclude: # Sourcery treats all the templates as independent and so would generate files based on partial templates as well but we'll await this excluding those
+    - ./../sourcery/stencils/pre_phase/partials/
 output:
   ./../Sources/FioriSwiftUICore/_generated/Components
 args:
