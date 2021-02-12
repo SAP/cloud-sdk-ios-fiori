@@ -1,6 +1,5 @@
-// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/KPI+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement KPI `View` body
@@ -40,8 +39,8 @@ extension Fiori {
 // FIXME: - Implement KPI View body
 
 extension KPI: View {
-    public var body: some View { 
-        <# View body #> 
+    public var body: some View {
+        <# View body #>
     }
 }
 */

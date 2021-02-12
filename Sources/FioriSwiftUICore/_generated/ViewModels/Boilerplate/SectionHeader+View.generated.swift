@@ -1,6 +1,5 @@
-// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SectionHeader+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement SectionHeader `View` body
@@ -40,8 +39,8 @@ extension Fiori {
 // FIXME: - Implement SectionHeader View body
 
 extension SectionHeader: View {
-    public var body: some View { 
-        <# View body #> 
+    public var body: some View {
+        <# View body #>
     }
 }
 */
