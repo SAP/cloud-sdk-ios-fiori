@@ -11,10 +11,11 @@ let package = Package(
         .library(
             name: "cloud_sdk_ios_sourcery_utils",
             type: .dynamic,
-            targets: ["utils"]),
+            targets: ["utils"]
+        )
     ],
     dependencies: [
-        .package(name: "Sourcery", url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.0.2")),
+        .package(name: "Sourcery", url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.1.1"))
         /// **NOTICE**: this Package is set up *just* to link against `SourceryRuntime` during dev/test.  During template generation, `SourceryRuntime`
         /// is injected by the sourcery tool.  But, *no other dependencies* will be linked.  So, it does not make sense to introduce additional
         /// dependencies to this package.  If you want to rely on functionality provided by another package (e.g. `swift-algorithms`), copy those files
@@ -23,9 +24,11 @@ let package = Package(
     targets: [
         .target(
             name: "utils",
-            dependencies: [.product(name: "SourceryRuntime", package: "Sourcery")]),
+            dependencies: [.product(name: "SourceryRuntime", package: "Sourcery")]
+        ),
         .testTarget(
             name: "utilsTests",
-            dependencies: ["utils"])
+            dependencies: ["utils"]
+        )
     ]
 )

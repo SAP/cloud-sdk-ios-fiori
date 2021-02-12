@@ -18,14 +18,7 @@ import SwiftUI
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 
 public protocol {{NAME | upperFirstLetter}}Component {
-{% for key,value in variable.annotations %}
-{% if value == 1 %}
-    // sourcery: {{key}}
-{% else %}
-    // sourcery: {{key}}={{value}}
-{% endif %}
-{% endfor %}
-    var {{variable.name}}: {{variable.typeName}} { get }
+{% include "partials/comp_decl_pvar.stencil" %}
 }
 {% endfor %}
 {% endfor %}
@@ -34,14 +27,7 @@ public protocol {{NAME | upperFirstLetter}}Component {
 {% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
 public protocol {{NAME | upperFirstLetter}}Component {
 {% for variable in type.variables where variable %}
-{% for key,value in variable.annotations %}
-{% if value == 1 %}
-	// sourcery: {{key}}
-{% else %}
-	// sourcery: {{key}}={{value}}
-{% endif %}
-{% endfor %}
-	var {{variable.name}}: {{variable.typeName}} { get }
+{% include "partials/comp_decl_pvar.stencil" %}
 {% endfor %}
 {% for method in type.methods where method %}
 	func {{method.name}} -> {{method.returnTypeName}}
