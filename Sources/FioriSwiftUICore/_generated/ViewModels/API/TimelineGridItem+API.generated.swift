@@ -10,7 +10,7 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
     private let _title: Title
 	private let _timestamp: Timestamp
 	private let _status: Status
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder timestamp: @escaping () -> Timestamp,

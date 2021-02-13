@@ -9,7 +9,7 @@ public struct SectionHeader<Title: View, Attribute: View> {
 
     private let _title: Title
 	private let _attribute: Attribute
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder attribute: @escaping () -> Attribute

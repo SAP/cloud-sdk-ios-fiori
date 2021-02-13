@@ -10,7 +10,7 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
     private let _detailImage: DetailImage
 	private let _title: Title
 	private let _subtitle: Subtitle
-
+	
     public init(
         @ViewBuilder detailImage: @escaping () -> DetailImage,
 		@ViewBuilder title: @escaping () -> Title,

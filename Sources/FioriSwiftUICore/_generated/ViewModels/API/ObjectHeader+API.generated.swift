@@ -18,7 +18,7 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 	private let _status: Status
 	private let _substatus: Substatus
 	private let _detailImage: DetailImage
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,

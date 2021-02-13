@@ -8,7 +8,7 @@ public struct KeyValueItem<Key: View, Value: View> {
 
     private let _key: Key
 	private let _value: Value
-
+	
     public init(
         @ViewBuilder key: @escaping () -> Key,
 		@ViewBuilder value: @escaping () -> Value

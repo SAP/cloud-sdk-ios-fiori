@@ -1,15 +1,9 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stadelman, Stan on 12/14/20.
-//
-
 import Foundation
 import SourceryRuntime
 
 // MARK: - Public API
-extension Type {
+
+public extension Type {
     /**
      Declares additional 'non-model' `ViewBuilder` generic types
      Follows list of `componentProperties.templateParameterDecls`
@@ -17,8 +11,8 @@ extension Type {
      struct AcmeComponent<Title: View, /* starts here => */ AcmeView: View, ...
      ```
      */
-    public var add_view_builder_paramsTemplateParameterDecls: Array<String> {
-        resolvedAnnotations("add_view_builder_params").map({ "\($0.capitalizingFirst()): View" })
+    var add_view_builder_paramsTemplateParameterDecls: [String] {
+        resolvedAnnotations("add_view_builder_params").map { "\($0.capitalizingFirst()): View" }
     }
 }
 
@@ -30,47 +24,46 @@ extension Type {
     }
 }
 
-
-extension Type {
-
-    public var componentName: String {
+public extension Type {
+    var componentName: String {
         name.replacingOccurrences(of: "Model", with: "")
     }
 
-    public var componentNameAsPropertyDecl: String {
-        componentName.lowercasingFirst()
+    var componentNameAsPropertyDecl: String {
+        self.componentName.lowercasingFirst()
     }
 
-    public func flattenedComponentProperties(contextType: [String: Type]) -> Array<Variable> {
-        inheritedTypes.compactMap({ contextType[$0] }).flatMap({ $0.allVariables })
+    func flattenedComponentProperties(contextType: [String: Type]) -> [Variable] {
+        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables }
     }
 
-    public func resolvedAnnotations(_ name: String) -> Array<String> {
+    func resolvedAnnotations(_ name: String) -> [String] {
         if let string = self.annotations[name] as? String {
             return [string]
-        } else if let array = self.annotations[name] as? Array<String> {
+        } else if let array = self.annotations[name] as? [String] {
             return array
         } else {
             return []
         }
     }
     
-    public var add_view_builder_paramsViewBuilderPropertyDecls: [String] {
-        resolvedAnnotations("add_view_builder_params")
-            .map({ "private let _\($0): \($0.capitalizingFirst())" })
+    var add_view_builder_paramsViewBuilderPropertyDecls: [String] {
+        self.resolvedAnnotations("add_view_builder_params")
+            .map { "private let _\($0): \($0.capitalizingFirst())" }
     }
     
-    public var add_view_builder_paramsViewBuilderInitParams: [String] {
-        resolvedAnnotations("add_view_builder_params")
-            .map({ "@ViewBuilder \($0): @escaping () -> \($0.capitalizingFirst())"})
+    var add_view_builder_paramsViewBuilderInitParams: [String] {
+        self.resolvedAnnotations("add_view_builder_params")
+            .map { "@ViewBuilder \($0): @escaping () -> \($0.capitalizingFirst())" }
     }
-    public var add_view_builder_paramsViewBuilderInitParamAssignment: [String] {
-        resolvedAnnotations("add_view_builder_params")
-            .map({ "self._\($0) = \($0)()" })
+
+    var add_view_builder_paramsViewBuilderInitParamAssignment: [String] {
+        self.resolvedAnnotations("add_view_builder_params")
+            .map { "self._\($0) = \($0)()" }
     }
     
-    public var add_view_builder_paramsResolvedViewModifierChain: [String] {
-        resolvedAnnotations("add_view_builder_params")
+    var add_view_builder_paramsResolvedViewModifierChain: [String] {
+        self.resolvedAnnotations("add_view_builder_params")
             .map {
                 """
                 var \($0): some View {
@@ -80,49 +73,49 @@ extension Type {
             }
     }
     
-    public var add_view_builder_paramsExtensionModelInitParamsChaining: [String] {
-        resolvedAnnotations("add_view_builder_params")
-            .map({ "\($0): \($0)" })
+    var add_view_builder_paramsExtensionModelInitParamsChaining: [String] {
+        self.resolvedAnnotations("add_view_builder_params")
+            .map { "\($0): \($0)" }
     }
     
-    public var add_env_propsDecls: [String] {
-        resolvedAnnotations("add_env_props")
-            .map({ "@Environment(\\.\($0)) var \($0)" })
+    var add_env_propsDecls: [String] {
+        self.resolvedAnnotations("add_env_props")
+            .map { "@Environment(\\.\($0)) var \($0)" }
     }
 
-    public func add_public_propsDecls(indent level: Int) -> String {
-        resolvedAnnotations("add_public_props")
-            .map({ "public let \($0)"}).joined(separator: carriageRet(level))
-    }
-
-    // Not used when Style/Configuration is not adopted
-    public var componentStyleName: String {
-        "\(componentName)tStyle"
+    func add_public_propsDecls(indent level: Int) -> String {
+        self.resolvedAnnotations("add_public_props")
+            .map { "public let \($0)" }.joined(separator: carriageRet(level))
     }
 
     // Not used when Style/Configuration is not adopted
-    public var componentStyleNameAsPropertyDecl: String {
-        componentStyleName.lowercasingFirst()
+    var componentStyleName: String {
+        "\(self.componentName)tStyle"
     }
 
     // Not used when Style/Configuration is not adopted
-    public var stylePropertyDecl: String {
-        "@Environment(\\.\(componentNameAsPropertyDecl)Style) var style: Any\(componentStyleName)"
+    var componentStyleNameAsPropertyDecl: String {
+        self.componentStyleName.lowercasingFirst()
     }
 
     // Not used when Style/Configuration is not adopted
-    public var componentStyleConfigurationName: String {
-        "\(componentStyleName)Configuration"
+    var stylePropertyDecl: String {
+        "@Environment(\\.\(self.componentNameAsPropertyDecl)Style) var style: Any\(self.componentStyleName)"
     }
 
     // Not used when Style/Configuration is not adopted
-    public var fioriComponentStyleName: String {
-        "Fiori\(componentStyleName)"
+    var componentStyleConfigurationName: String {
+        "\(self.componentStyleName)Configuration"
     }
 
     // Not used when Style/Configuration is not adopted
-    public var fioriLayoutRouterName: String {
-        "Fiori\(componentName)LayoutRouter"
+    var fioriComponentStyleName: String {
+        "Fiori\(self.componentStyleName)"
+    }
+
+    // Not used when Style/Configuration is not adopted
+    var fioriLayoutRouterName: String {
+        "Fiori\(self.componentName)LayoutRouter"
     }
 
 //    public var usage: String {
@@ -133,10 +126,10 @@ extension Type {
 //        "\(componentName) \(componentProperties.acmeUsage)"
 //    }
 
-    public func fioriStyleImplEnumDecl(componentProperties: [Variable]) -> String {
+    func fioriStyleImplEnumDecl(componentProperties: [Variable]) -> String {
         """
         extension Fiori {
-            enum \(componentName) {
+            enum \(self.componentName) {
                 \(componentProperties.typealiasViewModifierDecls)
 
                 // TODO: - substitute type-specific ViewModifier for EmptyModifier
@@ -157,7 +150,7 @@ extension Type {
         """
     }
 
-    var closureProperties: [Variable] {
+    internal var closureProperties: [Variable] {
         var closureProperties: [Variable] = []
 
         for method in self.methods {
@@ -168,12 +161,12 @@ extension Type {
         return closureProperties
     }
 
-    func closureProperties(contextType: [String: Type]) -> [Variable] {
+    internal func closureProperties(contextType: [String: Type]) -> [Variable] {
         inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
 
             let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
 
-            let parameterListAsString: String = method.parameters.map({ "\($0.typeName)" }).joined(separator: ",")
+            let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
             let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
 
             var convertionAnnotations: [String: NSObject] = [:]
@@ -181,5 +174,12 @@ extension Type {
 
             return Variable(name: name, typeName: typeName, type: Type(), accessLevel: (read: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!, write: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!), isComputed: true, isStatic: method.isStatic, defaultValue: nil, attributes: [:], annotations: convertionAnnotations, definedInTypeName: method.definedInTypeName)
         }
+    }
+}
+
+extension Type {
+    var virtualPropertyDecls: [String] {
+        let virtualProps: [String] = self.annotations.filter { $0.key.contains("virtualProp") }.map { $0.value as? String ?? "" }
+        return virtualProps
     }
 }

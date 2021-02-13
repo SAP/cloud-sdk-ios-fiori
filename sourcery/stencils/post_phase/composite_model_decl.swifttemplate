@@ -29,6 +29,8 @@ for model in models {
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
+	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
+
     let viewBuilderInitParams = [
         componentProperties.viewBuilderInitParams,
         model.add_view_builder_paramsViewBuilderInitParams
@@ -81,6 +83,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
     <%= privatePropertyDecls %>
+	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } %>
 
     public init(
         <%= viewBuilderInitParams %>
