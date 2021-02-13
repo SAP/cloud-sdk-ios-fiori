@@ -16,6 +16,7 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 	private let _descriptionText: DescriptionText
 	private let _detailImage: DetailImage
 	private let _actionItems: ActionItems
+	
 
     public init(
         @ViewBuilder title: @escaping () -> Title,

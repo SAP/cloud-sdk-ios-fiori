@@ -7,7 +7,7 @@ public struct ActivityItems {
 
     var _actionItems: [ActivityItemDataType]? = nil
 	var _didSelectClosure: ((ActivityItemDataType) -> Void)? = nil
-
+	
     public init(model: ActivityItemsModel) {
         self.init(actionItems: model.actionItems_, didSelectClosure: model.didSelect(_:))
     }

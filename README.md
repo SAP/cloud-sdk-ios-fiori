@@ -321,6 +321,20 @@ extension ProfileHeader {
   }
 ```
 
+### Advanced: add property declaration to ViewModel
+
+Use a sourcery annotation for which its key contains `virtualProp` prefix and its value represents the property declaration (as you would write it manually).
+
+Example:
+
+```swift
+// sourcery: generated_component
+// sourcery: virtualPropIntStateChanged = "var internalStateChanged: Bool = false"
+public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
+```
+
+This will add internal stored variable (`var internalStateChanged: Bool = false`) to KeyValueItem+API.generated.swift and can be used in extensions (written by developers).
+
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   
 

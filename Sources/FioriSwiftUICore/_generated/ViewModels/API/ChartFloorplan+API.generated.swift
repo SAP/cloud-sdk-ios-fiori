@@ -16,7 +16,7 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	private let _valueAxisTitle: ValueAxisTitle
 	private let _seriesTitles: SeriesTitles
 	private let _categoryAxisTitle: CategoryAxisTitle
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,

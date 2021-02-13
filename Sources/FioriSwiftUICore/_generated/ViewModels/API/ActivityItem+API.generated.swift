@@ -8,7 +8,7 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
 
     private let _icon: Icon
 	private let _subtitle: Subtitle
-
+	
     public init(
         @ViewBuilder icon: @escaping () -> Icon,
 		@ViewBuilder subtitle: @escaping () -> Subtitle

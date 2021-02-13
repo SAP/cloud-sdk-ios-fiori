@@ -25,6 +25,8 @@ for model in models {
         closureProperties.privateClosurePropModelDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
+	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
+
     let extensionModelInitParams = [
         componentProperties.extensionModelInitParams,
         closureProperties.extensionModelInitClosureParams
@@ -54,6 +56,7 @@ public struct <%= model.componentName %> {
     <%= environmentPropertyDecls %>
 
     <%= privatePropertyDecls %>
+	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } -%>
 
     public init(<%= modelInitParams %>) {
         self.init(<%= extensionModelInitParamsChaining %>)
