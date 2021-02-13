@@ -25,6 +25,11 @@ public protocol {{NAME | upperFirstLetter}}Component {
 
 {% for type in types.implementing._ComponentMultiPropGenerating %}
 {% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
+
+{% for annotationKey, annotationValue in type.annotations %}{% if annotationKey|contains:"virtualProp" %}{# copy over sourcery annotations to define virtual props #}
+// sourcery: {{ annotationKey }}={{ annotationValue }}
+{% endif %}
+{% endfor %}
 public protocol {{NAME | upperFirstLetter}}Component {
 {% for variable in type.variables where variable %}
 {% include "partials/comp_decl_pvar.stencil" %}

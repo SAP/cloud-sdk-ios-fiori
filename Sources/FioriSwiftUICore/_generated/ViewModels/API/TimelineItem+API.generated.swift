@@ -22,7 +22,7 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	private let _secondaryTimestamp: SecondaryTimestamp
 	private let _status: Status
 	private let _substatus: Substatus
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,

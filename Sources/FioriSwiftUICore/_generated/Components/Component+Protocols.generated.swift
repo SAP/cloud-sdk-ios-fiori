@@ -119,6 +119,7 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
 }
 
+
 public protocol ActionItemsComponent {
 	// sourcery: backingComponent=ActivityItems
 	// sourcery: backingComponentArgumentLabel=actionItemsControl

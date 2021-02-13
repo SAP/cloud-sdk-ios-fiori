@@ -10,7 +10,7 @@ public struct KPIAnnotated<Title: View, Subtitle: View, Icon: View> {
     private let _title: Title
 	private let _subtitle: Subtitle
 	private let _icon: Icon
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,

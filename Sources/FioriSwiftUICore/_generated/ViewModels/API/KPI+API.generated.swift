@@ -8,7 +8,7 @@ public struct KPI<Title: View, Icon: View> {
 
     private let _title: Title
 	private let _icon: Icon
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder icon: @escaping () -> Icon

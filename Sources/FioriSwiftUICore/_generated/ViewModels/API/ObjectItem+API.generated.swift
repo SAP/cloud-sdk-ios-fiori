@@ -19,7 +19,7 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	private let _status: Status
 	private let _substatus: Substatus
 	private let _detailImage: DetailImage
-
+	
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
