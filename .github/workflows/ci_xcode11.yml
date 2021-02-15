@@ -51,8 +51,21 @@ jobs:
       uses: sonarsource/sonarcloud-github-action@master
       with:
         args: >
-          -Dsonar.branch.name=${{ github.event.pull_request.head.ref }}
-          -Dsonar.branch.target=main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+          -Dsonar.pullrequest.provider=github
+          -Dsonar.pullrequest.github.repository=${{ github.repository }}
+          -Dsonar.pullrequest.github.token.secured=${{ secrets.GITHUB_TOKEN }}
+          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+    - name: Add comment with link to SonarCloud PR report
+      if: github.event_name == 'pull_request_target'
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'SonarCloud Pull Request Analysis: https://sonarcloud.io/dashboard?id=cloud-sdk-ios-fiori&pullRequest=' + context.issue.number
+            })
