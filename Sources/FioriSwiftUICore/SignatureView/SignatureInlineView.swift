@@ -67,13 +67,13 @@ public struct SignatureViewInline: View {
                         Spacer()
                     }
                     ZStack {
-                        Color.lightGrayColor
-                        Text("Tap to Sign")
+                        Color.preferredColor(.quarternaryFill).cornerRadius(10)
+                        Text("Tap to Sign").foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
                     .frame(width: geometry.size.width, height: 300)
                     .overlay(
                             RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12), lineWidth: 1)
+                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
                     )
                     .onTapGesture {
                         withAnimation {
@@ -96,39 +96,43 @@ public struct SignatureViewInline: View {
                         }
                     }
                     ZStack {
-                        VStack(alignment: .center) {
-                            if imageView == nil {
+                        if imageView == nil {
+                        ZStack(alignment: .bottom) {
+                          //  if imageView == nil {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
                                            color: $model.imageStrokeColor,
                                            lineWidth: $model.strokeWidth)
                                     .background(RectGetter(rect: $rect1))
-                                HStack {
-                                    Text("X").foregroundColor(Color.otherLightGrayColor)
-                                        .font(.system(size: 17))
-                                        .fontWeight(.regular)
-                                        .kerning(-0.41)
-                                        .frame(width: 17, height: 22)
-                                    Rectangle().background(Color.otherLightGrayColor).frame(width: 270, height: 1)
-                                }.padding([.leading, .trailing]).padding(.bottom, 40)
-                            } else {
-                                imageView
-                            }
+                                if !isSaved {
+                                    HStack {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(Color.preferredColor(.quarternaryLabel))
+                                            .font(.body)
+                                            .opacity(0.4)
+                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(width: 270, height: 1)
+                                    }.padding([.leading, .trailing]).padding(.bottom, 30)
+                                }
+                       //     } else {
+                       //         imageView
+                       //     }
                         }.frame(width: geometry.size.width, height: 300)
+                        } else  {
+                            imageView
+                        }
                         
                         
                         if !isSaved {
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.lightGrayColor, lineWidth: 1)
+                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         } else {
                             
                             RoundedRectangle(cornerRadius: 16)
-                                .stroke(Color.lightGrayColor, lineWidth: 1)
-                                .background(Color.lightGrayColor.opacity(0.5))
+                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                                .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
  
                         }
                     }
-                    Divider()
                     HStack {
                         if !isSaved {
                             Button(action: {
@@ -141,9 +145,17 @@ public struct SignatureViewInline: View {
                                 withAnimation {
                                     self.isSaved = true
                                 }
-                                let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
-                                let tempimageview = Image(uiImage: uimage!)
-                                self.imageView = tempimageview
+                                let subviews = UIApplication.shared.windows[0].rootViewController?.view.subviews
+                                for view in subviews! {
+                                    if view is Drawing {
+                                        let tempview = view.asImage(rect: self.rect1)
+                                        let tempimageview = Image(uiImage: tempview)
+                                        self.imageView = tempimageview
+                                    }
+                                }
+                                //let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
+                                //let tempimageview = Image(uiImage: uimage!)
+                                //self.imageView = tempimageview
                             }) {
                                 Text("Save")
                             }.disabled(self.drawings.isEmpty)
