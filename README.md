@@ -256,7 +256,7 @@ Example is `ContactItemModel` which is composed of primitive components (TitleCo
 public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
 ```
 
-To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually, here: `ActivityItems` as generated implementation conforming to `ActionItemsComponent`) you have to declare the following sourcery tag **twice**.
+To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually, here: `ActivityItems` as generated implementation conforming to `ActionItemsComponent`) you have to declare the following sourcery tag.
 
 - `backingComponent = <NameOfBackingView>`
 
@@ -264,7 +264,6 @@ To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed 
 // sourcery: backingComponent=ActivityItems
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
   // sourcery: no_style
-  // sourcery: backingComponent=ActivityItems
   var actionItems_: [ActivityItemDT]?
   func didSelect(_ activityItem: ActivityItemDT) {}
 }
@@ -275,7 +274,6 @@ Those annotations will be copied to the standard component interface (`Component
 ```swift
 // sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
-	// sourcery: backingComponent=ActivityItems
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
 	func didSelect(_ activityItem: ActivityItemDataType) -> Void

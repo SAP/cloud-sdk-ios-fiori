@@ -42,7 +42,7 @@ public extension Variable {
     }
 
     var backingSwiftUIComponent: String? {
-        resolvedAnnotations("backingComponent").first
+        self.definedInType?.resolvedAnnotations("backingComponent").first
     }
 
     var toSwiftUI: String {

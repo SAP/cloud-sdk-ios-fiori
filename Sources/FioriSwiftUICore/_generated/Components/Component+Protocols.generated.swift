@@ -122,7 +122,6 @@ public protocol UpperBoundTitleComponent {
 
 // sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
-	// sourcery: backingComponent=ActivityItems
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
 	func didSelect(_ activityItem: ActivityItemDataType) -> Void
