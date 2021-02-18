@@ -1,10 +1,3 @@
-//
-//  ModelDefinitions.swift
-//  ThemingPrototype
-//
-//  Created by Stadelman, Stan on 8/20/20.
-//
-
 import Foundation
 
 // Standard Components
@@ -18,11 +11,6 @@ public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, FootnoteCo
 
 // sourcery: generated_component
 public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, KpiComponent {}
-
-// sourcery: add_view_builder_params = "actionItems"
-// sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: generated_component
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent {}
 
 // sourcery: generated_component
 public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
@@ -53,3 +41,15 @@ public protocol KPIAnnotatedModel: TitleComponent, SubtitleComponent, IconCompon
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
+
+// sourcery: generated_component
+public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol ActivityItemsModel: ActionItemsComponent {}
+
+// ----------------------------------------------------------------------------------------------------------------
+
+// sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: generated_component_composite
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}

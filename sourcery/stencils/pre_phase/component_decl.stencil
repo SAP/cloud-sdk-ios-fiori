@@ -14,12 +14,28 @@ NothingStyle
 import SwiftUI
 {% for type in types.implementing._ComponentGenerating %}
 
-{% for variable in type.variables where variable|!annotated:"no_style" %}
+{% for variable in type.variables where variable %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 
 public protocol {{NAME | upperFirstLetter}}Component {
-    var {{variable.name}}: {{variable.typeName}} { get }
+{% include "partials/comp_decl_pvar.stencil" %}
 }
 {% endfor %}
+{% endfor %}
+
+{% for type in types.implementing._ComponentMultiPropGenerating %}
+{% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
+
+{% for annotationKey, annotationValue in type.annotations %}
+// sourcery: {{ annotationKey }}={{ annotationValue }}
+{% endfor %}
+public protocol {{NAME | upperFirstLetter}}Component {
+{% for variable in type.variables where variable %}
+{% include "partials/comp_decl_pvar.stencil" %}
+{% endfor %}
+{% for method in type.methods where method %}
+	func {{method.name}} -> {{method.returnTypeName}}
+{% endfor %}
+}
 {% endfor %}
 // sourcery:end

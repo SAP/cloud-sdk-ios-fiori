@@ -1,30 +1,33 @@
-// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
-// MARK: - Public 'View Modifier'-style interface 
+// MARK: - Public 'View Modifier'-style interface
+
 public extension ImageStyle {
     func renderingMode(_ renderingMode: Image.TemplateRenderingMode) -> ImageStyle {
         var new = self
         new._renderingMode = renderingMode
         return new
-    } 
+    }
+
     func interpolation(_ interpolation: Image.Interpolation) -> ImageStyle {
         var new = self
         new._interpolation = interpolation
         return new
-    } 
+    }
+
     func antialiased(_ isAntialiased: Bool) -> ImageStyle {
         var new = self
         new._antialiased = isAntialiased
         return new
-    } 
+    }
+
     func resizable(capInsets: EdgeInsets = EdgeInsets(), resizingMode: Image.ResizingMode = .stretch) -> ImageStyle {
         var new = self
         new._resizable = (capInsets: capInsets, resizingMode: resizingMode)
         return new
-    } 
+    }
 }
 
 public extension Image {
@@ -38,9 +41,7 @@ public extension Image {
     }
 }
 
-
-fileprivate extension Image {
-
+private extension Image {
     func _applyRenderingMode(_ value: Image.TemplateRenderingMode?) -> Image {
         guard value != nil else { return self }
         return self.renderingMode(value!)
@@ -62,23 +63,22 @@ fileprivate extension Image {
     }
 }
 
-fileprivate extension View {
-}
+private extension View {}
 
 public extension ImageStyle {
     func merging(_ style: ImageStyle) -> ImageStyle {
         var new = self
-        if let value = style._renderingMode { 
-            new._renderingMode = value 
+        if let value = style._renderingMode {
+            new._renderingMode = value
         }
-        if let value = style._interpolation { 
-            new._interpolation = value 
+        if let value = style._interpolation {
+            new._interpolation = value
         }
-        if let value = style._antialiased { 
-            new._antialiased = value 
+        if let value = style._antialiased {
+            new._antialiased = value
         }
-        if let value = style._resizable { 
-            new._resizable = value 
+        if let value = style._resizable {
+            new._resizable = value
         }
         return new
     }

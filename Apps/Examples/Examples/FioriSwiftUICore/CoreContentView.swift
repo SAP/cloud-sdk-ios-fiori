@@ -11,6 +11,11 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
+                destination: ExperimentalContentView()) {
+                Text("🚧 Experimental 🚧")
+            }
+            
+            NavigationLink(
                 destination: FioriButtonExample(),
                 label: {
                     Text("FioriButtonStyle")

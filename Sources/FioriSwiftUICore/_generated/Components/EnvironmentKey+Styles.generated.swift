@@ -1,10 +1,9 @@
-// Generated using Sourcery 1.0.2 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-
 import SwiftUI
 
 struct TitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct TitleModifierKey: EnvironmentKey {
@@ -19,9 +18,8 @@ struct TitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SubtitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SubtitleModifierKey: EnvironmentKey {
@@ -36,9 +34,8 @@ struct SubtitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct FootnoteStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct FootnoteModifierKey: EnvironmentKey {
@@ -53,9 +50,8 @@ struct FootnoteStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct DescriptionTextStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct DescriptionTextModifierKey: EnvironmentKey {
@@ -70,9 +66,8 @@ struct DescriptionTextStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct DetailImageStyleKey: EnvironmentKey {
-    public static let defaultValue: ImageStyle = ImageStyle()
+    public static let defaultValue = ImageStyle()
 }
 
 struct DetailImageModifierKey: EnvironmentKey {
@@ -87,9 +82,8 @@ struct DetailImageStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct AttributeStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct AttributeModifierKey: EnvironmentKey {
@@ -104,9 +98,8 @@ struct AttributeStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SecondaryAttributeStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SecondaryAttributeModifierKey: EnvironmentKey {
@@ -121,9 +114,8 @@ struct SecondaryAttributeStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct TimestampStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct TimestampModifierKey: EnvironmentKey {
@@ -138,9 +130,8 @@ struct TimestampStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SecondaryTimestampStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SecondaryTimestampModifierKey: EnvironmentKey {
@@ -155,9 +146,8 @@ struct SecondaryTimestampStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct TrendStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct TrendModifierKey: EnvironmentKey {
@@ -172,9 +162,8 @@ struct TrendStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct StatusStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct StatusModifierKey: EnvironmentKey {
@@ -189,9 +178,8 @@ struct StatusStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SubstatusStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SubstatusModifierKey: EnvironmentKey {
@@ -206,9 +194,8 @@ struct SubstatusStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct BodyStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct BodyModifierKey: EnvironmentKey {
@@ -223,9 +210,8 @@ struct BodyStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct IconStyleKey: EnvironmentKey {
-    public static let defaultValue: ImageStyle = ImageStyle()
+    public static let defaultValue = ImageStyle()
 }
 
 struct IconModifierKey: EnvironmentKey {
@@ -240,9 +226,8 @@ struct IconStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct IconsStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct IconsModifierKey: EnvironmentKey {
@@ -257,9 +242,8 @@ struct IconsStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct ActionTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct ActionTitleModifierKey: EnvironmentKey {
@@ -274,9 +258,8 @@ struct ActionTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SeriesTitlesStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SeriesTitlesModifierKey: EnvironmentKey {
@@ -291,9 +274,8 @@ struct SeriesTitlesStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct KeyStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct KeyModifierKey: EnvironmentKey {
@@ -308,9 +290,8 @@ struct KeyStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct ValueStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct ValueModifierKey: EnvironmentKey {
@@ -325,9 +306,8 @@ struct ValueStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct ValuesStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct ValuesModifierKey: EnvironmentKey {
@@ -342,9 +322,8 @@ struct ValuesStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct ValueAxisTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct ValueAxisTitleModifierKey: EnvironmentKey {
@@ -359,9 +338,8 @@ struct ValueAxisTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct SecondaryValuesAxisTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct SecondaryValuesAxisTitleModifierKey: EnvironmentKey {
@@ -376,9 +354,8 @@ struct SecondaryValuesAxisTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct CategoryAxisTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct CategoryAxisTitleModifierKey: EnvironmentKey {
@@ -393,9 +370,8 @@ struct CategoryAxisTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct EmptyTextStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct EmptyTextModifierKey: EnvironmentKey {
@@ -410,9 +386,8 @@ struct EmptyTextStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct KpiStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct KpiModifierKey: EnvironmentKey {
@@ -427,9 +402,8 @@ struct KpiStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct PlaceholderStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct PlaceholderModifierKey: EnvironmentKey {
@@ -444,9 +418,8 @@ struct PlaceholderStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct TagsStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct TagsModifierKey: EnvironmentKey {
@@ -461,9 +434,8 @@ struct TagsStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct LowerBoundTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct LowerBoundTitleModifierKey: EnvironmentKey {
@@ -478,9 +450,8 @@ struct LowerBoundTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-
 struct UpperBoundTitleStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
+    public static let defaultValue = TextStyle()
 }
 
 struct UpperBoundTitleModifierKey: EnvironmentKey {
