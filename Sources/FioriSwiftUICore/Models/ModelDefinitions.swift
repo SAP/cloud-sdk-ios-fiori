@@ -48,6 +48,9 @@ public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 // sourcery: generated_component_not_configurable
 public protocol ActivityItemsModel: ActionItemsComponent {}
 
+// sourcery: generated_component
+// sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
+public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"

@@ -1,5 +1,6 @@
 import FioriCharts
 import FioriSwiftUI
+import FioriSwiftUICore
 import SwiftUI
 
 struct CoreContentView: View {
@@ -9,9 +10,15 @@ struct CoreContentView: View {
                 destination: SegmentedControl_Chart()) {
                 Text("Segmented Control")
             }
+            
             NavigationLink(
                 destination: ExperimentalContentView()) {
                 Text("🚧 Experimental 🚧")
+            }
+
+            NavigationLink(
+                destination: ListPickerItemExample()) {
+                Text("ListPickerItem")
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }

@@ -1,6 +1,6 @@
-// TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ChartFloorplan+View.swift`
+// TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ListPickerItem+View.swift`
 // TODO: Implement default Fiori style definitions as `ViewModifier`
-// TODO: Implement ChartFloorplan `View` body
+// TODO: Implement ListPickerItem `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,13 +13,9 @@
  // FIXME: - Implement Fiori style definitions
 
  extension Fiori {
-     enum ChartFloorplan {
-         typealias Title = EmptyModifier
- 		typealias Subtitle = EmptyModifier
- 		typealias Status = EmptyModifier
- 		typealias ValueAxisTitle = EmptyModifier
- 		typealias SeriesTitles = EmptyModifier
- 		typealias CategoryAxisTitle = EmptyModifier
+     enum ListPickerItem {
+         typealias Key = EmptyModifier
+ 		typealias Value = EmptyModifier
 
          // TODO: - substitute type-specific ViewModifier for EmptyModifier
          /*
@@ -33,18 +29,14 @@
                  }
              }
          */
-         static let title = Title()
- 		static let subtitle = Subtitle()
- 		static let status = Status()
- 		static let valueAxisTitle = ValueAxisTitle()
- 		static let seriesTitles = SeriesTitles()
- 		static let categoryAxisTitle = CategoryAxisTitle()
+         static let key = Key()
+ 		static let value = Value()
      }
  }
 
- // FIXME: - Implement ChartFloorplan View body
+ // FIXME: - Implement ListPickerItem View body
 
- extension ChartFloorplan: View {
+ extension ListPickerItem: View {
      public var body: some View {
          <# View body #>
      }

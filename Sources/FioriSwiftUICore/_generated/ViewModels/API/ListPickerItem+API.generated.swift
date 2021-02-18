@@ -1,12 +1,12 @@
 import SwiftUI
 
-public struct KeyValueItem<Key: View, Value: View> {
+public struct ListPickerItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
     @Environment(\.valueModifier) private var valueModifier
 
     private let _key: Key
     private let _value: Value
-	
+    var destinationView: AnyView?
     public init(
         @ViewBuilder key: @escaping () -> Key,
         @ViewBuilder value: @escaping () -> Value
@@ -16,18 +16,18 @@ public struct KeyValueItem<Key: View, Value: View> {
     }
 
     var key: some View {
-        _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key))
+        _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key))
     }
 
     var value: some View {
-        _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value))
+        _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value))
     }
 }
 
-public extension KeyValueItem where Key == Text,
+public extension ListPickerItem where Key == Text,
     Value == _ConditionalContent<Text, EmptyView>
 {
-    init(model: KeyValueItemModel) {
+    init(model: ListPickerItemModel) {
         self.init(key: model.key_, value: model.value_)
     }
 
