@@ -11,6 +11,8 @@ let models = types.protocols.filter({ $0.annotations["generated_component_compos
 
 for model in models {
 
+    let closureProperties = model.closureProperties(contextType: type)
+
     let componentProperties = model.flattenedComponentProperties(contextType: type)
     let styleName = model.componentStyleName
 
@@ -42,17 +44,19 @@ for model in models {
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 
     let extensionModelInitParams = [
-        componentProperties.extensionModelInitParamsBacked,
+        componentProperties.extensionModelInitParams,
+		closureProperties.extensionModelInitClosureParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsChaining = [
-        componentProperties.extensionModelInitParamsBackedChaining,
+        componentProperties.extensionModelInitParamsChaining,
+		closureProperties.extensionModelInitClosureParamsChaining,
         model.add_view_builder_paramsExtensionModelInitParamsChaining
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsAssignments = [
-        componentProperties.extensionModelInitParamsBackedAssignments,
+        model.extensionModelInitParamsAssignments(contextType: type, allTypes: types),
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t")
 
@@ -105,6 +109,7 @@ extension <%= model.componentName %> where <%= componentProperties.extensionCons
         <%= extensionModelInitParamsAssignments %>
     }
 }
+
 // sourcery:end
 
 // sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift

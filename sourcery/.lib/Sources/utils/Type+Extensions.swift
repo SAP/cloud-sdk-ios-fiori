@@ -150,16 +150,26 @@ public extension Type {
         """
     }
 
+    /// get methods of a type as variables (i.e. closures)
     internal var closureProperties: [Variable] {
         var closureProperties: [Variable] = []
 
         for method in self.methods {
-            let v = Variable(name: "\(method.name)Closure", typeName: method.returnTypeName, type: Type(), accessLevel: (read: .internal, write: .internal), isComputed: true, isStatic: false, defaultValue: nil, attributes: [:], annotations: [:], definedInTypeName: method.definedInTypeName)
+            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
+
+            let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
+            let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
+
+            var convertionAnnotations: [String: NSObject] = [:]
+            convertionAnnotations["originalMethod"] = method
+
+            let v = Variable(name: name, typeName: typeName, type: Type(), accessLevel: (read: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!, write: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!), isComputed: true, isStatic: method.isStatic, defaultValue: nil, attributes: [:], annotations: convertionAnnotations, definedInTypeName: method.definedInTypeName)
             closureProperties.append(v)
         }
 
         return closureProperties
     }
+
 
     internal func closureProperties(contextType: [String: Type]) -> [Variable] {
         inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
@@ -181,5 +191,92 @@ extension Type {
     var virtualPropertyDecls: [String] {
         let virtualProps: [String] = self.annotations.filter { $0.key.contains("virtualProp") }.map { $0.value as? String ?? "" }
         return virtualProps
+    }
+}
+
+extension Type {
+    func extensionModelInitParamsAssignments(contextType: [String: Type], allTypes: Types) -> [String] {
+        var statements: [String] = []
+        let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
+
+        let viewModelsWhichWillBeBacked = inheritedTypeDefs.filter( { $0.annotations["backingComponent"] != nil || $0.inheritedTypes.inheritedTypes(contextType: contextType).containsAnnotation(name: "backingComponent")})
+        let singlePropTypes = inheritedTypeDefs.filter( { viewModelsWhichWillBeBacked.contains($0) == false })
+        let props = singlePropTypes.flatMap { $0.allVariables }
+        statements.append(contentsOf: props.extensionModelInitParamsAssignments)
+
+        statements.append(contentsOf: self.extensionModelInitParamsAssignments(for: viewModelsWhichWillBeBacked, contextType: contextType, allTypes: allTypes))
+
+        return statements
+    }
+
+    internal func extensionModelInitParamsAssignments(for viewModelsWhichWillBeBacked: [Type], contextType: [String: Type], allTypes: Types) -> [String] {
+        var statements: [String] = []
+
+        let componentTypesWhichWillBeBacked = viewModelsWhichWillBeBacked.map { (model) -> Type in
+            allTypes.protocols.filter({ $0.name == model.inheritedTypes.first! }).first!
+        }
+
+        let backingViewNames = componentTypesWhichWillBeBacked.map({ $0.annotations["backingComponent"] as! String })
+
+        for (idx, componentType) in componentTypesWhichWillBeBacked.enumerated() {
+            guard let name = componentType.variables.first else { continue }
+
+            let regularPropertyNames = componentType.variables.map( { $0.trimmedName } )
+            let closurePropertyNames = componentType.closureProperties.map( { $0.trimmedName } )
+            let propertyNames = regularPropertyNames + closurePropertyNames
+
+            let statement = ViewModelIntParamAssignmentOfViewModel(targetPropertyName: name.trimmedName, instantiatableModelName: viewModelsWhichWillBeBacked[idx].name, instantiatableViewName: backingViewNames[idx], initParameterNames: propertyNames, initParameterValues: propertyNames)
+            statements.append(statement.text)
+        }
+
+        return statements
+    }
+}
+
+private struct ViewModelIntParamAssignmentOfViewModel {
+    var targetPropertyName: String
+    var instantiatableModelName: String
+    var instantiatableViewName: String
+    var initParameterNames: [String]
+    var initParameterValues: [String]
+
+    var initParameters: String {
+        var targets: [String] = []
+        for (idx, param) in initParameterNames.enumerated() {
+            targets.append("\(param): \(initParameterValues[idx])")
+        }
+        return targets.joined(separator: ",")
+    }
+
+    var methodArgumentsNilCheck: String {
+        var targets: [String] = []
+        for param in initParameterValues {
+            targets.append("\(param) != nil")
+        }
+        return targets.joined(separator: " || ")
+    }
+
+    var text: String {
+        return
+            """
+// handle \(instantiatableModelName)
+        if (\(methodArgumentsNilCheck)) {
+            self._\(targetPropertyName) =  ViewBuilder.buildEither(first: \(instantiatableViewName)(\(initParameters)))
+        } else {
+            self._\(targetPropertyName) = ViewBuilder.buildEither(second: EmptyView())
+        }
+"""
+    }
+}
+
+extension  Array where Element: Type {
+    func containsAnnotation(name: String) -> Bool {
+        !self.filter({ !$0.resolvedAnnotations(name).isEmpty }).isEmpty
+    }
+}
+
+extension Array where Element == String {
+    func inheritedTypes(contextType: [String: Type]) -> [Type]  {
+        return self.compactMap { contextType[$0] }.compactMap { $0 }
     }
 }

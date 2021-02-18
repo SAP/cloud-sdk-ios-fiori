@@ -52,6 +52,12 @@ struct ContactItemActionItemsExample: View {
                 }
                 .exampleHighlighting()
 
+                ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
+
+                ContactItem(title: viewModel.title_, subtitle: viewModel.subtitle_, footnote: viewModel.footnote_, descriptionText: viewModel.descriptionText_,
+                            detailImage: viewModel.detailImage_, actionItems: viewModel.actionItems_, didSelectClosure: viewModel.didSelect(_:))
+                    .exampleHighlighting()
+
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
                 ContactItem(model: viewModel)

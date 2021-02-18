@@ -256,22 +256,34 @@ Example is `ContactItemModel` which is composed of primitive components (TitleCo
 public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
 ```
 
-To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually, here: `ActivityItems` as generated implementation conforming to `ActionItemsComponent`) you have to declare the following sourcery tags which will be copied to the standard component interface.
+To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually, here: `ActivityItems` as generated implementation conforming to `ActionItemsComponent`) you have to declare the following sourcery tag **twice**.
 
 - `backingComponent = <NameOfBackingView>`
-- `backingComponentArgumentLabel = <arbitraryName>`
 
 ```swift
+// sourcery: backingComponent=ActivityItems
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
   // sourcery: no_style
   // sourcery: backingComponent=ActivityItems
-  // sourcery: backingComponentArgumentLabel=actionItemsControl
   var actionItems_: [ActivityItemDT]?
   func didSelect(_ activityItem: ActivityItemDT) {}
 }
 ```
 
-This has the effect that `ContactItem` will use a default implementation for actionItems in case the apap developer used the model or conten-based initializers.
+Those annotations will be copied to the standard component interface (`Component+Protocols.generated.swift`) in the `pre` phase of the source code generation process.
+
+```swift
+// sourcery: backingComponent=ActivityItems
+public protocol ActionItemsComponent {
+	// sourcery: backingComponent=ActivityItems
+	// sourcery: no_style
+    var actionItems_: [ActivityItemDataType]? { get }
+	func didSelect(_ activityItem: ActivityItemDataType) -> Void
+}
+```
+
+
+Those changes have the effect that `ContactItem` will use a default implementation for actionItems in case the apap developer used the model or conten-based initializers.
 
 ```swift
 extension ContactItem where Title == Text,
@@ -281,18 +293,23 @@ extension ContactItem where Title == Text,
 	DetailImage == _ConditionalContent<Image, EmptyView>,
 	ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
 
-  public init(model: ContactItemModel) {
-    self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItemsControl: ActivityItems(model: model))
-  }
+    public init(model: ContactItemModel) {
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectClosure: model.didSelect(_:))
+    }
 
-  public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItemsControl: ActivityItems? = nil) {
-    self._title = Text(title)
-    self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-    self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-    self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-    self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-    self._actionItems = actionItemsControl != nil ? ViewBuilder.buildEither(first: actionItemsControl!) : ViewBuilder.buildEither(second: EmptyView())
-  }
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectClosure: ((ActivityItemDataType) -> Void)? = nil) {
+        self._title = Text(title)
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+		// handle ActivityItemsModel
+        if (actionItems != nil || didSelectClosure != nil) {
+            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectClosure: didSelectClosure))
+        } else {
+            self._actionItems = ViewBuilder.buildEither(second: EmptyView())
+        }
+    }
 }
 ```
 ### Advanced: arbitrary @ViewBuilder properties
