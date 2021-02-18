@@ -56,7 +56,7 @@ for model in models {
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsAssignments = [
-        model.extensionModelInitParamsAssignments(contextType: type, allTypes: types),
+        model.extensionModelInitParamsAssignments,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t")
 

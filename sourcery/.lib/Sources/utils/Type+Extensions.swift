@@ -195,13 +195,46 @@ extension Type {
 }
 
 extension Type {
-    func extensionModelInitParamsAssignments(contextType: [String: Type], allTypes: Types) -> [String] {
-        var statements: [String] = []
-        let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
+    /**
+     Formatted assignments (single or multi property components) for initializer which takes optional content.
 
+     Type to be expected of a ViewModel (e.g. ContactItemModel) conforming to primitive components (e.g. TitleComponent) or other ViewModels (e.g. ActivityItemsModel)
+
+     Uses `ViewBuilder.buildEither` to account for nil content injected via this API
+     ```
+     init( /* ... */ ) { // starts here =>
+
+        // primitive components
+        self._title = { Text(title) }()
+        self._subtitle = { subtitle != nil ?
+            ViewBuilder.buildEither(first: Text(subtitle!)) :
+            ViewBuilder.buildEither(second: EmptyView())
+        }()
+
+        // ..
+
+        // composite components
+        if (actionItems != nil || didSelectClosure != nil) {
+            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectClosure: didSelectClosure))
+        } else {
+            self._actionItems = ViewBuilder.buildEither(second: EmptyView())
+        }
+     ```
+     */
+    var extensionModelInitParamsAssignments: [String] {
+
+        var statements: [String] = []
+
+        let context = ProcessInfo().context!
+        let contextType = context.type
+        let allTypes = context.types
+
+
+        let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
         let viewModelsWhichWillBeBacked = inheritedTypeDefs.filter( { $0.annotations["backingComponent"] != nil || $0.inheritedTypes.inheritedTypes(contextType: contextType).containsAnnotation(name: "backingComponent")})
         let singlePropTypes = inheritedTypeDefs.filter( { viewModelsWhichWillBeBacked.contains($0) == false })
         let props = singlePropTypes.flatMap { $0.allVariables }
+
         statements.append(contentsOf: props.extensionModelInitParamsAssignments)
 
         statements.append(contentsOf: self.extensionModelInitParamsAssignments(for: viewModelsWhichWillBeBacked, contextType: contextType, allTypes: allTypes))
