@@ -32,7 +32,6 @@ extension ListPickerItem: View {
                 }
             }
         )
-        .padding()
     }
 }
 
@@ -114,7 +113,6 @@ extension ListPickerItem {
                         .foregroundColor(.preferredColor(.tintColor))
                 }
             }
-            .padding()
             .contentShape(Rectangle())
             .onTapGesture {
                 if isSelected {
