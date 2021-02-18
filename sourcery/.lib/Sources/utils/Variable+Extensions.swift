@@ -35,7 +35,7 @@ public extension Variable {
 
     var conditionalAssignmentBacked: String {
         if isOptional {
-            return "\(self.backingSwiftUIComponentArgumentLabel ?? self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUIBacked)) : ViewBuilder.buildEither(second: EmptyView())"
+            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUIBacked)) : ViewBuilder.buildEither(second: EmptyView())"
         } else {
             return self.toSwiftUIBacked
         }
@@ -43,10 +43,6 @@ public extension Variable {
 
     var backingSwiftUIComponent: String? {
         resolvedAnnotations("backingComponent").first
-    }
-
-    var backingSwiftUIComponentArgumentLabel: String? {
-        resolvedAnnotations("backingComponentArgumentLabel").first
     }
 
     var toSwiftUI: String {
@@ -63,10 +59,6 @@ public extension Variable {
     }
 
     var toSwiftUIBacked: String {
-        if let backingSwiftUIComponentLabel = backingSwiftUIComponentArgumentLabel {
-            return isOptional ? "\(backingSwiftUIComponentLabel)!" : backingSwiftUIComponentLabel
-        }
-
         switch self.typeName.unwrappedTypeName {
         case "String":
             return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"

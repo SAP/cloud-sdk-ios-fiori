@@ -7,7 +7,7 @@ public extension Array where Element == Variable {
     func foo() -> String { "Foo" }
     /**
      Formats a list `View`-conforming generic parameter for struct declaration.
-     
+
      Returned as an array, so that it can be flat-mapped with generic parameters specified in sourcery annotations.
      ```
      Title: View, Subtitle: View, ...
@@ -16,7 +16,7 @@ public extension Array where Element == Variable {
     var templateParameterDecls: [String] {
         map { "\($0.trimmedName.capitalizingFirst()): View" }
     }
-    
+
     /**
      Formats accessor property to Environment-cached `ViewModifier` for each component property
      ```
@@ -29,7 +29,7 @@ public extension Array where Element == Variable {
         filter { $0.annotations.keys.contains("no_style") == false }
             .map { "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" }
     }
-    
+
     /**
      Formats private 'caching' properties to hold the developer-supplied ViewBuilder for each property
      ```
@@ -45,7 +45,7 @@ public extension Array where Element == Variable {
     var dataTypePropertyDecls: [String] {
         map { "var _\($0.trimmedName): \($0.typeName) = nil" }
     }
-    
+
     /**
      Formats list of init ViewBuilder parameters
      ```
@@ -57,7 +57,7 @@ public extension Array where Element == Variable {
     var viewBuilderInitParams: [String] {
         map { "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())" }
     }
-    
+
     /**
      Formats the assignment from init params to caching stored properties
      ```
@@ -72,10 +72,10 @@ public extension Array where Element == Variable {
     var viewBuilderInitParamAssignment: [String] {
         map { "self._\($0.trimmedName) = \($0.trimmedName)()" }
     }
-    
+
     /**
      Responsible for resolving view modifiers from default styling, and Environment property
-     
+
        Generates as follows:
       ```
       var title: some View {
@@ -94,7 +94,7 @@ public extension Array where Element == Variable {
 public extension Array where Element: Variable {
     /**
      Formatted assignments for initializer which takes optional content.
-     
+
      Uses `ViewBuilder.buildEither` to account for nil content injected via this API
      ```
      init( /* ... */ ) { // starts here =>
@@ -110,10 +110,6 @@ public extension Array where Element: Variable {
      */
     var extensionModelInitParamsAssignments: [String] {
         map { "self._\($0.trimmedName) = \($0.conditionalAssignment)" }
-    }
-
-    var extensionModelInitParamsBackedAssignments: [String] {
-        map { "self._\($0.trimmedName) = \($0.conditionalAssignmentBacked)" }
     }
 
     var extensionModelInitParamsDataTypeAssignments: [String] {
@@ -152,26 +148,6 @@ extension Array where Element: Variable {
 
     public var extensionModelInitParams: [String] {
         map { "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)" }
-    }
-
-    public var extensionModelInitParamsBacked: [String] {
-        map {
-            if let backingSwiftUIComponent = $0.backingSwiftUIComponent {
-                return "\($0.backingSwiftUIComponentArgumentLabel!): \(backingSwiftUIComponent)\($0.isOptional ? "?" : "")\($0.emptyDefault)"
-            } else {
-                return "\($0.trimmedName): \($0.typeName.name)\($0.emptyDefault)"
-            }
-        }
-    }
-
-    public var extensionModelInitParamsBackedChaining: [String] {
-        map {
-            if let backingComponentSwiftUIComponent = $0.backingSwiftUIComponent, let backingSwiftUIComponentArgumentLabel = $0.backingSwiftUIComponentArgumentLabel {
-                return "\(backingSwiftUIComponentArgumentLabel): \(backingComponentSwiftUIComponent)(model: model)"
-            } else {
-                return "\($0.trimmedName): model.\($0.name)"
-            }
-        }
     }
 
     public var extensionModelInitParamsChaining: [String] {
