@@ -9,6 +9,13 @@ struct CoreContentView: View {
                 destination: SegmentedControl_Chart()) {
                 Text("Segmented Control")
             }
+            
+            NavigationLink(
+                destination: FioriButtonExample(),
+                label: {
+                    Text("FioriButtonStyle")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }
