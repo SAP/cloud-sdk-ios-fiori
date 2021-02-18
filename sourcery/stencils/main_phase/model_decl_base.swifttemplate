@@ -45,19 +45,19 @@ for model in models {
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 
     let extensionModelInitParams = [
-        componentProperties.extensionModelInitParamsBacked,
+        componentProperties.extensionModelInitParams,
         closureProperties.extensionModelInitClosureParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsChaining = [
-        componentProperties.extensionModelInitParamsBackedChaining,
+        componentProperties.extensionModelInitParamsChaining,
         closureProperties.extensionModelInitClosureParamsChaining,
         model.add_view_builder_paramsExtensionModelInitParamsChaining
     ].flatMap { $0 }.joined(separator: ", ")
 
     let extensionModelInitParamsAssignments = [
-        componentProperties.extensionModelInitParamsBackedAssignments,
+        componentProperties.extensionModelInitParamsAssignments,
         closureProperties.extensionModelInitClosureParamsAssignments,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t")
