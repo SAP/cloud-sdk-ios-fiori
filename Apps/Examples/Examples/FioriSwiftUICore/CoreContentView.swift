@@ -1,5 +1,6 @@
 import FioriCharts
 import FioriSwiftUI
+import FioriSwiftUICore
 import SwiftUI
 
 struct CoreContentView: View {
@@ -14,9 +15,14 @@ struct CoreContentView: View {
                 destination: ExperimentalContentView()) {
                 Text("🚧 Experimental 🚧")
             }
+
+            NavigationLink(
+                destination: ListPickerItemExample()) {
+                Text("ListPickerItem")
+            }
             
             NavigationLink(
-                destination: FioriButtonExample(),
+                destination: FioriButtonStyleExample(),
                 label: {
                     Text("FioriButtonStyle")
                 }

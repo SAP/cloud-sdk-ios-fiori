@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1F3C92F425DF1B1B00A99A07 /* FioriButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F325DF1B1B00A99A07 /* FioriButton.swift */; };
+		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
+		1F3C939D25E05E7100A99A07 /* FioriButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */; };
 		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A52DBFD256D70C700F6F4FC /* listicon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DBFC256D70C700F6F4FC /* listicon.json */; };
 		8A52DC01256D758D00F6F4FC /* listnumeric.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DC00256D758D00F6F4FC /* listnumeric.json */; };
@@ -165,7 +166,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1F3C92F325DF1B1B00A99A07 /* FioriButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButton.swift; sourceTree = "<group>"; };
+		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
+		1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonStyle.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTestCases.swift; sourceTree = "<group>"; };
 		8A52DBFC256D70C700F6F4FC /* listicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = listicon.json; sourceTree = "<group>"; };
@@ -313,12 +315,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1F3C92F225DF1B0200A99A07 /* FioriButton */ = {
+		1F3C92EF25DF12A100A99A07 /* FormCells */ = {
 			isa = PBXGroup;
 			children = (
-				1F3C92F325DF1B1B00A99A07 /* FioriButton.swift */,
+				1F3C92F025DF12C100A99A07 /* ListPicker.swift */,
 			);
-			path = FioriButton;
+			path = FormCells;
+			sourceTree = "<group>";
+		};
+		1F3C939B25E05E0200A99A07 /* FioriButtonStyle */ = {
+			isa = PBXGroup;
+			children = (
+				1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */,
+			);
+			path = FioriButtonStyle;
 			sourceTree = "<group>";
 		};
 		8A55794A24C1286E0098003A = {
@@ -531,10 +541,11 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				1F3C939B25E05E0200A99A07 /* FioriButtonStyle */,
+				8A5579C924C1293C0098003A /* SegmentedControl */,
+				1F3C92EF25DF12A100A99A07 /* FormCells */,
 				8A6D64AF25AE656400D2D76C /* Experimental */,
 				8A557A2124C12C9B0098003A /* CoreContentView.swift */,
-				1F3C92F225DF1B0200A99A07 /* FioriButton */,
-				8A5579C924C1293C0098003A /* SegmentedControl */,
 			);
 			path = FioriSwiftUICore;
 			sourceTree = "<group>";
@@ -804,6 +815,7 @@
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
+				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
 				8A6D64BA25AE714100D2D76C /* ExampleHighlightingStyle.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
@@ -812,6 +824,7 @@
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
+				1F3C939D25E05E7100A99A07 /* FioriButtonStyle.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8A5579EF24C1293C0098003A /* TestCases.swift in Sources */,
@@ -835,7 +848,6 @@
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
-				1F3C92F425DF1B1B00A99A07 /* FioriButton.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
 				8AD9DFB725D49967007448EC /* StylingTextStyleExample.swift in Sources */,
 				8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */,

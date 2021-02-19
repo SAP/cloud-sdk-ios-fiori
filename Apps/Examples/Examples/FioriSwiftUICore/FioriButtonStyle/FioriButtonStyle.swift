@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
-struct FioriButtonExample: View {
+struct FioriButtonStyleExample: View {
     var body: some View {
         Button(action: { print("add tapped") }, label: {
             HStack {
