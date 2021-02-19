@@ -36,22 +36,35 @@ extension ListPickerItem: View {
 }
 
 public extension ListPickerItem {
+    /// Returns a list picker item with given configuration.
+    /// - Parameters:
+    ///   - key: The key view of the list.
+    ///   - value: The value view of the list.
+    ///   - configuration: The configuration for constructing the list picker.
     init(
         @ViewBuilder key: @escaping () -> Key,
         @ViewBuilder value: @escaping () -> Value,
         configuration: ListPickerItemConfiguration? = nil
     ) {
         self.init(key: key, value: value)
-            
+        
         if let configuration = configuration {
             destinationView = configuration.destinationView
         }
     }
 }
 
+/// The configuration for constructing the list picker.
 public struct ListPickerItemConfiguration {
     let destinationView: AnyView
     
+    /// Creates a configuration object from a collection of data which supports both signle-level and multi-level picker with the ability to select multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
     public init<Data, ID, RowContent>(_ data: Data,
                                       id: KeyPath<Data.Element, ID>,
                                       children: KeyPath<Data.Element, Data?>?,
@@ -105,7 +118,7 @@ extension ListPickerItem {
         var body: some View {
             HStack {
                 content
-
+                
                 Spacer()
                 
                 if isSelected {
