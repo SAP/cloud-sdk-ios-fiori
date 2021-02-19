@@ -2,53 +2,62 @@
 // DO NOT EDIT
 import SwiftUI
 
-// MARK: - Public 'View Modifier'-style interface 
+// MARK: - Public 'View Modifier'-style interface
+
 public extension TextStyle {
     func font(_ font: Font) -> TextStyle {
         var new = self
         new._font = font
         return new
-    } 
+    }
+
     func fontWeight(_ fontWeight: Font.Weight) -> TextStyle {
         var new = self
         new._fontWeight = fontWeight
         return new
-    } 
+    }
+
     func foregroundColor(_ foregroundColor: Color) -> TextStyle {
         var new = self
         new._foregroundColor = foregroundColor
         return new
-    } 
+    }
+
     func bold() -> TextStyle {
         var new = self
         new._bold = true
         return new
-    } 
+    }
+
     func italic() -> TextStyle {
         var new = self
         new._italic = true
         return new
-    } 
+    }
+
     func truncationMode(_ truncationMode: Text.TruncationMode) -> TextStyle {
         var new = self
         new._truncationMode = truncationMode
         return new
-    } 
+    }
+
     func lineLimit(_ lineLimit: Int) -> TextStyle {
         var new = self
         new._lineLimit = lineLimit
         return new
-    } 
+    }
+
     func lineSpacing(_ lineSpacing: CGFloat) -> TextStyle {
         var new = self
         new._lineSpacing = lineSpacing
         return new
-    } 
+    }
+
     func multilineTextAlignment(_ multilineTextAlignment: TextAlignment) -> TextStyle {
         var new = self
         new._multilineTextAlignment = multilineTextAlignment
         return new
-    } 
+    }
 }
 
 public extension Text {
@@ -67,9 +76,7 @@ public extension Text {
     }
 }
 
-
-fileprivate extension Text {
-
+private extension Text {
     func _applyFontWeight(_ value: Font.Weight?) -> Text {
         guard value != nil else { return self }
         return self.fontWeight(value!)
@@ -86,8 +93,7 @@ fileprivate extension Text {
     }
 }
 
-fileprivate extension View {
-
+private extension View {
     @ViewBuilder
     func _applyFont(_ value: Font?) -> some View {
         if value != nil {
@@ -146,32 +152,32 @@ fileprivate extension View {
 public extension TextStyle {
     func merging(_ style: TextStyle) -> TextStyle {
         var new = self
-        if let value = style._font { 
-            new._font = value 
+        if let value = style._font {
+            new._font = value
         }
-        if let value = style._fontWeight { 
-            new._fontWeight = value 
+        if let value = style._fontWeight {
+            new._fontWeight = value
         }
-        if let value = style._foregroundColor { 
-            new._foregroundColor = value 
+        if let value = style._foregroundColor {
+            new._foregroundColor = value
         }
-        if let value = style._bold { 
-            new._bold = value 
+        if let value = style._bold {
+            new._bold = value
         }
-        if let value = style._italic { 
-            new._italic = value 
+        if let value = style._italic {
+            new._italic = value
         }
-        if let value = style._truncationMode { 
-            new._truncationMode = value 
+        if let value = style._truncationMode {
+            new._truncationMode = value
         }
-        if let value = style._lineLimit { 
-            new._lineLimit = value 
+        if let value = style._lineLimit {
+            new._lineLimit = value
         }
-        if let value = style._lineSpacing { 
-            new._lineSpacing = value 
+        if let value = style._lineSpacing {
+            new._lineSpacing = value
         }
-        if let value = style._multilineTextAlignment { 
-            new._multilineTextAlignment = value 
+        if let value = style._multilineTextAlignment {
+            new._multilineTextAlignment = value
         }
         return new
     }

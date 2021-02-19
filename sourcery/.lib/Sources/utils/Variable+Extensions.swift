@@ -7,7 +7,7 @@ public extension Variable {
             return backingSwiftUIComponent
         }
 
-        return swiftUITypeName
+        return self.swiftUITypeName
     }
 
     var swiftUITypeName: String {
