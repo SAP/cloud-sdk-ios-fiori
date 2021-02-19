@@ -1,3 +1,5 @@
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
 import SwiftUI
 
 // MARK: - Public 'View Modifier'-style interface

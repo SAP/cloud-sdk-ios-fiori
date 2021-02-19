@@ -1,7 +1,3 @@
-// TODO: Copy commented code to new file: `FioriSwiftUICore/Views/HeaderChart+View.swift`
-// TODO: Implement default Fiori style definitions as `ViewModifier`
-// TODO: Implement HeaderChart `View` body
-
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
 /// to declare a wrapped property

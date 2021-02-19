@@ -1,3 +1,5 @@
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
 import SwiftUI
 
 public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, DetailImage: View, ActionItems: View> {

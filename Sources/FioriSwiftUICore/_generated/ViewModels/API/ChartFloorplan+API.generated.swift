@@ -1,3 +1,5 @@
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
 import SwiftUI
 
 public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxisTitle: View, SeriesTitles: View, CategoryAxisTitle: View> {
