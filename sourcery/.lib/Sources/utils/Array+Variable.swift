@@ -83,7 +83,7 @@ public extension Array where Element == Variable {
       }
       ```
       - important: This is the ONLY view which should be used by developers in the layout construction
-         */
+           */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
