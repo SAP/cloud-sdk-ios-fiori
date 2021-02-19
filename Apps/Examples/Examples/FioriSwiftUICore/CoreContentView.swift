@@ -20,6 +20,13 @@ struct CoreContentView: View {
                 destination: ListPickerItemExample()) {
                 Text("ListPickerItem")
             }
+            
+            NavigationLink(
+                destination: FioriButtonExample(),
+                label: {
+                    Text("FioriButtonStyle")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }
