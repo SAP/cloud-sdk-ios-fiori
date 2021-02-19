@@ -2,28 +2,28 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension TimelineGridItem where Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder timestamp: @escaping () -> Timestamp
+public extension TimelineGridItem where Status == EmptyView {
+    init(
+        @ViewBuilder title: @escaping () -> Title,
+        @ViewBuilder timestamp: @escaping () -> Timestamp
     ) {
         self.init(
             title: title,
-			timestamp: timestamp,
-			status: { EmptyView() }
+            timestamp: timestamp,
+            status: { EmptyView() }
         )
     }
 }
 
-extension TimelineGridItem where Timestamp == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status
+public extension TimelineGridItem where Timestamp == EmptyView {
+    init(
+        @ViewBuilder title: @escaping () -> Title,
+        @ViewBuilder status: @escaping () -> Status
     ) {
         self.init(
             title: title,
-			timestamp: { EmptyView() },
-			status: status
+            timestamp: { EmptyView() },
+            status: status
         )
     }
 }

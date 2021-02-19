@@ -2,301 +2,299 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension EnvironmentValues {
-    public var titleStyle: TextStyle {
+public extension EnvironmentValues {
+    var titleStyle: TextStyle {
         get { return self[TitleStyleKey.self] }
         set { self[TitleStyleKey.self] = newValue }
     }
 
-    public var titleModifier: AnyViewModifier {
+    var titleModifier: AnyViewModifier {
         get { return self[TitleModifierKey.self] }
         set { self[TitleModifierKey.self] = newValue }
     }
 
-    public var subtitleStyle: TextStyle {
+    var subtitleStyle: TextStyle {
         get { return self[SubtitleStyleKey.self] }
         set { self[SubtitleStyleKey.self] = newValue }
     }
 
-    public var subtitleModifier: AnyViewModifier {
+    var subtitleModifier: AnyViewModifier {
         get { return self[SubtitleModifierKey.self] }
         set { self[SubtitleModifierKey.self] = newValue }
     }
 
-    public var footnoteStyle: TextStyle {
+    var footnoteStyle: TextStyle {
         get { return self[FootnoteStyleKey.self] }
         set { self[FootnoteStyleKey.self] = newValue }
     }
 
-    public var footnoteModifier: AnyViewModifier {
+    var footnoteModifier: AnyViewModifier {
         get { return self[FootnoteModifierKey.self] }
         set { self[FootnoteModifierKey.self] = newValue }
     }
 
-    public var descriptionTextStyle: TextStyle {
+    var descriptionTextStyle: TextStyle {
         get { return self[DescriptionTextStyleKey.self] }
         set { self[DescriptionTextStyleKey.self] = newValue }
     }
 
-    public var descriptionTextModifier: AnyViewModifier {
+    var descriptionTextModifier: AnyViewModifier {
         get { return self[DescriptionTextModifierKey.self] }
         set { self[DescriptionTextModifierKey.self] = newValue }
     }
 
-    public var detailImageStyle: ImageStyle {
+    var detailImageStyle: ImageStyle {
         get { return self[DetailImageStyleKey.self] }
         set { self[DetailImageStyleKey.self] = newValue }
     }
 
-    public var detailImageModifier: AnyViewModifier {
+    var detailImageModifier: AnyViewModifier {
         get { return self[DetailImageModifierKey.self] }
         set { self[DetailImageModifierKey.self] = newValue }
     }
 
-    public var attributeStyle: TextStyle {
+    var attributeStyle: TextStyle {
         get { return self[AttributeStyleKey.self] }
         set { self[AttributeStyleKey.self] = newValue }
     }
 
-    public var attributeModifier: AnyViewModifier {
+    var attributeModifier: AnyViewModifier {
         get { return self[AttributeModifierKey.self] }
         set { self[AttributeModifierKey.self] = newValue }
     }
 
-    public var secondaryAttributeStyle: TextStyle {
+    var secondaryAttributeStyle: TextStyle {
         get { return self[SecondaryAttributeStyleKey.self] }
         set { self[SecondaryAttributeStyleKey.self] = newValue }
     }
 
-    public var secondaryAttributeModifier: AnyViewModifier {
+    var secondaryAttributeModifier: AnyViewModifier {
         get { return self[SecondaryAttributeModifierKey.self] }
         set { self[SecondaryAttributeModifierKey.self] = newValue }
     }
 
-    public var timestampStyle: TextStyle {
+    var timestampStyle: TextStyle {
         get { return self[TimestampStyleKey.self] }
         set { self[TimestampStyleKey.self] = newValue }
     }
 
-    public var timestampModifier: AnyViewModifier {
+    var timestampModifier: AnyViewModifier {
         get { return self[TimestampModifierKey.self] }
         set { self[TimestampModifierKey.self] = newValue }
     }
 
-    public var secondaryTimestampStyle: TextStyle {
+    var secondaryTimestampStyle: TextStyle {
         get { return self[SecondaryTimestampStyleKey.self] }
         set { self[SecondaryTimestampStyleKey.self] = newValue }
     }
 
-    public var secondaryTimestampModifier: AnyViewModifier {
+    var secondaryTimestampModifier: AnyViewModifier {
         get { return self[SecondaryTimestampModifierKey.self] }
         set { self[SecondaryTimestampModifierKey.self] = newValue }
     }
 
-    public var trendStyle: TextStyle {
+    var trendStyle: TextStyle {
         get { return self[TrendStyleKey.self] }
         set { self[TrendStyleKey.self] = newValue }
     }
 
-    public var trendModifier: AnyViewModifier {
+    var trendModifier: AnyViewModifier {
         get { return self[TrendModifierKey.self] }
         set { self[TrendModifierKey.self] = newValue }
     }
 
-    public var statusStyle: TextStyle {
+    var statusStyle: TextStyle {
         get { return self[StatusStyleKey.self] }
         set { self[StatusStyleKey.self] = newValue }
     }
 
-    public var statusModifier: AnyViewModifier {
+    var statusModifier: AnyViewModifier {
         get { return self[StatusModifierKey.self] }
         set { self[StatusModifierKey.self] = newValue }
     }
 
-    public var substatusStyle: TextStyle {
+    var substatusStyle: TextStyle {
         get { return self[SubstatusStyleKey.self] }
         set { self[SubstatusStyleKey.self] = newValue }
     }
 
-    public var substatusModifier: AnyViewModifier {
+    var substatusModifier: AnyViewModifier {
         get { return self[SubstatusModifierKey.self] }
         set { self[SubstatusModifierKey.self] = newValue }
     }
 
-    public var bodyStyle: TextStyle {
+    var bodyStyle: TextStyle {
         get { return self[BodyStyleKey.self] }
         set { self[BodyStyleKey.self] = newValue }
     }
 
-    public var bodyModifier: AnyViewModifier {
+    var bodyModifier: AnyViewModifier {
         get { return self[BodyModifierKey.self] }
         set { self[BodyModifierKey.self] = newValue }
     }
 
-    public var iconStyle: ImageStyle {
+    var iconStyle: ImageStyle {
         get { return self[IconStyleKey.self] }
         set { self[IconStyleKey.self] = newValue }
     }
 
-    public var iconModifier: AnyViewModifier {
+    var iconModifier: AnyViewModifier {
         get { return self[IconModifierKey.self] }
         set { self[IconModifierKey.self] = newValue }
     }
 
-    public var iconsStyle: TextStyle {
+    var iconsStyle: TextStyle {
         get { return self[IconsStyleKey.self] }
         set { self[IconsStyleKey.self] = newValue }
     }
 
-    public var iconsModifier: AnyViewModifier {
+    var iconsModifier: AnyViewModifier {
         get { return self[IconsModifierKey.self] }
         set { self[IconsModifierKey.self] = newValue }
     }
 
-    public var actionTitleStyle: TextStyle {
+    var actionTitleStyle: TextStyle {
         get { return self[ActionTitleStyleKey.self] }
         set { self[ActionTitleStyleKey.self] = newValue }
     }
 
-    public var actionTitleModifier: AnyViewModifier {
+    var actionTitleModifier: AnyViewModifier {
         get { return self[ActionTitleModifierKey.self] }
         set { self[ActionTitleModifierKey.self] = newValue }
     }
 
-    public var seriesTitlesStyle: TextStyle {
+    var seriesTitlesStyle: TextStyle {
         get { return self[SeriesTitlesStyleKey.self] }
         set { self[SeriesTitlesStyleKey.self] = newValue }
     }
 
-    public var seriesTitlesModifier: AnyViewModifier {
+    var seriesTitlesModifier: AnyViewModifier {
         get { return self[SeriesTitlesModifierKey.self] }
         set { self[SeriesTitlesModifierKey.self] = newValue }
     }
 
-    public var keyStyle: TextStyle {
+    var keyStyle: TextStyle {
         get { return self[KeyStyleKey.self] }
         set { self[KeyStyleKey.self] = newValue }
     }
 
-    public var keyModifier: AnyViewModifier {
+    var keyModifier: AnyViewModifier {
         get { return self[KeyModifierKey.self] }
         set { self[KeyModifierKey.self] = newValue }
     }
 
-    public var valueStyle: TextStyle {
+    var valueStyle: TextStyle {
         get { return self[ValueStyleKey.self] }
         set { self[ValueStyleKey.self] = newValue }
     }
 
-    public var valueModifier: AnyViewModifier {
+    var valueModifier: AnyViewModifier {
         get { return self[ValueModifierKey.self] }
         set { self[ValueModifierKey.self] = newValue }
     }
 
-    public var valuesStyle: TextStyle {
+    var valuesStyle: TextStyle {
         get { return self[ValuesStyleKey.self] }
         set { self[ValuesStyleKey.self] = newValue }
     }
 
-    public var valuesModifier: AnyViewModifier {
+    var valuesModifier: AnyViewModifier {
         get { return self[ValuesModifierKey.self] }
         set { self[ValuesModifierKey.self] = newValue }
     }
 
-    public var valueAxisTitleStyle: TextStyle {
+    var valueAxisTitleStyle: TextStyle {
         get { return self[ValueAxisTitleStyleKey.self] }
         set { self[ValueAxisTitleStyleKey.self] = newValue }
     }
 
-    public var valueAxisTitleModifier: AnyViewModifier {
+    var valueAxisTitleModifier: AnyViewModifier {
         get { return self[ValueAxisTitleModifierKey.self] }
         set { self[ValueAxisTitleModifierKey.self] = newValue }
     }
 
-    public var secondaryValuesAxisTitleStyle: TextStyle {
+    var secondaryValuesAxisTitleStyle: TextStyle {
         get { return self[SecondaryValuesAxisTitleStyleKey.self] }
         set { self[SecondaryValuesAxisTitleStyleKey.self] = newValue }
     }
 
-    public var secondaryValuesAxisTitleModifier: AnyViewModifier {
+    var secondaryValuesAxisTitleModifier: AnyViewModifier {
         get { return self[SecondaryValuesAxisTitleModifierKey.self] }
         set { self[SecondaryValuesAxisTitleModifierKey.self] = newValue }
     }
 
-    public var categoryAxisTitleStyle: TextStyle {
+    var categoryAxisTitleStyle: TextStyle {
         get { return self[CategoryAxisTitleStyleKey.self] }
         set { self[CategoryAxisTitleStyleKey.self] = newValue }
     }
 
-    public var categoryAxisTitleModifier: AnyViewModifier {
+    var categoryAxisTitleModifier: AnyViewModifier {
         get { return self[CategoryAxisTitleModifierKey.self] }
         set { self[CategoryAxisTitleModifierKey.self] = newValue }
     }
 
-    public var emptyTextStyle: TextStyle {
+    var emptyTextStyle: TextStyle {
         get { return self[EmptyTextStyleKey.self] }
         set { self[EmptyTextStyleKey.self] = newValue }
     }
 
-    public var emptyTextModifier: AnyViewModifier {
+    var emptyTextModifier: AnyViewModifier {
         get { return self[EmptyTextModifierKey.self] }
         set { self[EmptyTextModifierKey.self] = newValue }
     }
 
-    public var kpiStyle: TextStyle {
+    var kpiStyle: TextStyle {
         get { return self[KpiStyleKey.self] }
         set { self[KpiStyleKey.self] = newValue }
     }
 
-    public var kpiModifier: AnyViewModifier {
+    var kpiModifier: AnyViewModifier {
         get { return self[KpiModifierKey.self] }
         set { self[KpiModifierKey.self] = newValue }
     }
 
-    public var placeholderStyle: TextStyle {
+    var placeholderStyle: TextStyle {
         get { return self[PlaceholderStyleKey.self] }
         set { self[PlaceholderStyleKey.self] = newValue }
     }
 
-    public var placeholderModifier: AnyViewModifier {
+    var placeholderModifier: AnyViewModifier {
         get { return self[PlaceholderModifierKey.self] }
         set { self[PlaceholderModifierKey.self] = newValue }
     }
 
-    public var tagsStyle: TextStyle {
+    var tagsStyle: TextStyle {
         get { return self[TagsStyleKey.self] }
         set { self[TagsStyleKey.self] = newValue }
     }
 
-    public var tagsModifier: AnyViewModifier {
+    var tagsModifier: AnyViewModifier {
         get { return self[TagsModifierKey.self] }
         set { self[TagsModifierKey.self] = newValue }
     }
 
-    public var lowerBoundTitleStyle: TextStyle {
+    var lowerBoundTitleStyle: TextStyle {
         get { return self[LowerBoundTitleStyleKey.self] }
         set { self[LowerBoundTitleStyleKey.self] = newValue }
     }
 
-    public var lowerBoundTitleModifier: AnyViewModifier {
+    var lowerBoundTitleModifier: AnyViewModifier {
         get { return self[LowerBoundTitleModifierKey.self] }
         set { self[LowerBoundTitleModifierKey.self] = newValue }
     }
 
-    public var upperBoundTitleStyle: TextStyle {
+    var upperBoundTitleStyle: TextStyle {
         get { return self[UpperBoundTitleStyleKey.self] }
         set { self[UpperBoundTitleStyleKey.self] = newValue }
     }
 
-    public var upperBoundTitleModifier: AnyViewModifier {
+    var upperBoundTitleModifier: AnyViewModifier {
         get { return self[UpperBoundTitleModifierKey.self] }
         set { self[UpperBoundTitleModifierKey.self] = newValue }
     }
-
 }
 
 public extension View {
-
     @ViewBuilder
     func titleStyle(_ style: TextStyle, concat: Bool = true) -> some View {
         if concat {
@@ -318,13 +316,13 @@ public extension View {
     func titleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.titleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -350,13 +348,13 @@ public extension View {
     func subtitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.subtitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -382,13 +380,13 @@ public extension View {
     func footnoteStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.footnoteModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -414,13 +412,13 @@ public extension View {
     func descriptionTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.descriptionTextModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -446,13 +444,13 @@ public extension View {
     func detailImageStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.detailImageModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -478,13 +476,13 @@ public extension View {
     func attributeStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.attributeModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -510,13 +508,13 @@ public extension View {
     func secondaryAttributeStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.secondaryAttributeModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -542,13 +540,13 @@ public extension View {
     func timestampStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.timestampModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -574,13 +572,13 @@ public extension View {
     func secondaryTimestampStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.secondaryTimestampModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -606,13 +604,13 @@ public extension View {
     func trendStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.trendModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -638,13 +636,13 @@ public extension View {
     func statusStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.statusModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -670,13 +668,13 @@ public extension View {
     func substatusStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.substatusModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -702,13 +700,13 @@ public extension View {
     func bodyStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.bodyModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -734,13 +732,13 @@ public extension View {
     func iconStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.iconModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -766,13 +764,13 @@ public extension View {
     func iconsStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.iconsModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -798,13 +796,13 @@ public extension View {
     func actionTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.actionTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -830,13 +828,13 @@ public extension View {
     func seriesTitlesStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.seriesTitlesModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -862,13 +860,13 @@ public extension View {
     func keyStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.keyModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -894,13 +892,13 @@ public extension View {
     func valueStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.valueModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -926,13 +924,13 @@ public extension View {
     func valuesStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.valuesModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -958,13 +956,13 @@ public extension View {
     func valueAxisTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.valueAxisTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -990,13 +988,13 @@ public extension View {
     func secondaryValuesAxisTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.secondaryValuesAxisTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1022,13 +1020,13 @@ public extension View {
     func categoryAxisTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.categoryAxisTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1054,13 +1052,13 @@ public extension View {
     func emptyTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.emptyTextModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1086,13 +1084,13 @@ public extension View {
     func kpiStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.kpiModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1118,13 +1116,13 @@ public extension View {
     func placeholderStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.placeholderModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1150,13 +1148,13 @@ public extension View {
     func tagsStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.tagsModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1182,13 +1180,13 @@ public extension View {
     func lowerBoundTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.lowerBoundTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
@@ -1214,23 +1212,18 @@ public extension View {
     func upperBoundTitleStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.upperBoundTitleModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
+            case .success(let resolved):
+                if concat {
+                    let copy = $0; $0 = AnyViewModifier { content in content.modifier(resolved.concat(copy)) }
+                } else {
+                    $0 = resolved
+                }
+            case .failure: break
             }
         }
     }
 }
 
+extension EnvironmentValues {}
 
-
-
-	extension EnvironmentValues {
-	}
-
-	public extension View {
-	}
+public extension View {}
