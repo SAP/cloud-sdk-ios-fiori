@@ -38,8 +38,9 @@ struct footnoteInfo {
 struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
-    @Binding var color: Color
+    @Binding var strokeColor: Color
     @Binding var lineWidth: CGFloat
+    @Binding var backgroundColor: Color
     
     var body: some View {
         GeometryReader { geometry in
@@ -49,8 +50,8 @@ struct DrawingPad: View {
                 }
                 self.add(drawing: self.currentDrawing, toPath: &path)
             }
-            .stroke(self.color, lineWidth: self.lineWidth)
-               .background(Color(white: 1))
+            .stroke(self.strokeColor, lineWidth: self.lineWidth)
+            .background(self.backgroundColor)
                 .gesture(
                     DragGesture(minimumDistance: 0.1)
                         .onChanged({ (value) in
@@ -87,10 +88,11 @@ public struct SignatureView: View {
     
     @State private var currentDrawing: Drawing = Drawing()
     @State private var drawings: [Drawing] = [Drawing]()
-    @State private var imageStrokeColor: Color = Color.black //
-    @State private var strokeWidth: CGFloat = 3.0 //
+    @State private var imageStrokeColor: Color = Color.black
+    @State private var strokeWidth: CGFloat = 3.0
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
+    @State private var backgroundColor = Color.white
     
     public init() {
         
@@ -136,16 +138,17 @@ public struct SignatureView: View {
                 }.padding([.leading, .trailing])
                 DrawingPad(currentDrawing: $currentDrawing,
                            drawings: $drawings,
-                           color: $imageStrokeColor,
-                           lineWidth: $strokeWidth)
+                           strokeColor: $imageStrokeColor,
+                           lineWidth: $strokeWidth,
+                           backgroundColor: $backgroundColor)
                     .background(RectGetter(rect: $rect1))
                 HStack {
-                    Text("X").foregroundColor(Color.otherLightGrayColor)
+                    Text("X")
                         .font(.system(size: 17))
                         .fontWeight(.regular)
                         .kerning(-0.41)
                         .frame(width: 17, height: 22)
-                    Rectangle().background(Color.otherLightGrayColor).frame(width: 270, height: 1)
+                    Rectangle().frame(width: 270, height: 1)
                 }.frame(height: 40).padding([.leading, .trailing]).padding(.bottom, 40)
             }
         }

@@ -9,21 +9,10 @@ import SwiftUI
 
 extension SignatureViewInline {
     class Model: ObservableObject {
-        @Published var imageStrokeColor: Color = Color.black
+        @Published var imageStrokeColor: Color = Color.preferredColor(.primaryLabel)
         @Published var strokeWidth: CGFloat = 3.0
+        @Published var backgroundColor: Color = Color.preferredColor(.primaryBackground)
     }
-}
-
-struct Title: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .foregroundColor(Color(.sRGB, red: 50/255, green: 54/255, blue: 58/255, opacity: 1))
-    }
-}
-
-extension Color {
-    static let lightGrayColor = Color(.sRGB, red: 137/255, green: 145/255, blue: 154/255, opacity: 0.12)
-    static let otherLightGrayColor = Color(.sRGB, red: 50/255, green: 54/255, blue: 58/255, opacity: 0.55)
 }
 
 public struct SignatureViewInline: View {
@@ -44,11 +33,20 @@ public struct SignatureViewInline: View {
         }
     }
     
+    public var backgroundColor: Color {
+        get {
+            return model.backgroundColor
+        } set {
+            model.backgroundColor = newValue
+        }
+    }
+    
     @ObservedObject private var model: Model = Model()
     
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.black) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground)) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
+        self.backgroundColor = backgroundColor
     }
     
     @State private var currentDrawing: Drawing = Drawing()
@@ -68,7 +66,7 @@ public struct SignatureViewInline: View {
                     }
                     ZStack {
                         Color.preferredColor(.quarternaryFill).cornerRadius(10)
-                        Text("Tap to Sign").foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                        Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
                     .frame(width: geometry.size.width, height: 300)
                     .overlay(
@@ -101,8 +99,10 @@ public struct SignatureViewInline: View {
                           //  if imageView == nil {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
-                                           color: $model.imageStrokeColor,
-                                           lineWidth: $model.strokeWidth)
+                                           strokeColor: $model.imageStrokeColor,
+                                           lineWidth: $model.strokeWidth,
+                                           backgroundColor: $model.backgroundColor)
+                                    .foregroundColor(Color.preferredColor(.cellBackground))
                                     .background(RectGetter(rect: $rect1))
                                 if !isSaved {
                                     HStack {
@@ -113,9 +113,7 @@ public struct SignatureViewInline: View {
                                         Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(width: 270, height: 1)
                                     }.padding([.leading, .trailing]).padding(.bottom, 30)
                                 }
-                       //     } else {
-                       //         imageView
-                       //     }
+
                         }.frame(width: geometry.size.width, height: 300)
                         } else  {
                             imageView
@@ -153,9 +151,6 @@ public struct SignatureViewInline: View {
                                         self.imageView = tempimageview
                                     }
                                 }
-                                //let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
-                                //let tempimageview = Image(uiImage: uimage!)
-                                //self.imageView = tempimageview
                             }) {
                                 Text("Save")
                             }.disabled(self.drawings.isEmpty)
