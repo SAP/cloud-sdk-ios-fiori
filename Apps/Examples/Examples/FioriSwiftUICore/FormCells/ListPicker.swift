@@ -3,7 +3,8 @@ import Foundation
 import SwiftUI
 
 private enum ListPickerItemDataModel {
-    struct Framework {
+    struct Framework: Identifiable {
+        var id = UUID()
         let name: String
         let children: [Framework]?
         
@@ -20,11 +21,29 @@ private enum ListPickerItemDataModel {
         Framework(name: "SwiftUI"),
         Framework(name: "UIKit")
     ]
+    
+    static func getFramwork(with uuid: UUID) -> Framework? {
+        func findFramework(in data: [Framework]) -> Framework? {
+            for framework in data {
+                if framework.id == uuid {
+                    return framework
+                }
+                
+                if let children = framework.children, !children.isEmpty {
+                    return findFramework(in: children)
+                }
+            }
+            
+            return nil
+        }
+        
+        return findFramework(in: self.data)
+    }
 }
 
 // MARK: List picker item examples
 
-struct ListPickerItemExample: View {
+struct ListPickerItemDataNonIdentifiableExample: View {
     private let model = ListPickerItemDataModel.data
     
     @State var selections: Set<String> = []
@@ -40,6 +59,36 @@ struct ListPickerItemExample: View {
                 Text(str)
             }, configuration:
             ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+                Text(framework.name)
+            }))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct ListPickerItemDataIdentifiableExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<UUID> = []
+    
+    public init() {}
+
+    public var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).compactMap { uuid in
+                    if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                        return framework.name
+                    }
+                    
+                    return nil
+                }.joined(separator: ", ")
+                
+                Text(str)
+            }, configuration:
+            ListPickerItemConfiguration(model, children: \.children, selection: $selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -121,7 +170,11 @@ public struct ListPickerItemWithStringExample: View {
 struct ListPickerItemPreview: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            ListPickerItemExample()
+            ListPickerItemDataNonIdentifiableExample()
+        }
+        
+        NavigationView {
+            ListPickerItemDataIdentifiableExample()
         }
         
         NavigationView {
