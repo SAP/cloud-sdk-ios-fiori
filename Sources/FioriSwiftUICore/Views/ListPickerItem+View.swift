@@ -121,21 +121,19 @@ public extension ListPickerItemConfiguration {
 
 extension ListPickerItem {
     struct Row<ID: Hashable>: View where Value == EmptyView {
-        let content: Key
-        let id: ID
-        var selection: Binding<Set<ID>>?
-        @State private var isSelected: Bool
+        private let content: Key
+        private let id: ID
+        @Binding private var selection: Set<ID>
         
         init(content: Key, id: ID, selection: Binding<Set<ID>>?) {
             self.content = content
             self.id = id
-            self.selection = selection
-            
-            let isSelected = selection?.wrappedValue.contains(id) ?? false
-            self._isSelected = State(initialValue: isSelected)
+            self._selection = selection ?? Binding.constant(Set<ID>())
         }
         
         var body: some View {
+            let isSelected = selection.contains(id)
+            
             HStack {
                 content
                 
@@ -149,11 +147,10 @@ extension ListPickerItem {
             .contentShape(Rectangle())
             .onTapGesture {
                 if isSelected {
-                    selection?.wrappedValue.remove(id)
+                    selection.remove(id)
                 } else {
-                    selection?.wrappedValue.insert(id)
+                    selection.insert(id)
                 }
-                isSelected.toggle()
             }
         }
     }
