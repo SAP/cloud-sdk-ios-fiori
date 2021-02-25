@@ -90,7 +90,7 @@ public struct ListPickerItemConfiguration {
         }.typeErased
     }
     
-    /// Creates a configuration object from a collection of data (conforms to `Identifiable`) which supports both signle-level and multi-level picker with the ability to select multiple items.
+    /// Creates a configuration object from a collection of data (conforms to `Identifiable`) which supports both single-level and multi-level picker with the ability to select multiple items.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
@@ -108,7 +108,7 @@ public struct ListPickerItemConfiguration {
 }
 
 public extension ListPickerItemConfiguration {
-    /// Creates a configuration object from a collection of `String` which supports both signle-level and multi-level picker with the ability to select multiple items.
+    /// Creates a configuration object from a collection of `String` which supports both single-level and multi-level picker with the ability to select multiple items.
     /// - Parameters:
     ///   - data: An array of strings for constructing the list.
     ///   - selection: A binding to a set which stores the selected items.
