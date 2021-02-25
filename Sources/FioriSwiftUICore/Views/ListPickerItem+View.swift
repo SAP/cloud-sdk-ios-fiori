@@ -89,9 +89,29 @@ public struct ListPickerItemConfiguration {
             }
         }.typeErased
     }
+    
+    /// Creates a configuration object from a collection of data (conforms to `Identifiable`) which supports both single-level and multi-level picker with the ability to select multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    public init<Data, ID, RowContent>(_ data: Data,
+                                      children: KeyPath<Data.Element, Data?>?,
+                                      selection: Binding<Set<ID>>?,
+                                      @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+        where Data: RandomAccessCollection, RowContent: View, Data.Element: Identifiable, ID == Data.Element.ID
+    {
+        let id = \Data.Element.id
+        self.init(data, id: id, children: children, selection: selection, rowContent: rowContent)
+    }
 }
 
 public extension ListPickerItemConfiguration {
+    /// Creates a configuration object from a collection of `String` which supports both single-level and multi-level picker with the ability to select multiple items.
+    /// - Parameters:
+    ///   - data: An array of strings for constructing the list.
+    ///   - selection: A binding to a set which stores the selected items.
     init(_ data: [String], selection: Binding<Set<String>>?) {
         self.init(data, id: \.self, children: nil, selection: selection) { str in
             Text(str)
@@ -101,21 +121,19 @@ public extension ListPickerItemConfiguration {
 
 extension ListPickerItem {
     struct Row<ID: Hashable>: View where Value == EmptyView {
-        let content: Key
-        let id: ID
-        var selection: Binding<Set<ID>>?
-        @State private var isSelected: Bool
+        private let content: Key
+        private let id: ID
+        @Binding private var selection: Set<ID>
         
         init(content: Key, id: ID, selection: Binding<Set<ID>>?) {
             self.content = content
             self.id = id
-            self.selection = selection
-            
-            let isSelected = selection?.wrappedValue.contains(id) ?? false
-            self._isSelected = State(initialValue: isSelected)
+            self._selection = selection ?? Binding.constant(Set<ID>())
         }
         
         var body: some View {
+            let isSelected = selection.contains(id)
+            
             HStack {
                 content
                 
@@ -129,11 +147,10 @@ extension ListPickerItem {
             .contentShape(Rectangle())
             .onTapGesture {
                 if isSelected {
-                    selection?.wrappedValue.remove(id)
+                    selection.remove(id)
                 } else {
-                    selection?.wrappedValue.insert(id)
+                    selection.insert(id)
                 }
-                isSelected.toggle()
             }
         }
     }
