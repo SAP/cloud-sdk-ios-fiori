@@ -15,8 +15,14 @@ extension SignatureViewInline {
     }
 }
 
+/**
+A SignatureViewInline object is used to draw and capture a user's signature.
+
+ */
+
 public struct SignatureViewInline: View {
     
+    /// Stroke width for drawing lines
     public var strokeWidth: CGFloat {
         get {
             return model.strokeWidth
@@ -25,6 +31,7 @@ public struct SignatureViewInline: View {
         }
     }
     
+    /// Stroke color for drawing lines
     public var imageStrokeColor: Color {
         get {
             return model.imageStrokeColor
@@ -33,6 +40,7 @@ public struct SignatureViewInline: View {
         }
     }
     
+    /// Background color of the drawing pad
     public var backgroundColor: Color {
         get {
             return model.backgroundColor
@@ -43,6 +51,12 @@ public struct SignatureViewInline: View {
     
     @ObservedObject private var model: Model = Model()
     
+    
+    /// Initializes and returns a segmented control with segments having the given titles.
+    /// - Parameters:
+    ///   - strokeWidth: Stroke width for drawing lines
+    ///   - imageStrokeColor: Stroke color for drawing lines
+    ///   - backgroundColor: Background color of the drawing pad
     public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground)) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
@@ -61,7 +75,7 @@ public struct SignatureViewInline: View {
             if !isSignatureEditable {
                 VStack {
                     HStack {
-                        Text("Signature*")
+                        Text(NSLocalizedString("Signature", comment: "Signature"))
                         Spacer()
                     }
                     ZStack {
@@ -82,7 +96,7 @@ public struct SignatureViewInline: View {
             } else {
                 VStack {
                     HStack {
-                        Text("Signature*")
+                        Text(NSLocalizedString("Signature", comment: "Signature"))
                         Spacer()
                         Button(action: {
                             self.drawings.removeAll()
@@ -90,13 +104,12 @@ public struct SignatureViewInline: View {
                             imageView = nil
                             isSignatureEditable = false
                         }) {
-                            Text("Cancel")
+                            Text(NSLocalizedString("Cancel", comment: "Cancel"))
                         }
                     }
                     ZStack {
                         if imageView == nil {
-                        ZStack(alignment: .bottom) {
-                          //  if imageView == nil {
+                            ZStack(alignment: .bottom) {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
                                            strokeColor: $model.imageStrokeColor,
@@ -113,22 +126,18 @@ public struct SignatureViewInline: View {
                                         Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(width: 270, height: 1)
                                     }.padding([.leading, .trailing]).padding(.bottom, 30)
                                 }
-
-                        }.frame(width: geometry.size.width, height: 300)
+                            }.frame(width: geometry.size.width, height: 300)
                         } else  {
                             imageView
                         }
-                        
                         
                         if !isSaved {
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         } else {
-                            
                             RoundedRectangle(cornerRadius: 16)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                                 .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
- 
                         }
                     }
                     HStack {
@@ -136,7 +145,7 @@ public struct SignatureViewInline: View {
                             Button(action: {
                                 self.drawings.removeAll()
                             }) {
-                                Text("Clear")
+                                Text(NSLocalizedString("Clear", comment: "Clear"))
                             }.disabled(self.drawings.isEmpty)
                             Spacer()
                             Button(action: {
@@ -152,7 +161,7 @@ public struct SignatureViewInline: View {
                                     }
                                 }
                             }) {
-                                Text("Save")
+                                Text(NSLocalizedString("Save", comment: "Save"))
                             }.disabled(self.drawings.isEmpty)
                         } else {
                             Button(action: {
@@ -162,7 +171,7 @@ public struct SignatureViewInline: View {
                                     self.isSaved = false
                                 }
                             }) {
-                                Text("Re-enter Signature")
+                                Text(NSLocalizedString("Re-enter Signature", comment: "Re-enter Signature"))
                             }
                         }
                     }

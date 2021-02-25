@@ -43,4 +43,3 @@ struct ButtonOverlayShape: Shape {
         return path
     }
 }
-
