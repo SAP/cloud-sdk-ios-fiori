@@ -51,8 +51,8 @@ public struct SignatureView: View {
                         }
                         
                         let imageSaver = ImageSaver()
-                        let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1)
-                        imageSaver.writeToPhotoAlbum(image: uimage!)
+                        guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
+                        imageSaver.writeToPhotoAlbum(image: uimage)
                         drawings.removeAll()
                     }) {
                         Text("Done")
