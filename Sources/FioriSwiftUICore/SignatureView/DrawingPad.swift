@@ -27,7 +27,7 @@ struct Drawing {
     
     /// minimum X value of signature
     public var minX: CGFloat {
-        guard let min = points.min(by: { $0.x < $1.x }) else { return CGFloat.nan}
+        guard let min = points.min(by: { $0.x < $1.x }) else { return CGFloat.nan }
         return min.x
     }
     
