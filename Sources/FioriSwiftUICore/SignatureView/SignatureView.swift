@@ -83,5 +83,3 @@ struct SignatureView_Previews: PreviewProvider {
         SignatureView()
     }
 }
-
-

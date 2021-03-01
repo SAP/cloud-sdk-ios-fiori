@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import UIKit
+import SwiftUI
 
 class ImageSaver: NSObject {
     func writeToPhotoAlbum(image: UIImage) {

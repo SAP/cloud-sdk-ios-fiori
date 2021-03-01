@@ -8,24 +8,33 @@
 import Foundation
 import SwiftUI
 
-
+/// Drawing struct used to capture user signature
 struct Drawing {
+    /// array of points used to track signature
     public var points: [CGPoint] = [CGPoint]()
     
+    /// maximum X value of signature
     public var maxX: CGFloat {
-        return points.max(by: { $0.x < $1.x })!.x
+        guard let max = points.max(by: { $0.x < $1.x }) else { return CGFloat.nan }
+        return max.x
     }
     
+    /// maximum Y value of signature
     public var maxY: CGFloat {
-        return points.max(by: { $0.y < $1.y })!.y
+        guard let max = points.max(by: { $0.y < $1.y }) else { return CGFloat.nan }
+        return max.y
     }
     
+    /// minimum X value of signature
     public var minX: CGFloat {
-        return points.min(by: { $0.x < $1.x })!.x
+        guard let min = points.min(by: { $0.x < $1.x }) else { return CGFloat.nan}
+        return min.x
     }
     
+    /// minimum Y value of signature
     public var minY: CGFloat {
-        return points.min(by: { $0.y < $1.y })!.y
+        guard let min = points.min(by: { $0.y < $1.y }) else { return CGFloat.nan }
+        return min.y
     }
 }
 

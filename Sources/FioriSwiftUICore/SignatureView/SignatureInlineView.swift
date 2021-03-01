@@ -51,7 +51,6 @@ public struct SignatureViewInline: View {
     
     @ObservedObject private var model: Model = Model()
     
-    
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
@@ -127,15 +126,15 @@ public struct SignatureViewInline: View {
                                     }.padding([.leading, .trailing]).padding(.bottom, 30)
                                 }
                             }.frame(width: geometry.size.width, height: 300)
-                        } else  {
+                        } else {
                             imageView
                         }
                         
                         if !isSaved {
-                            RoundedRectangle(cornerRadius: 16)
+                            RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         } else {
-                            RoundedRectangle(cornerRadius: 16)
+                            RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                                 .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
                         }
@@ -152,8 +151,8 @@ public struct SignatureViewInline: View {
                                 withAnimation {
                                     self.isSaved = true
                                 }
-                                let subviews = UIApplication.shared.windows[0].rootViewController?.view.subviews
-                                for view in subviews! {
+                                guard let subviews = UIApplication.shared.windows[0].rootViewController?.view.subviews else { return }
+                                for view in subviews {
                                     if view is Drawing {
                                         let tempview = view.asImage(rect: self.rect1)
                                         let tempimageview = Image(uiImage: tempview)
