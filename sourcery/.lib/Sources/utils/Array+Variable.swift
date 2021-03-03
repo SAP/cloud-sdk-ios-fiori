@@ -55,7 +55,13 @@ public extension Array where Element == Variable {
      ```
      */
     var viewBuilderInitParams: [String] {
-        map { "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())" }
+        map {
+            if let cfb = $0.resolvedAnnotations("customFunctionBuilder").first {
+                return "@\(cfb) \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
+            } else {
+                return "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
+            }
+        }
     }
 
     /**
@@ -83,7 +89,7 @@ public extension Array where Element == Variable {
       }
       ```
       - important: This is the ONLY view which should be used by developers in the layout construction
-           */
+            */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
@@ -189,7 +195,11 @@ extension Array where Element: Variable {
         var output: [String] = []
         for variable in self {
             if scenario.contains(variable) {
-                output.append("\(variable.trimmedName): { EmptyView() }")
+                if variable.resolvedAnnotations("customFunctionBuilder").first != nil {
+                    output.append("\(variable.trimmedName): { }")
+                } else {
+                    output.append("\(variable.trimmedName): { EmptyView() }")
+                }
             } else {
                 output.append("\(variable.trimmedName): \(variable.trimmedName)")
             }
