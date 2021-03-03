@@ -350,6 +350,30 @@ public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
 This will add internal stored variable (`var internalStateChanged: Bool = false`) to KeyValueItem+API.generated.swift and can be used in extensions (written by developers).
 
+### Advanced: custom view-returning function builder
+
+Use sourcery annotation `// sourcery: customFunctionBuilder=<nameOfExistingCustomFunctionBuilder>` to declare the use of a custom view-returning `@_functionBuilder` (e.g. `@IconBuilder`) instead of SwiftUI's `@ViewBuilder`.
+
+```swift
+internal struct _Component: _ComponentGenerating {
+    // sourcery: no_style
+    // sourcery: backingComponent=IconStack
+    // sourcery: customFunctionBuilder=IconBuilder
+    var icons_: [IconStackItem]?
+}
+```
+
+The generated ViewModel initializer in `<Model>+API.generated.swift` as well as the generated conditional initializers in `<Model>+Init.generated.swift` will then use the custom function builder.
+
+```swift
+    public init(
+		@ViewBuilder detailImage: @escaping () -> DetailImage,
+		@IconBuilder icons: @escaping () -> Icons
+        ) { 
+		  // ...
+		}
+```
+
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   
 
