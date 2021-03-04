@@ -10,19 +10,21 @@ let package = Package(
         .library(
             name: "FioriSwiftUI",
             type: .dynamic,
-            targets: ["FioriSwiftUI"]),
+            targets: ["FioriSwiftUI"]
+        ),
         .library(
             name: "FioriCharts",
             type: .dynamic,
-            targets: ["FioriCharts"]),
+            targets: ["FioriCharts"]
+        ),
         .library(
             name: "FioriIntegrationCards",
             type: .dynamic,
-            targets: ["FioriIntegrationCards"]),
+            targets: ["FioriIntegrationCards"]
+        )
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/objcio/tiny-networking", from: "0.2.0"),
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
         .package(url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
         .package(url: "https://github.com/marmelroy/Zip.git", from: "2.0.0")
@@ -30,18 +32,23 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriIntegrationCards"]),
+            dependencies: ["FioriIntegrationCards"]
+        ),
         .target(
             name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "TinyNetworking", "ObservableArray", "FioriCharts", "Zip"]),
+            dependencies: ["AnyCodable", "ObservableArray", "FioriCharts", "Zip"]
+        ),
         .target(
             name: "FioriCharts",
-            dependencies: ["FioriSwiftUICore"]),
+            dependencies: ["FioriSwiftUICore"]
+        ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "FioriSwiftUITests",
-            dependencies: ["FioriSwiftUI"]),
+            dependencies: ["FioriSwiftUI"]
+        )
     ]
 )

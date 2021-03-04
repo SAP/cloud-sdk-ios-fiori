@@ -1,19 +1,10 @@
-//
-//  StackedColumnChartSnapshotTests.swift
-//  ExamplesTests
-//
-//  Created by Xu, Sheng on 9/28/20.
-//  Copyright © 2020 SAP. All rights reserved.
-//
-
-import XCTest
-import SwiftUI
 @testable import FioriCharts
+import SwiftUI
+import XCTest
 
 private let referenceSize = CGSize(width: 500, height: 300)
 
 class StackedColumnChartSnapshotTests: XCTestCase {
-
     func testStackedColumnChartPositiveValuesSingleSeries() throws {
         if let chart = Tests.lineModels[0].copy() as? ChartModel {
             chart.chartType = .stackedColumn
@@ -30,7 +21,7 @@ class StackedColumnChartSnapshotTests: XCTestCase {
         }
     }
 
-    func testStackedColumnChart6SeriesLongCategoryLabels() throws{
+    func testStackedColumnChart6SeriesLongCategoryLabels() throws {
         if let chart = Tests.lineModels[2].copy() as? ChartModel {
             chart.chartType = .stackedColumn
             
@@ -101,5 +92,4 @@ class StackedColumnChartSnapshotTests: XCTestCase {
             assertSnapshot(ChartView(chart), for: referenceSize)
         }
     }
-
 }

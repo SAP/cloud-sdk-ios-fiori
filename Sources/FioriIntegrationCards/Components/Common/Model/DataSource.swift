@@ -1,10 +1,3 @@
-//
-//  DataSource.swift
-//  AnyCodable
-//
-//  Created by Stan Stadelman on 3/21/20.
-//
-
 import Foundation
 
 public struct DataSource: Codable, Hashable {

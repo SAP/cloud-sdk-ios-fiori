@@ -1,11 +1,3 @@
-//
-//  SideIndicator.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 1/23/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 public struct SideIndicator: Decodable, Hashable {
     let title: String
     let number: String
@@ -13,10 +5,10 @@ public struct SideIndicator: Decodable, Hashable {
 }
 
 extension SideIndicator: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> SideIndicator {
-        let _title  = title.replacingPlaceholders(withValuesIn: object)
-        let _number = number.replacingPlaceholders(withValuesIn: object)
-        let _unit   = unit.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> SideIndicator {
+        let _title = self.title.replacingPlaceholders(withValuesIn: objects)
+        let _number = self.number.replacingPlaceholders(withValuesIn: objects)
+        let _unit = self.unit.replacingPlaceholders(withValuesIn: objects)
         return SideIndicator(title: _title, number: _number, unit: _unit)
     }
 }

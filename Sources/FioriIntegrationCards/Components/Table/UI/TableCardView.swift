@@ -1,15 +1,6 @@
-//
-//  TableCardView.swift
-//  DevTest
-//
-//  Created by Ma, Xiao on 2/3/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 public struct TableCardView: View {
-    
     @ObservedObject var model: TableCard
     
     public init(model: TableCard) {
@@ -25,8 +16,8 @@ public struct TableCardView: View {
                     if model.content.first?.columns != nil {
                         TableTitleRowView(model: model.content.first!.columns!)
                     }
-                    ForEach(model.content) {
-                        TableRowView(model: $0)
+                    ForEach(0 ..< (model.maxItems ?? model.content.count), id: \.self) {
+                        TableRowView(model: self.model.content[$0])
                             .frame(height: 30)
                             .padding(EdgeInsets(top: 8, leading: 0, bottom: 0, trailing: 0))
                     }

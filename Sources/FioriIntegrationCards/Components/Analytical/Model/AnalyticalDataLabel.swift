@@ -1,10 +1,3 @@
-//
-//  AnalyticalDataLabel.swift
-//  FioriIntegrationCards
-//
-//  Created by Ma, Xiao on 3/11/20.
-//
-
 import Foundation
 
 public struct AnalyticalDataLabel: Decodable {
@@ -18,9 +11,9 @@ public struct AnalyticalDataLabel: Decodable {
 }
 
 extension AnalyticalDataLabel: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalDataLabel {
-        let _isVisible = String(describing: isVisible).replacingPlaceholdersToBoolean(withValuesIn: object)
-        let _isShowingTotal = String(describing: isShowingTotal).replacingPlaceholdersToBoolean(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalDataLabel {
+        let _isVisible = String(describing: isVisible).replacingPlaceholdersToBoolean(withValuesIn: objects)
+        let _isShowingTotal = String(describing: isShowingTotal).replacingPlaceholdersToBoolean(withValuesIn: objects)
         return AnalyticalDataLabel(isVisible: _isVisible, isShowingTotal: _isShowingTotal)
     }
 }

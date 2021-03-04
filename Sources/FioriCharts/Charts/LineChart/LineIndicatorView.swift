@@ -1,21 +1,5 @@
-//
-//  LineIndicatorView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/26/20.
-//
-
-import SwiftUI
 import FioriSwiftUICore
-
-struct SelectionItem: Identifiable {
-    let categoryIndex: Int
-    let seriesIndexes: [Int]
-    
-    var id: Int {
-        return categoryIndex
-    }
-}
+import SwiftUI
 
 /*
  Line, Stock and Combo chart use this to show selection UI
@@ -23,6 +7,7 @@ struct SelectionItem: Identifiable {
 struct LineIndicatorView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
+    @Environment(\.layoutDirection) var layoutDirection
     
     var body: some View {
         GeometryReader { proxy in
@@ -30,46 +15,191 @@ struct LineIndicatorView: View {
         }
     }
     
-    //swiftlint:disable force_unwrapping
     func makeBody(in rect: CGRect) -> some View {
-        let (rangeIndicator, selectionItems) = ChartUtility.convertSelectionsToSelectionItems(model)
-        let baselinePosition = ChartUtility.xAxisBaselinePosition(model)
-
-        let extraSelectedPointAndBorderDiameter = (ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth) * 2
-        
+        let (lineIndicators, pointIndicators, rangeIndicator) = self.convertSelectionsToDisplayItems()
+    
         return ZStack {
-            // range selection indicators
-            if rangeIndicator != nil {
-                LineRangeIndicatorView(seriesIndex: self.seriesIdFromKey(rangeIndicator!),
-                                       startIndex: self.lowerBoundFromKey(rangeIndicator!),
-                                       endIndex: self.upperBoundFromKey(rangeIndicator!),
-                                       displayRange: self.displayRange(rangeIndicator!),
-                                       baselinePosition: baselinePosition,
-                                       lineWidth: self.lineWidth(rangeIndicator!),
-                                       pointRadius: self.pointRadius(rangeIndicator!, show: true),
-                                       pointGap: self.pointGap(rangeIndicator!),
-                                       lineFillColor: self.lineStrokeColor(rangeIndicator!, stroke: false),
-                                       lineStrokeColor: self.lineStrokeColor(rangeIndicator!, stroke: true),
-                                       pointStrokeColor: self.pointStrokeColor(rangeIndicator!))
-                    .frame(width: self.rangeSelectionWidth(rangeIndicator!, rect: rect), height: rect.size.height)
-                    .position(x: self.rangeSelectionPosition(rangeIndicator!, rect: rect), y: rect.size.height / 2.0)
-            }
+            // range indicators
+            ForEach(0 ..< rangeIndicator.count, id: \.self) { index in
+                LineRangeIndicatorView(seriesIndex: self.seriesIdFromKey(rangeIndicator[index]),
+                                       startIndex: self.lowerBoundFromKey(rangeIndicator[index]),
+                                       endIndex: self.upperBoundFromKey(rangeIndicator[index]),
+                                       displayRange: self.displayRange(rangeIndicator[index]),
+                                       lineWidth: self.lineWidth(rangeIndicator[index]),
+                                       pointRadius: self.pointRadius(rangeIndicator[index], show: true),
+                                       pointGap: self.pointGap(rangeIndicator[index]),
+                                       lineFillColor: self.lineStrokeColor(rangeIndicator[index], stroke: false),
+                                       lineStrokeColor: self.lineStrokeColor(rangeIndicator[index], stroke: true),
+                                       pointStrokeColor: self.pointStrokeColor(rangeIndicator[index]),
+                                       size: rect.size)
+                    .frame(width: rect.size.width, height: rect.size.height)
+            }.clipped()
             
-            ForEach(selectionItems) { item in
+            // Single line indicator
+            ForEach(0 ..< lineIndicators.count, id: \.self) { index in
                 LineLineIndicatorView(height: rect.size.height)
                     .frame(width: 9, height: rect.size.height)
-                    .position(x: self.xPos(item.categoryIndex, rect: rect), y: rect.size.height / 2)
-                
-                // point indicators
-                ForEach(item.seriesIndexes, id: \.self) { seriesIndex in
-                    LinePointIndicatorView(pointRadius: self.pointRadius(seriesIndex, show: false),
-                                           strokeColr: self.pointStrokeColor(seriesIndex))
-                        .frame(width: self.pointRadius(seriesIndex, show: false) * 2 + extraSelectedPointAndBorderDiameter,
-                               height: self.pointRadius(seriesIndex, show: false) * 2 + extraSelectedPointAndBorderDiameter)
-                        .position(self.pos(from: seriesIndex, categoryIndex: item.categoryIndex, rect: rect))
+                    .position(x: self.xPos(lineIndicators[index], rect: rect), y: rect.size.height / 2)
+            }
+            .clipShape(Rectangle()
+                .size(width: rect.size.width + 9,
+                      height: rect.size.height + 9)
+                .offset(x: -4.5, y: -4.5))
+            
+            // point indicator
+            ForEach(0 ..< pointIndicators.count, id: \.self) { index in
+                LinePointIndicatorView(pointRadius: self.pointRadius(pointIndicators[index], show: true, selection: true),
+                                       strokeColr: self.pointStrokeColor(pointIndicators[index]))
+                    .position(self.pos(from: pointIndicators[index], rect: rect))
+            }.clipShape(Rectangle()
+                .size(width: rect.size.width + self.extraWidth(),
+                      height: rect.size.height + self.extraWidth())
+                .offset(x: -1 * self.extraWidth() / 2,
+                        y: -1 * self.extraWidth() / 2))
+        }
+    }
+    
+    func extraWidth() -> CGFloat {
+        var diameter = CGFloat(7)
+        
+        for seriesAttribute in self.model.seriesAttributes {
+            diameter = max(diameter, seriesAttribute.point.diameter)
+        }
+        
+        let extraSelectedPointAndBorderDiameter = (ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth) * 2
+        
+        return diameter + extraSelectedPointAndBorderDiameter
+    }
+    
+    /*
+     selections = [0: [0, 1, 2, 7, 8, 10], 1: [3, 4, 5, 7, 9]]
+     step 1:
+     rangeSelections = [0: [ClosedRange(0...2), ClosedRange(7...8)], 1: [ClosedRange(3...5)]]
+     singleSelections = [0: [10], 1: [7, 9]]
+     
+     step 2:
+     singleLineIndicators = [0, 2, 3, 5, 7, 8, 9, 10],
+     singlePointIndicators = ["0:0", "0:10", "0:2", "0:7", "0:8", "1:3", "1:5", "1:7", "1:9"],
+     rangeIndicators = ["0:0:2", "0:7:8", "1:3:5"]
+     */
+    // swiftlint:disable cyclomatic_complexity
+    func convertSelectionsToDisplayItems() -> ([Int], [String], [String]) {
+        guard let selections = lineSelections(model) else {
+            return ([], [], [])
+        }
+
+        var rangeSelections: [Int: [ClosedRange<Int>]] = [:]
+        var singleSelections: [Int: [Int]] = [:]
+        
+        for (seriesId, catIds) in selections {
+            var array1 = [ClosedRange<Int>]()
+            var array2 = [Int]()
+            
+            // scan it
+            var prevId = -1
+            var startId = -1
+            for catId in catIds {
+                if prevId == -1 {
+                    prevId = catId
+                    startId = catId
+                } else {
+                    if catId == prevId + 1 {
+                        prevId = catId
+                    } else {
+                        if prevId > startId {
+                            array1.append(startId ... prevId)
+                        } else {
+                            array2.append(prevId)
+                        }
+                        
+                        // start new search
+                        prevId = catId
+                        startId = catId
+                    }
                 }
             }
+            
+            if prevId != -1 {
+                if prevId > startId {
+                    array1.append(startId ... prevId)
+                } else {
+                    array2.append(prevId)
+                }
+            }
+            
+            if !array1.isEmpty {
+                rangeSelections[seriesId] = array1
+            }
+            
+            if !array2.isEmpty {
+                singleSelections[seriesId] = array2
+            }
         }
+
+        if rangeSelections.isEmpty, singleSelections.isEmpty {
+            return ([], [], [])
+        }
+        
+        var singleLineIndicators = Set<Int>()
+        var singlePointIndicators = [String]()
+        var rangeIndicators = [String]()
+
+        for (seriesId, crs) in rangeSelections {
+            for cr in crs {
+                singleLineIndicators.insert(cr.lowerBound)
+                singleLineIndicators.insert(cr.upperBound)
+                
+                let key1 = String("\(seriesId):\(cr.lowerBound)")
+                let key2 = String("\(seriesId):\(cr.upperBound)")
+                singlePointIndicators.append(key1)
+                singlePointIndicators.append(key2)
+
+                let key = String("\(seriesId):\(cr.lowerBound):\(cr.upperBound)")
+                rangeIndicators.append(key)
+            }
+        }
+
+        for (seriesId, catIds) in singleSelections {
+            singleLineIndicators.formUnion(catIds)
+            
+            for categoryId in catIds {
+                let key = String("\(seriesId):\(categoryId)")
+                singlePointIndicators.append(key)
+            }
+        }
+
+        return (singleLineIndicators.sorted(), singlePointIndicators.sorted(), rangeIndicators.sorted())
+    }
+
+    // swiftlint:enable cyclomatic_complexity
+    
+    func lineSelections(_ model: ChartModel) -> [Int: [Int]]? {
+        let lineSelections: [Int: [Int]]?
+        
+        if model.chartType == .combo {
+            var tmpLineSelections = [Int: [Int]]()
+            let allIndexs = IndexSet(integersIn: 0 ..< model.numOfSeries())
+            let lineIndexes = model.indexesOfColumnSeries.symmetricDifference(allIndexs)
+            
+            if let tmpSelections = model.selections {
+                for (seriesId, sel) in tmpSelections {
+                    if lineIndexes.contains(seriesId) {
+                        tmpLineSelections[seriesId] = sel
+                    }
+                }
+            }
+            
+            // set result
+            if tmpLineSelections.isEmpty {
+                lineSelections = nil
+            } else {
+                lineSelections = tmpLineSelections
+            }
+        } else {
+            lineSelections = model.selections
+        }
+        
+        return lineSelections
     }
     
     func seriesIdFromKey(_ key: String) -> Int {
@@ -97,15 +227,15 @@ struct LineIndicatorView: View {
     }
     
     func displayRange(_ key: String) -> ClosedRange<CGFloat> {
-        if model.chartType == .stock {
-            return ChartUtility.displayRange(model)
+        if self.model.chartType == .stock {
+            return ChartUtility.displayRange(self.model)
         } else {
-            let seriesIndex = seriesIdFromKey(key)
-            let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
+            let seriesIndex = self.seriesIdFromKey(key)
+            let secondarySeriesIndexes = self.model.indexesOfSecondaryValueAxis.sorted()
             if secondarySeriesIndexes.contains(seriesIndex) {
-                return ChartUtility.displayRange(model, secondary: true)
+                return ChartUtility.displayRange(self.model, secondary: true)
             } else {
-                return ChartUtility.displayRange(model)
+                return ChartUtility.displayRange(self.model)
             }
         }
     }
@@ -118,7 +248,7 @@ struct LineIndicatorView: View {
         let low = indices.count >= 2 ? indices[1] : 0
         let upper = indices.count >= 3 ? indices[2] : 0
         
-        return xPos(upper, rect: rect) - xPos(low, rect: rect)
+        return self.xPos(upper, rect: rect) - self.xPos(low, rect: rect)
     }
     
     func rangeSelectionPosition(_ key: String, rect: CGRect) -> CGFloat {
@@ -129,26 +259,28 @@ struct LineIndicatorView: View {
         let low = indices.count >= 2 ? indices[1] : 0
         let upper = indices.count >= 3 ? indices[2] : 0
         
-        return (xPos(upper, rect: rect) + xPos(low, rect: rect)) / 2
+        return (self.xPos(upper, rect: rect) + self.xPos(low, rect: rect)) / 2
     }
     
     func xPos(_ categoryIndex: Int, rect: CGRect) -> CGFloat {
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        
-        if model.chartType == .combo {
-            let pd = chartContext.plotData(model)
-            let allIndexs = IndexSet(integersIn: 0 ..< model.numOfSeries())
-            let lineIndexes =  model.indexesOfColumnSeries.symmetricDifference(allIndexs).sorted()
+        let tmpScaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
+        let tmpStartPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
+        let startPosX = tmpStartPosition.x * tmpScaleX * rect.size.width
+
+        if self.model.chartType == .combo {
+            let pd = self.chartContext.plotData(self.model)
+            let allIndexs = IndexSet(integersIn: 0 ..< self.model.numOfSeries())
+            let lineIndexes = self.model.indexesOfColumnSeries.symmetricDifference(allIndexs).sorted()
             let seriesIndex = lineIndexes.isEmpty ? 0 : lineIndexes[0]
             
             if pd.isEmpty {
                 return 0
             } else {
-                return pd[categoryIndex][seriesIndex].pos.x * model.scale * rect.size.width - startPosX
+                return pd[categoryIndex][seriesIndex].pos.x * tmpScaleX * rect.size.width - startPosX
             }
         } else {
-            let count = model.chartType == .stock ? ChartUtility.numOfDataItems(model) : model.numOfCategories()
-            let unitWidth: CGFloat = max(rect.size.width * model.scale / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
+            let count = self.model.numOfCategories()
+            let unitWidth: CGFloat = max(rect.size.width * tmpScaleX / CGFloat(max(count - 1, 1)), ChartViewLayout.minUnitWidth)
             
             return CGFloat(categoryIndex) * unitWidth - startPosX
         }
@@ -162,27 +294,31 @@ struct LineIndicatorView: View {
         let seriesIndex = indices.isEmpty ? 0 : indices[0]
         let categoryIndex = indices.count >= 2 ? indices[1] : 0
         
-        return pos(from: seriesIndex, categoryIndex: categoryIndex, rect: rect)
+        return self.pos(from: seriesIndex, categoryIndex: categoryIndex, rect: rect)
     }
     
     func pos(from seriesIndex: Int, categoryIndex: Int, rect: CGRect) -> CGPoint {
-        let x = xPos(categoryIndex, rect: rect)
+        let x = self.xPos(categoryIndex, rect: rect)
+        
+        let tmpScaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
+        let tmpStartPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
+        let startPosY = tmpStartPosition.y * tmpScaleY * rect.size.height
         
         var y: CGFloat = 0
-        if model.chartType == .combo {
-            let pd = chartContext.plotData(model)
+        if self.model.chartType == .combo {
+            let pd = self.chartContext.plotData(self.model)
             
             if !pd.isEmpty {
-                y = (1.0 - pd[categoryIndex][seriesIndex].pos.y) * rect.size.height
+                y = (1.0 - pd[categoryIndex][seriesIndex].pos.y) * tmpScaleY * rect.size.height - startPosY
             }
         } else {
-            let secondarySeriesIndexes = model.indexesOfSecondaryValueAxis.sorted()
-            let displayRange = ChartUtility.displayRange(model)
-            let seconaryDisplayRange = ChartUtility.displayRange(model, secondary: true)
-            let range = secondarySeriesIndexes.contains(seriesIndex) ? seconaryDisplayRange : displayRange
-
+            let secondary = self.model.indexesOfSecondaryValueAxis.contains(seriesIndex)
+            let displayRange = ChartUtility.displayRange(self.model, secondary: secondary)
+            
+            let range: CGFloat = abs(displayRange.upperBound - displayRange.lowerBound) <= 0.000001 ? 1 : displayRange.upperBound - displayRange.lowerBound
+            
             if let value = ChartUtility.dimensionValue(model, seriesIndex: seriesIndex, categoryIndex: categoryIndex) {
-                y = rect.size.height - (CGFloat(value) - range.lowerBound) * rect.size.height / (range.upperBound - range.lowerBound) + rect.origin.y
+                y = (1 - (value - displayRange.lowerBound) / range) * tmpScaleY * rect.size.height - startPosY
             }
         }
         
@@ -190,13 +326,13 @@ struct LineIndicatorView: View {
     }
     
     func lineStrokeColor(_ key: String, stroke: Bool) -> Color {
-        let seriesIndex = seriesIdFromKey(key)
+        let seriesIndex = self.seriesIdFromKey(key)
         
-        return lineStrokeColor(seriesIndex, stroke: stroke)
+        return self.lineStrokeColor(seriesIndex, stroke: stroke)
     }
     
     func lineStrokeColor(_ seriesIndex: Int, stroke: Bool) -> Color {
-        if model.chartType == .stock {
+        if self.model.chartType == .stock {
             var isPriceGoingUp = true
             if let startPrice = ChartUtility.dimensionValue(model, categoryIndex: 0), let endPrice = ChartUtility.dimensionValue(model, categoryIndex: ChartUtility.lastValidDimIndex(model)) {
                 if startPrice > endPrice {
@@ -205,8 +341,8 @@ struct LineIndicatorView: View {
             }
             
             var strokeColor = Color.primary
-            if model.seriesAttributes.count > seriesIndex {
-                let attr = model.seriesAttributes[seriesIndex]
+            if self.model.seriesAttributes.count > seriesIndex {
+                let attr = self.model.seriesAttributes[seriesIndex]
                 
                 strokeColor = isPriceGoingUp ? attr.palette.colors[0] : attr.palette.colors[1]
             }
@@ -218,8 +354,8 @@ struct LineIndicatorView: View {
             return strokeColor.opacity(0.4)
         } else {
             var strokeColor = Color.primary
-            if model.seriesAttributes.count > seriesIndex {
-                let attr = model.seriesAttributes[seriesIndex]
+            if self.model.seriesAttributes.count > seriesIndex {
+                let attr = self.model.seriesAttributes[seriesIndex]
                 
                 if stroke {
                     strokeColor = attr.palette.colors[0]
@@ -233,68 +369,72 @@ struct LineIndicatorView: View {
     }
     
     func pointStrokeColor(_ key: String) -> Color {
-        let seriesIndex = seriesIdFromKey(key)
+        let seriesIndex = self.seriesIdFromKey(key)
         
-        return pointStrokeColor(seriesIndex)
+        return self.pointStrokeColor(seriesIndex)
     }
     
     func pointStrokeColor(_ seriesIndex: Int) -> Color {
         var strokeColor = Color.primary
-        if model.seriesAttributes.count > seriesIndex {
-            let point = model.seriesAttributes[seriesIndex].point
+        if self.model.seriesAttributes.count > seriesIndex {
+            let point = self.model.seriesAttributes[seriesIndex].point
             strokeColor = point.strokeColor
         }
     
-        if model.chartType == .stock {
-            return lineStrokeColor(seriesIndex, stroke: true)
+        if self.model.chartType == .stock {
+            return self.lineStrokeColor(seriesIndex, stroke: true)
         } else {
             return strokeColor
         }
     }
     
     func lineWidth(_ key: String) -> CGFloat {
-        let seriesIndex = seriesIdFromKey(key)
+        let seriesIndex = self.seriesIdFromKey(key)
         
         var width: CGFloat = 1
         
-        if model.seriesAttributes.count > seriesIndex {
-            width = model.seriesAttributes[seriesIndex].lineWidth
+        if self.model.seriesAttributes.count > seriesIndex {
+            width = self.model.seriesAttributes[seriesIndex].lineWidth
         }
         
         return width
     }
     
     func pointGap(_ key: String) -> CGFloat {
-        let seriesIndex = seriesIdFromKey(key)
+        let seriesIndex = self.seriesIdFromKey(key)
         
         var gap: CGFloat = 2
-        if model.seriesAttributes.count > seriesIndex {
-            gap = model.seriesAttributes[seriesIndex].point.gap
+        if self.model.seriesAttributes.count > seriesIndex {
+            gap = self.model.seriesAttributes[seriesIndex].point.gap
         }
         
         return gap
     }
     
-    func pointRadius(_ key: String, show: Bool) -> CGFloat {
-        let seriesIndex = seriesIdFromKey(key)
+    func pointRadius(_ key: String, show: Bool, selection: Bool = false) -> CGFloat {
+        let seriesIndex = self.seriesIdFromKey(key)
         
-        return pointRadius(seriesIndex, show: show)
+        return self.pointRadius(seriesIndex, show: show, selection: selection)
     }
     
-    func pointRadius(_ seriesIndex: Int, show: Bool) -> CGFloat {
+    func pointRadius(_ seriesIndex: Int, show: Bool, selection: Bool = false) -> CGFloat {
         var diameter: CGFloat = 7
         var pointIsHidden = false
         
-        if model.seriesAttributes.count > seriesIndex {
-            let point = model.seriesAttributes[seriesIndex].point
+        if self.model.seriesAttributes.count > seriesIndex {
+            let point = self.model.seriesAttributes[seriesIndex].point
             pointIsHidden = point.isHidden
+            if selection {
+                pointIsHidden = false
+            }
+            
             diameter = point.diameter
         }
         
         if show {
-            return pointIsHidden ? 0 : diameter/2.0
+            return pointIsHidden ? 0 : max(3.5, diameter / 2.0)
         } else {
-            return diameter/2.0
+            return diameter / 2.0
         }
     }
 }

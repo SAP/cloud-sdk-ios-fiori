@@ -1,15 +1,7 @@
-//
-//  AreaMicroChartModel.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/11/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
-public class AreaMicroChartModel: ObservableObject, Identifiable {
+class AreaMicroChartModel: ObservableObject, Identifiable {
     @Published public var firstXLabel: Text?
     @Published public var lastXLabel: Text?
     @Published public var firstYLabel: Text?
@@ -42,8 +34,8 @@ public class AreaMicroChartModel: ObservableObject, Identifiable {
         self.innerMaxThreshold = innerMaxThreshold
         
         let b = [chartPoints?.points, targetPoints?.points, minThreshold?.points, maxThreshold?.points, innerMinThreshold?.points, innerMaxThreshold?.points]
-            .compactMap({ $0 })
-            .flatMap({ $0 })
+            .compactMap { $0 }
+            .flatMap { $0 }
             .boundingBox()
         
         let originX = minXValue ?? b.minX
@@ -55,8 +47,8 @@ public class AreaMicroChartModel: ObservableObject, Identifiable {
     }
     
     // MARK: - chart item
+
     struct Item: View {
-        
         let itemType: Path.ChartItemType
         let color: Color
         let title: String?

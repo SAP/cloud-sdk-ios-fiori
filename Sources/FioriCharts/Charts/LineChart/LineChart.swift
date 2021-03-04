@@ -1,20 +1,33 @@
-//
-//  LineChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 3/13/20.
-//
-
 import SwiftUI
 
 struct LineChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: DefaultChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: LineChartContext(),
                     chartView: LinesView(),
                     indicatorView: LineIndicatorView())
-            .environmentObject(model)
+    }
+}
+
+class LineChartContext: DefaultChartContext {
+    override func plotPath(_ model: ChartModel) -> [[[Path]]] {
+        if !model.path.isEmpty {
+            return model.path
+        }
+        
+        var result = [[[Path]]]()
+        
+        for seriesIndex in 0 ..< model.numOfSeries() {
+            let seriesPath = plotLinePath(model, for: seriesIndex)
+            
+            result.append(seriesPath)
+        }
+    
+        model.path = result
+        
+        return result
     }
 }
 

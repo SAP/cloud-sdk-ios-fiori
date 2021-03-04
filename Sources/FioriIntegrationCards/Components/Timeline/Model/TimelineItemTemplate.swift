@@ -1,10 +1,3 @@
-//
-//  TimelineItemTemplate.swift
-//  FioriIntegrationCards
-//
-//  Created by Ma, Xiao on 3/10/20.
-//
-
 import Foundation
 
 public struct TimelineItemTemplate: Decodable {

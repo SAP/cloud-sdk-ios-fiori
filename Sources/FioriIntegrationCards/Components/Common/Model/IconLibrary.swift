@@ -1,10 +1,3 @@
-//
-//  IconLibrary.swift
-//  AnyCodable
-//
-//  Created by Ma, Xiao on 2/25/20.
-//
-
 import Foundation
 
 class IconLibrary {
@@ -665,5 +658,4 @@ class IconLibrary {
         "megamenu": 0xe287,
         "feedback": 0xe288
     ]
-    
 }

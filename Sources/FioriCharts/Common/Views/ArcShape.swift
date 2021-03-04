@@ -1,11 +1,3 @@
-//
-//  RadialShape.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/13/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct ArcShape: InsettableShape {
@@ -23,12 +15,12 @@ struct ArcShape: InsettableShape {
     
     func path(in rect: CGRect) -> Path {
         let rotationAdjustment = Angle.degrees(90)
-        let modifiedStart = startAngle - rotationAdjustment
-        let modifiedEnd = endAngle - rotationAdjustment
+        let modifiedStart = self.startAngle - rotationAdjustment
+        let modifiedEnd = self.endAngle - rotationAdjustment
         
         var path = Path()
         
-        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2 - insetAmount, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !clockwise)
+        path.addArc(center: CGPoint(x: rect.midX, y: rect.midY), radius: rect.width / 2 - self.insetAmount, startAngle: modifiedStart, endAngle: modifiedEnd, clockwise: !self.clockwise)
         
         return path
     }

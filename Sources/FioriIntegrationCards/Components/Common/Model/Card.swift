@@ -1,11 +1,3 @@
-//
-//  Card.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/22/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 
 public enum Card: Decodable, Identifiable, CustomStringConvertible {

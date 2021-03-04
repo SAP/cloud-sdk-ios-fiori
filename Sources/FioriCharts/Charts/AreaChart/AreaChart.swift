@@ -1,20 +1,13 @@
-//
-//  AreaChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 4/14/20.
-//
-
 import SwiftUI
 
 struct AreaChart: View {
     @ObservedObject var model: ChartModel
   
     var body: some View {
-        XYAxisChart(chartContext: DefaultChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: LineChartContext(),
                     chartView: LinesView(fill: true),
                     indicatorView: LineIndicatorView())
-            .environmentObject(model)
     }
 }
 
@@ -22,9 +15,9 @@ struct AreaChart: View {
 struct AreaChart_Previews: PreviewProvider {
     static var previews: some View {
         let models: [ChartModel] = Tests.lineModels.map {
-           let model = $0.copy() as! ChartModel
-           model.chartType = .area
-           return model
+            let model = $0.copy() as! ChartModel
+            model.chartType = .area
+            return model
         }
         
         return Group {

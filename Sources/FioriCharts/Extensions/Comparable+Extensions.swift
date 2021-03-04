@@ -1,10 +1,3 @@
-//
-//  Comparable+Extensions.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/23/20.
-//
-
 import Foundation
 
 extension Comparable {

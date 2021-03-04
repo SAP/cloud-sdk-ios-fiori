@@ -4,17 +4,25 @@ on:
   workflow_dispatch:
     inputs:
       actionName:
-        description: 'Action'
+        description: 'Action (recordSnapshotTestImages or runSnapshotTests)'
         required: true
-        default: 'recordSnapshotTests'
+        default: 'recordSnapshotTestImages'
+      xcodeVersion:
+        description: 'Xcode Version'
+        required: true
+        default: '12.1' # https://github.com/actions/virtual-environments/blob/main/images/macos/macos-10.15-Readme.md#xcode
+      snapshotRef:
+        description: 'Snapshot Ref (branch name or tag)'
+        required: true
+        default: 'main'
 
 jobs:
 
-  recordSnapshotTests:
-    if: github.event.inputs.actionName == 'recordSnapshotTests'
+  snapshotTesting:
+    if: github.event.inputs.actionName == 'recordSnapshotTestImages' || github.event.inputs.actionName == 'runSnapshotTests'
     runs-on: macos-latest
     env:
-      DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_${{ github.event.inputs.xcodeVersion }}.app/Contents/Developer
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
@@ -23,22 +31,22 @@ jobs:
       with:
         repository: SAP/cloud-sdk-ios-fiori-snapshot-references
         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
-    - name: Delete old snapshot references
+        ref: ${{ github.event.inputs.snapshotRef }}
+    - name: Delete old snapshot references (when recording)
+      if: github.event.inputs.actionName == 'recordSnapshotTestImages'
       run:  |
         rm -r -f Apps/Examples/cloud-sdk-ios-fiori-snapshot-references/FioriCharts
         rm -r -f Apps/Examples/cloud-sdk-ios-fiori-snapshot-references/FioriIntegrationCards
-    - name: Generate Xcode project
-      run: swift package generate-xcodeproj
     - name: Install xcbeautify tool
       run:  |
         brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
-        brew install swiftlint xcbeautify
+        brew install xcbeautify
     - name: Build Package
-      run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
+      run: set -o pipefail && xcodebuild -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
     - name: Run snapshot tests
       run: set -o pipefail && xcodebuild -project ./Apps/Examples/Examples.xcodeproj -scheme ExamplesTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)' test | xcbeautify
-    - name: Create Pull Request
-      if: failure()
+    - name: Create Pull Request with new images (when recording)
+      if: failure() && github.event.inputs.actionName == 'recordSnapshotTestImages'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.PAT_ME_REPO }}

@@ -1,14 +1,7 @@
-//
-//  ChartPlotData.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/3/20.
-//
-
 import Foundation
 import SwiftUI
 
-enum ChartPlotData: Hashable {
+enum ChartPlotData: Hashable, Identifiable {
     case point(point: ChartPlotPointData)
     case rect(rect: ChartPlotRectData)
     case ellipse(ellipse: ChartPlotEllipseData)
@@ -126,6 +119,10 @@ enum ChartPlotData: Hashable {
         }
     }
     
+    var id: String {
+        String("\(self.seriesIndex)+\(self.categoryIndex)")
+    }
+    
     func changeSelected(selected: Bool) -> ChartPlotData {
         switch self {
         case .point(let data):
@@ -176,7 +173,8 @@ struct ChartPlotPointData: Identifiable, Hashable {
          value: CGFloat,
          x: CGFloat,
          y: CGFloat,
-         selected: Bool = false) {
+         selected: Bool = false)
+    {
         self.seriesIndex = seriesIndex
         self.categoryIndex = categoryIndex
         self.value = value
@@ -189,8 +187,8 @@ struct ChartPlotPointData: Identifiable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(point.x)
-        hasher.combine(point.y)
+        hasher.combine(self.point.x)
+        hasher.combine(self.point.y)
     }
 }
 
@@ -205,10 +203,10 @@ struct ChartPlotEllipseData: Identifiable, Hashable {
     var selected: Bool = false
     
     var rect: CGRect {
-        let x = point.x - radius
-        let y = point.y - radius
+        let x = self.point.x - self.radius
+        let y = self.point.y - self.radius
         
-        return CGRect(x: x, y: y, width: radius * 2, height: radius * 2)
+        return CGRect(x: x, y: y, width: self.radius * 2, height: self.radius * 2)
     }
     
     init(seriesIndex: Int,
@@ -217,7 +215,8 @@ struct ChartPlotEllipseData: Identifiable, Hashable {
          x: CGFloat,
          y: CGFloat,
          radius: CGFloat,
-         selected: Bool = false) {
+         selected: Bool = false)
+    {
         self.seriesIndex = seriesIndex
         self.categoryIndex = categoryIndex
         self.values = values
@@ -231,8 +230,8 @@ struct ChartPlotEllipseData: Identifiable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(point.x)
-        hasher.combine(point.y)
+        hasher.combine(self.point.x)
+        hasher.combine(self.point.y)
     }
 }
 
@@ -246,8 +245,8 @@ struct ChartPlotRectData: Identifiable, Hashable {
     var selected: Bool = false
     
     var pos: CGPoint {
-        let x = rect.origin.x + rect.size.width * 0.5
-        let y = rect.origin.y + rect.size.height * 0.5
+        let x = self.rect.origin.x + self.rect.size.width * 0.5
+        let y = self.rect.origin.y + self.rect.size.height * 0.5
         return CGPoint(x: x, y: y)
     }
     
@@ -258,7 +257,8 @@ struct ChartPlotRectData: Identifiable, Hashable {
          y: CGFloat,
          width: CGFloat,
          height: CGFloat,
-         selected: Bool = false) {
+         selected: Bool = false)
+    {
         self.seriesIndex = seriesIndex
         self.categoryIndex = categoryIndex
         self.value = value
@@ -271,9 +271,9 @@ struct ChartPlotRectData: Identifiable, Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(rect.origin.x)
-        hasher.combine(rect.origin.y)
-        hasher.combine(rect.size.width)
-        hasher.combine(rect.size.height)
+        hasher.combine(self.rect.origin.x)
+        hasher.combine(self.rect.origin.y)
+        hasher.combine(self.rect.size.width)
+        hasher.combine(self.rect.size.height)
     }
 }

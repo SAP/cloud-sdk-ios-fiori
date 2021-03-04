@@ -1,16 +1,7 @@
-//
-//  AnalyticsCardView.swift
-//  AnyCodable
-//
-//  Created by Wirjo, Fred on 2/10/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 public struct AnalyticalCardView: View {
-    
     var model: AnalyticalCard
       
     public init(model: AnalyticalCard) {
@@ -18,8 +9,7 @@ public struct AnalyticalCardView: View {
     }
     
     public var body: some View {
-        
-        return Group {
+        Group {
             VStack {
                 HeaderView(model: model.header)
                 ChartView(self.model.chartModel)
@@ -43,24 +33,25 @@ public struct AnalyticalCardView: View {
         let linesRect = CGRect(x: yAxisWidth, y: 0, width: width, height: height)
         
         return ZStack {
-            Text("Placeholder for LineShape")/*
-            ForEach(content.data!) { data in
-//                let points: [Double] = data.points.map { $0.value }
-                LinesShape(points: data.points.map { $0.value })
-                .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
-                .frame(width: width, height: height)
-                .previewLayout(.sizeThatFits)
-            }*/
+            Text("Placeholder for LineShape") /*
+                         ForEach(content.data!) { data in
+             //                let points: [Double] = data.points.map { $0.value }
+                             LinesShape(points: data.points.map { $0.value })
+                             .stroke(Color.blue, style: StrokeStyle(lineWidth: 3))
+                             .frame(width: width, height: height)
+                             .previewLayout(.sizeThatFits)
+                         }*/
         }
     }
 }
 
 struct PolygonView: View {
     let trend: String?
+    let state: String?
     
     var body: some View {
-        return PolygonShape(sides: 3)
-            .fill(Color.getTrendColor(trend: trend))
+        PolygonShape(sides: 3)
+            .fill(Color.getKpiColor(trend: trend, state: state))
             .frame(width: 15, height: 15)
             .rotationEffect(.degrees(trend == "Down" ? 90 : -90))
     }
@@ -78,8 +69,8 @@ struct PolygonShape: Shape {
         
         var path = Path()
                 
-        for i in 0..<sides {
-            let angle = (Double(i) * (360.0 / Double(sides))) * Double.pi / 180
+        for i in 0 ..< self.sides {
+            let angle = (Double(i) * (360.0 / Double(self.sides))) * Double.pi / 180
 
             // Calculate vertex position
             let pt = CGPoint(x: c.x + CGFloat(cos(angle) * h), y: c.y + CGFloat(sin(angle) * h))

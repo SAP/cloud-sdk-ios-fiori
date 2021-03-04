@@ -1,17 +1,9 @@
-//
-//  AsyncImageView.swift
-//  AnyCodable
-//
-//  Created by Ma, Xiao on 2/25/20.
-//
-
+import Combine
 import Foundation
 import SwiftUI
-import Combine
 import UIKit
 
 struct AsyncImageView: View {
-    
     @ObservedObject private var imageLoader = ImageLoader()
     
     init(url: String?) {
@@ -43,11 +35,11 @@ final class ImageLoader: ObservableObject {
             return
         }
         
-        if loadImageFromCache(name) {
+        if self.loadImageFromCache(name) {
             return
         }
 
-        NetworkService.shared.getIcon(iconName: name) { (succeed, image, err) in
+        NetworkService.shared.getIcon(iconName: name) { succeed, image, err in
             guard succeed, let image = image else {
                 if err != nil { print(String(describing: err)) }
                 DispatchQueue.main.async {
@@ -65,12 +57,11 @@ final class ImageLoader: ObservableObject {
     }
     
     func loadImageFromCache(_ imageName: String) -> Bool {
-
         guard let cacheImage = imageCache.get(forKey: imageName) else {
             return false
         }
         
-        image = cacheImage
+        self.image = cacheImage
         return true
     }
 }
@@ -79,17 +70,17 @@ class ImageCache {
     var cache = NSCache<NSString, UIImage>()
     
     func get(forKey: String) -> UIImage? {
-        return cache.object(forKey: NSString(string: forKey))
+        self.cache.object(forKey: NSString(string: forKey))
     }
     
     func set(forKey: String, image: UIImage) {
-        cache.setObject(image, forKey: NSString(string: forKey))
+        self.cache.setObject(image, forKey: NSString(string: forKey))
     }
 }
 
 extension ImageCache {
     private static var imageCache = ImageCache()
     static func getImageCache() -> ImageCache {
-        return imageCache
+        self.imageCache
     }
 }

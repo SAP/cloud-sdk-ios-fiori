@@ -1,31 +1,23 @@
-//
-//  Settings.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct Settings: View {
     @EnvironmentObject var model: ChartModel
     
     var body: some View {
-        let nf = NumberFormatter(style: .decimal)
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
         nf.maximumFractionDigits = 0
         
-        return NavigationView{
-            Form {                
+        return NavigationView {
+            Form {
                 NavigationLink("Selection", destination: SettingsSelection(model: model))
                 
                 NavigationLink("Series Collection", destination: SettingsSeriesCollection())
                 
                 if model.colorsForCategory.count > 0 {
                     NavigationLink("Color for categories", destination: SettingsColorForCategory(model: model))
-                }
-                else {
+                } else {
                     Text("Color for categories: 0")
                 }
                 
@@ -43,7 +35,7 @@ struct Settings: View {
                     }
                     
                     Text("Number of Gridlines: \(nf.string(from: NSNumber(value: Double(model.numberOfGridlines))) ?? "")")
-                    Slider(value: $model.numberOfGridlines.double, in: -1...30, step: 1)
+                    Slider(value: $model.numberOfGridlines.double, in: -1 ... 30, step: 1)
                     
                     Picker(selection: $model.xAxisLabelsPosition, label: Text("X Axis Labels Position")) {
                         Text("Dynamic").tag(XAxisLabelsPosition.dynamic)
@@ -56,7 +48,7 @@ struct Settings: View {
                         if model.chartType == .stock {
                             Stepper("Index of Stock Series: \(self.model.indexOfStockSeries)", onIncrement: {
                                 self.model.indexOfStockSeries = (self.model.indexOfStockSeries + 1) % max(1, self.model.numOfSeries())
-                            }, onDecrement:  {
+                            }, onDecrement: {
                                 self.model.indexOfStockSeries = (self.model.indexOfStockSeries - 1 + self.model.numOfSeries()) % max(1, self.model.numOfSeries())
                             })
                         }

@@ -1,13 +1,5 @@
-//
-//  SettingsIndexSet.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 4/29/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
+import SwiftUI
 
 struct SettingsIndexSet: View {
     @Binding var indexSet: IndexSet
@@ -17,18 +9,18 @@ struct SettingsIndexSet: View {
         let combinations = combine(n: num)
     
         return Picker(selection: $indexSet, label: Text("Index set")) {
-            ForEach(combinations, id: \.self) {
-                Text("\(String(describing: $0.sorted()))").tag(IndexSet($0))
+            ForEach(0 ..< combinations.count, id: \.self) { index in
+                Text("\(String(describing: combinations[index].sorted()))").tag(IndexSet(combinations[index]))
             }
         }
     }
     
     func combine(n: Int) -> [[Int]] {
-        var res:[[Int]] = []
-        var cur:[Int] = []
+        var res: [[Int]] = []
+        var cur: [Int] = []
         
         for i in 0 ... n {
-            dfs(n: n, index: 0, k: i, cur: &cur, res: &res)
+            self.dfs(n: n, index: 0, k: i, cur: &cur, res: &res)
         }
         
         return res
@@ -45,7 +37,7 @@ struct SettingsIndexSet: View {
             // append one
             cur.append(i)
             
-            dfs(n: n, index: i + 1, k: k - 1, cur: &cur, res: &res)
+            self.dfs(n: n, index: i + 1, k: k - 1, cur: &cur, res: &res)
             
             // pop out
             cur.removeLast(1)

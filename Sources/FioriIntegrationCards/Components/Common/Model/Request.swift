@@ -1,15 +1,7 @@
-//
-//  Request.swift
-//  AnyCodable
-//
-//  Created by Stan Stadelman on 3/21/20.
-//
-
-import Foundation
 import Combine
+import Foundation
 
 class Request: Decodable {
-
     /// The URL of the request. If the URL is relative, it is going to be resolved based on the page instead of the manifest base path.
     let url: String
     
@@ -26,7 +18,7 @@ class Request: Decodable {
     let parameters: [String: String]
     
     /// Indicates whether cross-site requests should be made using credentials.
-    // TODO:  unsupported
+    // TODO: unsupported
     let withCredentials: Bool
     
     private enum CodingKeys: String, CodingKey {
@@ -35,12 +27,28 @@ class Request: Decodable {
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        url = try container.decode(String.self, forKey: .url)
-        mode = try container.decodeIfPresent(String.self, forKey: .mode) ?? "cors"
-        method = try container.decodeIfPresent(String.self, forKey: .mode) ?? "GET"
-        headers = try container.decodeIfPresent([String: String].self, forKey: .headers) ?? [:]
-        parameters = try container.decodeIfPresent([String: String].self, forKey: .parameters) ?? [:]
-        withCredentials = try container.decodeIfPresent(Bool.self, forKey: .withCredentials) ?? false
+        var theUrl = try container.decode(String.self, forKey: .url)
+
+        let context = decoder.userInfo[.cardContext] as? CardDecodingContext
+        if let config = context?.configuration {
+            self.url = theUrl.replacingPlaceholders(withValuesIn: config.parameters)
+        } else {
+            self.url = theUrl
+        }
+
+        self.mode = try container.decodeIfPresent(String.self, forKey: .mode) ?? "cors"
+        self.method = try container.decodeIfPresent(String.self, forKey: .mode) ?? "GET"
+        self.headers = try container.decodeIfPresent([String: String].self, forKey: .headers) ?? [:]
+        var theParameters = try container.decodeIfPresent([String: String].self, forKey: .parameters) ?? [:]
+
+        if let config = context?.configuration {
+            for (key, value) in theParameters {
+                theParameters[key] = value.replacingPlaceholders(withValuesIn: config.parameters)
+            }
+        }
+        self.parameters = theParameters
+
+        self.withCredentials = try container.decodeIfPresent(Bool.self, forKey: .withCredentials) ?? false
     }
     
     func send(baseURL: URL?) {
@@ -48,7 +56,7 @@ class Request: Decodable {
             if let data = getDataFromBundle(bundleURL: url) {
                 self.fetchedData.send(data)
             } else {
-                loadDataFromNetwork(baseURL: baseURL)
+                self.loadDataFromNetwork(baseURL: baseURL)
             }
         } else {
             if let baseURL = baseURL {
@@ -56,7 +64,7 @@ class Request: Decodable {
                     if let data = getDataFromBundle(bundleURL: finalURL) {
                         self.fetchedData.send(data)
                     } else {
-                        loadDataFromNetwork(baseURL: baseURL)
+                        self.loadDataFromNetwork(baseURL: baseURL)
                     }
                 }
             }
@@ -88,7 +96,7 @@ class Request: Decodable {
             print(error.localizedDescription)
         }
         
-        subscription = URLSession.shared
+        self.subscription = URLSession.shared
             .dataTaskPublisher(for: urlRequest)
             .map(\.data)
             .sink(receiveCompletion: { completion in
@@ -109,7 +117,7 @@ class Request: Decodable {
 
 extension Request: Equatable {
     static func == (lhs: Request, rhs: Request) -> Bool {
-        return lhs.url == rhs.url &&
+        lhs.url == rhs.url &&
             lhs.mode == rhs.mode &&
             lhs.method == rhs.method &&
             lhs.headers == rhs.headers &&
@@ -120,11 +128,11 @@ extension Request: Equatable {
 
 extension Request: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(url)
-        hasher.combine(mode)
-        hasher.combine(method)
-        hasher.combine(headers)
-        hasher.combine(parameters)
-        hasher.combine(withCredentials)
+        hasher.combine(self.url)
+        hasher.combine(self.mode)
+        hasher.combine(self.method)
+        hasher.combine(self.headers)
+        hasher.combine(self.parameters)
+        hasher.combine(self.withCredentials)
     }
 }

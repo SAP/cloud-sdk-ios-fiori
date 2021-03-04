@@ -3,9 +3,8 @@ name: CI (Xcode 11)
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   pull_request_target:
+    branches: [ main ]
 
 jobs:
   build:
@@ -31,7 +30,7 @@ jobs:
 
   sonar:
     needs: build
-    if: github.event_name == 'push' || github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
+    if: github.repository == 'SAP/cloud-sdk-ios-fiori'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -41,8 +40,32 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: coverage
-    - name: Scan
+    - name: Scan (main branch)
+      if: github.event_name == 'push'
       uses: sonarsource/sonarcloud-github-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+    - name: Scan (PR)
+      if: github.event_name == 'pull_request_target'
+      uses: sonarsource/sonarcloud-github-action@master
+      with:
+        args: >
+          -Dsonar.pullrequest.provider=github
+          -Dsonar.pullrequest.github.repository=${{ github.repository }}
+          -Dsonar.pullrequest.github.token.secured=${{ secrets.GITHUB_TOKEN }}
+          -Dsonar.pullrequest.key=${{ github.event.pull_request.number }}
+          -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }}
+          -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }}
+    - name: Add comment with link to SonarCloud PR report
+      if: github.event_name == 'pull_request_target'
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'SonarCloud Pull Request Analysis: https://sonarcloud.io/dashboard?id=cloud-sdk-ios-fiori&pullRequest=' + context.issue.number
+            })

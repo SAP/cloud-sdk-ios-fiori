@@ -1,20 +1,13 @@
-//
-//  ScatterChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/29/20.
-//
-
 import SwiftUI
 
 struct ScatterChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: BubbleChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: BubbleChartContext(),
                     chartView: BubbleView(),
                     indicatorView: BubbleIndicatorView())
-            .environmentObject(model)
     }
 }
 

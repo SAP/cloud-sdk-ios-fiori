@@ -1,15 +1,10 @@
-//
-//  WaterfallView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/23/20.
-//
-
 import SwiftUI
 
 struct WaterfallView: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
+    @Environment(\.layoutDirection) var layoutDirection
+    @State private var animateScale: CGFloat = 1
     
     var body: some View {
         GeometryReader { proxy in
@@ -18,55 +13,45 @@ struct WaterfallView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let maxDataCount = model.numOfCategories(in: 0)
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let clusterWidthInPoints = clusterWidth * model.scale * rect.size.width
-        let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
+        // only check first series
+        let width = rect.size.width
+        let categoryIndexRange = self.chartContext.displayCategoryIndexes(self.model, rect: rect)
+        let categoryIndices = Array(categoryIndexRange)
+        
+        // calculate CGAffineTransform for layoutDirection
+        let mirror = self.layoutDirection == .rightToLeft ? CGAffineTransform(a: -1, b: 0, c: 0, d: 1, tx: width, ty: 0) : CGAffineTransform.identity
 
-        let pd = chartContext.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
-        let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
-        var gapBeforeFirstCoumn: CGFloat = 0
-        if let fs = curPlotData.first, let fl = fs.first {
-            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - startPosX)
+        let translateX: CGFloat
+        let startPosition = self.chartContext.startPosition(self.model, plotViewSize: rect.size)
+        let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
+        let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
+        
+        if self.layoutDirection == .rightToLeft {
+            translateX = -(1 - 1 / scaleX - startPosition.x) * scaleX * width
+        } else {
+            translateX = -startPosition.x * scaleX * width
         }
-        let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
-        let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0
-
-        return VStack(alignment: .leading, spacing: 0) {
-            if pd.isEmpty {
-                EmptyView()
-            } else {
-                HStack(alignment: .bottom, spacing: 0) {
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(width: gapBeforeFirstCoumn)
-                    
-                    ForEach(curPlotData, id: \.self) { series in
-                        HStack(alignment: .bottom, spacing: 0) {
-                            WaterfallSeriesView(plotSeries: series,
-                                                rect: rect,
-                                                isSelectionView: false)
-                            
-                            if series.first?.categoryIndex != self.model.numOfCategories(in: 0) - 1 {
-                                Rectangle()
-                                    .fill(Color.clear)
-                                    .frame(width: clusterSpace, height: 1)
-                            }
-                        }.overlay(WaterfallConnectingLinesView(curCatIndex: series[0].categoryIndex,
-                                                               columnWidth: clusterWidthInPoints,
-                                                               clusterSpace: clusterSpace,
-                                                               height: rect.size.height))
-                    }
-                    
-                    Spacer(minLength: 0)
-                }
-                .frame(width: chartWidth)
-                .position(x: chartPosX, y: rect.size.height / 2.0)
+        let translateY = -startPosition.y * scaleY * rect.size.height
+        
+        return ZStack {
+            // columns
+            ForEach(0 ..< categoryIndices.count, id: \.self) { index in
+                ColumnSeriesView(seriesIndices: [0], categoryIndex: categoryIndices[index])
             }
-        }.clipped()
+            
+            // connecting lines
+            WaterfallChartConnectingLinesShape(path: model.path,
+                                               seriesIndex: 0,
+                                               startIndex: categoryIndexRange.lowerBound,
+                                               endIndex: categoryIndexRange.upperBound)
+                .transform(mirror) // apply layoutDirection
+                .transform(CGAffineTransform(scaleX: scaleX, y: scaleY)) // apply zoom
+                .transform(CGAffineTransform(translationX: translateX, y: translateY)) // aplly pan
+                .stroke(Color.preferredColor(.primary4), lineWidth: 1)
+                .frame(width: rect.size.width, height: rect.size.height)
+        }
+        .frame(width: rect.size.width, height: rect.size.height)
+        .clipped()
     }
 }
 

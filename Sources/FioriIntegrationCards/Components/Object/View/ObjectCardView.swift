@@ -1,15 +1,7 @@
-//
-//  File.swift
-//  
-//
-//  Created by Stadelman, Stan on 1/22/20.
-//
-
-import SwiftUI
 import Combine
+import SwiftUI
 
 public struct ObjectCardView: View {
-    
     @ObservedObject var model: ObjectCard
       
     public init(model: ObjectCard) {
@@ -58,7 +50,7 @@ public struct ObjectCardView: View {
         ).padding(16)
     }
     
-    private var sinks: Set<AnyCancellable> = Set<AnyCancellable>()
+    private var sinks = Set<AnyCancellable>()
 }
 
 public struct ObjectCardView_Previews: PreviewProvider {

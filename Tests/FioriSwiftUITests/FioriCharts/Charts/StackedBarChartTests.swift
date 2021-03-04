@@ -1,15 +1,7 @@
-//
-//  StackedBarChartTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 8/20/20.
-//
-
-import XCTest
 @testable import FioriCharts
+import XCTest
 
 class StackedBarChartTests: XCTestCase {
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -23,7 +15,7 @@ class StackedBarChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let model = Tests.lineModels[0]
         model.chartType = .stackedBar
-        //let _ = dataSource.plotData(model)
+        // let _ = dataSource.plotData(model)
         let axisContext = model.numericAxisTickValues
         
         /// dataMaximum == 279.85333333333335
@@ -46,7 +38,7 @@ class StackedBarChartTests: XCTestCase {
         model.numericAxis.isZeroBased = false
         let axisContext2 = model.numericAxisTickValues
         
-        XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.01 )
+        XCTAssertEqual(axisContext1.dataMinimum, 0, accuracy: 0.01)
         XCTAssertTrue(axisContext2.tickValues.count == 3)
         XCTAssertEqual(axisContext2.tickValues[0], 200, accuracy: 0.1)
         XCTAssertEqual(axisContext2.tickValues[1], 100, accuracy: 0.1)
@@ -58,7 +50,9 @@ class StackedBarChartTests: XCTestCase {
         let dataSource = StackedBarChartContext()
         let model = Tests.lineModels[0]
         model.chartType = .stackedBar
-        let labels = dataSource.yAxisLabels(model, rect: CGRect(x: 0, y: 0, width: 200, height: 200))
+        
+        let size = CGSize(width: 200, height: 200)
+        let labels = dataSource.yAxisLabels(model, rect: CGRect(origin: .zero, size: size), plotViewSize: size)
         
         XCTAssertTrue(labels[0].title == "Jan")
         XCTAssertTrue(labels[6].title == "Jul")
@@ -139,5 +133,4 @@ class StackedBarChartTests: XCTestCase {
             }
         }
     }
-
 }

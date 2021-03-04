@@ -1,10 +1,3 @@
-//
-//  AnalyticalLegend.swift
-//  FioriIntegrationCards
-//
-//  Created by Ma, Xiao on 3/11/20.
-//
-
 import Foundation
 
 public struct AnalyticalLegend: Decodable {
@@ -27,28 +20,28 @@ public struct AnalyticalLegend: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        title = try container.decodeIfPresent(String.self, forKey: .title)
-        drawingEffect = try container.decodeIfPresent(DrawingEffect.self, forKey: .drawingEffect)
+        self.title = try container.decodeIfPresent(String.self, forKey: .title)
+        self.drawingEffect = try container.decodeIfPresent(DrawingEffect.self, forKey: .drawingEffect)
         do {
-            isHierarchical = try container.decodeIfPresent(Bool.self, forKey: .isHierarchical)
-            _isHierarchicalBacking = String(describing: isHierarchical)
+            self.isHierarchical = try container.decodeIfPresent(Bool.self, forKey: .isHierarchical)
+            self._isHierarchicalBacking = String(describing: self.isHierarchical)
         } catch DecodingError.typeMismatch {
-            _isHierarchicalBacking = try? container.decode(String.self, forKey: .isHierarchical)
-            isHierarchical = nil
+            self._isHierarchicalBacking = try? container.decode(String.self, forKey: .isHierarchical)
+            self.isHierarchical = nil
         }
         do {
-            isScrollable = try container.decodeIfPresent(Bool.self, forKey: .isScrollable)
-            _isScrollableBacking = String(describing: isScrollable)
+            self.isScrollable = try container.decodeIfPresent(Bool.self, forKey: .isScrollable)
+            self._isScrollableBacking = String(describing: self.isScrollable)
         } catch DecodingError.typeMismatch {
-            _isScrollableBacking = try? container.decode(String.self, forKey: .isScrollable)
-            isScrollable = nil
+            self._isScrollableBacking = try? container.decode(String.self, forKey: .isScrollable)
+            self.isScrollable = nil
         }
         do {
-            isVisible = try container.decodeIfPresent(Bool.self, forKey: .isVisible)
-            _isVisibleBacking = String(describing: isVisible)
+            self.isVisible = try container.decodeIfPresent(Bool.self, forKey: .isVisible)
+            self._isVisibleBacking = String(describing: self.isVisible)
         } catch DecodingError.typeMismatch {
-            _isVisibleBacking = try? container.decode(String.self, forKey: .isVisible)
-            isVisible = nil
+            self._isVisibleBacking = try? container.decode(String.self, forKey: .isVisible)
+            self.isVisible = nil
         }
     }
     
@@ -60,29 +53,28 @@ public struct AnalyticalLegend: Decodable {
         self.isVisible = isVisible
         
         if isHierarchical != nil {
-            _isHierarchicalBacking = String(describing: isHierarchical)
+            self._isHierarchicalBacking = String(describing: isHierarchical)
         }
         
         if isScrollable != nil {
-            _isScrollableBacking = String(describing: isScrollable)
+            self._isScrollableBacking = String(describing: isScrollable)
         }
         
         if isVisible != nil {
-            _isVisibleBacking = String(describing: isVisible)
+            self._isVisibleBacking = String(describing: isVisible)
         }
     }
 }
 
 extension AnalyticalLegend: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> AnalyticalLegend {
-        let _title = title?.replacingPlaceholders(withValuesIn: object)
-        let _drawingEffect = DrawingEffect(rawValue: String(describing: drawingEffect?.rawValue ?? _drawingEffectBacking).replacingPlaceholders(withValuesIn: object))
-        let _isHierarchical = _isHierarchicalBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
-        let _isScrollable = _isScrollableBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
-        let _isVisible = _isVisibleBacking?.replacingPlaceholdersToBoolean(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> AnalyticalLegend {
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _drawingEffect = DrawingEffect(rawValue: String(describing: drawingEffect?.rawValue ?? self._drawingEffectBacking).replacingPlaceholders(withValuesIn: objects))
+        let _isHierarchical = self._isHierarchicalBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
+        let _isScrollable = self._isScrollableBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
+        let _isVisible = self._isVisibleBacking?.replacingPlaceholdersToBoolean(withValuesIn: objects)
         return AnalyticalLegend(title: _title, drawingEffect: _drawingEffect, isHierarchical: _isHierarchical, isScrollable: _isScrollable, isVisible: _isVisible)
     }
-    
 }
 
 public enum DrawingEffect: String, Codable {

@@ -1,20 +1,13 @@
-//
-//  BubbleChart.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 7/13/20.
-//
-
 import SwiftUI
 
 struct BubbleChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(chartContext: BubbleChartContext(),
+        XYAxisChart(model: model,
+                    chartContext: BubbleChartContext(),
                     chartView: BubbleView(),
                     indicatorView: BubbleIndicatorView())
-            .environmentObject(model)
     }
 }
 
@@ -25,7 +18,7 @@ class BubbleChartContext: DefaultChartContext {
         }
         
         if model.plotDataCache == nil {
-            _ = plotData(model)
+            _ = self.plotData(model)
         }
         
         guard let ticks = model.categoryAxisTickValues else {
@@ -33,29 +26,31 @@ class BubbleChartContext: DefaultChartContext {
         }
         
         var ret: [AxisTitle] = []
-        let tickCount = model.scale == 1.0 ? Int(ticks.tickCount) : max(Int(ticks.tickCount), 2)
+        let tickCount = model.scaleX == 1.0 ? Int(ticks.tickCount) : max(Int(ticks.tickCount), 2)
         
         var tickValues: [CGFloat] = []
         var tickPositions: [CGFloat] = []
-        let startPosX = model.startPos.x * model.scale
+        let startPos = startPosition(model, plotViewSize: .zero)
+        let startPosX = startPos.x * model.scaleX
         
-        if model.scale == 1.0 {
+        if model.scaleX == 1.0 {
             let tmpPositions = ticks.tickPositions.map {
-                $0 * model.scale - startPosX
+                $0 * model.scaleX - startPosX
             }
             
             tickValues = ticks.tickValues.reversed()
             tickPositions = tmpPositions.reversed()
         } else {
-            let range = ticks.plotRange / model.scale
-            let plotMinimum = startPosX * ticks.plotRange / model.scale + ticks.plotMinimum
+            let range = ticks.plotRange / model.scaleX
+            let plotMinimum = startPos.x * ticks.plotRange + ticks.plotMinimum
             let stepValue = range / CGFloat(max(1, tickCount - 1))
             
             for index in 0 ..< tickCount {
-                let x = CGFloat(index) / CGFloat(max(1, tickCount - 1))
-                tickPositions.append(x)
                 let value = plotMinimum + CGFloat(index) * stepValue
                 tickValues.append(value)
+                
+                let x = (value - ticks.plotMinimum) / ticks.plotRange
+                tickPositions.append(x)
             }
         }
         
@@ -89,71 +84,39 @@ class BubbleChartContext: DefaultChartContext {
         return ret
     }
     
-    override func xAxisLabels(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: true)
+    override func xAxisLabels(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: true, plotViewSize: plotViewSize)
     }
 
-    override func xAxisGridlines(_ model: ChartModel, rect: CGRect) -> [AxisTitle] {
-        return xAxisGridLineLabels(model, rect: rect, isLabel: false)
+    override func xAxisGridlines(_ model: ChartModel, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        self.xAxisGridLineLabels(model, rect: rect, isLabel: false, plotViewSize: plotViewSize)
     }
     
-    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool) -> [AxisTitle] {
-        if model.plotDataCache == nil {
-            _ = plotData(model)
-        }
-        
-        guard let ticks = model.categoryAxisTickValues else {
-            return []
-        }
-        
-        let ret: [AxisTitle] = xAxisLabels(model)
+    override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
+        let ret: [AxisTitle] = self.xAxisLabels(model)
         var result: [AxisTitle] = []
-        let tickCount = model.categoryAxis.labelLayoutStyle == .range ? 2 : (model.scale == 1.0 ? Int(ticks.tickCount) : max(Int(ticks.tickCount), 2))
-        var tickValues: [CGFloat] = []
-        var tickPositions: [CGFloat] = []
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        
-        if model.scale == 1.0 {
-            let tmpPositions = ticks.tickPositions.map {
-                rect.origin.x + $0 * rect.size.width * model.scale - startPosX
-            }
+        let startPos = startPosition(model, plotViewSize: plotViewSize)
+        var loopEnd = false
+        for index in 0 ..< ret.count {
+            var item = ret[index]
+            var x = (item.pos.x - startPos.x) * model.scaleX * rect.size.width
             
             if model.categoryAxis.labelLayoutStyle == .range {
-                tickValues.append(ticks.tickValues.last ?? 0)
-                tickPositions.append(tmpPositions.last ?? 0)
-                
-                tickValues.append(ticks.tickValues.first ?? 1)
-                tickPositions.append(ticks.tickPositions.first ?? 1)
-            } else {
-                tickValues = ticks.tickValues.reversed()
-                tickPositions = tmpPositions.reversed()
-            }
-        } else {
-            let range = ticks.plotRange / model.scale
-            let plotMinimum = startPosX * ticks.plotRange / (model.scale * rect.size.width) + ticks.plotMinimum
-            let stepValue = range / CGFloat(max(1, tickCount - 1))
-            
-            for index in 0 ..< tickCount {
-                let x = rect.origin.x + rect.size.width * CGFloat(index) / CGFloat(max(1, tickCount - 1))
-                tickPositions.append(x)
-                let value = plotMinimum + CGFloat(index) * stepValue
-                tickValues.append(value)
-            }
-        }
-        
-        for index in 0 ..< tickCount {
-            var x = tickPositions[index]
-            var item = ret[index]
-            
-            if model.categoryAxis.labelLayoutStyle == .range && isLabel {
                 if index == 0 {
-                    x = min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    if isLabel {
+                        x = min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    }
                 } else {
                     if let last = ret.last {
                         item = last
-                        
-                        x = rect.size.width - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                    
+                        if isLabel {
+                            x = rect.size.width - min(item.size.width, (rect.size.width - 2) / 2) / 2
+                        } else {
+                            x = (item.pos.x - startPos.x) * model.scaleX * rect.size.width
+                        }
                     }
+                    loopEnd = true
                 }
             }
             
@@ -162,14 +125,23 @@ class BubbleChartContext: DefaultChartContext {
                                     title: item.title,
                                     pos: CGPoint(x: x, y: 0),
                                     size: item.size))
+            
+            // break the loop for labelLayoutStyle is .range
+            if loopEnd {
+                break
+            }
         }
         
         return result
     }
     
-    override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
+    override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection, secondary: Bool) -> [AxisTitle] {
         if let result = model.yAxisLabels[model.numericAxis.labels.fontSize] {
             return result
+        }
+        
+        if model.plotDataCache == nil {
+            _ = self.plotData(model)
         }
         
         let ticks = model.numericAxisTickValues
@@ -178,39 +150,38 @@ class BubbleChartContext: DefaultChartContext {
         let yAxisLabelsCount: Int
         var tickValues: [CGFloat] = []
         var tickPositions: [CGFloat] = []
-        let startPosY = model.startPos.y * model.scale
         
-        if model.scale == 1.0 {
+        let startPos = startPosition(model, plotViewSize: .zero)
+        let startPosY = startPos.y
+        
+        if model.scaleX == 1.0 {
             yAxisLabelsCount = Int(ticks.tickCount)
             tickValues = ticks.tickValues
             tickPositions = ticks.tickPositions
         } else {
             yAxisLabelsCount = max(Int(ticks.tickCount), 2)
-            let range = ticks.plotRange / model.scale
-            let plotMinimum = startPosY * ticks.plotRange / model.scale + ticks.plotMinimum
-            let plotMaximum = plotMinimum + range
+            let range = ticks.plotRange / model.scaleX
+            let plotMaximum = ticks.plotMaximum - startPosY * ticks.plotRange
             let stepValue = range / CGFloat(max(1, yAxisLabelsCount - 1))
-            let stepPosition = 1.0 / CGFloat(max(1, yAxisLabelsCount - 1))
             for i in 0 ..< yAxisLabelsCount {
-                tickValues.append(plotMaximum - CGFloat(i) * stepValue)
-                tickPositions.append(1.0 - CGFloat(i) * stepPosition)
+                let value = plotMaximum - CGFloat(i) * stepValue
+                tickValues.append(value)
+                tickPositions.append((value - ticks.plotMinimum) / ticks.plotRange)
             }
         }
-        
-        let height: CGFloat = 1
         
         var yAxisLabels: [AxisTitle] = []
         for i in 0 ..< yAxisLabelsCount {
             let val = tickValues[i]
             
-            let title = yAxisFormattedString(model, value: Double(val), secondary: secondary)
+            let title = yAxisFormattedString(model, value: Double(val), secondary: false)
             let size = title.boundingBoxSize(with: axis.labels.fontSize)
             let x = axis.baseline.width / 2.0 - 3 - size.width / 2.0
 
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,
-                                         pos: CGPoint(x: x, y: height * (1.0 - tickPositions[i])),
+                                         pos: CGPoint(x: x, y: 1.0 - tickPositions[i]),
                                          size: size))
         }
         
@@ -220,55 +191,26 @@ class BubbleChartContext: DefaultChartContext {
         return yAxisLabels
     }
     
-    override func yAxisLabels(_ model: ChartModel, rect: CGRect, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false) -> [AxisTitle] {
-        let ticks = model.numericAxisTickValues
-        let axis = model.numericAxis
-        
-        let yAxisLabelsCount: Int
-        var tickValues: [CGFloat] = []
-        var tickPositions: [CGFloat] = []
-        let startPosY = model.startPos.y * model.scale * rect.size.height
-        
-        if model.scale == 1.0 {
-            yAxisLabelsCount = Int(ticks.tickCount)
-            tickValues = ticks.tickValues
-            tickPositions = ticks.tickPositions
-        } else {
-            yAxisLabelsCount = max(Int(ticks.tickCount), 2)
-            let range = ticks.plotRange / model.scale
-            let plotMinimum = startPosY * ticks.plotRange / (model.scale * rect.size.height) + ticks.plotMinimum
-            let plotMaximum = plotMinimum + range
-            let stepValue = range / CGFloat(max(1, yAxisLabelsCount - 1))
-            let stepPosition = 1.0 / CGFloat(max(1, yAxisLabelsCount - 1))
-            for i in 0 ..< yAxisLabelsCount {
-                tickValues.append(plotMaximum - CGFloat(i) * stepValue)
-                tickPositions.append(1.0 - CGFloat(i) * stepPosition)
-            }
-        }
-        
-        let height = rect.size.height
-        let ret = yAxisLabels(model)
+    override func yAxisLabels(_ model: ChartModel, layoutDirection: LayoutDirection = .leftToRight, secondary: Bool = false, rect: CGRect, plotViewSize: CGSize) -> [AxisTitle] {
+        let startPos = startPosition(model, plotViewSize: plotViewSize)
+        let ret = self.yAxisLabels(model, layoutDirection: layoutDirection, secondary: secondary)
         var result: [AxisTitle] = []
-        
-        for i in 0 ..< yAxisLabelsCount {
-            let item = ret[i]
-            let val = tickValues[i]
-            let size = item.size
-            let x = rect.size.width - axis.baseline.width / 2.0 - 3 - size.width / 2.0
-            let y = rect.origin.y + height * (1.0 - tickPositions[i])
+        let axis = model.numericAxis
+        for item in ret {
+            let x = rect.size.width - axis.baseline.width / 2.0 - 3 - item.size.width / 2.0
 
-            result.append(AxisTitle(index: i,
-                                         value: val,
-                                         title: item.title,
-                                         pos: CGPoint(x: x, y: y),
-                                         size: size))
+            result.append(AxisTitle(index: item.index,
+                                    value: item.value,
+                                    title: item.title,
+                                    pos: CGPoint(x: x, y: (item.pos.y - startPos.y) * model.scaleY * rect.size.height),
+                                    size: item.size))
         }
         
         return result
     }
     
-    //swiftlint:disable cyclomatic_complexity
-    //swiftlint:disable function_body_length
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     override func plotData(_ model: ChartModel) -> [[ChartPlotData]] {
         if let pd = model.plotDataCache {
             return pd
@@ -282,7 +224,7 @@ class BubbleChartContext: DefaultChartContext {
             return result
         }
         
-        if model.chartType == .bubble && (model.zDataMinimumValue == nil || model.zDataMaximumValue == nil || dataDimSize < 3) {
+        if model.chartType == .bubble, model.zDataMinimumValue == nil || model.zDataMaximumValue == nil || dataDimSize < 3 {
             return result
         }
         
@@ -292,7 +234,7 @@ class BubbleChartContext: DefaultChartContext {
         let dataRange: ClosedRange<CGFloat> = IndexSet(integersIn: 0 ..< seriesCount).reduce(model.ranges[0]) { (result, i) -> ClosedRange<CGFloat> in
             let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
             let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
-            return seriesMin...seriesMax
+            return seriesMin ... seriesMax
         }
         
         var xScale: CGFloat
@@ -315,7 +257,7 @@ class BubbleChartContext: DefaultChartContext {
         
         // it is bubble
         if model.chartType == .bubble {
-            let zRange = zDataMaximumValue == zDataMinimumValue ? 1 :  zDataMaximumValue - zDataMinimumValue
+            let zRange = zDataMaximumValue == zDataMinimumValue ? 1 : zDataMaximumValue - zDataMinimumValue
             let zBaselineWithinPlot: Bool = zDataMaximumValue > 0.0 && zDataMinimumValue < 0.0
             
             let zPlotMinimum = !zBaselineWithinPlot ? zDataMinimumValue - zRange * 0.66 : zDataMinimumValue
@@ -377,12 +319,12 @@ class BubbleChartContext: DefaultChartContext {
                 }
 
                 let ellipseData = ChartPlotEllipseData(seriesIndex: seriesIndex,
-                                                           categoryIndex: valueIndex,
-                                                           values: value,
-                                                           x: x,
-                                                           y: y,
-                                                           radius: radius,
-                                                           selected: false)
+                                                       categoryIndex: valueIndex,
+                                                       values: value,
+                                                       x: x,
+                                                       y: y,
+                                                       radius: radius,
+                                                       selected: false)
                 
                 seriesPlotData.append(ChartPlotData.ellipse(ellipse: ellipseData))
                 bubblePlotFrame = bubblePlotFrame.union(ellipseData.rect)
@@ -451,9 +393,10 @@ class BubbleChartContext: DefaultChartContext {
         newMin = dataRange.lowerBound - valueAxisContext.dataRange * minOffsetY
         newMax = dataRange.upperBound + valueAxisContext.dataRange * maxOffsetY
         
-        model.numericAxis.explicitMin = newMin
-        model.numericAxis.explicitMax = newMax
-        
+        model.yDataMinimumValue = newMin
+        model.yDataMaximumValue = newMax
+        // clear the cache to reset it
+        model.numericAxisTickValuesCache.removeAll()
         // retrieve it
         valueAxisContext = model.numericAxisTickValues
                 
@@ -507,35 +450,36 @@ class BubbleChartContext: DefaultChartContext {
         return result
     }
     
-    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat, in rect: CGRect) -> CGFloat {
-        return x
+    override func snapChartToPoint(_ model: ChartModel, at x: CGFloat) -> CGFloat {
+        x
     }
     
-    override func displayCategoryIndexesAndOffsets(_ model: ChartModel, rect: CGRect) -> (startIndex: Int, endIndex: Int, startOffset: CGFloat, endOffset: CGFloat) {
-        return (0, 0, 0, 0)
+    override func displayCategoryIndexes(_ model: ChartModel, rect: CGRect) -> ClosedRange<Int> {
+        0 ... 0
     }
     
     override func closestSelectedPlotItem(_ model: ChartModel, atPoint: CGPoint, rect: CGRect, layoutDirection: LayoutDirection) -> (seriesIndex: Int, categoryIndex: Int) {
         // reverse series order to select high series index first
-        let pd = plotData(model).reversed()
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let startPosY = model.startPos.y * model.scale * rect.size.height
+        let pd = self.plotData(model).reversed()
+        let startPos = startPosition(model, plotViewSize: rect.size)
+        let startPosX = startPos.x * model.scaleX * rect.size.width
+        let startPosY = startPos.y * model.scaleX * rect.size.height
         let x = ChartUtility.xPos(atPoint.x,
                                   layoutDirection: layoutDirection,
                                   width: rect.size.width)
 
         for series in pd {
             for plotCat in series {
-                let radius = plotCat.rect.size.width * min(rect.size.width, rect.size.height) * model.scale / 2.0
-                let xPos = plotCat.pos.x * model.scale * rect.size.width - startPosX
-                let yPos = (1 - plotCat.pos.y * model.scale) * rect.size.height + startPosY
+                let radius = plotCat.rect.size.width * min(rect.size.width, rect.size.height) * model.scaleX / 2.0
+                let xPos = plotCat.pos.x * model.scaleX * rect.size.width - startPosX
+                let yPos = (1 - plotCat.pos.y) * model.scaleY * rect.size.height - startPosY
                 
                 let xMin = xPos - radius
                 let xMax = xPos + radius
                 let yMin = yPos - radius
                 let yMax = yPos + radius
                 
-                if x >= xMin && x <= xMax && atPoint.y >= yMin && atPoint.y <= yMax {
+                if x >= xMin, x <= xMax, atPoint.y >= yMin, atPoint.y <= yMax {
                     return (plotCat.seriesIndex, plotCat.categoryIndex)
                 }
             }
@@ -545,7 +489,7 @@ class BubbleChartContext: DefaultChartContext {
     }
     
     override func closestSelectedPlotItems(_ model: ChartModel, atPoints: [CGPoint], rect: CGRect, layoutDirection: LayoutDirection) -> [(Int, Int)] {
-        return []
+        []
     }
 }
 

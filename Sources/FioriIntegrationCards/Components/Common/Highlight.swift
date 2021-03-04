@@ -1,16 +1,7 @@
-//
-//  Highlight.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
 public enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
-    
     case error
     case warn
     case success
@@ -60,17 +51,17 @@ public enum Highlight: Decodable, AnyBodyProducing, CaseIterable {
     
     func body() -> AnyView {
         AnyView(Rectangle()
-                .fill(color)
-                .fixedSize(horizontal: true, vertical: false)
-                .frame(width: 12, height: 54, alignment: .leading))
+            .fill(self.color)
+            .fixedSize(horizontal: true, vertical: false)
+            .frame(width: 12, height: 54, alignment: .leading))
     }
 }
 
 extension Highlight: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Highlight {
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> Highlight {
         switch self {
         case .placeholder(let placeholder):
-            let value = placeholder.replacingPlaceholders(withValuesIn: object)
+            let value = placeholder.replacingPlaceholders(withValuesIn: objects)
             return Highlight(rawValue: value) ?? .none
         default:
             return self
@@ -78,6 +69,4 @@ extension Highlight: Placeholding {
     }
 }
 
-extension Highlight: Hashable {
-    
-}
+extension Highlight: Hashable {}

@@ -1,13 +1,5 @@
-//
-//  Header.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
-import Foundation
 import Combine
+import Foundation
 
 public enum Header: Decodable, Hashable {
     case `default`(DefaultHeader)
@@ -32,12 +24,12 @@ public enum Header: Decodable, Hashable {
 }
 
 extension Header: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> Header {
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> Header {
         switch self {
-            case .default(let header):
-                return .default(header.replacingPlaceholders(withValuesIn: object))
-            case .numeric(let header):
-                return .numeric(header.replacingPlaceholders(withValuesIn: object))
+        case .default(let header):
+            return .default(header.replacingPlaceholders(withValuesIn: objects))
+        case .numeric(let header):
+            return .numeric(header.replacingPlaceholders(withValuesIn: objects))
         }
     }
 }

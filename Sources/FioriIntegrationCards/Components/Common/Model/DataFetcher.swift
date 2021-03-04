@@ -1,13 +1,6 @@
-//
-//  BaseData.swift
-//  AnyCodable
-//
-//  Created by Stan Stadelman on 3/22/20.
-//
-
-import Foundation
-import Combine
 import AnyCodable
+import Combine
+import Foundation
 
 public class DataFetcher: Decodable {
     let request: Request?
@@ -19,29 +12,29 @@ public class DataFetcher: Decodable {
         case request, json, path, updateInterval
     }
     
-    required public init(from decoder: Decoder) throws {
+    public required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        request = try container.decodeIfPresent(Request.self, forKey: .request)
-        path = try container.decodeIfPresent(String.self, forKey: .path)
-        updateInterval = try container.decodeIfPresent(Float.self, forKey: .updateInterval)
+        self.request = try container.decodeIfPresent(Request.self, forKey: .request)
+        self.path = try container.decodeIfPresent(String.self, forKey: .path)
+        self.updateInterval = try container.decodeIfPresent(Float.self, forKey: .updateInterval)
         
         let _json = try container.decodeIfPresent(AnyCodable.self, forKey: .json)
         if let json = _json {
-            self.json.send((try JSONEncoder().encode(json), path))
+            self.json.send((try JSONEncoder().encode(json), self.path))
         }
                 
-        request?.fetchedData
-            .compactMap({ $0 })
+        self.request?.fetchedData
+            .compactMap { $0 }
             .sink(receiveValue: { [unowned self] in
                 self.json.send(($0, self.path))
             })
-            .store(in: &subscribers)
+            .store(in: &self.subscribers)
         
-        load()
+        self.load()
     }
     
     public func load(baseURL: URL? = nil) {
-        request?.send(baseURL: baseURL)
+        self.request?.send(baseURL: baseURL)
     }
     
     private var subscribers = Set<AnyCancellable>()
@@ -49,7 +42,7 @@ public class DataFetcher: Decodable {
 
 extension DataFetcher: Equatable {
     public static func == (lhs: DataFetcher, rhs: DataFetcher) -> Bool {
-        return lhs.request == rhs.request &&
+        lhs.request == rhs.request &&
             lhs.path == rhs.path &&
             lhs.updateInterval == rhs.updateInterval
     }
@@ -57,8 +50,8 @@ extension DataFetcher: Equatable {
 
 extension DataFetcher: Hashable {
     public func hash(into hasher: inout Hasher) {
-        hasher.combine(request)
-        hasher.combine(path)
-        hasher.combine(updateInterval)
+        hasher.combine(self.request)
+        hasher.combine(self.path)
+        hasher.combine(self.updateInterval)
     }
 }

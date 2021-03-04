@@ -1,27 +1,19 @@
-//
-//  SettingColor.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 3/12/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import FioriCharts
 import FioriSwiftUICore
+import SwiftUI
 
 struct SettingColor: View {
     @Binding var color: Color
     var title: String?
     
-    let colorOptions: [Color] = ColorStyle.allCases.map() {.preferredColor($0)}
+    let colorOptions: [Color] = ColorStyle.allCases.map { .preferredColor($0) }
     
     var body: some View {
         Picker(selection: $color, label: Text(title ?? "Select Color")) {
-            ForEach(colorOptions, id: \.self) { color in
+            ForEach(0 ..< colorOptions.count, id: \.self) { index in
                 Rectangle()
-                    .fill(color)
-                    .tag(color)
+                    .fill(self.colorOptions[index])
+                    .tag(self.colorOptions[index])
                     .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.gray, lineWidth: 1))
                     .frame(width: 60, height: 20)
             }

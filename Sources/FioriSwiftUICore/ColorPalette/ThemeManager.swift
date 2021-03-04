@@ -1,19 +1,12 @@
-//
-//  ThemeManager.swift
-//  FioriSwiftUICore
-//
-//  Created by Guo, Justin on 6/16/20.
-//
-
 import Foundation
 import SwiftUI
 import UIKit
 
 public class ThemeManager {
     /// Singleton instance shared by all application components.
-    public static let shared: ThemeManager = ThemeManager()
+    public static let shared = ThemeManager()
     
-    private var resolvedColors: [ColorStyle: Color] = [ColorStyle: Color]()
+    private var resolvedColors = [ColorStyle: Color]()
     
     private init() {}
     
@@ -40,7 +33,7 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor {
-        return palette.hexColor(for: style)
+        self.palette.hexColor(for: style)
     }
     
     /// :nodoc:
@@ -48,15 +41,15 @@ public class ThemeManager {
         if let resolvedColor = resolvedColors[style] {
             return resolvedColor
         }
-        let hexColor: HexColor = palette.hexColor(for: style)
-        let uiColor: UIColor = UIColor { traitCollection in
+        let hexColor: HexColor = self.palette.hexColor(for: style)
+        let uiColor = UIColor { traitCollection in
             let variant: ColorVariant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
             let hexColorString: String = hexColor.hex(variant)
             let components = hexColor.rgba(hexColorString)
             return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
                            blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
-        let color: Color = Color(uiColor)
+        let color = Color(uiColor)
         resolvedColors[style] = color
         return color
     }

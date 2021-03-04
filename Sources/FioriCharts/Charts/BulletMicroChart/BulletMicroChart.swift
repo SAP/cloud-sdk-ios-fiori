@@ -1,15 +1,7 @@
-//
-//  BulletMicroChart.swift
-//  Micro Charts
-//
-//  Created by Stan Stadelman on 12/5/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
-import SwiftUI
 import Combine
+import SwiftUI
 
-public struct BulletMicroChart: View {
+struct BulletMicroChart: View {
     enum Mode: CaseIterable {
         case standard, delta
     }
@@ -55,36 +47,35 @@ public struct BulletMicroChart: View {
     }
     
     func forecastView(in size: CGSize) -> some View {
-        let tmp = model.dataItemsIn(seriesIndex: 0)
+        let tmp = self.model.dataItemsIn(seriesIndex: 0)
         
         let forecastValue = tmp.count < 3 ? 0 : tmp[2].value
         let chartHeight = size.height * 0.786
-        let width = model.normalizedValue(for: forecastValue) * size.width
+        let width = self.model.normalizedValue(for: forecastValue) * size.width
         let height = chartHeight * 0.6
         
         return Rectangle()
             .fill(Color(red: 0, green: 0, blue: 1.0, opacity: 0.3))
             .frame(width: width, height: height)
-        
     }
     
     func actualView(in size: CGSize) -> some View {
-        let tmp = model.dataItemsIn(seriesIndex: 0)
+        let tmp = self.model.dataItemsIn(seriesIndex: 0)
         
         let actualValue = tmp.count < 1 ? 0 : tmp[0].value
         let targetValue = tmp.count < 2 ? 0 : tmp[1].value
         
         let chartHeight = size.height * 0.786
-        var width = model.normalizedValue(for: actualValue) * size.width
+        var width = self.model.normalizedValue(for: actualValue) * size.width
         let height = chartHeight * 0.6 * 0.6
         var x: CGFloat = 0
         
-        if mode == BulletMicroChart.Mode.delta {
-            x = model.normalizedValue(for: targetValue) * size.width
+        if self.mode == BulletMicroChart.Mode.delta {
+            x = self.model.normalizedValue(for: targetValue) * size.width
             width -= x
         }
         
-        let color: Color = actualValue > targetValue ?  .green : .red
+        let color: Color = actualValue > targetValue ? .green : .red
         
         return Rectangle()
             .fill(color)
@@ -92,7 +83,7 @@ public struct BulletMicroChart: View {
     }
     
     func targetView(in size: CGSize) -> some View {
-        let tmp = model.dataItemsIn(seriesIndex: 0)
+        let tmp = self.model.dataItemsIn(seriesIndex: 0)
         
         let targetValue = tmp.count < 2 ? 0 : tmp[1].value
         let chartHeight = size.height * 0.786

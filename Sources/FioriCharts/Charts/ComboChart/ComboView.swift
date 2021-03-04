@@ -1,10 +1,3 @@
-//
-//  ComboView.swift
-//  FioriCharts
-//
-//  Created by Xu, Sheng on 6/30/20.
-//
-
 import SwiftUI
 
 struct ComboView: View {
@@ -19,63 +12,32 @@ struct ComboView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        ZStack {
-            makeComboColumnView(in: rect)
-            ComboLinesView()
+        let allIndexs = IndexSet(integersIn: 0 ..< self.model.numOfSeries())
+        let lineIndexes = self.model.indexesOfColumnSeries.symmetricDifference(allIndexs).sorted()
+        let columnIndexes = self.model.indexesOfColumnSeries.sorted()
+        let categoryIndexRange = self.chartContext.displayCategoryIndexes(self.model, rect: rect)
+        let categoryIndices = Array(categoryIndexRange)
+
+        return ZStack {
+            // column series view
+            ForEach(0 ..< categoryIndices.count, id: \.self) { index in
+                ColumnSeriesView(seriesIndices: columnIndexes, categoryIndex: categoryIndices[index])
+            }.clipped()
+            
+            // line series view
+            ForEach(0 ..< lineIndexes.count, id: \.self) { index in
+                LineSeriesView(seriesIndex: lineIndexes[index], fill: false)
+            }.opacity(self.model.selections != nil ? 0.25 : 1)
         }
-    }
-    
-    func makeComboColumnView(in rect: CGRect) -> some View {
-        let maxDataCount = model.numOfCategories()
-        let startPosX = model.startPos.x * model.scale * rect.size.width
-        let columnXIncrement = 1.0 / (CGFloat(maxDataCount) - ColumnGapFraction / (1.0 + ColumnGapFraction))
-        let clusterWidth = columnXIncrement / (1.0 + ColumnGapFraction)
-        let clusterSpace: CGFloat = rect.size.width * (1.0 - clusterWidth * CGFloat(maxDataCount)) * model.scale / CGFloat(max((maxDataCount - 1), 1))
-        
-        let pd = chartContext.plotData(model)
-        let (startIndex, endIndex, startOffset, endOffset) = chartContext.displayCategoryIndexesAndOffsets(model, rect: rect)
-        let curPlotData = (startIndex >= 0 && endIndex >= 0) ? Array(pd[startIndex...endIndex]) : pd
-        var gapBeforeFirstCoumn: CGFloat = 0
-        if let fs = curPlotData.first, let fl = fs.first {
-            gapBeforeFirstCoumn = startOffset <= 0 ? 0 : abs(fl.rect.origin.x * model.scale * rect.size.width - startPosX)
-        }
-    
-        let chartWidth = startOffset < 0 ? (rect.size.width - startOffset + endOffset) : (rect.size.width + endOffset)
-        let chartPosX = startOffset < 0 ? (rect.size.width + startOffset + endOffset) / 2.0 : (rect.size.width + endOffset) / 2.0
-        
-        return VStack(alignment: .leading, spacing: 0) {
-            if pd.isEmpty {
-                EmptyView()
-            } else {
-                HStack(alignment: .bottom, spacing: clusterSpace) {
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(width: gapBeforeFirstCoumn)
-                    
-                    HStack(alignment: .bottom, spacing: clusterSpace) {
-                        ForEach(curPlotData, id: \.self) { series in
-                            ComboSeriesView(plotSeries: series,
-                                            rect: rect,
-                                            isSelectionView: false)
-                        }
-                    }
-                    
-                    Spacer(minLength: 0)
-                }
-                .frame(width: chartWidth)
-                .position(x: chartPosX, y: rect.size.height / 2.0)
-            }
-        }.clipped()
+        .frame(width: rect.size.width, height: rect.size.height)
     }
 }
 
 struct ComboView_Previews: PreviewProvider {
     static var previews: some View {
-        let chartContext = ComboChartContext()
-        
-        return ComboView()
+        ComboView()
             .environmentObject(Tests.comboModels[0])
-            .environment(\.chartContext, chartContext)
+            .environment(\.chartContext, ComboChartContext())
             .frame(width: 300, height: 200)
     }
 }

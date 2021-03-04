@@ -1,10 +1,3 @@
-//
-//  TableColumn.swift
-//  FioriIntegrationCards
-//
-//  Created by Ma, Xiao on 3/10/20.
-//
-
 import Foundation
 
 public struct TableColumn: Identifiable, Decodable, Hashable {
@@ -17,21 +10,20 @@ public struct TableColumn: Identifiable, Decodable, Hashable {
     public let target: String?
     public let identifier: Bool?
     public let progressIndicator: String?
-    public let id: UUID = UUID()
+    public let id = UUID()
 }
 
 extension TableColumn: Placeholding {
-    public func replacingPlaceholders(withValuesIn object: Any) -> TableColumn {
-        let _value               = value?.replacingPlaceholders(withValuesIn: object)
-        let _title               = title?.replacingPlaceholders(withValuesIn: object)
-        let _width               = width?.replacingPlaceholders(withValuesIn: object)
-        let _icon                = icon?.replacingPlaceholders(withValuesIn: object)
-        let _state               = state?.replacingPlaceholders(withValuesIn: object)
-        let _url                 = url?.replacingPlaceholders(withValuesIn: object)
-        let _target              = target?.replacingPlaceholders(withValuesIn: object)
-        let _identifier          = identifier
-        let _progressIndicator   = progressIndicator?.replacingPlaceholders(withValuesIn: object)
+    public func replacingPlaceholders(withValuesIn objects: Any...) -> TableColumn {
+        let _value = self.value?.replacingPlaceholders(withValuesIn: objects)
+        let _title = self.title?.replacingPlaceholders(withValuesIn: objects)
+        let _width = self.width?.replacingPlaceholders(withValuesIn: objects)
+        let _icon = self.icon?.replacingPlaceholders(withValuesIn: objects)
+        let _state = self.state?.replacingPlaceholders(withValuesIn: objects)
+        let _url = self.url?.replacingPlaceholders(withValuesIn: objects)
+        let _target = self.target?.replacingPlaceholders(withValuesIn: objects)
+        let _identifier = self.identifier
+        let _progressIndicator = self.progressIndicator?.replacingPlaceholders(withValuesIn: objects)
         return TableColumn(title: _title, width: _width, value: _value, icon: _icon, state: _state, url: _url, target: _target, identifier: _identifier, progressIndicator: _progressIndicator)
     }
-    
 }

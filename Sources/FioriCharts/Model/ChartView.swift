@@ -1,44 +1,36 @@
-//
-//  ChartView.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/22/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 /**
-SwiftUI View's wrapper for all charts
+ SwiftUI View's wrapper for all charts
 
-## Usage
+ ## Usage
 
-```
-let model = ChartModel(chartType: .line,
-           data: [[nil, 220, nil, 250, 200, nil, 230],
-                  [160, nil, 130, 170, nil, 190, 180]],
-           titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
-)
+ ```
+ let model = ChartModel(chartType: .line,
+            data: [[nil, 220, nil, 250, 200, nil, 230],
+                   [160, nil, 130, 170, nil, 190, 180]],
+            titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]]
+ )
 
- /// default no data view is shown if there is no data in model
- ChartView(model)
-     .frame(width: 300, height: 200)
+  /// default no data view is shown if there is no data in model
+  ChartView(model)
+      .frame(width: 300, height: 200)
  
- /// create a chart view with customized no data view
- ChartView(self.info.1[i], noDataView: NoDataView {
-     GeometryReader { proxy in
-         VStack(alignment: .center) {
-             Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-             Text("Customized No Data View")
-             Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
-         }
-         .frame(width: proxy.size.width, height: proxy.size.height)
-         .border(Color.primary, width: 1)
-     }
- }).frame(width: 300, height: 200)
+  /// create a chart view with customized no data view
+  ChartView(self.info.1[i], noDataView: NoDataView {
+      GeometryReader { proxy in
+          VStack(alignment: .center) {
+              Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+              Text("Customized No Data View")
+              Text("☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹☹")
+          }
+          .frame(width: proxy.size.width, height: proxy.size.height)
+          .border(Color.primary, width: 1)
+      }
+  }).frame(width: 300, height: 200)
  
-```
-*/
+ ```
+ */
 
 public struct ChartView<Content: View>: View {
     @ObservedObject var chartModel: ChartModel
@@ -58,7 +50,7 @@ public struct ChartView<Content: View>: View {
     }
     
     public var body: some View {
-        return Group {
+        Group {
             if chartModel.data.isEmpty || chartModel.data.first?.isEmpty ?? true {
                 self.noDataView
             } else if chartModel.chartType == .micro_bullet {
@@ -100,19 +92,93 @@ public struct ChartView<Content: View>: View {
     }
 }
 
-extension ChartView where Content == EmptyView {
+public extension ChartView where Content == EmptyView {
     /**
      The constructor with a chart model and a default NoDataView is used if there is no data
 
      - parameter chartModel: the chart model
      */
-    public init(_ chartModel: ChartModel) {
+    init(_ chartModel: ChartModel) {
         self._chartModel = ObservedObject(initialValue: chartModel)
         self.noDataView = NoDataView()
     }
 }
 
-struct ChartViewLayout {
+struct ChartSeriesShapeStyleEnvironmentKey: EnvironmentKey {
+    static let defaultValue: [Int: AnyShapeStyle] = [:]
+}
+
+extension EnvironmentValues {
+    var chartSeriesShapeStyle: [Int: AnyShapeStyle] {
+        get {
+            self[ChartSeriesShapeStyleEnvironmentKey]
+        }
+        
+        set {
+            self[ChartSeriesShapeStyleEnvironmentKey] = newValue
+        }
+    }
+}
+
+struct ChartCategoryShapeStyleEnvironmentKey: EnvironmentKey {
+    static let defaultValue: [Int: [Int: AnyShapeStyle]] = [:]
+}
+
+extension EnvironmentValues {
+    var chartCategoryShapeStyle: [Int: [Int: AnyShapeStyle]] {
+        get {
+            self[ChartCategoryShapeStyleEnvironmentKey]
+        }
+        
+        set {
+            self[ChartCategoryShapeStyleEnvironmentKey] = newValue
+        }
+    }
+}
+
+public extension View {
+    /**
+     Set ShapeStyle for chart series
+     
+     - parameter value: the dictionary is [Series Index: AnyShapeSyle].
+        Key is the chart series index, Value "AnyShapeSyle" should be one of these ShapeStyle: LinearGradient, AngularGradient, RadialGradient, Color and ImagePaint. The startPoint and endPoint in LinearGradient are in the view's user space. The image in ImagePaint should not be a vector image.
+     - return:  A shape filled with the color or gradient you supply.
+     
+     ## Usage
+
+     ```
+     let linearGradient = LinearGradient(gradient: Gradient(colors: [.red, .green, .blue]), startPoint: .bottom, endPoint: .top)
+     
+     .chartSeriesShapeStyle([1: AnyShapeStyle(linearGradient)])
+     */
+    func chartSeriesShapeStyle(_ value: [Int: AnyShapeStyle]) -> some View {
+        environment(\.chartSeriesShapeStyle, value)
+    }
+    
+    /**
+        Set ShapeStyle for chart categories
+     
+     - parameter value: the dictionary is [Series Index: [Category Index: AnyShapeSyle]].
+        Value "AnyShapeSyle" should be one of these ShapeStyle: LinearGradient, AngularGradient, RadialGradient, Color and ImagePaint. The startPoint and endPoint in LinearGradient are in local user space. The image in ImagePaint should not be a vector image.
+     - return:  A shape filled with the color or gradient you supply.
+     
+     ## Usage
+
+     ```
+     let linearGradient = LinearGradient(gradient: Gradient(colors: [.red, .green, .blue]), startPoint: .bottom, endPoint: .top)
+     let angularGradient = AngularGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .pink]), center: UnitPoint(x: 0.50, y: 1.00), startAngle: Angle(degrees: 180.00), endAngle: Angle(degrees: 360.00))
+     let radialGradient = RadialGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .pink]), center: .center, startRadius: 0, endRadius: 50)
+     let imagePaint = ImagePaint(image: Image("flower"))
+     
+     .chartCategoryShapeStyle([0: [0: AnyShapeStyle(linearGradient), 1: AnyShapeStyle(Color.yellow), 2: AnyShapeStyle(angularGradient)],
+                               1: [3: AnyShapeStyle(radialGradient), 4: AnyShapeStyle(imagePaint)]])
+     */
+    func chartCategoryShapeStyle(_ value: [Int: [Int: AnyShapeStyle]]) -> some View {
+        environment(\.chartCategoryShapeStyle, value)
+    }
+}
+
+enum ChartViewLayout {
     /// Minimum: 20px from left edge of content area
     static let minYAxisViewWidth: CGFloat = 20
     
@@ -131,7 +197,7 @@ struct ChartViewLayout {
     /// The minimum spacing between y-axis gridline labels is 3px
     static let minSpacingBtwYAxisLabels: CGFloat = 3
     
-    ///A minimum of 4px padding is present on both the left and right of the x axis label if the text labels come in closely.
+    /// A minimum of 4px padding is present on both the left and right of the x axis label if the text labels come in closely.
     static let minSpacingBtwXAxisLabels: CGFloat = 4
     
     /// Extra diameter width for selected point in line/area chart
@@ -142,6 +208,12 @@ struct ChartViewLayout {
     
     /// Minimum unit width
     static let minUnitWidth: CGFloat = 0.0000000001
+    
+    ///
+    static let minDataWidth: CGFloat = 20
+    
+    ///
+    static let columnGapFraction: CGFloat = 0.333333
 }
 
 struct FUIChartView_Previews: PreviewProvider {

@@ -1,13 +1,6 @@
-//
-//  ChartSeriesPaletteTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 4/30/20.
-//
-
 @testable import FioriCharts
-import XCTest
 import SwiftUI
+import XCTest
 
 class ChartSeriesPaletteTests: XCTestCase {
     override func setUpWithError() throws {
@@ -29,7 +22,7 @@ class ChartSeriesPaletteTests: XCTestCase {
                                     negativeMaxColor: .preferredColor(.chart4),
                                     negativeMinColor: .preferredColor(.chart5))
         
-        XCTAssertEqual(sp.colors.compactMap({ $0.resolvedColor(with: .light) }), [Color.preferredColor(.primary2).resolvedColor(with: .light)])
+        XCTAssertEqual(sp.colors.compactMap { $0.resolvedColor(with: .light) }, [Color.preferredColor(.primary2).resolvedColor(with: .light)])
         XCTAssertEqual(sp.fillColor.resolvedColor(with: .light), Color.preferredColor(.primary1).resolvedColor(with: .light))
         XCTAssertEqual(sp.labelColor.resolvedColor(with: .light), Color.preferredColor(.chart1).resolvedColor(with: .light))
         XCTAssertEqual(sp.positiveMaxColor.resolvedColor(with: .light), Color.preferredColor(.chart2).resolvedColor(with: .light))
@@ -41,7 +34,7 @@ class ChartSeriesPaletteTests: XCTestCase {
     func testInit2() throws {
         let sp = ChartSeriesPalette(colors: [.preferredColor(.primary2)])
         
-        XCTAssertEqual(sp.colors.compactMap({ $0.resolvedColor(with: .dark) }), [Color.preferredColor(.primary2).resolvedColor(with: .dark)])
+        XCTAssertEqual(sp.colors.compactMap { $0.resolvedColor(with: .dark) }, [Color.preferredColor(.primary2).resolvedColor(with: .dark)])
         XCTAssertEqual(sp.labelColor.resolvedColor(with: .dark), Color.preferredColor(.primary2).resolvedColor(with: .dark))
         XCTAssertEqual(sp.positiveMaxColor.resolvedColor(with: .dark), Color.preferredColor(.primary2).resolvedColor(with: .dark))
         XCTAssertEqual(sp.positiveMinColor.resolvedColor(with: .dark), Color.preferredColor(.primary2).resolvedColor(with: .dark))

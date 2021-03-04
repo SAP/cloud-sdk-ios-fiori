@@ -1,11 +1,3 @@
-//
-//  YAxisView.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 1/9/20.
-//  Copyright © 2020 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct YAxisView: View {
@@ -15,9 +7,11 @@ struct YAxisView: View {
     @State var yAxisExpanded: Bool = false
     
     let secondary: Bool
+    let plotViewSize: CGSize
     
-    init(secondary: Bool = false) {
+    init(secondary: Bool = false, plotViewSize: CGSize) {
         self.secondary = secondary
+        self.plotViewSize = plotViewSize
     }
     
     var body: some View {
@@ -27,18 +21,29 @@ struct YAxisView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let yAxisLabels: [AxisTitle] = chartContext.yAxisLabels(model, rect: rect, layoutDirection: layoutDirection, secondary: secondary)
-
-        let axis = model.chartType == .bar || model.chartType == .stackedBar ? model.categoryAxis : (secondary ? model.secondaryNumericAxis : model.numericAxis)
+        let labels: [AxisTitle] = self.chartContext.yAxisLabels(self.model, layoutDirection: self.layoutDirection, secondary: self.secondary, rect: rect, plotViewSize: self.plotViewSize)
+    
+        var isShowLabels = [Bool]()
+        var preYPos: CGFloat = -10000
+        for label in labels {
+            if label.pos.y >= -1 && label.pos.y <= rect.size.height + 1 && label.pos.y - preYPos > label.size.height + ChartViewLayout.minSpacingBtwYAxisLabels {
+                isShowLabels.append(true)
+                preYPos = label.pos.y
+            } else {
+                isShowLabels.append(false)
+            }
+        }
+        
+        let axis = self.model.chartType == .bar || self.model.chartType == .stackedBar ? self.model.categoryAxis : (self.secondary ? self.model.secondaryNumericAxis : self.model.numericAxis)
         let baselineX: CGFloat
-        if secondary {
-            if layoutDirection == .leftToRight {
+        if self.secondary {
+            if self.layoutDirection == .leftToRight {
                 baselineX = axis.baseline.width / 2
             } else {
                 baselineX = -axis.baseline.width / 2
             }
         } else {
-            if layoutDirection == .leftToRight {
+            if self.layoutDirection == .leftToRight {
                 baselineX = rect.size.width + axis.baseline.width / 2
             } else {
                 baselineX = rect.size.width - axis.baseline.width / 2
@@ -47,16 +52,22 @@ struct YAxisView: View {
         
         return ZStack {
             if !axis.labels.isHidden {
-                ForEach(yAxisLabels) { label in
+                ForEach(0 ..< labels.count, id: \.self) { index in
                     // y axis lables
-                    Text(label.title)
-                        .font(.system(size: axis.labels.fontSize))
-                        .foregroundColor(axis.labels.color)
-                        .position(x: label.pos.x,
-                                  y: label.pos.y)
-                        .frame(maxWidth: rect.size.width)
-                        .lineLimit(1)
-                        .truncationMode(.tail)
+                    Group {
+                        if isShowLabels[index] {
+                            Text(labels[index].title)
+                                .font(.system(size: axis.labels.fontSize))
+                                .foregroundColor(axis.labels.color)
+                                .position(x: labels[index].pos.x,
+                                          y: labels[index].pos.y)
+                                .frame(maxWidth: rect.size.width)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
+                        } else {
+                            EmptyView()
+                        }
+                    }
                 }
             }
             
@@ -70,31 +81,29 @@ struct YAxisView: View {
                     .frame(width: axis.baseline.width, height: rect.size.height)
                     .position(x: baselineX, y: rect.size.height / 2)
             }
-        }.background(Color.clear)
+        }
+        .animation(nil)
     }
 }
 
 struct YAxisView_Previews: PreviewProvider {
     static var previews: some View {
-        let chartContext = DefaultChartContext()
-        
-        return Group {
+        Group {
             ForEach(Tests.lineModels) {
-                YAxisView()
+                YAxisView(plotViewSize: CGSize(width: 300, height: 200))
                     .environmentObject($0)
-                    .environment(\.chartContext, chartContext)
+                    .environment(\.chartContext, LineChartContext())
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
             
             ForEach(Tests.lineModels) {
-                YAxisView(secondary: true)
+                YAxisView(secondary: true, plotViewSize: CGSize(width: 300, height: 200))
                     .environmentObject($0)
-                    .environment(\.chartContext, chartContext)
+                    .environment(\.chartContext, LineChartContext())
             }
             .frame(width: 80, height: 200, alignment: .topLeading)
             .previewLayout(.sizeThatFits)
-            
-        }        
+        }
     }
 }

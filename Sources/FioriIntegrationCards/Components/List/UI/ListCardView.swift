@@ -1,18 +1,9 @@
-//
-//  ListCardView.swift
-//  SwiftUI-Cards
-//
-//  Created by Stadelman, Stan on 11/20/19.
-//  Copyright © 2019 sap. All rights reserved.
-//
-
-import SwiftUI
-import Combine
 import AnyCodable
+import Combine
 import ObservableArray
+import SwiftUI
 
 public struct ListCardView: View {
-    
     @ObservedObject var model: ListCard
       
     public init(model: ListCard) {
@@ -24,7 +15,7 @@ public struct ListCardView: View {
     }
     
     public var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Group {
                 if ProcessInfo().isOperatingSystemAtLeast(OperatingSystemVersion(majorVersion: 14, minorVersion: 0, patchVersion: 0)) {
                     HeaderView(model: model.header)
@@ -37,7 +28,7 @@ public struct ListCardView: View {
                 Divider().accentColor(Color.primary)
                 VStack(alignment: .leading) {
                     ForEach(model.content) {
-                        ListItemView(icon: $0.icon, title: $0.title, description: $0.description, highlight: $0.highlight)
+                        ListItemView(icon: $0.icon, title: $0.title, description: $0.description, highlight: $0.highlight, info: $0.info)
                         Divider()
                     }
                 }
@@ -50,5 +41,5 @@ public struct ListCardView: View {
         ).padding(16)
     }
     
-    private var sinks: Set<AnyCancellable> = Set<AnyCancellable>()
+    private var sinks = Set<AnyCancellable>()
 }

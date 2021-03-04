@@ -23,9 +23,7 @@
 
 ***
 
-This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).  
-
-> This project is in development, and should not yet be used productively.
+This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Language](https://experience.sap.com/fiori-design-ios/), and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP BTP SDK for iOS](https://developers.sap.com/topics/sap-btp-sdk-for-ios.html).
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
@@ -60,7 +58,7 @@ The API is designed for backwards compatibility to the existing SAPFiori chartin
 [API Reference](https://sap.github.io/cloud-sdk-ios-fiori/charts/index.html)
 
 ## Fiori Integration Cards
-The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integration Cards](https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/index.html).  These types of cards are common in UI5 dashboard and overview page user contexts.  In native iOS apps, we are focusing initially on the dashboard use case, and also considering Cards as ideal for Annotation-style views--in maps, or AR experiences.  
+The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integration Cards](https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/index.html). These types of cards are common in UI5 dashboard and overview page user contexts.  In native iOS apps, we are focusing initially on the dashboard use case, and also considering Cards as ideal for Annotation-style views--in maps, or AR experiences.  
 
 | | FioriIntegrationCards |
 | - | - |
@@ -85,7 +83,7 @@ The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integ
 
 The package is intended for consumption via Swift Package Manager.  
 
- - To add to your application target, navigate to the `Project Settings > Swift Packages` tab, then add the repository URL.
+ - To add to your application target, navigate to the `File > Swift Packages > Add Package Dependency...` tab, then add the repository URL.
  - To add to your framework target, add the repository URL to your **Package.swift** manifest.
 
 In both cases, **xcodebuild** tooling will manage cloning and updating the repository to your app or framework project.
@@ -94,7 +92,7 @@ In both cases, **xcodebuild** tooling will manage cloning and updating the repos
 
 Three products are exposed by the `Package.swift` manifest.
 
-**FioriSwiftUI** as umbrella product will contain everything the package as to offer in the future.
+**FioriSwiftUI** as umbrella product will contain everything the package has to offer in the future.
 
 If you are concerned about bundle size you can use either one of the individual products **FioriCharts** or **FioriIntegrationCards**
 
@@ -102,14 +100,13 @@ If you are concerned about bundle size you can use either one of the individual 
 
 Both modules are currently in development, and should not yet be used productively. Breaking changes may occur in 0.x.x release(s)
 
-Several functional limitations exist at present, which are planned for resolution before milestone release 1.0.0. Please check the Issues tab for an up-to-date view of the backlog and issue status.
+Several functional limitations exist at present, which are planned for resolution before milestone release 1.0.0. Please check the [Issues tab](https://github.com/SAP/cloud-sdk-ios-fiori/issues) for an up-to-date view of the backlog and issue status.
 
 Key gaps which are present at time of open-source project launch:
 
- - **FioriIntegrationCards** networking must be refactored to eliminate dependency on **TinyNetworking**, and support injection of `SAPURLSession` http client
+ - **FioriIntegrationCards** networking shall support injection of `SAPURLSession` http client
  - **FioriIntegrationCards** currently handles only data which is in-line json; must be augmented to support resolving relative data files, and remote URIs
  - **FioriIntegrationCards** and **FioriCharts** requires design specifications to improve UI
- - **FioriCharts** must support point and range selection, equivalent to the current implementation in **SAPFiori**.
  - **FioriIntegrationCards** and **FioriCharts** must support theming with **NUI** nss stylesheets, as currently supported by **SAPFiori**. 
 
 ## Known Issues
@@ -118,7 +115,7 @@ See **Limitations**.
 
 ## How to obtain support
 
-Support for the modules is provided thorough this open-source repository.  Please file Github Issues for any issues experienced, or questions.  
+Support for the modules is provided through this open-source repository.  Please file Github Issues for any issues experienced, or questions.  
 
 When **SAPFiori** integrates **FioriCharts** productively, customers should continue to report issues through OSS for SLA tracking.  However, developers may also report chart-related issues directly into the Github Issues; SAP will mirror **FioriCharts**-related issues reported through OSS into Github Issues.
 
@@ -132,8 +129,9 @@ See **Limitations**.
 
 ## Examples
 
-Functionality can be further explored with a demo app  which is already part of this package (`Apps/Examples/Examples.xcodeproj`).
+Functionality can be further explored with a demo app  which is already part of this package [(`Apps/Examples/Examples.xcodeproj`)](https://github.com/SAP/cloud-sdk-ios-fiori/tree/main/Apps/Examples/Examples.xcodeproj).
 
 <p>
 <img src="https://user-images.githubusercontent.com/4176826/88093416-d7fc3200-cb46-11ea-81a3-0fb12a6f9776.gif" alt="Demo app with examples" width="300" height="500">
+<img src="https://user-images.githubusercontent.com/9074514/106485693-2c4a7c00-64b1-11eb-876a-e577b758a4aa.gif" alt="Demo app with integration card examples" width="250" height="640">
 </p>

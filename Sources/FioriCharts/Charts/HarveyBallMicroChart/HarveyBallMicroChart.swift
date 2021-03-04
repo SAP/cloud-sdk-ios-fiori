@@ -1,11 +1,3 @@
-//
-//  HarveyBallMicroChart.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/13/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
 struct HarveyBallMicroChart: View {
@@ -29,11 +21,11 @@ struct HarveyBallMicroChart: View {
         let val = radius / 10
         let depth = val > HarveyBallMicroChart.maxDepth ? HarveyBallMicroChart.maxDepth : (val < HarveyBallMicroChart.minDepth ? HarveyBallMicroChart.minDepth : val)
         
-        let total = model.dataItemsIn(seriesIndex: 0).first
-        let fraction = model.dataItemsIn(seriesIndex: 0).last
+        let total = self.model.dataItemsIn(seriesIndex: 0).first
+        let fraction = self.model.dataItemsIn(seriesIndex: 0).last
         
         return HStack {
-            if  fraction != nil && total != nil {
+            if fraction != nil && total != nil {
                 Spacer()
                 ZStack(alignment: .center) {
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
@@ -41,8 +33,8 @@ struct HarveyBallMicroChart: View {
                         .frame(width: radius * 2, height: radius * 2)
                     
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(fraction!.value) * 360 / Double(total!.value)))
-                        .strokeBorder(fraction!.color, lineWidth: (radius - depth))
-                    .frame(width: (radius - depth) * 2, height: (radius - depth) * 2)
+                        .strokeBorder(fraction!.color, lineWidth: radius - depth)
+                        .frame(width: (radius - depth) * 2, height: (radius - depth) * 2)
                 }
                 
                 VStack(alignment: .center) {

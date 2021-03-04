@@ -1,11 +1,3 @@
-//
-//  PresetViewImageConfigs.swift
-//  ExamplesTests
-//
-//  Created by Guo, Justin on 4/23/20.
-//  Copyright © 2020 SAP SE. All rights reserved.
-//
-
 import Foundation
 import SnapshotTesting
 

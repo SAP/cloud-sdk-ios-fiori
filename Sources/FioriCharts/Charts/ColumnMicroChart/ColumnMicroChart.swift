@@ -1,14 +1,6 @@
-//
-//  ColumnMicroChart.swift
-//  Micro Charts
-//
-//  Created by Xu, Sheng on 12/11/19.
-//  Copyright © 2019 sstadelman. All rights reserved.
-//
-
 import SwiftUI
 
-public struct ColumnMicroChart: View {
+struct ColumnMicroChart: View {
     @ObservedObject var model: ChartModel
     @Environment(\.sizeCategory) var sizeCategory
 
@@ -19,11 +11,11 @@ public struct ColumnMicroChart: View {
     }
     
     func columnsView(in size: CGSize) -> some View {
-        let (barWidth, barSpace) = columnWidthAndSpace(in: size)
+        let (barWidth, barSpace) = self.columnWidthAndSpace(in: size)
         
         let dateLabelsHeight: CGFloat = 18
         var negativeLabelsHeight: CGFloat = 0
-        if existNegativeValues() {
+        if self.existNegativeValues() {
             negativeLabelsHeight = 16
         }
         let positiveLablesHeight: CGFloat = 16
@@ -39,7 +31,7 @@ public struct ColumnMicroChart: View {
         
         let negativeBarsHeight: CGFloat = minVal >= 0 ? 0 : wholeBarsHeight * abs(minVal) / valueRange
         let positiveBarsHeight: CGFloat = wholeBarsHeight - negativeBarsHeight
-        let columns = model.dataItemsIn(seriesIndex: 0)
+        let columns = self.model.dataItemsIn(seriesIndex: 0)
         
         return VStack(alignment: .center, spacing: 0) {
             if columns.isEmpty {
@@ -104,14 +96,14 @@ public struct ColumnMicroChart: View {
     
     func columnLabel(for item: MicroChartDataItem, positive: Bool) -> String? {
         if positive {
-            return item.value >= 0 ? (item.displayValue): nil
+            return item.value >= 0 ? item.displayValue : nil
         } else {
-            return item.value < 0 ? (item.displayValue): nil
+            return item.value < 0 ? item.displayValue : nil
         }
     }
     
     func normalizedValue(for value: Double, range: CGFloat) -> CGFloat {
-        return abs(CGFloat(value)) / range
+        abs(CGFloat(value)) / range
     }
     
     func existNegativeValues() -> Bool {
@@ -126,7 +118,7 @@ public struct ColumnMicroChart: View {
     
     // n + (n-1) * 0.2 = n + (n - 1)/5 = (6n -1)/5
     func columnWidthAndSpace(in size: CGSize) -> (CGFloat, CGFloat) {
-        let count = model.data[0].count
+        let count = self.model.data[0].count
         var width = size.width * 5 / (CGFloat(6 * count) - 1)
         var space = width * 0.2
         if space < 2 {
@@ -136,7 +128,7 @@ public struct ColumnMicroChart: View {
         } else {
             space = ceil(space)
         }
-        width = (size.width - CGFloat((count - 1)) * space) / CGFloat(max(count, 1))
+        width = (size.width - CGFloat(count - 1) * space) / CGFloat(max(count, 1))
         
         return (width, space)
     }

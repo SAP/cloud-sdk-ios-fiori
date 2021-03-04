@@ -1,22 +1,14 @@
-//
-//  ComboChartTests.swift
-//  FioriSwiftUITests
-//
-//  Created by Xu, Sheng on 7/8/20.
-//
-
-import XCTest
 @testable import FioriCharts
+import XCTest
 
-//swiftlint:disable force_unwrapping
+// swiftlint:disable force_unwrapping
 class ComboChartTests: XCTestCase {
-
     let model1 = ChartModel(chartType: .combo,
-                           data: [[200, 170, 165, 143, 166, 112, 110],
-                                  [150, 120, 130, 135, 120, 138, 137]],
-                           titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                           indexesOfSecondaryValueAxis: [1],
-                           indexesOfColumnSeries: [0])
+                            data: [[200, 170, 165, 143, 166, 112, 110],
+                                   [150, 120, 130, 135, 120, 138, 137]],
+                            titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                            indexesOfSecondaryValueAxis: [1],
+                            indexesOfColumnSeries: [0])
     
     let model2 = ChartModel(chartType: .combo,
                             data: [[2.50, 2.20, 1.60, 2.80, 1.70, 0.90, 0.80, 1.95, 1.75, 1.33, 2.44, 1.40, 1.25, 1.80].map { $0 * 100 },
@@ -28,7 +20,6 @@ class ComboChartTests: XCTestCase {
                             titlesForCategory: [["Adam Humprey", "Jimmy Patrick", "Franck Syren", "Alex Kilgo", "Kim Kilgo", "Sean Long", "Flash Ek-Ularnpun", "Lili Lin", "Luka Ning", "Rodhan Hickey", "Natasha Girotra", "Megan Zurcher", "Joan Wood", "Stanley Thomas Stadelman Jr."]],
                             indexesOfSecondaryValueAxis: [3, 4, 5],
                             indexesOfColumnSeries: [0, 1, 2])
-    
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -42,10 +33,10 @@ class ComboChartTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model1)
+        let pd = dataSource.plotData(self.model1)
 
-        XCTAssertTrue(pd.count == model1.numOfCategories(in: 0))
-        XCTAssertTrue(pd[0].count == model1.numOfSeries())
+        XCTAssertTrue(pd.count == self.model1.numOfCategories(in: 0))
+        XCTAssertTrue(pd[0].count == self.model1.numOfSeries())
     }
     
     func testColumnIndex() throws {
@@ -53,10 +44,10 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model1.indexesOfColumnSeries = [1]
+        self.model1.indexesOfColumnSeries = [1]
         
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model1)
+        let pd = dataSource.plotData(self.model1)
         
         let plotRectData: ChartPlotRectData? = pd[0][1].plotRectData
         let plotPointData: ChartPlotPointData? = pd[0][0].plotPointData
@@ -70,10 +61,10 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model2.indexesOfColumnSeries = [1, 3, 5]
+        self.model2.indexesOfColumnSeries = [1, 3, 5]
         
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model2)
+        let pd = dataSource.plotData(self.model2)
         
         let plotRectData1: ChartPlotRectData? = pd[0][1].plotRectData
         let plotRectData3: ChartPlotRectData? = pd[0][3].plotRectData
@@ -151,20 +142,20 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model2.indexesOfColumnSeries = [0, 1, 2, 3, 4]
-        model2.indexesOfSecondaryValueAxis = [1, 3, 4]
+        self.model2.indexesOfColumnSeries = [0, 1, 2, 3, 4]
+        self.model2.indexesOfSecondaryValueAxis = [1, 3, 4]
         
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model2)
+        let pd = dataSource.plotData(self.model2)
         
-        let axisValue1 = model2.numericAxisTickValues
-        let axisValue2 = model2.secondaryNumericAxisTickValues
+        let axisValue1 = self.model2.numericAxisTickValues
+        let axisValue2 = self.model2.secondaryNumericAxisTickValues
         
-        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][1].rect.size.height, model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][3].rect.size.height, model2.data[3][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, self.model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][1].rect.size.height, self.model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, self.model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][3].rect.size.height, self.model2.data[3][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, self.model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
     
@@ -173,19 +164,19 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model2.indexesOfColumnSeries = [0, 2, 4]
-        model2.indexesOfSecondaryValueAxis = []
+        self.model2.indexesOfColumnSeries = [0, 2, 4]
+        self.model2.indexesOfSecondaryValueAxis = []
         
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model2)
+        let pd = dataSource.plotData(self.model2)
         
-        let axisValue1 = model2.numericAxisTickValues
+        let axisValue1 = self.model2.numericAxisTickValues
         
-        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, self.model2.data[0][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][1].rect.size.height, 0, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, self.model2.data[2][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][3].rect.size.height, 0, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, self.model2.data[4][0].first!! / axisValue1.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
     
@@ -194,19 +185,19 @@ class ComboChartTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         
         // change it
-        model2.indexesOfColumnSeries = [0, 1, 2, 4]
-        model2.indexesOfSecondaryValueAxis = [0, 1, 2, 3, 4, 5]
+        self.model2.indexesOfColumnSeries = [0, 1, 2, 4]
+        self.model2.indexesOfSecondaryValueAxis = [0, 1, 2, 3, 4, 5]
         
         let dataSource = ComboChartContext()
-        let pd = dataSource.plotData(model2)
+        let pd = dataSource.plotData(self.model2)
         
-        let axisValue2 = model2.secondaryNumericAxisTickValues
+        let axisValue2 = self.model2.secondaryNumericAxisTickValues
         
-        XCTAssertEqual(pd[0][0].rect.size.height, model2.data[0][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][1].rect.size.height, model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][2].rect.size.height, model2.data[2][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][0].rect.size.height, self.model2.data[0][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][1].rect.size.height, self.model2.data[1][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][2].rect.size.height, self.model2.data[2][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][3].rect.size.height, 0, accuracy: 0.0001)
-        XCTAssertEqual(pd[0][4].rect.size.height, model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
+        XCTAssertEqual(pd[0][4].rect.size.height, self.model2.data[4][0].first!! / axisValue2.plotRange, accuracy: 0.0001)
         XCTAssertEqual(pd[0][5].rect.size.height, 0, accuracy: 0.0001)
     }
 
@@ -217,9 +208,8 @@ class ComboChartTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
             for _ in 0 ..< 1000 {
-                let _ = dataSource.plotData(model2)
+                _ = dataSource.plotData(model2)
             }
         }
     }
-
 }

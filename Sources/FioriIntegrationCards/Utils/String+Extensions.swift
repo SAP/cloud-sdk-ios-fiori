@@ -1,14 +1,6 @@
-//
-//  String+Extensions.swift
-//  AnyCodable
-//
-//  Created by Ma, Xiao on 2/17/20.
-//
-
 import Foundation
 
 extension String {
-    
     var isValidURL: Bool {
         guard let detector = try? NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue) else {
             return false
@@ -44,7 +36,7 @@ extension String {
     }
     
     func validPhoneNumber(number: String) -> String {
-        let characterSet  = CharacterSet(charactersIn: "+0123456789").inverted
+        let characterSet = CharacterSet(charactersIn: "+0123456789").inverted
         var filtered: String!
         let inputString: Array = number.components(separatedBy: characterSet)
         filtered = inputString.joined()
@@ -84,7 +76,7 @@ extension String {
     }
     
     var htmlToString: String {
-        return htmlToAttributedString?.string ?? "??"
+        self.htmlToAttributedString?.string ?? "??"
     }
     
     func iconName() -> String? {
