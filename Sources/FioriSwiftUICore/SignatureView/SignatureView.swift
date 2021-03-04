@@ -1,15 +1,35 @@
 import SwiftUI
 
+public extension SignatureView {
+    class Model: ObservableObject {
+        @Published var signatureImage: Image? = nil
+        public init() {}
+    }
+}
+
 public struct SignatureView: View {
+    /// Stroke width for drawing lines
+    public let strokeWidth: CGFloat
+    
+    /// Stroke color for drawing lines
+    public let imageStrokeColor: Color
+    
+    /// Background color of the drawing pad
+    public let backgroundColor: Color
+    
+    @ObservedObject private var model: Model
+    
     @State private var currentDrawing = Drawing()
     @State private var drawings = [Drawing]()
-    @State private var imageStrokeColor = Color.black
-    @State private var strokeWidth: CGFloat = 3.0
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
-    @State private var backgroundColor = Color.white
     
-    public init() {}
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), model: Model = Model()) {
+        self.strokeWidth = strokeWidth
+        self.imageStrokeColor = imageStrokeColor
+        self.backgroundColor = backgroundColor
+        self.model = model
+    }
     
     public var body: some View {
         GeometryReader { _ in

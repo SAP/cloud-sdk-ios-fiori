@@ -1,49 +1,51 @@
 import Combine
 import SwiftUI
 
-extension SignatureViewInline {
+public extension SignatureViewInline {
     class Model: ObservableObject {
         @Published var signatureImage: Image? = nil
+        public init() {}
     }
 }
 
 /**
  A SignatureViewInline object is used to draw and capture a user's signature.
 
-   */
+    */
 
 public struct SignatureViewInline: View {
     /// Stroke width for drawing lines
-    public var strokeWidth: CGFloat
+    public let strokeWidth: CGFloat
     
     /// Stroke color for drawing lines
-    public var imageStrokeColor: Color
+    public let imageStrokeColor: Color
     
     /// Background color of the drawing pad
-    public var backgroundColor: Color
+    public let backgroundColor: Color
     
-    @ObservedObject private var model = Model()
+    @ObservedObject private var model: Model
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground)) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), model: Model = Model()) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
+        self.model = model
     }
     
     @State private var currentDrawing = Drawing()
     @State private var drawings = [Drawing]()
-    @State private var isSignatureEditable = false
+    @State private var isEditing = false
     @State private var isSaved = false
     @State private var rect1: CGRect = .zero
     
     public var body: some View {
         GeometryReader { _ in
-            if !isSignatureEditable {
+            if !isEditing {
                 VStack {
                     HStack {
                         Text(NSLocalizedString("Signature", comment: "Signature"))
@@ -60,7 +62,7 @@ public struct SignatureViewInline: View {
                     )
                     .onTapGesture {
                         withAnimation {
-                            self.isSignatureEditable = true
+                            self.isEditing = true
                         }
                     }
                 }
@@ -73,7 +75,7 @@ public struct SignatureViewInline: View {
                             self.drawings.removeAll()
                             isSaved = false
                             model.signatureImage = nil
-                            isSignatureEditable = false
+                            isEditing = false
                         }) {
                             Text(NSLocalizedString("Cancel", comment: "Cancel"))
                         }
