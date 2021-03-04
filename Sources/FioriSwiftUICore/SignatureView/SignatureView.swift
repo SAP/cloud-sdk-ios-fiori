@@ -1,28 +1,18 @@
-//
-//  SignatureView.swift
-//  
-//
-//  Created by Wirjo, Fred on 11/4/20.
-//
-
 import SwiftUI
 
 public struct SignatureView: View {
-    
-    @State private var currentDrawing: Drawing = Drawing()
-    @State private var drawings: [Drawing] = [Drawing]()
-    @State private var imageStrokeColor: Color = Color.black
+    @State private var currentDrawing = Drawing()
+    @State private var drawings = [Drawing]()
+    @State private var imageStrokeColor = Color.black
     @State private var strokeWidth: CGFloat = 3.0
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
     @State private var backgroundColor = Color.white
     
-    public init() {
-        
-    }
+    public init() {}
     
     public var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             VStack(alignment: .center) {
                 HStack {
                     Button(action: {
@@ -47,7 +37,7 @@ public struct SignatureView: View {
                             
                             let rectWidth = maxX - minX < 100 ? 100 : maxX - minX
                             let rectHeight = maxY - minY < 100 ? 100 : maxY - minY
-                            rect1 = CGRect(x: minX+rect1.minX, y: minY+rect1.minY, width: rectWidth, height: rectHeight)
+                            rect1 = CGRect(x: minX + rect1.minX, y: minY + rect1.minY, width: rectWidth, height: rectHeight)
                         }
                         
                         let imageSaver = ImageSaver()
@@ -61,9 +51,9 @@ public struct SignatureView: View {
                 }.padding([.leading, .trailing])
                 DrawingPad(currentDrawing: $currentDrawing,
                            drawings: $drawings,
-                           strokeColor: $imageStrokeColor,
-                           lineWidth: $strokeWidth,
-                           backgroundColor: $backgroundColor)
+                           strokeColor: imageStrokeColor,
+                           lineWidth: strokeWidth,
+                           backgroundColor: backgroundColor)
                     .background(RectGetter(rect: $rect1))
                 HStack {
                     Text("X")

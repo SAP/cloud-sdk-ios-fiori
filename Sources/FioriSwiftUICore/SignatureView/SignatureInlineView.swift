@@ -1,55 +1,28 @@
-//
-//  SignatureInlineView.swift
-//  FioriSwiftUICore
-//
-//  Created by Wirjo, Fred on 12/30/20.
-//
-
+import Combine
 import SwiftUI
 
 extension SignatureViewInline {
     class Model: ObservableObject {
-        @Published var imageStrokeColor: Color = Color.preferredColor(.primaryLabel)
-        @Published var strokeWidth: CGFloat = 3.0
-        @Published var backgroundColor: Color = Color.preferredColor(.primaryBackground)
+        @Published var signatureImage: Image? = nil
     }
 }
 
 /**
-A SignatureViewInline object is used to draw and capture a user's signature.
+ A SignatureViewInline object is used to draw and capture a user's signature.
 
- */
+   */
 
 public struct SignatureViewInline: View {
-    
     /// Stroke width for drawing lines
-    public var strokeWidth: CGFloat {
-        get {
-            return model.strokeWidth
-        } set {
-            model.strokeWidth = newValue
-        }
-    }
+    public var strokeWidth: CGFloat
     
     /// Stroke color for drawing lines
-    public var imageStrokeColor: Color {
-        get {
-            return model.imageStrokeColor
-        } set {
-            model.imageStrokeColor = newValue
-        }
-    }
+    public var imageStrokeColor: Color
     
     /// Background color of the drawing pad
-    public var backgroundColor: Color {
-        get {
-            return model.backgroundColor
-        } set {
-            model.backgroundColor = newValue
-        }
-    }
+    public var backgroundColor: Color
     
-    @ObservedObject private var model: Model = Model()
+    @ObservedObject private var model = Model()
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
@@ -62,15 +35,14 @@ public struct SignatureViewInline: View {
         self.backgroundColor = backgroundColor
     }
     
-    @State private var currentDrawing: Drawing = Drawing()
-    @State private var drawings: [Drawing] = [Drawing]()
+    @State private var currentDrawing = Drawing()
+    @State private var drawings = [Drawing]()
     @State private var isSignatureEditable = false
     @State private var isSaved = false
     @State private var rect1: CGRect = .zero
-    @State private var imageView: Image? = nil
     
     public var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             if !isSignatureEditable {
                 VStack {
                     HStack {
@@ -81,10 +53,10 @@ public struct SignatureViewInline: View {
                         Color.preferredColor(.quarternaryFill).cornerRadius(10)
                         Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
-                    .frame(width: geometry.size.width, height: 300)
+                    // .frame(width: geometry.size.width, height: 300)
                     .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.preferredColor(.separator), lineWidth: 1)
                     )
                     .onTapGesture {
                         withAnimation {
@@ -100,20 +72,20 @@ public struct SignatureViewInline: View {
                         Button(action: {
                             self.drawings.removeAll()
                             isSaved = false
-                            imageView = nil
+                            model.signatureImage = nil
                             isSignatureEditable = false
                         }) {
                             Text(NSLocalizedString("Cancel", comment: "Cancel"))
                         }
                     }
                     ZStack {
-                        if imageView == nil {
+                        if model.signatureImage == nil {
                             ZStack(alignment: .bottom) {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
-                                           strokeColor: $model.imageStrokeColor,
-                                           lineWidth: $model.strokeWidth,
-                                           backgroundColor: $model.backgroundColor)
+                                           strokeColor: imageStrokeColor,
+                                           lineWidth: strokeWidth,
+                                           backgroundColor: backgroundColor)
                                     .foregroundColor(Color.preferredColor(.cellBackground))
                                     .background(RectGetter(rect: $rect1))
                                 if !isSaved {
@@ -122,12 +94,12 @@ public struct SignatureViewInline: View {
                                             .foregroundColor(Color.preferredColor(.quarternaryLabel))
                                             .font(.body)
                                             .opacity(0.4)
-                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(width: 270, height: 1)
+                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
                                     }.padding([.leading, .trailing]).padding(.bottom, 30)
                                 }
-                            }.frame(width: geometry.size.width, height: 300)
+                            } // .frame(width: geometry.size.width, height: 300)
                         } else {
-                            imageView
+                            model.signatureImage
                         }
                         
                         if !isSaved {
@@ -156,7 +128,7 @@ public struct SignatureViewInline: View {
                                     if view is Drawing {
                                         let tempview = view.asImage(rect: self.rect1)
                                         let tempimageview = Image(uiImage: tempview)
-                                        self.imageView = tempimageview
+                                        model.signatureImage = tempimageview
                                     }
                                 }
                             }) {
@@ -166,7 +138,7 @@ public struct SignatureViewInline: View {
                             Button(action: {
                                 withAnimation {
                                     self.drawings.removeAll()
-                                    self.imageView = nil
+                                    model.signatureImage = nil
                                     self.isSaved = false
                                 }
                             }) {
@@ -176,6 +148,6 @@ public struct SignatureViewInline: View {
                     }
                 }
             }
-        }.padding(16).frame(height: 298)
+        }.padding(16) // .frame(height: 298)
     }
- }
+}
