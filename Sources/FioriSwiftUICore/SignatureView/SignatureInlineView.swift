@@ -11,7 +11,7 @@ public extension SignatureViewInline {
 /**
  A SignatureViewInline object is used to draw and capture a user's signature.
 
-          */
+           */
 
 public struct SignatureViewInline: View {
     /// Stroke width for drawing lines
@@ -23,7 +23,7 @@ public struct SignatureViewInline: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    @ObservedObject private var model: Model
+    @ObservedObject public var model: Model
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:

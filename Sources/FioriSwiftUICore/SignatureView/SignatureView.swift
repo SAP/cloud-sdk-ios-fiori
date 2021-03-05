@@ -17,7 +17,7 @@ public struct SignatureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    @ObservedObject private var model: Model
+    @ObservedObject public var model: Model
     
     @State private var currentDrawing = Drawing()
     @State private var drawings = [Drawing]()
