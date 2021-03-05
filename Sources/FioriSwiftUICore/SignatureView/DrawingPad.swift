@@ -64,7 +64,7 @@ struct DrawingPad: View {
                     }
             )
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        // .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     private func add(drawing: Drawing, toPath path: inout Path) {

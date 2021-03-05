@@ -1,21 +1,13 @@
-//
-//  SignatureHelper.swift
-//  
-//
-//  Created by Wirjo, Fred on 2/25/21.
-//
-
 import Foundation
-import UIKit
 import SwiftUI
+import UIKit
 
 class ImageSaver: NSObject {
     func writeToPhotoAlbum(image: UIImage) {
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(saveError), nil)
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveError), nil)
     }
 
-    @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
-    }
+    @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {}
 }
 
 extension UIView {
@@ -26,6 +18,7 @@ extension UIView {
         }
     }
 }
+
 struct RectGetter: View {
     @Binding var rect: CGRect
 
