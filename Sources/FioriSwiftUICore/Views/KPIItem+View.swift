@@ -1,27 +1,27 @@
 import SwiftUI
 
+struct Kpi: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+            .truncationMode(.tail)
+            .multilineTextAlignment(.center)
+    }
+}
+
+struct Subtitle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .lineLimit(2)
+            .font(.subheadline)
+            .truncationMode(.tail)
+            .multilineTextAlignment(.center)
+    }
+}
+
 extension Fiori {
     enum KPIItem {
-        struct Kpi: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.5)
-                    .truncationMode(.tail)
-                    .multilineTextAlignment(.center)
-            }
-        }
-        
-        struct Subtitle: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .lineLimit(2)
-                    .font(.subheadline)
-                    .truncationMode(.tail)
-                    .multilineTextAlignment(.center)
-            }
-        }
-        
         static let kpi = Kpi()
         static let subtitle = Subtitle()
     }
@@ -40,6 +40,11 @@ extension KPIItem: View {
 }
 
 public extension KPIItem where Kpi == Text, Subtitle == Text {
+    /// Returns a KPI item with given configuration.
+    /// - Parameters:
+    ///   - data: The data of the KPI item.
+    ///   - subtitle: The subtitle of the KPI item.
+    ///   - action: The action when user interacts with the KPI item.
     init(data: KPIItemData, subtitle: String, action: (() -> Void)? = nil) {
         self.init(kpi: {
             KPIFormatter().create(from: data) ?? Text("")

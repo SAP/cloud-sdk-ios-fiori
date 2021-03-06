@@ -1,16 +1,27 @@
 import SwiftUI
 
+/// Data types for KPIItemView.
 public enum KPIItemData {
+    /// Combinations of available KPI components
     case components([KPIItemData.Component])
+    /// Measurement type that takes in unit value and MeasurementFormatter
     case measure(Measurement<Unit>, MeasurementFormatter)
+    /// Time duration type that takes in time interval value and DateComponentsFormatter
     case duration(TimeInterval, DateComponentsFormatter?)
+    /// Fraction type
     case fraction(Int, Int)
+    /// Percentage type
     case percent(Double)
     
+    /// Component types for KPIItemData
     public enum Component {
+        /// Unit component
         case unit(String)
+        /// Metric component
         case metric(String)
+        /// Icon component
         case icon(Image)
+        /// Measurement component
         case measure(Measurement<Unit>, MeasurementFormatter)
     }
     
@@ -63,27 +74,27 @@ public enum KPIItemData {
     }
 }
 
-internal struct KPIFormatter {
-    private struct KPIStringComponent: Hashable {
-        internal enum ComponentType {
-            case unit
-            case metric
-            case icon
-            case whitespace
-            case punctuation
-        }
-        
-        var string: String
-        var range: Range<String.Index>
-        var type: ComponentType
-        
-        init(string: String, range: Range<String.Index>, type: ComponentType) {
-            self.string = string
-            self.range = range
-            self.type = type
-        }
+private struct KPIStringComponent: Hashable {
+    internal enum ComponentType {
+        case unit
+        case metric
+        case icon
+        case whitespace
+        case punctuation
     }
     
+    var string: String
+    var range: Range<String.Index>
+    var type: ComponentType
+    
+    init(string: String, range: Range<String.Index>, type: ComponentType) {
+        self.string = string
+        self.range = range
+        self.type = type
+    }
+}
+
+internal struct KPIFormatter {
     private static let punctuationsCharacterSet = CharacterSet([".", ","])
     
     private static let iconsCharacterSet: CharacterSet = {
@@ -111,7 +122,7 @@ internal struct KPIFormatter {
         
         let icons = data.icons()
         var iconsDict = [KPIStringComponent: Image]()
-        if icons.count > 0 {
+        if !icons.isEmpty {
             for (index, component) in iconComponents.enumerated() {
                 iconsDict[component] = icons[index]
             }
