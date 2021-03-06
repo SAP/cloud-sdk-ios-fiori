@@ -2,23 +2,23 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ActivityItem where Icon == EmptyView {
+extension KPIItem where Kpi == EmptyView {
     public init(
     @ViewBuilder subtitle: @escaping () -> Subtitle
     ) {
         self.init(
-            icon: { EmptyView() },
+            kpi: { EmptyView() },
 			subtitle: subtitle
         )
     }
 }
 
-extension ActivityItem where Subtitle == EmptyView {
+extension KPIItem where Subtitle == EmptyView {
     public init(
-    @ViewBuilder icon: @escaping () -> Icon
+    @ViewBuilder kpi: @escaping () -> Kpi
     ) {
         self.init(
-            icon: icon,
+            kpi: kpi,
 			subtitle: { EmptyView() }
         )
     }

@@ -4,7 +4,7 @@ import SwiftUI
 public protocol KPIListModel: KPIListComponent {}
 
 public protocol KPIListComponent {
-    var kpis: [KPIModel]? { get }
+    var kpis: [KPIItemModel]? { get }
 }
 
 public struct KPIHeader<KPIContainer: View> {
@@ -22,21 +22,21 @@ public struct KPIHeader<KPIContainer: View> {
 }
 
 // Question: can the initializer be for everything?
-public extension KPIHeader where KPIContainer == KPI<Text, _ConditionalContent<Image, EmptyView>> {
-    init(oneKpi: [KPIModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPI(model: oneKpi[0])) }
+public extension KPIHeader where KPIContainer == KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>> {
+    init(oneKpi: [KPIItemModel]) {
+        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: oneKpi[0])) }
     }
 }
 
-public extension KPIHeader where KPIContainer == TupleView<(KPI<Text, _ConditionalContent<Image, EmptyView>>, KPI<Text, _ConditionalContent<Image, EmptyView>>)> {
-    init(twoKpis: [KPIModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPI(model: twoKpis[0]), KPI(model: twoKpis[1])) }
+public extension KPIHeader where KPIContainer == TupleView<(KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>)> {
+    init(twoKpis: [KPIItemModel]) {
+        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: twoKpis[0]), KPIItem(model: twoKpis[1])) }
     }
 }
 
-public extension KPIHeader where KPIContainer == TupleView<(KPI<Text, _ConditionalContent<Image, EmptyView>>, KPI<Text, _ConditionalContent<Image, EmptyView>>, KPI<Text, _ConditionalContent<Image, EmptyView>>)> {
-    init(threeKpis: [KPIModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPI(model: threeKpis[0]), KPI(model: threeKpis[1]), KPI(model: threeKpis[2])) }
+public extension KPIHeader where KPIContainer == TupleView<(KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>)> {
+    init(threeKpis: [KPIItemModel]) {
+        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: threeKpis[0]), KPIItem(model: threeKpis[1]), KPIItem(model: threeKpis[2])) }
     }
 }
 
@@ -94,14 +94,14 @@ public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollectio
         if horizontalSizeClass == .compact {
             VStack(alignment: .leading) {
                 ForEach(data, id: self.dataId) { element in
-                    KPI(title: (element as! KPIModel).title_, icon: (element as! KPIModel).icon_)
+                    KPIItem(kpi: (element as! KPIItemModel).kpi_, subtitle: (element as! KPIItemModel).subtitle_)
                 }
             }
         } else {
             if #available(iOS 14.0, *) {
                 TabView {
                     ForEach(data, id: self.dataId) { element in
-                        KPI(title: (element as! KPIModel).title_, icon: (element as! KPIModel).icon_)
+                        KPIItem(kpi: (element as! KPIItemModel).kpi_, subtitle: (element as! KPIItemModel).subtitle_)
                     }
                 }
                 .tabViewStyle(PageTabViewStyle())
@@ -109,7 +109,7 @@ public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollectio
             } else {
                 HStack {
                     ForEach(data, id: self.dataId) { element in
-                        KPI(title: (element as! KPIModel).title_, icon: (element as! KPIModel).icon_)
+                        KPIItem(kpi: (element as! KPIItemModel).kpi_, subtitle: (element as! KPIItemModel).subtitle_)
                     }
                 }
             }
