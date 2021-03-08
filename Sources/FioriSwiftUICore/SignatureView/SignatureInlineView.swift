@@ -121,15 +121,11 @@ public struct SignatureViewInline: View {
                                 withAnimation {
                                     self.isSaved = true
                                 }
-                                guard let subviews = UIApplication.shared.windows[0].rootViewController?.view.subviews else { return }
-                                for view in subviews {
-                                    if view is Drawing {
-                                        let tempview = view.asImage(rect: self.rect1)
-                                        let tempimageview = Image(uiImage: tempview)
-                                        signatureImage = tempimageview
-                                        print("onsave called")
-                                        onSave(tempimageview)
-                                    }
+                                if let tempview = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) {
+                                    let tempimageview = Image(uiImage: tempview)
+                                    signatureImage = tempimageview
+                                    print("onsave called")
+                                    onSave(tempimageview)
                                 }
                             }) {
                                 Text(NSLocalizedString("Save", comment: "Save"))
