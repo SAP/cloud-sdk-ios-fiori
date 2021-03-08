@@ -14,15 +14,21 @@ public struct SignatureViewInline: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
+    public var onSave: (Image) -> Void
+    
+    public var onCancel: () -> Void
+    
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: (Image) -> Void, onCancel: () -> Void) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: @escaping (Image) -> Void, onCancel: @escaping () -> Void) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
+        self.onSave = onSave
+        self.onCancel = onCancel
     }
     
     @State private var currentDrawing = Drawing()
