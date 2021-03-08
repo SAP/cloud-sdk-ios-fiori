@@ -10,9 +10,7 @@ public extension SignatureViewInline {
 
 /**
  A SignatureViewInline object is used to draw and capture a user's signature.
-
-           */
-
+ */
 public struct SignatureViewInline: View {
     /// Stroke width for drawing lines
     public let strokeWidth: CGFloat
