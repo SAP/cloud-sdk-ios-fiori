@@ -1,13 +1,6 @@
 import Combine
 import SwiftUI
 
-public extension SignatureViewInline {
-    class Model: ObservableObject {
-        @Published public var signatureImage: Image? = nil
-        public init() {}
-    }
-}
-
 /**
  A SignatureViewInline object is used to draw and capture a user's signature.
  */
@@ -21,18 +14,15 @@ public struct SignatureViewInline: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    @ObservedObject public var model: Model
-    
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), model: Model = Model()) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: (Image) -> Void, onCancel: () -> Void) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
-        self.model = model
     }
     
     @State private var currentDrawing = Drawing()
@@ -40,6 +30,7 @@ public struct SignatureViewInline: View {
     @State private var isEditing = false
     @State private var isSaved = false
     @State private var rect1: CGRect = .zero
+    @State private var signatureImage: Image? = nil
     
     public var body: some View {
         GeometryReader { _ in
@@ -72,14 +63,15 @@ public struct SignatureViewInline: View {
                         Button(action: {
                             self.drawings.removeAll()
                             isSaved = false
-                            model.signatureImage = nil
+                            signatureImage = nil
+                            onCancel()
                             isEditing = false
                         }) {
                             Text(NSLocalizedString("Cancel", comment: "Cancel"))
                         }
                     }
                     ZStack {
-                        if model.signatureImage == nil {
+                        if signatureImage == nil {
                             ZStack(alignment: .bottom) {
                                 DrawingPad(currentDrawing: $currentDrawing,
                                            drawings: $drawings,
@@ -99,7 +91,7 @@ public struct SignatureViewInline: View {
                                 }
                             } // .frame(width: geometry.size.width, height: 300)
                         } else {
-                            model.signatureImage
+                            signatureImage
                         }
                         
                         if !isSaved {
@@ -128,7 +120,8 @@ public struct SignatureViewInline: View {
                                     if view is Drawing {
                                         let tempview = view.asImage(rect: self.rect1)
                                         let tempimageview = Image(uiImage: tempview)
-                                        model.signatureImage = tempimageview
+                                        signatureImage = tempimageview
+                                        onSave(tempimageview)
                                     }
                                 }
                             }) {
@@ -138,7 +131,8 @@ public struct SignatureViewInline: View {
                             Button(action: {
                                 withAnimation {
                                     self.drawings.removeAll()
-                                    model.signatureImage = nil
+                                    signatureImage = nil
+                                    onCancel()
                                     self.isSaved = false
                                 }
                             }) {
