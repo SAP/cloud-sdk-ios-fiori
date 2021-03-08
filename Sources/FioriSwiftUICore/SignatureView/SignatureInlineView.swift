@@ -127,6 +127,7 @@ public struct SignatureViewInline: View {
                                         let tempview = view.asImage(rect: self.rect1)
                                         let tempimageview = Image(uiImage: tempview)
                                         signatureImage = tempimageview
+                                        print("onsave called")
                                         onSave(tempimageview)
                                     }
                                 }
