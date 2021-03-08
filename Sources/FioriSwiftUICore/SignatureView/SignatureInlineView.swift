@@ -3,7 +3,7 @@ import SwiftUI
 
 public extension SignatureViewInline {
     class Model: ObservableObject {
-        @Published var signatureImage: Image? = nil
+        @Published public var signatureImage: Image? = nil
         public init() {}
     }
 }

@@ -2,7 +2,7 @@ import SwiftUI
 
 public extension SignatureView {
     class Model: ObservableObject {
-        @Published var signatureImage: Image? = nil
+        @Published public var signatureImage: Image? = nil
         public init() {}
     }
 }
