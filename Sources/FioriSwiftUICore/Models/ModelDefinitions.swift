@@ -34,10 +34,8 @@ public protocol CollectionItemModel: DetailImageComponent, TitleComponent, Subti
 public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 
 // sourcery: generated_component
-public protocol KPIModel: TitleComponent, IconComponent {}
-
-// sourcery: generated_component
-public protocol KPIAnnotatedModel: TitleComponent, SubtitleComponent, IconComponent {}
+// sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
+public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
@@ -51,6 +49,7 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 // sourcery: generated_component
 // sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
+
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"

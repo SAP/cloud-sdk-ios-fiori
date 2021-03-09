@@ -2,6 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
+
 public protocol TitleComponent {
     var title_: String { get }
 }
@@ -118,9 +119,10 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
 }
 
+
 // sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
-    // sourcery: no_style
+	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-    func didSelect(_ activityItem: ActivityItemDataType) -> Void
+	func didSelect(_ activityItem: ActivityItemDataType) -> Void
 }
