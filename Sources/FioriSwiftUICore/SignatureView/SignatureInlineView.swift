@@ -14,16 +14,16 @@ public struct SignatureViewInline: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    public var onSave: (Image) -> Void
+    public var onSave: ((Image) -> Void)?
     
-    public var onCancel: () -> Void
+    public var onCancel: (() -> Void)?
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: @escaping (Image) -> Void, onCancel: @escaping () -> Void) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -70,7 +70,7 @@ public struct SignatureViewInline: View {
                             self.drawings.removeAll()
                             isSaved = false
                             signatureImage = nil
-                            onCancel()
+                            onCancel?()
                             isEditing = false
                         }) {
                             Text(NSLocalizedString("Cancel", comment: "Cancel"))
@@ -124,8 +124,7 @@ public struct SignatureViewInline: View {
                                 if let tempview = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) {
                                     let tempimageview = Image(uiImage: tempview)
                                     signatureImage = tempimageview
-                                    print("onsave called")
-                                    onSave(tempimageview)
+                                    onSave?(tempimageview)
                                 }
                             }) {
                                 Text(NSLocalizedString("Save", comment: "Save"))
@@ -135,7 +134,7 @@ public struct SignatureViewInline: View {
                                 withAnimation {
                                     self.drawings.removeAll()
                                     signatureImage = nil
-                                    onCancel()
+                                    onCancel?()
                                     self.isSaved = false
                                 }
                             }) {
