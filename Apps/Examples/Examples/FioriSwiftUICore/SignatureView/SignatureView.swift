@@ -3,6 +3,6 @@ import SwiftUI
 
 struct SignatureView_Example: View {
     var body: some View {
-        SignatureView()
+        Text("HELLO")
     }
 }

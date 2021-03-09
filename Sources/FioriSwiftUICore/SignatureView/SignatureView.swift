@@ -1,42 +1,39 @@
 import SwiftUI
 
-public extension SignatureView {
-    class Model: ObservableObject {
-        @Published public var signatureImage: Image? = nil
-        public init() {}
-    }
-}
-
-public struct SignatureView: View {
+struct SignatureView: View {
     /// Stroke width for drawing lines
-    public let strokeWidth: CGFloat
+    let strokeWidth: CGFloat
     
     /// Stroke color for drawing lines
-    public let imageStrokeColor: Color
+    let imageStrokeColor: Color
     
     /// Background color of the drawing pad
-    public let backgroundColor: Color
+    let backgroundColor: Color
     
-    @ObservedObject public var model: Model
+    public var onSave: ((Image) -> Void)?
+    
+    public var onCancel: (() -> Void)?
     
     @State private var currentDrawing = Drawing()
     @State private var drawings = [Drawing]()
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
     
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), model: Model = Model()) {
+    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
-        self.model = model
+        self.onSave = onSave
+        self.onCancel = onCancel
     }
     
-    public var body: some View {
+    var body: some View {
         GeometryReader { _ in
             VStack(alignment: .center) {
                 HStack {
                     Button(action: {
                         drawings.removeAll()
+                        onCancel?()
                     }) {
                         Text("Cancel")
                     }
@@ -63,6 +60,7 @@ public struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
+                        onSave?(Image(uiImage: uimage))
                         drawings.removeAll()
                     }) {
                         Text("Done")

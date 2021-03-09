@@ -2,9 +2,9 @@ import Combine
 import SwiftUI
 
 /**
- A SignatureViewInline object is used to draw and capture a user's signature.
+ A SignatureCaptureView object is used to draw and capture a user's signature.
  */
-public struct SignatureViewInline: View {
+public struct SignatureCaptureView: View {
     /// Stroke width for drawing lines
     public let strokeWidth: CGFloat
     
