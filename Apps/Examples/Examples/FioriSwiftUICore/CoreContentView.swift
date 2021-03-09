@@ -35,6 +35,11 @@ struct CoreContentView: View {
                     Text("FioriButtonStyle")
                 }
             )
+            
+            NavigationLink(
+                destination: KPIExample()) {
+                Text("KPI")
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F3C939D25E05E7100A99A07 /* FioriButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */; };
+		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A52DBFD256D70C700F6F4FC /* listicon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DBFC256D70C700F6F4FC /* listicon.json */; };
 		8A52DC01256D758D00F6F4FC /* listnumeric.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DC00256D758D00F6F4FC /* listnumeric.json */; };
@@ -170,6 +171,7 @@
 /* Begin PBXFileReference section */
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonStyle.swift; sourceTree = "<group>"; };
+		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTestCases.swift; sourceTree = "<group>"; };
 		8A52DBFC256D70C700F6F4FC /* listicon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = listicon.json; sourceTree = "<group>"; };
@@ -333,6 +335,14 @@
 				1F3C939C25E05E7100A99A07 /* FioriButtonStyle.swift */,
 			);
 			path = FioriButtonStyle;
+			sourceTree = "<group>";
+		};
+		691DE21725F2A2F000094D4A /* KPI */ = {
+			isa = PBXGroup;
+			children = (
+				691DE21825F2A30B00094D4A /* KPIViewExample.swift */,
+			);
+			path = KPI;
 			sourceTree = "<group>";
 		};
 		8A55794A24C1286E0098003A = {
@@ -546,6 +556,7 @@
 			isa = PBXGroup;
 			children = (
 				97CEF8A92553D6F1008BFBEF /* SignatureView */,
+				691DE21725F2A2F000094D4A /* KPI */,
 				1F3C939B25E05E0200A99A07 /* FioriButtonStyle */,
 				8A5579C924C1293C0098003A /* SegmentedControl */,
 				1F3C92EF25DF12A100A99A07 /* FormCells */,
@@ -828,6 +839,7 @@
 			files = (
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
+				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
