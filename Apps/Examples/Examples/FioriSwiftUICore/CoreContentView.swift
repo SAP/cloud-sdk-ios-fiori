@@ -32,6 +32,12 @@ struct CoreContentView: View {
                 destination: KPIExample()) {
                 Text("KPI")
             }
+            
+            NavigationLink(
+                destination: WelcomeScreenSample()) {
+                Text("WelcomeScreen")
+            }
+            
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

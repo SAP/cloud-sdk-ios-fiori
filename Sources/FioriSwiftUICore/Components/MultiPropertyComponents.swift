@@ -9,3 +9,10 @@ internal protocol _ActionItems: _ComponentMultiPropGenerating {
     var actionItems_: [ActivityItemDataType]? { get }
     func didSelect(_ activityItem: ActivityItemDataType)
 }
+
+// sourcery: backingComponent=WelcomeScreenButton
+internal protocol _welcomeScreenButton: _ComponentMultiPropGenerating {
+    // sourcery: no_style
+    var primaryButton_: String? { get }
+    func clickAction()
+}

@@ -40,6 +40,13 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
+// sourcery: generated_component_not_configurable
+public protocol WelcomeScreenButtonModel: WelcomeScreenButtonComponent {}
+
+// sourcery: add_env_props = ["horizontalSizeClass"]
+// sourcery: generated_component_composite
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, WelcomeScreenButtonModel, SubtitleComponent, FootnoteComponent, ActionTitleComponent, IconComponent {}
+
 // sourcery: generated_component
 public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 

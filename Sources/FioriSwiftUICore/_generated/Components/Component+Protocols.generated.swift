@@ -126,3 +126,10 @@ public protocol ActionItemsComponent {
     var actionItems_: [ActivityItemDataType]? { get }
 	func didSelect(_ activityItem: ActivityItemDataType) -> Void
 }
+
+// sourcery: backingComponent=WelcomeScreenButton
+public protocol WelcomeScreenButtonComponent {
+	// sourcery: no_style
+    var primaryButton_: String? { get }
+	func clickAction() -> Void
+}
