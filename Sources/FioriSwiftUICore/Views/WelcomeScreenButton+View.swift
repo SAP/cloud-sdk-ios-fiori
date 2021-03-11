@@ -5,15 +5,12 @@
 
 import SwiftUI
 
-// FIXME: - Implement Fiori style definitions
 extension Fiori {
     enum WelcomeScreenButton {
         typealias PrimaryButton = EmptyModifier
         static let primaryButton = PrimaryButton()
     }
 }
-        
-// FIXME: - Implement WelcomeScreenButton View body
 
 extension WelcomeScreenButton: View {
     public var body: some View {

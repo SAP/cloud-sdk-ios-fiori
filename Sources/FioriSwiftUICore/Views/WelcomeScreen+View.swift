@@ -5,8 +5,6 @@
 
 import SwiftUI
 
-// FIXME: - Implement Fiori style definitions
-
 extension Fiori {
     enum WelcomeScreen {
         struct Title: ViewModifier {
@@ -65,19 +63,7 @@ extension Fiori {
                     .frame(width: 20, height: 20, alignment: .center)
             }
         }
-
-        // TODO: - substitute type-specific ViewModifier for EmptyModifier
-        /*
-             // replace `typealias Subtitle = EmptyModifier` with:
-
-             struct Subtitle: ViewModifier {
-                 func body(content: Content) -> some View {
-                     content
-                         .font(.body)
-                         .foregroundColor(.preferredColor(.primary3))
-                 }
-             }
-         */
+        
         static let title = Title()
         static let descriptionText = DescriptionText()
         static let primaryButton = PrimaryButton()
@@ -87,8 +73,6 @@ extension Fiori {
         static let icon = Icon()
     }
 }
-
-// FIXME: - Implement WelcomeScreen View body
 
 extension WelcomeScreen: View {
     public var body: some View {
@@ -113,44 +97,11 @@ extension WelcomeScreen: View {
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
-//        .onPreferenceChange(ConfigOptionKey.self) { config in
-//
-//
-//        }
     }
 }
-
-// struct ConfigOptionKey: PreferenceKey {
-//    static var defaultValue: String = OnboardingState.isConfigured
-//
-//    static
-//    func reduce(value: inout String, nextValue: () -> String) {
-//        value = nextValue()
-//    }
-// }
 
 struct WelcomeScreen_preview: PreviewProvider {
-    func onStart(_: String) {
-        print("test")
-    }
-
     static var previews: some View {
         WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", primaryButton: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", actionTitle: "Try Demo", icon: Image("SAPLogo"))
-    }
-}
-
-struct ActivationView: View {
-    public var body: some View {
-        VStack {
-            Text("Activation View")
-        }
-    }
-}
-        
-struct LoginView: View {
-    public var body: some View {
-        VStack {
-            Text("Login View")
-        }
     }
 }
