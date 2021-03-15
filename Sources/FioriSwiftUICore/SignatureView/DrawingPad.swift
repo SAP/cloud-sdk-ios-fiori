@@ -34,12 +34,14 @@ struct Drawing {
 struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
+    @Binding var isSave: Bool
+    var onSave: ((Image) -> Void)?
     var strokeColor: Color
     var lineWidth: CGFloat
     var backgroundColor: Color
     
     var body: some View {
-        GeometryReader { geometry in
+        let v = GeometryReader { geometry in
             Path { path in
                 for drawing in self.drawings {
                     self.add(drawing: drawing, toPath: &path)
@@ -53,7 +55,9 @@ struct DrawingPad: View {
                     .onChanged { value in
                         let currentPoint = value.location
                         if currentPoint.y >= 0,
-                           currentPoint.y < geometry.size.height
+                           currentPoint.y < geometry.size.height,
+                           currentPoint.x >= 0,
+                           currentPoint.x <= geometry.size.width
                         {
                             self.currentDrawing.points.append(currentPoint)
                         }
@@ -64,7 +68,11 @@ struct DrawingPad: View {
                     }
             )
         }
-        // .frame(maxWidth: .infinity, maxHeight: .infinity)
+        if isSave {
+            let image = Image(uiImage: self.snapshot())
+            onSave?(image)
+        }
+        return v
     }
     
     private func add(drawing: Drawing, toPath path: inout Path) {

@@ -36,7 +36,6 @@ public struct SignatureCaptureView: View {
     @State private var isEditing = false
     @State private var isSaved = false
     @State private var rect1: CGRect = .zero
-    @State private var signatureImage: Image? = nil
     
     public var body: some View {
         GeometryReader { _ in
@@ -69,7 +68,6 @@ public struct SignatureCaptureView: View {
                         Button(action: {
                             self.drawings.removeAll()
                             isSaved = false
-                            signatureImage = nil
                             onCancel?()
                             isEditing = false
                         }) {
@@ -77,27 +75,25 @@ public struct SignatureCaptureView: View {
                         }
                     }
                     ZStack {
-                        if signatureImage == nil {
-                            ZStack(alignment: .bottom) {
-                                DrawingPad(currentDrawing: $currentDrawing,
-                                           drawings: $drawings,
-                                           strokeColor: imageStrokeColor,
-                                           lineWidth: strokeWidth,
-                                           backgroundColor: backgroundColor)
-                                    .foregroundColor(Color.preferredColor(.cellBackground))
-                                    .background(RectGetter(rect: $rect1))
-                                if !isSaved {
-                                    HStack {
-                                        Image(systemName: "xmark")
-                                            .foregroundColor(Color.preferredColor(.quarternaryLabel))
-                                            .font(.body)
-                                            .opacity(0.4)
-                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
-                                    }.padding([.leading, .trailing]).padding(.bottom, 30)
-                                }
-                            } // .frame(width: geometry.size.width, height: 300)
-                        } else {
-                            signatureImage
+                        ZStack(alignment: .bottom) {
+                            DrawingPad(currentDrawing: $currentDrawing,
+                                       drawings: $drawings,
+                                       isSave: $isSaved,
+                                       onSave: onSave,
+                                       strokeColor: imageStrokeColor,
+                                       lineWidth: strokeWidth,
+                                       backgroundColor: backgroundColor)
+                                .foregroundColor(Color.preferredColor(.cellBackground))
+                                .background(RectGetter(rect: $rect1))
+                            if !isSaved {
+                                HStack {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.preferredColor(.quarternaryLabel))
+                                        .font(.body)
+                                        .opacity(0.4)
+                                    Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
+                                }.padding([.leading, .trailing]).padding(.bottom, 30)
+                            }
                         }
                         
                         if !isSaved {
@@ -121,11 +117,6 @@ public struct SignatureCaptureView: View {
                                 withAnimation {
                                     self.isSaved = true
                                 }
-                                if let tempview = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) {
-                                    let tempimageview = Image(uiImage: tempview)
-                                    signatureImage = tempimageview
-                                    onSave?(tempimageview)
-                                }
                             }) {
                                 Text(NSLocalizedString("Save", comment: "Save"))
                             }.disabled(self.drawings.isEmpty)
@@ -133,7 +124,6 @@ public struct SignatureCaptureView: View {
                             Button(action: {
                                 withAnimation {
                                     self.drawings.removeAll()
-                                    signatureImage = nil
                                     onCancel?()
                                     self.isSaved = false
                                 }

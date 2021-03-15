@@ -18,6 +18,7 @@ struct SignatureView: View {
     @State private var drawings = [Drawing]()
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
+    @State private var isSaved = false
     
     init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
@@ -69,6 +70,8 @@ struct SignatureView: View {
                 }.padding([.leading, .trailing])
                 DrawingPad(currentDrawing: $currentDrawing,
                            drawings: $drawings,
+                           isSave: $isSaved,
+                           onSave: onSave,
                            strokeColor: imageStrokeColor,
                            lineWidth: strokeWidth,
                            backgroundColor: backgroundColor)
