@@ -11,6 +11,10 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 	private let _timestamp: Timestamp
 	private let _status: Status
 	
+    private var isModelInit: Bool = false
+	private var isTimestampNil: Bool = false
+	private var isStatusNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder timestamp: @escaping () -> Timestamp,
@@ -31,6 +35,13 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
         _status.modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
     }
     
+	var isTimestampEmptyView: Bool {
+        ((isModelInit && isTimestampNil) || Timestamp.self == EmptyView.self) ? true : false
+    }
+
+	var isStatusEmptyView: Bool {
+        ((isModelInit && isStatusNil) || Status.self == EmptyView.self) ? true : false
+    }
 }
 
 extension TimelineGridItem where Title == Text,
@@ -45,5 +56,9 @@ extension TimelineGridItem where Title == Text,
         self._title = Text(title)
 		self._timestamp = timestamp != nil ? ViewBuilder.buildEither(first: Text(timestamp!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isTimestampNil = timestamp == nil ? true : false
+		isStatusNil = status == nil ? true : false
     }
 }

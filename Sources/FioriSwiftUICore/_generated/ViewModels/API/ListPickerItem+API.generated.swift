@@ -9,6 +9,9 @@ public struct ListPickerItem<Key: View, Value: View> {
     private let _key: Key
 	private let _value: Value
 	var destinationView: AnyView? = nil
+    private var isModelInit: Bool = false
+	private var isValueNil: Bool = false
+
     public init(
         @ViewBuilder key: @escaping () -> Key,
 		@ViewBuilder value: @escaping () -> Value
@@ -24,6 +27,9 @@ public struct ListPickerItem<Key: View, Value: View> {
         _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value))
     }
     
+	var isValueEmptyView: Bool {
+        ((isModelInit && isValueNil) || Value.self == EmptyView.self) ? true : false
+    }
 }
 
 extension ListPickerItem where Key == Text,
@@ -36,5 +42,8 @@ extension ListPickerItem where Key == Text,
     public init(key: String, value: String? = nil) {
         self._key = Text(key)
 		self._value = value != nil ? ViewBuilder.buildEither(first: Text(value!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isValueNil = value == nil ? true : false
     }
 }
