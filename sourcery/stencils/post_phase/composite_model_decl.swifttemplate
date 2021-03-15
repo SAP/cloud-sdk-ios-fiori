@@ -31,6 +31,10 @@ for model in models {
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
+	let viewBuilderNilPropertyDecls = componentProperties.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
+	let viewBuilderEmptyViewPropertyDecls = componentProperties.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
+	let viewBuilderNilPropertyAssignment = componentProperties.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
+
 	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
 
     let viewBuilderInitParams = [
@@ -89,6 +93,9 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= privatePropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } %>
 
+    private var isModelInit: Bool = false
+	<%= viewBuilderNilPropertyDecls %>
+
     public init(
         <%= viewBuilderInitParams %>
         ) {
@@ -97,6 +104,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 
     <%= componentProperties.resolvedViewModifierChain(type: model) %>
     <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
+	<%= viewBuilderEmptyViewPropertyDecls %>
 }
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
@@ -107,6 +115,9 @@ extension <%= model.componentName %> where <%= componentProperties.extensionCons
 
     public init(<%= extensionModelInitParams %>) {
         <%= extensionModelInitParamsAssignments %>
+
+		isModelInit = true
+		<%= viewBuilderNilPropertyAssignment %>
     }
 }
 

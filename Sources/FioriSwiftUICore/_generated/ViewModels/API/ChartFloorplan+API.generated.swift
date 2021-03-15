@@ -17,6 +17,12 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	private let _seriesTitles: SeriesTitles
 	private let _categoryAxisTitle: CategoryAxisTitle
 	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isStatusNil: Bool = false
+	private var isValueAxisTitleNil: Bool = false
+	private var isCategoryAxisTitleNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -52,6 +58,21 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
         _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
     }
     
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isStatusEmptyView: Bool {
+        ((isModelInit && isStatusNil) || Status.self == EmptyView.self) ? true : false
+    }
+
+	var isValueAxisTitleEmptyView: Bool {
+        ((isModelInit && isValueAxisTitleNil) || ValueAxisTitle.self == EmptyView.self) ? true : false
+    }
+
+	var isCategoryAxisTitleEmptyView: Bool {
+        ((isModelInit && isCategoryAxisTitleNil) || CategoryAxisTitle.self == EmptyView.self) ? true : false
+    }
 }
 
 extension ChartFloorplan where Title == Text,
@@ -72,5 +93,11 @@ extension ChartFloorplan where Title == Text,
 		self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
 		self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isStatusNil = status == nil ? true : false
+		isValueAxisTitleNil = valueAxisTitle == nil ? true : false
+		isCategoryAxisTitleNil = categoryAxisTitle == nil ? true : false
     }
 }
