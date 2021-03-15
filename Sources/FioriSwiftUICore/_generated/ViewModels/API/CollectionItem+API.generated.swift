@@ -11,6 +11,10 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 	private let _title: Title
 	private let _subtitle: Subtitle
 	
+    private var isModelInit: Bool = false
+	private var isDetailImageNil: Bool = false
+	private var isSubtitleNil: Bool = false
+
     public init(
         @ViewBuilder detailImage: @escaping () -> DetailImage,
 		@ViewBuilder title: @escaping () -> Title,
@@ -31,6 +35,13 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
         _subtitle.modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
     }
     
+	var isDetailImageEmptyView: Bool {
+        ((isModelInit && isDetailImageNil) || DetailImage.self == EmptyView.self) ? true : false
+    }
+
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
 }
 
 extension CollectionItem where DetailImage == _ConditionalContent<Image, EmptyView>,
@@ -45,5 +56,9 @@ extension CollectionItem where DetailImage == _ConditionalContent<Image, EmptyVi
         self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isDetailImageNil = detailImage == nil ? true : false
+		isSubtitleNil = subtitle == nil ? true : false
     }
 }

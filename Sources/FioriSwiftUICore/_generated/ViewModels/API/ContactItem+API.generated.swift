@@ -18,6 +18,13 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
 	private let _actionItems: ActionItems
 	
 
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+	private var isDescriptionTextNil: Bool = false
+	private var isDetailImageNil: Bool = false
+	private var isActionItemsNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -53,6 +60,25 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
         _actionItems
     }
     
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteEmptyView: Bool {
+        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
+    }
+
+	var isDescriptionTextEmptyView: Bool {
+        ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
+    }
+
+	var isDetailImageEmptyView: Bool {
+        ((isModelInit && isDetailImageNil) || DetailImage.self == EmptyView.self) ? true : false
+    }
+
+	var isActionItemsEmptyView: Bool {
+        ((isModelInit && isActionItemsNil) || ActionItems.self == EmptyView.self) ? true : false
+    }
 }
 
 extension ContactItem where Title == Text,
@@ -78,5 +104,12 @@ extension ContactItem where Title == Text,
         } else {
             self._actionItems = ViewBuilder.buildEither(second: EmptyView())
         }
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
+		isActionItemsNil = actionItems == nil ? true : false
     }
 }

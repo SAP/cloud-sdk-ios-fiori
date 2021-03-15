@@ -17,6 +17,12 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 	private let _detailImage: DetailImage
 	private let _actionItems: ActionItems
 	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+	private var isDescriptionTextNil: Bool = false
+	private var isDetailImageNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -51,6 +57,21 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
     var actionItems: some View {
         _actionItems
     }
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteEmptyView: Bool {
+        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
+    }
+
+	var isDescriptionTextEmptyView: Bool {
+        ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
+    }
+
+	var isDetailImageEmptyView: Bool {
+        ((isModelInit && isDetailImageNil) || DetailImage.self == EmptyView.self) ? true : false
+    }
 }
 
 extension ProfileHeader where Title == Text,
@@ -70,5 +91,11 @@ extension ProfileHeader where Title == Text,
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._actionItems = actionItems()
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
     }
 }

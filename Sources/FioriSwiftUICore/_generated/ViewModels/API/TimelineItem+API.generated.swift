@@ -23,6 +23,16 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	private let _status: Status
 	private let _substatus: Substatus
 	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+	private var isAttributeNil: Bool = false
+	private var isSecondaryAttributeNil: Bool = false
+	private var isTimestampNil: Bool = false
+	private var isSecondaryTimestampNil: Bool = false
+	private var isStatusNil: Bool = false
+	private var isSubstatusNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -73,6 +83,37 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
         _substatus.modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
     }
     
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteEmptyView: Bool {
+        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
+    }
+
+	var isAttributeEmptyView: Bool {
+        ((isModelInit && isAttributeNil) || Attribute.self == EmptyView.self) ? true : false
+    }
+
+	var isSecondaryAttributeEmptyView: Bool {
+        ((isModelInit && isSecondaryAttributeNil) || SecondaryAttribute.self == EmptyView.self) ? true : false
+    }
+
+	var isTimestampEmptyView: Bool {
+        ((isModelInit && isTimestampNil) || Timestamp.self == EmptyView.self) ? true : false
+    }
+
+	var isSecondaryTimestampEmptyView: Bool {
+        ((isModelInit && isSecondaryTimestampNil) || SecondaryTimestamp.self == EmptyView.self) ? true : false
+    }
+
+	var isStatusEmptyView: Bool {
+        ((isModelInit && isStatusNil) || Status.self == EmptyView.self) ? true : false
+    }
+
+	var isSubstatusEmptyView: Bool {
+        ((isModelInit && isSubstatusNil) || Substatus.self == EmptyView.self) ? true : false
+    }
 }
 
 extension TimelineItem where Title == Text,
@@ -99,5 +140,15 @@ extension TimelineItem where Title == Text,
 		self._secondaryTimestamp = secondaryTimestamp != nil ? ViewBuilder.buildEither(first: Text(secondaryTimestamp!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isAttributeNil = attribute == nil ? true : false
+		isSecondaryAttributeNil = secondaryAttribute == nil ? true : false
+		isTimestampNil = timestamp == nil ? true : false
+		isSecondaryTimestampNil = secondaryTimestamp == nil ? true : false
+		isStatusNil = status == nil ? true : false
+		isSubstatusNil = substatus == nil ? true : false
     }
 }
