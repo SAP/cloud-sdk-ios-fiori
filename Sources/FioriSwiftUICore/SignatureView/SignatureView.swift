@@ -40,7 +40,7 @@ struct SignatureView: View {
                     }
                     Spacer()
                     Button(action: {
-                        if shouldRemoveWhitespace {
+                        if self.shouldRemoveWhitespace {
                             var maxX = -1 * CGFloat.greatestFiniteMagnitude
                             var maxY = -1 * CGFloat.greatestFiniteMagnitude
                             var minX = CGFloat.greatestFiniteMagnitude
