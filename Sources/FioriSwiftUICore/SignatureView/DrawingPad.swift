@@ -70,7 +70,7 @@ struct DrawingPad: View {
         }
         if isSave {
             let image = Image(uiImage: self.snapshot())
-            onSave?(image)
+            self.onSave?(image)
         }
         return v
     }
