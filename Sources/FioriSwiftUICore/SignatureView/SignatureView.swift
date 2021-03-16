@@ -18,6 +18,7 @@ struct SignatureView: View {
     @State private var drawings = [Drawing]()
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
+    @State private var isSaved = false
     
     init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
@@ -32,20 +33,20 @@ struct SignatureView: View {
             VStack(alignment: .center) {
                 HStack {
                     Button(action: {
-                        drawings.removeAll()
-                        onCancel?()
+                        self.drawings.removeAll()
+                        self.onCancel?()
                     }) {
                         Text("Cancel")
                     }
                     Spacer()
                     Button(action: {
-                        if shouldRemoveWhitespace {
+                        if self.shouldRemoveWhitespace {
                             var maxX = -1 * CGFloat.greatestFiniteMagnitude
                             var maxY = -1 * CGFloat.greatestFiniteMagnitude
                             var minX = CGFloat.greatestFiniteMagnitude
                             var minY = CGFloat.greatestFiniteMagnitude
                             
-                            for drawing in drawings {
+                            for drawing in self.drawings {
                                 if drawing.maxX > maxX { maxX = drawing.maxX }
                                 if drawing.maxY > maxY { maxY = drawing.maxY }
                                 if drawing.minX < minX { minX = drawing.minX }
@@ -54,25 +55,27 @@ struct SignatureView: View {
                             
                             let rectWidth = maxX - minX < 100 ? 100 : maxX - minX
                             let rectHeight = maxY - minY < 100 ? 100 : maxY - minY
-                            rect1 = CGRect(x: minX + rect1.minX, y: minY + rect1.minY, width: rectWidth, height: rectHeight)
+                            self.rect1 = CGRect(x: minX + self.rect1.minX, y: minY + self.rect1.minY, width: rectWidth, height: rectHeight)
                         }
                         
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        onSave?(Image(uiImage: uimage))
-                        drawings.removeAll()
+                        self.onSave?(Image(uiImage: uimage))
+                        self.drawings.removeAll()
                     }) {
                         Text("Done")
                     }
 
                 }.padding([.leading, .trailing])
-                DrawingPad(currentDrawing: $currentDrawing,
-                           drawings: $drawings,
-                           strokeColor: imageStrokeColor,
-                           lineWidth: strokeWidth,
-                           backgroundColor: backgroundColor)
-                    .background(RectGetter(rect: $rect1))
+                DrawingPad(currentDrawing: self.$currentDrawing,
+                           drawings: self.$drawings,
+                           isSave: self.$isSaved,
+                           onSave: self.onSave,
+                           strokeColor: self.imageStrokeColor,
+                           lineWidth: self.strokeWidth,
+                           backgroundColor: self.backgroundColor)
+                    .background(RectGetter(rect: self.$rect1))
                 HStack {
                     Text("X")
                         .font(.system(size: 17))

@@ -14,7 +14,7 @@ struct CoreContentView: View {
                 Text("Signature View")
             }
             NavigationLink(
-                destination: SignatureViewInline_Example()) {
+                destination: SignatureCaptureView_Example()) {
                 Text("Signature Inline View")
             }
         }.navigationBarTitle("FioriSwiftUICore")

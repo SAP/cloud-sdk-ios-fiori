@@ -35,12 +35,10 @@ public struct SignatureCaptureView: View {
     @State private var drawings = [Drawing]()
     @State private var isEditing = false
     @State private var isSaved = false
-    @State private var rect1: CGRect = .zero
-    @State private var signatureImage: Image? = nil
     
     public var body: some View {
         GeometryReader { _ in
-            if !isEditing {
+            if !self.isEditing {
                 VStack {
                     HStack {
                         Text(NSLocalizedString("Signature", comment: "Signature"))
@@ -68,39 +66,35 @@ public struct SignatureCaptureView: View {
                         Spacer()
                         Button(action: {
                             self.drawings.removeAll()
-                            isSaved = false
-                            signatureImage = nil
-                            onCancel?()
-                            isEditing = false
+                            self.isSaved = false
+                            self.onCancel?()
+                            self.isEditing = false
                         }) {
                             Text(NSLocalizedString("Cancel", comment: "Cancel"))
                         }
                     }
                     ZStack {
-                        if signatureImage == nil {
-                            ZStack(alignment: .bottom) {
-                                DrawingPad(currentDrawing: $currentDrawing,
-                                           drawings: $drawings,
-                                           strokeColor: imageStrokeColor,
-                                           lineWidth: strokeWidth,
-                                           backgroundColor: backgroundColor)
-                                    .foregroundColor(Color.preferredColor(.cellBackground))
-                                    .background(RectGetter(rect: $rect1))
-                                if !isSaved {
-                                    HStack {
-                                        Image(systemName: "xmark")
-                                            .foregroundColor(Color.preferredColor(.quarternaryLabel))
-                                            .font(.body)
-                                            .opacity(0.4)
-                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
-                                    }.padding([.leading, .trailing]).padding(.bottom, 30)
-                                }
-                            } // .frame(width: geometry.size.width, height: 300)
-                        } else {
-                            signatureImage
+                        ZStack(alignment: .bottom) {
+                            DrawingPad(currentDrawing: self.$currentDrawing,
+                                       drawings: self.$drawings,
+                                       isSave: self.$isSaved,
+                                       onSave: self.onSave,
+                                       strokeColor: self.imageStrokeColor,
+                                       lineWidth: self.strokeWidth,
+                                       backgroundColor: self.backgroundColor)
+                                .foregroundColor(Color.preferredColor(.cellBackground))
+                            if !self.isSaved {
+                                HStack {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.preferredColor(.quarternaryLabel))
+                                        .font(.body)
+                                        .opacity(0.4)
+                                    Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
+                                }.padding([.leading, .trailing]).padding(.bottom, 30)
+                            }
                         }
                         
-                        if !isSaved {
+                        if !self.isSaved {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         } else {
@@ -110,7 +104,7 @@ public struct SignatureCaptureView: View {
                         }
                     }
                     HStack {
-                        if !isSaved {
+                        if !self.isSaved {
                             Button(action: {
                                 self.drawings.removeAll()
                             }) {
@@ -121,11 +115,6 @@ public struct SignatureCaptureView: View {
                                 withAnimation {
                                     self.isSaved = true
                                 }
-                                if let tempview = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) {
-                                    let tempimageview = Image(uiImage: tempview)
-                                    signatureImage = tempimageview
-                                    onSave?(tempimageview)
-                                }
                             }) {
                                 Text(NSLocalizedString("Save", comment: "Save"))
                             }.disabled(self.drawings.isEmpty)
@@ -133,8 +122,7 @@ public struct SignatureCaptureView: View {
                             Button(action: {
                                 withAnimation {
                                     self.drawings.removeAll()
-                                    signatureImage = nil
-                                    onCancel?()
+                                    self.onCancel?()
                                     self.isSaved = false
                                 }
                             }) {
