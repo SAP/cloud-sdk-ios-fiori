@@ -11,7 +11,14 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the merged commit from PR and base branch
+      if: ${{ github.event_name == 'pull_request_target' }}
+      uses: actions/checkout@v2
+      with:
+        ref: refs/pull/${{ github.event.pull_request.number }}/merge
+    - name: Checkout the head commit of the branch
+      if: ${{ github.event_name != 'pull_request_target' }}
+      uses: actions/checkout@v2
     - name: Generate Xcode project
       run: swift package generate-xcodeproj
       env:
@@ -33,7 +40,15 @@ jobs:
     if: github.repository == 'SAP/cloud-sdk-ios-fiori'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the merged commit from PR and base branch
+      if: ${{ github.event_name == 'pull_request_target' }}
+      uses: actions/checkout@v2
+      with:
+        ref: refs/pull/${{ github.event.pull_request.number }}/merge
+        fetch-depth: 0
+    - name: Checkout the head commit of the branch
+      if: ${{ github.event_name != 'pull_request_target' }}
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - name: Get coverage from build job
