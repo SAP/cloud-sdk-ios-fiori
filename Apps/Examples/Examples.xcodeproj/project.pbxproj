@@ -124,24 +124,25 @@
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
 		AB1567F325EF13F500B1DEB1 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D425EF13EF00B1DEB1 /* DataItem.swift */; };
 		AB1567F425EF13F500B1DEB1 /* DataTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */; };
-		AB1567F525EF13F500B1DEB1 /* LeftAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D625EF13EF00B1DEB1 /* LeftAccessoryView.swift */; };
 		AB1567F725EF13F500B1DEB1 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D825EF13EF00B1DEB1 /* TestView.swift */; };
 		AB1567F925EF13F500B1DEB1 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DA25EF13EF00B1DEB1 /* TestData.swift */; };
 		AB1567FB25EF13F500B1DEB1 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DC25EF13F100B1DEB1 /* TableModel.swift */; };
 		AB1567FD25EF13F500B1DEB1 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DE25EF13F100B1DEB1 /* ItemView.swift */; };
-		AB15680125EF13F500B1DEB1 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E225EF13F100B1DEB1 /* ItemModel.swift */; };
 		AB15680225EF13F500B1DEB1 /* DataImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */; };
 		AB15680325EF13F500B1DEB1 /* BackgroundForRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */; };
 		AB15680525EF13F500B1DEB1 /* TableDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E625EF13F300B1DEB1 /* TableDataView.swift */; };
 		AB15680725EF13F500B1DEB1 /* GridTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E825EF13F300B1DEB1 /* GridTableView.swift */; };
 		AB15680A25EF13F500B1DEB1 /* TableListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */; };
 		AB15680B25EF13F500B1DEB1 /* TableViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */; };
-		AB15680C25EF13F500B1DEB1 /* ItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567ED25EF13F500B1DEB1 /* ItemExtensions.swift */; };
 		AB15680D25EF13F500B1DEB1 /* TableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EE25EF13F500B1DEB1 /* TableContext.swift */; };
-		AB15680E25EF13F500B1DEB1 /* RightAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EF25EF13F500B1DEB1 /* RightAccessoryView.swift */; };
 		AB15680F25EF13F500B1DEB1 /* TableUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567F025EF13F500B1DEB1 /* TableUtility.swift */; };
 		AB15681125EF14B700B1DEB1 /* TableListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681025EF14B700B1DEB1 /* TableListView.swift */; };
 		AB15681325EF14E800B1DEB1 /* TableListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681225EF14E800B1DEB1 /* TableListItemView.swift */; };
+		AB15681525F30B0E00B1DEB1 /* TableRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */; };
+		AB15681725F6E6CB00B1DEB1 /* LeadingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */; };
+		AB15681925F70BE100B1DEB1 /* TrailingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */; };
+		AB15681B25FAA97700B1DEB1 /* ItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */; };
+		AB309F6525FAD785005DF41F /* TableLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB309F6425FAD785005DF41F /* TableLayoutManager.swift */; };
 		B8355ED525225A52001AB341 /* AreaChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */; };
 		B8355ED725227D1B001AB341 /* StackedColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */; };
 		B8355ED925227E7E001AB341 /* BarChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */; };
@@ -307,24 +308,25 @@
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
 		AB1567D425EF13EF00B1DEB1 /* DataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
 		AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTextItem.swift; sourceTree = "<group>"; };
-		AB1567D625EF13EF00B1DEB1 /* LeftAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftAccessoryView.swift; sourceTree = "<group>"; };
 		AB1567D825EF13EF00B1DEB1 /* TestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		AB1567DA25EF13EF00B1DEB1 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		AB1567DC25EF13F100B1DEB1 /* TableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		AB1567DE25EF13F100B1DEB1 /* ItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
-		AB1567E225EF13F100B1DEB1 /* ItemModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataImageItem.swift; sourceTree = "<group>"; };
 		AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundForRow.swift; sourceTree = "<group>"; };
 		AB1567E625EF13F300B1DEB1 /* TableDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableDataView.swift; sourceTree = "<group>"; };
 		AB1567E825EF13F300B1DEB1 /* GridTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTableView.swift; sourceTree = "<group>"; };
 		AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListItem.swift; sourceTree = "<group>"; };
 		AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewLayout.swift; sourceTree = "<group>"; };
-		AB1567ED25EF13F500B1DEB1 /* ItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemExtensions.swift; sourceTree = "<group>"; };
 		AB1567EE25EF13F500B1DEB1 /* TableContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableContext.swift; sourceTree = "<group>"; };
-		AB1567EF25EF13F500B1DEB1 /* RightAccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightAccessoryView.swift; sourceTree = "<group>"; };
 		AB1567F025EF13F500B1DEB1 /* TableUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableUtility.swift; sourceTree = "<group>"; };
 		AB15681025EF14B700B1DEB1 /* TableListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListView.swift; sourceTree = "<group>"; };
 		AB15681225EF14E800B1DEB1 /* TableListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListItemView.swift; sourceTree = "<group>"; };
+		AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRowItem.swift; sourceTree = "<group>"; };
+		AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingAccessoryView.swift; sourceTree = "<group>"; };
+		AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingAccessoryView.swift; sourceTree = "<group>"; };
+		AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemExtensions.swift; sourceTree = "<group>"; };
+		AB309F6425FAD785005DF41F /* TableLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLayoutManager.swift; sourceTree = "<group>"; };
 		B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSnapshotTests.swift; sourceTree = "<group>"; };
@@ -695,16 +697,17 @@
 				AB15681225EF14E800B1DEB1 /* TableListItemView.swift */,
 				AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */,
 				AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */,
-				AB1567D425EF13EF00B1DEB1 /* DataItem.swift */,
+				AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */,
 				AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */,
-				AB1567E825EF13F300B1DEB1 /* GridTableView.swift */,
-				AB1567ED25EF13F500B1DEB1 /* ItemExtensions.swift */,
-				AB1567E225EF13F100B1DEB1 /* ItemModel.swift */,
-				AB1567DE25EF13F100B1DEB1 /* ItemView.swift */,
-				AB1567D625EF13EF00B1DEB1 /* LeftAccessoryView.swift */,
-				AB1567EF25EF13F500B1DEB1 /* RightAccessoryView.swift */,
-				AB1567EE25EF13F500B1DEB1 /* TableContext.swift */,
+				AB1567D425EF13EF00B1DEB1 /* DataItem.swift */,
 				AB1567E625EF13F300B1DEB1 /* TableDataView.swift */,
+				AB1567E825EF13F300B1DEB1 /* GridTableView.swift */,
+				AB1567DE25EF13F100B1DEB1 /* ItemView.swift */,
+				AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */,
+				AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */,
+				AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */,
+				AB1567EE25EF13F500B1DEB1 /* TableContext.swift */,
+				AB309F6425FAD785005DF41F /* TableLayoutManager.swift */,
 				AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */,
 				AB1567DC25EF13F100B1DEB1 /* TableModel.swift */,
 				AB1567F025EF13F500B1DEB1 /* TableUtility.swift */,
@@ -883,15 +886,18 @@
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				AB15681125EF14B700B1DEB1 /* TableListView.swift in Sources */,
 				AB15680D25EF13F500B1DEB1 /* TableContext.swift in Sources */,
+				AB15681B25FAA97700B1DEB1 /* ItemExtensions.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				AB1567F925EF13F500B1DEB1 /* TestData.swift in Sources */,
+				AB15681725F6E6CB00B1DEB1 /* LeadingAccessoryView.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
 				8A6D64BA25AE714100D2D76C /* ExampleHighlightingStyle.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
 				8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */,
+				AB15681525F30B0E00B1DEB1 /* TableRowItem.swift in Sources */,
 				AB15680325EF13F500B1DEB1 /* BackgroundForRow.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				AB15680225EF13F500B1DEB1 /* DataImageItem.swift in Sources */,
@@ -903,7 +909,6 @@
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8A5579EF24C1293C0098003A /* TestCases.swift in Sources */,
-				AB1567F525EF13F500B1DEB1 /* LeftAccessoryView.swift in Sources */,
 				AB15680725EF13F500B1DEB1 /* GridTableView.swift in Sources */,
 				8A5579E324C1293C0098003A /* InlineTestCases.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
@@ -911,23 +916,22 @@
 				AB15680A25EF13F500B1DEB1 /* TableListItem.swift in Sources */,
 				AB15680525EF13F500B1DEB1 /* TableDataView.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
-				AB15680125EF13F500B1DEB1 /* ItemModel.swift in Sources */,
 				AB15680B25EF13F500B1DEB1 /* TableViewLayout.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				8A557A1124C1293C0098003A /* SegmentedControl+Chart.swift in Sources */,
 				AB1567F325EF13F500B1DEB1 /* DataItem.swift in Sources */,
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
+				AB15681925F70BE100B1DEB1 /* TrailingAccessoryView.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				AB15681325EF14E800B1DEB1 /* TableListItemView.swift in Sources */,
 				AB1567F425EF13F500B1DEB1 /* DataTextItem.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
-				AB15680E25EF13F500B1DEB1 /* RightAccessoryView.swift in Sources */,
-				AB15680C25EF13F500B1DEB1 /* ItemExtensions.swift in Sources */,
 				8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				AB1567FD25EF13F500B1DEB1 /* ItemView.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
+				AB309F6525FAD785005DF41F /* TableLayoutManager.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				8A5579E624C1293C0098003A /* TestBundles.swift in Sources */,

@@ -32,6 +32,7 @@ enum TableViewLayout {
     static let columnGapInRegualr: CGFloat = 30
 
     static let topAndBottomPaddings: CGFloat = 16
+    static let topAndBottomPaddingsForHeader: CGFloat = 8
     
     static let topAndBottomHeaderPaddings: CGFloat = 8
     
@@ -51,5 +52,72 @@ enum TableViewLayout {
     static let trailingMarginInRegualr: CGFloat = 20
     static let trailingMarginInCompact: CGFloat = 16
     
+    static let accessoryViewLeftPaddingInCompact: CGFloat = 10
+    
     static let imageWidth: CGFloat = 45
+}
+
+extension String {
+    func boundingBoxSize(with fontSize: CGFloat) -> CGSize {
+        #if os(iOS) || os(tvOS) || os(watchOS)
+            let font = UIFont.systemFont(ofSize: fontSize)
+        #elseif os(macOS)
+            let font = NSFont.systemFont(ofSize: fontSize)
+        #endif
+
+        let size = (self as NSString)
+            .boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(MAXFLOAT)),
+                          options: .usesLineFragmentOrigin,
+                          attributes: [NSAttributedString.Key.font: font],
+                          context: nil).size
+
+        return size
+    }
+}
+
+extension Comparable {
+    func clamp(low: Self, high: Self) -> Self {
+        if self > high {
+            return high
+        } else if self < low {
+            return low
+        }
+
+        return self
+    }
+}
+
+extension UIFont {
+    class func preferredFont(from font: Font) -> UIFont {
+        let uiFont: UIFont
+
+        switch font {
+        case .largeTitle:
+            uiFont = UIFont.preferredFont(forTextStyle: .largeTitle)
+        case .title:
+            uiFont = UIFont.preferredFont(forTextStyle: .title1)
+        case .title2:
+            uiFont = UIFont.preferredFont(forTextStyle: .title2)
+        case .title3:
+            uiFont = UIFont.preferredFont(forTextStyle: .title3)
+        case .headline:
+            uiFont = UIFont.preferredFont(forTextStyle: .headline)
+        case .subheadline:
+            uiFont = UIFont.preferredFont(forTextStyle: .subheadline)
+        case .callout:
+            uiFont = UIFont.preferredFont(forTextStyle: .callout)
+        case .caption:
+            uiFont = UIFont.preferredFont(forTextStyle: .caption1)
+        case .caption2:
+            uiFont = UIFont.preferredFont(forTextStyle: .caption2)
+        case .footnote:
+            uiFont = UIFont.preferredFont(forTextStyle: .footnote)
+        case .body:
+            fallthrough
+        default:
+            uiFont = UIFont.preferredFont(forTextStyle: .body)
+        }
+
+        return uiFont
+    }
 }

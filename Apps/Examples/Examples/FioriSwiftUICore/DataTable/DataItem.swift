@@ -5,7 +5,7 @@ import SwiftUI
 /// An enum representing the different item styles that a `FUIGridRowItem` can have.
 public enum DataItemType {
     /// Indicating this `FUIGridRowItem` represents a number.
-    case number
+    case number(Float)
     /// Indicating this `FUIGridRowItem` represents a text.
     case text
     /// Indicating this `FUIGridRowItem` represents a image.

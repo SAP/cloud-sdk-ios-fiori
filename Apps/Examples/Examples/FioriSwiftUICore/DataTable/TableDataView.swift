@@ -2,11 +2,12 @@ import SwiftUI
 
 struct TableDataView: View {
     @EnvironmentObject var model: TableModel
-    @Environment(\.tableContext) var tableContext
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
-
+    
+    @EnvironmentObject var layoutManager: TableLayoutManager
+    
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -14,26 +15,24 @@ struct TableDataView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-//        let topInset: CGFloat = edgeInsets.top == 0 ? 44 : 32
         let deviceMode = DeviceMode(horizontalSizeClass, verticalSizeClass)
-        model.rect = rect
-        self.model.deviceMode = deviceMode ?? .iphonePortraitOrIpadSplit
+        self.layoutManager.rect = rect
+//        self.layoutManager.deviceMode = deviceMode ?? .iphonePortraitOrIpadSplit
         
         return Group {
-            if deviceMode == .iphonePortraitOrIpadSplit, model.showListView {
-                let listView = TableListView()
-                listView
-                    .environmentObject(self.model)
-                    .environment(\.tableContext, self.tableContext)
-                    .padding([.leading])
-            } else {
-                let gridView = GridTableView()
-                gridView
-                    .padding()
-                    .environmentObject(self.model)
-                    .environment(\.tableContext, self.tableContext)
-//                    .ignoresSafeArea(.all, edges: [.leading, .trailing])s
-            }
+//            if deviceMode == .iphonePortraitOrIpadSplit, model.showListView {
+//                let listView = TableListView()
+//                listView
+//                    .environmentObject(self.model)
+//                    .environment(\.tableContext, self.tableContext)
+//                    .padding([.leading])
+//            } else {
+//                let gridView = GridTableView()
+//                gridView
+//            }
+            
+            let gridView = GridTableView()
+            gridView
         }
         .navigationBarTitle("grid data table", displayMode: .inline)
     }

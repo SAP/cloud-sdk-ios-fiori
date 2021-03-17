@@ -6,7 +6,7 @@ open class DataTextItem: DataItem {
     var text: String
     var font: Font
     
-    public init(_ text: String, _ font: Font = .system(size: 17)) {
+    public init(_ text: String, _ font: Font = .body) {
         self.text = text
         self.font = font
         self.type = .text
