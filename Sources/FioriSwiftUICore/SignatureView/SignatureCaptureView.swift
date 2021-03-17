@@ -64,13 +64,15 @@ public struct SignatureCaptureView: View {
                     HStack {
                         Text(NSLocalizedString("Signature", comment: "Signature"))
                         Spacer()
-                        Button(action: {
-                            self.drawings.removeAll()
-                            self.isSaved = false
-                            self.onCancel?()
-                            self.isEditing = false
-                        }) {
-                            Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                        if !self.isSaved {
+                            Button(action: {
+                                self.drawings.removeAll()
+                                self.isSaved = false
+                                self.onCancel?()
+                                self.isEditing = false
+                            }) {
+                                Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                            }
                         }
                     }
                     ZStack {
