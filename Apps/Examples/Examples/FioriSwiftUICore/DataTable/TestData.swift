@@ -45,6 +45,7 @@ struct TestTableView: View {
             TableDataView()
                 .environmentObject(model)
                 .environmentObject(TableLayoutManager(model: model))
+                .environmentObject(TableDataManager(selectedIndexes: model.selectedIndex, rowData: model.rowData))
                 .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
         }
         .navigationViewStyle(StackNavigationViewStyle())

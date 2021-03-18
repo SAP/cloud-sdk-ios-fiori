@@ -5,6 +5,7 @@ struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
     @EnvironmentObject var layoutManager: TableLayoutManager
+    @EnvironmentObject var dataManager: TableDataManager
     
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
@@ -61,15 +62,6 @@ struct GridTableView: View {
             ZStack {
 //                BackgroundForRow(model: self.model, rowHeight: items.first?.first?.rowHeight ?? 0, index: 0)
 //                    .zIndex(500)
-                if let firstItem = items.first?.first {
-                    let lineHeight = UIScreen.main.bounds.height
-                    HStack {
-                        Divider()
-                            .frame(height: lineHeight)
-                            .offset(y: lineHeight / 2)
-                            .position(x: firstItem.pos.x + firstItem.size.width)
-                    }
-                }
                 
                 ForEach(0 ..< items.count, id: \.self) { i in
                     
@@ -85,15 +77,25 @@ struct GridTableView: View {
                     }
                     
                     if let firstItem = items[i].first, let currentIndex = firstItem.index, currentIndex >= 0 {
+                        let lineHeight = UIScreen.main.bounds.height
+
+//                        HStack {
+//                            Divider()
+//                                .frame(height: lineHeight)
+//                                .offset(y: lineHeight / 2)
+//                                .position(x: firstItem.pos.x + firstItem.size.width)
+//                        }
+                        
                         Divider()
                             //                            .background(Color.red)
                             .frame(width: UIScreen.main.bounds.width)
                             .position(x: UIScreen.main.bounds.width / 2, y: firstItem.pos.y)
                             .offset(y: (firstItem.rowHeight / 2) * self.layoutManager.scaleY)
+                            .zIndex(600)
                         
                         let pos = CGPoint(x: rect.maxX, y: firstItem.pos.y)
                         
-                        if let trailingItem = self.layoutManager.model.rowData[currentIndex].trailingAccessory {
+                        if let trailingItem = self.dataManager.rowData[currentIndex].trailingAccessory {
                             TrailingAccessoryView(item: trailingItem)
                                 .position(x: pos.x, y: pos.y)
                                 .zIndex(499)
@@ -101,13 +103,18 @@ struct GridTableView: View {
 
                         let leftPos = CGPoint(x: rect.minX, y: firstItem.pos.y)
                         
-//                        let selected = self.layoutManager.model.selectedIndex.contains(currentIndex)
+//                        let selected = self.dataManager.selectedIndexes.contains(currentIndex)
 
-                        LeadingAccessoryView(items: self.layoutManager.model.rowData[currentIndex].leadingAccessories, index: currentIndex)
+                        LeadingAccessoryView(items: self.dataManager.rowData[currentIndex].leadingAccessories, index: currentIndex)
                             .position(x: leftPos.x, y: leftPos.y)
                             .zIndex(499)
                     }
                 }
+                
+//                if let firstItem = items.first?.first {
+//                    let lineHeight = UIScreen.main.bounds.height
+//
+//                }
             }
             .gesture(drag)
             .gesture(mag)

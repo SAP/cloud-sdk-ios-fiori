@@ -7,7 +7,8 @@ struct TableDataView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
     @EnvironmentObject var layoutManager: TableLayoutManager
-    
+    @EnvironmentObject var dataManager: TableDataManager
+        
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))

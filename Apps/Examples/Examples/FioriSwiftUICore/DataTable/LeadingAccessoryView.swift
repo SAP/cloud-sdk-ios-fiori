@@ -5,8 +5,9 @@ struct LeadingAccessoryView: View {
     let items: [AccessoryItem]
     let index: Int
     @State var selected: Bool = false
+    @State var isEditing: Bool = true
     
-    @EnvironmentObject var layoutManager: TableLayoutManager
+    @EnvironmentObject var dataManager: TableDataManager
 
     init(items: [AccessoryItem], index: Int) {
         self.items = items
@@ -15,7 +16,7 @@ struct LeadingAccessoryView: View {
     
     var body: some View {
         makeBody(items: self.items)
-            .background(Color.yellow.edgesIgnoringSafeArea([.leading, .trailing]))
+            .background(Color.white.edgesIgnoringSafeArea([.leading, .trailing]))
     }
     
     func makeBody(items: [AccessoryItem]) -> some View {
@@ -24,7 +25,6 @@ struct LeadingAccessoryView: View {
                 switch items[index] {
                 case .button(let button):
                     makeButton(button: button)
-                        .padding(.leading, 58)
                 case .icon(let image):
                     image
                         .resizable()
@@ -34,29 +34,35 @@ struct LeadingAccessoryView: View {
                 }
             }
         }
+        .padding(.leading, 66)
     }
     
     func makeButton(button: AccessoryButton) -> some View {
-//        DispatchQueue.main.async {
-//            self.selected = self.layoutManager.model.selectedIndex.contains(self.index)
-//        }
-        
-        Button(action: {
-            print("Left Icon button was tapped")
-                
-            button.action()
-                
-//                if !self.layoutManager.model.selectedIndex.contains(self.index) {
-//                    self.layoutManager.model.selectedIndex.append(self.index)
-//                } else {
-//                    self.layoutManager.model.selectedIndex.removeAll { (target) -> Bool in
-//                        return target == self.index
-//                    }
-//                }
-
-        }) {
-            self.selected ? button.image_selected : button.image_deSelected
+        DispatchQueue.main.async {
+            self.selected = self.dataManager.selectedIndexes.contains(self.index)
         }
-        .frame(width: 44, height: 44)
+        return Group {
+            if self.isEditing {
+                Button(action: {
+                    print("Left Icon button was tapped")
+                        
+                    button.action()
+                        
+                    if !self.dataManager.selectedIndexes.contains(self.index) {
+                        self.dataManager.selectedIndexes.append(self.index)
+                    } else {
+                        self.dataManager.selectedIndexes.removeAll { (target) -> Bool in
+                            target == self.index
+                        }
+                    }
+
+                }) {
+                    self.selected ? button.image_selected : button.image_deSelected
+                }
+                .frame(width: 44, height: 44)
+            } else {
+                AnyView(EmptyView())
+            }
+        }
     }
 }

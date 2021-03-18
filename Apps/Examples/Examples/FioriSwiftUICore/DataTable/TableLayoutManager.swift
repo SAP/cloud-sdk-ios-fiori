@@ -402,20 +402,6 @@ class TableLayoutManager: ObservableObject {
         let columnPadding: CGFloat = isCompact ? TableViewLayout.leadingTrailingPaddingInCompact : TableViewLayout.leadingTrailingPaddingInRegular
         let firstColumnWidth: CGFloat = (self.columnWidths.first ?? 0) / 2 - columnPadding
         
-        if self.model.isFirstRowSticky {
-            var firstRow = res.first ?? []
-            for i in 0 ..< firstRow.count {
-                let contentWidth = self.columnWidths[i] - columnPadding * 2
-                let x = firstRow[i].pos.x * tmpScaleX * width - startPosX + firstColumnWidth
-                firstRow[i].x(x)
-                firstRow[i].y((self.rowHeights.first ?? 0) / 2)
-                firstRow[i].offset(CGPoint(x: self.getLeftAccessoryViewWidth(), y: 0))
-                firstRow[i].size(CGSize(width: contentWidth, height: firstRow[i].size.height))
-                firstRow[i].rowHeight(self.rowHeights.first ?? 0)
-            }
-            result.insert(firstRow, at: 0)
-        }
-        
         if catIndexRangeInRow.lowerBound >= 0, catIndexRangeInRow.upperBound < maxDataCountInRow,
            catIndexRangeInColumn.lowerBound >= 0, catIndexRangeInColumn.upperBound < maxDataCountInColumn
         {
@@ -455,7 +441,7 @@ class TableLayoutManager: ObservableObject {
                         result[lastIndex].append(item)
                     }
                 }
-                
+                                
                 if self.model.isFirstColumnSticky {
                     var item = res[i][0]
                     let contentWidth = self.columnWidths[0] - columnPadding * 2
@@ -464,17 +450,53 @@ class TableLayoutManager: ObservableObject {
                     item.rowHeight(rowHeight)
                     item.x(x)
                     item.y(y)
-//                        item.size(CGSize(width: model.columnWidths[j], height: model.rowHeights[i]))
+                    //                        item.size(CGSize(width: model.columnWidths[j], height: model.rowHeights[i]))
                     item.size(CGSize(width: contentWidth, height: item.size.height))
                     item.offset(CGPoint(x: self.getLeftAccessoryViewWidth(), y: 0))
                     
                     let lastIndex = result.count - 1
+                    result[lastIndex].removeFirst()
                     result[lastIndex].insert(item, at: 0)
                 }
             }
         }
         
-        result.removeAll(where: { $0.isEmpty })
+        if self.model.isFirstRowSticky {
+            var firstRow = res.first ?? []
+            for i in 0 ..< firstRow.count {
+                let contentWidth = self.columnWidths[i] - columnPadding * 2
+                let x = firstRow[i].pos.x * tmpScaleX * width - startPosX + firstColumnWidth
+                firstRow[i].x(x)
+                firstRow[i].y((self.rowHeights.first ?? 0) / 2)
+                firstRow[i].offset(CGPoint(x: self.getLeftAccessoryViewWidth(), y: 0))
+                firstRow[i].size(CGSize(width: contentWidth, height: firstRow[i].size.height))
+                firstRow[i].rowHeight(self.rowHeights.first ?? 0)
+            }
+            
+            var firstItem: TableDataItem?
+            
+            if self.model.isFirstColumnSticky {
+                firstItem = res.first?.first
+                let itemHeight = firstItem?.size.height ?? 0
+                let contentWidth = self.columnWidths[0] - columnPadding * 2
+                let x = firstColumnWidth
+                firstItem?.rowHeight(self.rowHeights[0])
+                firstItem?.x(x)
+                firstItem?.y((self.rowHeights.first ?? 0) / 2)
+                firstItem?.size(CGSize(width: contentWidth, height: itemHeight))
+                firstItem?.offset(CGPoint(x: self.getLeftAccessoryViewWidth(), y: 0))
+            }
+            
+            if let item = firstItem {
+                firstRow.removeFirst()
+                firstRow = Array(firstRow[catIndexRangeInRow])
+                firstRow.insert(item, at: 0)
+            }
+
+            result.removeFirst()
+            result.insert(firstRow, at: 0)
+        }
+        
         self.displayingItems = result
         
         return result

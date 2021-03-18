@@ -25,6 +25,7 @@ struct ItemView: View {
             case .text(let value):
                 let fontSize: CGFloat = self.isHeader ? UIFont.preferredFont(from: .subheadline).pointSize : UIFont.preferredFont(from: .body).pointSize
                 let textColor: Color = self.isHeader ? .gray : .black
+                let backGroundHeight = isHeader ? dataItem.rowHeight : dataItem.size.height
                 Text(value)
                     .font(.system(size: fontSize * self.scale))
                     .foregroundColor(textColor)
@@ -37,6 +38,6 @@ struct ItemView: View {
     
     func makeBackground() -> some View {
         Rectangle()
-            .fill(Color.green)
+            .fill(Color.white)
     }
 }

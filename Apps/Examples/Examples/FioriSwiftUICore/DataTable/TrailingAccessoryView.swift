@@ -10,6 +10,9 @@ struct TrailingAccessoryView: View {
     }
     
     var body: some View {
+        applyBlur()
+            .padding(.trailing, 44)
+        
         switch self.item {
         case .button(let button):
             Button(action: {
@@ -20,15 +23,17 @@ struct TrailingAccessoryView: View {
             }
             .frame(width: 44, height: 44, alignment: .center)
             .padding(.trailing, 44)
-            .background(SwiftUI.Color.red.edgesIgnoringSafeArea([.leading, .trailing]))
+            .background(Color.white
+                .edgesIgnoringSafeArea([.leading, .trailing]))
         default:
             AnyView(EmptyView())
         }
     }
 
     func applyBlur() -> some View {
-        Rectangle()
-            .fill(Color.white)
-            .frame(width: 40, height: 40, alignment: .center)
+        Color.white
+            .frame(width: 96, height: 44, alignment: .center)
+            .edgesIgnoringSafeArea([.leading, .trailing])
+            .blur(radius: 8)
     }
 }
