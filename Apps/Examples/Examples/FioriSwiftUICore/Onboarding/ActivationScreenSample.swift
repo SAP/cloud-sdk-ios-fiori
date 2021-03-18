@@ -2,34 +2,17 @@ import FioriSwiftUICore
 import SwiftUI
 
 class ActivationScreenDataModel: ActivationScreenModel {
-    var title_: String {
-        "Activation"
-    }
-    
-    var descriptionText_: String? {
-        "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
-    }
-    
-    var primaryActionLabel_: String? {
-        "Next"
-    }
+    var title_: String = "Activation"
+    var descriptionText_: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
+    var primaryActionLabel_: String? = "Next"
+    var subtitle_: String? = "abc@def.com"
+    var footnote_: String? = "Or"
+    var secondaryActionText_: String? = "Scan"
     
     func didSelectPrimaryAction() {
         print("ActivationScreen Primary button clicked")
     }
     
-    var subtitle_: String? {
-        "abc@def.com"
-    }
-    
-    var footnote_: String? {
-        "Or"
-    }
-    
-    var secondaryActionText_: String? {
-        "Scan"
-    }
-
     func didSelectSecondaryAction() {
         print("call barcode scanner")
     }
