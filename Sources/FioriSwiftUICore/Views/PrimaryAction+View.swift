@@ -6,19 +6,19 @@
 import SwiftUI
 
 extension Fiori {
-    enum WelcomeScreenButton {
-        typealias PrimaryButton = EmptyModifier
-        static let primaryButton = PrimaryButton()
+    enum PrimaryAction {
+        typealias PrimaryActionLabel = EmptyModifier
+        static let primaryActionLabel = PrimaryActionLabel()
     }
 }
 
-extension WelcomeScreenButton: View {
+extension PrimaryAction: View {
     public var body: some View {
-        Button(action: self._clickActionClosure ?? onStart) {
-            Text(self._primaryButton ?? "Start")
-                .frame(width: 169.0, height: 20.0)
+        Button(action: self._didSelectPrimaryActionClosure ?? onSelect) {
+            Text(self._primaryActionLabel ?? "Start")
+                .frame(width: 170.0, height: 6.0)
         }.buttonStyle(FioriButtonStyle())
     }
     
-    func onStart() {}
+    func onSelect() {}
 }

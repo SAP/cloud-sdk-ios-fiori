@@ -6,7 +6,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum WelcomeScreen {
+    enum ActivationScreen {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -25,18 +25,18 @@ extension Fiori {
             }
         }
         
-        struct PrimaryActionLabel: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .frame(width: 169.0, height: 20.0)
-            }
-        }
-        
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
                     .foregroundColor(.preferredColor(.primary1))
+            }
+        }
+    
+        struct PrimaryActionLabel: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .frame(width: 169.0, height: 20.0)
             }
         }
         
@@ -52,57 +52,58 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.tintColorDark))
-            }
-        }
-        
-        struct Icon: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .scaleEffect(0.8, anchor: .center)
-                    .frame(width: 20, height: 20, alignment: .center)
+                    .foregroundColor(.preferredColor(.primary1))
             }
         }
        
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let primaryActionLabel = PrimaryActionLabel()
         static let subtitle = Subtitle()
+        static let primaryActionLabel = PrimaryActionLabel()
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
-        static let icon = Icon()
     }
 }
 
-extension WelcomeScreen: View {
+extension ActivationScreen: View {
     public var body: some View {
         VStack {
             title
-                .padding(.top, 80)
+                .padding(.top, 40)
                 .padding(.bottom, 40)
             descriptionText
-                .padding(.bottom, 80)
-            primaryActionLabel
-                .buttonStyle(FioriButtonStyle())
-                .padding(.bottom, 20)
+                .padding(.bottom, 40)
             
-            subtitle
+            TextField("john.doe@abc.com", text: $emailFilled, onEditingChanged: { changed in
+                print("Email onEditingChanged - \(changed)")
+                if emailFilled.isEmpty {
+                    self.buttonEnabled = false
+                } else {
+                    self.buttonEnabled = true
+                }
+            }) {
+                print("email onCommit")
+                self.buttonEnabled = true
+            }
+            .multilineTextAlignment(.center)
+            .padding(.top, 15)
+            .padding(.bottom, 15)
+            primaryActionLabel
+                .disabled(self.buttonEnabled == false)
+                .padding(.bottom, 16)
             footnote
-                .padding(.top, 8)
-
+                .padding(.bottom, 16)
             secondaryActionText
-                .padding(.top, 8)
+                .buttonStyle(FioriButtonStyle())
             Spacer()
-            icon
-                .padding(.bottom, 32)
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
     }
 }
 
-struct WelcomeScreen_preview: PreviewProvider {
+struct ActivationScreen_preview: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", primaryActionLabel: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
+        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", subtitle: "abc@def.com", primaryActionLabel: "Next", footnote: "Or", secondaryActionText: "Scan")
     }
 }

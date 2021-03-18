@@ -41,11 +41,10 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol WelcomeScreenButtonModel: WelcomeScreenButtonComponent {}
+public protocol PrimaryActionModel: PrimaryActionComponent {}
 
-// sourcery: add_env_props = ["horizontalSizeClass"]
-// sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, WelcomeScreenButtonModel, SubtitleComponent, FootnoteComponent, ActionTitleComponent, IconComponent {}
+// sourcery: generated_component_not_configurable
+public protocol SecondaryActionModel: SecondaryActionComponent {}
 
 // sourcery: generated_component
 public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
@@ -62,3 +61,12 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: generated_component_composite
 public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
+
+// sourcery: add_env_props = ["horizontalSizeClass"]
+// sourcery: generated_component_composite
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, PrimaryActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
+
+// sourcery: generated_component_composite
+// sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
+// sourcery: virtualPropEmailFilled = "@State var emailFilled: String = """
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, PrimaryActionModel, FootnoteComponent, SecondaryActionModel {}

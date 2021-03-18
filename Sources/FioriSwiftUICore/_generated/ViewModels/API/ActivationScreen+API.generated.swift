@@ -2,83 +2,74 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLabel: View, Subtitle: View, Footnote: View, SecondaryActionText: View, Icon: View> {
+public struct ActivationScreen<Title: View, DescriptionText: View, Subtitle: View, PrimaryActionLabel: View, Footnote: View, SecondaryActionText: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
-	@Environment(\.iconModifier) private var iconModifier
-	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
     private let _title: Title
 	private let _descriptionText: DescriptionText
-	private let _primaryActionLabel: PrimaryActionLabel
 	private let _subtitle: Subtitle
+	private let _primaryActionLabel: PrimaryActionLabel
 	private let _footnote: Footnote
 	private let _secondaryActionText: SecondaryActionText
-	private let _icon: Icon
-	
+	@State var emailFilled: String = ""
+	@State var buttonEnabled: Bool = false
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
-		@ViewBuilder icon: @escaping () -> Icon
+		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
         ) {
             self._title = title()
 			self._descriptionText = descriptionText()
-			self._primaryActionLabel = primaryActionLabel()
 			self._subtitle = subtitle()
+			self._primaryActionLabel = primaryActionLabel()
 			self._footnote = footnote()
 			self._secondaryActionText = secondaryActionText()
-			self._icon = icon()
     }
 
     var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title))
+        _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title))
     }
 	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText))
+        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText))
+    }
+	var subtitle: some View {
+        _subtitle.modifier(subtitleModifier.concat(Fiori.ActivationScreen.subtitle))
     }
 	var primaryActionLabel: some View {
         _primaryActionLabel
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle))
-    }
 	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote))
+        _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote))
     }
 	var secondaryActionText: some View {
         _secondaryActionText
     }
-	var icon: some View {
-        _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
-    }
     
 }
 
-extension WelcomeScreen where Title == Text,
+extension ActivationScreen where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		PrimaryActionLabel == _ConditionalContent<PrimaryAction, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
+		PrimaryActionLabel == _ConditionalContent<PrimaryAction, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
-		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView>,
-		Icon == _ConditionalContent<Image, EmptyView> {
+		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView> {
 
-    public init(model: WelcomeScreenModel) {
-        self.init(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+    public init(model: ActivationScreenModel) {
+        self.init(title: model.title_, descriptionText: model.descriptionText_, subtitle: model.subtitle_, primaryActionLabel: model.primaryActionLabel_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
     }
 
-    public init(title: String, descriptionText: String? = nil, primaryActionLabel: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, subtitle: String? = nil, primaryActionLabel: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle PrimaryActionModel
         if (primaryActionLabel != nil || didSelectPrimaryActionClosure != nil) {
             self._primaryActionLabel =  ViewBuilder.buildEither(first: PrimaryAction(primaryActionLabel: primaryActionLabel,didSelectPrimaryActionClosure: didSelectPrimaryActionClosure))

@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/WelcomeScreen+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivationScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement WelcomeScreen `View` body
+//TODO: Implement ActivationScreen `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -15,14 +15,13 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum WelcomeScreen {
+    enum ActivationScreen {
         typealias Title = EmptyModifier
 		typealias DescriptionText = EmptyModifier
-		typealias PrimaryActionLabel = EmptyModifier
 		typealias Subtitle = EmptyModifier
+		typealias PrimaryActionLabel = EmptyModifier
 		typealias Footnote = EmptyModifier
 		typealias SecondaryActionText = EmptyModifier
-		typealias Icon = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -38,17 +37,16 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let primaryActionLabel = PrimaryActionLabel()
 		static let subtitle = Subtitle()
+		static let primaryActionLabel = PrimaryActionLabel()
 		static let footnote = Footnote()
 		static let secondaryActionText = SecondaryActionText()
-		static let icon = Icon()
     }
 }
 
-// FIXME: - Implement WelcomeScreen View body
+// FIXME: - Implement ActivationScreen View body
 
-extension WelcomeScreen: View {
+extension ActivationScreen: View {
     public var body: some View {
         <# View body #>
     }

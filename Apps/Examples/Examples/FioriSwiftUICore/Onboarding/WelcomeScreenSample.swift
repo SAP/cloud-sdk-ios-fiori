@@ -9,12 +9,12 @@ class WelcomeScreenDataModel: WelcomeScreenModel {
     var descriptionText_: String? {
         "Please follow the instructions you received in the welcome email to start the activation process."
     }
-
-    var primaryButton_: String? {
+    
+    var primaryActionLabel_: String? {
         "Start"
     }
-  
-    func clickAction() {
+    
+    func didSelectPrimaryAction() {
         print("WelcomeScreen Primary button clicked")
     }
     
@@ -26,12 +26,16 @@ class WelcomeScreenDataModel: WelcomeScreenModel {
         "Want to explore?"
     }
     
-    var actionTitle_: String? {
+    var icon_: Image? {
+        Image("SAPLogo")
+    }
+    
+    var secondaryActionText_: String? {
         "Try Demo"
     }
     
-    var icon_: Image? {
-        Image("SAPLogo")
+    func didSelectSecondaryAction() {
+        UIApplication.shared.open(URL(string: "http://www.google.com")!)
     }
 }
 
@@ -39,12 +43,12 @@ struct WelcomeScreenSample: View {
     private var model = WelcomeScreenDataModel()
     
     public init() {}
-
+    
     var body: some View {
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, primaryButton: model.primaryButton_, subtitle: model.subtitle_, footnote: model.footnote_, actionTitle: model.actionTitle_, icon: model.icon_, clickActionClosure: model.clickAction)
+            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .subtitleModifier { $0.hidden() }
+//                .subtitleModifier { $0.hidden() }
         }
     }
 }
