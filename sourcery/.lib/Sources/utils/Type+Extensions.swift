@@ -155,7 +155,7 @@ public extension Type {
         var closureProperties: [Variable] = []
 
         for method in self.methods {
-            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
+            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)"
 
             let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
             let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
@@ -173,7 +173,7 @@ public extension Type {
     internal func closureProperties(contextType: [String: Type]) -> [Variable] {
         inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
 
-            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)Closure"
+            let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)"
 
             let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
             let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
@@ -287,15 +287,14 @@ private struct ViewModelIntParamAssignmentOfViewModel {
     }
 
     var text: String {
-        return
-            """
-            // handle \(self.instantiatableModelName)
-                    if (\(self.methodArgumentsNilCheck)) {
-                        self._\(self.targetPropertyName) =  ViewBuilder.buildEither(first: \(self.instantiatableViewName)(\(self.initParameters)))
-                    } else {
-                        self._\(self.targetPropertyName) = ViewBuilder.buildEither(second: EmptyView())
-                    }
-            """
+        """
+        // handle \(self.instantiatableModelName)
+                if (\(self.methodArgumentsNilCheck)) {
+                    self._\(self.targetPropertyName) =  ViewBuilder.buildEither(first: \(self.instantiatableViewName)(\(self.initParameters)))
+                } else {
+                    self._\(self.targetPropertyName) = ViewBuilder.buildEither(second: EmptyView())
+                }
+        """
     }
 }
 
@@ -307,6 +306,6 @@ extension Array where Element: Type {
 
 extension Array where Element == String {
     func inheritedTypes(contextType: [String: Type]) -> [Type] {
-        return self.compactMap { contextType[$0] }.compactMap { $0 }
+        self.compactMap { contextType[$0] }.compactMap { $0 }
     }
 }

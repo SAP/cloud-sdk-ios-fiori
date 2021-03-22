@@ -123,7 +123,7 @@ extension LibraryPreviewData.Person: ActionItemsComponent {
         return activities
     }
 
-    public func didSelect(_ activityItem: ActivityItemDataType) {
+    public func didSelectActivityItem(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
             print("LibraryPreviewData.Person: send email to \(activityItem.data ?? "unknown")")

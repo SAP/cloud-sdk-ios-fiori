@@ -6,14 +6,14 @@ public struct ActivityItems {
     
 
     var _actionItems: [ActivityItemDataType]? = nil
-	var _didSelectClosure: ((ActivityItemDataType) -> Void)? = nil
+	var _didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil
 	
     public init(model: ActivityItemsModel) {
-        self.init(actionItems: model.actionItems_, didSelectClosure: model.didSelect(_:))
+        self.init(actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
     }
 
-    public init(actionItems: [ActivityItemDataType]? = nil, didSelectClosure: ((ActivityItemDataType) -> Void)? = nil) {
+    public init(actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {
         self._actionItems = actionItems
-		self._didSelectClosure = didSelectClosure
+		self._didSelectActivityItem = didSelectActivityItem
     }
 }
