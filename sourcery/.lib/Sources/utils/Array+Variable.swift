@@ -123,16 +123,16 @@ public extension Array where Element == Variable {
     }
 
     /**
-     Responsible for resolving view modifiers from default styling, and Environment property
+      Responsible for resolving view modifiers from default styling, and Environment property
 
-       Generates as follows:
-      ```
-      var title: some View {
-          _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
-      }
-      ```
-      - important: This is the ONLY view which should be used by developers in the layout construction
-             */
+        Generates as follows:
+       ```
+       var title: some View {
+           _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+       }
+       ```
+       - important: This is the ONLY view which should be used by developers in the layout construction
+     */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
@@ -228,7 +228,11 @@ extension Array where Element: Variable {
         var output: [String] = []
         for variable in self {
             if !scenario.contains(variable) {
-                output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                if let cfb = variable.resolvedAnnotations("customFunctionBuilder").first {
+                    output.append("@\(cfb) \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                } else {
+                    output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                }
             }
         }
         return output
