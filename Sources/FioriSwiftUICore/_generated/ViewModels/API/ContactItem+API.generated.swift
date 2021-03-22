@@ -89,18 +89,18 @@ extension ContactItem where Title == Text,
 		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
 
     public init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectClosure: model.didSelect(_:))
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectClosure: ((ActivityItemDataType) -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActivityItemsModel
-        if (actionItems != nil || didSelectClosure != nil) {
-            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectClosure: didSelectClosure))
+        if (actionItems != nil || didSelectActivityItem != nil) {
+            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
         } else {
             self._actionItems = ViewBuilder.buildEither(second: EmptyView())
         }

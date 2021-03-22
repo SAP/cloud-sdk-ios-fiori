@@ -55,7 +55,7 @@ struct ContactItemActionItemsExample: View {
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
                 ContactItem(title: viewModel.title_, subtitle: viewModel.subtitle_, footnote: viewModel.footnote_, descriptionText: viewModel.descriptionText_,
-                            detailImage: viewModel.detailImage_, actionItems: viewModel.actionItems_, didSelectClosure: viewModel.didSelect(_:))
+                            detailImage: viewModel.detailImage_, actionItems: viewModel.actionItems_, didSelectActivityItem: viewModel.didSelectActivityItem(_:))
                     .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
@@ -99,7 +99,7 @@ extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsC
         return activities
     }
 
-    func didSelect(_ activityItem: ActivityItemDataType) {
+    func didSelectActivityItem(_ activityItem: ActivityItemDataType) {
         switch activityItem.type {
         case .email:
             print("send email to \(activityItem.data ?? "unknown")")
