@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLabel: View, Subtitle: View, Footnote: View, SecondaryActionText: View, Icon: View> {
+public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLabel: View, Subtitle: View, Footnote: View, SecondaryActionLabel: View, Icon: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
@@ -15,7 +15,7 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLab
 	private let _primaryActionLabel: PrimaryActionLabel
 	private let _subtitle: Subtitle
 	private let _footnote: Footnote
-	private let _secondaryActionText: SecondaryActionText
+	private let _secondaryActionLabel: SecondaryActionLabel
 	private let _icon: Icon
 	
 
@@ -25,7 +25,7 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLab
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
         ) {
             self._title = title()
@@ -33,7 +33,7 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLab
 			self._primaryActionLabel = primaryActionLabel()
 			self._subtitle = subtitle()
 			self._footnote = footnote()
-			self._secondaryActionText = secondaryActionText()
+			self._secondaryActionLabel = secondaryActionLabel()
 			self._icon = icon()
     }
 
@@ -52,8 +52,8 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, PrimaryActionLab
 	var footnote: some View {
         _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote))
     }
-	var secondaryActionText: some View {
-        _secondaryActionText
+	var secondaryActionLabel: some View {
+        _secondaryActionLabel
     }
 	var icon: some View {
         _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
@@ -66,14 +66,14 @@ extension WelcomeScreen where Title == Text,
 		PrimaryActionLabel == _ConditionalContent<PrimaryAction, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
-		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView>,
+		SecondaryActionLabel == _ConditionalContent<SecondaryAction, EmptyView>,
 		Icon == _ConditionalContent<Image, EmptyView> {
 
     public init(model: WelcomeScreenModel) {
-        self.init(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+        self.init(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionLabel: model.secondaryActionLabel_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
     }
 
-    public init(title: String, descriptionText: String? = nil, primaryActionLabel: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, primaryActionLabel: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionLabel: String? = nil, icon: Image? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
@@ -86,10 +86,10 @@ extension WelcomeScreen where Title == Text,
             self._primaryActionLabel = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle SecondaryActionModel
-        if (secondaryActionText != nil || didSelectSecondaryActionClosure != nil) {
-            self._secondaryActionText =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryActionClosure: didSelectSecondaryActionClosure))
+        if (secondaryActionLabel != nil || didSelectSecondaryActionClosure != nil) {
+            self._secondaryActionLabel =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionLabel: secondaryActionLabel,didSelectSecondaryActionClosure: didSelectSecondaryActionClosure))
         } else {
-            self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
+            self._secondaryActionLabel = ViewBuilder.buildEither(second: EmptyView())
         }
     }
 }

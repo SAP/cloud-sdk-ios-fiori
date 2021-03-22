@@ -8,7 +8,7 @@ extension WelcomeScreen where DescriptionText == EmptyView {
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -17,7 +17,7 @@ extension WelcomeScreen where DescriptionText == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -29,7 +29,7 @@ extension WelcomeScreen where Footnote == EmptyView {
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -38,7 +38,7 @@ extension WelcomeScreen where Footnote == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -51,7 +51,7 @@ extension WelcomeScreen where Icon == EmptyView {
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -59,7 +59,7 @@ extension WelcomeScreen where Icon == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
@@ -71,7 +71,7 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView {
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -80,13 +80,13 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView {
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where SecondaryActionText == EmptyView {
+extension WelcomeScreen where SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -101,7 +101,7 @@ extension WelcomeScreen where SecondaryActionText == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -113,7 +113,7 @@ extension WelcomeScreen where Subtitle == EmptyView {
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -122,7 +122,7 @@ extension WelcomeScreen where Subtitle == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -133,7 +133,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -142,7 +142,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -154,7 +154,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView {
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -162,7 +162,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
@@ -173,7 +173,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -182,13 +182,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -202,7 +202,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionText 
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -213,7 +213,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -222,7 +222,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Subtitle == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -234,7 +234,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView {
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -242,7 +242,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
@@ -253,7 +253,7 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -262,13 +262,13 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -282,7 +282,7 @@ extension WelcomeScreen where Footnote == EmptyView, SecondaryActionText == Empt
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -293,7 +293,7 @@ extension WelcomeScreen where Footnote == EmptyView, Subtitle == EmptyView {
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -302,7 +302,7 @@ extension WelcomeScreen where Footnote == EmptyView, Subtitle == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -314,7 +314,7 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -322,13 +322,13 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Icon == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -342,7 +342,7 @@ extension WelcomeScreen where Icon == EmptyView, SecondaryActionText == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -354,7 +354,7 @@ extension WelcomeScreen where Icon == EmptyView, Subtitle == EmptyView {
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -362,13 +362,13 @@ extension WelcomeScreen where Icon == EmptyView, Subtitle == EmptyView {
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -382,7 +382,7 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionTe
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -393,7 +393,7 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView, Subtitle == Empty
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -402,13 +402,13 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView, Subtitle == Empty
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -422,7 +422,7 @@ extension WelcomeScreen where SecondaryActionText == EmptyView, Subtitle == Empt
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -433,7 +433,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -441,7 +441,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
@@ -451,7 +451,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -460,13 +460,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -479,7 +479,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -489,7 +489,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -498,7 +498,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
@@ -509,7 +509,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -517,13 +517,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -536,7 +536,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, S
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -547,7 +547,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, S
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -555,13 +555,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, S
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -574,7 +574,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -584,7 +584,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -593,13 +593,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -612,7 +612,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, SecondaryActionText 
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -623,7 +623,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -631,13 +631,13 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -650,7 +650,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, Secondar
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -661,7 +661,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, Subtitle
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -669,13 +669,13 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, Subtitle
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -688,7 +688,7 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -698,7 +698,7 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -707,13 +707,13 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -726,13 +726,13 @@ extension WelcomeScreen where Footnote == EmptyView, SecondaryActionText == Empt
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -745,7 +745,7 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -756,7 +756,7 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -764,13 +764,13 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Icon == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -783,13 +783,13 @@ extension WelcomeScreen where Icon == EmptyView, SecondaryActionText == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -802,7 +802,7 @@ extension WelcomeScreen where PrimaryActionLabel == EmptyView, SecondaryActionTe
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -812,7 +812,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -820,13 +820,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -838,7 +838,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -848,7 +848,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -856,13 +856,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -874,7 +874,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
@@ -883,7 +883,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, PrimaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText,
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel,
 		@ViewBuilder icon: @escaping () -> Icon
     ) {
         self.init(
@@ -892,13 +892,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -910,13 +910,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -928,7 +928,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -938,7 +938,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -946,13 +946,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel,
@@ -964,13 +964,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, S
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote,
@@ -982,13 +982,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, PrimaryActionLabel =
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -1000,7 +1000,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -1010,7 +1010,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -1018,13 +1018,13 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -1036,13 +1036,13 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, Secondar
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -1054,13 +1054,13 @@ extension WelcomeScreen where Footnote == EmptyView, PrimaryActionLabel == Empty
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -1072,13 +1072,13 @@ extension WelcomeScreen where Icon == EmptyView, PrimaryActionLabel == EmptyView
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle
@@ -1089,7 +1089,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
@@ -1098,7 +1098,7 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+		@ViewBuilder secondaryActionLabel: @escaping () -> SecondaryActionLabel
     ) {
         self.init(
             title: title,
@@ -1106,13 +1106,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText,
+			secondaryActionLabel: secondaryActionLabel,
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, Icon == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder primaryActionLabel: @escaping () -> PrimaryActionLabel
@@ -1123,13 +1123,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: primaryActionLabel,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder icon: @escaping () -> Icon
@@ -1140,13 +1140,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Footnote == EmptyVie
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: icon
         )
     }
 }
 
-extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder footnote: @escaping () -> Footnote
@@ -1157,13 +1157,13 @@ extension WelcomeScreen where DescriptionText == EmptyView, Icon == EmptyView, P
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }
 }
 
-extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionText == EmptyView, Subtitle == EmptyView {
+extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryActionLabel == EmptyView, SecondaryActionLabel == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText
@@ -1174,7 +1174,7 @@ extension WelcomeScreen where Footnote == EmptyView, Icon == EmptyView, PrimaryA
 			primaryActionLabel: { EmptyView() },
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() },
+			secondaryActionLabel: { EmptyView() },
 			icon: { EmptyView() }
         )
     }

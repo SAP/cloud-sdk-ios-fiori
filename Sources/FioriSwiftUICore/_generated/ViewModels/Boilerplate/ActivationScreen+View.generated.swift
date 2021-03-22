@@ -21,7 +21,7 @@ extension Fiori {
 		typealias Subtitle = EmptyModifier
 		typealias PrimaryActionLabel = EmptyModifier
 		typealias Footnote = EmptyModifier
-		typealias SecondaryActionText = EmptyModifier
+		typealias SecondaryActionLabel = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -40,7 +40,7 @@ extension Fiori {
 		static let subtitle = Subtitle()
 		static let primaryActionLabel = PrimaryActionLabel()
 		static let footnote = Footnote()
-		static let secondaryActionText = SecondaryActionText()
+		static let secondaryActionLabel = SecondaryActionLabel()
     }
 }
 

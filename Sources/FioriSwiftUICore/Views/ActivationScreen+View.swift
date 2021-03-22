@@ -32,7 +32,7 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
-    
+        
         struct PrimaryActionLabel: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -48,20 +48,20 @@ extension Fiori {
             }
         }
         
-        struct SecondaryActionText: ViewModifier {
+        struct SecondaryActionLabel: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
-       
+        
         static let title = Title()
         static let descriptionText = DescriptionText()
         static let subtitle = Subtitle()
         static let primaryActionLabel = PrimaryActionLabel()
         static let footnote = Footnote()
-        static let secondaryActionText = SecondaryActionText()
+        static let secondaryActionLabel = SecondaryActionLabel()
     }
 }
 
@@ -74,15 +74,13 @@ extension ActivationScreen: View {
             descriptionText
                 .padding(.bottom, 40)
             
-            TextField("john.doe@abc.com", text: $emailFilled, onEditingChanged: { changed in
-                print("Email onEditingChanged - \(changed)")
+            TextField("john.doe@abc.com", text: $emailFilled, onEditingChanged: { _ in
                 if emailFilled.isEmpty {
                     self.buttonEnabled = false
                 } else {
                     self.buttonEnabled = true
                 }
             }) {
-                print("email onCommit")
                 self.buttonEnabled = true
             }
             .multilineTextAlignment(.center)
@@ -93,7 +91,7 @@ extension ActivationScreen: View {
                 .padding(.bottom, 16)
             footnote
                 .padding(.bottom, 16)
-            secondaryActionText
+            secondaryActionLabel
                 .buttonStyle(FioriButtonStyle())
             Spacer()
         }
@@ -104,6 +102,6 @@ extension ActivationScreen: View {
 
 struct ActivationScreen_preview: PreviewProvider {
     static var previews: some View {
-        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", subtitle: "abc@def.com", primaryActionLabel: "Next", footnote: "Or", secondaryActionText: "Scan")
+        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", subtitle: "abc@def.com", primaryActionLabel: "Next", footnote: "Or", secondaryActionLabel: "Scan")
     }
 }

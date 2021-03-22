@@ -7,7 +7,7 @@ class ActivationScreenDataModel: ActivationScreenModel {
     var primaryActionLabel_: String? = "Next"
     var subtitle_: String? = "abc@def.com"
     var footnote_: String? = "Or"
-    var secondaryActionText_: String? = "Scan"
+    var secondaryActionLabel_: String? = "Scan"
     
     func didSelectPrimaryAction() {
         print("ActivationScreen Primary button clicked")
@@ -25,7 +25,7 @@ struct ActivationScreenSample: View {
     
     var body: some View {
         VStack {
-            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, subtitle: model.subtitle_, primaryActionLabel: model.primaryActionLabel_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, subtitle: model.subtitle_, primaryActionLabel: model.primaryActionLabel_, footnote: model.footnote_, secondaryActionLabel: model.secondaryActionLabel_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .subtitleModifier { $0.hidden() }
         }

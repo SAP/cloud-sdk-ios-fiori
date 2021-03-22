@@ -137,6 +137,6 @@ public protocol PrimaryActionComponent {
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
 	// sourcery: no_style
-    var secondaryActionText_: String? { get }
+    var secondaryActionLabel_: String? { get }
 	func didSelectSecondaryAction() -> Void
 }

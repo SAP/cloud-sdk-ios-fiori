@@ -8,7 +8,7 @@ class WelcomeScreenDataModel: WelcomeScreenModel {
     var subtitle_: String? = "abc@def.com"
     var footnote_: String? = "Want to explore?"
     var icon_: Image? = Image("SAPLogo")
-    var secondaryActionText_: String? = "Try Demo"
+    var secondaryActionLabel_: String? = "Try Demo"
     
     func didSelectPrimaryAction() {
         print("WelcomeScreen Primary button clicked")
@@ -26,7 +26,7 @@ struct WelcomeScreenSample: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, primaryActionLabel: model.primaryActionLabel_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionLabel: model.secondaryActionLabel_, icon: model.icon_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
 //                .subtitleModifier { $0.hidden() }
         }

@@ -20,6 +20,6 @@ internal protocol _primaryAction: _ComponentMultiPropGenerating {
 // sourcery: backingComponent=SecondaryAction
 internal protocol _secondaryAction: _ComponentMultiPropGenerating {
     // sourcery: no_style
-    var secondaryActionText_: String? { get } // label
+    var secondaryActionLabel_: String? { get } // label
     func didSelectSecondaryAction() // action handler
 }

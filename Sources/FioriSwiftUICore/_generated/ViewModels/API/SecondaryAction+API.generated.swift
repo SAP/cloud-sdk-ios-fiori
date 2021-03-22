@@ -5,15 +5,15 @@ import SwiftUI
 public struct SecondaryAction {
     
 
-    var _secondaryActionText: String? = nil
+    var _secondaryActionLabel: String? = nil
 	var _didSelectSecondaryActionClosure: (() -> Void)? = nil
 	
     public init(model: SecondaryActionModel) {
-        self.init(secondaryActionText: model.secondaryActionText_, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+        self.init(secondaryActionLabel: model.secondaryActionLabel_, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
     }
 
-    public init(secondaryActionText: String? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
-        self._secondaryActionText = secondaryActionText
+    public init(secondaryActionLabel: String? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+        self._secondaryActionLabel = secondaryActionLabel
 		self._didSelectSecondaryActionClosure = didSelectSecondaryActionClosure
     }
 }

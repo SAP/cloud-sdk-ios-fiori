@@ -7,8 +7,8 @@ import SwiftUI
 
 extension Fiori {
     enum SecondaryAction {
-        typealias SecondaryActionText = EmptyModifier
-        static let secondaryActionText = SecondaryActionText()
+        typealias SecondaryActionLabel = EmptyModifier
+        static let secondaryActionLabel = SecondaryActionLabel()
     }
 }
 
@@ -18,10 +18,10 @@ extension SecondaryAction: View {
             // default handler
         }
     }
-
+    
     public var body: some View {
         Button(action: self._didSelectSecondaryActionClosure ?? self._defaultAction) {
-            Text(self._secondaryActionText ?? "Try Demo")
+            Text(self._secondaryActionLabel ?? "Try Demo")
                 .frame(width: 170.0, height: 6.0)
         }
     }
