@@ -67,19 +67,21 @@ struct PaletteV5: PaletteProvider {
         case .quarternaryLabel:
             return HexColor(lightColor: "FAFAFA8C", darkColor: "32363A8C", contrastLightColor: "FAFAFA8C", contrastDarkColor: "FAFAFA8C")
         case .primaryFill:
-            return HexColor(lightColor: "8696A959", darkColor: "89919A33", contrastLightColor: "8696A959", contrastDarkColor: "8696A959")
+            return HexColor(lightColor: "8696A948", darkColor: "89919A29", contrastLightColor: "8696A948", contrastDarkColor: "8696A948")
         case .secondaryFill:
-            return HexColor(lightColor: "8696A945", darkColor: "89919A29", contrastLightColor: "8696A945", contrastDarkColor: "8696A945")
+            return HexColor(lightColor: "8696A933", darkColor: "89919A1F", contrastLightColor: "8696A933", contrastDarkColor: "8696A933")
         case .tertiaryFill:
-            return HexColor(lightColor: "8696A930", darkColor: "89919A1F", contrastLightColor: "8696A930", contrastDarkColor: "8696A930")
+            return HexColor(lightColor: "8696A91F", darkColor: "89919A14", contrastLightColor: "8696A91F", contrastDarkColor: "8696A91F")
         case .quarternaryFill:
-            return HexColor(lightColor: "8696A91C", darkColor: "89919A14", contrastLightColor: "8696A91C", contrastDarkColor: "8696A91C")
+            return HexColor(lightColor: "8696A90A", darkColor: "89919A0A", contrastLightColor: "8696A90A", contrastDarkColor: "8696A90A")
         case .header:
             return HexColor(lightColor: "2C3D4F", darkColor: "354A5F")
         case .headerBlended:
-            return HexColor(lightColor: "1C2228A6", darkColor: "FFFFFFA6", contrastLightColor: "232A31A6", contrastDarkColor: "FFFFFFA6")
+            return HexColor(lightColor: "232A31CD", darkColor: "FFFFFFCD", elevatedLightColor: "29313ACD", elevatedDarkColor: "FFFFFFCD", contrastLightColor: "232A31A6", contrastDarkColor: "FFFFFFA6")
         case .barTransparent:
-            return HexColor(lightColor: "23303ED9", darkColor: "23303ED9")
+            return HexColor(lightColor: "23303EDA")
+        case .contrastElement:
+            return HexColor(lightColor: "FAFAFA", darkColor: "2C3D4F")
         case .footer:
             return HexColor(lightColor: "23303EEB", darkColor: "FAFAFAEB")
         case .cellBackground:
