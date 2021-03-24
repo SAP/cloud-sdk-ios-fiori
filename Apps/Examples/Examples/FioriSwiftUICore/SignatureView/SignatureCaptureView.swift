@@ -24,7 +24,7 @@ public extension View {
     func asUIImage() -> UIImage {
         let hostingController = UIHostingController(rootView: self)
         
-        hostingController.view.frame = CGRect(x: 0, y: 0, width: 300, height: 500)
+        hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
         UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
         
         let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
