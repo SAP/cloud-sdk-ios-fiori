@@ -71,12 +71,11 @@ struct DrawingPad: View {
         }
         if self.isSave {
             let path = createUIBezierPath(points: drawings.first!.points)
-            var size: CGSize = v.
-                // let size = path.bounds.size
-                UIGraphicsBeginImageContextWithOptions(size, false, 1)
+            let size = path.bounds.size
+            UIGraphicsBeginImageContextWithOptions(size, false, 1)
             let color = UIColor.white
             color.setFill()
-            // let origin = path.bounds.origin
+            let origin = path.bounds.origin
             path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
             UIRectFill(CGRect(origin: path.bounds.origin, size: size))
             let strokeColor = UIColor.black
