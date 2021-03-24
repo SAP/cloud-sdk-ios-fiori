@@ -77,13 +77,18 @@ public struct SignatureCaptureView: View {
                     }
                     ZStack {
                         ZStack(alignment: .bottom) {
-                            DrawingPad(currentDrawing: self.$currentDrawing,
-                                       drawings: self.$drawings,
-                                       isSave: self.$isSaved,
-                                       onSave: self.onSave,
-                                       strokeColor: self.imageStrokeColor,
-                                       lineWidth: self.strokeWidth,
-                                       backgroundColor: self.backgroundColor)
+                            DrawingPad(currentDrawing: $currentDrawing, drawings: $drawings, isSave: self.$isSaved, onSave: { image in
+                                self.onSave?(image)
+                            }, strokeColor: self.imageStrokeColor, lineWidth: self.strokeWidth, backgroundColor: self.backgroundColor)
+                                /*
+                                                            DrawingPad(currentDrawing: self.$currentDrawing,
+                                                                       drawings: self.$drawings,
+                                                                       isSave: self.$isSaved,
+                                                                       onSave: self.onSave,
+                                                                       strokeColor: self.imageStrokeColor,
+                                                                       lineWidth: self.strokeWidth,
+                                                                       backgroundColor: self.backgroundColor)
+                                 */
                                 .foregroundColor(Color.preferredColor(.cellBackground))
                             if !self.isSaved {
                                 HStack {
