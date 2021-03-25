@@ -25,7 +25,7 @@ extension Fiori {
             }
         }
         
-        struct PrimaryActionLabel: ViewModifier {
+        struct PrimaryActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .frame(width: 169.0, height: 20.0)
@@ -48,7 +48,7 @@ extension Fiori {
             }
         }
         
-        struct SecondaryActionLabel: ViewModifier {
+        struct SecondaryActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -66,10 +66,10 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let primaryActionLabel = PrimaryActionLabel()
+        static let primaryActionText = PrimaryActionText()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
-        static let secondaryActionLabel = SecondaryActionLabel()
+        static let secondaryActionText = SecondaryActionText()
         static let icon = Icon()
     }
 }
@@ -82,7 +82,7 @@ extension WelcomeScreen: View {
                 .padding(.bottom, 40)
             descriptionText
                 .padding(.bottom, 80)
-            primaryActionLabel
+            primaryActionText
                 .buttonStyle(FioriButtonStyle())
                 .padding(.bottom, 20)
             
@@ -90,7 +90,7 @@ extension WelcomeScreen: View {
             footnote
                 .padding(.top, 8)
             
-            secondaryActionLabel
+            secondaryActionText
                 .padding(.top, 8)
             Spacer()
             icon
@@ -103,6 +103,6 @@ extension WelcomeScreen: View {
 
 struct WelcomeScreen_preview: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", primaryActionLabel: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionLabel: "Try Demo", icon: Image("SAPLogo"))
+        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", primaryActionText: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
     }
 }

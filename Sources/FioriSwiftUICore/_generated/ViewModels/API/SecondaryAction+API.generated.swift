@@ -3,17 +3,17 @@
 import SwiftUI
 
 public struct SecondaryAction {
-    
+    @Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
 
-    var _secondaryActionLabel: String? = nil
+    var _secondaryActionText: String? = nil
 	var _didSelectSecondaryActionClosure: (() -> Void)? = nil
 	
     public init(model: SecondaryActionModel) {
-        self.init(secondaryActionLabel: model.secondaryActionLabel_, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+        self.init(secondaryActionText: model.secondaryActionText_, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
     }
 
-    public init(secondaryActionLabel: String? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
-        self._secondaryActionLabel = secondaryActionLabel
+    public init(secondaryActionText: String? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+        self._secondaryActionText = secondaryActionText
 		self._didSelectSecondaryActionClosure = didSelectSecondaryActionClosure
     }
 }

@@ -11,15 +11,19 @@ internal protocol _ActionItems: _ComponentMultiPropGenerating {
 }
 
 // sourcery: backingComponent=PrimaryAction
-internal protocol _primaryAction: _ComponentMultiPropGenerating {
-    // sourcery: no_style
-    var primaryActionLabel_: String? { get } // label
+internal protocol _PrimaryAction: _ComponentMultiPropGenerating {
+    var primaryActionText_: String? { get } // label
     func didSelectPrimaryAction() // action handler
 }
 
 // sourcery: backingComponent=SecondaryAction
-internal protocol _secondaryAction: _ComponentMultiPropGenerating {
-    // sourcery: no_style
-    var secondaryActionLabel_: String? { get } // label
+internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
+    var secondaryActionText_: String? { get } // label
     func didSelectSecondaryAction() // action handler
+}
+
+// sourcery: backingComponent=TextInput
+internal protocol _TextInput: _ComponentMultiPropGenerating {
+    var textFilled_: String? { get }
+    func onCommit() // action handler
 }

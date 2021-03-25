@@ -46,6 +46,10 @@ public protocol PrimaryActionModel: PrimaryActionComponent {}
 // sourcery: generated_component_not_configurable
 public protocol SecondaryActionModel: SecondaryActionComponent {}
 
+// sourcery: generated_component_not_configurable
+// sourcery: virtualPropTextInputValue = "@ObservedObject var textInputValue = UserInput()"
+public protocol TextInputModel: TextInputComponent {}
+
 // sourcery: generated_component
 public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 
@@ -67,6 +71,6 @@ public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteCom
 public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, PrimaryActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
 
 // sourcery: generated_component_composite
+// sourcery: virtualPropEmailFilled = "@ObservedObject var emailFilled = UserInput()"
 // sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
-// sourcery: virtualPropEmailFilled = "@State var emailFilled: String = """
-public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, PrimaryActionModel, FootnoteComponent, SecondaryActionModel {}
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, PrimaryActionModel, FootnoteComponent, SecondaryActionModel {}

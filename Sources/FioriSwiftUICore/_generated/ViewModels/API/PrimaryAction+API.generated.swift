@@ -3,17 +3,17 @@
 import SwiftUI
 
 public struct PrimaryAction {
-    
+    @Environment(\.primaryActionTextModifier) private var primaryActionTextModifier
 
-    var _primaryActionLabel: String? = nil
+    var _primaryActionText: String? = nil
 	var _didSelectPrimaryActionClosure: (() -> Void)? = nil
 	
     public init(model: PrimaryActionModel) {
-        self.init(primaryActionLabel: model.primaryActionLabel_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction)
+        self.init(primaryActionText: model.primaryActionText_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction)
     }
 
-    public init(primaryActionLabel: String? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil) {
-        self._primaryActionLabel = primaryActionLabel
+    public init(primaryActionText: String? = nil, didSelectPrimaryActionClosure: (() -> Void)? = nil) {
+        self._primaryActionText = primaryActionText
 		self._didSelectPrimaryActionClosure = didSelectPrimaryActionClosure
     }
 }

@@ -18,10 +18,10 @@ extension Fiori {
     enum ActivationScreen {
         typealias Title = EmptyModifier
 		typealias DescriptionText = EmptyModifier
-		typealias Subtitle = EmptyModifier
-		typealias PrimaryActionLabel = EmptyModifier
+		typealias TextFilled = EmptyModifier
+		typealias PrimaryActionText = EmptyModifier
 		typealias Footnote = EmptyModifier
-		typealias SecondaryActionLabel = EmptyModifier
+		typealias SecondaryActionText = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -37,10 +37,10 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let subtitle = Subtitle()
-		static let primaryActionLabel = PrimaryActionLabel()
+		static let textFilled = TextFilled()
+		static let primaryActionText = PrimaryActionText()
 		static let footnote = Footnote()
-		static let secondaryActionLabel = SecondaryActionLabel()
+		static let secondaryActionText = SecondaryActionText()
     }
 }
 

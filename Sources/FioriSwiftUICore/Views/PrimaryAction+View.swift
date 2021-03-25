@@ -15,9 +15,9 @@ extension Fiori {
 extension PrimaryAction: View {
     public var body: some View {
         Button(action: self._didSelectPrimaryActionClosure ?? onSelect) {
-            Text(self._primaryActionLabel ?? "Start")
+            Text(self._primaryActionText ?? "Start")
                 .frame(width: 170.0, height: 6.0)
-        }.buttonStyle(FioriButtonStyle())
+        }
     }
     
     func onSelect() {}

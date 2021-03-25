@@ -4,10 +4,10 @@ import SwiftUI
 class ActivationScreenDataModel: ActivationScreenModel {
     var title_: String = "Activation"
     var descriptionText_: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
-    var primaryActionLabel_: String? = "Next"
-    var subtitle_: String? = "abc@def.com"
+    var primaryActionText_: String? = "Next"
+    var textFilled_: String? = "abc@def.com"
     var footnote_: String? = "Or"
-    var secondaryActionLabel_: String? = "Scan"
+    var secondaryActionText_: String? = "Scan"
     
     func didSelectPrimaryAction() {
         print("ActivationScreen Primary button clicked")
@@ -15,6 +15,14 @@ class ActivationScreenDataModel: ActivationScreenModel {
     
     func didSelectSecondaryAction() {
         print("call barcode scanner")
+    }
+    
+    func onCommit() {
+        print("TextField commit")
+    }
+    
+    func onChange(changed: Bool) {
+        print("TextField changed")
     }
 }
 
@@ -25,9 +33,9 @@ struct ActivationScreenSample: View {
     
     var body: some View {
         VStack {
-            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, subtitle: model.subtitle_, primaryActionLabel: model.primaryActionLabel_, footnote: model.footnote_, secondaryActionLabel: model.secondaryActionLabel_, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: model.textFilled_, primaryActionText: model.primaryActionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommitClosure: model.onCommit, didSelectPrimaryActionClosure: model.didSelectPrimaryAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .subtitleModifier { $0.hidden() }
+                .textFilledModifier { $0.disableAutocorrection(true) }
         }
     }
 }
