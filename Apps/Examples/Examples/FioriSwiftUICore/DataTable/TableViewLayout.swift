@@ -52,6 +52,17 @@ enum TableViewLayout {
     static let trailingMarginInRegualr: CGFloat = 20
     static let trailingMarginInCompact: CGFloat = 16
     
+    static func leadingOrTrailingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
+        if sizeClass == .compact {
+            return 16
+        }
+        return width > 736 ? 48 : 20
+    }
+    
+    static func contentInset(sizeClass: UserInterfaceSizeClass) -> CGFloat {
+        sizeClass == .compact ? 8 : 16
+    }
+    
     static let accessoryViewLeftPaddingInCompact: CGFloat = 10
     
     static let imageWidth: CGFloat = 45

@@ -6,7 +6,8 @@ public enum TestRowData {
         var data: [DataItem] = []
         for i in 0 ..< count {
             let textItem = DataTextItem("\(row), \(i)")
-            data.append(textItem)
+            let imageItem = DataImageItem(Image(systemName: "checkmark.circle.fill"))
+            data.append(i == 0 ? imageItem : textItem)
         }
         let lAccessories: [AccessoryItem] = [.button(.init(image_selected: Image(systemName: "checkmark.circle.fill"), image_deSelected: Image(systemName: "checkmark.circle"), title: "", action: {
             print("row: \(row) tapped")
@@ -23,7 +24,7 @@ public enum TestRowData {
         var res: [TableRowItem] = []
         var titles: [String] = []
         for k in 0 ..< column {
-            titles.append("LongHeaderTitle: \(k)")
+            titles.append(k == 0 ? "" : "LongHeaderTitle: \(k)")
         }
         for i in 0 ..< row {
             res.append(self.generateRowData(count: column, for: i))

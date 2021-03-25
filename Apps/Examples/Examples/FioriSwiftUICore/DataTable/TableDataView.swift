@@ -16,7 +16,7 @@ struct TableDataView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let deviceMode = DeviceMode(horizontalSizeClass, verticalSizeClass)
+        self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         self.layoutManager.rect = rect
 //        self.layoutManager.deviceMode = deviceMode ?? .iphonePortraitOrIpadSplit
         
