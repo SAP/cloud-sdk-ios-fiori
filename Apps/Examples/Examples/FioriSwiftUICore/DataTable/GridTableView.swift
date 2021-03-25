@@ -81,7 +81,7 @@ struct GridTableView: View {
                             .zIndex(i == 0 ? Double(600 - j) : Double(500 - i - i * j))
                     }
                     
-                    if let firstItem = items[i].first, let currentIndex = firstItem.index {
+                    if let firstItem = items[i].first, let currentIndex = firstItem.rowIndex {
                         Divider()
                             //                            .background(Color.red)
                             .frame(width: UIScreen.main.bounds.width)

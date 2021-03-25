@@ -7,7 +7,7 @@ public enum TestRowData {
         for i in 0 ..< count {
             let textItem = DataTextItem("\(row), \(i)")
             let imageItem = DataImageItem(Image(systemName: "checkmark.circle.fill"))
-            data.append(i == 0 ? imageItem : textItem)
+            data.append(textItem)
         }
         let lAccessories: [AccessoryItem] = [.button(.init(image_selected: Image(systemName: "checkmark.circle.fill"), image_deSelected: Image(systemName: "checkmark.circle"), title: "", action: {
             print("row: \(row) tapped")

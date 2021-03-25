@@ -10,7 +10,15 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
     
     @Published var isFirstColumnSticky: Bool = false
     
+    @Published var horizontalScrolling: Bool = true
+    
     @Published var showListView: Bool = true
+    
+    @Published var columnWidths: [CGFloat] = []
+    
+    @Published var rowHeights: [CGFloat] = []
+    
+    var didSelectRowAt: ((_ index: Int) -> Void)?
 
     var selectedIndex: [Int] {
         get {

@@ -19,33 +19,54 @@ struct ItemView: View {
     }
     
     var body: some View {
-        Rectangle()
-            .fill(Color.preferredColor(.headerBlended))
-            .blur(radius: 10)
-            .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .leading)
-
-        Group {
-            switch dataItem.value {
-            case .image(let image):
-                image
-                    .frame(width: 45, height: 45)
-            case .text(let value):
-                let fontSize: CGFloat = self.isHeader ? UIFont.preferredFont(from: .subheadline).pointSize : UIFont.preferredFont(from: .body).pointSize
-                let font: Font = isHeader ? .subheadline : .body
-                let textColor: Color = self.isHeader ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel)
-                Text(value)
-                    .font(font)
-                    .foregroundColor(textColor)
-                    .multilineTextAlignment(.leading)
-                    .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .leading)
-                    .background(Color.white.blur(radius: 10))
+        //        Rectangle()
+        //            .fill(Color.preferredColor(.headerBlended))
+        //            .blur(radius: 10)
+        //            .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .leading)
+        makeBody()
+    }
+    
+    func makeBody() -> some View {
+        let contentInset = TableViewLayout.contentInset(sizeClass: self.layoutManager.sizeClass)
+        let tapGesture = TapGesture()
+            .onEnded { _ in
+                guard self.dataItem.rowIndex >= 0 else {
+                    return
+                }
+                print("Tapped on row: \(self.dataItem.rowIndex)")
+                if let handler = self.layoutManager.model.didSelectRowAt {
+                    handler(self.dataItem.rowIndex)
+                }
             }
-        }
         
-        if index.0 == 0 && index.1 == 0 && self.layoutManager.model.isFirstColumnSticky {
-            let offsetX: CGFloat = self.dataItem.size.width / 2 + TableViewLayout.contentInset(sizeClass: self.layoutManager.sizeClass)
-            verticalDivider(offsetX: offsetX)
-        }
+        return
+            ZStack {
+                Group {
+                    switch dataItem.value {
+                    case .image(let image):
+                        image
+                            .frame(width: 45, height: 45)
+                    case .text(let value):
+                        let fontSize: CGFloat = self.isHeader ? UIFont.preferredFont(from: .subheadline).pointSize : UIFont.preferredFont(from: .body).pointSize
+                        let font: Font = isHeader ? .subheadline : .body
+                        let textColor: Color = self.isHeader ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel)
+                        Text(value)
+                            .font(.system(size: fontSize * self.layoutManager.scaleX))
+                            .foregroundColor(textColor)
+                            .multilineTextAlignment(.leading)
+                            .frame(width: dataItem.size.width, height: dataItem.rowHeight, alignment: .leading)
+                            .background(Color.red)
+                    }
+                }
+                .frame(width: dataItem.size.width + contentInset * 2, height: dataItem.rowHeight, alignment: .center)
+                .background(Color.yellow)
+                
+                if index.0 == 0 && index.1 == 0 && self.layoutManager.model.isFirstColumnSticky {
+                    let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
+                    verticalDivider(offsetX: offsetX)
+                }
+            }
+            .gesture(tapGesture)
     }
     
     func verticalDivider(offsetX: CGFloat) -> some View {
@@ -60,7 +81,7 @@ struct ItemView: View {
 
 struct BlurView: UIViewRepresentable {
     let style: UIBlurEffect.Style
-
+    
     func makeUIView(context: UIViewRepresentableContext<BlurView>) -> UIView {
         let view = UIView(frame: .zero)
         view.backgroundColor = .clear
@@ -74,7 +95,7 @@ struct BlurView: UIViewRepresentable {
         ])
         return view
     }
-
+    
     func updateUIView(_ uiView: UIView,
                       context: UIViewRepresentableContext<BlurView>) {}
 }

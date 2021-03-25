@@ -24,8 +24,8 @@ struct TableListItem: Identifiable, Hashable {
 
 struct TableDataItem: Identifiable, Hashable {
     let value: ValueType
-    // the index in model.data for x & y axis
-    let index: Int
+    // the row index
+    let rowIndex: Int
     // relative postion
     var pos: CGPoint
     
@@ -33,7 +33,7 @@ struct TableDataItem: Identifiable, Hashable {
     var size: CGSize
     
     var id: Int {
-        self.index
+        self.rowIndex
     }
     
     var offset: CGPoint
@@ -48,7 +48,7 @@ struct TableDataItem: Identifiable, Hashable {
     }
     
     init(index: Int, value: ValueType = .text(""), pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero) {
-        self.index = index
+        self.rowIndex = index
         self.value = value
         self.pos = pos
         self.size = size
