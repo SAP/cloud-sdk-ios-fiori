@@ -19,6 +19,14 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 	private let _substatus: Substatus
 	private let _detailImage: DetailImage
 	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+	private var isDescriptionTextNil: Bool = false
+	private var isStatusNil: Bool = false
+	private var isSubstatusNil: Bool = false
+	private var isDetailImageNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -59,6 +67,29 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
         _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
     }
     
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteEmptyView: Bool {
+        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
+    }
+
+	var isDescriptionTextEmptyView: Bool {
+        ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
+    }
+
+	var isStatusEmptyView: Bool {
+        ((isModelInit && isStatusNil) || Status.self == EmptyView.self) ? true : false
+    }
+
+	var isSubstatusEmptyView: Bool {
+        ((isModelInit && isSubstatusNil) || Substatus.self == EmptyView.self) ? true : false
+    }
+
+	var isDetailImageEmptyView: Bool {
+        ((isModelInit && isDetailImageNil) || DetailImage.self == EmptyView.self) ? true : false
+    }
 }
 
 extension ObjectHeader where Title == Text,
@@ -81,5 +112,13 @@ extension ObjectHeader where Title == Text,
 		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isStatusNil = status == nil ? true : false
+		isSubstatusNil = substatus == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
     }
 }

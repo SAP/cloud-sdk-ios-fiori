@@ -7,7 +7,7 @@ internal protocol _ComponentMultiPropGenerating {}
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
     // sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-    func didSelect(_ activityItem: ActivityItemDataType)
+    func didSelectActivityItem(_ activityItem: ActivityItemDataType)
 }
 
 // sourcery: backingComponent=Action

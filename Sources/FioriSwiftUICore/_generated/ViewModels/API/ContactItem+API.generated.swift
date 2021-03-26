@@ -16,7 +16,7 @@ public struct ContactItem<Title: View, Subtitle: View, Footnote: View, Descripti
     private let _descriptionText: DescriptionText
     private let _detailImage: DetailImage
     private let _actionItems: ActionItems
-	
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
         @ViewBuilder subtitle: @escaping () -> Subtitle,
@@ -78,8 +78,16 @@ public extension ContactItem where Title == Text,
         // handle ActivityItemsModel
         if actionItems != nil || didSelectClosure != nil {
             self._actionItems = ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems, didSelectClosure: didSelectClosure))
+
         } else {
             self._actionItems = ViewBuilder.buildEither(second: EmptyView())
         }
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
+		isActionItemsNil = actionItems == nil ? true : false
     }
 }

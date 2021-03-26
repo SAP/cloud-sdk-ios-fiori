@@ -124,7 +124,7 @@ public protocol UpperBoundTitleComponent {
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-	func didSelect(_ activityItem: ActivityItemDataType) -> Void
+	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 
 // sourcery: backingComponent=PrimaryAction

@@ -10,6 +10,9 @@ public struct SectionHeader<Title: View, Attribute: View> {
     private let _title: Title
 	private let _attribute: Attribute
 	
+    private var isModelInit: Bool = false
+	private var isAttributeNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder attribute: @escaping () -> Attribute
@@ -25,6 +28,9 @@ public struct SectionHeader<Title: View, Attribute: View> {
         _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
     }
     
+	var isAttributeEmptyView: Bool {
+        ((isModelInit && isAttributeNil) || Attribute.self == EmptyView.self) ? true : false
+    }
 }
 
 extension SectionHeader where Title == Text,
@@ -37,5 +43,8 @@ extension SectionHeader where Title == Text,
     public init(title: String, attribute: String? = nil) {
         self._title = Text(title)
 		self._attribute = attribute != nil ? ViewBuilder.buildEither(first: Text(attribute!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isAttributeNil = attribute == nil ? true : false
     }
 }
