@@ -75,11 +75,6 @@ extension ActivationScreen: View {
                 .padding(.bottom, 40)
             
             textFilled
-//                    .onChange(of: $emailFilled.userInputValue, perform: { value in
-//                        print("onChange in ActivationScreen")
-//                        self.buttonEnabled = true
-                ////                        self.emailFilled = value
-//                    })
                 .multilineTextAlignment(.center)
                 .keyboardType(.emailAddress)
                 .disableAutocorrection(true)
