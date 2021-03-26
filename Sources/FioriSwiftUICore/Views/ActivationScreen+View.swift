@@ -33,7 +33,7 @@ extension Fiori {
             }
         }
         
-        struct PrimaryActionText: ViewModifier {
+        struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .frame(width: 169.0, height: 20.0)
@@ -59,7 +59,7 @@ extension Fiori {
         static let title = Title()
         static let descriptionText = DescriptionText()
         static let textFilled = TextFilled()
-        static let primaryActionText = PrimaryActionText()
+        static let actionText = ActionText()
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
     }
@@ -86,7 +86,7 @@ extension ActivationScreen: View {
                 .padding(.top, 15)
                 .padding(.bottom, 15)
             
-            primaryActionText
+            actionText
                 .disabled(self.emailFilled.userInputValue.isEmpty == true)
                 .buttonStyle(FioriButtonStyle())
                 .padding(.bottom, 16)
@@ -103,6 +103,6 @@ extension ActivationScreen: View {
 
 struct ActivationScreen_preview: PreviewProvider {
     static var previews: some View {
-        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", textFilled: "abc@def.com", primaryActionText: "Next", footnote: "Or", secondaryActionText: "Scan")
+        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", textFilled: "abc@def.com", actionText: "Next", footnote: "Or", secondaryActionText: "Scan")
     }
 }

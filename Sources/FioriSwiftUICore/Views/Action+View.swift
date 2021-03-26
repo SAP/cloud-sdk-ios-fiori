@@ -6,16 +6,16 @@
 import SwiftUI
 
 extension Fiori {
-    enum PrimaryAction {
-        typealias PrimaryActionLabel = EmptyModifier
-        static let primaryActionLabel = PrimaryActionLabel()
+    enum Action {
+        typealias ActionLabel = EmptyModifier
+        static let actionLabel = ActionLabel()
     }
 }
 
-extension PrimaryAction: View {
+extension Action: View {
     public var body: some View {
-        Button(action: self._didSelectPrimaryActionClosure ?? onSelect) {
-            Text(self._primaryActionText ?? "Start")
+        Button(action: self._didSelectActionClosure ?? onSelect) {
+            Text(self._actionText ?? "Start")
                 .frame(width: 170.0, height: 6.0)
         }
     }

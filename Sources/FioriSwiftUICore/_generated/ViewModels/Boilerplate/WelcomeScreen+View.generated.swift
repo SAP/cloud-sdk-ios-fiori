@@ -18,7 +18,7 @@ extension Fiori {
     enum WelcomeScreen {
         typealias Title = EmptyModifier
 		typealias DescriptionText = EmptyModifier
-		typealias PrimaryActionText = EmptyModifier
+		typealias ActionText = EmptyModifier
 		typealias Subtitle = EmptyModifier
 		typealias Footnote = EmptyModifier
 		typealias SecondaryActionText = EmptyModifier
@@ -38,7 +38,7 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let primaryActionText = PrimaryActionText()
+		static let actionText = ActionText()
 		static let subtitle = Subtitle()
 		static let footnote = Footnote()
 		static let secondaryActionText = SecondaryActionText()

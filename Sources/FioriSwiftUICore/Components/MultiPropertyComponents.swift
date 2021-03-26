@@ -10,10 +10,10 @@ internal protocol _ActionItems: _ComponentMultiPropGenerating {
     func didSelect(_ activityItem: ActivityItemDataType)
 }
 
-// sourcery: backingComponent=PrimaryAction
-internal protocol _PrimaryAction: _ComponentMultiPropGenerating {
-    var primaryActionText_: String? { get } // label
-    func didSelectPrimaryAction() // action handler
+// sourcery: backingComponent=Action
+internal protocol _Action: _ComponentMultiPropGenerating {
+    var actionText_: String? { get } // label
+    func didSelectAction() // action handler
 }
 
 // sourcery: backingComponent=SecondaryAction

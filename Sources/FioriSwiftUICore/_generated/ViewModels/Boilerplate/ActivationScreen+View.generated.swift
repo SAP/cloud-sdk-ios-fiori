@@ -19,7 +19,7 @@ extension Fiori {
         typealias Title = EmptyModifier
 		typealias DescriptionText = EmptyModifier
 		typealias TextFilled = EmptyModifier
-		typealias PrimaryActionText = EmptyModifier
+		typealias ActionText = EmptyModifier
 		typealias Footnote = EmptyModifier
 		typealias SecondaryActionText = EmptyModifier
 
@@ -38,7 +38,7 @@ extension Fiori {
         static let title = Title()
 		static let descriptionText = DescriptionText()
 		static let textFilled = TextFilled()
-		static let primaryActionText = PrimaryActionText()
+		static let actionText = ActionText()
 		static let footnote = Footnote()
 		static let secondaryActionText = SecondaryActionText()
     }

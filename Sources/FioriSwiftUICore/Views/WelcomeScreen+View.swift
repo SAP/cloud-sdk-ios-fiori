@@ -25,7 +25,7 @@ extension Fiori {
             }
         }
         
-        struct PrimaryActionText: ViewModifier {
+        struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .frame(width: 169.0, height: 20.0)
@@ -66,7 +66,7 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let primaryActionText = PrimaryActionText()
+        static let actionText = ActionText()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
@@ -82,7 +82,7 @@ extension WelcomeScreen: View {
                 .padding(.bottom, 40)
             descriptionText
                 .padding(.bottom, 80)
-            primaryActionText
+            actionText
                 .buttonStyle(FioriButtonStyle())
                 .padding(.bottom, 20)
             
@@ -103,6 +103,6 @@ extension WelcomeScreen: View {
 
 struct WelcomeScreen_preview: PreviewProvider {
     static var previews: some View {
-        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", primaryActionText: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
+        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", actionText: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
     }
 }

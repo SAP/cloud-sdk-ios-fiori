@@ -1,7 +1,7 @@
 // Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/PrimaryAction+View.swift`
-//TODO: Implement PrimaryAction `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/Action+View.swift`
+//TODO: Implement Action `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,9 +13,9 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement PrimaryAction View body
+// FIXME: - Implement Action View body
 
-extension PrimaryAction: View {
+extension Action: View {
     public var body: some View {
         <# View body #>
     }

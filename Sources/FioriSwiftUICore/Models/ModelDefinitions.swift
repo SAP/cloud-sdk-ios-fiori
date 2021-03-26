@@ -41,7 +41,7 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
 // sourcery: generated_component_not_configurable
-public protocol PrimaryActionModel: PrimaryActionComponent {}
+public protocol ActionModel: ActionComponent {}
 
 // sourcery: generated_component_not_configurable
 public protocol SecondaryActionModel: SecondaryActionComponent {}
@@ -68,9 +68,9 @@ public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteCom
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, PrimaryActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, ActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
 
 // sourcery: generated_component_composite
 // sourcery: virtualPropEmailFilled = "@ObservedObject var emailFilled = UserInput()"
 // sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
-public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, PrimaryActionModel, FootnoteComponent, SecondaryActionModel {}
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}

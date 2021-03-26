@@ -14,7 +14,7 @@ extension Fiori {
 
 extension TextInput: View {
     public var body: some View {
-        TextField(self._textFilled!, text: $textInputValue.userInputValue)
+        TextField(self._textFilled ?? "", text: $textInputValue.userInputValue)
             .modifier(TextFieldClearButton(textValue: $textInputValue.userInputValue))
     }
 }
