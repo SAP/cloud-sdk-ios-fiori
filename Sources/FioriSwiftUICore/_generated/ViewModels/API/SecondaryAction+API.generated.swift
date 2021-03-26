@@ -6,14 +6,14 @@ public struct SecondaryAction {
     @Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
 
     var _secondaryActionText: String? = nil
-	var _didSelectSecondaryActionClosure: (() -> Void)? = nil
+	var _didSelectSecondaryAction: (() -> Void)? = nil
 	
     public init(model: SecondaryActionModel) {
-        self.init(secondaryActionText: model.secondaryActionText_, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+        self.init(secondaryActionText: model.secondaryActionText_, didSelectSecondaryAction: model.didSelectSecondaryAction)
     }
 
-    public init(secondaryActionText: String? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+    public init(secondaryActionText: String? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
         self._secondaryActionText = secondaryActionText
-		self._didSelectSecondaryActionClosure = didSelectSecondaryActionClosure
+		self._didSelectSecondaryAction = didSelectSecondaryAction
     }
 }

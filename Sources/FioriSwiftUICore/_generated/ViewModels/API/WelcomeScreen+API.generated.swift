@@ -21,6 +21,14 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, ActionText: View
 	private let _icon: Icon
 	
 
+    private var isModelInit: Bool = false
+	private var isDescriptionTextNil: Bool = false
+	private var isActionTextNil: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+	private var isSecondaryActionTextNil: Bool = false
+	private var isIconNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
 		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
@@ -61,6 +69,29 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, ActionText: View
         _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
     }
     
+	var isDescriptionTextEmptyView: Bool {
+        ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
+    }
+
+	var isActionTextEmptyView: Bool {
+        ((isModelInit && isActionTextNil) || ActionText.self == EmptyView.self) ? true : false
+    }
+
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteEmptyView: Bool {
+        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
+    }
+
+	var isSecondaryActionTextEmptyView: Bool {
+        ((isModelInit && isSecondaryActionTextNil) || SecondaryActionText.self == EmptyView.self) ? true : false
+    }
+
+	var isIconEmptyView: Bool {
+        ((isModelInit && isIconNil) || Icon.self == EmptyView.self) ? true : false
+    }
 }
 
 extension WelcomeScreen where Title == Text,
@@ -72,26 +103,34 @@ extension WelcomeScreen where Title == Text,
 		Icon == _ConditionalContent<Image, EmptyView> {
 
     public init(model: WelcomeScreenModel) {
-        self.init(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectActionClosure: model.didSelectAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+        self.init(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
     }
 
-    public init(title: String, descriptionText: String? = nil, actionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, didSelectActionClosure: (() -> Void)? = nil, didSelectSecondaryActionClosure: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, actionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActionModel
-        if (actionText != nil || didSelectActionClosure != nil) {
-            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectActionClosure: didSelectActionClosure))
+        if (actionText != nil || didSelectAction != nil) {
+            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
         } else {
             self._actionText = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle SecondaryActionModel
-        if (secondaryActionText != nil || didSelectSecondaryActionClosure != nil) {
-            self._secondaryActionText =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryActionClosure: didSelectSecondaryActionClosure))
+        if (secondaryActionText != nil || didSelectSecondaryAction != nil) {
+            self._secondaryActionText =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
         } else {
             self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
         }
+
+		isModelInit = true
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isActionTextNil = actionText == nil ? true : false
+		isSubtitleNil = subtitle == nil ? true : false
+		isFootnoteNil = footnote == nil ? true : false
+		isSecondaryActionTextNil = secondaryActionText == nil ? true : false
+		isIconNil = icon == nil ? true : false
     }
 }

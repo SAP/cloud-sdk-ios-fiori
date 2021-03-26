@@ -27,7 +27,7 @@ struct WelcomeScreenSample: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectActionClosure: model.didSelectAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .subtitleModifier { $0.hidden() }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }

@@ -33,7 +33,7 @@ struct ActivationScreenSample: View {
     
     var body: some View {
         VStack {
-            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: model.textFilled_, actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommitClosure: model.onCommit, didSelectActionClosure: model.didSelectAction, didSelectSecondaryActionClosure: model.didSelectSecondaryAction)
+            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: model.textFilled_, actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .textFilledModifier { $0.disableAutocorrection(true) }
         }

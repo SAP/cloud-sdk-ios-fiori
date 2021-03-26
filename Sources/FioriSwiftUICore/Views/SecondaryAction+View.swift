@@ -20,7 +20,7 @@ extension SecondaryAction: View {
     }
     
     public var body: some View {
-        Button(action: self._didSelectSecondaryActionClosure ?? self._defaultAction) {
+        Button(action: self._didSelectSecondaryAction ?? self._defaultAction) {
             Text(self._secondaryActionText ?? "Try Demo")
                 .frame(width: 170.0, height: 6.0)
         }
