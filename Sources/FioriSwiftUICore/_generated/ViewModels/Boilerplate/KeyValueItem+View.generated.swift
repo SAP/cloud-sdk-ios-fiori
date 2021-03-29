@@ -3,6 +3,7 @@
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/KeyValueItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement KeyValueItem `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -41,6 +42,17 @@ extension Fiori {
 extension KeyValueItem: View {
     public var body: some View {
         <# View body #>
+    }
+}
+
+// FIXME: - Implement KeyValueItem specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct KeyValueItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(KeyValueItem(model: LibraryPreviewData.Person.laurelosborn),
+                    category: .control)
     }
 }
 */
