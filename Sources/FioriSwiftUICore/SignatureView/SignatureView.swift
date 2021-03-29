@@ -10,7 +10,8 @@ struct SignatureView: View {
     /// Background color of the drawing pad
     let backgroundColor: Color
     
-    public var onSave: ((UIImage) -> Void)?
+    public var _onSave: ((UIImage) -> Void)?
+    public var onSave: ((Image) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -20,7 +21,7 @@ struct SignatureView: View {
     @State private var shouldRemoveWhitespace = true
     @State private var isSaved = false
     
-    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((UIImage) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), _onSave: ((UIImage) -> Void)? = nil, onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -61,7 +62,8 @@ struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        self.onSave?(uimage)
+                        self.onSave?(Image(uiImage: uimage))
+                        self._onSave?(uimage)
                         self.drawings.removeAll()
                     }) {
                         Text("Done")
@@ -71,6 +73,7 @@ struct SignatureView: View {
                 DrawingPad(currentDrawing: self.$currentDrawing,
                            drawings: self.$drawings,
                            isSave: self.$isSaved,
+                           _onSave: self._onSave,
                            onSave: self.onSave,
                            strokeColor: self.imageStrokeColor,
                            lineWidth: self.strokeWidth,

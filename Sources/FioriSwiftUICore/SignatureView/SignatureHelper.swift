@@ -27,7 +27,6 @@ func createUIBezierPath(points: [CGPoint]) -> UIBezierPath {
             bezierPath.move(to: point)
         } else {
             bezierPath.addLine(to: point)
-            print("moved")
         }
     }
     return bezierPath

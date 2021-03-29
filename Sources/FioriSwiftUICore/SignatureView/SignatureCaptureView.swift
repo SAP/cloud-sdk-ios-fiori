@@ -14,7 +14,8 @@ public struct SignatureCaptureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    public var onSave: ((UIImage) -> Void)?
+    public var _onSave: ((UIImage) -> Void)?
+    public var onSave: ((Image) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -23,10 +24,11 @@ public struct SignatureCaptureView: View {
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((UIImage) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), _onSave: ((UIImage) -> Void)? = nil, onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
+        self._onSave = _onSave
         self.onSave = onSave
         self.onCancel = onCancel
     }
@@ -80,6 +82,7 @@ public struct SignatureCaptureView: View {
                             DrawingPad(currentDrawing: self.$currentDrawing,
                                        drawings: self.$drawings,
                                        isSave: self.$isSaved,
+                                       _onSave: self._onSave,
                                        onSave: self.onSave,
                                        strokeColor: self.imageStrokeColor,
                                        lineWidth: self.strokeWidth,
