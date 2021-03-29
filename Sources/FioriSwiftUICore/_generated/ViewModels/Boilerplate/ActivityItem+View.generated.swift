@@ -3,6 +3,7 @@
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivityItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement ActivityItem `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -43,4 +44,15 @@ extension ActivityItem: View {
         <# View body #>
     }
 }
+
+// FIXME: - Implement ActivityItem specific LibraryContentProvider
+
+ @available(iOS 14.0, *)
+ struct ActivityItemLibraryContent: LibraryContentProvider {
+     @LibraryContentBuilder
+     var views: [LibraryItem] {
+         LibraryItem(ActivityItem(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
+     }
+ }
 */
