@@ -28,7 +28,7 @@ struct SecondaryActionLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(SecondaryAction(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
+                    category: .control)
     }
 }
 */

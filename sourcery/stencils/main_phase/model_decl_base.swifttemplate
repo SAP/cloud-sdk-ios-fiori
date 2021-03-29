@@ -157,7 +157,7 @@ struct <%= model.componentName %>LibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(<%= model.componentName %>(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
+                    category: .control)
     }
 }
 */

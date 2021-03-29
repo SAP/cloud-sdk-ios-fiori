@@ -66,7 +66,7 @@ struct TimelineItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(TimelineItem(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
+                    category: .control)
     }
 }
 */

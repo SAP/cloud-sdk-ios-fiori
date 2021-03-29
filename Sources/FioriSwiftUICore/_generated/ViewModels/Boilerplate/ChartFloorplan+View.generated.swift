@@ -60,7 +60,7 @@ struct ChartFloorplanLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(ChartFloorplan(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
+                    category: .control)
     }
 }
 */

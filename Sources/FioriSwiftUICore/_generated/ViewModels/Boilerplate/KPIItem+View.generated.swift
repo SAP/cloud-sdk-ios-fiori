@@ -52,7 +52,7 @@ struct KPIItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(KPIItem(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
+                    category: .control)
     }
 }
 */

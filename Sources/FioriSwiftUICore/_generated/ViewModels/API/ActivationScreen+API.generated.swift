@@ -16,8 +16,8 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextFilled: V
 	private let _actionText: ActionText
 	private let _footnote: Footnote
 	private let _secondaryActionText: SecondaryActionText
-	@State var buttonEnabled: Bool = false
 	@ObservedObject var emailFilled = UserInput()
+	@State var buttonEnabled: Bool = false
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false
