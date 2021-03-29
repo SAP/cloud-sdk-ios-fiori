@@ -120,9 +120,27 @@ public protocol UpperBoundTitleComponent {
 }
 
 
+// sourcery: backingComponent=Action
+public protocol ActionComponent {
+    var actionText_: String? { get }
+	func didSelectAction() -> Void
+}
+
 // sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
+}
+
+// sourcery: backingComponent=SecondaryAction
+public protocol SecondaryActionComponent {
+    var secondaryActionText_: String? { get }
+	func didSelectSecondaryAction() -> Void
+}
+
+// sourcery: backingComponent=TextInput
+public protocol TextInputComponent {
+    var textFilled_: String? { get }
+	func onCommit() -> Void
 }

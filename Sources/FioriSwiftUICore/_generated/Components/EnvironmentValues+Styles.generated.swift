@@ -1230,7 +1230,154 @@ public extension View {
 
 
 	extension EnvironmentValues {
+		public var actionTextStyle: TextStyle {
+			get { return self[ActionTextStyleKey.self] }
+			set { self[ActionTextStyleKey.self] = newValue }
+		}
+
+		public var actionTextModifier: AnyViewModifier {
+			get { return self[ActionTextModifierKey.self] }
+			set { self[ActionTextModifierKey.self] = newValue }
+		}
+
 	}
 
 	public extension View {
+
+		@ViewBuilder
+		func actionTextStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+			if concat {
+				transformEnvironment(\.actionTextStyle) { $0 = $0.merging(style) }
+			} else {
+				environment(\.actionTextStyle, style)
+			}
+		}
+
+		@ViewBuilder
+		func actionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.actionTextModifier, AnyViewModifier(transform))
+		}
+
+		func actionTextStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.actionTextStyleClass([`class`], concat: concat)
+		}
+
+		func actionTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.actionTextModifier) {
+				switch StyleCache.shared.resolveModifier(for: classPath) {
+					case .success(let resolved):
+						if concat {
+							let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+						} else {
+							$0 = resolved
+						}
+					case .failure(_):  break
+				}
+			}
+		}
+	}
+
+
+	extension EnvironmentValues {
+	}
+
+	public extension View {
+	}
+
+
+	extension EnvironmentValues {
+		public var secondaryActionTextStyle: TextStyle {
+			get { return self[SecondaryActionTextStyleKey.self] }
+			set { self[SecondaryActionTextStyleKey.self] = newValue }
+		}
+
+		public var secondaryActionTextModifier: AnyViewModifier {
+			get { return self[SecondaryActionTextModifierKey.self] }
+			set { self[SecondaryActionTextModifierKey.self] = newValue }
+		}
+
+	}
+
+	public extension View {
+
+		@ViewBuilder
+		func secondaryActionTextStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+			if concat {
+				transformEnvironment(\.secondaryActionTextStyle) { $0 = $0.merging(style) }
+			} else {
+				environment(\.secondaryActionTextStyle, style)
+			}
+		}
+
+		@ViewBuilder
+		func secondaryActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.secondaryActionTextModifier, AnyViewModifier(transform))
+		}
+
+		func secondaryActionTextStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.secondaryActionTextStyleClass([`class`], concat: concat)
+		}
+
+		func secondaryActionTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.secondaryActionTextModifier) {
+				switch StyleCache.shared.resolveModifier(for: classPath) {
+					case .success(let resolved):
+						if concat {
+							let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+						} else {
+							$0 = resolved
+						}
+					case .failure(_):  break
+				}
+			}
+		}
+	}
+
+
+	extension EnvironmentValues {
+		public var textFilledStyle: TextStyle {
+			get { return self[TextFilledStyleKey.self] }
+			set { self[TextFilledStyleKey.self] = newValue }
+		}
+
+		public var textFilledModifier: AnyViewModifier {
+			get { return self[TextFilledModifierKey.self] }
+			set { self[TextFilledModifierKey.self] = newValue }
+		}
+
+	}
+
+	public extension View {
+
+		@ViewBuilder
+		func textFilledStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+			if concat {
+				transformEnvironment(\.textFilledStyle) { $0 = $0.merging(style) }
+			} else {
+				environment(\.textFilledStyle, style)
+			}
+		}
+
+		@ViewBuilder
+		func textFilledModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.textFilledModifier, AnyViewModifier(transform))
+		}
+
+		func textFilledStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.textFilledStyleClass([`class`], concat: concat)
+		}
+
+		func textFilledStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.textFilledModifier) {
+				switch StyleCache.shared.resolveModifier(for: classPath) {
+					case .success(let resolved):
+						if concat {
+							let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+						} else {
+							$0 = resolved
+						}
+					case .failure(_):  break
+				}
+			}
+		}
 	}

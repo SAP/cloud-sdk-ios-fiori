@@ -40,6 +40,16 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
+// sourcery: generated_component_not_configurable
+public protocol ActionModel: ActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol SecondaryActionModel: SecondaryActionComponent {}
+
+// sourcery: generated_component_not_configurable
+// sourcery: virtualPropTextInputValue = "@ObservedObject var textInputValue = UserInput()"
+public protocol TextInputModel: TextInputComponent {}
+
 // sourcery: generated_component
 public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 
@@ -55,3 +65,12 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: generated_component_composite
 public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
+
+// sourcery: add_env_props = ["horizontalSizeClass"]
+// sourcery: generated_component_composite
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, ActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
+
+// sourcery: generated_component_composite
+// sourcery: virtualPropEmailFilled = "@ObservedObject var emailFilled = UserInput()"
+// sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}
