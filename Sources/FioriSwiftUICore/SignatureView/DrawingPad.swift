@@ -71,7 +71,8 @@ struct DrawingPad: View {
             )
         }
         if self.isSave {
-            let path = createUIBezierPath(points: drawings.first!.points)
+            guard let tempDrawing = drawings.first else { return v }
+            let path = createUIBezierPath(points: tempDrawing.points)
             let size = path.bounds.size
             UIGraphicsBeginImageContextWithOptions(size, false, 1)
             let color = UIColor.white
@@ -83,11 +84,11 @@ struct DrawingPad: View {
             strokeColor.setStroke()
             path.stroke()
             
-            let signature = UIGraphicsGetImageFromCurrentImageContext()
+            guard let signature = UIGraphicsGetImageFromCurrentImageContext() else { return v }
             UIGraphicsEndImageContext()
-            let image = Image(uiImage: signature!)
+            let image = Image(uiImage: signature)
             self.onSave?(image)
-            self._onSave?(signature!)
+            self._onSave?(signature)
         }
         return v
     }
