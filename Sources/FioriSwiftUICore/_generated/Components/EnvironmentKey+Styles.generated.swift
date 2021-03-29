@@ -493,3 +493,55 @@ struct UpperBoundTitleStyleClassPathKey: EnvironmentKey {
 struct UpperBoundTitleStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
+
+
+
+	struct ActionTextStyleKey: EnvironmentKey {
+		public static let defaultValue: TextStyle = TextStyle()
+	}
+
+	struct ActionTextModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct ActionTextStyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct ActionTextStyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+
+	struct SecondaryActionTextStyleKey: EnvironmentKey {
+		public static let defaultValue: TextStyle = TextStyle()
+	}
+
+	struct SecondaryActionTextModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct SecondaryActionTextStyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct SecondaryActionTextStyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+
+	struct TextFilledStyleKey: EnvironmentKey {
+		public static let defaultValue: TextStyle = TextStyle()
+	}
+
+	struct TextFilledModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct TextFilledStyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct TextFilledStyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
