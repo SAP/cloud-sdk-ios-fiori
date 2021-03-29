@@ -3,6 +3,7 @@
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/CollectionItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement CollectionItem `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -45,4 +46,15 @@ extension CollectionItem: View {
         <# View body #>
     }
 }
+
+// FIXME: - Implement CollectionItem specific LibraryContentProvider
+
+ @available(iOS 14.0, *)
+ struct CollectionItemLibraryContent: LibraryContentProvider {
+     @LibraryContentBuilder
+     var views: [LibraryItem] {
+         LibraryItem(CollectionItem(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
+     }
+ }
 */
