@@ -3,6 +3,7 @@
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ListPickerItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement ListPickerItem `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -41,6 +42,17 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         <# View body #>
+    }
+}
+
+// FIXME: - Implement ListPickerItem specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct ListPickerItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ListPickerItem(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
     }
 }
 */

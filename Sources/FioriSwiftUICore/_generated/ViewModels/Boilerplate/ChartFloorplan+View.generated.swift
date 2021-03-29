@@ -55,12 +55,12 @@ extension ChartFloorplan: View {
 
 // FIXME: - Implement ChartFloorplan specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct ChartFloorplanLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(ChartFloorplan(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct ChartFloorplanLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ChartFloorplan(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

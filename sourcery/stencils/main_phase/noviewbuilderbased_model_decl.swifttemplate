@@ -89,6 +89,17 @@ extension <%= model.componentName %>: View {
         <# View body #>
     }
 }
+
+// FIXME: - Implement <%= model.componentName %> specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct <%= model.componentName %>LibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(<%= model.componentName %>(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
+    }
+}
 */
 // sourcery:end
 <%_ } -%>

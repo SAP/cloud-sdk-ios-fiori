@@ -49,12 +49,12 @@ extension CollectionItem: View {
 
 // FIXME: - Implement CollectionItem specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct CollectionItemLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(CollectionItem(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct CollectionItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(CollectionItem(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

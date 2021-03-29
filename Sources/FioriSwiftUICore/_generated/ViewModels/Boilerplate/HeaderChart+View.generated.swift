@@ -51,12 +51,12 @@ extension HeaderChart: View {
 
 // FIXME: - Implement HeaderChart specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct HeaderChartLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(HeaderChart(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct HeaderChartLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(HeaderChart(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

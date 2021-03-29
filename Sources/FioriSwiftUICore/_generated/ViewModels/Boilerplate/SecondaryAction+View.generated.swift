@@ -20,4 +20,15 @@ extension SecondaryAction: View {
         <# View body #>
     }
 }
+
+// FIXME: - Implement SecondaryAction specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct SecondaryActionLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(SecondaryAction(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
+    }
+}
 */

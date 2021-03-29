@@ -23,12 +23,12 @@ extension ActivityItems: View {
 
 // FIXME: - Implement ActivityItems specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct ActivityItemsLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(ActivityItems(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct ActivityItemsLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ActivityItems(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

@@ -47,12 +47,12 @@ extension KPIItem: View {
 
 // FIXME: - Implement KPIItem specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct KPIItemLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(KPIItem(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct KPIItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(KPIItem(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

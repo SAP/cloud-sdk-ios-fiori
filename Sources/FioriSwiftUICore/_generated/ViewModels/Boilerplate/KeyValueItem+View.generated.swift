@@ -52,7 +52,7 @@ struct KeyValueItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
         LibraryItem(KeyValueItem(model: LibraryPreviewData.Person.laurelosborn),
-                    category: .control)
+                     category: .control)
     }
 }
 */

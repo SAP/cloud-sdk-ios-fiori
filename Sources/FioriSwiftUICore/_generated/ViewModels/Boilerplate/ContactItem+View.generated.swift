@@ -55,12 +55,12 @@ extension ContactItem: View {
 
 // FIXME: - Implement ContactItem specific LibraryContentProvider
 
- @available(iOS 14.0, *)
- struct ContactItemLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn),
+@available(iOS 14.0, *)
+struct ContactItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn),
                      category: .control)
-     }
- }
+    }
+}
 */

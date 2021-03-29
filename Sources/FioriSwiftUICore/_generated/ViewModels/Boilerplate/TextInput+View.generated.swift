@@ -20,4 +20,15 @@ extension TextInput: View {
         <# View body #>
     }
 }
+
+// FIXME: - Implement TextInput specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct TextInputLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(TextInput(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
+    }
+}
 */

@@ -3,6 +3,7 @@
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivationScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement ActivationScreen `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -49,6 +50,17 @@ extension Fiori {
 extension ActivationScreen: View {
     public var body: some View {
         <# View body #>
+    }
+}
+
+// FIXME: - Implement ActivationScreen specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct ActivationScreenLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ActivationScreen(model: LibraryPreviewData.Person.laurelosborn),
+                     category: .control)
     }
 }
 */
