@@ -14,7 +14,7 @@ public struct SignatureCaptureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    public var onSave: ((Image) -> Void)?
+    public var onSave: ((UIImage) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -23,7 +23,7 @@ public struct SignatureCaptureView: View {
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((UIImage) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -77,18 +77,13 @@ public struct SignatureCaptureView: View {
                     }
                     ZStack {
                         ZStack(alignment: .bottom) {
-                            DrawingPad(currentDrawing: $currentDrawing, drawings: $drawings, isSave: self.$isSaved, onSave: { image in
-                                self.onSave?(image)
-                            }, strokeColor: self.imageStrokeColor, lineWidth: self.strokeWidth, backgroundColor: self.backgroundColor)
-                                /*
-                                                            DrawingPad(currentDrawing: self.$currentDrawing,
-                                                                       drawings: self.$drawings,
-                                                                       isSave: self.$isSaved,
-                                                                       onSave: self.onSave,
-                                                                       strokeColor: self.imageStrokeColor,
-                                                                       lineWidth: self.strokeWidth,
-                                                                       backgroundColor: self.backgroundColor)
-                                 */
+                            DrawingPad(currentDrawing: self.$currentDrawing,
+                                       drawings: self.$drawings,
+                                       isSave: self.$isSaved,
+                                       onSave: self.onSave,
+                                       strokeColor: self.imageStrokeColor,
+                                       lineWidth: self.strokeWidth,
+                                       backgroundColor: self.backgroundColor)
                                 .foregroundColor(Color.preferredColor(.cellBackground))
                             if !self.isSaved {
                                 HStack {

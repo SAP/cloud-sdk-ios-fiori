@@ -7,7 +7,7 @@ struct SignatureCaptureView_Example: View {
     var body: some View {
         SignatureCaptureView(strokeWidth: 3.0, imageStrokeColor: .black, backgroundColor: .white) { image in
             let imgSaver = ImageSaver()
-            imgSaver.writeToPhotoAlbum(image: image.asUIImage())
+            imgSaver.writeToPhotoAlbum(image: image)
         } onCancel: {}
     }
 }
@@ -28,6 +28,7 @@ public extension View {
         UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
         
         let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
+        
         hostingController.view.bounds = CGRect(origin: .zero, size: size)
         hostingController.view.sizeToFit()
 
