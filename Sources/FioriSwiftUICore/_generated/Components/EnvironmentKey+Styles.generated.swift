@@ -240,23 +240,6 @@ struct IconStyleClassModifierKey: EnvironmentKey {
 }
 
 
-struct IconsStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
-}
-
-struct IconsModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct IconsStyleClassPathKey: EnvironmentKey {
-    public static let defaultValue: [String] = []
-}
-
-struct IconsStyleClassModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-
 struct ActionTitleStyleKey: EnvironmentKey {
     public static let defaultValue: TextStyle = TextStyle()
 }

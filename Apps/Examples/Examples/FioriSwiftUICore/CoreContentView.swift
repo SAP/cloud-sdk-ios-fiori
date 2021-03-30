@@ -43,6 +43,12 @@ struct CoreContentView: View {
                 Text("ActivationScreen")
             }
             
+            NavigationLink(
+                destination: ObjectItemExample(),
+                label: {
+                    Text("ObjectItem")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

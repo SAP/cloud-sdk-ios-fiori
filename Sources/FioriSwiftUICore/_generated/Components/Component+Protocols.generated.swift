@@ -60,7 +60,10 @@ public protocol IconComponent {
 }
 
 public protocol IconsComponent {
-    var icons_: [String] { get }
+	// sourcery: backingComponent=IconStack
+	// sourcery: customFunctionBuilder=IconBuilder
+	// sourcery: no_style
+    var icons_: [IconStackItem]? { get }
 }
 
 public protocol ActionTitleComponent {

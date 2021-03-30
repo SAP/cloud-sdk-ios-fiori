@@ -143,16 +143,6 @@ extension EnvironmentValues {
         set { self[IconModifierKey.self] = newValue }
     }
 
-    public var iconsStyle: TextStyle {
-        get { return self[IconsStyleKey.self] }
-        set { self[IconsStyleKey.self] = newValue }
-    }
-
-    public var iconsModifier: AnyViewModifier {
-        get { return self[IconsModifierKey.self] }
-        set { self[IconsModifierKey.self] = newValue }
-    }
-
     public var actionTitleStyle: TextStyle {
         get { return self[ActionTitleStyleKey.self] }
         set { self[ActionTitleStyleKey.self] = newValue }
@@ -733,38 +723,6 @@ public extension View {
 
     func iconStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.iconModifier) {
-            switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
-            }
-        }
-    }
-
-    @ViewBuilder
-    func iconsStyle(_ style: TextStyle, concat: Bool = true) -> some View {
-        if concat {
-            transformEnvironment(\.iconsStyle) { $0 = $0.merging(style) }
-        } else {
-            environment(\.iconsStyle, style)
-        }
-    }
-
-    @ViewBuilder
-    func iconsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.iconsModifier, AnyViewModifier(transform))
-    }
-
-    func iconsStyleClass(_ class: String, concat: Bool = true) -> some View {
-        self.iconsStyleClass([`class`], concat: concat)
-    }
-
-    func iconsStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
-        return transformEnvironment(\.iconsModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
                 case .success(let resolved):
                     if concat {

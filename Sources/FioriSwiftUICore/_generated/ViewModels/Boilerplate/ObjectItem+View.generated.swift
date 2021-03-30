@@ -24,6 +24,8 @@ extension Fiori {
 		typealias Status = EmptyModifier
 		typealias Substatus = EmptyModifier
 		typealias DetailImage = EmptyModifier
+		typealias Icons = EmptyModifier
+		typealias ActionText = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -44,6 +46,8 @@ extension Fiori {
 		static let status = Status()
 		static let substatus = Substatus()
 		static let detailImage = DetailImage()
+		static let icons = Icons()
+		static let actionText = ActionText()
     }
 }
 
