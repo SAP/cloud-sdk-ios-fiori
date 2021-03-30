@@ -2,6 +2,11 @@ import Foundation
 import SwiftUI
 import UIKit
 
+public struct Result {
+    public let image: Image
+    public let uiImage: UIImage
+}
+
 class ImageSaver: NSObject {
     func writeToPhotoAlbum(image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveError), nil)
