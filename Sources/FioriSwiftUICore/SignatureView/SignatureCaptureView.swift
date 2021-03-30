@@ -1,4 +1,3 @@
-import Combine
 import SwiftUI
 
 /**
@@ -135,5 +134,15 @@ public struct SignatureCaptureView: View {
                 }
             }
         }.padding(16) // .frame(height: 298)
+    }
+}
+
+public extension SignatureCaptureView {
+    /// Result holds an `Image` and a `UIImage` type for the same signature image
+    struct Result {
+        /// Signature Image
+        public let image: Image
+        /// SIgnature UIImage
+        public let uiImage: UIImage
     }
 }

@@ -2,14 +2,6 @@ import Foundation
 import SwiftUI
 import UIKit
 
-/// Result holds an `Image` and a `UIImage` type for the same signature image
-public struct Result {
-    /// Signature Image
-    public let image: Image
-    /// SIgnature UIImage
-    public let uiImage: UIImage
-}
-
 class ImageSaver: NSObject {
     func writeToPhotoAlbum(image: UIImage) {
         UIImageWriteToSavedPhotosAlbum(image, self, #selector(self.saveError), nil)
