@@ -158,31 +158,31 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Fill Colors
     
     /// Standard color for primary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A959 (alpha: 35%)
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A33 (alpha: 20%)
-    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A959 (alpha: 35%)
-    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A959 (alpha: 35%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A29 (alpha: 16%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A948 (alpha: 28%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A948 (alpha: 28%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A948 (alpha: 28%)
     case primaryFill
     
     /// Standard color for secondary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A945 (alpha: 27%)
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A29 (alpha: 16%)
-    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A945 (alpha: 27%)
-    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A945 (alpha: 27%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A1F (alpha: 12%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A933 (alpha: 20%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A933 (alpha: 20%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A933 (alpha: 20%)
     case secondaryFill
     
     /// Standard color for tertiary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A930 (alpha: 19%)
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A1F (alpha: 12%)
-    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A30 (alpha: 19%)
-    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A930 (alpha: 19%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A14 (alpha: 8%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A1F (alpha: 12%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A1F (alpha: 12%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A91F (alpha: 12%)
     case tertiaryFill
     
     /// Standard color for quarternary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A91C (alpha: 11%)
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A14 (alpha: 8%)
-    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A1C (alpha: 11%)
-    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A91C (alpha: 11%)
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex value: 89919A0A (alpha: 4%)
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A0A (alpha: 4%)
+    /// (dark variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 89919A0A (alpha: 4%)
+    /// (light variant - contrast) ![](https://dummyimage.com/48x18/8696A9.png&text=+)        Hex value: 8696A90A (alpha: 4%)
     case quarternaryFill
     
     // MARK: - Specific UI Materials Colors
@@ -193,16 +193,21 @@ public enum ColorStyle: String, CaseIterable {
     case header
     
     /// Blended color for navigation bar or headers.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFA6 (alpha: 65%)
-    /// (light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)          Hex value: 1C2228A6 (alpha: 65%)
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFCD (alpha: 80%)
+    /// (light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)          Hex value: 29313ACD (alpha: 80%)
     /// (elevated dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)        Hex color: FFFFFFA6 (alpha: 65%)
     /// (elevated light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31A6 (alpha: 65%)
     case headerBlended
     
     /// Transparent color for navigation bar or tap bar.
-    /// (dark variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303ED9 (alpha: 85%)
-    /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303ED9 (alpha: 85%)
+    /// (dark variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303EDA (alpha: 85%)
+    /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex value: 23303EDA (alpha: 85%)
     case barTransparent
+    
+    /// Color for contrast element.
+    /// (dark variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)          Hex value: 2C3D4F
+    /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFA
+    case contrastElement
     
     /// Standard background color for toolbar, tab bar or footers.
     /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex value: FAFAFAEB (alpha: 92%)
