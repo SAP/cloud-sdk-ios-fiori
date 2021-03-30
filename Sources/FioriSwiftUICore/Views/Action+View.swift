@@ -15,10 +15,9 @@ extension Fiori {
 extension Action: View {
     public var body: some View {
         Button(action: self._didSelectAction ?? onSelect) {
-            Text(self._actionText ?? "Start")
-                .frame(width: 170.0, height: 6.0)
+            Text(self._actionText ?? "")
         }
     }
-    
+        
     func onSelect() {}
 }

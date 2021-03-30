@@ -2,9 +2,16 @@ import Foundation
 
 // Standard Components
 
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "numberOfLines"
+public protocol IconStackModel: IconsComponent {}
+
 // sourcery: add_env_props = "horizontalSizeClass"
-// sourcery: generated_component
-public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+// sourcery: add_env_props = "sizeCategory"
+// sourcery: add_env_props = "splitPercent"
+// sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = .zero"
+// sourcery: generated_component_composite
+public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconStackModel, ActionModel {}
 
 // sourcery: generated_component
 public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
