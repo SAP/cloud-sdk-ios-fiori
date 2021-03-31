@@ -36,7 +36,7 @@ struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
     @Binding var isSave: Bool
-    var onSave: ((Result) -> Void)?
+    var onSave: ((SignatureCaptureView.Result) -> Void)?
     var strokeColor: Color
     var lineWidth: CGFloat
     var backgroundColor: Color
@@ -86,7 +86,7 @@ struct DrawingPad: View {
             guard let signature = UIGraphicsGetImageFromCurrentImageContext() else { return v }
             UIGraphicsEndImageContext()
             let image = Image(uiImage: signature)
-            self.onSave?(Result(image: image, uiImage: signature))
+            self.onSave?(SignatureCaptureView.Result(image: image, uiImage: signature))
         }
         return v
     }
