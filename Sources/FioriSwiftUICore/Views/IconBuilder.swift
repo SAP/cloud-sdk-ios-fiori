@@ -1,18 +1,23 @@
 import SwiftUI
 
+/// protocol for ViewList
 public protocol ViewList: View {
     associatedtype V: View
     
+    /// number of View in the ViewList
     var count: Int { get }
     
+    /// the View at Index in the ViewList
     func view(at index: Int) -> V
     
+    /// is first item a text in the ViewList
     func isFirstItemAText() -> Bool
     
-    // allow the number of icons to be shown in Icon Stack
+    /// allow the number of icons to be shown in Icon Stack
     func numberOfIconsToShow() -> Int
 }
 
+/// conform View protocol for IconStack
 public extension ViewList {
     var body: some View {
         VStack(alignment: .center, spacing: 6) {
@@ -27,16 +32,19 @@ public extension ViewList {
     }
 }
 
+/// Single
 public struct Single<Content: View>: ViewList {
     @Environment(\.numberOfLines) var numberOfLines
     
     let view: Content
     public let count = 1
     
+    /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
         self.view
     }
     
+    /// is first item a text in the ViewList
     public func isFirstItemAText() -> Bool {
         if type(of: self.view) == Text.self {
             return true
@@ -59,6 +67,7 @@ public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList
     
     public let count = 1
     
+    /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
         Group {
             if first == nil {
@@ -69,6 +78,7 @@ public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList
         }
     }
     
+    /// is first item a text in the ViewList
     public func isFirstItemAText() -> Bool {
         if let item = first, type(of: item) == Text.self {
             return true
@@ -90,10 +100,12 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
     
     let first: First
     let remainder: Second
+    
     public var count: Int {
         self.remainder.count + 1
     }
     
+    /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
@@ -104,6 +116,7 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
         }
     }
     
+    /// is first item a text in the ViewList
     public func isFirstItemAText() -> Bool {
         if type(of: self.first) == Text.self {
             return true
@@ -118,6 +131,8 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
     }
 }
 
+/// A custom parameter attribute that constructs views from closures.
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
 @_functionBuilder
 public enum IconBuilder {
     /// Builds an empty view from a block containing no statements.
@@ -178,7 +193,6 @@ public enum IconBuilder {
     
     /// Provides support for "if" statements in multi-statement closures,
     /// producing conditional content for the "then" branch.
-    // static func buildEither<TrueContent, FalseContent>(first: TrueContent) -> _ConditionalContent<TrueContent, FalseContent> where TrueContent : View, FalseContent : View
     public static func buildEither<TrueContent, FalseContent>(first: TrueContent) -> ConditionalSingle<TrueContent, FalseContent> where TrueContent: View, FalseContent: View {
         ConditionalSingle(first: first, second: nil)
     }
