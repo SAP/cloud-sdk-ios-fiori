@@ -1,4 +1,3 @@
-import Combine
 import SwiftUI
 
 /**
@@ -14,7 +13,7 @@ public struct SignatureCaptureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    public var onSave: ((Image) -> Void)?
+    public var onSave: ((Result) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -23,7 +22,7 @@ public struct SignatureCaptureView: View {
     ///   - strokeWidth: Stroke width for drawing lines
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -64,13 +63,15 @@ public struct SignatureCaptureView: View {
                     HStack {
                         Text(NSLocalizedString("Signature", comment: "Signature"))
                         Spacer()
-                        Button(action: {
-                            self.drawings.removeAll()
-                            self.isSaved = false
-                            self.onCancel?()
-                            self.isEditing = false
-                        }) {
-                            Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                        if !self.isSaved {
+                            Button(action: {
+                                self.drawings.removeAll()
+                                self.isSaved = false
+                                self.onCancel?()
+                                self.isEditing = false
+                            }) {
+                                Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                            }
                         }
                     }
                     ZStack {
@@ -133,5 +134,15 @@ public struct SignatureCaptureView: View {
                 }
             }
         }.padding(16) // .frame(height: 298)
+    }
+}
+
+public extension SignatureCaptureView {
+    /// Result holds an `Image` and a `UIImage` type for the same signature image
+    struct Result {
+        /// Signature Image
+        public let image: Image
+        /// SIgnature UIImage
+        public let uiImage: UIImage
     }
 }

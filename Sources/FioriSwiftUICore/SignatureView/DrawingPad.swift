@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import UIKit
 
 /// Drawing struct used to capture user signature
 struct Drawing {
@@ -35,7 +36,7 @@ struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
     @Binding var isSave: Bool
-    var onSave: ((Image) -> Void)?
+    var onSave: ((SignatureCaptureView.Result) -> Void)?
     var strokeColor: Color
     var lineWidth: CGFloat
     var backgroundColor: Color
@@ -69,8 +70,23 @@ struct DrawingPad: View {
             )
         }
         if self.isSave {
-            let image = Image(uiImage: self.snapshot())
-            self.onSave?(image)
+            guard let tempDrawing = drawings.first else { return v }
+            let path = createUIBezierPath(points: tempDrawing.points)
+            let size = path.bounds.size
+            UIGraphicsBeginImageContextWithOptions(size, false, 1)
+            let color = UIColor.white
+            color.setFill()
+            let origin = path.bounds.origin
+            path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
+            UIRectFill(CGRect(origin: path.bounds.origin, size: size))
+            let strokeColor = UIColor.black
+            strokeColor.setStroke()
+            path.stroke()
+            
+            guard let signature = UIGraphicsGetImageFromCurrentImageContext() else { return v }
+            UIGraphicsEndImageContext()
+            let image = Image(uiImage: signature)
+            self.onSave?(SignatureCaptureView.Result(image: image, uiImage: signature))
         }
         return v
     }

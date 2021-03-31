@@ -10,7 +10,7 @@ struct SignatureView: View {
     /// Background color of the drawing pad
     let backgroundColor: Color
     
-    public var onSave: ((Image) -> Void)?
+    public var onSave: ((SignatureCaptureView.Result) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -20,7 +20,7 @@ struct SignatureView: View {
     @State private var shouldRemoveWhitespace = true
     @State private var isSaved = false
     
-    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Image) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureCaptureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -61,7 +61,7 @@ struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        self.onSave?(Image(uiImage: uimage))
+                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage))
                         self.drawings.removeAll()
                     }) {
                         Text("Done")
