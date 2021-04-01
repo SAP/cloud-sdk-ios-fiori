@@ -104,6 +104,80 @@ public extension ChartView where Content == EmptyView {
     }
 }
 
+struct ChartSeriesShapeStyleEnvironmentKey: EnvironmentKey {
+    static let defaultValue: [Int: AnyShapeStyle] = [:]
+}
+
+extension EnvironmentValues {
+    var chartSeriesShapeStyle: [Int: AnyShapeStyle] {
+        get {
+            self[ChartSeriesShapeStyleEnvironmentKey]
+        }
+        
+        set {
+            self[ChartSeriesShapeStyleEnvironmentKey] = newValue
+        }
+    }
+}
+
+struct ChartCategoryShapeStyleEnvironmentKey: EnvironmentKey {
+    static let defaultValue: [Int: [Int: AnyShapeStyle]] = [:]
+}
+
+extension EnvironmentValues {
+    var chartCategoryShapeStyle: [Int: [Int: AnyShapeStyle]] {
+        get {
+            self[ChartCategoryShapeStyleEnvironmentKey]
+        }
+        
+        set {
+            self[ChartCategoryShapeStyleEnvironmentKey] = newValue
+        }
+    }
+}
+
+public extension View {
+    /**
+     Set ShapeStyle for chart series
+     
+     - parameter value: the dictionary is [Series Index: AnyShapeSyle].
+        Key is the chart series index, Value "AnyShapeSyle" should be one of these ShapeStyle: LinearGradient, AngularGradient, RadialGradient, Color and ImagePaint. The startPoint and endPoint in LinearGradient are in the view's user space. The image in ImagePaint should not be a vector image.
+     - return:  A shape filled with the color or gradient you supply.
+     
+     ## Usage
+
+     ```
+     let linearGradient = LinearGradient(gradient: Gradient(colors: [.red, .green, .blue]), startPoint: .bottom, endPoint: .top)
+     
+     .chartSeriesShapeStyle([1: AnyShapeStyle(linearGradient)])
+     */
+    func chartSeriesShapeStyle(_ value: [Int: AnyShapeStyle]) -> some View {
+        environment(\.chartSeriesShapeStyle, value)
+    }
+    
+    /**
+        Set ShapeStyle for chart categories
+     
+     - parameter value: the dictionary is [Series Index: [Category Index: AnyShapeSyle]].
+        Value "AnyShapeSyle" should be one of these ShapeStyle: LinearGradient, AngularGradient, RadialGradient, Color and ImagePaint. The startPoint and endPoint in LinearGradient are in local user space. The image in ImagePaint should not be a vector image.
+     - return:  A shape filled with the color or gradient you supply.
+     
+     ## Usage
+
+     ```
+     let linearGradient = LinearGradient(gradient: Gradient(colors: [.red, .green, .blue]), startPoint: .bottom, endPoint: .top)
+     let angularGradient = AngularGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .pink]), center: UnitPoint(x: 0.50, y: 1.00), startAngle: Angle(degrees: 180.00), endAngle: Angle(degrees: 360.00))
+     let radialGradient = RadialGradient(gradient: Gradient(colors: [.red, .yellow, .green, .blue, .purple, .pink]), center: .center, startRadius: 0, endRadius: 50)
+     let imagePaint = ImagePaint(image: Image("flower"))
+     
+     .chartCategoryShapeStyle([0: [0: AnyShapeStyle(linearGradient), 1: AnyShapeStyle(Color.yellow), 2: AnyShapeStyle(angularGradient)],
+                               1: [3: AnyShapeStyle(radialGradient), 4: AnyShapeStyle(imagePaint)]])
+     */
+    func chartCategoryShapeStyle(_ value: [Int: [Int: AnyShapeStyle]]) -> some View {
+        environment(\.chartCategoryShapeStyle, value)
+    }
+}
+
 enum ChartViewLayout {
     /// Minimum: 20px from left edge of content area
     static let minYAxisViewWidth: CGFloat = 20

@@ -210,25 +210,6 @@ class ColumnChartContext: DefaultChartContext {
         return result
     }
     
-    override func plotPath(_ model: ChartModel) -> [[[Path]]] {
-        if !model.path.isEmpty {
-            return model.path
-        }
-    
-        var result = [[[Path]]]()
-        let seriesCount = model.numOfSeries()
-        
-        for seriesIndex in 0 ..< seriesCount {
-            let seriesPath = plotColumnPath(model, for: seriesIndex)
-            
-            result.append(seriesPath)
-        }
-
-        model.path = result
-        
-        return result
-    }
-    
     override func snapChartToPoint(_ model: ChartModel, at x: CGFloat) -> CGFloat {
         let maxDataCount = model.numOfCategories()
         let columnXIncrement = 1.0 / (CGFloat(max(1, maxDataCount)) - ChartViewLayout.columnGapFraction / (1.0 + ChartViewLayout.columnGapFraction))
