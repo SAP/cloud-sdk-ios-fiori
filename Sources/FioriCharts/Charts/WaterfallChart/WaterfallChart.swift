@@ -104,12 +104,12 @@ class WaterfallChartContext: StackedColumnChartContext {
         let seriesCount = model.numOfSeries()
 
         for seriesIndex in 0 ..< max(1, seriesCount) {
-            let columnsPath = plotColumnPath(model, for: seriesIndex)
             let linesPath = self.connectingLinesPath(model, for: seriesIndex)
-
+            let columnCount = model.numOfCategories(in: seriesIndex)
+            
             var seriesPath = [[Path]]()
-            for categoryIndex in 0 ..< columnsPath.count {
-                let columnPath = columnsPath[categoryIndex].first ?? Path()
+            for categoryIndex in 0 ..< columnCount {
+                let columnPath = Path()
                 let linePath = linesPath.count > categoryIndex ? linesPath[categoryIndex] : Path()
                 seriesPath.append([columnPath, linePath])
             }

@@ -129,7 +129,7 @@ class ComboChartContext: ColumnChartContext {
         
         for seriesIndex in 0 ..< model.numOfSeries() {
             if model.indexesOfColumnSeries.contains(seriesIndex) {
-                result.append(plotColumnPath(model, for: seriesIndex))
+                result.append([[Path]]())
             } else {
                 result.append(plotLinePath(model, for: seriesIndex))
             }
