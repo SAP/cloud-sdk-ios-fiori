@@ -6,6 +6,8 @@ struct TrailingAccessoryView: View {
     let selected: Bool = false
     let rowIndex: Int
     
+    @EnvironmentObject var layoutManager: TableLayoutManager
+    
     init(item: AccessoryItem?, rowIndex: Int) {
         self.item = item
         self.rowIndex = rowIndex
@@ -13,10 +15,10 @@ struct TrailingAccessoryView: View {
     
     var body: some View {
         Group {
-            applyBlur()
-                .padding(.trailing, 44)
-            
             if let item = self.item {
+                applyBlur()
+                    .padding(.trailing, 44)
+                
                 switch item {
                 case .button(let button):
                     Button(action: {
@@ -25,17 +27,17 @@ struct TrailingAccessoryView: View {
                     }) {
                         self.selected ? button.image_selected : button.image_deSelected
                     }
-                    .frame(width: 44, height: 44, alignment: .center)
+                    .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.white
+                    .background(Color.preferredColor(.cellBackground)
                         .edgesIgnoringSafeArea([.leading, .trailing]))
                 default:
                     AnyView(EmptyView())
                 }
             } else {
                 Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 44, height: 44, alignment: .center)
+                    .fill(Color.preferredColor(.cellBackground))
+                    .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
                     .padding(.trailing, 44)
                     .background(Color.white
                         .edgesIgnoringSafeArea([.leading, .trailing]))

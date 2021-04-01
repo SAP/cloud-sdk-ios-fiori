@@ -144,6 +144,7 @@
 		AB15681B25FAA97700B1DEB1 /* ItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */; };
 		AB21D65E26095243007F89A9 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB21D65D26095243007F89A9 /* ViewExtensions.swift */; };
 		AB309F6525FAD785005DF41F /* TableLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB309F6425FAD785005DF41F /* TableLayoutManager.swift */; };
+		ABF8516B261643AD00193265 /* ColumnAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8516A261643AD00193265 /* ColumnAttribute.swift */; };
 		B8355ED525225A52001AB341 /* AreaChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */; };
 		B8355ED725227D1B001AB341 /* StackedColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */; };
 		B8355ED925227E7E001AB341 /* BarChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */; };
@@ -329,6 +330,7 @@
 		AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemExtensions.swift; sourceTree = "<group>"; };
 		AB21D65D26095243007F89A9 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		AB309F6425FAD785005DF41F /* TableLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLayoutManager.swift; sourceTree = "<group>"; };
+		ABF8516A261643AD00193265 /* ColumnAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnAttribute.swift; sourceTree = "<group>"; };
 		B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSnapshotTests.swift; sourceTree = "<group>"; };
@@ -714,6 +716,7 @@
 				AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */,
 				AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */,
 				AB1567DC25EF13F100B1DEB1 /* TableModel.swift */,
+				ABF8516A261643AD00193265 /* ColumnAttribute.swift */,
 				AB1567F025EF13F500B1DEB1 /* TableUtility.swift */,
 				AB1567DA25EF13EF00B1DEB1 /* TestData.swift */,
 				AB1567D825EF13EF00B1DEB1 /* TestView.swift */,
@@ -930,6 +933,7 @@
 				AB15681325EF14E800B1DEB1 /* TableListItemView.swift in Sources */,
 				AB1567F425EF13F500B1DEB1 /* DataTextItem.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
+				ABF8516B261643AD00193265 /* ColumnAttribute.swift in Sources */,
 				8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,

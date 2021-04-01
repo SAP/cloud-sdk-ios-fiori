@@ -6,9 +6,9 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
         
     @Published var rowData: [TableRowItem] = []
     
-    @Published var isFirstRowSticky: Bool = false
+    @Published var firstRowSticky: Bool = false
     
-    @Published var isFirstColumnSticky: Bool = false
+    @Published var firstColumnSticky: Bool = false
     
     @Published var horizontalScrolling: Bool = true
     
@@ -16,7 +16,7 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
     
     @Published var columnWidths: [CGFloat] = []
     
-    @Published var rowHeights: [CGFloat] = []
+    @Published var columnAttributes: [ColumnAttribute] = []
     
     var didSelectRowAt: ((_ index: Int) -> Void)?
 
@@ -40,8 +40,8 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
     {
         self._headerData = Published(initialValue: headerTitles)
         self.rowData = rowData
-        self.isFirstRowSticky = isFirstRowSticky
-        self.isFirstColumnSticky = isFirstColumnSticky
+        self.firstRowSticky = isFirstRowSticky
+        self.firstColumnSticky = isFirstColumnSticky
         self.showListView = showListView
         
         let headers = self.generateHeaderItems()
@@ -58,8 +58,8 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
 
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = TableModel(headerTitles: self.headerData,
-                              isFirstRowSticky: self.isFirstRowSticky,
-                              isFirstColumnSticky: self.isFirstColumnSticky)
+                              isFirstRowSticky: self.firstRowSticky,
+                              isFirstColumnSticky: self.firstColumnSticky)
         return copy
     }
 }

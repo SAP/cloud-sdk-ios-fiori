@@ -24,6 +24,9 @@ struct TableListItem: Identifiable, Hashable {
 
 struct TableDataItem: Identifiable, Hashable {
     let value: ValueType
+    
+    let textAlignment: TextAlignment
+    
     // the row index
     let rowIndex: Int
     // relative postion
@@ -47,12 +50,13 @@ struct TableDataItem: Identifiable, Hashable {
         return false
     }
     
-    init(index: Int, value: ValueType = .text(""), pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero) {
+    init(index: Int, value: ValueType = .text(""), pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero, textAlignment: TextAlignment = .leading) {
         self.rowIndex = index
         self.value = value
         self.pos = pos
         self.size = size
         self.offset = offset
+        self.textAlignment = textAlignment
     }
     
     mutating func x(_ x: CGFloat) {

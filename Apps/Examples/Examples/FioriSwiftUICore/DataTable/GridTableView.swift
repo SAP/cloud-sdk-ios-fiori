@@ -42,7 +42,7 @@ struct GridTableView: View {
                 let tmpY = (tmpLastCenterPosition.y * scaleY * rect.size.height - value.translation.height) / (scaleY * rect.size.height)
                 let y = max(0.5 / scaleY, min(1 - 0.5 / scaleY, tmpY))
                 
-                self.layoutManager.centerPosition = CGPoint(x: x, y: y)
+                self.layoutManager.centerPosition = CGPoint(x: self.layoutManager.horizontalScrolling ? x : 0, y: y)
                 
                 self.dropVerticalShadow = self.layoutManager.startPosition(rect: rect).x != 0
                 self.dropHorizontalShadow = self.layoutManager.startPosition(rect: rect).y != 0
@@ -68,38 +68,53 @@ struct GridTableView: View {
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
                     
-                    let isHeader: Bool = i == 0
+                    let isHeader: Bool = i == 0 && !self.layoutManager.model.headerData.isEmpty
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]
                         let view = ItemView(currentItem, (i, j), isHeader, dropShadow: self.dropVerticalShadow)
                         let x = currentItem.pos.x
                         let y = currentItem.pos.y
+                        let zIndex: Double = (i, j) == (0, 0) ? 700 : Double(600 - i * j)
                         view
                             .position(x: x, y: y)
                             .offset(x: currentItem.offset.x * self.layoutManager.scaleX, y: currentItem.offset.y * self.layoutManager.scaleY)
-                            .zIndex(i == 0 ? Double(600 - j) : Double(500 - i - i * j))
+                            .zIndex(zIndex)
                     }
                     
-                    if let firstItem = items[i].first, let currentIndex = firstItem.rowIndex {
-                        Divider()
-                            //                            .background(Color.red)
-                            .frame(width: UIScreen.main.bounds.width)
-                            .position(x: UIScreen.main.bounds.width / 2, y: firstItem.pos.y)
-                            .offset(y: (firstItem.rowHeight / 2) * self.layoutManager.scaleY)
-                            .dropShadow(isVertical: false, show: i == 0 && self.dropHorizontalShadow)
-                            .zIndex(800)
+                    if let leadingItem = items[i].first {
+                        let currentIndex = leadingItem.rowIndex
+
+                        let lAccessoriess: [AccessoryItem] = self.dataManager.rowData[currentIndex].leadingAccessories
+                        let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.dataManager.rowData[currentIndex].trailingAccessory
+                        let leadingMargin = lAccessoriess.count == 0 ? 0 : TableViewLayout.accessoryViewLeadingMargin(width: rect.width, sizeClass: self.layoutManager.sizeClass)
                         
-//                        LeadingAccessoryView(items: self.dataManager.rowData[currentIndex].leadingAccessories, index: currentIndex)
-//                            .position(x: rect.minX, y: firstItem.pos.y)
+                        let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
                         
-//                        TrailingAccessoryView(item: self.dataManager.rowData[currentIndex].trailingAccessory, rowIndex: currentIndex)
-//                            .position(x: rect.maxX, y: firstItem.pos.y)
-                        //                        let selected = self.dataManager.selectedIndexes.contains(currentIndex)
+                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader)
+                            .position(x: rect.minX, y: y)
+                            .padding(.leading, leadingMargin)
+                            .zIndex(Double(800 - currentIndex))
+
+                        TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex)
+                            .position(x: rect.maxX, y: y)
+                        
+                        horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
+                            .zIndex(Double(900 - currentIndex))
                     }
                 }
             }
             .gesture(drag)
             .gesture(mag)
+    }
+    
+    func horizontalDivider(rect: CGRect, pos: CGPoint, rowHeight: CGFloat, index: Int) -> some View {
+        let offetY = pos.y == 0 ? rowHeight : (rowHeight / 2)
+        return
+            Divider()
+                .frame(width: rect.size.width)
+                .position(x: rect.size.width / 2, y: pos.y)
+                .offset(y: offetY * self.layoutManager.scaleY)
+                .dropShadow(isVertical: false, show: index == 0 && self.dropHorizontalShadow)
     }
 }

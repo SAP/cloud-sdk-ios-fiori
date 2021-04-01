@@ -4,6 +4,29 @@ import SwiftUI
 class TableLayoutManager: ObservableObject {
     var model: TableModel
     
+    var horizontalScrolling: Bool {
+        get {
+            self._horizontalScrolling
+        }
+        
+        set {
+            self._horizontalScrolling = newValue
+        }
+    }
+    
+    @Published var _horizontalScrolling = true
+    
+    var isEditing: Bool {
+        get {
+            self._isEditing
+        }
+        set {
+            self._isEditing = newValue
+        }
+    }
+    
+    @Published var _isEditing: Bool = true
+    
     var sizeClass: UserInterfaceSizeClass {
         get {
             self._sizeClass
@@ -75,11 +98,11 @@ class TableLayoutManager: ObservableObject {
     
     var displayingItems: [[TableDataItem]] = []
     
-    public func numberOfDataInRow() -> Int {
+    public func numberOfColumns() -> Int {
         self.model.rowData.first?.data.count ?? 0
     }
     
-    public func numberOfDataInColumn() -> Int {
+    public func numberOfRows() -> Int {
         self.model.rowData.count
     }
     
@@ -133,9 +156,40 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _actualTableViewSize: CGSize = .zero
     
+    var contentInset: CGFloat = 0
+    
+    var leadingAccessoryViewWidth: CGFloat = 0
+    var trailingAccessoryViewWidth: CGFloat = 0
+    
+    var layoutLeadingMargin: CGFloat = 0
+    var layoutTrailingMargin: CGFloat = 0
+    
     init(model: TableModel) {
         self.model = model
+        self.horizontalScrolling = model.horizontalScrolling
         self.allDataItems = self.initItems(self.model)
+    }
+    
+    func setupMargins(rect: CGRect) {
+        self.leadingAccessoryViewWidth = self.getleadingAccessoryViewWidth()
+        self.trailingAccessoryViewWidth = self.getTrailingAccessoryViewWidth()
+        
+        self.contentInset = TableViewLayout.contentInset(sizeClass: self.sizeClass)
+        
+        if self.leadingAccessoryViewWidth != 0 {
+            self.layoutLeadingMargin = self.leadingAccessoryViewWidth + TableViewLayout.rightPaddingForLeadingAccessoryView(self.sizeClass) + TableViewLayout.leftPaddingForLeadingAccessoryView(width: rect.size.width, sizeClass: self.sizeClass)
+        } else {
+            self.layoutLeadingMargin = TableViewLayout.leadingOrTrailingMargin(width: rect.size.width, sizeClass: self.sizeClass)
+        }
+        
+        if self.trailingAccessoryViewWidth != 0 {
+            self.layoutTrailingMargin = self.trailingAccessoryViewWidth
+        } else {
+            self.layoutTrailingMargin = TableViewLayout.leadingOrTrailingMargin(width: rect.size.width, sizeClass: self.sizeClass)
+        }
+        
+        self.layoutLeadingMargin -= self.contentInset
+        self.layoutTrailingMargin -= self.contentInset
     }
         
     func getListItems(_ model: TableModel) -> [TableListItem] {
@@ -165,8 +219,8 @@ class TableLayoutManager: ObservableObject {
     }
 
     func updatedItemsPos() -> [[TableDataItem]] {
-        let numberOfColumns = self.numberOfDataInRow()
-        let numberOfRows = self.numberOfDataInColumn()
+        let numberOfColumns = self.numberOfColumns()
+        let numberOfRows = self.numberOfRows()
         let actualSize = self.actualTableViewSize
         
         var items = self.allDataItems
@@ -187,20 +241,76 @@ class TableLayoutManager: ObservableObject {
         return items
     }
     
-    func columnWidths(_ model: TableModel, _ rect: CGRect) -> [CGFloat] {
-        guard self.columnWidths.isEmpty else {
+    func getTrailingAccessoryViewWidth() -> CGFloat {
+        var width: CGFloat = 0
+        for row in self.model.rowData {
+            if let _ = row.trailingAccessory {
+                width = 44
+                break
+            }
+        }
+        return width
+    }
+    
+    func getleadingAccessoryViewWidth() -> CGFloat {
+        var width: CGFloat = 0
+        var icons: Int = 0
+        var buttons: Int = 0
+        for row in self.model.rowData {
+            var currentIcons: Int = 0
+            for item in row.leadingAccessories {
+                if case .button = item, self.isEditing {
+                    buttons = 1
+                }
+                if case .icon = item {
+                    currentIcons += 1
+                }
+            }
+            icons = max(icons, currentIcons)
+        }
+        width = CGFloat(buttons * 44 + icons * 16)
+        return width
+    }
+    
+    func actualSizeForTable(_ model: TableModel, _ rect: CGRect) -> CGSize {
+        guard self.actualTableViewSize == .zero else {
+            return self.actualTableViewSize
+        }
+
+        var width: CGFloat = 0
+        var height: CGFloat = 0
+
+        self.setupMargins(rect: rect)
+
+        width = self.getColumnWidths(rect).reduce(0, +)
+        width += self.layoutLeadingMargin
+        width += self.layoutTrailingMargin
+
+        height = self.getRowHeights().reduce(0, +)
+        
+        let actualTableViewSize = CGSize(width: width, height: height)
+        
+        self.actualTableViewSize = actualTableViewSize
+        self.allDataItems = self.updatedItemsPos()
+        
+        return actualTableViewSize
+    }
+    
+    func getColumnWidths(_ rect: CGRect) -> [CGFloat] {
+        guard self.model.columnWidths.isEmpty else {
+            self.columnWidths = self.model.columnWidths
             return self.columnWidths
         }
         
-        let numberOfColumns = self.numberOfDataInRow()
-        let numberOfRows = self.numberOfDataInColumn()
+        let numberOfColumns = self.numberOfColumns()
+        let numberOfRows = self.numberOfRows()
         var columnWidths: [CGFloat] = []
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
 
             for i in 0 ..< numberOfRows {
                 let currentItem = self.allDataItems[i][j]
-                let currentItemWidth: CGFloat = self.cellWidth(true, currentItem.size.width, self.sizeClass, rect.size.width)
+                let currentItemWidth: CGFloat = self.cellWidth(currentItem.size.width, rect.size.width)
                 maxItemWidth = max(maxItemWidth, currentItemWidth)
             }
             columnWidths.append(maxItemWidth)
@@ -210,63 +320,34 @@ class TableLayoutManager: ObservableObject {
         return columnWidths
     }
     
-    func cellWidth(_ horizontalScrolling: Bool, _ contentWidth: CGFloat, _ sizeClass: UserInterfaceSizeClass, _ rectWidth: CGFloat) -> CGFloat {
+    func cellWidth(_ contentWidth: CGFloat, _ rectWidth: CGFloat) -> CGFloat {
         let maxColumnWidth: CGFloat = rectWidth * TableViewLayout.maxColumnWidth
         let minColumnWidth: CGFloat = rectWidth * TableViewLayout.minColumnWidth
 
-        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: sizeClass)
+        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
         let contentWidthWithPaddings: CGFloat = contentWidth + contentInset * 2
         
         if contentWidthWithPaddings <= minColumnWidth {
             return contentWidthWithPaddings
         }
         
-        return horizontalScrolling ? min(contentWidthWithPaddings, maxColumnWidth) : min(maxColumnWidth, max(minColumnWidth, contentWidthWithPaddings))
+        return self.horizontalScrolling ? min(contentWidthWithPaddings, maxColumnWidth) : min(maxColumnWidth, max(minColumnWidth, contentWidthWithPaddings))
     }
     
-    func getLeftAccessoryViewWidth() -> CGFloat {
-        TableViewLayout.accessoryViewLeftPaddingInCompact + 44 + 4 + 20
-    }
-    
-    func actualSizeForTable(_ model: TableModel, _ rect: CGRect) -> CGSize {
-        guard self.actualTableViewSize == .zero else {
-            return self.actualTableViewSize
-        }
-                
-        let numberOfColumns = self.numberOfDataInRow()
-        let numberOfRows = self.numberOfDataInColumn()
-        
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-        
-        self.columnWidths = []
-        self.rowHeights = []
-        
-        for i in 0 ..< numberOfColumns {
-            let columnWidth = self.columnWidths(model, rect)[i]
-            self.columnWidths.append(columnWidth)
-            width += columnWidth
-        }
-        
-        // ignoring the first and last item insets
-        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
-        width -= contentInset * 2
-        
-        for j in 0 ..< numberOfRows {
-            let isHeader = !model.headerData.isEmpty && j == 0
+    func getRowHeights() -> [CGFloat] {
+        let rows = self.allDataItems
+        var heights: [CGFloat] = []
+        for (index, row) in rows.enumerated() {
+            var itemHeight: CGFloat = 0
+            let isHeader = !self.model.headerData.isEmpty && index == 0
             let topAndBottom = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
-            let _height = self.heightForRowAt(j) + topAndBottom * 2
-            self.rowHeights.append(_height)
-            height += _height
+            for item in row {
+                itemHeight = max(item.size.height, itemHeight)
+            }
+            heights.append(itemHeight + topAndBottom * 2)
         }
-        
-        let margin = TableViewLayout.leadingOrTrailingMargin(width: rect.size.width, sizeClass: self.sizeClass)
-        let actualTableViewSize = CGSize(width: width + margin * 2, height: height)
-        
-        self.actualTableViewSize = actualTableViewSize
-        self.allDataItems = self.updatedItemsPos()
-        
-        return actualTableViewSize
+        self.rowHeights = heights
+        return heights
     }
     
     func heightForRowAt(_ index: Int) -> CGFloat {
@@ -294,51 +375,90 @@ class TableLayoutManager: ObservableObject {
         
         let allItems = self.allDataItems
         
-        let maxDataCountInRow = self.numberOfDataInRow()
+        let maxDataCountInRow = self.numberOfColumns()
         let width: CGFloat = rect.width
-        
+
         let tmpScaleX = self.scaleX(rect: rect)
         let tmpStartPositionInRow = self.startPosition(rect: rect)
         let startPosX = tmpStartPositionInRow.x * tmpScaleX * width
-        let unitWidth: CGFloat = max(width * tmpScaleX / CGFloat(max(maxDataCountInRow - 1, 1)), TableViewLayout.minUnitWidth)
-        var startIndexInRow = Int((startPosX / unitWidth).rounded(.up)).clamp(low: 0, high: maxDataCountInRow - 1)
-        let endIndexInRow = Int(((startPosX + width) / unitWidth).rounded(.up)).clamp(low: startIndexInRow, high: maxDataCountInRow - 1)
-        if startIndexInRow != 0 {
-            startIndexInRow -= 1
-        }
-        let catIndexRangeInRow = startIndexInRow ... endIndexInRow
-        
-        let maxDataCountInColumn = self.numberOfDataInColumn()
+
+        let maxDataCountInColumn = self.numberOfRows()
         let height = rect.height
         
         let tmpScaleY = self.scaleY(rect: rect)
         let tmpStartPositionInColumn = self.startPosition(rect: rect)
         let startPosY = tmpStartPositionInColumn.y * tmpScaleY * height
-        let unitHeight: CGFloat = max(height * tmpScaleY / CGFloat(max(maxDataCountInColumn - 1, 1)), TableViewLayout.minUnitHeight)
-        let startIndexInColumn = Int(((startPosY - unitHeight) / unitHeight).rounded(.up)).clamp(low: 0, high: maxDataCountInColumn - 1)
-        let endIndexInColumn = Int(((startPosY + height) / unitHeight).rounded(.up)).clamp(low: startIndexInColumn, high: maxDataCountInColumn - 1)
+        
+        var tempStartX: CGFloat = 0
+        var xStartIndex: Int = 0
+        for (index, w) in self.columnWidths.enumerated() {
+            tempStartX += (w * self.scaleX)
+            if tempStartX > startPosX {
+                xStartIndex = index
+                break
+            }
+        }
+        
+        var tempEndX: CGFloat = 0
+        var xEndIndex: Int = 0
+        for i in xStartIndex ..< self.columnWidths.count {
+            tempEndX += (self.columnWidths[i] * self.scaleX)
+            if tempEndX > width || i == self.columnWidths.count - 1 {
+                xEndIndex = i
+                break
+            }
+        }
+        
+        xStartIndex = max(0, xStartIndex - 1)
+        xEndIndex = min(self.numberOfColumns() - 1, xEndIndex + 1)
+        
+        let catIndexRangeInRow = xStartIndex ... xEndIndex
+        
+        var tempStartY: CGFloat = 0
+        var yStartIndex: Int = 0
+        for (index, h) in self.rowHeights.enumerated() {
+            tempStartY += (h * self.scaleY)
+            if tempStartY > startPosY {
+                yStartIndex = index
+                break
+            }
+        }
+        
+        var tempEndY: CGFloat = 0
+        var yEndIndex: Int = 0
+        for i in yStartIndex ..< self.rowHeights.count {
+            tempEndY += (self.rowHeights[i] * self.scaleY)
+            if tempEndY > height || i == self.rowHeights.count - 1 {
+                yEndIndex = i
+                break
+            }
+        }
         
         // get actual displaying data for rows
-        let catIndexRangeInColumn = startIndexInColumn ... endIndexInColumn
+        yStartIndex = max(0, yStartIndex - 1)
+        yEndIndex = min(self.numberOfRows() - 1, yEndIndex + 1)
+        let catIndexRangeInColumn = yStartIndex ... yEndIndex
         
         var displayingItems: [[TableDataItem]] = []
                 
-        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
-        let leadingMargin = TableViewLayout.leadingOrTrailingMargin(width: rect.size.width, sizeClass: self.sizeClass) - contentInset
+//        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
 
         if catIndexRangeInRow.lowerBound >= 0, catIndexRangeInRow.upperBound < maxDataCountInRow,
            catIndexRangeInColumn.lowerBound >= 0, catIndexRangeInColumn.upperBound < maxDataCountInColumn
         {
             for i in catIndexRangeInColumn {
                 displayingItems.append([])
+                
+                let lastIndex = displayingItems.count - 1
+
                 let rowHeight = self.rowHeights[i]
 
                 for j in catIndexRangeInRow {
                     let currentItem = allItems[i][j]
                     let columnWidth = self.columnWidths[j]
-                    let contentWidth = columnWidth - contentInset * 2
+                    let contentWidth = columnWidth - self.contentInset * 2
                                         
-                    let x = currentItem.pos.x * tmpScaleX * width - startPosX + leadingMargin
+                    let x = currentItem.pos.x * tmpScaleX * width - startPosX + self.layoutLeadingMargin
                     let y = currentItem.pos.y * tmpScaleY * height - startPosY
                     
                     let itemWidth = contentWidth * tmpScaleX
@@ -355,15 +475,14 @@ class TableLayoutManager: ObservableObject {
                         item.size(CGSize(width: contentWidth, height: item.size.height))
                         item.offset(CGPoint(x: columnWidth / 2, y: 0))
                         
-                        let lastIndex = displayingItems.count - 1
                         displayingItems[lastIndex].append(item)
                     }
                 }
                                 
-                if self.model.isFirstColumnSticky {
+                if self.model.firstColumnSticky {
                     var item = allItems[i][0]
-                    let contentWidth = self.columnWidths[0] - contentInset * 2
-                    let x = leadingMargin
+                    let contentWidth = self.columnWidths[0] - self.contentInset * 2
+                    let x = self.layoutLeadingMargin
                     let y = item.pos.y * tmpScaleY * height - startPosY
                     item.rowHeight(rowHeight)
                     item.x(x)
@@ -371,40 +490,41 @@ class TableLayoutManager: ObservableObject {
                     item.size(CGSize(width: contentWidth, height: item.size.height))
                     item.offset(CGPoint(x: self.columnWidths[0] / 2, y: 0))
 
-                    let lastIndex = displayingItems.count - 1
-                    displayingItems[lastIndex].removeFirst()
+                    if displayingItems[lastIndex].count > 1 {
+                        displayingItems[lastIndex].removeFirst()
+                    }
                     displayingItems[lastIndex].insert(item, at: 0)
                 }
             }
         }
         
-        if self.model.isFirstRowSticky {
+        if self.model.firstRowSticky {
             var firstRow = allItems.first ?? []
             for i in 0 ..< firstRow.count {
-                let contentWidth = self.columnWidths[i] - contentInset * 2
-                let x = firstRow[i].pos.x * tmpScaleX * width - startPosX + leadingMargin
+                let contentWidth = self.columnWidths[i] - self.contentInset * 2
+                let x = firstRow[i].pos.x * tmpScaleX * width - startPosX + self.layoutLeadingMargin
                 firstRow[i].x(x)
-                firstRow[i].y((self.rowHeights.first ?? 0) / 2)
-                firstRow[i].offset(CGPoint(x: self.columnWidths[i] / 2, y: 0))
+                firstRow[i].y(0)
+                firstRow[i].offset(CGPoint(x: self.columnWidths[i] / 2, y: (self.rowHeights.first ?? 0) / 2))
                 firstRow[i].size(CGSize(width: contentWidth, height: firstRow[i].size.height))
                 firstRow[i].rowHeight(self.rowHeights.first ?? 0)
             }
 
-            var firstItem: TableDataItem?
+            var leftTopItem: TableDataItem?
 
-            if self.model.isFirstColumnSticky {
-                firstItem = allItems.first?.first
-                let itemHeight = firstItem?.size.height ?? 0
-                let contentWidth = self.columnWidths[0] - contentInset * 2
-                let x = leadingMargin
-                firstItem?.rowHeight(self.rowHeights[0])
-                firstItem?.x(x)
-                firstItem?.y((self.rowHeights.first ?? 0) / 2)
-                firstItem?.size(CGSize(width: contentWidth, height: itemHeight))
-                firstItem?.offset(CGPoint(x: self.columnWidths[0] / 2, y: 0))
+            if self.model.firstColumnSticky {
+                leftTopItem = allItems.first?.first
+                let itemHeight = leftTopItem?.size.height ?? 0
+                let contentWidth = self.columnWidths[0] - self.contentInset * 2
+                let x = self.layoutLeadingMargin
+                leftTopItem?.rowHeight(self.rowHeights[0])
+                leftTopItem?.x(x)
+                leftTopItem?.y(0)
+                leftTopItem?.size(CGSize(width: contentWidth, height: itemHeight))
+                leftTopItem?.offset(CGPoint(x: self.columnWidths[0] / 2, y: (self.rowHeights.first ?? 0) / 2))
             }
 
-            if let item = firstItem {
+            if let item = leftTopItem {
                 firstRow = Array(firstRow[catIndexRangeInRow])
                 firstRow.removeFirst()
                 firstRow.insert(item, at: 0)
@@ -421,7 +541,7 @@ class TableLayoutManager: ObservableObject {
     
     func dataItemsForTable(_ model: TableModel) -> [[TableDataItem]] {
         var res: [[TableDataItem]] = []
-        let numberOfRows = self.numberOfDataInColumn()
+        let numberOfRows = self.numberOfRows()
         
         for i in 0 ..< numberOfRows {
             let items = self.dataItemsForRow(at: i)
@@ -432,8 +552,8 @@ class TableLayoutManager: ObservableObject {
     }
     
     func dataItemsForRow(at index: Int) -> [TableDataItem] {
-        let numberInEachRow = self.numberOfDataInRow()
-        let numberOfDataInColumn = self.numberOfDataInColumn()
+        let numberInEachRow = self.numberOfColumns()
+        let numberOfDataInColumn = self.numberOfRows()
         
         let dataInEachRow = self.model.rowData[index].data
         
@@ -443,26 +563,40 @@ class TableLayoutManager: ObservableObject {
         let height: CGFloat = 1
         let unitHeight: CGFloat = max(height / CGFloat(max(numberOfDataInColumn - 1, 1)), TableViewLayout.minUnitHeight)
         
-        let rowIndex = !self.model.headerData.isEmpty ? index - 1 : index
+//        let rowIndex = !self.model.headerData.isEmpty ? index - 1 : index
                 
         var res: [TableDataItem] = []
         for i in 0 ..< numberInEachRow {
+            var contentWidth = CGFloat(MAXFLOAT)
+            var textAlignment: TextAlignment = .leading
+            if self.model.columnAttributes.indices.contains(i) {
+                textAlignment = self.model.columnAttributes[i].textAlignment
+                switch self.model.columnAttributes[i].width {
+                case .fixed(let value):
+                    contentWidth = value
+                default:
+                    contentWidth = CGFloat(MAXFLOAT)
+                }
+            }
+            contentWidth -= self.contentInset * 2
+
             let currentItem = dataInEachRow[i]
             switch currentItem.type {
             case .text:
                 let title = (currentItem as? DataTextItem)?.text ?? ""
                 let font = (currentItem as? DataTextItem)?.font ?? .body
                 let fontSize = UIFont.preferredFont(from: font).pointSize
-                let size = title.boundingBoxSize(with: fontSize * self.scaleX)
-                res.append(TableDataItem(index: rowIndex,
+                let size = title.boundingBoxSize(with: fontSize * self.scaleX, width: contentWidth)
+                res.append(TableDataItem(index: index,
                                          value: .text(title),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
-                                         size: size))
+                                         size: size,
+                                         textAlignment: textAlignment))
             case .image:
                 guard let image = (currentItem as? DataImageItem)?.image else {
                     break
                 }
-                res.append(TableDataItem(index: rowIndex,
+                res.append(TableDataItem(index: index,
                                          value: .image(image),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
                                          size: CGSize(width: 45, height: 0)))

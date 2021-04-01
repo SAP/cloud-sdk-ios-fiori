@@ -7,31 +7,44 @@ public enum TestRowData {
         for i in 0 ..< count {
             let textItem = DataTextItem("\(row), \(i)")
             let imageItem = DataImageItem(Image(systemName: "checkmark.circle.fill"))
-            data.append(textItem)
+            data.append(i == 0 ? imageItem : textItem)
         }
         let lAccessories: [AccessoryItem] = [.button(.init(image_selected: Image(systemName: "checkmark.circle.fill"), image_deSelected: Image(systemName: "checkmark.circle"), title: "", action: {
             print("row: \(row) tapped")
         }, selected: false)), .icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
-        let output = TableRowItem(leadingAccessories: lAccessories, trailingAccessory: .button(.init(image_selected: Image(systemName: "chevron.forward"), image_deSelected: Image(systemName: "chevron.forward"), title: "", action: {
+        let tAccessory: AccessoryItem = .button(.init(image_selected: Image(systemName: "chevron.forward"), image_deSelected: Image(systemName: "chevron.forward"), title: "", action: {
             print("trailing accessory tapped: \(row) tapped")
-        }, selected: false)), data: data)
+        }, selected: false))
+        
+        let output = TableRowItem(leadingAccessories: [], trailingAccessory: tAccessory, data: data)
         
         return output
     }
     
+    static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
+        var output: [ColumnAttribute] = []
+        for i in 0 ..< column {
+            let alignment: TextAlignment = i % 2 == 0 ? .leading : .trailing
+            let width: ColumnAttribute.Width = i % 2 == 0 ? .flexible : .fixed(80)
+            let att = ColumnAttribute(textAlignment: alignment, width: width)
+            output.append(att)
+        }
+        return output
+    }
+
     static func generateData(row: Int, column: Int) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [String] = []
         for k in 0 ..< column {
-            titles.append(k == 0 ? "" : "LongHeaderTitle: \(k)")
+            titles.append(k == 0 ? "" : "Long Header Title: \(k)")
         }
         for i in 0 ..< row {
             res.append(self.generateRowData(count: column, for: i))
         }
         
         let model = TableModel(headerTitles: titles, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: false)
-        
+        model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.selectedIndex = [2, 3]
         
         return model

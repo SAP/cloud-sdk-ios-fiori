@@ -7,7 +7,8 @@ struct ItemView: View {
     
     @State var value: String = ""
     @EnvironmentObject var layoutManager: TableLayoutManager
-    
+    @EnvironmentObject var dataManager: TableDataManager
+
     let isHeader: Bool
     let index: (Int, Int)
     
@@ -37,15 +38,24 @@ struct ItemView: View {
                 if let handler = self.layoutManager.model.didSelectRowAt {
                     handler(self.dataItem.rowIndex)
                 }
+                if self.layoutManager.isEditing {
+                    if !self.dataManager.selectedIndexes.contains(self.dataItem.rowIndex) {
+                        self.dataManager.selectedIndexes.append(self.dataItem.rowIndex)
+                    } else {
+                        self.dataManager.selectedIndexes.removeAll { (target) -> Bool in
+                            target == self.dataItem.rowIndex
+                        }
+                    }
+                }
             }
-        
+        let backgroundColor: Color = self.isHeader ? Color.preferredColor(.headerBlended) : Color.preferredColor(.cellBackground)
         return
             ZStack {
                 Group {
                     switch dataItem.value {
                     case .image(let image):
                         image
-                            .frame(width: 45, height: 45)
+                            .frame(width: 45 * self.layoutManager.scaleX, height: 45 * self.layoutManager.scaleY)
                     case .text(let value):
                         let fontSize: CGFloat = self.isHeader ? UIFont.preferredFont(from: .subheadline).pointSize : UIFont.preferredFont(from: .body).pointSize
                         let font: Font = isHeader ? .subheadline : .body
@@ -53,15 +63,14 @@ struct ItemView: View {
                         Text(value)
                             .font(.system(size: fontSize * self.layoutManager.scaleX))
                             .foregroundColor(textColor)
-                            .multilineTextAlignment(.leading)
-                            .frame(width: dataItem.size.width, height: dataItem.rowHeight, alignment: .leading)
-                            .background(Color.red)
+                            .multilineTextAlignment(dataItem.textAlignment)
+                            .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
                     }
                 }
-                .frame(width: dataItem.size.width + contentInset * 2, height: dataItem.rowHeight, alignment: .center)
-                .background(Color.yellow)
+                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
+                .background(backgroundColor)
                 
-                if index.0 == 0 && index.1 == 0 && self.layoutManager.model.isFirstColumnSticky {
+                if index == (0, 0) && self.layoutManager.model.firstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
                 }
@@ -72,7 +81,7 @@ struct ItemView: View {
     func verticalDivider(offsetX: CGFloat) -> some View {
         HStack {
             Divider()
-                .frame(height: UIScreen.main.bounds.height)
+                .frame(height: UIScreen.main.bounds.height * self.layoutManager.scaleY)
                 .offset(x: offsetX * self.layoutManager.scaleX, y: (UIScreen.main.bounds.height - self.dataItem.rowHeight) / 2)
                 .dropShadow(isVertical: true, show: self.dropVerticalShadow)
         }

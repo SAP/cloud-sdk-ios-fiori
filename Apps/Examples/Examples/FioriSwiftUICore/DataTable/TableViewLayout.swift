@@ -63,13 +63,44 @@ enum TableViewLayout {
         sizeClass == .compact ? 8 : 16
     }
     
+    static func accessoryViewLeadingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
+        if sizeClass == .compact {
+            return 10
+        }
+        return width > 736 ? 48 : 14
+    }
+    
+    static func leftPaddingForLeadingAccessoryView(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
+        if sizeClass == .compact {
+            return 10
+        }
+        return width > 736 ? 48 : 14
+    }
+    
+    static func rightPaddingForLeadingAccessoryView(_ sizeClass: UserInterfaceSizeClass) -> CGFloat {
+        sizeClass == .compact ? 8 : 12
+    }
+    
     static let accessoryViewLeftPaddingInCompact: CGFloat = 10
     
     static let imageWidth: CGFloat = 45
 }
 
+extension TextAlignment {
+    func toTextFrameAlignment() -> Alignment {
+        switch self {
+        case .leading:
+            return .leading
+        case .trailing:
+            return .trailing
+        case .center:
+            return .center
+        }
+    }
+}
+
 extension String {
-    func boundingBoxSize(with fontSize: CGFloat) -> CGSize {
+    func boundingBoxSize(with fontSize: CGFloat, width: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
         #if os(iOS) || os(tvOS) || os(watchOS)
             let font = UIFont.systemFont(ofSize: fontSize)
         #elseif os(macOS)
@@ -77,7 +108,7 @@ extension String {
         #endif
 
         let size = (self as NSString)
-            .boundingRect(with: CGSize(width: CGFloat(MAXFLOAT), height: CGFloat(MAXFLOAT)),
+            .boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
                           options: .usesLineFragmentOrigin,
                           attributes: [NSAttributedString.Key.font: font],
                           context: nil).size
