@@ -10,11 +10,16 @@ extension Fiori {
                 content.font(.headline).foregroundColor(.preferredColor(.primary1))
             }
         }
+
+        typealias KeyCumulative = EmptyModifier
         
         typealias Value = EmptyModifier
+        typealias ValueCumulative = EmptyModifier
         
         static let key = Key()
         static let value = Value()
+        static let keyCumulative = KeyCumulative()
+        static let valueCumulative = ValueCumulative()
     }
 }
 

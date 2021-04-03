@@ -39,23 +39,47 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 			self._categoryAxisTitle = categoryAxisTitle()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.ChartFloorplan.title).concat(Fiori.ChartFloorplan.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle).concat(Fiori.ChartFloorplan.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle))
+        }
     }
-	var status: some View {
-        _status.modifier(statusModifier.concat(Fiori.ChartFloorplan.status))
+	@ViewBuilder var status: some View {
+        if isModelInit {
+            _status.modifier(statusModifier.concat(Fiori.ChartFloorplan.status).concat(Fiori.ChartFloorplan.statusCumulative))
+        } else {
+            _status.modifier(statusModifier.concat(Fiori.ChartFloorplan.status))
+        }
     }
-	var valueAxisTitle: some View {
-        _valueAxisTitle.modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle))
+	@ViewBuilder var valueAxisTitle: some View {
+        if isModelInit {
+            _valueAxisTitle.modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle).concat(Fiori.ChartFloorplan.valueAxisTitleCumulative))
+        } else {
+            _valueAxisTitle.modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle))
+        }
     }
-	var seriesTitles: some View {
-        _seriesTitles.modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles))
+	@ViewBuilder var seriesTitles: some View {
+        if isModelInit {
+            _seriesTitles.modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles).concat(Fiori.ChartFloorplan.seriesTitlesCumulative))
+        } else {
+            _seriesTitles.modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles))
+        }
     }
-	var categoryAxisTitle: some View {
-        _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
+	@ViewBuilder var categoryAxisTitle: some View {
+        if isModelInit {
+            _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle).concat(Fiori.ChartFloorplan.categoryAxisTitleCumulative))
+        } else {
+            _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {

@@ -22,8 +22,13 @@ struct Subtitle: ViewModifier {
 
 extension Fiori {
     enum KPIItem {
+        typealias KpiCumulative = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
+
         static let kpi = Kpi()
         static let subtitle = Subtitle()
+        static let kpiCumulative = KpiCumulative()
+        static let subtitleCumulative = SubtitleCumulative()
     }
 }
 

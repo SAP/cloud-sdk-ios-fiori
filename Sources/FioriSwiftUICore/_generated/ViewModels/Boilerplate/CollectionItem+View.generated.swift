@@ -18,8 +18,11 @@ import SwiftUI
 extension Fiori {
     enum CollectionItem {
         typealias DetailImage = EmptyModifier
+        typealias DetailImageCumulative = EmptyModifier
 		typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -36,6 +39,9 @@ extension Fiori {
         static let detailImage = DetailImage()
 		static let title = Title()
 		static let subtitle = Subtitle()
+        static let detailImageCumulative = DetailImageCumulative()
+		static let titleCumulative = TitleCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
     }
 }
 

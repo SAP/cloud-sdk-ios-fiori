@@ -15,7 +15,8 @@ extension Fiori {
                     .multilineTextAlignment(.center)
             }
         }
-        
+
+        typealias TitleCumulative = EmptyModifier
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -24,7 +25,8 @@ extension Fiori {
                     .multilineTextAlignment(.center)
             }
         }
-        
+
+        typealias DescriptionTextCumulative = EmptyModifier
         struct TextFilled: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -32,14 +34,16 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
-        
+
+        typealias TextFilledCumulative = EmptyModifier
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .frame(width: 169.0, height: 20.0)
             }
         }
-        
+
+        typealias ActionTextCumulative = EmptyModifier
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -47,7 +51,8 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
-        
+
+        typealias FootnoteCumulative = EmptyModifier
         struct SecondaryActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -55,13 +60,20 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
-        
+
+        typealias SecondaryActionTextCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
         static let textFilled = TextFilled()
         static let actionText = ActionText()
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
+        static let titleCumulative = TitleCumulative()
+        static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let textFilledCumulative = TextFilledCumulative()
+        static let actionTextCumulative = ActionTextCumulative()
+        static let footnoteCumulative = FootnoteCumulative()
+        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
     }
 }
 

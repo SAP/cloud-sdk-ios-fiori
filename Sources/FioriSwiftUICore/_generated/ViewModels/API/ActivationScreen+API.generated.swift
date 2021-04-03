@@ -42,23 +42,47 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextFilled: V
 			self._secondaryActionText = secondaryActionText()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title).concat(Fiori.ActivationScreen.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.ActivationScreen.title))
+        }
     }
-	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText))
+	@ViewBuilder var descriptionText: some View {
+        if isModelInit {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText).concat(Fiori.ActivationScreen.descriptionTextCumulative))
+        } else {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText))
+        }
     }
-	var textFilled: some View {
-        _textFilled.modifier(textFilledModifier.concat(Fiori.ActivationScreen.textFilled))
+	@ViewBuilder var textFilled: some View {
+        if isModelInit {
+            _textFilled.modifier(textFilledModifier.concat(Fiori.ActivationScreen.textFilled).concat(Fiori.ActivationScreen.textFilledCumulative))
+        } else {
+            _textFilled.modifier(textFilledModifier.concat(Fiori.ActivationScreen.textFilled))
+        }
     }
-	var actionText: some View {
-        _actionText.modifier(actionTextModifier.concat(Fiori.ActivationScreen.actionText))
+	@ViewBuilder var actionText: some View {
+        if isModelInit {
+            _actionText.modifier(actionTextModifier.concat(Fiori.ActivationScreen.actionText).concat(Fiori.ActivationScreen.actionTextCumulative))
+        } else {
+            _actionText.modifier(actionTextModifier.concat(Fiori.ActivationScreen.actionText))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote).concat(Fiori.ActivationScreen.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote))
+        }
     }
-	var secondaryActionText: some View {
-        _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.ActivationScreen.secondaryActionText))
+	@ViewBuilder var secondaryActionText: some View {
+        if isModelInit {
+            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.ActivationScreen.secondaryActionText).concat(Fiori.ActivationScreen.secondaryActionTextCumulative))
+        } else {
+            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.ActivationScreen.secondaryActionText))
+        }
     }
     
 	var isDescriptionTextEmptyView: Bool {

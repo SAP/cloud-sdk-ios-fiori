@@ -183,8 +183,15 @@ extension Array where Element: Variable {
         map { "static let \($0.trimmedName) = \($0.trimmedName.capitalizingFirst())()" }.joined(separator: "\n\t\t")
     }
 
+    var staticViewModifierCumulativePropertyDecls: String {
+        map { "static let \($0.trimmedName)Cumulative = \($0.trimmedName.capitalizingFirst())Cumulative()" }.joined(separator: "\n\t\t")
+    }
+
     var typealiasViewModifierDecls: String {
-        map { "typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier" }.joined(separator: "\n\t\t")
+        map { """
+        typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier
+                typealias \($0.trimmedName.capitalizingFirst())Cumulative = EmptyModifier
+        """ }.joined(separator: "\n\t\t")
     }
 
     public var extensionContrainedWhereEmptyView: String {

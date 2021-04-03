@@ -20,11 +20,19 @@ public struct KeyValueItem<Key: View, Value: View> {
 			self._value = value()
     }
 
-    var key: some View {
-        _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key))
+    @ViewBuilder var key: some View {
+        if isModelInit {
+            _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key).concat(Fiori.KeyValueItem.keyCumulative))
+        } else {
+            _key.modifier(keyModifier.concat(Fiori.KeyValueItem.key))
+        }
     }
-	var value: some View {
-        _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value))
+	@ViewBuilder var value: some View {
+        if isModelInit {
+            _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value).concat(Fiori.KeyValueItem.valueCumulative))
+        } else {
+            _value.modifier(valueModifier.concat(Fiori.KeyValueItem.value))
+        }
     }
     
 	var isValueEmptyView: Bool {

@@ -18,11 +18,17 @@ import SwiftUI
 extension Fiori {
     enum ContactItem {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
 		typealias DetailImage = EmptyModifier
+        typealias DetailImageCumulative = EmptyModifier
 		typealias ActionItems = EmptyModifier
+        typealias ActionItemsCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -42,6 +48,12 @@ extension Fiori {
 		static let descriptionText = DescriptionText()
 		static let detailImage = DetailImage()
 		static let actionItems = ActionItems()
+        static let titleCumulative = TitleCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
+		static let footnoteCumulative = FootnoteCumulative()
+		static let descriptionTextCumulative = DescriptionTextCumulative()
+		static let detailImageCumulative = DetailImageCumulative()
+		static let actionItemsCumulative = ActionItemsCumulative()
     }
 }
 

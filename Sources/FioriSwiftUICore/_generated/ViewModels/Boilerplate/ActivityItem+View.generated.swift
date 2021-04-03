@@ -18,7 +18,9 @@ import SwiftUI
 extension Fiori {
     enum ActivityItem {
         typealias Icon = EmptyModifier
+        typealias IconCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -34,6 +36,8 @@ extension Fiori {
         */
         static let icon = Icon()
 		static let subtitle = Subtitle()
+        static let iconCumulative = IconCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
     }
 }
 

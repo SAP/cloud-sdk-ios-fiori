@@ -18,8 +18,11 @@ import SwiftUI
 extension Fiori {
     enum TimelineGridItem {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Timestamp = EmptyModifier
+        typealias TimestampCumulative = EmptyModifier
 		typealias Status = EmptyModifier
+        typealias StatusCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -36,6 +39,9 @@ extension Fiori {
         static let title = Title()
 		static let timestamp = Timestamp()
 		static let status = Status()
+        static let titleCumulative = TitleCumulative()
+		static let timestampCumulative = TimestampCumulative()
+		static let statusCumulative = StatusCumulative()
     }
 }
 
