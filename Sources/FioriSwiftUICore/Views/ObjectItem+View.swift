@@ -64,6 +64,16 @@ extension Fiori {
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
             }
         }
+
+        typealias TitleCumulative = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
+        typealias StatusCumulative = EmptyModifier
+        typealias SubstatusCumulative = EmptyModifier
+        typealias DetailImageCumulative = EmptyModifier
+        typealias IconsCumulative = EmptyModifier
+        typealias ActionTextCumulative = EmptyModifier
         
         typealias Icons = EmptyModifier
         static let title = Title()
@@ -75,6 +85,15 @@ extension Fiori {
         static let detailImage = DetailImage()
         static let icons = Icons()
         static let actionText = ActionText()
+        static let titleCumulative = TitleCumulative()
+        static let subtitleCumulative = SubtitleCumulative()
+        static let footnoteCumulative = FootnoteCumulative()
+        static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let statusCumulative = StatusCumulative()
+        static let substatusCumulative = SubstatusCumulative()
+        static let detailImageCumulative = DetailImageCumulative()
+        static let iconsCumulative = IconsCumulative()
+        static let actionTextCumulative = ActionTextCumulative()
     }
 }
 

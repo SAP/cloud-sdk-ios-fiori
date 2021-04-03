@@ -18,7 +18,9 @@ import SwiftUI
 extension Fiori {
     enum KeyValueItem {
         typealias Key = EmptyModifier
+        typealias KeyCumulative = EmptyModifier
 		typealias Value = EmptyModifier
+        typealias ValueCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -34,6 +36,8 @@ extension Fiori {
         */
         static let key = Key()
 		static let value = Value()
+        static let keyCumulative = KeyCumulative()
+		static let valueCumulative = ValueCumulative()
     }
 }
 

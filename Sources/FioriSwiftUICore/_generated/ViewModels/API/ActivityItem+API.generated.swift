@@ -21,11 +21,19 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
 			self._subtitle = subtitle()
     }
 
-    var icon: some View {
-        _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon))
+    @ViewBuilder var icon: some View {
+        if isModelInit {
+            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon).concat(Fiori.ActivityItem.iconCumulative))
+        } else {
+            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle).concat(Fiori.ActivityItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle))
+        }
     }
     
 	var isIconEmptyView: Bool {

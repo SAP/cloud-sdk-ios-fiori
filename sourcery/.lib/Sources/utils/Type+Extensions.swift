@@ -145,6 +145,7 @@ public extension Type {
                     }
                 */
                 \(componentProperties.staticViewModifierPropertyDecls)
+                \(componentProperties.staticViewModifierCumulativePropertyDecls)
             }
         }
         """

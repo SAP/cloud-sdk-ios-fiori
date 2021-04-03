@@ -18,7 +18,9 @@ import SwiftUI
 extension Fiori {
     enum KPIItem {
         typealias Kpi = EmptyModifier
+        typealias KpiCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -34,6 +36,8 @@ extension Fiori {
         */
         static let kpi = Kpi()
 		static let subtitle = Subtitle()
+        static let kpiCumulative = KpiCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
     }
 }
 

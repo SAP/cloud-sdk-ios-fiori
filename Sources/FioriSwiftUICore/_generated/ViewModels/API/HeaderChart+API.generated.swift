@@ -30,17 +30,33 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
 			self._kpi = kpi()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.HeaderChart.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.HeaderChart.title).concat(Fiori.HeaderChart.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.HeaderChart.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle).concat(Fiori.HeaderChart.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.HeaderChart.subtitle))
+        }
     }
-	var trend: some View {
-        _trend.modifier(trendModifier.concat(Fiori.HeaderChart.trend))
+	@ViewBuilder var trend: some View {
+        if isModelInit {
+            _trend.modifier(trendModifier.concat(Fiori.HeaderChart.trend).concat(Fiori.HeaderChart.trendCumulative))
+        } else {
+            _trend.modifier(trendModifier.concat(Fiori.HeaderChart.trend))
+        }
     }
-	var kpi: some View {
-        _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
+	@ViewBuilder var kpi: some View {
+        if isModelInit {
+            _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi).concat(Fiori.HeaderChart.kpiCumulative))
+        } else {
+            _kpi.modifier(kpiModifier.concat(Fiori.HeaderChart.kpi))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {

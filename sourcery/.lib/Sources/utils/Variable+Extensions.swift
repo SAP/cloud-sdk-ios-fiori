@@ -90,8 +90,12 @@ public extension Variable {
     func resolvedViewModifierChain(type: Type) -> String {
         if annotations.keys.contains("no_style") == false {
             return """
-            var \(self.trimmedName): some View {
-                    _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)))
+            @ViewBuilder var \(self.trimmedName): some View {
+                    if isModelInit {
+                        _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)).concat(Fiori.\(type.componentName).\(self.trimmedName)Cumulative))
+                    } else {
+                        _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)))
+                    }
                 }
             """
         } else {

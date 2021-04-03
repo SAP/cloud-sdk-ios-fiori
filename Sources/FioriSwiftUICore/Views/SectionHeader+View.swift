@@ -6,6 +6,7 @@ extension Fiori {
     enum SectionHeader {
 //        typealias Title = EmptyModifier
         typealias Attribute = EmptyModifier
+        typealias AttributeCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -26,8 +27,12 @@ extension Fiori {
             }
         }
 
+        typealias TitleCumulative = EmptyModifier
+
         static let title = Title()
         static let attribute = Attribute()
+        static let titleCumulative = TitleCumulative()
+        static let attributeCumulative = AttributeCumulative()
     }
 }
 

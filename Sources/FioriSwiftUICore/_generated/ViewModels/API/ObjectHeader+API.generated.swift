@@ -45,26 +45,54 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 			self._detailImage = detailImage()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.ObjectHeader.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.ObjectHeader.title).concat(Fiori.ObjectHeader.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.ObjectHeader.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle).concat(Fiori.ObjectHeader.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote).concat(Fiori.ObjectHeader.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectHeader.footnote))
+        }
     }
-	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText))
+	@ViewBuilder var descriptionText: some View {
+        if isModelInit {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText).concat(Fiori.ObjectHeader.descriptionTextCumulative))
+        } else {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectHeader.descriptionText))
+        }
     }
-	var status: some View {
-        _status.modifier(statusModifier.concat(Fiori.ObjectHeader.status))
+	@ViewBuilder var status: some View {
+        if isModelInit {
+            _status.modifier(statusModifier.concat(Fiori.ObjectHeader.status).concat(Fiori.ObjectHeader.statusCumulative))
+        } else {
+            _status.modifier(statusModifier.concat(Fiori.ObjectHeader.status))
+        }
     }
-	var substatus: some View {
-        _substatus.modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus))
+	@ViewBuilder var substatus: some View {
+        if isModelInit {
+            _substatus.modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus).concat(Fiori.ObjectHeader.substatusCumulative))
+        } else {
+            _substatus.modifier(substatusModifier.concat(Fiori.ObjectHeader.substatus))
+        }
     }
-	var detailImage: some View {
-        _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
+	@ViewBuilder var detailImage: some View {
+        if isModelInit {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage).concat(Fiori.ObjectHeader.detailImageCumulative))
+        } else {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectHeader.detailImage))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {

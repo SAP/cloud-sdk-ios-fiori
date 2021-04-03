@@ -18,9 +18,13 @@ import SwiftUI
 extension Fiori {
     enum HeaderChart {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 		typealias Trend = EmptyModifier
+        typealias TrendCumulative = EmptyModifier
 		typealias Kpi = EmptyModifier
+        typealias KpiCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -38,6 +42,10 @@ extension Fiori {
 		static let subtitle = Subtitle()
 		static let trend = Trend()
 		static let kpi = Kpi()
+        static let titleCumulative = TitleCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
+		static let trendCumulative = TrendCumulative()
+		static let kpiCumulative = KpiCumulative()
     }
 }
 

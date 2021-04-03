@@ -20,11 +20,19 @@ public struct ListPickerItem<Key: View, Value: View> {
 			self._value = value()
     }
 
-    var key: some View {
-        _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key))
+    @ViewBuilder var key: some View {
+        if isModelInit {
+            _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key).concat(Fiori.ListPickerItem.keyCumulative))
+        } else {
+            _key.modifier(keyModifier.concat(Fiori.ListPickerItem.key))
+        }
     }
-	var value: some View {
-        _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value))
+	@ViewBuilder var value: some View {
+        if isModelInit {
+            _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value).concat(Fiori.ListPickerItem.valueCumulative))
+        } else {
+            _value.modifier(valueModifier.concat(Fiori.ListPickerItem.value))
+        }
     }
     
 	var isValueEmptyView: Bool {
