@@ -25,14 +25,26 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 			self._subtitle = subtitle()
     }
 
-    var detailImage: some View {
-        _detailImage.modifier(detailImageModifier.concat(Fiori.CollectionItem.detailImage))
+    @ViewBuilder var detailImage: some View {
+        if isModelInit {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.CollectionItem.detailImage).concat(Fiori.CollectionItem.detailImageCumulative))
+        } else {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.CollectionItem.detailImage))
+        }
     }
-	var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.CollectionItem.title))
+	@ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.CollectionItem.title).concat(Fiori.CollectionItem.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.CollectionItem.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle).concat(Fiori.CollectionItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.CollectionItem.subtitle))
+        }
     }
     
 	var isDetailImageEmptyView: Bool {

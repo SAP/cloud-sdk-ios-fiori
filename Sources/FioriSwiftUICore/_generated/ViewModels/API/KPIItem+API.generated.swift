@@ -21,11 +21,19 @@ public struct KPIItem<Kpi: View, Subtitle: View> {
 			self._subtitle = subtitle()
     }
 
-    var kpi: some View {
-        _kpi.modifier(kpiModifier.concat(Fiori.KPIItem.kpi))
+    @ViewBuilder var kpi: some View {
+        if isModelInit {
+            _kpi.modifier(kpiModifier.concat(Fiori.KPIItem.kpi).concat(Fiori.KPIItem.kpiCumulative))
+        } else {
+            _kpi.modifier(kpiModifier.concat(Fiori.KPIItem.kpi))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.KPIItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIItem.subtitle).concat(Fiori.KPIItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.KPIItem.subtitle))
+        }
     }
     
 	var isKpiEmptyView: Bool {

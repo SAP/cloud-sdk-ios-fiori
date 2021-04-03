@@ -47,26 +47,54 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, ActionText: View
 			self._icon = icon()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title).concat(Fiori.WelcomeScreen.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.WelcomeScreen.title))
+        }
     }
-	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText))
+	@ViewBuilder var descriptionText: some View {
+        if isModelInit {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText).concat(Fiori.WelcomeScreen.descriptionTextCumulative))
+        } else {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.WelcomeScreen.descriptionText))
+        }
     }
-	var actionText: some View {
-        _actionText.modifier(actionTextModifier.concat(Fiori.WelcomeScreen.actionText))
+	@ViewBuilder var actionText: some View {
+        if isModelInit {
+            _actionText.modifier(actionTextModifier.concat(Fiori.WelcomeScreen.actionText).concat(Fiori.WelcomeScreen.actionTextCumulative))
+        } else {
+            _actionText.modifier(actionTextModifier.concat(Fiori.WelcomeScreen.actionText))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle).concat(Fiori.WelcomeScreen.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.WelcomeScreen.subtitle))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote).concat(Fiori.WelcomeScreen.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.WelcomeScreen.footnote))
+        }
     }
-	var secondaryActionText: some View {
-        _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.WelcomeScreen.secondaryActionText))
+	@ViewBuilder var secondaryActionText: some View {
+        if isModelInit {
+            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.WelcomeScreen.secondaryActionText).concat(Fiori.WelcomeScreen.secondaryActionTextCumulative))
+        } else {
+            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.WelcomeScreen.secondaryActionText))
+        }
     }
-	var icon: some View {
-        _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
+	@ViewBuilder var icon: some View {
+        if isModelInit {
+            _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon).concat(Fiori.WelcomeScreen.iconCumulative))
+        } else {
+            _icon.modifier(iconModifier.concat(Fiori.WelcomeScreen.icon))
+        }
     }
     
 	var isDescriptionTextEmptyView: Bool {
