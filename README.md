@@ -265,7 +265,7 @@ To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed 
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
   // sourcery: no_style
   var actionItems_: [ActivityItemDT]?
-  func didSelect(_ activityItem: ActivityItemDT) {}
+  func didSelectActivityItem(_ activityItem: ActivityItemDT) {}
 }
 ```
 
@@ -276,12 +276,12 @@ Those annotations will be copied to the standard component interface (`Component
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-	func didSelect(_ activityItem: ActivityItemDataType) -> Void
+	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 ```
 
 
-Those changes have the effect that `ContactItem` will use a default implementation for actionItems in case the apap developer used the model or conten-based initializers.
+Those changes have the effect that `ContactItem` will use a default implementation for actionItems in case the app developer used the model or content-based initializers.
 
 ```swift
 extension ContactItem where Title == Text,
@@ -292,18 +292,18 @@ extension ContactItem where Title == Text,
 	ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
 
     public init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectClosure: model.didSelect(_:))
+        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectClosure: ((ActivityItemDataType) -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActivityItemsModel
-        if (actionItems != nil || didSelectClosure != nil) {
-            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectClosure: didSelectClosure))
+        if (actionItems != nil || didSelectActivityItem != nil) {
+            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
         } else {
             self._actionItems = ViewBuilder.buildEither(second: EmptyView())
         }
@@ -349,6 +349,30 @@ public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 ```
 
 This will add internal stored variable (`var internalStateChanged: Bool = false`) to KeyValueItem+API.generated.swift and can be used in extensions (written by developers).
+
+### Advanced: custom view-returning function builder
+
+Use sourcery annotation `// sourcery: customFunctionBuilder=<nameOfExistingCustomFunctionBuilder>` to declare the use of a custom view-returning `@_functionBuilder` (e.g. `@IconBuilder`) instead of SwiftUI's `@ViewBuilder`.
+
+```swift
+internal struct _Component: _ComponentGenerating {
+    // sourcery: no_style
+    // sourcery: backingComponent=IconStack
+    // sourcery: customFunctionBuilder=IconBuilder
+    var icons_: [IconStackItem]?
+}
+```
+
+The generated ViewModel initializer in `<Model>+API.generated.swift` as well as the generated conditional initializers in `<Model>+Init.generated.swift` will then use the custom function builder.
+
+```swift
+    public init(
+		@ViewBuilder detailImage: @escaping () -> DetailImage,
+		@IconBuilder icons: @escaping () -> Icons
+        ) { 
+		  // ...
+		}
+```
 
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   

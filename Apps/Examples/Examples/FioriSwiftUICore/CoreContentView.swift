@@ -27,6 +27,28 @@ struct CoreContentView: View {
                     Text("FioriButtonStyle")
                 }
             )
+            
+            NavigationLink(
+                destination: KPIExample()) {
+                Text("KPI")
+            }
+            
+            NavigationLink(
+                destination: WelcomeScreenSample()) {
+                Text("WelcomeScreen")
+            }
+            
+            NavigationLink(
+                destination: ActivationScreenSample()) {
+                Text("ActivationScreen")
+            }
+            
+            NavigationLink(
+                destination: ObjectItemExample(),
+                label: {
+                    Text("ObjectItem")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

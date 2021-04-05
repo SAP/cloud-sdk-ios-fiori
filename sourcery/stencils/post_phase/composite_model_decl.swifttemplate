@@ -31,6 +31,10 @@ for model in models {
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
+	let viewBuilderNilPropertyDecls = componentProperties.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
+	let viewBuilderEmptyViewPropertyDecls = componentProperties.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
+	let viewBuilderNilPropertyAssignment = componentProperties.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
+
 	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
 
     let viewBuilderInitParams = [
@@ -89,6 +93,9 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= privatePropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } %>
 
+    private var isModelInit: Bool = false
+	<%= viewBuilderNilPropertyDecls %>
+
     public init(
         <%= viewBuilderInitParams %>
         ) {
@@ -97,6 +104,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 
     <%= componentProperties.resolvedViewModifierChain(type: model) %>
     <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
+	<%= viewBuilderEmptyViewPropertyDecls %>
 }
 
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
@@ -107,6 +115,9 @@ extension <%= model.componentName %> where <%= componentProperties.extensionCons
 
     public init(<%= extensionModelInitParams %>) {
         <%= extensionModelInitParamsAssignments %>
+
+		isModelInit = true
+		<%= viewBuilderNilPropertyAssignment %>
     }
 }
 
@@ -116,6 +127,7 @@ extension <%= model.componentName %> where <%= componentProperties.extensionCons
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/<%= model.componentName %>+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
 //TODO: Implement <%= model.componentName %> `View` body
+//TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -134,6 +146,17 @@ import SwiftUI
 extension <%= model.componentName %>: View {
     public var body: some View {
         <# View body #>
+    }
+}
+
+// FIXME: - Implement <%= model.componentName %> specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct <%= model.componentName %>LibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(<%= model.componentName %>(model: LibraryPreviewData.Person.laurelosborn),
+                    category: .control)
     }
 }
 */

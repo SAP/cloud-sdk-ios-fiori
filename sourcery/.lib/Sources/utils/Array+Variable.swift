@@ -42,6 +42,49 @@ public extension Array where Element == Variable {
         map { "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
     }
 
+    /**
+     Creates internal "is<View>Nil" properties, related to optional component properties, as utilities to be used in to compute "is<View>EmptyView>" properties
+     ```
+     private let isSubtitleNil: Bool = false
+     ...
+     ```
+     */
+    var viewBuilderNilPropertyDecls: [String] {
+        filter { $0.isOptional == true }
+            .map { "private var is\($0.trimmedName.capitalizingFirst())Nil: Bool = false" }
+    }
+
+    /**
+     Creates internal computed "is<View>EmptyView>" properties, related to optional component properties, to compute the information if `EmptyView` is used nor not
+     ```
+     var isSubtitleEmptyView: Bool {
+         ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+     }
+     ...
+     ```
+     */
+    var viewBuilderEmptyViewPropertyDecls: [String] {
+        filter { $0.isOptional == true }
+            .map { """
+            var is\($0.trimmedName.capitalizingFirst())EmptyView: Bool {
+                    ((isModelInit && is\($0.trimmedName.capitalizingFirst())Nil) || \($0.trimmedName.capitalizingFirst()).self == EmptyView.self) ? true : false
+                }
+            """
+            }
+    }
+
+    /**
+     Creates assignment statements for is<View>Nil" properties (which are are related to optional component properties)
+     ```
+     isSubtitleNil = subtitle == nil ? true : false
+     ...
+     ```
+     */
+    var viewBuilderNilPropertyAssignment: [String] {
+        filter { $0.isOptional == true }
+            .map { "is\($0.trimmedName.capitalizingFirst())Nil = \($0.trimmedName) == nil ? true : false" }
+    }
+
     var dataTypePropertyDecls: [String] {
         map { "var _\($0.trimmedName): \($0.typeName) = nil" }
     }
@@ -55,7 +98,13 @@ public extension Array where Element == Variable {
      ```
      */
     var viewBuilderInitParams: [String] {
-        map { "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())" }
+        map {
+            if let cfb = $0.resolvedAnnotations("customFunctionBuilder").first {
+                return "@\(cfb) \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
+            } else {
+                return "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
+            }
+        }
     }
 
     /**
@@ -74,16 +123,16 @@ public extension Array where Element == Variable {
     }
 
     /**
-     Responsible for resolving view modifiers from default styling, and Environment property
+      Responsible for resolving view modifiers from default styling, and Environment property
 
-       Generates as follows:
-      ```
-      var title: some View {
-          _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
-      }
-      ```
-      - important: This is the ONLY view which should be used by developers in the layout construction
-           */
+        Generates as follows:
+       ```
+       var title: some View {
+           _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+       }
+       ```
+       - important: This is the ONLY view which should be used by developers in the layout construction
+     */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
     }
@@ -179,7 +228,11 @@ extension Array where Element: Variable {
         var output: [String] = []
         for variable in self {
             if !scenario.contains(variable) {
-                output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                if let cfb = variable.resolvedAnnotations("customFunctionBuilder").first {
+                    output.append("@\(cfb) \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                } else {
+                    output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                }
             }
         }
         return output
@@ -189,7 +242,11 @@ extension Array where Element: Variable {
         var output: [String] = []
         for variable in self {
             if scenario.contains(variable) {
-                output.append("\(variable.trimmedName): { EmptyView() }")
+                if variable.resolvedAnnotations("customFunctionBuilder").first != nil {
+                    output.append("\(variable.trimmedName): { }")
+                } else {
+                    output.append("\(variable.trimmedName): { EmptyView() }")
+                }
             } else {
                 output.append("\(variable.trimmedName): \(variable.trimmedName)")
             }

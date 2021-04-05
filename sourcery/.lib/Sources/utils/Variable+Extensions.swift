@@ -42,7 +42,7 @@ public extension Variable {
     }
 
     var backingSwiftUIComponent: String? {
-        self.definedInType?.resolvedAnnotations("backingComponent").first
+        self.definedInType?.resolvedAnnotations("backingComponent").first ?? resolvedAnnotations("backingComponent").first
     }
 
     var toSwiftUI: String {
@@ -54,7 +54,7 @@ public extension Variable {
         case "Image":
             return isOptional ? "\(self.trimmedName)!" : self.trimmedName
         default:
-            return "\(self.swiftUITypeName)(\(self.trimmedName))"
+            return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
         }
     }
 

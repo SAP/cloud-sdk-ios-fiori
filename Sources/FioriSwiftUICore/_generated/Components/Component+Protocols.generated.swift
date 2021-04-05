@@ -2,6 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
+
 public protocol TitleComponent {
     var title_: String { get }
 }
@@ -59,7 +60,10 @@ public protocol IconComponent {
 }
 
 public protocol IconsComponent {
-    var icons_: [String] { get }
+	// sourcery: backingComponent=IconStack
+	// sourcery: customFunctionBuilder=IconBuilder
+	// sourcery: no_style
+    var icons_: [IconStackItem]? { get }
 }
 
 public protocol ActionTitleComponent {
@@ -118,9 +122,28 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle_: String? { get }
 }
 
+
+// sourcery: backingComponent=Action
+public protocol ActionComponent {
+    var actionText_: String? { get }
+	func didSelectAction() -> Void
+}
+
 // sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
-    // sourcery: no_style
+	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-    func didSelect(_ activityItem: ActivityItemDataType) -> Void
+	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
+}
+
+// sourcery: backingComponent=SecondaryAction
+public protocol SecondaryActionComponent {
+    var secondaryActionText_: String? { get }
+	func didSelectSecondaryAction() -> Void
+}
+
+// sourcery: backingComponent=TextInput
+public protocol TextInputComponent {
+    var textFilled_: String? { get }
+	func onCommit() -> Void
 }

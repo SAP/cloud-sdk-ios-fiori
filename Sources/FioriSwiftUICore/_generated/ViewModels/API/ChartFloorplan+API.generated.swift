@@ -4,77 +4,100 @@ import SwiftUI
 
 public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxisTitle: View, SeriesTitles: View, CategoryAxisTitle: View> {
     @Environment(\.titleModifier) private var titleModifier
-    @Environment(\.subtitleModifier) private var subtitleModifier
-    @Environment(\.statusModifier) private var statusModifier
-    @Environment(\.valueAxisTitleModifier) private var valueAxisTitleModifier
-    @Environment(\.seriesTitlesModifier) private var seriesTitlesModifier
-    @Environment(\.categoryAxisTitleModifier) private var categoryAxisTitleModifier
+	@Environment(\.subtitleModifier) private var subtitleModifier
+	@Environment(\.statusModifier) private var statusModifier
+	@Environment(\.valueAxisTitleModifier) private var valueAxisTitleModifier
+	@Environment(\.seriesTitlesModifier) private var seriesTitlesModifier
+	@Environment(\.categoryAxisTitleModifier) private var categoryAxisTitleModifier
 
     private let _title: Title
-    private let _subtitle: Subtitle
-    private let _status: Status
-    private let _valueAxisTitle: ValueAxisTitle
-    private let _seriesTitles: SeriesTitles
-    private let _categoryAxisTitle: CategoryAxisTitle
+	private let _subtitle: Subtitle
+	private let _status: Status
+	private let _valueAxisTitle: ValueAxisTitle
+	private let _seriesTitles: SeriesTitles
+	private let _categoryAxisTitle: CategoryAxisTitle
 	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isStatusNil: Bool = false
+	private var isValueAxisTitleNil: Bool = false
+	private var isCategoryAxisTitleNil: Bool = false
+
     public init(
         @ViewBuilder title: @escaping () -> Title,
-        @ViewBuilder subtitle: @escaping () -> Subtitle,
-        @ViewBuilder status: @escaping () -> Status,
-        @ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
-        @ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
-        @ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
-    ) {
-        self._title = title()
-        self._subtitle = subtitle()
-        self._status = status()
-        self._valueAxisTitle = valueAxisTitle()
-        self._seriesTitles = seriesTitles()
-        self._categoryAxisTitle = categoryAxisTitle()
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder status: @escaping () -> Status,
+		@ViewBuilder valueAxisTitle: @escaping () -> ValueAxisTitle,
+		@ViewBuilder seriesTitles: @escaping () -> SeriesTitles,
+		@ViewBuilder categoryAxisTitle: @escaping () -> CategoryAxisTitle
+        ) {
+            self._title = title()
+			self._subtitle = subtitle()
+			self._status = status()
+			self._valueAxisTitle = valueAxisTitle()
+			self._seriesTitles = seriesTitles()
+			self._categoryAxisTitle = categoryAxisTitle()
     }
 
     var title: some View {
         _title.modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
     }
-
-    var subtitle: some View {
+	var subtitle: some View {
         _subtitle.modifier(subtitleModifier.concat(Fiori.ChartFloorplan.subtitle))
     }
-
-    var status: some View {
+	var status: some View {
         _status.modifier(statusModifier.concat(Fiori.ChartFloorplan.status))
     }
-
-    var valueAxisTitle: some View {
+	var valueAxisTitle: some View {
         _valueAxisTitle.modifier(valueAxisTitleModifier.concat(Fiori.ChartFloorplan.valueAxisTitle))
     }
-
-    var seriesTitles: some View {
+	var seriesTitles: some View {
         _seriesTitles.modifier(seriesTitlesModifier.concat(Fiori.ChartFloorplan.seriesTitles))
     }
-
-    var categoryAxisTitle: some View {
+	var categoryAxisTitle: some View {
         _categoryAxisTitle.modifier(categoryAxisTitleModifier.concat(Fiori.ChartFloorplan.categoryAxisTitle))
+    }
+    
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isStatusEmptyView: Bool {
+        ((isModelInit && isStatusNil) || Status.self == EmptyView.self) ? true : false
+    }
+
+	var isValueAxisTitleEmptyView: Bool {
+        ((isModelInit && isValueAxisTitleNil) || ValueAxisTitle.self == EmptyView.self) ? true : false
+    }
+
+	var isCategoryAxisTitleEmptyView: Bool {
+        ((isModelInit && isCategoryAxisTitleNil) || CategoryAxisTitle.self == EmptyView.self) ? true : false
     }
 }
 
-public extension ChartFloorplan where Title == Text,
-    Subtitle == _ConditionalContent<Text, EmptyView>,
-    Status == _ConditionalContent<Text, EmptyView>,
-    ValueAxisTitle == _ConditionalContent<Text, EmptyView>,
-    SeriesTitles == Text,
-    CategoryAxisTitle == _ConditionalContent<Text, EmptyView>
-{
-    init(model: ChartFloorplanModel) {
+extension ChartFloorplan where Title == Text,
+		Subtitle == _ConditionalContent<Text, EmptyView>,
+		Status == _ConditionalContent<Text, EmptyView>,
+		ValueAxisTitle == _ConditionalContent<Text, EmptyView>,
+		SeriesTitles == Text,
+		CategoryAxisTitle == _ConditionalContent<Text, EmptyView> {
+
+    public init(model: ChartFloorplanModel) {
         self.init(title: model.title_, subtitle: model.subtitle_, status: model.status_, valueAxisTitle: model.valueAxisTitle_, seriesTitles: model.seriesTitles_, categoryAxisTitle: model.categoryAxisTitle_)
     }
 
-    init(title: String, subtitle: String? = nil, status: String? = nil, valueAxisTitle: String? = nil, seriesTitles: [String] = [], categoryAxisTitle: String? = nil) {
+    public init(title: String, subtitle: String? = nil, status: String? = nil, valueAxisTitle: String? = nil, seriesTitles: [String] = [], categoryAxisTitle: String? = nil) {
         self._title = Text(title)
-        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
-        self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
+		self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isStatusNil = status == nil ? true : false
+		isValueAxisTitleNil = valueAxisTitle == nil ? true : false
+		isCategoryAxisTitleNil = categoryAxisTitle == nil ? true : false
     }
 }

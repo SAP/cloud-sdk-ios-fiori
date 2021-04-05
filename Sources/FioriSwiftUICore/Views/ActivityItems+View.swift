@@ -28,7 +28,7 @@ extension ActivityItems: View {
     public var body: some View {
         ActivityControlLayoutContainer(_actionItems ?? []) { activity in
             ActivityButtonView(image: activity.icon) {
-                if let actionHandler = _didSelectClosure {
+                if let actionHandler = _didSelectActivityItem {
                     actionHandler(activity)
                 }
             }
