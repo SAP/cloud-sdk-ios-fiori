@@ -37,6 +37,9 @@ This module contains both the Fiori palette information which is already consume
 > **WARNING**: [concepts](./GeneratedComponentConcepts.md) and implementation for generated components is `in-development` and can change at any time!!! 
 
 ### Component Generation
+
+Not relevant for app developers ("Consumers"). The following information are relevant for SDK maintainers and contributors in order to add new components.
+
 To ensure API consistency and to leverage common implementation logic, we use a component generation pattern when possible.  These scripts are located in the `sourcery/` directory, and should be executed as follows:
 
 ```bash
@@ -388,6 +391,31 @@ extension ProfileHeader {
   public init(model: ProfileHeaderModel, @ViewBuilder actionItems: @escaping () -> ActionItems) {
     //...
   }
+```
+
+Supplying the arbitrary view shall be possible for an app developer. Therefore appropriate conditional initializers will be generated in `<Component>+Init.generated` file
+
+```swift
+extension ProfileHeader where ActionItems == EmptyView {
+    public init(
+        @ViewBuilder title: @escaping () -> Title,
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder footnote: @escaping () -> Footnote,
+		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
+		@ViewBuilder detailImage: @escaping () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			detailImage: detailImage,
+			actionItems: { EmptyView() }
+        )
+    }
+}
+
+/// and other combinations in which `ActionItems == EmptyView`
 ```
 
 ### Advanced: add property declaration to ViewModel

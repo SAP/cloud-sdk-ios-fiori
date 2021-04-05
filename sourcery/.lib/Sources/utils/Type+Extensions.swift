@@ -37,6 +37,13 @@ public extension Type {
         inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables }
     }
 
+    // add_view_builder_params are no Swift properties and therefore `Variable` property values are faked and cannot be relied on other than `name`
+    var addViewBuilderParamsAsVariables: [Variable] {
+        self.resolvedAnnotations("add_view_builder_params").map {
+            Variable(name: $0, typeName: TypeName("String?"), type: nil, accessLevel: (read: SourceryRuntime.AccessLevel.public, write: SourceryRuntime.AccessLevel.public), isComputed: false, isStatic: false, defaultValue: nil, attributes: [:], annotations: [:], definedInTypeName: nil)
+        }
+    }
+
     func resolvedAnnotations(_ name: String) -> [String] {
         if let string = self.annotations[name] as? String {
             return [string]
@@ -57,9 +64,26 @@ public extension Type {
             .map { "@ViewBuilder \($0): @escaping () -> \($0.capitalizingFirst())" }
     }
 
+    func add_view_builder_params_extensionInitParamWhereEmptyView(scenario: [Variable]) -> [String] {
+        self.addViewBuilderParamsAsVariables.extensionInitParamWhereEmptyView(scenario: scenario)
+    }
+
     var add_view_builder_paramsViewBuilderInitParamAssignment: [String] {
         self.resolvedAnnotations("add_view_builder_params")
             .map { "self._\($0) = \($0)()" }
+    }
+
+    func optionalPropertySequences(includingAddViewBuilderParams: Bool = true) -> [[Variable]] {
+        var sequences: [[Variable]] = []
+        var optionalProperties = self.allVariables.filter { $0.isOptional }
+        if includingAddViewBuilderParams {
+            optionalProperties.append(contentsOf: self.addViewBuilderParamsAsVariables)
+        }
+        guard optionalProperties.count > 0 else { return [] }
+        for i in 1 ..< optionalProperties.count {
+            sequences.append(contentsOf: optionalProperties.combinations(ofCount: i).map { $0 })
+        }
+        return sequences
     }
     
     var add_view_builder_paramsResolvedViewModifierChain: [String] {
@@ -76,6 +100,10 @@ public extension Type {
     var add_view_builder_paramsExtensionModelInitParamsChaining: [String] {
         self.resolvedAnnotations("add_view_builder_params")
             .map { "\($0): \($0)" }
+    }
+
+    func add_view_builder_params_extensionInitParamAssignmentWhereEmptyView(scenario: [Variable]) -> [String] {
+        self.addViewBuilderParamsAsVariables.extensionInitParamAssignmentWhereEmptyView(scenario: scenario)
     }
     
     var add_env_propsDecls: [String] {
