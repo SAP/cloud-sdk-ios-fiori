@@ -22,6 +22,15 @@ public enum TestRowData {
         return output
     }
     
+    static func generateNewRow(column: Int) -> TableRowItem {
+        var data: [DataItem] = []
+        for i in 0 ..< column {
+            let textItem = DataTextItem("new item")
+            data.append(textItem)
+        }
+        return TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: data)
+    }
+    
     static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
         var output: [ColumnAttribute] = []
         for i in 0 ..< column {
@@ -32,7 +41,7 @@ public enum TestRowData {
         }
         return output
     }
-
+    
     static func generateData(row: Int, column: Int) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [String] = []
@@ -44,7 +53,7 @@ public enum TestRowData {
         }
         
         let model = TableModel(headerTitles: titles, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: false)
-        model.columnAttributes = self.generateColumnAttributes(column: 12)
+        //        model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.selectedIndex = [2, 3]
         
         return model
@@ -61,6 +70,15 @@ struct TestTableView: View {
                 .environmentObject(TableLayoutManager(model: model))
                 .environmentObject(TableDataManager(selectedIndexes: model.selectedIndex, rowData: model.rowData))
                 .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Add one row") {
+                            DispatchQueue.main.async {
+                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
+                            }
+                        }
+                    }
+                }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }
