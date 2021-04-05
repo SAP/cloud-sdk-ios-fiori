@@ -22,9 +22,9 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
-                destination: FioriButtonStyleExample(),
+                destination: FioriButtonContentView(),
                 label: {
-                    Text("FioriButtonStyle")
+                    Text("FioriButton")
                 }
             )
             

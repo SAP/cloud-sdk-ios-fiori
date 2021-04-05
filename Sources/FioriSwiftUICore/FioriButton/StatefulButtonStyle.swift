@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct FioriButtonStyle: PrimitiveButtonStyle {
+public struct StatefulButtonStyle: PrimitiveButtonStyle {
     @Environment(\.isEnabled) var isEnabled
     
     // TODO: style configuration struct?
@@ -30,7 +30,7 @@ public struct FioriButtonStyle: PrimitiveButtonStyle {
     }
     
     struct EnabledButton: View {
-        @State private var pressed = false
+        @State var pressed = false
         
         let configuration: PrimitiveButtonStyle.Configuration
         let color: Color
