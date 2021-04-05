@@ -9,7 +9,7 @@ public struct TableDataView: View {
     @EnvironmentObject var layoutManager: TableLayoutManager
     @EnvironmentObject var dataManager: TableDataManager
         
-    var body: some View {
+    public var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
         }

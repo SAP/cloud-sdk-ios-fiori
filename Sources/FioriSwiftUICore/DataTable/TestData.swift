@@ -63,24 +63,16 @@ public enum TestRowData {
 public struct TestTableView: View {
     @ObservedObject var model: TableModel = TestRowData.generateData(row: 30, column: 12)
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         NavigationView {
             TableDataView()
                 .environmentObject(model)
                 .environmentObject(TableLayoutManager(model: model))
                 .environmentObject(TableDataManager(selectedIndexes: model.selectedIndex, rowData: model.rowData))
                 .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Add one row") {
-                            DispatchQueue.main.async {
-                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
-                            }
-                        }
-                    }
-                }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
