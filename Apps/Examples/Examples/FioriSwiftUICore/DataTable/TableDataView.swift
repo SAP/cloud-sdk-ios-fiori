@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TableDataView: View {
+public struct TableDataView: View {
     @EnvironmentObject var model: TableModel
     @Environment(\.layoutDirection) var layoutDirection
     @Environment(\.horizontalSizeClass) var horizontalSizeClass

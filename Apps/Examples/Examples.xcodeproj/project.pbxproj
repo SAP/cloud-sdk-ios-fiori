@@ -122,29 +122,6 @@
 		8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */; };
 		8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */; };
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
-		AB1567F325EF13F500B1DEB1 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D425EF13EF00B1DEB1 /* DataItem.swift */; };
-		AB1567F425EF13F500B1DEB1 /* DataTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */; };
-		AB1567F725EF13F500B1DEB1 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567D825EF13EF00B1DEB1 /* TestView.swift */; };
-		AB1567F925EF13F500B1DEB1 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DA25EF13EF00B1DEB1 /* TestData.swift */; };
-		AB1567FB25EF13F500B1DEB1 /* TableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DC25EF13F100B1DEB1 /* TableModel.swift */; };
-		AB1567FD25EF13F500B1DEB1 /* ItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567DE25EF13F100B1DEB1 /* ItemView.swift */; };
-		AB15680225EF13F500B1DEB1 /* DataImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */; };
-		AB15680325EF13F500B1DEB1 /* BackgroundForRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */; };
-		AB15680525EF13F500B1DEB1 /* TableDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E625EF13F300B1DEB1 /* TableDataView.swift */; };
-		AB15680725EF13F500B1DEB1 /* GridTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567E825EF13F300B1DEB1 /* GridTableView.swift */; };
-		AB15680A25EF13F500B1DEB1 /* TableListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */; };
-		AB15680B25EF13F500B1DEB1 /* TableViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */; };
-		AB15680D25EF13F500B1DEB1 /* TableContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567EE25EF13F500B1DEB1 /* TableContext.swift */; };
-		AB15680F25EF13F500B1DEB1 /* TableUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1567F025EF13F500B1DEB1 /* TableUtility.swift */; };
-		AB15681125EF14B700B1DEB1 /* TableListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681025EF14B700B1DEB1 /* TableListView.swift */; };
-		AB15681325EF14E800B1DEB1 /* TableListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681225EF14E800B1DEB1 /* TableListItemView.swift */; };
-		AB15681525F30B0E00B1DEB1 /* TableRowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */; };
-		AB15681725F6E6CB00B1DEB1 /* LeadingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */; };
-		AB15681925F70BE100B1DEB1 /* TrailingAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */; };
-		AB15681B25FAA97700B1DEB1 /* ItemExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */; };
-		AB21D65E26095243007F89A9 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB21D65D26095243007F89A9 /* ViewExtensions.swift */; };
-		AB309F6525FAD785005DF41F /* TableLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB309F6425FAD785005DF41F /* TableLayoutManager.swift */; };
-		ABF8516B261643AD00193265 /* ColumnAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABF8516A261643AD00193265 /* ColumnAttribute.swift */; };
 		B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */; };
 		B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */; };
 		B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */; };
@@ -320,29 +297,6 @@
 		8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChartSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarveyBallSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
-		AB1567D425EF13EF00B1DEB1 /* DataItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
-		AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTextItem.swift; sourceTree = "<group>"; };
-		AB1567D825EF13EF00B1DEB1 /* TestView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
-		AB1567DA25EF13EF00B1DEB1 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
-		AB1567DC25EF13F100B1DEB1 /* TableModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
-		AB1567DE25EF13F100B1DEB1 /* ItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemView.swift; sourceTree = "<group>"; };
-		AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataImageItem.swift; sourceTree = "<group>"; };
-		AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundForRow.swift; sourceTree = "<group>"; };
-		AB1567E625EF13F300B1DEB1 /* TableDataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableDataView.swift; sourceTree = "<group>"; };
-		AB1567E825EF13F300B1DEB1 /* GridTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTableView.swift; sourceTree = "<group>"; };
-		AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListItem.swift; sourceTree = "<group>"; };
-		AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewLayout.swift; sourceTree = "<group>"; };
-		AB1567EE25EF13F500B1DEB1 /* TableContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableContext.swift; sourceTree = "<group>"; };
-		AB1567F025EF13F500B1DEB1 /* TableUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableUtility.swift; sourceTree = "<group>"; };
-		AB15681025EF14B700B1DEB1 /* TableListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListView.swift; sourceTree = "<group>"; };
-		AB15681225EF14E800B1DEB1 /* TableListItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableListItemView.swift; sourceTree = "<group>"; };
-		AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableRowItem.swift; sourceTree = "<group>"; };
-		AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingAccessoryView.swift; sourceTree = "<group>"; };
-		AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingAccessoryView.swift; sourceTree = "<group>"; };
-		AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemExtensions.swift; sourceTree = "<group>"; };
-		AB21D65D26095243007F89A9 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
-		AB309F6425FAD785005DF41F /* TableLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableLayoutManager.swift; sourceTree = "<group>"; };
-		ABF8516A261643AD00193265 /* ColumnAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColumnAttribute.swift; sourceTree = "<group>"; };
 		B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionProfiles.swift; sourceTree = "<group>"; };
 		B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionCollectionView.swift; sourceTree = "<group>"; };
 		B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataProtocol.swift; sourceTree = "<group>"; };
@@ -619,7 +573,6 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
-				AB1567D125EF13B900B1DEB1 /* DataTable */,
 				691DE21725F2A2F000094D4A /* KPI */,
 				B8D4376B25F97EC50024EE7D /* ObjectItem */,
 				1F3C939B25E05E0200A99A07 /* FioriButtonStyle */,
@@ -729,34 +682,6 @@
 			path = FioriIntegrationCards;
 			sourceTree = "<group>";
 		};
-		AB1567D125EF13B900B1DEB1 /* DataTable */ = {
-			isa = PBXGroup;
-			children = (
-				AB15681025EF14B700B1DEB1 /* TableListView.swift */,
-				AB15681225EF14E800B1DEB1 /* TableListItemView.swift */,
-				AB1567E425EF13F300B1DEB1 /* BackgroundForRow.swift */,
-				AB1567E325EF13F100B1DEB1 /* DataImageItem.swift */,
-				AB15681A25FAA97600B1DEB1 /* ItemExtensions.swift */,
-				AB1567D525EF13EF00B1DEB1 /* DataTextItem.swift */,
-				AB1567D425EF13EF00B1DEB1 /* DataItem.swift */,
-				AB1567E625EF13F300B1DEB1 /* TableDataView.swift */,
-				AB1567E825EF13F300B1DEB1 /* GridTableView.swift */,
-				AB1567DE25EF13F100B1DEB1 /* ItemView.swift */,
-				AB21D65D26095243007F89A9 /* ViewExtensions.swift */,
-				AB15681625F6E6CB00B1DEB1 /* LeadingAccessoryView.swift */,
-				AB15681825F70BE100B1DEB1 /* TrailingAccessoryView.swift */,
-				AB15681425F30B0E00B1DEB1 /* TableRowItem.swift */,
-				AB1567EE25EF13F500B1DEB1 /* TableContext.swift */,
-				AB309F6425FAD785005DF41F /* TableLayoutManager.swift */,
-				AB1567EC25EF13F500B1DEB1 /* TableViewLayout.swift */,
-				AB1567EB25EF13F400B1DEB1 /* TableListItem.swift */,
-				AB1567DC25EF13F100B1DEB1 /* TableModel.swift */,
-				ABF8516A261643AD00193265 /* ColumnAttribute.swift */,
-				AB1567F025EF13F500B1DEB1 /* TableUtility.swift */,
-				AB1567DA25EF13EF00B1DEB1 /* TestData.swift */,
-				AB1567D825EF13EF00B1DEB1 /* TestView.swift */,
-			);
-			path = DataTable;
 		B80DA9C32612A54E00C0B2E9 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -948,14 +873,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
-				AB15681125EF14B700B1DEB1 /* TableListView.swift in Sources */,
-				AB15680D25EF13F500B1DEB1 /* TableContext.swift in Sources */,
-				AB15681B25FAA97700B1DEB1 /* ItemExtensions.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
 				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
-				AB1567F925EF13F500B1DEB1 /* TestData.swift in Sources */,
-				AB15681725F6E6CB00B1DEB1 /* LeadingAccessoryView.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
@@ -964,27 +884,16 @@
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
 				8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */,
-				AB15681525F30B0E00B1DEB1 /* TableRowItem.swift in Sources */,
-				AB15680325EF13F500B1DEB1 /* BackgroundForRow.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
-				AB15680225EF13F500B1DEB1 /* DataImageItem.swift in Sources */,
-				AB15680F25EF13F500B1DEB1 /* TableUtility.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F3C939D25E05E7100A99A07 /* FioriButtonStyle.swift in Sources */,
-				AB1567FB25EF13F500B1DEB1 /* TableModel.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8A5579EF24C1293C0098003A /* TestCases.swift in Sources */,
-				AB15680725EF13F500B1DEB1 /* GridTableView.swift in Sources */,
 				8A5579E324C1293C0098003A /* InlineTestCases.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
-				AB15680A25EF13F500B1DEB1 /* TableListItem.swift in Sources */,
-				AB15680525EF13F500B1DEB1 /* TableDataView.swift in Sources */,
-				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
-				AB15680B25EF13F500B1DEB1 /* TableViewLayout.swift in Sources */,
-				AB21D65E26095243007F89A9 /* ViewExtensions.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
 				B80DA9C0260C1DAB00C0B2E9 /* View+Extensions.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
@@ -992,21 +901,13 @@
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */,
 				8A557A1124C1293C0098003A /* SegmentedControl+Chart.swift in Sources */,
-				AB1567F325EF13F500B1DEB1 /* DataItem.swift in Sources */,
 				B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */,
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
-				AB15681925F70BE100B1DEB1 /* TrailingAccessoryView.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
-				AB15681325EF14E800B1DEB1 /* TableListItemView.swift in Sources */,
-				AB1567F425EF13F500B1DEB1 /* DataTextItem.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
-				ABF8516B261643AD00193265 /* ColumnAttribute.swift in Sources */,
 				8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
-				AB1567FD25EF13F500B1DEB1 /* ItemView.swift in Sources */,
-				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
-				AB309F6525FAD785005DF41F /* TableLayoutManager.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
@@ -1019,7 +920,6 @@
 				B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */,
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
-				AB1567F725EF13F500B1DEB1 /* TestView.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
 				8AD9DFB725D49967007448EC /* StylingTextStyleExample.swift in Sources */,
 				8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */,
@@ -1129,7 +1029,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1183,7 +1083,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

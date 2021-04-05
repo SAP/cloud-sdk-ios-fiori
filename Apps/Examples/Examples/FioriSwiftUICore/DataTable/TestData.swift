@@ -60,7 +60,7 @@ public enum TestRowData {
     }
 }
 
-struct TestTableView: View {
+public struct TestTableView: View {
     @ObservedObject var model: TableModel = TestRowData.generateData(row: 30, column: 12)
     
     var body: some View {
