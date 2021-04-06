@@ -34,7 +34,7 @@ public extension Type {
     }
 
     func flattenedComponentProperties(contextType: [String: Type]) -> [Variable] {
-        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables }
+        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables.reversed() }
     }
 
     // add_view_builder_params are no Swift properties and therefore `Variable` property values are faked and cannot be relied on other than `name`
@@ -75,7 +75,7 @@ public extension Type {
 
     func optionalPropertySequences(includingAddViewBuilderParams: Bool = true) -> [[Variable]] {
         var sequences: [[Variable]] = []
-        var optionalProperties = self.allVariables.filter { $0.isOptional }
+        var optionalProperties = self.allVariables.filter { $0.isRepresentableByView }.filter { $0.isOptional }
         if includingAddViewBuilderParams {
             optionalProperties.append(contentsOf: self.addViewBuilderParamsAsVariables)
         }

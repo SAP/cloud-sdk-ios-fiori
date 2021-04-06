@@ -117,3 +117,21 @@ public extension Variable {
         }
     }
 }
+
+public extension Variable {
+    var isRepresentableByView: Bool {
+        !annotations.keys.contains("no_view")
+    }
+
+    var viewBuilderDecl: String {
+        if let cfb = self.resolvedAnnotations("customFunctionBuilder").first {
+            return "@\(cfb) \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+        } else {
+            return "@ViewBuilder \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+        }
+    }
+
+    var propDecl: String {
+        "\(self.trimmedName): \(self.typeName)"
+    }
+}

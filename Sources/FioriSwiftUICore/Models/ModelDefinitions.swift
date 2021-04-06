@@ -45,6 +45,9 @@ public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 
 // sourcery: generated_component
+public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+
+// sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
 // sourcery: generated_component_not_configurable

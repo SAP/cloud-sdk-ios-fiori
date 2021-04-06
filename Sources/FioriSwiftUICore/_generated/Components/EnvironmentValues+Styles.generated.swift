@@ -1244,6 +1244,13 @@ public extension View {
 
 
 	extension EnvironmentValues {
+	}
+
+	public extension View {
+	}
+
+
+	extension EnvironmentValues {
 		public var secondaryActionTextStyle: TextStyle {
 			get { return self[SecondaryActionTextStyleKey.self] }
 			set { self[SecondaryActionTextStyleKey.self] = newValue }

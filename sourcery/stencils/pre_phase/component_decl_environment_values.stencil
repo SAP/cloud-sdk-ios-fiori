@@ -15,7 +15,7 @@ import SwiftUI
 {% for type in types.implementing._ComponentGenerating %}
 
 extension EnvironmentValues {
-{% for variable in type.variables where variable|!annotated:"no_style" %}
+{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 {% set keyname %}{{NAME | upperFirstLetter }}StyleKey{% endset %}
 {% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
@@ -33,7 +33,7 @@ extension EnvironmentValues {
 }
 
 public extension View {
-{% for variable in type.variables where variable|!annotated:"no_style" %}
+{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 {% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 
@@ -77,7 +77,7 @@ public extension View {
 {% for type in types.implementing._ComponentMultiPropGenerating %}
 
 	extension EnvironmentValues {
-	{% for variable in type.variables where variable|!annotated:"no_style" %}
+	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 	{% set keyname %}{{NAME | upperFirstLetter }}StyleKey{% endset %}
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
@@ -95,7 +95,7 @@ public extension View {
 	}
 
 	public extension View {
-	{% for variable in type.variables where variable|!annotated:"no_style" %}
+	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 

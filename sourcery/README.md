@@ -27,3 +27,43 @@ For Swift templates you can outsource logic to a local utility Swift package loc
 
 - Sourcery built-in daemon (`--watch`) does not work properly for Swift templates
 - To uptake changes in utility Swift package run Sourcery with `--disableCache` option
+- To quickly trigger code generation from VSCode as a task to run (Command+R) you can create `.vscode/tasks.json` in root folder
+	```
+	{
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Generate everything",
+				"type": "shell",
+				"command": "bash allPhasesNoCache.sh",
+				"options": {
+					"cwd": "${workspaceFolder}/sourcery"
+				}
+			},
+			{
+				"label": "Generate Pre-Phase (Components)",
+				"type": "shell",
+				"command": "sourcery --config .phase_pre_sourcery.yml --disableCache",
+				"options": {
+					"cwd": "${workspaceFolder}/sourcery"
+				}
+			},
+			{
+				"label": "Generate Main-Phase (Models)",
+				"type": "shell",
+				"command": "sourcery --config .phase_main_sourcery.yml --disableCache",
+				"options": {
+					"cwd": "${workspaceFolder}/sourcery"
+				}
+			},
+			{
+				"label": "Generate Post-Phase (Composites)",
+				"type": "shell",
+				"command": "sourcery --config .phase_post_sourcery.yml --disableCache",
+				"options": {
+					"cwd": "${workspaceFolder}/sourcery"
+				}
+			}
+		]
+	}
+	```
