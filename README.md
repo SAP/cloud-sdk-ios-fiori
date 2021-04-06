@@ -456,6 +456,50 @@ The generated ViewModel initializer in `<Model>+API.generated.swift` as well as 
 		}
 ```
 
+### Advanced: component property not representable as view
+
+Use sourcery annotation `// sourcery: no_view` on a property which shall not be represented as a view. The property will still be used in the initializers but does not have the @ViewBuilder property wrapper and is declared with its original data type.
+
+```swift
+internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
+    // sourcery: no_view
+    var fraction_: Double? { get }
+}
+```
+
+Result:
+
+```swift
+public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> { // no `Fraction: View` !
+    @Environment(\.kpiModifier) private var kpiModifier
+	@Environment(\.subtitleModifier) private var subtitleModifier
+	@Environment(\.footnoteModifier) private var footnoteModifier
+
+    private let _kpi: Kpi
+	private let _fraction: Double? // data type is used!
+	private let _subtitle: Subtitle
+	private let _footnote: Footnote
+	
+    private var isModelInit: Bool = false
+	private var isKpiNil: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+
+    public init(
+        @ViewBuilder kpi: @escaping () -> Kpi,
+		fraction: Double?, // data type is used!
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder footnote: @escaping () -> Footnote
+        ) {
+            self._kpi = kpi()
+			self._fraction = fraction // direct assignment
+			self._subtitle = subtitle()
+			self._footnote = footnote()
+    }
+    // ...
+}
+```
+
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   
 
