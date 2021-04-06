@@ -40,6 +40,7 @@ struct DrawingPad: View {
     var strokeColor: Color
     var lineWidth: CGFloat
     var backgroundColor: Color
+    let signaturePadding: CGFloat = 20
     
     var body: some View {
         let v = GeometryReader { geometry in
@@ -71,11 +72,11 @@ struct DrawingPad: View {
         }
         if self.isSave {
             let path = createUIBezierPath(drawings: drawings)
-            let size = CGSize(width: path.bounds.size.width + 20, height: path.bounds.size.height + 20)
+            let size = CGSize(width: path.bounds.size.width + signaturePadding, height: path.bounds.size.height + signaturePadding)
             UIGraphicsBeginImageContextWithOptions(size, false, 1)
             let color = UIColor.white
             color.setFill()
-            let origin = CGPoint(x: path.bounds.origin.x - 10, y: path.bounds.origin.y - 10)
+            let origin = CGPoint(x: path.bounds.origin.x - CGFloat(signaturePadding * 0.5), y: path.bounds.origin.y - CGFloat(signaturePadding * 0.5))
             path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
             UIRectFill(CGRect(origin: path.bounds.origin, size: size))
             let strokeColor = UIColor.black
