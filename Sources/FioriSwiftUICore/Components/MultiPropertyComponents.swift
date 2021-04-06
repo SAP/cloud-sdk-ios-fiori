@@ -27,3 +27,8 @@ internal protocol _TextInput: _ComponentMultiPropGenerating {
     var textFilled_: String? { get }
     func onCommit() // action handler
 }
+
+internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
+    // sourcery: no_view
+    var fraction_: Double? { get }
+}
