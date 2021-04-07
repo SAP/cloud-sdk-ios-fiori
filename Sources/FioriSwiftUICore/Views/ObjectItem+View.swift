@@ -49,7 +49,7 @@ extension Fiori {
         struct DetailImage: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .frame(minWidth: 28, maxWidth: 65, minHeight: 28, maxHeight: 65)
+//                    .frame(minWidth: 28, idealWidth: 45, maxWidth: 65, minHeight: 28, idealHeight: 45, maxHeight: 65, alignment: .topLeading)
                     .cornerRadius(4)
             }
         }
@@ -60,6 +60,12 @@ extension Fiori {
                     .font(.callout)
                     .lineLimit(2)
                     .foregroundColor(Color.preferredColor(.tintColorDark))
+            }
+        }
+        
+        struct ActionTextCumulative: ViewModifier {
+            func body(content: Content) -> some View {
+                content
                     .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
             }
@@ -73,7 +79,6 @@ extension Fiori {
         typealias SubstatusCumulative = EmptyModifier
         typealias DetailImageCumulative = EmptyModifier
         typealias IconsCumulative = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
         
         typealias Icons = EmptyModifier
         static let title = Title()
@@ -154,11 +159,10 @@ extension ObjectItem: View {
                 } else {
                     HStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
-                            //                        if !isDetailImageEmptyView {
-                            detailImage
-                                .clipped()
-                            Spacer().frame(width: 12)
-                            //                        }
+                            if !isDetailImageEmptyView {
+                                detailImage.clipped()
+                                Spacer().frame(width: 12)
+                            }
                             
                             title.lineLimit(1)
                             
