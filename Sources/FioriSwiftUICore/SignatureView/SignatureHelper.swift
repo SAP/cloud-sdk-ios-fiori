@@ -19,14 +19,15 @@ extension UIView {
     }
 }
 
-func createUIBezierPath(points: [CGPoint]) -> UIBezierPath {
+func createUIBezierPath(drawings: [Drawing]) -> UIBezierPath {
     let bezierPath = UIBezierPath()
-    print(points.count)
-    for (index, point) in points.enumerated() {
-        if index == 0 {
-            bezierPath.move(to: point)
-        } else {
-            bezierPath.addLine(to: point)
+    for dr in drawings {
+        for (index, point) in dr.points.enumerated() {
+            if index == 0 {
+                bezierPath.move(to: point)
+            } else {
+                bezierPath.addLine(to: point)
+            }
         }
     }
     return bezierPath
