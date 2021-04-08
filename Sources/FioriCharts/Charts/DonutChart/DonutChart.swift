@@ -47,26 +47,32 @@ struct DonutChart: View {
             }
         }
         
-        return ZStack {
-            ForEach(0 ..< segments.count, id: \.self) { index in
-                ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
-                         endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
-                         insetAmount: depth / 2)
-                    .stroke(lineWidth: depth)
-                    .fill(self.model.colorAt(seriesIndex: segments[index].seriesIndex, categoryIndex: 0))
-                    .contentShape(ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
-                                           endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
-                                           insetAmount: depth / 2)
-                            .stroke(lineWidth: depth))
-                    .frame(width: diameter, height: diameter)
-                    .opacity(self.displayState(for: segments[index].seriesIndex) ? 1 : 0.25)
-                    .ifApply(self.model.userInteractionEnabled) {
-                        $0.onTapGesture {
-                            self.updateSelectedState(for: segments[index].seriesIndex)
+        return HStack(alignment: .center) {
+            Spacer(minLength: 0)
+            
+            ZStack {
+                ForEach(0 ..< segments.count, id: \.self) { index in
+                    ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
+                             endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
+                             insetAmount: depth / 2)
+                        .stroke(lineWidth: depth)
+                        .fill(self.model.colorAt(seriesIndex: segments[index].seriesIndex, categoryIndex: 0))
+                        .contentShape(ArcShape(startAngle: Angle(degrees: Double(segments[index].rect.size.width)),
+                                               endAngle: Angle(degrees: Double(segments[index].rect.size.height)),
+                                               insetAmount: depth / 2)
+                                .stroke(lineWidth: depth))
+                        .frame(width: diameter, height: diameter)
+                        .opacity(self.displayState(for: segments[index].seriesIndex) ? 1 : 0.25)
+                        .ifApply(self.model.userInteractionEnabled) {
+                            $0.onTapGesture {
+                                self.updateSelectedState(for: segments[index].seriesIndex)
+                            }
                         }
-                    }
-            }
-        }.contentShape(Rectangle())
+                }
+            }.contentShape(Rectangle())
+            
+            Spacer(minLength: 0)
+        }.frame(width: size.width, height: size.height)
     }
     
     func displayState(for seriesIndex: Int) -> Bool {
