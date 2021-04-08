@@ -16,8 +16,8 @@ struct TrailingAccessoryView: View {
     var body: some View {
         Group {
             if let item = self.item {
-                applyBlur()
-                    .padding(.trailing, 44)
+//                applyBlur()
+//                    .padding(.trailing, 44)
                 
                 switch item {
                 case .button(let button):
@@ -29,7 +29,7 @@ struct TrailingAccessoryView: View {
                     }
                     .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.preferredColor(.cellBackground)
+                    .background(Color.preferredColor(.headerBlended)
                         .edgesIgnoringSafeArea([.leading, .trailing]))
                 default:
                     AnyView(EmptyView())
@@ -39,11 +39,11 @@ struct TrailingAccessoryView: View {
                     .fill(Color.preferredColor(.cellBackground))
                     .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.white
+                    .background(Color.preferredColor(.headerBlended)
                         .edgesIgnoringSafeArea([.leading, .trailing]))
             }
         }
-        .zIndex(Double(600 - self.rowIndex))
+        .background(BlurView(style: .light).blur(radius: 2))
     }
     
     func applyBlur() -> some View {

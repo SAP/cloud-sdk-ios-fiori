@@ -4,8 +4,8 @@ import SwiftUI
 struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
-    @EnvironmentObject var layoutManager: TableLayoutManager
-    @EnvironmentObject var dataManager: TableDataManager
+    @ObservedObject var layoutManager: TableLayoutManager
+    @ObservedObject var dataManager: TableDataManager
     
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
@@ -14,6 +14,11 @@ struct GridTableView: View {
     @State var dropVerticalShadow: Bool = false
     @State var dropHorizontalShadow: Bool = false
     
+    init(layoutManager: TableLayoutManager, dataManager: TableDataManager) {
+        self.layoutManager = layoutManager
+        self.dataManager = dataManager
+    }
+    
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -21,8 +26,6 @@ struct GridTableView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let items: [[TableDataItem]] = self.layoutManager.dataItemsForTable(rect: rect)
-        
         let drag = DragGesture()
             .onChanged { value in
                 let scaleX = self.layoutManager.scaleX(rect: rect)
@@ -64,6 +67,8 @@ struct GridTableView: View {
                 self.lastScaleY = self.layoutManager.scaleY
             }
         
+        let items: [[TableDataItem]] = self.layoutManager.dataItemsForTable(rect: rect)
+
         return
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
@@ -75,7 +80,18 @@ struct GridTableView: View {
                         let view = ItemView(currentItem, (i, j), isHeader, dropShadow: self.dropVerticalShadow)
                         let x = currentItem.pos.x
                         let y = currentItem.pos.y
-                        let zIndex: Double = (i, j) == (0, 0) ? 700 : Double(600 - i * j)
+                        let zIndex: Double = {
+                            if (i, j) == (0, 0) {
+                                return 900
+                            }
+                            if i == 0 {
+                                return 700
+                            }
+                            if j == 0 {
+                                return 600
+                            }
+                            return 300
+                        }()
                         view
                             .position(x: x, y: y)
                             .offset(x: currentItem.offset.x * self.layoutManager.scaleX, y: currentItem.offset.y * self.layoutManager.scaleY)
@@ -87,20 +103,24 @@ struct GridTableView: View {
 
                         let lAccessoriess: [AccessoryItem] = self.dataManager.rowData[currentIndex].leadingAccessories
                         let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.dataManager.rowData[currentIndex].trailingAccessory
-                        let leadingMargin = lAccessoriess.count == 0 ? 0 : TableViewLayout.accessoryViewLeadingMargin(width: rect.width, sizeClass: self.layoutManager.sizeClass)
+                        let leadingMargin = lAccessoriess.count == 0 ? 0 : self.layoutManager.leadingAccessoryMargin
                         
                         let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
                         
-                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader)
+                        horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
+//                            .zIndex(Double(900 - currentIndex))
+
+                        DummyBackground(index: currentIndex)
+                            .position(x: rect.minX, y: y)
+                        
+                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing)
                             .position(x: rect.minX, y: y)
                             .padding(.leading, leadingMargin)
-                            .zIndex(Double(800 - currentIndex))
+                            .zIndex(Double(650 - currentIndex))
 
                         TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex)
                             .position(x: rect.maxX, y: y)
-                        
-                        horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
-                            .zIndex(Double(900 - currentIndex))
+                            .zIndex(Double(800 - currentIndex))
                     }
                 }
             }
@@ -109,6 +129,13 @@ struct GridTableView: View {
     }
     
     func horizontalDivider(rect: CGRect, pos: CGPoint, rowHeight: CGFloat, index: Int) -> some View {
+        let lineZindex: Double = {
+            if index == 0 {
+                return 900
+            } else {
+                return 650
+            }
+        }()
         let offetY = pos.y == 0 ? rowHeight : (rowHeight / 2)
         return
             Divider()
@@ -116,5 +143,6 @@ struct GridTableView: View {
                 .position(x: rect.size.width / 2, y: pos.y)
                 .offset(y: offetY * self.layoutManager.scaleY)
                 .dropShadow(isVertical: false, show: index == 0 && self.dropHorizontalShadow)
+                .zIndex(lineZindex)
     }
 }

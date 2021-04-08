@@ -10,7 +10,7 @@ public struct TableRowItem {
 enum AccessoryItem {
     case button(AccessoryButton)
     case icon(Image)
-    case text(Text)
+    case text(String)
 }
 
 // extension AccessoryItem: Hashable {

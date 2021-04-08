@@ -17,7 +17,7 @@ public enum TestRowData {
             print("trailing accessory tapped: \(row) tapped")
         }, selected: false))
         
-        let output = TableRowItem(leadingAccessories: [], trailingAccessory: tAccessory, data: data)
+        let output = TableRowItem(leadingAccessories: lAccessories, trailingAccessory: tAccessory, data: data)
         
         return output
     }
@@ -25,7 +25,8 @@ public enum TestRowData {
     static func generateNewRow(column: Int) -> TableRowItem {
         var data: [DataItem] = []
         for i in 0 ..< column {
-            let textItem = DataTextItem("new item")
+            let textItem = DataTextItem("new item new item new item")
+            textItem.lineLimit = 2
             data.append(textItem)
         }
         return TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: data)
@@ -52,8 +53,9 @@ public enum TestRowData {
             res.append(self.generateRowData(count: column, for: i))
         }
         
-        let model = TableModel(headerTitles: titles, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: false)
+        let model = TableModel(headerTitles: titles, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
         //        model.columnAttributes = self.generateColumnAttributes(column: 12)
+        model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.selectedIndex = [2, 3]
         
         return model
@@ -61,28 +63,40 @@ public enum TestRowData {
 }
 
 public struct TestTableView: View {
-    @ObservedObject var model: TableModel = TestRowData.generateData(row: 30, column: 12)
+    var model: TableModel = TestRowData.generateData(row: 30, column: 12)
+    @State var isEditing: Bool = false
     
     public init() {}
     
     public var body: some View {
-        NavigationView {
-            TableDataView()
-                .environmentObject(model)
-                .environmentObject(TableLayoutManager(model: model))
-                .environmentObject(TableDataManager(selectedIndexes: model.selectedIndex, rowData: model.rowData))
-                .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: /*@START_MENU_TOKEN@*/ .infinity/*@END_MENU_TOKEN@*/, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-        }
+        makeBody()
     }
-}
-
-struct TestRowData_Previews: PreviewProvider {
-    static var previews: some View {
-        ZStack {
-            TableDataView()
-                .environmentObject(TestRowData.generateData(row: 3, column: 12))
-                .frame(width: 500, height: 500, alignment: .topLeading)
-                .padding()
-        }
+    
+    func makeBody() -> some View {
+        var view = TableDataView()
+        return
+            NavigationView {
+                view
+                    .environmentObject(self.model)
+                    .navigationBarTitle("grid data table", displayMode: .inline)
+                    .navigationBarItems(leading:
+                        Button("Add a row") {
+                            DispatchQueue.main.async {
+                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
+                            }
+                        }
+                    )
+                    .navigationBarItems(leading:
+                        Button("Add a row") {
+                            DispatchQueue.main.async {
+                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
+                            }
+                        }, trailing:
+                        Button(self.isEditing ? "Done" : "Edit") {
+                            self.isEditing = !self.isEditing
+                            view.isEditing = self.isEditing
+                        })
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
     }
 }

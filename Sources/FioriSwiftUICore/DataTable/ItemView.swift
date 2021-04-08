@@ -20,10 +20,6 @@ struct ItemView: View {
     }
     
     var body: some View {
-        //        Rectangle()
-        //            .fill(Color.preferredColor(.headerBlended))
-        //            .blur(radius: 10)
-        //            .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .leading)
         makeBody()
     }
     
@@ -63,6 +59,7 @@ struct ItemView: View {
                         Text(value)
                             .font(.system(size: fontSize * self.layoutManager.scaleX))
                             .foregroundColor(textColor)
+                            .lineLimit(self.dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
                             .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
                     }
@@ -75,6 +72,7 @@ struct ItemView: View {
                     verticalDivider(offsetX: offsetX)
                 }
             }
+            .background(BlurView(style: .light).frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
             .gesture(tapGesture)
     }
     
@@ -86,25 +84,4 @@ struct ItemView: View {
                 .dropShadow(isVertical: true, show: self.dropVerticalShadow)
         }
     }
-}
-
-struct BlurView: UIViewRepresentable {
-    let style: UIBlurEffect.Style
-    
-    func makeUIView(context: UIViewRepresentableContext<BlurView>) -> UIView {
-        let view = UIView(frame: .zero)
-        view.backgroundColor = .clear
-        let blurEffect = UIBlurEffect(style: style)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        view.insertSubview(blurView, at: 0)
-        NSLayoutConstraint.activate([
-            blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            blurView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        ])
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIView,
-                      context: UIViewRepresentableContext<BlurView>) {}
 }

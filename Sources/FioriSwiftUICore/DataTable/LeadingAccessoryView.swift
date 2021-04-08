@@ -5,52 +5,45 @@ struct LeadingAccessoryView: View {
     let items: [AccessoryItem]
     let index: Int
     let isHeader: Bool
-    @State var selected: Bool = false
+    let isEditing: Bool
     
+    @State var selected: Bool = false
+
     @EnvironmentObject var dataManager: TableDataManager
     @EnvironmentObject var layoutManager: TableLayoutManager
 
-    init(items: [AccessoryItem], index: Int, isHeader: Bool) {
+    init(items: [AccessoryItem], index: Int, isHeader: Bool, isEditing: Bool) {
         self.items = items
         self.index = index
         self.isHeader = isHeader
+        self.isEditing = isEditing
     }
     
     var body: some View {
-        if self.items.isEmpty {
-            let height = self.layoutManager.rowHeights[self.index] * self.layoutManager.scaleY
-            let width = self.layoutManager.layoutLeadingMargin + self.layoutManager.contentInset
-            Rectangle()
-                .fill(Color.green)
-                .frame(width: width, height: height)
-                .offset(x: width / 2)
-                .background(Color.blue.edgesIgnoringSafeArea([.leading, .trailing]))
-        } else {
+        Group {
             makeBody(items: self.items)
-                .background(Color.red.edgesIgnoringSafeArea([.leading, .trailing]))
+                .offset(x: self.layoutManager.leadingAccessoryViewWidth / 2)
         }
     }
     
     func makeBody(items: [AccessoryItem]) -> some View {
-        let leftPadding: CGFloat = self.layoutManager.isEditing ? 44 + 22 : 7
-        return
-            HStack(alignment: .center, spacing: 4) {
-                ForEach(0 ..< items.count, id: \.self) { index in
-                    switch items[index] {
-                    case .button(let button):
-                        makeButton(button: button)
-                    case .icon(let image):
-                        image
-                            .resizable()
-                            .frame(width: 14, height: 12, alignment: .center)
-                    case .text(let text):
-                        text
-                    }
+        HStack(alignment: .center, spacing: 4) {
+            ForEach(0 ..< items.count, id: \.self) { index in
+                switch items[index] {
+                case .button(let button):
+                    makeButton(button: button)
+                case .icon(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 12, height: 12, alignment: .center)
+                case .text(let string):
+                    Text(string)
                 }
             }
-            .frame(height: self.layoutManager.rowHeights[self.index] * self.layoutManager.scaleY)
-            .background(Color.preferredColor(.cellBackground))
-            .padding(.leading, leftPadding)
+        }
+        .frame(height: self.layoutManager.rowHeights[self.index] * self.layoutManager.scaleY)
+        .background(Color.preferredColor(.headerBlended))
     }
     
     func makeButton(button: AccessoryButton) -> some View {

@@ -5,6 +5,7 @@ open class DataTextItem: DataItem {
 
     var text: String
     var font: Font
+    var lineLimit: Int?
     
     public init(_ text: String, _ font: Font = .body) {
         self.text = text

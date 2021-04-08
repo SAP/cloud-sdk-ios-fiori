@@ -1,27 +1,6 @@
 import Foundation
 import SwiftUI
 
-struct TableListItem: Identifiable, Hashable {
-    var id: Int {
-        self.index
-    }
-    
-    let index: Int
-    let image: Image?
-    let titles: [String]
-    
-    init(index: Int, image: Image? = nil, titles: [String]) {
-        self.index = index
-        self.image = image
-        self.titles = titles
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.id)
-        hasher.combine(self.titles)
-    }
-}
-
 struct TableDataItem: Identifiable, Hashable {
     let value: ValueType
     
@@ -50,13 +29,21 @@ struct TableDataItem: Identifiable, Hashable {
         return false
     }
     
-    init(index: Int, value: ValueType = .text(""), pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero, textAlignment: TextAlignment = .leading) {
+    var lineLimit: Int
+    
+    init(index: Int,
+         value: ValueType = .text(""),
+         pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero,
+         textAlignment: TextAlignment = .leading,
+         lineLimit: Int = 0)
+    {
         self.rowIndex = index
         self.value = value
         self.pos = pos
         self.size = size
         self.offset = offset
         self.textAlignment = textAlignment
+        self.lineLimit = lineLimit
     }
     
     mutating func x(_ x: CGFloat) {

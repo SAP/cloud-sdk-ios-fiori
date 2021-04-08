@@ -6,9 +6,14 @@ public struct TableDataView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
     
-    @EnvironmentObject var layoutManager: TableLayoutManager
-    @EnvironmentObject var dataManager: TableDataManager
-        
+    @ObservedObject var editingHelper = EditingHelper()
+
+    var isEditing: Bool = false {
+        didSet {
+            self.editingHelper.isEditing = self.isEditing
+        }
+    }
+            
     public var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -16,55 +21,26 @@ public struct TableDataView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
-        self.layoutManager.rect = rect
-//        self.layoutManager.deviceMode = deviceMode ?? .iphonePortraitOrIpadSplit
+        let layoutManager = TableLayoutManager(model: self.model, isEditing: self.editingHelper.isEditing)
+        let dataManager = TableDataManager(selectedIndexes: self.model.selectedIndex, rowData: self.model.rowData)
+        layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
+        layoutManager.rect = rect
         
         return Group {
-//            if deviceMode == .iphonePortraitOrIpadSplit, model.showListView {
-//                let listView = TableListView()
-//                listView
-//                    .environmentObject(self.model)
-//                    .environment(\.tableContext, self.tableContext)
-//                    .padding([.leading])
-//            } else {
-//                let gridView = GridTableView()
-//                gridView
-//            }
-            
-            let gridView = GridTableView()
-            gridView
+            if self.horizontalSizeClass == .compact, self.verticalSizeClass == .regular, self.model.showListView {
+                let listView = TableListView(layoutManager: layoutManager)
+                listView
+            } else {
+                let gridView = GridTableView(layoutManager: layoutManager, dataManager: dataManager)
+                gridView
+            }
         }
-        .navigationBarTitle("grid data table", displayMode: .inline)
+        .environmentObject(layoutManager)
+        .environmentObject(dataManager)
+        .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: .infinity, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: .infinity, alignment: .center)
     }
 }
 
-enum DeviceMode {
-    case iphonePortraitOrIpadSplit
-    case iphoneLandscape
-    case ipadRegular
-}
-
-extension DeviceMode {
-    init?(_ hSizeClass: UserInterfaceSizeClass?, _ vSizeClass: UserInterfaceSizeClass?) {
-        guard let hSizeClass = hSizeClass, let vSizeClass = vSizeClass else {
-            return nil
-        }
-        
-        if vSizeClass == .regular, hSizeClass == .compact {
-            // iPhone Portrait or iPad 1/3 split view for Multitasking for instance
-            self = .iphonePortraitOrIpadSplit
-        } else if vSizeClass == .compact, hSizeClass == .compact {
-            // some "standard" iPhone Landscape (iPhone SE, X, XS, 7, 8, ...)
-            self = .iphoneLandscape
-        } else if vSizeClass == .compact, hSizeClass == .regular {
-            // some "bigger" iPhone Landscape (iPhone Xs Max, 6s Plus, 7 Plus, 8 Plus, ...)
-            self = .iphoneLandscape
-        } else if vSizeClass == .regular, hSizeClass == .regular {
-            // macOS or iPad without split view - no Multitasking
-            self = .ipadRegular
-        } else {
-            return nil
-        }
-    }
+class EditingHelper: ObservableObject {
+    @Published var isEditing: Bool = true
 }

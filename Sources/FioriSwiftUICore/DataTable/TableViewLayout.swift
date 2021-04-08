@@ -19,7 +19,7 @@ enum TableViewLayout {
     
     static let lineHeight: CGFloat = 1
     
-    static let minRowHeight: CGFloat = 54
+    static let minRowHeight: CGFloat = 48
     
     static let defaultItemWidth: CGFloat = 90
     
@@ -70,11 +70,11 @@ enum TableViewLayout {
         return width > 736 ? 48 : 14
     }
     
-    static func leftPaddingForLeadingAccessoryView(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
+    static func leftPaddingForLeadingAccessoryView(width: CGFloat, sizeClass: UserInterfaceSizeClass, hasButton: Bool) -> CGFloat {
         if sizeClass == .compact {
             return 10
         }
-        return width > 736 ? 48 : 14
+        return width > 736 ? (hasButton ? 48 : 20) : 14
     }
     
     static func rightPaddingForLeadingAccessoryView(_ sizeClass: UserInterfaceSizeClass) -> CGFloat {
@@ -100,7 +100,7 @@ extension TextAlignment {
 }
 
 extension String {
-    func boundingBoxSize(with fontSize: CGFloat, width: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
+    func boundingBoxSize(with fontSize: CGFloat, width: CGFloat = CGFloat(MAXFLOAT), height: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
         #if os(iOS) || os(tvOS) || os(watchOS)
             let font = UIFont.systemFont(ofSize: fontSize)
         #elseif os(macOS)
@@ -108,7 +108,7 @@ extension String {
         #endif
 
         let size = (self as NSString)
-            .boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)),
+            .boundingRect(with: CGSize(width: width, height: height),
                           options: .usesLineFragmentOrigin,
                           attributes: [NSAttributedString.Key.font: font],
                           context: nil).size
