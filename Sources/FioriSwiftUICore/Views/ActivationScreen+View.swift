@@ -3,6 +3,7 @@
 /// to declare a wrapped property
 /// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
