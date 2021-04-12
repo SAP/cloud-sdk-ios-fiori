@@ -33,19 +33,14 @@ public extension Variable {
         }
     }
 
-    var conditionalAssignmentBacked: String {
-        if isOptional {
-            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUIBacked)) : ViewBuilder.buildEither(second: EmptyView())"
-        } else {
-            return self.toSwiftUIBacked
-        }
-    }
-
     var backingSwiftUIComponent: String? {
         self.definedInType?.resolvedAnnotations("backingComponent").first ?? resolvedAnnotations("backingComponent").first
     }
 
     var toSwiftUI: String {
+        if self.backingSwiftUIComponent != nil {
+            return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
+        }
         switch self.typeName.unwrappedTypeName {
         case "String":
             return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
@@ -55,19 +50,6 @@ public extension Variable {
             return isOptional ? "\(self.trimmedName)!" : self.trimmedName
         default:
             return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
-        }
-    }
-
-    var toSwiftUIBacked: String {
-        switch self.typeName.unwrappedTypeName {
-        case "String":
-            return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
-        case "[String]":
-            return "Text(\(self.trimmedName).joined(separator: \", \"))"
-        case "Image":
-            return isOptional ? "\(self.trimmedName)!" : self.trimmedName
-        default:
-            return "\(self.swiftUITypeNameBacked)(\(self.trimmedName))"
         }
     }
 
