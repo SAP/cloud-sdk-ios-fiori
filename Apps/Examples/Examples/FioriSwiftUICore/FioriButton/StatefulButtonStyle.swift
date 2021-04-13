@@ -1,5 +1,3 @@
-import FioriCharts
-import FioriIntegrationCards
 import FioriSwiftUICore
 import Foundation
 import SwiftUI
