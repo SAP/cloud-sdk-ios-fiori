@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -149,6 +149,6 @@ public protocol SecondaryActionComponent {
 
 // sourcery: backingComponent=TextInput
 public protocol TextInputComponent {
-    var textFilled_: String? { get }
+    var textFilled_: Binding<String>? { get }
 	func onCommit() -> Void
 }
