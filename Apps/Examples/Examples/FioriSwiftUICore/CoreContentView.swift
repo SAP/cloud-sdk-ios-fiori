@@ -42,13 +42,8 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
-                destination: WelcomeScreenSample()) {
-                Text("WelcomeScreen")
-            }
-            
-            NavigationLink(
-                destination: ActivationScreenSample()) {
-                Text("ActivationScreen")
+                destination: OnboardingExamples()) {
+                Text("Onboarding")
             }
             
             NavigationLink(

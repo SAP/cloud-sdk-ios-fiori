@@ -37,10 +37,11 @@ extension Fiori {
         }
 
         typealias TextFilledCumulative = EmptyModifier
+
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .frame(width: 169.0, height: 20.0)
+                    .buttonStyle(FioriButtonStyle())
             }
         }
 
@@ -92,12 +93,11 @@ extension ActivationScreen: View {
                 .keyboardType(.emailAddress)
                 .disableAutocorrection(true)
                 .padding(.top, 15)
-                .padding(.bottom, 15)
+                .padding(.bottom, 20)
             
             actionText
-                .disabled(self.emailFilled.userInputValue.isEmpty == true)
-                .buttonStyle(FioriButtonStyle())
                 .padding(.bottom, 16)
+            
             footnote
                 .padding(.bottom, 16)
             secondaryActionText
@@ -106,11 +106,5 @@ extension ActivationScreen: View {
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
-    }
-}
-
-struct ActivationScreen_preview: PreviewProvider {
-    static var previews: some View {
-        ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding.", textFilled: "abc@def.com", actionText: "Next", footnote: "Or", secondaryActionText: "Scan")
     }
 }

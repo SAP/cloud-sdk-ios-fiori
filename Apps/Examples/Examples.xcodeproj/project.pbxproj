@@ -124,6 +124,8 @@
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
 		975CB76B256C5A7400DB7A15 /* SignatureCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */; };
 		97CEF8AB2553D714008BFBEF /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CEF8AA2553D714008BFBEF /* SignatureView.swift */; };
+		99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D562616980A001912C5 /* OnboardingExamples.swift */; };
+		99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D58261698FC001912C5 /* InfoViewSample.swift */; };
 		B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */; };
 		B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */; };
 		B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */; };
@@ -301,6 +303,8 @@
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
 		975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCaptureView.swift; sourceTree = "<group>"; };
 		97CEF8AA2553D714008BFBEF /* SignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
+		99942D562616980A001912C5 /* OnboardingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExamples.swift; sourceTree = "<group>"; };
+		99942D58261698FC001912C5 /* InfoViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewSample.swift; sourceTree = "<group>"; };
 		B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionProfiles.swift; sourceTree = "<group>"; };
 		B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionCollectionView.swift; sourceTree = "<group>"; };
 		B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataProtocol.swift; sourceTree = "<group>"; };
@@ -699,8 +703,10 @@
 		B80DA9C32612A54E00C0B2E9 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				99942D58261698FC001912C5 /* InfoViewSample.swift */,
 				B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */,
 				B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */,
+				99942D562616980A001912C5 /* OnboardingExamples.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -891,10 +897,12 @@
 				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
+				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
 				B80DA9C2260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift in Sources */,
 				8A6D64BA25AE714100D2D76C /* ExampleHighlightingStyle.swift in Sources */,
+				99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
 				8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */,

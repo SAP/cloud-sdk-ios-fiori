@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -16,8 +16,7 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextFilled: V
 	private let _actionText: ActionText
 	private let _footnote: Footnote
 	private let _secondaryActionText: SecondaryActionText
-	@State var buttonEnabled: Bool = false
-	@ObservedObject var emailFilled = UserInput()
+	
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false
@@ -117,7 +116,7 @@ extension ActivationScreen where Title == Text,
         self.init(title: model.title_, descriptionText: model.descriptionText_, textFilled: model.textFilled_, actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
     }
 
-    public init(title: String, descriptionText: String? = nil, textFilled: String? = nil, actionText: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, onCommit: (() -> Void)? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, textFilled: Binding<String>? = nil, actionText: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, onCommit: (() -> Void)? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())

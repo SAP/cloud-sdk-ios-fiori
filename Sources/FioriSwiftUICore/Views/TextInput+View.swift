@@ -14,8 +14,13 @@ extension Fiori {
 
 extension TextInput: View {
     public var body: some View {
-        TextField(self._textFilled ?? "", text: $textInputValue.userInputValue)
-            .modifier(TextFieldClearButton(textValue: $textInputValue.userInputValue))
+        if #available(iOS 14.0, *) {
+            TextField("Default", text: self._textFilled ?? .constant("default"))
+                .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
+                .textFieldStyle(BottomTextFieldStyle())
+        } else {
+            // Fallback on earlier versions
+        }
     }
 }
 
@@ -38,6 +43,16 @@ struct TextFieldClearButton: ViewModifier {
     }
 }
 
-class UserInput: ObservableObject {
-    @Published var userInputValue: String = ""
+@available(iOS 14.0, *)
+struct BottomTextFieldStyle: TextFieldStyle {
+    let color1 = Color.preferredColor(.primary1).opacity(0)
+    let color2 = Color.preferredColor(.primary1).opacity(0.15)
+    func _body(configuration: TextField<Self._Label>) -> some View {
+        VStack {
+            configuration
+            Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [color1, color2, color1]), startPoint: .leading, endPoint: .topTrailing))
+                .frame(height: 1, alignment: .bottom)
+        }
+    }
 }

@@ -3,11 +3,12 @@
 /// to declare a wrapped property
 /// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
-import FioriThemeManager
 import SwiftUI
 
+// FIXME: - Implement Fiori style definitions
+
 extension Fiori {
-    enum WelcomeScreen {
+    enum InfoView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -29,23 +30,8 @@ extension Fiori {
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .buttonStyle(FioriButtonStyle())
-            }
-        }
-        
-        struct Subtitle: ViewModifier {
-            func body(content: Content) -> some View {
-                content
                     .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.primary1))
-            }
-        }
-        
-        struct Footnote: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .frame(width: 169.0, height: 20.0)
             }
         }
         
@@ -57,68 +43,58 @@ extension Fiori {
             }
         }
         
-        struct Icon: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .scaleEffect(0.8, anchor: .center)
-                    .frame(width: 20, height: 20, alignment: .center)
-            }
-        }
-
-        typealias TitleCumulative = EmptyModifier
-        typealias DescriptionTextCumulative = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
-        typealias SubtitleCumulative = EmptyModifier
-        typealias FootnoteCumulative = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
-        typealias IconCumulative = EmptyModifier
-        
         static let title = Title()
         static let descriptionText = DescriptionText()
         static let actionText = ActionText()
-        static let subtitle = Subtitle()
-        static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
-        static let icon = Icon()
+        
+        typealias TitleCumulative = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
+        typealias ActionTextCumulative = EmptyModifier
+        typealias SecondaryActionTextCumulative = EmptyModifier
+
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
         static let actionTextCumulative = ActionTextCumulative()
-        static let subtitleCumulative = SubtitleCumulative()
-        static let footnoteCumulative = FootnoteCumulative()
         static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
-        static let iconCumulative = IconCumulative()
     }
 }
 
-extension WelcomeScreen: View {
+// FIXME: - Implement InfoView View body
+
+extension InfoView: View {
     public var body: some View {
         VStack {
             title
                 .padding(.top, 80)
                 .padding(.bottom, 40)
             descriptionText
-                .padding(.bottom, 80)
+//                .padding(.bottom, 80)
+            Spacer()
+            if #available(iOS 14.0, *) {
+                ProgressView()
+                    .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+            } else {
+                // Fallback on earlier versions
+            }
+            Spacer()
             actionText
-//                .buttonStyle(FioriButtonStyle())
                 .padding(.bottom, 20)
-            
-            subtitle
-            footnote
-                .padding(.top, 8)
-            
             secondaryActionText
                 .padding(.top, 8)
-            Spacer()
-            icon
-                .padding(.bottom, 32)
+                .padding(.bottom, 40)
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
     }
 }
 
-struct WelcomeScreen_preview: PreviewProvider {
-    static var previews: some View {
-        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", actionText: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
+// FIXME: - Implement InfoView specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct InfoViewLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", actionText: "Primary Button", secondaryActionText: "Secondary Button"))
     }
 }
