@@ -1,4 +1,3 @@
-import FioriSwiftUI
 import FioriSwiftUICore
 import SwiftUI
 
