@@ -33,7 +33,7 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriIntegrationCards"]
+            dependencies: ["FioriSwiftUICore", "FioriIntegrationCards"]
         ),
         .target(
             name: "FioriIntegrationCards",
@@ -41,7 +41,7 @@ let package = Package(
         ),
         .target(
             name: "FioriCharts",
-            dependencies: ["FioriSwiftUICore", "FioriThemeManager"],
+            dependencies: ["FioriThemeManager"],
             exclude: ["TestCases/SF_EnergyBenchmarking.csv"]
         ),
         .target(
