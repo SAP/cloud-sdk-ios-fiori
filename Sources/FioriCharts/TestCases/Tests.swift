@@ -5,7 +5,7 @@
 //  Created by Xu, Sheng on 12/11/19.
 //  Copyright © 2019 sstadelman. All rights reserved.
 //
-import FioriSwiftUICore
+import FioriThemeManager
 import Foundation
 import SwiftUI
 

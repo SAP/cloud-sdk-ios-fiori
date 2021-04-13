@@ -1,5 +1,5 @@
 import Combine
-import FioriSwiftUICore
+import FioriThemeManager
 import Foundation
 import SwiftUI
 

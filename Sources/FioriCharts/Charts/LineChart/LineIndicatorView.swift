@@ -1,4 +1,4 @@
-import FioriSwiftUICore
+import FioriThemeManager
 import SwiftUI
 
 /*
