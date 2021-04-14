@@ -6,8 +6,8 @@ public struct KPIItem<Kpi: View, Subtitle: View> {
     @Environment(\.kpiModifier) private var kpiModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
-    private let _kpi: Kpi
-	private let _subtitle: Subtitle
+    let _kpi: Kpi
+	let _subtitle: Subtitle
 	var action: (() -> Void)? = nil
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false

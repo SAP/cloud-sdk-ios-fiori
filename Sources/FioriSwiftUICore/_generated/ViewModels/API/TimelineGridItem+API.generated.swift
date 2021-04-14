@@ -7,9 +7,9 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 	@Environment(\.timestampModifier) private var timestampModifier
 	@Environment(\.statusModifier) private var statusModifier
 
-    private let _title: Title
-	private let _timestamp: Timestamp
-	private let _status: Status
+    let _title: Title
+	let _timestamp: Timestamp
+	let _status: Status
 	
     private var isModelInit: Bool = false
 	private var isTimestampNil: Bool = false

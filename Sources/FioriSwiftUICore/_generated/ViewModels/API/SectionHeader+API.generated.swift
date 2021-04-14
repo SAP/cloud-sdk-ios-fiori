@@ -7,8 +7,8 @@ public struct SectionHeader<Title: View, Attribute: View> {
 	@Environment(\.attributeModifier) private var attributeModifier
 	@Environment(\.colorScheme) var colorScheme
 
-    private let _title: Title
-	private let _attribute: Attribute
+    let _title: Title
+	let _attribute: Attribute
 	
     private var isModelInit: Bool = false
 	private var isAttributeNil: Bool = false

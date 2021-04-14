@@ -6,8 +6,8 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
     @Environment(\.iconModifier) private var iconModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
-    private let _icon: Icon
-	private let _subtitle: Subtitle
+    let _icon: Icon
+	let _subtitle: Subtitle
 	
     private var isModelInit: Bool = false
 	private var isIconNil: Bool = false

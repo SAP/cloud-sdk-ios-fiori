@@ -6,8 +6,8 @@ public struct ListPickerItem<Key: View, Value: View> {
     @Environment(\.keyModifier) private var keyModifier
 	@Environment(\.valueModifier) private var valueModifier
 
-    private let _key: Key
-	private let _value: Value
+    let _key: Key
+	let _value: Value
 	var destinationView: AnyView? = nil
     private var isModelInit: Bool = false
 	private var isValueNil: Bool = false

@@ -8,10 +8,10 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, Kpi: View> {
 	@Environment(\.trendModifier) private var trendModifier
 	@Environment(\.kpiModifier) private var kpiModifier
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _trend: Trend
-	private let _kpi: Kpi
+    let _title: Title
+	let _subtitle: Subtitle
+	let _trend: Trend
+	let _kpi: Kpi
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
