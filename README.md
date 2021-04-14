@@ -92,9 +92,9 @@ public struct PersonDetailItem<Title: View, Subtitle: View, DetailImage: View> {
 	@Environment(\.detailImageModifier) private var detailImageModifier
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _detailImage: DetailImage
+    let _title: Title
+	let _subtitle: Subtitle
+	let _detailImage: DetailImage
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
@@ -233,7 +233,7 @@ struct PersonDetailItemLibraryContent: LibraryContentProvider {
 ### Example Component View Body Implementation
 The commented code in `ProfileDetailItem+View.generated.swift` should be copied & uncommented to `Sources/FioriSwiftUICore/Views/ProfileDetailItem+View.swift`.  
 
-The first task is the `body: some View` implementation.  The developer should *never* attempt to read directly from the cached closures (e.g. `private let _title: () -> Title`).  Instead, the developer should *always* use the computed variables (e.g. `var title: some View`), which guarantees that the `ViewModifier`s will be applied consistently across components--and accounts for empty views.
+The first task is the `body: some View` implementation.  The developer should *never* attempt to read directly from the cached closures (e.g. `let _title: () -> Title`).  Instead, the developer should *always* use the computed variables (e.g. `var title: some View`), which guarantees that the `ViewModifier`s will be applied consistently across components--and accounts for empty views.
 
 ```swift
 extension PersonDetailItem: View {
@@ -475,10 +475,10 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> { // no
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
 
-    private let _kpi: Kpi
-	private let _fraction: Double? // data type is used!
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
+    let _kpi: Kpi
+	let _fraction: Double? // data type is used!
+	let _subtitle: Subtitle
+	let _footnote: Footnote
 	
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false
