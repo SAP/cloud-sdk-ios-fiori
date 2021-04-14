@@ -7,11 +7,12 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
 
-    private let _kpi: Kpi
-	private let _fraction: Double?
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	
+    let _kpi: Kpi
+	let _fraction: Double?
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	var action: (() -> Void)? = nil
+	@State var animatedFraction: Double = 0.0
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false
 	private var isSubtitleNil: Bool = false

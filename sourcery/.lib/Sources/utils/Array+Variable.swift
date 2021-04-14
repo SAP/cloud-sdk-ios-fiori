@@ -31,23 +31,23 @@ public extension Array where Element == Variable {
     }
 
     /**
-     Formats private 'caching' properties to hold the developer-supplied ViewBuilder for each property
+     Formats internal 'caching' properties to hold the developer-supplied ViewBuilder for each property
      ```
-     private let _title: Title
-     private let _subtitle: Subtitle
+     let _title: Title
+     let _subtitle: Subtitle
      ...
      ```
      */
     var viewBuilderPropertyDecls: [String] {
-        map { "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
+        map { "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
     }
 
     var miscPropertyDecls: [String] {
         map {
             if $0.isRepresentableByView == false {
-                return "private let _\($0.trimmedName): \($0.typeName)"
+                return "let _\($0.trimmedName): \($0.typeName)"
             } else {
-                return "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())"
+                return "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())"
             }
         }
     }

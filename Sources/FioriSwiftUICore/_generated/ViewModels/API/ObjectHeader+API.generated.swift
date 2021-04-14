@@ -11,13 +11,13 @@ public struct ObjectHeader<Title: View, Subtitle: View, Footnote: View, Descript
 	@Environment(\.substatusModifier) private var substatusModifier
 	@Environment(\.detailImageModifier) private var detailImageModifier
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _descriptionText: DescriptionText
-	private let _status: Status
-	private let _substatus: Substatus
-	private let _detailImage: DetailImage
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _descriptionText: DescriptionText
+	let _status: Status
+	let _substatus: Substatus
+	let _detailImage: DetailImage
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
