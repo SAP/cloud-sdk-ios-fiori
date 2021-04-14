@@ -7,9 +7,9 @@ public struct CollectionItem<DetailImage: View, Title: View, Subtitle: View> {
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
-    private let _detailImage: DetailImage
-	private let _title: Title
-	private let _subtitle: Subtitle
+    let _detailImage: DetailImage
+	let _title: Title
+	let _subtitle: Subtitle
 	
     private var isModelInit: Bool = false
 	private var isDetailImageNil: Bool = false

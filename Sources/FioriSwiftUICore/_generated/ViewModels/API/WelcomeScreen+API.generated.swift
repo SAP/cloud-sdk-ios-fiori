@@ -12,13 +12,13 @@ public struct WelcomeScreen<Title: View, DescriptionText: View, ActionText: View
 	@Environment(\.iconModifier) private var iconModifier
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _descriptionText: DescriptionText
-	private let _actionText: ActionText
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _secondaryActionText: SecondaryActionText
-	private let _icon: Icon
+    let _title: Title
+	let _descriptionText: DescriptionText
+	let _actionText: ActionText
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _secondaryActionText: SecondaryActionText
+	let _icon: Icon
 	
 
     private var isModelInit: Bool = false

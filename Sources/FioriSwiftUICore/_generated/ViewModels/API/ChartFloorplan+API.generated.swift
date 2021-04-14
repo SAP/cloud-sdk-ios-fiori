@@ -10,12 +10,12 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 	@Environment(\.seriesTitlesModifier) private var seriesTitlesModifier
 	@Environment(\.categoryAxisTitleModifier) private var categoryAxisTitleModifier
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _status: Status
-	private let _valueAxisTitle: ValueAxisTitle
-	private let _seriesTitles: SeriesTitles
-	private let _categoryAxisTitle: CategoryAxisTitle
+    let _title: Title
+	let _subtitle: Subtitle
+	let _status: Status
+	let _valueAxisTitle: ValueAxisTitle
+	let _seriesTitles: SeriesTitles
+	let _categoryAxisTitle: CategoryAxisTitle
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
