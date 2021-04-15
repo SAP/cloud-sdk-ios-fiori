@@ -56,7 +56,7 @@ public extension Type {
     
     var add_view_builder_paramsViewBuilderPropertyDecls: [String] {
         self.resolvedAnnotations("add_view_builder_params")
-            .map { "private let _\($0): \($0.capitalizingFirst())" }
+            .map { "let _\($0): \($0.capitalizingFirst())" }
     }
     
     var add_view_builder_paramsViewBuilderInitParams: [String] {
