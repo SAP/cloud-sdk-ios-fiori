@@ -15,7 +15,7 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 	let _footnote: Footnote
 	let _descriptionText: DescriptionText
 	let _detailImage: DetailImage
-	private let _actionItems: ActionItems
+	let _actionItems: ActionItems
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
