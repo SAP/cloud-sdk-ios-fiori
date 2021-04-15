@@ -65,7 +65,6 @@ struct StatefulButtonStyleExample: View {
             }
         })
             .buttonStyle(StatefulButtonStyle())
-            //            .disabled(true)
             .padding()
     }
 }
