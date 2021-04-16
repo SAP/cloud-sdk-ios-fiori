@@ -59,21 +59,15 @@ public struct FioriButton<Label: View>: View {
     let isSelectionPersistent: Bool
     
     @Environment(\.isEnabled) private var isEnabled
-    @Environment(\.fioriButtonLabel) private var fioriButtonLabel
+    @Environment(\.fioriButtonStyle) private var fioriButtonStyle
     @State private var _state: UIControl.State = .normal
 
     var state: UIControl.State {
-        get {
-            if !self.isEnabled {
-                return .disabled
-            }
+        if !self.isEnabled {
+            return .disabled
+        }
             
-            return self._state
-        }
-        
-        set {
-            self._state = newValue
-        }
+        return self._state
     }
     
     /// Create a fiori button.
@@ -98,7 +92,7 @@ public struct FioriButton<Label: View>: View {
         }
         
         return ZStack {
-            self.fioriButtonLabel(config)
+            self.fioriButtonStyle.makeBody(configuration: config)
         }
         .gesture(createGesture())
     }
@@ -224,22 +218,31 @@ public extension View {
     /// - Parameter style: A fiori button style instance.
     /// - Returns: A view that uses the style provided.
     func fioriButtonStyle<S>(_ style: S) -> some View where S: FioriButtonStyle {
-        let label: (FioriButtonStyleConfiguration) -> AnyView = { config in
-            AnyView(style.makeBody(configuration: config))
-        }
-        return self.environment(\.fioriButtonLabel, label)
+        self.environment(\.fioriButtonStyle, AnyFioriButtonStyle(style))
     }
 }
 
 struct FioriButtonLabelKey: EnvironmentKey {
-    static let defaultValue: (FioriButtonStyleConfiguration) -> AnyView = { config in
-        AnyView(DefaultFioriButtonStyle().makeBody(configuration: config))
-    }
+    static let defaultValue = AnyFioriButtonStyle(DefaultFioriButtonStyle())
 }
 
 extension EnvironmentValues {
-    var fioriButtonLabel: (FioriButtonStyleConfiguration) -> AnyView {
+    var fioriButtonStyle: AnyFioriButtonStyle {
         get { self[FioriButtonLabelKey.self] }
         set { self[FioriButtonLabelKey.self] = newValue }
+    }
+}
+
+struct AnyFioriButtonStyle: FioriButtonStyle {
+    let view: (FioriButtonStyleConfiguration) -> AnyView
+    
+    init<S: FioriButtonStyle>(_ style: S) {
+        self.view = {
+            AnyView(style.makeBody(configuration: $0))
+        }
+    }
+    
+    func makeBody(configuration: Configuration) -> some View {
+        self.view(configuration)
     }
 }
