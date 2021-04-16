@@ -3,7 +3,7 @@ import SwiftUI
 
 struct TableListView: View {
     @ObservedObject var layoutManager: TableLayoutManager
-
+    
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -17,6 +17,13 @@ struct TableListView: View {
                 ForEach(0 ..< views.count, id: \.self) { i in
                     views[i]
                         .padding([.leading, .trailing])
+                        .gesture(TapGesture()
+                            .onEnded { _ in
+                                if let handler = self.layoutManager.model.didSelectRowAt {
+                                    handler(i)
+                                }
+                            }
+                        )
                 }
             }
     }

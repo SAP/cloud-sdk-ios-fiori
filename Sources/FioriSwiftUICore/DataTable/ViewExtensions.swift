@@ -55,7 +55,7 @@ struct DummyBackground: View {
             Rectangle()
                 .fill(Color.preferredColor(.headerBlended))
                 .frame(width: width, height: height)
-                .background(BlurView(style: .light).edgesIgnoringSafeArea([.leading, .trailing]))
+                .background(BlurView(style: .light).frame(width: width, height: height, alignment: .center).edgesIgnoringSafeArea([.leading, .trailing]))
                 .offset(x: width / 2)
                 .zIndex(Double(zIndex))
         }

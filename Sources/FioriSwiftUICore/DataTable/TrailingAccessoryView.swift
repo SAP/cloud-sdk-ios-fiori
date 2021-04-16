@@ -25,7 +25,7 @@ struct TrailingAccessoryView: View {
                         print("Right Icon button was tapped")
                         button.action()
                     }) {
-                        self.selected ? button.image_selected : button.image_deSelected
+                        button.image
                     }
                     .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
                     .padding(.trailing, 44)

@@ -56,7 +56,7 @@ enum TableViewLayout {
         if sizeClass == .compact {
             return 16
         }
-        return width > 736 ? 48 : 20
+        return width > 768 ? 48 : 20
     }
     
     static func contentInset(sizeClass: UserInterfaceSizeClass) -> CGFloat {
@@ -67,14 +67,14 @@ enum TableViewLayout {
         if sizeClass == .compact {
             return 10
         }
-        return width > 736 ? 48 : 14
+        return width > 768 ? 48 : 14
     }
     
     static func leftPaddingForLeadingAccessoryView(width: CGFloat, sizeClass: UserInterfaceSizeClass, hasButton: Bool) -> CGFloat {
         if sizeClass == .compact {
             return 10
         }
-        return width > 736 ? (hasButton ? 48 : 20) : 14
+        return width > 768 ? (hasButton ? 48 : 20) : 14
     }
     
     static func rightPaddingForLeadingAccessoryView(_ sizeClass: UserInterfaceSizeClass) -> CGFloat {

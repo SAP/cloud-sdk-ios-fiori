@@ -5,6 +5,16 @@ public struct TableRowItem {
     let leadingAccessories: [AccessoryItem]
     let trailingAccessory: AccessoryItem?
     let data: [DataItem]
+    let selectedImage: Image?
+    let deSelectedImage: Image?
+    
+    init(leadingAccessories: [AccessoryItem], trailingAccessory: AccessoryItem?, data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
+        self.leadingAccessories = leadingAccessories
+        self.trailingAccessory = trailingAccessory
+        self.data = data
+        self.selectedImage = selectedImage
+        self.deSelectedImage = deSelectedImage
+    }
 }
 
 enum AccessoryItem {
@@ -29,11 +39,9 @@ enum AccessoryItem {
 // }
 
 struct AccessoryButton {
-    let image_selected: Image
-    let image_deSelected: Image
+    let image: Image
     let title: String
     let action: () -> Void
-    let selected: Bool
 }
 
 //

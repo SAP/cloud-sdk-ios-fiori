@@ -53,7 +53,7 @@ class TableLayoutManager: ObservableObject {
             }
         }
     }
-
+    
     @Published private var _rect: CGRect = .zero
     
     /// private: X direction scale factor, scale is not allowed to be less than 1.0
@@ -93,17 +93,19 @@ class TableLayoutManager: ObservableObject {
     }
     
     @Published var centerPosition: CGPoint? = nil
-
+    
+    var rowData: [TableRowItem] = []
+    
     var allDataItems: [[TableDataItem]] = []
     
     var displayingItems: [[TableDataItem]] = []
     
     public func numberOfColumns() -> Int {
-        self.model.rowData.first?.data.count ?? 0
+        self.rowData.first?.data.count ?? 0
     }
     
     public func numberOfRows() -> Int {
-        self.model.rowData.count
+        self.rowData.count
     }
     
     var columnWidths: [CGFloat] {
@@ -168,9 +170,18 @@ class TableLayoutManager: ObservableObject {
     
     init(model: TableModel, isEditing: Bool) {
         self.model = model
+        self.initRowData(model: self.model)
         self.isEditing = isEditing
         self.horizontalScrolling = model.horizontalScrolling
+        self.centerPosition = model.centerPosition
         self.allDataItems = self.initItems(self.model)
+    }
+    
+    func initRowData(model: TableModel) {
+        if let header = model.headerData {
+            self.rowData.append(header)
+        }
+        self.rowData.append(contentsOf: model.rowData)
     }
     
     func setupMargins(rect: CGRect) {
@@ -178,7 +189,7 @@ class TableLayoutManager: ObservableObject {
         self.trailingAccessoryViewWidth = self.getTrailingAccessoryViewWidth()
         let hasButton = self.getleadingAccessoryViewWidth().1
         self.leadingAccessoryMargin = TableViewLayout.leftPaddingForLeadingAccessoryView(width: rect.size.width, sizeClass: self.sizeClass, hasButton: hasButton)
-
+        
         self.contentInset = TableViewLayout.contentInset(sizeClass: self.sizeClass)
         
         if self.leadingAccessoryViewWidth != 0 {
@@ -196,58 +207,125 @@ class TableLayoutManager: ObservableObject {
         self.tableLeadingLayoutMargin -= self.contentInset
         self.tableTrailingLayoutMargin -= self.contentInset
     }
-        
+    
     func getListItems() -> [AnyView] {
-        var tableItems = self.allDataItems
-        if !self.model.headerData.isEmpty {
-            tableItems = Array(tableItems.dropFirst())
+        var rows = self.rowData
+        if self.model.headerData != nil {
+            rows = Array(rows.dropFirst())
         }
         var items: [AnyView] = []
-        for (index, rowItems) in tableItems.enumerated() {
-            let firstItem = rowItems.first
-            var image: Image?
-            switch firstItem?.value {
-            case .image(let value):
-                image = value
+        for row in rows {
+            let objectView = self.makeObjectView(row: row)
+            items.append(AnyView(objectView))
+        }
+        return items
+    }
+    
+    func makeObjectView(row: TableRowItem) -> some View {
+        var detailImage: Image?
+        let imageItems: [DataImageItem] = row.data.compactMap { (item) -> DataImageItem? in
+            item as? DataImageItem
+        }
+        
+        if let _image = imageItems.filter({ (item) -> Bool in
+            item.mapping == ObjectViewProperty.Image.detailImage
+        }).first {
+            detailImage = _image.image
+        } else {
+            detailImage = imageItems.first?.image
+        }
+        
+        let textItems: [DataTextItem] = row.data.compactMap { (item) -> DataTextItem? in
+            item as? DataTextItem
+        }
+        
+        var titles: [String] = []
+        
+        if textItems.first?.mapping != nil {
+            if let title = textItems.filter({ (item) -> Bool in
+                item.mapping == ObjectViewProperty.Text.title
+            }).first?.text {
+                titles.append(title)
+            }
+            if let subtitle = textItems.filter({ (item) -> Bool in
+                item.mapping == ObjectViewProperty.Text.subtitle
+            }).first?.text {
+                titles.append(subtitle)
+            }
+            if let footnote = textItems.filter({ (item) -> Bool in
+                item.mapping == ObjectViewProperty.Text.footnote
+            }).first?.text {
+                titles.append(footnote)
+            }
+            if let status = textItems.filter({ (item) -> Bool in
+                item.mapping == ObjectViewProperty.Text.status
+            }).first?.text {
+                titles.append(status)
+            }
+            if let substatus = textItems.filter({ (item) -> Bool in
+                item.mapping == ObjectViewProperty.Text.substatus
+            }).first?.text {
+                titles.append(substatus)
+            }
+        } else {
+            for i in 0 ..< 5 {
+                titles.append(textItems[i].text)
+            }
+        }
+
+        let icons: [IconStackItem] = row.leadingAccessories.compactMap { (item) -> IconStackItem? in
+            switch item {
+            case .icon(let value):
+                return .icon(value)
+            case .text(let value):
+                return .text(value)
             default:
-                image = nil
+                return nil
             }
-            let titles: [String] = rowItems.compactMap { (item) -> String? in
-                switch item.value {
-                case .text(let value):
-                    return value
-                default:
-                    return nil
-                }
-            }
-            let icons: [IconStackItem] = self.model.rowData[index].leadingAccessories.compactMap { (item) -> IconStackItem? in
-                switch item {
-                case .icon(let value):
-                    return .icon(value)
-                case .text(let value):
-                    return .text(value)
-                default:
-                    return nil
-                }
-            }
-                        
-            let combined = ObjectItem {
+        }
+        
+        return
+            ObjectItem {
                 Text(titles.first ?? "")
             } subtitle: {
                 if titles.indices.contains(1) {
                     Text(titles[1])
                 }
+            } footnote: {
+                if titles.indices.contains(2) {
+                    Text(titles[2])
+                }
+            } status: {
+                if titles.indices.contains(3) {
+                    Text(titles[3])
+                }
+            } substatus: {
+                if titles.indices.contains(4) {
+                    Text(titles[4])
+                }
             } detailImage: {
-                image?.frame(width: 45, height: 45)
+                detailImage?.frame(width: 45, height: 45)
             } icons: {
-                IconStack(icons: icons)
+                self.generateIconStack(icons: icons)
             }
-
-            items.append(AnyView(combined))
-        }
-        return items
     }
-
+    
+    func generateIconStack(icons: [IconStackItem]) -> some View {
+        VStack(alignment: .leading, spacing: 4, content: {
+            ForEach(0 ..< icons.count, id: \.self) { i in
+                switch icons[i] {
+                case .text(let value):
+                    Text(value)
+                case .icon(let value):
+                    value
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 16, height: 16, alignment: .center)
+                }
+            }
+        })
+    }
+    
     func updatedItemsPos() -> [[TableDataItem]] {
         let numberOfColumns = self.numberOfColumns()
         let numberOfRows = self.numberOfRows()
@@ -273,7 +351,7 @@ class TableLayoutManager: ObservableObject {
     
     func getTrailingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
-        for row in self.model.rowData {
+        for row in self.rowData {
             if let _ = row.trailingAccessory {
                 width = 44
                 break
@@ -282,40 +360,43 @@ class TableLayoutManager: ObservableObject {
         return width
     }
     
-    func getleadingAccessoryViewWidth() -> (CGFloat, hasButton: Bool) {
+    func getleadingAccessoryViewWidth() -> (CGFloat, showSelectionButton: Bool) {
         var width: CGFloat = 0
         var icons: Int = 0
         var buttons: Int = 0
-        for row in self.model.rowData {
+        for row in self.rowData {
             var currentIcons: Int = 0
+            var currentButtons: Int = 0
             for item in row.leadingAccessories {
-                if case .button = item, self.isEditing {
-                    buttons = 1
+                if case .button = item {
+                    currentButtons += 1
                 }
                 if case .icon = item {
                     currentIcons += 1
                 }
             }
+            buttons = max(buttons, currentButtons)
             icons = max(icons, currentIcons)
         }
+        buttons += self.isEditing ? 1 : 0
         width = CGFloat(buttons * 44 + icons * 16)
-        return (width, buttons > 0)
+        return (width, self.isEditing)
     }
     
     func actualSizeForTable(_ model: TableModel, _ rect: CGRect) -> CGSize {
         guard self.actualTableViewSize == .zero else {
             return self.actualTableViewSize
         }
-
+        
         var width: CGFloat = 0
         var height: CGFloat = 0
-
+        
         self.setupMargins(rect: rect)
-
+        
         width = self.getColumnWidths(rect).reduce(0, +)
         width += self.tableLeadingLayoutMargin
         width += self.tableTrailingLayoutMargin
-
+        
         height = self.getRowHeights().reduce(0, +)
         
         let actualTableViewSize = CGSize(width: width, height: height)
@@ -337,7 +418,7 @@ class TableLayoutManager: ObservableObject {
         var columnWidths: [CGFloat] = []
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
-
+            
             for i in 0 ..< numberOfRows {
                 let currentItem = self.allDataItems[i][j]
                 let currentItemWidth: CGFloat = self.cellWidth(currentItem.size.width, rect.size.width)
@@ -353,7 +434,7 @@ class TableLayoutManager: ObservableObject {
     func cellWidth(_ contentWidth: CGFloat, _ rectWidth: CGFloat) -> CGFloat {
         let maxColumnWidth: CGFloat = rectWidth * TableViewLayout.maxColumnWidth
         let minColumnWidth: CGFloat = rectWidth * TableViewLayout.minColumnWidth
-
+        
         let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
         let contentWidthWithPaddings: CGFloat = contentWidth + contentInset * 2
         
@@ -369,7 +450,7 @@ class TableLayoutManager: ObservableObject {
         var heights: [CGFloat] = []
         for (index, row) in rows.enumerated() {
             var itemHeight: CGFloat = 0
-            let isHeader = !self.model.headerData.isEmpty && index == 0
+            let isHeader = self.model.headerData != nil && index == 0
             let topAndBottom = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
             for item in row {
                 itemHeight = max(item.size.height, itemHeight)
@@ -390,7 +471,7 @@ class TableLayoutManager: ObservableObject {
         }
         return height
     }
-
+    
     func initItems(_ model: TableModel) -> [[TableDataItem]] {
         var res: [[TableDataItem]] = []
         if self.allDataItems.isEmpty {
@@ -408,11 +489,11 @@ class TableLayoutManager: ObservableObject {
         
         let maxDataCountInRow = self.numberOfColumns()
         let width: CGFloat = rect.width
-
+        
         let tmpScaleX = self.scaleX(rect: rect)
         let tmpStartPositionInRow = self.startPosition(rect: rect)
         let startPosX = tmpStartPositionInRow.x * tmpScaleX * width
-
+        
         let maxDataCountInColumn = self.numberOfRows()
         let height = rect.height
         
@@ -471,9 +552,9 @@ class TableLayoutManager: ObservableObject {
         let catIndexRangeInColumn = yStartIndex ... yEndIndex
         
         var displayingItems: [[TableDataItem]] = []
-                
-//        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
-
+        
+        //        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
+        
         if catIndexRangeInRow.lowerBound >= 0, catIndexRangeInRow.upperBound < maxDataCountInRow,
            catIndexRangeInColumn.lowerBound >= 0, catIndexRangeInColumn.upperBound < maxDataCountInColumn
         {
@@ -481,20 +562,20 @@ class TableLayoutManager: ObservableObject {
                 displayingItems.append([])
                 
                 let lastIndex = displayingItems.count - 1
-
+                
                 let rowHeight = self.rowHeights[i]
-
+                
                 for j in catIndexRangeInRow {
                     let currentItem = allItems[i][j]
                     let columnWidth = self.columnWidths[j]
                     let contentWidth = columnWidth - self.contentInset * 2
-                                        
+                    
                     let x = currentItem.pos.x * tmpScaleX * width - startPosX + self.tableLeadingLayoutMargin
                     let y = currentItem.pos.y * tmpScaleY * height - startPosY
                     
                     let itemWidth = contentWidth * tmpScaleX
                     let itemHeight = rowHeight * tmpScaleY
-                                        
+                    
                     if x > -itemWidth, x <= width + itemWidth,
                        y > -itemHeight, y <= height + itemHeight
                     {
@@ -509,7 +590,7 @@ class TableLayoutManager: ObservableObject {
                         displayingItems[lastIndex].append(item)
                     }
                 }
-                                
+                
                 if self.model.firstColumnSticky {
                     var item = allItems[i][0]
                     let contentWidth = self.columnWidths[0] - self.contentInset * 2
@@ -520,7 +601,7 @@ class TableLayoutManager: ObservableObject {
                     item.y(y)
                     item.size(CGSize(width: contentWidth, height: item.size.height))
                     item.offset(CGPoint(x: self.columnWidths[0] / 2, y: 0))
-
+                    
                     if displayingItems[lastIndex].count > 1 {
                         displayingItems[lastIndex].removeFirst()
                     }
@@ -540,9 +621,9 @@ class TableLayoutManager: ObservableObject {
                 firstRow[i].size(CGSize(width: contentWidth, height: firstRow[i].size.height))
                 firstRow[i].rowHeight(self.rowHeights.first ?? 0)
             }
-
+            
             var leftTopItem: TableDataItem?
-
+            
             if self.model.firstColumnSticky {
                 leftTopItem = allItems.first?.first
                 let itemHeight = leftTopItem?.size.height ?? 0
@@ -554,13 +635,13 @@ class TableLayoutManager: ObservableObject {
                 leftTopItem?.size(CGSize(width: contentWidth, height: itemHeight))
                 leftTopItem?.offset(CGPoint(x: self.columnWidths[0] / 2, y: (self.rowHeights.first ?? 0) / 2))
             }
-
+            
             if let item = leftTopItem {
                 firstRow = Array(firstRow[catIndexRangeInRow])
                 firstRow.removeFirst()
                 firstRow.insert(item, at: 0)
             }
-
+            
             displayingItems.removeFirst()
             displayingItems.insert(firstRow, at: 0)
         }
@@ -578,7 +659,7 @@ class TableLayoutManager: ObservableObject {
             let items = self.createDataItemForRow(at: i)
             res.append(items)
         }
-
+        
         return res
     }
     
@@ -586,7 +667,7 @@ class TableLayoutManager: ObservableObject {
         let numberInEachRow = self.numberOfColumns()
         let numberOfDataInColumn = self.numberOfRows()
         
-        let dataInEachRow = self.model.rowData[index].data
+        let dataInEachRow = self.rowData[index].data
         
         let width: CGFloat = 1
         let unitWidth: CGFloat = max(width / CGFloat(max(numberInEachRow - 1, 1)), TableViewLayout.minUnitWidth)
@@ -594,8 +675,8 @@ class TableLayoutManager: ObservableObject {
         let height: CGFloat = 1
         let unitHeight: CGFloat = max(height / CGFloat(max(numberOfDataInColumn - 1, 1)), TableViewLayout.minUnitHeight)
         
-//        let rowIndex = !self.model.headerData.isEmpty ? index - 1 : index
-                
+        //        let rowIndex = !self.model.headerData.isEmpty ? index - 1 : index
+        
         var res: [TableDataItem] = []
         for i in 0 ..< numberInEachRow {
             var contentWidth = CGFloat(MAXFLOAT)
@@ -610,7 +691,7 @@ class TableLayoutManager: ObservableObject {
                 }
             }
             contentWidth -= self.contentInset * 2
-
+            
             let currentItem = dataInEachRow[i]
             
             switch currentItem.type {
@@ -619,10 +700,11 @@ class TableLayoutManager: ObservableObject {
                     break
                 }
                 let title = item.text ?? ""
-                let font = item.font ?? .body
-                let fontSize = UIFont.preferredFont(from: font).pointSize
+                //                let font = item.font ?? .body
+                let font = UIFont.preferredFont(from: item.font ?? .body)
                 let lineLimit = item.lineLimit ?? 0
-                let size = title.boundingBoxSize(with: fontSize * self.scaleX, width: contentWidth, height: item.lineLimit == nil ? fontSize * self.scaleX : CGFloat(MAXFLOAT))
+                let height = lineLimit == 0 ? CGFloat(MAXFLOAT) : CGFloat(lineLimit) * font.lineHeight
+                let size = title.boundingBoxSize(with: font.pointSize * self.scaleX, width: contentWidth, height: height)
                 res.append(TableDataItem(index: index,
                                          value: .text(title),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
@@ -637,8 +719,6 @@ class TableLayoutManager: ObservableObject {
                                          value: .image(image),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
                                          size: CGSize(width: 45, height: 0)))
-            default:
-                break
             }
         }
         

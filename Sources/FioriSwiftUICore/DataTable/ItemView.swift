@@ -5,7 +5,7 @@ struct ItemView: View {
     
     var dropVerticalShadow: Bool = false
     
-    @State var value: String = ""
+//    @State var value: String = ""
     @EnvironmentObject var layoutManager: TableLayoutManager
     @EnvironmentObject var dataManager: TableDataManager
 
@@ -27,20 +27,26 @@ struct ItemView: View {
         let contentInset = TableViewLayout.contentInset(sizeClass: self.layoutManager.sizeClass)
         let tapGesture = TapGesture()
             .onEnded { _ in
+                let rowIndex = self.isHeader ? 0 : -1 + self.dataItem.rowIndex
                 guard self.dataItem.rowIndex >= 0 else {
                     return
                 }
-                print("Tapped on row: \(self.dataItem.rowIndex)")
-                if let handler = self.layoutManager.model.didSelectRowAt {
-                    handler(self.dataItem.rowIndex)
-                }
                 if self.layoutManager.isEditing {
-                    if !self.dataManager.selectedIndexes.contains(self.dataItem.rowIndex) {
-                        self.dataManager.selectedIndexes.append(self.dataItem.rowIndex)
+                    if !self.dataManager.selectedIndexes.contains(rowIndex) {
+                        self.dataManager.selectedIndexes.append(rowIndex)
+                        self.layoutManager.model.selectedIndexes.append(rowIndex)
                     } else {
                         self.dataManager.selectedIndexes.removeAll { (target) -> Bool in
-                            target == self.dataItem.rowIndex
+                            target == rowIndex
                         }
+                        self.layoutManager.model.selectedIndexes.removeAll { (target) -> Bool in
+                            target == rowIndex
+                        }
+                    }
+                } else {
+                    print("Tapped on row: \(rowIndex)")
+                    if let handler = self.layoutManager.model.didSelectRowAt {
+                        handler(rowIndex)
                     }
                 }
             }

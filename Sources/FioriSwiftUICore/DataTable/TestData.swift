@@ -9,13 +9,11 @@ public enum TestRowData {
             let imageItem = DataImageItem(Image(systemName: "checkmark.circle.fill"))
             data.append(i == 0 ? imageItem : textItem)
         }
-        let lAccessories: [AccessoryItem] = [.button(.init(image_selected: Image(systemName: "checkmark.circle.fill"), image_deSelected: Image(systemName: "checkmark.circle"), title: "", action: {
-            print("row: \(row) tapped")
-        }, selected: false)), .icon(Image(systemName: "arrow.triangle.2.circlepath"))]
+        let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
-        let tAccessory: AccessoryItem = .button(.init(image_selected: Image(systemName: "chevron.forward"), image_deSelected: Image(systemName: "chevron.forward"), title: "", action: {
+        let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "chevron.forward"), title: "", action: {
             print("trailing accessory tapped: \(row) tapped")
-        }, selected: false))
+        }))
         
         let output = TableRowItem(leadingAccessories: lAccessories, trailingAccessory: tAccessory, data: data)
         
@@ -45,18 +43,22 @@ public enum TestRowData {
     
     static func generateData(row: Int, column: Int) -> TableModel {
         var res: [TableRowItem] = []
-        var titles: [String] = []
+        var titles: [DataTextItem] = []
         for k in 0 ..< column {
-            titles.append(k == 0 ? "" : "Long Header Title: \(k)")
+            let title = k == 0 ? "" : "Long Header Title: \(k)"
+            titles.append(DataTextItem(title))
         }
         for i in 0 ..< row {
             res.append(self.generateRowData(count: column, for: i))
         }
-        
-        let model = TableModel(headerTitles: titles, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
+        let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
+        let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
         //        model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.columnAttributes = self.generateColumnAttributes(column: 12)
-        model.selectedIndex = [2, 3]
+        model.didSelectRowAt = { _ in
+            print(model.selectedIndexes)
+        }
+        model.selectedIndexes = [2, 3]
         
         return model
     }
@@ -73,7 +75,7 @@ public struct TestTableView: View {
     }
     
     func makeBody() -> some View {
-        var view = TableDataView()
+        let view = TableDataView(isEditing: $isEditing)
         return
             NavigationView {
                 view
@@ -82,19 +84,13 @@ public struct TestTableView: View {
                     .navigationBarItems(leading:
                         Button("Add a row") {
                             DispatchQueue.main.async {
-                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
-                            }
-                        }
-                    )
-                    .navigationBarItems(leading:
-                        Button("Add a row") {
-                            DispatchQueue.main.async {
-                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 1)
+                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 0)
                             }
                         }, trailing:
                         Button(self.isEditing ? "Done" : "Edit") {
-                            self.isEditing = !self.isEditing
-                            view.isEditing = self.isEditing
+                            DispatchQueue.main.async {
+                                self.isEditing = !self.isEditing
+                            }
                         })
             }
             .navigationViewStyle(StackNavigationViewStyle())

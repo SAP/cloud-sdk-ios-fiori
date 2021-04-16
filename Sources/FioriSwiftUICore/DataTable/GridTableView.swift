@@ -17,6 +17,9 @@ struct GridTableView: View {
     init(layoutManager: TableLayoutManager, dataManager: TableDataManager) {
         self.layoutManager = layoutManager
         self.dataManager = dataManager
+        if let centerPos = self.layoutManager.centerPosition {
+            self.lastCenterPosition = centerPos
+        }
     }
     
     var body: some View {
@@ -52,6 +55,7 @@ struct GridTableView: View {
             }
             .onEnded { _ in
                 self.lastCenterPosition = self.layoutManager.centerPosition(rect: rect)
+                self.layoutManager.model.centerPosition = self.lastCenterPosition
             }
         
         // zoom in & out
@@ -73,7 +77,7 @@ struct GridTableView: View {
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
                     
-                    let isHeader: Bool = i == 0 && !self.layoutManager.model.headerData.isEmpty
+                    let isHeader: Bool = i == 0 && self.layoutManager.model.headerData != nil
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]
@@ -101,26 +105,26 @@ struct GridTableView: View {
                     if let leadingItem = items[i].first {
                         let currentIndex = leadingItem.rowIndex
 
-                        let lAccessoriess: [AccessoryItem] = self.dataManager.rowData[currentIndex].leadingAccessories
-                        let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.dataManager.rowData[currentIndex].trailingAccessory
+                        let rowItem = self.layoutManager.rowData[currentIndex]
+                        let lAccessoriess: [AccessoryItem] = rowItem.leadingAccessories
+                        let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.layoutManager.rowData[currentIndex].trailingAccessory
                         let leadingMargin = lAccessoriess.count == 0 ? 0 : self.layoutManager.leadingAccessoryMargin
                         
                         let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
                         
                         horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
-//                            .zIndex(Double(900 - currentIndex))
 
                         DummyBackground(index: currentIndex)
                             .position(x: rect.minX, y: y)
                         
-                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing)
+                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing, selectedImage: rowItem.selectedImage, deSelectedImage: rowItem.deSelectedImage)
                             .position(x: rect.minX, y: y)
                             .padding(.leading, leadingMargin)
                             .zIndex(Double(650 - currentIndex))
 
                         TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex)
                             .position(x: rect.maxX, y: y)
-                            .zIndex(Double(800 - currentIndex))
+                            .zIndex(Double(650 - currentIndex))
                     }
                 }
             }
