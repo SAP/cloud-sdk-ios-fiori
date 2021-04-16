@@ -338,3 +338,10 @@ extension Array where Element == String {
         self.compactMap { contextType[$0] }.compactMap { $0 }
     }
 }
+
+extension Type {
+    var availableAttribute: String? {
+        guard let content = resolvedAnnotations("availableAttributeContent").first else { return nil }
+        return "@available(\(content))"
+    }
+}

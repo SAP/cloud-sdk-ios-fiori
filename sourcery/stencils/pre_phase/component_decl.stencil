@@ -30,6 +30,7 @@ public protocol {{NAME | upperFirstLetter}}Component {
 {% for annotationKey, annotationValue in type.annotations %}
 // sourcery: {{ annotationKey }}={{ annotationValue }}
 {% endfor %}
+{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 {% if inheritedTypes %}
 public protocol {{NAME | upperFirstLetter}}Component : {{ inheritedTypes }} {
 {% else %}
