@@ -18,11 +18,17 @@ import SwiftUI
 extension Fiori {
     enum ActivationScreen {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
 		typealias TextFilled = EmptyModifier
+        typealias TextFilledCumulative = EmptyModifier
 		typealias ActionText = EmptyModifier
+        typealias ActionTextCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
 		typealias SecondaryActionText = EmptyModifier
+        typealias SecondaryActionTextCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -42,6 +48,12 @@ extension Fiori {
 		static let actionText = ActionText()
 		static let footnote = Footnote()
 		static let secondaryActionText = SecondaryActionText()
+        static let titleCumulative = TitleCumulative()
+		static let descriptionTextCumulative = DescriptionTextCumulative()
+		static let textFilledCumulative = TextFilledCumulative()
+		static let actionTextCumulative = ActionTextCumulative()
+		static let footnoteCumulative = FootnoteCumulative()
+		static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
     }
 }
 

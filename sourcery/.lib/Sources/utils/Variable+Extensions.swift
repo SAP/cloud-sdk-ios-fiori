@@ -33,19 +33,14 @@ public extension Variable {
         }
     }
 
-    var conditionalAssignmentBacked: String {
-        if isOptional {
-            return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUIBacked)) : ViewBuilder.buildEither(second: EmptyView())"
-        } else {
-            return self.toSwiftUIBacked
-        }
-    }
-
     var backingSwiftUIComponent: String? {
         self.definedInType?.resolvedAnnotations("backingComponent").first ?? resolvedAnnotations("backingComponent").first
     }
 
     var toSwiftUI: String {
+        if self.backingSwiftUIComponent != nil {
+            return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
+        }
         switch self.typeName.unwrappedTypeName {
         case "String":
             return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
@@ -55,19 +50,6 @@ public extension Variable {
             return isOptional ? "\(self.trimmedName)!" : self.trimmedName
         default:
             return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
-        }
-    }
-
-    var toSwiftUIBacked: String {
-        switch self.typeName.unwrappedTypeName {
-        case "String":
-            return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
-        case "[String]":
-            return "Text(\(self.trimmedName).joined(separator: \", \"))"
-        case "Image":
-            return isOptional ? "\(self.trimmedName)!" : self.trimmedName
-        default:
-            return "\(self.swiftUITypeNameBacked)(\(self.trimmedName))"
         }
     }
 
@@ -90,8 +72,12 @@ public extension Variable {
     func resolvedViewModifierChain(type: Type) -> String {
         if annotations.keys.contains("no_style") == false {
             return """
-            var \(self.trimmedName): some View {
-                    _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)))
+            @ViewBuilder var \(self.trimmedName): some View {
+                    if isModelInit {
+                        _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)).concat(Fiori.\(type.componentName).\(self.trimmedName)Cumulative))
+                    } else {
+                        _\(self.trimmedName).modifier(\(self.trimmedName)Modifier.concat(Fiori.\(type.componentName).\(self.trimmedName)))
+                    }
                 }
             """
         } else {
@@ -111,5 +97,23 @@ public extension Variable {
         } else {
             return []
         }
+    }
+}
+
+public extension Variable {
+    var isRepresentableByView: Bool {
+        !annotations.keys.contains("no_view")
+    }
+
+    var viewBuilderDecl: String {
+        if let cfb = self.resolvedAnnotations("customFunctionBuilder").first {
+            return "@\(cfb) \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+        } else {
+            return "@ViewBuilder \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+        }
+    }
+
+    var propDecl: String {
+        "\(self.trimmedName): \(self.typeName)"
     }
 }

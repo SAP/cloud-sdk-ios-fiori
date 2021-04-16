@@ -37,6 +37,9 @@ This module contains both the Fiori palette information which is already consume
 > **WARNING**: [concepts](./GeneratedComponentConcepts.md) and implementation for generated components is `in-development` and can change at any time!!! 
 
 ### Component Generation
+
+Not relevant for app developers ("Consumers"). The following information are relevant for SDK maintainers and contributors in order to add new components.
+
 To ensure API consistency and to leverage common implementation logic, we use a component generation pattern when possible.  These scripts are located in the `sourcery/` directory, and should be executed as follows:
 
 ```bash
@@ -85,95 +88,143 @@ import SwiftUI
 
 public struct PersonDetailItem<Title: View, Subtitle: View, DetailImage: View> {
     @Environment(\.titleModifier) private var titleModifier
-    @Environment(\.subtitleModifier) private var subtitleModifier
-    @Environment(\.detailImageModifier) private var detailImageModifier
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    
-    private let _title: () -> Title
-    private let _subtitle: () -> Subtitle
-    private let _detailImage: () -> DetailImage
+	@Environment(\.subtitleModifier) private var subtitleModifier
+	@Environment(\.detailImageModifier) private var detailImageModifier
+	@Environment(\.horizontalSizeClass) var horizontalSizeClass
+
+    let _title: Title
+	let _subtitle: Subtitle
+	let _detailImage: DetailImage
+	
+    private var isModelInit: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isDetailImageNil: Bool = false
 
     public init(
         @ViewBuilder title: @escaping () -> Title,
-	@ViewBuilder subtitle: @escaping () -> Subtitle,
-	@ViewBuilder detailImage: @escaping () -> DetailImage
-    ) {
-        self._title = title
-	self._subtitle = subtitle
-	self._detailImage = detailImage
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder detailImage: @escaping () -> DetailImage
+        ) {
+            self._title = title()
+			self._subtitle = subtitle()
+			self._detailImage = detailImage()
     }
 
     @ViewBuilder var title: some View {
-	_title().modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.PersonDetailItem.title).concat(Fiori.PersonDetailItem.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
+        }
     }
-    @ViewBuilder var subtitle: some View {
-        _subtitle().modifier(subtitleModifier.concat(Fiori.PersonDetailItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.PersonDetailItem.subtitle).concat(Fiori.PersonDetailItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.PersonDetailItem.subtitle))
+        }
     }
-    @ViewBuilder var detailImage: some View {
-	_detailImage().modifier(detailImageModifier.concat(Fiori.PersonDetailItem.detailImage))
+	@ViewBuilder var detailImage: some View {
+        if isModelInit {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.PersonDetailItem.detailImage).concat(Fiori.PersonDetailItem.detailImageCumulative))
+        } else {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.PersonDetailItem.detailImage))
+        }
+    }
+    
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+    }
+
+	var isDetailImageEmptyView: Bool {
+        ((isModelInit && isDetailImageNil) || DetailImage.self == EmptyView.self) ? true : false
     }
 }
 
 extension PersonDetailItem where Title == Text,
-    Subtitle == _ConditionalContent<Text, EmptyView>,
-    DetailImage == _ConditionalContent<Image, EmptyView> {
-    
+		Subtitle == _ConditionalContent<Text, EmptyView>,
+		DetailImage == _ConditionalContent<Image, EmptyView> {
+
     public init(model: PersonDetailItemModel) {
         self.init(title: model.title_, subtitle: model.subtitle_, detailImage: model.detailImage_)
     }
 
     public init(title: String, subtitle: String? = nil, detailImage: Image? = nil) {
-        self._title = { Text(title) }
-	self._subtitle = { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) }
-	self._detailImage = { detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView()) }
+        self._title = Text(title)
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
     }
-} 
+}
+
 ```
 
 **Sources/FioriSwiftUICore/\_generated/ViewModels/Boilerplate/ProfileDetailItem+View.generated.swift**
 ```swift
-// TODO: Extend PersonDetailItem to implement View in separate file
-// place at FioriSwiftUICore/Views/PersonDetailItem+View.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/PersonDetailItem+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement PersonDetailItem `View` body
+//TODO: Implement LibraryContentProvider
 
-// Important: to make @Environment properties (e.g. horizontalSizeClass), available
-// in extensions, add as sourcery annotation in FioriSwiftUICore/Models/ModelDefinitions.swift
-// to declare a wrapped property
-// e.g.:  // sourcery: add_env_props = ["horizontalSizeClass"]
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
 /*
 import SwiftUI
 
-// TODO: - Implement Fiori style definitions
+// FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum PersonDetailItem {
         typealias Title = EmptyModifier
-	typealias Subtitle = EmptyModifier
-	typealias DetailImage = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
+		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
+		typealias DetailImage = EmptyModifier
+        typealias DetailImageCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
-        // replace `typealias Subtitle = EmptyModifier` with: 
+            // replace `typealias Subtitle = EmptyModifier` with:
 
-        struct Subtitle: ViewModifier {
-            func body(content: Content) -> some View {
-                content
-                    .font(.body)
-                    .foregroundColor(.preferredColor(.primary3))
+            struct Subtitle: ViewModifier {
+                func body(content: Content) -> some View {
+                    content
+                        .font(.body)
+                        .foregroundColor(.preferredColor(.primary3))
+                }
             }
-        }
         */
         static let title = Title()
-	static let subtitle = Subtitle()
-	static let detailImage = DetailImage()
+		static let subtitle = Subtitle()
+		static let detailImage = DetailImage()
+        static let titleCumulative = TitleCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
+		static let detailImageCumulative = DetailImageCumulative()
     }
 }
 
-// TODO: - Implement PersonDetailItem View body
+// FIXME: - Implement PersonDetailItem View body
 
 extension PersonDetailItem: View {
-    public var body: some View { 
-        <# View body #> 
+    public var body: some View {
+        <# View body #>
+    }
+}
+
+// FIXME: - Implement PersonDetailItem specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct PersonDetailItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(PersonDetailItem(model: LibraryPreviewData.Person.laurelosborn),
+                    category: .control)
     }
 }
 */
@@ -182,7 +233,7 @@ extension PersonDetailItem: View {
 ### Example Component View Body Implementation
 The commented code in `ProfileDetailItem+View.generated.swift` should be copied & uncommented to `Sources/FioriSwiftUICore/Views/ProfileDetailItem+View.swift`.  
 
-The first task is the `body: some View` implementation.  The developer should *never* attempt to read directly from the cached closures (e.g. `private let _title: () -> Title`).  Instead, the developer should *always* use the computed variables (e.g. `var title: some View`), which guarantees that the `ViewModifier`s will be applied consistently across components--and accounts for empty views.
+The first task is the `body: some View` implementation.  The developer should *never* attempt to read directly from the cached closures (e.g. `let _title: () -> Title`).  Instead, the developer should *always* use the computed variables (e.g. `var title: some View`), which guarantees that the `ViewModifier`s will be applied consistently across components--and accounts for empty views.
 
 ```swift
 extension PersonDetailItem: View {
@@ -216,9 +267,15 @@ extension Fiori {
 This style will be applied in the computed variable in `ProfileDetailItem+API.generated.swift`, as a `ViewModifier` concatenation.
 ```swift
 @ViewBuilder var title: some View {
-    _title().modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
+    if isModelInit {
+		_title.modifier(titleModifier.concat(Fiori.PersonDetailItem.title).concat(Fiori.PersonDetailItem.titleCumulative))
+    } else {
+        _title.modifier(titleModifier.concat(Fiori.PersonDetailItem.title))
+    }
 }
 ```
+
+Note: Component maintainers shall place cumulative styling, e.g. `.padding()` or `.overlay()`, in the respective ViewModifiers with suffix `Cumulative`. Those ViewModifiers will only be applied if the model or content-based initializer are used during runtime. Only non-cumulative styling, e.g. `.font()` or `.lineLimit()`, will be applied as Default Fiori Styling. This avoids side effects in case an app developer supplies an own view.
 
 ### Advanced: suppress EnvironmentKey/Variables and Style generation
 
@@ -336,6 +393,31 @@ extension ProfileHeader {
   }
 ```
 
+Supplying the arbitrary view shall be possible for an app developer. Therefore appropriate conditional initializers will be generated in `<Component>+Init.generated` file
+
+```swift
+extension ProfileHeader where ActionItems == EmptyView {
+    public init(
+        @ViewBuilder title: @escaping () -> Title,
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder footnote: @escaping () -> Footnote,
+		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
+		@ViewBuilder detailImage: @escaping () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			detailImage: detailImage,
+			actionItems: { EmptyView() }
+        )
+    }
+}
+
+/// and other combinations in which `ActionItems == EmptyView`
+```
+
 ### Advanced: add property declaration to ViewModel
 
 Use a sourcery annotation for which its key contains `virtualProp` prefix and its value represents the property declaration (as you would write it manually).
@@ -372,6 +454,50 @@ The generated ViewModel initializer in `<Model>+API.generated.swift` as well as 
         ) { 
 		  // ...
 		}
+```
+
+### Advanced: component property not representable as view
+
+Use sourcery annotation `// sourcery: no_view` on a property which shall not be represented as a view. The property will still be used in the initializers but does not have the @ViewBuilder property wrapper and is declared with its original data type.
+
+```swift
+internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
+    // sourcery: no_view
+    var fraction_: Double? { get }
+}
+```
+
+Result:
+
+```swift
+public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> { // no `Fraction: View` !
+    @Environment(\.kpiModifier) private var kpiModifier
+	@Environment(\.subtitleModifier) private var subtitleModifier
+	@Environment(\.footnoteModifier) private var footnoteModifier
+
+    let _kpi: Kpi
+	let _fraction: Double? // data type is used!
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	
+    private var isModelInit: Bool = false
+	private var isKpiNil: Bool = false
+	private var isSubtitleNil: Bool = false
+	private var isFootnoteNil: Bool = false
+
+    public init(
+        @ViewBuilder kpi: @escaping () -> Kpi,
+		fraction: Double?, // data type is used!
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
+		@ViewBuilder footnote: @escaping () -> Footnote
+        ) {
+            self._kpi = kpi()
+			self._fraction = fraction // direct assignment
+			self._subtitle = subtitle()
+			self._footnote = footnote()
+    }
+    // ...
+}
 ```
 
 ### Next Steps

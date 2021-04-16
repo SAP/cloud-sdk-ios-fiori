@@ -15,15 +15,15 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	@Environment(\.sizeCategory) var sizeCategory
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _descriptionText: DescriptionText
-	private let _status: Status
-	private let _substatus: Substatus
-	private let _detailImage: DetailImage
-	private let _icons: Icons
-	private let _actionText: ActionText
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _descriptionText: DescriptionText
+	let _status: Status
+	let _substatus: Substatus
+	let _detailImage: DetailImage
+	let _icons: Icons
+	let _actionText: ActionText
 	@State var mainViewSize: CGSize = .zero
 
     private var isModelInit: Bool = false
@@ -58,32 +58,64 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 			self._actionText = actionText()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.ObjectItem.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.ObjectItem.title).concat(Fiori.ObjectItem.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.ObjectItem.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectItem.subtitle).concat(Fiori.ObjectItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectItem.subtitle))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.ObjectItem.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectItem.footnote).concat(Fiori.ObjectItem.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ObjectItem.footnote))
+        }
     }
-	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectItem.descriptionText))
+	@ViewBuilder var descriptionText: some View {
+        if isModelInit {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectItem.descriptionText).concat(Fiori.ObjectItem.descriptionTextCumulative))
+        } else {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ObjectItem.descriptionText))
+        }
     }
-	var status: some View {
-        _status.modifier(statusModifier.concat(Fiori.ObjectItem.status))
+	@ViewBuilder var status: some View {
+        if isModelInit {
+            _status.modifier(statusModifier.concat(Fiori.ObjectItem.status).concat(Fiori.ObjectItem.statusCumulative))
+        } else {
+            _status.modifier(statusModifier.concat(Fiori.ObjectItem.status))
+        }
     }
-	var substatus: some View {
-        _substatus.modifier(substatusModifier.concat(Fiori.ObjectItem.substatus))
+	@ViewBuilder var substatus: some View {
+        if isModelInit {
+            _substatus.modifier(substatusModifier.concat(Fiori.ObjectItem.substatus).concat(Fiori.ObjectItem.substatusCumulative))
+        } else {
+            _substatus.modifier(substatusModifier.concat(Fiori.ObjectItem.substatus))
+        }
     }
-	var detailImage: some View {
-        _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectItem.detailImage))
+	@ViewBuilder var detailImage: some View {
+        if isModelInit {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectItem.detailImage).concat(Fiori.ObjectItem.detailImageCumulative))
+        } else {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ObjectItem.detailImage))
+        }
     }
 	var icons: some View {
         _icons
     }
-	var actionText: some View {
-        _actionText.modifier(actionTextModifier.concat(Fiori.ObjectItem.actionText))
+	@ViewBuilder var actionText: some View {
+        if isModelInit {
+            _actionText.modifier(actionTextModifier.concat(Fiori.ObjectItem.actionText).concat(Fiori.ObjectItem.actionTextCumulative))
+        } else {
+            _actionText.modifier(actionTextModifier.concat(Fiori.ObjectItem.actionText))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {

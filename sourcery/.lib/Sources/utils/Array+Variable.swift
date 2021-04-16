@@ -31,15 +31,25 @@ public extension Array where Element == Variable {
     }
 
     /**
-     Formats private 'caching' properties to hold the developer-supplied ViewBuilder for each property
+     Formats internal 'caching' properties to hold the developer-supplied ViewBuilder for each property
      ```
-     private let _title: Title
-     private let _subtitle: Subtitle
+     let _title: Title
+     let _subtitle: Subtitle
      ...
      ```
      */
     var viewBuilderPropertyDecls: [String] {
-        map { "private let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
+        map { "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
+    }
+
+    var miscPropertyDecls: [String] {
+        map {
+            if $0.isRepresentableByView == false {
+                return "let _\($0.trimmedName): \($0.typeName)"
+            } else {
+                return "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())"
+            }
+        }
     }
 
     /**
@@ -58,7 +68,7 @@ public extension Array where Element == Variable {
      Creates internal computed "is<View>EmptyView>" properties, related to optional component properties, to compute the information if `EmptyView` is used nor not
      ```
      var isSubtitleEmptyView: Bool {
-         ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
+     ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
      }
      ...
      ```
@@ -93,8 +103,8 @@ public extension Array where Element == Variable {
      Formats list of init ViewBuilder parameters
      ```
      public init( // starts here =>
-         @ViewBuilder title: @escaping () -> Title,
-         @ViewBuilder subtitle: @escaping () -> Subtitle, ...
+     @ViewBuilder title: @escaping () -> Title,
+     @ViewBuilder subtitle: @escaping () -> Subtitle, ...
      ```
      */
     var viewBuilderInitParams: [String] {
@@ -108,30 +118,58 @@ public extension Array where Element == Variable {
     }
 
     /**
+     Formats list of either  init ViewBuilder parameters or regular properties
+     ```
+     public init( // starts here =>
+     @ViewBuilder kpi: @escaping () -> Kpi,
+     fraction: Double?, ...
+     ```
+     */
+    var miscInitParams: [String] {
+        map {
+            if $0.isRepresentableByView == false {
+                return $0.propDecl
+            } else {
+                return $0.viewBuilderDecl
+            }
+        }
+    }
+
+    /**
      Formats the assignment from init params to caching stored properties
      ```
      public init(
-         /* ... */
-         ) { // starts here =>
-             self._title = title
-             self._subtitle = subtitle
-            ...
+     /* ... */
+     ) { // starts here =>
+     self._title = title
+     self._subtitle = subtitle
+     ...
      ```
      */
     var viewBuilderInitParamAssignment: [String] {
         map { "self._\($0.trimmedName) = \($0.trimmedName)()" }
     }
 
-    /**
-      Responsible for resolving view modifiers from default styling, and Environment property
+    var miscInitParamAssignment: [String] {
+        map {
+            if $0.isRepresentableByView == false {
+                return "self._\($0.trimmedName) = \($0.trimmedName)"
+            } else {
+                return "self._\($0.trimmedName) = \($0.trimmedName)()"
+            }
+        }
+    }
 
-        Generates as follows:
-       ```
-       var title: some View {
-           _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
-       }
-       ```
-       - important: This is the ONLY view which should be used by developers in the layout construction
+    /**
+     Responsible for resolving view modifiers from default styling, and Environment property
+
+     Generates as follows:
+     ```
+     var title: some View {
+     _title().modifier(titleModifier.concat(Fiori.ChartFloorplan.title))
+     }
+     ```
+     - important: This is the ONLY view which should be used by developers in the layout construction
      */
     func resolvedViewModifierChain(type: Type) -> String {
         map { $0.resolvedViewModifierChain(type: type) }.joined(separator: "\n\t")
@@ -147,18 +185,24 @@ public extension Array where Element: Variable {
      Uses `ViewBuilder.buildEither` to account for nil content injected via this API
      ```
      init( /* ... */ ) { // starts here =>
-        // Where content is non-optional
-        self._title = { Text(title) }()
+     // Where content is non-optional
+     self._title = { Text(title) }()
 
-        // Where content is optional (e.g. String?)
-        self._subtitle = { subtitle != nil ?
-            ViewBuilder.buildEither(first: Text(subtitle!)) :
-            ViewBuilder.buildEither(second: EmptyView())
-        }()
+     // Where content is optional (e.g. String?)
+     self._subtitle = { subtitle != nil ?
+     ViewBuilder.buildEither(first: Text(subtitle!)) :
+     ViewBuilder.buildEither(second: EmptyView())
+     }()
      ```
      */
     var extensionModelInitParamsAssignments: [String] {
-        map { "self._\($0.trimmedName) = \($0.conditionalAssignment)" }
+        map {
+            if $0.isRepresentableByView {
+                return "self._\($0.trimmedName) = \($0.conditionalAssignment)"
+            } else {
+                return "self._\($0.trimmedName) = \($0.trimmedName)"
+            }
+        }
     }
 
     var extensionModelInitParamsDataTypeAssignments: [String] {
@@ -183,8 +227,15 @@ extension Array where Element: Variable {
         map { "static let \($0.trimmedName) = \($0.trimmedName.capitalizingFirst())()" }.joined(separator: "\n\t\t")
     }
 
+    var staticViewModifierCumulativePropertyDecls: String {
+        map { "static let \($0.trimmedName)Cumulative = \($0.trimmedName.capitalizingFirst())Cumulative()" }.joined(separator: "\n\t\t")
+    }
+
     var typealiasViewModifierDecls: String {
-        map { "typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier" }.joined(separator: "\n\t\t")
+        map { """
+        typealias \($0.trimmedName.capitalizingFirst()) = EmptyModifier
+                typealias \($0.trimmedName.capitalizingFirst())Cumulative = EmptyModifier
+        """ }.joined(separator: "\n\t\t")
     }
 
     public var extensionContrainedWhereEmptyView: String {
@@ -228,10 +279,14 @@ extension Array where Element: Variable {
         var output: [String] = []
         for variable in self {
             if !scenario.contains(variable) {
-                if let cfb = variable.resolvedAnnotations("customFunctionBuilder").first {
-                    output.append("@\(cfb) \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                if variable.isRepresentableByView {
+                    if let cfb = variable.resolvedAnnotations("customFunctionBuilder").first {
+                        output.append("@\(cfb) \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                    } else {
+                        output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                    }
                 } else {
-                    output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                    output.append("\(variable.trimmedName): \(variable.typeName)")
                 }
             }
         }
@@ -241,7 +296,7 @@ extension Array where Element: Variable {
     public func extensionInitParamAssignmentWhereEmptyView(scenario: [Element]) -> [String] {
         var output: [String] = []
         for variable in self {
-            if scenario.contains(variable) {
+            if scenario.contains(variable), variable.isRepresentableByView {
                 if variable.resolvedAnnotations("customFunctionBuilder").first != nil {
                     output.append("\(variable.trimmedName): { }")
                 } else {
@@ -276,5 +331,9 @@ extension Array where Element: Variable {
 
     var extensionModelInitClosureParamsAssignments: [String] {
         map { "self._\($0.trimmedName) = \($0.trimmedName)" }
+    }
+
+    public var representableByView: [Variable] {
+        filter { $0.isRepresentableByView }
     }
 }

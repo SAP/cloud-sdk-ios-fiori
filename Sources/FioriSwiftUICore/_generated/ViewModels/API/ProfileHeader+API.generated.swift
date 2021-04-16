@@ -10,12 +10,12 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 	@Environment(\.detailImageModifier) private var detailImageModifier
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _descriptionText: DescriptionText
-	private let _detailImage: DetailImage
-	private let _actionItems: ActionItems
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _descriptionText: DescriptionText
+	let _detailImage: DetailImage
+	let _actionItems: ActionItems
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
@@ -39,20 +39,40 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 			self._actionItems = actionItems()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.ProfileHeader.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.ProfileHeader.title).concat(Fiori.ProfileHeader.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.ProfileHeader.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ProfileHeader.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ProfileHeader.subtitle).concat(Fiori.ProfileHeader.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ProfileHeader.subtitle))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.ProfileHeader.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ProfileHeader.footnote).concat(Fiori.ProfileHeader.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.ProfileHeader.footnote))
+        }
     }
-	var descriptionText: some View {
-        _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ProfileHeader.descriptionText))
+	@ViewBuilder var descriptionText: some View {
+        if isModelInit {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ProfileHeader.descriptionText).concat(Fiori.ProfileHeader.descriptionTextCumulative))
+        } else {
+            _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ProfileHeader.descriptionText))
+        }
     }
-	var detailImage: some View {
-        _detailImage.modifier(detailImageModifier.concat(Fiori.ProfileHeader.detailImage))
+	@ViewBuilder var detailImage: some View {
+        if isModelInit {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ProfileHeader.detailImage).concat(Fiori.ProfileHeader.detailImageCumulative))
+        } else {
+            _detailImage.modifier(detailImageModifier.concat(Fiori.ProfileHeader.detailImage))
+        }
     }
     var actionItems: some View {
         _actionItems

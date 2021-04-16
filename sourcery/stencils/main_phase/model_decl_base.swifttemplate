@@ -17,34 +17,34 @@ for model in models {
     let styleName = model.componentStyleName
 
     let templateParameterDecls = [
-        componentProperties.templateParameterDecls,
+        componentProperties.representableByView.templateParameterDecls,
         model.add_view_builder_paramsTemplateParameterDecls
     ].flatMap { $0 }.joined(separator: ", ")
 
     let environmentPropertyDecls = [
-        componentProperties.viewModifierPropertyDecls,
+        componentProperties.representableByView.viewModifierPropertyDecls,
         model.add_env_propsDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
-    let privatePropertyDecls = [
-        componentProperties.viewBuilderPropertyDecls,
+    let internalPropertyDecls = [
+        componentProperties.miscPropertyDecls,
         closureProperties.privateClosurePropModelDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
-	let viewBuilderNilPropertyDecls = componentProperties.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
-	let viewBuilderEmptyViewPropertyDecls = componentProperties.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
-	let viewBuilderNilPropertyAssignment = componentProperties.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
+	let viewBuilderNilPropertyDecls = componentProperties.representableByView.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
+	let viewBuilderEmptyViewPropertyDecls = componentProperties.representableByView.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
+	let viewBuilderNilPropertyAssignment = componentProperties.representableByView.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
 
 	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
 
     let viewBuilderInitParams = [
-        componentProperties.viewBuilderInitParams,
+        componentProperties.miscInitParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ",\n\t\t")
 
     let viewBuilderInitParamAssignment = [
-        componentProperties.viewBuilderInitParamAssignment,
+        componentProperties.miscInitParamAssignment,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 
@@ -73,17 +73,7 @@ for model in models {
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
-  func optionalPropertySequences(_ t: Type) -> [[Variable]] {
-      var sequences: [[Variable]] = []
-      let optionalProperties = t.allVariables.filter({ $0.isOptional })
-      guard optionalProperties.count > 0 else { return [] }
-      for i in 1..<optionalProperties.count {
-          sequences.append(contentsOf: optionalProperties.combinations(ofCount: i).map({ $0 }))
-      }
-      return sequences
-  }
-
-  let combinationsOfOptionals = optionalPropertySequences(model).map({ $0 })
+  let combinationsOfOptionals = model.optionalPropertySequences().map({ $0 })
 
   -%>
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
@@ -92,7 +82,7 @@ import SwiftUI
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
-    <%= privatePropertyDecls %>
+    <%= internalPropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } -%>
 
     private var isModelInit: Bool = false
@@ -104,12 +94,12 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
             <%= viewBuilderInitParamAssignment  %>
     }
 
-    <%= componentProperties.resolvedViewModifierChain(type: model) %>
+    <%= componentProperties.representableByView.resolvedViewModifierChain(type: model) %>
     <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
 	<%= viewBuilderEmptyViewPropertyDecls %>
 }
 
-extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
+extension <%= model.componentName %> where <%= componentProperties.representableByView.extensionConstrainedWhereConditionalContent %> {
 
     public init(<%= modelInitParams %>) {
         self.init(<%= extensionModelInitParamsChaining %>)
@@ -140,7 +130,7 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-<%= model.fioriStyleImplEnumDecl(componentProperties: componentProperties) %>
+<%= model.fioriStyleImplEnumDecl(componentProperties: componentProperties.representableByView) %>
 
 // FIXME: - Implement <%= model.componentName %> View body
 
@@ -170,12 +160,12 @@ import SwiftUI
 
         let extensionInitParamWhereEmptyView = [
             componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination),
-            model.add_view_builder_paramsViewBuilderInitParams
+            model.add_view_builder_params_extensionInitParamWhereEmptyView(scenario: optionalCombination)
         ].flatMap { $0 }.joined(separator: ",\n\t\t")
 
         let extensionInitParamAssignmentWhereEmptyView = [
             componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination),
-            model.add_view_builder_paramsExtensionModelInitParamsChaining
+            model.add_view_builder_params_extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination)
         ].flatMap { $0 }.joined(separator: ",\n\t\t\t")
 -%>
 

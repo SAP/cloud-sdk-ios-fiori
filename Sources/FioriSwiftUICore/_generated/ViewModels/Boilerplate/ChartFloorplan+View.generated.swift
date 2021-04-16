@@ -18,11 +18,17 @@ import SwiftUI
 extension Fiori {
     enum ChartFloorplan {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 		typealias Status = EmptyModifier
+        typealias StatusCumulative = EmptyModifier
 		typealias ValueAxisTitle = EmptyModifier
+        typealias ValueAxisTitleCumulative = EmptyModifier
 		typealias SeriesTitles = EmptyModifier
+        typealias SeriesTitlesCumulative = EmptyModifier
 		typealias CategoryAxisTitle = EmptyModifier
+        typealias CategoryAxisTitleCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -42,6 +48,12 @@ extension Fiori {
 		static let valueAxisTitle = ValueAxisTitle()
 		static let seriesTitles = SeriesTitles()
 		static let categoryAxisTitle = CategoryAxisTitle()
+        static let titleCumulative = TitleCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
+		static let statusCumulative = StatusCumulative()
+		static let valueAxisTitleCumulative = ValueAxisTitleCumulative()
+		static let seriesTitlesCumulative = SeriesTitlesCumulative()
+		static let categoryAxisTitleCumulative = CategoryAxisTitleCumulative()
     }
 }
 

@@ -7,8 +7,8 @@ public struct SectionHeader<Title: View, Attribute: View> {
 	@Environment(\.attributeModifier) private var attributeModifier
 	@Environment(\.colorScheme) var colorScheme
 
-    private let _title: Title
-	private let _attribute: Attribute
+    let _title: Title
+	let _attribute: Attribute
 	
     private var isModelInit: Bool = false
 	private var isAttributeNil: Bool = false
@@ -21,11 +21,19 @@ public struct SectionHeader<Title: View, Attribute: View> {
 			self._attribute = attribute()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.SectionHeader.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.SectionHeader.title).concat(Fiori.SectionHeader.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.SectionHeader.title))
+        }
     }
-	var attribute: some View {
-        _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
+	@ViewBuilder var attribute: some View {
+        if isModelInit {
+            _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute).concat(Fiori.SectionHeader.attributeCumulative))
+        } else {
+            _attribute.modifier(attributeModifier.concat(Fiori.SectionHeader.attribute))
+        }
     }
     
 	var isAttributeEmptyView: Bool {

@@ -3,6 +3,7 @@
 /// to declare a wrapped property
 /// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
 
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
@@ -63,6 +64,14 @@ extension Fiori {
                     .frame(width: 20, height: 20, alignment: .center)
             }
         }
+
+        typealias TitleCumulative = EmptyModifier
+        typealias DescriptionTextCumulative = EmptyModifier
+        typealias ActionTextCumulative = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
+        typealias SecondaryActionTextCumulative = EmptyModifier
+        typealias IconCumulative = EmptyModifier
         
         static let title = Title()
         static let descriptionText = DescriptionText()
@@ -71,6 +80,13 @@ extension Fiori {
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
         static let icon = Icon()
+        static let titleCumulative = TitleCumulative()
+        static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let actionTextCumulative = ActionTextCumulative()
+        static let subtitleCumulative = SubtitleCumulative()
+        static let footnoteCumulative = FootnoteCumulative()
+        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+        static let iconCumulative = IconCumulative()
     }
 }
 

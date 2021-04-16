@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ContactItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/KPIProgressItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ContactItem `View` body
+//TODO: Implement KPIProgressItem `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,19 +16,13 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ContactItem {
-        typealias Title = EmptyModifier
-        typealias TitleCumulative = EmptyModifier
+    enum KPIProgressItem {
+        typealias Kpi = EmptyModifier
+        typealias KpiCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
-		typealias DescriptionText = EmptyModifier
-        typealias DescriptionTextCumulative = EmptyModifier
-		typealias DetailImage = EmptyModifier
-        typealias DetailImageCumulative = EmptyModifier
-		typealias ActionItems = EmptyModifier
-        typealias ActionItemsCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -42,36 +36,30 @@ extension Fiori {
                 }
             }
         */
-        static let title = Title()
+        static let kpi = Kpi()
 		static let subtitle = Subtitle()
 		static let footnote = Footnote()
-		static let descriptionText = DescriptionText()
-		static let detailImage = DetailImage()
-		static let actionItems = ActionItems()
-        static let titleCumulative = TitleCumulative()
+        static let kpiCumulative = KpiCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
-		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let detailImageCumulative = DetailImageCumulative()
-		static let actionItemsCumulative = ActionItemsCumulative()
     }
 }
 
-// FIXME: - Implement ContactItem View body
+// FIXME: - Implement KPIProgressItem View body
 
-extension ContactItem: View {
+extension KPIProgressItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ContactItem specific LibraryContentProvider
+// FIXME: - Implement KPIProgressItem specific LibraryContentProvider
 
 @available(iOS 14.0, *)
-struct ContactItemLibraryContent: LibraryContentProvider {
+struct KPIProgressItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(KPIProgressItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

@@ -5,14 +5,23 @@ import SwiftUI
 extension Fiori {
     enum TimelineItem {
         typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
         typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
         typealias Footnote = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
         typealias Attribute = EmptyModifier
+        typealias AttributeCumulative = EmptyModifier
         typealias SecondaryAttribute = EmptyModifier
+        typealias SecondaryAttributeCumulative = EmptyModifier
         typealias Timestamp = EmptyModifier
+        typealias TimestampCumulative = EmptyModifier
         typealias SecondaryTimestamp = EmptyModifier
+        typealias SecondaryTimestampCumulative = EmptyModifier
         typealias Status = EmptyModifier
+        typealias StatusCumulative = EmptyModifier
         typealias Substatus = EmptyModifier
+        typealias SubstatusCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -35,6 +44,15 @@ extension Fiori {
         static let secondaryTimestamp = SecondaryTimestamp()
         static let status = Status()
         static let substatus = Substatus()
+        static let titleCumulative = TitleCumulative()
+        static let subtitleCumulative = SubtitleCumulative()
+        static let footnoteCumulative = FootnoteCumulative()
+        static let attributeCumulative = AttributeCumulative()
+        static let secondaryAttributeCumulative = SecondaryAttributeCumulative()
+        static let timestampCumulative = TimestampCumulative()
+        static let secondaryTimestampCumulative = SecondaryTimestampCumulative()
+        static let statusCumulative = StatusCumulative()
+        static let substatusCumulative = SubstatusCumulative()
     }
 }
 

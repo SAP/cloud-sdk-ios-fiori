@@ -7,9 +7,9 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 	@Environment(\.timestampModifier) private var timestampModifier
 	@Environment(\.statusModifier) private var statusModifier
 
-    private let _title: Title
-	private let _timestamp: Timestamp
-	private let _status: Status
+    let _title: Title
+	let _timestamp: Timestamp
+	let _status: Status
 	
     private var isModelInit: Bool = false
 	private var isTimestampNil: Bool = false
@@ -25,14 +25,26 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 			self._status = status()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.TimelineGridItem.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.TimelineGridItem.title).concat(Fiori.TimelineGridItem.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.TimelineGridItem.title))
+        }
     }
-	var timestamp: some View {
-        _timestamp.modifier(timestampModifier.concat(Fiori.TimelineGridItem.timestamp))
+	@ViewBuilder var timestamp: some View {
+        if isModelInit {
+            _timestamp.modifier(timestampModifier.concat(Fiori.TimelineGridItem.timestamp).concat(Fiori.TimelineGridItem.timestampCumulative))
+        } else {
+            _timestamp.modifier(timestampModifier.concat(Fiori.TimelineGridItem.timestamp))
+        }
     }
-	var status: some View {
-        _status.modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
+	@ViewBuilder var status: some View {
+        if isModelInit {
+            _status.modifier(statusModifier.concat(Fiori.TimelineGridItem.status).concat(Fiori.TimelineGridItem.statusCumulative))
+        } else {
+            _status.modifier(statusModifier.concat(Fiori.TimelineGridItem.status))
+        }
     }
     
 	var isTimestampEmptyView: Bool {

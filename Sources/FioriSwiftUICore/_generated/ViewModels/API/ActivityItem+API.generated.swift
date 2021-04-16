@@ -6,8 +6,8 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
     @Environment(\.iconModifier) private var iconModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 
-    private let _icon: Icon
-	private let _subtitle: Subtitle
+    let _icon: Icon
+	let _subtitle: Subtitle
 	
     private var isModelInit: Bool = false
 	private var isIconNil: Bool = false
@@ -21,11 +21,19 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
 			self._subtitle = subtitle()
     }
 
-    var icon: some View {
-        _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon))
+    @ViewBuilder var icon: some View {
+        if isModelInit {
+            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon).concat(Fiori.ActivityItem.iconCumulative))
+        } else {
+            _icon.modifier(iconModifier.concat(Fiori.ActivityItem.icon))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle).concat(Fiori.ActivityItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.ActivityItem.subtitle))
+        }
     }
     
 	var isIconEmptyView: Bool {

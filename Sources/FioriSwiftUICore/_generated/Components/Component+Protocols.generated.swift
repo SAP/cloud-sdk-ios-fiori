@@ -136,6 +136,11 @@ public protocol ActionItemsComponent {
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 
+public protocol KpiProgressComponent : KpiComponent {
+	// sourcery: no_view
+    var fraction_: Double? { get }
+}
+
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
     var secondaryActionText_: String? { get }

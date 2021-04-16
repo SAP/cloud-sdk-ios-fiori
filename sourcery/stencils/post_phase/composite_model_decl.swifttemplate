@@ -26,7 +26,7 @@ for model in models {
         model.add_env_propsDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
-    let privatePropertyDecls = [
+    let internalPropertyDecls = [
         componentProperties.viewBuilderPropertyDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
@@ -71,17 +71,7 @@ for model in models {
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ", ")
 
-  func optionalPropertySequences(_ t: Type) -> [[Variable]] {
-      var sequences: [[Variable]] = []
-      let optionalProperties = t.allVariables.filter({ $0.isOptional })
-      guard optionalProperties.count > 0 else { return [] }
-      for i in 1..<optionalProperties.count {
-          sequences.append(contentsOf: optionalProperties.combinations(ofCount: i).map({ $0 }))
-      }
-      return sequences
-  }
-
-  let combinationsOfOptionals = optionalPropertySequences(model).map({ $0 })
+  let combinationsOfOptionals = model.optionalPropertySequences().map({ $0 })
 
   -%>
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
@@ -90,7 +80,7 @@ import SwiftUI
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
-    <%= privatePropertyDecls %>
+    <%= internalPropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } %>
 
     private var isModelInit: Bool = false
@@ -169,12 +159,12 @@ import SwiftUI
 
         let extensionInitParamWhereEmptyView = [
             componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination),
-            model.add_view_builder_paramsViewBuilderInitParams
+            model.add_view_builder_params_extensionInitParamWhereEmptyView(scenario: optionalCombination)
         ].flatMap { $0 }.joined(separator: ",\n\t\t")
 
         let extensionInitParamAssignmentWhereEmptyView = [
             componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination),
-            model.add_view_builder_paramsExtensionModelInitParamsChaining
+            model.add_view_builder_params_extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination)
         ].flatMap { $0 }.joined(separator: ",\n\t\t\t")
 -%>
 

@@ -13,15 +13,15 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	@Environment(\.statusModifier) private var statusModifier
 	@Environment(\.substatusModifier) private var substatusModifier
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _attribute: Attribute
-	private let _secondaryAttribute: SecondaryAttribute
-	private let _timestamp: Timestamp
-	private let _secondaryTimestamp: SecondaryTimestamp
-	private let _status: Status
-	private let _substatus: Substatus
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _attribute: Attribute
+	let _secondaryAttribute: SecondaryAttribute
+	let _timestamp: Timestamp
+	let _secondaryTimestamp: SecondaryTimestamp
+	let _status: Status
+	let _substatus: Substatus
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
@@ -55,32 +55,68 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 			self._substatus = substatus()
     }
 
-    var title: some View {
-        _title.modifier(titleModifier.concat(Fiori.TimelineItem.title))
+    @ViewBuilder var title: some View {
+        if isModelInit {
+            _title.modifier(titleModifier.concat(Fiori.TimelineItem.title).concat(Fiori.TimelineItem.titleCumulative))
+        } else {
+            _title.modifier(titleModifier.concat(Fiori.TimelineItem.title))
+        }
     }
-	var subtitle: some View {
-        _subtitle.modifier(subtitleModifier.concat(Fiori.TimelineItem.subtitle))
+	@ViewBuilder var subtitle: some View {
+        if isModelInit {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.TimelineItem.subtitle).concat(Fiori.TimelineItem.subtitleCumulative))
+        } else {
+            _subtitle.modifier(subtitleModifier.concat(Fiori.TimelineItem.subtitle))
+        }
     }
-	var footnote: some View {
-        _footnote.modifier(footnoteModifier.concat(Fiori.TimelineItem.footnote))
+	@ViewBuilder var footnote: some View {
+        if isModelInit {
+            _footnote.modifier(footnoteModifier.concat(Fiori.TimelineItem.footnote).concat(Fiori.TimelineItem.footnoteCumulative))
+        } else {
+            _footnote.modifier(footnoteModifier.concat(Fiori.TimelineItem.footnote))
+        }
     }
-	var attribute: some View {
-        _attribute.modifier(attributeModifier.concat(Fiori.TimelineItem.attribute))
+	@ViewBuilder var attribute: some View {
+        if isModelInit {
+            _attribute.modifier(attributeModifier.concat(Fiori.TimelineItem.attribute).concat(Fiori.TimelineItem.attributeCumulative))
+        } else {
+            _attribute.modifier(attributeModifier.concat(Fiori.TimelineItem.attribute))
+        }
     }
-	var secondaryAttribute: some View {
-        _secondaryAttribute.modifier(secondaryAttributeModifier.concat(Fiori.TimelineItem.secondaryAttribute))
+	@ViewBuilder var secondaryAttribute: some View {
+        if isModelInit {
+            _secondaryAttribute.modifier(secondaryAttributeModifier.concat(Fiori.TimelineItem.secondaryAttribute).concat(Fiori.TimelineItem.secondaryAttributeCumulative))
+        } else {
+            _secondaryAttribute.modifier(secondaryAttributeModifier.concat(Fiori.TimelineItem.secondaryAttribute))
+        }
     }
-	var timestamp: some View {
-        _timestamp.modifier(timestampModifier.concat(Fiori.TimelineItem.timestamp))
+	@ViewBuilder var timestamp: some View {
+        if isModelInit {
+            _timestamp.modifier(timestampModifier.concat(Fiori.TimelineItem.timestamp).concat(Fiori.TimelineItem.timestampCumulative))
+        } else {
+            _timestamp.modifier(timestampModifier.concat(Fiori.TimelineItem.timestamp))
+        }
     }
-	var secondaryTimestamp: some View {
-        _secondaryTimestamp.modifier(secondaryTimestampModifier.concat(Fiori.TimelineItem.secondaryTimestamp))
+	@ViewBuilder var secondaryTimestamp: some View {
+        if isModelInit {
+            _secondaryTimestamp.modifier(secondaryTimestampModifier.concat(Fiori.TimelineItem.secondaryTimestamp).concat(Fiori.TimelineItem.secondaryTimestampCumulative))
+        } else {
+            _secondaryTimestamp.modifier(secondaryTimestampModifier.concat(Fiori.TimelineItem.secondaryTimestamp))
+        }
     }
-	var status: some View {
-        _status.modifier(statusModifier.concat(Fiori.TimelineItem.status))
+	@ViewBuilder var status: some View {
+        if isModelInit {
+            _status.modifier(statusModifier.concat(Fiori.TimelineItem.status).concat(Fiori.TimelineItem.statusCumulative))
+        } else {
+            _status.modifier(statusModifier.concat(Fiori.TimelineItem.status))
+        }
     }
-	var substatus: some View {
-        _substatus.modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
+	@ViewBuilder var substatus: some View {
+        if isModelInit {
+            _substatus.modifier(substatusModifier.concat(Fiori.TimelineItem.substatus).concat(Fiori.TimelineItem.substatusCumulative))
+        } else {
+            _substatus.modifier(substatusModifier.concat(Fiori.TimelineItem.substatus))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {
