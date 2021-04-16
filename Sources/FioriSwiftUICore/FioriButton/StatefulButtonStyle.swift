@@ -1,7 +1,8 @@
 import Foundation
 import SwiftUI
 
-public struct FioriButtonStyle: PrimitiveButtonStyle {
+/// An object that provides fiori style color and interaction for `Button`.
+public struct StatefulButtonStyle: PrimitiveButtonStyle {
     @Environment(\.isEnabled) var isEnabled
     
     // TODO: style configuration struct?
@@ -10,6 +11,12 @@ public struct FioriButtonStyle: PrimitiveButtonStyle {
     let disabledColor: Color
     let isSelectionPersistent: Bool
     
+    /// Creates a style object that provides fiori style color and interaction for `Button`.
+    /// - Parameters:
+    ///   - color: The color for normal state.
+    ///   - depressedColor: The color for a depressed button.
+    ///   - disabledColor: The color for a disabled button.
+    ///   - isSelectionPersistent: A boolean value determines whether the selection should be persistent or not.
     public init(color: Color = .preferredColor(.tintColor),
                 depressedColor: Color = .preferredColor(.tintColorTapState),
                 disabledColor: Color = .gray,
@@ -21,6 +28,12 @@ public struct FioriButtonStyle: PrimitiveButtonStyle {
         self.isSelectionPersistent = isSelectionPersistent
     }
     
+    /// Creates a view that represents the body of a button.
+    ///
+    /// The system calls this method for each ``Button`` instance in a view
+    /// hierarchy where this style is the current button style.
+    ///
+    /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
         if self.isEnabled {
             return AnyView(EnabledButton(configuration: configuration, color: self.foregroundColor, pressedColor: self.depressedColor, isSelectionPersistent: self.isSelectionPersistent))
@@ -30,7 +43,7 @@ public struct FioriButtonStyle: PrimitiveButtonStyle {
     }
     
     struct EnabledButton: View {
-        @State private var pressed = false
+        @State var pressed = false
         
         let configuration: PrimitiveButtonStyle.Configuration
         let color: Color
