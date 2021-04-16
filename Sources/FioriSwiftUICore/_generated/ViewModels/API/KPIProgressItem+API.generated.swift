@@ -2,6 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
+@available(iOS 14, *)
 public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     @Environment(\.kpiModifier) private var kpiModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
@@ -65,6 +66,7 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     }
 }
 
+@available(iOS 14, *)
 extension KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView> {
