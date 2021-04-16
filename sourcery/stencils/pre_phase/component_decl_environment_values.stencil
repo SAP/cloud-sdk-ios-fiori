@@ -76,6 +76,7 @@ public extension View {
 
 {% for type in types.implementing._ComponentMultiPropGenerating %}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	extension EnvironmentValues {
 	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
@@ -94,6 +95,7 @@ public extension View {
 	{% endfor %}
 	}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	public extension View {
 	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}

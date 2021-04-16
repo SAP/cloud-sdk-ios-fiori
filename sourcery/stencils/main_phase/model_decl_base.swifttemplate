@@ -75,10 +75,13 @@ for model in models {
 
   let combinationsOfOptionals = model.optionalPropertySequences().map({ $0 })
 
+  let modelAvailableAttribute = model.availableAttribute?.lineBreaking() ?? ""
+
   -%>
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
 import SwiftUI
 
+<%= modelAvailableAttribute -%>
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
@@ -99,6 +102,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 	<%= viewBuilderEmptyViewPropertyDecls %>
 }
 
+<%= modelAvailableAttribute -%>
 extension <%= model.componentName %> where <%= componentProperties.representableByView.extensionConstrainedWhereConditionalContent %> {
 
     public init(<%= modelInitParams %>) {
@@ -134,6 +138,7 @@ import SwiftUI
 
 // FIXME: - Implement <%= model.componentName %> View body
 
+<%= modelAvailableAttribute -%>
 extension <%= model.componentName %>: View {
     public var body: some View {
         <# View body #>
@@ -169,6 +174,7 @@ import SwiftUI
         ].flatMap { $0 }.joined(separator: ",\n\t\t\t")
 -%>
 
+<%= modelAvailableAttribute -%>
 extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
     public init(
     <%= extensionInitParamWhereEmptyView %>
