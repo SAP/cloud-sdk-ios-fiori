@@ -95,12 +95,12 @@ extension ActivationScreen: View {
             
             actionText
                 .disabled(self.emailFilled.userInputValue.isEmpty == true)
-                .buttonStyle(FioriButtonStyle())
+                .buttonStyle(StatefulButtonStyle())
                 .padding(.bottom, 16)
             footnote
                 .padding(.bottom, 16)
             secondaryActionText
-                .buttonStyle(FioriButtonStyle())
+                .buttonStyle(StatefulButtonStyle())
             Spacer()
         }
         .padding(.leading, 32)
