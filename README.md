@@ -299,6 +299,16 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 
 Runs in `main` phase.
 
+### Advanced: Add availability attribute to a component.
+
+Use sourcery tag `// sourcery: availableAttributeContent =` on your ViewModel declaration in `FioriSwiftUICore/Models/ModelDefinitions.swift`.
+
+Example (Declaration of a `KPIProgressItemModel` that only supports on iOS 14 and later):
+```swift
+// sourcery: availableAttributeContent = "iOS 14, *"
+public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+```
+
 ### Advanced: ViewModel compositions
 
 Use sourcery tag `// sourcery: generated_component_composite` to generate ViewModel types which are compositions of other ViewModels.
