@@ -84,6 +84,7 @@ public struct SignatureCaptureView: View {
                                        lineWidth: self.strokeWidth,
                                        backgroundColor: self.backgroundColor)
                                 .foregroundColor(Color.preferredColor(.cellBackground))
+                                .frame(minHeight: 300)
                             if !self.isSaved {
                                 HStack {
                                     Image(systemName: "xmark")
