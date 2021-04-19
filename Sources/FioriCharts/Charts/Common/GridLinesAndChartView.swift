@@ -135,14 +135,14 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            Background(tappedCallback: { point, chartRect in
+            Background(tappedCallback: { point, chartRect, _ in
                 if !self.model.selectionEnabled {
                     return
                 }
                 
                 let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
                 ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-            }, doubleTappedCallback: { _, _ in
+            }, doubleTappedCallback: { _, _, _ in
                 if !self.model.selectionEnabled {
                     return
                 }
@@ -151,12 +151,12 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 if self.model.selections != nil {
                     self.model.selections = nil
                 }
-            }) { points, chartRect in
+            }) { points, chartRect, state in
                 if !self.model.selectionEnabled {
                     return
                 }
                 
-                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
+                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock, state == UIGestureRecognizer.State.began.rawValue {
                     let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
                                                                            rect: chartRect,
                                                                            layoutDirection: self.layoutDirection)
@@ -202,26 +202,30 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
 }
 
 struct Background: UIViewRepresentable {
-    var tappedCallback: (CGPoint, CGRect) -> Void
-    var doubleTappedCallback: (CGPoint, CGRect) -> Void
-    var longPressedCallback: ((CGPoint, CGPoint), CGRect) -> Void
+    var tappedCallback: (CGPoint, CGRect, Int) -> Void
+    var doubleTappedCallback: (CGPoint, CGRect, Int) -> Void
+    var longPressedCallback: ((CGPoint, CGPoint), CGRect, Int) -> Void
     
     func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
         let v = UIView(frame: .zero)
+        
+        // single tap gesture recognizer
         let gesture = UITapGestureRecognizer(target: context.coordinator,
                                              action: #selector(Coordinator.tapped))
+        gesture.delegate = context.coordinator
         v.addGestureRecognizer(gesture)
         
         // double tap used to cancel the selection
         let doubleTapGesture = UITapGestureRecognizer(target: context.coordinator,
                                                       action: #selector(Coordinator.doubleTapped))
+        doubleTapGesture.delegate = context.coordinator
         doubleTapGesture.numberOfTapsRequired = 2
-        
         v.addGestureRecognizer(doubleTapGesture)
         
         // long pressed gesture to do range selection
         let longPressedGesture = UILongPressGestureRecognizer(target: context.coordinator,
                                                               action: #selector(Coordinator.longPressed(gesture:)))
+        longPressedGesture.delegate = context.coordinator
         longPressedGesture.numberOfTouchesRequired = 2
         longPressedGesture.minimumPressDuration = 0.5
         longPressedGesture.allowableMovement = 5
@@ -231,14 +235,14 @@ struct Background: UIViewRepresentable {
         return v
     }
     
-    class Coordinator: NSObject {
-        var tappedCallback: (CGPoint, CGRect) -> Void
-        var doubleTappedCallback: (CGPoint, CGRect) -> Void
-        var longPressedCallback: ((CGPoint, CGPoint), CGRect) -> Void
+    class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        var tappedCallback: (CGPoint, CGRect, Int) -> Void
+        var doubleTappedCallback: (CGPoint, CGRect, Int) -> Void
+        var longPressedCallback: ((CGPoint, CGPoint), CGRect, Int) -> Void
         
-        init(tappedCallback: @escaping ((CGPoint, CGRect) -> Void),
-             doubleTappedCallback: @escaping ((CGPoint, CGRect) -> Void),
-             longPressedCallback: @escaping (((CGPoint, CGPoint), CGRect) -> Void))
+        init(tappedCallback: @escaping ((CGPoint, CGRect, Int) -> Void),
+             doubleTappedCallback: @escaping ((CGPoint, CGRect, Int) -> Void),
+             longPressedCallback: @escaping (((CGPoint, CGPoint), CGRect, Int) -> Void))
         {
             self.tappedCallback = tappedCallback
             self.doubleTappedCallback = doubleTappedCallback
@@ -248,23 +252,32 @@ struct Background: UIViewRepresentable {
         @objc func tapped(gesture: UITapGestureRecognizer) {
             let point = gesture.location(in: gesture.view)
             let rect = gesture.view?.frame ?? CGRect.zero
+            let state = gesture.state.rawValue
             
-            self.tappedCallback(point, rect)
+            self.tappedCallback(point, rect, state)
         }
         
         @objc func doubleTapped(gesture: UITapGestureRecognizer) {
             let point = gesture.location(in: gesture.view)
             let rect = gesture.view?.frame ?? CGRect.zero
+            let state = gesture.state.rawValue
             
-            self.doubleTappedCallback(point, rect)
+            self.doubleTappedCallback(point, rect, state)
         }
         
         @objc func longPressed(gesture: UILongPressGestureRecognizer) {
             let first = gesture.location(ofTouch: 0, in: gesture.view)
             let second = gesture.location(ofTouch: 1, in: gesture.view)
             let rect = gesture.view?.frame ?? CGRect.zero
+            let state = gesture.state.rawValue
             
-            self.longPressedCallback((first, second), rect)
+            self.longPressedCallback((first, second), rect, state)
+        }
+        
+        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                               shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
+        {
+            true
         }
     }
     
