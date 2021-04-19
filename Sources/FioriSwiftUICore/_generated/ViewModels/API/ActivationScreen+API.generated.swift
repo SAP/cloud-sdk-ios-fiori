@@ -10,13 +10,14 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextFilled: V
 	@Environment(\.footnoteModifier) private var footnoteModifier
 	@Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
 
-    private let _title: Title
-	private let _descriptionText: DescriptionText
-	private let _textFilled: TextFilled
-	private let _actionText: ActionText
-	private let _footnote: Footnote
-	private let _secondaryActionText: SecondaryActionText
-	
+    let _title: Title
+	let _descriptionText: DescriptionText
+	let _textFilled: TextFilled
+	let _actionText: ActionText
+	let _footnote: Footnote
+	let _secondaryActionText: SecondaryActionText
+	@State var buttonEnabled: Bool = false
+	@ObservedObject var emailFilled = UserInput()
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false

@@ -26,7 +26,7 @@ for model in models {
         model.add_env_propsDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
-    let privatePropertyDecls = [
+    let internalPropertyDecls = [
         componentProperties.viewBuilderPropertyDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
@@ -80,7 +80,7 @@ import SwiftUI
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
     <%= environmentPropertyDecls %>
 
-    <%= privatePropertyDecls %>
+    <%= internalPropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } %>
 
     private var isModelInit: Bool = false

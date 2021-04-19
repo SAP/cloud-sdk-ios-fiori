@@ -10,12 +10,12 @@ public struct ProfileHeader<Title: View, Subtitle: View, Footnote: View, Descrip
 	@Environment(\.detailImageModifier) private var detailImageModifier
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _descriptionText: DescriptionText
-	private let _detailImage: DetailImage
-	private let _actionItems: ActionItems
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _descriptionText: DescriptionText
+	let _detailImage: DetailImage
+	let _actionItems: ActionItems
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false

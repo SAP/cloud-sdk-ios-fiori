@@ -13,15 +13,15 @@ public struct TimelineItem<Title: View, Subtitle: View, Footnote: View, Attribut
 	@Environment(\.statusModifier) private var statusModifier
 	@Environment(\.substatusModifier) private var substatusModifier
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _attribute: Attribute
-	private let _secondaryAttribute: SecondaryAttribute
-	private let _timestamp: Timestamp
-	private let _secondaryTimestamp: SecondaryTimestamp
-	private let _status: Status
-	private let _substatus: Substatus
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _attribute: Attribute
+	let _secondaryAttribute: SecondaryAttribute
+	let _timestamp: Timestamp
+	let _secondaryTimestamp: SecondaryTimestamp
+	let _status: Status
+	let _substatus: Substatus
 	
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false

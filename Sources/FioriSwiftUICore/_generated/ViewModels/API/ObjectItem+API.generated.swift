@@ -15,15 +15,15 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	@Environment(\.sizeCategory) var sizeCategory
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
 
-    private let _title: Title
-	private let _subtitle: Subtitle
-	private let _footnote: Footnote
-	private let _descriptionText: DescriptionText
-	private let _status: Status
-	private let _substatus: Substatus
-	private let _detailImage: DetailImage
-	private let _icons: Icons
-	private let _actionText: ActionText
+    let _title: Title
+	let _subtitle: Subtitle
+	let _footnote: Footnote
+	let _descriptionText: DescriptionText
+	let _status: Status
+	let _substatus: Substatus
+	let _detailImage: DetailImage
+	let _icons: Icons
+	let _actionText: ActionText
 	@State var mainViewSize: CGSize = .zero
 
     private var isModelInit: Bool = false

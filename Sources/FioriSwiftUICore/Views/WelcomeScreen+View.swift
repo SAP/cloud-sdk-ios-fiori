@@ -99,7 +99,7 @@ extension WelcomeScreen: View {
             descriptionText
                 .padding(.bottom, 80)
             actionText
-//                .buttonStyle(FioriButtonStyle())
+                .buttonStyle(StatefulButtonStyle())
                 .padding(.bottom, 20)
             
             subtitle
