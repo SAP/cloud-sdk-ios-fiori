@@ -16,7 +16,7 @@ public extension Variable {
         }
 
         switch self.typeName.unwrappedTypeName {
-        case "String", "[String]":
+        case "String", "[String]", "NSAttributedString":
             return "Text"
         case "Image":
             return "Image"
