@@ -168,6 +168,8 @@ class TableLayoutManager: ObservableObject {
     
     var leadingAccessoryMargin: CGFloat = 0
     
+    var leadingItemsWidths: [CGFloat] = []
+    
     init(model: TableModel, isEditing: Bool) {
         self.model = model
         self.initRowData(model: self.model)
@@ -375,10 +377,12 @@ class TableLayoutManager: ObservableObject {
                     currentIcons += 1
                 }
             }
+            currentButtons += self.isEditing ? 1 : 0
+            let totalWidth = CGFloat(currentButtons * 44 + currentIcons * 16)
+            self.leadingItemsWidths.append(totalWidth)
             buttons = max(buttons, currentButtons)
             icons = max(icons, currentIcons)
         }
-        buttons += self.isEditing ? 1 : 0
         width = CGFloat(buttons * 44 + icons * 16)
         return (width, self.isEditing)
     }

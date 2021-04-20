@@ -85,8 +85,8 @@ struct ItemView: View {
     func verticalDivider(offsetX: CGFloat) -> some View {
         HStack {
             Divider()
-                .frame(height: UIScreen.main.bounds.height * self.layoutManager.scaleY)
-                .offset(x: offsetX * self.layoutManager.scaleX, y: (UIScreen.main.bounds.height - self.dataItem.rowHeight) / 2)
+                .frame(height: self.layoutManager.actualTableViewSize.height * self.layoutManager.scaleY)
+                .offset(x: offsetX * self.layoutManager.scaleX, y: (self.layoutManager.actualTableViewSize.height - self.dataItem.rowHeight) / 2)
                 .dropShadow(isVertical: true, show: self.dropVerticalShadow)
         }
     }

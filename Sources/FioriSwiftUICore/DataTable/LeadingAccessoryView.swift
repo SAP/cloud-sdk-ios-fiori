@@ -3,7 +3,8 @@ import SwiftUI
 
 struct LeadingAccessoryView: View {
     let items: [AccessoryItem]
-    let index: Int
+    let selectionIndex: Int
+    let layoutIndex: Int
     let isHeader: Bool
     let isEditing: Bool
     let selectedImage: Image?
@@ -17,7 +18,8 @@ struct LeadingAccessoryView: View {
     init(items: [AccessoryItem], index: Int, isHeader: Bool, isEditing: Bool, selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
         self.items = items
         self.isHeader = isHeader
-        self.index = index - (isHeader ? 0 : 1)
+        self.layoutIndex = index
+        self.selectionIndex = index - (isHeader ? 0 : 1)
         self.isEditing = isEditing
         self.selectedImage = selectedImage
         self.deSelectedImage = deSelectedImage
@@ -25,8 +27,10 @@ struct LeadingAccessoryView: View {
     
     var body: some View {
         Group {
+            let totalWidth = self.layoutManager.leadingItemsWidths[self.layoutIndex]
+            let offset = totalWidth / 2
             makeBody(items: self.items)
-                .offset(x: self.layoutManager.leadingAccessoryViewWidth / 2)
+                .offset(x: offset)
         }
     }
     
@@ -47,8 +51,8 @@ struct LeadingAccessoryView: View {
                 }
             }
         }
-        .frame(height: self.layoutManager.rowHeights[self.index] * self.layoutManager.scaleY)
-        .background(Color.white)
+        .frame(height: self.layoutManager.rowHeights[self.selectionIndex] * self.layoutManager.scaleY)
+        .background(Color.red)
     }
     
     func makeButton(button: AccessoryButton) -> some View {
@@ -70,7 +74,7 @@ struct LeadingAccessoryView: View {
     
     func makeSectionButton() -> some View {
         DispatchQueue.main.async {
-            self.selected = self.dataManager.selectedIndexes.contains(self.index)
+            self.selected = self.dataManager.selectedIndexes.contains(self.selectionIndex)
         }
         let selectedImage = self.selectedImage ?? Image(systemName: "checkmark.circle.fill")
         let deSelectedImage = self.deSelectedImage ?? Image(systemName: "checkmark.circle")
@@ -80,15 +84,15 @@ struct LeadingAccessoryView: View {
                     Button(action: {
                         print("Left Icon button was tapped")
                         
-                        if !self.dataManager.selectedIndexes.contains(self.index) {
-                            self.dataManager.selectedIndexes.append(self.index)
-                            self.layoutManager.model.selectedIndexes.append(self.index)
+                        if !self.dataManager.selectedIndexes.contains(self.selectionIndex) {
+                            self.dataManager.selectedIndexes.append(self.selectionIndex)
+                            self.layoutManager.model.selectedIndexes.append(self.selectionIndex)
                         } else {
                             self.dataManager.selectedIndexes.removeAll { (target) -> Bool in
-                                target == self.index
+                                target == self.selectionIndex
                             }
                             self.layoutManager.model.selectedIndexes.removeAll { (target) -> Bool in
-                                target == self.index
+                                target == self.selectionIndex
                             }
                         }
                         

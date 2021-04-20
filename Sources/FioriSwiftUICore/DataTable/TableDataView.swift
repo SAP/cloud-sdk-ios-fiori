@@ -1,12 +1,12 @@
 import SwiftUI
 
 public struct TableDataView: View {
-    @EnvironmentObject var model: TableModel
+    @EnvironmentObject public var model: TableModel
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
-    @Binding var isEditing: Bool
+    @Binding public var isEditing: Bool
             
     public var body: some View {
         GeometryReader { proxy in
