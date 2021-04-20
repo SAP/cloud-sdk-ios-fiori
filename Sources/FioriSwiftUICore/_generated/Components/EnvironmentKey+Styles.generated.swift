@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -492,6 +492,23 @@ struct UpperBoundTitleStyleClassModifierKey: EnvironmentKey {
 	}
 
 	struct ActionTextStyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+
+	struct ProgressIndicatorTextStyleKey: EnvironmentKey {
+		public static let defaultValue: TextStyle = TextStyle()
+	}
+
+	struct ProgressIndicatorTextModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct ProgressIndicatorTextStyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct ProgressIndicatorTextStyleClassModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
 

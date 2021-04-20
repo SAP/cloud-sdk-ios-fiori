@@ -26,10 +26,20 @@ extension Fiori {
             }
         }
         
+        struct TextFilled: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .font(.system(size: 15))
+                    .foregroundColor(.preferredColor(.primary1))
+            }
+        }
+
+        typealias TextFilledCumulative = EmptyModifier
+        
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .buttonStyle(FioriButtonStyle())
+                    .buttonStyle(StatefulButtonStyle())
             }
         }
         
@@ -75,6 +85,7 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
+        static let textFilled = TextFilled()
         static let actionText = ActionText()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
@@ -82,6 +93,7 @@ extension Fiori {
         static let icon = Icon()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let textFilledCumulative = TextFilledCumulative()
         static let actionTextCumulative = ActionTextCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let footnoteCumulative = FootnoteCumulative()
@@ -94,12 +106,19 @@ extension WelcomeScreen: View {
     public var body: some View {
         VStack {
             title
-                .padding(.top, 80)
+                .padding(.top, 60)
                 .padding(.bottom, 40)
             descriptionText
                 .padding(.bottom, 80)
+            
+            textFilled
+                .multilineTextAlignment(.center)
+                .keyboardType(.emailAddress)
+                .disableAutocorrection(true)
+                .padding(.bottom, 20)
+            
             actionText
-                .buttonStyle(StatefulButtonStyle())
+//                .buttonStyle(StatefulButtonStyle())
                 .padding(.bottom, 20)
             
             subtitle

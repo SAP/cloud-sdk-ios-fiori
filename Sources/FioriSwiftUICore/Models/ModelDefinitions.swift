@@ -71,6 +71,9 @@ public protocol ActivityItemsModel: ActionItemsComponent {}
 // sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
+// sourcery: generated_component_not_configurable
+public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
+
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"
@@ -79,10 +82,10 @@ public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteCom
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, ActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
 
 // sourcery: generated_component_composite
 public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}
 
 // sourcery: generated_component_composite
-public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, ActionModel, SecondaryActionModel {}
+public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, ProgressIndicatorModel, ActionModel, SecondaryActionModel {}

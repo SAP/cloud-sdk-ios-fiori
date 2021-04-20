@@ -141,6 +141,11 @@ public protocol KpiProgressComponent : KpiComponent {
     var fraction_: Double? { get }
 }
 
+// sourcery: backingComponent=ProgressIndicator
+public protocol ProgressIndicatorComponent {
+    var progressIndicatorText_: String? { get }
+}
+
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
     var secondaryActionText_: String? { get }

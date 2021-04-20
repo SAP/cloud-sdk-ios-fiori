@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -1247,6 +1247,55 @@ public extension View {
 	}
 
 	public extension View {
+	}
+
+
+	extension EnvironmentValues {
+		public var progressIndicatorTextStyle: TextStyle {
+			get { return self[ProgressIndicatorTextStyleKey.self] }
+			set { self[ProgressIndicatorTextStyleKey.self] = newValue }
+		}
+
+		public var progressIndicatorTextModifier: AnyViewModifier {
+			get { return self[ProgressIndicatorTextModifierKey.self] }
+			set { self[ProgressIndicatorTextModifierKey.self] = newValue }
+		}
+
+	}
+
+	public extension View {
+
+		@ViewBuilder
+		func progressIndicatorTextStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+			if concat {
+				transformEnvironment(\.progressIndicatorTextStyle) { $0 = $0.merging(style) }
+			} else {
+				environment(\.progressIndicatorTextStyle, style)
+			}
+		}
+
+		@ViewBuilder
+		func progressIndicatorTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.progressIndicatorTextModifier, AnyViewModifier(transform))
+		}
+
+		func progressIndicatorTextStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.progressIndicatorTextStyleClass([`class`], concat: concat)
+		}
+
+		func progressIndicatorTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.progressIndicatorTextModifier) {
+				switch StyleCache.shared.resolveModifier(for: classPath) {
+					case .success(let resolved):
+						if concat {
+							let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+						} else {
+							$0 = resolved
+						}
+					case .failure(_):  break
+				}
+			}
+		}
 	}
 
 

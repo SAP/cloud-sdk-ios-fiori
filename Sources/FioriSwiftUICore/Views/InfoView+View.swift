@@ -5,8 +5,6 @@
 
 import SwiftUI
 
-// FIXME: - Implement Fiori style definitions
-
 extension Fiori {
     enum InfoView {
         struct Title: ViewModifier {
@@ -19,6 +17,15 @@ extension Fiori {
         }
         
         struct DescriptionText: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .font(.system(size: 17))
+                    .foregroundColor(.preferredColor(.primary1))
+                    .multilineTextAlignment(.center)
+            }
+        }
+        
+        struct ProgressIndicatorText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 17))
@@ -43,24 +50,29 @@ extension Fiori {
             }
         }
         
+        typealias ProgressIndicatorStyle = EmptyModifier
+        typealias ProgressIndicatorStyleCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
+        static let progressIndicatorText = ProgressIndicatorText()
         static let actionText = ActionText()
         static let secondaryActionText = SecondaryActionText()
-        
+        static let progressIndicatorStyle = ProgressIndicatorStyle()
+     
         typealias TitleCumulative = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
+        typealias ProgressIndicatorTextCumulative = EmptyModifier
         typealias ActionTextCumulative = EmptyModifier
         typealias SecondaryActionTextCumulative = EmptyModifier
 
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let progressIndicatorTextCumulative = ProgressIndicatorTextCumulative()
+        static let progressIndicatorStyleCumulative = ProgressIndicatorStyleCumulative()
         static let actionTextCumulative = ActionTextCumulative()
         static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
     }
 }
-
-// FIXME: - Implement InfoView View body
 
 extension InfoView: View {
     public var body: some View {
@@ -71,12 +83,13 @@ extension InfoView: View {
             descriptionText
 //                .padding(.bottom, 80)
             Spacer()
-            if #available(iOS 14.0, *) {
-                ProgressView()
-                    .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-            } else {
-                // Fallback on earlier versions
-            }
+            progressIndicatorText
+//            if #available(iOS 14.0, *) {
+//                ProgressView()
+//                    .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+//            } else {
+//                // Fallback on earlier versions
+//            }
             Spacer()
             actionText
                 .padding(.bottom, 20)
@@ -89,12 +102,10 @@ extension InfoView: View {
     }
 }
 
-// FIXME: - Implement InfoView specific LibraryContentProvider
-
 @available(iOS 14.0, *)
 struct InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", actionText: "Primary Button", secondaryActionText: "Secondary Button"))
+        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", actionText: "Primary Button", secondaryActionText: "Secondary Button", didSelectAction: nil, didSelectSecondaryAction: nil))
     }
 }
