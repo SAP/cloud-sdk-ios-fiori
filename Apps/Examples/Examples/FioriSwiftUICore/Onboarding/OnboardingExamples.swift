@@ -4,8 +4,8 @@ struct OnboardingExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: WelcomeScreenSample()) {
-                Text("WelcomeScreen")
+                destination: WelcomeExamples()) {
+                Text("WelcomeScreen Examples")
             }
             
             NavigationLink(
@@ -14,12 +14,53 @@ struct OnboardingExamples: View {
             }
             
             NavigationLink(
+                destination: InfoViewExamples(),
+                label: {
+                    Text("InfoView Examples")
+                }
+            )
+        }.navigationBarTitle("Onboarding")
+    }
+}
+
+struct WelcomeExamples: View {
+    var body: some View {
+        List {
+            NavigationLink(
+                destination: WelcomeScreenSample()) {
+                Text("WelcomeScreen")
+            }
+            NavigationLink(
+                destination: WelcomeScreenCustomized()) {
+                Text("WelcomeScreen customized")
+            }
+            NavigationLink(
+                destination: WelcomeScreenDiscoveryService()) {
+                Text("WelcomeScreen with Discovery Service")
+            }
+        }.navigationBarTitle("Welcome Examples")
+    }
+}
+
+struct InfoViewExamples: View {
+    var body: some View {
+        List {
+            NavigationLink(
                 destination: InfoViewSample(),
                 label: {
                     Text("InfoView")
                 }
             )
-        }.navigationBarTitle("FioriSwiftUICore")
+            NavigationLink(
+                destination: InfoViewWithLoadingLabel()) {
+                Text("InfoView With Loading Label")
+            }
+            
+            NavigationLink(
+                destination: InfoViewCustomized()) {
+                Text("InfoView Customized")
+            }
+        }.navigationBarTitle("InfoView Examples")
     }
 }
 

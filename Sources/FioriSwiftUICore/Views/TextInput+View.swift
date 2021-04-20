@@ -19,7 +19,8 @@ extension TextInput: View {
                 .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
                 .textFieldStyle(BottomTextFieldStyle())
         } else {
-            // Fallback on earlier versions
+            TextField("Default", text: self._textFilled ?? .constant("default"))
+                .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
         }
     }
 }

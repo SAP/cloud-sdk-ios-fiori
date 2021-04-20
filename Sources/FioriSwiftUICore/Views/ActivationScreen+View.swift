@@ -40,7 +40,7 @@ extension Fiori {
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .buttonStyle(FioriButtonStyle())
+                    .buttonStyle(StatefulButtonStyle())
             }
         }
 
@@ -95,7 +95,6 @@ extension ActivationScreen: View {
                 .padding(.bottom, 20)
             
             actionText
-                .disabled(self.emailFilled.userInputValue.isEmpty == true)
                 .buttonStyle(StatefulButtonStyle())
                 .padding(.bottom, 16)
             
@@ -107,5 +106,14 @@ extension ActivationScreen: View {
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
+    }
+}
+
+@available(iOS 14.0, *)
+struct ActivationScreenLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", actionText: "Next", footnote: "Or", secondaryActionText: "Scan"),
+                    category: .control)
     }
 }

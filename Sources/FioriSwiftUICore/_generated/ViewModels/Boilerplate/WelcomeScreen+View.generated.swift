@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/WelcomeScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -21,6 +21,8 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
+		typealias TextFilled = EmptyModifier
+        typealias TextFilledCumulative = EmptyModifier
 		typealias ActionText = EmptyModifier
         typealias ActionTextCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -46,6 +48,7 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
+		static let textFilled = TextFilled()
 		static let actionText = ActionText()
 		static let subtitle = Subtitle()
 		static let footnote = Footnote()
@@ -53,6 +56,7 @@ extension Fiori {
 		static let icon = Icon()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
+		static let textFilledCumulative = TextFilledCumulative()
 		static let actionTextCumulative = ActionTextCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
