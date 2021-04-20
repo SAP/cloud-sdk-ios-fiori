@@ -90,6 +90,11 @@ public struct TestTableView: View {
                         Button(self.isEditing ? "Done" : "Edit") {
                             DispatchQueue.main.async {
                                 self.isEditing = !self.isEditing
+                                if !self.isEditing {
+                                    let indexSet = IndexSet(self.model.selectedIndexes)
+                                    self.model.rowData.remove(atOffsets: indexSet)
+                                    self.model.selectedIndexes = []
+                                }
                             }
                         })
             }

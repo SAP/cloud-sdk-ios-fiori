@@ -5,7 +5,6 @@ struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
     @ObservedObject var layoutManager: TableLayoutManager
-    @ObservedObject var dataManager: TableDataManager
     
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
@@ -14,9 +13,8 @@ struct GridTableView: View {
     @State var dropVerticalShadow: Bool = false
     @State var dropHorizontalShadow: Bool = false
     
-    init(layoutManager: TableLayoutManager, dataManager: TableDataManager) {
+    init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
-        self.dataManager = dataManager
         if let centerPos = self.layoutManager.centerPosition {
             self.lastCenterPosition = centerPos
         }
@@ -108,13 +106,13 @@ struct GridTableView: View {
                         let rowItem = self.layoutManager.rowData[currentIndex]
                         let lAccessoriess: [AccessoryItem] = rowItem.leadingAccessories
                         let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.layoutManager.rowData[currentIndex].trailingAccessory
-                        let leadingMargin = lAccessoriess.count == 0 ? 0 : self.layoutManager.leadingAccessoryMargin
+                        let leadingMargin = self.layoutManager.leadingAccessoryMargin
                         
                         let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
                         
                         horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
 
-                        DummyBackground(index: currentIndex)
+                        DummyBackground(index: currentIndex, width: leadingItem.pos.x)
                             .position(x: rect.minX, y: y)
                         
                         LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing, selectedImage: rowItem.selectedImage, deSelectedImage: rowItem.deSelectedImage)

@@ -48,7 +48,7 @@ struct LeadingAccessoryView: View {
             }
         }
         .frame(height: self.layoutManager.rowHeights[self.index] * self.layoutManager.scaleY)
-        .background(Color.preferredColor(.headerBlended))
+        .background(Color.white)
     }
     
     func makeButton(button: AccessoryButton) -> some View {
@@ -76,7 +76,7 @@ struct LeadingAccessoryView: View {
         let deSelectedImage = self.deSelectedImage ?? Image(systemName: "checkmark.circle")
         return
             Group {
-                if self.layoutManager.isEditing {
+                if self.layoutManager.isEditing, !isHeader {
                     Button(action: {
                         print("Left Icon button was tapped")
                         

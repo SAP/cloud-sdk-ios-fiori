@@ -70,15 +70,15 @@ struct ItemView: View {
                             .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
                     }
                 }
-                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
-                .background(backgroundColor)
+//                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
+//                .background(backgroundColor)
                 
                 if index == (0, 0) && self.layoutManager.model.firstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
                 }
             }
-            .background(BlurView(style: .light).frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .background(Color.white.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
             .gesture(tapGesture)
     }
     

@@ -25,7 +25,7 @@ public struct TableDataView: View {
                 let listView = TableListView(layoutManager: layoutManager)
                 listView
             } else {
-                let gridView = GridTableView(layoutManager: layoutManager, dataManager: dataManager)
+                let gridView = GridTableView(layoutManager: layoutManager)
                 gridView
                     .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: .infinity, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: .infinity, alignment: .center)
             }
@@ -33,8 +33,4 @@ public struct TableDataView: View {
         .environmentObject(layoutManager)
         .environmentObject(dataManager)
     }
-}
-
-class EditingHelper: ObservableObject {
-    @Published var isEditing: Bool = true
 }
