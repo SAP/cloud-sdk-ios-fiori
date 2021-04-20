@@ -1,6 +1,6 @@
 {# Utility function which returns the correct Style struct, for the unwrapped (non-optional) var type #}
 {% macro _StyleType unwrappedTypeName %}
-{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" or unwrappedTypeName == "Binding<String>" %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" or unwrappedTypeName == "Binding<String>" or unwrappedTypeName == "NSAttributedString" %}
 TextStyle
 {% elif unwrappedTypeName == "Image" %}
 ImageStyle
