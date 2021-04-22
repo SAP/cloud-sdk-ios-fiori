@@ -1,26 +1,24 @@
 import Combine
 import SwiftUI
 
-public class TableModel: ObservableObject, Identifiable, NSCopying {
-    @Published var headerData: TableRowItem?
+open class TableModel: ObservableObject, Identifiable, NSCopying {
+    @Published public var headerData: TableRowItem?
     
-    @Published var rowData: [TableRowItem] = []
+    @Published public var rowData: [TableRowItem] = []
     
-    @Published var firstRowSticky: Bool = false
+    @Published public var isHeaderSticky: Bool = false
     
-    @Published var firstColumnSticky: Bool = false
+    @Published public var isFirstColumnSticky: Bool = false
     
-    @Published var horizontalScrolling: Bool = true
+    @Published public var horizontalScrolling: Bool = true
     
-    @Published var showListView: Bool = true
+    @Published public var showListView: Bool = true
+        
+    @Published public var columnAttributes: [ColumnAttribute] = []
     
-    @Published var columnWidths: [CGFloat] = []
+    public var didSelectRowAt: ((_ index: Int) -> Void)?
     
-    @Published var columnAttributes: [ColumnAttribute] = []
-    
-    var didSelectRowAt: ((_ index: Int) -> Void)?
-    
-    @Published var selectedIndexes: [Int] = []
+    @Published public var selectedIndexes: [Int] = []
     
     internal var centerPosition: CGPoint?
     
@@ -28,19 +26,21 @@ public class TableModel: ObservableObject, Identifiable, NSCopying {
                 rowData: [TableRowItem] = [],
                 isFirstRowSticky: Bool = false,
                 isFirstColumnSticky: Bool = false,
+                columnAttributes: [ColumnAttribute] = [],
                 showListView: Bool = true)
     {
         self.headerData = headerData
         self.rowData = rowData
-        self.firstRowSticky = isFirstRowSticky
-        self.firstColumnSticky = isFirstColumnSticky
+        self.isHeaderSticky = isFirstRowSticky
+        self.isFirstColumnSticky = isFirstColumnSticky
+        self.columnAttributes = columnAttributes
         self.showListView = showListView
     }
     
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = TableModel(headerData: self.headerData,
-                              isFirstRowSticky: self.firstRowSticky,
-                              isFirstColumnSticky: self.firstColumnSticky)
+                              isFirstRowSticky: self.isHeaderSticky,
+                              isFirstColumnSticky: self.isFirstColumnSticky)
         return copy
     }
 }

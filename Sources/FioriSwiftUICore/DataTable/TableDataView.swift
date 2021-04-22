@@ -7,6 +7,10 @@ public struct TableDataView: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
     @Binding public var isEditing: Bool
+    
+    public init(isEditing: Binding<Bool>) {
+        self._isEditing = isEditing
+    }
             
     public var body: some View {
         GeometryReader { proxy in

@@ -1,13 +1,17 @@
 import Foundation
 import SwiftUI
 
-struct ColumnAttribute {
-    enum Width {
+public struct ColumnAttribute {
+    public enum Width {
         case fixed(CGFloat)
         case flexible
     }
 
-    var textAlignment: TextAlignment = .leading
-    var width: Width = .flexible
-//    var contentInsets: EdgeInsets?
+    public var textAlignment: TextAlignment = .leading
+    public var width: Width = .flexible
+    
+    public init(textAlignment: TextAlignment = .leading, width: Width = .flexible) {
+        self.textAlignment = textAlignment
+        self.width = width
+    }
 }

@@ -1,3 +1,4 @@
+import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
@@ -22,7 +23,7 @@ public enum TestRowData {
     
     static func generateNewRow(column: Int) -> TableRowItem {
         var data: [DataItem] = []
-        for i in 0 ..< column {
+        for _ in 0 ..< column {
             let textItem = DataTextItem("new item new item new item")
             textItem.lineLimit = 2
             data.append(textItem)
@@ -53,7 +54,6 @@ public enum TestRowData {
         }
         let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
         let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
-        //        model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.didSelectRowAt = { _ in
             print(model.selectedIndexes)
@@ -64,7 +64,7 @@ public enum TestRowData {
     }
 }
 
-public struct TestTableView: View {
+public struct DataTableExample: View {
     var model: TableModel = TestRowData.generateData(row: 30, column: 12)
     @State var isEditing: Bool = false
     
@@ -80,14 +80,14 @@ public struct TestTableView: View {
             NavigationView {
                 view
                     .environmentObject(self.model)
-                    .navigationBarTitle("grid data table", displayMode: .inline)
+                    .navigationBarTitle("Data Table", displayMode: .inline)
                     .navigationBarItems(leading:
                         Button("Add a row") {
                             DispatchQueue.main.async {
                                 self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 0)
                             }
                         }, trailing:
-                        Button(self.isEditing ? "Done" : "Edit") {
+                        Button(self.isEditing ? "Delete" : "Edit") {
                             DispatchQueue.main.async {
                                 self.isEditing = !self.isEditing
                                 if !self.isEditing {

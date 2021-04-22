@@ -29,13 +29,13 @@ struct TableDataItem: Identifiable, Hashable {
         return false
     }
     
-    var lineLimit: Int
+    var lineLimit: Int?
     
     init(index: Int,
          value: ValueType = .text(""),
          pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero,
          textAlignment: TextAlignment = .leading,
-         lineLimit: Int = 0)
+         lineLimit: Int? = nil)
     {
         self.rowIndex = index
         self.value = value

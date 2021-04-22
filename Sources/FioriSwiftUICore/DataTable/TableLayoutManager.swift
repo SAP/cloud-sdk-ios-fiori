@@ -412,11 +412,6 @@ class TableLayoutManager: ObservableObject {
     }
     
     func getColumnWidths(_ rect: CGRect) -> [CGFloat] {
-        guard self.model.columnWidths.isEmpty else {
-            self.columnWidths = self.model.columnWidths
-            return self.columnWidths
-        }
-        
         let numberOfColumns = self.numberOfColumns()
         let numberOfRows = self.numberOfRows()
         var columnWidths: [CGFloat] = []
@@ -556,9 +551,7 @@ class TableLayoutManager: ObservableObject {
         let catIndexRangeInColumn = yStartIndex ... yEndIndex
         
         var displayingItems: [[TableDataItem]] = []
-        
-        //        let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
-        
+                
         if catIndexRangeInRow.lowerBound >= 0, catIndexRangeInRow.upperBound < maxDataCountInRow,
            catIndexRangeInColumn.lowerBound >= 0, catIndexRangeInColumn.upperBound < maxDataCountInColumn
         {
@@ -595,7 +588,7 @@ class TableLayoutManager: ObservableObject {
                     }
                 }
                 
-                if self.model.firstColumnSticky {
+                if self.model.isFirstColumnSticky {
                     var item = allItems[i][0]
                     let contentWidth = self.columnWidths[0] - self.contentInset * 2
                     let x = self.tableLeadingLayoutMargin
@@ -614,7 +607,7 @@ class TableLayoutManager: ObservableObject {
             }
         }
         
-        if self.model.firstRowSticky {
+        if self.model.isHeaderSticky {
             var firstRow = allItems.first ?? []
             for i in 0 ..< firstRow.count {
                 let contentWidth = self.columnWidths[i] - self.contentInset * 2
@@ -628,7 +621,7 @@ class TableLayoutManager: ObservableObject {
             
             var leftTopItem: TableDataItem?
             
-            if self.model.firstColumnSticky {
+            if self.model.isFirstColumnSticky {
                 leftTopItem = allItems.first?.first
                 let itemHeight = leftTopItem?.size.height ?? 0
                 let contentWidth = self.columnWidths[0] - self.contentInset * 2
@@ -678,9 +671,7 @@ class TableLayoutManager: ObservableObject {
         
         let height: CGFloat = 1
         let unitHeight: CGFloat = max(height / CGFloat(max(numberOfDataInColumn - 1, 1)), TableViewLayout.minUnitHeight)
-        
-        //        let rowIndex = !self.model.headerData.isEmpty ? index - 1 : index
-        
+                
         var res: [TableDataItem] = []
         for i in 0 ..< numberInEachRow {
             var contentWidth = CGFloat(MAXFLOAT)
@@ -703,18 +694,17 @@ class TableLayoutManager: ObservableObject {
                 guard let item = currentItem as? DataTextItem else {
                     break
                 }
-                let title = item.text ?? ""
+                let title = item.text
                 //                let font = item.font ?? .body
-                let font = UIFont.preferredFont(from: item.font ?? .body)
-                let lineLimit = item.lineLimit ?? 0
-                let height = lineLimit == 0 ? CGFloat(MAXFLOAT) : CGFloat(lineLimit) * font.lineHeight
+                let font = UIFont.preferredFont(from: item.font)
+                let height = item.lineLimit == nil ? CGFloat(MAXFLOAT) : CGFloat(item.lineLimit ?? 0) * font.lineHeight
                 let size = title.boundingBoxSize(with: font.pointSize * self.scaleX, width: contentWidth, height: height)
                 res.append(TableDataItem(index: index,
                                          value: .text(title),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
                                          size: size,
                                          textAlignment: textAlignment,
-                                         lineLimit: lineLimit))
+                                         lineLimit: item.lineLimit))
             case .image:
                 guard let image = (currentItem as? DataImageItem)?.image else {
                     break

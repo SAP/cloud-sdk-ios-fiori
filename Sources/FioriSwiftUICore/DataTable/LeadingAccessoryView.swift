@@ -52,7 +52,7 @@ struct LeadingAccessoryView: View {
             }
         }
         .frame(height: self.layoutManager.rowHeights[self.selectionIndex] * self.layoutManager.scaleY)
-        .background(Color.red)
+        .background(Color.white)
     }
     
     func makeButton(button: AccessoryButton) -> some View {

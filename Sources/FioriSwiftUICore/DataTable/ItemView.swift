@@ -73,7 +73,7 @@ struct ItemView: View {
 //                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
 //                .background(backgroundColor)
                 
-                if index == (0, 0) && self.layoutManager.model.firstColumnSticky {
+                if index == (0, 0) && self.layoutManager.model.isFirstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
                 }
