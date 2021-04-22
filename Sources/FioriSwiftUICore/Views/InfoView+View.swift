@@ -38,7 +38,6 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
-                    .frame(width: 169.0, height: 20.0)
             }
         }
         
@@ -81,15 +80,8 @@ extension InfoView: View {
                 .padding(.top, 80)
                 .padding(.bottom, 40)
             descriptionText
-//                .padding(.bottom, 80)
             Spacer()
             progressIndicatorText
-//            if #available(iOS 14.0, *) {
-//                ProgressView()
-//                    .frame(width: 24, height: 24, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
-//            } else {
-//                // Fallback on earlier versions
-//            }
             Spacer()
             actionText
                 .padding(.bottom, 20)

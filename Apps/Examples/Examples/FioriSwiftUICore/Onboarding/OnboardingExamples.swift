@@ -9,7 +9,7 @@ struct OnboardingExamples: View {
             }
             
             NavigationLink(
-                destination: ActivationScreenSample()) {
+                destination: ActivationScreenExamples()) {
                 Text("ActivationScreen")
             }
             
@@ -38,7 +38,23 @@ struct WelcomeExamples: View {
                 destination: WelcomeScreenDiscoveryService()) {
                 Text("WelcomeScreen with Discovery Service")
             }
-        }.navigationBarTitle("Welcome Examples")
+        }.navigationBarTitle("Welcome Examples", displayMode: .inline)
+    }
+}
+
+struct ActivationScreenExamples: View {
+    var body: some View {
+        List {
+            NavigationLink(
+                destination: ActivationScreenSample()) {
+                Text("ActivationScreen")
+            }
+            
+            NavigationLink(
+                destination: ActivationScreenCustomizedSample()) {
+                Text("Customized")
+            }
+        }.navigationBarTitle("Onboarding", displayMode: .inline)
     }
 }
 
@@ -60,7 +76,7 @@ struct InfoViewExamples: View {
                 destination: InfoViewCustomized()) {
                 Text("InfoView Customized")
             }
-        }.navigationBarTitle("InfoView Examples")
+        }.navigationBarTitle("InfoView Examples", displayMode: .inline)
     }
 }
 
