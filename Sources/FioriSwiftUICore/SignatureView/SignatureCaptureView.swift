@@ -36,7 +36,7 @@ public struct SignatureCaptureView: View {
     @State private var isSaved = false
     
     public var body: some View {
-        GeometryReader { _ in
+        VStack {
             if !self.isEditing {
                 VStack {
                     HStack {
@@ -47,7 +47,6 @@ public struct SignatureCaptureView: View {
                         Color.preferredColor(.quarternaryFill).cornerRadius(10)
                         Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
-                    // .frame(width: geometry.size.width, height: 300)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.preferredColor(.separator), lineWidth: 1)
@@ -57,7 +56,7 @@ public struct SignatureCaptureView: View {
                             self.isEditing = true
                         }
                     }
-                }
+                }.padding(16)
             } else {
                 VStack {
                     HStack {
@@ -132,9 +131,9 @@ public struct SignatureCaptureView: View {
                             }
                         }
                     }
-                }
+                }.padding(16)
             }
-        }.padding(16) // .frame(height: 298)
+        }
     }
 }
 
