@@ -36,101 +36,103 @@ public struct SignatureCaptureView: View {
     @State private var isSaved = false
     
     public var body: some View {
-        if !self.isEditing {
-            VStack {
-                HStack {
-                    Text(NSLocalizedString("Signature", comment: "Signature"))
-                    Spacer()
-                }
-                ZStack {
-                    Color.preferredColor(.quarternaryFill).cornerRadius(10)
-                    Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
-                }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                )
-                .onTapGesture {
-                    withAnimation {
-                        self.isEditing = true
-                    }
-                }
-            }.padding(16)
-        } else {
-            VStack {
-                HStack {
-                    Text(NSLocalizedString("Signature", comment: "Signature"))
-                    Spacer()
-                    if !self.isSaved {
-                        Button(action: {
-                            self.drawings.removeAll()
-                            self.isSaved = false
-                            self.onCancel?()
-                            self.isEditing = false
-                        }) {
-                            Text(NSLocalizedString("Cancel", comment: "Cancel"))
-                        }
-                    }
-                }
-                ZStack {
-                    ZStack(alignment: .bottom) {
-                        DrawingPad(currentDrawing: self.$currentDrawing,
-                                   drawings: self.$drawings,
-                                   isSave: self.$isSaved,
-                                   onSave: self.onSave,
-                                   strokeColor: self.imageStrokeColor,
-                                   lineWidth: self.strokeWidth,
-                                   backgroundColor: self.backgroundColor)
-                            .foregroundColor(Color.preferredColor(.cellBackground))
-                            .frame(minHeight: 300)
-                        if !self.isSaved {
-                            HStack {
-                                Image(systemName: "xmark")
-                                    .foregroundColor(Color.preferredColor(.quarternaryLabel))
-                                    .font(.body)
-                                    .opacity(0.4)
-                                Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
-                            }.padding([.leading, .trailing]).padding(.bottom, 30)
-                        }
-                    }
-                    
-                    if !self.isSaved {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                    } else {
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                            .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
-                    }
-                }
-                HStack {
-                    if !self.isSaved {
-                        Button(action: {
-                            self.drawings.removeAll()
-                        }) {
-                            Text(NSLocalizedString("Clear", comment: "Clear"))
-                        }.disabled(self.drawings.isEmpty)
+        VStack {
+            if !self.isEditing {
+                VStack {
+                    HStack {
+                        Text(NSLocalizedString("Signature", comment: "Signature"))
                         Spacer()
-                        Button(action: {
-                            withAnimation {
-                                self.isSaved = true
-                            }
-                        }) {
-                            Text(NSLocalizedString("Save", comment: "Save"))
-                        }.disabled(self.drawings.isEmpty)
-                    } else {
-                        Button(action: {
-                            withAnimation {
-                                self.drawings.removeAll()
-                                self.onCancel?()
-                                self.isSaved = false
-                            }
-                        }) {
-                            Text(NSLocalizedString("Re-enter Signature", comment: "Re-enter Signature"))
+                    }
+                    ZStack {
+                        Color.preferredColor(.quarternaryFill).cornerRadius(10)
+                        Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                    }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                    )
+                    .onTapGesture {
+                        withAnimation {
+                            self.isEditing = true
                         }
                     }
-                }
-            }.padding(16)
+                }.padding(16)
+            } else {
+                VStack {
+                    HStack {
+                        Text(NSLocalizedString("Signature", comment: "Signature"))
+                        Spacer()
+                        if !self.isSaved {
+                            Button(action: {
+                                self.drawings.removeAll()
+                                self.isSaved = false
+                                self.onCancel?()
+                                self.isEditing = false
+                            }) {
+                                Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                            }
+                        }
+                    }
+                    ZStack {
+                        ZStack(alignment: .bottom) {
+                            DrawingPad(currentDrawing: self.$currentDrawing,
+                                       drawings: self.$drawings,
+                                       isSave: self.$isSaved,
+                                       onSave: self.onSave,
+                                       strokeColor: self.imageStrokeColor,
+                                       lineWidth: self.strokeWidth,
+                                       backgroundColor: self.backgroundColor)
+                                .foregroundColor(Color.preferredColor(.cellBackground))
+                                .frame(minHeight: 300)
+                            if !self.isSaved {
+                                HStack {
+                                    Image(systemName: "xmark")
+                                        .foregroundColor(Color.preferredColor(.quarternaryLabel))
+                                        .font(.body)
+                                        .opacity(0.4)
+                                    Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
+                                }.padding([.leading, .trailing]).padding(.bottom, 30)
+                            }
+                        }
+                        
+                        if !self.isSaved {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                        } else {
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                                .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
+                        }
+                    }
+                    HStack {
+                        if !self.isSaved {
+                            Button(action: {
+                                self.drawings.removeAll()
+                            }) {
+                                Text(NSLocalizedString("Clear", comment: "Clear"))
+                            }.disabled(self.drawings.isEmpty)
+                            Spacer()
+                            Button(action: {
+                                withAnimation {
+                                    self.isSaved = true
+                                }
+                            }) {
+                                Text(NSLocalizedString("Save", comment: "Save"))
+                            }.disabled(self.drawings.isEmpty)
+                        } else {
+                            Button(action: {
+                                withAnimation {
+                                    self.drawings.removeAll()
+                                    self.onCancel?()
+                                    self.isSaved = false
+                                }
+                            }) {
+                                Text(NSLocalizedString("Re-enter Signature", comment: "Re-enter Signature"))
+                            }
+                        }
+                    }
+                }.padding(16)
+            }
         }
     }
 }
