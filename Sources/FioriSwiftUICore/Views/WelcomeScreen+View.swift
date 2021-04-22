@@ -31,6 +31,9 @@ extension Fiori {
                 content
                     .font(.system(size: 15))
                     .foregroundColor(.preferredColor(.primary1))
+                    .multilineTextAlignment(.center)
+                    .keyboardType(.emailAddress)
+                    .disableAutocorrection(true)
             }
         }
 
@@ -106,20 +109,16 @@ extension WelcomeScreen: View {
     public var body: some View {
         VStack {
             title
-                .padding(.top, 60)
+                .padding(.top, 80)
                 .padding(.bottom, 40)
             descriptionText
-                .padding(.bottom, 80)
+                .padding(.bottom, 56)
             
             textFilled
-                .multilineTextAlignment(.center)
-                .keyboardType(.emailAddress)
-                .disableAutocorrection(true)
-                .padding(.bottom, 20)
+                .padding(.bottom, 30)
             
             actionText
-//                .buttonStyle(StatefulButtonStyle())
-                .padding(.bottom, 20)
+                .padding(.bottom, 24)
             
             subtitle
             footnote
@@ -129,7 +128,7 @@ extension WelcomeScreen: View {
                 .padding(.top, 8)
             Spacer()
             icon
-                .padding(.bottom, 32)
+                .padding(.bottom, 60)
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)

@@ -21,6 +21,7 @@ extension TextInput: View {
         } else {
             TextField("Default", text: self._textFilled ?? .constant("default"))
                 .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
+                .padding(.top, 8)
         }
     }
 }

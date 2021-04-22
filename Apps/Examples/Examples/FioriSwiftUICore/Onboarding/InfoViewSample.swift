@@ -20,17 +20,13 @@ class InfoViewDataModel: InfoViewModel {
 struct InfoViewSample: View {
     private var model = InfoViewDataModel()
     
-    public init() {}
+    public init() {
+        self.model.progressIndicatorText_ = ""
+    }
     
     var body: some View {
-        if #available(iOS 14.0, *) {
-            VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: "", actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
-            }
-        } else {
-            VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: "", actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
-            }
+        VStack {
+            InfoView(model: model)
         }
     }
 }
@@ -41,14 +37,8 @@ struct InfoViewWithLoadingLabel: View {
     public init() {}
     
     var body: some View {
-        if #available(iOS 14.0, *) {
-            VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: model.progressIndicatorText_, actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
-            }
-        } else {
-            VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: model.progressIndicatorText_, actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
-            }
+        VStack {
+            InfoView(model: model)
         }
     }
 }
@@ -56,22 +46,24 @@ struct InfoViewWithLoadingLabel: View {
 struct InfoViewCustomized: View {
     private var model = InfoViewDataModel()
     
-    public init() {}
+    public init() {
+        self.model.progressIndicatorText_ = ""
+    }
     
     var body: some View {
         if #available(iOS 14.0, *) {
             VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: "", actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+                InfoView(model: model)
                     .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
                     .actionTextModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { content in
                         content
-                            .progressViewStyle(DarkBlueShadowProgressViewStyle())
+                            .progressViewStyle(ShadowProgressViewStyle())
                     }
             }
         } else {
             VStack {
-                InfoView(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: "", actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+                InfoView(model: model)
                     .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
                     .actionTextModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { $0.scaleEffect(x: 2, y: 2, anchor: .center) }
@@ -81,10 +73,10 @@ struct InfoViewCustomized: View {
 }
 
 @available(iOS 14.0, *)
-struct DarkBlueShadowProgressViewStyle: ProgressViewStyle {
+struct ShadowProgressViewStyle: ProgressViewStyle {
     func makeBody(configuration: Configuration) -> some View {
         ProgressView(configuration)
-            .shadow(color: Color(red: 0, green: 0, blue: 0.6),
+            .shadow(color: Color(red: 0, green: 0, blue: 0.4),
                     radius: 4.0, x: 1.0, y: 2.0)
             .accentColor(Color.green)
             .scaleEffect(x: 1.5, y: 1.5, anchor: .center)

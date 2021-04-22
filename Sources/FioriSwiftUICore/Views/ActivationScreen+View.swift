@@ -32,6 +32,9 @@ extension Fiori {
                 content
                     .font(.system(size: 15))
                     .foregroundColor(.preferredColor(.primary1))
+                    .multilineTextAlignment(.center)
+                    .keyboardType(.emailAddress)
+                    .disableAutocorrection(true)
             }
         }
 
@@ -40,7 +43,7 @@ extension Fiori {
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .buttonStyle(StatefulButtonStyle())
+                    .frame(minWidth: 169.0, minHeight: 20.0)
             }
         }
 
@@ -82,17 +85,13 @@ extension ActivationScreen: View {
     public var body: some View {
         VStack {
             title
-                .padding(.top, 40)
+                .padding(.top, 80)
                 .padding(.bottom, 40)
             descriptionText
-                .padding(.bottom, 40)
+                .padding(.bottom, 56)
             
             textFilled
-                .multilineTextAlignment(.center)
-                .keyboardType(.emailAddress)
-                .disableAutocorrection(true)
-                .padding(.top, 15)
-                .padding(.bottom, 20)
+                .padding(.bottom, 30)
             
             actionText
                 .buttonStyle(StatefulButtonStyle())

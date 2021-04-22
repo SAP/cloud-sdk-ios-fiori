@@ -2,7 +2,6 @@ import FioriSwiftUICore
 import SwiftUI
 
 class WelcomeScreenDataModel: WelcomeScreenModel {
-    @State var isPressed: Bool = false
     var title_: String = "SAP Project Companion for Managers"
     var descriptionText_: String? = "Please follow the instructions you received in the welcome email to start the activation process."
     var textFilled_: Binding<String>?
@@ -14,8 +13,7 @@ class WelcomeScreenDataModel: WelcomeScreenModel {
     var userInput: String = ""
     
     func didSelectAction() {
-        print("WelcomeScreen Primary button clicked")
-        self.isPressed.toggle()
+        print("WelcomeScreen Primary button clicked: ", self.userInput)
     }
     
     func didSelectSecondaryAction() {
@@ -37,7 +35,7 @@ struct WelcomeScreenSample: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+            WelcomeScreen(model: model)
                 .subtitleModifier { $0.hidden() }
                 .textFilledModifier { $0.hidden() }
         }
@@ -50,7 +48,7 @@ struct WelcomeScreenCustomized: View {
     
     var body: some View {
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+            WelcomeScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .subtitleModifier { $0.hidden() }
                 .textFilledModifier { $0.hidden() }
@@ -61,7 +59,6 @@ struct WelcomeScreenCustomized: View {
 
 struct WelcomeScreenDiscoveryService: View {
     @State var userInput: String = ""
-    @State var actionDisabled: Bool = true
     private var model = WelcomeScreenDataModel()
     public init() {}
     
@@ -71,11 +68,6 @@ struct WelcomeScreenDiscoveryService: View {
             set: {
                 self.userInput = $0
                 model.updateValue(value: $0)
-                if $0.isEmpty {
-                    actionDisabled = true
-                } else {
-                    actionDisabled = false
-                }
             }
         )
         VStack {
@@ -84,7 +76,7 @@ struct WelcomeScreenDiscoveryService: View {
                 .subtitleModifier { $0.hidden() }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
-                        .disabled(actionDisabled)
+                        .disabled(userInput.isEmpty)
                 }
                 .textFilledModifier { $0.disableAutocorrection(true) }
         }

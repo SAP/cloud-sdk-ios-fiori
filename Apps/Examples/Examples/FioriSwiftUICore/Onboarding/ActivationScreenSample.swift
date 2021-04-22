@@ -29,9 +29,7 @@ class ActivationScreenDataModel: ActivationScreenModel {
 
 struct ActivationScreenSample: View {
     @State var userInput: String = ""
-    @State var actionDisabled: Bool = true
     private var model = ActivationScreenDataModel()
-    
     public init() {}
     
     var body: some View {
@@ -40,18 +38,36 @@ struct ActivationScreenSample: View {
             set: {
                 self.userInput = $0
                 model.updateValue(value: $0)
-                if $0.isEmpty {
-                    actionDisabled = true
-                } else {
-                    actionDisabled = false
-                }
+            }
+        )
+        VStack {
+            ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: binding, actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+                .actionTextModifier { $0.disabled(userInput.isEmpty) }
+                .textFilledModifier { $0.autocapitalization(.none) }
+        }
+    }
+}
+
+struct ActivationScreenCustomizedSample: View {
+    @State var userInput: String = ""
+    private var model = ActivationScreenDataModel()
+    public init() {}
+    
+    var body: some View {
+        let binding = Binding(
+            get: { self.userInput },
+            set: {
+                self.userInput = $0
+                model.updateValue(value: $0)
             }
         )
         VStack {
             ActivationScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: binding, actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .actionTextModifier { $0.disabled(actionDisabled) }
-                .textFilledModifier { $0.disableAutocorrection(true) }
+                .actionTextModifier { $0.disabled(userInput.isEmpty) }
+                .textFilledModifier { $0.padding(.top, 8)
+                    .border(Color(UIColor.separator))
+                }
         }
     }
 }
