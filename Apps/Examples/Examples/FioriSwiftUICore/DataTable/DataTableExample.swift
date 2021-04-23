@@ -75,7 +75,7 @@ public struct DataTableExample: View {
     }
     
     func makeBody() -> some View {
-        var view = TableDataView(model: self.model)
+        var view = DataTableView(model: self.model)
         return
             NavigationView {
                 view

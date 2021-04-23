@@ -155,8 +155,6 @@ extension UIFont {
                 uiFont = UIFont.preferredFont(forTextStyle: .caption2)
             case .footnote:
                 uiFont = UIFont.preferredFont(forTextStyle: .footnote)
-            case .body:
-                fallthrough
             default:
                 uiFont = UIFont.preferredFont(forTextStyle: .body)
             }

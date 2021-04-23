@@ -69,7 +69,7 @@ struct GridTableView: View {
                 self.lastScaleY = self.layoutManager.scaleY
             }
         
-        let items: [[TableDataItem]] = self.layoutManager.dataItemsForTable(rect: rect)
+        let items: [[DataTableItem]] = self.layoutManager.dataItemsForTable(rect: rect)
 
         return
             ZStack {

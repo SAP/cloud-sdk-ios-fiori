@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemView: View {
-    let dataItem: TableDataItem
+    let dataItem: DataTableItem
     
     var dropVerticalShadow: Bool = false
     
@@ -12,7 +12,7 @@ struct ItemView: View {
     let isHeader: Bool
     let index: (Int, Int)
     
-    init(_ dataItem: TableDataItem, _ index: (Int, Int), _ isHeader: Bool = false, dropShadow: Bool) {
+    init(_ dataItem: DataTableItem, _ index: (Int, Int), _ isHeader: Bool = false, dropShadow: Bool) {
         self.dataItem = dataItem
         self.index = index
         self.isHeader = isHeader

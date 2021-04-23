@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-struct TableDataItem: Identifiable, Hashable {
+struct DataTableItem: Identifiable, Hashable {
     let value: ValueType
     
     let textAlignment: TextAlignment
