@@ -75,11 +75,11 @@ public struct DataTableExample: View {
     }
     
     func makeBody() -> some View {
-        let view = TableDataView(isEditing: $isEditing)
+        var view = TableDataView(model: self.model)
         return
             NavigationView {
                 view
-                    .environmentObject(self.model)
+//                    .environmentObject(self.model)
                     .navigationBarTitle("Data Table", displayMode: .inline)
                     .navigationBarItems(leading:
                         Button("Add a row") {
@@ -90,6 +90,7 @@ public struct DataTableExample: View {
                         Button(self.isEditing ? "Delete" : "Edit") {
                             DispatchQueue.main.async {
                                 self.isEditing = !self.isEditing
+                                view.isEditing = self.isEditing
                                 if !self.isEditing {
                                     let indexSet = IndexSet(self.model.selectedIndexes)
                                     self.model.rowData.remove(atOffsets: indexSet)

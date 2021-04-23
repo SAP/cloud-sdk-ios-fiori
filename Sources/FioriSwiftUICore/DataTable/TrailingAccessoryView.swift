@@ -5,12 +5,14 @@ struct TrailingAccessoryView: View {
     let item: AccessoryItem?
     let selected: Bool = false
     let rowIndex: Int
+    let isHeader: Bool
     
     @EnvironmentObject var layoutManager: TableLayoutManager
     
-    init(item: AccessoryItem?, rowIndex: Int) {
+    init(item: AccessoryItem?, rowIndex: Int, isHeader: Bool) {
         self.item = item
         self.rowIndex = rowIndex
+        self.isHeader = isHeader
     }
     
     var body: some View {
@@ -27,20 +29,20 @@ struct TrailingAccessoryView: View {
                     }) {
                         button.image
                     }
-                    .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
+                    .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.preferredColor(.headerBlended)
-                        .edgesIgnoringSafeArea([.leading, .trailing]))
+                    .background(Color.white)
+                    .edgesIgnoringSafeArea([.leading, .trailing])
                 default:
                     AnyView(EmptyView())
                 }
             } else {
                 Rectangle()
-                    .fill(Color.preferredColor(.cellBackground))
-                    .frame(width: 44, height: self.layoutManager.rowHeights[self.rowIndex], alignment: .center)
+                    .fill(Color.white)
+                    .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.preferredColor(.headerBlended)
-                        .edgesIgnoringSafeArea([.leading, .trailing]))
+                    .background(Color.white)
+                    .edgesIgnoringSafeArea([.leading, .trailing])
             }
         }
         .background(BlurView(style: .light).blur(radius: 2))

@@ -1,7 +1,7 @@
 import Combine
 import SwiftUI
 
-open class TableModel: ObservableObject, Identifiable, NSCopying {
+open class TableModel: ObservableObject {
     @Published public var headerData: TableRowItem?
     
     @Published public var rowData: [TableRowItem] = []
@@ -15,6 +15,8 @@ open class TableModel: ObservableObject, Identifiable, NSCopying {
     @Published public var showListView: Bool = true
         
     @Published public var columnAttributes: [ColumnAttribute] = []
+    
+    @Published public var isEditing: Bool = false
     
     public var didSelectRowAt: ((_ index: Int) -> Void)?
     
@@ -35,12 +37,5 @@ open class TableModel: ObservableObject, Identifiable, NSCopying {
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
         self.showListView = showListView
-    }
-    
-    public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = TableModel(headerData: self.headerData,
-                              isFirstRowSticky: self.isHeaderSticky,
-                              isFirstColumnSticky: self.isFirstColumnSticky)
-        return copy
     }
 }

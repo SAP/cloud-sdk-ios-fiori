@@ -86,7 +86,7 @@ struct ItemView: View {
         HStack {
             Divider()
                 .frame(height: self.layoutManager.actualTableViewSize.height * self.layoutManager.scaleY)
-                .offset(x: offsetX * self.layoutManager.scaleX, y: (self.layoutManager.actualTableViewSize.height - self.dataItem.rowHeight) / 2)
+                .offset(x: offsetX * self.layoutManager.scaleX, y: (self.layoutManager.actualTableViewSize.height - self.dataItem.rowHeight) / 2 * self.layoutManager.scaleY)
                 .dropShadow(isVertical: true, show: self.dropVerticalShadow)
         }
     }

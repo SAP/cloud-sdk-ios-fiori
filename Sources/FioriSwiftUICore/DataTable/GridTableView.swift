@@ -120,7 +120,7 @@ struct GridTableView: View {
                             .padding(.leading, leadingMargin)
                             .zIndex(Double(650 - currentIndex))
 
-                        TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex)
+                        TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex, isHeader: isHeader)
                             .position(x: rect.maxX, y: y)
                             .zIndex(Double(650 - currentIndex))
                     }

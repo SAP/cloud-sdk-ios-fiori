@@ -54,7 +54,7 @@ struct DummyBackground: View {
             let height = self.layoutManager.rowHeights[index] * self.layoutManager.scaleY
                 
             Rectangle()
-                .fill(Color.preferredColor(.headerBlended))
+                .fill(Color.white)
                 .frame(width: width, height: height)
                 .background(Color.white.frame(width: width, height: height, alignment: .center).edgesIgnoringSafeArea([.leading, .trailing]))
                 .offset(x: width / 2)

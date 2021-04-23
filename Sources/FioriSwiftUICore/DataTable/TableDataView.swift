@@ -1,15 +1,19 @@
 import SwiftUI
 
 public struct TableDataView: View {
-    @EnvironmentObject public var model: TableModel
+    @ObservedObject public var model: TableModel
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
 
-    @Binding public var isEditing: Bool
+    public var isEditing: Bool = false {
+        didSet {
+            self.model.isEditing = self.isEditing
+        }
+    }
     
-    public init(isEditing: Binding<Bool>) {
-        self._isEditing = isEditing
+    public init(model: TableModel) {
+        self.model = model
     }
             
     public var body: some View {
@@ -19,7 +23,7 @@ public struct TableDataView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let layoutManager = TableLayoutManager(model: self.model, isEditing: self.isEditing)
+        let layoutManager = TableLayoutManager(model: self.model)
         let dataManager = TableDataManager(selectedIndexes: self.model.selectedIndexes)
         layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         layoutManager.rect = rect
@@ -32,6 +36,7 @@ public struct TableDataView: View {
                 let gridView = GridTableView(layoutManager: layoutManager)
                 gridView
                     .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: .infinity, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: .infinity, alignment: .center)
+                    .clipped()
             }
         }
         .environmentObject(layoutManager)

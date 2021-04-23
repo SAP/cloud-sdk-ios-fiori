@@ -170,10 +170,10 @@ class TableLayoutManager: ObservableObject {
     
     var leadingItemsWidths: [CGFloat] = []
     
-    init(model: TableModel, isEditing: Bool) {
+    init(model: TableModel) {
         self.model = model
         self.initRowData(model: self.model)
-        self.isEditing = isEditing
+        self.isEditing = self.model.isEditing
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
         self.allDataItems = self.initItems(self.model)
@@ -459,16 +459,6 @@ class TableLayoutManager: ObservableObject {
         }
         self.rowHeights = heights
         return heights
-    }
-    
-    func heightForRowAt(_ index: Int) -> CGFloat {
-        let row = self.allDataItems[index]
-        var height: CGFloat = .leastNonzeroMagnitude
-        for item in row {
-            let itemHeight: CGFloat = item.size.height
-            height = max(height, itemHeight)
-        }
-        return height
     }
     
     func initItems(_ model: TableModel) -> [[TableDataItem]] {

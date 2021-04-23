@@ -30,7 +30,7 @@ struct LeadingAccessoryView: View {
             let totalWidth = self.layoutManager.leadingItemsWidths[self.layoutIndex]
             let offset = totalWidth / 2
             makeBody(items: self.items)
-                .offset(x: offset)
+                .offset(x: offset * self.layoutManager.scaleX)
         }
     }
     
@@ -45,13 +45,13 @@ struct LeadingAccessoryView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 12, height: 12, alignment: .center)
+                        .frame(width: 12 * self.layoutManager.scaleX, height: 12 * self.layoutManager.scaleY, alignment: .center)
                 case .text(let string):
                     Text(string)
                 }
             }
         }
-        .frame(height: self.layoutManager.rowHeights[self.selectionIndex] * self.layoutManager.scaleY)
+        .frame(height: self.layoutManager.rowHeights[self.layoutIndex] * self.layoutManager.scaleY)
         .background(Color.white)
     }
     
