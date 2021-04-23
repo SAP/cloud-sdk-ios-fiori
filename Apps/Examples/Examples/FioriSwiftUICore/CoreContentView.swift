@@ -7,6 +7,11 @@ struct CoreContentView: View {
     var body: some View {
         List {
             NavigationLink(
+                destination: DataTableExample()) {
+                Text("Data Table")
+            }
+            
+            NavigationLink(
                 destination: SegmentedControl_Chart()) {
                 Text("Segmented Control")
             }
