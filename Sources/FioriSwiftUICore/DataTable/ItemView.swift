@@ -27,10 +27,10 @@ struct ItemView: View {
         let contentInset = TableViewLayout.contentInset(sizeClass: self.layoutManager.sizeClass)
         let tapGesture = TapGesture()
             .onEnded { _ in
-                let rowIndex = self.isHeader ? 0 : -1 + self.dataItem.rowIndex
-                guard self.dataItem.rowIndex >= 0 else {
+                guard self.dataItem.rowIndex >= 0, !self.isHeader else {
                     return
                 }
+                let rowIndex = self.dataItem.rowIndex - 1
                 if self.layoutManager.isEditing {
                     if !self.dataManager.selectedIndexes.contains(rowIndex) {
                         self.dataManager.selectedIndexes.append(rowIndex)

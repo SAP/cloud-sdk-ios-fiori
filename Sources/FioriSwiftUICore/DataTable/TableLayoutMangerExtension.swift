@@ -177,11 +177,10 @@ extension TableLayoutManager {
     
     func getTrailingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
-        for row in self.rowData {
-            if row.trailingAccessory != nil {
-                width = 44
-                break
-            }
+        if self.rowData.contains(where: { (row) -> Bool in
+            row.trailingAccessory != nil
+        }) {
+            width = 44
         }
         return width
     }
