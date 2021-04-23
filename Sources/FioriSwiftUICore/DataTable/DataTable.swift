@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct DataTableView: View {
+public struct DataTable: View {
     @ObservedObject public var model: TableModel
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
