@@ -1,6 +1,6 @@
 {# Utility function which returns the correct Style struct, for the unwrapped (non-optional) var type #}
 {% macro _StyleType unwrappedTypeName %}
-{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" or unwrappedTypeName == "Binding<String>" %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" or unwrappedTypeName == "Binding<String>" or unwrappedTypeName == "NSAttributedString" %}
 TextStyle
 {% elif unwrappedTypeName == "Image" %}
 ImageStyle
@@ -41,18 +41,22 @@ struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
 		public static let defaultValue: {{ AStyle }} = {{ AStyle }}()
 	}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}ModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
 		public static let defaultValue: [String] = []
 	}
 
+	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}

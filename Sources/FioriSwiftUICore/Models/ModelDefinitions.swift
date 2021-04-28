@@ -44,6 +44,7 @@ public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 
+// sourcery: availableAttributeContent = "iOS 14, *"
 // sourcery: virtualPropAnimatedFraction = "@State var animatedFraction: Double = 0.0"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 // sourcery: generated_component
