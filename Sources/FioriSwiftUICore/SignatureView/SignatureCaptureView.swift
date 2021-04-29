@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /**
@@ -13,9 +14,14 @@ public struct SignatureCaptureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
+    /// onSave closure
     public var onSave: ((Result) -> Void)?
     
+    /// onCancel closure
     public var onCancel: (() -> Void)?
+    
+    /// :nodoc:
+    public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
     
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
@@ -28,6 +34,27 @@ public struct SignatureCaptureView: View {
         self.backgroundColor = backgroundColor
         self.onSave = onSave
         self.onCancel = onCancel
+    }
+    
+    struct HStackPreferenceKey: PreferenceKey {
+        typealias Value = [CGFloat]
+
+        static var defaultValue: [CGFloat] = []
+        
+        static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
+            value.append(contentsOf: nextValue())
+        }
+    }
+    
+    struct HStackPreferenceSetter: View {
+        var body: some View {
+            GeometryReader { geometry in
+                Rectangle()
+                    .fill(Color.clear)
+                    .preference(key: HStackPreferenceKey.self,
+                                value: [geometry.size.height])
+            }
+        }
     }
     
     @State private var currentDrawing = Drawing()
@@ -133,6 +160,13 @@ public struct SignatureCaptureView: View {
                     }
                 }.padding(16)
             }
+        }
+        .background(HStackPreferenceSetter())
+        .onPreferenceChange(HStackPreferenceKey.self) { heights in
+            guard let height = heights.first else {
+                return
+            }
+            self._heightDidChangePublisher.send(height)
         }
     }
 }
