@@ -510,6 +510,69 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> { // no
 }
 ```
 
+### Best Practise: declare optional multi-property component usage via protocol indirection
+
+A reusable multi-property component like `TextInputComponent`
+
+```swift
+// sourcery: backingComponent=TextInput
+public protocol TextInputComponent {
+    var textFilled_: Binding<String> { get }
+    var defaultText_: String? { get }
+	func onCommit() -> Void
+}
+```
+
+can be used in a composite component by declaring its model interface directly
+
+```swift
+// sourcery: generated_component_composite
+// sourcery: virtualPropEmailFilled = "@ObservedObject var emailFilled = UserInput()"
+// sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}
+```
+
+but an app developer has to provide an implementation for all the properties like `textFilled_` or `defaultText_` even in scenarios in which `ActivationScreen` shall not have input control.
+
+If the reusable multi-property component is optional then it is better to create a use-case specific protocol to introduce an indirection to its model protocol
+
+```swift
+public protocol ActivationEmailTextInputModel {
+    // sourcery: backingComponent=TextInput
+    // sourcery: componentInitializationKind=modelForced
+    // sourcery: environmentValue=textFilledModifier
+    var activationEmailTextInput_: TextInputModel? { get }
+}
+
+// sourcery: generated_component_composite
+// sourcery: virtualPropEmailFilled = "@ObservedObject var emailFilled = UserInput()"
+// sourcery: virtualPropButtonEnabled = "@State var buttonEnabled: Bool = false"
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, ActivationEmailTextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}
+```
+
+This has the advantage that an app developer does not need to provide an implementation for all `TextInputComponent` properties
+
+```swift
+class ActivationScreenDataModel: ActivationScreenModel {
+
+    var activationEmailTextInput_: TextInputModel? = nil
+}
+```
+
+but app developer easily can.
+
+```swift
+class ActivationScreenDataModel: ActivationScreenModel, TextInputModel {
+    
+	var activationEmailTextInput_: TextInputModel? { return self }
+    
+	// MARK: TextInputModel
+	var textFilled_: Binding<String> = .constant("Hi")
+    var defaultText_: String? = "just for testing"
+```
+
+Internally two new sourcery annotations were introduced: `// sourcery: componentInitializationKind=modelForced` and `// sourcery: environmentValue=<name of environmentValue defined by the component, e.g. textFilledModifier>`
+
 ### Next Steps
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.   
 

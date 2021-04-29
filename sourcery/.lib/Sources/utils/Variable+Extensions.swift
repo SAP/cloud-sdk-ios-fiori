@@ -1,6 +1,10 @@
 import Foundation
 import SourceryRuntime
 
+public enum ComponentInitializationKind: String {
+    case modelForced
+}
+
 public extension Variable {
     var swiftUITypeNameBacked: String {
         if let backingSwiftUIComponent = backingSwiftUIComponent {
@@ -37,9 +41,23 @@ public extension Variable {
         self.definedInType?.resolvedAnnotations("backingComponent").first ?? resolvedAnnotations("backingComponent").first
     }
 
+    var componentInitializationKind: ComponentInitializationKind? {
+        if let caseName = self.definedInType?.resolvedAnnotations("componentInitializationKind").first ?? resolvedAnnotations("componentInitializationKind").first {
+            return ComponentInitializationKind(rawValue: caseName)
+        }
+        return nil
+    }
+
     var toSwiftUI: String {
         if self.backingSwiftUIComponent != nil {
-            return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
+            if let kind = self.componentInitializationKind {
+                switch kind {
+                case .modelForced:
+                    return "\(self.swiftUITypeName)(model: \(self.trimmedName)!)"
+                }
+            } else {
+                return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
+            }
         }
         switch self.typeName.unwrappedTypeName {
         case "String":

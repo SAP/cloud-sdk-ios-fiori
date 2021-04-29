@@ -27,7 +27,13 @@ public extension Array where Element == Variable {
      */
     var viewModifierPropertyDecls: [String] {
         filter { $0.annotations.keys.contains("no_style") == false }
-            .map { "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier" }
+            .map {
+                if $0.resolvedAnnotations("environmentValue").first != nil {
+                    return "@Environment(\\.\($0.resolvedAnnotations("environmentValue").first!)) private var \($0.trimmedName)Modifier"
+                } else {
+                    return "@Environment(\\.\($0.trimmedName)Modifier) private var \($0.trimmedName)Modifier"
+                }
+            }
     }
 
     /**
@@ -96,7 +102,13 @@ public extension Array where Element == Variable {
     }
 
     var dataTypePropertyDecls: [String] {
-        map { "var _\($0.trimmedName): \($0.typeName) = nil" }
+        map {
+            if $0.isOptional {
+                return "var _\($0.trimmedName): \($0.typeName) = nil"
+            } else {
+                return "var _\($0.trimmedName): \($0.typeName)"
+            }
+        }
     }
 
     /**

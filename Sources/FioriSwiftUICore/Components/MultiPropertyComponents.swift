@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 /// use for component with a function and one (or more) properties
 internal protocol _ComponentMultiPropGenerating {}
