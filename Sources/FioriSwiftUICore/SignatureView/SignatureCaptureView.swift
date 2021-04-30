@@ -14,10 +14,10 @@ public struct SignatureCaptureView: View {
     /// Background color of the drawing pad
     public let backgroundColor: Color
     
-    /// onSave closure
+    /// An optional closure for handling save button tap action
     public var onSave: ((Result) -> Void)?
     
-    /// onCancel closure
+    /// An optional closure for handling cancel button tap action
     public var onCancel: (() -> Void)?
     
     /// :nodoc:
@@ -36,7 +36,7 @@ public struct SignatureCaptureView: View {
         self.onCancel = onCancel
     }
     
-    struct HStackPreferenceKey: PreferenceKey {
+    struct VStackPreferenceKey: PreferenceKey {
         typealias Value = [CGFloat]
 
         static var defaultValue: [CGFloat] = []
@@ -46,12 +46,12 @@ public struct SignatureCaptureView: View {
         }
     }
     
-    struct HStackPreferenceSetter: View {
+    struct VStackPreferenceSetter: View {
         var body: some View {
             GeometryReader { geometry in
                 Rectangle()
                     .fill(Color.clear)
-                    .preference(key: HStackPreferenceKey.self,
+                    .preference(key: VStackPreferenceKey.self,
                                 value: [geometry.size.height])
             }
         }
@@ -161,8 +161,8 @@ public struct SignatureCaptureView: View {
                 }.padding(16)
             }
         }
-        .background(HStackPreferenceSetter())
-        .onPreferenceChange(HStackPreferenceKey.self) { heights in
+        .background(VStackPreferenceSetter())
+        .onPreferenceChange(VStackPreferenceKey.self) { heights in
             guard let height = heights.first else {
                 return
             }
