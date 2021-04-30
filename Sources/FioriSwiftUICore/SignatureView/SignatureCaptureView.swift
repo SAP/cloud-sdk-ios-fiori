@@ -37,10 +37,7 @@ public struct SignatureCaptureView: View {
     }
     
     struct VStackPreferenceKey: PreferenceKey {
-        typealias Value = [CGFloat]
-
         static var defaultValue: [CGFloat] = []
-        
         static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
             value.append(contentsOf: nextValue())
         }
