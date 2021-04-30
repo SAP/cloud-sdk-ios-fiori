@@ -1,6 +1,5 @@
 import FioriCharts
 import FioriSwiftUICore
-import FioriThemeManager
 import SwiftUI
 
 struct SettingColor: View {

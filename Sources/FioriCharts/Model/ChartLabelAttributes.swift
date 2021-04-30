@@ -1,3 +1,4 @@
+import FioriSwiftUICore
 import Foundation
 import SwiftUI
 

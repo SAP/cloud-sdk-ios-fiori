@@ -32,22 +32,18 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriSwiftUICore", "FioriIntegrationCards"]
+            dependencies: ["FioriIntegrationCards"]
         ),
         .target(
             name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "ObservableArray", "FioriCharts", "Zip", "FioriThemeManager"]
+            dependencies: ["AnyCodable", "ObservableArray", "FioriCharts", "Zip"]
         ),
         .target(
             name: "FioriCharts",
-            dependencies: ["FioriThemeManager"]
+            dependencies: ["FioriSwiftUICore"]
         ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: ["FioriThemeManager"]
-        ),
-        .target(
-            name: "FioriThemeManager",
             dependencies: []
         ),
         .testTarget(
