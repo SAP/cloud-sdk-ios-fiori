@@ -1,4 +1,5 @@
 import Combine
+import FioriThemeManager
 import SwiftUI
 
 /**
