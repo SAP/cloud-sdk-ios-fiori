@@ -34,6 +34,12 @@ If you choose to run the script please make sure your dev machine has
   - tip: you can use [pyenv](https://github.com/pyenv/pyenv) to manage and switch between multiple python versions
 - `npm` (with `npx` as package runner which is included with 5.2+)
 
+## Core component development
+
+We are utilizing [Sourcery](https://github.com/krzysztofzablocki/Sourcery) to generate the same [initialization pattern](./GeneratedComponentConcepts.md) for core components across the board. 
+
+If you are interested in contributing to the development of core components, please follow this [Guideline](./CoreComponentGeneration.md) for more explanations in detail and an example of how to create a new component from the scratch.
+
 ## Snapshot Testing
 
 In addition to unit tests we verify the visual correctness of our SwiftUI components with the help of [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). The central build will run those tests for pull requests.
