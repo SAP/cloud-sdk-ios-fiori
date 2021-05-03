@@ -1,9 +1,11 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
+
 import PackageDescription
 
 let package = Package(
     name: "FioriSwiftUI",
+    defaultLocalization: "en",
     platforms: [.iOS(.v13)],
     products: [
         .library(
@@ -25,7 +27,7 @@ let package = Package(
     dependencies: [
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
-        .package(url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
+        .package(name: "ObservableArray", url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
         .package(url: "https://github.com/marmelroy/Zip.git", from: "2.0.0")
     ],
     targets: [
@@ -39,11 +41,13 @@ let package = Package(
         ),
         .target(
             name: "FioriCharts",
-            dependencies: ["FioriThemeManager"]
+            dependencies: ["FioriThemeManager"],
+            exclude: ["TestCases/SF_EnergyBenchmarking.csv"]
         ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: ["FioriThemeManager"]
+            dependencies: ["FioriThemeManager"],
+            resources: [.process("FioriSwiftUICore.strings")]
         ),
         .target(
             name: "FioriThemeManager",
