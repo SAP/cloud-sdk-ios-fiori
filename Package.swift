@@ -1,11 +1,10 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
 
 let package = Package(
     name: "FioriSwiftUI",
-    defaultLocalization: "en",
     platforms: [.iOS(.v13)],
     products: [
         .library(
@@ -46,8 +45,7 @@ let package = Package(
         ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: ["FioriThemeManager"],
-            resources: [.process("FioriSwiftUICore.strings")]
+            dependencies: ["FioriThemeManager"]
         ),
         .target(
             name: "FioriThemeManager",
