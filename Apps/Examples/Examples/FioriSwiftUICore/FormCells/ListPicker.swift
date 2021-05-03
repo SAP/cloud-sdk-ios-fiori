@@ -1,0 +1,192 @@
+import FioriSwiftUICore
+import Foundation
+import SwiftUI
+
+private enum ListPickerItemDataModel {
+    struct Framework: Identifiable {
+        var id = UUID()
+        let name: String
+        let children: [Framework]?
+        
+        init(name: String, children: [Framework]? = nil) {
+            self.name = name
+            self.children = children
+        }
+    }
+    
+    static let data = [
+        Framework(name: "SAP iOS SDK", children: [Framework(name: "SAPFiori"), Framework(name: "SAPCommon")]),
+        Framework(name: "Core Data"),
+        Framework(name: "CloudKit"),
+        Framework(name: "SwiftUI"),
+        Framework(name: "UIKit")
+    ]
+    
+    static func getFramwork(with uuid: UUID) -> Framework? {
+        func findFramework(in data: [Framework]) -> Framework? {
+            for framework in data {
+                if framework.id == uuid {
+                    return framework
+                }
+                
+                if let children = framework.children, !children.isEmpty {
+                    return findFramework(in: children)
+                }
+            }
+            
+            return nil
+        }
+        
+        return findFramework(in: self.data)
+    }
+}
+
+// MARK: List picker item examples
+
+struct ListPickerItemDataNonIdentifiableExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<String> = []
+    
+    public init() {}
+
+    public var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }, configuration:
+            ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+                Text(framework.name)
+            }))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct ListPickerItemDataIdentifiableExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<UUID> = []
+    
+    public init() {}
+
+    public var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).compactMap { uuid in
+                    if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                        return framework.name
+                    }
+                    
+                    return nil
+                }.joined(separator: ", ")
+                
+                Text(str)
+            }, configuration:
+            ListPickerItemConfiguration(model, children: \.children, selection: $selections, rowContent: { framework in
+                Text(framework.name)
+            }))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct ListPickerItemFormExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<String> = []
+    
+    var body: some View {
+        Form {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }, configuration: ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+                Text(framework.name)
+            }))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct ListPickerItemWithObjectItemExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<String> = []
+    
+    var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Frameworks")
+            }, value: {
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }, configuration: ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+                
+                ObjectItem {
+                    Text(framework.name)
+                } descriptionText: {
+                    Text("description")
+                } status: {
+                    Image(systemName: "sun.min")
+                } detailImage: {
+                    Image(systemName: "mail")
+                }
+
+            }))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+public struct ListPickerItemWithStringExample: View {
+    private let model = ["First", "Second", "Third", "Fourth", "Fifth"]
+    
+    @State var selections: Set<String> = []
+    
+    public init() {}
+
+    public var body: some View {
+        List {
+            ListPickerItem(key: {
+                Text("Choice")
+            }, value: {
+                let str = Array(selections).joined(separator: ", ")
+                Text(str)
+            }, configuration:
+            ListPickerItemConfiguration(model, selection: $selections))
+        }
+        .navigationBarTitle(Text("Form"))
+    }
+}
+
+struct ListPickerItemPreview: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            ListPickerItemDataNonIdentifiableExample()
+        }
+        
+        NavigationView {
+            ListPickerItemDataIdentifiableExample()
+        }
+        
+        NavigationView {
+            ListPickerItemFormExample()
+        }
+        
+        NavigationView {
+            ListPickerItemWithObjectItemExample()
+        }
+        
+        NavigationView {
+            ListPickerItemWithStringExample()
+        }
+    }
+}

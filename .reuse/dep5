@@ -39,6 +39,7 @@ Files:
   .mailmap
   Package.resolved
   sonar-project.properties
+  sourcery/*
   scripts/**
   translation_v2.json
   *.yaml

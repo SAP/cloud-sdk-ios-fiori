@@ -29,10 +29,15 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
 </p>
 
-This project currently contains the two modules `FioriCharts` and `FioriIntegrationCards`
+This project currently contains three modules: `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`
+
+## FioriSwiftUICore
+This module contains both the Fiori palette information which is already consumed in SAPFiori framework, as well as the SwiftUI migration code line, which is in-development in the `migration` branch.
+
+> **WARNING**: [concepts](./GeneratedComponentConcepts.md) and implementation for generated components is `in-development` and can change at any time!!! 
 
 ## FioriCharts
-The FioriCharts module is planned to replace the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
+The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
 
 | | SAPFiori 4.0.x, 5.0.x  | FioriCharts |
 | - | --------- | - |
@@ -76,7 +81,7 @@ The FioriIntegrationCards module is a native SwiftUI renderer for the [UI5 Integ
 ## Requirements
 
 - iOS 13 or higher, macOS 10.15.4 or higher
-- Xcode 11.4 or higher
+- Xcode 12 or higher
 - Swift Package Manager
 
 ## Download and Installation

@@ -1,3 +1,4 @@
+@testable import FioriSwiftUICore
 @testable import FioriThemeManager
 import UIKit
 import XCTest
