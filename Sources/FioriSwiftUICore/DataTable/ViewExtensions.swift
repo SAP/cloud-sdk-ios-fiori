@@ -42,6 +42,7 @@ struct DummyBackground: View {
     let index: Int
     let width: CGFloat
     @EnvironmentObject var layoutManager: TableLayoutManager
+    @Environment(\.backgroundColor) var backgroundColor
     
     init(index: Int, width: CGFloat) {
         self.index = index
@@ -54,9 +55,8 @@ struct DummyBackground: View {
             let height = self.layoutManager.rowHeights[index] * self.layoutManager.scaleY
                 
             Rectangle()
-                .fill(Color.white)
-                .frame(width: width, height: height)
-                .background(Color.white.frame(width: width, height: height, alignment: .center).edgesIgnoringSafeArea([.leading, .trailing]))
+                .fill(self.backgroundColor)
+                .frame(width: width, height: height, alignment: .center)
                 .offset(x: width / 2)
                 .zIndex(Double(zIndex))
         }

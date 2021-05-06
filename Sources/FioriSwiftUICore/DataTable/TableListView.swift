@@ -3,7 +3,8 @@ import SwiftUI
 
 struct TableListView: View {
     @ObservedObject var layoutManager: TableLayoutManager
-    
+    @Environment(\.backgroundColor) var backgroundColor
+
     var body: some View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.frame(in: .local))
@@ -16,6 +17,7 @@ struct TableListView: View {
             List {
                 ForEach(0 ..< views.count, id: \.self) { i in
                     views[i]
+                        .background(self.backgroundColor)
                         .padding([.leading, .trailing])
                         .gesture(TapGesture()
                             .onEnded { _ in
@@ -26,5 +28,6 @@ struct TableListView: View {
                         )
                 }
             }
+            .background(self.backgroundColor)
     }
 }

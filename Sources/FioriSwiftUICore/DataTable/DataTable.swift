@@ -5,6 +5,7 @@ public struct DataTable: View {
 
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.verticalSizeClass) var verticalSizeClass
+    @Environment(\.backgroundColor) var backgroundColor
 
     public var isEditing: Bool = false {
         didSet {
@@ -41,5 +42,11 @@ public struct DataTable: View {
         }
         .environmentObject(layoutManager)
         .environmentObject(dataManager)
+        .environment(\.backgroundColor, self.backgroundColor)
+        .background(self.backgroundColor)
+    }
+    
+    public func backgroundColor(_ color: Color) -> some View {
+        self.environment(\.backgroundColor, color)
     }
 }

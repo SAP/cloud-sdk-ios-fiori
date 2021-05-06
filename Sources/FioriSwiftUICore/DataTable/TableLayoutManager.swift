@@ -130,20 +130,6 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _rowHeights: [CGFloat] = []
     
-    var displayingItemSize: CGSize {
-        get {
-            self._displayingItemSize
-        }
-        
-        set {
-            if self._displayingItemSize == .zero {
-                self._displayingItemSize = newValue
-            }
-        }
-    }
-    
-    @Published var _displayingItemSize: CGSize = .zero
-    
     var actualTableViewSize: CGSize {
         get {
             self._actualTableViewSize

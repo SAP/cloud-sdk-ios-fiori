@@ -8,7 +8,8 @@ struct TrailingAccessoryView: View {
     let isHeader: Bool
     
     @EnvironmentObject var layoutManager: TableLayoutManager
-    
+    @Environment(\.backgroundColor) var backgroundColor
+
     init(item: AccessoryItem?, rowIndex: Int, isHeader: Bool) {
         self.item = item
         self.rowIndex = rowIndex
@@ -31,21 +32,19 @@ struct TrailingAccessoryView: View {
                     }
                     .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.white)
+                    .background(self.backgroundColor)
                     .edgesIgnoringSafeArea([.leading, .trailing])
                 default:
                     AnyView(EmptyView())
                 }
             } else {
                 Rectangle()
-                    .fill(Color.white)
+                    .fill(self.backgroundColor)
                     .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
                     .padding(.trailing, 44)
-                    .background(Color.white)
                     .edgesIgnoringSafeArea([.leading, .trailing])
             }
         }
-        .background(BlurView(style: .light).blur(radius: 2))
     }
     
     func applyBlur() -> some View {

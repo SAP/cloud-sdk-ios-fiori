@@ -79,7 +79,7 @@ public struct DataTableExample: View {
         return
             NavigationView {
                 view
-//                    .environmentObject(self.model)
+//                    .backgroundColor(Color.red)
                     .navigationBarTitle("Data Table", displayMode: .inline)
                     .navigationBarItems(leading:
                         Button("Add a row") {
