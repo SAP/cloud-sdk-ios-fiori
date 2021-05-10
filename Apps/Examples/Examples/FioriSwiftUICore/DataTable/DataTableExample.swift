@@ -53,12 +53,13 @@ public enum TestRowData {
             res.append(self.generateRowData(count: column, for: i))
         }
         let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
-        let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
+        let model = TableModel(headerData: header, rowData: res, isHeaderSticky: true, isFirstColumnSticky: true, showListView: true)
         model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.didSelectRowAt = { _ in
             print(model.selectedIndexes)
         }
         model.selectedIndexes = [2, 3]
+        model.isPinchZoomEnable = false
         
         return model
     }
@@ -79,7 +80,6 @@ public struct DataTableExample: View {
         return
             NavigationView {
                 view
-//                    .backgroundColor(Color.red)
                     .navigationBarTitle("Data Table", displayMode: .inline)
                     .navigationBarItems(leading:
                         Button("Add a row") {

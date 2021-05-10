@@ -144,6 +144,8 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _actualTableViewSize: CGSize = .zero
     
+    @Published var isPinchZoomEnable: Bool = false
+    
     var contentInset: CGFloat = 0
     
     var leadingAccessoryViewWidth: CGFloat = 0
@@ -162,6 +164,7 @@ class TableLayoutManager: ObservableObject {
         self.isEditing = self.model.isEditing
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
+        self.isPinchZoomEnable = model.isPinchZoomEnable
         self.allDataItems = self.initItems(self.model)
     }
 }
