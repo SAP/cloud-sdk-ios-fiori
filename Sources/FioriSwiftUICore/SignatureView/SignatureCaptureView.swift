@@ -14,6 +14,12 @@ public struct SignatureCaptureView: View {
     
     /// Background color of the drawing pad
     public let backgroundColor: Color
+
+    let bundle = Bundle.module
+    let tableName = "FioriSwiftUICore"
+
+    let minHeight: CGFloat
+    let maxHeight: CGFloat?
     
     /// An optional closure for handling save button tap action
     public var onSave: ((Result) -> Void)?
@@ -27,12 +33,24 @@ public struct SignatureCaptureView: View {
     /// Initializes and returns a segmented control with segments having the given titles.
     /// - Parameters:
     ///   - strokeWidth: Stroke width for drawing lines
+    ///
+    ///     The default is 3 px
     ///   - imageStrokeColor: Stroke color for drawing lines
     ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    ///   - minHeight: The minimum height of the drawing area.
+    ///
+    ///     The default is 256 px.
+    ///   - maxHeight: The maximum height of the drawing area.
+    ///
+    ///     The default is nil, means not specified.
+    ///   - onSave: The block to be executed when user tapped the "Save" button.
+    ///   - onCancel: The block to be executed when  user tapped the "Cancel" button.
+    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), minHeight: CGFloat = 256, maxHeight: CGFloat? = nil, onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
+        self.minHeight = minHeight
+        self.maxHeight = maxHeight
         self.onSave = onSave
         self.onCancel = onCancel
     }
@@ -65,13 +83,14 @@ public struct SignatureCaptureView: View {
             if !self.isEditing {
                 VStack {
                     HStack {
-                        Text(NSLocalizedString("Signature", comment: "Signature"))
+                        Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
                     }
                     ZStack {
                         Color.preferredColor(.quarternaryFill).cornerRadius(10)
-                        Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                        Text("Tap to Sign", tableName: tableName, bundle: bundle).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
+                    .frame(minHeight: minHeight, maxHeight: maxHeight)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.preferredColor(.separator), lineWidth: 1)
@@ -85,7 +104,7 @@ public struct SignatureCaptureView: View {
             } else {
                 VStack {
                     HStack {
-                        Text(NSLocalizedString("Signature", comment: "Signature"))
+                        Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
                         if !self.isSaved {
                             Button(action: {
@@ -94,7 +113,7 @@ public struct SignatureCaptureView: View {
                                 self.onCancel?()
                                 self.isEditing = false
                             }) {
-                                Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                                Text("Cancel", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
@@ -108,7 +127,7 @@ public struct SignatureCaptureView: View {
                                        lineWidth: self.strokeWidth,
                                        backgroundColor: self.backgroundColor)
                                 .foregroundColor(Color.preferredColor(.cellBackground))
-                                .frame(minHeight: 300)
+                                .frame(minHeight: minHeight, maxHeight: maxHeight)
                             if !self.isSaved {
                                 HStack {
                                     Image(systemName: "xmark")
@@ -134,7 +153,7 @@ public struct SignatureCaptureView: View {
                             Button(action: {
                                 self.drawings.removeAll()
                             }) {
-                                Text(NSLocalizedString("Clear", comment: "Clear"))
+                                Text("Clear", tableName: tableName, bundle: bundle)
                             }.disabled(self.drawings.isEmpty)
                             Spacer()
                             Button(action: {
@@ -142,7 +161,7 @@ public struct SignatureCaptureView: View {
                                     self.isSaved = true
                                 }
                             }) {
-                                Text(NSLocalizedString("Save", comment: "Save"))
+                                Text("Save", tableName: tableName, bundle: bundle)
                             }.disabled(self.drawings.isEmpty)
                         } else {
                             Button(action: {
@@ -152,7 +171,7 @@ public struct SignatureCaptureView: View {
                                     self.isSaved = false
                                 }
                             }) {
-                                Text(NSLocalizedString("Re-enter Signature", comment: "Re-enter Signature"))
+                                Text("Re-enter Signature", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
