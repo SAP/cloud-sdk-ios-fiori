@@ -19,8 +19,9 @@ extension UIView {
     }
 }
 
-func createUIBezierPath(drawings: [Drawing]) -> UIBezierPath {
+func createUIBezierPath(drawings: [Drawing], lineWidth: CGFloat) -> UIBezierPath {
     let bezierPath = UIBezierPath()
+    bezierPath.lineWidth = lineWidth
     for dr in drawings {
         for (index, point) in dr.points.enumerated() {
             if index == 0 {
