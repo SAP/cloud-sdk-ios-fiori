@@ -3,9 +3,8 @@ import SwiftUI
 import UIKit
 
 struct SignatureCaptureView_Example: View {
-//    @State var newImage: Image? = nil
     var body: some View {
-        SignatureCaptureView(strokeWidth: 3.0, imageStrokeColor: .black, backgroundColor: .white, onSave: { result in
+        SignatureCaptureView(onSave: { result in
             let imgSaver = ImageSaver()
             imgSaver.writeToPhotoAlbum(image: result.uiImage)
         })

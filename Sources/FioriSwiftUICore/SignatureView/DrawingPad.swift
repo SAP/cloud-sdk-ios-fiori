@@ -51,7 +51,7 @@ struct DrawingPad: View {
                 self.add(drawing: self.currentDrawing, toPath: &path)
             }
             .stroke(self.strokeColor, lineWidth: self.lineWidth)
-            .background(self.backgroundColor)
+            .background(self.backgroundColor.cornerRadius(10))
             .gesture(
                 DragGesture(minimumDistance: 0.1)
                     .onChanged { value in
