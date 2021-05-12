@@ -112,18 +112,6 @@ extension String {
     }
 }
 
-extension Comparable {
-    func clamp(low: Self, high: Self) -> Self {
-        if self > high {
-            return high
-        } else if self < low {
-            return low
-        }
-
-        return self
-    }
-}
-
 extension UIFont {
     class func preferredFont(from font: Font) -> UIFont {
         let uiFont: UIFont
