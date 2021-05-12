@@ -6,14 +6,8 @@ import SwiftUI
  A SignatureCaptureView object is used to draw and capture a user's signature.
  */
 public struct SignatureCaptureView: View {
-    /// Stroke width for drawing lines
-    public let strokeWidth: CGFloat
-    
-    /// Stroke color for drawing lines
-    public let imageStrokeColor: Color
-    
-    /// Background color of the drawing pad
-    public let backgroundColor: Color
+    let bundle = Bundle.module
+    let tableName = "FioriSwiftUICore"
     
     /// An optional closure for handling save button tap action
     public var onSave: ((Result) -> Void)?
@@ -24,15 +18,11 @@ public struct SignatureCaptureView: View {
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
     
-    /// Initializes and returns a segmented control with segments having the given titles.
+    /// Initializes and returns a `SignatureCaptureView`.
     /// - Parameters:
-    ///   - strokeWidth: Stroke width for drawing lines
-    ///   - imageStrokeColor: Stroke color for drawing lines
-    ///   - backgroundColor: Background color of the drawing pad
-    public init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
-        self.strokeWidth = strokeWidth
-        self.imageStrokeColor = imageStrokeColor
-        self.backgroundColor = backgroundColor
+    ///   - onSave: The block to be executed when user tapped the "Save" button.
+    ///   - onCancel: The block to be executed when  user tapped the "Cancel" button.
+    public init(onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.onSave = onSave
         self.onCancel = onCancel
     }
@@ -59,19 +49,27 @@ public struct SignatureCaptureView: View {
     @State private var drawings = [Drawing]()
     @State private var isEditing = false
     @State private var isSaved = false
-    
+
+    // use internal properties so that the unit test could access them
+    let _drawingViewMinHeight: CGFloat = 256
+    var _drawingViewMaxHeight: CGFloat?
+    var strokeWidth: CGFloat = 3.0
+    var strokeColor = Color.preferredColor(.primaryLabel)
+    var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+
     public var body: some View {
         VStack {
             if !self.isEditing {
                 VStack {
                     HStack {
-                        Text(NSLocalizedString("Signature", comment: "Signature"))
+                        Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
                     }
                     ZStack {
                         Color.preferredColor(.quarternaryFill).cornerRadius(10)
-                        Text(NSLocalizedString("Tap to Sign", comment: "Tap to Sign")).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                        Text("Tap to Sign", tableName: tableName, bundle: bundle).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
                     }
+                    .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.preferredColor(.separator), lineWidth: 1)
@@ -85,7 +83,7 @@ public struct SignatureCaptureView: View {
             } else {
                 VStack {
                     HStack {
-                        Text(NSLocalizedString("Signature", comment: "Signature"))
+                        Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
                         if !self.isSaved {
                             Button(action: {
@@ -94,7 +92,7 @@ public struct SignatureCaptureView: View {
                                 self.onCancel?()
                                 self.isEditing = false
                             }) {
-                                Text(NSLocalizedString("Cancel", comment: "Cancel"))
+                                Text("Cancel", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
@@ -104,11 +102,11 @@ public struct SignatureCaptureView: View {
                                        drawings: self.$drawings,
                                        isSave: self.$isSaved,
                                        onSave: self.onSave,
-                                       strokeColor: self.imageStrokeColor,
+                                       strokeColor: self.strokeColor,
                                        lineWidth: self.strokeWidth,
-                                       backgroundColor: self.backgroundColor)
+                                       backgroundColor: self.drawingViewBackgroundColor)
                                 .foregroundColor(Color.preferredColor(.cellBackground))
-                                .frame(minHeight: 300)
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                             if !self.isSaved {
                                 HStack {
                                     Image(systemName: "xmark")
@@ -123,10 +121,12 @@ public struct SignatureCaptureView: View {
                         if !self.isSaved {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                         } else {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                                 .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                         }
                     }
                     HStack {
@@ -134,7 +134,7 @@ public struct SignatureCaptureView: View {
                             Button(action: {
                                 self.drawings.removeAll()
                             }) {
-                                Text(NSLocalizedString("Clear", comment: "Clear"))
+                                Text("Clear", tableName: tableName, bundle: bundle)
                             }.disabled(self.drawings.isEmpty)
                             Spacer()
                             Button(action: {
@@ -142,7 +142,7 @@ public struct SignatureCaptureView: View {
                                     self.isSaved = true
                                 }
                             }) {
-                                Text(NSLocalizedString("Save", comment: "Save"))
+                                Text("Save", tableName: tableName, bundle: bundle)
                             }.disabled(self.drawings.isEmpty)
                         } else {
                             Button(action: {
@@ -152,7 +152,7 @@ public struct SignatureCaptureView: View {
                                     self.isSaved = false
                                 }
                             }) {
-                                Text(NSLocalizedString("Re-enter Signature", comment: "Re-enter Signature"))
+                                Text("Re-enter Signature", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
@@ -166,6 +166,60 @@ public struct SignatureCaptureView: View {
             }
             self._heightDidChangePublisher.send(height)
         }
+    }
+}
+
+// View modifiers
+public extension SignatureCaptureView {
+    /**
+     A view modifier to set the stroke width.
+
+     The default stroke width is 3 px.
+
+     - parameter width: The desired stroke width.
+     */
+    func strokeWidth(_ width: CGFloat) -> Self {
+        var newSelf = self
+        newSelf.strokeWidth = width
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the stroke color.
+
+     The default stroke color is Fiori color style ".primaryLabel".
+
+     - parameter width: The desired stroke color.
+     */
+    func strokeColor(_ color: Color) -> Self {
+        var newSelf = self
+        newSelf.strokeColor = color
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the drawing area background color.
+
+     The default background color is Fiori color style ".primaryBackground".
+
+     - parameter width: The desired stroke color.
+     */
+    func drawingViewBackgroundColor(_ color: Color) -> Self {
+        var newSelf = self
+        newSelf.drawingViewBackgroundColor = color
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the maximum height of the drawing area.
+
+     - parameter height: The maximum height of the drawing area. Set it to `nil` indicates to use the max height of the device screen.
+     */
+    func _drawingViewMaxHeight(_ height: CGFloat?) -> Self {
+        var newSelf = self
+        newSelf._drawingViewMaxHeight = height
+
+        return newSelf
     }
 }
 
