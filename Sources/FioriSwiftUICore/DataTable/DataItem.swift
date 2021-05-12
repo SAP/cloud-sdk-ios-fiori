@@ -1,21 +1,20 @@
 import SwiftUI
 
-// MARK: - Public Enums
-
-/// An enum representing the different item styles that a `FUIGridRowItem` can have.
+/// An enum representing the different item styles that a `DataTable` can have.
 public enum DataItemType {
-    /// Indicating this `FUIGridRowItem` represents a text.
+    /// Indicating this row item represents a text.
     case text
-    /// Indicating this `FUIGridRowItem` represents a image.
+    /// Indicating this row item represents a image.
     case image
 }
 
-///  A protocol defines style of a `FUIGridRowItem`.
+///  A protocol defines style of a `DataItem`.
 public protocol DataItem: AnyObject {
-    /// Returns the `FUIGridRowItemStyle` enum value for the item.
+    /// Returns the `DataItemType` enum value for the item.
     var type: DataItemType { get }
 }
 
+/// Property for object view.
 public enum ObjectViewProperty {
     /// Binding definitions for text in object view layout
     public enum Text {

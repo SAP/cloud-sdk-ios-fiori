@@ -335,7 +335,7 @@ extension TableLayoutManager {
         }
         
         xStartIndex = max(0, xStartIndex - 1)
-        xEndIndex = min(self.numberOfColumns() - 1, xEndIndex + 1)
+        xEndIndex = min(self.numberOfColumns() - 1, xEndIndex + 2)
         
         let catIndexRangeInRow = xStartIndex ... xEndIndex
         
@@ -361,7 +361,7 @@ extension TableLayoutManager {
         
         // get actual displaying data for rows
         yStartIndex = max(0, yStartIndex - 1)
-        yEndIndex = min(self.numberOfRows() - 1, yEndIndex + 1)
+        yEndIndex = min(self.numberOfRows() - 1, yEndIndex + 2)
         let catIndexRangeInColumn = yStartIndex ... yEndIndex
         
         var displayingItems: [[DataTableItem]] = []

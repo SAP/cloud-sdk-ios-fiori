@@ -41,23 +41,22 @@ struct BlurView: UIViewRepresentable {
 struct DummyBackground: View {
     let index: Int
     let width: CGFloat
+    let height: CGFloat
     @EnvironmentObject var layoutManager: TableLayoutManager
+    @Environment(\.backgroundColor) var backgroundColor
     
-    init(index: Int, width: CGFloat) {
+    init(index: Int, width: CGFloat, height: CGFloat) {
         self.index = index
         self.width = width
+        self.height = height
     }
     
     var body: some View {
         Group {
-            let zIndex = self.index == 0 ? 700 : 650 - self.index
-            let height = self.layoutManager.rowHeights[index] * self.layoutManager.scaleY
-                
+            let zIndex = self.index == 0 ? 700 : 550 - self.index
             Rectangle()
-                .fill(Color.white)
-                .frame(width: width, height: height)
-                .background(Color.white.frame(width: width, height: height, alignment: .center).edgesIgnoringSafeArea([.leading, .trailing]))
-                .offset(x: width / 2)
+                .fill(self.backgroundColor)
+                .frame(width: width, height: height * self.layoutManager.scaleY, alignment: .topLeading)
                 .zIndex(Double(zIndex))
         }
     }

@@ -14,7 +14,8 @@ struct LeadingAccessoryView: View {
     
     @EnvironmentObject var dataManager: TableDataManager
     @EnvironmentObject var layoutManager: TableLayoutManager
-    
+    @Environment(\.backgroundColor) var backgroundColor
+
     init(items: [AccessoryItem], index: Int, isHeader: Bool, isEditing: Bool, selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
         self.items = items
         self.isHeader = isHeader
@@ -52,7 +53,7 @@ struct LeadingAccessoryView: View {
             }
         }
         .frame(height: self.layoutManager.rowHeights[self.layoutIndex] * self.layoutManager.scaleY)
-        .background(Color.white)
+        .background(self.backgroundColor)
     }
     
     func makeButton(button: AccessoryButton) -> some View {

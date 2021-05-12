@@ -5,9 +5,9 @@ struct ItemView: View {
     
     var dropVerticalShadow: Bool = false
     
-//    @State var value: String = ""
     @EnvironmentObject var layoutManager: TableLayoutManager
     @EnvironmentObject var dataManager: TableDataManager
+    @Environment(\.backgroundColor) var backgroundColor
 
     let isHeader: Bool
     let index: (Int, Int)
@@ -50,7 +50,7 @@ struct ItemView: View {
                     }
                 }
             }
-        let backgroundColor: Color = self.isHeader ? Color.preferredColor(.headerBlended) : Color.preferredColor(.cellBackground)
+        
         return
             ZStack {
                 Group {
@@ -70,15 +70,13 @@ struct ItemView: View {
                             .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
                     }
                 }
-//                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
-//                .background(backgroundColor)
                 
                 if index == (0, 0) && self.layoutManager.model.isFirstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
                 }
             }
-            .background(Color.white.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .background(self.backgroundColor.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
             .gesture(tapGesture)
     }
     
