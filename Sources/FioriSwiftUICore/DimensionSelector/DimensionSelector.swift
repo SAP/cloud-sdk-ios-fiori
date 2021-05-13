@@ -3,21 +3,21 @@ import Foundation
 import SwiftUI
 
 /**
- A SegmentedControl object is a horizontal control made of multiple segments, each segment functioning as a discrete button.
+ A DimensionSelector object is a horizontal control made of multiple segments, each segment functioning as a discrete button.
  Selection is mutually exclusive.
  
   ## Code usage:
   ```
   let titles = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
-  var segmentedControl: SegmentedControl!
+  var dimensionSelector: DimensionSelector!
   var cancellableSet: Set<AnyCancellable> = []
  
-  segmentedControl = SegmentedControl(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
-  segmentedControl.selectionDidChangePublisher
+  dimensionSelector = DimensionSelector(segmentTitles: segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
+  dimensionSelector.selectionDidChangePublisher
       .store(in: &cancellableSet)
   ```
  */
-public struct SegmentedControl: View {
+public struct DimensionSelector: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass: UserInterfaceSizeClass?
     
     /// Titles for the segments
@@ -63,7 +63,7 @@ public struct SegmentedControl: View {
     /**
      The index number identifying the selected segment (that is, the last segment touched).
      
-     When this property is directly set to a new value by developer, the event handler registered on FUISegmentedControl will get invoked. If this property is set to a negative value, the current selection will be canceled. If exceeding the upper range, no change to the current selection. If the value is set to nil, it will de-select the current selection.
+     When this property is directly set to a new value by developer, the event handler registered on `DimensionSelector` will get invoked. If this property is set to a negative value, the current selection will be canceled. If exceeding the upper range, no change to the current selection. If the value is set to nil, it will de-select the current selection.
      */
     public var selectedIndex: Int? {
         get {
@@ -249,7 +249,7 @@ public struct SegmentedControl: View {
     }
 }
 
-extension SegmentedControl {
+extension DimensionSelector {
     struct Segment: View {
         let title: String
         
@@ -360,3 +360,6 @@ struct DimensionSelector_Previews: PreviewProvider {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
+
+@available(*, unavailable, renamed: "DimensionSelector")
+public typealias SegmentedControl = DimensionSelector

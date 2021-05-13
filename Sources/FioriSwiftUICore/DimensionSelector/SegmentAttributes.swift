@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-/// A struct for stylings in the `SegmentedControl`
+/// A struct for stylings in the `DimensionSelector`
 public struct SegmentAttributes {
     /// Font color for titles
     public var textColor: Color?
@@ -10,7 +10,7 @@ public struct SegmentAttributes {
     /// Border color for segments
     public var borderColor: Color?
     
-    /// A struct for stylings in the `SegmentedControl`
+    /// A struct for stylings in the `DimensionSelector`
     /// - Parameters:
     ///   - textColor: Font color for titles
     ///   - font: Font for titles

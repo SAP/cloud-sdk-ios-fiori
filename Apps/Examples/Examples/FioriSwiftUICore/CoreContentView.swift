@@ -12,8 +12,8 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
-                destination: SegmentedControl_Chart()) {
-                Text("Segmented Control")
+                destination: DimensionSelector_Chart()) {
+                Text("Dimension Selector")
             }
             
             NavigationLink(

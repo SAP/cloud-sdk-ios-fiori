@@ -10,6 +10,7 @@
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90888B261A59820015A84D /* FioriButtonExample.swift */; };
+		1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */; };
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */; };
 		8A52DBFD256D70C700F6F4FC /* listicon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A52DBFC256D70C700F6F4FC /* listicon.json */; };
@@ -84,7 +85,6 @@
 		8A557A0E24C1293C0098003A /* analytical.json in Resources */ = {isa = PBXBuildFile; fileRef = 8A5579C524C1293C0098003A /* analytical.json */; };
 		8A557A0F24C1293C0098003A /* adativecard-embedded1.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8A5579C624C1293C0098003A /* adativecard-embedded1.card.zip */; };
 		8A557A1024C1293C0098003A /* card-explorer-numeric-list-card.card.zip in Resources */ = {isa = PBXBuildFile; fileRef = 8A5579C724C1293C0098003A /* card-explorer-numeric-list-card.card.zip */; };
-		8A557A1124C1293C0098003A /* SegmentedControl+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A5579CA24C1293C0098003A /* SegmentedControl+Chart.swift */; };
 		8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A557A1924C12C820098003A /* ChartsContentView.swift */; };
 		8A557A1E24C12C940098003A /* SAP-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A557A1B24C12C940098003A /* SAP-icons.ttf */; };
 		8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A557A1D24C12C940098003A /* IntegrationCardsContentView.swift */; };
@@ -187,6 +187,7 @@
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F90888B261A59820015A84D /* FioriButtonExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonExample.swift; sourceTree = "<group>"; };
+		1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		8A1E99AD24D59C8000ED8A39 /* cloud-sdk-ios-fiori */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "cloud-sdk-ios-fiori"; path = ../..; sourceTree = "<group>"; };
 		8A3C4E0324EB4A7B0084451B /* DataRequestTestCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRequestTestCases.swift; sourceTree = "<group>"; };
@@ -269,7 +270,6 @@
 		8A5579C524C1293C0098003A /* analytical.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = analytical.json; sourceTree = "<group>"; };
 		8A5579C624C1293C0098003A /* adativecard-embedded1.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "adativecard-embedded1.card.zip"; sourceTree = "<group>"; };
 		8A5579C724C1293C0098003A /* card-explorer-numeric-list-card.card.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "card-explorer-numeric-list-card.card.zip"; sourceTree = "<group>"; };
-		8A5579CA24C1293C0098003A /* SegmentedControl+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentedControl+Chart.swift"; sourceTree = "<group>"; };
 		8A557A1924C12C820098003A /* ChartsContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartsContentView.swift; sourceTree = "<group>"; };
 		8A557A1B24C12C940098003A /* SAP-icons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SAP-icons.ttf"; sourceTree = "<group>"; };
 		8A557A1D24C12C940098003A /* IntegrationCardsContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationCardsContentView.swift; sourceTree = "<group>"; };
@@ -366,6 +366,14 @@
 				1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */,
 			);
 			path = FioriButton;
+			sourceTree = "<group>";
+		};
+		1FF3662C264C662A00AB8BD8 /* DimensionSelector */ = {
+			isa = PBXGroup;
+			children = (
+				1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */,
+			);
+			path = DimensionSelector;
 			sourceTree = "<group>";
 		};
 		691DE21725F2A2F000094D4A /* KPI */ = {
@@ -586,26 +594,18 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				1FF3662C264C662A00AB8BD8 /* DimensionSelector */,
 				97CEF8A92553D6F1008BFBEF /* SignatureView */,
 				AB988B11263128C400483D87 /* DataTable */,
 				691DE21725F2A2F000094D4A /* KPI */,
 				B8D4376B25F97EC50024EE7D /* ObjectItem */,
 				1F3C939B25E05E0200A99A07 /* FioriButton */,
-				8A5579C924C1293C0098003A /* SegmentedControl */,
 				1F3C92EF25DF12A100A99A07 /* FormCells */,
 				8A6D64AF25AE656400D2D76C /* Experimental */,
 				B80DA9C32612A54E00C0B2E9 /* Onboarding */,
 				8A557A2124C12C9B0098003A /* CoreContentView.swift */,
 			);
 			path = FioriSwiftUICore;
-			sourceTree = "<group>";
-		};
-		8A5579C924C1293C0098003A /* SegmentedControl */ = {
-			isa = PBXGroup;
-			children = (
-				8A5579CA24C1293C0098003A /* SegmentedControl+Chart.swift */,
-			);
-			path = SegmentedControl;
 			sourceTree = "<group>";
 		};
 		8A557A1224C129900098003A /* Frameworks */ = {
@@ -704,8 +704,8 @@
 				975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */,
 			);
 			path = SignatureView;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		AB988B11263128C400483D87 /* DataTable */ = {
 			isa = PBXGroup;
 			children = (
@@ -937,11 +937,11 @@
 				B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */,
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */,
-				8A557A1124C1293C0098003A /* SegmentedControl+Chart.swift in Sources */,
 				B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */,
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
+				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,
 				8AD9DFB625D49967007448EC /* ThemingExample.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
