@@ -8,6 +8,9 @@ struct SignatureCaptureView_Example: View {
             let imgSaver = ImageSaver()
             imgSaver.writeToPhotoAlbum(image: result.uiImage)
         })
+            .cropsImage(true)
+            .drawingViewBackgroundColor(.yellow)
+            .signatureImage(UIImage(systemName: "scribble")!)
     }
 }
 
