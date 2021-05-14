@@ -78,12 +78,16 @@ struct DrawingPad: View {
         }
         if self.isSave && uiImage == nil {
             let path = createUIBezierPath(drawings: drawings, lineWidth: self.lineWidth)
-            let originalImage = createImage(path, size: self.drawingPadSize!, origin: nil)
+            guard let originalImage = createImage(path, size: self.drawingPadSize!, origin: nil) else {
+                return v
+            }
             var signature = originalImage
             if self.cropsImage {
                 let size = CGSize(width: path.bounds.size.width + signaturePadding.leading + signaturePadding.trailing, height: path.bounds.size.height + signaturePadding.top + signaturePadding.bottom)
                 let origin = CGPoint(x: path.bounds.origin.x - signaturePadding.leading, y: path.bounds.origin.y - signaturePadding.top)
-                signature = createImage(path, size: size, origin: origin)
+                if let cropedImage = createImage(path, size: size, origin: origin) {
+                    signature = cropedImage
+                }
             }
 
             let image = Image(uiImage: signature)
@@ -108,7 +112,7 @@ struct DrawingPad: View {
         }
     }
 
-    func createImage(_ path: UIBezierPath, size: CGSize, origin: CGPoint?) -> UIImage {
+    func createImage(_ path: UIBezierPath, size: CGSize, origin: CGPoint?) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 1)
         if #available(iOS 14.0, *) {
             let color = UIColor(self.backgroundColor)
@@ -132,7 +136,7 @@ struct DrawingPad: View {
         }
         path.stroke()
 
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
     }
