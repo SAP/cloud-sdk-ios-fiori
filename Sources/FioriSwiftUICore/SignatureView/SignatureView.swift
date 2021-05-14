@@ -19,6 +19,10 @@ struct SignatureView: View {
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
     @State private var isSaved = false
+    @State private var uiImage: UIImage? = nil
+    @State private var savedSignatureImage: UIImage? = nil
+    @State private var drawingPadSize: CGSize? = nil
+    private var cropsImage = false
     
     init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureCaptureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
@@ -71,10 +75,14 @@ struct SignatureView: View {
                 DrawingPad(currentDrawing: self.$currentDrawing,
                            drawings: self.$drawings,
                            isSave: self.$isSaved,
+                           uiImage: self.$uiImage,
+                           savedSignatureImage: self.$savedSignatureImage,
+                           drawingPadSize: self.$drawingPadSize,
                            onSave: self.onSave,
                            strokeColor: self.imageStrokeColor,
                            lineWidth: self.strokeWidth,
-                           backgroundColor: self.backgroundColor)
+                           backgroundColor: self.backgroundColor,
+                           cropsImage: self.cropsImage)
                     .background(RectGetter(rect: self.$rect1))
                 HStack {
                     Text("X")
