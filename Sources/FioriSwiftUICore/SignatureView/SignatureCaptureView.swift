@@ -54,7 +54,7 @@ public struct SignatureCaptureView: View {
     @State private var isSaved = false
     @State private var uiImage: UIImage? = nil
     @State private var savedSignatureImage: UIImage? = nil
-    @State private var drawingPadSize: CGSize? = nil
+    @State private var drawingPadSize: CGSize = .zero
     @State private var displaysSignatureImage = true
 
     // use internal properties so that the unit test could access them
@@ -68,7 +68,7 @@ public struct SignatureCaptureView: View {
 
     public var body: some View {
         VStack {
-            if !self.isEditing && !showsSignatureImage() {
+            if !self.isEditing && !showsSignatureImage() && !showsSavedSignatureImage() {
                 VStack {
                     HStack {
                         Text("Signature", tableName: tableName, bundle: bundle)
@@ -198,6 +198,10 @@ public struct SignatureCaptureView: View {
 
     func showsImage() -> Bool {
         self.uiImage != nil || self.showsSignatureImage()
+    }
+
+    func showsSavedSignatureImage() -> Bool {
+        self.savedSignatureImage != nil || self.showsSignatureImage()
     }
 }
 

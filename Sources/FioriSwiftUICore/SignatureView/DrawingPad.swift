@@ -38,7 +38,7 @@ struct DrawingPad: View {
     @Binding var isSave: Bool
     @Binding var uiImage: UIImage?
     @Binding var savedSignatureImage: UIImage?
-    @Binding var drawingPadSize: CGSize?
+    @Binding var drawingPadSize: CGSize
 
     var onSave: ((SignatureCaptureView.Result) -> Void)?
     var strokeColor: Color
@@ -78,7 +78,7 @@ struct DrawingPad: View {
         }
         if self.isSave && uiImage == nil {
             let path = createUIBezierPath(drawings: drawings, lineWidth: self.lineWidth)
-            guard let originalImage = createImage(path, size: self.drawingPadSize!, origin: nil) else {
+            guard let originalImage = createImage(path, size: self.drawingPadSize, origin: nil) else {
                 return v
             }
             var signature = originalImage

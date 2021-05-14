@@ -21,7 +21,7 @@ struct SignatureView: View {
     @State private var isSaved = false
     @State private var uiImage: UIImage? = nil
     @State private var savedSignatureImage: UIImage? = nil
-    @State private var drawingPadSize: CGSize? = nil
+    @State private var drawingPadSize: CGSize = .zero
     private var cropsImage = false
     
     init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureCaptureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
