@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -103,6 +103,16 @@ extension EnvironmentValues {
         set { self[TrendModifierKey.self] = newValue }
     }
 
+    public var trendImageStyle: ImageStyle {
+        get { return self[TrendImageStyleKey.self] }
+        set { self[TrendImageStyleKey.self] = newValue }
+    }
+
+    public var trendImageModifier: AnyViewModifier {
+        get { return self[TrendImageModifierKey.self] }
+        set { self[TrendImageModifierKey.self] = newValue }
+    }
+
     public var statusStyle: TextStyle {
         get { return self[StatusStyleKey.self] }
         set { self[StatusStyleKey.self] = newValue }
@@ -123,14 +133,14 @@ extension EnvironmentValues {
         set { self[SubstatusModifierKey.self] = newValue }
     }
 
-    public var bodyStyle: TextStyle {
-        get { return self[BodyStyleKey.self] }
-        set { self[BodyStyleKey.self] = newValue }
+    public var bodyTextStyle: TextStyle {
+        get { return self[BodyTextStyleKey.self] }
+        set { self[BodyTextStyleKey.self] = newValue }
     }
 
-    public var bodyModifier: AnyViewModifier {
-        get { return self[BodyModifierKey.self] }
-        set { self[BodyModifierKey.self] = newValue }
+    public var bodyTextModifier: AnyViewModifier {
+        get { return self[BodyTextModifierKey.self] }
+        set { self[BodyTextModifierKey.self] = newValue }
     }
 
     public var iconStyle: ImageStyle {
@@ -251,16 +261,6 @@ extension EnvironmentValues {
     public var placeholderModifier: AnyViewModifier {
         get { return self[PlaceholderModifierKey.self] }
         set { self[PlaceholderModifierKey.self] = newValue }
-    }
-
-    public var tagsStyle: TextStyle {
-        get { return self[TagsStyleKey.self] }
-        set { self[TagsStyleKey.self] = newValue }
-    }
-
-    public var tagsModifier: AnyViewModifier {
-        get { return self[TagsModifierKey.self] }
-        set { self[TagsModifierKey.self] = newValue }
     }
 
     public var lowerBoundTitleStyle: TextStyle {
@@ -608,6 +608,38 @@ public extension View {
     }
 
     @ViewBuilder
+    func trendImageStyle(_ style: ImageStyle, concat: Bool = true) -> some View {
+        if concat {
+            transformEnvironment(\.trendImageStyle) { $0 = $0.merging(style) }
+        } else {
+            environment(\.trendImageStyle, style)
+        }
+    }
+
+    @ViewBuilder
+    func trendImageModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.trendImageModifier, AnyViewModifier(transform))
+    }
+
+    func trendImageStyleClass(_ class: String, concat: Bool = true) -> some View {
+        self.trendImageStyleClass([`class`], concat: concat)
+    }
+
+    func trendImageStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+        return transformEnvironment(\.trendImageModifier) {
+            switch StyleCache.shared.resolveModifier(for: classPath) {
+                case .success(let resolved):
+                    if concat {
+                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+                    } else {
+                        $0 = resolved
+                    }
+                case .failure(_):  break
+            }
+        }
+    }
+
+    @ViewBuilder
     func statusStyle(_ style: TextStyle, concat: Bool = true) -> some View {
         if concat {
             transformEnvironment(\.statusStyle) { $0 = $0.merging(style) }
@@ -672,25 +704,25 @@ public extension View {
     }
 
     @ViewBuilder
-    func bodyStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+    func bodyTextStyle(_ style: TextStyle, concat: Bool = true) -> some View {
         if concat {
-            transformEnvironment(\.bodyStyle) { $0 = $0.merging(style) }
+            transformEnvironment(\.bodyTextStyle) { $0 = $0.merging(style) }
         } else {
-            environment(\.bodyStyle, style)
+            environment(\.bodyTextStyle, style)
         }
     }
 
     @ViewBuilder
-    func bodyModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.bodyModifier, AnyViewModifier(transform))
+    func bodyTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.bodyTextModifier, AnyViewModifier(transform))
     }
 
-    func bodyStyleClass(_ class: String, concat: Bool = true) -> some View {
-        self.bodyStyleClass([`class`], concat: concat)
+    func bodyTextStyleClass(_ class: String, concat: Bool = true) -> some View {
+        self.bodyTextStyleClass([`class`], concat: concat)
     }
 
-    func bodyStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
-        return transformEnvironment(\.bodyModifier) {
+    func bodyTextStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+        return transformEnvironment(\.bodyTextModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
                 case .success(let resolved):
                     if concat {
@@ -1075,38 +1107,6 @@ public extension View {
 
     func placeholderStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.placeholderModifier) {
-            switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
-            }
-        }
-    }
-
-    @ViewBuilder
-    func tagsStyle(_ style: TextStyle, concat: Bool = true) -> some View {
-        if concat {
-            transformEnvironment(\.tagsStyle) { $0 = $0.merging(style) }
-        } else {
-            environment(\.tagsStyle, style)
-        }
-    }
-
-    @ViewBuilder
-    func tagsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.tagsModifier, AnyViewModifier(transform))
-    }
-
-    func tagsStyleClass(_ class: String, concat: Bool = true) -> some View {
-        self.tagsStyleClass([`class`], concat: concat)
-    }
-
-    func tagsStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
-        return transformEnvironment(\.tagsModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
                 case .success(let resolved):
                     if concat {
