@@ -12,9 +12,6 @@ public struct SignatureCaptureView: View {
     /// An optional closure for handling save button tap action
     public var onSave: ((Result) -> Void)?
     
-    /// An optional closure for handling cancel button tap action
-    public var onCancel: (() -> Void)?
-    
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
     
@@ -24,7 +21,13 @@ public struct SignatureCaptureView: View {
     ///   - onCancel: The block to be executed when  user tapped the "Cancel" button.
     public init(onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.onSave = onSave
-        self.onCancel = onCancel
+    }
+
+    /// Initializes and returns a `SignatureCaptureView`.
+    /// - Parameters:
+    ///   - onSave: The block to be executed when user tapped the "Save" button.
+    public init(onSave: ((Result) -> Void)? = nil) {
+        self.onSave = onSave
     }
     
     struct VStackPreferenceKey: PreferenceKey {
@@ -49,6 +52,10 @@ public struct SignatureCaptureView: View {
     @State private var drawings = [Drawing]()
     @State private var isEditing = false
     @State private var isSaved = false
+    @State private var uiImage: UIImage? = nil
+    @State private var savedSignatureImage: UIImage? = nil
+    @State private var drawingPadSize: CGSize = .zero
+    @State private var displaysSignatureImage = true
 
     // use internal properties so that the unit test could access them
     let _drawingViewMinHeight: CGFloat = 256
@@ -56,10 +63,12 @@ public struct SignatureCaptureView: View {
     var strokeWidth: CGFloat = 3.0
     var strokeColor = Color.preferredColor(.primaryLabel)
     var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+    var cropsImage = false
+    var signatureImage: UIImage?
 
     public var body: some View {
         VStack {
-            if !self.isEditing {
+            if !self.isEditing && !showsSignatureImage() && !showsSavedSignatureImage() {
                 VStack {
                     HStack {
                         Text("Signature", tableName: tableName, bundle: bundle)
@@ -85,36 +94,49 @@ public struct SignatureCaptureView: View {
                     HStack {
                         Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
-                        if !self.isSaved {
+                        if !self.isSaved && !showsImage() {
                             Button(action: {
                                 self.drawings.removeAll()
                                 self.isSaved = false
-                                self.onCancel?()
                                 self.isEditing = false
+                                self.uiImage = savedSignatureImage
+                                self.displaysSignatureImage = true
                             }) {
                                 Text("Cancel", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
                     ZStack {
-                        ZStack(alignment: .bottom) {
-                            DrawingPad(currentDrawing: self.$currentDrawing,
-                                       drawings: self.$drawings,
-                                       isSave: self.$isSaved,
-                                       onSave: self.onSave,
-                                       strokeColor: self.strokeColor,
-                                       lineWidth: self.strokeWidth,
-                                       backgroundColor: self.drawingViewBackgroundColor)
-                                .foregroundColor(Color.preferredColor(.cellBackground))
-                                .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
-                            if !self.isSaved {
-                                HStack {
-                                    Image(systemName: "xmark")
-                                        .foregroundColor(Color.preferredColor(.quarternaryLabel))
-                                        .font(.body)
-                                        .opacity(0.4)
-                                    Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
-                                }.padding([.leading, .trailing]).padding(.bottom, 30)
+                        ZStack {
+                            ZStack(alignment: .bottom) {
+                                DrawingPad(currentDrawing: self.$currentDrawing,
+                                           drawings: self.$drawings,
+                                           isSave: self.$isSaved,
+                                           uiImage: self.$uiImage,
+                                           savedSignatureImage: self.$savedSignatureImage,
+                                           drawingPadSize: self.$drawingPadSize,
+                                           onSave: self.onSave,
+                                           strokeColor: self.strokeColor,
+                                           lineWidth: self.strokeWidth,
+                                           backgroundColor: self.drawingViewBackgroundColor,
+                                           cropsImage: self.cropsImage)
+                                    .foregroundColor(Color.preferredColor(.cellBackground))
+                                    .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
+                                if !self.isSaved {
+                                    HStack {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(Color.preferredColor(.quarternaryLabel))
+                                            .font(.body)
+                                            .opacity(0.4)
+                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
+                                    }.padding([.leading, .trailing]).padding(.bottom, 30)
+                                }
+                            }.setHidden(showsImage())
+                            if let image = savedSignatureImage ?? (displaysSignatureImage ? signatureImage : nil) {
+                                Image(uiImage: image)
+                                    .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
+                                    .cornerRadius(10)
+                                    .setHidden(!showsImage())
                             }
                         }
                         
@@ -130,7 +152,7 @@ public struct SignatureCaptureView: View {
                         }
                     }
                     HStack {
-                        if !self.isSaved {
+                        if !self.isSaved && !showsImage() {
                             Button(action: {
                                 self.drawings.removeAll()
                             }) {
@@ -148,8 +170,10 @@ public struct SignatureCaptureView: View {
                             Button(action: {
                                 withAnimation {
                                     self.drawings.removeAll()
-                                    self.onCancel?()
                                     self.isSaved = false
+                                    self.isEditing = true
+                                    self.uiImage = nil
+                                    self.displaysSignatureImage = false
                                 }
                             }) {
                                 Text("Re-enter Signature", tableName: tableName, bundle: bundle)
@@ -166,6 +190,18 @@ public struct SignatureCaptureView: View {
             }
             self._heightDidChangePublisher.send(height)
         }
+    }
+
+    func showsSignatureImage() -> Bool {
+        self.displaysSignatureImage && self.signatureImage != nil
+    }
+
+    func showsImage() -> Bool {
+        self.uiImage != nil || self.showsSignatureImage()
+    }
+
+    func showsSavedSignatureImage() -> Bool {
+        self.savedSignatureImage != nil || self.showsSignatureImage()
     }
 }
 
@@ -221,6 +257,28 @@ public extension SignatureCaptureView {
 
         return newSelf
     }
+
+    /**
+     A view modifier to set if the saved image should crop the extra spaces or not. The default is not to crop.
+
+     - parameter cropsImage: Indicates if the saved image should crop the extra spaces or not.
+     */
+    func cropsImage(_ cropsImage: Bool) -> Self {
+        var newSelf = self
+        newSelf.cropsImage = cropsImage
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the signature image.
+
+     - parameter image: The existing signature image.
+     */
+    func signatureImage(_ image: UIImage) -> Self {
+        var newSelf = self
+        newSelf.signatureImage = image
+        return newSelf
+    }
 }
 
 public extension SignatureCaptureView {
@@ -230,5 +288,15 @@ public extension SignatureCaptureView {
         public let image: Image
         /// SIgnature UIImage
         public let uiImage: UIImage
+    }
+}
+
+extension View {
+    @ViewBuilder func setHidden(_ isHidden: Bool) -> some View {
+        if isHidden {
+            self.hidden()
+        } else {
+            self
+        }
     }
 }

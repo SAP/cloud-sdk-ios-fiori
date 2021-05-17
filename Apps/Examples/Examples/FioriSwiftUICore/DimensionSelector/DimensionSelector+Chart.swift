@@ -3,19 +3,19 @@ import FioriCharts
 import FioriSwiftUICore
 import SwiftUI
 
-struct SegmentedControl_Chart: View {
+struct DimensionSelector_Chart: View {
     let segmentTitltes = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
     
     @ObservedObject var stockModel = Tests.stockModels[0]
     
     var cancellableSet: Set<AnyCancellable> = []
     
-    var segmentedControl: SegmentedControl!
+    var dimensionSelector: DimensionSelector!
     
     init() {
-        self.segmentedControl = SegmentedControl(segmentTitles: self.segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
+        self.dimensionSelector = DimensionSelector(segmentTitles: self.segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
         let stockModel = self.stockModel
-        self.segmentedControl.selectionDidChangePublisher
+        self.dimensionSelector.selectionDidChangePublisher
             .sink(receiveValue: { index in
                 stockModel.indexOfStockSeries = index ?? 0
             })
@@ -24,7 +24,7 @@ struct SegmentedControl_Chart: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
-            segmentedControl
+            dimensionSelector
             chartView
         }
     }
@@ -47,6 +47,6 @@ private struct NoDataView: View {
 
 struct DimensionSelector_Chart_Previews: PreviewProvider {
     static var previews: some View {
-        SegmentedControl_Chart()
+        DimensionSelector_Chart()
     }
 }

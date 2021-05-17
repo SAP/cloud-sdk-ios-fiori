@@ -36,11 +36,16 @@ struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
     @Binding var isSave: Bool
+    @Binding var uiImage: UIImage?
+    @Binding var savedSignatureImage: UIImage?
+    @Binding var drawingPadSize: CGSize
+
     var onSave: ((SignatureCaptureView.Result) -> Void)?
     var strokeColor: Color
     var lineWidth: CGFloat
     var backgroundColor: Color
     let signaturePadding = EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+    var cropsImage: Bool
     
     var body: some View {
         let v = GeometryReader { geometry in
@@ -67,36 +72,29 @@ struct DrawingPad: View {
                     .onEnded { _ in
                         self.drawings.append(self.currentDrawing)
                         self.currentDrawing = Drawing()
+                        self.drawingPadSize = geometry.size
                     }
             )
         }
-        if self.isSave {
+        if self.isSave && uiImage == nil {
             let path = createUIBezierPath(drawings: drawings, lineWidth: self.lineWidth)
-            let size = CGSize(width: path.bounds.size.width + signaturePadding.leading + signaturePadding.trailing, height: path.bounds.size.height + signaturePadding.top + signaturePadding.bottom)
-            UIGraphicsBeginImageContextWithOptions(size, false, 1)
-            if #available(iOS 14.0, *) {
-                let color = UIColor(self.backgroundColor)
-                color.setFill()
-            } else {
-                let color = self.backgroundColor.uiColor()
-                color.setFill()
+            guard let originalImage = createImage(path, size: self.drawingPadSize, origin: nil) else {
+                return v
+            }
+            var signature = originalImage
+            if self.cropsImage {
+                let size = CGSize(width: path.bounds.size.width + signaturePadding.leading + signaturePadding.trailing, height: path.bounds.size.height + signaturePadding.top + signaturePadding.bottom)
+                let origin = CGPoint(x: path.bounds.origin.x - signaturePadding.leading, y: path.bounds.origin.y - signaturePadding.top)
+                if let cropedImage = createImage(path, size: size, origin: origin) {
+                    signature = cropedImage
+                }
             }
 
-            let origin = CGPoint(x: path.bounds.origin.x - signaturePadding.leading, y: path.bounds.origin.y - signaturePadding.top)
-            path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
-            UIRectFill(CGRect(origin: .zero, size: size))
-            if #available(iOS 14.0, *) {
-                let color = UIColor(self.strokeColor)
-                color.setStroke()
-            } else {
-                let color = self.strokeColor.uiColor()
-                color.setStroke()
-            }
-            path.stroke()
-
-            guard let signature = UIGraphicsGetImageFromCurrentImageContext() else { return v }
-            UIGraphicsEndImageContext()
             let image = Image(uiImage: signature)
+            DispatchQueue.main.async {
+                self.uiImage = originalImage
+                self.savedSignatureImage = originalImage
+            }
             self.onSave?(SignatureCaptureView.Result(image: image, uiImage: signature))
         }
         return v
@@ -112,5 +110,34 @@ struct DrawingPad: View {
                 path.addLine(to: next)
             }
         }
+    }
+
+    func createImage(_ path: UIBezierPath, size: CGSize, origin: CGPoint?) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1)
+        if #available(iOS 14.0, *) {
+            let color = UIColor(self.backgroundColor)
+            color.setFill()
+        } else {
+            let color = self.backgroundColor.uiColor()
+            color.setFill()
+        }
+
+        if let origin = origin {
+            path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
+        }
+
+        UIRectFill(CGRect(origin: .zero, size: size))
+        if #available(iOS 14.0, *) {
+            let color = UIColor(self.strokeColor)
+            color.setStroke()
+        } else {
+            let color = self.strokeColor.uiColor()
+            color.setStroke()
+        }
+        path.stroke()
+
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
     }
 }

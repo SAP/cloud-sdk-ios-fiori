@@ -1,6 +1,6 @@
 import Foundation
 import UIKit
-/// An enum for setting the segment mode in `SegmentedControl`
+/// An enum for setting the segment mode in `DimensionSelector`
 @frozen public enum SegmentWidthMode: Equatable {
     /// Fixed width for all the segments
     case fixed(CGFloat)
