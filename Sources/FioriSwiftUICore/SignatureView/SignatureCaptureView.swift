@@ -147,7 +147,7 @@ public struct SignatureCaptureView: View {
                         } else {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                                .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
+                                .background(showsImage() ? Color.clear : Color.preferredColor(.quarternaryFill)).cornerRadius(10)
                                 .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                         }
                     }
