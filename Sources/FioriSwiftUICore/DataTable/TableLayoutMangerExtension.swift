@@ -35,102 +35,33 @@ extension TableLayoutManager {
     }
     
     func getListItems() -> [AnyView] {
-        var rows = self.rowData
-        if self.model.headerData != nil {
-            rows = Array(rows.dropFirst())
-        }
         var items: [AnyView] = []
-        for row in rows {
-            let objectView = self.makeObjectView(row: row)
-            items.append(AnyView(objectView))
+        if let bindings = self.model.objectViewBindings {
+            for binding in bindings {
+                items.append(AnyView(self.makeObjectView(bindings: binding)))
+            }
         }
         return items
     }
     
-    func makeObjectView(row: TableRowItem) -> some View {
-        var detailImage: Image?
-        let imageItems: [DataImageItem] = row.data.compactMap { (item) -> DataImageItem? in
-            item as? DataImageItem
-        }
-        
-        if let _image = imageItems.filter({ (item) -> Bool in
-            item.mapping == ObjectViewProperty.Image.detailImage
-        }).first {
-            detailImage = _image.image
-        } else {
-            detailImage = imageItems.first?.image
-        }
-        
-        let textItems: [DataTextItem] = row.data.compactMap { (item) -> DataTextItem? in
-            item as? DataTextItem
-        }
-        
-        var titles: [String] = []
-        
-        if textItems.first?.mapping != nil {
-            if let title = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.title
-            }).first?.text {
-                titles.append(title)
-            }
-            if let subtitle = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.subtitle
-            }).first?.text {
-                titles.append(subtitle)
-            }
-            if let footnote = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.footnote
-            }).first?.text {
-                titles.append(footnote)
-            }
-            if let status = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.status
-            }).first?.text {
-                titles.append(status)
-            }
-            if let substatus = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.substatus
-            }).first?.text {
-                titles.append(substatus)
-            }
-        } else {
-            for i in 0 ..< 5 {
-                titles.append(textItems[i].text)
-            }
-        }
+    func makeObjectView(bindings: (Image?, [Int: AnyView], [IconStackItem])) -> some View {
+        let detailImage = bindings.0
+        let textBindings = bindings.1
+        let icons = bindings.2
 
-        let icons: [IconStackItem] = row.leadingAccessories.compactMap { (item) -> IconStackItem? in
-            switch item {
-            case .icon(let value):
-                return .icon(value)
-            case .text(let value):
-                return .text(value)
-            default:
-                return nil
-            }
-        }
-        
         return
             ObjectItem {
-                Text(titles.first ?? "")
+                textBindings[0]
             } subtitle: {
-                if titles.indices.contains(1) {
-                    Text(titles[1])
-                }
+                textBindings[1]
             } footnote: {
-                if titles.indices.contains(2) {
-                    Text(titles[2])
-                }
+                textBindings[2]
             } status: {
-                if titles.indices.contains(3) {
-                    Text(titles[3])
-                }
+                textBindings[3]
             } substatus: {
-                if titles.indices.contains(4) {
-                    Text(titles[4])
-                }
+                textBindings[4]
             } detailImage: {
-                detailImage?.frame(width: 45, height: 45)
+                detailImage.frame(width: 45, height: 45)
             } icons: {
                 self.generateIconStack(icons: icons)
             }

@@ -34,5 +34,7 @@ public enum ObjectViewProperty {
     public enum Image {
         /// Object view detailImage area
         case detailImage
+        /// Object view statusImage area
+        case statusImage
     }
 }

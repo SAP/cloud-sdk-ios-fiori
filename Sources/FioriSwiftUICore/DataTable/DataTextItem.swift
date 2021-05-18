@@ -26,4 +26,9 @@ public class DataTextItem: DataItem {
         self.mapping = mapping
         self.lineLimit = lineLimit
     }
+    
+    func toTextView() -> some View {
+        Text(self.text)
+            .font(self.font)
+    }
 }
