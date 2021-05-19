@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Check Swift package dependencies
-      uses: MarcoEidinger/swift-package-dependencies-check@1.0.1
+      uses: MarcoEidinger/swift-package-dependencies-check@1.1.0
       with:
         isMutating: true
     - name: Create Pull Request
