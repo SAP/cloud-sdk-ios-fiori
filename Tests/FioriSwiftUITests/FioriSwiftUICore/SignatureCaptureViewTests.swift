@@ -25,8 +25,10 @@ class SignatureCaptureTests: XCTestCase {
 
         // test default property values
         XCTAssertEqual(signagureCaptureView.strokeWidth, CGFloat(3))
-        XCTAssertEqual(signagureCaptureView.strokeColor, Color.preferredColor(.primaryLabel))
-        XCTAssertEqual(signagureCaptureView.drawingViewBackgroundColor, Color.preferredColor(.primaryBackground))
+        if #available(iOS 14.0, *) {
+            XCTAssertEqual(signagureCaptureView.strokeColor.cgColor, Color.preferredColor(.primaryLabel).cgColor)
+            XCTAssertEqual(signagureCaptureView.drawingViewBackgroundColor.cgColor, Color.preferredColor(.primaryBackground).cgColor)
+        }
 
         self.isOnSaveCalled = false
         let uiImage = UIImage(systemName: "xmark")!
