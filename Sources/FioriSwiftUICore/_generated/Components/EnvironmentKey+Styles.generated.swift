@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -236,6 +236,40 @@ struct IconStyleClassPathKey: EnvironmentKey {
 }
 
 struct IconStyleClassModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+
+struct DetailStyleKey: EnvironmentKey {
+    public static let defaultValue: TextStyle = TextStyle()
+}
+
+struct DetailModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct DetailStyleClassPathKey: EnvironmentKey {
+    public static let defaultValue: [String] = []
+}
+
+struct DetailStyleClassModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+
+struct AccessoryIconStyleKey: EnvironmentKey {
+    public static let defaultValue: ImageStyle = ImageStyle()
+}
+
+struct AccessoryIconModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct AccessoryIconStyleClassPathKey: EnvironmentKey {
+    public static let defaultValue: [String] = []
+}
+
+struct AccessoryIconStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

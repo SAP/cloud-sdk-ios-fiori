@@ -12,6 +12,13 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
+                destination: SideBarExample(),
+                label: {
+                    Text("Side Bar Example")
+                }
+            )
+            
+            NavigationLink(
                 destination: DimensionSelector_Chart()) {
                 Text("Dimension Selector")
             }

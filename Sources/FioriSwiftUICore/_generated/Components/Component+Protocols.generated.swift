@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -57,6 +57,14 @@ public protocol BodyComponent {
 
 public protocol IconComponent {
     var icon_: Image? { get }
+}
+
+public protocol DetailComponent {
+    var detail_: String? { get }
+}
+
+public protocol AccessoryIconComponent {
+    var accessoryIcon_: Image? { get }
 }
 
 public protocol IconsComponent {
