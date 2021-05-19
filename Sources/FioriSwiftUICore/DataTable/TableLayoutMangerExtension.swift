@@ -35,121 +35,71 @@ extension TableLayoutManager {
     }
     
     func getListItems() -> [AnyView] {
-        var rows = self.rowData
-        if self.model.headerData != nil {
-            rows = Array(rows.dropFirst())
-        }
         var items: [AnyView] = []
+        let rows = self.model.rowData
         for row in rows {
-            let objectView = self.makeObjectView(row: row)
-            items.append(AnyView(objectView))
+            let view = self.makeObjectView(row: row)
+            items.append(AnyView(view))
         }
         return items
     }
     
     func makeObjectView(row: TableRowItem) -> some View {
-        var detailImage: Image?
-        let imageItems: [DataImageItem] = row.data.compactMap { (item) -> DataImageItem? in
-            item as? DataImageItem
-        }
-        
-        if let _image = imageItems.filter({ (item) -> Bool in
-            item.mapping == ObjectViewProperty.Image.detailImage
-        }).first {
-            detailImage = _image.image
-        } else {
-            detailImage = imageItems.first?.image
-        }
-        
-        let textItems: [DataTextItem] = row.data.compactMap { (item) -> DataTextItem? in
-            item as? DataTextItem
-        }
-        
-        var titles: [String] = []
-        
-        if textItems.first?.mapping != nil {
-            if let title = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.title
-            }).first?.text {
-                titles.append(title)
-            }
-            if let subtitle = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.subtitle
-            }).first?.text {
-                titles.append(subtitle)
-            }
-            if let footnote = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.footnote
-            }).first?.text {
-                titles.append(footnote)
-            }
-            if let status = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.status
-            }).first?.text {
-                titles.append(status)
-            }
-            if let substatus = textItems.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.substatus
-            }).first?.text {
-                titles.append(substatus)
-            }
-        } else {
-            for i in 0 ..< 5 {
-                titles.append(textItems[i].text)
-            }
-        }
-
-        let icons: [IconStackItem] = row.leadingAccessories.compactMap { (item) -> IconStackItem? in
+        let items = row.data
+        var textBindings: [ObjectViewProperty.Text: AnyView] = [:]
+        var imageBindings: [ObjectViewProperty.Image: AnyView] = [:]
+        for item in items {
             switch item {
-            case .icon(let value):
-                return .icon(value)
-            case .text(let value):
-                return .text(value)
+            case is DataTextItem:
+                if let _item = item as? DataTextItem, let binding = _item.binding {
+                    textBindings[binding] = AnyView(_item.toTextView())
+                }
+            case is DataImageItem:
+                if let _item = item as? DataImageItem, let binding = _item.binding {
+                    imageBindings[binding] = AnyView(_item.image)
+                }
             default:
-                return nil
+                break
             }
         }
         
         return
             ObjectItem {
-                Text(titles.first ?? "")
+                textBindings[.title]
             } subtitle: {
-                if titles.indices.contains(1) {
-                    Text(titles[1])
-                }
+                textBindings[.subtitle]
             } footnote: {
-                if titles.indices.contains(2) {
-                    Text(titles[2])
-                }
+                textBindings[.footnote]
             } status: {
-                if titles.indices.contains(3) {
-                    Text(titles[3])
-                }
+                textBindings[.status] ?? imageBindings[.statusImage]
             } substatus: {
-                if titles.indices.contains(4) {
-                    Text(titles[4])
-                }
+                textBindings[.substatus] ?? imageBindings[.substatusImage]
             } detailImage: {
-                detailImage?.frame(width: 45, height: 45)
+                imageBindings[.detailImage]?.frame(width: 45, height: 45, alignment: .center)
             } icons: {
-                self.generateIconStack(icons: icons)
+                self.generateIconStack(icons: row.leadingAccessories)
             }
     }
     
-    func generateIconStack(icons: [IconStackItem]) -> some View {
-        VStack(alignment: .leading, spacing: 4, content: {
-            ForEach(0 ..< icons.count, id: \.self) { i in
-                switch icons[i] {
-                case .text(let value):
-                    Text(value)
-                case .icon(let value):
-                    value
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 16, height: 16, alignment: .center)
+    func generateIconStack(icons: [AccessoryItem]) -> some View {
+        ForEach(0 ..< icons.count, id: \.self) { i in
+            switch icons[i] {
+            case .button(let button):
+                Button(action: button.action) {
+                    HStack {
+                        Text(button.title)
+                        button.image
+                    }
                 }
+            case .text(let value):
+                Text(value)
+            case .icon(let value):
+                value
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 16, height: 16, alignment: .center)
             }
-        })
+        }
     }
     
     func updatedItemsPos() -> [[DataTableItem]] {

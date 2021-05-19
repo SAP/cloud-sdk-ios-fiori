@@ -9,7 +9,7 @@ import SwiftUI
  let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
  model.columnAttributes = ...
  model.didSelectRowAt = { _ in
-     print(model.selectedIndexes)
+ print(model.selectedIndexes)
  }
  ```
  */
@@ -19,7 +19,16 @@ public class TableModel: ObservableObject {
     @Published public var headerData: TableRowItem?
     
     /// Data for each row.
-    @Published public var rowData: [TableRowItem] = []
+    public var rowData: [TableRowItem] {
+        get {
+            self._rowData
+        }
+        set {
+            self._rowData = newValue.map { rowItem in
+                getMappedRowItem(for: rowItem)
+            }
+        }
+    }
     
     /// Set header to be sticky.
     @Published public var isHeaderSticky: Bool = false
@@ -32,7 +41,7 @@ public class TableModel: ObservableObject {
     
     /// Show list view in iPhone protrait mode.
     @Published public var showListView: Bool = true
-        
+    
     /// Column attribute for each column.
     @Published public var columnAttributes: [ColumnAttribute] = []
     
@@ -43,12 +52,14 @@ public class TableModel: ObservableObject {
     @Published public var isPinchZoomEnable: Bool = false
     
     /// Selection did change handler.
-    public var didSelectRowAt: ((_ index: Int) -> Void)?
+    @Published public var didSelectRowAt: ((_ index: Int) -> Void)?
     
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
     internal var centerPosition: CGPoint?
+    
+    @Published private var _rowData: [TableRowItem] = []
     
     /// Public initializer for TableModel.
     /// - Parameters:
@@ -74,5 +85,67 @@ public class TableModel: ObservableObject {
         self.columnAttributes = columnAttributes
         self.isPinchZoomEnable = isPinchZoomEnable
         self.showListView = showListView
+    }
+    
+    func getMappedRowItem(for row: TableRowItem) -> TableRowItem {
+        let items = row.data
+        
+        var newRow = row
+        var newItems: [DataItem] = []
+        
+        if items.filter({ ($0 as? CheckBinding)?.hasBinding ?? false }).isEmpty {
+            var labelIndex: Int = 0
+            var imageIndex: Int = 0
+            
+            func textBinding(forIndex index: Int) -> ObjectViewProperty.Text? {
+                switch index {
+                case 0:
+                    return .title
+                case 1:
+                    return .subtitle
+                case 2:
+                    return .footnote
+                case 3:
+                    return imageIndex < 2 ? .status : imageIndex < 3 ? .substatus : nil
+                case 4:
+                    return imageIndex < 2 ? .substatus : nil
+                default:
+                    return nil
+                }
+            }
+            
+            func imageBinding(forIndex index: Int) -> ObjectViewProperty.Image? {
+                switch index {
+                case 0:
+                    return .detailImage
+                case 1:
+                    return labelIndex < 4 ? .statusImage : labelIndex < 5 ? .substatusImage : nil
+                case 2:
+                    return labelIndex < 4 ? .substatusImage : nil
+                default:
+                    return nil
+                }
+            }
+            
+            for item in items {
+                switch item {
+                case is DataTextItem:
+                    var _item = item as! DataTextItem
+                    _item.binding = textBinding(forIndex: labelIndex)
+                    labelIndex += 1
+                    newItems.append(_item)
+                case is DataImageItem:
+                    var _item = item as! DataImageItem
+                    _item.binding = imageBinding(forIndex: imageIndex)
+                    imageIndex += 1
+                    newItems.append(_item)
+                default:
+                    break
+                }
+            }
+            newRow.data = newItems
+        }
+                
+        return newRow
     }
 }
