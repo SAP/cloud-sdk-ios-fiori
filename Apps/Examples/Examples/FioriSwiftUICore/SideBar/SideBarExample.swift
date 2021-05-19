@@ -136,9 +136,7 @@ public struct SideBarView: View {
                                                destination: { item in
                                                    DetailView(title: item.title)
                                                }))
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
-        }
-        .background(Color.preferredColor(.header))
+        }.background(Color.preferredColor(.header))
     }
 }
 

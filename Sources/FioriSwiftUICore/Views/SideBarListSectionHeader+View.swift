@@ -9,7 +9,7 @@ extension Fiori {
                     .font(.system(size: 17.0))
                     .truncationMode(.tail)
                     .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
-                    .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+                    .padding(EdgeInsets(top: 12, leading: 0, bottom: 12, trailing: 0))
             }
         }
         

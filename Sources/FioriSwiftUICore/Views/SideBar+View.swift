@@ -10,6 +10,7 @@ extension Fiori {
                     .font(.system(size: 32))
                     .truncationMode(.tail)
                     .background(Color.preferredColor(.header))
+                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
             }
         }
         
@@ -23,10 +24,11 @@ extension Fiori {
 @available(iOS 14, *)
 extension SideBar: View {
     public var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             subtitle
                 .frame(height: 34)
             detail
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 .clipped()
             footer
                 .frame(height: 77)
@@ -69,7 +71,10 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
 }
 
 @available(iOS 14, *)
-public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>, Footer == _ConditionalContent<ObjectItem<Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>, _ConditionalContent<IconStack, EmptyView>, _ConditionalContent<Action, EmptyView>>, EmptyView>, Detail == _ConditionalContent<AnyView, EmptyView> {
+public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
+    Footer == _ConditionalContent<AnyView, EmptyView>,
+    Detail == _ConditionalContent<AnyView, EmptyView>
+{
     /// Returns a side bar view with given configuration.
     /// - Parameters:
     ///   - subtitle: The subtitle string of a side bar.
@@ -81,20 +86,17 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
         Header: View, Row: View, Destination: View
     {
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footer = footerModel != nil ? ViewBuilder.buildEither(first: ObjectItem(model: footerModel!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._footer = footerModel != nil ? ViewBuilder.buildEither(first: AnyView(makeFooterView(model: footerModel!))) : ViewBuilder.buildEither(second: EmptyView())
         self._detail = listConfig != nil ? ViewBuilder.buildEither(first: AnyView(listConfig)) : ViewBuilder.buildEither(second: EmptyView())
     }
-    
-//    private func makeFooterView(model: ObjectItemModel?) -> some View {
-//        if let model = model {
-//            return ObjectItem(model: model)
-//                .titleModifier({ $0.foregroundColor(.white) })
-//                .subtitleModifier({ $0.foregroundColor(.preferredColor(.primaryLabel)) })
-//                .background(Color.preferredColor(.header))
-//        } else {
-//            return EmptyView()
-//        }
-//    }
+}
+
+func makeFooterView(model: ObjectItemModel) -> some View {
+    ObjectItem(model: model)
+        .detailImageModifier { $0.foregroundColor(.white).padding(.leading, 16) }
+        .titleModifier { $0.foregroundColor(.white) }
+        .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+        .background(Color.preferredColor(.footer, background: .darkConstant))
 }
 
 /// Defines an expandable list which supports multi-level hierarchy with the ability to select a single item.
@@ -162,7 +164,8 @@ public struct ExpandableList<Data, Header, Row, Destination>: View where Data: R
                     }
                 }
             }
-        }).typeErased
+        })
+            .typeErased
     }
     
     public var body: some View {
@@ -246,15 +249,14 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                header()
+                header().padding(.leading, 11)
                 Spacer()
-                Image(systemName: "chevron.right")
+                Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .padding(.trailing, 8)
+                    .padding(.trailing, 11)
                     .foregroundColor(.preferredColor(.tintColor, display: .contrast))
-                    .rotationEffect(isExpanded ? .degrees(90) : .degrees(0))
                     .onTapGesture {
                         isExpanded.toggle()
                     }
@@ -263,10 +265,8 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
                 Rectangle()
                     .fill(Color.preferredColor(.line))
                     .frame(height: 0.5)
-//                    .edgesIgnoringSafeArea(.horizontal)
             }
         }
-        .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
         if isExpanded {
             list()
         }

@@ -81,6 +81,6 @@ extension SideBarListItem: View {
                     .frame(width: 22, height: 22)
             }
         }
-        .padding(EdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8))
+        .padding(EdgeInsets(top: 10, leading: 11, bottom: 10, trailing: 11))
     }
 }
