@@ -19,10 +19,13 @@ public class TableModel: ObservableObject {
     @Published public var headerData: TableRowItem?
     
     /// Data for each row.
-    @Published public var rowData: [TableRowItem] = [] {
-        didSet {
-            self.objectViewBindings = self.rowData.map { rowItem in
-                self.getMappings(for: rowItem)
+    public var rowData: [TableRowItem] {
+        get {
+            self._rowData
+        }
+        set {
+            self._rowData = newValue.map { rowItem in
+                getMappedRowItem(for: rowItem)
             }
         }
     }
@@ -56,7 +59,7 @@ public class TableModel: ObservableObject {
     
     internal var centerPosition: CGPoint?
     
-    internal var objectViewBindings: [(Image?, [Int: AnyView], [IconStackItem])]?
+    @Published private var _rowData: [TableRowItem] = []
     
     /// Public initializer for TableModel.
     /// - Parameters:
@@ -84,81 +87,142 @@ public class TableModel: ObservableObject {
         self.showListView = showListView
     }
     
-    func getMappings(for row: TableRowItem) -> (detailImage: Image?, bindings: [Int: AnyView], icons: [IconStackItem]) {
-        let imageItems: [DataImageItem] = row.data.compactMap { (item) -> DataImageItem? in
-            item as? DataImageItem
-        }
-        let textItems: [DataTextItem] = row.data.compactMap { (item) -> DataTextItem? in
-            item as? DataTextItem
-        }
+    func getMappedRowItem(for row: TableRowItem) -> TableRowItem {
+        let items = row.data
         
-        var detailImage: Image?
-        var statusImage: Image?
-        var bindings: [Int: AnyView] = [:]
+        var newRow = row
+        var newItems: [DataItem] = []
         
-        if let _image = imageItems.filter({ (item) -> Bool in
-            item.mapping == ObjectViewProperty.Image.detailImage
-        }).first {
-            detailImage = _image.image
-        } else {
-            detailImage = imageItems.first?.image
+        if items.filter({ ($0 as? CheckBinding)?.hasBinding ?? false }).isEmpty {
+            var labelIndex: Int = 0
+            var imageIndex: Int = 0
+            
+            func textBinding(forIndex index: Int) -> ObjectViewProperty.Text? {
+                switch index {
+                case 0:
+                    return .title
+                case 1:
+                    return .subtitle
+                case 2:
+                    return .footnote
+                case 3:
+                    return imageIndex < 2 ? .status : imageIndex < 3 ? .substatus : nil
+                case 4:
+                    return imageIndex < 2 ? .substatus : nil
+                default:
+                    return nil
+                }
+            }
+            
+            func imageBinding(forIndex index: Int) -> ObjectViewProperty.Image? {
+                switch index {
+                case 0:
+                    return .detailImage
+                case 1:
+                    return labelIndex < 4 ? .statusImage : labelIndex < 5 ? .substatusImage : nil
+                case 2:
+                    return labelIndex < 4 ? .substatusImage : nil
+                default:
+                    return nil
+                }
+            }
+            
+            for item in items {
+                switch item {
+                case is DataTextItem:
+                    var _item = item as! DataTextItem
+                    _item.binding = textBinding(forIndex: labelIndex)
+                    labelIndex += 1
+                    newItems.append(_item)
+                case is DataImageItem:
+                    var _item = item as! DataImageItem
+                    _item.binding = imageBinding(forIndex: imageIndex)
+                    imageIndex += 1
+                    newItems.append(_item)
+                default:
+                    break
+                }
+            }
+            newRow.data = newItems
         }
-        
-        if let _image = imageItems.filter({ (item) -> Bool in
-            item.mapping == ObjectViewProperty.Image.statusImage
-        }).first {
-            statusImage = _image.image
-        }
-        
-        let hasMappings = textItems.filter { item in
-            item.mapping != nil
-        }
-        
-        if !hasMappings.isEmpty {
-            if let title = hasMappings.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.title
-            }).first {
-                bindings[0] = AnyView(title.toTextView())
-            }
-            if let subtitle = hasMappings.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.subtitle
-            }).first {
-                bindings[1] = AnyView(subtitle.toTextView())
-            }
-            if let footnote = hasMappings.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.footnote
-            }).first {
-                bindings[2] = AnyView(footnote.toTextView())
-            }
-            if let status = hasMappings.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.status
-            }).first {
-                bindings[3] = AnyView(status.toTextView())
-            }
-            if let substatus = hasMappings.filter({ (item) -> Bool in
-                item.mapping == ObjectViewProperty.Text.substatus
-            }).first {
-                bindings[4] = AnyView(substatus.toTextView())
-                statusImage = nil
-            }
-        } else {
-            for i in 0 ..< min(textItems.count, 5) {
-                bindings[i] = AnyView(textItems[i].toTextView())
-            }
-        }
-        if bindings.keys.contains(4), statusImage != nil {
-            bindings[4] = AnyView(statusImage)
-        }
-        let icons: [IconStackItem] = row.leadingAccessories.compactMap { (item) -> IconStackItem? in
-            switch item {
-            case .icon(let value):
-                return .icon(value)
-            case .text(let value):
-                return .text(value)
-            default:
-                return nil
-            }
-        }
-        return (detailImage, bindings, icons)
+                
+        return newRow
+//
+//
+//
+//        let imageItems: [DataImageItem] = row.data.compactMap { (item) -> DataImageItem? in
+//            item as? DataImageItem
+//        }
+//        let textItems: [DataTextItem] = row.data.compactMap { (item) -> DataTextItem? in
+//            item as? DataTextItem
+//        }
+//
+//        var detailImage: Image?
+//        var statusImage: Image?
+//        var bindings: [Int: AnyView] = [:]
+//
+//        if let _image = imageItems.filter({ (item) -> Bool in
+//            item.binding == ObjectViewProperty.Image.detailImage
+//        }).first {
+//            detailImage = _image.image
+//        } else {
+//            detailImage = imageItems.first?.image
+//        }
+//
+//        if let _image = imageItems.filter({ (item) -> Bool in
+//            item.binding == ObjectViewProperty.Image.statusImage
+//        }).first {
+//            statusImage = _image.image
+//        }
+//
+//        let hasMappings = textItems.filter { item in
+//            item.mapping != nil
+//        }
+//
+//        if !hasMappings.isEmpty {
+//            if let title = hasMappings.filter({ (item) -> Bool in
+//                item.mapping == ObjectViewProperty.Text.title
+//            }).first {
+//                bindings[0] = AnyView(title.toTextView())
+//            }
+//            if let subtitle = hasMappings.filter({ (item) -> Bool in
+//                item.mapping == ObjectViewProperty.Text.subtitle
+//            }).first {
+//                bindings[1] = AnyView(subtitle.toTextView())
+//            }
+//            if let footnote = hasMappings.filter({ (item) -> Bool in
+//                item.mapping == ObjectViewProperty.Text.footnote
+//            }).first {
+//                bindings[2] = AnyView(footnote.toTextView())
+//            }
+//            if let status = hasMappings.filter({ (item) -> Bool in
+//                item.mapping == ObjectViewProperty.Text.status
+//            }).first {
+//                bindings[3] = AnyView(status.toTextView())
+//            }
+//            if let substatus = hasMappings.filter({ (item) -> Bool in
+//                item.mapping == ObjectViewProperty.Text.substatus
+//            }).first {
+//                bindings[4] = AnyView(substatus.toTextView())
+//                statusImage = nil
+//            }
+//        } else {
+//            for i in 0 ..< min(textItems.count, 5) {
+//                bindings[i] = AnyView(textItems[i].toTextView())
+//            }
+//        }
+//        if bindings.keys.contains(4), statusImage != nil {
+//            bindings[4] = AnyView(statusImage)
+//        }
+//        let icons: [IconStackItem] = row.leadingAccessories.compactMap { (item) -> IconStackItem? in
+//            switch item {
+//            case .icon(let value):
+//                return .icon(value)
+//            case .text(let value):
+//                return .text(value)
+//            default:
+//                return nil
+//            }
+//        }
     }
 }

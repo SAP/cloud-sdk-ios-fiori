@@ -36,51 +36,70 @@ extension TableLayoutManager {
     
     func getListItems() -> [AnyView] {
         var items: [AnyView] = []
-        if let bindings = self.model.objectViewBindings {
-            for binding in bindings {
-                items.append(AnyView(self.makeObjectView(bindings: binding)))
-            }
+        let rows = self.model.rowData
+        for row in rows {
+            let view = self.makeObjectView(row: row)
+            items.append(AnyView(view))
         }
         return items
     }
     
-    func makeObjectView(bindings: (Image?, [Int: AnyView], [IconStackItem])) -> some View {
-        let detailImage = bindings.0
-        let textBindings = bindings.1
-        let icons = bindings.2
-
+    func makeObjectView(row: TableRowItem) -> some View {
+        let items = row.data
+        var textBindings: [ObjectViewProperty.Text: AnyView] = [:]
+        var imageBindings: [ObjectViewProperty.Image: AnyView] = [:]
+        for item in items {
+            switch item {
+            case is DataTextItem:
+                if let _item = item as? DataTextItem, let binding = _item.binding {
+                    textBindings[binding] = AnyView(_item.toTextView())
+                }
+            case is DataImageItem:
+                if let _item = item as? DataImageItem, let binding = _item.binding {
+                    imageBindings[binding] = AnyView(_item.image)
+                }
+            default:
+                break
+            }
+        }
+        
         return
             ObjectItem {
-                textBindings[0]
+                textBindings[.title]
             } subtitle: {
-                textBindings[1]
+                textBindings[.subtitle]
             } footnote: {
-                textBindings[2]
+                textBindings[.footnote]
             } status: {
-                textBindings[3]
+                textBindings[.status] ?? imageBindings[.statusImage]
             } substatus: {
-                textBindings[4]
+                textBindings[.substatus] ?? imageBindings[.substatusImage]
             } detailImage: {
-                detailImage.frame(width: 45, height: 45)
+                imageBindings[.detailImage]?.frame(width: 45, height: 45, alignment: .center)
             } icons: {
-                self.generateIconStack(icons: icons)
+                self.generateIconStack(icons: row.leadingAccessories)
             }
     }
     
-    func generateIconStack(icons: [IconStackItem]) -> some View {
-        VStack(alignment: .leading, spacing: 4, content: {
-            ForEach(0 ..< icons.count, id: \.self) { i in
-                switch icons[i] {
-                case .text(let value):
-                    Text(value)
-                case .icon(let value):
-                    value
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 16, height: 16, alignment: .center)
+    func generateIconStack(icons: [AccessoryItem]) -> some View {
+        ForEach(0 ..< icons.count, id: \.self) { i in
+            switch icons[i] {
+            case .button(let button):
+                Button(action: button.action) {
+                    HStack {
+                        Text(button.title)
+                        button.image
+                    }
                 }
+            case .text(let value):
+                Text(value)
+            case .icon(let value):
+                value
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 16, height: 16, alignment: .center)
             }
-        })
+        }
     }
     
     func updatedItemsPos() -> [[DataTableItem]] {

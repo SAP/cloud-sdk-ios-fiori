@@ -9,7 +9,7 @@ public enum DataItemType {
 }
 
 ///  A protocol defines style of a `DataItem`.
-public protocol DataItem: AnyObject {
+public protocol DataItem {
     /// Returns the `DataItemType` enum value for the item.
     var type: DataItemType { get }
 }
@@ -36,5 +36,11 @@ public enum ObjectViewProperty {
         case detailImage
         /// Object view statusImage area
         case statusImage
+        /// Object view substatusImage area
+        case substatusImage
     }
+}
+
+protocol CheckBinding {
+    var hasBinding: Bool { get }
 }

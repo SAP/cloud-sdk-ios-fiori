@@ -1,11 +1,11 @@
 import SwiftUI
 
 /// Text item for `DataTable`
-public class DataTextItem: DataItem {
+public struct DataTextItem: DataItem, CheckBinding {
     /// Type.
     public var type: DataItemType
-    /// Mapping rule.
-    public var mapping: ObjectViewProperty.Text?
+    /// Binding rule.
+    public var binding: ObjectViewProperty.Text?
     /// String for text item.
     public var text: String
     /// Font for item.
@@ -13,17 +13,21 @@ public class DataTextItem: DataItem {
     /// Line limit for item.
     public var lineLimit: Int?
     
+    var hasBinding: Bool {
+        self.binding != nil
+    }
+    
     /// Public initializer for `DataTextItem`
     /// - Parameters:
     ///   - text: String for text item.
     ///   - font: Font for item
     ///   - mapping: Mapping rule.
     ///   - lineLimit: Line limit for item.
-    public init(_ text: String, _ font: Font = .body, _ mapping: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+    public init(_ text: String, _ font: Font = .body, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
         self.text = text
         self.font = font
         self.type = .text
-        self.mapping = mapping
+        self.binding = binding
         self.lineLimit = lineLimit
     }
     
