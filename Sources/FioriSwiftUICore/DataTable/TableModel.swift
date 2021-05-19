@@ -52,7 +52,7 @@ public class TableModel: ObservableObject {
     @Published public var isPinchZoomEnable: Bool = false
     
     /// Selection did change handler.
-    public var didSelectRowAt: ((_ index: Int) -> Void)?
+    @Published public var didSelectRowAt: ((_ index: Int) -> Void)?
     
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []

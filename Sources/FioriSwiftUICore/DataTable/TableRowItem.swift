@@ -37,18 +37,6 @@ public enum AccessoryItem {
     case text(String)
 }
 
-//
-// extension AccessoryItem {
-//    func toView() -> some View {
-//        switch self {
-//        case .icon(let image):
-//            return image.resizable()
-//        case .text(let string):
-//            return Text(string)
-//        }
-//    }
-// }
-
 /// Button for accessory item.
 public struct AccessoryButton {
     /// Image for button.
