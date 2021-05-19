@@ -24,8 +24,7 @@ public enum TestRowData {
     static func generateNewRow(column: Int) -> TableRowItem {
         var data: [DataItem] = []
         for _ in 0 ..< column {
-            let textItem = DataTextItem("new item new item new item")
-            textItem.lineLimit = 2
+            let textItem = DataTextItem("new item new item new item", lineLimit: 2)
             data.append(textItem)
         }
         return TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: data)

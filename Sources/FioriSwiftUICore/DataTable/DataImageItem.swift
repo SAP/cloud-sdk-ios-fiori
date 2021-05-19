@@ -1,14 +1,18 @@
 import SwiftUI
 
 /// An image item for `DataTable`
-public class DataImageItem: DataItem {
+public struct DataImageItem: DataItem, CheckBinding {
     /// Type.
     public var type: DataItemType
     /// Mapping rule.
-    public var mapping: ObjectViewProperty.Image?
+    public var binding: ObjectViewProperty.Image?
     
     /// Image for item.
-    var image: Image
+    public var image: Image
+    
+    var hasBinding: Bool {
+        self.binding != nil
+    }
     
     /// Public initializer for `DataImageItem`
     /// - Parameters:
@@ -17,6 +21,6 @@ public class DataImageItem: DataItem {
     public init(_ image: Image, _ mapping: ObjectViewProperty.Image? = nil) {
         self.image = image.resizable()
         self.type = .image
-        self.mapping = mapping
+        self.binding = mapping
     }
 }

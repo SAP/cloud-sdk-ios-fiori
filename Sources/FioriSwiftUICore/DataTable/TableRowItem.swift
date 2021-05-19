@@ -8,7 +8,7 @@ public struct TableRowItem {
     /// Trailing accessory item.
     public let trailingAccessory: AccessoryItem?
     /// Row data.
-    public let data: [DataItem]
+    public internal(set) var data: [DataItem]
     /// Selected image in editing mode.
     public let selectedImage: Image?
     /// Desekected image in edting mode.
