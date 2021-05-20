@@ -8,14 +8,6 @@ extension VerticalAlignment {
     }
     
     static let iconStackAlignmentGuide = VerticalAlignment(IconStackAlignment.self)
-    
-    struct IconStackAlignment2: AlignmentID {
-        static func defaultValue(in context: ViewDimensions) -> CGFloat {
-            context[VerticalAlignment.top]
-        }
-    }
-    
-    static let iconStackAlignmentGuide2 = VerticalAlignment(IconStackAlignment2.self)
 }
 
 extension IconStack: ViewList {

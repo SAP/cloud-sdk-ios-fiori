@@ -172,6 +172,23 @@ struct TrendStyleClassModifierKey: EnvironmentKey {
 }
 
 
+struct TrendImageStyleKey: EnvironmentKey {
+    public static let defaultValue: ImageStyle = ImageStyle()
+}
+
+struct TrendImageModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct TrendImageStyleClassPathKey: EnvironmentKey {
+    public static let defaultValue: [String] = []
+}
+
+struct TrendImageStyleClassModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+
 struct StatusStyleKey: EnvironmentKey {
     public static let defaultValue: TextStyle = TextStyle()
 }
@@ -206,19 +223,19 @@ struct SubstatusStyleClassModifierKey: EnvironmentKey {
 }
 
 
-struct BodyStyleKey: EnvironmentKey {
+struct BodyTextStyleKey: EnvironmentKey {
     public static let defaultValue: TextStyle = TextStyle()
 }
 
-struct BodyModifierKey: EnvironmentKey {
+struct BodyTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct BodyStyleClassPathKey: EnvironmentKey {
+struct BodyTextStyleClassPathKey: EnvironmentKey {
     public static let defaultValue: [String] = []
 }
 
-struct BodyStyleClassModifierKey: EnvironmentKey {
+struct BodyTextStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
@@ -440,23 +457,6 @@ struct PlaceholderStyleClassPathKey: EnvironmentKey {
 }
 
 struct PlaceholderStyleClassModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-
-struct TagsStyleKey: EnvironmentKey {
-    public static let defaultValue: TextStyle = TextStyle()
-}
-
-struct TagsModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct TagsStyleClassPathKey: EnvironmentKey {
-    public static let defaultValue: [String] = []
-}
-
-struct TagsStyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

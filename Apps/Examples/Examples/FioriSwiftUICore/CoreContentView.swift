@@ -40,34 +40,43 @@ struct CoreContentView: View {
                 Text("🚧 Experimental 🚧")
             }
 
-            NavigationLink(
-                destination: ListPickerItemDataNonIdentifiableExample()) {
-                Text("ListPickerItem")
-            }
-            
-            NavigationLink(
-                destination: FioriButtonContentView(),
-                label: {
-                    Text("FioriButton")
+            Group {
+                NavigationLink(
+                    destination: ListPickerItemDataNonIdentifiableExample()) {
+                    Text("ListPickerItem")
                 }
-            )
-            
-            NavigationLink(
-                destination: KPIExample()) {
-                Text("KPI")
-            }
-            
-            NavigationLink(
-                destination: OnboardingExamples()) {
-                Text("Onboarding")
-            }
-            
-            NavigationLink(
-                destination: ObjectItemExample(),
-                label: {
-                    Text("ObjectItem")
+                
+                NavigationLink(
+                    destination: FioriButtonContentView(),
+                    label: {
+                        Text("FioriButton")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: KPIExample()) {
+                    Text("KPI")
                 }
-            )
+                
+                NavigationLink(
+                    destination: OnboardingExamples()) {
+                    Text("Onboarding")
+                }
+                
+                NavigationLink(
+                    destination: ObjectItemExample(),
+                    label: {
+                        Text("ObjectItem")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: ObjectHeaderExample(),
+                    label: {
+                        Text("ObjectHeader")
+                    }
+                )
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }
