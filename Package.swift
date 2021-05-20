@@ -46,7 +46,7 @@ let package = Package(
         ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: ["FioriThemeManager"],
+            dependencies: ["FioriThemeManager", "FioriCharts"],
             resources: [.process("FioriSwiftUICore.strings")]
         ),
         .target(
