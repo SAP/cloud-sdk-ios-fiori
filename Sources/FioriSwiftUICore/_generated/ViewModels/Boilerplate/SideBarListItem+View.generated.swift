@@ -21,8 +21,8 @@ extension Fiori {
         typealias IconCumulative = EmptyModifier
 		typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias Detail = EmptyModifier
-        typealias DetailCumulative = EmptyModifier
+		typealias Subtitle = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
 		typealias AccessoryIcon = EmptyModifier
         typealias AccessoryIconCumulative = EmptyModifier
 
@@ -40,11 +40,11 @@ extension Fiori {
         */
         static let icon = Icon()
 		static let title = Title()
-		static let detail = Detail()
+		static let subtitle = Subtitle()
 		static let accessoryIcon = AccessoryIcon()
         static let iconCumulative = IconCumulative()
 		static let titleCumulative = TitleCumulative()
-		static let detailCumulative = DetailCumulative()
+		static let subtitleCumulative = SubtitleCumulative()
 		static let accessoryIconCumulative = AccessoryIconCumulative()
     }
 }

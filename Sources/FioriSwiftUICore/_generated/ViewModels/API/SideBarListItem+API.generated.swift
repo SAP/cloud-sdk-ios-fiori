@@ -2,31 +2,31 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SideBarListItem<Icon: View, Title: View, Detail: View, AccessoryIcon: View> {
+public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, AccessoryIcon: View> {
     @Environment(\.iconModifier) private var iconModifier
 	@Environment(\.titleModifier) private var titleModifier
-	@Environment(\.detailModifier) private var detailModifier
+	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.accessoryIconModifier) private var accessoryIconModifier
 
     let _icon: Icon
 	let _title: Title
-	let _detail: Detail
+	let _subtitle: Subtitle
 	let _accessoryIcon: AccessoryIcon
 	
     private var isModelInit: Bool = false
 	private var isIconNil: Bool = false
-	private var isDetailNil: Bool = false
+	private var isSubtitleNil: Bool = false
 	private var isAccessoryIconNil: Bool = false
 
     public init(
         @ViewBuilder icon: @escaping () -> Icon,
 		@ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder detail: @escaping () -> Detail,
+		@ViewBuilder subtitle: @escaping () -> Subtitle,
 		@ViewBuilder accessoryIcon: @escaping () -> AccessoryIcon
         ) {
             self._icon = icon()
 			self._title = title()
-			self._detail = detail()
+			self._subtitle = subtitle()
 			self._accessoryIcon = accessoryIcon()
     }
 
@@ -44,11 +44,11 @@ public struct SideBarListItem<Icon: View, Title: View, Detail: View, AccessoryIc
             _title.modifier(titleModifier.concat(Fiori.SideBarListItem.title))
         }
     }
-	@ViewBuilder var detail: some View {
+	@ViewBuilder var subtitle: some View {
         if isModelInit {
-            _detail.modifier(detailModifier.concat(Fiori.SideBarListItem.detail).concat(Fiori.SideBarListItem.detailCumulative))
+            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBarListItem.subtitle).concat(Fiori.SideBarListItem.subtitleCumulative))
         } else {
-            _detail.modifier(detailModifier.concat(Fiori.SideBarListItem.detail))
+            _subtitle.modifier(subtitleModifier.concat(Fiori.SideBarListItem.subtitle))
         }
     }
 	@ViewBuilder var accessoryIcon: some View {
@@ -63,8 +63,8 @@ public struct SideBarListItem<Icon: View, Title: View, Detail: View, AccessoryIc
         ((isModelInit && isIconNil) || Icon.self == EmptyView.self) ? true : false
     }
 
-	var isDetailEmptyView: Bool {
-        ((isModelInit && isDetailNil) || Detail.self == EmptyView.self) ? true : false
+	var isSubtitleEmptyView: Bool {
+        ((isModelInit && isSubtitleNil) || Subtitle.self == EmptyView.self) ? true : false
     }
 
 	var isAccessoryIconEmptyView: Bool {
@@ -74,22 +74,22 @@ public struct SideBarListItem<Icon: View, Title: View, Detail: View, AccessoryIc
 
 extension SideBarListItem where Icon == _ConditionalContent<Image, EmptyView>,
 		Title == Text,
-		Detail == _ConditionalContent<Text, EmptyView>,
+		Subtitle == _ConditionalContent<Text, EmptyView>,
 		AccessoryIcon == _ConditionalContent<Image, EmptyView> {
 
     public init(model: SideBarListItemModel) {
-        self.init(icon: model.icon_, title: model.title_, detail: model.detail_, accessoryIcon: model.accessoryIcon_)
+        self.init(icon: model.icon_, title: model.title_, subtitle: model.subtitle_, accessoryIcon: model.accessoryIcon_)
     }
 
-    public init(icon: Image? = nil, title: String, detail: String? = nil, accessoryIcon: Image? = nil) {
+    public init(icon: Image? = nil, title: String, subtitle: String? = nil, accessoryIcon: Image? = nil) {
         self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
 		self._title = Text(title)
-		self._detail = detail != nil ? ViewBuilder.buildEither(first: Text(detail!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._accessoryIcon = accessoryIcon != nil ? ViewBuilder.buildEither(first: accessoryIcon!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isIconNil = icon == nil ? true : false
-		isDetailNil = detail == nil ? true : false
+		isSubtitleNil = subtitle == nil ? true : false
 		isAccessoryIconNil = accessoryIcon == nil ? true : false
     }
 }

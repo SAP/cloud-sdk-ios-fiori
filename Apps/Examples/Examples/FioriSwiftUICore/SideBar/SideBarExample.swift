@@ -5,7 +5,7 @@ public struct SideBarExample: View {
     public var body: some View {
         NavigationView {
             SideBarView()
-            DetailView(title: "Home Page - Starting From Here")
+            DevDetailView(title: "Home Page - Starting From Here")
         }
         .navigationBarHidden(true)
         .navigationViewStyle(DoubleColumnNavigationViewStyle())
@@ -16,7 +16,7 @@ struct BarItem: Identifiable, Hashable {
     let id = UUID()
     let title: String
     var icon: Image?
-    var detail: String?
+    var subtitle: String?
     var status: Image?
     let children: [BarItem]?
     var destination: AnyView?
@@ -30,10 +30,10 @@ struct BarItem: Identifiable, Hashable {
         lhs.id == rhs.id
     }
     
-    init(title: String, icon: Image? = nil, detail: String? = nil, status: Image? = nil, children: [BarItem]? = nil, destination: AnyView? = nil) {
+    init(title: String, icon: Image? = nil, subtitle: String? = nil, status: Image? = nil, children: [BarItem]? = nil, destination: AnyView? = nil) {
         self.title = title
         self.icon = icon
-        self.detail = detail
+        self.subtitle = subtitle
         self.status = status
         self.children = children
         self.destination = destination
@@ -41,16 +41,6 @@ struct BarItem: Identifiable, Hashable {
 }
 
 public struct SideBarView: View {
-    struct DevHeaderModel: Identifiable, SideBarListSectionHeaderModel {
-        var id = UUID()
-        
-        var title_: String
-        
-        init(title: String) {
-            self.title_ = title
-        }
-    }
-    
     struct DevRowModel: Identifiable, SideBarListItemModel {
         var id = UUID()
         
@@ -58,14 +48,14 @@ public struct SideBarView: View {
         
         var title_: String
         
-        var detail_: String?
+        var subtitle_: String?
         
         var icon_: Image?
         
-        init(icon: Image? = nil, title: String, detail: String? = nil, accessory: Image? = nil) {
+        init(icon: Image? = nil, title: String, subtitle: String? = nil, accessory: Image? = nil) {
             self.icon_ = icon
             self.title_ = title
-            self.detail_ = detail
+            self.subtitle_ = subtitle
             self.accessoryIcon_ = accessory
         }
     }
@@ -103,17 +93,17 @@ public struct SideBarView: View {
     @State var selectedItem: BarItem?
     
     var items: [BarItem] = [
-        BarItem(title: "Root Item 0.1", icon: Image(systemName: "heart.fill"), detail: "9,999+", status: Image(systemName: "square"), children: nil),
-        BarItem(title: "Root Item 0.2", icon: Image(systemName: "heart.fill"), detail: "20", status: Image(systemName: "square"), children: nil),
+        BarItem(title: "Root Item 0.1", icon: Image(systemName: "heart.fill"), subtitle: "9,999+", status: Image(systemName: "square"), children: nil),
+        BarItem(title: "Root Item 0.2", icon: Image(systemName: "heart.fill"), subtitle: "20", status: Image(systemName: "square"), children: nil),
         BarItem(title: "Root Item 0.3", icon: Image(systemName: "heart.fill"), status: Image(systemName: "airplane"), children: nil),
         BarItem(title: "Root Item 0.4", icon: Image(systemName: "cloud.snow"), children: nil),
         BarItem(title: "Group 1", children: [
-            BarItem(title: "Child Item 1.1", icon: Image(systemName: "square.and.pencil"), detail: "66", status: Image(systemName: "circle"), children: nil),
+            BarItem(title: "Child Item 1.1", icon: Image(systemName: "square.and.pencil"), subtitle: "66", status: Image(systemName: "circle"), children: nil),
             BarItem(title: "Child Item 1.2", icon: Image(systemName: "square.and.pencil"), status: Image(systemName: "circle"), children: nil),
             BarItem(title: "Child Item 1.3", icon: Image(systemName: "diamond"), children: nil)
         ]),
         BarItem(title: "Group 2", children: [
-            BarItem(title: "Child Item 2.1", icon: Image(systemName: "folder"), detail: "5", status: Image(systemName: "mail"), children: nil),
+            BarItem(title: "Child Item 2.1", icon: Image(systemName: "folder"), subtitle: "5", status: Image(systemName: "mail"), children: nil),
             BarItem(title: "Child Item 2.2", icon: Image(systemName: "folder"), status: Image(systemName: "map"), children: nil),
             BarItem(title: "Child Item 2.3", icon: Image(systemName: "folder"), children: nil)
         ])
@@ -124,23 +114,20 @@ public struct SideBarView: View {
     public var body: some View {
         VStack {
             SideBar(footerModel: DevObjectItemModel(title: "Title", subtitle: "Subtitle", detailImage: Image(systemName: "person")),
-                    listConfig: ExpandableList(data: items,
-                                               children: \.children,
-                                               selection: $selectedItem,
-                                               headerModel: { item in
-                                                   DevHeaderModel(title: item.title)
-                                               },
-                                               rowModel: { item in
-                                                   DevRowModel(icon: item.icon, title: item.title, detail: item.detail, accessory: item.status)
-                                               },
-                                               destination: { item in
-                                                   DetailView(title: item.title)
-                                               }))
+                    list: ExpandableList(data: items,
+                                         children: \.children,
+                                         selection: $selectedItem,
+                                         rowModel: { item in
+                                             DevRowModel(icon: item.icon, title: item.title, subtitle: item.subtitle, accessory: item.status)
+                                         },
+                                         destination: { item in
+                                             DevDetailView(title: item.title)
+                                         }))
         }.background(Color.preferredColor(.header))
     }
 }
 
-public struct DetailView: View {
+public struct DevDetailView: View {
     var title: String
     
     public init(title: String) {

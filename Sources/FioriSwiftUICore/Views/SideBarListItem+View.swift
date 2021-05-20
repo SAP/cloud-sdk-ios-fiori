@@ -9,10 +9,11 @@ extension Fiori {
                     .font(.system(size: 17))
                     .truncationMode(.tail)
                     .foregroundColor(.white)
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             }
         }
         
-        struct Detail: ViewModifier {
+        struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .lineLimit(1)
@@ -42,16 +43,16 @@ extension Fiori {
         
         typealias IconCumulative = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-        typealias DetailCumulative = EmptyModifier
+        typealias SubtitleCumulative = EmptyModifier
         typealias AccessoryIconCumulative = EmptyModifier
 
         static let icon = Icon()
         static let title = Title()
-        static let detail = Detail()
+        static let subtitle = Subtitle()
         static let accessoryIcon = AccessoryIcon()
         static let iconCumulative = IconCumulative()
         static let titleCumulative = TitleCumulative()
-        static let detailCumulative = DetailCumulative()
+        static let subtitleCumulative = SubtitleCumulative()
         static let accessoryIconCumulative = IconCumulative()
     }
 }
@@ -70,7 +71,7 @@ extension SideBarListItem: View {
             }
             title
             Spacer()
-            detail
+            subtitle
             if let accessoryIcon = accessoryIcon as? Image {
                 accessoryIcon
                     .resizable()
@@ -81,6 +82,5 @@ extension SideBarListItem: View {
                     .frame(width: 22, height: 22)
             }
         }
-        .padding(EdgeInsets(top: 10, leading: 11, bottom: 10, trailing: 11))
     }
 }

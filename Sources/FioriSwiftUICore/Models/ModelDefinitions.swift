@@ -76,10 +76,7 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
 // sourcery: generated_component
-public protocol SideBarListSectionHeaderModel: TitleComponent {}
-
-// sourcery: generated_component
-public protocol SideBarListItemModel: IconComponent, TitleComponent, DetailComponent, AccessoryIconComponent {}
+public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
 
 // sourcery: availableAttributeContent = "iOS 14, *"
 // sourcery: add_view_builder_params = "detail"

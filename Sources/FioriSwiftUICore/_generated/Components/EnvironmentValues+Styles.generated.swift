@@ -143,16 +143,6 @@ extension EnvironmentValues {
         set { self[IconModifierKey.self] = newValue }
     }
 
-    public var detailStyle: TextStyle {
-        get { return self[DetailStyleKey.self] }
-        set { self[DetailStyleKey.self] = newValue }
-    }
-
-    public var detailModifier: AnyViewModifier {
-        get { return self[DetailModifierKey.self] }
-        set { self[DetailModifierKey.self] = newValue }
-    }
-
     public var accessoryIconStyle: ImageStyle {
         get { return self[AccessoryIconStyleKey.self] }
         set { self[AccessoryIconStyleKey.self] = newValue }
@@ -743,38 +733,6 @@ public extension View {
 
     func iconStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.iconModifier) {
-            switch StyleCache.shared.resolveModifier(for: classPath) {
-                case .success(let resolved):
-                    if concat {
-                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
-                    } else {
-                        $0 = resolved
-                    }
-                case .failure(_):  break
-            }
-        }
-    }
-
-    @ViewBuilder
-    func detailStyle(_ style: TextStyle, concat: Bool = true) -> some View {
-        if concat {
-            transformEnvironment(\.detailStyle) { $0 = $0.merging(style) }
-        } else {
-            environment(\.detailStyle, style)
-        }
-    }
-
-    @ViewBuilder
-    func detailModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.detailModifier, AnyViewModifier(transform))
-    }
-
-    func detailStyleClass(_ class: String, concat: Bool = true) -> some View {
-        self.detailStyleClass([`class`], concat: concat)
-    }
-
-    func detailStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
-        return transformEnvironment(\.detailModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
                 case .success(let resolved):
                     if concat {

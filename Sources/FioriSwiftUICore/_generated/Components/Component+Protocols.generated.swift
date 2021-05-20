@@ -59,10 +59,6 @@ public protocol IconComponent {
     var icon_: Image? { get }
 }
 
-public protocol DetailComponent {
-    var detail_: String? { get }
-}
-
 public protocol AccessoryIconComponent {
     var accessoryIcon_: Image? { get }
 }

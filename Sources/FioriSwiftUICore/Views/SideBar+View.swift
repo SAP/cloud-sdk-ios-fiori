@@ -26,12 +26,12 @@ extension SideBar: View {
     public var body: some View {
         VStack(spacing: 0) {
             subtitle
-                .frame(height: 34)
+                .frame(maxHeight: 34)
             detail
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 .clipped()
             footer
-                .frame(height: 77)
+                .frame(maxHeight: 77)
         }
     }
 }
@@ -42,13 +42,14 @@ public extension SideBar where Detail == AnyView {
     /// - Parameters:
     ///   - subtitle: The view builder which returns the subtitle view.
     ///   - footer: The view builder which returns the footer view.
-    ///   - listConfig: The configuration for constructing an expandable list of side bar items.
-    init<Data, Header, Row, Destination>(@ViewBuilder subtitle: @escaping () -> Subtitle,
-                                         @ViewBuilder footer: @escaping () -> Footer,
-                                         listConfig: ExpandableList<Data, Header, Row, Destination>) where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Header: View, Row: View, Destination: View
+    ///   - list: The configuration for constructing an expandable list of side bar items.
+    init<Data, Row, Destination>(@ViewBuilder subtitle: @escaping () -> Subtitle,
+                                 @ViewBuilder footer: @escaping () -> Footer,
+                                 list: ExpandableList<Data, Row, Destination>)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
+        Row: View, Destination: View
     {
-        self.init(subtitle: subtitle, footer: footer, detail: { AnyView(listConfig) })
+        self.init(subtitle: subtitle, footer: footer, detail: { AnyView(list) })
     }
 }
 
@@ -58,15 +59,16 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     /// - Parameters:
     ///   - subtitle: The subtitle string.
     ///   - footer: The view builder which returns the footer view.
-    ///   - listConfig: The configuration for constructing an expandable list of side bar items.
-    init<Data, Header, Row, Destination>(subtitle: String? = nil,
-                                         @ViewBuilder footer: @escaping () -> Footer,
-                                         listConfig: ExpandableList<Data, Header, Row, Destination>) where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Header: View, Row: View, Destination: View
+    ///   - list: The configuration for constructing an expandable list of side bar items.
+    init<Data, Row, Destination>(subtitle: String? = nil,
+                                 @ViewBuilder footer: @escaping () -> Footer,
+                                 list: ExpandableList<Data, Row, Destination>)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
+        Row: View, Destination: View
     {
         self.init(subtitle: { subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView()) },
                   footer: footer,
-                  detail: { AnyView(listConfig) })
+                  detail: { AnyView(list) })
     }
 }
 
@@ -79,29 +81,28 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     /// - Parameters:
     ///   - subtitle: The subtitle string of a side bar.
     ///   - footerModel: Object item model for the footer view.
-    ///   - listConfig: The configuration for constructing an expandable list of side bar items.
-    init<Data, Header, Row, Destination>(subtitle: String? = nil,
-                                         footerModel: ObjectItemModel? = nil,
-                                         listConfig: ExpandableList<Data, Header, Row, Destination>? = nil) where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
-        Header: View, Row: View, Destination: View
+    ///   - list: The configuration for constructing an expandable list of side bar items.
+    init<Data, Row, Destination>(subtitle: String? = nil,
+                                 footerModel: ObjectItemModel? = nil,
+                                 list: ExpandableList<Data, Row, Destination>? = nil)
+        where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
+        Row: View, Destination: View
     {
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footer = footerModel != nil ? ViewBuilder.buildEither(first: AnyView(makeFooterView(model: footerModel!))) : ViewBuilder.buildEither(second: EmptyView())
-        self._detail = listConfig != nil ? ViewBuilder.buildEither(first: AnyView(listConfig)) : ViewBuilder.buildEither(second: EmptyView())
+        self._footer = footerModel != nil ?
+            ViewBuilder.buildEither(first: AnyView(ObjectItem(model: footerModel!)
+                    .detailImageModifier { $0.foregroundColor(.white).padding(.leading, 16) }
+                    .titleModifier { $0.foregroundColor(.white) }
+                    .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                    .background(Color.preferredColor(.footer, background: .darkConstant))))
+            : ViewBuilder.buildEither(second: EmptyView())
+        self._detail = list != nil ? ViewBuilder.buildEither(first: AnyView(list)) : ViewBuilder.buildEither(second: EmptyView())
     }
-}
-
-func makeFooterView(model: ObjectItemModel) -> some View {
-    ObjectItem(model: model)
-        .detailImageModifier { $0.foregroundColor(.white).padding(.leading, 16) }
-        .titleModifier { $0.foregroundColor(.white) }
-        .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-        .background(Color.preferredColor(.footer, background: .darkConstant))
 }
 
 /// Defines an expandable list which supports multi-level hierarchy with the ability to select a single item.
 @available(iOS 14, *)
-public struct ExpandableList<Data, Header, Row, Destination>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Header: View, Row: View, Destination: View {
+public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Row: View, Destination: View {
     let data: Data
     
     let children: KeyPath<Data.Element, Data?>
@@ -115,13 +116,11 @@ public struct ExpandableList<Data, Header, Row, Destination>: View where Data: R
     ///   - data: The data for constructing the list.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to the selected data element.
-    ///   - headerContent: The view builder which returns the content of section headers in an expandable list.
     ///   - rowContent: The view builder which returns the content of each row in an expandable list.
     ///   - destination: The view builder which returns the destination view when a row is selected.
     public init(data: Data,
                 children: KeyPath<Data.Element, Data?>,
                 selection: Binding<Data.Element?>,
-                @ViewBuilder headerContent: @escaping (Data.Element) -> Header,
                 @ViewBuilder rowContent: @escaping (Data.Element) -> Row,
                 @ViewBuilder destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
@@ -136,11 +135,10 @@ public struct ExpandableList<Data, Header, Row, Destination>: View where Data: R
                             ExpandableList(data: childElements,
                                            children: children,
                                            selection: selection,
-                                           headerContent: headerContent,
                                            rowContent: rowContent,
                                            destination: destination).contentView
                         }, header: {
-                            headerContent(item)
+                            rowContent(item)
                         })
                     } else {
                         if item == selection.wrappedValue {
@@ -174,19 +172,17 @@ public struct ExpandableList<Data, Header, Row, Destination>: View where Data: R
 }
 
 @available(iOS 14, *)
-public extension ExpandableList where Header == SideBarListSectionHeader<Text>, Row == SideBarListItem<_ConditionalContent<Image, EmptyView>, Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>> {
+public extension ExpandableList where Row == SideBarListItem<_ConditionalContent<Image, EmptyView>, Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>> {
     /// Creates an expandable list from a collection of data which supports multi-level hierarchy with the ability to select a single item.
     /// - Parameters:
     ///   - data: The data for constructing the list.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to the selected data element.
-    ///   - headerModel: A closure which returns the content model of section headers in an expandable list.
     ///   - rowModel: A closure which returns the content model of each row in an expandable list.
     ///   - destination: The view builder which returns the destination view when a row is selected.
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
          selection: Binding<Data.Element?>,
-         headerModel: @escaping (Data.Element) -> SideBarListSectionHeaderModel,
          rowModel: @escaping (Data.Element) -> SideBarListItemModel,
          destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
@@ -201,11 +197,15 @@ public extension ExpandableList where Header == SideBarListSectionHeader<Text>, 
                             ExpandableList(data: group,
                                            children: children,
                                            selection: selection,
-                                           headerModel: headerModel,
                                            rowModel: rowModel,
                                            destination: destination)
                         }, header: {
-                            SideBarListSectionHeader(model: headerModel(item))
+                            SideBarListItem(model: rowModel(item))
+                                .titleModifier { $0.lineLimit(1)
+                                    .font(.system(size: 17.0))
+                                    .truncationMode(.tail)
+                                    .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
+                                }
                         })
                     } else {
                         if item == selection.wrappedValue {
@@ -213,7 +213,7 @@ public extension ExpandableList where Header == SideBarListSectionHeader<Text>, 
                                 .modifier(ListItemBackgroundSelectionStyle())
                                 .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                                 .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                                .detailModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                                .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                                 .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
@@ -249,13 +249,12 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                header().padding(.leading, 11)
+                header()
                 Spacer()
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .padding(.trailing, 11)
                     .foregroundColor(.preferredColor(.tintColor, display: .contrast))
                     .onTapGesture {
                         isExpanded.toggle()
