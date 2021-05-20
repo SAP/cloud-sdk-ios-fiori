@@ -9,7 +9,6 @@ extension Fiori {
                     .font(.system(size: 17))
                     .truncationMode(.tail)
                     .foregroundColor(.white)
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
             }
         }
         
@@ -26,18 +25,16 @@ extension Fiori {
         struct Icon: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .padding(.leading, 8)
-                    .padding(.trailing, 11)
                     .foregroundColor(.preferredColor(.tintColor, display: .contrast))
+                    .padding(.trailing, 11)
             }
         }
 
         struct AccessoryIcon: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .padding(.leading, 8)
-                    .padding(.trailing, 8)
                     .foregroundColor(.preferredColor(.tintColor, display: .contrast))
+                    .padding(.leading, 11)
             }
         }
         
@@ -59,7 +56,7 @@ extension Fiori {
 
 extension SideBarListItem: View {
     public var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             if let icon = icon as? Image {
                 icon
                     .resizable()
@@ -81,6 +78,6 @@ extension SideBarListItem: View {
                 accessoryIcon
                     .frame(width: 22, height: 22)
             }
-        }
+        }.padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
     }
 }

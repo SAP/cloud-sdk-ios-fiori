@@ -204,13 +204,14 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                 .font(.system(size: 17.0))
                                 .truncationMode(.tail)
                                 .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
-                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                         })
                     } else {
                         if item == selection.wrappedValue {
                             SideBarListItem(model: rowModel(item))
                                 .modifier(ListItemBackgroundSelectionStyle())
-                                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                                .iconModifier {
+                                    $0.foregroundColor(.preferredColor(.primaryLabel))
+                                }
                                 .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                                 .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                                 .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
@@ -256,7 +257,7 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
                     .onTapGesture {
                         isExpanded.toggle()
                     }
-            }
+            }.padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
             if !isExpanded {
                 Rectangle()
                     .fill(Color.preferredColor(.line))

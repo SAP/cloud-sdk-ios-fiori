@@ -101,13 +101,13 @@ public struct SideBarView: View {
             BarItem(title: "Child Item 1.1", icon: Image(systemName: "square.and.pencil"), subtitle: "66", status: Image(systemName: "circle"), children: nil),
             BarItem(title: "Child Item 1.2", icon: Image(systemName: "square.and.pencil"), status: Image(systemName: "circle"), children: nil),
             BarItem(title: "Child Item 1.3", icon: Image(systemName: "diamond"), children: nil),
-            BarItem(title: "Child Item 1.4", children: nil)
+            BarItem(title: "Child Item 1.4", subtitle: "256", children: nil)
         ]),
         BarItem(title: "Group 2", children: [
             BarItem(title: "Child Item 2.1", icon: Image(systemName: "folder"), subtitle: "5", status: Image(systemName: "mail"), children: nil),
             BarItem(title: "Child Item 2.2", icon: Image(systemName: "folder"), status: Image(systemName: "map"), children: nil),
             BarItem(title: "Child Item 2.3", icon: Image(systemName: "folder"), children: nil),
-            BarItem(title: "Child Item 2.4", children: nil)
+            BarItem(title: "Child Item 2.4", subtitle: "64", children: nil)
         ])
     ]
     
