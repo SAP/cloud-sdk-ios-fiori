@@ -57,27 +57,11 @@ extension Fiori {
 extension SideBarListItem: View {
     public var body: some View {
         HStack(spacing: 0) {
-            if let icon = icon as? Image {
-                icon
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 22, height: 22)
-            } else {
-                icon
-                    .frame(width: 22, height: 22)
-            }
+            icon
             title
             Spacer()
             subtitle
-            if let accessoryIcon = accessoryIcon as? Image {
-                accessoryIcon
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 22, height: 22)
-            } else {
-                accessoryIcon
-                    .frame(width: 22, height: 22)
-            }
+            accessoryIcon
         }.padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
     }
 }
