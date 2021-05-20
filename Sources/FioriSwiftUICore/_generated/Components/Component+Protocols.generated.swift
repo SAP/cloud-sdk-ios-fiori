@@ -11,6 +11,13 @@ public protocol SubtitleComponent {
     var subtitle_: String? { get }
 }
 
+public protocol TagsComponent {
+	// sourcery: backingComponent=TagStack
+	// sourcery: customFunctionBuilder=TagBuilder
+	// sourcery: no_style
+    var tags_: [String]? { get }
+}
+
 public protocol FootnoteComponent {
     var footnote_: String? { get }
 }
@@ -43,6 +50,10 @@ public protocol TrendComponent {
     var trend_: String? { get }
 }
 
+public protocol TrendImageComponent {
+    var trendImage_: Image? { get }
+}
+
 public protocol StatusComponent {
     var status_: String? { get }
 }
@@ -51,8 +62,8 @@ public protocol SubstatusComponent {
     var substatus_: String? { get }
 }
 
-public protocol BodyComponent {
-    var body_: String? { get }
+public protocol BodyTextComponent {
+    var bodyText_: String? { get }
 }
 
 public protocol IconComponent {
@@ -112,10 +123,6 @@ public protocol KpiComponent {
 
 public protocol PlaceholderComponent {
     var placeholder_: String? { get }
-}
-
-public protocol TagsComponent {
-    var tags_: [String] { get }
 }
 
 public protocol LowerBoundTitleComponent {

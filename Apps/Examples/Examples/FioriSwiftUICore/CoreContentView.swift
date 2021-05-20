@@ -31,10 +31,10 @@ struct CoreContentView: View {
                 destination: SignatureCaptureView_Example()) {
                 Text("Signature Inline View")
             }
-            NavigationLink(
-                destination: ExperimentalContentView()) {
-                Text("🚧 Experimental 🚧")
-            }
+//            NavigationLink(
+//                destination: ExperimentalContentView()) {
+//                Text("🚧 Experimental 🚧")
+//            }
 
             NavigationLink(
                 destination: ListPickerItemDataNonIdentifiableExample()) {
@@ -62,6 +62,13 @@ struct CoreContentView: View {
                 destination: ObjectItemExample(),
                 label: {
                     Text("ObjectItem")
+                }
+            )
+            
+            NavigationLink(
+                destination: ObjectHeaderExample(),
+                label: {
+                    Text("ObjectHeader")
                 }
             )
         }.navigationBarTitle("FioriSwiftUICore")
