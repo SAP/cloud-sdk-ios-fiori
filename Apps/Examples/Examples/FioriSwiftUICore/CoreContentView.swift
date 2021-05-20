@@ -23,14 +23,18 @@ struct CoreContentView: View {
                 Text("Dimension Selector")
             }
             
-            NavigationLink(
-                destination: SignatureView_Example()) {
-                Text("Signature View")
+            Group {
+                NavigationLink(
+                    destination: SignatureView_Example()) {
+                    Text("Signature View")
+                }
+                
+                NavigationLink(
+                    destination: SignatureCaptureView_Example()) {
+                    Text("Signature Inline View")
+                }
             }
-            NavigationLink(
-                destination: SignatureCaptureView_Example()) {
-                Text("Signature Inline View")
-            }
+            
             NavigationLink(
                 destination: ExperimentalContentView()) {
                 Text("🚧 Experimental 🚧")

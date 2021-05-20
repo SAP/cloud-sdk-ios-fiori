@@ -162,8 +162,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                     }
                 }
             }
-        })
-            .typeErased
+        }).typeErased
     }
     
     public var body: some View {
@@ -200,12 +199,12 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                            rowModel: rowModel,
                                            destination: destination)
                         }, header: {
-                            SideBarListItem(model: rowModel(item))
-                                .titleModifier { $0.lineLimit(1)
-                                    .font(.system(size: 17.0))
-                                    .truncationMode(.tail)
-                                    .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
-                                }
+                            Text(rowModel(item).title_)
+                                .lineLimit(1)
+                                .font(.system(size: 17.0))
+                                .truncationMode(.tail)
+                                .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
+                                .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
                         })
                     } else {
                         if item == selection.wrappedValue {
@@ -234,9 +233,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                     }
                 }
             }
-        })
-            .background(Color.preferredColor(.header))
-            .typeErased
+        }).background(Color.preferredColor(.header)).typeErased
     }
 }
 
