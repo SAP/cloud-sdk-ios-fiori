@@ -40,9 +40,9 @@ public enum AccessoryItem {
 /// Button for accessory item.
 public struct AccessoryButton {
     /// Image for button.
-    public let image: Image
+    public let image: Image?
     /// Title for button.
-    public let title: String
+    public let title: String?
     /// Action for button.
     public let action: () -> Void
     
@@ -51,7 +51,7 @@ public struct AccessoryButton {
     ///   - image: Image for button.
     ///   - title: Title string for button.
     ///   - action: Action for button.
-    public init(image: Image, title: String, action: @escaping () -> Void) {
+    public init(image: Image? = nil, title: String? = nil, action: @escaping () -> Void) {
         self.image = image
         self.title = title
         self.action = action

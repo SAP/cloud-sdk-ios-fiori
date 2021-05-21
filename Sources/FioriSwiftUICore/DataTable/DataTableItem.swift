@@ -22,6 +22,10 @@ struct DataTableItem: Identifiable, Hashable {
     
     var rowHeight: CGFloat = 0
     
+    var font: Font?
+    
+    var foregroundColor: Color?
+    
     var isImage: Bool {
         if case .image = self.value {
             return true
@@ -33,13 +37,19 @@ struct DataTableItem: Identifiable, Hashable {
     
     init(index: Int,
          value: ValueType = .text(""),
-         pos: CGPoint, size: CGSize = .zero, offset: CGPoint = .zero,
+         pos: CGPoint,
+         font: Font?,
+         foregroundColor: Color? = nil,
+         size: CGSize = .zero,
+         offset: CGPoint = .zero,
          textAlignment: TextAlignment = .leading,
          lineLimit: Int? = nil)
     {
         self.rowIndex = index
         self.value = value
         self.pos = pos
+        self.font = font
+        self.foregroundColor = foregroundColor
         self.size = size
         self.offset = offset
         self.textAlignment = textAlignment

@@ -87,7 +87,7 @@ extension TableLayoutManager {
             case .button(let button):
                 Button(action: button.action) {
                     HStack {
-                        Text(button.title)
+                        Text(button.title ?? "")
                         button.image
                     }
                 }
@@ -436,6 +436,8 @@ extension TableLayoutManager {
         let height: CGFloat = 1
         let unitHeight: CGFloat = max(height / CGFloat(max(numberOfDataInColumn - 1, 1)), TableViewLayout.minUnitHeight)
                 
+        let isHeader: Bool = index == 0 && self.model.headerData != nil
+
         var res: [DataTableItem] = []
         for i in 0 ..< numberInEachRow {
             var contentWidth = CGFloat(MAXFLOAT)
@@ -459,23 +461,34 @@ extension TableLayoutManager {
                     break
                 }
                 let title = item.text
-                //                let font = item.font ?? .body
-                let font = UIFont.preferredFont(from: item.font)
-                let height = item.lineLimit == nil ? CGFloat(MAXFLOAT) : CGFloat(item.lineLimit ?? 0) * font.lineHeight
-                let size = title.boundingBoxSize(with: font.pointSize * self.scaleX, width: contentWidth, height: height)
+                var uifont: UIFont
+                if let _font = item.font {
+                    uifont = UIFont.preferredFont(from: _font)
+                } else {
+                    uifont = TableViewLayout.defaultUIFont(isHeader)
+                }
+                let textColor = item.fontColor ?? TableViewLayout.defaultFontColor(isHeader)
+                let height = item.lineLimit == nil ? CGFloat(MAXFLOAT) : CGFloat(item.lineLimit ?? 0) * uifont.lineHeight
+                let size = title.boundingBoxSize(with: uifont.pointSize * self.scaleX, width: contentWidth, height: height)
+                let font = item.font ?? TableViewLayout.defaultFont(isHeader)
                 res.append(DataTableItem(index: index,
                                          value: .text(title),
                                          pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
+                                         font: font,
+                                         foregroundColor: textColor,
                                          size: size,
                                          textAlignment: textAlignment,
                                          lineLimit: item.lineLimit))
             case .image:
-                guard let image = (currentItem as? DataImageItem)?.image else {
+                guard let item = (currentItem as? DataImageItem) else {
                     break
                 }
                 res.append(DataTableItem(index: index,
-                                         value: .image(image),
-                                         pos: CGPoint(x: CGFloat(i) * unitWidth, y: CGFloat(index) * unitHeight),
+                                         value: .image(item.image),
+                                         pos: CGPoint(x: CGFloat(i) * unitWidth,
+                                                      y: CGFloat(index) * unitHeight),
+                                         font: nil,
+                                         foregroundColor: item.tintColor,
                                          size: CGSize(width: 45, height: 0)))
             }
         }
