@@ -47,6 +47,18 @@ enum TableViewLayout {
     static let trailingMarginInRegualr: CGFloat = 20
     static let trailingMarginInCompact: CGFloat = 16
     
+    static func defaultFont(_ isHeader: Bool) -> Font {
+        isHeader ? .subheadline : .body
+    }
+    
+    static func defaultUIFont(_ isHeader: Bool) -> UIFont {
+        isHeader ? UIFont.preferredFont(from: .subheadline) : UIFont.preferredFont(from: .body)
+    }
+    
+    static func defaultFontColor(_ isHeader: Bool) -> Color {
+        isHeader ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel)
+    }
+    
     static func leadingOrTrailingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
         if sizeClass == .compact {
             return 16

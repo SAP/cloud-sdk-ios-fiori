@@ -82,7 +82,7 @@ struct GridTableView: View {
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]
-                        let view = ItemView(currentItem, (i, j), isHeader, dropShadow: self.dropVerticalShadow)
+                        let view = ItemView(currentItem, (i, j), isHeader, foregroundColor: currentItem.foregroundColor, font: currentItem.font, dropShadow: self.dropVerticalShadow)
                         let x = currentItem.pos.x
                         let y = currentItem.pos.y
                         let zIndex: Double = {
