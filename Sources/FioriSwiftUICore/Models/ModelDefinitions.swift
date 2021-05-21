@@ -13,11 +13,25 @@ public protocol IconStackModel: IconsComponent {}
 // sourcery: generated_component_composite
 public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconStackModel, ActionModel {}
 
-// sourcery: generated_component
-public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+// sourcery: generated_component_not_configurable
+public protocol TagStackModel: TagsComponent {}
 
+// sourcery: add_view_builder_params = "detailContent"
+// sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: add_env_props = "sizeCategory"
+// sourcery: virtualPropLeftViewSize = "@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)"
+// sourcery: virtualPropMiddleViewSize = "@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)"
+// sourcery: virtualPropRightViewSize = "@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)"
+// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
+// sourcery: virtualPropStatusViewSize = "@State var statusViewSize: CGSize = .zero"
+// sourcery: virtualPropCurrentTabIndex = "@State var currentTabIndex: Int = 0"
+// sourcery: generated_component_composite
+public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagStackModel, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+
+// sourcery: add_view_builder_params = "chart"
+// sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = CGSize(width: 312, height: 0)"
 // sourcery: generated_component
-public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, KpiComponent {}
+public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
 
 // sourcery: generated_component
 public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
