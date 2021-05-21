@@ -70,6 +70,10 @@ public protocol IconComponent {
     var icon_: Image? { get }
 }
 
+public protocol AccessoryIconComponent {
+    var accessoryIcon_: Image? { get }
+}
+
 public protocol IconsComponent {
 	// sourcery: backingComponent=IconStack
 	// sourcery: customFunctionBuilder=IconBuilder

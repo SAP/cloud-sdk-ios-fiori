@@ -22,6 +22,7 @@ internal struct _Component: _ComponentGenerating {
     let substatus_: String?
     let bodyText_: String?
     let icon_: Image?
+    let accessoryIcon_: Image?
     // sourcery: no_style
     // sourcery: backingComponent=IconStack
     // sourcery: customFunctionBuilder=IconBuilder
