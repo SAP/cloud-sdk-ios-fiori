@@ -13,7 +13,7 @@ public struct DataTextItem: DataItem, CheckBinding {
     /// Line limit for item.
     public var lineLimit: Int?
     /// Foreground color for text item.
-    public var fontColor: Color?
+    public var textColor: Color?
     
     var hasBinding: Bool {
         self.binding != nil
@@ -23,13 +23,13 @@ public struct DataTextItem: DataItem, CheckBinding {
     /// - Parameters:
     ///   - text: String for text item.
     ///   - font: Font for item
-    ///   - fontColor: Foreground color for text Item.
+    ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    public init(_ text: String, _ font: Font? = nil, _ fontColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+    public init(_ text: String, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
         self.text = text
         self.font = font
-        self.fontColor = fontColor
+        self.textColor = textColor
         self.type = .text
         self.binding = binding
         self.lineLimit = lineLimit
