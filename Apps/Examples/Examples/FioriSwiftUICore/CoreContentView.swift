@@ -12,58 +12,71 @@ struct CoreContentView: View {
             }
             
             NavigationLink(
+                destination: SideBarExample(),
+                label: {
+                    Text("Side Bar Example")
+                }
+            )
+            
+            NavigationLink(
                 destination: DimensionSelector_Chart()) {
                 Text("Dimension Selector")
             }
             
-            NavigationLink(
-                destination: SignatureView_Example()) {
-                Text("Signature View")
+            Group {
+                NavigationLink(
+                    destination: SignatureView_Example()) {
+                    Text("Signature View")
+                }
+                
+                NavigationLink(
+                    destination: SignatureCaptureView_Example()) {
+                    Text("Signature Inline View")
+                }
             }
+            
             NavigationLink(
-                destination: SignatureCaptureView_Example()) {
-                Text("Signature Inline View")
+                destination: ExperimentalContentView()) {
+                Text("🚧 Experimental 🚧")
             }
-//            NavigationLink(
-//                destination: ExperimentalContentView()) {
-//                Text("🚧 Experimental 🚧")
-//            }
 
-            NavigationLink(
-                destination: ListPickerItemDataNonIdentifiableExample()) {
-                Text("ListPickerItem")
-            }
-            
-            NavigationLink(
-                destination: FioriButtonContentView(),
-                label: {
-                    Text("FioriButton")
+            Group {
+                NavigationLink(
+                    destination: ListPickerItemDataNonIdentifiableExample()) {
+                    Text("ListPickerItem")
                 }
-            )
-            
-            NavigationLink(
-                destination: KPIExample()) {
-                Text("KPI")
-            }
-            
-            NavigationLink(
-                destination: OnboardingExamples()) {
-                Text("Onboarding")
-            }
-            
-            NavigationLink(
-                destination: ObjectItemExample(),
-                label: {
-                    Text("ObjectItem")
+                
+                NavigationLink(
+                    destination: FioriButtonContentView(),
+                    label: {
+                        Text("FioriButton")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: KPIExample()) {
+                    Text("KPI")
                 }
-            )
-            
-            NavigationLink(
-                destination: ObjectHeaderExample(),
-                label: {
-                    Text("ObjectHeader")
+                
+                NavigationLink(
+                    destination: OnboardingExamples()) {
+                    Text("Onboarding")
                 }
-            )
+                
+                NavigationLink(
+                    destination: ObjectItemExample(),
+                    label: {
+                        Text("ObjectItem")
+                    }
+                )
+                
+                NavigationLink(
+                    destination: ObjectHeaderExample(),
+                    label: {
+                        Text("ObjectHeader")
+                    }
+                )
+            }
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

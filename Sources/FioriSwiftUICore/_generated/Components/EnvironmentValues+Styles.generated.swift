@@ -153,6 +153,16 @@ extension EnvironmentValues {
         set { self[IconModifierKey.self] = newValue }
     }
 
+    public var accessoryIconStyle: ImageStyle {
+        get { return self[AccessoryIconStyleKey.self] }
+        set { self[AccessoryIconStyleKey.self] = newValue }
+    }
+
+    public var accessoryIconModifier: AnyViewModifier {
+        get { return self[AccessoryIconModifierKey.self] }
+        set { self[AccessoryIconModifierKey.self] = newValue }
+    }
+
     public var actionTitleStyle: TextStyle {
         get { return self[ActionTitleStyleKey.self] }
         set { self[ActionTitleStyleKey.self] = newValue }
@@ -755,6 +765,38 @@ public extension View {
 
     func iconStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
         return transformEnvironment(\.iconModifier) {
+            switch StyleCache.shared.resolveModifier(for: classPath) {
+                case .success(let resolved):
+                    if concat {
+                        let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+                    } else {
+                        $0 = resolved
+                    }
+                case .failure(_):  break
+            }
+        }
+    }
+
+    @ViewBuilder
+    func accessoryIconStyle(_ style: ImageStyle, concat: Bool = true) -> some View {
+        if concat {
+            transformEnvironment(\.accessoryIconStyle) { $0 = $0.merging(style) }
+        } else {
+            environment(\.accessoryIconStyle, style)
+        }
+    }
+
+    @ViewBuilder
+    func accessoryIconModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.accessoryIconModifier, AnyViewModifier(transform))
+    }
+
+    func accessoryIconStyleClass(_ class: String, concat: Bool = true) -> some View {
+        self.accessoryIconStyleClass([`class`], concat: concat)
+    }
+
+    func accessoryIconStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+        return transformEnvironment(\.accessoryIconModifier) {
             switch StyleCache.shared.resolveModifier(for: classPath) {
                 case .success(let resolved):
                     if concat {

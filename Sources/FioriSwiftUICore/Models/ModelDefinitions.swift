@@ -89,6 +89,15 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // sourcery: generated_component_not_configurable
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
+// sourcery: generated_component
+public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
+
+// sourcery: availableAttributeContent = "iOS 14, *"
+// sourcery: add_view_builder_params = "detail"
+// sourcery: add_view_builder_params = "footer"
+// sourcery: generated_component
+public protocol SideBarModel: SubtitleComponent {}
+
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"
