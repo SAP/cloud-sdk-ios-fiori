@@ -467,7 +467,7 @@ extension TableLayoutManager {
                 } else {
                     uifont = TableViewLayout.defaultUIFont(isHeader)
                 }
-                let textColor = item.fontColor ?? TableViewLayout.defaultFontColor(isHeader)
+                let textColor = item.textColor ?? TableViewLayout.defaultFontColor(isHeader)
                 let height = item.lineLimit == nil ? CGFloat(MAXFLOAT) : CGFloat(item.lineLimit ?? 0) * uifont.lineHeight
                 let size = title.boundingBoxSize(with: uifont.pointSize * self.scaleX, width: contentWidth, height: height)
                 let font = item.font ?? TableViewLayout.defaultFont(isHeader)

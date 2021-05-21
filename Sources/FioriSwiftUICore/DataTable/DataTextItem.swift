@@ -38,6 +38,6 @@ public struct DataTextItem: DataItem, CheckBinding {
     func toTextView() -> some View {
         Text(self.text)
             .font(self.font)
-            .foregroundColor(self.fontColor)
+            .foregroundColor(self.textColor)
     }
 }
