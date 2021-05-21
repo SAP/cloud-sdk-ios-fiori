@@ -6,8 +6,6 @@ public class ThemeManager {
     /// Singleton instance shared by all application components.
     public static let shared = ThemeManager()
     
-    private var resolvedColors = [ColorStyle: Color]()
-    
     private init() {}
     
     /// Method to allow selecting a specific version of the palette.  Defaults to `latest`.
@@ -38,9 +36,6 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
-        if let resolvedColor = resolvedColors[style] {
-            return resolvedColor
-        }
         let hexColor: HexColor = self.palette.hexColor(for: style)
         let uiColor = UIColor { traitCollection in
             let variant: ColorVariant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
@@ -50,7 +45,6 @@ public class ThemeManager {
                            blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
         let color = Color(uiColor)
-        resolvedColors[style] = color
         return color
     }
 }
