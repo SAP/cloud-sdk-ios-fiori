@@ -11,23 +11,20 @@ public struct SignatureCaptureView: View {
     
     /// An optional closure for handling save button tap action
     public var onSave: ((Result) -> Void)?
+
+    /// An optional closure for handling "Re-enter Signature" button tap action to delete the signature,
+    public var onDelete: (() -> Void)?
     
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-    
-    /// Initializes and returns a `SignatureCaptureView`.
-    /// - Parameters:
-    ///   - onSave: The block to be executed when user tapped the "Save" button.
-    ///   - onCancel: The block to be executed when  user tapped the "Cancel" button.
-    public init(onSave: ((Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
-        self.onSave = onSave
-    }
 
     /// Initializes and returns a `SignatureCaptureView`.
     /// - Parameters:
     ///   - onSave: The block to be executed when user tapped the "Save" button.
-    public init(onSave: ((Result) -> Void)? = nil) {
+    ///   - onDelete: The block to be executed when  user tapped the "Re-enter Signature" button.
+    public init(onSave: ((Result) -> Void)? = nil, onDelete: (() -> Void)? = nil) {
         self.onSave = onSave
+        self.onDelete = onDelete
     }
     
     struct VStackPreferenceKey: PreferenceKey {
@@ -56,6 +53,7 @@ public struct SignatureCaptureView: View {
     @State private var savedSignatureImage: UIImage? = nil
     @State private var drawingPadSize: CGSize = .zero
     @State private var displaysSignatureImage = true
+    @State private var isReEnterSignagureTapped = false
 
     // use internal properties so that the unit test could access them
     let _drawingViewMinHeight: CGFloat = 256
@@ -88,7 +86,7 @@ public struct SignatureCaptureView: View {
                             self.isEditing = true
                         }
                     }
-                }.padding(16)
+                }.padding(EdgeInsets(top: 11, leading: 16, bottom: 16, trailing: 16))
             } else {
                 VStack {
                     HStack {
@@ -140,17 +138,17 @@ public struct SignatureCaptureView: View {
                             }
                         }
                         
-                        if !self.isSaved {
+                        if !self.isSaved && !showsSignatureImage() {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
                                 .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                         } else {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                                .background(showsImage() ? Color.clear : Color.preferredColor(.quarternaryFill)).cornerRadius(10)
+                                .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
                                 .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                         }
-                    }
+                    }.padding(.bottom, 8)
                     HStack {
                         if !self.isSaved && !showsImage() {
                             Button(action: {
@@ -173,14 +171,17 @@ public struct SignatureCaptureView: View {
                                     self.isSaved = false
                                     self.isEditing = true
                                     self.uiImage = nil
+                                    self.savedSignatureImage = nil
                                     self.displaysSignatureImage = false
+                                    self.isReEnterSignagureTapped = true
+                                    onDelete?()
                                 }
                             }) {
                                 Text("Re-enter Signature", tableName: tableName, bundle: bundle)
                             }
                         }
                     }
-                }.padding(16)
+                }.padding(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
             }
         }
         .background(VStackPreferenceSetter())
@@ -193,7 +194,7 @@ public struct SignatureCaptureView: View {
     }
 
     func showsSignatureImage() -> Bool {
-        self.displaysSignatureImage && self.signatureImage != nil
+        !self.isReEnterSignagureTapped && self.displaysSignatureImage && self.signatureImage != nil
     }
 
     func showsImage() -> Bool {

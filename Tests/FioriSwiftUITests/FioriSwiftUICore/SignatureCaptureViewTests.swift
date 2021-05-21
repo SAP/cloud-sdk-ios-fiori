@@ -6,6 +6,7 @@ import XCTest
 
 class SignatureCaptureTests: XCTestCase {
     var isOnSaveCalled = false
+    var isOnDeleteCalled = false
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -16,7 +17,7 @@ class SignatureCaptureTests: XCTestCase {
     }
 
     func testBasic() throws {
-        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave)
+        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave, onDelete: self.onDelete)
 
         XCTAssertEqual(signagureCaptureView.bundle, Bundle.module)
         XCTAssertEqual(signagureCaptureView.tableName, "FioriSwiftUICore")
@@ -34,12 +35,18 @@ class SignatureCaptureTests: XCTestCase {
         let uiImage = UIImage(systemName: "xmark")!
         let image = Image(uiImage: uiImage)
         let result = SignatureCaptureView.Result(image: image, uiImage: uiImage)
+
+        self.isOnSaveCalled = false
         signagureCaptureView.onSave?(result)
         XCTAssertTrue(self.isOnSaveCalled)
+
+        self.isOnDeleteCalled = false
+        signagureCaptureView.onDelete?()
+        XCTAssertTrue(self.isOnDeleteCalled)
     }
 
     func testModifiers() throws {
-        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave)
+        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave, onDelete: nil)
             ._drawingViewMaxHeight(256)
             .strokeWidth(10)
             .strokeColor(.blue)
@@ -53,5 +60,9 @@ class SignatureCaptureTests: XCTestCase {
 
     func onSave(_ result: SignatureCaptureView.Result) {
         self.isOnSaveCalled = true
+    }
+
+    func onDelete() {
+        self.isOnDeleteCalled = true
     }
 }
