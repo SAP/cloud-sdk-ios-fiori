@@ -24,7 +24,10 @@ internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
 }
 
 // sourcery: backingComponent=TextInput
-internal protocol _TextInput: _ComponentMultiPropGenerating {
+internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+    // sourcery: gettableAndSettable
+    // sourcery: wrappedDataType=String
+    // sourcery: internalDataType=Binding<String>
     var textFilled_: Binding<String>? { get }
     func onCommit() // action handler
 }

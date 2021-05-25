@@ -103,8 +103,12 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 <%= modelAvailableAttribute -%>
 extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
 
-    public init(<%= modelInitParams %>) {
-        self.init(<%= extensionModelInitParamsChaining %>)
+	<% if model.isObservableObjectConform == true { -%>
+public init<Model>(model: Model) where Model: <%= model.name %> {
+    <% } else { -%>
+public init(<%= modelInitParams %>) {
+    <% } -%>
+    self.init(<%= extensionModelInitParamsChaining %>)
     }
 
     public init(<%= extensionModelInitParams %>) {

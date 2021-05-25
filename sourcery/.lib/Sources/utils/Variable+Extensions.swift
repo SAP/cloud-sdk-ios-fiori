@@ -116,4 +116,8 @@ public extension Variable {
     var propDecl: String {
         "\(self.trimmedName): \(self.typeName)"
     }
+
+    var computedInternalTypeName: String {
+        annotations["internalDataType"] as? String ?? self.typeName.name
+    }
 }

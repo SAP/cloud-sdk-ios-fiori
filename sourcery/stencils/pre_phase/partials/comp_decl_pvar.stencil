@@ -6,4 +6,4 @@
 	// sourcery: {{key}}={{value}}
 	{% endif %}
 {% endfor %}
-    var {{variable.name}}: {{variable.typeName}} { get }
+    var {{variable.name}}: {% if variable|annotated:"wrappedDataType" %}{{ variable.annotations.wrappedDataType }}{% else %}{{variable.typeName}}{% endif %} { {% if variable|annotated:"gettableAndSettable" %}get set{% else %}get{% endif %} }
