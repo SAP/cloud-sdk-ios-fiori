@@ -99,7 +99,7 @@ struct LeadingAccessoryView: View {
                         }
                         
                     }) {
-                        self.selected ? selectedImage : deSelectedImage
+                        self.selected ? AnyView(selectedImage.imageScale(.large)) : AnyView(deSelectedImage.imageScale(.large).foregroundColor(TableViewLayout.defaultForegroundColor))
                     }
                     .frame(width: 44 * self.layoutManager.scaleX, height: 44 * self.layoutManager.scaleY)
                 } else {
