@@ -5,7 +5,6 @@ struct TrailingAccessoryView: View {
     let item: AccessoryItem?
     let selected: Bool = false
     let height: CGFloat
-//    let isHeader: Bool
     
     @EnvironmentObject var layoutManager: TableLayoutManager
     @Environment(\.backgroundColor) var backgroundColor
@@ -26,10 +25,11 @@ struct TrailingAccessoryView: View {
                         print("Right Icon button was tapped")
                         button.action()
                     }) {
-                        button.image
+                        button.image.aspectRatio(contentMode: .fit)
                     }
                     .frame(width: 44 * self.layoutManager.scaleX, height: _height, alignment: .center)
                     .padding(.trailing, 44 * self.layoutManager.scaleX)
+//                    .foregroundColor(Tablel)
                     .background(self.backgroundColor)
                     .edgesIgnoringSafeArea(.trailing)
                 default:

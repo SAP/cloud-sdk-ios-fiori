@@ -97,6 +97,7 @@ extension TableLayoutManager {
                 value
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .foregroundColor(TableViewLayout.defaultForegroundColor)
                     .frame(width: 16, height: 16, alignment: .center)
             }
         }
@@ -151,12 +152,12 @@ extension TableLayoutManager {
                 }
             }
             currentButtons += self.isEditing ? 1 : 0
-            let totalWidth = CGFloat(currentButtons * 44 + currentIcons * 16)
+            let totalWidth = CGFloat(currentButtons * 44 + currentIcons * 20)
             self.leadingItemsWidths.append(totalWidth)
             buttons = max(buttons, currentButtons)
             icons = max(icons, currentIcons)
         }
-        width = CGFloat(buttons * 44 + icons * 16)
+        width = CGFloat(buttons * 44 + icons * 20)
         return (width, self.isEditing)
     }
     
