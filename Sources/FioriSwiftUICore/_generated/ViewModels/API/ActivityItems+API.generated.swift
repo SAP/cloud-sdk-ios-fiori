@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -10,6 +10,7 @@ public struct ActivityItems {
 	
     public init(model: ActivityItemsModel) {
         self.init(actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
+
     }
 
     public init(actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {

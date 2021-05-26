@@ -1,19 +1,18 @@
 import FioriSwiftUICore
 import SwiftUI
 
-class WelcomeScreenDataModel: WelcomeScreenModel {
+class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
+    @Published var textInputValue_: String = ""
     var title_: String = "SAP Project Companion for Managers"
     var descriptionText_: String? = "Please follow the instructions you received in the welcome email to start the activation process."
-    var textFilled_: Binding<String>?
     var actionText_: String? = "Start"
     var subtitle_: String? = "abc@def.com"
     var footnote_: String? = "Want to explore?"
     var icon_: Image? = Image("SAPLogo")
     var secondaryActionText_: String? = "Try Demo"
-    var userInput: String = ""
     
     func didSelectAction() {
-        print("WelcomeScreen Primary button clicked: ", self.userInput)
+        print("WelcomeScreen Primary button clicked: ", self.textInputValue_)
     }
     
     func didSelectSecondaryAction() {
@@ -23,27 +22,23 @@ class WelcomeScreenDataModel: WelcomeScreenModel {
     func onCommit() {
         print("TextField commit")
     }
-    
-    func updateValue(value: String) {
-        self.userInput = value
-    }
 }
 
 struct WelcomeScreenSample: View {
-    private var model = WelcomeScreenDataModel()
+    @ObservedObject var model = WelcomeScreenDataModel()
     public init() {}
     
     var body: some View {
         VStack {
             WelcomeScreen(model: model)
                 .subtitleModifier { $0.hidden() }
-                .textFilledModifier { $0.hidden() }
+                .textInputValueModifier { $0.hidden() }
         }
     }
 }
 
 struct WelcomeScreenCustomized: View {
-    private var model = WelcomeScreenDataModel()
+    @ObservedObject var model = WelcomeScreenDataModel()
     public init() {}
     
     var body: some View {
@@ -51,34 +46,26 @@ struct WelcomeScreenCustomized: View {
             WelcomeScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .subtitleModifier { $0.hidden() }
-                .textFilledModifier { $0.hidden() }
+                .textInputValueModifier { $0.hidden() }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }
         }
     }
 }
 
 struct WelcomeScreenDiscoveryService: View {
-    @State var userInput: String = ""
-    private var model = WelcomeScreenDataModel()
+    @ObservedObject var model = WelcomeScreenDataModel()
     public init() {}
     
     var body: some View {
-        let binding = Binding(
-            get: { self.userInput },
-            set: {
-                self.userInput = $0
-                model.updateValue(value: $0)
-            }
-        )
         VStack {
-            WelcomeScreen(title: model.title_, descriptionText: model.descriptionText_, textFilled: binding, actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+            WelcomeScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
                 .subtitleModifier { $0.hidden() }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
-                        .disabled(userInput.isEmpty)
+                        .disabled(model.textInputValue_.isEmpty)
                 }
-                .textFilledModifier { $0.disableAutocorrection(true) }
+                .textInputValueModifier { $0.disableAutocorrection(true) }
         }
     }
 }

@@ -153,7 +153,10 @@ public protocol SecondaryActionComponent {
 }
 
 // sourcery: backingComponent=TextInput
-public protocol TextInputComponent {
-    var textFilled_: Binding<String>? { get }
+public protocol TextInputComponent : ObservableObject {
+	// sourcery: gettableAndSettable
+	// sourcery: internalDataType=Binding<String>
+	// sourcery: wrappedDataType=String
+    var textInputValue_: String { get set }
 	func onCommit() -> Void
 }

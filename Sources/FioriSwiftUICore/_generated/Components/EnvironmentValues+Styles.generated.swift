@@ -1349,14 +1349,14 @@ public extension View {
 
 
 	extension EnvironmentValues {
-		public var textFilledStyle: TextStyle {
-			get { return self[TextFilledStyleKey.self] }
-			set { self[TextFilledStyleKey.self] = newValue }
+		public var textInputValueStyle: TextStyle {
+			get { return self[TextInputValueStyleKey.self] }
+			set { self[TextInputValueStyleKey.self] = newValue }
 		}
 
-		public var textFilledModifier: AnyViewModifier {
-			get { return self[TextFilledModifierKey.self] }
-			set { self[TextFilledModifierKey.self] = newValue }
+		public var textInputValueModifier: AnyViewModifier {
+			get { return self[TextInputValueModifierKey.self] }
+			set { self[TextInputValueModifierKey.self] = newValue }
 		}
 
 	}
@@ -1364,25 +1364,25 @@ public extension View {
 	public extension View {
 
 		@ViewBuilder
-		func textFilledStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+		func textInputValueStyle(_ style: TextStyle, concat: Bool = true) -> some View {
 			if concat {
-				transformEnvironment(\.textFilledStyle) { $0 = $0.merging(style) }
+				transformEnvironment(\.textInputValueStyle) { $0 = $0.merging(style) }
 			} else {
-				environment(\.textFilledStyle, style)
+				environment(\.textInputValueStyle, style)
 			}
 		}
 
 		@ViewBuilder
-		func textFilledModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-			self.environment(\.textFilledModifier, AnyViewModifier(transform))
+		func textInputValueModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.textInputValueModifier, AnyViewModifier(transform))
 		}
 
-		func textFilledStyleClass(_ class: String, concat: Bool = true) -> some View {
-			self.textFilledStyleClass([`class`], concat: concat)
+		func textInputValueStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.textInputValueStyleClass([`class`], concat: concat)
 		}
 
-		func textFilledStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
-			return transformEnvironment(\.textFilledModifier) {
+		func textInputValueStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.textInputValueModifier) {
 				switch StyleCache.shared.resolveModifier(for: classPath) {
 					case .success(let resolved):
 						if concat {

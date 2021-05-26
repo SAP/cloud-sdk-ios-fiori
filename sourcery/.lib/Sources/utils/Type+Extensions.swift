@@ -344,4 +344,25 @@ extension Type {
         guard let content = resolvedAnnotations("availableAttributeContent").first else { return nil }
         return "@available(\(content))"
     }
+
+    var isObservableObjectConform: Bool {
+        let context = ProcessInfo().context!
+        let contextType = context.type
+
+        if inheritedTypes.contains("ObservableObject") {
+            return true
+        } else if inheritedTypes.count > 0 {
+            let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
+            let results = inheritedTypeDefs.map { aType in
+                aType.isObservableObjectConform
+            }
+            if results.contains(true) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
 }

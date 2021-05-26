@@ -26,7 +26,7 @@ extension Fiori {
             }
         }
         
-        struct TextFilled: ViewModifier {
+        struct TextInputValue: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -37,7 +37,7 @@ extension Fiori {
             }
         }
 
-        typealias TextFilledCumulative = EmptyModifier
+        typealias TextInputValueCumulative = EmptyModifier
         
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
@@ -88,7 +88,7 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textFilled = TextFilled()
+        static let textInputValue = TextInputValue()
         static let actionText = ActionText()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
@@ -96,7 +96,7 @@ extension Fiori {
         static let icon = Icon()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
-        static let textFilledCumulative = TextFilledCumulative()
+        static let textInputValueCumulative = TextInputValueCumulative()
         static let actionTextCumulative = ActionTextCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let footnoteCumulative = FootnoteCumulative()
@@ -114,7 +114,7 @@ extension WelcomeScreen: View {
             descriptionText
                 .padding(.bottom, 56)
             
-            textFilled
+            textInputValue
                 .padding(.bottom, 30)
             
             actionText
@@ -132,11 +132,5 @@ extension WelcomeScreen: View {
         }
         .padding(.leading, 32)
         .padding(.trailing, 32)
-    }
-}
-
-struct WelcomeScreen_preview: PreviewProvider {
-    static var previews: some View {
-        WelcomeScreen(title: "SAP Project Companion for Managers", descriptionText: "Please follow the instructions you received in the welcome email to start the activation process.", actionText: "Start", subtitle: "abc@def.com", footnote: "Want to explore?", secondaryActionText: "Try Demo", icon: Image("SAPLogo"))
     }
 }

@@ -21,8 +21,8 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-		typealias TextFilled = EmptyModifier
-        typealias TextFilledCumulative = EmptyModifier
+		typealias TextInputValue = EmptyModifier
+        typealias TextInputValueCumulative = EmptyModifier
 		typealias ActionText = EmptyModifier
         typealias ActionTextCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
@@ -48,7 +48,7 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let textFilled = TextFilled()
+		static let textInputValue = TextInputValue()
 		static let actionText = ActionText()
 		static let subtitle = Subtitle()
 		static let footnote = Footnote()
@@ -56,7 +56,7 @@ extension Fiori {
 		static let icon = Icon()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let textFilledCumulative = TextFilledCumulative()
+		static let textInputValueCumulative = TextInputValueCumulative()
 		static let actionTextCumulative = ActionTextCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()

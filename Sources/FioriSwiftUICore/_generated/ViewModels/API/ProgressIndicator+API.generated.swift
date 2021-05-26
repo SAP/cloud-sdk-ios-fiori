@@ -9,6 +9,7 @@ public struct ProgressIndicator {
 	
     public init(model: ProgressIndicatorModel) {
         self.init(progressIndicatorText: model.progressIndicatorText_)
+
     }
 
     public init(progressIndicatorText: String? = nil) {
