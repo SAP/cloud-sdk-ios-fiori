@@ -29,18 +29,11 @@ struct TrailingAccessoryView: View {
                     }
                     .frame(width: 44 * self.layoutManager.scaleX, height: _height, alignment: .center)
                     .padding(.trailing, 44 * self.layoutManager.scaleX)
-//                    .foregroundColor(Tablel)
                     .background(self.backgroundColor)
                     .edgesIgnoringSafeArea(.trailing)
                 default:
                     AnyView(EmptyView())
                 }
-            } else {
-                Rectangle()
-                    .fill(self.backgroundColor)
-                    .frame(width: 44 * self.layoutManager.scaleX, height: _height, alignment: .center)
-                    .padding(.trailing, 44 * self.layoutManager.scaleX)
-                    .edgesIgnoringSafeArea(.trailing)
             }
         }
     }
