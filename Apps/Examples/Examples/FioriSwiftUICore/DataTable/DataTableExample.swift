@@ -6,13 +6,14 @@ public enum TestRowData {
     static func generateRowData(count: Int, for row: Int) -> TableRowItem {
         var data: [DataItem] = []
         for i in 0 ..< count {
-            let textItem = DataTextItem("\(row), \(i)")
-            let imageItem = DataImageItem(Image(systemName: "checkmark.circle.fill"))
+            let textString = i % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
+            let textItem = DataTextItem(textString)
+            let imageItem = DataImageItem(Image("wheel"))
             data.append(i == 0 ? imageItem : textItem)
         }
         let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
-        let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "chevron.forward"), title: "", action: {
+        let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "cart.badge.plus"), title: "", action: {
             print("trailing accessory tapped: \(row) tapped")
         }))
         
@@ -24,7 +25,7 @@ public enum TestRowData {
     static func generateNewRow(column: Int) -> TableRowItem {
         var data: [DataItem] = []
         for _ in 0 ..< column {
-            let textItem = DataTextItem("new item new item new item", lineLimit: 2)
+            let textItem = DataTextItem("New item was added", lineLimit: 2)
             data.append(textItem)
         }
         return TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: data)
@@ -33,9 +34,7 @@ public enum TestRowData {
     static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
         var output: [ColumnAttribute] = []
         for i in 0 ..< column {
-            let alignment: TextAlignment = i % 2 == 0 ? .leading : .trailing
-            let width: ColumnAttribute.Width = i % 2 == 0 ? .flexible : .fixed(80)
-            let att = ColumnAttribute(textAlignment: alignment, width: width)
+            let att = ColumnAttribute(textAlignment: .leading, width: .flexible)
             output.append(att)
         }
         return output
@@ -45,7 +44,7 @@ public enum TestRowData {
         var res: [TableRowItem] = []
         var titles: [DataTextItem] = []
         for k in 0 ..< column {
-            let title = k == 0 ? "" : "Long Header Title: \(k)"
+            let title = k == 0 ? "" : (k % 2 != 0 ? "Pellentesque risus elit" : "Vivamus et enim eu nisi gravida semper")
             titles.append(DataTextItem(title))
         }
         for i in 0 ..< row {

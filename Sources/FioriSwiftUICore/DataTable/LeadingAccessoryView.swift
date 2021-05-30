@@ -46,7 +46,8 @@ struct LeadingAccessoryView: View {
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 12 * self.layoutManager.scaleX, height: 12 * self.layoutManager.scaleY, alignment: .center)
+                        .foregroundColor(TableViewLayout.defaultForegroundColor)
+                        .frame(width: 16 * self.layoutManager.scaleX, height: 16 * self.layoutManager.scaleY, alignment: .center)
                 case .text(let string):
                     Text(string)
                 }
@@ -78,7 +79,7 @@ struct LeadingAccessoryView: View {
             self.selected = self.dataManager.selectedIndexes.contains(self.selectionIndex)
         }
         let selectedImage = self.selectedImage ?? Image(systemName: "checkmark.circle.fill")
-        let deSelectedImage = self.deSelectedImage ?? Image(systemName: "checkmark.circle")
+        let deSelectedImage = self.deSelectedImage ?? Image(systemName: "circle")
         return
             Group {
                 if self.layoutManager.isEditing, !isHeader {
@@ -98,7 +99,7 @@ struct LeadingAccessoryView: View {
                         }
                         
                     }) {
-                        self.selected ? selectedImage : deSelectedImage
+                        self.selected ? AnyView(selectedImage.imageScale(.large)) : AnyView(deSelectedImage.imageScale(.large).foregroundColor(TableViewLayout.defaultForegroundColor))
                     }
                     .frame(width: 44 * self.layoutManager.scaleX, height: 44 * self.layoutManager.scaleY)
                 } else {
