@@ -5,7 +5,8 @@ struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
     @ObservedObject var layoutManager: TableLayoutManager
-    
+    @Environment(\.backgroundColor) var backgroundColor
+
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
     @State var lastCenterPosition: CGPoint? = nil
@@ -133,6 +134,7 @@ struct GridTableView: View {
                     }
                 }
             }
+            .background(self.backgroundColor)
             .gesture(drag)
             .gesture(mag)
     }

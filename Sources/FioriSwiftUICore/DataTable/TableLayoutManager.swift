@@ -3,6 +3,7 @@ import SwiftUI
 
 class TableLayoutManager: ObservableObject {
     @ObservedObject var model: TableModel
+    @Environment(\.backgroundColor) var backgroundColor
     
     var horizontalScrolling: Bool {
         get {

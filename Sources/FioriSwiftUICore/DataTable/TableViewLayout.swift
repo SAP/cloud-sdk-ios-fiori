@@ -12,6 +12,8 @@ enum TableViewLayout {
     
     static let defaultBackgroundColor = Color.preferredColor(.primaryBackground)
     
+    static let defaultForegroundColor = Color.preferredColor(.quarternaryLabel)
+    
     static let lineShadowColor = Color(red: 0, green: 0, blue: 0).opacity(0.15)
     
     static let lineShadowOffset: CGFloat = 0.5
