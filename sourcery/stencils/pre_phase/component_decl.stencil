@@ -10,6 +10,17 @@ NothingStyle
 {% endmacro %}
 
 {% macro StyleType unwrappedTypeName %}{% set tmp %}{% call _StyleType unwrappedTypeName %}{% endset %}{{tmp|removeNewlines}}{% endmacro %}
+
+{% macro GenerateAnnotationString annotations %}
+{% for key,value in annotations %}
+{% if value == 1 %}
+	// sourcery: {{key}}
+{% else %}
+	// sourcery: {{key}}={{value}}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
 // sourcery:file:Component+Protocols.generated.swift
 import SwiftUI
 {% for type in types.implementing._ComponentGenerating %}
@@ -27,8 +38,12 @@ public protocol {{NAME | upperFirstLetter}}Component {
 {% set inheritedTypes %}{% for inheritedType in type.inheritedTypes where inheritedType|!hasPrefix:"_" %}{{ inheritedType }}{% if forloop.last == false %}, {% endif %}{% endfor %}{% endset %}
 {% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
 
-{% for annotationKey, annotationValue in type.annotations %}
-// sourcery: {{ annotationKey }}={{ annotationValue }}
+{% for key,value in type.annotations %}
+{% if value == 1 %}
+// sourcery: {{key}}
+{% else %}
+// sourcery: {{key}}={{value}}
+{% endif %}
 {% endfor %}
 {% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 {% if inheritedTypes %}
@@ -40,6 +55,7 @@ public protocol {{NAME | upperFirstLetter}}Component {
 {% include "partials/comp_decl_pvar.stencil" %}
 {% endfor %}
 {% for method in type.methods where method %}
+	{% call GenerateAnnotationString method.annotations %}
 	func {{method.name}} -> {{method.returnTypeName}}
 {% endfor %}
 }

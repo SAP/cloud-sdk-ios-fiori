@@ -97,7 +97,9 @@ public extension Array where Element == Variable {
 
     var dataTypePropertyDecls: [String] {
         map {
-            if $0.isOptional {
+            if $0.annotations["bindingProperty"] != nil || $0.annotations["bindingPropertyOptional"] != nil {
+                return "var _\($0.trimmedName): Binding<\($0.typeName.name)>"
+            } else if $0.isOptional {
                 return "var _\($0.trimmedName): \($0.computedInternalTypeName) = nil"
             } else {
                 return "var _\($0.trimmedName): \($0.computedInternalTypeName)"
@@ -212,7 +214,13 @@ public extension Array where Element: Variable {
     }
 
     var extensionModelInitParamsDataTypeAssignments: [String] {
-        map { "self._\($0.trimmedName) = \($0.trimmedName)" }
+        map {
+            if let defaultValue = $0.annotations["bindingPropertyOptional"] as? String {
+                return "self._\($0.trimmedName) = \($0.trimmedName) ?? \(defaultValue)"
+            } else {
+                return "self._\($0.trimmedName) = \($0.trimmedName)"
+            }
+        }
     }
 }
 
@@ -249,7 +257,7 @@ extension Array where Element: Variable {
     }
 
     public var extensionConstrainedWhereConditionalContent: String {
-        map { "\($0.trimmedName.capitalizingFirst()) == \(($0.isOptional || $0.annotations.keys.contains("internalDataType")) ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)" }.joined(separator: ",\n\t\t")
+        map { "\($0.trimmedName.capitalizingFirst()) == \(($0.isOptional || $0.annotations.keys.contains("bindingPropertyOptional")) ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)" }.joined(separator: ",\n\t\t")
     }
 
     public var extensionModelInitParams: [String] {
@@ -258,8 +266,8 @@ extension Array where Element: Variable {
 
     public var extensionModelInitParamsChaining: [String] {
         map {
-            if $0.annotations.keys.contains("internalDataType") == true {
-                return "\($0.trimmedName): \($0.annotations["internalDataType"] as! String)(get: { model.\($0.name) }, set: { model.\($0.name) = $0 })"
+            if $0.annotations.keys.contains("bindingProperty") || $0.annotations.keys.contains("bindingPropertyOptional") {
+                return "\($0.trimmedName): Binding<\($0.typeName.name)>(get: { model.\($0.name) }, set: { model.\($0.name) = $0 })"
             } else {
                 return "\($0.trimmedName): model.\($0.name)"
             }

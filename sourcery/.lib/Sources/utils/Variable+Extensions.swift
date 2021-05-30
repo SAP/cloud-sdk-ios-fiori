@@ -26,7 +26,7 @@ public extension Variable {
     }
 
     var conditionalAssignment: String {
-        if isOptional {
+        if isOptional || annotations["bindingPropertyOptional"] != nil {
             return "\(self.trimmedName) != nil ? ViewBuilder.buildEither(first: \(self.toSwiftUI)) : ViewBuilder.buildEither(second: EmptyView())"
         } else {
             return self.toSwiftUI
@@ -54,7 +54,7 @@ public extension Variable {
     }
 
     var emptyDefault: String {
-        if isOptional {
+        if isOptional || annotations["bindingPropertyOptional"] != nil {
             return " = nil"
         } else if typeName.isArray {
             return " = []"
@@ -118,6 +118,12 @@ public extension Variable {
     }
 
     var computedInternalTypeName: String {
-        annotations["internalDataType"] as? String ?? self.typeName.name
+        if annotations["bindingProperty"] != nil {
+            return "Binding<\(self.typeName.name)>"
+        } else if annotations["bindingPropertyOptional"] != nil {
+            return "Binding<\(self.typeName.name)>?"
+        } else {
+            return self.typeName.name
+        }
     }
 }
