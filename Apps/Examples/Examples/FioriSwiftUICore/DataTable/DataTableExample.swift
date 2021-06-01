@@ -66,6 +66,7 @@ public enum TestRowData {
 public struct DataTableExample: View {
     var model: TableModel = TestRowData.generateData(row: 30, column: 12)
     @State var isEditing: Bool = false
+    @State private var showingSheet = false
     
     public init() {}
     
@@ -80,11 +81,14 @@ public struct DataTableExample: View {
                 view
                     .navigationBarTitle("Data Table", displayMode: .inline)
                     .navigationBarItems(leading:
-                        Button("Add a row") {
-                            DispatchQueue.main.async {
-                                self.model.rowData.insert(TestRowData.generateNewRow(column: 12), at: 0)
-                            }
-                        }, trailing:
+                        Button(action: {
+                            showingSheet.toggle()
+                        }) {
+                            Image(systemName: "plus")
+                        }.sheet(isPresented: $showingSheet) {
+                            SheetView(model: self.model)
+                        },
+                        trailing:
                         Button(self.isEditing ? "Delete" : "Edit") {
                             DispatchQueue.main.async {
                                 self.isEditing = !self.isEditing
@@ -98,5 +102,42 @@ public struct DataTableExample: View {
                         })
             }
             .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+struct SheetView: View {
+    @Environment(\.presentationMode) var presentationMode
+    
+    var model: TableModel!
+    
+    init(model: TableModel) {
+        self.model = model
+    }
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(0 ..< 12) { i in
+                    Text("New column: \(i)")
+                }
+            }
+            .navigationBarTitle(Text("Add some new data"), displayMode: .inline)
+            .navigationBarItems(trailing: Button(action: {
+                self.model.rowData.insert(generateNewRow(column: 12), at: 0)
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Done").bold()
+            })
+        }
+    }
+    
+    func generateNewRow(column: Int) -> TableRowItem {
+        var data: [DataItem] = []
+        for i in 0 ..< column {
+            let textItem = DataTextItem("New column: \(i)", lineLimit: 2)
+            data.append(textItem)
+        }
+        let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "square.and.arrow.up"), title: "", action: {}))
+        return TableRowItem(leadingAccessories: [], trailingAccessory: tAccessory, data: data)
     }
 }
