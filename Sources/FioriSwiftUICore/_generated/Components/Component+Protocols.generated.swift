@@ -126,6 +126,7 @@ public protocol UpperBoundTitleComponent {
 // sourcery: backingComponent=Action
 public protocol ActionComponent {
     var actionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectAction() -> Void
 }
 
@@ -133,6 +134,7 @@ public protocol ActionComponent {
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
+    // sourcery: no_nil_check
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 
@@ -149,14 +151,14 @@ public protocol ProgressIndicatorComponent {
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
     var secondaryActionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectSecondaryAction() -> Void
 }
 
 // sourcery: backingComponent=TextInput
 public protocol TextInputComponent : ObservableObject {
-	// sourcery: gettableAndSettable
-	// sourcery: internalDataType=Binding<String>
-	// sourcery: wrappedDataType=String
+	// sourcery: bindingPropertyOptional=.constant("")
     var textInputValue_: String { get set }
+    // sourcery: no_nil_check
 	func onCommit() -> Void
 }

@@ -13,8 +13,8 @@ public struct TextInput {
 
     }
 
-    public init(textInputValue: Binding<String>, onCommit: (() -> Void)? = nil) {
-        self._textInputValue = textInputValue
+    public init(textInputValue: Binding<String>? = nil, onCommit: (() -> Void)? = nil) {
+        self._textInputValue = textInputValue ?? .constant("")
 		self._onCommit = onCommit
     }
 }

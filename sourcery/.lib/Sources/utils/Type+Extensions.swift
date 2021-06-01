@@ -189,7 +189,7 @@ public extension Type {
             let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
             let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
 
-            var convertionAnnotations: [String: NSObject] = [:]
+            var convertionAnnotations = method.annotations
             convertionAnnotations["originalMethod"] = method
 
             let v = Variable(name: name, typeName: typeName, type: Type(), accessLevel: (read: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!, write: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!), isComputed: true, isStatic: method.isStatic, defaultValue: nil, attributes: [:], annotations: convertionAnnotations, definedInTypeName: method.definedInTypeName)
@@ -207,7 +207,7 @@ public extension Type {
             let parameterListAsString: String = method.parameters.map { "\($0.typeName)" }.joined(separator: ",")
             let typeName = TypeName("((\(parameterListAsString)) -> \(method.returnTypeName))?")
 
-            var convertionAnnotations: [String: NSObject] = [:]
+            var convertionAnnotations = method.annotations
             convertionAnnotations["originalMethod"] = method
 
             return Variable(name: name, typeName: typeName, type: Type(), accessLevel: (read: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!, write: SourceryRuntime.AccessLevel(rawValue: method.accessLevel)!), isComputed: true, isStatic: method.isStatic, defaultValue: nil, attributes: [:], annotations: convertionAnnotations, definedInTypeName: method.definedInTypeName)
@@ -280,11 +280,16 @@ extension Type {
         for (idx, componentType) in componentTypesWhichWillBeBacked.enumerated() {
             guard let name = componentType.variables.first else { continue }
 
-            let regularPropertyNames = componentType.variables.map { $0.trimmedName }
-            let closurePropertyNames = componentType.closureProperties.map { $0.trimmedName }
-            let propertyNames = regularPropertyNames + closurePropertyNames
+            let regularProperties = componentType.variables
+            let closureProperties = componentType.closureProperties
+            let properties = regularProperties + closureProperties
+            let propertyNames = properties.map { $0.trimmedName }
+            let nilCheckPropertyNames = properties.compactMap {
+                ($0.isOptional || $0.annotations["bindingPropertyOptional"] != nil) && $0.annotations["no_nil_check"] == nil ?
+                    $0.trimmedName : nil
+            }
 
-            let statement = ViewModelIntParamAssignmentOfViewModel(targetPropertyName: name.trimmedName, instantiatableModelName: viewModelsWhichWillBeBacked[idx].name, instantiatableViewName: backingViewNames[idx], initParameterNames: propertyNames, initParameterValues: propertyNames)
+            let statement = ViewModelIntParamAssignmentOfViewModel(targetPropertyName: name.trimmedName, instantiatableModelName: viewModelsWhichWillBeBacked[idx].name, instantiatableViewName: backingViewNames[idx], initParameterNames: propertyNames, initParameterValues: propertyNames, nilCheckParameterNames: nilCheckPropertyNames)
             statements.append(statement.text)
         }
 
@@ -298,6 +303,7 @@ private struct ViewModelIntParamAssignmentOfViewModel {
     var instantiatableViewName: String
     var initParameterNames: [String]
     var initParameterValues: [String]
+    var nilCheckParameterNames: [String]
 
     var initParameters: String {
         var targets: [String] = []
@@ -309,7 +315,7 @@ private struct ViewModelIntParamAssignmentOfViewModel {
 
     var methodArgumentsNilCheck: String {
         var targets: [String] = []
-        for param in self.initParameterValues {
+        for param in self.nilCheckParameterNames {
             targets.append("\(param) != nil")
         }
         return targets.joined(separator: " || ")
@@ -319,7 +325,7 @@ private struct ViewModelIntParamAssignmentOfViewModel {
         """
         // handle \(self.instantiatableModelName)
                 if (\(self.methodArgumentsNilCheck)) {
-                    self._\(self.targetPropertyName) =  ViewBuilder.buildEither(first: \(self.instantiatableViewName)(\(self.initParameters)))
+                    self._\(self.targetPropertyName) = ViewBuilder.buildEither(first: \(self.instantiatableViewName)(\(self.initParameters)))
                 } else {
                     self._\(self.targetPropertyName) = ViewBuilder.buildEither(second: EmptyView())
                 }

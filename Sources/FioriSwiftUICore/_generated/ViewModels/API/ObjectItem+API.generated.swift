@@ -175,8 +175,8 @@ extension ObjectItem where Title == Text,
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._icons = icons != nil ? ViewBuilder.buildEither(first: IconStack(icons: icons)) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActionModel
-        if (actionText != nil || didSelectAction != nil) {
-            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
+        if (actionText != nil) {
+            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
         } else {
             self._actionText = ViewBuilder.buildEither(second: EmptyView())
         }

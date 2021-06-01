@@ -146,27 +146,27 @@ extension WelcomeScreen where Title == Text,
         self.init(title: model.title_, descriptionText: model.descriptionText_, textInputValue: Binding<String>(get: { model.textInputValue_ }, set: { model.textInputValue_ = $0 }), actionText: model.actionText_, subtitle: model.subtitle_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, icon: model.icon_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
     }
 
-    public init(title: String, descriptionText: String? = nil, textInputValue: Binding<String>, actionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, onCommit: (() -> Void)? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, textInputValue: Binding<String>? = nil, actionText: String? = nil, subtitle: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, icon: Image? = nil, onCommit: (() -> Void)? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._icon = icon != nil ? ViewBuilder.buildEither(first: icon!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle TextInputModel
-        if (textInputValue != nil || onCommit != nil) {
-            self._textInputValue =  ViewBuilder.buildEither(first: TextInput(textInputValue: textInputValue,onCommit: onCommit))
+        if (textInputValue != nil) {
+            self._textInputValue = ViewBuilder.buildEither(first: TextInput(textInputValue: textInputValue,onCommit: onCommit))
         } else {
             self._textInputValue = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle ActionModel
-        if (actionText != nil || didSelectAction != nil) {
-            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
+        if (actionText != nil) {
+            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
         } else {
             self._actionText = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle SecondaryActionModel
-        if (secondaryActionText != nil || didSelectSecondaryAction != nil) {
-            self._secondaryActionText =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
+        if (secondaryActionText != nil) {
+            self._secondaryActionText = ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
         } else {
             self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
         }
