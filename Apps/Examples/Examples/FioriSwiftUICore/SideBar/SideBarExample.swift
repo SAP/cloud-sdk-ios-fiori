@@ -125,7 +125,8 @@ public struct SideBarView: View {
                                          destination: { item in
                                              DevDetailView(title: item.title)
                                          }))
-        }.background(Color.preferredColor(.header))
+        }
+        .background(Color.preferredColor(.header))
     }
 }
 

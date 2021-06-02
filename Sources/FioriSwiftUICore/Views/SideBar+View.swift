@@ -117,7 +117,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                 @ViewBuilder rowContent: @escaping (Data.Element) -> Row,
                 @ViewBuilder destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
-        let selectedItem = ListSelectedItem<Data>()
+        let selectedItem = _ListSelectedItem<Data>()
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
                 ForEach(data) { item in
@@ -231,10 +231,10 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
 @available(iOS 14, *)
 public extension ExpandableList where Destination == EmptyView {
     /// :nodoc:
-    /// Internal used by SDK for UIKit functionality only. NOT intended to used by developer.
+    /// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
-         selectedItem: ListSelectedItem<Data>,
+         selectedItem: _ListSelectedItem<Data>,
          @ViewBuilder rowContent: @escaping (Data.Element) -> Row)
     {
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
@@ -304,8 +304,8 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
 }
 
 /// :nodoc:
-/// Internal used by SDK for UIKit functionality only. NOT intended to used by developer.
-public class ListSelectedItem<Data>: ObservableObject where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable {
+/// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
+public class _ListSelectedItem<Data>: ObservableObject where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable {
     @Published public var value: Data.Element?
     public init(_ value: Data.Element? = nil) {
         self.value = value
@@ -316,7 +316,7 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
     var item: Data.Element?
     var rowContent: Row
     var selectionBinding: Binding<Data.Element?>
-    @ObservedObject var selectedItem: ListSelectedItem<Data>
+    @ObservedObject var selectedItem: _ListSelectedItem<Data>
     var isInitWithBinding: Bool
     
     var body: some View {
