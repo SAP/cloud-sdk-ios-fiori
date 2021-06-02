@@ -28,7 +28,6 @@ extension SideBar: View {
             subtitle
                 .frame(maxHeight: 34)
             detail
-                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 .clipped()
             footer
                 .frame(maxHeight: 77)
@@ -103,14 +102,6 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
 /// Defines an expandable list which supports multi-level hierarchy with the ability to select a single item.
 @available(iOS 14, *)
 public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Row: View, Destination: View {
-    let data: Data
-    
-    let children: KeyPath<Data.Element, Data?>
-    
-    @Binding var selectedItem: Data.Element?
-    
-    @ObservedObject var __selectedItem = ListSelectedItem<Data>()
-    
     var contentView: AnyView!
     
     /// Creates an expandable list from a collection of data which supports multi-level hierarchy with the ability to select a single item.
@@ -126,12 +117,10 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                 @ViewBuilder rowContent: @escaping (Data.Element) -> Row,
                 @ViewBuilder destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
-        self.data = data
-        self.children = children
-        self._selectedItem = selection
+        let selectedItem = ListSelectedItem<Data>()
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
-                ForEach(data) { [__selectedItem] item in
+                ForEach(data) { item in
                     if let _children = children, let childElements = item[keyPath: _children] {
                         ExpandableSection(list: {
                             ExpandableList(data: childElements,
@@ -143,14 +132,16 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection,
-                                                           selectedItem: __selectedItem)
+                                                           selectedItem: selectedItem,
+                                                           isInitWithBinding: true)
                         })
                     } else {
                         if item == selection.wrappedValue {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection,
-                                                           selectedItem: __selectedItem)
+                                                           selectedItem: selectedItem,
+                                                           isInitWithBinding: true)
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -160,7 +151,8 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection,
-                                                           selectedItem: __selectedItem)
+                                                           selectedItem: selectedItem,
+                                                           isInitWithBinding: true)
                         }
                     }
                 }
@@ -188,9 +180,6 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
          rowModel: @escaping (Data.Element) -> SideBarListItemModel,
          destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
-        self.data = data
-        self.children = children
-        self._selectedItem = selection
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
                 ForEach(data) { item in
@@ -241,32 +230,21 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
 
 @available(iOS 14, *)
 public extension ExpandableList where Destination == EmptyView {
-    /// Creates an expandable list from a collection of data which supports multi-level hierarchy with the ability to select a single item.
-    /// - Parameters:
-    ///   - data: The data for constructing the list.
-    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
-    ///   - selectionBinding: A binding to the selected data element.
-    ///   - selectedItem: (Internal) An observable object used to wrap the selected data element.
-    ///   - rowModel: A closure which returns the content model of each row in an expandable list.
+    /// :nodoc:
+    /// Internal used by SDK for UIKit functionality only. NOT intended to used by developer.
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
-         selectionBinding: Binding<Data.Element?>,
-         _selectedItem: ListSelectedItem<Data>,
+         selectedItem: ListSelectedItem<Data>,
          @ViewBuilder rowContent: @escaping (Data.Element) -> Row)
     {
-        self.data = data
-        self.children = children
-        self._selectedItem = selectionBinding
-        self.__selectedItem = _selectedItem
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
-            LazyVStack(spacing: 0) { [__selectedItem] in
+            LazyVStack(spacing: 0) {
                 ForEach(data) { item in
                     if let _children = children, let childElements = item[keyPath: _children] {
                         ExpandableSection(list: {
                             ExpandableList(data: childElements,
                                            children: children,
-                                           selectionBinding: selectionBinding,
-                                           _selectedItem: __selectedItem,
+                                           selectedItem: selectedItem,
                                            rowContent: rowContent)
                         }, header: {
                             rowContent(item)
@@ -274,8 +252,9 @@ public extension ExpandableList where Destination == EmptyView {
                     } else {
                         RowContentContainer<Data, Row>(item: item,
                                                        rowContent: rowContent(item),
-                                                       selectionBinding: selectionBinding,
-                                                       selectedItem: __selectedItem)
+                                                       selectionBinding: Binding.constant(nil),
+                                                       selectedItem: selectedItem,
+                                                       isInitWithBinding: false)
                     }
                 }
             }
@@ -324,6 +303,8 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
     }
 }
 
+/// :nodoc:
+/// Internal used by SDK for UIKit functionality only. NOT intended to used by developer.
 public class ListSelectedItem<Data>: ObservableObject where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable {
     @Published public var value: Data.Element?
     public init(_ value: Data.Element? = nil) {
@@ -336,9 +317,10 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
     var rowContent: Row
     var selectionBinding: Binding<Data.Element?>
     @ObservedObject var selectedItem: ListSelectedItem<Data>
+    var isInitWithBinding: Bool
     
     var body: some View {
-        if item == selectedItem.value || item == selectionBinding.wrappedValue {
+        if isInitWithBinding ? item == selectionBinding.wrappedValue : item == selectedItem.value {
             rowContent
                 .modifier(ListItemBackgroundSelectionStyle())
                 .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
@@ -347,12 +329,14 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
                 .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    selectedItem.value = item
                     selectionBinding.wrappedValue = item
                 }
         } else {
             rowContent
                 .contentShape(Rectangle())
                 .onTapGesture {
+                    selectedItem.value = item
                     selectionBinding.wrappedValue = item
                 }
         }
