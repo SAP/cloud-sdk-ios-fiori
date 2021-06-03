@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -137,6 +137,7 @@ public protocol UpperBoundTitleComponent {
 // sourcery: backingComponent=Action
 public protocol ActionComponent {
     var actionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectAction() -> Void
 }
 
@@ -144,6 +145,7 @@ public protocol ActionComponent {
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
+    // sourcery: no_nil_check
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 
@@ -160,11 +162,14 @@ public protocol ProgressIndicatorComponent {
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
     var secondaryActionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectSecondaryAction() -> Void
 }
 
 // sourcery: backingComponent=TextInput
-public protocol TextInputComponent {
-    var textFilled_: Binding<String>? { get }
+public protocol TextInputComponent : ObservableObject {
+	// sourcery: bindingPropertyOptional=.constant("")
+    var textInputValue_: String { get set }
+    // sourcery: no_nil_check
 	func onCommit() -> Void
 }

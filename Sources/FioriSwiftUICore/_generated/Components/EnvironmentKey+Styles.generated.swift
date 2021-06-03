@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -547,18 +547,18 @@ struct UpperBoundTitleStyleClassModifierKey: EnvironmentKey {
 	}
 
 
-	struct TextFilledStyleKey: EnvironmentKey {
+	struct TextInputValueStyleKey: EnvironmentKey {
 		public static let defaultValue: TextStyle = TextStyle()
 	}
 
-	struct TextFilledModifierKey: EnvironmentKey {
+	struct TextInputValueModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
 
-	struct TextFilledStyleClassPathKey: EnvironmentKey {
+	struct TextInputValueStyleClassPathKey: EnvironmentKey {
 		public static let defaultValue: [String] = []
 	}
 
-	struct TextFilledStyleClassModifierKey: EnvironmentKey {
+	struct TextInputValueStyleClassModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
