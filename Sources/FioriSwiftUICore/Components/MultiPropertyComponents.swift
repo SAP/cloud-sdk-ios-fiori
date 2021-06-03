@@ -8,24 +8,29 @@ internal protocol _ComponentMultiPropGenerating {}
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
     // sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
+    // sourcery: no_nil_check
     func didSelectActivityItem(_ activityItem: ActivityItemDataType)
 }
 
 // sourcery: backingComponent=Action
 internal protocol _Action: _ComponentMultiPropGenerating {
     var actionText_: String? { get } // label
+    // sourcery: no_nil_check
     func didSelectAction() // action handler
 }
 
 // sourcery: backingComponent=SecondaryAction
 internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
     var secondaryActionText_: String? { get } // label
+    // sourcery: no_nil_check
     func didSelectSecondaryAction() // action handler
 }
 
 // sourcery: backingComponent=TextInput
-internal protocol _TextInput: _ComponentMultiPropGenerating {
-    var textFilled_: Binding<String>? { get }
+internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+    // sourcery: bindingPropertyOptional = .constant("")
+    var textInputValue_: String { get set }
+    // sourcery: no_nil_check
     func onCommit() // action handler
 }
 
