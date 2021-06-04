@@ -8,7 +8,7 @@ extension Fiori {
                     .lineLimit(1)
                     .font(.system(size: 17))
                     .truncationMode(.tail)
-                    .foregroundColor(.white)
+                    .foregroundColor(.preferredColor(.primaryLabel, display: .contrast))
             }
         }
         
