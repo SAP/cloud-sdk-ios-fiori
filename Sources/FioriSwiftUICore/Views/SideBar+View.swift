@@ -6,11 +6,12 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
+                    .frame(alignment: .leading)
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
                     .lineLimit(1)
-                    .font(.system(size: 32))
+                    .font(.system(size: 24))
                     .truncationMode(.tail)
-                    .background(Color.preferredColor(.header))
-                    .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
         
@@ -26,11 +27,13 @@ extension SideBar: View {
     public var body: some View {
         VStack(spacing: 0) {
             subtitle
-                .frame(maxHeight: 34)
+                .frame(height: 34)
             detail
+                .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))
                 .clipped()
             footer
                 .frame(maxHeight: 77)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
@@ -134,7 +137,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                                                            selectionBinding: selection,
                                                            selectedItem: selectedItem,
                                                            isInitWithBinding: true)
-                        })
+                        }, isModelInit: false)
                     } else {
                         if item == selection.wrappedValue {
                             RowContentContainer<Data, Row>(item: item,
@@ -196,7 +199,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                 .font(.system(size: 17.0))
                                 .truncationMode(.tail)
                                 .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
-                        })
+                        }, isModelInit: true)
                     } else {
                         if item == selection.wrappedValue {
                             SideBarListItem(model: rowModel(item))
@@ -248,7 +251,9 @@ public extension ExpandableList where Destination == EmptyView {
                                            rowContent: rowContent)
                         }, header: {
                             rowContent(item)
-                        })
+                                .titleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, display: .contrast)) }
+                                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, display: .contrast)) }
+                        }, isModelInit: false)
                     } else {
                         RowContentContainer<Data, Row>(item: item,
                                                        rowContent: rowContent(item),
@@ -267,6 +272,7 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
     @State var isExpanded: Bool = true
     var list: () -> ListContent
     var header: () -> Header
+    var isModelInit: Bool
     
     var body: some View {
         VStack(spacing: 0) {
@@ -277,14 +283,15 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
+                    .padding(.trailing, isModelInit ? 0 : 16)
                     .foregroundColor(.preferredColor(.tintColor, display: .contrast))
                     .onTapGesture {
                         isExpanded.toggle()
                     }
-            }.padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+            }.padding(isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             if !isExpanded {
                 Rectangle()
-                    .fill(Color.preferredColor(.line))
+                    .fill(Color.preferredColor(.separator, display: .contrast))
                     .frame(height: 0.5)
             }
         }
@@ -325,8 +332,8 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
                 .modifier(ListItemBackgroundSelectionStyle())
                 .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
                 .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
+                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectedItem.value = item
