@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -119,8 +119,8 @@ extension ContactItem where Title == Text,
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActivityItemsModel
-        if (actionItems != nil || didSelectActivityItem != nil) {
-            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
+        if (actionItems != nil) {
+            self._actionItems = ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
         } else {
             self._actionItems = ViewBuilder.buildEither(second: EmptyView())
         }
