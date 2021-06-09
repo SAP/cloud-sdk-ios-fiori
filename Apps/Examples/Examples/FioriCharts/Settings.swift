@@ -3,6 +3,8 @@ import SwiftUI
 
 struct Settings: View {
     @EnvironmentObject var model: ChartModel
+    @Binding var seriesShapeStyleEnable: Bool
+    @Binding var categoryShapeStyleEnable: Bool
     
     var body: some View {
         let nf = NumberFormatter()
@@ -69,6 +71,11 @@ struct Settings: View {
                         }
                     }
                 }
+                
+                Section(header: Text("ShapeStyle")) {
+                    Toggle("Series ShapeStyle", isOn: $seriesShapeStyleEnable)
+                    Toggle("Category ShapeStyle", isOn: $categoryShapeStyleEnable)
+                }
             }.navigationBarTitle("Configuration")
         }
     }
@@ -83,7 +90,7 @@ extension Int {
 
 struct Settings_Previews: PreviewProvider {
     static var previews: some View {
-        Settings()
+        Settings(seriesShapeStyleEnable: .constant(false), categoryShapeStyleEnable: .constant(false))
             .environmentObject(Tests.stockModels[0])
     }
 }
