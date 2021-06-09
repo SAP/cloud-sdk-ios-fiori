@@ -83,7 +83,7 @@ struct ItemView: View {
                     verticalDivider(offsetX: offsetX)
                 }
             }
-            .background(self.backgroundColor.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .background(self.backgroundColor.frame(width: (((self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin * 2 : 0) + self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
             .gesture(tapGesture)
     }
     
