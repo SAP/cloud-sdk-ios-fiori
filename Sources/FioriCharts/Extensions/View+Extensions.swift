@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-extension View {
+public extension View {
     @ViewBuilder
     func ifApply<Content: View>(_ condition: Bool, content: (Self) -> Content) -> some View {
         if condition {
