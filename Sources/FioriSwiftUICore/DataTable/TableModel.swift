@@ -40,7 +40,7 @@ public class TableModel: ObservableObject {
     @Published public var horizontalScrolling: Bool = true
     
     /// Show list view in iPhone protrait mode.
-    @Published public var showListView: Bool = true
+    @Published public var showListView: Bool = false
     
     /// Column attribute for each column.
     @Published public var columnAttributes: [ColumnAttribute] = []
@@ -76,7 +76,7 @@ public class TableModel: ObservableObject {
                 isFirstColumnSticky: Bool = false,
                 columnAttributes: [ColumnAttribute] = [],
                 isPinchZoomEnable: Bool = false,
-                showListView: Bool = true)
+                showListView: Bool = false)
     {
         self.headerData = headerData
         self.rowData = rowData
