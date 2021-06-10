@@ -75,6 +75,64 @@ class ChartModelTests: XCTestCase {
         XCTAssertEqual(model, modelCopy)
     }
     
+    func testScaleX() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               userInteractionEnabled: true,
+                               selectionEnabled: true,
+                               scaleX: 3.0,
+                               scaleY: 1.0,
+                               scaleXEnabled: true,
+                               numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
+                               secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
+                               indexesOfSecondaryValueAxis: [1])
+        
+        XCTAssertEqual(model.scaleX, 3.0, accuracy: 0.01)
+    }
+    
+    func testScaleY() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               userInteractionEnabled: true,
+                               selectionEnabled: true,
+                               scaleX: 3.0,
+                               scaleY: 2.0,
+                               scaleXEnabled: true,
+                               numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
+                               secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
+                               indexesOfSecondaryValueAxis: [1])
+        
+        XCTAssertEqual(model.scaleY, 2.0, accuracy: 0.01)
+    }
+    
+    func testCenterPosition() throws {
+        let model = ChartModel(chartType: .line,
+                               data: [[200, 170, 165, 143, 166, 112, 110],
+                                      [150, 120, 130, 135, 120, 138, 137]],
+                               titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
+                               userInteractionEnabled: true,
+                               selectionEnabled: true,
+                               centerPosition: CGPoint(x: 0.6, y: 0.7),
+                               scaleX: 4.0,
+                               scaleY: 4.0,
+                               scaleXEnabled: true,
+                               numericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .currency), abbreviatedFormatter: NumberFormatter(style: .currency)),
+                               secondaryNumericAxis: ChartNumericAxisAttributes(baseline: ChartBaselineAttributes(width: 1, dashPatternLength: 1, dashPatternGap: 0, isHidden: true, value: nil, position: nil), formatter: NumberFormatter(style: .percent), abbreviatedFormatter: NumberFormatter(style: .percent)),
+                               indexesOfSecondaryValueAxis: [1])
+        
+        var pos: CGPoint = .zero
+        if let tmpPos = model.centerPosition {
+            pos = tmpPos
+        }
+        
+        XCTAssertEqual(pos.x, 0.6, accuracy: 0.01)
+        XCTAssertEqual(pos.y, 0.7, accuracy: 0.01)
+    }
+    
     func testConstrainedMaxValues() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.

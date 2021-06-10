@@ -455,7 +455,7 @@ extension TableLayoutManager {
             contentWidth -= self.contentInset * 2
             
             let currentItem = dataInEachRow[i]
-            
+            let isLast = i == dataInEachRow.endIndex - 1
             switch currentItem.type {
             case .text:
                 guard let item = currentItem as? DataTextItem else {
@@ -479,7 +479,8 @@ extension TableLayoutManager {
                                          foregroundColor: textColor,
                                          size: size,
                                          textAlignment: textAlignment,
-                                         lineLimit: item.lineLimit))
+                                         lineLimit: item.lineLimit,
+                                         isLast: isLast))
             case .image:
                 guard let item = (currentItem as? DataImageItem) else {
                     break
@@ -490,7 +491,8 @@ extension TableLayoutManager {
                                                       y: CGFloat(index) * unitHeight),
                                          font: nil,
                                          foregroundColor: item.tintColor,
-                                         size: CGSize(width: 45, height: 0)))
+                                         size: CGSize(width: 45, height: 0),
+                                         isLast: isLast))
             }
         }
         

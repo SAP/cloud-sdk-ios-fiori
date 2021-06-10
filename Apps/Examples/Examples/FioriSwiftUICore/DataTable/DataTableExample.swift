@@ -51,7 +51,7 @@ public enum TestRowData {
             res.append(self.generateRowData(count: column, for: i))
         }
         let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
-        let model = TableModel(headerData: header, rowData: res, isHeaderSticky: true, isFirstColumnSticky: true, showListView: true)
+        let model = TableModel(headerData: header, rowData: res, isHeaderSticky: true, isFirstColumnSticky: true, showListView: false)
         model.columnAttributes = self.generateColumnAttributes(column: 12)
         model.didSelectRowAt = { _ in
             print(model.selectedIndexes)
