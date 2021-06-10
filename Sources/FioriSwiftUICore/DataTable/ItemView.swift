@@ -75,6 +75,7 @@ struct ItemView: View {
                             .lineLimit(self.dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
                             .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                            .padding(.trailing, (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin : 0)
                     }
                 }
                 
@@ -83,7 +84,8 @@ struct ItemView: View {
                     verticalDivider(offsetX: offsetX)
                 }
             }
-            .background(self.backgroundColor.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .background(self.backgroundColor.frame(width: (((self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin : 0) + self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .offset(x: (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin / 2 : 0, y: 0)
             .gesture(tapGesture)
     }
     

@@ -539,6 +539,40 @@ class ChartUtility {
         return axisValues.plotMinimum ... axisValues.plotMaximum
     }
     
+    static func requiredWidthToShowXAxisLables(_ model: ChartModel, labels: [AxisTitle]) -> CGFloat {
+        if model.chartType == .stock || (model.categoryAxis.labelLayoutStyle == .range && !model.isBarType()) {
+            return 0
+        }
+        
+        var totalWidth: CGFloat = 0
+        var prevXPos: CGFloat = -100000
+        var prevLabelWidth: CGFloat = 0
+        if labels.isEmpty {
+            return 0
+        }
+        
+        for label in labels {
+            if label.pos.x < 0 {
+                continue
+            }
+            let size: CGSize = label.size
+            
+            // check if the gap btw two adjacent labels is greater than 4pt
+            if label.pos.x < prevXPos + prevLabelWidth / 2.0 + size.width / 2.0 + ChartViewLayout.minSpacingBtwXAxisLabels {
+                totalWidth += 1000000 // self.plotViewSize.width
+            }
+            // min spacing btw labels are 4pt
+            if size.width > 0 {
+                totalWidth += size.width + ChartViewLayout.minSpacingBtwXAxisLabels
+                prevXPos = label.pos.x
+                prevLabelWidth = size.width
+            }
+        }
+        totalWidth -= 4
+        
+        return totalWidth
+    }
+    
     static func lastValidDimIndex(_ model: ChartModel) -> Int {
         model.data[model.currentSeriesIndex].count - 1
     }
