@@ -36,8 +36,6 @@ struct DrawingPad: View {
     @Binding var currentDrawing: Drawing
     @Binding var drawings: [Drawing]
     @Binding var isSave: Bool
-    @Binding var uiImage: UIImage?
-    @Binding var savedSignatureImage: UIImage?
     @Binding var drawingPadSize: CGSize
 
     var onSave: ((SignatureCaptureView.Result) -> Void)?
@@ -76,7 +74,7 @@ struct DrawingPad: View {
                     }
             )
         }
-        if self.isSave && uiImage == nil {
+        if self.isSave {
             let path = createUIBezierPath(drawings: drawings, lineWidth: self.lineWidth)
             guard let originalImage = createImage(path, size: self.drawingPadSize, origin: nil) else {
                 return v
@@ -91,11 +89,7 @@ struct DrawingPad: View {
             }
 
             let image = Image(uiImage: signature)
-            DispatchQueue.main.async {
-                self.uiImage = originalImage
-                self.savedSignatureImage = originalImage
-            }
-            self.onSave?(SignatureCaptureView.Result(image: image, uiImage: signature))
+            self.onSave?(SignatureCaptureView.Result(image: image, uiImage: signature, originalUIImage: originalImage))
         }
         return v
     }

@@ -65,7 +65,7 @@ struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage))
+                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage, originalUIImage: uimage))
                         self.drawings.removeAll()
                     }) {
                         Text("Done")
@@ -75,8 +75,6 @@ struct SignatureView: View {
                 DrawingPad(currentDrawing: self.$currentDrawing,
                            drawings: self.$drawings,
                            isSave: self.$isSaved,
-                           uiImage: self.$uiImage,
-                           savedSignatureImage: self.$savedSignatureImage,
                            drawingPadSize: self.$drawingPadSize,
                            onSave: self.onSave,
                            strokeColor: self.imageStrokeColor,
