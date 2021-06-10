@@ -129,6 +129,9 @@
 		99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D562616980A001912C5 /* OnboardingExamples.swift */; };
 		99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D58261698FC001912C5 /* InfoViewSample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
+		9996CCFF262EB4E8001B99AE /* EULAText.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CCFD262EB4E7001B99AE /* EULAText.html */; };
+		9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */; };
+		9996CD03262FFEBE001B99AE /* EULA2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CD02262FFEBD001B99AE /* EULA2.html */; };
 		B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */; };
 		B80DA9BC260BED9400C0B2E9 /* SingleActionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */; };
 		B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */; };
@@ -318,6 +321,9 @@
 		99942D562616980A001912C5 /* OnboardingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExamples.swift; sourceTree = "<group>"; };
 		99942D58261698FC001912C5 /* InfoViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewSample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
+		9996CCFD262EB4E7001B99AE /* EULAText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = EULAText.html; sourceTree = "<group>"; };
+		9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EULAViewSample.swift; sourceTree = "<group>"; };
+		9996CD02262FFEBD001B99AE /* EULA2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EULA2.html; sourceTree = "<group>"; };
 		B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionProfiles.swift; sourceTree = "<group>"; };
 		B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionCollectionView.swift; sourceTree = "<group>"; };
 		B80DA9BD260C1CC200C0B2E9 /* ListDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDataProtocol.swift; sourceTree = "<group>"; };
@@ -743,10 +749,13 @@
 		B80DA9C32612A54E00C0B2E9 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
+				9996CCFD262EB4E7001B99AE /* EULAText.html */,
+				9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */,
 				99942D58261698FC001912C5 /* InfoViewSample.swift */,
 				B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */,
 				B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */,
 				99942D562616980A001912C5 /* OnboardingExamples.swift */,
+				9996CD02262FFEBD001B99AE /* EULA2.html */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -912,6 +921,7 @@
 				8A557A0A24C1293C0098003A /* list_dataInCardLevel.json in Resources */,
 				8A5579E824C1293C0098003A /* card-explorer-stacked-column-card.card.zip in Resources */,
 				8A5579F424C1293C0098003A /* HTTPTimelineVariants.card.zip in Resources */,
+				9996CD03262FFEBE001B99AE /* EULA2.html in Resources */,
 				8A5579E724C1293C0098003A /* TimelineVariants.card.zip in Resources */,
 				8A5579F024C1293C0098003A /* card-explorer-icon-list-card.card.zip in Resources */,
 				8A5579FF24C1293C0098003A /* table.json in Resources */,
@@ -926,6 +936,7 @@
 				8A557A0D24C1293C0098003A /* corporate_benefits.json in Resources */,
 				8A557A0F24C1293C0098003A /* adativecard-embedded1.card.zip in Resources */,
 				8A5579F624C1293C0098003A /* LowCode.json in Resources */,
+				9996CCFF262EB4E8001B99AE /* EULAText.html in Resources */,
 				8A5579FE24C1293C0098003A /* adativecard-embedded.card.zip in Resources */,
 				8A5579DD24C1293C0098003A /* AnalyticalVariants.card.zip in Resources */,
 				8A5579DA24C1293C0098003A /* timeline_manifest.json in Resources */,
@@ -951,6 +962,7 @@
 				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
 				AB988B102631270300483D87 /* DataTableExample.swift in Sources */,
 				B84D24F02652F343007F2373 /* ObjectHeaderExample.swift in Sources */,
+				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,

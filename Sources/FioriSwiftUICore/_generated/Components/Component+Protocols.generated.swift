@@ -149,6 +149,11 @@ public protocol ActionItemsComponent {
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
 }
 
+// sourcery: backingComponent=HTMLView
+public protocol HTMLViewComponent {
+    var htmlContent_: NSAttributedString? { get }
+}
+
 public protocol KpiProgressComponent : KpiComponent {
 	// sourcery: no_view
     var fraction_: Double? { get }

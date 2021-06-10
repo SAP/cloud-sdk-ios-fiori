@@ -98,6 +98,10 @@ public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleCom
 // sourcery: generated_component
 public protocol SideBarModel: SubtitleComponent {}
 
+// sourcery: generated_component_not_configurable
+// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
+public protocol HTMLViewModel: HTMLViewComponent {}
+
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"
@@ -113,3 +117,8 @@ public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent,
 
 // sourcery: generated_component_composite
 public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, ProgressIndicatorModel, ActionModel, SecondaryActionModel {}
+
+// sourcery: generated_component_composite
+// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
+// sourcery: add_env_props = ["presentationMode"]
+public protocol EULAViewModel: TitleComponent, HTMLViewModel, ActionModel, SecondaryActionModel {}
