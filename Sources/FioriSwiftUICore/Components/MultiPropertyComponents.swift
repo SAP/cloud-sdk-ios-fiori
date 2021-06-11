@@ -26,6 +26,34 @@ internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
     func didSelectSecondaryAction() // action handler
 }
 
+// sourcery: backingComponent=SecondaryAction
+internal protocol _StartAction: _ComponentMultiPropGenerating {
+    var startActionText_: String? { get } // label
+    // sourcery: no_nil_check
+    func didSelectStartAction() // action handler
+}
+
+// sourcery: backingComponent=SecondaryAction
+internal protocol _CancelAction: _ComponentMultiPropGenerating {
+    var cancelActionText_: String? { get } // label
+    // sourcery: no_nil_check
+    func didSelectCancelAction() // action handler
+}
+
+// sourcery: backingComponent=SecondaryAction
+internal protocol _ClearAction: _ComponentMultiPropGenerating {
+    var clearActionText_: String? { get } // label
+    // sourcery: no_nil_check
+    func didSelectClearAction() // action handler
+}
+
+// sourcery: backingComponent=SecondaryAction
+internal protocol _SaveAction: _ComponentMultiPropGenerating {
+    var saveActionText_: String? { get } // label
+    // sourcery: no_nil_check
+    func didSelectSaveAction() // action handler
+}
+
 // sourcery: backingComponent=TextInput
 internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
     // sourcery: bindingPropertyOptional = .constant("")
@@ -47,4 +75,10 @@ internal protocol _ProgressIndicator: _ComponentMultiPropGenerating {
 // sourcery: backingComponent=HTMLView
 internal protocol _HTMLView: _ComponentMultiPropGenerating {
     var htmlContent_: NSAttributedString? { get }
+}
+
+internal protocol _Signature: _ComponentMultiPropGenerating, ObservableObject {
+    // sourcery: bindingProperty
+    // sourcery: no_view
+    var signature_: Image? { get set }
 }

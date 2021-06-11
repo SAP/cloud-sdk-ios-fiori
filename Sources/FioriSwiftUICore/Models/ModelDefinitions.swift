@@ -74,6 +74,18 @@ public protocol ActionModel: ActionComponent {}
 public protocol SecondaryActionModel: SecondaryActionComponent {}
 
 // sourcery: generated_component_not_configurable
+public protocol StartActionModel: StartActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol CancelActionModel: CancelActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol ClearActionModel: ClearActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol SaveActionModel: SaveActionComponent {}
+
+// sourcery: generated_component_not_configurable
 public protocol TextInputModel: TextInputComponent {}
 
 // sourcery: generated_component
@@ -122,3 +134,7 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, Progres
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
 public protocol EULAViewModel: TitleComponent, HTMLViewModel, ActionModel, SecondaryActionModel {}
+
+// sourcery: virtualPropScribbleView = "let scribbleView = ScribbleView()"
+// sourcery: generated_component_composite
+public protocol MockSignatureCaptureViewModel: TitleComponent, StartActionModel, CancelActionModel, ClearActionModel, SaveActionModel, SignatureComponent {}

@@ -17,7 +17,7 @@ for model in models {
     let styleName = model.componentStyleName
 
     let templateParameterDecls = [
-        componentProperties.templateParameterDecls,
+        componentProperties.representableByView.templateParameterDecls,
         model.add_view_builder_paramsTemplateParameterDecls
     ].flatMap { $0 }.joined(separator: ", ")
 
@@ -27,7 +27,7 @@ for model in models {
     ].flatMap { $0 }.joined(separator: "\n\t")
 
     let internalPropertyDecls = [
-        componentProperties.viewBuilderPropertyDecls,
+        componentProperties.miscPropertyDecls,
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
@@ -38,12 +38,12 @@ for model in models {
 	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
 
     let viewBuilderInitParams = [
-        componentProperties.viewBuilderInitParams,
+        componentProperties.miscInitParams,
         model.add_view_builder_paramsViewBuilderInitParams
     ].flatMap { $0 }.joined(separator: ",\n\t\t")
 
     let viewBuilderInitParamAssignment = [
-        componentProperties.viewBuilderInitParamAssignment,
+        componentProperties.miscInitParamAssignment,
         model.add_view_builder_paramsViewBuilderInitParamAssignment
     ].flatMap { $0 }.joined(separator: "\n\t\t\t")
 
@@ -95,7 +95,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
             <%= viewBuilderInitParamAssignment  %>
     }
 
-    <%= componentProperties.resolvedViewModifierChain(type: model) %>
+    <%= componentProperties.representableByView.resolvedViewModifierChain(type: model) %>
     <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
 	<%= viewBuilderEmptyViewPropertyDecls %>
 }
