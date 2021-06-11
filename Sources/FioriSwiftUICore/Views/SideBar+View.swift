@@ -120,7 +120,6 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                 @ViewBuilder rowContent: @escaping (Data.Element) -> Row,
                 @ViewBuilder destination: @escaping (Data.Element) -> Destination? = { _ in nil })
     {
-        let selectedItem = _ListSelectedItem<Data>()
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
                 ForEach(data) { item in
@@ -134,17 +133,13 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                         }, header: {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
-                                                           selectionBinding: selection,
-                                                           selectedItem: selectedItem,
-                                                           isInitWithBinding: true)
+                                                           selectionBinding: selection)
                         }, isModelInit: false)
                     } else {
                         if item == selection.wrappedValue {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
-                                                           selectionBinding: selection,
-                                                           selectedItem: selectedItem,
-                                                           isInitWithBinding: true)
+                                                           selectionBinding: selection)
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -153,9 +148,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                         } else {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
-                                                           selectionBinding: selection,
-                                                           selectedItem: selectedItem,
-                                                           isInitWithBinding: true)
+                                                           selectionBinding: selection)
                         }
                     }
                 }
@@ -204,10 +197,10 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                         if item == selection.wrappedValue {
                             SideBarListItem(model: rowModel(item))
                                 .modifier(ListItemBackgroundSelectionStyle())
-                                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                                .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                                .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -237,7 +230,7 @@ public extension ExpandableList where Destination == EmptyView {
     /// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
-         selectedItem: _ListSelectedItem<Data>,
+         selection: Binding<Data.Element?>,
          @ViewBuilder rowContent: @escaping (Data.Element) -> Row)
     {
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
@@ -247,7 +240,7 @@ public extension ExpandableList where Destination == EmptyView {
                         ExpandableSection(list: {
                             ExpandableList(data: childElements,
                                            children: children,
-                                           selectedItem: selectedItem,
+                                           selection: selection,
                                            rowContent: rowContent)
                         }, header: {
                             rowContent(item)
@@ -257,9 +250,7 @@ public extension ExpandableList where Destination == EmptyView {
                     } else {
                         RowContentContainer<Data, Row>(item: item,
                                                        rowContent: rowContent(item),
-                                                       selectionBinding: Binding.constant(nil),
-                                                       selectedItem: selectedItem,
-                                                       isInitWithBinding: false)
+                                                       selectionBinding: selection)
                     }
                 }
             }
@@ -310,40 +301,27 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
     }
 }
 
-/// :nodoc:
-/// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
-public class _ListSelectedItem<Data>: ObservableObject where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable {
-    @Published public var value: Data.Element?
-    public init(_ value: Data.Element? = nil) {
-        self.value = value
-    }
-}
-
 struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Row: View {
     var item: Data.Element?
     var rowContent: Row
     var selectionBinding: Binding<Data.Element?>
-    @ObservedObject var selectedItem: _ListSelectedItem<Data>
-    var isInitWithBinding: Bool
     
     var body: some View {
-        if isInitWithBinding ? item == selectionBinding.wrappedValue : item == selectedItem.value {
+        if item == selectionBinding.wrappedValue {
             rowContent
                 .modifier(ListItemBackgroundSelectionStyle())
-                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
-                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
+                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, background: .lightConstant)) }
+                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, background: .lightConstant)) }
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedItem.value = item
                     selectionBinding.wrappedValue = item
                 }
         } else {
             rowContent
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectedItem.value = item
                     selectionBinding.wrappedValue = item
                 }
         }
