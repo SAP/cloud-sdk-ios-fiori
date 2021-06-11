@@ -42,7 +42,7 @@ struct TextFieldClearButton: ViewModifier {
                     action: { self.textValue = "" },
                     label: {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(Color(UIColor.black))
+                            .foregroundColor(.preferredColor(.tintColor))
                     }
                 )
             }
