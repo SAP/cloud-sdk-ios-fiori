@@ -110,8 +110,6 @@ public struct SignatureCaptureView: View {
                                 DrawingPad(currentDrawing: self.$currentDrawing,
                                            drawings: self.$drawings,
                                            isSave: self.$isSaved,
-                                           uiImage: self.$uiImage,
-                                           savedSignatureImage: self.$savedSignatureImage,
                                            drawingPadSize: self.$drawingPadSize,
                                            onSave: self.onSave,
                                            strokeColor: self.strokeColor,
@@ -287,8 +285,12 @@ public extension SignatureCaptureView {
     struct Result {
         /// Signature Image
         public let image: Image
+
         /// SIgnature UIImage
         public let uiImage: UIImage
+
+        // This is the original not-cropped signature image to be displayed after the image is saved
+        internal let originalUIImage: UIImage
     }
 }
 
