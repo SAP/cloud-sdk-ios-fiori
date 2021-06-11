@@ -301,15 +301,6 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
     }
 }
 
-/// :nodoc:
-/// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
-public class _ListSelectedItem<Data>: ObservableObject where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable {
-    @Published public var value: Data.Element?
-    public init(_ value: Data.Element? = nil) {
-        self.value = value
-    }
-}
-
 struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable, Row: View {
     var item: Data.Element?
     var rowContent: Row
