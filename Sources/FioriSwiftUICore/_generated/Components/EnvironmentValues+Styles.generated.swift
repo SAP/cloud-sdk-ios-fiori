@@ -1286,6 +1286,55 @@ public extension View {
 
 
 	extension EnvironmentValues {
+		public var htmlContentStyle: TextStyle {
+			get { return self[HtmlContentStyleKey.self] }
+			set { self[HtmlContentStyleKey.self] = newValue }
+		}
+
+		public var htmlContentModifier: AnyViewModifier {
+			get { return self[HtmlContentModifierKey.self] }
+			set { self[HtmlContentModifierKey.self] = newValue }
+		}
+
+	}
+
+	public extension View {
+
+		@ViewBuilder
+		func htmlContentStyle(_ style: TextStyle, concat: Bool = true) -> some View {
+			if concat {
+				transformEnvironment(\.htmlContentStyle) { $0 = $0.merging(style) }
+			} else {
+				environment(\.htmlContentStyle, style)
+			}
+		}
+
+		@ViewBuilder
+		func htmlContentModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+			self.environment(\.htmlContentModifier, AnyViewModifier(transform))
+		}
+
+		func htmlContentStyleClass(_ class: String, concat: Bool = true) -> some View {
+			self.htmlContentStyleClass([`class`], concat: concat)
+		}
+
+		func htmlContentStyleClass(_ classPath: [String], concat: Bool = true) -> some View {
+			return transformEnvironment(\.htmlContentModifier) {
+				switch StyleCache.shared.resolveModifier(for: classPath) {
+					case .success(let resolved):
+						if concat {
+							let copy = $0; $0 = AnyViewModifier({ content in content.modifier(resolved.concat(copy)) })
+						} else {
+							$0 = resolved
+						}
+					case .failure(_):  break
+				}
+			}
+		}
+	}
+
+
+	extension EnvironmentValues {
 	}
 
 	public extension View {

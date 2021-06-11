@@ -43,3 +43,8 @@ internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
 internal protocol _ProgressIndicator: _ComponentMultiPropGenerating {
     var progressIndicatorText_: String? { get }
 }
+
+// sourcery: backingComponent=HTMLView
+internal protocol _HTMLView: _ComponentMultiPropGenerating {
+    var htmlContent_: NSAttributedString? { get }
+}

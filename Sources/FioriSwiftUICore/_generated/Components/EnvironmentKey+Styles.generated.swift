@@ -513,6 +513,23 @@ struct UpperBoundTitleStyleClassModifierKey: EnvironmentKey {
 	}
 
 
+	struct HtmlContentStyleKey: EnvironmentKey {
+		public static let defaultValue: TextStyle = TextStyle()
+	}
+
+	struct HtmlContentModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+	struct HtmlContentStyleClassPathKey: EnvironmentKey {
+		public static let defaultValue: [String] = []
+	}
+
+	struct HtmlContentStyleClassModifierKey: EnvironmentKey {
+		public static let defaultValue = AnyViewModifier { $0 }
+	}
+
+
 	struct ProgressIndicatorTextStyleKey: EnvironmentKey {
 		public static let defaultValue: TextStyle = TextStyle()
 	}

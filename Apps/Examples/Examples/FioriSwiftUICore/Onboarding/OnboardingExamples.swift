@@ -19,6 +19,12 @@ struct OnboardingExamples: View {
                     Text("InfoView Examples")
                 }
             )
+            
+            NavigationLink(
+                destination: EULAExamples()) {
+                Text("EULA Examples")
+            }
+
         }.navigationBarTitle("Onboarding")
     }
 }
@@ -77,6 +83,48 @@ struct InfoViewExamples: View {
                 Text("InfoView Customized")
             }
         }.navigationBarTitle("InfoView Examples", displayMode: .inline)
+    }
+}
+
+struct EULAExamples: View {
+    var body: some View {
+        List {
+            NavigationLink(
+                destination: EULAViewSample()) {
+                Text("EULA Example")
+            }
+
+            NavigationLink(
+                destination: EULALongHtmlSample()) {
+                Text("Long HTML")
+            }
+
+            NavigationLink(
+                destination: EULAShortHtmlSample()) {
+                Text("Short HTML")
+            }
+
+            NavigationLink(
+                destination: EULAConcatSample()) {
+                Text("Concat Attributed Strings")
+            }
+
+            NavigationLink(
+                destination: EULAWithLinkSample()) {
+                Text("Short HTML with Link")
+            }
+
+            NavigationLink(
+                destination: EULAShortWithLinkSample()) {
+                Text("Short Attributed Strings with Link")
+            }
+            
+            NavigationLink(
+                destination: EULAViewCustomized()) {
+                Text("Customized EULA Example")
+            }
+
+        }.navigationBarTitle("EULA Examples", displayMode: .inline)
     }
 }
 
