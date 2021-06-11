@@ -34,7 +34,7 @@ class SignatureCaptureTests: XCTestCase {
         self.isOnSaveCalled = false
         let uiImage = UIImage(systemName: "xmark")!
         let image = Image(uiImage: uiImage)
-        let result = SignatureCaptureView.Result(image: image, uiImage: uiImage)
+        let result = SignatureCaptureView.Result(image: image, uiImage: uiImage, originalUIImage: uiImage)
 
         self.isOnSaveCalled = false
         signagureCaptureView.onSave?(result)
