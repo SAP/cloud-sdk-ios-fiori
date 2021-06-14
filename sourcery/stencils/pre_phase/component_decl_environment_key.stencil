@@ -13,44 +13,45 @@ NothingStyle
 // sourcery:file:EnvironmentKey+Styles.generated.swift
 import SwiftUI
 {% for type in types.implementing._ComponentGenerating %}
-{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
+{% for variable in type.variables where variable|!annotated:"no_view" %}
 {% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 
-struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
+{#struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
     public static let defaultValue: {{ AStyle }} = {{ AStyle }}()
-}
+}#}
 
 struct {{NAME | upperFirstLetter }}ModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
+{#struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
     public static let defaultValue: [String] = []
 }
 
 struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
-}
+}#}
 
 {% endfor %}
 {% endfor %}
 
 {% for type in types.implementing._ComponentMultiPropGenerating %}
-	{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
+	{% for variable in type.variables where variable|!annotated:"no_view" %}
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 
-	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
+	{#{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}StyleKey: EnvironmentKey {
 		public static let defaultValue: {{ AStyle }} = {{ AStyle }}()
-	}
+	}#}
 
 	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}ModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
 
+	{#
 	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	struct {{NAME | upperFirstLetter }}StyleClassPathKey: EnvironmentKey {
 		public static let defaultValue: [String] = []
@@ -60,6 +61,7 @@ struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
 	struct {{NAME | upperFirstLetter }}StyleClassModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
+	#}
 
 	{% endfor %}
 	{% endfor %}

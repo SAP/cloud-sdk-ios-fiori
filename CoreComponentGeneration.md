@@ -239,7 +239,7 @@ This style will be applied in the computed variable in `ProfileDetailItem+API.ge
 
 Note: Component maintainers shall place cumulative styling, e.g. `.padding()` or `.overlay()`, in the respective ViewModifiers with suffix `Cumulative`. Those ViewModifiers will only be applied if the model or content-based initializer are used during runtime. Only non-cumulative styling, e.g. `.font()` or `.lineLimit()`, will be applied as Default Fiori Styling. This avoids side effects in case an app developer supplies an own view.
 
-## Advanced: suppress EnvironmentKey/Variables and Style generation
+## Advanced: suppress EnvironmentKey/Variables and ViewModifer-Style API generation
 
 Use sourcery tag `// sourcery: no_style` on property of a type conforming to `_ComponentGenerating` (or `_ComponentMultiPropGenerating`).
 
