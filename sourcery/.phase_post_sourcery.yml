@@ -1,5 +1,4 @@
 sources:
-  - ./../Sources/FioriSwiftUICore/Concrete Styles/
   - ./../Sources/FioriSwiftUICore/Models/
   - ./../Sources/FioriSwiftUICore/_generated/Components/
 templates:
