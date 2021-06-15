@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -55,11 +55,13 @@ public protocol TrendImageComponent {
 }
 
 public protocol StatusComponent {
-    var status_: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var status_: TextOrIcon? { get }
 }
 
 public protocol SubstatusComponent {
-    var substatus_: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var substatus_: TextOrIcon? { get }
 }
 
 public protocol BodyTextComponent {
@@ -78,7 +80,7 @@ public protocol IconsComponent {
 	// sourcery: backingComponent=IconStack
 	// sourcery: customFunctionBuilder=IconBuilder
 	// sourcery: no_style
-    var icons_: [IconStackItem]? { get }
+    var icons_: [TextOrIcon]? { get }
 }
 
 public protocol ActionTitleComponent {

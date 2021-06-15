@@ -526,7 +526,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             return AnyView(oh)
             
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor", status: "Available"))
+            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

@@ -157,8 +157,8 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
                                   bodyText: "1000-Hamburg, MECHANIK",
                                   footnote: "Due on 12/31/16",
                                   descriptionText: "Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.",
-                                  status: "Very High Priority",
-                                  substatus: "Scheduled",
+                                  status: TextOrIcon.text("Very High Priority"),
+                                  substatus: TextOrIcon.text("Scheduled"),
                                   detailContent: {})
             
             return AnyView(oh)
@@ -496,7 +496,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
              objectHeader.substatusLabel.textColor = UIColor.preferredFioriColor(forStyle: .positive, background: backgroundColorScheme)
              */
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor", status: "Available"))
+            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -101,7 +101,7 @@ public struct ChartFloorplan<Title: View, Subtitle: View, Status: View, ValueAxi
 
 extension ChartFloorplan where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
-		Status == _ConditionalContent<Text, EmptyView>,
+		Status == _ConditionalContent<TextOrIconView, EmptyView>,
 		ValueAxisTitle == _ConditionalContent<Text, EmptyView>,
 		SeriesTitles == Text,
 		CategoryAxisTitle == _ConditionalContent<Text, EmptyView> {
@@ -110,10 +110,10 @@ extension ChartFloorplan where Title == Text,
         self.init(title: model.title_, subtitle: model.subtitle_, status: model.status_, valueAxisTitle: model.valueAxisTitle_, seriesTitles: model.seriesTitles_, categoryAxisTitle: model.categoryAxisTitle_)
     }
 
-    public init(title: String, subtitle: String? = nil, status: String? = nil, valueAxisTitle: String? = nil, seriesTitles: [String] = [], categoryAxisTitle: String? = nil) {
+    public init(title: String, subtitle: String? = nil, status: TextOrIcon? = nil, valueAxisTitle: String? = nil, seriesTitles: [String] = [], categoryAxisTitle: String? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
 		self._valueAxisTitle = valueAxisTitle != nil ? ViewBuilder.buildEither(first: Text(valueAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._seriesTitles = Text(seriesTitles.joined(separator: ", "))
 		self._categoryAxisTitle = categoryAxisTitle != nil ? ViewBuilder.buildEither(first: Text(categoryAxisTitle!)) : ViewBuilder.buildEither(second: EmptyView())
