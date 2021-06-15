@@ -43,7 +43,7 @@ struct SingleActionCollectionView: View {
                     })
                 }
             }.padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-        }
+        }.navigationTitle("Single Action Collection Example")
     }
 }
 

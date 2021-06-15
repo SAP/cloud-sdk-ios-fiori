@@ -1,8 +1,8 @@
 import Foundation
 import SwiftUI
 
-/// IconStackItem supports Text and Image
-public enum IconStackItem {
+/// It is either a String or Image
+public enum TextOrIcon {
     case text(String)
     case icon(Image)
 }

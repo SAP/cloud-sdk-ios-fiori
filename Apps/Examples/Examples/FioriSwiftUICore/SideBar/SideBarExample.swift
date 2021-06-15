@@ -61,7 +61,7 @@ public struct SideBarView: View {
     }
     
     struct DevObjectItemModel: ObjectItemModel {
-        var status_: String?
+        var status_: TextOrIcon?
         
         var title_: String
         
@@ -71,11 +71,11 @@ public struct SideBarView: View {
         
         var descriptionText_: String?
         
-        var substatus_: String?
+        var substatus_: TextOrIcon?
         
         var detailImage_: Image?
         
-        var icons_: [IconStackItem]?
+        var icons_: [TextOrIcon]?
         
         var actionText_: String?
         

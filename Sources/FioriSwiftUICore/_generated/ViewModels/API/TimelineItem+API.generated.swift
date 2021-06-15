@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -159,14 +159,14 @@ extension TimelineItem where Title == Text,
 		SecondaryAttribute == _ConditionalContent<Text, EmptyView>,
 		Timestamp == _ConditionalContent<Text, EmptyView>,
 		SecondaryTimestamp == _ConditionalContent<Text, EmptyView>,
-		Status == _ConditionalContent<Text, EmptyView>,
-		Substatus == _ConditionalContent<Text, EmptyView> {
+		Status == _ConditionalContent<TextOrIconView, EmptyView>,
+		Substatus == _ConditionalContent<TextOrIconView, EmptyView> {
 
     public init(model: TimelineItemModel) {
         self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, attribute: model.attribute_, secondaryAttribute: model.secondaryAttribute_, timestamp: model.timestamp_, secondaryTimestamp: model.secondaryTimestamp_, status: model.status_, substatus: model.substatus_)
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, attribute: String? = nil, secondaryAttribute: String? = nil, timestamp: String? = nil, secondaryTimestamp: String? = nil, status: String? = nil, substatus: String? = nil) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, attribute: String? = nil, secondaryAttribute: String? = nil, timestamp: String? = nil, secondaryTimestamp: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
@@ -174,8 +174,8 @@ extension TimelineItem where Title == Text,
 		self._secondaryAttribute = secondaryAttribute != nil ? ViewBuilder.buildEither(first: Text(secondaryAttribute!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._timestamp = timestamp != nil ? ViewBuilder.buildEither(first: Text(timestamp!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._secondaryTimestamp = secondaryTimestamp != nil ? ViewBuilder.buildEither(first: Text(secondaryTimestamp!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
+		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isSubtitleNil = subtitle == nil ? true : false

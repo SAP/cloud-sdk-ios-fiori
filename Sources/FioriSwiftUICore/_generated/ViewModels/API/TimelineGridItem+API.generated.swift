@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -58,16 +58,16 @@ public struct TimelineGridItem<Title: View, Timestamp: View, Status: View> {
 
 extension TimelineGridItem where Title == Text,
 		Timestamp == _ConditionalContent<Text, EmptyView>,
-		Status == _ConditionalContent<Text, EmptyView> {
+		Status == _ConditionalContent<TextOrIconView, EmptyView> {
 
     public init(model: TimelineGridItemModel) {
         self.init(title: model.title_, timestamp: model.timestamp_, status: model.status_)
     }
 
-    public init(title: String, timestamp: String? = nil, status: String? = nil) {
+    public init(title: String, timestamp: String? = nil, status: TextOrIcon? = nil) {
         self._title = Text(title)
 		self._timestamp = timestamp != nil ? ViewBuilder.buildEither(first: Text(timestamp!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isTimestampNil = timestamp == nil ? true : false

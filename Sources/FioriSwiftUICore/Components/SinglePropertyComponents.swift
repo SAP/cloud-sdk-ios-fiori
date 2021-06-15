@@ -18,15 +18,17 @@ internal struct _Component: _ComponentGenerating {
     let secondaryTimestamp_: String?
     let trend_: String?
     let trendImage_: Image?
-    let status_: String?
-    let substatus_: String?
+    // sourcery: backingComponent=TextOrIconView
+    let status_: TextOrIcon?
+    // sourcery: backingComponent=TextOrIconView
+    let substatus_: TextOrIcon?
     let bodyText_: String?
     let icon_: Image?
     let accessoryIcon_: Image?
     // sourcery: no_style
     // sourcery: backingComponent=IconStack
     // sourcery: customFunctionBuilder=IconBuilder
-    let icons_: [IconStackItem]?
+    let icons_: [TextOrIcon]?
     let actionTitle_: String?
     let seriesTitles_: [String]
     let key_: String
