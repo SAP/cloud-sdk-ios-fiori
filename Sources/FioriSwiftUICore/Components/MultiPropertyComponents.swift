@@ -26,28 +26,35 @@ internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
     func didSelectSecondaryAction() // action handler
 }
 
-// sourcery: backingComponent=SecondaryAction
+// sourcery: backingComponent=StartAction
 internal protocol _StartAction: _ComponentMultiPropGenerating {
     var startActionText_: String? { get } // label
     // sourcery: no_nil_check
     func didSelectStartAction() // action handler
 }
 
-// sourcery: backingComponent=SecondaryAction
+// sourcery: backingComponent=RestartAction
+internal protocol _RestartAction: _ComponentMultiPropGenerating {
+    var restartActionText_: String? { get } // label
+    // sourcery: no_nil_check
+    func didSelectRestartAction() // action handler
+}
+
+// sourcery: backingComponent=CancelAction
 internal protocol _CancelAction: _ComponentMultiPropGenerating {
     var cancelActionText_: String? { get } // label
     // sourcery: no_nil_check
     func didSelectCancelAction() // action handler
 }
 
-// sourcery: backingComponent=SecondaryAction
+// sourcery: backingComponent=ClearAction
 internal protocol _ClearAction: _ComponentMultiPropGenerating {
     var clearActionText_: String? { get } // label
     // sourcery: no_nil_check
     func didSelectClearAction() // action handler
 }
 
-// sourcery: backingComponent=SecondaryAction
+// sourcery: backingComponent=SaveAction
 internal protocol _SaveAction: _ComponentMultiPropGenerating {
     var saveActionText_: String? { get } // label
     // sourcery: no_nil_check

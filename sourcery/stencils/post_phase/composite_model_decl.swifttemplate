@@ -22,7 +22,7 @@ for model in models {
     ].flatMap { $0 }.joined(separator: ", ")
 
     let environmentPropertyDecls = [
-        componentProperties.viewModifierPropertyDecls,
+        componentProperties.representableByView.viewModifierPropertyDecls,
         model.add_env_propsDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
@@ -31,9 +31,9 @@ for model in models {
         model.add_view_builder_paramsViewBuilderPropertyDecls
     ].flatMap { $0 }.joined(separator: "\n\t")
 
-	let viewBuilderNilPropertyDecls = componentProperties.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
-	let viewBuilderEmptyViewPropertyDecls = componentProperties.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
-	let viewBuilderNilPropertyAssignment = componentProperties.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
+	let viewBuilderNilPropertyDecls = componentProperties.representableByView.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
+	let viewBuilderEmptyViewPropertyDecls = componentProperties.representableByView.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
+	let viewBuilderNilPropertyAssignment = componentProperties.representableByView.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
 
 	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
 
@@ -101,7 +101,7 @@ public struct <%= model.componentName %><<%= templateParameterDecls %>> {
 }
 
 <%= modelAvailableAttribute -%>
-extension <%= model.componentName %> where <%= componentProperties.extensionConstrainedWhereConditionalContent %> {
+extension <%= model.componentName %> where <%= componentProperties.representableByView.extensionConstrainedWhereConditionalContent %> {
 
     <% if model.isObservableObjectConform == true { -%>
 public init<Model>(model: Model) where Model: <%= model.name %> {

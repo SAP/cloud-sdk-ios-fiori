@@ -45,7 +45,7 @@ public extension Array where Element == Variable {
     var miscPropertyDecls: [String] {
         map {
             if $0.isRepresentableByView == false {
-                return "let _\($0.trimmedName): \($0.typeName)"
+                return "let _\($0.trimmedName): \($0.computedInternalTypeName)"
             } else {
                 return "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())"
             }
@@ -306,7 +306,7 @@ extension Array where Element: Variable {
                         output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
                     }
                 } else {
-                    output.append("\(variable.trimmedName): \(variable.typeName)")
+                    output.append("\(variable.trimmedName): \(variable.computedInternalTypeName)")
                 }
             }
         }

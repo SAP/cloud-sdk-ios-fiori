@@ -77,6 +77,9 @@ public protocol SecondaryActionModel: SecondaryActionComponent {}
 public protocol StartActionModel: StartActionComponent {}
 
 // sourcery: generated_component_not_configurable
+public protocol RestartActionModel: RestartActionComponent {}
+
+// sourcery: generated_component_not_configurable
 public protocol CancelActionModel: CancelActionComponent {}
 
 // sourcery: generated_component_not_configurable
@@ -136,5 +139,6 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, Progres
 public protocol EULAViewModel: TitleComponent, HTMLViewModel, ActionModel, SecondaryActionModel {}
 
 // sourcery: virtualPropScribbleView = "let scribbleView = ScribbleView()"
+// sourcery: virtualPropIsEditing = "@State var isEditing = false"
 // sourcery: generated_component_composite
-public protocol MockSignatureCaptureViewModel: TitleComponent, StartActionModel, CancelActionModel, ClearActionModel, SaveActionModel, SignatureComponent {}
+public protocol MockSignatureCaptureViewModel: TitleComponent, StartActionModel, RestartActionModel, CancelActionModel, ClearActionModel, SaveActionModel, SignatureComponent {}

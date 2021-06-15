@@ -7,8 +7,18 @@ extension Fiori {
     enum MockSignatureCaptureView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-        typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
+        typealias StartActionText = EmptyModifier
+        typealias StartActionTextCumulative = EmptyModifier
+        typealias RestartActionText = EmptyModifier
+        typealias RestartActionTextCumulative = EmptyModifier
+        typealias CancelActionText = EmptyModifier
+        typealias CancelActionTextCumulative = EmptyModifier
+        typealias ClearActionText = EmptyModifier
+        typealias ClearActionTextCumulative = EmptyModifier
+        typealias SaveActionText = EmptyModifier
+        typealias SaveActionTextCumulative = EmptyModifier
+        typealias Signature = EmptyModifier
+        typealias SignatureCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -23,9 +33,19 @@ extension Fiori {
              }
          */
         static let title = Title()
-        static let actionText = ActionText()
+        static let startActionText = StartActionText()
+        static let restartActionText = RestartActionText()
+        static let cancelActionText = CancelActionText()
+        static let clearActionText = ClearActionText()
+        static let saveActionText = SaveActionText()
+        static let signature = Signature()
         static let titleCumulative = TitleCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
+        static let startActionTextCumulative = StartActionTextCumulative()
+        static let restartActionTextCumulative = RestartActionTextCumulative()
+        static let cancelActionTextCumulative = CancelActionTextCumulative()
+        static let clearActionTextCumulative = ClearActionTextCumulative()
+        static let saveActionTextCumulative = SaveActionTextCumulative()
+        static let signatureCumulative = SignatureCumulative()
     }
 }
 
@@ -36,47 +56,63 @@ extension MockSignatureCaptureView: View {
         VStack {
             HStack {
                 title
-                actionText
+                cancelActionText
+                    .onTapGesture {
+                        self.isEditing = false
+                    }
             }
             
+            if let image = _signature.wrappedValue {
+                image
+            } else {
+                drawingArea
+            }
+            
+            if self.isEditing {
+                HStack {
+                    clearActionText
+                        .onTapGesture {
+                            scribbleView.clear()
+                        }
+                    saveActionText
+                        .onTapGesture {
+                            _signature.wrappedValue = scribbleView.getImage()
+                            self.isEditing = false
+                        }
+                }
+            } else {
+                restartActionText
+                    .onTapGesture {
+                        scribbleView.clear()
+                        self.isEditing = true
+                    }
+            }
+        }
+    }
+    
+    @ViewBuilder var drawingArea: some View {
+        if self.isEditing {
             scribbleView
-        }
-    }
-}
-
-public extension MockSignatureCaptureView where Title == Text,
-    ActionText == _ConditionalContent<Action, EmptyView>,
-    ScribbleView == FioriSwiftUICore.ScribbleView
-{
-    init(model: MockSignatureCaptureViewModel) {
-        self.init(title: model.title_, actionText: model.actionText_, didSelectAction: model.didSelectAction)
-    }
-
-    init(title: String, actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {
-        self._title = Text(title)
-        
-        let scribbleView = ScribbleView()
-        
-        // handle ActionModel
-        if actionText != nil {
-            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText, didSelectAction: didSelectAction))
         } else {
-            self._actionText = ViewBuilder.buildEither(second: EmptyView())
+            startActionText
+                .onTapGesture {
+                    self.isEditing = true
+                }
         }
-        self._scribbleView = scribbleView
-
-        isModelInit = true
-        isActionTextNil = actionText == nil ? true : false
     }
 }
 
-/// The view component for drawing and convert it to an image.
+/// The view component for drawing and convert it to an image. (Replace DrawingPad)
 public struct ScribbleView: View {
     public var body: some View {
+        // TODO: body implementation
         EmptyView()
     }
     
+    public func clear() {}
+    
     public func getImage() -> Image? {
+        // TODO: create image based on path
         nil
     }
 }

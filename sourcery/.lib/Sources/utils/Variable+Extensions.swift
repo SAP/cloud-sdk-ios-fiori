@@ -54,7 +54,7 @@ public extension Variable {
     }
 
     var emptyDefault: String {
-        if isOptional || annotations["bindingPropertyOptional"] != nil {
+        if isSwiftUIOptional {
             return " = nil"
         } else if typeName.isArray {
             return " = []"
@@ -104,6 +104,41 @@ public extension Variable {
     var isRepresentableByView: Bool {
         !annotations.keys.contains("no_view")
     }
+    
+    /// Enhancing `isOptional` by taking into account `bindingProperty` and `bindingPropertyOptional` annotations.
+    ///
+    /// Component protocol:
+    ///
+    ///     public protocol SignatureComponent : ObservableObject {
+    ///         // sourcery: bindingProperty
+    ///         // sourcery: no_view
+    ///         var signature_: Image? { get set }
+    ///     }
+    ///
+    /// Component generated API:
+    ///
+    ///     public struct SignatureCaptureView: View {
+    ///         let _signature: Binding<Image?>
+    ///
+    ///         public init(signature: Binding<Image?>) {
+    ///             self._signature = signature
+    ///         }
+    ///     }
+    ///
+    ///     extension SignatureCaptureView {
+    ///         public init(signature: Binding<Image?>) {
+    ///             self._signature = signature
+    ///         }
+    ///     }
+    var isSwiftUIOptional: Bool {
+        if annotations["bindingProperty"] != nil {
+            return false
+        } else if annotations["bindingPropertyOptional"] != nil {
+            return true
+        } else {
+            return isOptional
+        }
+    }
 
     var viewBuilderDecl: String {
         if let cfb = self.resolvedAnnotations("customFunctionBuilder").first {
@@ -114,7 +149,7 @@ public extension Variable {
     }
 
     var propDecl: String {
-        "\(self.trimmedName): \(self.typeName)"
+        "\(self.trimmedName): \(self.computedInternalTypeName)"
     }
     
     var computedInternalTypeName: String {
