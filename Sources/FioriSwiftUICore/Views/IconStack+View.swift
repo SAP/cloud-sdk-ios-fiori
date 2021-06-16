@@ -12,13 +12,13 @@ extension VerticalAlignment {
 
 extension IconStack: ViewList {
     public var count: Int {
-        let tmpIcons: [IconStackItem] = _icons == nil ? [] : _icons!
+        let tmpIcons: [TextOrIcon] = _icons == nil ? [] : _icons!
         
         return tmpIcons.count
     }
     
     public func view(at index: Int) -> some View {
-        let tmpIcons: [IconStackItem] = _icons == nil ? [] : _icons!
+        let tmpIcons: [TextOrIcon] = _icons == nil ? [] : _icons!
         
         return Group {
             switch tmpIcons[index] {
@@ -31,7 +31,7 @@ extension IconStack: ViewList {
     }
     
     public func isFirstItemAText() -> Bool {
-        let tmpIcons: [IconStackItem] = _icons == nil ? [] : _icons!
+        let tmpIcons: [TextOrIcon] = _icons == nil ? [] : _icons!
         if tmpIcons.isEmpty {
             return false
         }
@@ -53,8 +53,8 @@ extension IconStack: ViewList {
 struct IconStack_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            IconStack(icons: [IconStackItem.text("hello")])
-            IconStack(icons: [IconStackItem.text("1"), IconStackItem.icon(Image(systemName: "paperclip"))])
+            IconStack(icons: [TextOrIcon.text("hello")])
+            IconStack(icons: [TextOrIcon.text("1"), TextOrIcon.icon(Image(systemName: "paperclip"))])
         }.previewLayout(.fixed(width: 200, height: 100))
     }
 }

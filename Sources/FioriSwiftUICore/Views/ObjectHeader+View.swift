@@ -7,8 +7,8 @@ public extension ObjectHeader where Title == Text,
     BodyText == _ConditionalContent<Text, EmptyView>,
     Footnote == _ConditionalContent<Text, EmptyView>,
     DescriptionText == _ConditionalContent<Text, EmptyView>,
-    Status == _ConditionalContent<Text, EmptyView>,
-    Substatus == _ConditionalContent<Text, EmptyView>,
+    Status == _ConditionalContent<TextOrIconView, EmptyView>,
+    Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
     DetailImage == _ConditionalContent<Image, EmptyView>,
     DetailContent == HeaderChart<Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>, _ConditionalContent<Text, EmptyView>, AnyView>
 {
@@ -18,8 +18,8 @@ public extension ObjectHeader where Title == Text,
          bodyText: String? = nil,
          footnote: String? = nil,
          descriptionText: String? = nil,
-         status: String? = nil,
-         substatus: String? = nil,
+         status: TextOrIcon? = nil,
+         substatus: TextOrIcon? = nil,
          detailImage: Image? = nil,
          headerChart: HeaderChart<Text, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>, _ConditionalContent<Image, EmptyView>, _ConditionalContent<Text, EmptyView>, AnyView>)
     {
@@ -29,8 +29,8 @@ public extension ObjectHeader where Title == Text,
         self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
         self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+        self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
+        self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
         self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
         self._detailContent = headerChart
     }
@@ -605,7 +605,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             ObjectHeader(title: "Transformer Overheating",
                          subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                          descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                         status: "High", substatus: "Scheduled",
+                         status: TextOrIcon.text("High"), substatus: TextOrIcon.text("Scheduled"),
                          detailImage: Image(systemName: "person"),
                          detailContent: { hc })
                 .previewLayout(.fixed(width: 390, height: 150))

@@ -20,15 +20,12 @@ struct ObjectItemExample: View {
             
             Section(header: Text("Init Tests").textCase(nil)) {
                 NavigationLink(
-                    destination: ObjectItemTestView(title: "ObjectItem: First is a text, init with ViewBuilder", content: ObjectItemTextFirstExamples())) {
+                    destination: ObjectItemTestView(title: "ObjectItem: first is a text, init with ViewBuilder", content: ObjectItemTextFirstExamples())) {
                     Text("ObjectItem: first is a text, init with ViewBuilder")
                 }
-//                NavigationLink(destination: ObjectItemTextFirstExamples()) {
-//                    Text("ObjectItem: first is a text, init with ViewBuilder")
-//                }
                 
                 NavigationLink(
-                    destination: ObjectItemTestView(title: "ObjectItem: First is an icon, init with ViewBuilder", content: ObjectItemIconFirstExamples())) {
+                    destination: ObjectItemTestView(title: "ObjectItem: first is an icon, init with ViewBuilder", content: ObjectItemIconFirstExamples())) {
                     Text("ObjectItem: first is an icon, init with ViewBuilder")
                 }
                 
@@ -106,11 +103,11 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                     $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
                 }
         }
-        .toolbar {
+        .navigationBarItems(trailing: HStack {
             if showEditButton {
                 EditButton()
             }
-        }
+        })
         .navigationBarTitle(title, displayMode: .inline)
         .sheet(isPresented: $cellTapped) {
             Text("Tapped the cell").padding()
@@ -133,9 +130,10 @@ struct ObjectItemTestView<Content: View>: View {
     var body: some View {
         content
             .navigationBarTitle(title)
-            .toolbar {
-                EditButton()
-            }
+            .navigationBarItems(trailing: EditButton())
+//            .toolbar {
+//                EditButton()
+//            }
     }
 }
 
@@ -145,11 +143,11 @@ struct ObjectItemModelTextFirstExamples: View {
             ObjectItem(title: "Transformer Overheating When After Being on for 1 Hour or Longer",
                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: "High",
+                       status: TextOrIcon.text("High"),
                        detailImage: Image(systemName: "person"),
-                       icons: [IconStackItem.text("1"),
-                               IconStackItem.icon(Image(systemName: "circle.fill")),
-                               IconStackItem.icon(Image(systemName: "mail"))])
+                       icons: [TextOrIcon.text("1"),
+                               TextOrIcon.icon(Image(systemName: "circle.fill")),
+                               TextOrIcon.icon(Image(systemName: "mail"))])
                 .subtitleModifier {
                     $0.lineLimit(2)
                 }
@@ -160,21 +158,21 @@ struct ObjectItemModelTextFirstExamples: View {
             ObjectItem(title: "Transformer Overheating",
                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: "High",
-                       substatus: "Scheduled",
+                       status: TextOrIcon.text("Scheduled"),
+                       substatus: TextOrIcon.icon(Image(systemName: "mail")),
                        detailImage: Image(systemName: "person"),
-                       icons: [IconStackItem.icon(Image(systemName: "circle.fill")),
-                               IconStackItem.text("1"),
-                               IconStackItem.icon(Image(systemName: "paperclip"))])
+                       icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                               TextOrIcon.text("1"),
+                               TextOrIcon.icon(Image(systemName: "paperclip"))])
             
             ObjectItem(title: "Transformer Overheating",
                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: "High",
+                       status: TextOrIcon.text("High"),
                        detailImage: Image(systemName: "person"),
-                       icons: [IconStackItem.icon(Image(systemName: "circle.fill")),
-                               IconStackItem.text("1"),
-                               IconStackItem.icon(Image(systemName: "paperclip"))])
+                       icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                               TextOrIcon.text("1"),
+                               TextOrIcon.icon(Image(systemName: "paperclip"))])
                 .titleModifier {
                     $0.font(.system(size: 32, weight: .regular, design: .serif))
                 }
@@ -255,16 +253,16 @@ struct ObjectItemOtherExamples: View {
             })
             
             ObjectItem(title: "Transformer Overheating",
-                       status: "High",
+                       status: TextOrIcon.text("High"),
                        detailImage: Image(systemName: "person"),
-                       icons: [IconStackItem.icon(Image(systemName: "circle.fill")),
-                               IconStackItem.text("1"),
-                               IconStackItem.icon(Image(systemName: "paperclip"))])
+                       icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                               TextOrIcon.text("1"),
+                               TextOrIcon.icon(Image(systemName: "paperclip"))])
             
             ObjectItem(title: "Transformer Overheating",
                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: "High",
+                       status: TextOrIcon.text("High"),
                        detailImage: Image(systemName: "person"))
         }
     }

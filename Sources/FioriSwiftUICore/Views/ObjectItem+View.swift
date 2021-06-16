@@ -737,12 +737,12 @@ struct ObjectItem_Previews: PreviewProvider {
             ObjectItem(title: "Transformer Overheating",
                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: "High",
-                       substatus: "Scheduled",
+                       status: TextOrIcon.text("High"),
+                       substatus: TextOrIcon.text("Scheduled"),
                        detailImage: Image(systemName: "person"),
-                       icons: [IconStackItem.text("1"),
-                               IconStackItem.icon(Image(systemName: "circle.fill")),
-                               IconStackItem.icon(Image(systemName: "mail"))])
+                       icons: [TextOrIcon.text("1"),
+                               TextOrIcon.icon(Image(systemName: "circle.fill")),
+                               TextOrIcon.icon(Image(systemName: "mail"))])
                 .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
                 .previewLayout(.fixed(width: 844, height: 120))
                 .environment(\.horizontalSizeClass, .regular)

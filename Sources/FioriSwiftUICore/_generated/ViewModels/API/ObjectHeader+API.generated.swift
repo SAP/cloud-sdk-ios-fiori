@@ -24,12 +24,12 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 	let _substatus: Substatus
 	let _detailImage: DetailImage
 	let _detailContent: DetailContent
-	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
-	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
-	@State var mainViewSize: CGSize = .zero
-	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
-	@State var currentTabIndex: Int = 0
 	@State var statusViewSize: CGSize = .zero
+	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
+	@State var currentTabIndex: Int = 0
+	@State var mainViewSize: CGSize = .zero
+	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
+	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
 
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
@@ -166,23 +166,23 @@ extension ObjectHeader where Title == Text,
 		BodyText == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		Status == _ConditionalContent<Text, EmptyView>,
-		Substatus == _ConditionalContent<Text, EmptyView>,
+		Status == _ConditionalContent<TextOrIconView, EmptyView>,
+		Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView> {
 
     public init(model: ObjectHeaderModel, @ViewBuilder detailContent: @escaping () -> DetailContent) {
         self.init(title: model.title_, subtitle: model.subtitle_, tags: model.tags_, bodyText: model.bodyText_, footnote: model.footnote_, descriptionText: model.descriptionText_, status: model.status_, substatus: model.substatus_, detailImage: model.detailImage_, detailContent: detailContent)
     }
 
-    public init(title: String, subtitle: String? = nil, tags: [String]? = nil, bodyText: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: String? = nil, substatus: String? = nil, detailImage: Image? = nil, @ViewBuilder detailContent: @escaping () -> DetailContent) {
+    public init(title: String, subtitle: String? = nil, tags: [String]? = nil, bodyText: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, @ViewBuilder detailContent: @escaping () -> DetailContent) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags)) : ViewBuilder.buildEither(second: EmptyView())
 		self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
+		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailContent = detailContent()
 

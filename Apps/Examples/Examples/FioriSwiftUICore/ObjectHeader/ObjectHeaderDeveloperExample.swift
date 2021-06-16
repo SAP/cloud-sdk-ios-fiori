@@ -49,8 +49,8 @@ struct ObjectHeaderDeveloperExample: ListDataProtocol {
                                   tags: ["I am selected", "PM01", "103-Repair", "tag 4", "tag 5", "tag 6", "Tag 9898232323", "Tagoweioaifoewif"],
                                   footnote: "1000 - Hamburg, MECHANIK",
                                   descriptionText: "Customer noticed that the transformer started",
-                                  status: "High",
-                                  substatus: "Scheduled",
+                                  status: TextOrIcon.text("High"),
+                                  substatus: TextOrIcon.text("Scheduled"),
                                   detailContent: {
                                       HeaderChart(title: {
                                           Text("Temperature")
@@ -109,8 +109,8 @@ struct ObjectHeaderDeveloperExample: ListDataProtocol {
                                   tags: ["I am selected", "PM01", "103-Repair", "tag 4", "tag 5", "tag 6", "Tag 9898232323", "Tagoweioaifoewif"],
                                   footnote: "1000 - Hamburg, MECHANIK",
                                   descriptionText: "Customer noticed that the transformer started",
-                                  status: "High",
-                                  substatus: "Scheduled",
+                                  status: TextOrIcon.text("High"),
+                                  substatus: TextOrIcon.text("Scheduled"),
                                   detailContent: {
                                       HeaderChart(title: {
                                           Text("Temperature")
@@ -149,7 +149,7 @@ struct ObjectHeaderDeveloperExample: ListDataProtocol {
             return AnyView(tags)
             
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor", status: "Available"))
+            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }
