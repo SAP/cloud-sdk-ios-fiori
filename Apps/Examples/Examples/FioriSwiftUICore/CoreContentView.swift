@@ -25,11 +25,6 @@ struct CoreContentView: View {
             
             Group {
                 NavigationLink(
-                    destination: SignatureView_Example()) {
-                    Text("Signature View")
-                }
-                
-                NavigationLink(
                     destination: SignatureCaptureView_Example()) {
                     Text("Signature Inline View")
                 }

@@ -29,15 +29,48 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
 </p>
 
-This project currently contains three modules: `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`
+This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`.
+
+## FioriThemeManager
+This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) conforming to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
 
 ## FioriSwiftUICore
-This module contains both the Fiori palette information which is already consumed in SAPFiori framework, as well as the SwiftUI migration code line, which is in-development in the `migration` branch.
+This module contains SwiftUI implementation for those UIKit-based components existing in [SAPFiori](https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/index.html). It provides you with an easy way to migrate your UIKit project to SwiftUI while delivering the same experience as before.
 
-> **WARNING**: [concepts](./GeneratedComponentConcepts.md) and implementation for generated components is `in-development` and can change at any time!!! 
+We plan to progressively bring more Fiori UI components into this module in the future releases. Check the table below for the components that are currectly available and those in the roadmap.
+
+> Refer to this [document](./GeneratedComponentConcepts.md) for different ways of initializing the component.
+
+| | FioriSwiftUICore |
+| - | - |
+| ObjectItem | :white_check_mark: | 
+| ObjectHeader | :white_check_mark: | 
+| KPIItem | :white_check_mark: | 
+| FioriButton | :white_check_mark: |
+| ListPickerItem | :white_check_mark: |
+| DimensionSelector | :white_check_mark: |
+| SideBar | :white_check_mark: |
+| DataTable | :white_check_mark: |
+| WelcomeScreen | :white_check_mark: |
+| ActivationScreen | :white_check_mark: |
+| InfoView | :white_check_mark: |
+| KPIProgressItem | :soon: | 
+| EULAView | :soon: |
+| ContactItem | :soon: | 
+| KeyValueItem | :soon: |
+| TimelineItem | :x: |
+| TimelinePreviewItem | :x: |
+| ChartFloorplan | :x: |
+| ProfileHeader | :x: |
+| CollectionItem | :x: |
+| ProfileHeader | :x: |
+| BarcodeScanner | :x: |
+| PasscodeView | :x: |
+| MultiUserPasscodeView | :x: |
+| TouchIDErrorView | :x: |
 
 ## FioriCharts
-The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori.  Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
+The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori. Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
 
 | | SAPFiori 4.0.x, 5.0.x  | FioriCharts |
 | - | --------- | - |

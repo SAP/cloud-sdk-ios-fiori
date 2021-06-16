@@ -123,7 +123,6 @@
 		8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */; };
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
 		975CB76B256C5A7400DB7A15 /* SignatureCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */; };
-		97CEF8AB2553D714008BFBEF /* SignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97CEF8AA2553D714008BFBEF /* SignatureView.swift */; };
 		99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D562616980A001912C5 /* OnboardingExamples.swift */; };
 		99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D58261698FC001912C5 /* InfoViewSample.swift */; };
 		9996CCFF262EB4E8001B99AE /* EULAText.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CCFD262EB4E7001B99AE /* EULAText.html */; };
@@ -312,7 +311,6 @@
 		8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarveyBallSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
 		975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCaptureView.swift; sourceTree = "<group>"; };
-		97CEF8AA2553D714008BFBEF /* SignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureView.swift; sourceTree = "<group>"; };
 		99942D562616980A001912C5 /* OnboardingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExamples.swift; sourceTree = "<group>"; };
 		99942D58261698FC001912C5 /* InfoViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewSample.swift; sourceTree = "<group>"; };
 		9996CCFD262EB4E7001B99AE /* EULAText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = EULAText.html; sourceTree = "<group>"; };
@@ -724,7 +722,6 @@
 		97CEF8A92553D6F1008BFBEF /* SignatureView */ = {
 			isa = PBXGroup;
 			children = (
-				97CEF8AA2553D714008BFBEF /* SignatureView.swift */,
 				975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */,
 			);
 			path = SignatureView;
@@ -973,7 +970,6 @@
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
-				97CEF8AB2553D714008BFBEF /* SignatureView.swift in Sources */,
 				8A5579EF24C1293C0098003A /* TestCases.swift in Sources */,
 				8A5579E324C1293C0098003A /* InlineTestCases.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
