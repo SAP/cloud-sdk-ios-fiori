@@ -136,9 +136,9 @@ If you are concerned about bundle size you can use either one of the individual 
 
 ## Limitations
 
-Both modules are currently in development, and should not yet be used productively. Breaking changes may occur in 0.x.x release(s)
+**FioriIntegrationCards** is still in experimental stage, and should not yet be used productively.
 
-Several functional limitations exist at present, which are planned for resolution before milestone release 1.0.0. Please check the [Issues tab](https://github.com/SAP/cloud-sdk-ios-fiori/issues) for an up-to-date view of the backlog and issue status.
+Several functional limitations exist at present, which are planned for resolution in future releases. Please check the [Issues tab](https://github.com/SAP/cloud-sdk-ios-fiori/issues) for an up-to-date view of the backlog and issue status.
 
 Key gaps which are present at time of open-source project launch:
 
