@@ -34,21 +34,21 @@ public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagStackMo
 public protocol HeaderChartModel: TitleComponent, SubtitleComponent, TrendComponent, TrendImageComponent, KpiComponent {}
 
 // sourcery: generated_component
-public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
+// public protocol TimelineItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, AttributeComponent, SecondaryAttributeComponent, TimestampComponent, SecondaryTimestampComponent, StatusComponent, SubstatusComponent {}
 
 // sourcery: generated_component
-public protocol ChartFloorplanModel: TitleComponent, SubtitleComponent, StatusComponent, ValueAxisTitleComponent, SeriesTitlesComponent, CategoryAxisTitleComponent {}
+// public protocol ChartFloorplanModel: TitleComponent, SubtitleComponent, StatusComponent, ValueAxisTitleComponent, SeriesTitlesComponent, CategoryAxisTitleComponent {}
 
 // sourcery: add_view_builder_params = "actionItems"
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component
-public protocol ProfileHeaderModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent {}
+// public protocol ProfileHeaderModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent {}
 
 // sourcery: generated_component
-public protocol TimelineGridItemModel: TitleComponent, TimestampComponent, StatusComponent {}
+// public protocol TimelineGridItemModel: TitleComponent, TimestampComponent, StatusComponent {}
 
 // sourcery: generated_component
-public protocol CollectionItemModel: DetailImageComponent, TitleComponent, SubtitleComponent {}
+// public protocol CollectionItemModel: DetailImageComponent, TitleComponent, SubtitleComponent {}
 
 // sourcery: add_env_props = "colorScheme"
 // sourcery: generated_component
@@ -62,7 +62,7 @@ public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 // sourcery: virtualPropAnimatedFraction = "@State var animatedFraction: Double = 0.0"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 // sourcery: generated_component
-public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+// public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
