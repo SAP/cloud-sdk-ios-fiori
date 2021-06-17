@@ -149,6 +149,8 @@
 		B84D24F02652F343007F2373 /* ObjectHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24E92652F343007F2373 /* ObjectHeaderExample.swift */; };
 		B84D24F12652F343007F2373 /* ObjectHeaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24EA2652F343007F2373 /* ObjectHeaderSpec.swift */; };
 		B84D24F22652F343007F2373 /* ObjectHeaderDeveloperExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24EB2652F343007F2373 /* ObjectHeaderDeveloperExample.swift */; };
+		B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F02A72679835F0049DDA7 /* ObjectItemInitExamples.swift */; };
+		B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86F02A9267983870049DDA7 /* ObjectItemListView.swift */; };
 		B8D4376825EEC5E80024EE7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B8D4376725EEC5E80024EE7D /* Assets.xcassets */; };
 		B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4376C25F97F140024EE7D /* ObjectItemExample.swift */; };
 		B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */; };
@@ -337,6 +339,8 @@
 		B84D24E92652F343007F2373 /* ObjectHeaderExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderExample.swift; sourceTree = "<group>"; };
 		B84D24EA2652F343007F2373 /* ObjectHeaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderSpec.swift; sourceTree = "<group>"; };
 		B84D24EB2652F343007F2373 /* ObjectHeaderDeveloperExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderDeveloperExample.swift; sourceTree = "<group>"; };
+		B86F02A72679835F0049DDA7 /* ObjectItemInitExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectItemInitExamples.swift; sourceTree = "<group>"; };
+		B86F02A9267983870049DDA7 /* ObjectItemListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectItemListView.swift; sourceTree = "<group>"; };
 		B8D4376725EEC5E80024EE7D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B8D4376C25F97F140024EE7D /* ObjectItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectItemExample.swift; sourceTree = "<group>"; };
 		B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell_Spec_Jan2018.swift; sourceTree = "<group>"; };
@@ -773,6 +777,8 @@
 				B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */,
 				B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */,
 				B8D4377025F983730024EE7D /* ObjectCell_Rules_Alignment.swift */,
+				B86F02A72679835F0049DDA7 /* ObjectItemInitExamples.swift */,
+				B86F02A9267983870049DDA7 /* ObjectItemListView.swift */,
 				B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */,
 			);
 			path = ObjectItem;
@@ -987,6 +993,7 @@
 				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
+				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,
@@ -995,6 +1002,7 @@
 				975CB76B256C5A7400DB7A15 /* SignatureCaptureView.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				8A5579E624C1293C0098003A /* TestBundles.swift in Sources */,
+				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */,

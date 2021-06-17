@@ -1,13 +1,33 @@
 import FioriSwiftUICore
 import SwiftUI
 
+struct ObjectItemActionButtonStyle: FioriButtonStyle {
+    func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
+        let color: Color
+        switch configuration.state {
+        case .normal:
+            color = Color.preferredColor(.tintColor)
+        case .highlighted, .selected:
+            color = .red
+        default:
+            color = Color.preferredColor(.primary3)
+        }
+        
+        return configuration.label
+            .foregroundColor(.white)
+            .padding(50)
+            .frame(width: 500)
+            .background(Circle().fill(color))
+    }
+}
+
 struct SingleActionProfiles: ListDataProtocol {
     @Binding var cellTapped: Bool
-
+    
     init(cellTapped: Binding<Bool>) {
         self._cellTapped = cellTapped
     }
-
+    
     init() {
         self._cellTapped = Binding.constant(false)
     }
@@ -40,7 +60,19 @@ struct SingleActionProfiles: ListDataProtocol {
         false
     }
     
+    //    @ViewBuilder
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
+        let actionBtn = Button {
+            print("Tapped Follow")
+        } label: {
+            Text("Follow")
+                .font(.callout)
+                .lineLimit(2)
+                .foregroundColor(Color.preferredColor(.tintColorDark))
+                .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+        }.buttonStyle(PlainButtonStyle())
+        
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             let oi = ObjectItem(title: {
@@ -55,11 +87,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
             
             return AnyView(oi)
@@ -84,11 +112,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("1")
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
                 .splitPercent(0.25)
             
@@ -108,16 +132,12 @@ struct SingleActionProfiles: ListDataProtocol {
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
                 .splitPercent(0.25)
             
             return AnyView(oi)
-        
+            
         case (0, 3):
             let oi = ObjectItem(title: {
                 Text("Rouja Pakiman")
@@ -128,11 +148,7 @@ struct SingleActionProfiles: ListDataProtocol {
             }, descriptionText: {
                 Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
                 .splitPercent(0.25)
             
@@ -151,11 +167,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
             
             return AnyView(oi)
@@ -172,11 +184,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .resizable()
                     .frame(width: 45, height: 45)
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
             
             return AnyView(oi)
@@ -195,11 +203,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             }, actionText: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
-                    Text("Follow")
-                }.buttonStyle(PlainButtonStyle())
+                actionBtn
             })
                 .splitPercent(0.25)
                 .onTapGesture {

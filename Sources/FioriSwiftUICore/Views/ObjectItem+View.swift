@@ -68,6 +68,7 @@ extension Fiori {
                 content
                     .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
                     .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+                    .buttonStyle(PlainButtonStyle())
             }
         }
 
