@@ -1,14 +1,15 @@
-# Welcome to the API documentation of cloud-sdk-ios-fiori
+# Welcome to the API documentation of FioriSwiftUI
 
-![](https://github.com/SAP/cloud-sdk-ios-fiori/workflows/CI/badge.svg)
-![](https://github.com/SAP/cloud-sdk-ios-fiori/workflows/SwiftLint/badge.svg)
+This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Language](https://experience.sap.com/fiori-design-ios/), and is meant to augment and in some cases replace the UIKit-based implementation contained in the SAPFiori framework of the [SAP BTP SDK for iOS](https://developers.sap.com/topics/sap-btp-sdk-for-ios.html).
 
-![](https://github.com/SAP/cloud-sdk-ios-fiori/blob/images/Resources/Images/Team.png?raw=true)
+<p align="center">
+<img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
+</p>
 
-This project is the SwiftUI implementation of the SAP Fiori for iOS Design Language, and is meant to augment and in some cases replace the UIKit-based implementation contained in the **SAPFiori** framework of the [SAP Cloud Platform SDK for iOS](https://developers.sap.com/topics/cloud-platform-sdk-for-ios.html).
+This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`.
 
-This project currently contains two modules: **FioriCharts** and **FioriIntegrationCards**.
-
+- FioriThemeManager (*API documentation coming soon*)
+- FioriSwiftUICore (*API documentation coming soon*)
 - [FioriCharts](./charts/index.html)
 - [FioriIntegrationCards](./integrationCards/index.html)
 
