@@ -103,3 +103,29 @@ jobs:
 #         name: SnapshotTestResultImages
 #         path: ./SnapshotTestResultImages
 
+  LocalizableTextCommentsCheck:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Check if text was added to .string files
+          uses: technote-space/get-diff-action@v4
+          with:
+            PATTERNS: |
+                +(Sources)/**/*.strings
+            FORMAT: json
+            SET_ENV_NAME_INSERTIONS: GIT_DIFF_INS
+        - name: Find Comment to instruct creator/reviewer to check for comments in .string file
+          uses: peter-evans/find-comment@v1
+          id: checkStringFileComment
+          if: env.GIT_DIFF_INS > 0
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            comment-author: 'github-actions[bot]'
+            body-includes: Localizable Text added so check if .strings file contains comments for translators!
+        - name: Create comment (if none exist)
+          if: env.GIT_DIFF_INS > 0 && steps.checkStringFileComment.outputs.comment-id == '' && github.event.pull_request.head.repo.full_name == github.repository
+          uses: peter-evans/create-or-update-comment@v1
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            body: |
+             Localizable Text added so check if .strings file contains comments for translators!
