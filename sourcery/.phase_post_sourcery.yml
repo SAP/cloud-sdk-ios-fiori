@@ -1,0 +1,9 @@
+sources:
+  - ./../Sources/FioriSwiftUICore/Models/
+  - ./../Sources/FioriSwiftUICore/_generated/Components/
+templates:
+  - ./../sourcery/stencils/post_phase/composite_model_decl.swifttemplate
+output:
+  ./../Sources/FioriSwiftUICore/_generated/
+force-parse:
+  - generated

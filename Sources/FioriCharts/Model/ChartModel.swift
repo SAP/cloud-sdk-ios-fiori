@@ -1,5 +1,4 @@
 import Combine
-import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
@@ -221,9 +220,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             
             self.yAxisLabels = [:]
             self.secondaryYAxisLabels = [:]
-            self.scaleX = 1
-            self.scaleY = 1
-            self.centerPosition = nil
             self.plotDataCache = nil
             self.path = [[[Path]]]()
         }
@@ -1324,7 +1320,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     
     ///
     func updateSecondaryNumericAxisTickValue() {
-        if self.indexesOfSecondaryValueAxis.isEmpty {
+        if !self.supportSecondaryNumericAxis() || self.indexesOfSecondaryValueAxis.isEmpty {
             return
         }
         
@@ -1384,9 +1380,6 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         self.yDataMaximumValue = nil
         self.categoryAxisTickValues = nil
         self.yAxisLabels = [:]
-        self.scaleX = 1
-        self.scaleY = 1
-        self.centerPosition = nil
         self.plotDataCache = nil
         self.path = [[[Path]]]()
     }
@@ -1724,6 +1717,43 @@ extension ChartModel {
         }
         
         return res
+    }
+}
+
+extension ChartModel {
+    func isLineType() -> Bool {
+        let types: [ChartType] = [.line, .area, .stock]
+        
+        return types.contains(self.chartType)
+    }
+    
+    func isColumnType() -> Bool {
+        let types: [ChartType] = [.column, .stackedColumn, .combo, .waterfall]
+        
+        return types.contains(self.chartType)
+    }
+    
+    func isBarType() -> Bool {
+        let types: [ChartType] = [.bar, .stackedBar]
+        
+        return types.contains(self.chartType)
+    }
+    
+    func isBubbleType() -> Bool {
+        let types: [ChartType] = [.bubble, .scatter]
+        
+        return types.contains(self.chartType)
+    }
+    
+    /**
+     Check whether the chart supports a secondary numeric axis.
+     
+        -return:  if chart type is .line, .area or .combo chart it returns true; otherwise return false
+     */
+    func supportSecondaryNumericAxis() -> Bool {
+        let types: [ChartType] = [.line, .area, .combo]
+        
+        return types.contains(self.chartType)
     }
 }
 

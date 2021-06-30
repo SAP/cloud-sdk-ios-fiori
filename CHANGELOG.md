@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/0.9.0...1.0.0) (2021-06-18)
+
+🎸 Introducing `FioriThemeManager`: This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) conforming to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
+
+🎸 Introducing  `FioriSwiftUICore`: This module contains SwiftUI implementation for those UIKit-based components existing in [SAPFiori](https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/index.html). It provides you with an easy way to migrate your UIKit project to SwiftUI while delivering the same experience as before.
+
+We plan to progressively bring more Fiori UI components into this module in the future releases.
+
+| FioriSwiftUICore | Available |
+| - | - |
+| ObjectItem | :white_check_mark: | 
+| ObjectHeader | :white_check_mark: | 
+| KPIItem | :white_check_mark: | 
+| FioriButton | :white_check_mark: |
+| ListPickerItem | :white_check_mark: |
+| DimensionSelector | :white_check_mark: |
+| SideBar | :white_check_mark: |
+| DataTable | :white_check_mark: |
+| WelcomeScreen | :white_check_mark: |
+| ActivationScreen | :white_check_mark: |
+| InfoView | :white_check_mark: |
+
+### Other Features
+
+* 🎸 integration cards: support ContentType.List.maxItems & GET parameters ([b9a1fe1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b9a1fe158a8eb71548d2cd98b8cce58255fd44f0))
+* 🎸 integration cards: support list with icons ([#179](https://github.com/SAP/cloud-sdk-ios-fiori/issues/179)) ([9b6756b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/9b6756bc1f9761bfe9d4cb8f4adf24954c526a11))
+* 🎸 integration cards: support list with numeric header ([#180](https://github.com/SAP/cloud-sdk-ios-fiori/issues/180)) ([7d7c82c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7d7c82c8e0fca6fc27e596673c76b60ec30a029c))
+* 🎸 integration cards: support owner/ownerImage in timeline ([1deca96](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1deca96252606b01d6eeaf1ad46af4be230daea7))
+* 🎸 support manifest parameters for integration cards ([c615a29](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c615a29c65e17c51f9c07d13124d98668a8a95e2))
+
+
+### Bug Fixes
+
+* 🐛 eliminate dependency on TinyNetworking package ([926625e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/926625e6271c58b35ed8cb0dc861c595a13cfe89))
+
 ## [0.9.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/0.5.6...0.9.0) (2020-11-10)
 
 

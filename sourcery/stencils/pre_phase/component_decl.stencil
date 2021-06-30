@@ -1,0 +1,63 @@
+{# Utility function which returns the correct Style struct, for the unwrapped (non-optional) var type #}
+{% macro _StyleType unwrappedTypeName %}
+{% if unwrappedTypeName == "String" or unwrappedTypeName == "[String]" %}
+TextStyle
+{% elif unwrappedTypeName == "Data" %}
+ImageStyle
+{% else %}
+NothingStyle
+{% endif %}
+{% endmacro %}
+
+{% macro StyleType unwrappedTypeName %}{% set tmp %}{% call _StyleType unwrappedTypeName %}{% endset %}{{tmp|removeNewlines}}{% endmacro %}
+
+{% macro GenerateAnnotationString annotations %}
+{% for key,value in annotations %}
+{% if value == 1 %}
+    // sourcery: {{key}}
+{% else %}
+    // sourcery: {{key}}={{value}}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+
+// sourcery:file:Component+Protocols.generated.swift
+import SwiftUI
+{% for type in types.implementing._ComponentGenerating %}
+
+{% for variable in type.variables where variable %}
+{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
+
+public protocol {{NAME | upperFirstLetter}}Component {
+{% include "partials/comp_decl_pvar.stencil" %}
+}
+{% endfor %}
+{% endfor %}
+
+{% for type in types.implementing._ComponentMultiPropGenerating %}
+{% set inheritedTypes %}{% for inheritedType in type.inheritedTypes where inheritedType|!hasPrefix:"_" %}{{ inheritedType }}{% if forloop.last == false %}, {% endif %}{% endfor %}{% endset %}
+{% set NAME %}{{ type.name|replace:'_','' }}{% endset %}
+
+{% for key,value in type.annotations %}
+{% if value == 1 %}
+// sourcery: {{key}}
+{% else %}
+// sourcery: {{key}}={{value}}
+{% endif %}
+{% endfor %}
+{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
+{% if inheritedTypes %}
+public protocol {{NAME | upperFirstLetter}}Component : {{ inheritedTypes }} {
+{% else %}
+public protocol {{NAME | upperFirstLetter}}Component {
+{% endif %}
+{% for variable in type.variables where variable %}
+{% include "partials/comp_decl_pvar.stencil" %}
+{% endfor %}
+{% for method in type.methods where method %}
+    {% call GenerateAnnotationString method.annotations %}
+	func {{method.name}} -> {{method.returnTypeName}}
+{% endfor %}
+}
+{% endfor %}
+// sourcery:end

@@ -378,7 +378,7 @@ class DefaultChartContext: ChartContext {
             yAxisLabels.append(AxisTitle(index: i,
                                          value: val,
                                          title: title,
-                                         pos: .zero,
+                                         pos: CGPoint(x: 0, y: 1.0 - ticks.tickPositions[i]),
                                          size: size))
         }
         
@@ -403,15 +403,6 @@ class DefaultChartContext: ChartContext {
         let axis = secondary ? model.secondaryNumericAxis : model.numericAxis
         let height = rect.size.height
         
-        var maxPointRadius: CGFloat = 0
-        if model.chartType == .line || model.chartType == .area {
-            let maxPointDiameter = model.seriesAttributes.reduce(0) { (result, seriesAttribute) -> CGFloat in
-                max(seriesAttribute.point.diameter, result)
-            }
-
-            maxPointRadius = maxPointDiameter / 2 + ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth
-        }
-        
         let tmpScaleY = self.scaleY(model, plotViewSize: plotViewSize)
         let startPositionY = self.startPosition(model, plotViewSize: plotViewSize).y * tmpScaleY * rect.size.height
         var result = [AxisTitle]()
@@ -420,11 +411,11 @@ class DefaultChartContext: ChartContext {
             
             var x: CGFloat
             if secondary {
-                x = size.width / 2.0 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
-                x = min(rect.size.width / 2 + max(axis.baseline.width / 2.0, maxPointRadius) + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
+                x = axis.baseline.width + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline + size.width / 2.0
+                x = min(rect.size.width / 2 + axis.baseline.width + ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             } else {
-                x = rect.size.width - size.width / 2.0 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline
-                x = max(rect.size.width / 2 - max(axis.baseline.width / 2.0, maxPointRadius) - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
+                x = rect.size.width - axis.baseline.width - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline - size.width / 2.0
+                x = max(rect.size.width / 2 - axis.baseline.width - ChartViewLayout.minSpacingBtwYAxisLabelAndBaseline, x)
             }
             let y = height * (1.0 - ticks.tickPositions[item.index]) * tmpScaleY - startPositionY
             if y >= 0, y <= height {

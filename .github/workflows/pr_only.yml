@@ -55,49 +55,77 @@ jobs:
       - name: Verify formatted code is unchanged
         run: git diff --exit-code HEAD
 
-  SnapshotTests:
-    runs-on: macos-latest
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
-    steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v2
-    - name: Check for file changes in Sources folder
-      uses: getsentry/paths-filter@v2
-      id: changes
-      with:
-        filters: |
-          src:
-            - 'Sources/**'
-    - name: Checkout Snapshot references
-      uses: actions/checkout@v2
-      if: steps.changes.outputs.src == 'true'
-      with:
-        repository: SAP/cloud-sdk-ios-fiori-snapshot-references
-        path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
-    - name: Generate Xcode project
-      if: steps.changes.outputs.src == 'true'
-      run: swift package generate-xcodeproj
-    - name: Install xcbeautify tool
-      if: steps.changes.outputs.src == 'true'
-      run:  |
-        brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
-        brew install xcbeautify
-    - name: Build Package
-      if: steps.changes.outputs.src == 'true'
-      run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
-    - name: Run snapshot tests
-      if: steps.changes.outputs.src == 'true'
-      run: set -o pipefail && xcodebuild -project ./Apps/Examples/Examples.xcodeproj -scheme ExamplesTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)' test | xcbeautify
-    - name: Collect screenshot results on failure
-      if: failure()
-      run:  |
-        brew install chargepoint/xcparse/xcparse
-        ./scripts/snapshottesting/parseXcresult.sh
-    - name: Upload screenshot results on failure
-      if: failure()
-      uses: actions/upload-artifact@v1
-      with:
-        name: SnapshotTestResultImages
-        path: ./SnapshotTestResultImages
+## Disable SnapshotTests due to error: Unexpected duplicate tasks (https://bugs.swift.org/browse/SR-13739)
+## Renable SnapshotTests with Xcode 13 as Xcode 13 includes a fix
+#   SnapshotTests:
+#     runs-on: macos-latest
+#     env:
+#       DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
+#     steps:
+#     - name: Checkout Repo
+#       uses: actions/checkout@v2
+#     - name: Check for file changes in Sources folder
+#       uses: getsentry/paths-filter@v2
+#       id: changes
+#       with:
+#         filters: |
+#           src:
+#             - 'Sources/**'
+#     - name: Checkout Snapshot references
+#       uses: actions/checkout@v2
+#       if: steps.changes.outputs.src == 'true'
+#       with:
+#         repository: SAP/cloud-sdk-ios-fiori-snapshot-references
+#         path: Apps/Examples/cloud-sdk-ios-fiori-snapshot-references
+#     - name: Generate Xcode project
+#       if: steps.changes.outputs.src == 'true'
+#       run: swift package generate-xcodeproj
+#     - name: Install xcbeautify tool
+#       if: steps.changes.outputs.src == 'true'
+#       run:  |
+#         brew tap thii/xcbeautify https://github.com/thii/xcbeautify.git
+#         brew install xcbeautify
+#     - name: Build Package
+#       if: steps.changes.outputs.src == 'true'
+#       run: set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' build | xcbeautify
+#     - name: Run snapshot tests
+#       if: steps.changes.outputs.src == 'true'
+#       run: set -o pipefail && xcodebuild -project ./Apps/Examples/Examples.xcodeproj -scheme ExamplesTests -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone SE (2nd generation)' test | xcbeautify
+#     - name: Collect screenshot results on failure
+#       if: failure()
+#       run:  |
+#         brew install chargepoint/xcparse/xcparse
+#         ./scripts/snapshottesting/parseXcresult.sh
+#     - name: Upload screenshot results on failure
+#       if: failure()
+#       uses: actions/upload-artifact@v1
+#       with:
+#         name: SnapshotTestResultImages
+#         path: ./SnapshotTestResultImages
 
+  LocalizableTextCommentsCheck:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        - name: Check if text was added to .string files
+          uses: technote-space/get-diff-action@v4
+          with:
+            PATTERNS: |
+                +(Sources)/**/*.strings
+            FORMAT: json
+            SET_ENV_NAME_INSERTIONS: GIT_DIFF_INS
+        - name: Find Comment to instruct creator/reviewer to check for comments in .string file
+          uses: peter-evans/find-comment@v1
+          id: checkStringFileComment
+          if: env.GIT_DIFF_INS > 0
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            comment-author: 'github-actions[bot]'
+            body-includes: Localizable Text added so check if .strings file contains comments for translators!
+        - name: Create comment (if none exist)
+          if: env.GIT_DIFF_INS > 0 && steps.checkStringFileComment.outputs.comment-id == '' && github.event.pull_request.head.repo.full_name == github.repository
+          uses: peter-evans/create-or-update-comment@v1
+          with:
+            issue-number: ${{ github.event.pull_request.number }}
+            body: |
+             Localizable Text added so check if .strings file contains comments for translators!

@@ -1,0 +1,10 @@
+sources:
+  - ./../Sources/FioriSwiftUICore/Models/
+  - ./../Sources/FioriSwiftUICore/_generated/Components/
+templates:
+  - ./../sourcery/stencils/main_phase/noviewbuilderbased_model_decl.swifttemplate
+  - ./../sourcery/stencils/main_phase/model_decl_base.swifttemplate
+output:
+  ./../Sources/FioriSwiftUICore/_generated/
+force-parse:
+  - generated

@@ -1,0 +1,190 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%_
+
+let models = types.protocols.filter({ $0.annotations["generated_component"] != nil })
+
+for model in models {
+
+    let closureProperties = model.closureProperties(contextType: type)
+
+    let componentProperties = model.flattenedComponentProperties(contextType: type)
+    let styleName = model.componentStyleName
+
+    let templateParameterDecls = [
+        componentProperties.representableByView.templateParameterDecls,
+        model.add_view_builder_paramsTemplateParameterDecls
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let environmentPropertyDecls = [
+        componentProperties.representableByView.viewModifierPropertyDecls,
+        model.add_env_propsDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let internalPropertyDecls = [
+        componentProperties.miscPropertyDecls,
+        closureProperties.privateClosurePropModelDecls,
+        model.add_view_builder_paramsViewBuilderPropertyDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+	let viewBuilderNilPropertyDecls = componentProperties.representableByView.viewBuilderNilPropertyDecls.joined(separator: "\n\t")
+	let viewBuilderEmptyViewPropertyDecls = componentProperties.representableByView.viewBuilderEmptyViewPropertyDecls.joined(separator: "\n\n\t")
+	let viewBuilderNilPropertyAssignment = componentProperties.representableByView.viewBuilderNilPropertyAssignment.joined(separator: "\n\t\t")
+
+	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
+
+    let viewBuilderInitParams = [
+        componentProperties.miscInitParams,
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ",\n\t\t")
+
+    let viewBuilderInitParamAssignment = [
+        componentProperties.miscInitParamAssignment,
+        model.add_view_builder_paramsViewBuilderInitParamAssignment
+    ].flatMap { $0 }.joined(separator: "\n\t\t\t")
+
+    let extensionModelInitParams = [
+        componentProperties.extensionModelInitParams,
+        closureProperties.extensionModelInitClosureParams,
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsChaining = [
+        componentProperties.extensionModelInitParamsChaining,
+        closureProperties.extensionModelInitClosureParamsChaining,
+        model.add_view_builder_paramsExtensionModelInitParamsChaining
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsAssignments = [
+        componentProperties.extensionModelInitParamsAssignments,
+        closureProperties.extensionModelInitClosureParamsAssignments,
+        model.add_view_builder_paramsViewBuilderInitParamAssignment
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
+
+    let modelInitParam: String = "model: \(model.name)"
+
+    let modelInitParams = [
+        [modelInitParam],
+        model.add_view_builder_paramsViewBuilderInitParams
+    ].flatMap { $0 }.joined(separator: ", ")
+
+  let combinationsOfOptionals = model.optionalPropertySequences().map({ $0 })
+
+  let modelAvailableAttribute = model.availableAttribute?.lineBreaking() ?? ""
+
+  -%>
+// sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
+import SwiftUI
+
+<%= modelAvailableAttribute -%>
+public struct <%= model.componentName %><<%= templateParameterDecls %>> {
+    <%= environmentPropertyDecls %>
+
+    <%= internalPropertyDecls %>
+	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } -%>
+
+    private var isModelInit: Bool = false
+	<%= viewBuilderNilPropertyDecls %>
+
+    public init(
+        <%= viewBuilderInitParams %>
+        ) {
+            <%= viewBuilderInitParamAssignment  %>
+    }
+
+    <%= componentProperties.representableByView.resolvedViewModifierChain(type: model) %>
+    <%= model.add_view_builder_paramsResolvedViewModifierChain.joined(separator: "\n\t") %>
+	<%= viewBuilderEmptyViewPropertyDecls %>
+}
+
+<%= modelAvailableAttribute -%>
+extension <%= model.componentName %> where <%= componentProperties.representableByView.extensionConstrainedWhereConditionalContent %> {
+
+    public init(<%= modelInitParams %>) {
+        self.init(<%= extensionModelInitParamsChaining %>)
+    }
+
+    public init(<%= extensionModelInitParams %>) {
+        <%= extensionModelInitParamsAssignments %>
+
+		isModelInit = true
+		<%= viewBuilderNilPropertyAssignment %>
+    }
+}
+// sourcery:end
+
+// sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/<%= model.componentName %>+View.swift`
+//TODO: Implement default Fiori style definitions as `ViewModifier`
+//TODO: Implement <%= model.componentName %> `View` body
+//TODO: Implement LibraryContentProvider
+
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
+
+/*
+import SwiftUI
+
+// FIXME: - Implement Fiori style definitions
+
+<%= model.fioriStyleImplEnumDecl(componentProperties: componentProperties.representableByView) %>
+
+// FIXME: - Implement <%= model.componentName %> View body
+
+<%= modelAvailableAttribute -%>
+extension <%= model.componentName %>: View {
+    public var body: some View {
+        <# View body #>
+    }
+}
+
+// FIXME: - Implement <%= model.componentName %> specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct <%= model.componentName %>LibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(<%= model.componentName %>(model: LibraryPreviewData.Person.laurelosborn),
+                    category: .control)
+    }
+}
+*/
+// sourcery:end
+
+// sourcery:file:ViewModels/Init+Extensions/<%= model.componentName %>+Init.generated.swift
+import SwiftUI
+<%_
+    for optionalCombination in combinationsOfOptionals {
+
+        let extensionInitParamWhereEmptyView = [
+            componentProperties.extensionInitParamWhereEmptyView(scenario: optionalCombination),
+            model.add_view_builder_params_extensionInitParamWhereEmptyView(scenario: optionalCombination)
+        ].flatMap { $0 }.joined(separator: ",\n\t\t")
+
+        let extensionInitParamAssignmentWhereEmptyView = [
+            componentProperties.extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination),
+            model.add_view_builder_params_extensionInitParamAssignmentWhereEmptyView(scenario: optionalCombination)
+        ].flatMap { $0 }.joined(separator: ",\n\t\t\t")
+-%>
+
+<%= modelAvailableAttribute -%>
+extension <%= model.componentName %> where <%= optionalCombination.extensionContrainedWhereEmptyView %> {
+    public init(
+    <%= extensionInitParamWhereEmptyView %>
+    ) {
+        self.init(
+            <%= extensionInitParamAssignmentWhereEmptyView %>
+        )
+    }
+}
+<%_ } -%>
+
+// sourcery:end
+<%_ } -%>
