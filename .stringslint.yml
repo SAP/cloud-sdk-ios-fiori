@@ -1,0 +1,6 @@
+included: # paths to include during linting. `--path` is ignored if present.
+- Sources/FioriSwiftUICore/_localization/en.lproj/FioriSwiftUICore.strings
+- Sources/FioriCharts/Resources/en.lproj/Localizable.strings
+
+missingComment:
+  severity: error
