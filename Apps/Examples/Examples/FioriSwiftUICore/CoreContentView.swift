@@ -71,6 +71,10 @@ struct CoreContentView: View {
                         Text("ObjectHeader")
                     }
                 )
+                
+                NavigationLink(destination: ContactItemExample()) {
+                    Text("ContactItem")
+                }
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }

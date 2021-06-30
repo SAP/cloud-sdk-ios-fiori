@@ -539,16 +539,6 @@ extension ObjectItem: View {
         return showDescription
     }
     
-    public func splitPercent(_ value: CGFloat?) -> some View {
-        var newValue: CGFloat?
-        
-        if let tmpValue = value {
-            newValue = max(0, min(1, tmpValue))
-        }
-        
-        return self.environment(\.splitPercent, newValue)
-    }
-    
     func numberOfLinesAllowedToShow() -> Int {
         if isSubtitleEmptyView && isFootnoteEmptyView {
             return 1
@@ -592,18 +582,6 @@ struct MyViewPreferenceKey: PreferenceKey {
     
     static func reduce(value: inout [MyViewPreferenceData], nextValue: () -> [MyViewPreferenceData]) {
         value.append(contentsOf: nextValue())
-    }
-}
-
-struct ObjectItemSplitPercentKey: EnvironmentKey {
-    public static let defaultValue: CGFloat? = 0.5
-}
-
-public extension EnvironmentValues {
-    /// Distribution of left and right content columns, when in `.regular` horizontal content mode.  Defaults to `0.5`.
-    var splitPercent: CGFloat? {
-        get { self[ObjectItemSplitPercentKey.self] }
-        set { self[ObjectItemSplitPercentKey.self] = newValue }
     }
 }
 

@@ -105,8 +105,11 @@ public protocol HTMLViewModel: HTMLViewComponent {}
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: add_env_props = "sizeCategory"
+// sourcery: add_env_props = "splitPercent"
+// sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite

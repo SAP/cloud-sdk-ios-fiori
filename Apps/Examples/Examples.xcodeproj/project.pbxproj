@@ -135,6 +135,7 @@
 		B80DA9C2260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9C1260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift */; };
 		B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */; };
 		B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */; };
+		B8101D52268BB84B00D32560 /* ContactItemTapStateExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8101D51268BB84B00D32560 /* ContactItemTapStateExamples.swift */; };
 		B8355ED525225A52001AB341 /* AreaChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */; };
 		B8355ED725227D1B001AB341 /* StackedColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */; };
 		B8355ED925227E7E001AB341 /* BarChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */; };
@@ -142,6 +143,9 @@
 		B8355EDD25227F87001AB341 /* BubbleChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EDC25227F87001AB341 /* BubbleChartSnapshotTests.swift */; };
 		B8355EDF25227F9B001AB341 /* ScatterChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EDE25227F9B001AB341 /* ScatterChartSnapshotTests.swift */; };
 		B8355EE12522846B001AB341 /* RealColumnChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8355EE02522846B001AB341 /* RealColumnChartSnapshotTests.swift */; };
+		B846F94626815CC90085044B /* ContactItemExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B846F94526815CC90085044B /* ContactItemExample.swift */; };
+		B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = B846F94726815DE50085044B /* ContactItemRegularExamples.swift */; };
+		B846F94A26815DF30085044B /* ContactItemCompactExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = B846F94926815DF30085044B /* ContactItemCompactExamples.swift */; };
 		B84D24EC2652F343007F2373 /* ObjectHeaderSpecCompact.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24E52652F343007F2373 /* ObjectHeaderSpecCompact.swift */; };
 		B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24E62652F343007F2373 /* HeaderChartExample.swift */; };
 		B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D24E72652F343007F2373 /* ObjectHeaderViewScenarios.swift */; };
@@ -325,6 +329,7 @@
 		B80DA9C1260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionLongFollowButton.swift; sourceTree = "<group>"; };
 		B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivationScreenSample.swift; sourceTree = "<group>"; };
 		B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeScreenSample.swift; sourceTree = "<group>"; };
+		B8101D51268BB84B00D32560 /* ContactItemTapStateExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemTapStateExamples.swift; sourceTree = "<group>"; };
 		B8355ED425225A52001AB341 /* AreaChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreaChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED625227D1B001AB341 /* StackedColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355ED825227E7E001AB341 /* BarChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarChartSnapshotTests.swift; sourceTree = "<group>"; };
@@ -332,6 +337,9 @@
 		B8355EDC25227F87001AB341 /* BubbleChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355EDE25227F9B001AB341 /* ScatterChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScatterChartSnapshotTests.swift; sourceTree = "<group>"; };
 		B8355EE02522846B001AB341 /* RealColumnChartSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealColumnChartSnapshotTests.swift; sourceTree = "<group>"; };
+		B846F94526815CC90085044B /* ContactItemExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemExample.swift; sourceTree = "<group>"; };
+		B846F94726815DE50085044B /* ContactItemRegularExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemRegularExamples.swift; sourceTree = "<group>"; };
+		B846F94926815DF30085044B /* ContactItemCompactExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactItemCompactExamples.swift; sourceTree = "<group>"; };
 		B84D24E52652F343007F2373 /* ObjectHeaderSpecCompact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderSpecCompact.swift; sourceTree = "<group>"; };
 		B84D24E62652F343007F2373 /* HeaderChartExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderChartExample.swift; sourceTree = "<group>"; };
 		B84D24E72652F343007F2373 /* ObjectHeaderViewScenarios.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderViewScenarios.swift; sourceTree = "<group>"; };
@@ -620,6 +628,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				B8239D8626815C11003455D2 /* ContactItem */,
 				692F338926556A34009B98DA /* SideBar */,
 				1FF3662C264C662A00AB8BD8 /* DimensionSelector */,
 				97CEF8A92553D6F1008BFBEF /* SignatureView */,
@@ -751,6 +760,17 @@
 				9996CD02262FFEBD001B99AE /* EULA2.html */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		B8239D8626815C11003455D2 /* ContactItem */ = {
+			isa = PBXGroup;
+			children = (
+				B846F94526815CC90085044B /* ContactItemExample.swift */,
+				B846F94726815DE50085044B /* ContactItemRegularExamples.swift */,
+				B846F94926815DF30085044B /* ContactItemCompactExamples.swift */,
+				B8101D51268BB84B00D32560 /* ContactItemTapStateExamples.swift */,
+			);
+			path = ContactItem;
 			sourceTree = "<group>";
 		};
 		B84D24E42652F343007F2373 /* ObjectHeader */ = {
@@ -951,6 +971,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8101D52268BB84B00D32560 /* ContactItemTapStateExamples.swift in Sources */,
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
 				8A3C4E0424EB4A7B0084451B /* DataRequestTestCases.swift in Sources */,
 				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
@@ -971,6 +992,7 @@
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
 				8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
+				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
@@ -988,12 +1010,14 @@
 				B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */,
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
 				B84D24F12652F343007F2373 /* ObjectHeaderSpec.swift in Sources */,
+				B846F94A26815DF30085044B /* ContactItemCompactExamples.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
 				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,
 				8A55795B24C1286E0098003A /* ContentView.swift in Sources */,
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
 				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
+				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,

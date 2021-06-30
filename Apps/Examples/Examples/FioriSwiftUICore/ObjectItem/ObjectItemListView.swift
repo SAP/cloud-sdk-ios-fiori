@@ -8,6 +8,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     let showEditButton: Bool
     
     @State var cellTapped = false
+    @State var singleSelection: Int?
     
     init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true) {
         self.title = title
@@ -25,7 +26,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         
         return List {
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
-                Section(header: Text(listData.titleForHeaderInSection(sectionIndex))) {
+                Section(header: Text(listData.titleForHeaderInSection(sectionIndex)).textCase(.none)) {
                     ForEach(0 ..< listData.numberOfRowsInSection(sectionIndex), id: \.self) { index in
                         if listData.containAccessoryView(IndexPath(row: index, section: sectionIndex)) {
                             NavigationLink(destination: listData.cellForRow(IndexPath(row: index, section: sectionIndex))) {

@@ -16,8 +16,13 @@ public struct ActivityButtonView: View {
 
     public var body: some View {
         Button(action: handle) {
-            Image(systemName: "mail")
-        }.buttonStyle(ActivityButtonStyle())
+            image
+                .font(.body.weight(.light))
+                .imageScale(.large)
+                .foregroundColor(.preferredColor(.tintColor))
+                .frame(width: 44, height: 44, alignment: .center)
+        }
+        .buttonStyle(BorderlessButtonStyle())
     }
 }
 
