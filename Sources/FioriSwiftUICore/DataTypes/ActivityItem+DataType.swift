@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// :nodoc:
+/// Activity item predefined types
 public enum ActivityItemType {
     case phone
     case email

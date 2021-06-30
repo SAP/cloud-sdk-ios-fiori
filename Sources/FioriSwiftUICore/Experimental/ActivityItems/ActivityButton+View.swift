@@ -17,7 +17,7 @@ public struct ActivityButtonView: View {
     public var body: some View {
         Button(action: handle) {
             image
-                .font(.body.weight(.light))
+                .font(Font.body.weight(Font.Weight.light))
                 .imageScale(.large)
                 .foregroundColor(.preferredColor(.tintColor))
                 .frame(width: 44, height: 44, alignment: .center)
