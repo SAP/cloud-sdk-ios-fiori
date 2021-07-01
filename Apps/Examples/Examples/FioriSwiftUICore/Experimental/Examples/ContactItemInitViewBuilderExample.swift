@@ -17,8 +17,6 @@ struct ContactItemInitViewBuilderExample: View {
                 }
             } subtitle: {
                 Text("SubTitle")
-            } footnote: {
-                Text("Footnote")
             } descriptionText: {
                 Text("Description")
             } detailImage: {

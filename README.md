@@ -56,7 +56,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | InfoView | :white_check_mark: |
 | KPIProgressItem | :soon: | 
 | EULAView | :soon: |
-| ContactItem | :soon: | 
+| ContactItem | :white_check_mark: | 
 | KeyValueItem | :soon: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |

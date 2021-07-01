@@ -13,8 +13,6 @@ struct ContactItemActionItemsExample: View {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
-                } footnote: {
-                    Text("Footnote")
                 } descriptionText: {
                     Text("Description")
                 } detailImage: {
@@ -30,8 +28,6 @@ struct ContactItemActionItemsExample: View {
                     Text("Title")
                 } subtitle: {
                     Text("SubTitle")
-                } footnote: {
-                    Text("Footnote")
                 } descriptionText: {
                     Text("Description")
                 } detailImage: {
@@ -54,7 +50,7 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
-                ContactItem(title: viewModel.title_, subtitle: viewModel.subtitle_, footnote: viewModel.footnote_, descriptionText: viewModel.descriptionText_,
+                ContactItem(title: viewModel.title_, subtitle: viewModel.subtitle_, descriptionText: viewModel.descriptionText_,
                             detailImage: viewModel.detailImage_, actionItems: viewModel.actionItems_, didSelectActivityItem: viewModel.didSelectActivityItem(_:))
                     .exampleHighlighting()
 
@@ -87,7 +83,6 @@ class ContactItemActionItemsExampleViewModel: ObservableObject {
 extension ContactItemActionItemsExampleViewModel: ContactItemModel, ActionItemsComponent {
     var title_: String { self.model.title_ }
     var subtitle_: String? { self.model.subtitle_ }
-    var footnote_: String? { self.model.footnote_ }
     var descriptionText_: String? { self.model.descriptionText_ }
     var detailImage_: Image? { self.model.detailImage_ }
 

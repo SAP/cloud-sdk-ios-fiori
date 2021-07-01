@@ -1,14 +1,26 @@
 import SwiftUI
 
-/// :nodoc:
+/// Activity item predefined types
 public enum ActivityItemType {
+    case phone
     case email
+    case message
+    case videoCall
+    case detail
     case custom(Image)
 
     public var icon: Image {
         switch self {
+        case .phone:
+            return Image(systemName: "phone")
         case .email:
-            return Image(systemName: "mail")
+            return Image(systemName: "envelope")
+        case .message:
+            return Image(systemName: "message")
+        case .videoCall:
+            return Image(systemName: "video")
+        case .detail:
+            return Image(systemName: "info.circle")
         case .custom(let image):
             return image
         }
@@ -19,7 +31,15 @@ public enum ActivityItemType {
 extension ActivityItemType: Equatable {
     public static func == (lhs: ActivityItemType, rhs: ActivityItemType) -> Bool {
         switch (lhs, rhs) {
+        case (.phone, .phone):
+            return true
         case (.email, .email):
+            return true
+        case (.message, .message):
+            return true
+        case (.videoCall, .videoCall):
+            return true
+        case (.detail, .detail):
             return true
         case (.custom, .custom):
             return true
