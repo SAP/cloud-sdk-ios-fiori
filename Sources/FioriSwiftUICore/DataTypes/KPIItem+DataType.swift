@@ -8,10 +8,10 @@ public enum KPIItemData {
     case measure(Measurement<Unit>, MeasurementFormatter)
     /// Time duration type that takes in time interval value and DateComponentsFormatter
     case duration(TimeInterval, DateComponentsFormatter?)
-    /// Fraction type
-    case fraction(Int, Int)
     /// Percentage type
     case percent(Double)
+    /// Fraction type
+    case fraction(Int, Int, NumberFormatter)
     
     /// Component types for KPIItemData
     public enum Component {
@@ -37,6 +37,12 @@ public enum KPIItemData {
             nf.numberStyle = .percent
             nf.maximumFractionDigits = 1
             return nf.string(from: percent as NSNumber)
+        case .fraction(let value, let total, let formatter):
+            if let v = formatter.string(for: value), let t = formatter.string(for: total) {
+                return v + "/" + t
+            } else {
+                return nil
+            }
         case .components(let components):
             var string: String = ""
             for component in components {
@@ -52,8 +58,6 @@ public enum KPIItemData {
                 }
             }
             return string
-        default:
-            return nil
         }
     }
     
@@ -72,41 +76,57 @@ public enum KPIItemData {
             return []
         }
     }
+    
+    internal func fraction() -> Double {
+        switch self {
+        case .percent(let percent):
+            return percent
+        case .fraction(let value, let total, _):
+            let s = String(format: "%.2f", Double(value) / Double(total))
+            return Double(s) ?? 0.0
+        default:
+            return 0.0
+        }
+    }
 }
 
-private struct KPIStringComponent: Hashable {
-    internal enum ComponentType {
-        case unit
-        case metric
-        case icon
-        case whitespace
-        case punctuation
-    }
-    
+internal enum KPIComponentType {
+    case unit
+    case icon
+    case metric
+    case fraction
+    case whitespace
+    case punctuation
+}
+
+internal struct KPIStringComponent: Hashable {
     var string: String
     var range: Range<String.Index>
-    var type: ComponentType
+    var type: KPIComponentType
     
-    init(string: String, range: Range<String.Index>, type: ComponentType) {
+    init(string: String, range: Range<String.Index>, type: KPIComponentType) {
         self.string = string
         self.range = range
         self.type = type
     }
 }
 
-internal struct KPIFormatter {
-    private static let punctuationsCharacterSet = CharacterSet([".", ","])
+internal class KPIFormatter {
+    internal static let punctuationsCharacterSet = CharacterSet([".", ","])
     
-    private static let iconsCharacterSet: CharacterSet = {
+    internal static let fractionCharacterSet = CharacterSet(["/"])
+    
+    internal static let iconsCharacterSet: CharacterSet = {
         let char: Character = "\u{1A}"
         return CharacterSet(charactersIn: String(char))
     }()
     
-    private static let unitsCharacterSet: CharacterSet = {
+    internal static let unitsCharacterSet: CharacterSet = {
         var set = CharacterSet.decimalDigits
         set = set.union(.whitespacesAndNewlines)
         set = set.inverted
         set = set.subtracting(punctuationsCharacterSet)
+        set = set.subtracting(fractionCharacterSet)
         set = set.subtracting(.controlCharacters)
         return set
     }()
@@ -117,6 +137,7 @@ internal struct KPIFormatter {
         let unitsComponents = self.components(forCharactersOfSet: KPIFormatter.unitsCharacterSet, with: .unit, in: string)
         let metricComponents = self.components(forCharactersOfSet: .decimalDigits, with: .metric, in: string)
         let whitespaceComponents = self.components(forCharactersOfSet: .whitespacesAndNewlines, with: .whitespace, in: string)
+        let fractionComponents = self.components(forCharactersOfSet: KPIFormatter.fractionCharacterSet, with: .fraction, in: string)
         let punctuationComponents = self.components(forCharactersOfSet: KPIFormatter.punctuationsCharacterSet, with: .punctuation, in: string)
         let iconComponents = self.components(forCharactersOfSet: KPIFormatter.iconsCharacterSet, with: .icon, in: string)
         
@@ -128,7 +149,7 @@ internal struct KPIFormatter {
             }
         }
         
-        let fullComponents = (unitsComponents + metricComponents + whitespaceComponents + punctuationComponents + iconComponents).sorted(by: { $0.range.lowerBound < $1.range.lowerBound })
+        let fullComponents = (unitsComponents + metricComponents + whitespaceComponents + punctuationComponents + fractionComponents + iconComponents).sorted(by: { $0.range.lowerBound < $1.range.lowerBound })
         
         var text = Text("")
         
@@ -156,13 +177,13 @@ internal struct KPIFormatter {
         return text
     }
     
-    private func kerning(after: KPIStringComponent.ComponentType, before: KPIStringComponent.ComponentType) -> CGFloat {
+    internal func kerning(after: KPIComponentType, before: KPIComponentType) -> CGFloat {
         switch (after, before) {
         case (.unit, .unit), (.metric, .metric), (.icon, .icon):
             return 0.0
         case (.icon, .unit), (.icon, .metric):
             return 8.0
-        case (.unit, .metric), (.metric, .unit):
+        case (.unit, .metric), (.metric, .unit), (.unit, .fraction), (.fraction, .unit):
             return 2.0
         case (.icon, .whitespace), (.unit, .whitespace), (.metric, .whitespace):
             return 4.0
@@ -171,7 +192,7 @@ internal struct KPIFormatter {
         }
     }
     
-    private func components(forCharactersOfSet set: CharacterSet, with type: KPIStringComponent.ComponentType, in string: String) -> [KPIStringComponent] {
+    internal func components(forCharactersOfSet set: CharacterSet, with type: KPIComponentType, in string: String) -> [KPIStringComponent] {
         var components: [KPIStringComponent] = []
         var start = string.startIndex
         while start < string.endIndex, let range = string.rangeOfCharacter(from: set, range: start ..< string.endIndex), !range.isEmpty {
@@ -179,5 +200,40 @@ internal struct KPIFormatter {
             start = range.upperBound
         }
         return components
+    }
+}
+
+internal class KPIProgressFormatter: KPIFormatter {
+    override internal func create(from data: KPIItemData) -> Text? {
+        guard let string = data.string() else { return nil }
+        
+        let unitsComponents = self.components(forCharactersOfSet: KPIProgressFormatter.unitsCharacterSet, with: .unit, in: string)
+        let metricComponents = self.components(forCharactersOfSet: .decimalDigits, with: .metric, in: string)
+        let whitespaceComponents = self.components(forCharactersOfSet: .whitespacesAndNewlines, with: .whitespace, in: string)
+        let fractionComponents = components(forCharactersOfSet: KPIProgressFormatter.fractionCharacterSet, with: .fraction, in: string)
+        let punctuationComponents = self.components(forCharactersOfSet: KPIProgressFormatter.punctuationsCharacterSet, with: .punctuation, in: string)
+        
+        let fullComponents = (unitsComponents + metricComponents + whitespaceComponents + punctuationComponents + fractionComponents).sorted(by: { $0.range.lowerBound < $1.range.lowerBound })
+        
+        var text = Text("")
+        
+        for (index, component) in fullComponents.enumerated() {
+            var current = Text(String(component.string))
+            switch component.type {
+            case .unit, .punctuation:
+                current = current
+                    .font(.system(size: 24.0))
+            default:
+                current = current
+                    .font(fractionComponents.isEmpty ? .system(size: 48.0) : .system(size: 36.0))
+            }
+            if index < fullComponents.count - 1 {
+                current = current
+                    .kerning(self.kerning(after: fullComponents[index + 1].type, before: component.type))
+            }
+            text = text + current
+        }
+        
+        return text
     }
 }

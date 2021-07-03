@@ -58,11 +58,12 @@ public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
 
-// sourcery: availableAttributeContent = "iOS 14, *"
-// sourcery: virtualPropAnimatedFraction = "@State var animatedFraction: Double = 0.0"
+// sourcery: virtualPropIsPressed = "@State var isPressed: Bool = false"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
+// sourcery: add_env_props = "kpiProgressViewStyle"
+// sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-// public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
