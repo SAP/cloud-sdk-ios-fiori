@@ -1,7 +1,5 @@
 import SwiftUI
 
-// FIXME: - Implement Fiori style definitions
-
 extension Fiori {
     enum KPIProgressItem {
         struct Kpi: ViewModifier {
