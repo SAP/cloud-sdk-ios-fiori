@@ -54,6 +54,11 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: KPIProgressExample()) {
+                    Text("KPIProgressItem")
+                }
+                
+                NavigationLink(
                     destination: OnboardingExamples()) {
                     Text("Onboarding")
                 }

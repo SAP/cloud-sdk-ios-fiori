@@ -54,7 +54,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | WelcomeScreen | :white_check_mark: |
 | ActivationScreen | :white_check_mark: |
 | InfoView | :white_check_mark: |
-| KPIProgressItem | :soon: | 
+| KPIProgressItem | :white_check_mark: | 
 | EULAView | :soon: |
 | ContactItem | :white_check_mark: | 
 | KeyValueItem | :soon: |
@@ -63,7 +63,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | ChartFloorplan | :x: |
 | ProfileHeader | :x: |
 | CollectionItem | :x: |
-| ProfileHeader | :x: |
+| KPIHeader | :soon: |
 | BarcodeScanner | :x: |
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
