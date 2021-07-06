@@ -98,6 +98,7 @@ public extension KPIProgressItem where Kpi == Text,
     }
 }
 
+/// Defines view style APIs for an KPIProgressItem
 public protocol KPIProgressViewStyle {
     /// A view that represents the body of a KPI progress item.
     associatedtype Body: View
