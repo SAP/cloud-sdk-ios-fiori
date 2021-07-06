@@ -276,7 +276,16 @@ public extension View {
 
 extension UIControl.State: Hashable {
     /// Extends ``UIControl.State`` to be ``Hashable``
-    public var hashValue: Int {
-        Int(rawValue)
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(rawValue)
+    }
+}
+
+@available(iOS 14.0, *)
+struct KPIProgressItemLibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(KPIProgressItem(data: .percent(0.88), subtitle: "Completed"),
+                    category: .control)
     }
 }
