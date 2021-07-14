@@ -27,9 +27,11 @@ public struct ListCardView: View {
 
                 Divider().accentColor(Color.primary)
                 VStack(alignment: .leading) {
-                    ForEach(model.content) {
-                        ListItemView(icon: $0.icon, title: $0.title, description: $0.description, highlight: $0.highlight, info: $0.info)
-                        Divider()
+                    if model.content.count > 0 {
+                        ForEach(0 ..< (model.maxItems ?? model.content.count)) {
+                            ListItemView(icon: self.model.content[$0].icon, title: self.model.content[$0].title, description: self.model.content[$0].description, highlight: self.model.content[$0].highlight, info: self.model.content[$0].info)
+                            Divider()
+                        }
                     }
                 }
             }
