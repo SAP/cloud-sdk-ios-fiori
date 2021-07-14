@@ -19,9 +19,9 @@ enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
     func manifestPath() -> String {
         switch self {
         case .data:
-            return "samples/data/manifest.json"
+            return "samples/data/basic/manifest.json"
         case .parameters:
-            return "samples/parameters.json"
+            return "samples/parameters/parameters/manifest.json"
         }
     }
 
@@ -31,7 +31,7 @@ enum DataRequestTestCases: String, CaseIterable, Identifiable, CardTestCase {
 
     func manifest() -> Manifest? {
         do {
-            return try Manifest(withCardBundleAt: URL(string: "https://openui5.hana.ondemand.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/")!, manifestPath: self.manifestPath())
+            return try Manifest(withCardBundleAt: URL(string: "https://ui5.sap.com/test-resources/sap/ui/integration/demokit/cardExplorer/webapp/")!, manifestPath: self.manifestPath())
         } catch {
             print(error)
         }
