@@ -242,7 +242,8 @@ extension UserConsent: View {
     
     func onAllowButtonClicked() {
         self._onAccepted!(self.currentFormIndex)
-        
+        self._itemAccepted.wrappedValue.append(self.currentFormIndex)
+        print("itemAccepted: \(self._itemAccepted.wrappedValue)")
         self.numAccepted += 1
         if self.currentFormIndex + 1 < self._forms.count {
             self.currentFormIndex += 1
