@@ -95,8 +95,7 @@ extension EULAView: View {
                     .overlay(GetDynamicHeight())
                 Spacer()
             }
-            .frame(minHeight: contentHeight + 80, maxHeight: .infinity)
-            
+            .frame(minHeight: max(contentHeight + 80, UIScreen.main.bounds.size.height - 120), maxHeight: .infinity)
             .onPreferenceChange(GetDynamicHeight.Key.self) {
                 if contentHeight < $0 {
                     contentHeight = $0

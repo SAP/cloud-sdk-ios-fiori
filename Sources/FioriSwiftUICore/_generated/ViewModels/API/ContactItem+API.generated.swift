@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -17,7 +17,7 @@ public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, De
 	let _detailImage: DetailImage
 	let _actionItems: ActionItems
 	@State var mainViewSize: CGSize = .zero
-    
+
     private var isModelInit: Bool = false
 	private var isSubtitleNil: Bool = false
 	private var isDescriptionTextNil: Bool = false

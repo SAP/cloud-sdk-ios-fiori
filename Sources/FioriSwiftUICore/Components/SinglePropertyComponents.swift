@@ -30,6 +30,8 @@ internal struct _Component: _ComponentGenerating {
     // sourcery: customFunctionBuilder=IconBuilder
     let icons_: [TextOrIcon]?
     let actionTitle_: String?
+    let firstActionTitle_: String?
+    let secondActionTitle_: String?
     let seriesTitles_: [String]
     let key_: String
     let value_: String?

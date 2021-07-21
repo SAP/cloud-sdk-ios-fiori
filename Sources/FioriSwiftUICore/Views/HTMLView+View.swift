@@ -19,7 +19,7 @@ extension HTMLView: View {
     public var body: some View {
         GeometryReader { geometry in
             AttributedText(attributedText: self._htmlContent ?? NSAttributedString(string: ""), width: geometry.size.width, height: $contentHeight)
-                .frame(height: contentHeight)
+                .frame(height: max(geometry.size.height, contentHeight))
                 .overlay(GetDynamicHeight())
         }
     }

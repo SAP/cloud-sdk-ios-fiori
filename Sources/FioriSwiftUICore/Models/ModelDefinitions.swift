@@ -104,6 +104,18 @@ public protocol SideBarModel: SubtitleComponent {}
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 public protocol HTMLViewModel: HTMLViewComponent {}
 
+// sourcery: generated_component
+// sourcery: virtualPropBundle = "let bundle = Bundle.module"
+// sourcery: virtualPropTableName = "let tableName = "FioriSwiftUICore""
+// sourcery: virtualPropNumAccepted = "@State var numAccepted: Int = 0"
+// sourcery: virtualPropCurrentFormIndex = "@State var currentFormIndex: Int = 0"
+// sourcery: virtualPropCurrentPageIndex = "@State var currentPageIndex: Int = 0"
+// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
+// sourcery: virtualPropUcAccepted = "@State var ucAccepted: [Int] = []"
+// sourcery: virtualPropCurrentState = "@State var currentState: UserConsentState = .userConsentInit"
+// sourcery: add_env_props = ["presentationMode"]
+public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
+
 // ----------------------------------------------------------------------------------------------------------------
 
 // sourcery: add_env_props = "horizontalSizeClass"
@@ -127,3 +139,9 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, Progres
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
 public protocol EULAViewModel: TitleComponent, HTMLViewModel, ActionModel, SecondaryActionModel {}
+
+// sourcery: generated_component_composite
+// sourcery: virtualPropBundle = "let bundle = Bundle.module"
+// sourcery: virtualPropTableName = "let tableName = "FioriSwiftUICore""
+// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
+public protocol UserConsentPageModel: TitleComponent, BodyTextComponent, HTMLViewModel, FootnoteComponent {}

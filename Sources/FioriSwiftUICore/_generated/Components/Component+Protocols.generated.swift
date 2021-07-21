@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -85,6 +85,14 @@ public protocol IconsComponent {
 
 public protocol ActionTitleComponent {
     var actionTitle_: String? { get }
+}
+
+public protocol FirstActionTitleComponent {
+    var firstActionTitle_: String? { get }
+}
+
+public protocol SecondActionTitleComponent {
+    var secondActionTitle_: String? { get }
 }
 
 public protocol SeriesTitlesComponent {
@@ -179,4 +187,14 @@ public protocol TextInputComponent : ObservableObject {
     var textInputValue_: String { get set }
     // sourcery: no_nil_check
 	func onCommit() -> Void
+}
+
+// sourcery: backingComponent=UserConsentForms
+public protocol UserConsentFormsComponent {
+	// sourcery: no_view
+    var forms_: [UserConsentFormData] { get }
+    // sourcery: no_nil_check
+	func onCancel() -> Void
+    // sourcery: no_nil_check
+	func onAccepted(currentIndex: Int) -> Void
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -115,6 +115,18 @@ extension EnvironmentValues {
     public var actionTitleModifier: AnyViewModifier {
         get { return self[ActionTitleModifierKey.self] }
         set { self[ActionTitleModifierKey.self] = newValue }
+    }
+
+
+    public var firstActionTitleModifier: AnyViewModifier {
+        get { return self[FirstActionTitleModifierKey.self] }
+        set { self[FirstActionTitleModifierKey.self] = newValue }
+    }
+
+
+    public var secondActionTitleModifier: AnyViewModifier {
+        get { return self[SecondActionTitleModifierKey.self] }
+        set { self[SecondActionTitleModifierKey.self] = newValue }
     }
 
 
@@ -323,6 +335,20 @@ public extension View {
     @ViewBuilder
     func actionTitleModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.actionTitleModifier, AnyViewModifier(transform))
+    }
+
+
+
+    @ViewBuilder
+    func firstActionTitleModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.firstActionTitleModifier, AnyViewModifier(transform))
+    }
+
+
+
+    @ViewBuilder
+    func secondActionTitleModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.secondActionTitleModifier, AnyViewModifier(transform))
     }
 
 
@@ -538,4 +564,11 @@ public extension View {
 			self.environment(\.textInputValueModifier, AnyViewModifier(transform))
 		}
 
+	}
+
+
+	extension EnvironmentValues {
+	}
+
+	public extension View {
 	}

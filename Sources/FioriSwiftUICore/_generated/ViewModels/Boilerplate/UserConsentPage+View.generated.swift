@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ContactItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/UserConsentPage+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement ContactItem `View` body
+//TODO: Implement UserConsentPage `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,17 +16,15 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum ContactItem {
+    enum UserConsentPage {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias Subtitle = EmptyModifier
-        typealias SubtitleCumulative = EmptyModifier
-		typealias DescriptionText = EmptyModifier
-        typealias DescriptionTextCumulative = EmptyModifier
-		typealias DetailImage = EmptyModifier
-        typealias DetailImageCumulative = EmptyModifier
-		typealias ActionItems = EmptyModifier
-        typealias ActionItemsCumulative = EmptyModifier
+		typealias BodyText = EmptyModifier
+        typealias BodyTextCumulative = EmptyModifier
+		typealias HtmlContent = EmptyModifier
+        typealias HtmlContentCumulative = EmptyModifier
+		typealias Footnote = EmptyModifier
+        typealias FootnoteCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -41,33 +39,31 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let subtitle = Subtitle()
-		static let descriptionText = DescriptionText()
-		static let detailImage = DetailImage()
-		static let actionItems = ActionItems()
+		static let bodyText = BodyText()
+		static let htmlContent = HtmlContent()
+		static let footnote = Footnote()
         static let titleCumulative = TitleCumulative()
-		static let subtitleCumulative = SubtitleCumulative()
-		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let detailImageCumulative = DetailImageCumulative()
-		static let actionItemsCumulative = ActionItemsCumulative()
+		static let bodyTextCumulative = BodyTextCumulative()
+		static let htmlContentCumulative = HtmlContentCumulative()
+		static let footnoteCumulative = FootnoteCumulative()
     }
 }
 
-// FIXME: - Implement ContactItem View body
+// FIXME: - Implement UserConsentPage View body
 
-extension ContactItem: View {
+extension UserConsentPage: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement ContactItem specific LibraryContentProvider
+// FIXME: - Implement UserConsentPage specific LibraryContentProvider
 
 @available(iOS 14.0, *)
-struct ContactItemLibraryContent: LibraryContentProvider {
+struct UserConsentPageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ContactItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(UserConsentPage(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }
