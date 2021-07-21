@@ -9,19 +9,20 @@ public struct UserConsent<ActionTitle: View, FirstActionTitle: View, SecondActio
 	@Environment(\.presentationMode) var presentationMode
 
     let _forms: [UserConsentFormData]
+	var _itemAccepted: Binding<[Int]>
 	let _actionTitle: ActionTitle
 	let _firstActionTitle: FirstActionTitle
 	let _secondActionTitle: SecondActionTitle
 	var _onCancel: (() -> Void)? = nil
 	var _onAccepted: ((Int) -> Void)? = nil
+	@State var currentState: UserConsentState = .userConsentInit
 	let tableName = "FioriSwiftUICore"
 	let bundle = Bundle.module
-	@State var currentPageIndex: Int = 0
-	@State var numAccepted: Int = 0
 	@State var ucAccepted: [Int] = []
-	@State var contentHeight: CGFloat = .zero
-	@State var currentState: UserConsentState = .userConsentInit
+	@State var numAccepted: Int = 0
 	@State var currentFormIndex: Int = 0
+	@State var contentHeight: CGFloat = .zero
+	@State var currentPageIndex: Int = 0
     private var isModelInit: Bool = false
 	private var isActionTitleNil: Bool = false
 	private var isFirstActionTitleNil: Bool = false
@@ -29,11 +30,13 @@ public struct UserConsent<ActionTitle: View, FirstActionTitle: View, SecondActio
 
     public init(
         forms: [UserConsentFormData],
+		itemAccepted: Binding<[Int]>,
 		@ViewBuilder actionTitle: @escaping () -> ActionTitle,
 		@ViewBuilder firstActionTitle: @escaping () -> FirstActionTitle,
 		@ViewBuilder secondActionTitle: @escaping () -> SecondActionTitle
         ) {
             self._forms = forms
+			self._itemAccepted = itemAccepted
 			self._actionTitle = actionTitle()
 			self._firstActionTitle = firstActionTitle()
 			self._secondActionTitle = secondActionTitle()
@@ -79,11 +82,12 @@ extension UserConsent where ActionTitle == _ConditionalContent<Text, EmptyView>,
 		SecondActionTitle == _ConditionalContent<Text, EmptyView> {
 
     public init(model: UserConsentModel) {
-        self.init(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: model.onCancel, onAccepted: model.onAccepted(currentIndex:))
+        self.init(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: model.onCancel, onAccepted: model.onAccepted(currentIndex:))
     }
 
-    public init(forms: [UserConsentFormData] = [], actionTitle: String? = nil, firstActionTitle: String? = nil, secondActionTitle: String? = nil, onCancel: (() -> Void)? = nil, onAccepted: ((Int) -> Void)? = nil) {
+    public init(forms: [UserConsentFormData] = [], itemAccepted: Binding<[Int]>, actionTitle: String? = nil, firstActionTitle: String? = nil, secondActionTitle: String? = nil, onCancel: (() -> Void)? = nil, onAccepted: ((Int) -> Void)? = nil) {
         self._forms = forms
+		self._itemAccepted = itemAccepted
 		self._actionTitle = actionTitle != nil ? ViewBuilder.buildEither(first: Text(actionTitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._firstActionTitle = firstActionTitle != nil ? ViewBuilder.buildEither(first: Text(firstActionTitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._secondActionTitle = secondActionTitle != nil ? ViewBuilder.buildEither(first: Text(secondActionTitle!)) : ViewBuilder.buildEither(second: EmptyView())

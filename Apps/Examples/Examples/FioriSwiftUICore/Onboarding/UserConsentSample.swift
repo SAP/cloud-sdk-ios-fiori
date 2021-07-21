@@ -23,6 +23,7 @@ class UserConsentDataModel: UserConsentModel, ObservableObject {
     var firstActionTitle_: String? = "Not Now"
     var actionTitle_: String? = "Allow"
     var userAccepted_: [Int] = []
+    var itemAccepted_: Binding<[Int]> = .constant([])
     
     func onCancel() {
         self.cfStatus = .userConsentCancel
@@ -33,6 +34,7 @@ class UserConsentDataModel: UserConsentModel, ObservableObject {
             self.userAccepted_.append(currentIndex)
             print("User Accepted form: \(self.userAccepted_), \(currentIndex)")
         }
+        print("UserConsentSample: itemAccepted: \(self.itemAccepted_.wrappedValue)")
     }
     
     func setSinglePageData(required: Bool) {
@@ -152,7 +154,7 @@ struct UserConsentSinglePageM: View {
     }
 
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -236,7 +238,7 @@ struct UserConsentMultiplePageM: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -248,7 +250,7 @@ struct UserConsentMultiplePageO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -260,7 +262,7 @@ struct UserConsentMixFormM: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -272,7 +274,7 @@ struct UserConsentMixFormO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -284,7 +286,7 @@ struct UserConsentMixFormMO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -296,7 +298,7 @@ struct UserConsentMixFormOM: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -308,7 +310,7 @@ struct UserConsentLongText: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
 
@@ -320,6 +322,6 @@ struct UserConsentSinglePageHTML: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
     }
 }
