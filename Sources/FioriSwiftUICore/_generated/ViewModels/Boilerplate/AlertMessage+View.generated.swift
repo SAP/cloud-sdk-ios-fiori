@@ -1,7 +1,7 @@
 // Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/IconStack+View.swift`
-//TODO: Implement IconStack `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/AlertMessage+View.swift`
+//TODO: Implement AlertMessage `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement IconStack View body
+// FIXME: - Implement AlertMessage View body
 
-extension IconStack: View {
+extension AlertMessage: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement IconStack specific LibraryContentProvider
+// FIXME: - Implement AlertMessage specific LibraryContentProvider
 
 @available(iOS 14.0, *)
-struct IconStackLibraryContent: LibraryContentProvider {
+struct AlertMessageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(IconStack(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(AlertMessage(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }
