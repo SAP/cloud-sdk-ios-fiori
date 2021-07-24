@@ -12,9 +12,9 @@ public struct UserConsentPage<Title: View, BodyText: View, HtmlContent: View, Fo
 	let _bodyText: BodyText
 	let _htmlContent: HtmlContent
 	let _footnote: Footnote
+	let tableName = "FioriSwiftUICore"
 	let bundle = Bundle.module
 	@State var contentHeight: CGFloat = .zero
-	let tableName = "FioriSwiftUICore"
 
     private var isModelInit: Bool = false
 	private var isBodyTextNil: Bool = false

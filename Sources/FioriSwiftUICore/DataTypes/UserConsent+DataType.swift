@@ -1,12 +1,9 @@
 
 import SwiftUI
 
-public enum UserConsentState: Int {
+enum UserConsentState: Int {
     case userConsentInit
-    case userConsentAllow
-    case userConsentDeny
     case userConsentCancel
-    case userConsentMoreInfo
     case userConsentStatus
 }
 

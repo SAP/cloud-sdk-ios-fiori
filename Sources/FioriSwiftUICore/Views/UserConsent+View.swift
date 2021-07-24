@@ -46,42 +46,42 @@ extension Fiori {
 
 extension UserConsent: View {
     public var body: some View {
-        let pageModel = self._forms[self.currentFormIndex].pages?[currentPageIndex] ?? self._forms[0].pages?[0]
+        let pageModel = self._forms[self._currentFormIndex.wrappedValue].pages?[self._currentPageIndex.wrappedValue] ?? self._forms[0].pages?[0]
         
         VStack {
-            if #available(iOS 14.0, *) {
-                UserConsentPage(model: pageModel!)
-                    .toolbar(content: {
-                        ToolbarItem(placement: .bottomBar) {
-                            self.leftButton
-                        }
-                        ToolbarItem(placement: .bottomBar) {
-                            Spacer()
-                                .setHidden(!self.hideNextButton())
-                        }
-                        ToolbarItem(placement: .bottomBar) {
-                            self.rightButton
-                        }
-                        
-                    })
-            } else {
-                UserConsentPage(model: pageModel!)
-                if self.hideNextButton() {
-                    HStack {
-                        self.leftButton
-                        Spacer()
-                        self.rightButton
-                    }
-                    .padding(.leading, 16)
-                    .padding(.trailing, 16)
-                    .frame(maxHeight: 30, alignment: .bottom)
+//            if #available(iOS 14.0, *) {
+//                UserConsentPage(model: pageModel!)
+//                    .toolbar(content: {
+//                        ToolbarItem(placement: .bottomBar) {
+//                            self.leftButton
+//                        }
+//                        ToolbarItem(placement: .bottomBar) {
+//                            Spacer()
+//                                .setHidden(!self.hideNextButton())
+//                        }
+//                        ToolbarItem(placement: .bottomBar) {
+//                            self.rightButton
+//                        }
+//
+//                    })
+//            } else {
+            UserConsentPage(model: pageModel!)
+            if self.hideNextButton() {
+                HStack {
+                    self.leftButton
+                    Spacer()
+                    self.rightButton
                 }
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+                .frame(maxHeight: 30, alignment: .bottom)
             }
+//            }
         }
         
         .navigationBarItems(leading:
             VStack {
-                if self.currentPageIndex == 0 {
+                if self._currentPageIndex.wrappedValue == 0 {
                     Button(action: self._onCancel ?? self.onCancelButtonClicked) {
                         Text("Cancel", tableName: tableName, bundle: bundle)
                     }
@@ -114,12 +114,6 @@ extension UserConsent: View {
                 }
             case .userConsentInit:
                 break
-            case .userConsentAllow:
-                break
-            case .userConsentDeny:
-                break
-            case .userConsentMoreInfo:
-                break
             }
         })
         
@@ -127,7 +121,7 @@ extension UserConsent: View {
     }
     
     @ViewBuilder var leftButton: some View {
-        if self._forms[self.currentFormIndex].isRequired {
+        if self._forms[self._currentFormIndex.wrappedValue].isRequired {
             secondActionTitle
                 .onTapGesture {
                     self.onDenyButtonClicked()
@@ -148,27 +142,26 @@ extension UserConsent: View {
         actionTitle
             .onTapGesture {
                 self.onAllowButtonClicked()
-                (self._onAccepted ?? self.updateResult)(self.currentFormIndex)
             }
             .setHidden(!self.hideNextButton())
             .buttonStyle(StatefulButtonStyle())
     }
     
     func getTitle() -> String {
-        let pages = self._forms[self.currentFormIndex].pages
+        let pages = self._forms[self._currentFormIndex.wrappedValue].pages
         if pages?.count ?? 0 > 1 {
-            return "Step \(self.currentPageIndex + 1) of \(pages?.count ?? 0)"
+            return "Step \(self._currentPageIndex.wrappedValue + 1) of \(pages?.count ?? 0)"
         }
         return ""
     }
     
     func hideNextButton() -> Bool {
-        let pages = self._forms[self.currentFormIndex].pages
+        let pages = self._forms[self._currentFormIndex.wrappedValue].pages
         if pages?.count == 1 {
             return true
-        } else if self.currentPageIndex == 0 && pages?.count ?? 0 > 1 {
+        } else if self._currentPageIndex.wrappedValue == 0 && pages?.count ?? 0 > 1 {
             return false
-        } else if self.currentPageIndex + 1 == pages?.count ?? 0 {
+        } else if self._currentPageIndex.wrappedValue + 1 == pages?.count ?? 0 {
             return true
         } else {
             return false
@@ -176,28 +169,28 @@ extension UserConsent: View {
     }
     
     func getBackTitle() -> String {
-        if currentPageIndex > 0 {
-            guard let page = self._forms[self.currentFormIndex].pages?[self.currentPageIndex - 1] else { return "" }
+        if self._currentPageIndex.wrappedValue > 0 {
+            guard let page = self._forms[self._currentFormIndex.wrappedValue].pages?[self._currentPageIndex.wrappedValue - 1] else { return "" }
             return page.title_
         }
         return ""
     }
     
     func loadNextPage() {
-        guard let pages = self._forms[self.currentFormIndex].pages else { return }
-        if pages.count > 0, self.currentPageIndex < pages.count - 1 {
-            self.currentPageIndex += 1
+        guard let pages = self._forms[self._currentFormIndex.wrappedValue].pages else { return }
+        if pages.count > 0, self._currentPageIndex.wrappedValue < pages.count - 1 {
+            self._currentPageIndex.wrappedValue += 1
         }
     }
     
     func loadPreviousPage() {
-        if self.currentPageIndex > 0 {
-            currentPageIndex -= 1
-        } else if self.currentFormIndex > 0 {
-            self.currentFormIndex -= 1
-            let pages = self._forms[currentFormIndex].pages
+        if self._currentPageIndex.wrappedValue > 0 {
+            self._currentPageIndex.wrappedValue -= 1
+        } else if self._currentFormIndex.wrappedValue > 0 {
+            self._currentFormIndex.wrappedValue -= 1
+            let pages = self._forms[self._currentFormIndex.wrappedValue].pages
             if pages?.count ?? 0 > 1 {
-                self.currentPageIndex = pages?.count ?? 0 - 1
+                self._currentPageIndex.wrappedValue = pages?.count ?? 0 - 1
             }
         }
     }
@@ -208,7 +201,6 @@ extension UserConsent: View {
     }
     
     func onDenyButtonClicked() {
-        self.currentState = .userConsentDeny
         let denyString = NSLocalizedString("Without consent you will not be able to continue onboarding.", tableName: tableName, bundle: bundle, value: "Without consent you will not be able to continue onboarding.", comment: "")
         let giveConsentString = NSLocalizedString("Give Consent", tableName: tableName, bundle: bundle, value: "Give Consent", comment: "")
         let quitString = NSLocalizedString("Quit", tableName: tableName, bundle: bundle, value: "Quit", comment: "")
@@ -220,9 +212,9 @@ extension UserConsent: View {
                 style: .cancel,
                 handler: { _ in
                     self.numAccepted += 1
-                    if self.currentFormIndex + 1 < self._forms.count {
-                        self.currentFormIndex += 1
-                        self.currentPageIndex = 0
+                    if self._currentFormIndex.wrappedValue + 1 < self._forms.count {
+                        self._currentFormIndex.wrappedValue += 1
+                        self._currentPageIndex.wrappedValue = 0
                     } else {
                         self.currentState = .userConsentStatus
                         self.presentationMode.wrappedValue.dismiss()
@@ -241,29 +233,21 @@ extension UserConsent: View {
     }
     
     func onAllowButtonClicked() {
-        self._onAccepted!(self.currentFormIndex)
-        self._itemAccepted.wrappedValue.append(self.currentFormIndex)
-        print("itemAccepted: \(self._itemAccepted.wrappedValue)")
+        self._itemAccepted.wrappedValue.append(self._currentFormIndex.wrappedValue)
         self.numAccepted += 1
-        if self.currentFormIndex + 1 < self._forms.count {
-            self.currentFormIndex += 1
-            self.currentPageIndex = 0
+        if self._currentFormIndex.wrappedValue + 1 < self._forms.count {
+            self._currentFormIndex.wrappedValue += 1
+            self._currentPageIndex.wrappedValue = 0
         } else {
             self.currentState = .userConsentStatus
             self.presentationMode.wrappedValue.dismiss()
         }
     }
     
-    func updateResult(formIndex: Int) {
-        if !self.ucAccepted.contains(formIndex) {
-            self.ucAccepted.append(formIndex)
-        }
-    }
-    
     func onNotNowButtonClicked() {
-        if self.currentFormIndex + 1 < self._forms.count {
-            self.currentFormIndex += 1
-            self.currentPageIndex = 0
+        if self._currentFormIndex.wrappedValue + 1 < self._forms.count {
+            self._currentFormIndex.wrappedValue += 1
+            self._currentPageIndex.wrappedValue = 0
         } else {
             if self.numAccepted > 0 {
                 self.currentState = .userConsentStatus

@@ -17,24 +17,18 @@ class UserConsentPageDataModel: UserConsentPageModel {
 }
 
 class UserConsentDataModel: UserConsentModel, ObservableObject {
-    @Published var cfStatus: UserConsentState = .userConsentInit
     var forms_: [UserConsentFormData] = []
     var secondActionTitle_: String? = "Deny"
     var firstActionTitle_: String? = "Not Now"
     var actionTitle_: String? = "Allow"
     var userAccepted_: [Int] = []
     var itemAccepted_: Binding<[Int]> = .constant([])
+    var currentPageIndex_: Binding<Int> = .constant(0)
+    var currentFormIndex_: Binding<Int> = .constant(0)
+    @Published var isCanceled_: Bool = false
     
     func onCancel() {
-        self.cfStatus = .userConsentCancel
-    }
-    
-    func onAccepted(currentIndex: Int) {
-        if !self.userAccepted_.contains(currentIndex) {
-            self.userAccepted_.append(currentIndex)
-            print("User Accepted form: \(self.userAccepted_), \(currentIndex)")
-        }
-        print("UserConsentSample: itemAccepted: \(self.itemAccepted_.wrappedValue)")
+        self.isCanceled_ = true
     }
     
     func setSinglePageData(required: Bool) {
@@ -49,7 +43,7 @@ class UserConsentDataModel: UserConsentModel, ObservableObject {
     
     func setMultiplePageData(required: Bool) {
         let page1 = UserConsentPageDataModel()
-        page1.title_ = "Data Privacy"
+        page1.title_ = "User Privacy"
         page1.bodyText_ = "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."
         page1.footnote_ = "Learn more about Data Privacy"
         
@@ -152,97 +146,39 @@ struct UserConsentSinglePageM: View {
     public init() {
         self.model.setSinglePageData(required: true)
     }
-
+    
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: model.currentPageIndex_, currentFormIndex: model.currentFormIndex_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentSinglePageO: View {
-    @ObservedObject var model = UserConsentDataModel()
-    @Environment(\.presentationMode) var presentationMode
+    var model = UserConsentDataModel()
     public init() {
         self.model.setSinglePageData(required: false)
     }
     
     var body: some View {
-        var showAlert = Binding<Bool>(
-            get: { self.model.cfStatus == .userConsentCancel || self.model.cfStatus == .userConsentMoreInfo || self.model.cfStatus == .userConsentDeny },
-            set: { _ in self.model.cfStatus = .userConsentInit }
-        )
-        UserConsent(model: model)
-            .footnoteModifier { content in
-                content
-                    .onTapGesture {
-                        model.cfStatus = .userConsentMoreInfo
-                    }
-                    .font(.headline).foregroundColor(.blue)
-            }
-            
-            .actionTextModifier { content in
-                content
-                    .onTapGesture {
-                        model.cfStatus = .userConsentAllow
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
-                    .font(.headline).foregroundColor(.green)
-            }
-            .firstActionTitleModifier { content in
-                content
-                    .onTapGesture {
-                        model.cfStatus = .userConsentDeny
-                    }
-                    .font(.headline).foregroundColor(.red)
-            }
-            .secondActionTitleModifier { content in
-                content
-                    .onTapGesture {
-                        self.presentationMode.wrappedValue.dismiss()
-                        model.cfStatus = .userConsentDeny
-                    }
-                    .font(.headline).foregroundColor(.blue)
-            }
-            
-            .alert(isPresented: showAlert) {
-                switch model.cfStatus {
-                case .userConsentMoreInfo:
-                    return Alert(title: Text("Information Privacy"), message: Text("Several data protection plans provided"), dismissButton: .default(Text("Got it")) {
-                        model.cfStatus = .userConsentInit
-                    })
-                case .userConsentCancel:
-                    return Alert(title: Text("Cancel?"), message: Text("You have not finished the user consent form."), dismissButton: .default(Text("Got it")) {
-                        self.presentationMode.wrappedValue.dismiss()
-                        model.cfStatus = .userConsentInit
-                    })
-                case .userConsentInit:
-                    break
-                case .userConsentAllow:
-                    break
-                case .userConsentDeny:
-                    return Alert(title: Text("Deny the user consent?"), message: Text("You need to check it in settings."), dismissButton: .default(Text("Ok")) {
-                        self.presentationMode.wrappedValue.dismiss()
-                        model.cfStatus = .userConsentInit
-                    })
-                case .userConsentStatus:
-                    break
-                }
-                return Alert(title: Text(""))
-            }
+        UserConsent(forms: model.forms_, currentPageIndex: model.currentPageIndex_, currentFormIndex: model.currentFormIndex_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMultiplePageM: View {
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
     var model = UserConsentDataModel()
     public init() {
         self.model.setMultiplePageData(required: true)
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: self.$currentPageIndex, currentFormIndex: self.$currentFormIndex, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMultiplePageO: View {
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
     var model = UserConsentDataModel()
     
     public init() {
@@ -250,11 +186,13 @@ struct UserConsentMultiplePageO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: self.$currentPageIndex, currentFormIndex: self.$currentFormIndex, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMixFormM: View {
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
     var model = UserConsentDataModel()
     
     public init() {
@@ -262,11 +200,13 @@ struct UserConsentMixFormM: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: self.$currentPageIndex, currentFormIndex: self.$currentFormIndex, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMixFormO: View {
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
     var model = UserConsentDataModel()
     
     public init() {
@@ -274,11 +214,13 @@ struct UserConsentMixFormO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: self.$currentPageIndex, currentFormIndex: self.$currentFormIndex, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMixFormMO: View {
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
     var model = UserConsentDataModel()
     
     public init() {
@@ -286,19 +228,99 @@ struct UserConsentMixFormMO: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: self.$currentPageIndex, currentFormIndex: self.$currentFormIndex, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
 struct UserConsentMixFormOM: View {
-    var model = UserConsentDataModel()
+    @State var formAccepted: [Int] = []
+    @State var showInfo: Bool = false
+    @State var showDenyMsg: Bool = false
+    @State var currentFormIndex: Int = 0
+    @State var currentPageIndex: Int = 0
+    @ObservedObject var model = UserConsentDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
     public init() {
         self.model.setMixFormDataOM(requiredFirst: true)
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        let showAlert = Binding<Bool>(
+            get: { self.showInfo || self.model.isCanceled_ || self.showDenyMsg },
+            set: { _ in
+                self.showInfo = false
+                self.model.isCanceled_ = false
+                self.showDenyMsg = false
+            }
+        )
+        VStack {
+            UserConsent(forms: model.forms_, currentPageIndex: $currentPageIndex, currentFormIndex: $currentFormIndex, itemAccepted: self.$formAccepted, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: model.onCancel)
+                .footnoteModifier { content in
+                    content
+                        .onTapGesture {
+                            self.showInfo = true
+                        }
+                        .font(.headline).foregroundColor(.blue)
+                }
+                
+                .actionTextModifier { content in
+                    content
+                        .onTapGesture {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        .font(.headline).foregroundColor(.green)
+                }
+                .firstActionTitleModifier { content in
+                    content
+                        .onTapGesture {
+                            self.showDenyMsg = true
+                        }
+                        .font(.headline).foregroundColor(.red)
+                }
+                .secondActionTitleModifier { content in
+                    content
+                        .onTapGesture {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }
+                        .font(.headline).foregroundColor(.blue)
+                }
+                
+                .alert(isPresented: showAlert) {
+                    if self.showInfo {
+                        switch self.$currentPageIndex.wrappedValue {
+                        case 0:
+                            return Alert(title: Text("Information Privacy 0"), message: Text("Several data protection plans provided"), dismissButton: .default(Text("Got it")) {})
+                        case 1:
+                            return Alert(title: Text("Information Privacy 1"), message: Text("Several data protection plans provided"), dismissButton: .default(Text("Got it")) {})
+                        case 2:
+                            return Alert(title: Text("Information Privacy 2"), message: Text("Several data protection plans provided"), dismissButton: .default(Text("Got it")) {})
+                        default:
+                            return Alert(title: Text("Information Privacy"), message: Text("Several data protection plans provided"), dismissButton: .default(Text("Got it")) {})
+                        }
+                    } else if self.model.isCanceled_ {
+                        return Alert(title: Text("Cancel?"), message: Text("You have not finished the user consent form."), dismissButton: .default(Text("Got it")) {
+                            self.presentationMode.wrappedValue.dismiss()
+                        })
+                    } else if self.showDenyMsg {
+                        return Alert(title: Text("Deny the user consent?"), message: Text("You need to check it in settings."), dismissButton: .default(Text("Ok")) {
+                            self.presentationMode.wrappedValue.dismiss()
+                            
+                        })
+                    }
+                    return Alert(title: Text(""))
+                }
+            
+//            Text("Accepted: \(getResult())")
+        }
+    }
+    
+    func getResult() -> String {
+        if self.formAccepted.isEmpty {
+            return ""
+        } else {
+            return self.formAccepted.map { String($0) }.joined(separator: ",")
+        }
     }
 }
 
@@ -310,7 +332,7 @@ struct UserConsentLongText: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: model.currentPageIndex_, currentFormIndex: model.currentFormIndex_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }
 
@@ -322,6 +344,6 @@ struct UserConsentSinglePageHTML: View {
     }
     
     var body: some View {
-        UserConsent(forms: model.forms_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil, onAccepted: model.onAccepted)
+        UserConsent(forms: model.forms_, currentPageIndex: model.currentPageIndex_, currentFormIndex: model.currentFormIndex_, itemAccepted: model.itemAccepted_, actionTitle: model.actionTitle_, firstActionTitle: model.firstActionTitle_, secondActionTitle: model.secondActionTitle_, onCancel: nil)
     }
 }

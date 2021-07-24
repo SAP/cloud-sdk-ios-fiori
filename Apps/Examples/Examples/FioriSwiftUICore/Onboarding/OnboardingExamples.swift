@@ -143,7 +143,7 @@ struct UserConsentExamples: View {
 
             NavigationLink(
                 destination: UserConsentSinglePageO()) {
-                Text("Single Page Form(S)-Optional-Customized")
+                Text("Single Page Form(S)-Optional")
             }
 
             NavigationLink(
@@ -173,7 +173,7 @@ struct UserConsentExamples: View {
             
             NavigationLink(
                 destination: UserConsentMixFormOM()) {
-                Text("(M,S,M,S)-S(optional)&M(mandatory)")
+                Text("(M,S,M,S)-S(optional)&M(mandatory)-Customized")
             }
             
             NavigationLink(

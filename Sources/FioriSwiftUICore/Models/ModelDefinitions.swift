@@ -107,10 +107,7 @@ public protocol HTMLViewModel: HTMLViewComponent {}
 // sourcery: virtualPropBundle = "let bundle = Bundle.module"
 // sourcery: virtualPropTableName = "let tableName = "FioriSwiftUICore""
 // sourcery: virtualPropNumAccepted = "@State var numAccepted: Int = 0"
-// sourcery: virtualPropCurrentFormIndex = "@State var currentFormIndex: Int = 0"
-// sourcery: virtualPropCurrentPageIndex = "@State var currentPageIndex: Int = 0"
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
-// sourcery: virtualPropUcAccepted = "@State var ucAccepted: [Int] = []"
 // sourcery: virtualPropCurrentState = "@State var currentState: UserConsentState = .userConsentInit"
 // sourcery: add_env_props = ["presentationMode"]
 public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
