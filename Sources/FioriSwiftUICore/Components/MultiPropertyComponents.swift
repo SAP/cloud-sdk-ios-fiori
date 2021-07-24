@@ -54,9 +54,11 @@ internal protocol _UserConsentForms: _ComponentMultiPropGenerating {
     // sourcery: no_view
     var itemAccepted_: Binding<[Int]> { get set }
     // sourcery: no_view
+    var currentFormIndex_: Binding<Int> { get set }
+    // sourcery: no_view
+    var currentPageIndex_: Binding<Int> { get set }
+    // sourcery: no_view
     var forms_: [UserConsentFormData] { get }
     // sourcery: no_nil_check
     func onCancel()
-    // sourcery: no_nil_check
-    func onAccepted(currentIndex: Int)
 }

@@ -194,9 +194,11 @@ public protocol UserConsentFormsComponent {
 	// sourcery: no_view
     var itemAccepted_: Binding<[Int]> { get set }
 	// sourcery: no_view
+    var currentFormIndex_: Binding<Int> { get set }
+	// sourcery: no_view
+    var currentPageIndex_: Binding<Int> { get set }
+	// sourcery: no_view
     var forms_: [UserConsentFormData] { get }
     // sourcery: no_nil_check
 	func onCancel() -> Void
-    // sourcery: no_nil_check
-	func onAccepted(currentIndex: Int) -> Void
 }
