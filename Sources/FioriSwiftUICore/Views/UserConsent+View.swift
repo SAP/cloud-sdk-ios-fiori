@@ -14,7 +14,7 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
-
+        
         struct FirstActionTitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -22,7 +22,7 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
-
+        
         struct SecondActionTitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -30,7 +30,7 @@ extension Fiori {
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
-
+        
         typealias ActionTitleCumulative = EmptyModifier
         typealias FirstActionTitleCumulative = EmptyModifier
         typealias SecondActionTitleCumulative = EmptyModifier
@@ -49,34 +49,34 @@ extension UserConsent: View {
         let pageModel = self._forms[self._currentFormIndex.wrappedValue].pages?[self._currentPageIndex.wrappedValue] ?? self._forms[0].pages?[0]
         
         VStack {
-//            if #available(iOS 14.0, *) {
-//                UserConsentPage(model: pageModel!)
-//                    .toolbar(content: {
-//                        ToolbarItem(placement: .bottomBar) {
-//                            self.leftButton
-//                        }
-//                        ToolbarItem(placement: .bottomBar) {
-//                            Spacer()
-//                                .setHidden(!self.hideNextButton())
-//                        }
-//                        ToolbarItem(placement: .bottomBar) {
-//                            self.rightButton
-//                        }
-//
-//                    })
-//            } else {
-            UserConsentPage(model: pageModel!)
-            if self.hideNextButton() {
-                HStack {
-                    self.leftButton
-                    Spacer()
-                    self.rightButton
+            if #available(iOS 14.0, *) {
+                UserConsentPage(model: pageModel!)
+                    .toolbar(content: {
+                        ToolbarItem(placement: .bottomBar) {
+                            self.leftButton
+                        }
+                        ToolbarItem(placement: .bottomBar) {
+                            Spacer()
+                                .setHidden(!self.hideNextButton())
+                        }
+                        ToolbarItem(placement: .bottomBar) {
+                            self.rightButton
+                        }
+                        
+                    })
+            } else {
+                UserConsentPage(model: pageModel!)
+                if self.hideNextButton() {
+                    HStack {
+                        self.leftButton
+                        Spacer()
+                        self.rightButton
+                    }
+                    .padding(.leading, 16)
+                    .padding(.trailing, 16)
+                    .frame(maxHeight: 30, alignment: .bottom)
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .frame(maxHeight: 30, alignment: .bottom)
             }
-//            }
         }
         
         .navigationBarItems(leading:
@@ -178,7 +178,7 @@ extension UserConsent: View {
     
     func loadNextPage() {
         guard let pages = self._forms[self._currentFormIndex.wrappedValue].pages else { return }
-        if pages.count > 0, self._currentPageIndex.wrappedValue < pages.count - 1 {
+        if !pages.isEmpty, self._currentPageIndex.wrappedValue < pages.count - 1 {
             self._currentPageIndex.wrappedValue += 1
         }
     }

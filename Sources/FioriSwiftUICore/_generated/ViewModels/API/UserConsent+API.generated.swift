@@ -16,11 +16,11 @@ public struct UserConsent<ActionTitle: View, FirstActionTitle: View, SecondActio
 	let _firstActionTitle: FirstActionTitle
 	let _secondActionTitle: SecondActionTitle
 	var _onCancel: (() -> Void)? = nil
+	@State var numAccepted: Int = 0
+	let bundle = Bundle.module
+	@State var contentHeight: CGFloat = .zero
 	let tableName = "FioriSwiftUICore"
 	@State var currentState: UserConsentState = .userConsentInit
-	let bundle = Bundle.module
-	@State var numAccepted: Int = 0
-	@State var contentHeight: CGFloat = .zero
     private var isModelInit: Bool = false
 	private var isActionTitleNil: Bool = false
 	private var isFirstActionTitleNil: Bool = false
