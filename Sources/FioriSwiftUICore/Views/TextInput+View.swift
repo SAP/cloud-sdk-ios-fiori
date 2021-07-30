@@ -7,22 +7,28 @@ import SwiftUI
 
 extension Fiori {
     enum TextInput {
-        typealias TextFilled = EmptyModifier
-        static let textFilled = TextFilled()
+        typealias TextInputValue = EmptyModifier
+        static let textInputValue = TextInputValue()
     }
 }
 
 extension TextInput: View {
     public var body: some View {
         if #available(iOS 14.0, *) {
-            TextField("Default", text: self._textFilled ?? .constant("default"))
-                .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
+            TextField("Default",
+                      text: self._textInputValue,
+                      onCommit: self._onCommit ?? onCommit)
+                .modifier(TextFieldClearButton(textValue: self._textInputValue))
                 .textFieldStyle(BottomTextFieldStyle())
         } else {
-            TextField("Default", text: self._textFilled ?? .constant("default"))
-                .modifier(TextFieldClearButton(textValue: self._textFilled ?? .constant("default")))
+            TextField("Default", text: self._textInputValue)
+                .modifier(TextFieldClearButton(textValue: self._textInputValue))
                 .padding(.top, 8)
         }
+    }
+    
+    func onCommit() {
+        print("OnCommit: value ", self._textInputValue)
     }
 }
 
@@ -36,7 +42,7 @@ struct TextFieldClearButton: ViewModifier {
                     action: { self.textValue = "" },
                     label: {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(Color(UIColor.black))
+                            .foregroundColor(.preferredColor(.tintColor))
                     }
                 )
             }

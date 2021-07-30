@@ -239,7 +239,7 @@ This style will be applied in the computed variable in `ProfileDetailItem+API.ge
 
 Note: Component maintainers shall place cumulative styling, e.g. `.padding()` or `.overlay()`, in the respective ViewModifiers with suffix `Cumulative`. Those ViewModifiers will only be applied if the model or content-based initializer are used during runtime. Only non-cumulative styling, e.g. `.font()` or `.lineLimit()`, will be applied as Default Fiori Styling. This avoids side effects in case an app developer supplies an own view.
 
-## Advanced: suppress EnvironmentKey/Variables and Style generation
+## Advanced: suppress EnvironmentKey/Variables and ViewModifer-Style API generation
 
 Use sourcery tag `// sourcery: no_style` on property of a type conforming to `_ComponentGenerating` (or `_ComponentMultiPropGenerating`).
 
@@ -469,6 +469,107 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> { // no
 			self._footnote = footnote()
     }
     // ...
+}
+```
+
+## Advanced: component property which is editable
+
+Use [Binding](https://developer.apple.com/documentation/swiftui/binding) to connect the data storage and the view that displays and modifies the data.
+
+Use sourcery annotations `bindingProperty` and `bindingPropertyOptional` for converting the primitive type into binding or optional binding properties. 
+
+You can provide default value for a optional binding property this way `bindingPropertyOptional = .constant("")`. This is useful when this property is backed by another component (`backingComponent`) which has an internal non-optional binding property. 
+
+**Example**
+
+*Sources/FioriSwiftUICore/Components/MultiPropertyComponents.swift*
+
+```swift
+// sourcery: backingComponent=TextInput
+internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+    // sourcery: bindingPropertyOptional = .constant("")
+    var textFilled_: String { get set }
+    // sourcery: no_nil_check
+    func onCommit()
+}
+```
+
+*Sources/FioriSwiftUICore/_generated/ViewModels/API/WelcomeScreen+API.generated.swift*
+
+```swift
+extension WelcomeScreen where ...
+        TextFilled == _ConditionalContent<TextInput, EmptyView> 
+        ... {
+
+    public init<Model>(model: Model) where Model: WelcomeScreenModel {
+        self.init(..., textFilled: Binding<String>(get: { model.textFilled_ }, set: { model.textFilled_ = $0 }), ...)
+    }
+
+    public init(..., textFilled: Binding<String>? = nil, ...) {
+        
+        // handle TextInputModel
+        if (textFilled != nil) {
+            self._textFilled = ViewBuilder.buildEither(first: TextInput(textFilled: textFilled,onCommit: onCommit))
+        } else {
+            self._textFilled = ViewBuilder.buildEither(second: EmptyView())
+        }
+        
+    }
+}
+```
+
+*Sources/FioriSwiftUICore/_generated/ViewModels/API/TextInput+API.generated.swift*
+
+```swift
+public struct TextInput {
+
+    var _textFilled: Binding<String>
+    var _onCommit: (() -> Void)? = nil
+    
+    public init<Model>(model: Model) where Model: TextInputModel {
+        self.init(textFilled: Binding<String>(get: { model.textFilled_ }, set: { model.textFilled_ = $0 }), onCommit: model.onCommit)
+    }
+
+    public init(textFilled: Binding<String>? = nil, onCommit: (() -> Void)? = nil) {
+        self._textFilled = textFilled ?? .constant("") // This default constant is from bindingPropertyOptional = .constant("")
+        self._onCommit = onCommit
+    }
+}
+```
+
+## Advanced: exclude certain properties in a multi-property component from nil check during initialization.
+
+Use sourcery annotation `no_nil_check` to mark the properties (or methods) that are not required for the component view to show.
+
+**Example**
+
+*Sources/FioriSwiftUICore/Components/MultiPropertyComponents.swift*
+
+```swift
+// sourcery: backingComponent=TextInput
+internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+    // sourcery: bindingPropertyOptional = .constant("")
+    var textFilled_: String { get set }
+    // sourcery: no_nil_check
+    func onCommit()
+}
+```
+
+*Sources/FioriSwiftUICore/_generated/ViewModels/API/WelcomeScreen+API.generated.swift*
+
+```swift
+extension WelcomeScreen where ... {
+
+    public init(..., textFilled: Binding<String>? = nil, onCommit: (() -> Void)? = nil {
+        
+        // handle TextInputModel
+        if (textFilled != nil) { // onCommit is not checked here
+            self._textFilled = ViewBuilder.buildEither(first: TextInput(textFilled: textFilled,onCommit: onCommit))
+        } else {
+            self._textFilled = ViewBuilder.buildEither(second: EmptyView())
+        }
+        
+    }
 }
 ```
 

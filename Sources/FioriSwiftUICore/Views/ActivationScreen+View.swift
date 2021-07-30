@@ -27,7 +27,8 @@ extension Fiori {
         }
 
         typealias DescriptionTextCumulative = EmptyModifier
-        struct TextFilled: ViewModifier {
+
+        struct TextInputValue: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -38,7 +39,7 @@ extension Fiori {
             }
         }
 
-        typealias TextFilledCumulative = EmptyModifier
+        typealias TextInputValueCumulative = EmptyModifier
 
         struct ActionText: ViewModifier {
             func body(content: Content) -> some View {
@@ -68,13 +69,13 @@ extension Fiori {
         typealias SecondaryActionTextCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textFilled = TextFilled()
+        static let textInputValue = TextInputValue()
         static let actionText = ActionText()
         static let footnote = Footnote()
         static let secondaryActionText = SecondaryActionText()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
-        static let textFilledCumulative = TextFilledCumulative()
+        static let textInputValueCumulative = TextInputValueCumulative()
         static let actionTextCumulative = ActionTextCumulative()
         static let footnoteCumulative = FootnoteCumulative()
         static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
@@ -89,8 +90,8 @@ extension ActivationScreen: View {
                 .padding(.bottom, 40)
             descriptionText
                 .padding(.bottom, 56)
-            
-            textFilled
+
+            textInputValue
                 .padding(.bottom, 30)
             
             actionText

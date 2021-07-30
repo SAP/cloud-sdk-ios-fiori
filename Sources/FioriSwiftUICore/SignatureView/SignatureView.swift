@@ -19,6 +19,10 @@ struct SignatureView: View {
     @State private var rect1: CGRect = .zero
     @State private var shouldRemoveWhitespace = true
     @State private var isSaved = false
+    @State private var uiImage: UIImage? = nil
+    @State private var savedSignatureImage: UIImage? = nil
+    @State private var drawingPadSize: CGSize = .zero
+    private var cropsImage = false
     
     init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureCaptureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
@@ -61,7 +65,7 @@ struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage))
+                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage, originalUIImage: uimage))
                         self.drawings.removeAll()
                     }) {
                         Text("Done")
@@ -71,10 +75,12 @@ struct SignatureView: View {
                 DrawingPad(currentDrawing: self.$currentDrawing,
                            drawings: self.$drawings,
                            isSave: self.$isSaved,
+                           drawingPadSize: self.$drawingPadSize,
                            onSave: self.onSave,
                            strokeColor: self.imageStrokeColor,
                            lineWidth: self.strokeWidth,
-                           backgroundColor: self.backgroundColor)
+                           backgroundColor: self.backgroundColor,
+                           cropsImage: self.cropsImage)
                     .background(RectGetter(rect: self.$rect1))
                 HStack {
                     Text("X")

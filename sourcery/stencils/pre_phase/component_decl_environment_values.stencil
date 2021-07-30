@@ -15,14 +15,16 @@ import SwiftUI
 {% for type in types.implementing._ComponentGenerating %}
 
 extension EnvironmentValues {
-{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
+{% for variable in type.variables where variable|!annotated:"no_view" %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 {% set keyname %}{{NAME | upperFirstLetter }}StyleKey{% endset %}
 {% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
+{#
     public var {{NAME}}Style: {{AStyle}} {
         get { return self[{{keyname}}.self] }
         set { self[{{keyname}}.self] = newValue }
     }
+#}
 
     public var {{NAME}}Modifier: AnyViewModifier {
         get { return self[{{NAME | upperFirstLetter }}ModifierKey.self] }
@@ -33,10 +35,11 @@ extension EnvironmentValues {
 }
 
 public extension View {
-{% for variable in type.variables where variable|!annotated:"no_style" and variable|!annotated:"no_view" %}
+{% for variable in type.variables where variable|!annotated:"no_view" %}
 {% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 {% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 
+{#
     @ViewBuilder
     func {{NAME}}Style(_ style: {{AStyle}}, concat: Bool = true) -> some View {
         if concat {
@@ -45,13 +48,15 @@ public extension View {
             environment(\.{{NAME}}Style, style)
         }
     }
+#}
 
     @ViewBuilder
     func {{NAME}}Modifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.{{NAME}}Modifier, AnyViewModifier(transform))
     }
 
-    func {{NAME}}StyleClass(_ class: String, concat: Bool = true) -> some View {
+{#
+	func {{NAME}}StyleClass(_ class: String, concat: Bool = true) -> some View {
         self.{{NAME}}StyleClass([`class`], concat: concat)
     }
 
@@ -68,6 +73,7 @@ public extension View {
             }
         }
     }
+	#}
 {% endfor %}
 }
 
@@ -78,14 +84,16 @@ public extension View {
 
 	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	extension EnvironmentValues {
-	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
+	{% for variable in type.variables where variable|!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 	{% set keyname %}{{NAME | upperFirstLetter }}StyleKey{% endset %}
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
+		{#
 		public var {{NAME}}Style: {{AStyle}} {
 			get { return self[{{keyname}}.self] }
 			set { self[{{keyname}}.self] = newValue }
 		}
+		#}
 
 		public var {{NAME}}Modifier: AnyViewModifier {
 			get { return self[{{NAME | upperFirstLetter }}ModifierKey.self] }
@@ -97,10 +105,11 @@ public extension View {
 
 	{% if type.annotations.availableAttributeContent %}@available({{ type.annotations.availableAttributeContent }}){% endif %}
 	public extension View {
-	{% for variable in type.variables where variable|!annotated:"no_style" and variable||!annotated:"no_view" %}
+	{% for variable in type.variables where variable|!annotated:"no_view" %}
 	{% set NAME %}{{ variable.name|replace:'_','' }}{% endset %}
 	{% set AStyle %}{% call StyleType variable.typeName.unwrappedTypeName %}{% endset %}
 
+		{#
 		@ViewBuilder
 		func {{NAME}}Style(_ style: {{AStyle}}, concat: Bool = true) -> some View {
 			if concat {
@@ -109,12 +118,14 @@ public extension View {
 				environment(\.{{NAME}}Style, style)
 			}
 		}
+		#}
 
 		@ViewBuilder
 		func {{NAME}}Modifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
 			self.environment(\.{{NAME}}Modifier, AnyViewModifier(transform))
 		}
 
+		{#
 		func {{NAME}}StyleClass(_ class: String, concat: Bool = true) -> some View {
 			self.{{NAME}}StyleClass([`class`], concat: concat)
 		}
@@ -132,6 +143,7 @@ public extension View {
 				}
 			}
 		}
+		#}
 	{% endfor %}
 	}
 

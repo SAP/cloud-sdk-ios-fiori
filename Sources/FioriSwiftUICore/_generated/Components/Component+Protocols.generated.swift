@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -9,6 +9,13 @@ public protocol TitleComponent {
 
 public protocol SubtitleComponent {
     var subtitle_: String? { get }
+}
+
+public protocol TagsComponent {
+	// sourcery: backingComponent=TagStack
+	// sourcery: customFunctionBuilder=TagBuilder
+	// sourcery: no_style
+    var tags_: [String]? { get }
 }
 
 public protocol FootnoteComponent {
@@ -43,27 +50,37 @@ public protocol TrendComponent {
     var trend_: String? { get }
 }
 
+public protocol TrendImageComponent {
+    var trendImage_: Image? { get }
+}
+
 public protocol StatusComponent {
-    var status_: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var status_: TextOrIcon? { get }
 }
 
 public protocol SubstatusComponent {
-    var substatus_: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var substatus_: TextOrIcon? { get }
 }
 
-public protocol BodyComponent {
-    var body_: String? { get }
+public protocol BodyTextComponent {
+    var bodyText_: String? { get }
 }
 
 public protocol IconComponent {
     var icon_: Image? { get }
 }
 
+public protocol AccessoryIconComponent {
+    var accessoryIcon_: Image? { get }
+}
+
 public protocol IconsComponent {
 	// sourcery: backingComponent=IconStack
 	// sourcery: customFunctionBuilder=IconBuilder
 	// sourcery: no_style
-    var icons_: [IconStackItem]? { get }
+    var icons_: [TextOrIcon]? { get }
 }
 
 public protocol ActionTitleComponent {
@@ -110,10 +127,6 @@ public protocol PlaceholderComponent {
     var placeholder_: String? { get }
 }
 
-public protocol TagsComponent {
-    var tags_: [String] { get }
-}
-
 public protocol LowerBoundTitleComponent {
     var lowerBoundTitle_: String? { get }
 }
@@ -126,6 +139,7 @@ public protocol UpperBoundTitleComponent {
 // sourcery: backingComponent=Action
 public protocol ActionComponent {
     var actionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectAction() -> Void
 }
 
@@ -133,7 +147,13 @@ public protocol ActionComponent {
 public protocol ActionItemsComponent {
 	// sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
+    // sourcery: no_nil_check
 	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
+}
+
+// sourcery: backingComponent=HTMLView
+public protocol HTMLViewComponent {
+    var htmlContent_: NSAttributedString? { get }
 }
 
 public protocol KpiProgressComponent : KpiComponent {
@@ -149,11 +169,14 @@ public protocol ProgressIndicatorComponent {
 // sourcery: backingComponent=SecondaryAction
 public protocol SecondaryActionComponent {
     var secondaryActionText_: String? { get }
+    // sourcery: no_nil_check
 	func didSelectSecondaryAction() -> Void
 }
 
 // sourcery: backingComponent=TextInput
-public protocol TextInputComponent {
-    var textFilled_: Binding<String>? { get }
+public protocol TextInputComponent : ObservableObject {
+	// sourcery: bindingPropertyOptional=.constant("")
+    var textInputValue_: String { get set }
+    // sourcery: no_nil_check
 	func onCommit() -> Void
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -104,19 +104,19 @@ extension InfoView where Title == Text,
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ProgressIndicatorModel
         if (progressIndicatorText != nil) {
-            self._progressIndicatorText =  ViewBuilder.buildEither(first: ProgressIndicator(progressIndicatorText: progressIndicatorText))
+            self._progressIndicatorText = ViewBuilder.buildEither(first: ProgressIndicator(progressIndicatorText: progressIndicatorText))
         } else {
             self._progressIndicatorText = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle ActionModel
-        if (actionText != nil || didSelectAction != nil) {
-            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
+        if (actionText != nil) {
+            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
         } else {
             self._actionText = ViewBuilder.buildEither(second: EmptyView())
         }
 		// handle SecondaryActionModel
-        if (secondaryActionText != nil || didSelectSecondaryAction != nil) {
-            self._secondaryActionText =  ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
+        if (secondaryActionText != nil) {
+            self._secondaryActionText = ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
         } else {
             self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
         }

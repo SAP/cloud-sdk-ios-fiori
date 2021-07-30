@@ -1137,7 +1137,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             return AnyView(oi)
         
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor", status: "Available"))
+            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

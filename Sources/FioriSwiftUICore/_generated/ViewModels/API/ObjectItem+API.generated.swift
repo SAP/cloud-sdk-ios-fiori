@@ -155,8 +155,8 @@ extension ObjectItem where Title == Text,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		Status == _ConditionalContent<Text, EmptyView>,
-		Substatus == _ConditionalContent<Text, EmptyView>,
+		Status == _ConditionalContent<TextOrIconView, EmptyView>,
+		Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView>,
 		Icons == _ConditionalContent<IconStack, EmptyView>,
 		ActionText == _ConditionalContent<Action, EmptyView> {
@@ -165,18 +165,18 @@ extension ObjectItem where Title == Text,
         self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, status: model.status_, substatus: model.substatus_, detailImage: model.detailImage_, icons: model.icons_, actionText: model.actionText_, didSelectAction: model.didSelectAction)
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: String? = nil, substatus: String? = nil, detailImage: Image? = nil, icons: [IconStackItem]? = nil, actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, icons: [TextOrIcon]? = nil, actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: Text(status!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: Text(substatus!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
+		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._icons = icons != nil ? ViewBuilder.buildEither(first: IconStack(icons: icons)) : ViewBuilder.buildEither(second: EmptyView())
 		// handle ActionModel
-        if (actionText != nil || didSelectAction != nil) {
-            self._actionText =  ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
+        if (actionText != nil) {
+            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
         } else {
             self._actionText = ViewBuilder.buildEither(second: EmptyView())
         }

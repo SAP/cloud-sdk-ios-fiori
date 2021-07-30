@@ -1,18 +1,43 @@
 import SwiftUI
 
-open class DataTextItem: DataItem {
+/// Text item for `DataTable`
+public struct DataTextItem: DataItem, CheckBinding {
+    /// Type.
     public var type: DataItemType
-
-    public var mapping: ObjectViewProperty.Text?
+    /// Binding rule.
+    public var binding: ObjectViewProperty.Text?
+    /// String for text item.
     public var text: String
-    public var font: Font
+    /// Font for item.
+    public var font: Font?
+    /// Line limit for item.
     public var lineLimit: Int?
+    /// Foreground color for text item.
+    public var textColor: Color?
     
-    public init(_ text: String, _ font: Font = .body, _ mapping: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+    var hasBinding: Bool {
+        self.binding != nil
+    }
+    
+    /// Public initializer for `DataTextItem`
+    /// - Parameters:
+    ///   - text: String for text item.
+    ///   - font: Font for item
+    ///   - textColor: Foreground color for text Item.
+    ///   - binding: Binding rule.
+    ///   - lineLimit: Line limit for item.
+    public init(_ text: String, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
         self.text = text
         self.font = font
+        self.textColor = textColor
         self.type = .text
-        self.mapping = mapping
+        self.binding = binding
         self.lineLimit = lineLimit
+    }
+    
+    func toTextView() -> some View {
+        Text(self.text)
+            .font(self.font)
+            .foregroundColor(self.textColor)
     }
 }

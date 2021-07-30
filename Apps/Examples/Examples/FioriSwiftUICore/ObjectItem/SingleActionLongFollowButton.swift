@@ -68,6 +68,11 @@ struct SingleActionLongFollowButton: ListDataProtocol {
                     print("Tapped Follow")
                 } label: {
                     Text(isLongText ? longText : "Follow")
+                        .font(.callout)
+                        .lineLimit(2)
+                        .foregroundColor(Color.preferredColor(.tintColorDark))
+                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
                 }.buttonStyle(PlainButtonStyle())
             })
             
@@ -107,6 +112,11 @@ struct SingleActionLongFollowButton: ListDataProtocol {
                     print("Tapped Follow")
                 } label: {
                     Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.")
+                        .font(.callout)
+                        .lineLimit(2)
+                        .foregroundColor(Color.preferredColor(.tintColorDark))
+                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
                 }.buttonStyle(PlainButtonStyle())
             })
             

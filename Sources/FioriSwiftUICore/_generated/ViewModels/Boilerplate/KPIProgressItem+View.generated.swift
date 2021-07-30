@@ -47,7 +47,6 @@ extension Fiori {
 
 // FIXME: - Implement KPIProgressItem View body
 
-@available(iOS 14, *)
 extension KPIProgressItem: View {
     public var body: some View {
         <# View body #>

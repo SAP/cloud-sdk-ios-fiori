@@ -58,8 +58,12 @@ public struct <%= model.componentName %> {
     <%= internalPropertyDecls %>
 	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } -%>
 
-    public init(<%= modelInitParams %>) {
-        self.init(<%= extensionModelInitParamsChaining %>)
+    <% if model.isObservableObjectConform == true { -%>
+public init<Model>(model: Model) where Model: <%= model.name %> {
+    <% } else { -%>
+public init(<%= modelInitParams %>) {
+    <% } -%>
+    self.init(<%= extensionModelInitParamsChaining %>)
     }
 
     public init(<%= extensionModelInitParams %>) {

@@ -291,23 +291,6 @@ struct Background: UIViewRepresentable {
                       context: UIViewRepresentableContext<Background>) {}
 }
 
-struct XAxisSizePreferenceKey: PreferenceKey {
-    typealias Value = [CGSize]
-    static let defaultValue: Value = []
-    
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value.append(contentsOf: nextValue())
-    }
-}
-
-struct SizeModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content.overlay(GeometryReader { proxy in
-            Color.clear.preference(key: XAxisSizePreferenceKey.self, value: [proxy.size])
-        })
-    }
-}
-
 enum DragState {
     case inactive
     case pressing

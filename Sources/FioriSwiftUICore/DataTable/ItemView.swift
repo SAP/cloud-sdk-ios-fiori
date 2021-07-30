@@ -5,17 +5,23 @@ struct ItemView: View {
     
     var dropVerticalShadow: Bool = false
     
-//    @State var value: String = ""
+    var foregroundColor: Color?
+    
+    var font: Font?
+    
     @EnvironmentObject var layoutManager: TableLayoutManager
     @EnvironmentObject var dataManager: TableDataManager
+    @Environment(\.backgroundColor) var backgroundColor
 
     let isHeader: Bool
     let index: (Int, Int)
     
-    init(_ dataItem: DataTableItem, _ index: (Int, Int), _ isHeader: Bool = false, dropShadow: Bool) {
+    init(_ dataItem: DataTableItem, _ index: (Int, Int), _ isHeader: Bool = false, foregroundColor: Color? = nil, font: Font? = nil, dropShadow: Bool) {
         self.dataItem = dataItem
         self.index = index
         self.isHeader = isHeader
+        self.foregroundColor = foregroundColor
+        self.font = font
         self.dropVerticalShadow = dropShadow
     }
     
@@ -50,7 +56,7 @@ struct ItemView: View {
                     }
                 }
             }
-        let backgroundColor: Color = self.isHeader ? Color.preferredColor(.headerBlended) : Color.preferredColor(.cellBackground)
+        
         return
             ZStack {
                 Group {
@@ -58,27 +64,28 @@ struct ItemView: View {
                     case .image(let image):
                         image
                             .frame(width: 45 * self.layoutManager.scaleX, height: 45 * self.layoutManager.scaleY)
+                            .foregroundColor(self.foregroundColor)
                     case .text(let value):
-                        let fontSize: CGFloat = self.isHeader ? UIFont.preferredFont(from: .subheadline).pointSize : UIFont.preferredFont(from: .body).pointSize
-                        let font: Font = isHeader ? .subheadline : .body
-                        let textColor: Color = self.isHeader ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel)
+                        let font = self.font ?? TableViewLayout.defaultFont(self.isHeader)
+                        let fontSize: CGFloat = UIFont.preferredFont(from: font).pointSize * self.layoutManager.scaleX
+                        let finalFont = Font(UIFont.preferredFont(from: font).withSize(fontSize))
                         Text(value)
-                            .font(.system(size: fontSize * self.layoutManager.scaleX))
-                            .foregroundColor(textColor)
+                            .font(finalFont)
+                            .foregroundColor(self.foregroundColor)
                             .lineLimit(self.dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
                             .frame(width: dataItem.size.width * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                            .padding(.trailing, (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin : 0)
                     }
                 }
-//                .frame(width: (dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: dataItem.rowHeight * self.layoutManager.scaleY, alignment: .center)
-//                .background(backgroundColor)
                 
                 if index == (0, 0) && self.layoutManager.model.isFirstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
                 }
             }
-            .background(Color.white.frame(width: (self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .background(self.backgroundColor.frame(width: (((self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin : 0) + self.dataItem.size.width + contentInset * 2) * self.layoutManager.scaleX, height: self.dataItem.rowHeight * self.layoutManager.scaleY))
+            .offset(x: (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin / 2 : 0, y: 0)
             .gesture(tapGesture)
     }
     

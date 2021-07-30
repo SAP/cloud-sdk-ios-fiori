@@ -23,6 +23,8 @@ extension Fiori {
         typealias SubtitleCumulative = EmptyModifier
 		typealias Trend = EmptyModifier
         typealias TrendCumulative = EmptyModifier
+		typealias TrendImage = EmptyModifier
+        typealias TrendImageCumulative = EmptyModifier
 		typealias Kpi = EmptyModifier
         typealias KpiCumulative = EmptyModifier
 
@@ -41,10 +43,12 @@ extension Fiori {
         static let title = Title()
 		static let subtitle = Subtitle()
 		static let trend = Trend()
+		static let trendImage = TrendImage()
 		static let kpi = Kpi()
         static let titleCumulative = TitleCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let trendCumulative = TrendCumulative()
+		static let trendImageCumulative = TrendImageCumulative()
 		static let kpiCumulative = KpiCumulative()
     }
 }

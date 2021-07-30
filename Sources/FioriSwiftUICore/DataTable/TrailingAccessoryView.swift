@@ -4,54 +4,43 @@ import SwiftUI
 struct TrailingAccessoryView: View {
     let item: AccessoryItem?
     let selected: Bool = false
-    let rowIndex: Int
-    let isHeader: Bool
+    let height: CGFloat
     
     @EnvironmentObject var layoutManager: TableLayoutManager
-    
-    init(item: AccessoryItem?, rowIndex: Int, isHeader: Bool) {
+    @Environment(\.backgroundColor) var backgroundColor
+
+    init(item: AccessoryItem?, height: CGFloat) {
         self.item = item
-        self.rowIndex = rowIndex
-        self.isHeader = isHeader
+        self.height = height
     }
     
     var body: some View {
         Group {
+            let _height = self.height * self.layoutManager.scaleY
+                                
             if let item = self.item {
-//                applyBlur()
-//                    .padding(.trailing, 44)
-                
                 switch item {
                 case .button(let button):
                     Button(action: {
                         print("Right Icon button was tapped")
                         button.action()
                     }) {
-                        button.image
+                        button.image.aspectRatio(contentMode: .fit)
                     }
-                    .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
-                    .padding(.trailing, 44)
-                    .background(Color.white)
-                    .edgesIgnoringSafeArea([.leading, .trailing])
+                    .frame(width: 44 * self.layoutManager.scaleX, height: _height, alignment: .center)
+                    .padding(.trailing, 44 * self.layoutManager.scaleX)
+                    .background(self.backgroundColor)
+                    .edgesIgnoringSafeArea(.trailing)
                 default:
                     AnyView(EmptyView())
                 }
-            } else {
-                Rectangle()
-                    .fill(Color.white)
-                    .frame(width: 44 * self.layoutManager.scaleX, height: self.layoutManager.rowHeights[self.rowIndex] * self.layoutManager.scaleY, alignment: .center)
-                    .padding(.trailing, 44)
-                    .background(Color.white)
-                    .edgesIgnoringSafeArea([.leading, .trailing])
             }
         }
-        .background(BlurView(style: .light).blur(radius: 2))
     }
     
-    func applyBlur() -> some View {
-        Color.white
-            .frame(width: 96, height: 44, alignment: .center)
-            .edgesIgnoringSafeArea([.leading, .trailing])
+    func applyBlur(height: CGFloat) -> some View {
+        self.backgroundColor
+            .frame(width: 44 * self.layoutManager.scaleX, height: height, alignment: .center)
             .blur(radius: 8)
     }
 }

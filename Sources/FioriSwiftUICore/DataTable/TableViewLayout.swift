@@ -5,11 +5,14 @@ enum TableViewLayout {
     
     /// Minimum unit width
     static let minUnitWidth: CGFloat = 0.0000000001
-    
     ///
     static let minItemWidth: CGFloat = 90
     
     static let seperationLineColor = Color(red: 243, green: 243, blue: 243)
+    
+    static let defaultBackgroundColor = Color.preferredColor(.primaryBackground)
+    
+    static let defaultForegroundColor = Color.preferredColor(.quarternaryLabel)
     
     static let lineShadowColor = Color(red: 0, green: 0, blue: 0).opacity(0.15)
     
@@ -20,13 +23,7 @@ enum TableViewLayout {
     static let lineHeight: CGFloat = 1
     
     static let minRowHeight: CGFloat = 48
-    
-    static let defaultItemWidth: CGFloat = 90
-    
-    static let maxDataWidth: CGFloat = 90
-    
-    static let itemPadding: CGFloat = 20
-    
+                
     static let columnGapInCompact: CGFloat = 8
     
     static let columnGapInRegualr: CGFloat = 30
@@ -51,6 +48,18 @@ enum TableViewLayout {
     static let trailingMarginInReguarlFull: CGFloat = 48
     static let trailingMarginInRegualr: CGFloat = 20
     static let trailingMarginInCompact: CGFloat = 16
+    
+    static func defaultFont(_ isHeader: Bool) -> Font {
+        isHeader ? .subheadline : .body
+    }
+    
+    static func defaultUIFont(_ isHeader: Bool) -> UIFont {
+        isHeader ? UIFont.preferredFont(from: .subheadline) : UIFont.preferredFont(from: .body)
+    }
+    
+    static func defaultFontColor(_ isHeader: Bool) -> Color {
+        isHeader ? Color.preferredColor(.secondaryLabel) : Color.preferredColor(.primaryLabel)
+    }
     
     static func leadingOrTrailingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
         if sizeClass == .compact {
@@ -117,18 +126,6 @@ extension String {
     }
 }
 
-extension Comparable {
-    func clamp(low: Self, high: Self) -> Self {
-        if self > high {
-            return high
-        } else if self < low {
-            return low
-        }
-
-        return self
-    }
-}
-
 extension UIFont {
     class func preferredFont(from font: Font) -> UIFont {
         let uiFont: UIFont
@@ -163,5 +160,18 @@ extension UIFont {
         }
 
         return uiFont
+    }
+}
+
+// 1. Create the key with a default value
+private struct BackgroundColorKey: EnvironmentKey {
+    static let defaultValue = TableViewLayout.defaultBackgroundColor
+}
+
+// 2. Extend the environment with our property
+extension EnvironmentValues {
+    var backgroundColor: Color {
+        get { self[BackgroundColorKey.self] }
+        set { self[BackgroundColorKey.self] = newValue }
     }
 }

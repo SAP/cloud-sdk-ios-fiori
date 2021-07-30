@@ -5,7 +5,8 @@ struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
     
     @ObservedObject var layoutManager: TableLayoutManager
-    
+    @Environment(\.backgroundColor) var backgroundColor
+
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
     @State var lastCenterPosition: CGPoint? = nil
@@ -59,6 +60,9 @@ struct GridTableView: View {
         // zoom in & out
         let mag = MagnificationGesture()
             .onChanged { value in
+                guard self.layoutManager.isPinchZoomEnable else {
+                    return
+                }
                 self.layoutManager.scaleX = max(0.5, self.lastScaleX * value.magnitude)
                 self.layoutManager.scaleY = max(0.5, self.lastScaleY * value.magnitude)
                 
@@ -79,7 +83,7 @@ struct GridTableView: View {
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]
-                        let view = ItemView(currentItem, (i, j), isHeader, dropShadow: self.dropVerticalShadow)
+                        let view = ItemView(currentItem, (i, j), isHeader, foregroundColor: currentItem.foregroundColor, font: currentItem.font, dropShadow: self.dropVerticalShadow)
                         let x = currentItem.pos.x
                         let y = currentItem.pos.y
                         let zIndex: Double = {
@@ -112,20 +116,25 @@ struct GridTableView: View {
                         
                         horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
 
-                        DummyBackground(index: currentIndex, width: leadingItem.pos.x)
-                            .position(x: rect.minX, y: y)
+                        let offsetY = leadingItem.pos.y == 0 ? leadingItem.rowHeight / 2 : 0
+                        DummyBackground(index: i, width: leadingItem.pos.x, height: leadingItem.rowHeight)
+                            .position(x: rect.minX, y: leadingItem.pos.y)
+                            .offset(x: leadingItem.pos.x / 2, y: offsetY * self.layoutManager.scaleY)
                         
                         LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing, selectedImage: rowItem.selectedImage, deSelectedImage: rowItem.deSelectedImage)
                             .position(x: rect.minX, y: y)
                             .padding(.leading, leadingMargin)
                             .zIndex(Double(650 - currentIndex))
 
-                        TrailingAccessoryView(item: tAccessory, rowIndex: currentIndex, isHeader: isHeader)
-                            .position(x: rect.maxX, y: y)
-                            .zIndex(Double(650 - currentIndex))
+                        let trailingIndex: Double = i == 0 ? 700 : Double(650 - currentIndex)
+                        TrailingAccessoryView(item: tAccessory, height: leadingItem.rowHeight)
+                            .position(x: rect.maxX, y: leadingItem.pos.y)
+                            .offset(y: offsetY * self.layoutManager.scaleY)
+                            .zIndex(trailingIndex)
                     }
                 }
             }
+            .background(self.backgroundColor)
             .gesture(drag)
             .gesture(mag)
     }

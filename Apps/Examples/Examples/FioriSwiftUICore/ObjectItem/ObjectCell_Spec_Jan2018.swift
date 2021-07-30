@@ -59,8 +59,8 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             let oi = ObjectItem(title: "Lorem ipseum dolor",
                                 footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
                                 descriptionText: "Some descirption",
-                                status: "Some status",
-                                substatus: "some substatus")
+                                status: TextOrIcon.text("Some status"),
+                                substatus: TextOrIcon.text("some substatus"))
                 .footnoteModifier {
                     $0.lineLimit(4)
                 }
@@ -269,10 +269,10 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
 //         cell.detailTextLabel?.text = "Subheadline"
 //         cell.accessoryType = .disclosureIndicator
 //         return cell
-            return AnyView(ObjectItem(title: "Headline", status: "Subheadline"))
+            return AnyView(ObjectItem(title: "Headline"))
             
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor", status: "Available"))
+            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

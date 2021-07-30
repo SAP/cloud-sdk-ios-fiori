@@ -2,18 +2,19 @@
 // DO NOT EDIT
 import SwiftUI
 
-@available(iOS 14, *)
 public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     @Environment(\.kpiModifier) private var kpiModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
+	@Environment(\.isEnabled) var isEnabled
+	@Environment(\.kpiProgressViewStyle) var kpiProgressViewStyle
 
     let _kpi: Kpi
 	let _fraction: Double?
 	let _subtitle: Subtitle
 	let _footnote: Footnote
+	@State var isPressed: Bool = false
 	var action: (() -> Void)? = nil
-	@State var animatedFraction: Double = 0.0
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false
 	private var isSubtitleNil: Bool = false
@@ -66,7 +67,6 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView> {

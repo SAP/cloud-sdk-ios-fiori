@@ -3,6 +3,7 @@ import SwiftUI
 
 class TableLayoutManager: ObservableObject {
     @ObservedObject var model: TableModel
+    @Environment(\.backgroundColor) var backgroundColor
     
     var horizontalScrolling: Bool {
         get {
@@ -130,20 +131,6 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _rowHeights: [CGFloat] = []
     
-    var displayingItemSize: CGSize {
-        get {
-            self._displayingItemSize
-        }
-        
-        set {
-            if self._displayingItemSize == .zero {
-                self._displayingItemSize = newValue
-            }
-        }
-    }
-    
-    @Published var _displayingItemSize: CGSize = .zero
-    
     var actualTableViewSize: CGSize {
         get {
             self._actualTableViewSize
@@ -157,6 +144,8 @@ class TableLayoutManager: ObservableObject {
     }
     
     @Published var _actualTableViewSize: CGSize = .zero
+    
+    @Published var isPinchZoomEnable: Bool = false
     
     var contentInset: CGFloat = 0
     
@@ -176,6 +165,7 @@ class TableLayoutManager: ObservableObject {
         self.isEditing = self.model.isEditing
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
+        self.isPinchZoomEnable = model.isPinchZoomEnable
         self.allDataItems = self.initItems(self.model)
     }
 }

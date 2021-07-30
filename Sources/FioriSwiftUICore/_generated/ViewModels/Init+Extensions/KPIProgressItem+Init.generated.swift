@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-@available(iOS 14, *)
 extension KPIProgressItem where Footnote == EmptyView {
     public init(
     @ViewBuilder kpi: @escaping () -> Kpi,
@@ -18,7 +17,6 @@ extension KPIProgressItem where Footnote == EmptyView {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Kpi == EmptyView {
     public init(
     fraction: Double?,
@@ -34,7 +32,6 @@ extension KPIProgressItem where Kpi == EmptyView {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Subtitle == EmptyView {
     public init(
     @ViewBuilder kpi: @escaping () -> Kpi,
@@ -50,7 +47,6 @@ extension KPIProgressItem where Subtitle == EmptyView {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Footnote == EmptyView, Kpi == EmptyView {
     public init(
     fraction: Double?,
@@ -65,7 +61,6 @@ extension KPIProgressItem where Footnote == EmptyView, Kpi == EmptyView {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Footnote == EmptyView, Subtitle == EmptyView {
     public init(
     @ViewBuilder kpi: @escaping () -> Kpi,
@@ -80,7 +75,6 @@ extension KPIProgressItem where Footnote == EmptyView, Subtitle == EmptyView {
     }
 }
 
-@available(iOS 14, *)
 extension KPIProgressItem where Kpi == EmptyView, Subtitle == EmptyView {
     public init(
     fraction: Double?,
