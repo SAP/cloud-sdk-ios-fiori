@@ -1,7 +1,7 @@
-/* XMSG: Placeholder text in chart when there is no data  */
+/* XMSG: Placeholder text in chart when there is no data */
 "No Data" = "No Data";
 
-/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction  */
+/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Save" = "Save";
 
 /* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
