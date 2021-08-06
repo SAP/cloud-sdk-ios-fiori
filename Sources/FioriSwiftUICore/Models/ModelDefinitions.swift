@@ -90,6 +90,7 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 // sourcery: generated_component_not_configurable
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
+// sourcery: add_env_props = "sideBarListItemConfigMode"
 // sourcery: generated_component
 public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
 
