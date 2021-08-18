@@ -71,7 +71,7 @@ extension KPIProgressItem: View {
             }
     }
     
-    private func configState() -> UIControl.State {
+    private func configState() -> ControlState {
         isEnabled ? (isPressed ? .highlighted : .normal) : .disabled
     }
 }
@@ -124,7 +124,7 @@ public struct FioriProgressViewStyleConfiguration {
     public var subtitle: AnyView
     
     /// Control state for the component
-    public var state: UIControl.State
+    public var state: ControlState
     
     /// Completed fraction value
     public var fraction: Double
@@ -149,8 +149,8 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
     var circleColor: Color = .preferredColor(.primaryFill)
     
     /// Completed fraction colors for the progress circle with control states.
-    var fractionColors: [UIControl.State: Color] = [.normal: .preferredColor(.tintColor),
-                                                    .highlighted: .preferredColor(.tintColorTapState)]
+    var fractionColors: [ControlState: Color] = [.normal: .preferredColor(.tintColor),
+                                                 .highlighted: .preferredColor(.tintColorTapState)]
 
     /// Stroke style of the progress circle.
     var circleStyle = StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round)
@@ -159,9 +159,9 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
     var lineWidth: CGFloat = 2
 
     /// Foreground colos for label with control states.
-    var foregroundColors: [UIControl.State: Color] = [.disabled: .preferredColor(.primaryLabel),
-                                                      .normal: .preferredColor(.tintColor),
-                                                      .highlighted: .preferredColor(.tintColorTapState)]
+    var foregroundColors: [ControlState: Color] = [.disabled: .preferredColor(.primaryLabel),
+                                                   .normal: .preferredColor(.tintColor),
+                                                   .highlighted: .preferredColor(.tintColorTapState)]
     
     /// Returns an ``FioriCircularProgressViewStyle`` with given configuration.
     /// - Parameters:
@@ -170,7 +170,7 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
     ///   - circleStyle: Stroke style of the progress circle.
     ///   - lineWidth: The line width of the progress circle.
     ///   - foregroundColors: The foreground colos for label with control states.
-    public init(circleColor: Color? = nil, fractionColors: [UIControl.State: Color]? = nil, circleStyle: StrokeStyle? = nil, lineWidth: CGFloat? = nil, foregroundColors: [UIControl.State: Color]? = nil) {
+    public init(circleColor: Color? = nil, fractionColors: [ControlState: Color]? = nil, circleStyle: StrokeStyle? = nil, lineWidth: CGFloat? = nil, foregroundColors: [ControlState: Color]? = nil) {
         if let cc = circleColor {
             self.circleColor = cc
         }
@@ -202,7 +202,7 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
         }
     }
     
-    private func getForegroundColor(_ state: UIControl.State) -> Color {
+    private func getForegroundColor(_ state: ControlState) -> Color {
         if let devColor = foregroundColors[state] {
             return devColor
         } else {
@@ -217,7 +217,7 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
         }
     }
     
-    private func getFractionColor(_ state: UIControl.State) -> Color {
+    private func getFractionColor(_ state: ControlState) -> Color {
         if let devColor = fractionColors[state] {
             return devColor
         } else {
@@ -272,13 +272,6 @@ public extension View {
     /// Sets the style for the progress view.
     func kpiProgressViewStyle<S>(_ style: S) -> some View where S: KPIProgressViewStyle {
         self.environment(\.kpiProgressViewStyle, AnyKPIProgressViewStyle(style))
-    }
-}
-
-extension UIControl.State: Hashable {
-    /// Extends ``UIControl.State`` to be ``Hashable``
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(rawValue)
     }
 }
 
