@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -20,10 +20,10 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
 	private var isAccessoryIconNil: Bool = false
 
     public init(
-        @ViewBuilder icon: @escaping () -> Icon,
-		@ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder accessoryIcon: @escaping () -> AccessoryIcon
+        @ViewBuilder icon: () -> Icon,
+		@ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder accessoryIcon: () -> AccessoryIcon
         ) {
             self._icon = icon()
 			self._title = title()
@@ -79,7 +79,7 @@ extension SideBarListItem where Icon == _ConditionalContent<Image, EmptyView>,
 		AccessoryIcon == _ConditionalContent<Image, EmptyView> {
 
     public init(model: SideBarListItemModel) {
-        self.init(icon: model.icon_, title: model.title_, subtitle: model.subtitle_, accessoryIcon: model.accessoryIcon_)
+        self.init(icon: model.icon, title: model.title, subtitle: model.subtitle, accessoryIcon: model.accessoryIcon)
     }
 
     public init(icon: Image? = nil, title: String, subtitle: String? = nil, accessoryIcon: Image? = nil) {

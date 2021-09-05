@@ -16,14 +16,14 @@ extension Fiori {
             }
         }
         
-        struct ActionText: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
             }
         }
         
-        struct SecondaryActionText: ViewModifier {
+        struct SecondaryAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -32,20 +32,20 @@ extension Fiori {
         }
         
         static let title = Title()
-        static let actionText = ActionText()
-        static let secondaryActionText = SecondaryActionText()
+        static let action = Action()
+        static let secondaryAction = SecondaryAction()
         
-        typealias HtmlContent = EmptyModifier
+        typealias HtmlView = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-        typealias HtmlContentCumulative = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+        typealias HtmlViewCumulative = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
         
         static let titleCumulative = TitleCumulative()
-        static let htmlContent = HtmlContent()
-        static let htmlContentCumulative = HtmlContentCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
-        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+        static let htmlView = HtmlView()
+        static let htmlViewCumulative = HtmlViewCumulative()
+        static let actionCumulative = ActionCumulative()
+        static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 
@@ -55,13 +55,13 @@ extension EULAView: View {
             self.makeBody()
                 .toolbar(content: {
                     ToolbarItem(placement: .bottomBar) {
-                        actionText
+                        action
                     }
                     ToolbarItem(placement: .bottomBar) {
                         Spacer()
                     }
                     ToolbarItem(placement: .bottomBar) {
-                        secondaryActionText
+                        secondaryAction
                     }
                 })
         } else {
@@ -71,9 +71,9 @@ extension EULAView: View {
                         .frame(minHeight: geometry.size.height - 50, maxHeight: .infinity)
                     Spacer()
                     HStack(spacing: 10) {
-                        actionText
+                        action
                         Spacer()
-                        secondaryActionText
+                        secondaryAction
                     }
                     .padding(EdgeInsets(top: 8, leading: 32, bottom: 20, trailing: 32))
                     .frame(minHeight: 50, maxHeight: .infinity, alignment: .bottom)
@@ -88,7 +88,7 @@ extension EULAView: View {
                 title
                     .padding(.top, 40)
                     .padding(.bottom, 30)
-                htmlContent
+                htmlView
                     .font(.system(size: 15))
                     .foregroundColor(.preferredColor(.tintColor))
                     .multilineTextAlignment(.center)
@@ -116,7 +116,7 @@ extension EULAView: View {
 struct EULAViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EULAView(title: "EULA", htmlContent: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement"), actionText: "Disagree", secondaryActionText: "Agree"),
+        LibraryItem(EULAView(title: "EULA", htmlView: HTMLView(htmlContent: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement")), action: Action(actionText: "Disagree"), secondaryAction: SecondaryAction(secondaryActionText: "Disagree")),
                     category: .control)
     }
 }

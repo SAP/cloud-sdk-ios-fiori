@@ -3,32 +3,32 @@ import Foundation
 import SwiftUI
 
 class World: KPIItemModel, Identifiable {
-    var kpi_: String? {
+    var kpi: String? {
         "Hello World"
     }
     
-    var subtitle_: String?
+    var subtitle: String?
 }
 
 class Space: KPIItemModel, Identifiable {
-    var kpi_: String? {
+    var kpi: String? {
         let formatter = MeasurementFormatter()
         formatter.unitStyle = MeasurementFormatter.UnitStyle.medium
         let distanceInMiles = Measurement(value: 321, unit: UnitLength.miles)
         return formatter.string(from: distanceInMiles)
     }
     
-    var subtitle_: String?
+    var subtitle: String?
 }
 
 class Universe: KPIItemModel, Identifiable {
-    var kpi_: String? {
+    var kpi: String? {
         let number = NSNumber(value: 99.9)
         let formattedValue = self.formatter.string(from: number)
         return formattedValue ?? "Hello Universe"
     }
     
-    var subtitle_: String?
+    var subtitle: String?
 
     var formatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -48,16 +48,16 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
 
             // pro: don't have to work with KPI view
             // con: no individual styling possible
-            KPIHeaderControl(data, id: \.kpi_).titleModifier { $0.font(.headline).foregroundColor(.red) }
+            KPIHeaderControl(data, id: \.kpi).titleModifier { $0.font(.headline).foregroundColor(.red) }
 
             // pro: can work with any view
             // pro: allow individual styling
-            KPILayoutContainer(data, id: \.kpi_) { element in
+            KPILayoutContainer(data, id: \.kpi) { element in
                 KPIItem(kpi: {
-                    Text(element.kpi_ ?? "")
+                    Text(element.kpi ?? "")
                 }, subtitle: {
-                    if element.subtitle_ != nil {
-                        Text(element.subtitle_!)
+                    if element.subtitle != nil {
+                        Text(element.subtitle!)
                     } else {
                         EmptyView()
                     }

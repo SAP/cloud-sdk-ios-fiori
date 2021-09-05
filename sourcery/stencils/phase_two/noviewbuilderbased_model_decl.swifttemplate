@@ -1,0 +1,136 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
+<%_
+
+let models = types.protocols.filter({ $0.annotations["generated_component_not_configurable"] != nil })
+
+for model in models {
+    model.updateAnnotationForAllVariables()
+
+    let closureProperties = model.closureProperties(contextType: type)
+
+    let componentProperties = model.allStoredVariables
+
+    let environmentPropertyDecls = [
+        componentProperties.representableByView.viewModifierPropertyDecls,
+        model.add_env_propsDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+    let internalPropertyDecls = [
+        componentProperties.dataTypePropertyDecls
+    ].flatMap { $0 }.joined(separator: "\n\t")
+
+	let virtualPropertyDecls = model.virtualPropertyDecls.joined(separator: "\n\t")
+
+    let extensionModelInitParams = [
+        componentProperties.extensionModelInitParams
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsChaining = [
+        componentProperties.extensionModelInitParamsChaining
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let extensionModelInitParamsAssignments = [
+        componentProperties.extensionModelInitParamsDataTypeAssignments
+    ].flatMap { $0 }.joined(separator: "\n\t\t")
+
+    let modelInitParam: String = "model: \(model.name)"
+
+    let modelInitParams = [
+        [modelInitParam]
+    ].flatMap { $0 }.joined(separator: ", ")
+
+    let modelAvailableAttribute = model.availableAttribute?.lineBreaking() ?? ""
+
+    let importStatement = model.importStatement
+
+  -%>
+// sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
+import SwiftUI
+<%_ if !importStatement.isEmpty { -%>
+<%= importStatement %>
+<%_ } -%>
+
+<%= modelAvailableAttribute -%>
+public struct <%= model.componentName %> {
+    <%= environmentPropertyDecls %>
+
+    <%= internalPropertyDecls %>
+	<% if !virtualPropertyDecls.isEmpty { -%><%= virtualPropertyDecls %><% } -%>
+
+    <% if model.isObservableObjectConform == true { -%>
+public init<Model>(model: Model) where Model: <%= model.name %> {
+    <% } else { -%>
+public init(<%= modelInitParams %>) {
+    <% } -%>
+    self.init(<%= extensionModelInitParamsChaining %>)
+    }
+
+    public init(<%= extensionModelInitParams %>) {
+        <%= extensionModelInitParamsAssignments %>
+    }
+}
+// sourcery:end
+
+// sourcery:file:ViewModels/Boilerplate/<%= model.componentName %>+View.generated.swift
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/<%= model.componentName %>+View.swift`
+//TODO: Implement <%= model.componentName %> `View` body
+
+/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
+/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
+/// to declare a wrapped property
+/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
+
+/*
+import SwiftUI
+<%_ if !importStatement.isEmpty { -%>
+<%= importStatement %>
+<%_ } -%>
+
+// FIXME: - Implement Fiori style definitions
+
+// FIXME: - Implement <%= model.componentName %> View body
+
+<%= modelAvailableAttribute -%>
+extension <%= model.componentName %>: View {
+    public var body: some View {
+        <# View body #>
+    }
+}
+
+// FIXME: - Implement <%= model.componentName %> specific LibraryContentProvider
+
+@available(iOS 14.0, *)
+struct <%= model.componentName %>LibraryContent: LibraryContentProvider {
+    @LibraryContentBuilder
+    var views: [LibraryItem] {
+        LibraryItem(<%= model.componentName %>(model: LibraryPreviewData.Person.laurelosborn),
+                    category: .control)
+    }
+}
+*/
+// sourcery:end
+
+<%# Provide default value for properties in model extension %>
+<%_
+    let protocolExtensionDefaultValuesDecls = model.protocolExtensionDefaultValuesDecls
+    
+    if !protocolExtensionDefaultValuesDecls.isEmpty {
+-%>
+// sourcery:file:ViewModels/Model+Extensions/<%= model.name %>+Extensions.generated.swift
+import SwiftUI
+
+<%= modelAvailableAttribute -%>
+public extension <%= model.name %> {
+    <%= protocolExtensionDefaultValuesDecls %>
+}
+// sourcery:end
+<%_ } -%>
+
+<%_ } -%>

@@ -489,7 +489,7 @@ You can provide default value for a optional binding property this way `bindingP
 internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
     // sourcery: bindingPropertyOptional = .constant("")
     var textFilled_: String { get set }
-    // sourcery: no_nil_check
+    
     func onCommit()
 }
 ```
@@ -550,7 +550,7 @@ Use sourcery annotation `no_nil_check` to mark the properties (or methods) that 
 internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
     // sourcery: bindingPropertyOptional = .constant("")
     var textFilled_: String { get set }
-    // sourcery: no_nil_check
+    
     func onCommit()
 }
 ```

@@ -44,49 +44,49 @@ public struct SideBarView: View {
     struct DevRowModel: Identifiable, SideBarListItemModel {
         var id = UUID()
         
-        var accessoryIcon_: Image?
+        var accessoryIcon: Image?
         
-        var title_: String
+        var title: String
         
-        var subtitle_: String?
+        var subtitle: String?
         
-        var icon_: Image?
+        var icon: Image?
         
         init(icon: Image? = nil, title: String, subtitle: String? = nil, accessory: Image? = nil) {
-            self.icon_ = icon
-            self.title_ = title
-            self.subtitle_ = subtitle
-            self.accessoryIcon_ = accessory
+            self.icon = icon
+            self.title = title
+            self.subtitle = subtitle
+            self.accessoryIcon = accessory
         }
     }
     
     struct DevObjectItemModel: ObjectItemModel {
-        var status_: TextOrIcon?
+        var status: TextOrIcon?
         
-        var title_: String
+        var title: String
         
-        var subtitle_: String?
+        var subtitle: String?
         
-        var footnote_: String?
+        var footnote: String?
         
-        var descriptionText_: String?
+        var descriptionText: String?
         
-        var substatus_: TextOrIcon?
+        var substatus: TextOrIcon?
         
-        var detailImage_: Image?
+        var detailImage: Image?
         
-        var icons_: [TextOrIcon]?
+        var icons: [TextOrIcon]?
         
-        var actionText_: String?
+        var actionText: String?
         
         func didSelectAction() {
             print("is selected")
         }
         
         init(title: String, subtitle: String? = nil, detailImage: Image? = nil) {
-            self.title_ = title
-            self.subtitle_ = subtitle
-            self.detailImage_ = detailImage
+            self.title = title
+            self.subtitle = subtitle
+            self.detailImage = detailImage
         }
     }
     

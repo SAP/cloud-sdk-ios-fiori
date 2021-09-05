@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -9,7 +9,7 @@ public struct Action {
 	var _didSelectAction: (() -> Void)? = nil
 	
     public init(model: ActionModel) {
-        self.init(actionText: model.actionText_, didSelectAction: model.didSelectAction)
+        self.init(actionText: model.actionText, didSelectAction: model.didSelectAction)
     }
 
     public init(actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {

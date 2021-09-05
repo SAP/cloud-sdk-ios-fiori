@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/InfoView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -13,6 +13,7 @@
 /*
 import SwiftUI
 
+
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
@@ -21,12 +22,12 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-		typealias ProgressIndicatorText = EmptyModifier
-        typealias ProgressIndicatorTextCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
-		typealias SecondaryActionText = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+		typealias ProgressIndicator = EmptyModifier
+        typealias ProgressIndicatorCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+		typealias SecondaryAction = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -42,14 +43,14 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let progressIndicatorText = ProgressIndicatorText()
-		static let actionText = ActionText()
-		static let secondaryActionText = SecondaryActionText()
+		static let progressIndicator = ProgressIndicator()
+		static let action = Action()
+		static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let progressIndicatorTextCumulative = ProgressIndicatorTextCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
-		static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+		static let progressIndicatorCumulative = ProgressIndicatorCumulative()
+		static let actionCumulative = ActionCumulative()
+		static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 

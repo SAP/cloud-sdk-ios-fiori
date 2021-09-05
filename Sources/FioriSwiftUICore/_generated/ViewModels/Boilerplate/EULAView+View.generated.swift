@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/EULAView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -13,18 +13,19 @@
 /*
 import SwiftUI
 
+
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum EULAView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias HtmlContent = EmptyModifier
-        typealias HtmlContentCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
-		typealias SecondaryActionText = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+		typealias HtmlView = EmptyModifier
+        typealias HtmlViewCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+		typealias SecondaryAction = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -39,13 +40,13 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let htmlContent = HtmlContent()
-		static let actionText = ActionText()
-		static let secondaryActionText = SecondaryActionText()
+		static let htmlView = HtmlView()
+		static let action = Action()
+		static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
-		static let htmlContentCumulative = HtmlContentCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
-		static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+		static let htmlViewCumulative = HtmlViewCumulative()
+		static let actionCumulative = ActionCumulative()
+		static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 

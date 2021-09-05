@@ -1,227 +1,241 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
-extension InfoView where ActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			progressIndicatorText: progressIndicatorText,
-			actionText: { EmptyView() },
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
 extension InfoView where DescriptionText == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicatorText: progressIndicatorText,
-			actionText: actionText,
-			secondaryActionText: secondaryActionText
+			progressIndicator: progressIndicator,
+			action: action,
+			secondaryAction: secondaryAction
         )
     }
 }
 
-extension InfoView where ProgressIndicatorText == EmptyView {
+extension InfoView where ProgressIndicatorView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: { EmptyView() },
-			actionText: actionText,
-			secondaryActionText: secondaryActionText
+			progressIndicator: { EmptyView() },
+			action: action,
+			secondaryAction: secondaryAction
         )
     }
 }
 
-extension InfoView where SecondaryActionText == EmptyView {
+extension InfoView where ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: progressIndicatorText,
-			actionText: actionText,
-			secondaryActionText: { EmptyView() }
+			progressIndicator: progressIndicator,
+			action: { EmptyView() },
+			secondaryAction: secondaryAction
         )
     }
 }
 
-extension InfoView where ActionText == EmptyView, DescriptionText == EmptyView {
+extension InfoView where SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicatorText: progressIndicatorText,
-			actionText: { EmptyView() },
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
-extension InfoView where ActionText == EmptyView, ProgressIndicatorText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: { EmptyView() },
-			actionText: { EmptyView() },
-			secondaryActionText: secondaryActionText
+			progressIndicator: progressIndicator,
+			action: action,
+			secondaryAction: { EmptyView() }
         )
     }
 }
 
-extension InfoView where ActionText == EmptyView, SecondaryActionText == EmptyView {
+extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: { EmptyView() },
+			action: action,
+			secondaryAction: secondaryAction
+        )
+    }
+}
+
+extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: progressIndicator,
+			action: { EmptyView() },
+			secondaryAction: secondaryAction
+        )
+    }
+}
+
+extension InfoView where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: progressIndicator,
+			action: action,
+			secondaryAction: { EmptyView() }
+        )
+    }
+}
+
+extension InfoView where ProgressIndicatorView == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: progressIndicatorText,
-			actionText: { EmptyView() },
-			secondaryActionText: { EmptyView() }
+			progressIndicator: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: secondaryAction
         )
     }
 }
 
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorText == EmptyView {
+extension InfoView where ProgressIndicatorView == EmptyView, SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicatorText: { EmptyView() },
-			actionText: actionText,
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
-extension InfoView where DescriptionText == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicatorText: progressIndicatorText,
-			actionText: actionText,
-			secondaryActionText: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where ProgressIndicatorText == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: { EmptyView() },
-			actionText: actionText,
-			secondaryActionText: { EmptyView() }
+			progressIndicator: { EmptyView() },
+			action: action,
+			secondaryAction: { EmptyView() }
         )
     }
 }
 
-extension InfoView where ActionText == EmptyView, DescriptionText == EmptyView, ProgressIndicatorText == EmptyView {
+extension InfoView where ActionView == EmptyView, SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicatorText: { EmptyView() },
-			actionText: { EmptyView() },
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
-extension InfoView where ActionText == EmptyView, DescriptionText == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			progressIndicatorText: progressIndicatorText,
-			actionText: { EmptyView() },
-			secondaryActionText: { EmptyView() }
-        )
-    }
-}
-
-extension InfoView where ActionText == EmptyView, ProgressIndicatorText == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			progressIndicatorText: { EmptyView() },
-			actionText: { EmptyView() },
-			secondaryActionText: { EmptyView() }
+			progressIndicator: progressIndicator,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() }
         )
     }
 }
 
-extension InfoView where DescriptionText == EmptyView, ProgressIndicatorText == EmptyView, SecondaryActionText == EmptyView {
+extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			progressIndicatorText: { EmptyView() },
-			actionText: actionText,
-			secondaryActionText: { EmptyView() }
+			progressIndicator: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: secondaryAction
+        )
+    }
+}
+
+extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: { EmptyView() },
+			action: action,
+			secondaryAction: { EmptyView() }
+        )
+    }
+}
+
+extension InfoView where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: progressIndicator,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() }
+        )
+    }
+}
+
+extension InfoView where ProgressIndicatorView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			progressIndicator: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() }
+        )
+    }
+}
+
+extension InfoView where DescriptionText == EmptyView, ProgressIndicatorView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			progressIndicator: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() }
         )
     }
 }

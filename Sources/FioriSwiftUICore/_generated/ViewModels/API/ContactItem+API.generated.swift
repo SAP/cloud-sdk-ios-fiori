@@ -1,12 +1,14 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
+
 
 public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
 	@Environment(\.detailImageModifier) private var detailImageModifier
+	@Environment(\.actionItemsModifier) private var actionItemsModifier
 	@Environment(\.splitPercent) var splitPercent
 	@Environment(\.sizeCategory) var sizeCategory
 	@Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -25,11 +27,11 @@ public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, De
 	private var isActionItemsNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionItems: @escaping () -> ActionItems
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder actionItems: () -> ActionItems
         ) {
             self._title = title()
 			self._subtitle = subtitle()
@@ -66,8 +68,12 @@ public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, De
             _detailImage.modifier(detailImageModifier.concat(Fiori.ContactItem.detailImage))
         }
     }
-	var actionItems: some View {
-        _actionItems
+	@ViewBuilder var actionItems: some View {
+        if isModelInit {
+            _actionItems.modifier(actionItemsModifier.concat(Fiori.ContactItem.actionItems).concat(Fiori.ContactItem.actionItemsCumulative))
+        } else {
+            _actionItems.modifier(actionItemsModifier.concat(Fiori.ContactItem.actionItems))
+        }
     }
     
 	var isSubtitleEmptyView: Bool {
@@ -94,20 +100,15 @@ extension ContactItem where Title == Text,
 		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
 
     public init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
+        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? ActivityItems(model: model.actionItems!) : nil)
     }
 
-    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: ActivityItems? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-		// handle ActivityItemsModel
-        if (actionItems != nil) {
-            self._actionItems = ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
-        } else {
-            self._actionItems = ViewBuilder.buildEither(second: EmptyView())
-        }
+		self._actionItems = actionItems != nil ? ViewBuilder.buildEither(first: actionItems!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isSubtitleNil = subtitle == nil ? true : false

@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -23,12 +23,12 @@ public struct HeaderChart<Title: View, Subtitle: View, Trend: View, TrendImage: 
 	private var isKpiNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder trend: @escaping () -> Trend,
-		@ViewBuilder trendImage: @escaping () -> TrendImage,
-		@ViewBuilder kpi: @escaping () -> Kpi,
-		@ViewBuilder chart: @escaping () -> Chart
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder trend: () -> Trend,
+		@ViewBuilder trendImage: () -> TrendImage,
+		@ViewBuilder kpi: () -> Kpi,
+		@ViewBuilder chart: () -> Chart
         ) {
             self._title = title()
 			self._subtitle = subtitle()
@@ -99,11 +99,11 @@ extension HeaderChart where Title == Text,
 		TrendImage == _ConditionalContent<Image, EmptyView>,
 		Kpi == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: HeaderChartModel, @ViewBuilder chart: @escaping () -> Chart) {
-        self.init(title: model.title_, subtitle: model.subtitle_, trend: model.trend_, trendImage: model.trendImage_, kpi: model.kpi_, chart: chart)
+    public init(model: HeaderChartModel, @ViewBuilder chart: () -> Chart) {
+        self.init(title: model.title, subtitle: model.subtitle, trend: model.trend, trendImage: model.trendImage, kpi: model.kpi, chart: chart)
     }
 
-    public init(title: String, subtitle: String? = nil, trend: String? = nil, trendImage: Image? = nil, kpi: String? = nil, @ViewBuilder chart: @escaping () -> Chart) {
+    public init(title: String, subtitle: String? = nil, trend: String? = nil, trendImage: Image? = nil, kpi: String? = nil, @ViewBuilder chart: () -> Chart) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._trend = trend != nil ? ViewBuilder.buildEither(first: Text(trend!)) : ViewBuilder.buildEither(second: EmptyView())

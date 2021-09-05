@@ -1,43 +1,45 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
-public struct ActivationScreen<Title: View, DescriptionText: View, TextInputValue: View, ActionText: View, Footnote: View, SecondaryActionText: View> {
+
+public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: View, ActionView: View, SecondaryActionView: View, TextInputView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
-	@Environment(\.textInputValueModifier) private var textInputValueModifier
-	@Environment(\.actionTextModifier) private var actionTextModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
-	@Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
+	@Environment(\.actionModifier) private var actionModifier
+	@Environment(\.secondaryActionModifier) private var secondaryActionModifier
+	@Environment(\.textInputModifier) private var textInputModifier
 
     let _title: Title
 	let _descriptionText: DescriptionText
-	let _textInputValue: TextInputValue
-	let _actionText: ActionText
 	let _footnote: Footnote
-	let _secondaryActionText: SecondaryActionText
+	let _action: ActionView
+	let _secondaryAction: SecondaryActionView
+	let _textInput: TextInputView
 	
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false
-	private var isActionTextNil: Bool = false
 	private var isFootnoteNil: Bool = false
-	private var isSecondaryActionTextNil: Bool = false
+	private var isActionNil: Bool = false
+	private var isSecondaryActionNil: Bool = false
+	private var isTextInputNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
         ) {
             self._title = title()
 			self._descriptionText = descriptionText()
-			self._textInputValue = textInputValue()
-			self._actionText = actionText()
 			self._footnote = footnote()
-			self._secondaryActionText = secondaryActionText()
+			self._action = action()
+			self._secondaryAction = secondaryAction()
+			self._textInput = textInput()
     }
 
     @ViewBuilder var title: some View {
@@ -54,20 +56,6 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextInputValu
             _descriptionText.modifier(descriptionTextModifier.concat(Fiori.ActivationScreen.descriptionText))
         }
     }
-	@ViewBuilder var textInputValue: some View {
-        if isModelInit {
-            _textInputValue.modifier(textInputValueModifier.concat(Fiori.ActivationScreen.textInputValue).concat(Fiori.ActivationScreen.textInputValueCumulative))
-        } else {
-            _textInputValue.modifier(textInputValueModifier.concat(Fiori.ActivationScreen.textInputValue))
-        }
-    }
-	@ViewBuilder var actionText: some View {
-        if isModelInit {
-            _actionText.modifier(actionTextModifier.concat(Fiori.ActivationScreen.actionText).concat(Fiori.ActivationScreen.actionTextCumulative))
-        } else {
-            _actionText.modifier(actionTextModifier.concat(Fiori.ActivationScreen.actionText))
-        }
-    }
 	@ViewBuilder var footnote: some View {
         if isModelInit {
             _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote).concat(Fiori.ActivationScreen.footnoteCumulative))
@@ -75,11 +63,25 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextInputValu
             _footnote.modifier(footnoteModifier.concat(Fiori.ActivationScreen.footnote))
         }
     }
-	@ViewBuilder var secondaryActionText: some View {
+	@ViewBuilder var action: some View {
         if isModelInit {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.ActivationScreen.secondaryActionText).concat(Fiori.ActivationScreen.secondaryActionTextCumulative))
+            _action.modifier(actionModifier.concat(Fiori.ActivationScreen.action).concat(Fiori.ActivationScreen.actionCumulative))
         } else {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.ActivationScreen.secondaryActionText))
+            _action.modifier(actionModifier.concat(Fiori.ActivationScreen.action))
+        }
+    }
+	@ViewBuilder var secondaryAction: some View {
+        if isModelInit {
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.ActivationScreen.secondaryAction).concat(Fiori.ActivationScreen.secondaryActionCumulative))
+        } else {
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.ActivationScreen.secondaryAction))
+        }
+    }
+	@ViewBuilder var textInput: some View {
+        if isModelInit {
+            _textInput.modifier(textInputModifier.concat(Fiori.ActivationScreen.textInput).concat(Fiori.ActivationScreen.textInputCumulative))
+        } else {
+            _textInput.modifier(textInputModifier.concat(Fiori.ActivationScreen.textInput))
         }
     }
     
@@ -87,57 +89,47 @@ public struct ActivationScreen<Title: View, DescriptionText: View, TextInputValu
         ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
     }
 
-	var isActionTextEmptyView: Bool {
-        ((isModelInit && isActionTextNil) || ActionText.self == EmptyView.self) ? true : false
-    }
-
 	var isFootnoteEmptyView: Bool {
         ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
     }
 
-	var isSecondaryActionTextEmptyView: Bool {
-        ((isModelInit && isSecondaryActionTextNil) || SecondaryActionText.self == EmptyView.self) ? true : false
+	var isActionEmptyView: Bool {
+        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
+    }
+
+	var isSecondaryActionEmptyView: Bool {
+        ((isModelInit && isSecondaryActionNil) || SecondaryAction.self == EmptyView.self) ? true : false
+    }
+
+	var isTextInputEmptyView: Bool {
+        ((isModelInit && isTextInputNil) || TextInput.self == EmptyView.self) ? true : false
     }
 }
 
 extension ActivationScreen where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		TextInputValue == _ConditionalContent<TextInput, EmptyView>,
-		ActionText == _ConditionalContent<Action, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
-		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView> {
+		ActionView == _ConditionalContent<Action, EmptyView>,
+		SecondaryActionView == _ConditionalContent<SecondaryAction, EmptyView>,
+		TextInputView == _ConditionalContent<TextInput, EmptyView> {
 
-    public init<Model>(model: Model) where Model: ActivationScreenModel {
-        self.init(title: model.title_, descriptionText: model.descriptionText_, textInputValue: Binding<String>(get: { model.textInputValue_ }, set: { model.textInputValue_ = $0 }), actionText: model.actionText_, footnote: model.footnote_, secondaryActionText: model.secondaryActionText_, onCommit: model.onCommit, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+    public init(model: ActivationScreenModel) {
+        self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? SecondaryAction(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? TextInput(model: model.textInput!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, textInputValue: Binding<String>? = nil, actionText: String? = nil, footnote: String? = nil, secondaryActionText: String? = nil, onCommit: (() -> Void)? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, footnote: String? = nil, action: Action? = nil, secondaryAction: SecondaryAction? = nil, textInput: TextInput? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-		// handle TextInputModel
-        if (textInputValue != nil) {
-            self._textInputValue = ViewBuilder.buildEither(first: TextInput(textInputValue: textInputValue,onCommit: onCommit))
-        } else {
-            self._textInputValue = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle ActionModel
-        if (actionText != nil) {
-            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
-        } else {
-            self._actionText = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle SecondaryActionModel
-        if (secondaryActionText != nil) {
-            self._secondaryActionText = ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
-        } else {
-            self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
-        }
+		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
+		self._secondaryAction = secondaryAction != nil ? ViewBuilder.buildEither(first: secondaryAction!) : ViewBuilder.buildEither(second: EmptyView())
+		self._textInput = textInput != nil ? ViewBuilder.buildEither(first: textInput!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isDescriptionTextNil = descriptionText == nil ? true : false
-		isActionTextNil = actionText == nil ? true : false
 		isFootnoteNil = footnote == nil ? true : false
-		isSecondaryActionTextNil = secondaryActionText == nil ? true : false
+		isActionNil = action == nil ? true : false
+		isSecondaryActionNil = secondaryAction == nil ? true : false
+		isTextInputNil = textInput == nil ? true : false
     }
 }

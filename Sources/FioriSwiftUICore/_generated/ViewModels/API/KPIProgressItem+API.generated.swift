@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -13,18 +13,18 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
 	let _fraction: Double?
 	let _subtitle: Subtitle
 	let _footnote: Footnote
-	var action: (() -> Void)? = nil
 	@State var isPressed: Bool = false
+	var action: (() -> Void)? = nil
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false
 	private var isSubtitleNil: Bool = false
 	private var isFootnoteNil: Bool = false
 
     public init(
-        @ViewBuilder kpi: @escaping () -> Kpi,
+        @ViewBuilder kpi: () -> Kpi,
 		fraction: Double?,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote
         ) {
             self._kpi = kpi()
 			self._fraction = fraction
@@ -72,7 +72,7 @@ extension KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView> {
 
     public init(model: KPIProgressItemModel) {
-        self.init(kpi: model.kpi_, fraction: model.fraction_, subtitle: model.subtitle_, footnote: model.footnote_)
+        self.init(kpi: model.kpi, fraction: model.fraction, subtitle: model.subtitle, footnote: model.footnote)
     }
 
     public init(kpi: String? = nil, fraction: Double? = nil, subtitle: String? = nil, footnote: String? = nil) {

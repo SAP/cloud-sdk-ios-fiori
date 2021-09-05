@@ -31,30 +31,34 @@ struct ContactItemRegularExamples: ListDataProtocol {
     func cellForRow(_ indexPath: IndexPath) -> AnyView {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let ci = ContactItem(title: "Headline only example", descriptionText: "One line of text desctiption is baseline aligned.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline only example", descriptionText: "One line of text desctiption is baseline aligned.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.355)
+            }))
+                .splitPercent(0.355)
             
             return AnyView(ci)
             
         case (0, 1):
-            let ci = ContactItem(title: "Sean Long", descriptionText: "Single line of text is baseline aligned and expands.", detailImage: Image("person_square4"), actionItems: [.init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))]) { dataType in
+            let ci = ContactItem(title: "Sean Long", descriptionText: "Single line of text is baseline aligned and expands.", detailImage: Image("person_square4"), actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.3)
+            }))
+                .splitPercent(0.3)
             
             return AnyView(ci)
         
         case (0, 2):
-            let ci = ContactItem(title: "Headline only example", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline only example", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.355)
+            }))
+                .splitPercent(0.355)
             
             return AnyView(ci)
             
         case (0, 3):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered as this example here", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered as this example here", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.3)
+            }))
+                .splitPercent(0.3)
             
             return AnyView(ci)
             
@@ -80,114 +84,129 @@ struct ContactItemRegularExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (0, 5):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should. Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should. Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.3)
+            }))
+                .splitPercent(0.3)
             
             return AnyView(ci)
             
         case (0, 6):
-            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.4)
+            }))
+                .splitPercent(0.4)
             
             return AnyView(ci)
             
         case (0, 7):
-            let ci = ContactItem(title: "Sean Long name that wraps two lines", descriptionText: "Text is centered like this example and expands here.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long name that wraps two lines", descriptionText: "Text is centered like this example and expands here.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.34)
+            }))
+                .splitPercent(0.34)
             
             return AnyView(ci)
             
         case (0, 8):
-            let ci = ContactItem(title: "Headline example when text wrapps two lines", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example when text wrapps two lines", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.36)
+            }))
+                .splitPercent(0.36)
             
             return AnyView(ci)
             
         case (0, 9):
-            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Desctiption is always centered and this example shows the text that is set to trucate at two lines", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Desctiption is always centered and this example shows the text that is set to trucate at two lines", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.3)
+            }))
+                .splitPercent(0.3)
             
             return AnyView(ci)
             
         case (0, 10):
-            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and thedescription is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and thedescription is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(0.3)
+            }))
+                .splitPercent(0.3)
             
             return AnyView(ci)
             
         case (0, 11):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }
+            }))
             
             return AnyView(ci)
             
         case (1, 0):
-            let ci = ContactItem(title: "Headline only example", descriptionText: "One line of text desctiption is baseline aligned.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline only example", descriptionText: "One line of text desctiption is baseline aligned.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 1):
-            let ci = ContactItem(title: "Sean Long", descriptionText: "Single line of text is baseline aligned and expands.", detailImage: Image("person_square4"), actionItems: [.init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))]) { dataType in
+            let ci = ContactItem(title: "Sean Long", descriptionText: "Single line of text is baseline aligned and expands.", detailImage: Image("person_square4"), actionItems: ActivityItems(actionItems: [.init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
         
         case (1, 2):
-            let ci = ContactItem(title: "Headline only example", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline only example", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 3):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered as this example here", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered as this example here", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 4):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered and this example shows the text that is set to trucate after two lines", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Desctiption is always centered and this example shows the text that is set to trucate after two lines", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
 
             return AnyView(ci)
             
         case (1, 5):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should. Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should. Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 6):
-            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example is allowd to wrap two lines ok", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 7):
-            let ci = ContactItem(title: "Sean Long name that wraps two lines", descriptionText: "Text is centered like this example and expands here.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Sean Long name that wraps two lines", descriptionText: "Text is centered like this example and expands here.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 8):
-            let ci = ContactItem(title: "Headline example when text wrapps two lines", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example when text wrapps two lines", subtitle: "Team Lead", descriptionText: "One line of text in desctiption is centered here.", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
@@ -213,16 +232,18 @@ struct ContactItemRegularExamples: ListDataProtocol {
             return AnyView(ci)
             
         case (1, 10):
-            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and thedescription is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)]) { dataType in
+            let ci = ContactItem(title: "Headline example wrapps two lines", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and thedescription is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             
         case (1, 11):
-            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))]) { dataType in
+            let ci = ContactItem(title: "Sean Long", subtitle: "Team Lead", descriptionText: "Exapmle showing three lines of text at maximum lipsum ortam at al and the description is always still centerd here and should.", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message), .init(type: .email), .init(type: .detail), .init(type: .custom(Image(systemName: "power")))], didSelectActivityItem: { dataType in
                 print("\(dataType)")
-            }.splitPercent(nil)
+            }))
+                .splitPercent(nil)
             
             return AnyView(ci)
             

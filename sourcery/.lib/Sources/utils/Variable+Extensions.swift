@@ -2,13 +2,15 @@ import Foundation
 import SourceryRuntime
 
 public extension Variable {
-    var swiftUITypeNameBacked: String {
-        if let backingSwiftUIComponent = backingSwiftUIComponent {
-            return backingSwiftUIComponent
-        }
+    /*
+     var swiftUITypeNameBacked: String {
+         if let backingSwiftUIComponent = backingSwiftUIComponent {
+             return backingSwiftUIComponent
+         }
 
-        return self.swiftUITypeName
-    }
+         return self.swiftUITypeName
+     }
+      */
 
     var swiftUITypeName: String {
         if let backingSwiftUIComponent = backingSwiftUIComponent {
@@ -24,6 +26,48 @@ public extension Variable {
             return "Never"
         }
     }
+    
+    var swiftUIViewTypeName: String {
+        if !isRepresentableByView {
+            return "Never"
+        }
+        
+        if annotations.defaultValue != nil || !isOptional {
+            return self.swiftUITypeName
+        }
+        
+        return "EmptyView"
+    }
+    
+    var swiftUIViewDefaultValue: String {
+        if !isRepresentableByView {
+            return "Never"
+        }
+        
+        guard let defaultValue = annotations.defaultValue else {
+            return "EmptyView()"
+        }
+        
+        if let backingComponent = backingSwiftUIComponent {
+            // viewModel property
+            if type?.isGeneratedComponent == true {
+                return "\(backingComponent)(model: \(defaultValue))"
+            }
+            // Property with backingComponent in single property component protocol (e.g. IconsComponent)
+            else {
+                return "\(backingComponent)(\(self.trimmedName): \(defaultValue)"
+            }
+        }
+        
+        switch self.swiftUITypeName {
+        case "Text":
+            return "Text(\(defaultValue))"
+        case "Image":
+            return "\(defaultValue)"
+        default:
+            return "\(defaultValue)"
+        }
+    }
 
     var conditionalAssignment: String {
         if isOptional || annotations["bindingPropertyOptional"] != nil {
@@ -34,13 +78,24 @@ public extension Variable {
     }
 
     var backingSwiftUIComponent: String? {
-        self.definedInType?.resolvedAnnotations("backingComponent").first ?? resolvedAnnotations("backingComponent").first
+        if let backingComponent = annotations.backingComponent {
+            return backingComponent
+        } else if type?.annotations.isGeneratedComponentNotConfigurable == true {
+            return type?.componentName
+        } else {
+            return nil
+        }
     }
 
     var toSwiftUI: String {
-        if self.backingSwiftUIComponent != nil {
-            return "\(self.swiftUITypeName)(\(self.trimmedName): \(self.trimmedName))"
+        if let backingComponent = self.backingSwiftUIComponent {
+            return type?.isGeneratedComponent == true ?
+                // For viewModel property (e.g. ActionModel)
+                self.nameForceUnwrapIfNeeded.trim() :
+                // For property with backingComponent annotation in single property component (e.g. IconsComponent)
+                "\(backingComponent)(\(self.trimmedName): \(self.nameForceUnwrapIfNeeded.trim()))"
         }
+        
         switch self.typeName.unwrappedTypeName {
         case "String":
             return isOptional ? "Text(\(self.trimmedName)!)" : "Text(\(self.trimmedName))"
@@ -54,7 +109,11 @@ public extension Variable {
     }
 
     var emptyDefault: String {
-        if isOptional || annotations["bindingPropertyOptional"] != nil {
+        if type?.isGeneratedComponent == true, self.backingSwiftUIComponent != nil, annotations.defaultValue != nil {
+            return " = \(self.swiftUIViewDefaultValue)"
+        } else if let defaultValue = annotations.defaultValue {
+            return " = \(defaultValue)"
+        } else if isOptional || annotations["bindingPropertyOptional"] != nil {
             return " = nil"
         } else if typeName.isArray {
             return " = []"
@@ -65,6 +124,26 @@ public extension Variable {
 
     var trimmedName: String {
         name.replacingOccurrences(of: "_", with: "")
+    }
+    
+    var nameForceUnwrapIfNeeded: String {
+        isOptional ? "\(name)!" : name
+    }
+    
+    var genericParameterName: String {
+        if let genericParameterName = annotations.genericParameterName {
+            return genericParameterName
+        } else {
+            return self.trimmedName.capitalizingFirst()
+        }
+    }
+    
+    var genericParameterType: String {
+        if let genericParameterType = annotations.genericParameterType {
+            return genericParameterType
+        } else {
+            return "View"
+        }
     }
 }
 
@@ -82,7 +161,7 @@ public extension Variable {
             """
         } else {
             return """
-            var \(self.trimmedName): some View {
+            var \(self.trimmedName): \(self.genericParameterName) {
                     _\(self.trimmedName)
                 }
             """
@@ -104,17 +183,25 @@ public extension Variable {
     var isRepresentableByView: Bool {
         !annotations.keys.contains("no_view")
     }
+    
+    var isStylable: Bool {
+        !annotations.keys.contains("no_style")
+    }
 
     var viewBuilderDecl: String {
         if let cfb = self.resolvedAnnotations("customFunctionBuilder").first {
-            return "@\(cfb) \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+            return "@\(cfb) \(self.trimmedName): () -> \(self.genericParameterName)"
         } else {
-            return "@ViewBuilder \(self.trimmedName): @escaping () -> \(self.trimmedName.capitalizingFirst())"
+            return "@ViewBuilder \(self.trimmedName): () -> \(self.genericParameterName)"
         }
     }
 
     var propDecl: String {
-        "\(self.trimmedName): \(self.typeName)"
+        if let defaultValue = annotations.defaultValue {
+            return "\(self.trimmedName): \(self.typeName) = \(defaultValue)"
+        } else {
+            return "\(self.trimmedName): \(self.typeName)"
+        }
     }
     
     var computedInternalTypeName: String {
@@ -122,6 +209,9 @@ public extension Variable {
             return "Binding<\(self.typeName.name)>"
         } else if annotations["bindingPropertyOptional"] != nil {
             return "Binding<\(self.typeName.name)>?"
+        } else if type?.isGeneratedComponent == true, let backingComponent = backingSwiftUIComponent {
+            let ret = isOptional ? backingComponent + "?" : backingComponent
+            return ret
         } else {
             return self.typeName.name
         }

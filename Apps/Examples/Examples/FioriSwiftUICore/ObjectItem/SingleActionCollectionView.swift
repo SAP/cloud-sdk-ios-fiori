@@ -30,7 +30,7 @@ struct SingleActionCollectionView: View {
                         Image(systemName: "checkmark")
                             .resizable()
                             .frame(width: 10, height: 10)
-                    }, actionText: {
+                    }, action: {
                         Button {
                             print("Tapped Follow")
                         } label: {

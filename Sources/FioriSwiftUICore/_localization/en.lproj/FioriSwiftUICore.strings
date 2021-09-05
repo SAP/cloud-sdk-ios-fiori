@@ -51,3 +51,15 @@
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Be wise about your data" = "Be wise about your data"
+
+"Not Now" = "Not Now";
+
+"Allow" = "Allow";
+
+"Deny" = "Deny";
+
+"Cancel" = "Cancel";
+
+"Quit" = "Quit"
+
+"Give Consent" = "Give Consent"

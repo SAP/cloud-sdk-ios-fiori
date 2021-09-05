@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -8,7 +8,7 @@ public struct HTMLView {
     var _htmlContent: NSAttributedString? = nil
 	@State var contentHeight: CGFloat = .zero
     public init(model: HTMLViewModel) {
-        self.init(htmlContent: model.htmlContent_)
+        self.init(htmlContent: model.htmlContent)
     }
 
     public init(htmlContent: NSAttributedString? = nil) {

@@ -1,35 +1,36 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
-public struct EULAView<Title: View, HtmlContent: View, ActionText: View, SecondaryActionText: View> {
+
+public struct EULAView<Title: View, HtmlView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
-	@Environment(\.htmlContentModifier) private var htmlContentModifier
-	@Environment(\.actionTextModifier) private var actionTextModifier
-	@Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
+	@Environment(\.htmlViewModifier) private var htmlViewModifier
+	@Environment(\.actionModifier) private var actionModifier
+	@Environment(\.secondaryActionModifier) private var secondaryActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
     let _title: Title
-	let _htmlContent: HtmlContent
-	let _actionText: ActionText
-	let _secondaryActionText: SecondaryActionText
+	let _htmlView: HtmlView
+	let _action: ActionView
+	let _secondaryAction: SecondaryActionView
 	@State var contentHeight: CGFloat = .zero
 
     private var isModelInit: Bool = false
-	private var isHtmlContentNil: Bool = false
-	private var isActionTextNil: Bool = false
-	private var isSecondaryActionTextNil: Bool = false
+	private var isHtmlViewNil: Bool = false
+	private var isActionNil: Bool = false
+	private var isSecondaryActionNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder htmlContent: @escaping () -> HtmlContent,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder htmlView: () -> HtmlView,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
         ) {
             self._title = title()
-			self._htmlContent = htmlContent()
-			self._actionText = actionText()
-			self._secondaryActionText = secondaryActionText()
+			self._htmlView = htmlView()
+			self._action = action()
+			self._secondaryAction = secondaryAction()
     }
 
     @ViewBuilder var title: some View {
@@ -39,74 +40,59 @@ public struct EULAView<Title: View, HtmlContent: View, ActionText: View, Seconda
             _title.modifier(titleModifier.concat(Fiori.EULAView.title))
         }
     }
-	@ViewBuilder var htmlContent: some View {
+	@ViewBuilder var htmlView: some View {
         if isModelInit {
-            _htmlContent.modifier(htmlContentModifier.concat(Fiori.EULAView.htmlContent).concat(Fiori.EULAView.htmlContentCumulative))
+            _htmlView.modifier(htmlViewModifier.concat(Fiori.EULAView.htmlView).concat(Fiori.EULAView.htmlViewCumulative))
         } else {
-            _htmlContent.modifier(htmlContentModifier.concat(Fiori.EULAView.htmlContent))
+            _htmlView.modifier(htmlViewModifier.concat(Fiori.EULAView.htmlView))
         }
     }
-	@ViewBuilder var actionText: some View {
+	@ViewBuilder var action: some View {
         if isModelInit {
-            _actionText.modifier(actionTextModifier.concat(Fiori.EULAView.actionText).concat(Fiori.EULAView.actionTextCumulative))
+            _action.modifier(actionModifier.concat(Fiori.EULAView.action).concat(Fiori.EULAView.actionCumulative))
         } else {
-            _actionText.modifier(actionTextModifier.concat(Fiori.EULAView.actionText))
+            _action.modifier(actionModifier.concat(Fiori.EULAView.action))
         }
     }
-	@ViewBuilder var secondaryActionText: some View {
+	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.EULAView.secondaryActionText).concat(Fiori.EULAView.secondaryActionTextCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.EULAView.secondaryAction).concat(Fiori.EULAView.secondaryActionCumulative))
         } else {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.EULAView.secondaryActionText))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.EULAView.secondaryAction))
         }
     }
     
-	var isHtmlContentEmptyView: Bool {
-        ((isModelInit && isHtmlContentNil) || HtmlContent.self == EmptyView.self) ? true : false
+	var isHtmlViewEmptyView: Bool {
+        ((isModelInit && isHtmlViewNil) || HtmlView.self == EmptyView.self) ? true : false
     }
 
-	var isActionTextEmptyView: Bool {
-        ((isModelInit && isActionTextNil) || ActionText.self == EmptyView.self) ? true : false
+	var isActionEmptyView: Bool {
+        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
     }
 
-	var isSecondaryActionTextEmptyView: Bool {
-        ((isModelInit && isSecondaryActionTextNil) || SecondaryActionText.self == EmptyView.self) ? true : false
+	var isSecondaryActionEmptyView: Bool {
+        ((isModelInit && isSecondaryActionNil) || SecondaryAction.self == EmptyView.self) ? true : false
     }
 }
 
 extension EULAView where Title == Text,
-		HtmlContent == _ConditionalContent<HTMLView, EmptyView>,
-		ActionText == _ConditionalContent<Action, EmptyView>,
-		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView> {
+		HtmlView == _ConditionalContent<HTMLView, EmptyView>,
+		ActionView == _ConditionalContent<Action, EmptyView>,
+		SecondaryActionView == _ConditionalContent<SecondaryAction, EmptyView> {
 
     public init(model: EULAViewModel) {
-        self.init(title: model.title_, htmlContent: model.htmlContent_, actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+        self.init(title: model.title, htmlView: model.htmlView != nil ? HTMLView(model: model.htmlView!) : nil, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? SecondaryAction(model: model.secondaryAction!) : nil)
     }
 
-    public init(title: String, htmlContent: NSAttributedString? = nil, actionText: String? = nil, secondaryActionText: String? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
+    public init(title: String, htmlView: HTMLView? = nil, action: Action? = nil, secondaryAction: SecondaryAction? = nil) {
         self._title = Text(title)
-		// handle HTMLViewModel
-        if (htmlContent != nil) {
-            self._htmlContent = ViewBuilder.buildEither(first: HTMLView(htmlContent: htmlContent))
-        } else {
-            self._htmlContent = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle ActionModel
-        if (actionText != nil) {
-            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
-        } else {
-            self._actionText = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle SecondaryActionModel
-        if (secondaryActionText != nil) {
-            self._secondaryActionText = ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
-        } else {
-            self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
-        }
+		self._htmlView = htmlView != nil ? ViewBuilder.buildEither(first: htmlView!) : ViewBuilder.buildEither(second: EmptyView())
+		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
+		self._secondaryAction = secondaryAction != nil ? ViewBuilder.buildEither(first: secondaryAction!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
-		isHtmlContentNil = htmlContent == nil ? true : false
-		isActionTextNil = actionText == nil ? true : false
-		isSecondaryActionTextNil = secondaryActionText == nil ? true : false
+		isHtmlViewNil = htmlView == nil ? true : false
+		isActionNil = action == nil ? true : false
+		isSecondaryActionNil = secondaryAction == nil ? true : false
     }
 }

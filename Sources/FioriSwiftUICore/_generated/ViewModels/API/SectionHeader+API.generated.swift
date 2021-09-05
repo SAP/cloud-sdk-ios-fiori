@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -14,8 +14,8 @@ public struct SectionHeader<Title: View, Attribute: View> {
 	private var isAttributeNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder attribute: @escaping () -> Attribute
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder attribute: () -> Attribute
         ) {
             self._title = title()
 			self._attribute = attribute()
@@ -45,7 +45,7 @@ extension SectionHeader where Title == Text,
 		Attribute == _ConditionalContent<Text, EmptyView> {
 
     public init(model: SectionHeaderModel) {
-        self.init(title: model.title_, attribute: model.attribute_)
+        self.init(title: model.title, attribute: model.attribute)
     }
 
     public init(title: String, attribute: String? = nil) {

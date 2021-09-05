@@ -1,0 +1,11 @@
+# Generate environment keys/values and view extension apis for view modidiers.
+sources:
+  - ./../Sources/FioriSwiftUICore/Models/
+  - ./../Sources/FioriSwiftUICore/_generated/Components/
+  - ./../Sources/FioriSwiftUICore/Components/
+templates:
+  - ./../sourcery/stencils/phase_three/view_modifier_decl.swifttemplate
+output:
+  ./../Sources/FioriSwiftUICore/_generated/Components
+force-parse:
+  - generated

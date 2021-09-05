@@ -2,11 +2,11 @@ import FioriSwiftUICore
 import SwiftUI
 
 class InfoViewDataModel: InfoViewModel {
-    var title_: String = "SAP BTP SDK for iOS"
-    var descriptionText_: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
-    var progressIndicatorText_: String? = "Loading..."
-    var actionText_: String? = "Next"
-    var secondaryActionText_: String? = "Start Tutorial"
+    var title: String = "SAP BTP SDK for iOS"
+    var descriptionText: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
+    var progressIndicatorText: String? = "Loading..."
+    var actionText: String? = "Next"
+    var secondaryActionText: String? = "Start Tutorial"
     
     func didSelectAction() {
         print("InfoView Primary button clicked")
@@ -21,7 +21,7 @@ struct InfoViewSample: View {
     private var model = InfoViewDataModel()
     
     public init() {
-        self.model.progressIndicatorText_ = ""
+        self.model.progressIndicatorText = ""
     }
     
     var body: some View {
@@ -47,7 +47,7 @@ struct InfoViewCustomized: View {
     private var model = InfoViewDataModel()
     
     public init() {
-        self.model.progressIndicatorText_ = ""
+        self.model.progressIndicatorText = ""
     }
     
     var body: some View {

@@ -28,7 +28,7 @@ extension Fiori {
 
         typealias DescriptionTextCumulative = EmptyModifier
 
-        struct TextInputValue: ViewModifier {
+        struct TextInput: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -39,16 +39,16 @@ extension Fiori {
             }
         }
 
-        typealias TextInputValueCumulative = EmptyModifier
+        typealias TextInputCumulative = EmptyModifier
 
-        struct ActionText: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .frame(minWidth: 169.0, minHeight: 20.0)
             }
         }
 
-        typealias ActionTextCumulative = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -58,7 +58,7 @@ extension Fiori {
         }
 
         typealias FootnoteCumulative = EmptyModifier
-        struct SecondaryActionText: ViewModifier {
+        struct SecondaryAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -66,19 +66,19 @@ extension Fiori {
             }
         }
 
-        typealias SecondaryActionTextCumulative = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textInputValue = TextInputValue()
-        static let actionText = ActionText()
+        static let textInput = TextInput()
+        static let action = Action()
         static let footnote = Footnote()
-        static let secondaryActionText = SecondaryActionText()
+        static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
-        static let textInputValueCumulative = TextInputValueCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
+        static let textInputCumulative = TextInputCumulative()
+        static let actionCumulative = ActionCumulative()
         static let footnoteCumulative = FootnoteCumulative()
-        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+        static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 
@@ -91,16 +91,16 @@ extension ActivationScreen: View {
             descriptionText
                 .padding(.bottom, 56)
 
-            textInputValue
+            textInput
                 .padding(.bottom, 30)
             
-            actionText
+            action
                 .buttonStyle(StatefulButtonStyle())
                 .padding(.bottom, 16)
             
             footnote
                 .padding(.bottom, 16)
-            secondaryActionText
+            secondaryAction
                 .buttonStyle(StatefulButtonStyle())
             Spacer()
         }
@@ -113,7 +113,7 @@ extension ActivationScreen: View {
 struct ActivationScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", actionText: "Next", footnote: "Or", secondaryActionText: "Scan"),
+        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", footnote: "Or", action: Action(actionText: "Next"), secondaryAction: SecondaryAction(secondaryActionText: "Scan")),
                     category: .control)
     }
 }

@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ObjectItem+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -12,6 +12,7 @@
 
 /*
 import SwiftUI
+
 
 // FIXME: - Implement Fiori style definitions
 
@@ -33,8 +34,8 @@ extension Fiori {
         typealias DetailImageCumulative = EmptyModifier
 		typealias Icons = EmptyModifier
         typealias IconsCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -56,7 +57,7 @@ extension Fiori {
 		static let substatus = Substatus()
 		static let detailImage = DetailImage()
 		static let icons = Icons()
-		static let actionText = ActionText()
+		static let action = Action()
         static let titleCumulative = TitleCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
@@ -65,7 +66,7 @@ extension Fiori {
 		static let substatusCumulative = SubstatusCumulative()
 		static let detailImageCumulative = DetailImageCumulative()
 		static let iconsCumulative = IconsCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
+		static let actionCumulative = ActionCumulative()
     }
 }
 

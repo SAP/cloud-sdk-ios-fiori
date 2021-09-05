@@ -17,7 +17,7 @@ struct ContactItemStateAndDataBindingExample: View {
                 .exampleHighlighting()
         }
         .alert(isPresented: $model.showingAlert, content: {
-            Alert(title: Text("Important message"), message: Text("Sending email to \(model.title_)"), dismissButton: .default(Text("Got it!")))
+            Alert(title: Text("Important message"), message: Text("Sending email to \(model.title)"), dismissButton: .default(Text("Got it!")))
         })
     }
 }
@@ -63,31 +63,13 @@ class EmailContactViewModel: ObservableObject {
 // MARK: Component Model
 
 extension EmailContactViewModel: ContactItemModel {
-    var title_: String {
+    var title: String {
         self.name
     }
 
-    var subtitle_: String? {
+    var subtitle: String? {
         self.lastEmailOn
     }
-
-    var footnote_: String? {
-        nil
-    }
-
-    var descriptionText_: String? {
-        nil
-    }
-
-    var detailImage_: Image? {
-        nil
-    }
-
-    var actionItems_: [ActivityItemDataType]? {
-        []
-    }
-
-    func didSelectActivityItem(_ activityItem: ActivityItemDataType) {}
 }
 
 extension EmailContactViewModel {

@@ -1,0 +1,21 @@
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// DO NOT EDIT
+import SwiftUI
+
+public struct _UserConsentPagesContainer {
+    var _userConsentPages: [UserConsentPageModel]
+
+    public init(userConsentPages: [UserConsentPageModel] = []) {
+        self._userConsentPages = userConsentPages
+    }
+}
+
+extension _UserConsentPagesContainer: PageViewContainer {
+    public var count: Int {
+        self._userConsentPages.count
+    }
+    
+    public func view(at index: Int) -> some View {
+        UserConsentPage(model: self._userConsentPages[index])
+    }
+}

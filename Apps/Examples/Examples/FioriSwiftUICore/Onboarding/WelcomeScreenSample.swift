@@ -3,14 +3,14 @@ import SwiftUI
 
 class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
     @Published var textInputValue_: String = ""
-    var title_: String = "SAP Project Companion for Managers"
-    var descriptionText_: String? = "Please follow the instructions you received in the welcome email to start the activation process."
+    var title: String = "SAP Project Companion for Managers"
+    var descriptionText: String? = "Please follow the instructions you received in the welcome email to start the activation process."
 
-    var actionText_: String? = "Start"
-    var subtitle_: String? = "abc@def.com"
-    var footnote_: String? = "Want to explore?"
-    var icon_: Image? = Image("SAPLogo")
-    var secondaryActionText_: String? = "Try Demo"
+    var actionText: String? = "Start"
+    var subtitle: String? = "abc@def.com"
+    var footnote: String? = "Want to explore?"
+    var icon: Image? = Image("SAPLogo")
+    var secondaryActionText: String? = "Try Demo"
     
     func didSelectAction() {
         print("WelcomeScreen Primary button clicked: ", self.textInputValue_)

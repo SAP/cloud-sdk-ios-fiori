@@ -763,11 +763,11 @@
 				993A122C26A726AC0018028B /* PrivacyText.html */,
 				993A122D26A726AC0018028B /* PrivacyText.rtf */,
 				9996CCFD262EB4E7001B99AE /* EULAText.html */,
+				99942D562616980A001912C5 /* OnboardingExamples.swift */,
 				9996CCFE262EB4E7001B99AE /* EULAViewSample.swift */,
 				99942D58261698FC001912C5 /* InfoViewSample.swift */,
 				B80DA9C42612A54E00C0B2E9 /* ActivationScreenSample.swift */,
 				B80DA9C52612A54E00C0B2E9 /* WelcomeScreenSample.swift */,
-				99942D562616980A001912C5 /* OnboardingExamples.swift */,
 				9996CD02262FFEBD001B99AE /* EULA2.html */,
 				99B6EF8B2672224C00515E8E /* UserConsentSample.swift */,
 			);

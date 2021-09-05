@@ -14,7 +14,7 @@ public extension Array where Element == Variable {
      ```
      */
     var templateParameterDecls: [String] {
-        map { "\($0.trimmedName.capitalizingFirst()): View" }
+        map { "\($0.genericParameterName): \($0.genericParameterType)" }
     }
 
     /**
@@ -35,19 +35,16 @@ public extension Array where Element == Variable {
      ```
      let _title: Title
      let _subtitle: Subtitle
+     let _isRequired: Bool
      ...
      ```
      */
-    var viewBuilderPropertyDecls: [String] {
-        map { "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())" }
-    }
-
     var miscPropertyDecls: [String] {
         map {
             if $0.isRepresentableByView == false {
                 return "let _\($0.trimmedName): \($0.typeName)"
             } else {
-                return "let _\($0.trimmedName): \($0.trimmedName.capitalizingFirst())"
+                return "let _\($0.trimmedName): \($0.genericParameterName)"
             }
         }
     }
@@ -108,28 +105,11 @@ public extension Array where Element == Variable {
     }
 
     /**
-     Formats list of init ViewBuilder parameters
-     ```
-     public init( // starts here =>
-     @ViewBuilder title: @escaping () -> Title,
-     @ViewBuilder subtitle: @escaping () -> Subtitle, ...
-     ```
-     */
-    var viewBuilderInitParams: [String] {
-        map {
-            if let cfb = $0.resolvedAnnotations("customFunctionBuilder").first {
-                return "@\(cfb) \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
-            } else {
-                return "@ViewBuilder \($0.trimmedName): @escaping () -> \($0.trimmedName.capitalizingFirst())"
-            }
-        }
-    }
-
-    /**
      Formats list of either  init ViewBuilder parameters or regular properties
      ```
      public init( // starts here =>
      @ViewBuilder kpi: @escaping () -> Kpi,
+     @UserConsentFormBuilder userConsentPages: @escaping () -> UserConsentPages,
      fraction: Double?, ...
      ```
      */
@@ -149,15 +129,12 @@ public extension Array where Element == Variable {
      public init(
      /* ... */
      ) { // starts here =>
-     self._title = title
-     self._subtitle = subtitle
+     self._title = title()
+     self._subtitle = subtitle()
+     self._isRequired = isRequired
      ...
      ```
      */
-    var viewBuilderInitParamAssignment: [String] {
-        map { "self._\($0.trimmedName) = \($0.trimmedName)()" }
-    }
-
     var miscInitParamAssignment: [String] {
         map {
             if $0.isRepresentableByView == false {
@@ -253,11 +230,11 @@ extension Array where Element: Variable {
     }
 
     public var extensionContrainedWhereEmptyView: String {
-        map { "\($0.trimmedName.capitalizingFirst()) == EmptyView" }.joined(separator: ", ")
+        map { "\($0.genericParameterName) == \($0.swiftUIViewTypeName)" }.joined(separator: ", ")
     }
 
     public var extensionConstrainedWhereConditionalContent: String {
-        map { "\($0.trimmedName.capitalizingFirst()) == \(($0.isOptional || $0.annotations.keys.contains("bindingPropertyOptional")) ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)" }.joined(separator: ",\n\t\t")
+        map { "\($0.genericParameterName) == \(($0.isOptional || $0.annotations.keys.contains("bindingPropertyOptional")) ? "_ConditionalContent<\($0.swiftUITypeName), EmptyView>" : $0.swiftUITypeName)" }.joined(separator: ",\n\t\t")
     }
 
     public var extensionModelInitParams: [String] {
@@ -266,7 +243,12 @@ extension Array where Element: Variable {
 
     public var extensionModelInitParamsChaining: [String] {
         map {
-            if $0.annotations.keys.contains("bindingProperty") || $0.annotations.keys.contains("bindingPropertyOptional") {
+            if $0.type?.isGeneratedComponent == true, let backingComponent = $0.backingSwiftUIComponent {
+                let decls = $0.isOptional ?
+                    "model.\($0.name) != nil ? \(backingComponent)(model: model.\($0.name)!) : nil" :
+                    "\(backingComponent)(model: model.\($0.name)"
+                return "\($0.trimmedName): \(decls)"
+            } else if $0.annotations.keys.contains("bindingProperty") || $0.annotations.keys.contains("bindingPropertyOptional") {
                 return "\($0.trimmedName): Binding<\($0.typeName.name)>(get: { model.\($0.name) }, set: { model.\($0.name) = $0 })"
             } else {
                 return "\($0.trimmedName): model.\($0.name)"
@@ -301,12 +283,12 @@ extension Array where Element: Variable {
             if !scenario.contains(variable) {
                 if variable.isRepresentableByView {
                     if let cfb = variable.resolvedAnnotations("customFunctionBuilder").first {
-                        output.append("@\(cfb) \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                        output.append("@\(cfb) \(variable.trimmedName): () -> \(variable.genericParameterName)")
                     } else {
-                        output.append("@ViewBuilder \(variable.trimmedName): @escaping () -> \(variable.trimmedName.capitalizingFirst())")
+                        output.append("@ViewBuilder \(variable.trimmedName): () -> \(variable.genericParameterName)")
                     }
                 } else {
-                    output.append("\(variable.trimmedName): \(variable.typeName)")
+                    output.append("\(variable.trimmedName): \(variable.typeName)\(variable.emptyDefault)")
                 }
             }
         }
@@ -320,7 +302,7 @@ extension Array where Element: Variable {
                 if variable.resolvedAnnotations("customFunctionBuilder").first != nil {
                     output.append("\(variable.trimmedName): { }")
                 } else {
-                    output.append("\(variable.trimmedName): { EmptyView() }")
+                    output.append("\(variable.trimmedName): { \(variable.swiftUIViewDefaultValue) }")
                 }
             } else {
                 output.append("\(variable.trimmedName): \(variable.trimmedName)")
@@ -330,12 +312,12 @@ extension Array where Element: Variable {
     }
 }
 
-extension Array where Element: Variable {
-    var privateClosurePropModelDecls: [String] {
+public extension Array where Element: Variable {
+    internal var privateClosurePropModelDecls: [String] {
         map { "var _\($0.trimmedName): \($0.typeName) = nil" }
     }
 
-    var extensionModelInitClosureParamsChaining: [String] {
+    internal var extensionModelInitClosureParamsChaining: [String] {
         // return "\($0.trimmedName): model.\($0.name)"
         map {
             guard let method = $0.annotations["originalMethod"] as? SourceryRuntime.Method else { return "" }
@@ -343,17 +325,32 @@ extension Array where Element: Variable {
         }
     }
 
-    public var extensionModelInitClosureParams: [String] {
+    var extensionModelInitClosureParams: [String] {
         map {
             "\($0.trimmedName): \($0.typeName) = nil"
         }
     }
 
-    var extensionModelInitClosureParamsAssignments: [String] {
+    internal var extensionModelInitClosureParamsAssignments: [String] {
         map { "self._\($0.trimmedName) = \($0.trimmedName)" }
     }
 
-    public var representableByView: [Variable] {
+    var representableByView: [Variable] {
         filter { $0.isRepresentableByView }
+    }
+    
+    var stylable: [Variable] {
+        filter { $0.isStylable }
+    }
+    
+    var uniqueTrimmedName: [Variable] {
+        var ret: [Variable] = []
+        for variable in self {
+            if !ret.contains(where: { $0.trimmedName == variable.trimmedName }) {
+                ret.append(variable)
+            }
+        }
+
+        return ret
     }
 }

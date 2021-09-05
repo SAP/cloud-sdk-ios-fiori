@@ -1,3 +1,14 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
+
+extension ListPickerItem where Value == EmptyView {
+    public init(
+    @ViewBuilder key: () -> Key
+    ) {
+        self.init(
+            key: key,
+			value: { EmptyView() }
+        )
+    }
+}

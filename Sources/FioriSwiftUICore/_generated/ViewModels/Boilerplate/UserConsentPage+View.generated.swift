@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/UserConsentPage+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -13,6 +13,7 @@
 /*
 import SwiftUI
 
+
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
@@ -21,10 +22,10 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias BodyText = EmptyModifier
         typealias BodyTextCumulative = EmptyModifier
-		typealias HtmlContent = EmptyModifier
-        typealias HtmlContentCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
+		typealias HtmlView = EmptyModifier
+        typealias HtmlViewCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -40,12 +41,12 @@ extension Fiori {
         */
         static let title = Title()
 		static let bodyText = BodyText()
-		static let htmlContent = HtmlContent()
 		static let footnote = Footnote()
+		static let htmlView = HtmlView()
         static let titleCumulative = TitleCumulative()
 		static let bodyTextCumulative = BodyTextCumulative()
-		static let htmlContentCumulative = HtmlContentCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
+		static let htmlViewCumulative = HtmlViewCumulative()
     }
 }
 

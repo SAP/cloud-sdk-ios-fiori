@@ -11,7 +11,10 @@ public protocol IconStackModel: IconsComponent {}
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconStackModel, ActionModel {}
+public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent {
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+}
 
 // sourcery: generated_component_not_configurable
 public protocol TagStackModel: TagsComponent {}
@@ -26,7 +29,7 @@ public protocol TagStackModel: TagsComponent {}
 // sourcery: virtualPropStatusViewSize = "@State var statusViewSize: CGSize = .zero"
 // sourcery: virtualPropCurrentTabIndex = "@State var currentTabIndex: Int = 0"
 // sourcery: generated_component_composite
-public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagStackModel, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
+public protocol ObjectHeaderModel: TitleComponent, SubtitleComponent, TagsComponent, BodyTextComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent {}
 
 // sourcery: add_view_builder_params = "chart"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = CGSize(width: 312, height: 0)"
@@ -75,6 +78,21 @@ public protocol ActionModel: ActionComponent {}
 public protocol SecondaryActionModel: SecondaryActionComponent {}
 
 // sourcery: generated_component_not_configurable
+public protocol NextActionModel: NextActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol CancelActionModel: CancelActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol AllowActionModel: AllowActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol DenyActionModel: DenyActionComponent {}
+
+// sourcery: generated_component_not_configurable
+public protocol NotNowActionModel: NotNowActionComponent {}
+
+// sourcery: generated_component_not_configurable
 public protocol TextInputModel: TextInputComponent {}
 
 // sourcery: generated_component
@@ -111,34 +129,111 @@ public protocol HTMLViewModel: HTMLViewComponent {}
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: virtualPropCurrentState = "@State var currentState: UserConsentState = .userConsentInit"
 // sourcery: add_env_props = ["presentationMode"]
-public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
+// public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
 
-// ----------------------------------------------------------------------------------------------------------------
+// sourcery: default.actionText_.value = NSLocalizedString("Give Consent", comment: "")
+// sourcery: default.secondaryActionText_.value = NSLocalizedString("Quit", comment: "")
+// sourcery: backingComponent=AlertConfiguration
+// sourcery: generated_component_composite
+// public protocol AlertConfigurationModel: AlertTitleComponent, AlertMessageComponent, ActionModel, SecondaryActionModel {}
 
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropMainViewSize = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+    var actionItems: ActivityItemsModel? { get }
+}
 
 // sourcery: add_env_props = ["horizontalSizeClass"]
 // sourcery: generated_component_composite
-public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, SubtitleComponent, FootnoteComponent, SecondaryActionModel, IconComponent {}
+public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, SubtitleComponent, FootnoteComponent, IconComponent {
+    // sourcery: genericParameter.name = TextInputView
+    var textInput: TextInputModel? { get }
+    
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = SecondaryActionView
+    var secondaryAction: SecondaryActionModel? { get }
+}
 
 // sourcery: generated_component_composite
-public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, TextInputModel, ActionModel, FootnoteComponent, SecondaryActionModel {}
+public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = SecondaryActionView
+    var secondaryAction: SecondaryActionModel? { get }
+    
+    // sourcery: genericParameter.name = TextInputView
+    var textInput: TextInputModel? { get }
+}
 
 // sourcery: generated_component_composite
-public protocol InfoViewModel: TitleComponent, DescriptionTextComponent, ProgressIndicatorModel, ActionModel, SecondaryActionModel {}
+public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
+    // sourcery: genericParameter.name = ProgressIndicatorView
+    var progressIndicator: ProgressIndicatorModel? { get }
+    
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = SecondaryActionView
+    var secondaryAction: SecondaryActionModel? { get }
+}
 
 // sourcery: generated_component_composite
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 // sourcery: add_env_props = ["presentationMode"]
-public protocol EULAViewModel: TitleComponent, HTMLViewModel, ActionModel, SecondaryActionModel {}
+public protocol EULAViewModel: TitleComponent {
+    var htmlView: HTMLViewModel? { get }
+    
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = SecondaryActionView
+    var secondaryAction: SecondaryActionModel? { get }
+}
+
+// sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
+// sourcery: generated_component_composite
+public protocol UserConsentFormModel {
+    // sourcery: genericParameter.name = NextActionView
+    // sourcery: default.value = _NextActionDefaultModel()
+    var nextAction: NextActionModel? { get }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefaultModel()
+    var cancelAction: CancelActionModel? { get }
+    
+    // sourcery: genericParameter.name = AllowActionView
+    // sourcery: default.value = _AllowActionDefaultModel()
+    var allowAction: AllowActionModel? { get }
+    
+    // sourcery: genericParameter.name = DenyActionView
+    // sourcery: default.value = _DenyActionDefaultModel()
+    var denyAction: DenyActionModel? { get }
+    
+    // sourcery: genericParameter.name = NotNowActionView
+    // sourcery: default.value = _NotNowActionDefaultModel()
+    var notNowAction: NotNowActionModel? { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=_UserConsentPagesContainer
+    // sourcery: customFunctionBuilder=UserConsentFormBuilder
+    // sourcery: genericParameter.type=PageViewContainer
+    var userConsentPages: [UserConsentPageModel] { get }
+    
+    // sourcery: no_view
+    // sourcery: default.value="true"
+    var isRequired: Bool { get }
+}
 
 // sourcery: generated_component_composite
 // sourcery: virtualPropBundle = "let bundle = Bundle.module"
 // sourcery: virtualPropTableName = "let tableName = "FioriSwiftUICore""
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
-public protocol UserConsentPageModel: TitleComponent, BodyTextComponent, HTMLViewModel, FootnoteComponent {}
+public protocol UserConsentPageModel: TitleComponent, BodyTextComponent, FootnoteComponent {
+    var htmlView: HTMLViewModel? { get }
+}

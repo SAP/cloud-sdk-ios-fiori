@@ -1,0 +1,9 @@
+# Generate component protocol extensions.
+sources:
+  - ./../Sources/FioriSwiftUICore/_generated/Components/Component+Protocols.generated.swift
+templates:
+  - ./../sourcery/stencils/phase_four/component_extension_decl.swifttemplate
+output:
+  ./../Sources/FioriSwiftUICore/_generated/Components
+force-parse:
+  - generated

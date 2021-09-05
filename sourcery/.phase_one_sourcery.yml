@@ -1,0 +1,12 @@
+# Generate comonent protocol declarations
+sources:
+  - ./../Sources/FioriSwiftUICore/Components/
+templates:
+  include:
+    - ./../sourcery/stencils/phase_one/component_decl.stencil
+  exclude: # Sourcery treats all the templates as independent and so would generate files based on partial templates as well but we'll await this excluding those
+    - ./../sourcery/stencils/phase_one/partials/
+output:
+  ./../Sources/FioriSwiftUICore/_generated/Components
+args:
+  prune: true

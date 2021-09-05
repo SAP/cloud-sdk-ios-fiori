@@ -15,3 +15,9 @@ public extension String {
         self + "\n"
     }
 }
+
+public extension String {
+    func trim() -> String {
+        self.replacingOccurrences(of: "_", with: "")
+    }
+}

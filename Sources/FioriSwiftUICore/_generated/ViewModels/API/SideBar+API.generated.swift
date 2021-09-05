@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -14,9 +14,9 @@ public struct SideBar<Subtitle: View, Footer: View, Detail: View> {
 	private var isSubtitleNil: Bool = false
 
     public init(
-        @ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footer: @escaping () -> Footer,
-		@ViewBuilder detail: @escaping () -> Detail
+        @ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footer: () -> Footer,
+		@ViewBuilder detail: () -> Detail
         ) {
             self._subtitle = subtitle()
 			self._footer = footer()
@@ -44,11 +44,11 @@ public struct SideBar<Subtitle: View, Footer: View, Detail: View> {
 @available(iOS 14, *)
 extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView> {
 
-    public init(model: SideBarModel, @ViewBuilder footer: @escaping () -> Footer, @ViewBuilder detail: @escaping () -> Detail) {
-        self.init(subtitle: model.subtitle_, footer: footer, detail: detail)
+    public init(model: SideBarModel, @ViewBuilder footer: () -> Footer, @ViewBuilder detail: () -> Detail) {
+        self.init(subtitle: model.subtitle, footer: footer, detail: detail)
     }
 
-    public init(subtitle: String? = nil, @ViewBuilder footer: @escaping () -> Footer, @ViewBuilder detail: @escaping () -> Detail) {
+    public init(subtitle: String? = nil, @ViewBuilder footer: () -> Footer, @ViewBuilder detail: () -> Detail) {
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footer = footer()
 		self._detail = detail()

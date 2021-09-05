@@ -14,10 +14,12 @@ extension Fiori {
 
 extension Action: View {
     public var body: some View {
-        Button(action: self._didSelectAction ?? onSelect) {
-            Text(self._actionText ?? "")
+        if _actionText != nil {
+            Button(action: self._didSelectAction ?? {}) {
+                Text(self._actionText ?? "")
+            }
+        } else {
+            EmptyView()
         }
     }
-        
-    func onSelect() {}
 }

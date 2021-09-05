@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ActivationScreen+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -13,6 +13,7 @@
 /*
 import SwiftUI
 
+
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
@@ -21,14 +22,14 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-		typealias TextInputValue = EmptyModifier
-        typealias TextInputValueCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
-		typealias SecondaryActionText = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+		typealias SecondaryAction = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
+		typealias TextInput = EmptyModifier
+        typealias TextInputCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -44,16 +45,16 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let textInputValue = TextInputValue()
-		static let actionText = ActionText()
 		static let footnote = Footnote()
-		static let secondaryActionText = SecondaryActionText()
+		static let action = Action()
+		static let secondaryAction = SecondaryAction()
+		static let textInput = TextInput()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let textInputValueCumulative = TextInputValueCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
-		static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+		static let actionCumulative = ActionCumulative()
+		static let secondaryActionCumulative = SecondaryActionCumulative()
+		static let textInputCumulative = TextInputCumulative()
     }
 }
 

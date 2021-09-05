@@ -2,12 +2,12 @@ import FioriSwiftUICore
 import SwiftUI
 
 class EULAViewDataModel: EULAViewModel {
-    var title_: String = "EULA"
+    var title: String = "EULA"
     
-    var htmlContent_: NSAttributedString?
+    var htmlContent: NSAttributedString?
     
-    var actionText_: String? = "Disagree"
-    var secondaryActionText_: String? = "Agree"
+    var actionText: String? = "Disagree"
+    var secondaryActionText: String? = "Agree"
     
     func didSelectAction() {
         print("EULAView Primary button clicked")
@@ -18,7 +18,7 @@ class EULAViewDataModel: EULAViewModel {
     }
     
     func caseHTML() {
-        self.htmlContent_ = NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n")
+        self.htmlContent = NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n")
     }
     
     func caseLongHTML() {
@@ -26,7 +26,7 @@ class EULAViewDataModel: EULAViewModel {
         do {
             let eulaData = try Data(contentsOf: eulaURL)
             let eulaAttString = try NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            self.htmlContent_ = eulaAttString
+            self.htmlContent = eulaAttString
         } catch (_) {
             print("Failed to get EULA text from html")
         }
@@ -37,14 +37,14 @@ class EULAViewDataModel: EULAViewModel {
         do {
             let eulaData = try Data(contentsOf: eulaURL)
             let eulaAttString = try NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            self.htmlContent_ = eulaAttString
+            self.htmlContent = eulaAttString
         } catch (_) {
             print("Failed to get EULA text from html")
         }
     }
     
     func caseConcatAttributedStrings() {
-        self.title_ = "CUSTOM EULA"
+        self.title = "CUSTOM EULA"
         
         let string1 = NSAttributedString(string: "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n", attributes:
             [NSAttributedString.Key.font: UIFont(name: "Georgia", size: 22.0)!])
@@ -61,16 +61,16 @@ class EULAViewDataModel: EULAViewModel {
         attText.append(string3)
         attText.append(linkString)
         
-        self.htmlContent_ = attText
+        self.htmlContent = attText
         
-        self.actionText_ = "Reject"
-        self.secondaryActionText_ = "Confirm"
+        self.actionText = "Reject"
+        self.secondaryActionText = "Confirm"
     }
     
     func caseShortStringWithLink() {
         let attributedString = NSAttributedString(string: "Short http://service.sap.com Short") // , attributes: textColorAttribute)
         
-        htmlContent_ = attributedString
+        htmlContent = attributedString
     }
     
     func caseShortAttributedStringWithLink() {
@@ -83,7 +83,7 @@ class EULAViewDataModel: EULAViewModel {
         let attributedString = NSMutableAttributedString(string: "Just click here to go to SAP service web site.\n\n" + "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n")
         
         attributedString.setAttributes(linkAttributes, range: NSRange(location: 5, length: 10))
-        self.htmlContent_ = attributedString
+        self.htmlContent = attributedString
     }
 }
 

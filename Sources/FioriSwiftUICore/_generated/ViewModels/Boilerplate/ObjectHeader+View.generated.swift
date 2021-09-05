@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 //TODO: Copy commented code to new file: `FioriSwiftUICore/Views/ObjectHeader+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
@@ -12,6 +12,7 @@
 
 /*
 import SwiftUI
+
 
 // FIXME: - Implement Fiori style definitions
 

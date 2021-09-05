@@ -4,34 +4,64 @@ import SwiftUI
 /// use for component with a function and one (or more) properties
 internal protocol _ComponentMultiPropGenerating {}
 
-// sourcery: backingComponent=ActivityItems
 internal protocol _ActionItems: _ComponentMultiPropGenerating {
-    // sourcery: no_style
     var actionItems_: [ActivityItemDataType]? { get }
-    // sourcery: no_nil_check
-    func didSelectActivityItem(_ activityItem: ActivityItemDataType)
+    // sourcery: no_view
+    var didSelectActivityItem_: ((ActivityItemDataType) -> Void)? { get }
 }
 
-// sourcery: backingComponent=Action
 internal protocol _Action: _ComponentMultiPropGenerating {
-    var actionText_: String? { get } // label
-    // sourcery: no_nil_check
-    func didSelectAction() // action handler
+    var actionText_: String? { get }
+    // sourcery: no_view
+    var didSelectAction_: (() -> Void)? { get }
 }
 
-// sourcery: backingComponent=SecondaryAction
 internal protocol _SecondaryAction: _ComponentMultiPropGenerating {
-    var secondaryActionText_: String? { get } // label
-    // sourcery: no_nil_check
-    func didSelectSecondaryAction() // action handler
+    var secondaryActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectSecondaryAction_: (() -> Void)? { get }
 }
 
-// sourcery: backingComponent=TextInput
-internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+internal protocol _NextAction: _ComponentMultiPropGenerating {
+    // sourcery: default.value=NSLocalizedString("Next", comment: "")
+    var nextActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectNextAction_: (() -> Void)? { get }
+}
+
+internal protocol _CancelAction: _ComponentMultiPropGenerating {
+    // sourcery: default.value=NSLocalizedString("Cancel", comment: "")
+    var cancelActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectCancelAction_: (() -> Void)? { get }
+}
+
+internal protocol _AllowAction: _ComponentMultiPropGenerating {
+    // sourcery: default.value=NSLocalizedString("Allow", comment: "")
+    var allowActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectAllowAction_: (() -> Void)? { get }
+}
+
+internal protocol _DenyAction: _ComponentMultiPropGenerating {
+    // sourcery: default.value=NSLocalizedString("Deny", comment: "")
+    var denyActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectDenyAction_: (() -> Void)? { get }
+}
+
+internal protocol _NotNowAction: _ComponentMultiPropGenerating {
+    // sourcery: default.value=NSLocalizedString("Not Now", comment: "")
+    var notNowActionText_: String? { get }
+    // sourcery: no_view
+    var didSelectNotNowAction_: (() -> Void)? { get }
+}
+
+internal protocol _TextInput: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingPropertyOptional = .constant("")
     var textInputValue_: String { get set }
-    // sourcery: no_nil_check
-    func onCommit() // action handler
+    // sourcery: no_view
+    var onCommit_: (() -> Void)? { get }
 }
 
 internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
@@ -39,26 +69,24 @@ internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
     var fraction_: Double? { get }
 }
 
-// sourcery: backingComponent=ProgressIndicator
 internal protocol _ProgressIndicator: _ComponentMultiPropGenerating {
     var progressIndicatorText_: String? { get }
 }
 
-// sourcery: backingComponent=HTMLView
 internal protocol _HTMLView: _ComponentMultiPropGenerating {
     var htmlContent_: NSAttributedString? { get }
 }
 
 // sourcery: backingComponent=UserConsentForms
-internal protocol _UserConsentForms: _ComponentMultiPropGenerating {
-    // sourcery: no_view
-    var itemAccepted_: Binding<[Int]> { get set }
-    // sourcery: no_view
-    var currentFormIndex_: Binding<Int> { get set }
-    // sourcery: no_view
-    var currentPageIndex_: Binding<Int> { get set }
-    // sourcery: no_view
-    var forms_: [UserConsentFormData] { get }
-    // sourcery: no_nil_check
-    func onCancel()
-}
+// internal protocol _UserConsentForms: _ComponentMultiPropGenerating {
+//    // sourcery: no_view
+//    var itemAccepted_: Binding<[Int]> { get set }
+//    // sourcery: no_view
+//    var currentFormIndex_: Binding<Int> { get set }
+//    // sourcery: no_view
+//    var currentPageIndex_: Binding<Int> { get set }
+//    // sourcery: no_view
+//    var forms_: [UserConsentFormData] { get }
+//
+//    var onCancel_: (() -> Void)? { get }
+// }

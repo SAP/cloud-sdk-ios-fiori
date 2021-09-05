@@ -1,90 +1,103 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
 extension UserConsentPage where BodyText == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder htmlContent: @escaping () -> HtmlContent,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder htmlView: () -> HtmlView
     ) {
         self.init(
             title: title,
 			bodyText: { EmptyView() },
-			htmlContent: htmlContent,
-			footnote: footnote
+			footnote: footnote,
+			htmlView: htmlView
         )
     }
 }
 
 extension UserConsentPage where Footnote == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder bodyText: @escaping () -> BodyText,
-		@ViewBuilder htmlContent: @escaping () -> HtmlContent
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyText: () -> BodyText,
+		@ViewBuilder htmlView: () -> HtmlView
     ) {
         self.init(
             title: title,
 			bodyText: bodyText,
-			htmlContent: htmlContent,
-			footnote: { EmptyView() }
+			footnote: { EmptyView() },
+			htmlView: htmlView
         )
     }
 }
 
-extension UserConsentPage where HtmlContent == EmptyView {
+extension UserConsentPage where HtmlView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder bodyText: @escaping () -> BodyText,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyText: () -> BodyText,
+		@ViewBuilder footnote: () -> Footnote
     ) {
         self.init(
             title: title,
 			bodyText: bodyText,
-			htmlContent: { EmptyView() },
-			footnote: footnote
+			footnote: footnote,
+			htmlView: { EmptyView() }
         )
     }
 }
 
 extension UserConsentPage where BodyText == EmptyView, Footnote == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder htmlContent: @escaping () -> HtmlContent
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder htmlView: () -> HtmlView
     ) {
         self.init(
             title: title,
 			bodyText: { EmptyView() },
-			htmlContent: htmlContent,
-			footnote: { EmptyView() }
+			footnote: { EmptyView() },
+			htmlView: htmlView
         )
     }
 }
 
-extension UserConsentPage where BodyText == EmptyView, HtmlContent == EmptyView {
+extension UserConsentPage where BodyText == EmptyView, HtmlView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote
     ) {
         self.init(
             title: title,
 			bodyText: { EmptyView() },
-			htmlContent: { EmptyView() },
-			footnote: footnote
+			footnote: footnote,
+			htmlView: { EmptyView() }
         )
     }
 }
 
-extension UserConsentPage where Footnote == EmptyView, HtmlContent == EmptyView {
+extension UserConsentPage where Footnote == EmptyView, HtmlView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder bodyText: @escaping () -> BodyText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyText: () -> BodyText
     ) {
         self.init(
             title: title,
 			bodyText: bodyText,
-			htmlContent: { EmptyView() },
-			footnote: { EmptyView() }
+			footnote: { EmptyView() },
+			htmlView: { EmptyView() }
+        )
+    }
+}
+
+extension UserConsentPage where BodyText == EmptyView, Footnote == EmptyView, HtmlView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title
+    ) {
+        self.init(
+            title: title,
+			bodyText: { EmptyView() },
+			footnote: { EmptyView() },
+			htmlView: { EmptyView() }
         )
     }
 }

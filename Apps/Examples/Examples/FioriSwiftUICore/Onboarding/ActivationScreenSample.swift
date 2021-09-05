@@ -3,11 +3,11 @@ import SwiftUI
 
 class ActivationScreenDataModel: ActivationScreenModel, ObservableObject {
     @Published var textInputValue_: String = ""
-    var title_: String = "Activation"
-    var descriptionText_: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
-    var actionText_: String? = "Next"
-    var footnote_: String? = "Or"
-    var secondaryActionText_: String? = "Scan"
+    var title: String = "Activation"
+    var descriptionText: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
+    var actionText: String? = "Next"
+    var footnote: String? = "Or"
+    var secondaryActionText: String? = "Scan"
     
     func didSelectAction() {
         print("ActivationScreen Primary button clicked, email:", self.textInputValue_)

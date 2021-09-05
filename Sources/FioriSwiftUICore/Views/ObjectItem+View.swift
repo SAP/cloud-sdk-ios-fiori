@@ -54,7 +54,7 @@ extension Fiori {
             }
         }
         
-        struct ActionText: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.callout)
@@ -63,7 +63,7 @@ extension Fiori {
             }
         }
         
-        struct ActionTextCumulative: ViewModifier {
+        struct ActionCumulative: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
@@ -90,7 +90,7 @@ extension Fiori {
         static let substatus = Substatus()
         static let detailImage = DetailImage()
         static let icons = Icons()
-        static let actionText = ActionText()
+        static let action = Action()
         static let titleCumulative = TitleCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let footnoteCumulative = FootnoteCumulative()
@@ -99,14 +99,14 @@ extension Fiori {
         static let substatusCumulative = SubstatusCumulative()
         static let detailImageCumulative = DetailImageCumulative()
         static let iconsCumulative = IconsCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
+        static let actionCumulative = ActionCumulative()
     }
 }
 
 extension ObjectItem: View {
     public var body: some View {
         Group {
-            if !isActionTextEmptyView {
+            if !isActionEmptyView {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isSubtitleEmptyView && isFootnoteEmptyView {
                     self.makeOneLineSingleActionView()
@@ -186,7 +186,7 @@ extension ObjectItem: View {
                     .background(GeometrySizeView(size: $mainViewSize))
                 }
                 
-                actionText
+                action
             }
         }
     }
@@ -217,7 +217,7 @@ extension ObjectItem: View {
                         Spacer(minLength: 16)
                     }
                     
-                    actionText
+                    action
                 }
             } else {
                 HStack(alignment: .center) {
@@ -270,7 +270,7 @@ extension ObjectItem: View {
                         }
                     }
                     
-                    actionText
+                    action
                 }
             }
         }
@@ -772,7 +772,7 @@ struct ObjectItem_Previews: PreviewProvider {
             }, icons: {
                 Text("1")
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
-            }, actionText: {
+            }, action: {
                 Button {
                     print("Tapped Follow")
                 } label: {

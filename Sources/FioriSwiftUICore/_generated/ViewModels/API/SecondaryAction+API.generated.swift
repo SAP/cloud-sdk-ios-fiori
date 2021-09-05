@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -9,7 +9,7 @@ public struct SecondaryAction {
 	var _didSelectSecondaryAction: (() -> Void)? = nil
 	
     public init(model: SecondaryActionModel) {
-        self.init(secondaryActionText: model.secondaryActionText_, didSelectSecondaryAction: model.didSelectSecondaryAction)
+        self.init(secondaryActionText: model.secondaryActionText, didSelectSecondaryAction: model.didSelectSecondaryAction)
     }
 
     public init(secondaryActionText: String? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {

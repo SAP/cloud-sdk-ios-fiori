@@ -15,7 +15,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Sourcery", url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.1.1"))
+        .package(name: "Sourcery", url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.5.0"))
         /// **NOTICE**: this Package is set up *just* to link against `SourceryRuntime` during dev/test.  During template generation, `SourceryRuntime`
         /// is injected by the sourcery tool.  But, *no other dependencies* will be linked.  So, it does not make sense to introduce additional
         /// dependencies to this package.  If you want to rely on functionality provided by another package (e.g. `swift-algorithms`), copy those files
