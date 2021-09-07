@@ -56,11 +56,11 @@ jobs:
       run: |
         nextVersion=`npx standard-version --tag-prefix '' --dry-run | sed -n '/^---$/,/^---$/p' | grep -P -o '(\d+\.)(\d+\.)(\d)' | head -n 1`
         echo "$nextVersion"
-        echo "::set-env name=NEXT_VERSION::$nextVersion"
+        echo "NEXT_VERSION=$nextVersion" >> $GITHUB_ENV
     - name: Manually next version number
       if: github.event.inputs.releaseVersion != null
       run: |
-        echo "::set-env name=NEXT_VERSION::${{ github.event.inputs.releaseVersion }}"
+        echo "NEXT_VERSION=${{ github.event.inputs.releaseVersion }}" >> $GITHUB_ENV
         echo "${{ env.NEXT_VERSION }}"
 
     - name: bump version - DRY RUN
