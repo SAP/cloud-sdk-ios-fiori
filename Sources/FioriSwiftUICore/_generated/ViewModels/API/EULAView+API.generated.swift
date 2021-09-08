@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct EULAView<Title: View, HtmlView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.htmlViewModifier) private var htmlViewModifier

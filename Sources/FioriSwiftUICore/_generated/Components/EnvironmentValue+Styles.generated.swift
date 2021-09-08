@@ -169,11 +169,6 @@ extension EnvironmentValues {
         set { self[UpperBoundTitleModifierKey.self] = newValue }
     }
 
-    public var alertMessageModifier: AnyViewModifier {
-        get { return self[AlertMessageModifierKey.self] }
-        set { self[AlertMessageModifierKey.self] = newValue }
-    }
-
     public var actionTextModifier: AnyViewModifier {
         get { return self[ActionTextModifierKey.self] }
         set { self[ActionTextModifierKey.self] = newValue }
@@ -446,11 +441,6 @@ public extension View {
     @ViewBuilder
     func upperBoundTitleModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.upperBoundTitleModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func alertMessageModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.alertMessageModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

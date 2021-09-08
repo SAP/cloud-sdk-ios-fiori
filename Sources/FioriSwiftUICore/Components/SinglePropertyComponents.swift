@@ -42,7 +42,4 @@ internal struct _Component: _ComponentGenerating {
     let placeholder_: String?
     let lowerBoundTitle_: String?
     let upperBoundTitle_: String?
-    // sourcery: no_view
-    let alertTitle_: Text
-    let alertMessage_: String?
 }

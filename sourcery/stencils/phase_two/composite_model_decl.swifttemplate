@@ -75,10 +75,14 @@ for model in models {
 
   let modelAvailableAttribute = model.availableAttribute?.lineBreaking() ?? ""
 
+  let importStatement = model.importStatement
+
   -%>
 // sourcery:file:ViewModels/API/<%= model.componentName %>+API.generated.swift
 import SwiftUI
-<%= model.importStatement %>
+<%_ if !importStatement.isEmpty { -%>
+<%= importStatement %>
+<%_ } -%>
 
 <%= modelAvailableAttribute -%>
 public struct <%= model.componentName %><<%= templateParameterDecls %>> {
@@ -135,7 +139,9 @@ public init(<%= modelInitParams %>) {
 
 /*
 import SwiftUI
-<%= model.importStatement %>
+<%_ if !importStatement.isEmpty { -%>
+<%= importStatement %>
+<%_ } -%>
 
 // FIXME: - Implement Fiori style definitions
 

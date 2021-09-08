@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier

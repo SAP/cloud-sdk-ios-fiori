@@ -51,8 +51,23 @@ extension UserConsentForm: View {
                 toolBar
             }
             .navigationBarItems(leading: navBarLeadingView, trailing: navBarTrailingView)
-//            .animation(., value: _pageIndex)
         }
+        .alert(configuration: alertConfiguration, isPresented: $_showAlert)
+    }
+    
+    var alertConfiguration: AlertConfiguration {
+        var alertConfig = _alertConfiguration
+        
+        alertConfig.action._didSelectSetter {
+            self._didAllow?()
+            _alertConfiguration.action.didSelect?()
+        }
+        alertConfig.secondaryAction._didSelectSetter {
+            self._didDeny?(self._isRequired)
+            _alertConfiguration.action.didSelect?()
+        }
+        
+        return alertConfig
     }
     
     @ViewBuilder
@@ -61,13 +76,22 @@ extension UserConsentForm: View {
             HStack {
                 if _isRequired {
                     denyAction
+                        .onSimultaneousTapGesture {
+                            _showAlert = true
+                        }
                 } else {
                     notNowAction
+                        .onSimultaneousTapGesture {
+                            self._didDeny?(_isRequired)
+                        }
                 }
                 
                 Spacer()
                 
                 allowAction
+                    .onSimultaneousTapGesture {
+                        self._didAllow?()
+                    }
             }
         }
     }
@@ -77,6 +101,9 @@ extension UserConsentForm: View {
         switch _pageIndex {
         case 0:
             cancelAction
+                .onSimultaneousTapGesture {
+                    self._didCancel?()
+                }
         default:
             Button("Back", action: {
                 _pageIndex -= 1

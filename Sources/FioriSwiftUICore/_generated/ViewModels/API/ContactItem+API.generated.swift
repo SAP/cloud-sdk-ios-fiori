@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier

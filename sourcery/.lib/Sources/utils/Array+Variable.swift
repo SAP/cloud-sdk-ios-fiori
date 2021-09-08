@@ -71,7 +71,7 @@ public extension Array where Element == Variable {
      ```
      */
     var viewBuilderEmptyViewPropertyDecls: [String] {
-        filter { $0.isOptional == true }
+        filter { $0.isOptional == true && $0.isRepresentableByView }
             .map { """
             var is\($0.trimmedName.capitalizingFirst())EmptyView: Bool {
                     ((isModelInit && is\($0.trimmedName.capitalizingFirst())Nil) || \($0.trimmedName.capitalizingFirst()).self == EmptyView.self) ? true : false

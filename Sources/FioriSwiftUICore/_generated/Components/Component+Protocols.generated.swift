@@ -141,15 +141,6 @@ public protocol UpperBoundTitleComponent {
     var upperBoundTitle: String? { get }
 }
 
-public protocol AlertTitleComponent {
-	// sourcery: no_view
-    var alertTitle: Text { get }
-}
-
-public protocol AlertMessageComponent {
-    var alertMessage: String? { get }
-}
-
 
 public protocol ActionComponent {
     var actionText: String? { get }

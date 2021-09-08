@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, Icons: View, ActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier

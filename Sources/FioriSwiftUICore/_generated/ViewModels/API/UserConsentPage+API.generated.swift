@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct UserConsentPage<Title: View, BodyText: View, Footnote: View, HtmlView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.bodyTextModifier) private var bodyTextModifier
@@ -14,8 +13,8 @@ public struct UserConsentPage<Title: View, BodyText: View, Footnote: View, HtmlV
 	let _footnote: Footnote
 	let _htmlView: HtmlView
 	let tableName = "FioriSwiftUICore"
-	let bundle = Bundle.module
 	@State var contentHeight: CGFloat = .zero
+	let bundle = Bundle.module
 
     private var isModelInit: Bool = false
 	private var isBodyTextNil: Bool = false

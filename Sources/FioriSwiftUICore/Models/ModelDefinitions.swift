@@ -131,12 +131,6 @@ public protocol HTMLViewModel: HTMLViewComponent {}
 // sourcery: add_env_props = ["presentationMode"]
 // public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
 
-// sourcery: default.actionText_.value = NSLocalizedString("Give Consent", comment: "")
-// sourcery: default.secondaryActionText_.value = NSLocalizedString("Quit", comment: "")
-// sourcery: backingComponent=AlertConfiguration
-// sourcery: generated_component_composite
-// public protocol AlertConfigurationModel: AlertTitleComponent, AlertMessageComponent, ActionModel, SecondaryActionModel {}
-
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
@@ -196,7 +190,17 @@ public protocol EULAViewModel: TitleComponent {
     var secondaryAction: SecondaryActionModel? { get }
 }
 
+//// sourcery: generated_component_composite
+// public protocol UserConsentView {
+//    // sourcery: no_style
+//    // sourcery: backingComponent=_UserConsentPagesContainer
+//    // sourcery: customFunctionBuilder=UserConsentFormBuilder
+//    // sourcery: genericParameter.type=PageViewContainer
+//    var userConsentForms: [UserConsentFormModel] { get }
+// }
+
 // sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
+// sourcery: virtualPropShowAlert = "@State var _showAlert = false"
 // sourcery: generated_component_composite
 public protocol UserConsentFormModel {
     // sourcery: genericParameter.name = NextActionView
@@ -228,6 +232,22 @@ public protocol UserConsentFormModel {
     // sourcery: no_view
     // sourcery: default.value="true"
     var isRequired: Bool { get }
+    
+    // sourcery: default.value = AlertConfiguration.UserConsentFormDefault
+    // sourcery: no_view
+    var alertConfiguration: AlertConfiguration { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
 }
 
 // sourcery: generated_component_composite

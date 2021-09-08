@@ -362,7 +362,9 @@ struct UserConsentViewBuilderExample: View {
             } bodyText: {
                 Text("Body Text 11")
             }
-        })
+        }, didAllow: { print("Allow button clicked") },
+        didDeny: { _ in print("Deny button clicked") },
+        didCancel: { print("Cancel button clicked") })
     }
 }
 

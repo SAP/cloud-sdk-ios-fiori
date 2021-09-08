@@ -26,4 +26,20 @@ public extension UserConsentFormModel {
 	var isRequired: Bool {
         return true
     }
+
+	var alertConfiguration: AlertConfiguration {
+        return AlertConfiguration.UserConsentFormDefault
+    }
+
+	var didAllow: (() -> Void)? {
+        return nil
+    }
+
+	var didDeny: ((Bool) -> Void)? {
+        return nil
+    }
+
+	var didCancel: (() -> Void)? {
+        return nil
+    }
 }

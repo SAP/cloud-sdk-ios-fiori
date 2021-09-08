@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: View, ActionView: View, SecondaryActionView: View, TextInputView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier

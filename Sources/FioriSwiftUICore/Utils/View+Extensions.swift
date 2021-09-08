@@ -14,3 +14,21 @@ extension View {
         })
     }
 }
+
+extension View {
+    @ViewBuilder
+    func alert(configuration: AlertConfiguration, isPresented: Binding<Bool>) -> some View {
+        if #available(iOS 15, macOS 12, *) {
+            self.alert(configuration.title, isPresented: isPresented) {
+                Button(action: configuration.action.didSelect ?? {}, label: { configuration.action.label })
+                Button(role: .cancel, action: configuration.secondaryAction.didSelect ?? {}, label: { configuration.secondaryAction.label })
+            } message: {
+                configuration.message
+            }
+        } else {
+            self.alert(isPresented: isPresented) {
+                Alert(title: configuration.title, message: configuration.message_, primaryButton: .default(configuration.action.label_, action: configuration.action.didSelect ?? {}), secondaryButton: .cancel(configuration.secondaryAction.label_, action: configuration.secondaryAction.didSelect ?? {}))
+            }
+        }
+    }
+}

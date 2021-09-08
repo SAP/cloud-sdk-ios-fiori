@@ -34,12 +34,6 @@ public extension ActionTitleComponent {
     }
 }
 
-public extension AlertMessageComponent {
-    var alertMessage: String? {
-        return nil
-    }
-}
-
 public extension AllowActionComponent {
     var allowActionText: String? {
         return NSLocalizedString("Allow", comment: "")

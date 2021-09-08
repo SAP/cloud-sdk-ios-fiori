@@ -2,7 +2,6 @@
 // DO NOT EDIT
 import SwiftUI
 
-
 public struct WelcomeScreen<Title: View, DescriptionText: View, Subtitle: View, Footnote: View, Icon: View, TextInputView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier

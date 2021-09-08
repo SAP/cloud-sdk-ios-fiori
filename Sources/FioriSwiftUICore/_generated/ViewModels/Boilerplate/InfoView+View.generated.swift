@@ -13,7 +13,6 @@
 /*
 import SwiftUI
 
-
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {

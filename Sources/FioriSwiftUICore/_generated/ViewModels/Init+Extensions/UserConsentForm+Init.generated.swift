@@ -9,7 +9,11 @@ extension UserConsentForm where NextActionView == NextAction {
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -18,7 +22,11 @@ extension UserConsentForm where NextActionView == NextAction {
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -30,7 +38,11 @@ extension UserConsentForm where CancelActionView == CancelAction {
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -39,7 +51,11 @@ extension UserConsentForm where CancelActionView == CancelAction {
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -51,7 +67,11 @@ extension UserConsentForm where AllowActionView == AllowAction {
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -60,7 +80,11 @@ extension UserConsentForm where AllowActionView == AllowAction {
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -72,7 +96,11 @@ extension UserConsentForm where DenyActionView == DenyAction {
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -81,7 +109,11 @@ extension UserConsentForm where DenyActionView == DenyAction {
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -93,7 +125,11 @@ extension UserConsentForm where NotNowActionView == NotNowAction {
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -102,7 +138,11 @@ extension UserConsentForm where NotNowActionView == NotNowAction {
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -113,7 +153,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -122,7 +166,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -133,7 +181,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -142,7 +194,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -153,7 +209,11 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -162,7 +222,11 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -173,7 +237,11 @@ extension UserConsentForm where NextActionView == NextAction, NotNowActionView =
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -182,7 +250,11 @@ extension UserConsentForm where NextActionView == NextAction, NotNowActionView =
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -193,7 +265,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -202,7 +278,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -213,7 +293,11 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -222,7 +306,11 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -233,7 +321,11 @@ extension UserConsentForm where CancelActionView == CancelAction, NotNowActionVi
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -242,7 +334,11 @@ extension UserConsentForm where CancelActionView == CancelAction, NotNowActionVi
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -253,7 +349,11 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -262,7 +362,11 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -273,7 +377,11 @@ extension UserConsentForm where AllowActionView == AllowAction, NotNowActionView
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -282,7 +390,11 @@ extension UserConsentForm where AllowActionView == AllowAction, NotNowActionView
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -293,7 +405,11 @@ extension UserConsentForm where DenyActionView == DenyAction, NotNowActionView =
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -302,7 +418,11 @@ extension UserConsentForm where DenyActionView == DenyAction, NotNowActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -312,7 +432,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     @ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -321,7 +445,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -331,7 +459,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -340,7 +472,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -350,7 +486,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -359,7 +499,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -369,7 +513,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -378,7 +526,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -388,7 +540,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -397,7 +553,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -407,7 +567,11 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -416,7 +580,11 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -426,7 +594,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -435,7 +607,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -445,7 +621,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -454,7 +634,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -464,7 +648,11 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -473,7 +661,11 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -483,7 +675,11 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -492,7 +688,11 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -501,7 +701,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     public init(
     @ViewBuilder notNowAction: () -> NotNowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -510,7 +714,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -519,7 +727,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     public init(
     @ViewBuilder denyAction: () -> DenyActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -528,7 +740,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: denyAction,
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -537,7 +753,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -546,7 +766,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -555,7 +779,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -564,7 +792,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -573,7 +805,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: nextAction,
@@ -582,7 +818,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }
@@ -590,7 +830,11 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
 extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, AllowActionView == AllowAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
     public init(
     @UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
-		isRequired: Bool = true
+		isRequired: Bool = true,
+		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		didAllow: (() -> Void)? = nil,
+		didDeny: ((Bool) -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             nextAction: { NextAction(model: _NextActionDefaultModel()) },
@@ -599,7 +843,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
 			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
 			userConsentPages: userConsentPages,
-			isRequired: isRequired
+			isRequired: isRequired,
+			alertConfiguration: alertConfiguration,
+			didAllow: didAllow,
+			didDeny: didDeny,
+			didCancel: didCancel
         )
     }
 }

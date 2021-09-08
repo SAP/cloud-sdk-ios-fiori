@@ -76,17 +76,3 @@ internal protocol _ProgressIndicator: _ComponentMultiPropGenerating {
 internal protocol _HTMLView: _ComponentMultiPropGenerating {
     var htmlContent_: NSAttributedString? { get }
 }
-
-// sourcery: backingComponent=UserConsentForms
-// internal protocol _UserConsentForms: _ComponentMultiPropGenerating {
-//    // sourcery: no_view
-//    var itemAccepted_: Binding<[Int]> { get set }
-//    // sourcery: no_view
-//    var currentFormIndex_: Binding<Int> { get set }
-//    // sourcery: no_view
-//    var currentPageIndex_: Binding<Int> { get set }
-//    // sourcery: no_view
-//    var forms_: [UserConsentFormData] { get }
-//
-//    var onCancel_: (() -> Void)? { get }
-// }
