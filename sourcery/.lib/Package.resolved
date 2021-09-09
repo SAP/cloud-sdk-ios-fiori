@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/shibapm/Komondor.git",
         "state": {
           "branch": null,
-          "revision": "855c74f395a4dc9e02828f58d931be6920bcbf6f",
-          "version": "1.0.6"
+          "revision": "1bb467ad7ad57e94af82d73fa0fe063cb0b8ddd5",
+          "version": "1.1.0"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/stencilproject/Stencil.git",
         "state": {
           "branch": null,
-          "revision": "94197b3adbbf926348ad8765476a158aa4e54f8a",
-          "version": "0.14.0"
+          "revision": "973e190edf5d09274e4a6bc2e636c86899ed84c3",
+          "version": "0.14.1"
         }
       },
       {
