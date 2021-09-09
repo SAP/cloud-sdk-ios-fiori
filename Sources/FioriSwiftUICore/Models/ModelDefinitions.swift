@@ -122,15 +122,6 @@ public protocol SideBarModel: SubtitleComponent {}
 // sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
 public protocol HTMLViewModel: HTMLViewComponent {}
 
-// sourcery: generated_component
-// sourcery: virtualPropBundle = "let bundle = Bundle.module"
-// sourcery: virtualPropTableName = "let tableName = "FioriSwiftUICore""
-// sourcery: virtualPropNumAccepted = "@State var numAccepted: Int = 0"
-// sourcery: virtualPropContentHeight = "@State var contentHeight: CGFloat = .zero"
-// sourcery: virtualPropCurrentState = "@State var currentState: UserConsentState = .userConsentInit"
-// sourcery: add_env_props = ["presentationMode"]
-// public protocol UserConsentModel: UserConsentFormsComponent, ActionTitleComponent, FirstActionTitleComponent, SecondActionTitleComponent {}
-
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
@@ -190,17 +181,38 @@ public protocol EULAViewModel: TitleComponent {
     var secondaryAction: SecondaryActionModel? { get }
 }
 
-//// sourcery: generated_component_composite
-// public protocol UserConsentView {
-//    // sourcery: no_style
-//    // sourcery: backingComponent=_UserConsentPagesContainer
-//    // sourcery: customFunctionBuilder=UserConsentFormBuilder
-//    // sourcery: genericParameter.type=PageViewContainer
-//    var userConsentForms: [UserConsentFormModel] { get }
-// }
+// sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
+// sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
+// sourcery: generated_component_composite
+public protocol UserConsentViewModel {
+    // sourcery: no_style
+    // sourcery: backingComponent=_UserConsentFormsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var userConsentForms: [UserConsentFormModel] { get }
+ 
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Int, Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (([Int]) -> Void)? { get }
+}
 
 // sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
 // sourcery: virtualPropShowAlert = "@State var _showAlert = false"
+// sourcery: add_env_props = "userConsentFormDidAllow"
+// sourcery: add_env_props = "userConsentFormDidDeny"
+// sourcery: add_env_props = "userConsentFormDidCancel"
 // sourcery: generated_component_composite
 public protocol UserConsentFormModel {
     // sourcery: genericParameter.name = NextActionView
@@ -225,8 +237,8 @@ public protocol UserConsentFormModel {
     
     // sourcery: no_style
     // sourcery: backingComponent=_UserConsentPagesContainer
-    // sourcery: customFunctionBuilder=UserConsentFormBuilder
-    // sourcery: genericParameter.type=PageViewContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
     var userConsentPages: [UserConsentPageModel] { get }
     
     // sourcery: no_view

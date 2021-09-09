@@ -2,12 +2,15 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct UserConsentForm<NextActionView: View, CancelActionView: View, AllowActionView: View, DenyActionView: View, NotNowActionView: View, UserConsentPages: PageViewContainer> {
+public struct UserConsentForm<NextActionView: View, CancelActionView: View, AllowActionView: View, DenyActionView: View, NotNowActionView: View, UserConsentPages: IndexedViewContainer> {
     @Environment(\.nextActionModifier) private var nextActionModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.allowActionModifier) private var allowActionModifier
 	@Environment(\.denyActionModifier) private var denyActionModifier
 	@Environment(\.notNowActionModifier) private var notNowActionModifier
+	@Environment(\.userConsentFormDidCancel) var userConsentFormDidCancel
+	@Environment(\.userConsentFormDidDeny) var userConsentFormDidDeny
+	@Environment(\.userConsentFormDidAllow) var userConsentFormDidAllow
 
     let _nextAction: NextActionView
 	let _cancelAction: CancelActionView
@@ -20,8 +23,8 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 	let _didAllow: (() -> Void)?
 	let _didDeny: ((Bool) -> Void)?
 	let _didCancel: (() -> Void)?
-	@State var _pageIndex = 0
 	@State var _showAlert = false
+	@State var _pageIndex = 0
 
     private var isModelInit: Bool = false
 	private var isNextActionNil: Bool = false
@@ -39,7 +42,7 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
-		@UserConsentFormBuilder userConsentPages: () -> UserConsentPages,
+		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
 		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,

@@ -2,6 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
+/// Not used by developers.
 public struct _UserConsentPagesContainer {
     var _userConsentPages: [UserConsentPageModel]
 
@@ -10,7 +11,7 @@ public struct _UserConsentPagesContainer {
     }
 }
 
-extension _UserConsentPagesContainer: PageViewContainer {
+extension _UserConsentPagesContainer: IndexedViewContainer {
     public var count: Int {
         self._userConsentPages.count
     }

@@ -41,10 +41,11 @@ public extension Array where Element == Variable {
      */
     var miscPropertyDecls: [String] {
         map {
+            let letOrVar = $0.isMutable ? "var" : "let"
             if $0.isRepresentableByView == false {
-                return "let _\($0.trimmedName): \($0.typeName)"
+                return "\(letOrVar) _\($0.trimmedName): \($0.typeName)"
             } else {
-                return "let _\($0.trimmedName): \($0.genericParameterName)"
+                return "\(letOrVar) _\($0.trimmedName): \($0.genericParameterName)"
             }
         }
     }

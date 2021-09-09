@@ -59,11 +59,11 @@ extension UserConsentForm: View {
         var alertConfig = _alertConfiguration
         
         alertConfig.action._didSelectSetter {
-            self._didAllow?()
+            self.didAllow?()
             _alertConfiguration.action.didSelect?()
         }
         alertConfig.secondaryAction._didSelectSetter {
-            self._didDeny?(self._isRequired)
+            self.didDeny?(self._isRequired)
             _alertConfiguration.action.didSelect?()
         }
         
@@ -82,7 +82,7 @@ extension UserConsentForm: View {
                 } else {
                     notNowAction
                         .onSimultaneousTapGesture {
-                            self._didDeny?(_isRequired)
+                            self.didDeny?(_isRequired)
                         }
                 }
                 
@@ -90,7 +90,7 @@ extension UserConsentForm: View {
                 
                 allowAction
                     .onSimultaneousTapGesture {
-                        self._didAllow?()
+                        self.didAllow?()
                     }
             }
         }
@@ -102,7 +102,7 @@ extension UserConsentForm: View {
         case 0:
             cancelAction
                 .onSimultaneousTapGesture {
-                    self._didCancel?()
+                    self.didCancel?()
                 }
         default:
             Button("Back", action: {
@@ -121,6 +121,41 @@ extension UserConsentForm: View {
                 .onSimultaneousTapGesture {
                     _pageIndex += 1
                 }
+        }
+    }
+}
+
+extension UserConsentForm {
+    var didAllow: (() -> Void)? {
+        if userConsentFormDidAllow == nil, _didAllow == nil {
+            return nil
+        }
+        
+        return {
+            _didAllow?()
+            userConsentFormDidAllow?()
+        }
+    }
+    
+    var didDeny: ((Bool) -> Void)? {
+        if userConsentFormDidDeny == nil, _didDeny == nil {
+            return nil
+        }
+        
+        return {
+            _didDeny?($0)
+            userConsentFormDidDeny?($0)
+        }
+    }
+    
+    var didCancel: (() -> Void)? {
+        if userConsentFormDidCancel == nil, _didCancel == nil {
+            return nil
+        }
+        
+        return {
+            _didCancel?()
+            userConsentFormDidCancel?()
         }
     }
 }

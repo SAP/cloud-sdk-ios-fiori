@@ -350,21 +350,51 @@ import SwiftUI
 
 struct UserConsentViewBuilderExample: View {
     var body: some View {
-        UserConsentForm(userConsentPages: {
-            UserConsentPage {
-                Text("Title 00")
-            } bodyText: {
-                Text("Body Text")
-            }
+        UserConsentView {
+            UserConsentForm(userConsentPages: {
+                                UserConsentPage {
+                                    Text("Form 0")
+                                } bodyText: {
+                                    Text("Page 0")
+                                }
+                
+                                UserConsentPage {
+                                    Text("Form 0")
+                                } bodyText: {
+                                    Text("Page 1")
+                                }
+                            },
+                            didAllow: { print("UserConsentForm - didAllow") },
+                            didDeny: { print("UserConsentForm - didDeny: isRequired: \($0)") },
+                            didCancel: { print("UserConsentForm - didAllow") })
             
-            UserConsentPage {
-                Text("Title 11")
-            } bodyText: {
-                Text("Body Text 11")
-            }
-        }, didAllow: { print("Allow button clicked") },
-        didDeny: { _ in print("Deny button clicked") },
-        didCancel: { print("Cancel button clicked") })
+            UserConsentForm(userConsentPages: {
+                                UserConsentPage {
+                                    Text("Form 1")
+                                } bodyText: {
+                                    Text("Page 0")
+                                }
+                
+                                UserConsentPage {
+                                    Text("Form 1")
+                                } bodyText: {
+                                    Text("Page 1")
+                                }
+                            },
+                            isRequired: false,
+                            didAllow: { print("UserConsentForm - didAllow") },
+                            didDeny: { print("UserConsentForm - didDeny: isRequired: \($0)") },
+                            didCancel: { print("UserConsentForm - didAllow") })
+            
+        } didAllow: {
+            print("UserConsentView - didAllow: index: \($0)")
+        } didDeny: {
+            print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
+        } didCancel: {
+            print("UserConsentView - didCancel: index: \($0)")
+        } didFinish: {
+            print("UserConsentView - didFinish: Allowed forms: \($0)")
+        }
     }
 }
 
