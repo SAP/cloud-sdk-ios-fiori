@@ -1,40 +1,71 @@
+import Combine
 import FioriSwiftUICore
 import SwiftUI
 
 class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
-    @Published var textInputValue_: String = ""
+    // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
+    @Published var textInput: TextInputModel?
+    lazy var action: ActionModel? = {
+        ActionDataModel { [unowned self] in
+            print("Primary button clicked: \(self.textInput!.textInputValue)")
+        }
+    }()
+
+    lazy var secondaryAction: SecondaryActionModel? = {
+        SecondaryActionDataModel { [unowned self] in
+            UIApplication.shared.open(URL(string: "http://www.google.com")!)
+        }
+    }()
+
     var title: String = "SAP Project Companion for Managers"
     var descriptionText: String? = "Please follow the instructions you received in the welcome email to start the activation process."
-
-    var actionText: String? = "Start"
     var subtitle: String? = "abc@def.com"
     var footnote: String? = "Want to explore?"
     var icon: Image? = Image("SAPLogo")
-    var secondaryActionText: String? = "Try Demo"
     
-    func didSelectAction() {
-        print("WelcomeScreen Primary button clicked: ", self.textInputValue_)
+    var cancellable: AnyCancellable?
+    
+    init() {
+        let inputModel = TextInputDataModel()
+        
+        self.cancellable = inputModel.objectWillChange.sink { [weak self] in
+            self?.objectWillChange.send()
+        }
+        
+        self._textInput = Published(wrappedValue: inputModel)
+    }
+}
+
+extension WelcomeScreenDataModel {
+    class TextInputDataModel: TextInputModel, ObservableObject {
+        @Published var textInputValue: String = ""
+        
+        var onCommit: (() -> Void)? = {
+            print("TextInputField commit")
+        }
     }
     
-    func didSelectSecondaryAction() {
-        UIApplication.shared.open(URL(string: "http://www.google.com")!)
+    struct ActionDataModel: ActionModel {
+        let actionText: String? = "Start"
+        
+        let didSelectAction: (() -> Void)?
     }
     
-    func onCommit() {
-        print("TextField commit")
+    struct SecondaryActionDataModel: SecondaryActionModel {
+        let secondaryActionText: String? = "Try Demo"
+        
+        let didSelectSecondaryAction: (() -> Void)?
     }
 }
 
 struct WelcomeScreenSample: View {
-    @ObservedObject var model = WelcomeScreenDataModel()
+    @StateObject var model = WelcomeScreenDataModel()
 
     public init() {}
     
     var body: some View {
         VStack {
             WelcomeScreen(model: model)
-                .subtitleModifier { $0.hidden() }
-                .textInputValueModifier { $0.hidden() }
         }
     }
 }
@@ -47,8 +78,6 @@ struct WelcomeScreenCustomized: View {
         VStack {
             WelcomeScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .subtitleModifier { $0.hidden() }
-                .textInputValueModifier { $0.hidden() }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }
         }
     }
@@ -62,12 +91,11 @@ struct WelcomeScreenDiscoveryService: View {
         VStack {
             WelcomeScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .subtitleModifier { $0.hidden() }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
-                        .disabled(model.textInputValue_.isEmpty)
+                        .disabled(model.textInput?.textInputValue.isEmpty ?? true)
                 }
-                .textInputValueModifier { $0.disableAutocorrection(true) }
+                .textInputModifier { $0.disableAutocorrection(true) }
         }
     }
 }

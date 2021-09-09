@@ -17,7 +17,7 @@ extension TextInput: View {
         if #available(iOS 14.0, *) {
             TextField("Default",
                       text: self._textInputValue,
-                      onCommit: self._onCommit ?? onCommit)
+                      onCommit: self._onCommit ?? {})
                 .modifier(TextFieldClearButton(textValue: self._textInputValue))
                 .textFieldStyle(BottomTextFieldStyle())
         } else {
@@ -25,10 +25,6 @@ extension TextInput: View {
                 .modifier(TextFieldClearButton(textValue: self._textInputValue))
                 .padding(.top, 8)
         }
-    }
-    
-    func onCommit() {
-        print("OnCommit: value ", self._textInputValue)
     }
 }
 
