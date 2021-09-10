@@ -1,14 +1,21 @@
+/* XMSG: Placeholder text in chart when there is no data */
 "No Data" = "Sem dados";
 
+/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Save" = "Salvar";
 
+/* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Re-enter Signature" = "Reinserir assinatura";
 
+/* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Clear" = "Limpar";
 
+/* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Cancel" = "Cancelar";
 
+/* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Signature" = "Assinatura";
 
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Toque para assinar";
 

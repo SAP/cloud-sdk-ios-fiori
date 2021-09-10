@@ -134,12 +134,16 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false,
+                                                                                                isHeaderContent: true))
                         }, isModelInit: false)
                     } else {
                         if item == selection.wrappedValue {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true,
+                                                                                                isHeaderContent: false))
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -149,6 +153,8 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false,
+                                                                                                isHeaderContent: false))
                         }
                     }
                 }
@@ -174,7 +180,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
          children: KeyPath<Data.Element, Data?>,
          selection: Binding<Data.Element?>,
          rowModel: @escaping (Data.Element) -> SideBarListItemModel,
-         destination: @escaping (Data.Element) -> Destination? = { _ in nil })
+         destination: @escaping (Data.Element) -> Destination)
     {
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
@@ -226,35 +232,18 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
 
 @available(iOS 14, *)
 public extension ExpandableList where Destination == EmptyView {
-    /// :nodoc:
-    /// Internally used by SDK for UIKit functionality only. NOT intended for developer use.
+    /// Creates an expandable list from a collection of data which supports multi-level hierarchy with the ability to select a single item. No destination view will be defined when using this initializer.
+    /// - Parameters:
+    ///   - data: The data for constructing the list.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to the selected data element.
+    ///   - rowModel: A closure which returns the content model of each row in an expandable list.
     init(data: Data,
          children: KeyPath<Data.Element, Data?>,
          selection: Binding<Data.Element?>,
          @ViewBuilder rowContent: @escaping (Data.Element) -> Row)
     {
-        self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
-            LazyVStack(spacing: 0) {
-                ForEach(data) { item in
-                    if let _children = children, let childElements = item[keyPath: _children] {
-                        ExpandableSection(list: {
-                            ExpandableList(data: childElements,
-                                           children: children,
-                                           selection: selection,
-                                           rowContent: rowContent)
-                        }, header: {
-                            rowContent(item)
-                                .titleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, display: .contrast)) }
-                                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, display: .contrast)) }
-                        }, isModelInit: false)
-                    } else {
-                        RowContentContainer<Data, Row>(item: item,
-                                                       rowContent: rowContent(item),
-                                                       selectionBinding: selection)
-                    }
-                }
-            }
-        }).typeErased
+        self.init(data: data, children: children, selection: selection, rowContent: rowContent, destination: { _ in EmptyView() })
     }
 }
 
@@ -310,10 +299,6 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
         if item == selectionBinding.wrappedValue {
             rowContent
                 .modifier(ListItemBackgroundSelectionStyle())
-                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
-                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
-                .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, background: .lightConstant)) }
-                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel, background: .lightConstant)) }
                 .contentShape(Rectangle())
                 .onTapGesture {
                     selectionBinding.wrappedValue = item

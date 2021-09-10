@@ -1,14 +1,21 @@
+/* XMSG: Placeholder text in chart when there is no data */
 "No Data" = "Žiadne dáta";
 
+/* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Save" = "Uložiť";
 
+/* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Re-enter Signature" = "Znova zadať podpis";
 
+/* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Clear" = "Vymazať";
 
+/* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Cancel" = "Zrušiť";
 
+/* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Signature" = "Podpis";
 
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Ťuknutím sa prihláste";
 
