@@ -36,7 +36,7 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
-        let uiColor = uiColor(for: style, background: scheme, interface: level, display: mode)
+        let uiColor = self.uiColor(for: style, background: scheme, interface: level, display: mode)
         let color = Color(uiColor)
         return color
     }
