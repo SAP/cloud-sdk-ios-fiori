@@ -52,18 +52,26 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Be wise about your data" = "Be wise about your data"
 
+/* XBUT: Not Now action title in UserConsentForm */
 "Not Now" = "Not Now";
 
+/* XBUT: Allow action title in UserConsentForm */
 "Allow" = "Allow";
 
+/* XBUT: Deny action title in UserConsentForm */
 "Deny" = "Deny";
 
+/* XBUT: Cancel action title */
 "Cancel" = "Cancel";
 
+/* XBUT: Quit action title in alert view of UserConsentForm */
 "Quit" = "Quit"
 
+/* XBUT: GiveConsent action title in alert view in UserConsentForm */
 "Give Consent" = "Give Consent"
 
+/* XBUT: Agree action title in EULAView */
 "Agree" = "Agree"
 
+/* XBUT: Disagree action title in EULAView */
 "Disagree" = "Disagree"
