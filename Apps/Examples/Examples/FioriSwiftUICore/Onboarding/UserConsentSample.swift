@@ -349,6 +349,8 @@ import SwiftUI
 // }
 
 struct UserConsentViewBuilderExample: View {
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
         UserConsentView {
             UserConsentForm(userConsentPages: {
@@ -390,10 +392,10 @@ struct UserConsentViewBuilderExample: View {
             print("UserConsentView - didAllow: index: \($0)")
         } didDeny: {
             print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
-        } didCancel: {
-            print("UserConsentView - didCancel: index: \($0)")
-        } didFinish: {
-            print("UserConsentView - didFinish: Allowed forms: \($0)")
+        } didCancel: { _ in
+            presentationMode.wrappedValue.dismiss()
+        } didFinish: { _ in
+            presentationMode.wrappedValue.dismiss()
         }
     }
 }
