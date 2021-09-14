@@ -152,7 +152,7 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
     }
 
 	var isActionEmptyView: Bool {
-        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 }
 

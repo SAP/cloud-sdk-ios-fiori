@@ -93,15 +93,15 @@ public struct ActivationScreen<Title: View, DescriptionText: View, Footnote: Vie
     }
 
 	var isActionEmptyView: Bool {
-        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 
 	var isSecondaryActionEmptyView: Bool {
-        ((isModelInit && isSecondaryActionNil) || SecondaryAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isSecondaryActionNil) || SecondaryActionView.self == EmptyView.self) ? true : false
     }
 
 	var isTextInputEmptyView: Bool {
-        ((isModelInit && isTextInputNil) || TextInput.self == EmptyView.self) ? true : false
+        ((isModelInit && isTextInputNil) || TextInputView.self == EmptyView.self) ? true : false
     }
 }
 
@@ -109,14 +109,14 @@ extension ActivationScreen where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView>,
 		ActionView == _ConditionalContent<Action, EmptyView>,
-		SecondaryActionView == _ConditionalContent<SecondaryAction, EmptyView>,
+		SecondaryActionView == _ConditionalContent<Action, EmptyView>,
 		TextInputView == _ConditionalContent<TextInput, EmptyView> {
 
     public init(model: ActivationScreenModel) {
-        self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? SecondaryAction(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? TextInput(model: model.textInput!) : nil)
+        self.init(title: model.title, descriptionText: model.descriptionText, footnote: model.footnote, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? Action(model: model.secondaryAction!) : nil, textInput: model.textInput != nil ? TextInput(model: model.textInput!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, footnote: String? = nil, action: Action? = nil, secondaryAction: SecondaryAction? = nil, textInput: TextInput? = nil) {
+    public init(title: String, descriptionText: String? = nil, footnote: String? = nil, action: Action? = nil, secondaryAction: Action? = nil, textInput: TextInput? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())

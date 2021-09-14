@@ -59,7 +59,7 @@ extension SideBarListItem: View {
 
 // FIXME: - Implement SideBarListItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct SideBarListItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

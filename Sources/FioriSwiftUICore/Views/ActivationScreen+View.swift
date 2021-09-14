@@ -113,7 +113,7 @@ extension ActivationScreen: View {
 struct ActivationScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", footnote: "Or", action: Action(actionText: "Next"), secondaryAction: SecondaryAction(secondaryActionText: "Scan")),
+        LibraryItem(ActivationScreen(title: "Activation", descriptionText: "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. ", footnote: "Or", action: Action(actionText: "Next"), secondaryAction: Action(actionText: "Scan")),
                     category: .control)
     }
 }

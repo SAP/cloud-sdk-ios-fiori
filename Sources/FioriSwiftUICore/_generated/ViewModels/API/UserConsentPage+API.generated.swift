@@ -2,35 +2,28 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct UserConsentPage<Title: View, BodyText: View, Footnote: View, HtmlView: View> {
+public struct UserConsentPage<Title: View, BodyAttributedText: View, ActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
-	@Environment(\.bodyTextModifier) private var bodyTextModifier
-	@Environment(\.footnoteModifier) private var footnoteModifier
-	@Environment(\.htmlViewModifier) private var htmlViewModifier
+	@Environment(\.bodyAttributedTextModifier) private var bodyAttributedTextModifier
+	@Environment(\.actionModifier) private var actionModifier
 
     let _title: Title
-	let _bodyText: BodyText
-	let _footnote: Footnote
-	let _htmlView: HtmlView
-	let tableName = "FioriSwiftUICore"
-	let bundle = Bundle.module
-	@State var contentHeight: CGFloat = .zero
+	let _bodyAttributedText: BodyAttributedText
+	let _action: ActionView
+	
 
     private var isModelInit: Bool = false
-	private var isBodyTextNil: Bool = false
-	private var isFootnoteNil: Bool = false
-	private var isHtmlViewNil: Bool = false
+	private var isBodyAttributedTextNil: Bool = false
+	private var isActionNil: Bool = false
 
     public init(
         @ViewBuilder title: () -> Title,
-		@ViewBuilder bodyText: () -> BodyText,
-		@ViewBuilder footnote: () -> Footnote,
-		@ViewBuilder htmlView: () -> HtmlView
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder action: () -> ActionView
         ) {
             self._title = title()
-			self._bodyText = bodyText()
-			self._footnote = footnote()
-			self._htmlView = htmlView()
+			self._bodyAttributedText = bodyAttributedText()
+			self._action = action()
     }
 
     @ViewBuilder var title: some View {
@@ -40,59 +33,45 @@ public struct UserConsentPage<Title: View, BodyText: View, Footnote: View, HtmlV
             _title.modifier(titleModifier.concat(Fiori.UserConsentPage.title))
         }
     }
-	@ViewBuilder var bodyText: some View {
+	@ViewBuilder var bodyAttributedText: some View {
         if isModelInit {
-            _bodyText.modifier(bodyTextModifier.concat(Fiori.UserConsentPage.bodyText).concat(Fiori.UserConsentPage.bodyTextCumulative))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.UserConsentPage.bodyAttributedText).concat(Fiori.UserConsentPage.bodyAttributedTextCumulative))
         } else {
-            _bodyText.modifier(bodyTextModifier.concat(Fiori.UserConsentPage.bodyText))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.UserConsentPage.bodyAttributedText))
         }
     }
-	@ViewBuilder var footnote: some View {
+	@ViewBuilder var action: some View {
         if isModelInit {
-            _footnote.modifier(footnoteModifier.concat(Fiori.UserConsentPage.footnote).concat(Fiori.UserConsentPage.footnoteCumulative))
+            _action.modifier(actionModifier.concat(Fiori.UserConsentPage.action).concat(Fiori.UserConsentPage.actionCumulative))
         } else {
-            _footnote.modifier(footnoteModifier.concat(Fiori.UserConsentPage.footnote))
-        }
-    }
-	@ViewBuilder var htmlView: some View {
-        if isModelInit {
-            _htmlView.modifier(htmlViewModifier.concat(Fiori.UserConsentPage.htmlView).concat(Fiori.UserConsentPage.htmlViewCumulative))
-        } else {
-            _htmlView.modifier(htmlViewModifier.concat(Fiori.UserConsentPage.htmlView))
+            _action.modifier(actionModifier.concat(Fiori.UserConsentPage.action))
         }
     }
     
-	var isBodyTextEmptyView: Bool {
-        ((isModelInit && isBodyTextNil) || BodyText.self == EmptyView.self) ? true : false
+	var isBodyAttributedTextEmptyView: Bool {
+        ((isModelInit && isBodyAttributedTextNil) || BodyAttributedText.self == EmptyView.self) ? true : false
     }
 
-	var isFootnoteEmptyView: Bool {
-        ((isModelInit && isFootnoteNil) || Footnote.self == EmptyView.self) ? true : false
-    }
-
-	var isHtmlViewEmptyView: Bool {
-        ((isModelInit && isHtmlViewNil) || HtmlView.self == EmptyView.self) ? true : false
+	var isActionEmptyView: Bool {
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 }
 
 extension UserConsentPage where Title == Text,
-		BodyText == _ConditionalContent<Text, EmptyView>,
-		Footnote == _ConditionalContent<Text, EmptyView>,
-		HtmlView == _ConditionalContent<HTMLView, EmptyView> {
+		BodyAttributedText == _ConditionalContent<AttributedText, EmptyView>,
+		ActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: UserConsentPageModel) {
-        self.init(title: model.title, bodyText: model.bodyText, footnote: model.footnote, htmlView: model.htmlView != nil ? HTMLView(model: model.htmlView!) : nil)
+        self.init(title: model.title, bodyAttributedText: model.bodyAttributedText, action: model.action != nil ? Action(model: model.action!) : nil)
     }
 
-    public init(title: String, bodyText: String? = nil, footnote: String? = nil, htmlView: HTMLView? = nil) {
+    public init(title: String, bodyAttributedText: NSAttributedString? = nil, action: Action? = nil) {
         self._title = Text(title)
-		self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._htmlView = htmlView != nil ? ViewBuilder.buildEither(first: htmlView!) : ViewBuilder.buildEither(second: EmptyView())
+		self._bodyAttributedText = bodyAttributedText != nil ? ViewBuilder.buildEither(first: AttributedText(bodyAttributedText: bodyAttributedText!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
-		isBodyTextNil = bodyText == nil ? true : false
-		isFootnoteNil = footnote == nil ? true : false
-		isHtmlViewNil = htmlView == nil ? true : false
+		isBodyAttributedTextNil = bodyAttributedText == nil ? true : false
+		isActionNil = action == nil ? true : false
     }
 }

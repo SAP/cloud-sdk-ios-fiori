@@ -23,8 +23,8 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 	let _didAllow: (() -> Void)?
 	let _didDeny: ((Bool) -> Void)?
 	let _didCancel: (() -> Void)?
-	@State var _showAlert = false
 	@State var _pageIndex = 0
+	@State var _showAlert = false
 
     private var isModelInit: Bool = false
 	private var isNextActionNil: Bool = false
@@ -102,38 +102,38 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
     }
     
 	var isNextActionEmptyView: Bool {
-        ((isModelInit && isNextActionNil) || NextAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isNextActionNil) || NextActionView.self == EmptyView.self) ? true : false
     }
 
 	var isCancelActionEmptyView: Bool {
-        ((isModelInit && isCancelActionNil) || CancelAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isCancelActionNil) || CancelActionView.self == EmptyView.self) ? true : false
     }
 
 	var isAllowActionEmptyView: Bool {
-        ((isModelInit && isAllowActionNil) || AllowAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isAllowActionNil) || AllowActionView.self == EmptyView.self) ? true : false
     }
 
 	var isDenyActionEmptyView: Bool {
-        ((isModelInit && isDenyActionNil) || DenyAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isDenyActionNil) || DenyActionView.self == EmptyView.self) ? true : false
     }
 
 	var isNotNowActionEmptyView: Bool {
-        ((isModelInit && isNotNowActionNil) || NotNowAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isNotNowActionNil) || NotNowActionView.self == EmptyView.self) ? true : false
     }
 }
 
-extension UserConsentForm where NextActionView == _ConditionalContent<NextAction, EmptyView>,
-		CancelActionView == _ConditionalContent<CancelAction, EmptyView>,
-		AllowActionView == _ConditionalContent<AllowAction, EmptyView>,
-		DenyActionView == _ConditionalContent<DenyAction, EmptyView>,
-		NotNowActionView == _ConditionalContent<NotNowAction, EmptyView>,
+extension UserConsentForm where NextActionView == _ConditionalContent<Action, EmptyView>,
+		CancelActionView == _ConditionalContent<Action, EmptyView>,
+		AllowActionView == _ConditionalContent<Action, EmptyView>,
+		DenyActionView == _ConditionalContent<Action, EmptyView>,
+		NotNowActionView == _ConditionalContent<Action, EmptyView>,
 		UserConsentPages == _UserConsentPagesContainer {
 
     public init(model: UserConsentFormModel) {
-        self.init(nextAction: model.nextAction != nil ? NextAction(model: model.nextAction!) : nil, cancelAction: model.cancelAction != nil ? CancelAction(model: model.cancelAction!) : nil, allowAction: model.allowAction != nil ? AllowAction(model: model.allowAction!) : nil, denyAction: model.denyAction != nil ? DenyAction(model: model.denyAction!) : nil, notNowAction: model.notNowAction != nil ? NotNowAction(model: model.notNowAction!) : nil, userConsentPages: model.userConsentPages, isRequired: model.isRequired, alertConfiguration: model.alertConfiguration, didAllow: model.didAllow, didDeny: model.didDeny, didCancel: model.didCancel)
+        self.init(nextAction: model.nextAction != nil ? Action(model: model.nextAction!) : nil, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil, allowAction: model.allowAction != nil ? Action(model: model.allowAction!) : nil, denyAction: model.denyAction != nil ? Action(model: model.denyAction!) : nil, notNowAction: model.notNowAction != nil ? Action(model: model.notNowAction!) : nil, userConsentPages: model.userConsentPages, isRequired: model.isRequired, alertConfiguration: model.alertConfiguration, didAllow: model.didAllow, didDeny: model.didDeny, didCancel: model.didCancel)
     }
 
-    public init(nextAction: NextAction? = NextAction(model: _NextActionDefaultModel()), cancelAction: CancelAction? = CancelAction(model: _CancelActionDefaultModel()), allowAction: AllowAction? = AllowAction(model: _AllowActionDefaultModel()), denyAction: DenyAction? = DenyAction(model: _DenyActionDefaultModel()), notNowAction: NotNowAction? = NotNowAction(model: _NotNowActionDefaultModel()), userConsentPages: [UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
+    public init(nextAction: Action? = Action(model: _NextActionDefault()), cancelAction: Action? = Action(model: _CancelActionDefault()), allowAction: Action? = Action(model: _AllowActionDefault()), denyAction: Action? = Action(model: _DenyActionDefault()), notNowAction: Action? = Action(model: _NotNowActionDefault()), userConsentPages: [UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
         self._nextAction = nextAction != nil ? ViewBuilder.buildEither(first: nextAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._allowAction = allowAction != nil ? ViewBuilder.buildEither(first: allowAction!) : ViewBuilder.buildEither(second: EmptyView())

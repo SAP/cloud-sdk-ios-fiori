@@ -67,7 +67,7 @@ extension ActivationScreen: View {
 
 // FIXME: - Implement ActivationScreen specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct ActivationScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

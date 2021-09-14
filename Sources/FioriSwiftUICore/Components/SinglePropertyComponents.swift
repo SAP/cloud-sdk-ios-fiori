@@ -22,6 +22,8 @@ internal struct _Component: _ComponentGenerating {
     // sourcery: backingComponent=TextOrIconView
     let substatus_: TextOrIcon?
     let bodyText_: String?
+    // sourcery: backingComponent=AttributedText
+    let bodyAttributedText_: NSAttributedString?
     let icon_: Image?
     let accessoryIcon_: Image?
     // sourcery: backingComponent=IconStack

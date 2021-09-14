@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension UserConsentPageModel {
-    var htmlView: HTMLViewModel? {
+    var action: ActionModel? {
         return nil
     }
 }

@@ -63,7 +63,7 @@ extension ContactItem: View {
 
 // FIXME: - Implement ContactItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct ContactItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

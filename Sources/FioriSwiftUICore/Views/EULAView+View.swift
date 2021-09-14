@@ -34,51 +34,30 @@ extension Fiori {
         static let title = Title()
         static let action = Action()
         static let secondaryAction = SecondaryAction()
+        static let cancelAction = CancelAction()
         
-        typealias HtmlView = EmptyModifier
+        typealias CancelAction = EmptyModifier
+        typealias BodyAttributedText = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-        typealias HtmlViewCumulative = EmptyModifier
+        typealias BodyAttributedTextCumulative = EmptyModifier
         typealias ActionCumulative = EmptyModifier
         typealias SecondaryActionCumulative = EmptyModifier
+        typealias CancelActionCumulative = EmptyModifier
         
         static let titleCumulative = TitleCumulative()
-        static let htmlView = HtmlView()
-        static let htmlViewCumulative = HtmlViewCumulative()
+        static let bodyAttributedText = BodyAttributedText()
+        static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
         static let actionCumulative = ActionCumulative()
         static let secondaryActionCumulative = SecondaryActionCumulative()
+        static let cancelActionCumulative = CancelActionCumulative()
     }
 }
 
 extension EULAView: View {
     public var body: some View {
-        if #available(iOS 14.0, *) {
+        VStack {
             self.makeBody()
-                .toolbar(content: {
-                    ToolbarItem(placement: .bottomBar) {
-                        action
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        Spacer()
-                    }
-                    ToolbarItem(placement: .bottomBar) {
-                        secondaryAction
-                    }
-                })
-        } else {
-            GeometryReader { geometry in
-                VStack {
-                    self.makeBody()
-                        .frame(minHeight: geometry.size.height - 50, maxHeight: .infinity)
-                    Spacer()
-                    HStack(spacing: 10) {
-                        action
-                        Spacer()
-                        secondaryAction
-                    }
-                    .padding(EdgeInsets(top: 8, leading: 32, bottom: 20, trailing: 32))
-                    .frame(minHeight: 50, maxHeight: .infinity, alignment: .bottom)
-                }
-            }
+            toolbar
         }
     }
     
@@ -88,35 +67,43 @@ extension EULAView: View {
                 title
                     .padding(.top, 40)
                     .padding(.bottom, 30)
-                htmlView
-                    .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.tintColor))
-                    .multilineTextAlignment(.center)
-                    .overlay(GetDynamicHeight())
-                Spacer()
-            }
-            .frame(minHeight: max(contentHeight + 80, UIScreen.main.bounds.size.height - 120), maxHeight: .infinity)
-            .onPreferenceChange(GetDynamicHeight.Key.self) {
-                if contentHeight < $0 {
-                    contentHeight = $0
-                }
+                
+                bodyAttributedText
             }
         }
         .padding(.top, 2)
         .padding(.leading, 32)
         .padding(.trailing, 32)
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(leading: Button("Cancel") {
-            self.presentationMode.wrappedValue.dismiss()
+        .navigationBarItems(leading: cancelAction.onSimultaneousTapGesture {
+            self._didCancel?()
         })
+    }
+    
+    @ViewBuilder
+    var toolbar: some View {
+        HStack {
+            secondaryAction
+                .onSimultaneousTapGesture {
+                    self._didDisagree?()
+                }
+            
+            Spacer()
+            
+            action
+                .onSimultaneousTapGesture {
+                    self._didAgree?()
+                }
+        }
+        .padding()
     }
 }
 
-@available(iOS 14.0, *)
+@available(iOS 14, macOS 11, *)
 struct EULAViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(EULAView(title: "EULA", htmlView: HTMLView(htmlContent: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement")), action: Action(actionText: "Disagree"), secondaryAction: SecondaryAction(secondaryActionText: "Disagree")),
+        LibraryItem(EULAView(title: "EULA", bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement")),
                     category: .control)
     }
 }

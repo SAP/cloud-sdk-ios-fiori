@@ -79,6 +79,11 @@ extension EnvironmentValues {
         set { self[BodyTextModifierKey.self] = newValue }
     }
 
+    public var bodyAttributedTextModifier: AnyViewModifier {
+        get { return self[BodyAttributedTextModifierKey.self] }
+        set { self[BodyAttributedTextModifierKey.self] = newValue }
+    }
+
     public var iconModifier: AnyViewModifier {
         get { return self[IconModifierKey.self] }
         set { self[IconModifierKey.self] = newValue }
@@ -179,44 +184,9 @@ extension EnvironmentValues {
         set { self[ActionItemsModifierKey.self] = newValue }
     }
 
-    public var allowActionTextModifier: AnyViewModifier {
-        get { return self[AllowActionTextModifierKey.self] }
-        set { self[AllowActionTextModifierKey.self] = newValue }
-    }
-
-    public var cancelActionTextModifier: AnyViewModifier {
-        get { return self[CancelActionTextModifierKey.self] }
-        set { self[CancelActionTextModifierKey.self] = newValue }
-    }
-
-    public var denyActionTextModifier: AnyViewModifier {
-        get { return self[DenyActionTextModifierKey.self] }
-        set { self[DenyActionTextModifierKey.self] = newValue }
-    }
-
-    public var htmlContentModifier: AnyViewModifier {
-        get { return self[HtmlContentModifierKey.self] }
-        set { self[HtmlContentModifierKey.self] = newValue }
-    }
-
-    public var nextActionTextModifier: AnyViewModifier {
-        get { return self[NextActionTextModifierKey.self] }
-        set { self[NextActionTextModifierKey.self] = newValue }
-    }
-
-    public var notNowActionTextModifier: AnyViewModifier {
-        get { return self[NotNowActionTextModifierKey.self] }
-        set { self[NotNowActionTextModifierKey.self] = newValue }
-    }
-
     public var progressIndicatorTextModifier: AnyViewModifier {
         get { return self[ProgressIndicatorTextModifierKey.self] }
         set { self[ProgressIndicatorTextModifierKey.self] = newValue }
-    }
-
-    public var secondaryActionTextModifier: AnyViewModifier {
-        get { return self[SecondaryActionTextModifierKey.self] }
-        set { self[SecondaryActionTextModifierKey.self] = newValue }
     }
 
     public var textInputValueModifier: AnyViewModifier {
@@ -239,9 +209,9 @@ extension EnvironmentValues {
         set { self[TextInputModifierKey.self] = newValue }
     }
 
-    public var htmlViewModifier: AnyViewModifier {
-        get { return self[HtmlViewModifierKey.self] }
-        set { self[HtmlViewModifierKey.self] = newValue }
+    public var cancelActionModifier: AnyViewModifier {
+        get { return self[CancelActionModifierKey.self] }
+        set { self[CancelActionModifierKey.self] = newValue }
     }
 
     public var progressIndicatorModifier: AnyViewModifier {
@@ -252,11 +222,6 @@ extension EnvironmentValues {
     public var nextActionModifier: AnyViewModifier {
         get { return self[NextActionModifierKey.self] }
         set { self[NextActionModifierKey.self] = newValue }
-    }
-
-    public var cancelActionModifier: AnyViewModifier {
-        get { return self[CancelActionModifierKey.self] }
-        set { self[CancelActionModifierKey.self] = newValue }
     }
 
     public var allowActionModifier: AnyViewModifier {
@@ -351,6 +316,11 @@ public extension View {
     @ViewBuilder
     func bodyTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.bodyTextModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func bodyAttributedTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.bodyAttributedTextModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
@@ -454,43 +424,8 @@ public extension View {
     }
 
     @ViewBuilder
-    func allowActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.allowActionTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func cancelActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.cancelActionTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func denyActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.denyActionTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func htmlContentModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.htmlContentModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func nextActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nextActionTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func notNowActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.notNowActionTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func progressIndicatorTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.progressIndicatorTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func secondaryActionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.secondaryActionTextModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
@@ -514,8 +449,8 @@ public extension View {
     }
 
     @ViewBuilder
-    func htmlViewModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.htmlViewModifier, AnyViewModifier(transform))
+    func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.cancelActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
@@ -526,11 +461,6 @@ public extension View {
     @ViewBuilder
     func nextActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.nextActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.cancelActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

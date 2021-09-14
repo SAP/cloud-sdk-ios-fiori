@@ -354,13 +354,13 @@ struct UserConsentViewBuilderExample: View {
             UserConsentForm(userConsentPages: {
                                 UserConsentPage {
                                     Text("Form 0")
-                                } bodyText: {
+                                } bodyAttributedText: {
                                     Text("Page 0")
                                 }
                 
                                 UserConsentPage {
                                     Text("Form 0")
-                                } bodyText: {
+                                } bodyAttributedText: {
                                     Text("Page 1")
                                 }
                             },
@@ -371,13 +371,13 @@ struct UserConsentViewBuilderExample: View {
             UserConsentForm(userConsentPages: {
                                 UserConsentPage {
                                     Text("Form 1")
-                                } bodyText: {
+                                } bodyAttributedText: {
                                     Text("Page 0")
                                 }
                 
                                 UserConsentPage {
                                     Text("Form 1")
-                                } bodyText: {
+                                } bodyAttributedText: {
                                     Text("Page 1")
                                 }
                             },

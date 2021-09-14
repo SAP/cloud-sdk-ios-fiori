@@ -11,7 +11,7 @@ class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
         }
     }()
 
-    lazy var secondaryAction: SecondaryActionModel? = {
+    lazy var secondaryAction: ActionModel? = {
         SecondaryActionDataModel { [unowned self] in
             UIApplication.shared.open(URL(string: "http://www.google.com")!)
         }
@@ -51,10 +51,10 @@ extension WelcomeScreenDataModel {
         let didSelectAction: (() -> Void)?
     }
     
-    struct SecondaryActionDataModel: SecondaryActionModel {
-        let secondaryActionText: String? = "Try Demo"
+    struct SecondaryActionDataModel: ActionModel {
+        let actionText: String? = "Try Demo"
         
-        let didSelectSecondaryAction: (() -> Void)?
+        let didSelectAction: (() -> Void)?
     }
 }
 

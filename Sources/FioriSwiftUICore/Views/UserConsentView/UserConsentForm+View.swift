@@ -41,18 +41,19 @@ extension Fiori {
 }
 
 // FIXME: - Implement UserConsentForm View body
-
 extension UserConsentForm: View {
     public var body: some View {
-        NavigationView {
-            VStack {
-                _userConsentPages.view(at: _pageIndex)
-                
-                toolBar
-            }
-            .navigationBarItems(leading: navBarLeadingView, trailing: navBarTrailingView)
+        VStack {
+            makeBody()
+            toolBar
         }
-        .alert(configuration: alertConfiguration, isPresented: $_showAlert)
+    }
+    
+    @ViewBuilder
+    func makeBody() -> some View {
+        _userConsentPages.view(at: _pageIndex)
+            .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
+            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert)
     }
     
     var alertConfiguration: AlertConfiguration {
@@ -72,8 +73,8 @@ extension UserConsentForm: View {
     
     @ViewBuilder
     private var toolBar: some View {
-        if _pageIndex == _userConsentPages.count - 1 {
-            HStack {
+        HStack {
+            if _pageIndex == _userConsentPages.count - 1 {
                 if _isRequired {
                     denyAction
                         .onSimultaneousTapGesture {
@@ -94,6 +95,7 @@ extension UserConsentForm: View {
                     }
             }
         }
+        .padding()
     }
     
     @ViewBuilder

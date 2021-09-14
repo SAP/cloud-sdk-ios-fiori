@@ -77,15 +77,15 @@ public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorView
     }
 
 	var isProgressIndicatorEmptyView: Bool {
-        ((isModelInit && isProgressIndicatorNil) || ProgressIndicator.self == EmptyView.self) ? true : false
+        ((isModelInit && isProgressIndicatorNil) || ProgressIndicatorView.self == EmptyView.self) ? true : false
     }
 
 	var isActionEmptyView: Bool {
-        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 
 	var isSecondaryActionEmptyView: Bool {
-        ((isModelInit && isSecondaryActionNil) || SecondaryAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isSecondaryActionNil) || SecondaryActionView.self == EmptyView.self) ? true : false
     }
 }
 
@@ -93,13 +93,13 @@ extension InfoView where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
 		ProgressIndicatorView == _ConditionalContent<ProgressIndicator, EmptyView>,
 		ActionView == _ConditionalContent<Action, EmptyView>,
-		SecondaryActionView == _ConditionalContent<SecondaryAction, EmptyView> {
+		SecondaryActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: InfoViewModel) {
-        self.init(title: model.title, descriptionText: model.descriptionText, progressIndicator: model.progressIndicator != nil ? ProgressIndicator(model: model.progressIndicator!) : nil, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? SecondaryAction(model: model.secondaryAction!) : nil)
+        self.init(title: model.title, descriptionText: model.descriptionText, progressIndicator: model.progressIndicator != nil ? ProgressIndicator(model: model.progressIndicator!) : nil, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? Action(model: model.secondaryAction!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, progressIndicator: ProgressIndicator? = nil, action: Action? = nil, secondaryAction: SecondaryAction? = nil) {
+    public init(title: String, descriptionText: String? = nil, progressIndicator: ProgressIndicator? = nil, action: Action? = nil, secondaryAction: Action? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._progressIndicator = progressIndicator != nil ? ViewBuilder.buildEither(first: progressIndicator!) : ViewBuilder.buildEither(second: EmptyView())

@@ -3,15 +3,27 @@
 import SwiftUI
 
 public extension EULAViewModel {
-    var htmlView: HTMLViewModel? {
+    var action: ActionModel? {
+        return _AgreeActionDefault()
+    }
+
+	var secondaryAction: ActionModel? {
+        return _DisagreeActionDefault()
+    }
+
+	var cancelAction: ActionModel? {
+        return _CancelActionDefault()
+    }
+
+	var didAgree: (() -> Void)? {
         return nil
     }
 
-	var action: ActionModel? {
+	var didDisagree: (() -> Void)? {
         return nil
     }
 
-	var secondaryAction: SecondaryActionModel? {
+	var didCancel: (() -> Void)? {
         return nil
     }
 }

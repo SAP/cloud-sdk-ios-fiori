@@ -13,8 +13,8 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
 	let _fraction: Double?
 	let _subtitle: Subtitle
 	let _footnote: Footnote
-	@State var isPressed: Bool = false
 	var action: (() -> Void)? = nil
+	@State var isPressed: Bool = false
     private var isModelInit: Bool = false
 	private var isKpiNil: Bool = false
 	private var isSubtitleNil: Bool = false

@@ -2,34 +2,51 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct EULAView<Title: View, HtmlView: View, ActionView: View, SecondaryActionView: View> {
+public struct EULAView<Title: View, BodyAttributedText: View, ActionView: View, SecondaryActionView: View, CancelActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
-	@Environment(\.htmlViewModifier) private var htmlViewModifier
+	@Environment(\.bodyAttributedTextModifier) private var bodyAttributedTextModifier
 	@Environment(\.actionModifier) private var actionModifier
 	@Environment(\.secondaryActionModifier) private var secondaryActionModifier
+	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
     let _title: Title
-	let _htmlView: HtmlView
+	let _bodyAttributedText: BodyAttributedText
 	let _action: ActionView
 	let _secondaryAction: SecondaryActionView
+	let _cancelAction: CancelActionView
+	let _didAgree: (() -> Void)?
+	let _didDisagree: (() -> Void)?
+	let _didCancel: (() -> Void)?
 	@State var contentHeight: CGFloat = .zero
 
     private var isModelInit: Bool = false
-	private var isHtmlViewNil: Bool = false
+	private var isBodyAttributedTextNil: Bool = false
 	private var isActionNil: Bool = false
 	private var isSecondaryActionNil: Bool = false
+	private var isCancelActionNil: Bool = false
+	private var isDidAgreeNil: Bool = false
+	private var isDidDisagreeNil: Bool = false
+	private var isDidCancelNil: Bool = false
 
     public init(
         @ViewBuilder title: () -> Title,
-		@ViewBuilder htmlView: () -> HtmlView,
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
 		@ViewBuilder action: () -> ActionView,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
         ) {
             self._title = title()
-			self._htmlView = htmlView()
+			self._bodyAttributedText = bodyAttributedText()
 			self._action = action()
 			self._secondaryAction = secondaryAction()
+			self._cancelAction = cancelAction()
+			self._didAgree = didAgree
+			self._didDisagree = didDisagree
+			self._didCancel = didCancel
     }
 
     @ViewBuilder var title: some View {
@@ -39,11 +56,11 @@ public struct EULAView<Title: View, HtmlView: View, ActionView: View, SecondaryA
             _title.modifier(titleModifier.concat(Fiori.EULAView.title))
         }
     }
-	@ViewBuilder var htmlView: some View {
+	@ViewBuilder var bodyAttributedText: some View {
         if isModelInit {
-            _htmlView.modifier(htmlViewModifier.concat(Fiori.EULAView.htmlView).concat(Fiori.EULAView.htmlViewCumulative))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.EULAView.bodyAttributedText).concat(Fiori.EULAView.bodyAttributedTextCumulative))
         } else {
-            _htmlView.modifier(htmlViewModifier.concat(Fiori.EULAView.htmlView))
+            _bodyAttributedText.modifier(bodyAttributedTextModifier.concat(Fiori.EULAView.bodyAttributedText))
         }
     }
 	@ViewBuilder var action: some View {
@@ -60,38 +77,58 @@ public struct EULAView<Title: View, HtmlView: View, ActionView: View, SecondaryA
             _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.EULAView.secondaryAction))
         }
     }
+	@ViewBuilder var cancelAction: some View {
+        if isModelInit {
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.EULAView.cancelAction).concat(Fiori.EULAView.cancelActionCumulative))
+        } else {
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.EULAView.cancelAction))
+        }
+    }
     
-	var isHtmlViewEmptyView: Bool {
-        ((isModelInit && isHtmlViewNil) || HtmlView.self == EmptyView.self) ? true : false
+	var isBodyAttributedTextEmptyView: Bool {
+        ((isModelInit && isBodyAttributedTextNil) || BodyAttributedText.self == EmptyView.self) ? true : false
     }
 
 	var isActionEmptyView: Bool {
-        ((isModelInit && isActionNil) || Action.self == EmptyView.self) ? true : false
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 
 	var isSecondaryActionEmptyView: Bool {
-        ((isModelInit && isSecondaryActionNil) || SecondaryAction.self == EmptyView.self) ? true : false
+        ((isModelInit && isSecondaryActionNil) || SecondaryActionView.self == EmptyView.self) ? true : false
+    }
+
+	var isCancelActionEmptyView: Bool {
+        ((isModelInit && isCancelActionNil) || CancelActionView.self == EmptyView.self) ? true : false
     }
 }
 
 extension EULAView where Title == Text,
-		HtmlView == _ConditionalContent<HTMLView, EmptyView>,
+		BodyAttributedText == _ConditionalContent<AttributedText, EmptyView>,
 		ActionView == _ConditionalContent<Action, EmptyView>,
-		SecondaryActionView == _ConditionalContent<SecondaryAction, EmptyView> {
+		SecondaryActionView == _ConditionalContent<Action, EmptyView>,
+		CancelActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: EULAViewModel) {
-        self.init(title: model.title, htmlView: model.htmlView != nil ? HTMLView(model: model.htmlView!) : nil, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? SecondaryAction(model: model.secondaryAction!) : nil)
+        self.init(title: model.title, bodyAttributedText: model.bodyAttributedText, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? Action(model: model.secondaryAction!) : nil, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil, didAgree: model.didAgree, didDisagree: model.didDisagree, didCancel: model.didCancel)
     }
 
-    public init(title: String, htmlView: HTMLView? = nil, action: Action? = nil, secondaryAction: SecondaryAction? = nil) {
+    public init(title: String, bodyAttributedText: NSAttributedString? = nil, action: Action? = Action(model: _AgreeActionDefault()), secondaryAction: Action? = Action(model: _DisagreeActionDefault()), cancelAction: Action? = Action(model: _CancelActionDefault()), didAgree: (() -> Void)? = nil, didDisagree: (() -> Void)? = nil, didCancel: (() -> Void)? = nil) {
         self._title = Text(title)
-		self._htmlView = htmlView != nil ? ViewBuilder.buildEither(first: htmlView!) : ViewBuilder.buildEither(second: EmptyView())
+		self._bodyAttributedText = bodyAttributedText != nil ? ViewBuilder.buildEither(first: AttributedText(bodyAttributedText: bodyAttributedText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
 		self._secondaryAction = secondaryAction != nil ? ViewBuilder.buildEither(first: secondaryAction!) : ViewBuilder.buildEither(second: EmptyView())
+		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
+		self._didAgree = didAgree
+		self._didDisagree = didDisagree
+		self._didCancel = didCancel
 
 		isModelInit = true
-		isHtmlViewNil = htmlView == nil ? true : false
+		isBodyAttributedTextNil = bodyAttributedText == nil ? true : false
 		isActionNil = action == nil ? true : false
 		isSecondaryActionNil = secondaryAction == nil ? true : false
+		isCancelActionNil = cancelAction == nil ? true : false
+		isDidAgreeNil = didAgree == nil ? true : false
+		isDidDisagreeNil = didDisagree == nil ? true : false
+		isDidCancelNil = didCancel == nil ? true : false
     }
 }

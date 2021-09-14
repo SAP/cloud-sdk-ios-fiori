@@ -67,6 +67,11 @@ public protocol BodyTextComponent {
     var bodyText: String? { get }
 }
 
+public protocol BodyAttributedTextComponent {
+	// sourcery: backingComponent=AttributedText
+    var bodyAttributedText: NSAttributedString? { get }
+}
+
 public protocol IconComponent {
     var icon: Image? { get }
 }
@@ -154,58 +159,13 @@ public protocol ActionItemsComponent {
     var didSelectActivityItem: ((ActivityItemDataType) -> Void)? { get }
 }
 
-public protocol AllowActionComponent {
-	// sourcery: default.value=NSLocalizedString("Allow", comment: "")
-    var allowActionText: String? { get }
-	// sourcery: no_view
-    var didSelectAllowAction: (() -> Void)? { get }
-}
-
-public protocol CancelActionComponent {
-	// sourcery: default.value=NSLocalizedString("Cancel", comment: "")
-    var cancelActionText: String? { get }
-	// sourcery: no_view
-    var didSelectCancelAction: (() -> Void)? { get }
-}
-
-public protocol DenyActionComponent {
-	// sourcery: default.value=NSLocalizedString("Deny", comment: "")
-    var denyActionText: String? { get }
-	// sourcery: no_view
-    var didSelectDenyAction: (() -> Void)? { get }
-}
-
-public protocol HTMLViewComponent {
-    var htmlContent: NSAttributedString? { get }
-}
-
 public protocol KpiProgressComponent : KpiComponent {
 	// sourcery: no_view
     var fraction: Double? { get }
 }
 
-public protocol NextActionComponent {
-	// sourcery: default.value=NSLocalizedString("Next", comment: "")
-    var nextActionText: String? { get }
-	// sourcery: no_view
-    var didSelectNextAction: (() -> Void)? { get }
-}
-
-public protocol NotNowActionComponent {
-	// sourcery: default.value=NSLocalizedString("Not Now", comment: "")
-    var notNowActionText: String? { get }
-	// sourcery: no_view
-    var didSelectNotNowAction: (() -> Void)? { get }
-}
-
 public protocol ProgressIndicatorComponent {
     var progressIndicatorText: String? { get }
-}
-
-public protocol SecondaryActionComponent {
-    var secondaryActionText: String? { get }
-	// sourcery: no_view
-    var didSelectSecondaryAction: (() -> Void)? { get }
 }
 
 public protocol TextInputComponent : AnyObject {

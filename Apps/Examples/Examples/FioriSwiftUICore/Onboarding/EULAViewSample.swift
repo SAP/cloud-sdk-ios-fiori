@@ -1,51 +1,38 @@
 import FioriSwiftUICore
 import SwiftUI
 
-class EULAViewDataModel: EULAViewModel {
+struct EULAViewDataModel: EULAViewModel {
     var title: String = "EULA"
+    var bodyAttributedText: NSAttributedString?
     
-    var htmlContent: NSAttributedString?
-    
-    var actionText: String? = "Disagree"
-    var secondaryActionText: String? = "Agree"
-    
-    func didSelectAction() {
+    var didAgree: (() -> Void)? = {
         print("EULAView Primary button clicked")
     }
     
-    func didSelectSecondaryAction() {
+    var didDisagree: (() -> Void)? = {
         print("EULAView secondary button clicked")
     }
     
-    func caseHTML() {
-        self.htmlContent = NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n")
-    }
+    var didCancel: (() -> Void)?
     
-    func caseLongHTML() {
+    static let HTML = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "http://www.sap.com\nThis is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n"))
+    
+    static let LongHTML: EULAViewDataModel = {
         let eulaURL = Bundle.main.url(forResource: "EULAText", withExtension: "html")!
-        do {
-            let eulaData = try Data(contentsOf: eulaURL)
-            let eulaAttString = try NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            self.htmlContent = eulaAttString
-        } catch (_) {
-            print("Failed to get EULA text from html")
-        }
-    }
+        let eulaData = try! Data(contentsOf: eulaURL)
+        let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+        return EULAViewDataModel(bodyAttributedText: eulaAttString)
+    }()
     
-    func caseShortHTML() {
+    static let ShortHTML: EULAViewDataModel = {
         let eulaURL = Bundle.main.url(forResource: "EULA2", withExtension: "html")!
-        do {
-            let eulaData = try Data(contentsOf: eulaURL)
-            let eulaAttString = try NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
-            self.htmlContent = eulaAttString
-        } catch (_) {
-            print("Failed to get EULA text from html")
-        }
-    }
+        let eulaData = try! Data(contentsOf: eulaURL)
+        let eulaAttString = try! NSMutableAttributedString(data: eulaData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil)
+        return EULAViewDataModel(bodyAttributedText: eulaAttString)
+    }()
     
-    func caseConcatAttributedStrings() {
-        self.title = "CUSTOM EULA"
-        
+    static let ConcatAttributedStrings: EULAViewDataModel = {
+        let title = "CUSTOM EULA"
         let string1 = NSAttributedString(string: "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n", attributes:
             [NSAttributedString.Key.font: UIFont(name: "Georgia", size: 22.0)!])
         let string2 = NSAttributedString(string: "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n", attributes:
@@ -61,19 +48,12 @@ class EULAViewDataModel: EULAViewModel {
         attText.append(string3)
         attText.append(linkString)
         
-        self.htmlContent = attText
-        
-        self.actionText = "Reject"
-        self.secondaryActionText = "Confirm"
-    }
+        return EULAViewDataModel(title: title, bodyAttributedText: attText)
+    }()
     
-    func caseShortStringWithLink() {
-        let attributedString = NSAttributedString(string: "Short http://service.sap.com Short") // , attributes: textColorAttribute)
-        
-        htmlContent = attributedString
-    }
+    static let ShortStringWithLink = EULAViewDataModel(bodyAttributedText: NSAttributedString(string: "Short http://service.sap.com Short"))
     
-    func caseShortAttributedStringWithLink() {
+    static let ShortAttributedStringWithLink: EULAViewDataModel = {
         let linkAttributes = [
             NSAttributedString.Key.link: URL(string: "https://service.sap.com")!,
             NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 18.0)!,
@@ -83,115 +63,95 @@ class EULAViewDataModel: EULAViewModel {
         let attributedString = NSMutableAttributedString(string: "Just click here to go to SAP service web site.\n\n" + "This is a legally binding agreement (\"Agreement\") between Company and SAP SE which provides the terms of your use of the SAP mobile application (Software). By clicking \"Accept\" or by installing and/or using the Software, you on behalf of the Company are agreeing to all of the terms and conditions stated in this Agreement. If you do not agree to these terms, do not click \"Agree\", and do not use the Software. You represent and warrant that you have the authority to bind the Company to the terms of this Agreement.\n\n")
         
         attributedString.setAttributes(linkAttributes, range: NSRange(location: 5, length: 10))
-        self.htmlContent = attributedString
-    }
+        return EULAViewDataModel(bodyAttributedText: attributedString)
+    }()
 }
 
 struct EULAViewSample: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseHTML()
-    }
+    let model = EULAViewDataModel.HTML
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULALongHtmlSample: View {
-    var model: EULAViewDataModel
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model = EULAViewDataModel()
-        self.model.caseLongHTML()
-    }
+    let model = EULAViewDataModel.LongHTML
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .actionTextModifier { $0.foregroundColor(.blue) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULAShortHtmlSample: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseShortHTML()
-    }
+    let model = EULAViewDataModel.ShortHTML
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .actionTextModifier { $0.foregroundColor(.blue) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULAConcatSample: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseConcatAttributedStrings()
-    }
+    let model = EULAViewDataModel.ConcatAttributedStrings
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .actionTextModifier { $0.foregroundColor(.blue) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULAWithLinkSample: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseShortStringWithLink()
-    }
+    let model = EULAViewDataModel.ShortStringWithLink
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .actionTextModifier { $0.foregroundColor(.blue) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULAShortWithLinkSample: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseShortAttributedStringWithLink()
-    }
+    let model = EULAViewDataModel.ShortAttributedStringWithLink
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .actionTextModifier { $0.foregroundColor(.blue) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
     }
 }
 
 struct EULAViewCustomized: View {
-    var model = EULAViewDataModel()
+    @Environment(\.presentationMode) var presentationMode
     
-    public init() {
-        self.model.caseHTML()
-    }
+    let model = EULAViewDataModel.HTML
     
     var body: some View {
-        VStack {
-            EULAView(model: model)
-                .titleModifier { $0.font(.headline).foregroundColor(.green) }
-                .htmlContentModifier { $0.font(.system(size: 20)).foregroundColor(.blue) }
-                .actionTextModifier { $0.foregroundColor(.green) }
-                .secondaryActionTextModifier { $0.foregroundColor(.green) }
+        EULAView(title: model.title, bodyAttributedText: model.bodyAttributedText, didAgree: model.didAgree, didDisagree: model.didDisagree) {
+            self.presentationMode.wrappedValue.dismiss()
         }
+        .titleModifier { $0.font(.headline).foregroundColor(.green) }
+        .bodyAttributedTextModifier { $0.font(.system(size: 20)).foregroundColor(.blue) }
+        .actionModifier { $0.foregroundColor(.green) }
+        .secondaryActionModifier { $0.foregroundColor(.green) }
     }
 }
 

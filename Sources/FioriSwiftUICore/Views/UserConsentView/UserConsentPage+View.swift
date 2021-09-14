@@ -18,7 +18,7 @@ extension Fiori {
             }
         }
         
-        struct BodyText: ViewModifier {
+        struct BodyAttributedText: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.body)
@@ -27,78 +27,40 @@ extension Fiori {
             }
         }
         
-        struct FootNote: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.subheadline)
-                    .foregroundColor(.preferredColor(.tintColorDark))
-                    .multilineTextAlignment(.center)
             }
         }
         
         typealias TitleCumulative = EmptyModifier
-        typealias BodyTextCumulative = EmptyModifier
-        typealias HtmlView = EmptyModifier
-        typealias HtmlViewCumulative = EmptyModifier
-        typealias FootnoteCumulative = EmptyModifier
+        typealias BodyAttributedTextCumulative = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
         
         static let title = Title()
-        static let bodyText = BodyText()
-        static let htmlView = HtmlView()
-        static let footnote = FootNote()
+        static let bodyAttributedText = BodyAttributedText()
+        static let action = Action()
         static let titleCumulative = TitleCumulative()
-        static let bodyTextCumulative = BodyTextCumulative()
-        static let htmlViewCumulative = HtmlViewCumulative()
-        static let footnoteCumulative = FootnoteCumulative()
+        static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
+        static let actionCumulative = ActionCumulative()
     }
 }
 
 extension UserConsentPage: View {
     public var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                self.makeBody()
-                    .frame(minHeight: geometry.size.height - 50, maxHeight: .infinity)
-            }
-        }
-    }
-    
-    func makeBody() -> some View {
         ScrollView(.vertical, showsIndicators: true) {
             VStack {
                 title
                     .padding(.top, 30)
                     .padding(.bottom, 30)
                 
-                if !self.isBodyTextEmptyView {
-                    bodyText
-                }
-                if !self.isHtmlViewEmptyView {
-                    htmlView
-                        .font(.system(size: 15))
-                        .foregroundColor(.preferredColor(.primary3))
-                        .multilineTextAlignment(.center)
-                        .overlay(GetDynamicHeight())
-                }
-                footnote
+                bodyAttributedText
+
+                action
                     .padding(.top, 30)
                     .foregroundColor(.preferredColor(.tintColor))
-                    .onTapGesture {
-                        let titleString = NSLocalizedString("Want Data Privacy?", tableName: tableName, bundle: bundle, value: "Want Data Privacy?", comment: "")
-                        let okString = NSLocalizedString("Ok", tableName: tableName, bundle: bundle, value: "Ok", comment: "")
-                        let msgString = NSLocalizedString("Be wise about your data", tableName: tableName, bundle: bundle, value: "Be wise about your data", comment: "")
-                        self.alertMessage(title: titleString, message: msgString, primaryAction: UIAlertAction(title: okString, style: .default, handler: nil), secondaryAction: nil)
-                    }
                     .buttonStyle(StatefulButtonStyle())
-                
-                Spacer()
-            }
-            .frame(minHeight: max(contentHeight + 80, UIScreen.main.bounds.size.height - 120), maxHeight: .infinity)
-            
-            .onPreferenceChange(GetDynamicHeight.Key.self) {
-                if contentHeight < $0 {
-                    contentHeight = $0
-                }
             }
         }
         .padding(.top, 2)
@@ -112,7 +74,7 @@ extension UserConsentPage: View {
 struct UserConsentPageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(UserConsentPage(title: "Data Privacy", bodyText: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality.", footnote: "Learn more about Data Privacy"),
+        LibraryItem(UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: Action(actionText: "Learn more about Data Privacy")),
                     category: .control)
     }
 }

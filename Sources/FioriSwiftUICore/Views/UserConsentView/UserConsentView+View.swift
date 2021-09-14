@@ -25,9 +25,15 @@ extension Fiori {
 }
 
 // FIXME: - Implement UserConsentView View body
-
 extension UserConsentView: View {
     public var body: some View {
+        NavigationView {
+            makeBody()
+        }
+    }
+    
+    @ViewBuilder
+    func makeBody() -> some View {
         _userConsentForms.view(at: _formIndex)
             .userConsentFormDidAllow {
                 if !_allowedFormIndexes.contains(_formIndex) {

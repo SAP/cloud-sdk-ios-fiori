@@ -11,7 +11,7 @@ public extension InfoViewModel {
         return nil
     }
 
-	var secondaryAction: SecondaryActionModel? {
+	var secondaryAction: ActionModel? {
         return nil
     }
 }

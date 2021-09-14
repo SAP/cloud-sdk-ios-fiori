@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension UserConsentForm where NextActionView == NextAction {
+extension UserConsentForm where NextActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -16,7 +16,7 @@ extension UserConsentForm where NextActionView == NextAction {
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
 			allowAction: allowAction,
 			denyAction: denyAction,
@@ -31,7 +31,7 @@ extension UserConsentForm where NextActionView == NextAction {
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction {
+extension UserConsentForm where CancelActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -46,7 +46,7 @@ extension UserConsentForm where CancelActionView == CancelAction {
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
 			denyAction: denyAction,
 			notNowAction: notNowAction,
@@ -60,7 +60,7 @@ extension UserConsentForm where CancelActionView == CancelAction {
     }
 }
 
-extension UserConsentForm where AllowActionView == AllowAction {
+extension UserConsentForm where AllowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -76,7 +76,7 @@ extension UserConsentForm where AllowActionView == AllowAction {
         self.init(
             nextAction: nextAction,
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
@@ -89,7 +89,7 @@ extension UserConsentForm where AllowActionView == AllowAction {
     }
 }
 
-extension UserConsentForm where DenyActionView == DenyAction {
+extension UserConsentForm where DenyActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -106,7 +106,7 @@ extension UserConsentForm where DenyActionView == DenyAction {
             nextAction: nextAction,
 			cancelAction: cancelAction,
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -118,7 +118,7 @@ extension UserConsentForm where DenyActionView == DenyAction {
     }
 }
 
-extension UserConsentForm where NotNowActionView == NotNowAction {
+extension UserConsentForm where NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -136,7 +136,7 @@ extension UserConsentForm where NotNowActionView == NotNowAction {
 			cancelAction: cancelAction,
 			allowAction: allowAction,
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -147,7 +147,7 @@ extension UserConsentForm where NotNowActionView == NotNowAction {
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -160,8 +160,8 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
 			denyAction: denyAction,
 			notNowAction: notNowAction,
@@ -175,7 +175,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, AllowActionView == AllowAction {
+extension UserConsentForm where NextActionView == Action, AllowActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -188,9 +188,9 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
@@ -203,7 +203,7 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, DenyActionView == DenyAction {
+extension UserConsentForm where NextActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -216,10 +216,10 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -231,7 +231,7 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -244,11 +244,11 @@ extension UserConsentForm where NextActionView == NextAction, NotNowActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
 			allowAction: allowAction,
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -259,7 +259,7 @@ extension UserConsentForm where NextActionView == NextAction, NotNowActionView =
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, AllowActionView == AllowAction {
+extension UserConsentForm where CancelActionView == Action, AllowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -273,8 +273,8 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
@@ -287,7 +287,7 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, DenyActionView == DenyAction {
+extension UserConsentForm where CancelActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -301,9 +301,9 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -315,7 +315,7 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where CancelActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -329,10 +329,10 @@ extension UserConsentForm where CancelActionView == CancelAction, NotNowActionVi
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -343,7 +343,7 @@ extension UserConsentForm where CancelActionView == CancelAction, NotNowActionVi
     }
 }
 
-extension UserConsentForm where AllowActionView == AllowAction, DenyActionView == DenyAction {
+extension UserConsentForm where AllowActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -358,8 +358,8 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
         self.init(
             nextAction: nextAction,
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -371,7 +371,7 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
     }
 }
 
-extension UserConsentForm where AllowActionView == AllowAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where AllowActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -386,9 +386,9 @@ extension UserConsentForm where AllowActionView == AllowAction, NotNowActionView
         self.init(
             nextAction: nextAction,
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -399,7 +399,7 @@ extension UserConsentForm where AllowActionView == AllowAction, NotNowActionView
     }
 }
 
-extension UserConsentForm where DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -415,8 +415,8 @@ extension UserConsentForm where DenyActionView == DenyAction, NotNowActionView =
             nextAction: nextAction,
 			cancelAction: cancelAction,
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -427,7 +427,7 @@ extension UserConsentForm where DenyActionView == DenyAction, NotNowActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, AllowActionView == AllowAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, AllowActionView == Action {
     public init(
     @ViewBuilder denyAction: () -> DenyActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -439,9 +439,9 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
@@ -454,7 +454,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, DenyActionView == DenyAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -466,10 +466,10 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -481,7 +481,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -493,11 +493,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -508,7 +508,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, AllowActionView == AllowAction, DenyActionView == DenyAction {
+extension UserConsentForm where NextActionView == Action, AllowActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -520,10 +520,10 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -535,7 +535,7 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, AllowActionView == AllowAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, AllowActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -547,11 +547,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -562,7 +562,7 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -574,11 +574,11 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -589,7 +589,7 @@ extension UserConsentForm where NextActionView == NextAction, DenyActionView == 
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, AllowActionView == AllowAction, DenyActionView == DenyAction {
+extension UserConsentForm where CancelActionView == Action, AllowActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder notNowAction: () -> NotNowActionView,
@@ -602,9 +602,9 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -616,7 +616,7 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, AllowActionView == AllowAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where CancelActionView == Action, AllowActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder denyAction: () -> DenyActionView,
@@ -629,10 +629,10 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -643,7 +643,7 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where CancelActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder allowAction: () -> AllowActionView,
@@ -656,10 +656,10 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -670,7 +670,7 @@ extension UserConsentForm where CancelActionView == CancelAction, DenyActionView
     }
 }
 
-extension UserConsentForm where AllowActionView == AllowAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where AllowActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@ViewBuilder cancelAction: () -> CancelActionView,
@@ -684,9 +684,9 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
         self.init(
             nextAction: nextAction,
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -697,7 +697,7 @@ extension UserConsentForm where AllowActionView == AllowAction, DenyActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, AllowActionView == AllowAction, DenyActionView == DenyAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, AllowActionView == Action, DenyActionView == Action {
     public init(
     @ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -708,10 +708,10 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
 			notNowAction: notNowAction,
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
@@ -723,7 +723,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, AllowActionView == AllowAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, AllowActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -734,11 +734,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
 			denyAction: denyAction,
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -749,7 +749,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -760,11 +760,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
 			allowAction: allowAction,
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -775,7 +775,7 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, AllowActionView == AllowAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, AllowActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -786,11 +786,11 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
 			cancelAction: cancelAction,
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -801,7 +801,7 @@ extension UserConsentForm where NextActionView == NextAction, AllowActionView ==
     }
 }
 
-extension UserConsentForm where CancelActionView == CancelAction, AllowActionView == AllowAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where CancelActionView == Action, AllowActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @ViewBuilder nextAction: () -> NextActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
@@ -813,10 +813,10 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     ) {
         self.init(
             nextAction: nextAction,
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,
@@ -827,7 +827,7 @@ extension UserConsentForm where CancelActionView == CancelAction, AllowActionVie
     }
 }
 
-extension UserConsentForm where NextActionView == NextAction, CancelActionView == CancelAction, AllowActionView == AllowAction, DenyActionView == DenyAction, NotNowActionView == NotNowAction {
+extension UserConsentForm where NextActionView == Action, CancelActionView == Action, AllowActionView == Action, DenyActionView == Action, NotNowActionView == Action {
     public init(
     @IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
@@ -837,11 +837,11 @@ extension UserConsentForm where NextActionView == NextAction, CancelActionView =
 		didCancel: (() -> Void)? = nil
     ) {
         self.init(
-            nextAction: { NextAction(model: _NextActionDefaultModel()) },
-			cancelAction: { CancelAction(model: _CancelActionDefaultModel()) },
-			allowAction: { AllowAction(model: _AllowActionDefaultModel()) },
-			denyAction: { DenyAction(model: _DenyActionDefaultModel()) },
-			notNowAction: { NotNowAction(model: _NotNowActionDefaultModel()) },
+            nextAction: { Action(model: _NextActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			allowAction: { Action(model: _AllowActionDefault()) },
+			denyAction: { Action(model: _DenyActionDefault()) },
+			notNowAction: { Action(model: _NotNowActionDefault()) },
 			userConsentPages: userConsentPages,
 			isRequired: isRequired,
 			alertConfiguration: alertConfiguration,

@@ -98,6 +98,6 @@ extension InfoView: View {
 struct InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", action: Action(actionText: "Primary Button"), secondaryAction: SecondaryAction(secondaryActionText: "Secondary Button")))
+        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", action: Action(actionText: "Primary Button"), secondaryAction: Action(actionText: "Secondary Button")))
     }
 }

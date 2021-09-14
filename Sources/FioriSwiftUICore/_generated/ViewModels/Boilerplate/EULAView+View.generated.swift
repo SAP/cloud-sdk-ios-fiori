@@ -19,12 +19,14 @@ extension Fiori {
     enum EULAView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias HtmlView = EmptyModifier
-        typealias HtmlViewCumulative = EmptyModifier
+		typealias BodyAttributedText = EmptyModifier
+        typealias BodyAttributedTextCumulative = EmptyModifier
 		typealias Action = EmptyModifier
         typealias ActionCumulative = EmptyModifier
 		typealias SecondaryAction = EmptyModifier
         typealias SecondaryActionCumulative = EmptyModifier
+		typealias CancelAction = EmptyModifier
+        typealias CancelActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -39,13 +41,15 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let htmlView = HtmlView()
+		static let bodyAttributedText = BodyAttributedText()
 		static let action = Action()
 		static let secondaryAction = SecondaryAction()
+		static let cancelAction = CancelAction()
         static let titleCumulative = TitleCumulative()
-		static let htmlViewCumulative = HtmlViewCumulative()
+		static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
 		static let actionCumulative = ActionCumulative()
 		static let secondaryActionCumulative = SecondaryActionCumulative()
+		static let cancelActionCumulative = CancelActionCumulative()
     }
 }
 
@@ -59,7 +63,7 @@ extension EULAView: View {
 
 // FIXME: - Implement EULAView specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct EULAViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

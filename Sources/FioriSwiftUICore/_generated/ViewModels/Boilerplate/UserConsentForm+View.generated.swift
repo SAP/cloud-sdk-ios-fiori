@@ -63,7 +63,7 @@ extension UserConsentForm: View {
 
 // FIXME: - Implement UserConsentForm specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct UserConsentFormLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

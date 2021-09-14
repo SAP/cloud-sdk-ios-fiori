@@ -11,7 +11,7 @@ public extension WelcomeScreenModel {
         return nil
     }
 
-	var secondaryAction: SecondaryActionModel? {
+	var secondaryAction: ActionModel? {
         return nil
     }
 }

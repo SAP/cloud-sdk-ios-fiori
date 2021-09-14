@@ -23,7 +23,7 @@ extension TextInput: View {
 
 // FIXME: - Implement TextInput specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct TextInputLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

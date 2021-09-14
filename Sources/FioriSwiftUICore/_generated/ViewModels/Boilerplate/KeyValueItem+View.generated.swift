@@ -51,7 +51,7 @@ extension KeyValueItem: View {
 
 // FIXME: - Implement KeyValueItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct KeyValueItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

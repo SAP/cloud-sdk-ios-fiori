@@ -19,12 +19,10 @@ extension Fiori {
     enum UserConsentPage {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
-		typealias BodyText = EmptyModifier
-        typealias BodyTextCumulative = EmptyModifier
-		typealias Footnote = EmptyModifier
-        typealias FootnoteCumulative = EmptyModifier
-		typealias HtmlView = EmptyModifier
-        typealias HtmlViewCumulative = EmptyModifier
+		typealias BodyAttributedText = EmptyModifier
+        typealias BodyAttributedTextCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -39,13 +37,11 @@ extension Fiori {
             }
         */
         static let title = Title()
-		static let bodyText = BodyText()
-		static let footnote = Footnote()
-		static let htmlView = HtmlView()
+		static let bodyAttributedText = BodyAttributedText()
+		static let action = Action()
         static let titleCumulative = TitleCumulative()
-		static let bodyTextCumulative = BodyTextCumulative()
-		static let footnoteCumulative = FootnoteCumulative()
-		static let htmlViewCumulative = HtmlViewCumulative()
+		static let bodyAttributedTextCumulative = BodyAttributedTextCumulative()
+		static let actionCumulative = ActionCumulative()
     }
 }
 
@@ -59,7 +55,7 @@ extension UserConsentPage: View {
 
 // FIXME: - Implement UserConsentPage specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct UserConsentPageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

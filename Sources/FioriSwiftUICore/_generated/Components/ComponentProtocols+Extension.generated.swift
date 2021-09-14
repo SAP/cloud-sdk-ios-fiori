@@ -34,18 +34,14 @@ public extension ActionTitleComponent {
     }
 }
 
-public extension AllowActionComponent {
-    var allowActionText: String? {
-        return NSLocalizedString("Allow", comment: "")
-    }
-
-	var didSelectAllowAction: (() -> Void)? {
+public extension AttributeComponent {
+    var attribute: String? {
         return nil
     }
 }
 
-public extension AttributeComponent {
-    var attribute: String? {
+public extension BodyAttributedTextComponent {
+    var bodyAttributedText: NSAttributedString? {
         return nil
     }
 }
@@ -56,28 +52,8 @@ public extension BodyTextComponent {
     }
 }
 
-public extension CancelActionComponent {
-    var cancelActionText: String? {
-        return NSLocalizedString("Cancel", comment: "")
-    }
-
-	var didSelectCancelAction: (() -> Void)? {
-        return nil
-    }
-}
-
 public extension CategoryAxisTitleComponent {
     var categoryAxisTitle: String? {
-        return nil
-    }
-}
-
-public extension DenyActionComponent {
-    var denyActionText: String? {
-        return NSLocalizedString("Deny", comment: "")
-    }
-
-	var didSelectDenyAction: (() -> Void)? {
         return nil
     }
 }
@@ -112,12 +88,6 @@ public extension FootnoteComponent {
     }
 }
 
-public extension HTMLViewComponent {
-    var htmlContent: NSAttributedString? {
-        return nil
-    }
-}
-
 public extension IconComponent {
     var icon: Image? {
         return nil
@@ -148,26 +118,6 @@ public extension LowerBoundTitleComponent {
     }
 }
 
-public extension NextActionComponent {
-    var nextActionText: String? {
-        return NSLocalizedString("Next", comment: "")
-    }
-
-	var didSelectNextAction: (() -> Void)? {
-        return nil
-    }
-}
-
-public extension NotNowActionComponent {
-    var notNowActionText: String? {
-        return NSLocalizedString("Not Now", comment: "")
-    }
-
-	var didSelectNotNowAction: (() -> Void)? {
-        return nil
-    }
-}
-
 public extension PlaceholderComponent {
     var placeholder: String? {
         return nil
@@ -182,16 +132,6 @@ public extension ProgressIndicatorComponent {
 
 public extension SecondActionTitleComponent {
     var secondActionTitle: String? {
-        return nil
-    }
-}
-
-public extension SecondaryActionComponent {
-    var secondaryActionText: String? {
-        return nil
-    }
-
-	var didSelectSecondaryAction: (() -> Void)? {
         return nil
     }
 }

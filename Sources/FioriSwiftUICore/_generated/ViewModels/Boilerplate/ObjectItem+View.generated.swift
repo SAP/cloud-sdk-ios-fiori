@@ -79,7 +79,7 @@ extension ObjectItem: View {
 
 // FIXME: - Implement ObjectItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct ObjectItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

@@ -2,102 +2,330 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension EULAView where HtmlView == EmptyView {
+extension EULAView where BodyAttributedText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: { EmptyView() },
+			bodyAttributedText: { EmptyView() },
 			action: action,
-			secondaryAction: secondaryAction
+			secondaryAction: secondaryAction,
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }
 
-extension EULAView where ActionView == EmptyView {
+extension EULAView where ActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder htmlView: () -> HtmlView,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: htmlView,
-			action: { EmptyView() },
-			secondaryAction: secondaryAction
+			bodyAttributedText: bodyAttributedText,
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: secondaryAction,
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }
 
-extension EULAView where SecondaryActionView == EmptyView {
+extension EULAView where SecondaryActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder htmlView: () -> HtmlView,
-		@ViewBuilder action: () -> ActionView
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: htmlView,
+			bodyAttributedText: bodyAttributedText,
 			action: action,
-			secondaryAction: { EmptyView() }
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }
 
-extension EULAView where HtmlView == EmptyView, ActionView == EmptyView {
+extension EULAView where CancelActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder secondaryAction: () -> SecondaryActionView
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: { EmptyView() },
-			action: { EmptyView() },
-			secondaryAction: secondaryAction
-        )
-    }
-}
-
-extension EULAView where HtmlView == EmptyView, SecondaryActionView == EmptyView {
-    public init(
-    @ViewBuilder title: () -> Title,
-		@ViewBuilder action: () -> ActionView
-    ) {
-        self.init(
-            title: title,
-			htmlView: { EmptyView() },
+			bodyAttributedText: bodyAttributedText,
 			action: action,
-			secondaryAction: { EmptyView() }
+			secondaryAction: secondaryAction,
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }
 
-extension EULAView where ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension EULAView where BodyAttributedText == EmptyView, ActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder htmlView: () -> HtmlView
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: htmlView,
-			action: { EmptyView() },
-			secondaryAction: { EmptyView() }
+			bodyAttributedText: { EmptyView() },
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: secondaryAction,
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }
 
-extension EULAView where HtmlView == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView == Action {
     public init(
-    @ViewBuilder title: () -> Title
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			htmlView: { EmptyView() },
-			action: { EmptyView() },
-			secondaryAction: { EmptyView() }
+			bodyAttributedText: { EmptyView() },
+			action: action,
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where BodyAttributedText == EmptyView, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: { EmptyView() },
+			action: action,
+			secondaryAction: secondaryAction,
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where ActionView == Action, SecondaryActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: bodyAttributedText,
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where ActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: bodyAttributedText,
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: secondaryAction,
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where SecondaryActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		@ViewBuilder action: () -> ActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: bodyAttributedText,
+			action: action,
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where BodyAttributedText == EmptyView, ActionView == Action, SecondaryActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder cancelAction: () -> CancelActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: { EmptyView() },
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: cancelAction,
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where BodyAttributedText == EmptyView, ActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: { EmptyView() },
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: secondaryAction,
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where BodyAttributedText == EmptyView, SecondaryActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: { EmptyView() },
+			action: action,
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where ActionView == Action, SecondaryActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder bodyAttributedText: () -> BodyAttributedText,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: bodyAttributedText,
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
+        )
+    }
+}
+
+extension EULAView where BodyAttributedText == EmptyView, ActionView == Action, SecondaryActionView == Action, CancelActionView == Action {
+    public init(
+    @ViewBuilder title: () -> Title,
+		didAgree: (() -> Void)? = nil,
+		didDisagree: (() -> Void)? = nil,
+		didCancel: (() -> Void)? = nil
+    ) {
+        self.init(
+            title: title,
+			bodyAttributedText: { EmptyView() },
+			action: { Action(model: _AgreeActionDefault()) },
+			secondaryAction: { Action(model: _DisagreeActionDefault()) },
+			cancelAction: { Action(model: _CancelActionDefault()) },
+			didAgree: didAgree,
+			didDisagree: didDisagree,
+			didCancel: didCancel
         )
     }
 }

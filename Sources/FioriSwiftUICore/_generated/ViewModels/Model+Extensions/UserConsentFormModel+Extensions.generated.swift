@@ -3,24 +3,24 @@
 import SwiftUI
 
 public extension UserConsentFormModel {
-    var nextAction: NextActionModel? {
-        return _NextActionDefaultModel()
+    var nextAction: ActionModel? {
+        return _NextActionDefault()
     }
 
-	var cancelAction: CancelActionModel? {
-        return _CancelActionDefaultModel()
+	var cancelAction: ActionModel? {
+        return _CancelActionDefault()
     }
 
-	var allowAction: AllowActionModel? {
-        return _AllowActionDefaultModel()
+	var allowAction: ActionModel? {
+        return _AllowActionDefault()
     }
 
-	var denyAction: DenyActionModel? {
-        return _DenyActionDefaultModel()
+	var denyAction: ActionModel? {
+        return _DenyActionDefault()
     }
 
-	var notNowAction: NotNowActionModel? {
-        return _NotNowActionDefaultModel()
+	var notNowAction: ActionModel? {
+        return _NotNowActionDefault()
     }
 
 	var isRequired: Bool {

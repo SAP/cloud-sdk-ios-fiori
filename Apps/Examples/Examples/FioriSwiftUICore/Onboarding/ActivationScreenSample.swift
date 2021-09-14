@@ -1,24 +1,58 @@
+import Combine
 import FioriSwiftUICore
 import SwiftUI
 
 class ActivationScreenDataModel: ActivationScreenModel, ObservableObject {
-    @Published var textInputValue_: String = ""
+    // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
+    @Published var textInput: TextInputModel?
+    lazy var action: ActionModel? = {
+        ActionDataModel { [unowned self] in
+            print("ActivationScreen Primary button clicked, email: \(self.textInput!.textInputValue)")
+        }
+    }()
+
+    lazy var secondaryAction: ActionModel? = {
+        SecondaryActionDataModel { [unowned self] in
+            print("call barcode scanner")
+        }
+    }()
+    
     var title: String = "Activation"
     var descriptionText: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
-    var actionText: String? = "Next"
     var footnote: String? = "Or"
-    var secondaryActionText: String? = "Scan"
     
-    func didSelectAction() {
-        print("ActivationScreen Primary button clicked, email:", self.textInputValue_)
+    var cancellable: AnyCancellable?
+    
+    init() {
+        let inputModel = TextInputDataModel()
+        
+        self.cancellable = inputModel.objectWillChange.sink { [weak self] in
+            self?.objectWillChange.send()
+        }
+        
+        self._textInput = Published(wrappedValue: inputModel)
+    }
+}
+
+extension ActivationScreenDataModel {
+    class TextInputDataModel: TextInputModel, ObservableObject {
+        @Published var textInputValue: String = ""
+        
+        var onCommit: (() -> Void)? = {
+            print("TextInputField commit")
+        }
     }
     
-    func didSelectSecondaryAction() {
-        print("call barcode scanner")
+    struct ActionDataModel: ActionModel {
+        let actionText: String? = "Next"
+        
+        let didSelectAction: (() -> Void)?
     }
     
-    func onCommit() {
-        print("TextField commit: ", self.textInputValue_)
+    struct SecondaryActionDataModel: ActionModel {
+        let actionText: String? = "Scan"
+        
+        let didSelectAction: (() -> Void)?
     }
 }
 
@@ -29,8 +63,8 @@ struct ActivationScreenSample: View {
     var body: some View {
         VStack {
             ActivationScreen(model: model)
-                .actionTextModifier { $0.disabled(model.textInputValue_.isEmpty) }
-                .textInputValueModifier { $0.autocapitalization(.none) }
+                .actionModifier { $0.disabled(model.textInput!.textInputValue.isEmpty) }
+                .textInputModifier { $0.autocapitalization(.none) }
         }
     }
 }
@@ -43,8 +77,8 @@ struct ActivationScreenCustomizedSample: View {
         VStack {
             ActivationScreen(model: model)
                 .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
-                .actionTextModifier { $0.disabled(model.textInputValue_.isEmpty) }
-                .textInputValueModifier { $0.padding(.top, 8)
+                .actionModifier { $0.disabled(model.textInput!.textInputValue.isEmpty) }
+                .textInputModifier { $0.padding(.top, 8)
                     .border(Color(UIColor.separator))
                 }
         }

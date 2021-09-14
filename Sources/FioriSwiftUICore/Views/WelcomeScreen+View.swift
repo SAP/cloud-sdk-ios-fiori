@@ -20,7 +20,7 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body) // system(size: 17))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
                     .multilineTextAlignment(.center)
             }
@@ -29,7 +29,7 @@ extension Fiori {
         struct TextInput: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body) // .system(size: 15))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
                     .multilineTextAlignment(.center)
                     .keyboardType(.emailAddress)
@@ -49,7 +49,7 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body) // .system(size: 15))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
