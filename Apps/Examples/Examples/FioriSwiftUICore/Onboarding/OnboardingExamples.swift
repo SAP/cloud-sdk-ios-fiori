@@ -136,6 +136,11 @@ struct EULAExamples: View {
 struct UserConsentExamples: View {
     var body: some View {
         List {
+            NavigationLink(
+                destination: UserConsentViewBuilderExample()) {
+                Text("UserConsentView(ViewBuilder) Example")
+            }
+            
 //            NavigationLink(
 //                destination: UserConsentViewBuilderExample()) {
 //                Text("ViewBuilder Example")

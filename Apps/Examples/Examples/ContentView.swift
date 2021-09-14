@@ -6,10 +6,6 @@ struct ContentView: View {
         NavigationView {
             List {
                 NavigationLink(
-                    destination: UserConsentViewBuilderExample()) {
-                    Text("UserConsentTestExample")
-                }
-                NavigationLink(
                     destination: ChartsContentView()) {
                     Text("Charts")
                 }
