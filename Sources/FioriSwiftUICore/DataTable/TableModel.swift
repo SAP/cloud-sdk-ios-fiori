@@ -57,9 +57,20 @@ public class TableModel: ObservableObject {
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
+    @Published public var inlineEditingEable: Bool = true
+    
     internal var centerPosition: CGPoint?
     
     @Published private var _rowData: [TableRowItem] = []
+    
+    @Published var inlineEditingCell: (Int, Int)?
+    
+    @Published var isShowingPicker: Bool = false
+    
+    @Published var currentPicker: DataPickerItem? = nil
+    
+    @Published var shouldMoveupTable: Bool = false
+    @Published var offsetForTable: CGFloat = 0
     
     /// Public initializer for TableModel.
     /// - Parameters:
@@ -130,7 +141,7 @@ public class TableModel: ObservableObject {
             for item in items {
                 switch item {
                 case is DataTextItem:
-                    var _item = item as! DataTextItem
+                    let _item = item as! DataTextItem
                     _item.binding = textBinding(forIndex: labelIndex)
                     labelIndex += 1
                     newItems.append(_item)
@@ -138,6 +149,9 @@ public class TableModel: ObservableObject {
                     var _item = item as! DataImageItem
                     _item.binding = imageBinding(forIndex: imageIndex)
                     imageIndex += 1
+                    newItems.append(_item)
+                case is DataPickerItem:
+                    let _item = item as! DataPickerItem
                     newItems.append(_item)
                 default:
                     break

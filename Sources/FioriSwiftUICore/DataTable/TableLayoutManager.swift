@@ -163,9 +163,9 @@ class TableLayoutManager: ObservableObject {
         self.model = model
         self.initRowData(model: self.model)
         self.isEditing = self.model.isEditing
-        self.horizontalScrolling = model.horizontalScrolling
-        self.centerPosition = model.centerPosition
-        self.isPinchZoomEnable = model.isPinchZoomEnable
+        self.horizontalScrolling = self.model.horizontalScrolling
+        self.centerPosition = self.model.centerPosition
+        self.isPinchZoomEnable = self.model.isPinchZoomEnable
         self.allDataItems = self.initItems(self.model)
     }
 }

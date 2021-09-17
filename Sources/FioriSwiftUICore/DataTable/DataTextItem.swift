@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Text item for `DataTable`
-public struct DataTextItem: DataItem, CheckBinding {
+public class DataTextItem: DataItem, CheckBinding {
     /// Type.
     public var type: DataItemType
     /// Binding rule.

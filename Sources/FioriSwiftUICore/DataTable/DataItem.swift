@@ -6,6 +6,8 @@ public enum DataItemType {
     case text
     /// Indicating this row item represents a image.
     case image
+    
+    case picker
 }
 
 ///  A protocol defines style of a `DataItem`.

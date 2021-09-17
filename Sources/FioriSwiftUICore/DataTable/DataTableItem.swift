@@ -90,8 +90,32 @@ struct DataTableItem: Identifiable, Hashable {
 }
 
 enum ValueType: Hashable {
+    static func == (lhs: ValueType, rhs: ValueType) -> Bool {
+        switch (lhs, rhs) {
+        case (.text(let l), .text(let r)):
+            return l == r
+        case (.image(let l), .image(let r)):
+            return l == r
+        case (.picker(let l), .picker(let r)):
+            let d1 = l.data as [(String, [String])]
+            let d2 = r.data as [(String, [String])]
+            if d1.count != d2.count {
+                return false
+            }
+            for i in 0 ..< d1.count {
+                if d1[i].0 != d2[i].0 || d1[i].1 != d2[i].1 {
+                    return false
+                }
+            }
+            return true
+        default:
+            return false
+        }
+    }
+    
     case text(String)
     case image(Image)
+    case picker(DataPickerItem)
     
     func hash(into hasher: inout Hasher) {
         switch self {

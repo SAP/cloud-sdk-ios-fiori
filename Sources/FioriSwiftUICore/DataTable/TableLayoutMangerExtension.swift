@@ -493,6 +493,22 @@ extension TableLayoutManager {
                                          foregroundColor: item.tintColor,
                                          size: CGSize(width: 45, height: 0),
                                          isLast: isLast))
+            case .picker:
+                guard let item = (currentItem as? DataPickerItem) else {
+                    break
+                }
+                let textColor = item.textColor ?? TableViewLayout.defaultFontColor(isHeader)
+                if let displayingItem = item.displayingItem {
+                    item._displayingItem = displayingItem(item.selections)
+                }
+                res.append(DataTableItem(index: index,
+                                         value: .picker(item),
+                                         pos: CGPoint(x: CGFloat(i) * unitWidth,
+                                                      y: CGFloat(index) * unitHeight),
+                                         font: nil,
+                                         foregroundColor: textColor,
+                                         size: CGSize(width: 45, height: 0),
+                                         isLast: isLast))
             }
         }
         

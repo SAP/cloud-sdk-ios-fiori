@@ -49,6 +49,8 @@ enum TableViewLayout {
     static let trailingMarginInRegualr: CGFloat = 20
     static let trailingMarginInCompact: CGFloat = 16
     
+    static let pickerHeight: CGFloat = 200
+    
     static func defaultFont(_ isHeader: Bool) -> Font {
         isHeader ? .subheadline : .body
     }

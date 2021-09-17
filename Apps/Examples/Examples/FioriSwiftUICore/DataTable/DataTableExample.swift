@@ -5,11 +5,29 @@ import SwiftUI
 public enum TestRowData {
     static func generateRowData(count: Int, for row: Int) -> TableRowItem {
         var data: [DataItem] = []
+        let pickers: [(String, [String])] = [
+            (" One", Array(0 ... 10).map { "\($0)" }),
+            (" Two", Array(20 ... 40).map { "\($0)" }),
+            (" Three", Array(100 ... 200).map { "\($0)" })
+        ]
+        let riskPickers: [(String, [String])] = [
+            (" Risk", ["High", "Medium", "Low"])
+        ]
         for i in 0 ..< count {
             let textString = i % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
             let textItem = DataTextItem(textString)
             let imageItem = DataImageItem(Image("wheel"))
-            data.append(i == 0 ? imageItem : textItem)
+            let singleFormatter = { (_ selections: [Int]) -> DataTextItem in
+                DataTextItem("Custom formatter: \(selections) Risk")
+            }
+            let pickerItem = DataPickerItem(row % 2 == 0 ? pickers : riskPickers, row % 2 == 0 ? [0, 0, 0] : [0], row % 2 == 0 ? nil : singleFormatter)
+            if i == 0 {
+                data.append(imageItem)
+            } else if i == 1 {
+                data.append(pickerItem)
+            } else {
+                data.append(textItem)
+            }
         }
         let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
@@ -58,7 +76,6 @@ public enum TestRowData {
         }
         model.selectedIndexes = [2, 3]
         model.isPinchZoomEnable = false
-        
         return model
     }
 }

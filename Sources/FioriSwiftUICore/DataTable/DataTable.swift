@@ -49,6 +49,8 @@ public struct DataTable: View {
         }
     }
     
+    @State private var isShowingPicker = false
+
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
@@ -63,12 +65,28 @@ public struct DataTable: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        Group {
+            if #available(iOS 14.0, *) {
+                createView(in: rect)
+                    .ignoresSafeArea(.keyboard)
+            } else {
+                createView(in: rect)
+            }
+        }
+    }
+    
+    /// Modifer for setting the background color.
+    public func backgroundColor(_ color: Color) -> some View {
+        self.environment(\.backgroundColor, color)
+    }
+    
+    func createView(in rect: CGRect) -> some View {
         let layoutManager = TableLayoutManager(model: self.model)
         let dataManager = TableDataManager(selectedIndexes: self.model.selectedIndexes)
         layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         layoutManager.rect = rect
-        
-        return Group {
+
+        return ZStack {
             if self.horizontalSizeClass == .compact, self.verticalSizeClass == .regular, self.model.showListView {
                 let listView = TableListView(layoutManager: layoutManager)
                 listView
@@ -78,14 +96,29 @@ public struct DataTable: View {
                     .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: .infinity, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: .infinity, alignment: .center)
                     .clipped()
             }
+            showPicker(rect)
         }
         .environmentObject(layoutManager)
         .environmentObject(dataManager)
         .background(self.backgroundColor)
     }
     
-    /// Modifer for setting the background color.
-    public func backgroundColor(_ color: Color) -> some View {
-        self.environment(\.backgroundColor, color)
+    func showPicker(_ rect: CGRect) -> AnyView {
+        DispatchQueue.main.async {
+            self.isShowingPicker = self.model.isShowingPicker
+        }
+        if self.model.isShowingPicker {
+            guard let picker = self.model.currentPicker else {
+                return AnyView(EmptyView())
+            }
+            return
+                AnyView(
+                    MultiPicker(rect, data: picker.data, selections: self.model.currentPicker?.selections ?? [])
+                        .background(self.backgroundColor)
+                        .offset(y: self.isShowingPicker ? (rect.height - TableViewLayout.pickerHeight) / 2 - 22 : rect.height)
+                        .animation(.easeInOut)
+                )
+        }
+        return AnyView(EmptyView())
     }
 }

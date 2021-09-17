@@ -6,7 +6,7 @@ struct GridTableView: View {
     
     @ObservedObject var layoutManager: TableLayoutManager
     @Environment(\.backgroundColor) var backgroundColor
-
+    
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
     @State var lastCenterPosition: CGPoint? = nil
@@ -28,8 +28,16 @@ struct GridTableView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
+        self.createView(in: rect)
+    }
+    
+    func createView(in rect: CGRect) -> some View {
         let drag = DragGesture()
             .onChanged { value in
+                if self.layoutManager.model.inlineEditingCell != nil {
+                    self.layoutManager.model.inlineEditingCell = nil
+                }
+                
                 let scaleX = self.layoutManager.scaleX(rect: rect)
                 let scaleY = self.layoutManager.scaleY(rect: rect)
                 
@@ -60,6 +68,10 @@ struct GridTableView: View {
         // zoom in & out
         let mag = MagnificationGesture()
             .onChanged { value in
+                if self.layoutManager.model.inlineEditingCell != nil {
+                    self.layoutManager.model.inlineEditingCell = nil
+                }
+                
                 guard self.layoutManager.isPinchZoomEnable else {
                     return
                 }
@@ -74,7 +86,7 @@ struct GridTableView: View {
             }
         
         let items: [[DataTableItem]] = self.layoutManager.dataItemsForTable(rect: rect)
-
+        
         return
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
@@ -106,7 +118,7 @@ struct GridTableView: View {
                     
                     if let leadingItem = items[i].first {
                         let currentIndex = leadingItem.rowIndex
-
+                        
                         let rowItem = self.layoutManager.rowData[currentIndex]
                         let lAccessoriess: [AccessoryItem] = rowItem.leadingAccessories
                         let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.layoutManager.rowData[currentIndex].trailingAccessory
@@ -115,7 +127,7 @@ struct GridTableView: View {
                         let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
                         
                         horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
-
+                        
                         let offsetY = leadingItem.pos.y == 0 ? leadingItem.rowHeight / 2 : 0
                         DummyBackground(index: i, width: leadingItem.pos.x, height: leadingItem.rowHeight)
                             .position(x: rect.minX, y: leadingItem.pos.y)
@@ -125,7 +137,7 @@ struct GridTableView: View {
                             .position(x: rect.minX, y: y)
                             .padding(.leading, leadingMargin)
                             .zIndex(Double(650 - currentIndex))
-
+                        
                         let trailingIndex: Double = i == 0 ? 700 : Double(650 - currentIndex)
                         TrailingAccessoryView(item: tAccessory, height: leadingItem.rowHeight)
                             .position(x: rect.maxX, y: leadingItem.pos.y)
@@ -134,6 +146,7 @@ struct GridTableView: View {
                     }
                 }
             }
+            .offset(y: self.layoutManager.model.offsetForTable)
             .background(self.backgroundColor)
             .gesture(drag)
             .gesture(mag)
