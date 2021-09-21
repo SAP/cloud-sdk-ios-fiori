@@ -11,6 +11,35 @@ A control has up to three types of initializers (with multiple conditional imple
 
 @ViewBuilder based initializers allow app developers to use any control(s), e.g. title can be an image
 
+API:
+
+```swift
+public struct ContactItem<Title: View, Subtitle: View, DescriptionText: View, DetailImage: View, ActionItems: View> {
+
+    let _title: Title
+	let _subtitle: Subtitle
+	let _descriptionText: DescriptionText
+	let _detailImage: DetailImage
+	let _actionItems: ActionItems
+
+    public init(
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder actionItems: () -> ActionItems
+        ) {
+            self._title = title()
+			self._subtitle = subtitle()
+			self._descriptionText = descriptionText()
+			self._detailImage = detailImage()
+			self._actionItems = actionItems()
+    }
+}
+```
+
+Usage:
+
 ```swift
 ContactItem {
     Image(systemName: "square.and.pencil") // not a text
@@ -40,55 +69,36 @@ actionItems: {
 
 Any @ViewBuilder init argument should be backed by a default SDK control when the app developers users either type-based or protocol-based initializer.
 
-Here is an example of using a composite control (`ActivityItems`) within a control (`ContactItem`)
+API:
 
 ```swift
 extension ContactItem where Title == Text,
-Subtitle == _ConditionalContent<Text, EmptyView>,
-Footnote == _ConditionalContent<Text, EmptyView>,
-DescriptionText == _ConditionalContent<Text, EmptyView>,
-DetailImage == _ConditionalContent<Image, EmptyView>,
-ActionItems == _ConditionalContent<ActivityItems, EmptyView>
-{
+		Subtitle == _ConditionalContent<Text, EmptyView>,
+		DescriptionText == _ConditionalContent<Text, EmptyView>,
+		DetailImage == _ConditionalContent<Image, EmptyView>,
+		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
+
     public init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItemsControl: ActivityItems(model: model))
+        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? ActivityItems(model: model.actionItems!) : nil)
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItem]? = nil, actionItemHandler: ((ActivityItem) -> Void)? = nil) {
-        guard let actionItems = actionItems else {
-            self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: nil)
-            return
-        }
-        self.init(title: title, subtitle: subtitle, footnote: footnote, descriptionText: descriptionText, detailImage: detailImage, actionItemsControl: ActivityItems(items: actionItems, action: handler))
-    }
-
-    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItemsControl: ActivityItems?) {
+    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: ActivityItems? = nil) {
         self._title = Text(title)
-        self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-        self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-        self._actionItems = actionItemsControl != nil ? ViewBuilder.buildEither(first: actionItemsControl!) : ViewBuilder.buildEither(second: EmptyView())
+		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
+		self._actionItems = actionItems != nil ? ViewBuilder.buildEither(first: actionItems!) : ViewBuilder.buildEither(second: EmptyView())
     }
 }
+
 ```
 
-The concrete type for a component (e.g actionItems) is debatable and could be handled via function/result builder
+Here is an example of using a composite control (`ActivityItems`) within a control (`ContactItem`)
 
 ```swift
-// instead of an array containing struct/class the proposal is to have a function builder (essentially for an array) of enums
-ContactItem(title: "aString", action: { (selectedActionItem) in {
+ContactItem(title: "aString", actionItems: ActionItems(actionItems: [.init(type: .email, data: "address@gmail.com")], didSelectActivityItem: { selectedActionItem in
     print(selectedActionItem)
-}) {
-    .phone(6504224410)
-    .email("marco.eidinger@sap.com")
-}
-
-// otherwise equivalent to
-
-ContactItem(title: "aString", actionItems: [.init(type: .email, data: "address@gmail.com")], action: { selectedActionItem in
-    print(selectedActionItem)
-})
+}))
 ```
 
 Note: An app developer can conform the data model to the ViewModel protocol but it is more likely that the app developer prefers to back this with a custom view model or even prefers the @ViewBuilder based initializer overall (to interact with local view state easily). 
@@ -97,23 +107,9 @@ Note: An app developer can conform the data model to the ViewModel protocol but 
 
  A container / control shall support optionality, e.g. activityItems @ViewBuilder property does not need to be supplied by an app developer). This can be archived by conditional initializers on the extension of container/control. Sourcery-based code generation already supports this, see ContactItem+Init.generated.swift as example of such output
 
-```swift
-ContactItem {
-    Image(systemName: "square.and.pencil")
-}
-subtitle: {
-    Text("SubTitle")
-}
-footnote: {
-    Text("Footnote")
-}
-descriptionText: {
-    Text("Description")
-}
-detailImage: {
-    Text("Not a detailed image :)")
-}
+API: 
 
+```swift
 extension ContactItem where ActionItems == EmptyView {
     public init(
         @ViewBuilder title: @escaping () -> Title,
@@ -136,7 +132,27 @@ extension ContactItem where ActionItems == EmptyView {
 }
 ```
 
-## Collection containers
+Usage:
+
+```swift
+ContactItem {
+    Image(systemName: "square.and.pencil")
+}
+subtitle: {
+    Text("SubTitle")
+}
+footnote: {
+    Text("Footnote")
+}
+descriptionText: {
+    Text("Description")
+}
+detailImage: {
+    Text("Not a detailed image :)")
+}
+```
+
+## Collection containers (Experimental)
 
 A layout collection container shall provide option to style / handle individual elements and could be used directly by an app developer
 

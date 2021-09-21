@@ -5,16 +5,19 @@ Not relevant for app developers ("Consumers"). The following information are rel
 To ensure API consistency and to leverage common implementation logic, we use a component generation pattern when possible.  These scripts are located in the `sourcery/` directory, and should be executed as follows:
 
 ```bash
-# use option `--disableCache` in case changes were done to utility swift package `./sourcery/.lib`
-
-sourcery --config sourcery/.phase_pre_sourcery.yml # creates Component protocols
-sourcery --config sourcery/.phase_main_sourcery.yml # creates ViewModels for single property components
-sourcery --config sourcery/.phase_post_sourcery.yml # creates ViewModels which rely on other ViewModels
+# Generate comonent protocol declarations
+sourcery --config .phase_one_sourcery.yml --disableCache
+# Generate component APIs, component view body boilerplate, init extensions, model extensions.
+sourcery --config .phase_two_sourcery.yml --disableCache
+# Generate environment keys/values and view modidiers in view extension.
+sourcery --config .phase_three_sourcery.yml --disableCache
+# Generate component protocol extensions.
+sourcery --config .phase_four_sourcery.yml --disableCache
 ```
 
 The output of the generation is at `Sources/FioriSwiftUICore/_generated`, and should be checked into source control.
 
-The `pre` phase generation should produce the "Component" protocol (e.g. `TitleComponent` declarations and associated `EnvironmentKey` and `EnvironmentValue` accessors, while the `main` phase should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body.  This is to prevent the generation process from overwriting the body implementation.
+The `phase_one` should produce the "Component" protocol (e.g. `TitleComponent` declarations. `phase_two` should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body.  This is to prevent the generation process from overwriting the body implementation.
 
 By this technique, the developer can introduce and update the properties of a Fiori component, simply by declaring the set of protocols of which its ViewModel is comprised.
 

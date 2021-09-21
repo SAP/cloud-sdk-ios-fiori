@@ -1,4 +1,4 @@
-# Generate environment keys/values and view extension apis for view modidiers.
+# Generate environment keys/values and view modidiers in view extension.
 sources:
   - ./../Sources/FioriSwiftUICore/Models/
   - ./../Sources/FioriSwiftUICore/_generated/Components/
