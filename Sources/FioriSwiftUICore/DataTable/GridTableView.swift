@@ -91,7 +91,7 @@ struct GridTableView: View {
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
                     
-                    let isHeader: Bool = i == 0 && self.layoutManager.model.headerData != nil
+                    let isHeader: Bool = i == 0 && self.layoutManager.model.hasHeader
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]

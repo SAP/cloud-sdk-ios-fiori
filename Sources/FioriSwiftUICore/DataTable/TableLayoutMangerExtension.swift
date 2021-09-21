@@ -4,7 +4,7 @@ import UIKit
 
 extension TableLayoutManager {
     func initRowData(model: TableModel) {
-        if let header = model.headerData {
+        if model.hasHeader, let header = model.headerData {
             self.rowData.append(header)
         }
         self.rowData.append(contentsOf: model.rowData)
