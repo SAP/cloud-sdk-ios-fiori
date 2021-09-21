@@ -6,20 +6,27 @@ on:
   pull_request:
     branches: [ main ]
   pull_request_target:
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-11
+    strategy:
+      fail-fast: false
+      matrix:
+        xcode: ['Xcode_13.0', 'Xcode_12.5.1', 'Xcode_12.4']
     env:
-      DEVELOPER_DIR: /Applications/Xcode_12.2.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build and Test on iOS 14 with Xcode 12
+    - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' clean build test | xcpretty
     - name: Create code coverage report
+      if: matrix.xcode == 'Xcode_13.0'
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
+      if: matrix.xcode == 'Xcode_13.0'
       uses: actions/upload-artifact@v1
       with:
         name: coverage
