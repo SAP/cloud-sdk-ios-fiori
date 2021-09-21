@@ -81,11 +81,7 @@ jobs:
     - name: Publish tag # only possible on main branch
       if: github.event.inputs.dryRun == 'false'
       run: |
-        if ( ${{ contains(github.ref, 'main') }} ); then
-          git push --follow-tags origin main
-        else
-          exit 1
-        fi
+        git push --follow-tags origin
 
     - name: Publish GitHub release
       uses: actions/create-release@v1.1.4
@@ -95,7 +91,5 @@ jobs:
       with:
         tag_name: ${{ env.NEXT_VERSION }}
         release_name: ${{ env.NEXT_VERSION }}
-        commitish: main
-        prerelease: true
         body: |
           ${{ steps.get_changelog.outputs.changelog }}
