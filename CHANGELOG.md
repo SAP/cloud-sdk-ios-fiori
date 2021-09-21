@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.0...1.0.1) (2021-09-21)
+
+
+### Bug Fixes
+
+* 🐛 Xcode 13 compilation error in SideBar ([3094ded](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3094ded0fc29e10f062eecffef753f694b741590))
+* 🐛 Xcode 13 compilation error in TimelineItemView ([90060e0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/90060e0313b676bfb5d3df115bffc91f621de735))
+
 ## [1.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/0.9.0...1.0.0) (2021-06-18)
 
 🎸 Introducing `FioriThemeManager`: This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) conforming to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
