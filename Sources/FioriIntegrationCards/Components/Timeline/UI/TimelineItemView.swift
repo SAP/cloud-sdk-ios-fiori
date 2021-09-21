@@ -50,7 +50,7 @@ struct TimelineItemView: View {
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             .padding(8)
             .overlay(Bubble(borderColor: Color.lightGray))
-            .alignmentGuide(.center) { (dimension) -> CGFloat in
+            .alignmentGuide(VerticalAlignment.center) { (dimension) -> CGFloat in
                 DispatchQueue.main.async {
                     self.lineHeight = dimension.height
                 }
