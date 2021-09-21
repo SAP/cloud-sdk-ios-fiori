@@ -18,6 +18,8 @@ struct ItemView: View {
     @State private var inlineEditing: Bool = false
     @State private var selection: [Int] = [0, 0, 0]
     @State private var isShowingPicker = false
+    let keyboardDidShowObserver = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+    let keyboardDisappearedObserver = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
     
     let isHeader: Bool
     let index: (Int, Int)
@@ -48,7 +50,7 @@ struct ItemView: View {
             LongPressGesture(minimumDuration: 2)
                 .updating($isDetectingLongPress) { currentState, gestureState,
                     transaction in
-                    guard self.layoutManager.model.inlineEditingEable else {
+                    guard self.layoutManager.model.inlineEditingEnable else {
                         return
                     }
                     gestureState = currentState
@@ -62,10 +64,6 @@ struct ItemView: View {
                         self.layoutManager.model.currentPicker = currentPicker
                         withAnimation {
                             self.layoutManager.model.isShowingPicker.toggle()
-                        }
-                    } else {
-                        if finished {
-                            setKeyboardNotifications()
                         }
                     }
                 }
@@ -123,8 +121,10 @@ struct ItemView: View {
             .offset(x: (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin / 2 : 0, y: 0)
             .overlay(
                 RoundedRectangle(cornerRadius: 0)
+                    // -TODO: correct fiori color
                     .stroke(Color.blue.opacity(self.isDetectingLongPress ? 1 : (self.inlineEditing ? 1 : 0)), lineWidth: 2)
                     .frame(width: self.dataItem.size.width + contentInset * 2)
+                    .clipped()
             )
             .gesture(tapGesture)
             .gesture(longPress)
@@ -177,48 +177,50 @@ struct ItemView: View {
                         }
                         layoutManager.model.inlineEditingCell = (-1, -1)
                     }
-                    .onAppear {
-                        setKeyboardNotifications()
-                    }
+                    .onReceive(keyboardDidShowObserver, perform: { notification in
+                        keyboardDidShow(notification: notification)
+                    })
                 } else {
                     Text(text ?? "")
+                        .onReceive(keyboardDisappearedObserver) { notification in
+                            keyboardDidDisappear(notifaction: notification)
+                        }
                 }
             }
     }
     
-    func setKeyboardNotifications() {
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-            guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-                return
-            }
-            let itemY = self.dataItem.pos.y
-            let itemHeight = dataItem.rowHeight * self.layoutManager.scaleY
-            
-            let keyboardHeight = keyboardFrame.height
-            let rectBottom = self.layoutManager.rect.maxY
-            
-            let ItemDisToBottom = rectBottom - (itemY + itemHeight / 4)
-            
-            let gap = ItemDisToBottom - keyboardHeight
-            
-            guard gap < 0 else {
-                self.layoutManager.model.shouldMoveupTable = false
-                self.layoutManager.model.offsetForTable = 0
-                return
-            }
-            self.layoutManager.model.shouldMoveupTable = true
-            withAnimation(.easeInOut) {
-                self.layoutManager.model.offsetForTable = gap
-            }
+    func keyboardDidShow(notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
         }
-        NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) { _ in
-            if !self.layoutManager.model.shouldMoveupTable {
-                return
-            }
+        let itemY = self.dataItem.pos.y
+        let itemHeight = self.dataItem.rowHeight * self.layoutManager.scaleY
+        
+        let keyboardHeight = keyboardFrame.height
+        let rectBottom = self.layoutManager.rect.maxY
+        
+        let ItemDisToBottom = rectBottom - (itemY + itemHeight / 4)
+        
+        let gap = ItemDisToBottom - keyboardHeight
+        
+        guard gap < 0 else {
             self.layoutManager.model.shouldMoveupTable = false
-            withAnimation(.easeInOut) {
-                self.layoutManager.model.offsetForTable = 0
-            }
+            self.layoutManager.model.offsetForTable = 0
+            return
+        }
+        self.layoutManager.model.shouldMoveupTable = true
+        withAnimation(.easeInOut) {
+            self.layoutManager.model.offsetForTable = gap
+        }
+    }
+    
+    func keyboardDidDisappear(notifaction: Notification) {
+        if !self.layoutManager.model.shouldMoveupTable {
+            return
+        }
+        self.layoutManager.model.shouldMoveupTable = false
+        withAnimation(.easeInOut) {
+            self.layoutManager.model.offsetForTable = 0
         }
     }
     
@@ -230,9 +232,8 @@ struct ItemView: View {
         let rectBottom = self.layoutManager.rect.maxY
         
         let ItemDisToBottom = rectBottom - (itemY + itemHeight * 1.5)
-
+        
         let gap = ItemDisToBottom - pickerHeight
-        print(gap)
         guard gap < 0 else {
             self.layoutManager.model.shouldMoveupTable = false
             self.layoutManager.model.offsetForTable = 0

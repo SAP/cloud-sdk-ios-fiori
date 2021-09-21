@@ -57,7 +57,8 @@ public class TableModel: ObservableObject {
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
-    @Published public var inlineEditingEable: Bool = true
+    /// Set in-line editing.
+    @Published public var inlineEditingEnable: Bool = true
     
     internal var centerPosition: CGPoint?
     

@@ -114,7 +114,7 @@ public struct DataTable: View {
             return
                 AnyView(
                     MultiPicker(rect, data: picker.data, selections: self.model.currentPicker?.selections ?? [])
-                        .background(self.backgroundColor)
+                        .background(Color.preferredColor(.primary6))
                         .offset(y: self.isShowingPicker ? (rect.height - TableViewLayout.pickerHeight) / 2 - 22 : rect.height)
                         .animation(.easeInOut)
                 )

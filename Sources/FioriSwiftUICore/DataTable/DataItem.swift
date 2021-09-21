@@ -6,7 +6,7 @@ public enum DataItemType {
     case text
     /// Indicating this row item represents a image.
     case image
-    
+    /// Indicating this row item represents a picker item.
     case picker
 }
 

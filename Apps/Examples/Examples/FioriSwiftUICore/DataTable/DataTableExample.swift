@@ -5,22 +5,39 @@ import SwiftUI
 public enum TestRowData {
     static func generateRowData(count: Int, for row: Int) -> TableRowItem {
         var data: [DataItem] = []
-        let pickers: [(String, [String])] = [
-            (" One", Array(0 ... 10).map { "\($0)" }),
-            (" Two", Array(20 ... 40).map { "\($0)" }),
-            (" Three", Array(100 ... 200).map { "\($0)" })
+        let durationPicker: [(String, [String])] = [
+            ("Hours", Array(0 ... 23).map { "\($0)" }),
+            ("Minutes", Array(0 ... 59).map { "\($0)" }),
+            ("Seconds", Array(0 ... 59).map { "\($0)" })
         ]
         let riskPickers: [(String, [String])] = [
-            (" Risk", ["High", "Medium", "Low"])
+            ("Risk", ["High", "Medium", "Low"])
         ]
+        let singleFormatter = { (_ selections: [Int]) -> DataTextItem in
+            let item = DataTextItem("\(riskPickers[0].1[selections.first!]) risk of overflow")
+            item.textColor = .orange
+            return item
+        }
+        let datePicker: [(String, [String])] = { () -> [(String, [String])] in
+            let numsOfDates = 8
+            let calendar = Calendar.current
+            let fmt = DateFormatter()
+            fmt.dateFormat = "yyyy-MM-dd"
+            var startDate = Date()
+            var strs: [String] = []
+            for _ in 0 ..< numsOfDates {
+                strs.append(fmt.string(from: startDate))
+                startDate = calendar.date(byAdding: .day, value: 1, to: startDate)!
+            }
+            return [("", strs)]
+        }()
         for i in 0 ..< count {
             let textString = i % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
             let textItem = DataTextItem(textString)
             let imageItem = DataImageItem(Image("wheel"))
-            let singleFormatter = { (_ selections: [Int]) -> DataTextItem in
-                DataTextItem("Custom formatter: \(selections) Risk")
-            }
-            let pickerItem = DataPickerItem(row % 2 == 0 ? pickers : riskPickers, row % 2 == 0 ? [0, 0, 0] : [0], row % 2 == 0 ? nil : singleFormatter)
+            let currentPicker: [(String, [String])] = row % 2 == 0 ? (row % 3 == 0 ? riskPickers : datePicker) : durationPicker
+            let currentSelection: [Int] = row % 2 == 0 ? [0] : [2, 3, 4]
+            let pickerItem = DataPickerItem(pickers: currentPicker, selections: currentSelection, displayingItem: (row % 2 == 0 && row % 3 == 0) ? singleFormatter : nil)
             if i == 0 {
                 data.append(imageItem)
             } else if i == 1 {
@@ -94,31 +111,28 @@ public struct DataTableExample: View {
     func makeBody() -> some View {
         var view = DataTable(model: self.model)
         return
-            NavigationView {
-                view
-                    .navigationBarTitle("Data Table", displayMode: .inline)
-                    .navigationBarItems(leading:
-                        Button(action: {
-                            showingSheet.toggle()
-                        }) {
-                            Image(systemName: "plus")
-                        }.sheet(isPresented: $showingSheet) {
-                            SheetView(model: self.model)
-                        },
-                        trailing:
-                        Button(self.isEditing ? "Delete" : "Edit") {
-                            DispatchQueue.main.async {
-                                self.isEditing = !self.isEditing
-                                view.isEditing = self.isEditing
-                                if !self.isEditing {
-                                    let indexSet = IndexSet(self.model.selectedIndexes)
-                                    self.model.rowData.remove(atOffsets: indexSet)
-                                    self.model.selectedIndexes = []
-                                }
+            view
+                .navigationBarTitle("Data Table", displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {
+                        showingSheet.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }.sheet(isPresented: $showingSheet) {
+                        SheetView(model: self.model)
+                    },
+                    trailing:
+                    Button(self.isEditing ? "Delete" : "Edit") {
+                        DispatchQueue.main.async {
+                            self.isEditing = !self.isEditing
+                            view.isEditing = self.isEditing
+                            if !self.isEditing {
+                                let indexSet = IndexSet(self.model.selectedIndexes)
+                                self.model.rowData.remove(atOffsets: indexSet)
+                                self.model.selectedIndexes = []
                             }
-                        })
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
+                        }
+                    })
     }
 }
 

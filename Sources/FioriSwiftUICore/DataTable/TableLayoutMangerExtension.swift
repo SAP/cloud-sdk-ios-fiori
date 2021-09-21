@@ -456,6 +456,7 @@ extension TableLayoutManager {
             
             let currentItem = dataInEachRow[i]
             let isLast = i == dataInEachRow.endIndex - 1
+            var textColor = TableViewLayout.defaultFontColor(isHeader)
             switch currentItem.type {
             case .text:
                 guard let item = currentItem as? DataTextItem else {
@@ -468,7 +469,9 @@ extension TableLayoutManager {
                 } else {
                     uifont = TableViewLayout.defaultUIFont(isHeader)
                 }
-                let textColor = item.textColor ?? TableViewLayout.defaultFontColor(isHeader)
+                if let txColor = item.textColor {
+                    textColor = txColor
+                }
                 let height = item.lineLimit == nil ? CGFloat(MAXFLOAT) : CGFloat(item.lineLimit ?? 0) * uifont.lineHeight
                 let size = title.boundingBoxSize(with: uifont.pointSize * self.scaleX, width: contentWidth, height: height)
                 let font = item.font ?? TableViewLayout.defaultFont(isHeader)
@@ -497,9 +500,11 @@ extension TableLayoutManager {
                 guard let item = (currentItem as? DataPickerItem) else {
                     break
                 }
-                let textColor = item.textColor ?? TableViewLayout.defaultFontColor(isHeader)
                 if let displayingItem = item.displayingItem {
                     item._displayingItem = displayingItem(item.selections)
+                    if let txColor = (item._displayingItem as? DataTextItem)?.textColor {
+                        textColor = txColor
+                    }
                 }
                 res.append(DataTableItem(index: index,
                                          value: .picker(item),
