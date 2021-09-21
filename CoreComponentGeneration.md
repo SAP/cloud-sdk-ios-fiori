@@ -17,7 +17,10 @@ sourcery --config .phase_four_sourcery.yml --disableCache
 
 The output of the generation is at `Sources/FioriSwiftUICore/_generated`, and should be checked into source control.
 
-The `phase_one` should produce the "Component" protocol (e.g. `TitleComponent` declarations. `phase_two` should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body.  This is to prevent the generation process from overwriting the body implementation.
+- The `phase_one` step should produce the "Component" protocol (e.g. `TitleComponent`) declarations. 
+- `phase_two` should read the set of defined "Models" in order to produce the actual "ViewModel" API.  When adding a new view model, developers should copy the generated "Boilerplate" to `Sources/FioriSwiftUICore/Views`, to implement the actual SwiftUI `View` body and also provide default style attributes in respective view modifier implementation. This is to prevent the generation process from overwriting the body and style implementation. It also generates conditional initializers and default implementaion for optional properties declared in view model so that developers don't have to provide a value if that property is not needed. 
+- `phase_three` generates the `EnvironmentKey`, `EnvironmentValue` and a corresponding view modifier function for each view-representable property declared in view models and component protocols. 
+- `phase_four` generates the default implementation for optional properties declared in component protocols.
 
 By this technique, the developer can introduce and update the properties of a Fiori component, simply by declaring the set of protocols of which its ViewModel is comprised.
 
@@ -246,9 +249,9 @@ Note: Component maintainers shall place cumulative styling, e.g. `.padding()` or
 
 Use sourcery tag `// sourcery: no_style` on property of a type conforming to `_ComponentGenerating` (or `_ComponentMultiPropGenerating`).
 
-## Advanced: Standard component protocols with functions
+## Advanced: Standard component protocols with more than one properties
 
-Define an internal protocol conforming to `_ComponentMultiPropGenerating` in order to generate a component protocol with functions (e.g. as event handlers) in `pre` phase.
+Define an internal protocol conforming to `_ComponentMultiPropGenerating` in order to generate a component protocol with more than one properties.
 
 ## Advanced: Non @ViewBuilder injectable ViewModels
 
@@ -261,8 +264,6 @@ Example:
 // sourcery: generated_component_not_configurable
 public protocol ActivityItemsModel: ActionItemsComponent {}
 ```
-
-Runs in `main` phase.
 
 ## Advanced: Add availability attribute to a component.
 
@@ -278,70 +279,87 @@ public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, F
 
 Use sourcery tag `// sourcery: generated_component_composite` to generate ViewModel types which are compositions of other ViewModels.
 
-Runs in `post` phase.
-
 Example is `ContactItemModel` which is composed of primitive components (TitleComponent, ...) but also other ViewModels (here: `ActivityItemsModel`)
 
+To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually) you have to declare the following sourcery tag `// sourcery: backingComponent = <NameOfBackingView>`, unless the property itself is another ViewModel which has the anotation: `// sourcery: generated_component_not_configurable`.
+
+- No need to specify `backingComponent` for a property if it is a ViewModel used for generating a not configurable view.
+
+Because `ActivityItemsModel` is declared with `generated_component_not_configurable` annotation, a view component `ActivityItems` will be generated. We can assume that `ActivityItems` should implicitly be the backing component of `ActivityItemsModel` if not stated otherwise. You can override this implicit backing relationship by providing a `backingComponent` annotation explicitly.
+
 ```swift
-// sourcery: add_env_props = "horizontalSizeClass"
+// sourcery: generated_component_not_configurable
+public protocol ActivityItemsModel: ActionItemsComponent {}
+
 // sourcery: generated_component_composite
-public protocol ContactItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
-```
-
-To generate a ViewModel (e.g `ContactItem`) on which a property shall be backed by a SDK control implementation (generated or written manually, here: `ActivityItems` as generated implementation conforming to `ActionItemsComponent`) you have to declare the following sourcery tag.
-
-- `backingComponent = <NameOfBackingView>`
-
-```swift
-// sourcery: backingComponent=ActivityItems
-internal protocol _ActionItems: _ComponentMultiPropGenerating {
-  // sourcery: no_style
-  var actionItems_: [ActivityItemDT]?
-  func didSelectActivityItem(_ activityItem: ActivityItemDT) {}
+public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent {
+    var actionItems: ActivityItemsModel? { get }
 }
 ```
-
-Those annotations will be copied to the standard component interface (`Component+Protocols.generated.swift`) in the `pre` phase of the source code generation process.
-
-```swift
-// sourcery: backingComponent=ActivityItems
-public protocol ActionItemsComponent {
-	// sourcery: no_style
-    var actionItems_: [ActivityItemDataType]? { get }
-	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
-}
-```
-
 
 Those changes have the effect that `ContactItem` will use a default implementation for actionItems in case the app developer used the model or content-based initializers.
 
 ```swift
 extension ContactItem where Title == Text,
-	Subtitle == _ConditionalContent<Text, EmptyView>,
-	Footnote == _ConditionalContent<Text, EmptyView>,
-	DescriptionText == _ConditionalContent<Text, EmptyView>,
-	DetailImage == _ConditionalContent<Image, EmptyView>,
-	ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
+		Subtitle == _ConditionalContent<Text, EmptyView>,
+		DescriptionText == _ConditionalContent<Text, EmptyView>,
+		DetailImage == _ConditionalContent<Image, EmptyView>,
+		ActionItems == _ConditionalContent<ActivityItems, EmptyView> {
 
     public init(model: ContactItemModel) {
-        self.init(title: model.title_, subtitle: model.subtitle_, footnote: model.footnote_, descriptionText: model.descriptionText_, detailImage: model.detailImage_, actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
+        self.init(title: model.title, subtitle: model.subtitle, descriptionText: model.descriptionText, detailImage: model.detailImage, actionItems: model.actionItems != nil ? ActivityItems(model: model.actionItems!) : nil)
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {
+    public init(title: String, subtitle: String? = nil, descriptionText: String? = nil, detailImage: Image? = nil, actionItems: ActivityItems? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
-		// handle ActivityItemsModel
-        if (actionItems != nil || didSelectActivityItem != nil) {
-            self._actionItems =  ViewBuilder.buildEither(first: ActivityItems(actionItems: actionItems,didSelectActivityItem: didSelectActivityItem))
-        } else {
-            self._actionItems = ViewBuilder.buildEither(second: EmptyView())
-        }
+		self._actionItems = actionItems != nil ? ViewBuilder.buildEither(first: actionItems!) : ViewBuilder.buildEither(second: EmptyView())
+
+		isModelInit = true
+		isSubtitleNil = subtitle == nil ? true : false
+		isDescriptionTextNil = descriptionText == nil ? true : false
+		isDetailImageNil = detailImage == nil ? true : false
+		isActionItemsNil = actionItems == nil ? true : false
     }
 }
 ```
+
+- `backingComponent` annotation is needed if the view is written manually.
+
+```swift
+// sourcery: generated_component_composite
+public protocol UserConsentViewModel {
+    // sourcery: backingComponent=_UserConsentFormsContainer
+    var userConsentForms: [UserConsentFormModel] { get }
+ 
+    ...
+}
+```
+
+*Sources/FioriSwiftUICore/Views/UserConsentView/_UserConsentFormsContainer.swift*
+
+```swift
+public struct _UserConsentFormsContainer {
+    var _userConsentForms: [UserConsentFormModel]
+
+    public init(userConsentForms: [UserConsentFormModel] = []) {
+        self._userConsentForms = userConsentForms
+    }
+}
+
+extension _UserConsentFormsContainer: IndexedViewContainer {
+    public var count: Int {
+        self._userConsentForms.count
+    }
+    
+    public func view(at index: Int) -> some View {
+        UserConsentForm(model: self._userConsentForms[index])
+    }
+}
+```
+
 ## Advanced: arbitrary @ViewBuilder properties
 
 If your component's `View` body implementation shall use an arbitrary view (which is not backed by any SDK component) then you can use the sourcery tag : `// sourcery: add_view_builder_params = "<ViewBuilderParameterName>"`. 
@@ -488,36 +506,11 @@ You can provide default value for a optional binding property this way `bindingP
 *Sources/FioriSwiftUICore/Components/MultiPropertyComponents.swift*
 
 ```swift
-// sourcery: backingComponent=TextInput
-internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
+internal protocol _TextInput: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingPropertyOptional = .constant("")
-    var textFilled_: String { get set }
-    
-    func onCommit()
-}
-```
-
-*Sources/FioriSwiftUICore/_generated/ViewModels/API/WelcomeScreen+API.generated.swift*
-
-```swift
-extension WelcomeScreen where ...
-        TextFilled == _ConditionalContent<TextInput, EmptyView> 
-        ... {
-
-    public init<Model>(model: Model) where Model: WelcomeScreenModel {
-        self.init(..., textFilled: Binding<String>(get: { model.textFilled_ }, set: { model.textFilled_ = $0 }), ...)
-    }
-
-    public init(..., textFilled: Binding<String>? = nil, ...) {
-        
-        // handle TextInputModel
-        if (textFilled != nil) {
-            self._textFilled = ViewBuilder.buildEither(first: TextInput(textFilled: textFilled,onCommit: onCommit))
-        } else {
-            self._textFilled = ViewBuilder.buildEither(second: EmptyView())
-        }
-        
-    }
+    var textInputValue_: String { get set }
+    // sourcery: no_view
+    var onCommit_: (() -> Void)? { get }
 }
 ```
 
@@ -525,56 +518,124 @@ extension WelcomeScreen where ...
 
 ```swift
 public struct TextInput {
+    @Environment(\.textInputValueModifier) private var textInputValueModifier
 
-    var _textFilled: Binding<String>
-    var _onCommit: (() -> Void)? = nil
-    
-    public init<Model>(model: Model) where Model: TextInputModel {
-        self.init(textFilled: Binding<String>(get: { model.textFilled_ }, set: { model.textFilled_ = $0 }), onCommit: model.onCommit)
+    var _textInputValue: Binding<String>
+	var _onCommit: (() -> Void)? = nil
+	
+    public init(model: TextInputModel) {
+        self.init(textInputValue: Binding<String>(get: { model.textInputValue }, set: { model.textInputValue = $0 }), onCommit: model.onCommit)
     }
 
-    public init(textFilled: Binding<String>? = nil, onCommit: (() -> Void)? = nil) {
-        self._textFilled = textFilled ?? .constant("") // This default constant is from bindingPropertyOptional = .constant("")
-        self._onCommit = onCommit
+    public init(textInputValue: Binding<String>? = nil, onCommit: (() -> Void)? = nil) {
+        self._textInputValue = textInputValue ?? .constant("")
+		self._onCommit = onCommit
     }
 }
 ```
 
-## Advanced: exclude certain properties in a multi-property component from nil check during initialization.
+## Advanced: Provide default value for properties
 
-Use sourcery annotation `no_nil_check` to mark the properties (or methods) that are not required for the component view to show.
-
-**Example**
-
-*Sources/FioriSwiftUICore/Components/MultiPropertyComponents.swift*
+Use sourcery annotation `default.value = <defaultValue>` to provide a default value for a component property. If the default value is a string literal, add `default.isStringLiteral` annotation following the default value. E.g. `// sourcery: default.value = "Hello World", default.isStringLiteral`
 
 ```swift
-// sourcery: backingComponent=TextInput
-internal protocol _TextInput: _ComponentMultiPropGenerating, ObservableObject {
-    // sourcery: bindingPropertyOptional = .constant("")
-    var textFilled_: String { get set }
+// sourcery: generated_component_composite
+public protocol UserConsentFormModel {
+    // sourcery: no_view
+    // sourcery: default.value = true
+    var isRequired: Bool { get }
     
-    func onCommit()
+    // sourcery: genericParameter.name = NextActionView
+    // sourcery: default.value = _NextActionDefault()
+    var nextAction: ActionModel? { get }
 }
 ```
 
-*Sources/FioriSwiftUICore/_generated/ViewModels/API/WelcomeScreen+API.generated.swift*
+*Sources/FioriSwiftUICore/Models/DefaultViewModels.swift*
 
 ```swift
-extension WelcomeScreen where ... {
+public struct _NextActionDefault: ActionModel {
+    public var actionText: String? {
+        NSLocalizedString("Next", comment: "")
+    }
+    
+    public init() {}
+}
+```
 
-    public init(..., textFilled: Binding<String>? = nil, onCommit: (() -> Void)? = nil {
-        
-        // handle TextInputModel
-        if (textFilled != nil) { // onCommit is not checked here
-            self._textFilled = ViewBuilder.buildEither(first: TextInput(textFilled: textFilled,onCommit: onCommit))
-        } else {
-            self._textFilled = ViewBuilder.buildEither(second: EmptyView())
-        }
-        
+## Advanced: Customize the name and type constraint for the type parameters of a generic view.
+
+Use annotation `genericParameter.name` and `genericParameter.type` to customize the name and type constraint respectively for the type paramter related to a property.
+
+It could happen sometimes that the default name of the type parameter may conflict with the backing component name, which causes a compilation error. To workround this we can use `genericParameter.name` to rename the default type parameter name.
+
+```swift
+// sourcery: generated_component_composite
+public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+}
+```
+
+This is how the generated API looks like:
+
+```swift
+// The default type parameter name is "Action".
+public struct UserConsentPage<..., ActionView: View> {
+    let _action: ActionView
+
+    public init(
+        ...
+		@ViewBuilder action: () -> ActionView
+        ) {
+			self._action = action()
     }
 }
+```
+
+Replace the type constraint `View` with a custom type using `genericParameter.type` annotation.
+
+```swift
+// sourcery: generated_component_composite
+public protocol UserConsentViewModel {
+    // sourcery: no_style
+    // sourcery: backingComponent=_UserConsentFormsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var userConsentForms: [UserConsentFormModel] { get }
+}
+```
+
+Generated API:
+
+```swift
+public struct UserConsentView<UserConsentForms: IndexedViewContainer> {
+
+    let _userConsentForms: UserConsentForms
+
+    public init(
+        @IndexedViewBuilder userConsentForms: () -> UserConsentForms,
+		...
+        ) {
+            self._userConsentForms = userConsentForms()
+    }
+}
+```
+
+## Advanced: Insert additional import statement 
+
+`SwiftUI` framework will be imported by default for all the generated components. Use annotation `// sourcery: importFrameworks = [<FrameworkName>, ...]` to add more frameworks that your component depends on.
+
+```swift
+// sourcery: importFrameworks = ["Combine"]
+// sourcery: generated_component
+public protocol PersonDetailItemModel: TitleComponent, SubtitleComponent, DetailImage {}
 ```
 
 ## Next Steps
+
 For now, feel free to prototype with this pattern to add & modify your own controls, and propose enhancements or changes in the Issues tab.
+
+## Future Improvements
+
+- Unify the sourcery generation process for `generated_component` and `generated_component_composite`.
