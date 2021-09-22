@@ -61,9 +61,6 @@
 /* XBUT: Deny action title in UserConsentForm */
 "Deny" = "Deny";
 
-/* XBUT: Cancel action title */
-"Cancel" = "Cancel";
-
 /* XBUT: Quit action title in alert view of UserConsentForm */
 "Quit" = "Quit"
 
