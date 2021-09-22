@@ -27,7 +27,8 @@ struct GridTableView: View {
         }
     }
     
-    func makeBody(in rect: CGRect) -> some View {
+    func makeBody(in rectInLocal: CGRect) -> some View {
+        let rect = self.layoutManager.rect == .zero ? rectInLocal : self.layoutManager.rect
         let drag = DragGesture()
             .onChanged { value in
                 let scaleX = self.layoutManager.scaleX(rect: rect)
