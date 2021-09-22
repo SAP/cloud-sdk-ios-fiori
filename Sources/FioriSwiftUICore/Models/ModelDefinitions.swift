@@ -239,7 +239,7 @@ public protocol UserConsentFormModel {
     // sourcery: default.value="true"
     var isRequired: Bool { get }
     
-    // sourcery: default.value = AlertConfiguration.UserConsentFormDefault
+    // sourcery: default.value = AlertConfiguration._UserConsentFormDefault
     // sourcery: no_view
     var alertConfiguration: AlertConfiguration { get }
     

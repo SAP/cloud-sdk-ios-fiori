@@ -28,7 +28,7 @@ public extension UserConsentFormModel {
     }
 
 	var alertConfiguration: AlertConfiguration {
-        return AlertConfiguration.UserConsentFormDefault
+        return AlertConfiguration._UserConsentFormDefault
     }
 
 	var didAllow: (() -> Void)? {

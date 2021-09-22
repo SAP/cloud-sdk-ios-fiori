@@ -23,8 +23,8 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 	let _didAllow: (() -> Void)?
 	let _didDeny: ((Bool) -> Void)?
 	let _didCancel: (() -> Void)?
-	@State var _pageIndex = 0
 	@State var _showAlert = false
+	@State var _pageIndex = 0
 
     private var isModelInit: Bool = false
 	private var isNextActionNil: Bool = false
@@ -44,7 +44,7 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -133,7 +133,7 @@ extension UserConsentForm where NextActionView == _ConditionalContent<Action, Em
         self.init(nextAction: model.nextAction != nil ? Action(model: model.nextAction!) : nil, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil, allowAction: model.allowAction != nil ? Action(model: model.allowAction!) : nil, denyAction: model.denyAction != nil ? Action(model: model.denyAction!) : nil, notNowAction: model.notNowAction != nil ? Action(model: model.notNowAction!) : nil, userConsentPages: model.userConsentPages, isRequired: model.isRequired, alertConfiguration: model.alertConfiguration, didAllow: model.didAllow, didDeny: model.didDeny, didCancel: model.didCancel)
     }
 
-    public init(nextAction: Action? = Action(model: _NextActionDefault()), cancelAction: Action? = Action(model: _CancelActionDefault()), allowAction: Action? = Action(model: _AllowActionDefault()), denyAction: Action? = Action(model: _DenyActionDefault()), notNowAction: Action? = Action(model: _NotNowActionDefault()), userConsentPages: [UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
+    public init(nextAction: Action? = Action(model: _NextActionDefault()), cancelAction: Action? = Action(model: _CancelActionDefault()), allowAction: Action? = Action(model: _AllowActionDefault()), denyAction: Action? = Action(model: _DenyActionDefault()), notNowAction: Action? = Action(model: _NotNowActionDefault()), userConsentPages: [UserConsentPageModel] = [], isRequired: Bool = true, alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault, didAllow: (() -> Void)? = nil, didDeny: ((Bool) -> Void)? = nil, didCancel: (() -> Void)? = nil) {
         self._nextAction = nextAction != nil ? ViewBuilder.buildEither(first: nextAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
 		self._allowAction = allowAction != nil ? ViewBuilder.buildEither(first: allowAction!) : ViewBuilder.buildEither(second: EmptyView())

@@ -10,7 +10,7 @@ extension UserConsentForm where NextActionView == Action {
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -39,7 +39,7 @@ extension UserConsentForm where CancelActionView == Action {
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -68,7 +68,7 @@ extension UserConsentForm where AllowActionView == Action {
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -97,7 +97,7 @@ extension UserConsentForm where DenyActionView == Action {
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -126,7 +126,7 @@ extension UserConsentForm where NotNowActionView == Action {
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -154,7 +154,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -182,7 +182,7 @@ extension UserConsentForm where NextActionView == Action, AllowActionView == Act
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -210,7 +210,7 @@ extension UserConsentForm where NextActionView == Action, DenyActionView == Acti
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -238,7 +238,7 @@ extension UserConsentForm where NextActionView == Action, NotNowActionView == Ac
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -266,7 +266,7 @@ extension UserConsentForm where CancelActionView == Action, AllowActionView == A
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -294,7 +294,7 @@ extension UserConsentForm where CancelActionView == Action, DenyActionView == Ac
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -322,7 +322,7 @@ extension UserConsentForm where CancelActionView == Action, NotNowActionView == 
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -350,7 +350,7 @@ extension UserConsentForm where AllowActionView == Action, DenyActionView == Act
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -378,7 +378,7 @@ extension UserConsentForm where AllowActionView == Action, NotNowActionView == A
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -406,7 +406,7 @@ extension UserConsentForm where DenyActionView == Action, NotNowActionView == Ac
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -433,7 +433,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -460,7 +460,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -487,7 +487,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -514,7 +514,7 @@ extension UserConsentForm where NextActionView == Action, AllowActionView == Act
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -541,7 +541,7 @@ extension UserConsentForm where NextActionView == Action, AllowActionView == Act
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -568,7 +568,7 @@ extension UserConsentForm where NextActionView == Action, DenyActionView == Acti
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -595,7 +595,7 @@ extension UserConsentForm where CancelActionView == Action, AllowActionView == A
 		@ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -622,7 +622,7 @@ extension UserConsentForm where CancelActionView == Action, AllowActionView == A
 		@ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -649,7 +649,7 @@ extension UserConsentForm where CancelActionView == Action, DenyActionView == Ac
 		@ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -676,7 +676,7 @@ extension UserConsentForm where AllowActionView == Action, DenyActionView == Act
 		@ViewBuilder cancelAction: () -> CancelActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -702,7 +702,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
     @ViewBuilder notNowAction: () -> NotNowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -728,7 +728,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
     @ViewBuilder denyAction: () -> DenyActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -754,7 +754,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
     @ViewBuilder allowAction: () -> AllowActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -780,7 +780,7 @@ extension UserConsentForm where NextActionView == Action, AllowActionView == Act
     @ViewBuilder cancelAction: () -> CancelActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -806,7 +806,7 @@ extension UserConsentForm where CancelActionView == Action, AllowActionView == A
     @ViewBuilder nextAction: () -> NextActionView,
 		@IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
@@ -831,7 +831,7 @@ extension UserConsentForm where NextActionView == Action, CancelActionView == Ac
     public init(
     @IndexedViewBuilder userConsentPages: () -> UserConsentPages,
 		isRequired: Bool = true,
-		alertConfiguration: AlertConfiguration = AlertConfiguration.UserConsentFormDefault,
+		alertConfiguration: AlertConfiguration = AlertConfiguration._UserConsentFormDefault,
 		didAllow: (() -> Void)? = nil,
 		didDeny: ((Bool) -> Void)? = nil,
 		didCancel: (() -> Void)? = nil
