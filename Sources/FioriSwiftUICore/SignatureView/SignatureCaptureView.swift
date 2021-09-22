@@ -72,9 +72,19 @@ public struct SignatureCaptureView: View {
                         Text("Signature", tableName: tableName, bundle: bundle)
                         Spacer()
                     }
-                    ZStack {
-                        Color.preferredColor(.quarternaryFill).cornerRadius(10)
-                        Text("Tap to Sign", tableName: tableName, bundle: bundle).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                    ZStack(alignment: .bottom) {
+                        ZStack {
+                            Color.preferredColor(.quarternaryFill).cornerRadius(10)
+                            Text("Tap to Sign", tableName: tableName, bundle: bundle).foregroundColor(Color.preferredColor(.tintColor)).font(.body)
+                        }
+                        HStack(alignment: .bottom) {
+                            Image(systemName: "xmark")
+                                .foregroundColor(Color.preferredColor(.quarternaryLabel).opacity(0.4))
+                                .font(.body)
+                            Rectangle()
+                                .foregroundColor(Color.preferredColor(.quarternaryLabel).opacity(0.4))
+                                .frame(height: 1)
+                        }.padding([.leading, .trailing]).padding(.bottom, 30)
                     }
                     .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                     .overlay(
@@ -119,12 +129,11 @@ public struct SignatureCaptureView: View {
                                     .foregroundColor(Color.preferredColor(.cellBackground))
                                     .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                                 if !self.isSaved {
-                                    HStack {
+                                    HStack(alignment: .bottom) {
                                         Image(systemName: "xmark")
                                             .foregroundColor(Color.preferredColor(.quarternaryLabel))
                                             .font(.body)
-                                            .opacity(0.4)
-                                        Rectangle().background(Color.preferredColor(.quarternaryLabel)).opacity(0.4).frame(height: 1)
+                                        Rectangle().foregroundColor(Color.preferredColor(.quarternaryLabel)).frame(height: 1)
                                     }.padding([.leading, .trailing]).padding(.bottom, 30)
                                 }
                             }.setHidden(showsImage())
