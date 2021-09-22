@@ -4,25 +4,26 @@ import SwiftUI
 public protocol IndexedViewContainer {
     associatedtype V: View
     
-    /// number of View in the PageView
+    /// number of View in the container
     var count: Int { get }
     
-    /// the View at Index in the PageView
+    /// the View at Index in the container
     func view(at index: Int) -> V
 }
 
-/// SingleTag
+/// SingleView
 public struct SingleView<Content: View>: IndexedViewContainer {
     let view: Content
     
     public let count = 1
     
-    /// the View at Index in the PageView
+    /// the View at Index in the container
     public func view(at index: Int) -> some View {
         self.view
     }
 }
 
+/// Conditional single view
 public struct ConditionalSingleView<TrueContent: View, FalseContent: View>: IndexedViewContainer {
     let first: TrueContent?
     let second: FalseContent?
@@ -41,6 +42,7 @@ public struct ConditionalSingleView<TrueContent: View, FalseContent: View>: Inde
     }
 }
 
+/// Pair view
 public struct PairView<First: View, Second: IndexedViewContainer>: IndexedViewContainer {
     let first: First
     let remainder: Second
