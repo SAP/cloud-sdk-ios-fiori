@@ -55,7 +55,7 @@ class TableLayoutManager: ObservableObject {
         }
     }
     
-    @Published private var _rect: CGRect = .zero
+    @Published var _rect: CGRect = .zero
     
     /// private: X direction scale factor, scale is not allowed to be less than 1.0
     @Published private var _scaleX: CGFloat = 1.0
