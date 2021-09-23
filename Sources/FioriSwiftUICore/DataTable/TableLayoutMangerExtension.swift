@@ -248,6 +248,10 @@ extension TableLayoutManager {
     // swiftlint:disable all
     func dataItemsForTable(rect: CGRect) -> [[DataTableItem]] {
         self.actualTableViewSize = self.actualSizeForTable(self.model, rect)
+        if self.actualTableViewSize.height < self.rect.height {
+            let newRect = CGRect(x: 0, y: 0, width: rect.width, height: self.actualTableViewSize.height)
+            self._rect = newRect
+        }
         
         let allItems = self.allDataItems
         
