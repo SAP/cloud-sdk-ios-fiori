@@ -3,13 +3,13 @@
 import SwiftUI
 
 public struct ActivityItems {
-    
+    @Environment(\.actionItemsModifier) private var actionItemsModifier
 
     var _actionItems: [ActivityItemDataType]? = nil
 	var _didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil
 	
     public init(model: ActivityItemsModel) {
-        self.init(actionItems: model.actionItems_, didSelectActivityItem: model.didSelectActivityItem(_:))
+        self.init(actionItems: model.actionItems, didSelectActivityItem: model.didSelectActivityItem)
     }
 
     public init(actionItems: [ActivityItemDataType]? = nil, didSelectActivityItem: ((ActivityItemDataType) -> Void)? = nil) {

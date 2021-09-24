@@ -2,11 +2,21 @@ import FioriSwiftUICore
 import SwiftUI
 
 class InfoViewDataModel: InfoViewModel {
-    var title_: String = "SAP BTP SDK for iOS"
-    var descriptionText_: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
-    var progressIndicatorText_: String? = "Loading..."
-    var actionText_: String? = "Next"
-    var secondaryActionText_: String? = "Start Tutorial"
+    var title: String = "SAP BTP SDK for iOS"
+    var descriptionText: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
+    var progressIndicatorText: String? = "Loading..."
+    
+    lazy var action: ActionModel? = {
+        ActionDataModel { [unowned self] in
+            print("InfoView Primary button clicked")
+        }
+    }()
+
+    lazy var secondaryAction: ActionModel? = {
+        SecondaryActionDataModel { [unowned self] in
+            print("InfoView secondary button clicked")
+        }
+    }()
     
     func didSelectAction() {
         print("InfoView Primary button clicked")
@@ -17,11 +27,25 @@ class InfoViewDataModel: InfoViewModel {
     }
 }
 
+extension InfoViewDataModel {
+    struct ActionDataModel: ActionModel {
+        let actionText: String? = "Next"
+        
+        let didSelectAction: (() -> Void)?
+    }
+    
+    struct SecondaryActionDataModel: ActionModel {
+        let actionText: String? = "Start Tutorial"
+        
+        let didSelectAction: (() -> Void)?
+    }
+}
+
 struct InfoViewSample: View {
     private var model = InfoViewDataModel()
     
     public init() {
-        self.model.progressIndicatorText_ = ""
+        self.model.progressIndicatorText = ""
     }
     
     var body: some View {
@@ -47,7 +71,7 @@ struct InfoViewCustomized: View {
     private var model = InfoViewDataModel()
     
     public init() {
-        self.model.progressIndicatorText_ = ""
+        self.model.progressIndicatorText = ""
     }
     
     var body: some View {
@@ -55,7 +79,7 @@ struct InfoViewCustomized: View {
             VStack {
                 InfoView(model: model)
                     .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
-                    .actionTextModifier { $0.foregroundColor(.blue) }
+                    .actionModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { content in
                         content
                             .progressViewStyle(ShadowProgressViewStyle())
@@ -65,7 +89,7 @@ struct InfoViewCustomized: View {
             VStack {
                 InfoView(model: model)
                     .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
-                    .actionTextModifier { $0.foregroundColor(.blue) }
+                    .actionModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { $0.scaleEffect(x: 2, y: 2, anchor: .center) }
             }
         }

@@ -51,7 +51,7 @@ extension KPIItem: View {
 
 // FIXME: - Implement KPIItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct KPIItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

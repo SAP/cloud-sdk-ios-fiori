@@ -193,7 +193,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                            rowModel: rowModel,
                                            destination: destination)
                         }, header: {
-                            Text(rowModel(item).title_)
+                            Text(rowModel(item).title)
                                 .lineLimit(1)
                                 .font(.system(size: 17.0))
                                 .truncationMode(.tail)

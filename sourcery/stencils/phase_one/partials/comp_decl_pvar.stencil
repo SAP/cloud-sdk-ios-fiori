@@ -1,0 +1,9 @@
+{# expected to be run in a for-loop: variable in type.variables where variable #}
+{% for key,value in variable.annotations %}
+	{% if value == 1 %}
+	// sourcery: {{key}}
+	{% else %}
+	// sourcery: {{key}}={{value}}
+	{% endif %}
+{% endfor %}
+    var {{variable.name|replace:'_',''}}: {{variable.typeName}} { {% if variable.isMutable %}get set{% else %}get{% endif %} }

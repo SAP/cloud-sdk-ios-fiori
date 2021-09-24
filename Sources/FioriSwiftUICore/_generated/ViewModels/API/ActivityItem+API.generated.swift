@@ -14,8 +14,8 @@ public struct ActivityItem<Icon: View, Subtitle: View> {
 	private var isSubtitleNil: Bool = false
 
     public init(
-        @ViewBuilder icon: @escaping () -> Icon,
-		@ViewBuilder subtitle: @escaping () -> Subtitle
+        @ViewBuilder icon: () -> Icon,
+		@ViewBuilder subtitle: () -> Subtitle
         ) {
             self._icon = icon()
 			self._subtitle = subtitle()
@@ -49,7 +49,7 @@ extension ActivityItem where Icon == _ConditionalContent<Image, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView> {
 
     public init(model: ActivityItemModel) {
-        self.init(icon: model.icon_, subtitle: model.subtitle_)
+        self.init(icon: model.icon, subtitle: model.subtitle)
     }
 
     public init(icon: Image? = nil, subtitle: String? = nil) {

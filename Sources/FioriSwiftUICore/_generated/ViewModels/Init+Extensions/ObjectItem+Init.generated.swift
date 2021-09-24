@@ -2,91 +2,41 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ObjectItem where ActionText == EmptyView {
+extension ObjectItem where Subtitle == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
 extension ObjectItem where Footnote == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -97,46 +47,46 @@ extension ObjectItem where Footnote == EmptyView {
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: action
         )
     }
 }
 
 extension ObjectItem where Status == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -147,21 +97,21 @@ extension ObjectItem where Status == EmptyView {
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
 extension ObjectItem where Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -172,69 +122,21 @@ extension ObjectItem where Substatus == EmptyView {
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Subtitle == EmptyView {
+extension ObjectItem where DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -245,44 +147,21 @@ extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView {
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView {
+extension ObjectItem where Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -293,68 +172,117 @@ extension ObjectItem where ActionText == EmptyView, Icons == EmptyView {
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Status == EmptyView {
+extension ObjectItem where ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -362,263 +290,23 @@ extension ObjectItem where ActionText == EmptyView, Subtitle == EmptyView {
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -629,44 +317,92 @@ extension ObjectItem where DetailImage == EmptyView, Subtitle == EmptyView {
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: action
         )
     }
 }
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -677,20 +413,20 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView {
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
 extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -701,116 +437,212 @@ extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView {
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
 extension ObjectItem where Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -821,251 +653,20 @@ extension ObjectItem where Status == EmptyView, Substatus == EmptyView {
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where Substatus == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1076,157 +677,20 @@ extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, St
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1237,19 +701,68 @@ extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Status =
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Substatus == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1260,295 +773,115 @@ extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Substatu
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Status == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1559,134 +892,157 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1697,203 +1053,111 @@ extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -1904,111 +1168,318 @@ extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Subtit
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
-}
-
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
 extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -2019,376 +1490,387 @@ extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: { EmptyView() },
-			substatus: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
 			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: status,
-			substatus: substatus,
+			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -2396,219 +1878,229 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
+			substatus: substatus,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: { EmptyView() },
+			status: status,
+			substatus: substatus,
 			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
-			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension ObjectItem where Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
 			descriptionText: descriptionText,
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -2618,195 +2110,197 @@ extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Ic
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: { EmptyView() },
+			status: status,
+			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
 			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
-			substatus: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -2815,262 +2309,350 @@ extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Statu
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: { EmptyView() },
-			substatus: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
-        )
-    }
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -3081,150 +2663,282 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: { EmptyView() },
+			status: status,
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			footnote: footnote,
+			descriptionText: descriptionText,
 			status: status,
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -3235,150 +2949,282 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -3389,388 +3235,605 @@ extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icon
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: status,
-			substatus: substatus,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: descriptionText,
 			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
+        )
+    }
+}
+
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
+			icons: { },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension ObjectItem where Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status
+    ) {
+        self.init(
+            title: title,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: detailImage,
+			substatus: substatus,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: { EmptyView() },
+			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			detailImage: detailImage,
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -3778,293 +3841,293 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
-			substatus: substatus,
-			detailImage: { EmptyView() },
+			substatus: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
-			substatus: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: substatus,
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			descriptionText: descriptionText,
+			status: { EmptyView() },
+			substatus: substatus,
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: status,
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
+			descriptionText: descriptionText,
+			status: status,
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: detailImage,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: status,
+			substatus: substatus,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -4072,41 +4135,41 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			substatus: { EmptyView() },
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -4117,206 +4180,185 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status
-    ) {
-        self.init(
-            title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
-			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: status,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
-			status: { EmptyView() },
-			substatus: substatus,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
-			descriptionText: descriptionText,
-			status: { EmptyView() },
+			descriptionText: { EmptyView() },
+			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: footnote,
 			descriptionText: descriptionText,
-			status: status,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -4327,122 +4369,122 @@ extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, St
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
+			subtitle: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -4450,62 +4492,62 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
@@ -4513,476 +4555,474 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: actionText
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: actionText
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			subtitle: subtitle,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			subtitle: subtitle,
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@IconBuilder icons: () -> Icons,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: action
         )
     }
 }
 
-extension ObjectItem where Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: substatus,
-			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			substatus: { EmptyView() },
+			detailImage: detailImage,
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: status,
-			substatus: { EmptyView() },
+			status: { EmptyView() },
+			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: status,
+			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: { EmptyView() }
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			substatus: substatus,
+			detailImage: detailImage,
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: substatus,
+			status: status,
+			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -4993,176 +5033,176 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: footnote,
+			subtitle: { EmptyView() },
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
+			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
+			status: status,
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
-			status: status,
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
+			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: icons,
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: substatus,
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: status,
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: icons,
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: { },
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
@@ -5171,138 +5211,138 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			subtitle: { EmptyView() },
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			footnote: footnote,
+			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
+			footnote: footnote,
 			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
-			footnote: footnote,
-			descriptionText: descriptionText,
+			subtitle: subtitle,
+			footnote: { EmptyView() },
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: action
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
+			detailImage: { EmptyView() },
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
@@ -5311,98 +5351,97 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: status,
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@IconBuilder icons: @escaping () -> Icons,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder descriptionText: () -> DescriptionText
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: actionText
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: footnote,
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
@@ -5411,56 +5450,55 @@ extension ObjectItem where DescriptionText == EmptyView, Footnote == EmptyView, 
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: detailImage,
+			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: action
         )
     }
 }
 
-extension ObjectItem where DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@IconBuilder icons: () -> Icons
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: descriptionText,
+			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: { },
-			actionText: actionText
+			icons: icons,
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
-			subtitle: subtitle,
+			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
 			status: { EmptyView() },
 			substatus: { EmptyView() },
-			detailImage: { EmptyView() },
+			detailImage: detailImage,
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder substatus: @escaping () -> Substatus
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder substatus: () -> Substatus
     ) {
         self.init(
             title: title,
@@ -5471,15 +5509,15 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			substatus: substatus,
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder status: @escaping () -> Status
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder status: () -> Status
     ) {
         self.init(
             title: title,
@@ -5490,34 +5528,34 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@IconBuilder icons: @escaping () -> Icons
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText
     ) {
         self.init(
             title: title,
 			subtitle: { EmptyView() },
 			footnote: { EmptyView() },
-			descriptionText: { EmptyView() },
+			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
-			icons: icons,
-			actionText: { EmptyView() }
+			icons: { },
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, DetailImage == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote
     ) {
         self.init(
             title: title,
@@ -5528,53 +5566,33 @@ extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder detailImage: @escaping () -> DetailImage
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle
     ) {
         self.init(
             title: title,
-			subtitle: { EmptyView() },
+			subtitle: subtitle,
 			footnote: { EmptyView() },
 			descriptionText: { EmptyView() },
-			status: { EmptyView() },
-			substatus: { EmptyView() },
-			detailImage: detailImage,
-			icons: { },
-			actionText: { EmptyView() }
-        )
-    }
-}
-
-extension ObjectItem where ActionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText
-    ) {
-        self.init(
-            title: title,
-			subtitle: { EmptyView() },
-			footnote: { EmptyView() },
-			descriptionText: descriptionText,
 			status: { EmptyView() },
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: { EmptyView() }
+			action: { EmptyView() }
         )
     }
 }
 
-extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyView, Footnote == EmptyView, Icons == EmptyView, Status == EmptyView, Substatus == EmptyView, Subtitle == EmptyView {
+extension ObjectItem where Subtitle == EmptyView, Footnote == EmptyView, DescriptionText == EmptyView, Status == EmptyView, Substatus == EmptyView, DetailImage == EmptyView, Icons == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title
     ) {
         self.init(
             title: title,
@@ -5585,7 +5603,7 @@ extension ObjectItem where DescriptionText == EmptyView, DetailImage == EmptyVie
 			substatus: { EmptyView() },
 			detailImage: { EmptyView() },
 			icons: { },
-			actionText: actionText
+			action: { EmptyView() }
         )
     }
 }

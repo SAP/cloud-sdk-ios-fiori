@@ -21,10 +21,10 @@ public struct KPIProgressItem<Kpi: View, Subtitle: View, Footnote: View> {
 	private var isFootnoteNil: Bool = false
 
     public init(
-        @ViewBuilder kpi: @escaping () -> Kpi,
+        @ViewBuilder kpi: () -> Kpi,
 		fraction: Double?,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footnote: @escaping () -> Footnote
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footnote: () -> Footnote
         ) {
             self._kpi = kpi()
 			self._fraction = fraction
@@ -72,7 +72,7 @@ extension KPIProgressItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Footnote == _ConditionalContent<Text, EmptyView> {
 
     public init(model: KPIProgressItemModel) {
-        self.init(kpi: model.kpi_, fraction: model.fraction_, subtitle: model.subtitle_, footnote: model.footnote_)
+        self.init(kpi: model.kpi, fraction: model.fraction, subtitle: model.subtitle, footnote: model.footnote)
     }
 
     public init(kpi: String? = nil, fraction: Double? = nil, subtitle: String? = nil, footnote: String? = nil) {

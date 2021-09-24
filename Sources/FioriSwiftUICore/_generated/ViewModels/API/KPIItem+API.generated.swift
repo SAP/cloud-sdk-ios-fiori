@@ -14,8 +14,8 @@ public struct KPIItem<Kpi: View, Subtitle: View> {
 	private var isSubtitleNil: Bool = false
 
     public init(
-        @ViewBuilder kpi: @escaping () -> Kpi,
-		@ViewBuilder subtitle: @escaping () -> Subtitle
+        @ViewBuilder kpi: () -> Kpi,
+		@ViewBuilder subtitle: () -> Subtitle
         ) {
             self._kpi = kpi()
 			self._subtitle = subtitle()
@@ -49,7 +49,7 @@ extension KPIItem where Kpi == _ConditionalContent<Text, EmptyView>,
 		Subtitle == _ConditionalContent<Text, EmptyView> {
 
     public init(model: KPIItemModel) {
-        self.init(kpi: model.kpi_, subtitle: model.subtitle_)
+        self.init(kpi: model.kpi, subtitle: model.subtitle)
     }
 
     public init(kpi: String? = nil, subtitle: String? = nil) {

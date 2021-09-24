@@ -5,6 +5,7 @@ import SwiftUI
 public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, DetailContent: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
+	@Environment(\.tagsModifier) private var tagsModifier
 	@Environment(\.bodyTextModifier) private var bodyTextModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
@@ -24,11 +25,11 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 	let _substatus: Substatus
 	let _detailImage: DetailImage
 	let _detailContent: DetailContent
-	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
 	@State var mainViewSize: CGSize = .zero
-	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
-	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
 	@State var currentTabIndex: Int = 0
+	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
+	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
+	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
 	@State var statusViewSize: CGSize = .zero
 
     private var isModelInit: Bool = false
@@ -42,16 +43,16 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 	private var isDetailImageNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@TagBuilder tags: @escaping () -> Tags,
-		@ViewBuilder bodyText: @escaping () -> BodyText,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder status: @escaping () -> Status,
-		@ViewBuilder substatus: @escaping () -> Substatus,
-		@ViewBuilder detailImage: @escaping () -> DetailImage,
-		@ViewBuilder detailContent: @escaping () -> DetailContent
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@TagBuilder tags: () -> Tags,
+		@ViewBuilder bodyText: () -> BodyText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder status: () -> Status,
+		@ViewBuilder substatus: () -> Substatus,
+		@ViewBuilder detailImage: () -> DetailImage,
+		@ViewBuilder detailContent: () -> DetailContent
         ) {
             self._title = title()
 			self._subtitle = subtitle()
@@ -79,8 +80,12 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
             _subtitle.modifier(subtitleModifier.concat(Fiori.ObjectHeader.subtitle))
         }
     }
-	var tags: some View {
-        _tags
+	@ViewBuilder var tags: some View {
+        if isModelInit {
+            _tags.modifier(tagsModifier.concat(Fiori.ObjectHeader.tags).concat(Fiori.ObjectHeader.tagsCumulative))
+        } else {
+            _tags.modifier(tagsModifier.concat(Fiori.ObjectHeader.tags))
+        }
     }
 	@ViewBuilder var bodyText: some View {
         if isModelInit {
@@ -170,19 +175,19 @@ extension ObjectHeader where Title == Text,
 		Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView> {
 
-    public init(model: ObjectHeaderModel, @ViewBuilder detailContent: @escaping () -> DetailContent) {
-        self.init(title: model.title_, subtitle: model.subtitle_, tags: model.tags_, bodyText: model.bodyText_, footnote: model.footnote_, descriptionText: model.descriptionText_, status: model.status_, substatus: model.substatus_, detailImage: model.detailImage_, detailContent: detailContent)
+    public init(model: ObjectHeaderModel, @ViewBuilder detailContent: () -> DetailContent) {
+        self.init(title: model.title, subtitle: model.subtitle, tags: model.tags, bodyText: model.bodyText, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, detailContent: detailContent)
     }
 
-    public init(title: String, subtitle: String? = nil, tags: [String]? = nil, bodyText: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, @ViewBuilder detailContent: @escaping () -> DetailContent) {
+    public init(title: String, subtitle: String? = nil, tags: [String]? = nil, bodyText: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, @ViewBuilder detailContent: () -> DetailContent) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags)) : ViewBuilder.buildEither(second: EmptyView())
+		self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._bodyText = bodyText != nil ? ViewBuilder.buildEither(first: Text(bodyText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status)) : ViewBuilder.buildEither(second: EmptyView())
-		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus)) : ViewBuilder.buildEither(second: EmptyView())
+		self._status = status != nil ? ViewBuilder.buildEither(first: TextOrIconView(status: status!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailContent = detailContent()
 

@@ -1,0 +1,33 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
+
+<%_
+
+let componentProtocols = types.protocols
+
+if !componentProtocols.isEmpty {
+
+-%>
+
+// sourcery:file:ComponentProtocols+Extension.generated.swift
+import SwiftUI
+
+<%_ for component in componentProtocols { 
+        component.updateAnnotationForAllVariables() 
+-%>
+<% if !component.protocolExtensionDefaultValuesDecls.isEmpty { -%>
+public extension <%= component.name %> {
+    <%= component.protocolExtensionDefaultValuesDecls %>
+}
+
+<% } -%>
+<%_ } -%>
+// sourcery:end
+
+<%_ } -%>

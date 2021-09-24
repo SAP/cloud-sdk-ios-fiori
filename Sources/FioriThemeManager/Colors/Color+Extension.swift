@@ -47,3 +47,10 @@ extension Color {
         return (r, g, b, a)
     }
 }
+
+extension Color {
+    // Returns a dynamic color.
+    static func preferredUIColor(_ style: ColorStyle, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> UIColor {
+        ThemeManager.shared.uiColor(for: style, background: scheme, interface: level, display: mode)
+    }
+}

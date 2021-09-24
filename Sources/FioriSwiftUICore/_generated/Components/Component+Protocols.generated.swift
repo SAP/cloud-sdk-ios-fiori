@@ -4,179 +4,173 @@ import SwiftUI
 
 
 public protocol TitleComponent {
-    var title_: String { get }
+    var title: String { get }
 }
 
 public protocol SubtitleComponent {
-    var subtitle_: String? { get }
+    var subtitle: String? { get }
 }
 
 public protocol TagsComponent {
 	// sourcery: backingComponent=TagStack
 	// sourcery: customFunctionBuilder=TagBuilder
-	// sourcery: no_style
-    var tags_: [String]? { get }
+    var tags: [String]? { get }
 }
 
 public protocol FootnoteComponent {
-    var footnote_: String? { get }
+    var footnote: String? { get }
 }
 
 public protocol DescriptionTextComponent {
-    var descriptionText_: String? { get }
+    var descriptionText: String? { get }
 }
 
 public protocol DetailImageComponent {
-    var detailImage_: Image? { get }
+    var detailImage: Image? { get }
 }
 
 public protocol AttributeComponent {
-    var attribute_: String? { get }
+    var attribute: String? { get }
 }
 
 public protocol SecondaryAttributeComponent {
-    var secondaryAttribute_: String? { get }
+    var secondaryAttribute: String? { get }
 }
 
 public protocol TimestampComponent {
-    var timestamp_: String? { get }
+    var timestamp: String? { get }
 }
 
 public protocol SecondaryTimestampComponent {
-    var secondaryTimestamp_: String? { get }
+    var secondaryTimestamp: String? { get }
 }
 
 public protocol TrendComponent {
-    var trend_: String? { get }
+    var trend: String? { get }
 }
 
 public protocol TrendImageComponent {
-    var trendImage_: Image? { get }
+    var trendImage: Image? { get }
 }
 
 public protocol StatusComponent {
 	// sourcery: backingComponent=TextOrIconView
-    var status_: TextOrIcon? { get }
+    var status: TextOrIcon? { get }
 }
 
 public protocol SubstatusComponent {
 	// sourcery: backingComponent=TextOrIconView
-    var substatus_: TextOrIcon? { get }
+    var substatus: TextOrIcon? { get }
 }
 
 public protocol BodyTextComponent {
-    var bodyText_: String? { get }
+    var bodyText: String? { get }
+}
+
+public protocol BodyAttributedTextComponent {
+	// sourcery: backingComponent=AttributedText
+    var bodyAttributedText: NSAttributedString? { get }
 }
 
 public protocol IconComponent {
-    var icon_: Image? { get }
+    var icon: Image? { get }
 }
 
 public protocol AccessoryIconComponent {
-    var accessoryIcon_: Image? { get }
+    var accessoryIcon: Image? { get }
 }
 
 public protocol IconsComponent {
 	// sourcery: backingComponent=IconStack
 	// sourcery: customFunctionBuilder=IconBuilder
-	// sourcery: no_style
-    var icons_: [TextOrIcon]? { get }
+    var icons: [TextOrIcon]? { get }
 }
 
 public protocol ActionTitleComponent {
-    var actionTitle_: String? { get }
+    var actionTitle: String? { get }
+}
+
+public protocol FirstActionTitleComponent {
+    var firstActionTitle: String? { get }
+}
+
+public protocol SecondActionTitleComponent {
+    var secondActionTitle: String? { get }
 }
 
 public protocol SeriesTitlesComponent {
-    var seriesTitles_: [String] { get }
+    var seriesTitles: [String] { get }
 }
 
 public protocol KeyComponent {
-    var key_: String { get }
+    var key: String { get }
 }
 
 public protocol ValueComponent {
-    var value_: String? { get }
+    var value: String? { get }
 }
 
 public protocol ValuesComponent {
-    var values_: [String] { get }
+    var values: [String] { get }
 }
 
 public protocol ValueAxisTitleComponent {
-    var valueAxisTitle_: String? { get }
+    var valueAxisTitle: String? { get }
 }
 
 public protocol SecondaryValuesAxisTitleComponent {
-    var secondaryValuesAxisTitle_: String? { get }
+    var secondaryValuesAxisTitle: String? { get }
 }
 
 public protocol CategoryAxisTitleComponent {
-    var categoryAxisTitle_: String? { get }
+    var categoryAxisTitle: String? { get }
 }
 
 public protocol EmptyTextComponent {
-    var emptyText_: String? { get }
+    var emptyText: String? { get }
 }
 
 public protocol KpiComponent {
-    var kpi_: String? { get }
+    var kpi: String? { get }
 }
 
 public protocol PlaceholderComponent {
-    var placeholder_: String? { get }
+    var placeholder: String? { get }
 }
 
 public protocol LowerBoundTitleComponent {
-    var lowerBoundTitle_: String? { get }
+    var lowerBoundTitle: String? { get }
 }
 
 public protocol UpperBoundTitleComponent {
-    var upperBoundTitle_: String? { get }
+    var upperBoundTitle: String? { get }
 }
 
 
-// sourcery: backingComponent=Action
 public protocol ActionComponent {
-    var actionText_: String? { get }
-    // sourcery: no_nil_check
-	func didSelectAction() -> Void
+    var actionText: String? { get }
+	// sourcery: no_view
+    var didSelectAction: (() -> Void)? { get }
 }
 
-// sourcery: backingComponent=ActivityItems
 public protocol ActionItemsComponent {
-	// sourcery: no_style
-    var actionItems_: [ActivityItemDataType]? { get }
-    // sourcery: no_nil_check
-	func didSelectActivityItem(_ activityItem: ActivityItemDataType) -> Void
-}
-
-// sourcery: backingComponent=HTMLView
-public protocol HTMLViewComponent {
-    var htmlContent_: NSAttributedString? { get }
+    var actionItems: [ActivityItemDataType]? { get }
+	// sourcery: no_view
+    var didSelectActivityItem: ((ActivityItemDataType) -> Void)? { get }
 }
 
 public protocol KpiProgressComponent : KpiComponent {
 	// sourcery: no_view
-    var fraction_: Double? { get }
+    var fraction: Double? { get }
 }
 
-// sourcery: backingComponent=ProgressIndicator
 public protocol ProgressIndicatorComponent {
-    var progressIndicatorText_: String? { get }
+    var progressIndicatorText: String? { get }
 }
 
-// sourcery: backingComponent=SecondaryAction
-public protocol SecondaryActionComponent {
-    var secondaryActionText_: String? { get }
-    // sourcery: no_nil_check
-	func didSelectSecondaryAction() -> Void
-}
-
-// sourcery: backingComponent=TextInput
-public protocol TextInputComponent : ObservableObject {
+public protocol TextInputComponent : AnyObject {
 	// sourcery: bindingPropertyOptional=.constant("")
-    var textInputValue_: String { get set }
-    // sourcery: no_nil_check
-	func onCommit() -> Void
+    var textInputValue: String { get set }
+	// sourcery: no_view
+    var onCommit: (() -> Void)? { get }
 }

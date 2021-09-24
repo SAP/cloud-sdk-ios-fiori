@@ -9,7 +9,7 @@ public struct Action {
 	var _didSelectAction: (() -> Void)? = nil
 	
     public init(model: ActionModel) {
-        self.init(actionText: model.actionText_, didSelectAction: model.didSelectAction)
+        self.init(actionText: model.actionText, didSelectAction: model.didSelectAction)
     }
 
     public init(actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {

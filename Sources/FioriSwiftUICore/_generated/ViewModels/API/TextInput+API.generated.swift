@@ -8,8 +8,8 @@ public struct TextInput {
     var _textInputValue: Binding<String>
 	var _onCommit: (() -> Void)? = nil
 	
-    public init<Model>(model: Model) where Model: TextInputModel {
-        self.init(textInputValue: Binding<String>(get: { model.textInputValue_ }, set: { model.textInputValue_ = $0 }), onCommit: model.onCommit)
+    public init(model: TextInputModel) {
+        self.init(textInputValue: Binding<String>(get: { model.textInputValue }, set: { model.textInputValue = $0 }), onCommit: model.onCommit)
     }
 
     public init(textInputValue: Binding<String>? = nil, onCommit: (() -> Void)? = nil) {

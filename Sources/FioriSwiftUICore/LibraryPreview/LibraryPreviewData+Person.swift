@@ -67,33 +67,33 @@ extension LibraryPreviewData.Person.Address {
 }
 
 extension LibraryPreviewData.Person: ContactItemModel {
-    public var footnote_: String? {
+    public var footnote: String? {
         "Footnote: I am cool :)"
         // Features.joined(separator: ", ")
     }
 }
 
 extension LibraryPreviewData.Person: TitleComponent {
-    public var title_: String {
+    public var title: String {
         PersonNameComponentsFormatter().string(from: nameComponents)
     }
 }
 
 extension LibraryPreviewData.Person: SubtitleComponent {
-    public var subtitle_: String? {
+    public var subtitle: String? {
         Emails.joined(separator: ", ")
     }
 }
 
 extension LibraryPreviewData.Person: DetailImageComponent {
-    public var detailImage_: Image? {
+    public var detailImage: Image? {
         guard let name = ProfilePic else { return nil }
         return Image(name)
     }
 }
 
 extension LibraryPreviewData.Person: DescriptionTextComponent {
-    public var descriptionText_: String? {
+    public var descriptionText: String? {
         cnContact.postalAddresses.map {
             CNPostalAddressFormatter().string(from: $0.value)
         }.joined(separator: "\r")
@@ -101,7 +101,7 @@ extension LibraryPreviewData.Person: DescriptionTextComponent {
 }
 
 public extension LibraryPreviewData.Person {
-    @ViewBuilder var actionItems: some View {
+    @ViewBuilder var actionItemsView: some View {
         Button {
             print("Calling person: \(UserName)")
         } label: {
@@ -118,7 +118,7 @@ public extension LibraryPreviewData.Person {
 }
 
 extension LibraryPreviewData.Person: ActionItemsComponent {
-    public var actionItems_: [ActivityItemDataType]? {
+    public var actionItems: [ActivityItemDataType]? {
         let activities: [ActivityItemDataType] = Emails.map { .init(type: .email, data: $0) }
         return activities
     }

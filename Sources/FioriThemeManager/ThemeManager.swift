@@ -36,6 +36,12 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
+        let uiColor = self.uiColor(for: style, background: scheme, interface: level, display: mode)
+        let color = Color(uiColor)
+        return color
+    }
+    
+    func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
         let hexColor: HexColor = self.palette.hexColor(for: style)
         let uiColor = UIColor { traitCollection in
             let variant: ColorVariant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
@@ -44,7 +50,6 @@ public class ThemeManager {
             return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
                            blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
-        let color = Color(uiColor)
-        return color
+        return uiColor
     }
 }

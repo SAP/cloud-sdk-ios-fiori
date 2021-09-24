@@ -25,6 +25,11 @@ struct OnboardingExamples: View {
                 Text("EULA Examples")
             }
 
+            NavigationLink(
+                destination: UserConsentExamples()) {
+                Text("User Consent Form Examples")
+            }
+            
         }.navigationBarTitle("Onboarding")
     }
 }
@@ -125,6 +130,75 @@ struct EULAExamples: View {
             }
 
         }.navigationBarTitle("EULA Examples", displayMode: .inline)
+    }
+}
+
+struct UserConsentExamples: View {
+    var body: some View {
+        List {
+            NavigationLink(
+                destination: UserConsentViewBuilderExample()) {
+                Text("UserConsentView(ViewBuilder) Example")
+            }
+            
+//            NavigationLink(
+//                destination: UserConsentViewBuilderExample()) {
+//                Text("ViewBuilder Example")
+//            }
+//
+//            Group {
+//                NavigationLink(
+//                    destination: UserConsentSinglePageM()) {
+//                    Text("Single Page Form(S)-Mandatory")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentSinglePageO()) {
+//                    Text("Single Page Form(S)-Optional")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMultiplePageM()) {
+//                    Text("Multi Page Form(M)-Mandatory")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMultiplePageO()) {
+//                    Text("Multi Page Form(M)-Optional")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMixFormM()) {
+//                    Text("Mixed Forms: (S, M)-All Mandatory")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMixFormO()) {
+//                    Text("Mixed Forms: (S, M)-All Optional")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMixFormMO()) {
+//                    Text("(S,M,S,M)-S(mandatory)&M(optional)")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentMixFormOM()) {
+//                    Text("(M,S,M,S)-S(optional)&M(mandatory)-Customized")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentSinglePageHTML()) {
+//                    Text("HTML")
+//                }
+//
+//                NavigationLink(
+//                    destination: UserConsentLongText()) {
+//                    Text("Long RTF")
+//                }
+//            }
+            
+        }.navigationBarTitle("User Consent Examples", displayMode: .inline)
     }
 }
 

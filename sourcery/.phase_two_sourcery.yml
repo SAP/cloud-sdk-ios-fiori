@@ -1,0 +1,12 @@
+# Generate component APIs, component view body boilerplate, init extensions, model extensions.
+sources:
+  - ./../Sources/FioriSwiftUICore/Models/
+  - ./../Sources/FioriSwiftUICore/_generated/Components/
+templates:
+  - ./../sourcery/stencils/phase_two/noviewbuilderbased_model_decl.swifttemplate
+  - ./../sourcery/stencils/phase_two/model_decl_base.swifttemplate
+  - ./../sourcery/stencils/phase_two/composite_model_decl.swifttemplate
+output:
+  ./../Sources/FioriSwiftUICore/_generated/
+force-parse:
+  - generated

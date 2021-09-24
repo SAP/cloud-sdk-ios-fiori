@@ -1,0 +1,61 @@
+<%- includeFile("../../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%- includeFile("../../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
+
+<%_
+
+let componentProtocols = types.implementing["_ComponentGenerating"] + types.implementing["_ComponentMultiPropGenerating"]
+let models = types.protocols.filter({ $0.annotations["generated_component_composite"] != nil || $0.annotations["generated_component"] != nil })
+let variables = (componentProtocols + models).flatMap({ $0.variables.representableByView.stylable }).uniqueTrimmedName
+
+if !variables.isEmpty {
+
+-%>
+
+// sourcery:file:EnvironmentKey+Styles.generated.swift
+import SwiftUI
+
+<%_ for variable in variables { -%>
+struct <%= variable.trimmedName.capitalizingFirst() %>ModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+<%_ } -%>
+// sourcery:end
+
+// sourcery:file:EnvironmentValue+Styles.generated.swift
+import SwiftUI
+
+extension EnvironmentValues {
+
+<%_ for variable in variables { 
+    let capitalizedName = variable.trimmedName.capitalizingFirst()
+-%>
+    public var <%= variable.trimmedName %>Modifier: AnyViewModifier {
+        get { return self[<%= capitalizedName %>ModifierKey.self] }
+        set { self[<%= capitalizedName %>ModifierKey.self] = newValue }
+    }
+
+<%_ } -%>
+}
+
+public extension View {
+
+<%_ for variable in variables { 
+    let trimmedName = variable.trimmedName
+-%>
+    @ViewBuilder
+    func <%= trimmedName %>Modifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.<%= trimmedName %>Modifier, AnyViewModifier(transform))
+    }
+
+<%_ } -%>
+}
+// sourcery:end
+
+<%_ } -%>

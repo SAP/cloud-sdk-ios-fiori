@@ -23,7 +23,7 @@ extension ProgressIndicator: View {
 
 // FIXME: - Implement ProgressIndicator specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct ProgressIndicatorLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

@@ -33,8 +33,8 @@ extension Fiori {
         typealias DetailImageCumulative = EmptyModifier
 		typealias Icons = EmptyModifier
         typealias IconsCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -56,7 +56,7 @@ extension Fiori {
 		static let substatus = Substatus()
 		static let detailImage = DetailImage()
 		static let icons = Icons()
-		static let actionText = ActionText()
+		static let action = Action()
         static let titleCumulative = TitleCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
@@ -65,7 +65,7 @@ extension Fiori {
 		static let substatusCumulative = SubstatusCumulative()
 		static let detailImageCumulative = DetailImageCumulative()
 		static let iconsCumulative = IconsCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
+		static let actionCumulative = ActionCumulative()
     }
 }
 
@@ -79,7 +79,7 @@ extension ObjectItem: View {
 
 // FIXME: - Implement ObjectItem specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct ObjectItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

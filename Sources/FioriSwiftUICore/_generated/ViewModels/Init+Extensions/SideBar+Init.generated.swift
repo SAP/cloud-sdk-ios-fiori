@@ -5,8 +5,8 @@ import SwiftUI
 @available(iOS 14, *)
 extension SideBar where Subtitle == EmptyView {
     public init(
-    @ViewBuilder footer: @escaping () -> Footer,
-		@ViewBuilder detail: @escaping () -> Detail
+    @ViewBuilder footer: () -> Footer,
+		@ViewBuilder detail: () -> Detail
     ) {
         self.init(
             subtitle: { EmptyView() },
@@ -19,8 +19,8 @@ extension SideBar where Subtitle == EmptyView {
 @available(iOS 14, *)
 extension SideBar where Footer == EmptyView {
     public init(
-    @ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder detail: @escaping () -> Detail
+    @ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder detail: () -> Detail
     ) {
         self.init(
             subtitle: subtitle,
@@ -33,8 +33,8 @@ extension SideBar where Footer == EmptyView {
 @available(iOS 14, *)
 extension SideBar where Detail == EmptyView {
     public init(
-    @ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder footer: @escaping () -> Footer
+    @ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder footer: () -> Footer
     ) {
         self.init(
             subtitle: subtitle,
@@ -47,7 +47,7 @@ extension SideBar where Detail == EmptyView {
 @available(iOS 14, *)
 extension SideBar where Subtitle == EmptyView, Footer == EmptyView {
     public init(
-    @ViewBuilder detail: @escaping () -> Detail
+    @ViewBuilder detail: () -> Detail
     ) {
         self.init(
             subtitle: { EmptyView() },
@@ -60,7 +60,7 @@ extension SideBar where Subtitle == EmptyView, Footer == EmptyView {
 @available(iOS 14, *)
 extension SideBar where Subtitle == EmptyView, Detail == EmptyView {
     public init(
-    @ViewBuilder footer: @escaping () -> Footer
+    @ViewBuilder footer: () -> Footer
     ) {
         self.init(
             subtitle: { EmptyView() },
@@ -73,10 +73,23 @@ extension SideBar where Subtitle == EmptyView, Detail == EmptyView {
 @available(iOS 14, *)
 extension SideBar where Footer == EmptyView, Detail == EmptyView {
     public init(
-    @ViewBuilder subtitle: @escaping () -> Subtitle
+    @ViewBuilder subtitle: () -> Subtitle
     ) {
         self.init(
             subtitle: subtitle,
+			footer: { EmptyView() },
+			detail: { EmptyView() }
+        )
+    }
+}
+
+@available(iOS 14, *)
+extension SideBar where Subtitle == EmptyView, Footer == EmptyView, Detail == EmptyView {
+    public init(
+    
+    ) {
+        self.init(
+            subtitle: { EmptyView() },
 			footer: { EmptyView() },
 			detail: { EmptyView() }
         )

@@ -100,7 +100,7 @@ public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollectio
             VStack(alignment: .leading) {
                 ForEach(data, id: self.dataId) { element in
                     if let model = element as? KPIItemModel {
-                        KPIItem(kpi: model.kpi_, subtitle: model.subtitle_)
+                        KPIItem(kpi: model.kpi, subtitle: model.subtitle)
                     }
                 }
             }
@@ -109,7 +109,7 @@ public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollectio
                 TabView {
                     ForEach(data, id: self.dataId) { element in
                         if let model = element as? KPIItemModel {
-                            KPIItem(kpi: model.kpi_, subtitle: model.subtitle_)
+                            KPIItem(kpi: model.kpi, subtitle: model.subtitle)
                         }
                     }
                 }
@@ -119,7 +119,7 @@ public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollectio
                 HStack {
                     ForEach(data, id: self.dataId) { element in
                         if let model = element as? KPIItemModel {
-                            KPIItem(kpi: model.kpi_, subtitle: model.subtitle_)
+                            KPIItem(kpi: model.kpi, subtitle: model.subtitle)
                         }
                     }
                 }

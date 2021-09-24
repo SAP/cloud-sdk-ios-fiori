@@ -3,11 +3,14 @@
 Used for FioriSwiftUICore component generation to ensure API consistency and to leverage common implementation logic
 
 ```bash
-# use option `--disableCache` in case changes were done to utility swift package `./sourcery/.lib`
-
-sourcery --config phase_pre_sourcery.yml # creates Component protocols
-sourcery --config phase_main_sourcery.yml # creates ViewModels for single property components
-sourcery --config phase_post_sourcery.yml # creates ViewModels which rely on other ViewModels
+# Generate comonent protocol declarations
+sourcery --config .phase_one_sourcery.yml --disableCache
+# Generate component APIs, component view body boilerplate, init extensions, model extensions.
+sourcery --config .phase_two_sourcery.yml --disableCache
+# Generate environment keys/values and view modidiers in view extension.
+sourcery --config .phase_three_sourcery.yml --disableCache
+# Generate component protocol extensions.
+sourcery --config .phase_four_sourcery.yml --disableCache
 ```
 
 Use either Stencil templates or Swift templates.

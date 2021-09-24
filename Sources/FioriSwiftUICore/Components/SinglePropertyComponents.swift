@@ -5,7 +5,6 @@ internal protocol _ComponentGenerating {}
 internal struct _Component: _ComponentGenerating {
     let title_: String
     let subtitle_: String?
-    // sourcery: no_style
     // sourcery: backingComponent=TagStack
     // sourcery: customFunctionBuilder=TagBuilder
     let tags_: [String]?
@@ -23,13 +22,16 @@ internal struct _Component: _ComponentGenerating {
     // sourcery: backingComponent=TextOrIconView
     let substatus_: TextOrIcon?
     let bodyText_: String?
+    // sourcery: backingComponent=AttributedText
+    let bodyAttributedText_: NSAttributedString?
     let icon_: Image?
     let accessoryIcon_: Image?
-    // sourcery: no_style
     // sourcery: backingComponent=IconStack
     // sourcery: customFunctionBuilder=IconBuilder
     let icons_: [TextOrIcon]?
     let actionTitle_: String?
+    let firstActionTitle_: String?
+    let secondActionTitle_: String?
     let seriesTitles_: [String]
     let key_: String
     let value_: String?

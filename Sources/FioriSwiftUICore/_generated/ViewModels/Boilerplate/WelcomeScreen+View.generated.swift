@@ -21,18 +21,18 @@ extension Fiori {
         typealias TitleCumulative = EmptyModifier
 		typealias DescriptionText = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-		typealias TextInputValue = EmptyModifier
-        typealias TextInputValueCumulative = EmptyModifier
-		typealias ActionText = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
 		typealias Subtitle = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
 		typealias Footnote = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
-		typealias SecondaryActionText = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
 		typealias Icon = EmptyModifier
         typealias IconCumulative = EmptyModifier
+		typealias TextInput = EmptyModifier
+        typealias TextInputCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+		typealias SecondaryAction = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -48,20 +48,20 @@ extension Fiori {
         */
         static let title = Title()
 		static let descriptionText = DescriptionText()
-		static let textInputValue = TextInputValue()
-		static let actionText = ActionText()
 		static let subtitle = Subtitle()
 		static let footnote = Footnote()
-		static let secondaryActionText = SecondaryActionText()
 		static let icon = Icon()
+		static let textInput = TextInput()
+		static let action = Action()
+		static let secondaryAction = SecondaryAction()
         static let titleCumulative = TitleCumulative()
 		static let descriptionTextCumulative = DescriptionTextCumulative()
-		static let textInputValueCumulative = TextInputValueCumulative()
-		static let actionTextCumulative = ActionTextCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
 		static let footnoteCumulative = FootnoteCumulative()
-		static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
 		static let iconCumulative = IconCumulative()
+		static let textInputCumulative = TextInputCumulative()
+		static let actionCumulative = ActionCumulative()
+		static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 
@@ -75,7 +75,7 @@ extension WelcomeScreen: View {
 
 // FIXME: - Implement WelcomeScreen specific LibraryContentProvider
 
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 struct WelcomeScreenLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {

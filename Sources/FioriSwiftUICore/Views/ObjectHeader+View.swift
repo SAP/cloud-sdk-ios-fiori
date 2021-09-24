@@ -105,6 +105,8 @@ extension Fiori {
             }
         }
         
+        typealias Tags = EmptyModifier
+        
         typealias TitleCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
         typealias BodyTextCumulative = EmptyModifier
@@ -113,7 +115,7 @@ extension Fiori {
         typealias StatusCumulative = EmptyModifier
         typealias SubstatusCumulative = EmptyModifier
         typealias DetailImageCumulative = EmptyModifier
-        typealias Tags = EmptyModifier
+        typealias TagsCumulative = EmptyModifier
         typealias Placeholder = EmptyModifier
         
         static let title = Title()
@@ -124,6 +126,7 @@ extension Fiori {
         static let status = Status()
         static let substatus = Substatus()
         static let detailImage = DetailImage()
+        static let tags = Tags()
         static let titleCumulative = TitleCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let bodyTextCumulative = BodyTextCumulative()
@@ -132,6 +135,7 @@ extension Fiori {
         static let statusCumulative = StatusCumulative()
         static let substatusCumulative = SubstatusCumulative()
         static let detailImageCumulative = DetailImageCumulative()
+        static let tagsCumulative = TagsCumulative()
     }
 }
 

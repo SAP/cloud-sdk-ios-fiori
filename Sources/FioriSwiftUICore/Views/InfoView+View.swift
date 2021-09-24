@@ -25,7 +25,7 @@ extension Fiori {
             }
         }
         
-        struct ProgressIndicatorText: ViewModifier {
+        struct ProgressIndicator: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 17))
@@ -34,14 +34,14 @@ extension Fiori {
             }
         }
         
-        struct ActionText: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
             }
         }
         
-        struct SecondaryActionText: ViewModifier {
+        struct SecondaryAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -53,23 +53,23 @@ extension Fiori {
         typealias ProgressIndicatorStyleCumulative = EmptyModifier
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let progressIndicatorText = ProgressIndicatorText()
-        static let actionText = ActionText()
-        static let secondaryActionText = SecondaryActionText()
+        static let progressIndicator = ProgressIndicator()
+        static let action = Action()
+        static let secondaryAction = SecondaryAction()
         static let progressIndicatorStyle = ProgressIndicatorStyle()
      
         typealias TitleCumulative = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-        typealias ProgressIndicatorTextCumulative = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+        typealias ProgressIndicatorCumulative = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
 
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
-        static let progressIndicatorTextCumulative = ProgressIndicatorTextCumulative()
+        static let progressIndicatorCumulative = ProgressIndicatorCumulative()
         static let progressIndicatorStyleCumulative = ProgressIndicatorStyleCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
-        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+        static let actionCumulative = ActionCumulative()
+        static let secondaryActionCumulative = SecondaryActionCumulative()
     }
 }
 
@@ -81,11 +81,11 @@ extension InfoView: View {
                 .padding(.bottom, 40)
             descriptionText
             Spacer()
-            progressIndicatorText
+            progressIndicator
             Spacer()
-            actionText
+            action
                 .padding(.bottom, 20)
-            secondaryActionText
+            secondaryAction
                 .padding(.top, 8)
                 .padding(.bottom, 40)
         }
@@ -98,6 +98,6 @@ extension InfoView: View {
 struct InfoViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", actionText: "Primary Button", secondaryActionText: "Secondary Button", didSelectAction: nil, didSelectSecondaryAction: nil))
+        LibraryItem(InfoView(title: "SAP BTP SDK for iOS", descriptionText: "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services.", action: Action(actionText: "Primary Button"), secondaryAction: Action(actionText: "Secondary Button")))
     }
 }

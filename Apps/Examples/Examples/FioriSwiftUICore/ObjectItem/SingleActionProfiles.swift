@@ -86,7 +86,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .resizable()
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
             
@@ -111,7 +111,7 @@ struct SingleActionProfiles: ListDataProtocol {
             }, icons: {
                 Text("1")
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
                 .splitPercent(0.25)
@@ -131,7 +131,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("1")
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
                 .splitPercent(0.25)
@@ -147,7 +147,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("Los Angeles")
             }, descriptionText: {
                 Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
                 .splitPercent(0.25)
@@ -166,7 +166,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .resizable()
                     .frame(width: 45, height: 45)
                     .clipShape(Circle())
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
             
@@ -183,7 +183,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Image("wheel")
                     .resizable()
                     .frame(width: 45, height: 45)
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
             
@@ -202,7 +202,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("1")
                 Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-            }, actionText: {
+            }, action: {
                 actionBtn
             })
                 .splitPercent(0.25)

@@ -2,38 +2,38 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorText: View, ActionText: View, SecondaryActionText: View> {
+public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorView: View, ActionView: View, SecondaryActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.descriptionTextModifier) private var descriptionTextModifier
-	@Environment(\.progressIndicatorTextModifier) private var progressIndicatorTextModifier
-	@Environment(\.actionTextModifier) private var actionTextModifier
-	@Environment(\.secondaryActionTextModifier) private var secondaryActionTextModifier
+	@Environment(\.progressIndicatorModifier) private var progressIndicatorModifier
+	@Environment(\.actionModifier) private var actionModifier
+	@Environment(\.secondaryActionModifier) private var secondaryActionModifier
 
     let _title: Title
 	let _descriptionText: DescriptionText
-	let _progressIndicatorText: ProgressIndicatorText
-	let _actionText: ActionText
-	let _secondaryActionText: SecondaryActionText
+	let _progressIndicator: ProgressIndicatorView
+	let _action: ActionView
+	let _secondaryAction: SecondaryActionView
 	
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false
-	private var isProgressIndicatorTextNil: Bool = false
-	private var isActionTextNil: Bool = false
-	private var isSecondaryActionTextNil: Bool = false
+	private var isProgressIndicatorNil: Bool = false
+	private var isActionNil: Bool = false
+	private var isSecondaryActionNil: Bool = false
 
     public init(
-        @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder progressIndicatorText: @escaping () -> ProgressIndicatorText,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder progressIndicator: () -> ProgressIndicatorView,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
         ) {
             self._title = title()
 			self._descriptionText = descriptionText()
-			self._progressIndicatorText = progressIndicatorText()
-			self._actionText = actionText()
-			self._secondaryActionText = secondaryActionText()
+			self._progressIndicator = progressIndicator()
+			self._action = action()
+			self._secondaryAction = secondaryAction()
     }
 
     @ViewBuilder var title: some View {
@@ -50,25 +50,25 @@ public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorText
             _descriptionText.modifier(descriptionTextModifier.concat(Fiori.InfoView.descriptionText))
         }
     }
-	@ViewBuilder var progressIndicatorText: some View {
+	@ViewBuilder var progressIndicator: some View {
         if isModelInit {
-            _progressIndicatorText.modifier(progressIndicatorTextModifier.concat(Fiori.InfoView.progressIndicatorText).concat(Fiori.InfoView.progressIndicatorTextCumulative))
+            _progressIndicator.modifier(progressIndicatorModifier.concat(Fiori.InfoView.progressIndicator).concat(Fiori.InfoView.progressIndicatorCumulative))
         } else {
-            _progressIndicatorText.modifier(progressIndicatorTextModifier.concat(Fiori.InfoView.progressIndicatorText))
+            _progressIndicator.modifier(progressIndicatorModifier.concat(Fiori.InfoView.progressIndicator))
         }
     }
-	@ViewBuilder var actionText: some View {
+	@ViewBuilder var action: some View {
         if isModelInit {
-            _actionText.modifier(actionTextModifier.concat(Fiori.InfoView.actionText).concat(Fiori.InfoView.actionTextCumulative))
+            _action.modifier(actionModifier.concat(Fiori.InfoView.action).concat(Fiori.InfoView.actionCumulative))
         } else {
-            _actionText.modifier(actionTextModifier.concat(Fiori.InfoView.actionText))
+            _action.modifier(actionModifier.concat(Fiori.InfoView.action))
         }
     }
-	@ViewBuilder var secondaryActionText: some View {
+	@ViewBuilder var secondaryAction: some View {
         if isModelInit {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.InfoView.secondaryActionText).concat(Fiori.InfoView.secondaryActionTextCumulative))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.InfoView.secondaryAction).concat(Fiori.InfoView.secondaryActionCumulative))
         } else {
-            _secondaryActionText.modifier(secondaryActionTextModifier.concat(Fiori.InfoView.secondaryActionText))
+            _secondaryAction.modifier(secondaryActionModifier.concat(Fiori.InfoView.secondaryAction))
         }
     }
     
@@ -76,55 +76,40 @@ public struct InfoView<Title: View, DescriptionText: View, ProgressIndicatorText
         ((isModelInit && isDescriptionTextNil) || DescriptionText.self == EmptyView.self) ? true : false
     }
 
-	var isProgressIndicatorTextEmptyView: Bool {
-        ((isModelInit && isProgressIndicatorTextNil) || ProgressIndicatorText.self == EmptyView.self) ? true : false
+	var isProgressIndicatorEmptyView: Bool {
+        ((isModelInit && isProgressIndicatorNil) || ProgressIndicatorView.self == EmptyView.self) ? true : false
     }
 
-	var isActionTextEmptyView: Bool {
-        ((isModelInit && isActionTextNil) || ActionText.self == EmptyView.self) ? true : false
+	var isActionEmptyView: Bool {
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 
-	var isSecondaryActionTextEmptyView: Bool {
-        ((isModelInit && isSecondaryActionTextNil) || SecondaryActionText.self == EmptyView.self) ? true : false
+	var isSecondaryActionEmptyView: Bool {
+        ((isModelInit && isSecondaryActionNil) || SecondaryActionView.self == EmptyView.self) ? true : false
     }
 }
 
 extension InfoView where Title == Text,
 		DescriptionText == _ConditionalContent<Text, EmptyView>,
-		ProgressIndicatorText == _ConditionalContent<ProgressIndicator, EmptyView>,
-		ActionText == _ConditionalContent<Action, EmptyView>,
-		SecondaryActionText == _ConditionalContent<SecondaryAction, EmptyView> {
+		ProgressIndicatorView == _ConditionalContent<ProgressIndicator, EmptyView>,
+		ActionView == _ConditionalContent<Action, EmptyView>,
+		SecondaryActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: InfoViewModel) {
-        self.init(title: model.title_, descriptionText: model.descriptionText_, progressIndicatorText: model.progressIndicatorText_, actionText: model.actionText_, secondaryActionText: model.secondaryActionText_, didSelectAction: model.didSelectAction, didSelectSecondaryAction: model.didSelectSecondaryAction)
+        self.init(title: model.title, descriptionText: model.descriptionText, progressIndicator: model.progressIndicator != nil ? ProgressIndicator(model: model.progressIndicator!) : nil, action: model.action != nil ? Action(model: model.action!) : nil, secondaryAction: model.secondaryAction != nil ? Action(model: model.secondaryAction!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, progressIndicatorText: String? = nil, actionText: String? = nil, secondaryActionText: String? = nil, didSelectAction: (() -> Void)? = nil, didSelectSecondaryAction: (() -> Void)? = nil) {
+    public init(title: String, descriptionText: String? = nil, progressIndicator: ProgressIndicator? = nil, action: Action? = nil, secondaryAction: Action? = nil) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
-		// handle ProgressIndicatorModel
-        if (progressIndicatorText != nil) {
-            self._progressIndicatorText = ViewBuilder.buildEither(first: ProgressIndicator(progressIndicatorText: progressIndicatorText))
-        } else {
-            self._progressIndicatorText = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle ActionModel
-        if (actionText != nil) {
-            self._actionText = ViewBuilder.buildEither(first: Action(actionText: actionText,didSelectAction: didSelectAction))
-        } else {
-            self._actionText = ViewBuilder.buildEither(second: EmptyView())
-        }
-		// handle SecondaryActionModel
-        if (secondaryActionText != nil) {
-            self._secondaryActionText = ViewBuilder.buildEither(first: SecondaryAction(secondaryActionText: secondaryActionText,didSelectSecondaryAction: didSelectSecondaryAction))
-        } else {
-            self._secondaryActionText = ViewBuilder.buildEither(second: EmptyView())
-        }
+		self._progressIndicator = progressIndicator != nil ? ViewBuilder.buildEither(first: progressIndicator!) : ViewBuilder.buildEither(second: EmptyView())
+		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
+		self._secondaryAction = secondaryAction != nil ? ViewBuilder.buildEither(first: secondaryAction!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isDescriptionTextNil = descriptionText == nil ? true : false
-		isProgressIndicatorTextNil = progressIndicatorText == nil ? true : false
-		isActionTextNil = actionText == nil ? true : false
-		isSecondaryActionTextNil = secondaryActionText == nil ? true : false
+		isProgressIndicatorNil = progressIndicator == nil ? true : false
+		isActionNil = action == nil ? true : false
+		isSecondaryActionNil = secondaryAction == nil ? true : false
     }
 }

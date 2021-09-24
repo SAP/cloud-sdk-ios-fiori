@@ -20,16 +20,16 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 17))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
                     .multilineTextAlignment(.center)
             }
         }
         
-        struct TextInputValue: ViewModifier {
+        struct TextInput: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 15))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
                     .multilineTextAlignment(.center)
                     .keyboardType(.emailAddress)
@@ -37,9 +37,9 @@ extension Fiori {
             }
         }
 
-        typealias TextInputValueCumulative = EmptyModifier
+        typealias TextInputCumulative = EmptyModifier
         
-        struct ActionText: ViewModifier {
+        struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .buttonStyle(StatefulButtonStyle())
@@ -49,7 +49,7 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 15))
+                    .font(.body)
                     .foregroundColor(.preferredColor(.primary1))
             }
         }
@@ -62,7 +62,7 @@ extension Fiori {
             }
         }
         
-        struct SecondaryActionText: ViewModifier {
+        struct SecondaryAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
@@ -80,28 +80,28 @@ extension Fiori {
 
         typealias TitleCumulative = EmptyModifier
         typealias DescriptionTextCumulative = EmptyModifier
-        typealias ActionTextCumulative = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
         typealias FootnoteCumulative = EmptyModifier
-        typealias SecondaryActionTextCumulative = EmptyModifier
+        typealias SecondaryActionCumulative = EmptyModifier
         typealias IconCumulative = EmptyModifier
         
         static let title = Title()
         static let descriptionText = DescriptionText()
-        static let textInputValue = TextInputValue()
-        static let actionText = ActionText()
+        static let textInput = TextInput()
+        static let action = Action()
         static let subtitle = Subtitle()
         static let footnote = Footnote()
-        static let secondaryActionText = SecondaryActionText()
+        static let secondaryAction = SecondaryAction()
         static let icon = Icon()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
 
-        static let textInputValueCumulative = TextInputValueCumulative()
-        static let actionTextCumulative = ActionTextCumulative()
+        static let textInputCumulative = TextInputCumulative()
+        static let actionCumulative = ActionCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let footnoteCumulative = FootnoteCumulative()
-        static let secondaryActionTextCumulative = SecondaryActionTextCumulative()
+        static let secondaryActionCumulative = SecondaryActionCumulative()
         static let iconCumulative = IconCumulative()
     }
 }
@@ -115,18 +115,18 @@ extension WelcomeScreen: View {
             descriptionText
                 .padding(.bottom, 56)
             
-            textInputValue
+            textInput
 
                 .padding(.bottom, 30)
             
-            actionText
+            action
                 .padding(.bottom, 24)
             
             subtitle
             footnote
                 .padding(.top, 8)
             
-            secondaryActionText
+            secondaryAction
                 .padding(.top, 8)
             Spacer()
             icon

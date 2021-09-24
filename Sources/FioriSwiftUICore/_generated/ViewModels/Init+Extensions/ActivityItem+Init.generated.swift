@@ -4,7 +4,7 @@ import SwiftUI
 
 extension ActivityItem where Icon == EmptyView {
     public init(
-    @ViewBuilder subtitle: @escaping () -> Subtitle
+    @ViewBuilder subtitle: () -> Subtitle
     ) {
         self.init(
             icon: { EmptyView() },
@@ -15,10 +15,21 @@ extension ActivityItem where Icon == EmptyView {
 
 extension ActivityItem where Subtitle == EmptyView {
     public init(
-    @ViewBuilder icon: @escaping () -> Icon
+    @ViewBuilder icon: () -> Icon
     ) {
         self.init(
             icon: icon,
+			subtitle: { EmptyView() }
+        )
+    }
+}
+
+extension ActivityItem where Icon == EmptyView, Subtitle == EmptyView {
+    public init(
+    
+    ) {
+        self.init(
+            icon: { EmptyView() },
 			subtitle: { EmptyView() }
         )
     }

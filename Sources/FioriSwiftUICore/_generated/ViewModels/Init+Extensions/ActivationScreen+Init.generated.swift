@@ -2,254 +2,542 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension ActivationScreen where ActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
-			footnote: footnote,
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
 extension ActivationScreen where DescriptionText == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: footnote,
-			secondaryActionText: secondaryActionText
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
 extension ActivationScreen where Footnote == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where SecondaryActionText == EmptyView {
+extension ActivationScreen where ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() }
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where ActionText == EmptyView, DescriptionText == EmptyView {
+extension ActivationScreen where SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder footnote: @escaping () -> Footnote,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
-			footnote: footnote,
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
-extension ActivationScreen where ActionText == EmptyView, Footnote == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
-			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText
+			footnote: footnote,
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where ActionText == EmptyView, SecondaryActionText == EmptyView {
+extension ActivationScreen where TextInputView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
 			footnote: footnote,
-			secondaryActionText: { EmptyView() }
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
         )
     }
 }
 
 extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionText == EmptyView {
+extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText,
-		@ViewBuilder footnote: @escaping () -> Footnote
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: footnote,
-			secondaryActionText: { EmptyView() }
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where Footnote == EmptyView, SecondaryActionText == EmptyView {
+extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() }
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where ActionText == EmptyView, DescriptionText == EmptyView, Footnote == EmptyView {
+extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder secondaryActionText: @escaping () -> SecondaryActionText
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
-			footnote: { EmptyView() },
-			secondaryActionText: secondaryActionText
-        )
-    }
-}
-
-extension ActivationScreen where ActionText == EmptyView, DescriptionText == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder footnote: @escaping () -> Footnote
-    ) {
-        self.init(
-            title: title,
-			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
-			footnote: footnote,
-			secondaryActionText: { EmptyView() }
-        )
-    }
-}
-
-extension ActivationScreen where ActionText == EmptyView, Footnote == EmptyView, SecondaryActionText == EmptyView {
-    public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder descriptionText: @escaping () -> DescriptionText,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			textInputValue: textInputValue,
-			actionText: { EmptyView() },
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() }
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: textInput
         )
     }
 }
 
-extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionText == EmptyView {
+extension ActivationScreen where Footnote == EmptyView, TextInputView == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder textInputValue: @escaping () -> TextInputValue,
-		@ViewBuilder actionText: @escaping () -> ActionText
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where ActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: footnote,
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView,
+		@ViewBuilder textInput: () -> TextInputView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			textInputValue: textInputValue,
-			actionText: actionText,
 			footnote: { EmptyView() },
-			secondaryActionText: { EmptyView() }
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: action,
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder footnote: () -> Footnote
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder textInput: () -> TextInputView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: textInput
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder secondaryAction: () -> SecondaryActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: secondaryAction,
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: action,
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder footnote: () -> Footnote
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: footnote,
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
+        )
+    }
+}
+
+extension ActivationScreen where DescriptionText == EmptyView, Footnote == EmptyView, ActionView == EmptyView, SecondaryActionView == EmptyView, TextInputView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			footnote: { EmptyView() },
+			action: { EmptyView() },
+			secondaryAction: { EmptyView() },
+			textInput: { EmptyView() }
         )
     }
 }

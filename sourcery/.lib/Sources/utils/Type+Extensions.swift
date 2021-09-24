@@ -4,6 +4,48 @@ import SourceryRuntime
 // MARK: - Public API
 
 public extension Type {
+    static func getAllStoredVariables(for type: Type) -> [Variable] {
+        var ret: [Variable] = []
+        
+        for superType in type.inheritedTypes {
+            if case let context = ProcessInfo().context.type, let type = context[superType] {
+                ret.append(contentsOf: getAllStoredVariables(for: type))
+            }
+        }
+        
+        ret.append(contentsOf: type.storedVariables)
+        
+        return ret
+    }
+}
+
+public extension Type {
+    /// Add the default values from annotations of model protocols into annotations of corresponding variable
+    /// ```
+    /// sourcery: default.actionText_.value = NSLocalizedString("Give Consent", comment: "")
+    /// sourcery: default.secondaryActionText_.value = NSLocalizedString("Quit", comment: "")
+    /// sourcery: generated_component_composite
+    /// public protocol AlertConfigurationModel: AlertTitleComponent, AlertMessageComponent, ActionModel, SecondaryActionModel {}
+    /// ```
+    func updateAnnotationForAllVariables() {
+        for variable in allVariables {
+            let name = variable.name
+            if let defaultValue = annotations.defaultValue(for: name) {
+                variable.annotations["default.value"] = defaultValue
+                
+                if annotations.isStringLiteral(for: name) {
+                    variable.annotations["default.isStringLiteral"] = true as NSObject
+                }
+            }
+        }
+    }
+}
+
+public extension Type {
+    var templateParameterDecls: [String] {
+        allStoredVariables.representableByView.templateParameterDecls
+    }
+    
     /**
      Declares additional 'non-model' `ViewBuilder` generic types
      Follows list of `componentProperties.templateParameterDecls`
@@ -28,13 +70,19 @@ public extension Type {
     var componentName: String {
         name.replacingOccurrences(of: "Model", with: "")
     }
+    
+    var allStoredVariables: [Variable] {
+        Type.getAllStoredVariables(for: self)
+    }
 
     var componentNameAsPropertyDecl: String {
         self.componentName.lowercasingFirst()
     }
 
     func flattenedComponentProperties(contextType: [String: Type]) -> [Variable] {
-        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables.reversed() }
+        let selfProperties = variables
+        let inheritedProperties = inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allVariables.reversed() }
+        return selfProperties + inheritedProperties
     }
 
     // add_view_builder_params are no Swift properties and therefore `Variable` property values are faked and cannot be relied on other than `name`
@@ -61,7 +109,7 @@ public extension Type {
     
     var add_view_builder_paramsViewBuilderInitParams: [String] {
         self.resolvedAnnotations("add_view_builder_params")
-            .map { "@ViewBuilder \($0): @escaping () -> \($0.capitalizingFirst())" }
+            .map { "@ViewBuilder \($0): () -> \($0.capitalizingFirst())" }
     }
 
     func add_view_builder_params_extensionInitParamWhereEmptyView(scenario: [Variable]) -> [String] {
@@ -75,12 +123,12 @@ public extension Type {
 
     func optionalPropertySequences(includingAddViewBuilderParams: Bool = true) -> [[Variable]] {
         var sequences: [[Variable]] = []
-        var optionalProperties = self.allVariables.filter { $0.isRepresentableByView }.filter { $0.isOptional }
+        var optionalProperties = self.allStoredVariables.filter { $0.isRepresentableByView }.filter { $0.isOptional }
         if includingAddViewBuilderParams {
             optionalProperties.append(contentsOf: self.addViewBuilderParamsAsVariables)
         }
         guard optionalProperties.count > 0 else { return [] }
-        for i in 1 ..< optionalProperties.count {
+        for i in 1 ... optionalProperties.count {
             sequences.append(contentsOf: optionalProperties.combinations(ofCount: i).map { $0 })
         }
         return sequences
@@ -250,21 +298,7 @@ extension Type {
      ```
      */
     var extensionModelInitParamsAssignments: [String] {
-        var statements: [String] = []
-
-        let context = ProcessInfo().context!
-        let contextType = context.type
-        let allTypes = context.types
-
-        let inheritedTypeDefs = inheritedTypes.compactMap { contextType[$0] }.compactMap { $0 }
-        let viewModelsWhichWillBeBacked = inheritedTypeDefs.filter { $0.annotations["backingComponent"] != nil || $0.inheritedTypes.inheritedTypes(contextType: contextType).containsAnnotation(name: "backingComponent") }
-        let singlePropTypes = inheritedTypeDefs.filter { viewModelsWhichWillBeBacked.contains($0) == false }
-        let props = singlePropTypes.flatMap { $0.allVariables }
-
-        statements.append(contentsOf: props.extensionModelInitParamsAssignments)
-
-        statements.append(contentsOf: self.extensionModelInitParamsAssignments(for: viewModelsWhichWillBeBacked, contextType: contextType, allTypes: allTypes))
-
+        var statements = self.allStoredVariables.extensionModelInitParamsAssignments
         return statements
     }
 
@@ -346,6 +380,12 @@ extension Array where Element == String {
 }
 
 extension Type {
+    var importStatement: String {
+        let frameworks = annotations.importFrameworks
+        
+        return frameworks.map { "import \($0)" }.joined(separator: "\n")
+    }
+    
     var availableAttribute: String? {
         guard let content = resolvedAnnotations("availableAttributeContent").first else { return nil }
         return "@available(\(content))"
@@ -370,5 +410,112 @@ extension Type {
         } else {
             return false
         }
+    }
+}
+
+extension Type {
+    // Properties in base component plus those in annotation (default.variableName.value)
+    var componentPropertiesWithDefaultValues: [Variable] {
+        let baseComponentProperties = variables.filter { $0.annotations.defaultValue != nil }
+        let dict = annotations.defaultValueDict
+        let propertiesInAnnotation = self.allStoredVariables.filter { !variables.contains($0) }.filter { dict[$0.name] != nil }
+        return baseComponentProperties + propertiesInAnnotation
+    }
+    
+    var optionalVariablesWithoutDefaultValue: [Variable] {
+        variables.filter { $0.typeName.isOptional && $0.annotations.defaultValue == nil }
+    }
+    
+    var protocolExtensionDefaultValuesDecls: String {
+        let componentPropertiesDecls: [String] = self.componentPropertiesWithDefaultValues.map {
+            let defaultValue = "\($0.annotations.defaultValue!)"
+            
+            let ret = """
+            var \($0.name): \($0.typeName.name) {
+                    return \(defaultValue)
+                }
+            """
+            
+            return ret
+        }
+        
+        let optionalPropertiesDecls: [String] = self.optionalVariablesWithoutDefaultValue.map {
+            let ret = """
+            var \($0.name): \($0.typeName.name) {
+                    return nil
+                }
+            """
+            
+            return ret
+        }
+        
+        return [componentPropertiesDecls, optionalPropertiesDecls].flatMap { $0 }.joined(separator: "\n\n\t")
+    }
+}
+
+public extension Type {
+    /**
+     Given:
+     
+     public protocol ContactItemModel: TitleComponent, SubtitleComponent, DescriptionTextComponent, DetailImageComponent, ActivityItemsModel {}
+     
+     Return: [ActivityItemsModel]
+     */
+    func getInheritedTypesBackedByComponent() -> [String] {
+        let context = ProcessInfo().context.type
+        var ret: [String] = []
+        
+        for inheritedType in inheritedTypes {
+            guard let type = context[inheritedType] else { continue }
+            
+            if type.annotations.isGeneratedComponentNotConfigurable || type.annotations.backingComponent != nil {
+                ret.append(inheritedType)
+            } else {
+                let inheritedTypesBackedByComponent = type.getInheritedTypesBackedByComponent()
+                ret.append(contentsOf: inheritedTypesBackedByComponent)
+            }
+        }
+        
+        return ret
+    }
+    
+    var allStoredVariablesExcludingBackedComponents: [Variable] {
+        let variables = self.allStoredVariables
+        let variablesInBackedComponents = self.getInheritedTypesBackedByComponent().types.flatMap { $0.allStoredVariables }
+        return variables.filter { !variablesInBackedComponents.contains($0) }
+    }
+    
+    var isBackedByComponent: Bool {
+        annotations.isGeneratedComponentNotConfigurable || annotations.backingComponent != nil
+    }
+    
+    var isGeneratedComponent: Bool {
+        annotations.isGeneratedComponent
+    }
+    
+    var backingComponentName: String? {
+        if let backingComponent = annotations.backingComponent {
+            return backingComponent
+        } else if annotations.isGeneratedComponentNotConfigurable {
+            return self.componentName
+        } else {
+            return nil
+        }
+    }
+    
+    var genericParameterName: String {
+        if let genericParameterName = annotations.genericParameterName {
+            return genericParameterName
+        }
+        
+        return self.backingComponentName ?? ""
+    }
+    
+    var genericParameterType: String {
+        if let genericParameterType = annotations.genericParameterType {
+            return genericParameterType
+        }
+        
+        return "View"
     }
 }

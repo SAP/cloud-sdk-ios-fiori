@@ -87,13 +87,14 @@ public extension KPIProgressItem where Kpi == Text,
     ///   - action: The action when user interacts with the KPIProgress item.
     init(data: KPIItemData, subtitle: String? = nil, footnote: String? = nil, action: (() -> Void)? = nil) {
         self.init(kpi: {
-            KPIProgressFormatter().create(from: data) ?? Text("")
-        }, fraction: data.fraction(),
-        subtitle: {
-            subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
-        }, footnote: {
-            footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
-        })
+                      KPIProgressFormatter().create(from: data) ?? Text("")
+                  },
+                  fraction: data.fraction(),
+                  subtitle: {
+                      subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
+                  }, footnote: {
+                      footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
+                  })
         self.action = action
     }
 }

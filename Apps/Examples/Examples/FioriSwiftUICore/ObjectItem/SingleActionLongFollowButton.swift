@@ -43,18 +43,18 @@ struct SingleActionLongFollowButton: ListDataProtocol {
         case (0, 0):
             let oi = ObjectItem(title: isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
                                 footnote: "3493 followers",
-                                actionText: self.isLongText ? longText : "Follow") {
-                print("Tapped Follow")
-            }
+                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                    print("Tapped Follow")
+                                }))
             
             return AnyView(oi)
             
         case (0, 1):
             let oi = ObjectItem(title: isLongText ? longHeadline : "Hybris",
                                 footnote: "2290 followers",
-                                actionText: self.isLongText ? longText : "Follow") {
-                print("Tapped Follow")
-            }
+                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                    print("Tapped Follow")
+                                }))
             
             return AnyView(oi)
             
@@ -63,7 +63,7 @@ struct SingleActionLongFollowButton: ListDataProtocol {
                 Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
             }, footnote: {
                 Text("3493 followers")
-            }, actionText: {
+            }, action: {
                 Button {
                     print("Tapped Follow")
                 } label: {
@@ -81,25 +81,25 @@ struct SingleActionLongFollowButton: ListDataProtocol {
         case (0, 3):
             let oi = ObjectItem(title: isLongText ? longHeadline : "Successfactors",
                                 footnote: "1000 followers",
-                                actionText: self.isLongText ? longText : "Follow") {
-                print("Tapped Follow")
-            }
+                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                    print("Tapped Follow")
+                                }))
             return AnyView(oi)
             
         case (0, 4):
             let oi = ObjectItem(title: isLongText ? longHeadline : "Tennis @ SAP",
                                 footnote: "2290 followers",
-                                actionText: self.isLongText ? longText : "Follow") {
-                print("Tapped Follow")
-            }
+                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                    print("Tapped Follow")
+                                }))
             return AnyView(oi)
             
         case (0, 5):
             let oi = ObjectItem(title: isLongText ? longHeadline : "SAP.io",
                                 footnote: "537 followers",
-                                actionText: self.isLongText ? longText : "Follow") {
-                print("Tapped Follow")
-            }
+                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                    print("Tapped Follow")
+                                }))
             return AnyView(oi)
             
         case (1, 0):
@@ -107,7 +107,7 @@ struct SingleActionLongFollowButton: ListDataProtocol {
                 Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
             }, footnote: {
                 Text("3493 followers")
-            }, actionText: {
+            }, action: {
                 Button {
                     print("Tapped Follow")
                 } label: {

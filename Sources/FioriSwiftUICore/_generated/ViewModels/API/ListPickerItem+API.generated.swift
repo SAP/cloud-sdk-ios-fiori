@@ -13,8 +13,8 @@ public struct ListPickerItem<Key: View, Value: View> {
 	private var isValueNil: Bool = false
 
     public init(
-        @ViewBuilder key: @escaping () -> Key,
-		@ViewBuilder value: @escaping () -> Value
+        @ViewBuilder key: () -> Key,
+		@ViewBuilder value: () -> Value
         ) {
             self._key = key()
 			self._value = value()
@@ -44,7 +44,7 @@ extension ListPickerItem where Key == Text,
 		Value == _ConditionalContent<Text, EmptyView> {
 
     public init(model: ListPickerItemModel) {
-        self.init(key: model.key_, value: model.value_)
+        self.init(key: model.key, value: model.value)
     }
 
     public init(key: String, value: String? = nil) {

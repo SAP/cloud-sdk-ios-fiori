@@ -2,26 +2,11 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SideBarListItem where AccessoryIcon == EmptyView {
-    public init(
-    @ViewBuilder icon: @escaping () -> Icon,
-		@ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle
-    ) {
-        self.init(
-            icon: icon,
-			title: title,
-			subtitle: subtitle,
-			accessoryIcon: { EmptyView() }
-        )
-    }
-}
-
 extension SideBarListItem where Icon == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle,
-		@ViewBuilder accessoryIcon: @escaping () -> AccessoryIcon
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle,
+		@ViewBuilder accessoryIcon: () -> AccessoryIcon
     ) {
         self.init(
             icon: { EmptyView() },
@@ -34,9 +19,9 @@ extension SideBarListItem where Icon == EmptyView {
 
 extension SideBarListItem where Subtitle == EmptyView {
     public init(
-    @ViewBuilder icon: @escaping () -> Icon,
-		@ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder accessoryIcon: @escaping () -> AccessoryIcon
+    @ViewBuilder icon: () -> Icon,
+		@ViewBuilder title: () -> Title,
+		@ViewBuilder accessoryIcon: () -> AccessoryIcon
     ) {
         self.init(
             icon: icon,
@@ -47,10 +32,39 @@ extension SideBarListItem where Subtitle == EmptyView {
     }
 }
 
-extension SideBarListItem where AccessoryIcon == EmptyView, Icon == EmptyView {
+extension SideBarListItem where AccessoryIcon == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder subtitle: @escaping () -> Subtitle
+    @ViewBuilder icon: () -> Icon,
+		@ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle
+    ) {
+        self.init(
+            icon: icon,
+			title: title,
+			subtitle: subtitle,
+			accessoryIcon: { EmptyView() }
+        )
+    }
+}
+
+extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder accessoryIcon: () -> AccessoryIcon
+    ) {
+        self.init(
+            icon: { EmptyView() },
+			title: title,
+			subtitle: { EmptyView() },
+			accessoryIcon: accessoryIcon
+        )
+    }
+}
+
+extension SideBarListItem where Icon == EmptyView, AccessoryIcon == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder subtitle: () -> Subtitle
     ) {
         self.init(
             icon: { EmptyView() },
@@ -61,10 +75,10 @@ extension SideBarListItem where AccessoryIcon == EmptyView, Icon == EmptyView {
     }
 }
 
-extension SideBarListItem where AccessoryIcon == EmptyView, Subtitle == EmptyView {
+extension SideBarListItem where Subtitle == EmptyView, AccessoryIcon == EmptyView {
     public init(
-    @ViewBuilder icon: @escaping () -> Icon,
-		@ViewBuilder title: @escaping () -> Title
+    @ViewBuilder icon: () -> Icon,
+		@ViewBuilder title: () -> Title
     ) {
         self.init(
             icon: icon,
@@ -75,16 +89,15 @@ extension SideBarListItem where AccessoryIcon == EmptyView, Subtitle == EmptyVie
     }
 }
 
-extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView {
+extension SideBarListItem where Icon == EmptyView, Subtitle == EmptyView, AccessoryIcon == EmptyView {
     public init(
-    @ViewBuilder title: @escaping () -> Title,
-		@ViewBuilder accessoryIcon: @escaping () -> AccessoryIcon
+    @ViewBuilder title: () -> Title
     ) {
         self.init(
             icon: { EmptyView() },
 			title: title,
 			subtitle: { EmptyView() },
-			accessoryIcon: accessoryIcon
+			accessoryIcon: { EmptyView() }
         )
     }
 }
