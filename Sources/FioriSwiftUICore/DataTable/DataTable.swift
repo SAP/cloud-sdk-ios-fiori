@@ -67,7 +67,7 @@ public struct DataTable: View {
         let dataManager = TableDataManager(selectedIndexes: self.model.selectedIndexes)
         layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         layoutManager.rect = rect
-        
+        layoutManager.setupMargins(rect: layoutManager.rect)
         return Group {
             if self.horizontalSizeClass == .compact, self.verticalSizeClass == .regular, self.model.showListView {
                 let listView = TableListView(layoutManager: layoutManager)

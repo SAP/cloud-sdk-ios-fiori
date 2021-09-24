@@ -73,7 +73,6 @@ struct GridTableView: View {
                 self.lastScaleX = self.layoutManager.scaleX
                 self.lastScaleY = self.layoutManager.scaleY
             }
-        
         let items: [[DataTableItem]] = self.layoutManager.dataItemsForTable(rect: rect)
 
         return
