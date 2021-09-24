@@ -168,9 +168,7 @@ extension TableLayoutManager {
         
         var width: CGFloat = 0
         var height: CGFloat = 0
-        
-        self.setupMargins(rect: rect)
-        
+                
         width = self.getColumnWidths(rect).reduce(0, +)
         width += self.tableLeadingLayoutMargin
         width += self.tableTrailingLayoutMargin
@@ -223,7 +221,7 @@ extension TableLayoutManager {
         var heights: [CGFloat] = []
         for (index, row) in rows.enumerated() {
             var itemHeight: CGFloat = 0
-            let isHeader = self.model.headerData != nil && index == 0
+            let isHeader = self.model.hasHeader && index == 0
             let topAndBottom = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
             for item in row {
                 itemHeight = max(item.size.height, itemHeight)

@@ -28,33 +28,40 @@ struct LeadingAccessoryView: View {
     
     var body: some View {
         Group {
-            let totalWidth = self.layoutManager.leadingItemsWidths[self.layoutIndex]
-            let offset = totalWidth / 2
             makeBody(items: self.items)
-                .offset(x: offset * self.layoutManager.scaleX)
         }
     }
     
-    func makeBody(items: [AccessoryItem]) -> some View {
-        HStack(alignment: .center, spacing: 4) {
-            makeSectionButton()
-            ForEach(0 ..< items.count, id: \.self) { index in
-                switch items[index] {
-                case .button(let button):
-                    makeButton(button: button)
-                case .icon(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(TableViewLayout.defaultForegroundColor)
-                        .frame(width: 16 * self.layoutManager.scaleX, height: 16 * self.layoutManager.scaleY, alignment: .center)
-                case .text(let string):
-                    Text(string)
+    func makeBody(items: [AccessoryItem]) -> AnyView {
+        guard self.layoutIndex < self.layoutManager.rowHeights.count else {
+            return AnyView(EmptyView())
+        }
+
+        let totalWidth = self.layoutManager.leadingItemsWidths[self.layoutIndex]
+        let offset = totalWidth / 2
+
+        return AnyView(
+            HStack(alignment: .center, spacing: 4) {
+                makeSectionButton()
+                ForEach(0 ..< items.count, id: \.self) { index in
+                    switch items[index] {
+                    case .button(let button):
+                        makeButton(button: button)
+                    case .icon(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(TableViewLayout.defaultForegroundColor)
+                            .frame(width: 16 * self.layoutManager.scaleX, height: 16 * self.layoutManager.scaleY, alignment: .center)
+                    case .text(let string):
+                        Text(string)
+                    }
                 }
             }
-        }
-        .frame(height: self.layoutManager.rowHeights[self.layoutIndex] * self.layoutManager.scaleY)
-        .background(self.backgroundColor)
+            .frame(height: self.layoutManager.rowHeights[self.layoutIndex] * self.layoutManager.scaleY)
+            .offset(x: offset * self.layoutManager.scaleX)
+            .background(self.backgroundColor)
+        )
     }
     
     func makeButton(button: AccessoryButton) -> some View {
