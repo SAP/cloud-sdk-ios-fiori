@@ -81,7 +81,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                     
                     Spacer(minLength: 0)
-                }.frame(width: yAxisRect.size.width, height: rect.size.height - insets.top - insets.bottom)
+                }.frame(width: yAxisRect.size.width, height: max(0, rect.size.height - insets.top - insets.bottom))
                 
                 // plot view
                 VStack(alignment: .leading, spacing: 0) {
@@ -127,7 +127,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
                     }
                     
                     Spacer(minLength: 0)
-                }.frame(width: secondaryYAxisRect.size.width, height: rect.size.height - insets.top - insets.bottom)
+                }.frame(width: secondaryYAxisRect.size.width, height: max(0, rect.size.height - insets.top - insets.bottom))
                 
                 Spacer().frame(width: insets.trailing)
             }
