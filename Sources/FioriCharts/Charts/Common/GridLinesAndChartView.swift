@@ -135,37 +135,39 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             
             indicatorView
             
-            Background(tappedCallback: { point, chartRect, _ in
-                if !self.model.selectionEnabled {
-                    return
-                }
-                
-                let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-            }, doubleTappedCallback: { _, _, _ in
-                if !self.model.selectionEnabled {
-                    return
-                }
-                
-                // clear selections
-                if self.model.selections != nil {
-                    self.model.selections = nil
-                }
-            }) { points, chartRect, state in
-                if !self.model.selectionEnabled {
-                    return
-                }
-                
-                if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock, state == UIGestureRecognizer.State.began.rawValue {
-                    let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
-                                                                           rect: chartRect,
-                                                                           layoutDirection: self.layoutDirection)
+            if self.model.userInteractionEnabled {
+                Background(tappedCallback: { point, chartRect, _ in
+                    if !self.model.selectionEnabled {
+                        return
+                    }
                     
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                    let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
+                }, doubleTappedCallback: { _, _, _ in
+                    if !self.model.selectionEnabled {
+                        return
+                    }
+                    
+                    // clear selections
+                    if self.model.selections != nil {
+                        self.model.selections = nil
+                    }
+                }) { points, chartRect, state in
+                    if !self.model.selectionEnabled {
+                        return
+                    }
+                    
+                    if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock, state == UIGestureRecognizer.State.began.rawValue {
+                        let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
+                                                                               rect: chartRect,
+                                                                               layoutDirection: self.layoutDirection)
+                        
+                        ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                    }
                 }
+                .gesture(drag)
+                .gesture(mag)
             }
-            .gesture(drag)
-            .gesture(mag)
         }.disabled(!self.model.userInteractionEnabled)
     }
     
