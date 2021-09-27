@@ -203,6 +203,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public var numericAxisLabelFormatHandler: NumericAxisLabelFormatHandler?
     
     /// enable or disable user interaction
+    /// Do not set this property to true if the chart is used as an iOS Widget. Otherwise it will be an empty view
     @Published public var userInteractionEnabled: Bool = false
     
     /// snap to point when dragging a chart
