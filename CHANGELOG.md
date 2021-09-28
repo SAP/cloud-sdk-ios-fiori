@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.1...1.0.2) (2021-09-28)
+
+
+### Bug Fixes
+
+* support chart for iOS Widget ([#330](https://github.com/SAP/cloud-sdk-ios-fiori/issues/330)) ([92dbf57](https://github.com/SAP/cloud-sdk-ios-fiori/commit/92dbf576414d0ec230603001556ba05c23e60093))
+
 ### [1.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.0...1.0.1) (2021-09-21)
 
 
