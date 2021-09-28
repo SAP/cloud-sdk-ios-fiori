@@ -53,11 +53,11 @@ struct PaletteV5: PaletteProvider {
         case .tertiaryGroupedBackground:
             return HexColor(lightColor: "29313A", darkColor: "FFFFFF", elevatedLightColor: "2F3943", elevatedDarkColor: "FFFFFF")
         case .primaryBackground:
-            return HexColor(lightColor: "232A31", darkColor: "FFFFFF", elevatedLightColor: "29313A", elevatedDarkColor: "FFFFFF")
+            return FUIHexColor(lightColor: "232A31", darkColor: "FFFFFF", elevatedLightColor: "29313A", elevatedDarkColor: "FFFFFF", contrastDarkColor: "232A31")
         case .secondaryBackground:
-            return HexColor(lightColor: "1C2228", darkColor: "F7F7F7", elevatedLightColor: "232A31", elevatedDarkColor: "F7F7F7")
+            return FUIHexColor(lightColor: "1C2228", darkColor: "F7F7F7", elevatedLightColor: "232A31", elevatedDarkColor: "F7F7F7", contrastDarkColor: "1C2228")
         case .tertiaryBackground:
-            return HexColor(lightColor: "29313A", darkColor: "FFFFFF", elevatedLightColor: "2F3943", elevatedDarkColor: "FFFFFF")
+            return FUIHexColor(lightColor: "29313A", darkColor: "FFFFFF", elevatedLightColor: "2F3943", elevatedDarkColor: "FFFFFF", contrastDarkColor: "29313A")
         case .primaryLabel:
             return HexColor(lightColor: "FAFAFA", darkColor: "32363A", contrastLightColor: "FAFAFA", contrastDarkColor: "FAFAFA")
         case .secondaryLabel:
