@@ -17,6 +17,10 @@ struct ContentView: View {
                     destination: CoreContentView()) {
                     Text("Core Elements")
                 }
+                NavigationLink(
+                    destination: FioriThemeManagerContentView()) {
+                    Text("Theme Manager")
+                }
             }
             .navigationBarTitle("Examples")
             .navigationViewStyle(StackNavigationViewStyle())

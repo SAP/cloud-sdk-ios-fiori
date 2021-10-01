@@ -10,6 +10,8 @@
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90888B261A59820015A84D /* FioriButtonExample.swift */; };
+		1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30411270540FB004BEE00 /* 72-Fonts.swift */; };
+		1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */; };
 		1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */; };
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F338A26556A6A009B98DA /* SideBarExample.swift */; };
@@ -204,6 +206,8 @@
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F90888B261A59820015A84D /* FioriButtonExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonExample.swift; sourceTree = "<group>"; };
+		1FC30411270540FB004BEE00 /* 72-Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "72-Fonts.swift"; sourceTree = "<group>"; };
+		1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriThemeManagerContentView.swift; sourceTree = "<group>"; };
 		1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		692F338A26556A6A009B98DA /* SideBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarExample.swift; sourceTree = "<group>"; };
@@ -402,6 +406,15 @@
 			path = FioriButton;
 			sourceTree = "<group>";
 		};
+		1FC3040F2705409C004BEE00 /* FioriThemeManager */ = {
+			isa = PBXGroup;
+			children = (
+				1FC30411270540FB004BEE00 /* 72-Fonts.swift */,
+				1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */,
+			);
+			path = FioriThemeManager;
+			sourceTree = "<group>";
+		};
 		1FF3662C264C662A00AB8BD8 /* DimensionSelector */ = {
 			isa = PBXGroup;
 			children = (
@@ -449,6 +462,7 @@
 		8A55795524C1286E0098003A /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				1FC3040F2705409C004BEE00 /* FioriThemeManager */,
 				8A55797824C1293C0098003A /* FioriCharts */,
 				8A55798824C1293C0098003A /* FioriIntegrationCards */,
 				8A5579C824C1293C0098003A /* FioriSwiftUICore */,
@@ -995,6 +1009,7 @@
 				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,
 				8A557A0824C1293C0098003A /* BundleTestCases.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
+				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */,
@@ -1005,6 +1020,7 @@
 				99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */,
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
+				1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */,
 				8A557A2024C12C940098003A /* IntegrationCardsContentView.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
