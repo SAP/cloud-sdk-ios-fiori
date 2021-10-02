@@ -83,6 +83,37 @@ extension FioriFonts {
 
 extension Font.Weight: CaseIterable {
     public static var allCases: [Font.Weight] {
-        [.black, .bold, .heavy, .light, .medium, .regular, .semibold, .thin, .light, .ultraLight]
+        [.black, .heavy, .bold, .semibold, .medium, .regular, .light, .thin, .ultraLight]
+    }
+}
+
+extension Font.Weight: CustomStringConvertible {
+    public var description: String {
+        let name: String
+        
+        switch self {
+        case .black:
+            name = "black"
+        case .heavy:
+            name = "heavy"
+        case .bold:
+            name = "bold"
+        case .semibold:
+            name = "semibold"
+        case .medium:
+            name = "medium"
+        case .regular:
+            name = "regular"
+        case .light:
+            name = "light"
+        case .thin:
+            name = "thin"
+        case .ultraLight:
+            name = "ultraLight"
+        default:
+            name = "Unknown"
+        }
+        
+        return name
     }
 }
