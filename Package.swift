@@ -51,7 +51,10 @@ let package = Package(
         ),
         .target(
             name: "FioriThemeManager",
-            dependencies: []
+            dependencies: [],
+            resources: [
+                .process("72-Fonts/Resources")
+            ]
         ),
         .testTarget(
             name: "FioriSwiftUITests",
