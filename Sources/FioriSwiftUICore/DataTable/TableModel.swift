@@ -18,6 +18,13 @@ public class TableModel: ObservableObject {
     /// `TableRowItem`, header data for displaying.
     @Published public var headerData: TableRowItem?
     
+    internal var hasHeader: Bool {
+        if let header = self.headerData, !header.data.isEmpty {
+            return true
+        }
+        return false
+    }
+    
     /// Data for each row.
     public var rowData: [TableRowItem] {
         get {

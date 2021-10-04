@@ -67,7 +67,7 @@ public struct DataTable: View {
         let dataManager = TableDataManager(selectedIndexes: self.model.selectedIndexes)
         layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         layoutManager.rect = rect
-        
+        layoutManager.setupMargins(rect: layoutManager.rect)
         return Group {
             if self.horizontalSizeClass == .compact, self.verticalSizeClass == .regular, self.model.showListView {
                 let listView = TableListView(layoutManager: layoutManager)
@@ -75,7 +75,7 @@ public struct DataTable: View {
             } else {
                 let gridView = GridTableView(layoutManager: layoutManager)
                 gridView
-                    .frame(minWidth: 300, idealWidth: UIScreen.main.bounds.width, maxWidth: .infinity, minHeight: 300, idealHeight: UIScreen.main.bounds.height, maxHeight: .infinity, alignment: .center)
+                    .frame(minWidth: 50, minHeight: 50)
                     .clipped()
             }
         }

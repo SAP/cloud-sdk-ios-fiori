@@ -4,7 +4,7 @@ import UIKit
 
 extension TableLayoutManager {
     func initRowData(model: TableModel) {
-        if let header = model.headerData {
+        if model.hasHeader, let header = model.headerData {
             self.rowData.append(header)
         }
         self.rowData.append(contentsOf: model.rowData)
@@ -168,9 +168,7 @@ extension TableLayoutManager {
         
         var width: CGFloat = 0
         var height: CGFloat = 0
-        
-        self.setupMargins(rect: rect)
-        
+                
         width = self.getColumnWidths(rect).reduce(0, +)
         width += self.tableLeadingLayoutMargin
         width += self.tableTrailingLayoutMargin
@@ -223,7 +221,7 @@ extension TableLayoutManager {
         var heights: [CGFloat] = []
         for (index, row) in rows.enumerated() {
             var itemHeight: CGFloat = 0
-            let isHeader = self.model.headerData != nil && index == 0
+            let isHeader = self.model.hasHeader && index == 0
             let topAndBottom = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
             for item in row {
                 itemHeight = max(item.size.height, itemHeight)
@@ -248,6 +246,10 @@ extension TableLayoutManager {
     // swiftlint:disable all
     func dataItemsForTable(rect: CGRect) -> [[DataTableItem]] {
         self.actualTableViewSize = self.actualSizeForTable(self.model, rect)
+        if self.actualTableViewSize.height < self.rect.height {
+            let newRect = CGRect(x: 0, y: 0, width: rect.width, height: self.actualTableViewSize.height)
+            self._rect = newRect
+        }
         
         let allItems = self.allDataItems
         
