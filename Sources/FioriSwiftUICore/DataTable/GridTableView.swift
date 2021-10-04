@@ -27,7 +27,8 @@ struct GridTableView: View {
         }
     }
     
-    func makeBody(in rect: CGRect) -> some View {
+    func makeBody(in rectInLocal: CGRect) -> some View {
+        let rect = self.layoutManager.rect == .zero ? rectInLocal : self.layoutManager.rect
         let drag = DragGesture()
             .onChanged { value in
                 let scaleX = self.layoutManager.scaleX(rect: rect)
@@ -72,14 +73,13 @@ struct GridTableView: View {
                 self.lastScaleX = self.layoutManager.scaleX
                 self.lastScaleY = self.layoutManager.scaleY
             }
-        
         let items: [[DataTableItem]] = self.layoutManager.dataItemsForTable(rect: rect)
 
         return
             ZStack {
                 ForEach(0 ..< items.count, id: \.self) { i in
                     
-                    let isHeader: Bool = i == 0 && self.layoutManager.model.headerData != nil
+                    let isHeader: Bool = i == 0 && self.layoutManager.model.hasHeader
                     
                     ForEach(0 ..< items[i].count, id: \.self) { j in
                         let currentItem = items[i][j]

@@ -77,31 +77,28 @@ public struct DataTableExample: View {
     func makeBody() -> some View {
         var view = DataTable(model: self.model)
         return
-            NavigationView {
-                view
-                    .navigationBarTitle("Data Table", displayMode: .inline)
-                    .navigationBarItems(leading:
-                        Button(action: {
-                            showingSheet.toggle()
-                        }) {
-                            Image(systemName: "plus")
-                        }.sheet(isPresented: $showingSheet) {
-                            SheetView(model: self.model)
-                        },
-                        trailing:
-                        Button(self.isEditing ? "Delete" : "Edit") {
-                            DispatchQueue.main.async {
-                                self.isEditing = !self.isEditing
-                                view.isEditing = self.isEditing
-                                if !self.isEditing {
-                                    let indexSet = IndexSet(self.model.selectedIndexes)
-                                    self.model.rowData.remove(atOffsets: indexSet)
-                                    self.model.selectedIndexes = []
-                                }
+            view
+                .navigationBarTitle("Data Table", displayMode: .inline)
+                .navigationBarItems(leading:
+                    Button(action: {
+                        showingSheet.toggle()
+                    }) {
+                        Image(systemName: "plus")
+                    }.sheet(isPresented: $showingSheet) {
+                        SheetView(model: self.model)
+                    },
+                    trailing:
+                    Button(self.isEditing ? "Delete" : "Edit") {
+                        DispatchQueue.main.async {
+                            self.isEditing = !self.isEditing
+                            view.isEditing = self.isEditing
+                            if !self.isEditing {
+                                let indexSet = IndexSet(self.model.selectedIndexes)
+                                self.model.rowData.remove(atOffsets: indexSet)
+                                self.model.selectedIndexes = []
                             }
-                        })
-            }
-            .navigationViewStyle(StackNavigationViewStyle())
+                        }
+                    })
     }
 }
 

@@ -78,7 +78,6 @@ struct ItemView: View {
                             .padding(.trailing, (self.dataItem.isLast && self.isHeader) ? self.layoutManager.tableTrailingLayoutMargin : 0)
                     }
                 }
-                
                 if index == (0, 0) && self.layoutManager.model.isFirstColumnSticky {
                     let offsetX: CGFloat = self.dataItem.size.width / 2 + contentInset
                     verticalDivider(offsetX: offsetX)
