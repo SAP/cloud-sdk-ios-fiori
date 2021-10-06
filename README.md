@@ -32,7 +32,13 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`.
 
 ## FioriThemeManager
-This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) conforming to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
+This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) and a new font family [SAP 72](https://experience.sap.com/72/) that conform to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
+
+All Fiori Colors are dynamic colors, which means they will adjust based on iOS Appearance settings (Light/Dark). Accessing Fiori Color using `Color.preferredFioriColor(forStyle:)`.
+
+72 is a SAP patent typeface that delivers great reading experience to our users. You can get these fonts using `Font.fiori(forTextStyle:)` or `Font.fioriCondensed(forTextStyle:)`. Note that these fonts support Dynamic Type out of the box. If you want the fonts with fixed size, use `Font.fiori(fixedSize:)` or `Font.fioriCondensed(fixedSize:)` instead.
+
+> Custom fonts need to be loaded and registered during App's runtime. Make sure you call `Font.registerFioriFonts()` inside `application(_:didFinishLaunchingWithOptions:)` of your `AppDelegate`.
 
 ## FioriSwiftUICore
 This module contains SwiftUI implementation for those UIKit-based components existing in [SAPFiori](https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/index.html). It provides you with an easy way to migrate your UIKit project to SwiftUI while delivering the same experience as before.
