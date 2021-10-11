@@ -20,9 +20,16 @@ public struct SignatureCaptureView: View {
 
     /// Initializes and returns a `SignatureCaptureView`.
     /// - Parameters:
+    ///   - title: The title text. If this is `nil`, the default is localized "Signature".
+    ///   - titleFont: The font of the title text. The default font is used if this is `nil`.
+    ///   - titleTextColor: The color of the title text. The default color is used if this is `nil`.
     ///   - onSave: The block to be executed when user tapped the "Save" button.
     ///   - onDelete: The block to be executed when  user tapped the "Re-enter Signature" button.
-    public init(onSave: ((Result) -> Void)? = nil, onDelete: (() -> Void)? = nil) {
+    public init(title: String? = nil, titleFont: Font? = nil, titleTextColor: Color? = nil, onSave: ((Result) -> Void)? = nil, onDelete: (() -> Void)? = nil) {
+        self.title = title
+        self.titleFont = titleFont
+        self.titleTextColor = titleTextColor
+
         self.onSave = onSave
         self.onDelete = onDelete
     }
@@ -63,13 +70,18 @@ public struct SignatureCaptureView: View {
     var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
     var cropsImage = false
     var signatureImage: UIImage?
+    var title: String?
+    var titleFont: Font?
+    var titleTextColor: Color?
 
     public var body: some View {
         VStack {
             if !self.isEditing && !showsSignatureImage() && !showsSavedSignatureImage() {
                 VStack {
                     HStack {
-                        Text("Signature", tableName: tableName, bundle: bundle)
+                        ((title == nil) ? Text("Signature", tableName: tableName, bundle: bundle) : Text(title!))
+                            .font(titleFont ?? .body)
+                            .foregroundColor(titleTextColor ?? Color.preferredColor(.primaryLabel))
                         Spacer()
                     }
                     ZStack(alignment: .bottom) {
@@ -100,7 +112,9 @@ public struct SignatureCaptureView: View {
             } else {
                 VStack {
                     HStack {
-                        Text("Signature", tableName: tableName, bundle: bundle)
+                        ((title == nil) ? Text("Signature", tableName: tableName, bundle: bundle) : Text(title!))
+                            .font(titleFont ?? .body)
+                            .foregroundColor(titleTextColor ?? Color.preferredColor(.primaryLabel))
                         Spacer()
                         if !self.isSaved && !showsImage() {
                             Button(action: {
@@ -285,6 +299,40 @@ public extension SignatureCaptureView {
     func signatureImage(_ image: UIImage) -> Self {
         var newSelf = self
         newSelf.signatureImage = image
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the title of this `SignatureCaptureView`.
+
+     The default title is localized "Signature".
+     - parameter title: The new title.
+     */
+    func title(_ title: String?) -> Self {
+        var newSelf = self
+        newSelf.title = title
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the font of the title.
+
+     - parameter font: The desired font for the title. If this is nil, the default dynamic font `.body` is used.
+     */
+    func titleFont(_ font: Font?) -> Self {
+        var newSelf = self
+        newSelf.titleFont = font
+        return newSelf
+    }
+
+    /**
+     A view modifier to set the text color of the title.
+
+     - parameter color: The desired text color for the title. If this is nil, the default color is used.
+     */
+    func titleTextColor(_ color: Color?) -> Self {
+        var newSelf = self
+        newSelf.titleTextColor = color
         return newSelf
     }
 }

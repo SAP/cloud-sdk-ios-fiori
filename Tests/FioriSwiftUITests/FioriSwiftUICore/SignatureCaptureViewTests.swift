@@ -51,11 +51,17 @@ class SignatureCaptureTests: XCTestCase {
             .strokeWidth(10)
             .strokeColor(.blue)
             .drawingViewBackgroundColor(.yellow)
+            .title("My Title")
+            .titleFont(.caption)
+            .titleTextColor(.red)
 
         XCTAssertEqual(signagureCaptureView._drawingViewMaxHeight, CGFloat(256))
         XCTAssertEqual(signagureCaptureView.strokeWidth, CGFloat(10))
         XCTAssertEqual(signagureCaptureView.strokeColor, .blue)
         XCTAssertEqual(signagureCaptureView.drawingViewBackgroundColor, .yellow)
+        XCTAssertEqual(signagureCaptureView.title, "My Title")
+        XCTAssertEqual(signagureCaptureView.titleFont, Font.caption)
+        XCTAssertEqual(signagureCaptureView.titleTextColor, Color.red)
     }
 
     func onSave(_ result: SignatureCaptureView.Result) {
