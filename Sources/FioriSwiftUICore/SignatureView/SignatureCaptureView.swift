@@ -79,7 +79,7 @@ public struct SignatureCaptureView: View {
             if !self.isEditing && !showsSignatureImage() && !showsSavedSignatureImage() {
                 VStack {
                     HStack {
-                        ((title == nil) ? Text("Signature", tableName: tableName, bundle: bundle) : Text(title!))
+                        titleText()
                             .font(titleFont ?? .body)
                             .foregroundColor(titleTextColor ?? Color.preferredColor(.primaryLabel))
                         Spacer()
@@ -112,7 +112,7 @@ public struct SignatureCaptureView: View {
             } else {
                 VStack {
                     HStack {
-                        ((title == nil) ? Text("Signature", tableName: tableName, bundle: bundle) : Text(title!))
+                        titleText()
                             .font(titleFont ?? .body)
                             .foregroundColor(titleTextColor ?? Color.preferredColor(.primaryLabel))
                         Spacer()
@@ -224,6 +224,14 @@ public struct SignatureCaptureView: View {
 
     func showsSavedSignatureImage() -> Bool {
         self.savedSignatureImage != nil || self.showsSignatureImage()
+    }
+
+    func titleText() -> Text {
+        if let titleString = title {
+            return Text(titleString)
+        } else {
+            return Text("Signature", tableName: self.tableName, bundle: self.bundle)
+        }
     }
 }
 
