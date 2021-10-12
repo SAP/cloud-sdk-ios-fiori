@@ -2,6 +2,11 @@ name: XCFrameworks
 
 on:
   workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Branch to build from'
+        default: 'main'
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -12,6 +17,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.inputs.ref }}
     - run: brew install xcodegen
     - name: Create FioriSwiftUI.xcodeproj through Xcode and project.yml
       run: cd .xcodegen && xcodegen generate
