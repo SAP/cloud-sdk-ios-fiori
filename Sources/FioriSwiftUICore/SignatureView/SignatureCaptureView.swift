@@ -6,7 +6,7 @@ import SwiftUI
  A SignatureCaptureView object is used to draw and capture a user's signature.
  */
 public struct SignatureCaptureView: View {
-    let bundle = Bundle.module
+    let bundle = Bundle.accessor
     let tableName = "FioriSwiftUICore"
     
     /// An optional closure for handling save button tap action
