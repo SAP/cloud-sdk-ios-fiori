@@ -298,7 +298,7 @@ extension Type {
      ```
      */
     var extensionModelInitParamsAssignments: [String] {
-        var statements = self.allStoredVariables.extensionModelInitParamsAssignments
+        let statements = self.allStoredVariables.extensionModelInitParamsAssignments
         return statements
     }
 
