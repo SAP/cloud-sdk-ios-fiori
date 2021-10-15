@@ -113,7 +113,7 @@ public extension Variable {
             return " = \(self.swiftUIViewDefaultValue)"
         } else if let defaultValue = annotations.defaultValue {
             return " = \(defaultValue)"
-        } else if isOptional || annotations["bindingPropertyOptional"] != nil {
+        } else if (isOptional && annotations["bindingProperty"] == nil) || annotations["bindingPropertyOptional"] != nil {
             return " = nil"
         } else if typeName.isArray {
             return " = []"
@@ -186,6 +186,10 @@ public extension Variable {
     
     var isStylable: Bool {
         !annotations.keys.contains("no_style")
+    }
+    
+    var isConvertedToBinding: Bool {
+        annotations["bindingProperty"] != nil || annotations["bindingPropertyOptional"] != nil
     }
 
     var viewBuilderDecl: String {

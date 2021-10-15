@@ -41,7 +41,12 @@ public extension Array where Element == Variable {
      */
     var miscPropertyDecls: [String] {
         map {
+            if $0.isConvertedToBinding {
+                return "var _\($0.trimmedName): Binding<\($0.typeName)>"
+            }
+
             let letOrVar = $0.isMutable ? "var" : "let"
+            
             if $0.isRepresentableByView == false {
                 return "\(letOrVar) _\($0.trimmedName): \($0.typeName)"
             } else {
@@ -116,6 +121,10 @@ public extension Array where Element == Variable {
      */
     var miscInitParams: [String] {
         map {
+            if $0.isConvertedToBinding {
+                return "\($0.trimmedName): \($0.computedInternalTypeName)\($0.emptyDefault)"
+            }
+            
             if $0.isRepresentableByView == false {
                 return $0.propDecl
             } else {
@@ -138,6 +147,14 @@ public extension Array where Element == Variable {
      */
     var miscInitParamAssignment: [String] {
         map {
+            if $0.isConvertedToBinding {
+                if let defaultValue = $0.annotations["bindingPropertyOptional"] as? String {
+                    return "self._\($0.trimmedName) = \($0.trimmedName) ?? \(defaultValue)"
+                }
+                
+                return "self._\($0.trimmedName) = \($0.trimmedName)"
+            }
+            
             if $0.isRepresentableByView == false {
                 return "self._\($0.trimmedName) = \($0.trimmedName)"
             } else {
@@ -183,6 +200,14 @@ public extension Array where Element: Variable {
      */
     var extensionModelInitParamsAssignments: [String] {
         map {
+            if $0.isConvertedToBinding {
+                if let defaultValue = $0.annotations["bindingPropertyOptional"] as? String {
+                    return "self._\($0.trimmedName) = \($0.trimmedName) ?? \(defaultValue)"
+                }
+                
+                return "self._\($0.trimmedName) = \($0.trimmedName)"
+            }
+            
             if $0.isRepresentableByView {
                 return "self._\($0.trimmedName) = \($0.conditionalAssignment)"
             } else {
