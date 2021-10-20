@@ -16,6 +16,8 @@ extension PaletteVersion: RawRepresentable {
             self = .v4
         case PaletteV5.default:
             self = .v5
+        case PaletteV6.default:
+            self = .v6
         default:
             return nil
         }
@@ -32,6 +34,8 @@ extension PaletteVersion: RawRepresentable {
             return PaletteV4.default
         case .v5:
             return PaletteV5.default
+        case .v6:
+            return PaletteV6.default
         }
     }
 }
@@ -49,18 +53,25 @@ public enum PaletteVersion: CaseIterable {
     case v3_2
     
     /**
-     Snapshot of palette at SAP Fiori SDK version 4.0 and version 5.0.
+     Snapshot of palette at SAP Fiori SDK version 5.0.
      
-     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 3' styling.
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 5' styling. Introduced dark mode support.
      */
     case v4
     
     /**
      Snapshot of palette at SAP Fiori SDK version 6.0.
      
-     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 3' styling.
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori 6' styling. Introduced elevated and contrast colors support.
      */
     case v5
+    
+    /**
+     Snapshot of palette at SAP Fiori SDK version 7.0.
+     
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori Next' styling.
+     */
+    case v6
     
     /// Palette version which should be adopted by developer, if creating a custom palette from scratch.
     /// - Note: Creating a custom palette from scratch is very uncommon and not generally recommended: it is more typical and convenient to override specific colors of the current system-provided palette, using the `ThemeManager.shared.setColor(...)` or `ThemeManager.shared.setHexColor(...)` APIs.
@@ -96,6 +107,8 @@ public enum PaletteVersion: CaseIterable {
             return previous.obsoletedStyles().union([.backgroundGradientTop, .backgroundGradientBottom])
         case .v5:
             return previous.obsoletedStyles().union([.navigationBar, .backgroundBase])
+        case .v6:
+            return previous.obsoletedStyles().union([.accent1, .accent1b, .accent2, .accent2b, .accent3, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b, .shell, .background1, .background2, .line, .primary1, .primary2, .primary3, .primary4, .primary5, .primary6, .primary7, .primary8, .primary9, .primary10, .tintColorDark, .tintColorLight, .tintColorTapStateDark, .tintColorTapStateLight, .cellBackgroundTapState, .shadow, .negative, .positive, .critical])
         default:
             return []
         }
@@ -107,11 +120,13 @@ public enum PaletteVersion: CaseIterable {
         case .v3_x:
             return PaletteVersion.initialSupportedStyles
         case .v3_2:
-            return [.primary10, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .accent1, .accent1b, .accent2, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b]
+            return [.primary10, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .accent1, .accent1b, .accent2, .accent2b, .accent3, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b]
         case .v4:
             return [.navigationBar, .stockUpStroke, .stockDownStroke]
         case .v5:
             return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackground, .secondaryGroupedBackground, .tertiaryGroupedBackground, .primaryBackground, .secondaryBackground, .tertiaryBackground, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .header, .headerBlended, .barTransparent, .contrastElement, .footer, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground]
+        case .v6:
+            return [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6, .grey7, .grey8, .grey9, .blue1, .blue2, .blue3, .blue4, .blue5, .blue6, .blue7, .blue8, .blue9, .teal1, .teal2, .teal3, .teal4, .teal5, .teal6, .teal7, .teal8, .teal9, .green1, .green2, .green3, .green4, .green5, .green6, .green7, .green8, .green9, .mango1, .mango2, .mango3, .mango4, .mango5, .mango6, .mango7, .mango8, .mango9, .red1, .red2, .red3, .red4, .red5, .red6, .red7, .red8, .red9, .pink1, .pink2, .pink3, .pink4, .pink5, .pink6, .pink7, .pink8, .pink9, .indigo1, .indigo2, .indigo3, .indigo4, .indigo5, .indigo6, .indigo7, .indigo8, .indigo9, .baseWhite, .baseBlack, .cardShadow, .sectionShadow, .tintColor2]
         }
     }
 }
