@@ -110,31 +110,31 @@ public extension Font {
         var size: CGFloat {
             switch self {
             case .largeTitle:
-                return 36
+                return 34
             case .title1:
-                return 30
+                return 28
             case .title2:
-                return 24
-            case .title3:
                 return 22
+            case .title3:
+                return 20
             case .headline:
-                return 19
-            case .body:
-                return 19
-            case .callout:
-                return 18
-            case .subheadline:
                 return 17
-            case .footnote:
+            case .body:
+                return 17
+            case .callout:
+                return 16
+            case .subheadline:
                 return 15
-            case .caption1:
-                return 14
-            case .caption2:
+            case .footnote:
                 return 13
+            case .caption1:
+                return 12
+            case .caption2:
+                return 11
             case .largeKPI:
-                return 50
+                return 48
             case .KPI:
-                return 38
+                return 36
             }
         }
     }
