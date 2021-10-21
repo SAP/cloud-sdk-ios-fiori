@@ -198,6 +198,8 @@ struct PaletteV5: PaletteProvider {
             return HexColor(lightColor: "8497A4", darkColor: "8497A4")
         case .accent10b:
             return HexColor(lightColor: "647887", darkColor: "647887")
+        default:
+            return HexColor(lightColor: "000000")
         }
     }
 }
