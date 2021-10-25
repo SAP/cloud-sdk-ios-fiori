@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.2...1.0.3) (2021-10-25)
+
+
+### Bug Fixes
+
+* 🐛 compilation error for MacCatalyst due to Zip package ([31edc2a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/31edc2a7b985d8809033ccc8cacc165891c5acf3))
+
 ### [1.0.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.1...1.0.2) (2021-09-28)
 
 
