@@ -262,12 +262,11 @@ extension DimensionSelector {
         let insets: EdgeInsets
         
         var body: some View {
-            Group {
-                Text(self.title)
-                    .padding(insets)
-                    .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
-                    .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
-            }
+            Text(self.title)
+                .padding(insets)
+                .cornerRadius(8, antialiased: true)
+                .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
+                .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
         }
     }
     
