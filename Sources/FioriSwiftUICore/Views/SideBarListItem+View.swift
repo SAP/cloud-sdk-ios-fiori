@@ -56,7 +56,9 @@ extension SideBarListItem: View {
             Spacer()
             subtitle.foregroundColor(getSubtitleColor())
             accessoryIcon.foregroundColor(getAccessoryIconColor())
-        }.padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+        }
+        .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+        .cornerRadius(8, antialiased: true)
     }
     
     private func getIconColor() -> Color {
