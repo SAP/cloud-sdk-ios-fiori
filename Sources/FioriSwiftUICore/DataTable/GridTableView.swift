@@ -186,8 +186,7 @@ struct GridTableView: View {
             if numbOfColumns > 1 {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
-                let height: CGFloat = ((allItems.last?.first?.pos.y ?? 0) + (layoutData.rowHeights.last ?? 0) / 2) * tmpScaleY - startPosY
-                
+                let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY - startPosY
                 Rectangle()
                     .fill(Color.preferredColor(.separator))
                     .frame(width: 1, height: height)
@@ -200,5 +199,18 @@ struct GridTableView: View {
         .background(self.backgroundColor)
         .gesture(drag)
         .gesture(mag)
+    }
+    
+    func columnDividerHeight(layoutData: LayoutData) -> CGFloat {
+        var height: CGFloat = 0
+        if let theCell = layoutData.allDataItems.last?.first {
+            height += theCell.pos.y
+        }
+        
+        if let lastRowHeight = layoutData.rowHeights.last {
+            height += lastRowHeight / 2
+        }
+        
+        return height
     }
 }

@@ -6,100 +6,79 @@ struct DataTableExample: View {
     var body: some View {
         List {
             Section(header: Text("Width attribute & alignment")) {
-                NavigationLink("One column flexible width trailing alignment") {
-                    DataTableExampleView(model: oneColumn)
-                }
+                NavigationLink("One column flexible width trailing alignment",
+                               destination: DataTableExampleView(model: oneColumn))
                 
-                NavigationLink("One column infinity width trailing alignment") {
-                    DataTableExampleView(model: oneColumnWithInfinityWidth)
-                }
-                
-                NavigationLink("Second columns is infinity") {
-                    DataTableExampleView(model: threeRowTwoColumnWithInfinity)
-                }
-                
-                NavigationLink("3 columns, 2nd column fixed(30), with different alignment") {
-                    DataTableExampleView(model: threeRowThreeColumn)
-                }
-                
-                NavigationLink("3 columns, 2nd column fixed(80), with different alignment") {
-                    DataTableExampleView(model: threeRowThreeColumnWithAlignment)
-                }
+                NavigationLink("One column infinity width trailing alignment",
+                               destination: DataTableExampleView(model: oneColumnWithInfinityWidth))
+
+                NavigationLink("Second columns is infinity",
+                               destination: DataTableExampleView(model: threeRowTwoColumnWithInfinity))
+
+                NavigationLink("3 columns, 2nd column fixed(30), with different alignment",
+                               destination: DataTableExampleView(model: threeRowThreeColumn))
+
+                NavigationLink("3 columns, 2nd column fixed(80), with different alignment",
+                               destination: DataTableExampleView(model: threeRowThreeColumnWithAlignment))
             }
             
             Section(header: Text("Accessories")) {
-                NavigationLink("One leading and trailing accessory") {
-                    DataTableExampleView(model: threeRowTwoColumn)
-                }
+                NavigationLink("One leading and trailing accessory",
+                               destination: DataTableExampleView(model: threeRowTwoColumn))
                 
-                NavigationLink("Multiple kinds of accessories") {
-                    DataTableExampleView(model: threeRowTwoColumnWithAcc)
-                }
+                NavigationLink("Multiple kinds of accessories",
+                               destination: DataTableExampleView(model: threeRowTwoColumnWithAcc))
             }
             
             Section(header: Text("Number of lines")) {
-                NavigationLink("Number of lines from 1, 2, 3 and 0") {
-                    DataTableExampleView(model: linelimit)
-                }
+                NavigationLink("Number of lines from 1, 2, 3 and 0",
+                               destination: DataTableExampleView(model: linelimit))
                 
-                NavigationLink("Different kinds of fonts") {
-                    DataTableExampleView(model: linelimit2)
-                }
+                NavigationLink("Different kinds of fonts",
+                               destination: DataTableExampleView(model: linelimit2))
             }
             
             Section(header: Text("Background Color")) {
-                NavigationLink("Green") {
-                    DataTable(model: TestRowData.generateData(row: 10, column: 4, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)).backgroundColor(Color.green)
-                }
+                NavigationLink("Green",
+                               destination: DataTable(model: TestRowData.generateData(row: 10, column: 4, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)).backgroundColor(Color.green))
                 
-                NavigationLink("Clear and Green under DataTable") {
-                    DataTable(model: TestRowData.generateData(row: 10, column: 4, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)).backgroundColor(Color.clear)
-                        .background(Color.green)
-                }
+                NavigationLink("Clear and Green under DataTable",
+                               destination: DataTable(model: TestRowData.generateData(row: 10, column: 4, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)).backgroundColor(Color.clear)
+                                   .background(Color.green))
             }
             
             Section(header: Text("Sticky header/column")) {
-                NavigationLink("Not sticky header & column") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("Not sticky header & column",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("Sticky header") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("Sticky header",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("Sticky column") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("Sticky column",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("Sticky header & column") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("Sticky header & column",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
             }
             
             Section(header: Text("Variant rows/columns")) {
-                NavigationLink("No Data") {
-                    DataTableExampleView(model: TableModel(headerData: nil, rowData: []))
-                }
+                NavigationLink("No Data",
+                               destination: DataTableExampleView(model: TableModel(headerData: nil, rowData: [])))
                 
-                NavigationLink("One column, two column, three column") {
-                    DataTableExampleView(model: oneColumnTwoColumnThreeColumn)
-                }
+                NavigationLink("One column, two column, three column",
+                               destination: DataTableExampleView(model: oneColumnTwoColumnThreeColumn))
                 
-                NavigationLink("5 rows 3 columns list view") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: true))
-                }
+                NavigationLink("5 rows 3 columns list view",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: true)))
                 
-                NavigationLink("30 rows 12 columns") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 30, column: 12, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("30 rows 12 columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 30, column: 12, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("300 rows 60 columns") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("300 rows 60 columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("1000 rows 100 columns") {
-                    DataTableExampleView(model: TestRowData.generateData(row: 1000, column: 100, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false))
-                }
+                NavigationLink("1000 rows 100 columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 1000, column: 100, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
             }
         }
     }
@@ -226,9 +205,7 @@ public enum TestRowData {
 }
 
 public struct DataTableExampleView: View {
-//    var model: TableModel = TestRowData.generateData(row: 5, column: 3)
     var model: TableModel
-//    @State var editMode: EditMode = .inactive
     
     @State var isEditing: Bool = false
     @State private var showingSheet = false
