@@ -38,26 +38,26 @@ struct BlurView: UIViewRepresentable {
                       context: UIViewRepresentableContext<BlurView>) {}
 }
 
-struct DummyBackground: View {
-    let index: Int
-    let width: CGFloat
-    let height: CGFloat
-    @EnvironmentObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
-    
-    init(index: Int, width: CGFloat, height: CGFloat) {
-        self.index = index
-        self.width = width
-        self.height = height
-    }
-    
-    var body: some View {
-        Group {
-            let zIndex = self.index == 0 ? 700 : 550 - self.index
-            Rectangle()
-                .fill(self.backgroundColor)
-                .frame(width: width, height: height * self.layoutManager.scaleY, alignment: .topLeading)
-                .zIndex(Double(zIndex))
-        }
-    }
-}
+// struct DummyBackground: View {
+//    let index: Int
+//    let width: CGFloat
+//    let height: CGFloat
+//    @EnvironmentObject var layoutManager: TableLayoutManager
+//    @Environment(\.backgroundColor) var backgroundColor
+//
+//    init(index: Int, width: CGFloat, height: CGFloat) {
+//        self.index = index
+//        self.width = width
+//        self.height = height
+//    }
+//
+//    var body: some View {
+//        Group {
+//            let zIndex = self.index == 0 ? 700 : 550 - self.index
+//            Rectangle()
+//                .fill(self.backgroundColor)
+//                .frame(width: width, height: height * self.layoutManager.scaleY, alignment: .topLeading)
+//                .zIndex(Double(zIndex))
+//        }
+//    }
+// }

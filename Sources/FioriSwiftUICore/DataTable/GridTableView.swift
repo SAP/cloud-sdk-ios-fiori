@@ -3,14 +3,15 @@ import SwiftUI
 
 struct GridTableView: View {
     @Environment(\.layoutDirection) var layoutDirection
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.sizeCategory) var sizeCategory
     
     @ObservedObject var layoutManager: TableLayoutManager
     @Environment(\.backgroundColor) var backgroundColor
-
+    
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
     @State var lastCenterPosition: CGPoint? = nil
-    
     @State var dropVerticalShadow: Bool = false
     @State var dropHorizontalShadow: Bool = false
     
@@ -27,34 +28,74 @@ struct GridTableView: View {
         }
     }
     
-    func makeBody(in rectInLocal: CGRect) -> some View {
-        let rect = self.layoutManager.rect == .zero ? rectInLocal : self.layoutManager.rect
+    func makeBody(in rect: CGRect) -> some View {
+        let bundle = Bundle.module
+        let tableName = "FioriSwiftUICore"
+        
+        if self.horizontalSizeClass != self.layoutManager.sizeClass {
+            self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
+        }
+        
+        // trigger the layout if it has been changed
+        if self.sizeCategory != self.sizeCategory {
+            self.layoutManager.sizeCategory = self.sizeCategory
+        }
+        
+        // it only layouts when necessary
+        if self.layoutManager.layout(size: rect.size) {
+            if self.lastScaleX.distance(to: 1.0) > 0.001 || self.lastScaleY.distance(to: 1.0) > 0.001 || self.lastCenterPosition != nil || self.dropVerticalShadow != false || self.dropHorizontalShadow != false {
+                DispatchQueue.main.async {
+                    lastScaleX = 1.0
+                    lastScaleY = 1.0
+                    lastCenterPosition = nil
+                    dropVerticalShadow = false
+                    dropHorizontalShadow = false
+                }
+            }
+        }
+        
+        return Group {
+            if layoutManager.layoutData == nil {
+                if #available(iOS 14.0, *) {
+                    ProgressView().progressViewStyle(CircularProgressViewStyle())
+                } else {
+                    // Fallback on earlier versions
+                    Text("Loading...", tableName: tableName, bundle: bundle)
+                }
+            } else if self.layoutManager.layoutData != nil, self.layoutManager.numberOfRows() > 0, self.layoutManager.numberOfColumns() > 0, rect.size.width > 1, rect.size.height > 1 {
+                makeGridBody(layoutData: self.layoutManager.layoutData!, rect: rect)
+            } else {
+                EmptyView()
+            }
+        }
+        .frame(width: rect.size.width, height: rect.size.height)
+        .background(self.backgroundColor)
+    }
+    
+    func makeGridBody(layoutData: LayoutData, rect: CGRect) -> some View {
+        let size = rect.size
+        
         let drag = DragGesture()
             .onChanged { value in
-                let scaleX = self.layoutManager.scaleX(rect: rect)
-                let scaleY = self.layoutManager.scaleY(rect: rect)
-                
                 var tmpLastCenterPosition: CGPoint
                 if let tmpPosition = self.lastCenterPosition {
                     tmpLastCenterPosition = tmpPosition
                 } else {
-                    tmpLastCenterPosition = self.layoutManager.centerPosition(rect: rect)
+                    tmpLastCenterPosition = self.layoutManager.centerPosition(size: size)
                     self.lastCenterPosition = tmpLastCenterPosition
                 }
                 
-                let tmpX = self.layoutDirection == .leftToRight ? (tmpLastCenterPosition.x * scaleX * rect.size.width - value.translation.width) / (scaleX * rect.size.width) : (tmpLastCenterPosition.x * scaleX * rect.size.width + value.translation.width) / (scaleX * rect.size.width)
-                let x = max(0.5 / scaleX, min(1 - 0.5 / scaleX, tmpX))
+                let wUnit = self.layoutManager.widthPointInUnit(size: size)
+                let tmpX = self.layoutDirection == .leftToRight ? (tmpLastCenterPosition.x - wUnit * value.translation.width) : (tmpLastCenterPosition.x + wUnit * value.translation.width)
+                let tmpY = tmpLastCenterPosition.y - self.layoutManager.heightPointInUnit(size: size) * value.translation.height
+                let tmpXY = self.layoutManager.validCenterPosition(pt: CGPoint(x: tmpX, y: tmpY), size: size)
+                self.layoutManager.centerPosition = tmpXY
                 
-                let tmpY = (tmpLastCenterPosition.y * scaleY * rect.size.height - value.translation.height) / (scaleY * rect.size.height)
-                let y = max(0.5 / scaleY, min(1 - 0.5 / scaleY, tmpY))
-                
-                self.layoutManager.centerPosition = CGPoint(x: self.layoutManager.horizontalScrolling ? x : 0, y: y)
-                
-                self.dropVerticalShadow = self.layoutManager.startPosition(rect: rect).x != 0
-                self.dropHorizontalShadow = self.layoutManager.startPosition(rect: rect).y != 0
+                self.dropVerticalShadow = self.layoutManager.startPosition(size: size).x != 0
+                self.dropHorizontalShadow = self.layoutManager.startPosition(size: size).y != 0
             }
             .onEnded { _ in
-                self.lastCenterPosition = self.layoutManager.centerPosition(rect: rect)
+                self.lastCenterPosition = self.layoutManager.centerPosition(size: size)
                 self.layoutManager.model.centerPosition = self.lastCenterPosition
             }
         
@@ -64,96 +105,91 @@ struct GridTableView: View {
                 guard self.layoutManager.isPinchZoomEnable else {
                     return
                 }
-                self.layoutManager.scaleX = max(0.5, self.lastScaleX * value.magnitude)
-                self.layoutManager.scaleY = max(0.5, self.lastScaleY * value.magnitude)
                 
-                self.layoutManager.centerPosition = self.layoutManager.centerPosition(rect: rect)
+                let columnWidth = layoutData.columnWidths.reduce(0, +)
+                let totalWidth = layoutData.leadingAccessoryViewWidth + layoutData.trailingAccessoryViewWidth + columnWidth
+                let minScale = min(1, self.layoutManager.size.width / totalWidth)
+                self.layoutManager.scaleX = max(minScale, self.lastScaleX * value.magnitude)
+                self.layoutManager.scaleY = max(minScale, self.lastScaleY * value.magnitude)
+                self.layoutManager.centerPosition = self.layoutManager.centerPosition(size: size)
+                
+                self.dropVerticalShadow = self.layoutManager.startPosition(size: size).x != 0
+                self.dropHorizontalShadow = self.layoutManager.startPosition(size: size).y != 0
             }
             .onEnded { _ in
                 self.lastScaleX = self.layoutManager.scaleX
                 self.lastScaleY = self.layoutManager.scaleY
             }
-        let items: [[DataTableItem]] = self.layoutManager.dataItemsForTable(rect: rect)
-
-        return
-            ZStack {
-                ForEach(0 ..< items.count, id: \.self) { i in
+        
+        let allItems = layoutData.allDataItems
+        let (indexOfRows, indexOfColumns) = self.layoutManager.visibleRowAndColumnIndexes()
+        let numbOfColumns = self.layoutManager.numberOfColumns()
+        
+        let tmpScaleX = self.layoutManager.scaleX(size: size)
+        let tmpScaleY = self.layoutManager.scaleY(size: size)
+        let tmpStartPosition = self.layoutManager.startPosition(size: size)
+        let wUnit = self.layoutManager.widthPointInUnit(size: size)
+        let hUnit = self.layoutManager.heightPointInUnit(size: size)
+        
+        let startPosX = tmpStartPosition.x / wUnit
+        let startPosY = tmpStartPosition.y / hUnit
+        let leadingAccessoryViewWidth = layoutData.leadingAccessoryViewWidth
+        
+        return ZStack {
+            // all visible rows
+            ForEach(0 ..< indexOfRows.count, id: \.self) { i in
+                let rowIndex = indexOfRows[i]
+                let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - (self.layoutManager.model.isHeaderSticky && rowIndex == 0 ? 0 : startPosY)
+                
+                // all visible columns
+                ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
+                    let columnIndex = indexOfColumns[j]
+                    let currentItem = allItems[rowIndex][columnIndex]
+                    let x = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0 ? 0 : startPosX)
+                    let zIndex = Double(rowIndex == 0 ? (columnIndex == 0 ? 550 : 500) : (columnIndex == 0 ? 200 : 100))
                     
-                    let isHeader: Bool = i == 0 && self.layoutManager.model.hasHeader
-                    
-                    ForEach(0 ..< items[i].count, id: \.self) { j in
-                        let currentItem = items[i][j]
-                        let view = ItemView(currentItem, (i, j), isHeader, foregroundColor: currentItem.foregroundColor, font: currentItem.font, dropShadow: self.dropVerticalShadow)
-                        let x = currentItem.pos.x
-                        let y = currentItem.pos.y
-                        let zIndex: Double = {
-                            if (i, j) == (0, 0) {
-                                return 900
-                            }
-                            if i == 0 {
-                                return 700
-                            }
-                            if j == 0 {
-                                return 600
-                            }
-                            return 300
-                        }()
-                        view
-                            .position(x: x, y: y)
-                            .offset(x: currentItem.offset.x * self.layoutManager.scaleX, y: currentItem.offset.y * self.layoutManager.scaleY)
-                            .zIndex(zIndex)
-                    }
-                    
-                    if let leadingItem = items[i].first {
-                        let currentIndex = leadingItem.rowIndex
-
-                        let rowItem = self.layoutManager.rowData[currentIndex]
-                        let lAccessoriess: [AccessoryItem] = rowItem.leadingAccessories
-                        let tAccessory: AccessoryItem? = currentIndex < 0 ? nil : self.layoutManager.rowData[currentIndex].trailingAccessory
-                        let leadingMargin = self.layoutManager.leadingAccessoryMargin
-                        
-                        let y = leadingItem.pos.y == 0 ? leadingItem.offset.y : leadingItem.pos.y
-                        
-                        horizontalDivider(rect: rect, pos: leadingItem.pos, rowHeight: leadingItem.rowHeight, index: i)
-
-                        let offsetY = leadingItem.pos.y == 0 ? leadingItem.rowHeight / 2 : 0
-                        DummyBackground(index: i, width: leadingItem.pos.x, height: leadingItem.rowHeight)
-                            .position(x: rect.minX, y: leadingItem.pos.y)
-                            .offset(x: leadingItem.pos.x / 2, y: offsetY * self.layoutManager.scaleY)
-                        
-                        LeadingAccessoryView(items: lAccessoriess, index: currentIndex, isHeader: isHeader, isEditing: self.layoutManager.isEditing, selectedImage: rowItem.selectedImage, deSelectedImage: rowItem.deSelectedImage)
-                            .position(x: rect.minX, y: y)
-                            .padding(.leading, leadingMargin)
-                            .zIndex(Double(650 - currentIndex))
-
-                        let trailingIndex: Double = i == 0 ? 700 : Double(650 - currentIndex)
-                        TrailingAccessoryView(item: tAccessory, height: leadingItem.rowHeight)
-                            .position(x: rect.maxX, y: leadingItem.pos.y)
-                            .offset(y: offsetY * self.layoutManager.scaleY)
-                            .zIndex(trailingIndex)
-                    }
+                    // cell
+                    ItemView(rowIndex: rowIndex, columnIndex: columnIndex)
+                        .position(x: x, y: y)
+                        .zIndex(zIndex)
                 }
+               
+                // row leading accessory view
+                LeadingAccessoryView(rowIndex: rowIndex)
+                    .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
+                    .zIndex(rowIndex == 0 ? 550 : 300)
+                
+                // row trailing accesory view
+                TrailingAccessoryView(rowIndex: rowIndex)
+                    .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)
+                    .zIndex(rowIndex == 0 ? 560 : 300)
+                
+                // row separators
+                Rectangle()
+                    .fill(Color.preferredColor(.separator))
+                    .frame(width: rect.size.width, height: 1)
+                    .position(x: rect.size.width / 2,
+                              y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
+                    .dropShadow(isVertical: false, show: rowIndex == 0 && self.dropHorizontalShadow)
+                    .zIndex(rowIndex == 0 ? 750 : 450)
             }
-            .background(self.backgroundColor)
-            .gesture(drag)
-            .gesture(mag)
-    }
-    
-    func horizontalDivider(rect: CGRect, pos: CGPoint, rowHeight: CGFloat, index: Int) -> some View {
-        let lineZindex: Double = {
-            if index == 0 {
-                return 900
-            } else {
-                return 650
+            
+            // first column separator
+            if numbOfColumns > 1 {
+                let x = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - (self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX)
+                let height = ((allItems.last?.first?.pos.y ?? 0) + (layoutData.rowHeights.last ?? 0) / 2) * tmpScaleY - startPosY
+                
+                Rectangle()
+                    .fill(Color.preferredColor(.separator))
+                    .frame(width: 1, height: height)
+                    .position(x: x, y: height / 2)
+                    .dropShadow(isVertical: true, show: self.dropVerticalShadow)
+                    .zIndex(700)
             }
-        }()
-        let offetY = pos.y == 0 ? rowHeight : (rowHeight / 2)
-        return
-            Divider()
-                .frame(width: rect.size.width)
-                .position(x: rect.size.width / 2, y: pos.y)
-                .offset(y: offetY * self.layoutManager.scaleY)
-                .dropShadow(isVertical: false, show: index == 0 && self.dropHorizontalShadow)
-                .zIndex(lineZindex)
+        }
+        .frame(width: size.width, height: size.height)
+        .background(self.backgroundColor)
+        .gesture(drag)
+        .gesture(mag)
     }
 }

@@ -8,10 +8,13 @@ struct DataTableItem: Identifiable, Hashable {
     
     // the row index
     let rowIndex: Int
-    // relative postion
+    
+    let columnIndex: Int
+    
+    // relative center postion in the cell
     var pos: CGPoint
     
-    // the size of title
+    // the size of title in one line
     var size: CGSize
     
     var id: Int {
@@ -35,9 +38,10 @@ struct DataTableItem: Identifiable, Hashable {
     
     var lineLimit: Int?
     
-    var isLast: Bool
+//    var isLast: Bool
     
     init(index: Int,
+         columnIndex: Int,
          value: ValueType = .text(""),
          pos: CGPoint,
          font: Font?,
@@ -45,10 +49,10 @@ struct DataTableItem: Identifiable, Hashable {
          size: CGSize = .zero,
          offset: CGPoint = .zero,
          textAlignment: TextAlignment = .leading,
-         lineLimit: Int? = nil,
-         isLast: Bool = false)
+         lineLimit: Int? = nil)
     {
         self.rowIndex = index
+        self.columnIndex = columnIndex
         self.value = value
         self.pos = pos
         self.font = font
@@ -57,7 +61,7 @@ struct DataTableItem: Identifiable, Hashable {
         self.offset = offset
         self.textAlignment = textAlignment
         self.lineLimit = lineLimit
-        self.isLast = isLast
+//        self.isLast = isLast
     }
     
     mutating func x(_ x: CGFloat) {
