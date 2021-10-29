@@ -139,14 +139,22 @@ struct GridTableView: View {
             // all visible rows
             ForEach(0 ..< indexOfRows.count, id: \.self) { i in
                 let rowIndex = indexOfRows[i]
-                let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - (self.layoutManager.model.isHeaderSticky && rowIndex == 0 ? 0 : startPosY)
+                let offsetY: CGFloat = (self.layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosY
+                let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - offsetY
                 
                 // all visible columns
                 ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
                     let columnIndex = indexOfColumns[j]
                     let currentItem = allItems[rowIndex][columnIndex]
-                    let x = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0 ? 0 : startPosX)
-                    let zIndex = Double(rowIndex == 0 ? (columnIndex == 0 ? 550 : 500) : (columnIndex == 0 ? 200 : 100))
+                    let offsetX: CGFloat = (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosX
+                    let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
+                    let zIndex: Double = {
+                        if rowIndex == 0 {
+                            return columnIndex == 0 ? 550 : 500
+                        } else {
+                            return columnIndex == 0 ? 200 : 100
+                        }
+                    }()
                     
                     // cell
                     ItemView(rowIndex: rowIndex, columnIndex: columnIndex)
@@ -176,8 +184,9 @@ struct GridTableView: View {
             
             // first column separator
             if numbOfColumns > 1 {
-                let x = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - (self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX)
-                let height = ((allItems.last?.first?.pos.y ?? 0) + (layoutData.rowHeights.last ?? 0) / 2) * tmpScaleY - startPosY
+                let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX
+                let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
+                let height: CGFloat = ((allItems.last?.first?.pos.y ?? 0) + (layoutData.rowHeights.last ?? 0) / 2) * tmpScaleY - startPosY
                 
                 Rectangle()
                     .fill(Color.preferredColor(.separator))
