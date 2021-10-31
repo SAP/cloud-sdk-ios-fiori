@@ -20,22 +20,22 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
 	@State var currentDrawing = Drawing()
-	var titleColor = Color.preferredColor(.primaryLabel)
-	@State var isReenterTapped = false
 	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var cropsImage = false
 	@State var drawings = [Drawing]()
+	@State var isReenterTapped = false
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	@State var isEditing = false
+	var strokeWidth: CGFloat = 3.0
+	@State var isSaved = false
+	var _drawingViewMaxHeight: CGFloat?
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	@State var fullSignatureImage: UIImage?
+	var cropsImage = false
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
 	var strokeColor = Color.preferredColor(.primaryLabel)
 	let _drawingViewMinHeight: CGFloat = 256
-	var _drawingViewMaxHeight: CGFloat?
 	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	var titleFont = Font.subheadline.weight(.semibold)
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	var strokeWidth: CGFloat = 3.0
-	@State var isEditing = false
-	@State var fullSignatureImage: UIImage?
-	@State var isSaved = false
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
