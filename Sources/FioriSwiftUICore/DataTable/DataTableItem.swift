@@ -38,8 +38,6 @@ struct DataTableItem: Identifiable, Hashable {
     
     var lineLimit: Int?
     
-//    var isLast: Bool
-    
     init(index: Int,
          columnIndex: Int,
          value: ValueType = .text(""),
@@ -61,7 +59,6 @@ struct DataTableItem: Identifiable, Hashable {
         self.offset = offset
         self.textAlignment = textAlignment
         self.lineLimit = lineLimit
-//        self.isLast = isLast
     }
     
     mutating func x(_ x: CGFloat) {
