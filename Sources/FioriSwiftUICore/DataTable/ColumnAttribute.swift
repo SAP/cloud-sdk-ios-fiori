@@ -7,8 +7,12 @@ public struct ColumnAttribute {
     public enum Width {
         /// A fixed with
         case fixed(CGFloat)
+        
         /// Column width will be flexible.
         case flexible
+        
+        /// fill the remaining space if possible
+        case infinity
     }
 
     /// Text alignment in each column.

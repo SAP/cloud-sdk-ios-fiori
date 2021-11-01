@@ -2,40 +2,55 @@ import Foundation
 import SwiftUI
 
 struct TrailingAccessoryView: View {
-    let item: AccessoryItem?
-    let selected: Bool = false
-    let height: CGFloat
-    
+    let rowIndex: Int
     @EnvironmentObject var layoutManager: TableLayoutManager
     @Environment(\.backgroundColor) var backgroundColor
 
-    init(item: AccessoryItem?, height: CGFloat) {
-        self.item = item
-        self.height = height
+    init(rowIndex: Int) {
+        self.rowIndex = rowIndex
     }
     
     var body: some View {
         Group {
-            let _height = self.height * self.layoutManager.scaleY
-                                
-            if let item = self.item {
+            if self.layoutManager.layoutData != nil, rowIndex < self.layoutManager.numberOfRows() {
+                makeBody(layoutData: self.layoutManager.layoutData!)
+            } else {
+                EmptyView()
+            }
+        }
+    }
+    
+    func makeBody(layoutData: LayoutData) -> some View {
+        let trailingItem: AccessoryItem? = layoutData.rowData[self.rowIndex].trailingAccessory
+        
+        return Group {
+            if let item = trailingItem {
                 switch item {
                 case .button(let button):
                     Button(action: {
-                        print("Right Icon button was tapped")
                         button.action()
                     }) {
-                        button.image.aspectRatio(contentMode: .fit)
+                        button.image?.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(8 * self.layoutManager.scaleX)
                     }
-                    .frame(width: 44 * self.layoutManager.scaleX, height: _height, alignment: .center)
-                    .padding(.trailing, 44 * self.layoutManager.scaleX)
-                    .background(self.backgroundColor)
-                    .edgesIgnoringSafeArea(.trailing)
+                    .frame(width: TableViewLayout.buttonSize * self.layoutManager.scaleX, height: TableViewLayout.buttonSize * self.layoutManager.scaleY, alignment: .center)
+                    .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
+                case .icon(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .foregroundColor(TableViewLayout.defaultForegroundColor)
+                        .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
+                        .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
                 default:
-                    AnyView(EmptyView())
+                    EmptyView()
                 }
+            } else {
+                EmptyView()
             }
         }
+        .background(self.backgroundColor)
     }
     
     func applyBlur(height: CGFloat) -> some View {
