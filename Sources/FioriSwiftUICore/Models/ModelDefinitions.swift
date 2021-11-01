@@ -271,7 +271,7 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropDrawings = "@State var drawings = [Drawing]()"
 // sourcery: virtualPropIsSaved = "@State var isSaved = false"
 // sourcery: virtualPropIsReenterTapped = "@State var isReenterTapped = false"
-// sourcery: virtualPropTitleFont = "var titleFont = Font.subheadline.weight(.semibold)"
+// sourcery: virtualPropTitleFont = "var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
 // sourcery: virtualPropTitleColor = "var titleColor = Color.preferredColor(.primaryLabel)"
 // sourcery: virtualPropStrokeWidth = "var strokeWidth: CGFloat = 3.0"
 // sourcery: virtualPropStrokeColor = "var strokeColor = Color.preferredColor(.primaryLabel)"
