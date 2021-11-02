@@ -40,13 +40,13 @@ struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
         case .primary10:
             return .contrastElement
         case .tintColorLight:
-            return nil
+            return .tintColor
         case .tintColorDark:
-            return nil
+            return .tintColor2
         case .tintColorTapStateLight:
-            return nil
+            return .tintColor
         case .tintColorTapStateDark:
-            return nil
+            return .tintColor2
         case .cellBackgroundTapState:
             return .quarternaryFill
         case .shadow:

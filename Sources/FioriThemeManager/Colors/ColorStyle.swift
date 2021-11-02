@@ -633,25 +633,25 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard base color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)        Hex color: 354A5F
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)        Hex color: 2C3D4F
-    @available(*, deprecated, renamed: "secondaryBackground")
+    @available(*, deprecated, renamed: "header")
     case shell
     
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/EDEFF0.png&text=+)        Hex color: EDEFF0
     /// (light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)        Hex color: 1C2228
-    @available(*, deprecated, renamed: "primaryBackground")
+    @available(*, deprecated, renamed: "primaryGroupedBackground")
     case background1
     
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/F7F7F7.png&text=+)        Hex color: F7F7F7
     /// (light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31
-    @available(*, deprecated, renamed: "secondaryBackground")
+    @available(*, deprecated, renamed: "tertiaryGroupedBackground")
     case background2
     
     /// Standard line color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A9
-    @available(*, deprecated, renamed: "separator")
+    @available(*, deprecated, renamed: "separatorOpaque")
     case line
     
     /// Standard text color, with variants for light and dark color schemes.
@@ -675,42 +675,42 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard background and accent color, used in any color scheme.
     /// (dark variant) ![](https://dummyimage.com/48x18/CCCCCC.png&text=+)          Hex color: CCCCCC
     /// (light variant) ![](https://dummyimage.com/48x18/687D94.png&text=+)          Hex color: 687D94
-    @available(*, deprecated, renamed: "quarternaryLabel")
+    @available(*, deprecated, renamed: "secondaryFill")
     case primary4
     
     /// Standard background and accent color, used in any color scheme.
     /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex color: FAFAFA
     /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex color: 23303E
-    @available(*, deprecated, renamed: "primaryGroupedBackground")
+    @available(*, deprecated, renamed: "footer")
     case primary5
     
     /// Standard background and accent color, for use in header and cell background.
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex color: FFFFFF
     /// (light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)          Hex color: 29313A
-    @available(*, deprecated, renamed: "primaryFill")
+    @available(*, deprecated, renamed: "secondaryGroupedBackground")
     case primary6
     
     /// Standard background and accent color that is used in tag outline.
     /// (dark variant) ![](https://dummyimage.com/48x18/74777A.png&text=+)          Hex color: 74777A
     /// (light variant) ![](https://dummyimage.com/48x18/B8BEC1.png&text=+)          Hex color: B8BEC1
-    @available(*, deprecated, renamed: "secondaryFill")
+    @available(*, deprecated, renamed: "quarternaryLabel")
     case primary7
     
     /// Background and accent color that is mainly used with dark color scheme.
     /// ![](https://dummyimage.com/48x18/2F3943.png&text=+)          Hex color: 2F3943
-    @available(*, deprecated, renamed: "tertiaryFill")
+    @available(*, deprecated, renamed: "barTransparent")
     case primary8
     
     /// Standard background and accent color.
     /// (dark variant) ![](https://dummyimage.com/48x18/E5E5E5.png&text=+)          Hex color: E5E5E5
     /// (light variant) ![](https://dummyimage.com/48x18/3A4552.png&text=+)          Hex color: 3A4552
-    @available(*, deprecated, renamed: "quarternaryFill")
+    @available(*, deprecated, renamed: "separator")
     case primary9
     
     /// Standard background and accent color.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex color: 8696A9
-    @available(*, deprecated, renamed: "baseBlack")
+    @available(*, deprecated, renamed: "contrastElement")
     case primary10
     
     /// Default light `tintColor`.
@@ -740,7 +740,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard cell background color when being tapped, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A1C (alpha: 11%)
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex color: 8696A91C (alpha: 11%)
-    @available(*, deprecated, renamed: "cellBackground")
+    @available(*, deprecated, renamed: "quarternaryFill")
     case cellBackgroundTapState
     
     /// Standard shadow color.
