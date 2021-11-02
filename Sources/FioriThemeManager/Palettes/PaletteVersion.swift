@@ -38,6 +38,15 @@ extension PaletteVersion: RawRepresentable {
             return PaletteV6.default
         }
     }
+    
+    var compatibilityMap: ColorCompatibilityMap? {
+        switch self {
+        case .v6:
+            return ColorCompatibilityMapV6.default
+        default:
+            return nil
+        }
+    }
 }
 
 /// An enum for different version of `Palette`.

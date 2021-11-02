@@ -70,21 +70,21 @@ struct PaletteV6: PaletteProvider {
         case .teal9:
             return HexColor(lightColor: "DAFDF5FF", darkColor: "012931FF")
         case .green1:
-            return HexColor(lightColor: "F5FAE5FF", darkColor: "F5FAE5FF")
+            return HexColor(lightColor: "0E2B16FF", darkColor: "F5FAE5FF")
         case .green2:
-            return HexColor(lightColor: "97DD40FF", darkColor: "97DD40FF")
+            return HexColor(lightColor: "164323FF", darkColor: "97DD40FF")
         case .green3:
-            return HexColor(lightColor: "5DC122FF", darkColor: "5DC122FF")
+            return HexColor(lightColor: "1E592FFF", darkColor: "5DC122FF")
         case .green4:
-            return HexColor(lightColor: "36A41DFF", darkColor: "36A41DFF")
+            return HexColor(lightColor: "256F3AFF", darkColor: "36A41DFF")
         case .green5:
             return HexColor(lightColor: "188918FF", darkColor: "188918FF")
         case .green6:
-            return HexColor(lightColor: "256F3AFF", darkColor: "256F3AFF")
+            return HexColor(lightColor: "36A41DFF", darkColor: "256F3AFF")
         case .green7:
-            return HexColor(lightColor: "1E592FFF", darkColor: "1E592FFF")
+            return HexColor(lightColor: "5DC122FF", darkColor: "1E592FFF")
         case .green8:
-            return HexColor(lightColor: "164323FF", darkColor: "164323FF")
+            return HexColor(lightColor: "97DD40FF", darkColor: "164323FF")
         case .green9:
             return HexColor(lightColor: "F5FAE5FF", darkColor: "0E2B16FF")
         case .mango1:

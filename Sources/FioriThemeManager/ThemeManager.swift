@@ -14,6 +14,7 @@ public class ThemeManager {
     public func setPaletteVersion(_ version: PaletteVersion) {
         if self.palette != version.rawValue {
             self.palette = version.rawValue
+            self.compatibilityMap = version.compatibilityMap
         }
     }
     
@@ -29,9 +30,12 @@ public class ThemeManager {
     /// - note: It is unusual to need to read from the palette directly; generally, use the `UIColor.preferredFioriColor(...)` API.
     public private(set) var palette: Palette = PaletteVersion.latest.rawValue
     
+    internal var compatibilityMap: ColorCompatibilityMap? = PaletteVersion.latest.compatibilityMap
+    
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor {
-        self.palette.hexColor(for: style)
+        let _style = self.compatibilityMap?.newColorStyle(for: style) ?? style
+        return self.palette.hexColor(for: _style)
     }
     
     /// :nodoc:
@@ -42,7 +46,7 @@ public class ThemeManager {
     }
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
-        let hexColor: HexColor = self.palette.hexColor(for: style)
+        let hexColor: HexColor = hexColor(for: style)
         let uiColor = UIColor { traitCollection in
             let variant: ColorVariant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
             let hexColorString: String = hexColor.hex(variant)
