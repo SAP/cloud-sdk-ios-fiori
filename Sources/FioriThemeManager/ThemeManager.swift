@@ -46,14 +46,14 @@ public class ThemeManager {
     }
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
-        let hexColor: HexColor = hexColor(for: style)
-        let uiColor = UIColor { traitCollection in
-            let variant: ColorVariant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
-            let hexColorString: String = hexColor.hex(variant)
-            let components = hexColor.rgba(hexColorString)
+        let hc: HexColor = self.hexColor(for: style)
+        let uc = UIColor { traitCollection in
+            let variant: ColorVariant = hc.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
+            let hexColorString: String = hc.hex(variant)
+            let components = hc.rgba(hexColorString)
             return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
                            blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
-        return uiColor
+        return uc
     }
 }
