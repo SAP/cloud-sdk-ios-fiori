@@ -54,10 +54,18 @@ public class TableModel: ObservableObject {
     @Published public var showListView: Bool = false
     
     /// Column attribute for each column.
-    @Published public var columnAttributes: [ColumnAttribute] = []
+    @Published public var columnAttributes: [ColumnAttribute] = [] {
+        didSet {
+            self.needsCalculateLayout = true
+        }
+    }
     
     /// Switching between normal and editing mode.
-    @Published public var isEditing: Bool = false
+    @Published public var isEditing: Bool = false {
+        didSet {
+            self.needsCalculateLayout = true
+        }
+    }
     
     /// Enable or disable pinch and zoom.
     @Published public var isPinchZoomEnable: Bool = false
