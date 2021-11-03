@@ -36,7 +36,19 @@ enum TableViewLayout {
     static let minColumnWidth: CGFloat = 0.25
     static let maxColumnWidth: CGFloat = 0.5
     
-    static let minColumnWidthInRegular: CGFloat = 60
+    static let minColumnWidthInPt: CGFloat = 48
+    
+    /// fixed image size
+    static let imageSize: CGFloat = 45
+    
+    /// Icon widh and height in leading or trailing accessory view
+    static let buttonSize: CGFloat = 44
+    
+    /// Icon widh and height in leading or trailing accessory view
+    static let iconSize: CGFloat = 20
+    
+    /// spacing between accessories
+    static let accessorySpacing: CGFloat = 4
     
     static let leadingMarginInRegularFull: CGFloat = 48
     static let leadingMarginInRegular: CGFloat = 20
@@ -62,28 +74,15 @@ enum TableViewLayout {
     }
     
     static func leadingOrTrailingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
-        if sizeClass == .compact {
-            return 16
-        }
-        return width > 768 ? 48 : 20
+        0
     }
     
     static func contentInset(sizeClass: UserInterfaceSizeClass) -> CGFloat {
         sizeClass == .compact ? 8 : 16
     }
     
-    static func accessoryViewLeadingMargin(width: CGFloat, sizeClass: UserInterfaceSizeClass) -> CGFloat {
-        if sizeClass == .compact {
-            return 10
-        }
-        return width > 768 ? 48 : 14
-    }
-    
     static func leftPaddingForLeadingAccessoryView(width: CGFloat, sizeClass: UserInterfaceSizeClass, hasButton: Bool) -> CGFloat {
-        if sizeClass == .compact {
-            return 10
-        }
-        return width > 768 ? (hasButton ? 48 : 20) : 14
+        0
     }
     
     static func rightPaddingForLeadingAccessoryView(_ sizeClass: UserInterfaceSizeClass) -> CGFloat {
@@ -91,8 +90,6 @@ enum TableViewLayout {
     }
     
     static let accessoryViewLeftPaddingInCompact: CGFloat = 10
-    
-    static let imageWidth: CGFloat = 45
 }
 
 extension TextAlignment {
@@ -105,61 +102,6 @@ extension TextAlignment {
         case .center:
             return .center
         }
-    }
-}
-
-extension String {
-    func boundingBoxSize(with fontSize: CGFloat, width: CGFloat = CGFloat(MAXFLOAT), height: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
-        #if os(iOS) || os(tvOS) || os(watchOS)
-            let font = UIFont.systemFont(ofSize: fontSize)
-        #elseif os(macOS)
-            let font = NSFont.systemFont(ofSize: fontSize)
-        #endif
-
-        let size = (self as NSString)
-            .boundingRect(with: CGSize(width: width, height: height),
-                          options: .usesLineFragmentOrigin,
-                          attributes: [NSAttributedString.Key.font: font],
-                          context: nil).size
-
-        return size
-    }
-}
-
-extension UIFont {
-    class func preferredFont(from font: Font) -> UIFont {
-        let uiFont: UIFont
-
-        if #available(iOS 14.0, *) {
-            switch font {
-            case .largeTitle:
-                uiFont = UIFont.preferredFont(forTextStyle: .largeTitle)
-            case .title:
-                uiFont = UIFont.preferredFont(forTextStyle: .title1)
-            case .title2:
-                uiFont = UIFont.preferredFont(forTextStyle: .title2)
-            case .title3:
-                uiFont = UIFont.preferredFont(forTextStyle: .title3)
-            case .headline:
-                uiFont = UIFont.preferredFont(forTextStyle: .headline)
-            case .subheadline:
-                uiFont = UIFont.preferredFont(forTextStyle: .subheadline)
-            case .callout:
-                uiFont = UIFont.preferredFont(forTextStyle: .callout)
-            case .caption:
-                uiFont = UIFont.preferredFont(forTextStyle: .caption1)
-            case .caption2:
-                uiFont = UIFont.preferredFont(forTextStyle: .caption2)
-            case .footnote:
-                uiFont = UIFont.preferredFont(forTextStyle: .footnote)
-            default:
-                uiFont = UIFont.preferredFont(forTextStyle: .body)
-            }
-        } else {
-            uiFont = .systemFont(ofSize: 14)
-        }
-
-        return uiFont
     }
 }
 

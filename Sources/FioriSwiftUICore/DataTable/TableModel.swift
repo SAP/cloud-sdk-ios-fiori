@@ -34,8 +34,12 @@ public class TableModel: ObservableObject {
             self._rowData = newValue.map { rowItem in
                 getMappedRowItem(for: rowItem)
             }
+            
+            self.needsCalculateLayout = true
         }
     }
+    
+    @Published var needsCalculateLayout: Bool = false
     
     /// Set header to be sticky.
     @Published public var isHeaderSticky: Bool = false
@@ -87,7 +91,7 @@ public class TableModel: ObservableObject {
     {
         self.headerData = headerData
         self.rowData = rowData
-        self.isHeaderSticky = isHeaderSticky
+        self.isHeaderSticky = headerData == nil ? false : isHeaderSticky
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
         self.isPinchZoomEnable = isPinchZoomEnable
