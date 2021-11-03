@@ -34,7 +34,6 @@ public struct TableRowItem {
 public enum AccessoryItem {
     case button(AccessoryButton)
     case icon(Image)
-    case text(String)
 }
 
 /// Button for accessory item.

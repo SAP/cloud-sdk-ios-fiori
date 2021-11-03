@@ -45,10 +45,6 @@ struct LeadingAccessoryView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
-                
-                /// deprecated
-                case .text:
-                    Text("")
                 }
             }
             

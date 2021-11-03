@@ -112,7 +112,7 @@ let row3Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil
 let row4Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - no line limit", Font.system(size: 48, weight: .bold, design: .rounded), Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.system(size: 52, weight: .heavy, design: .monospaced), Color.blue)])
 let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
-let row1WithAccs = TableRowItem(leadingAccessories: [AccessoryItem.text("T"), accBtn], trailingAccessory: accIcon, data: [DataTextItem("Need Attention"), DataTextItem("Yesterday")])
+let row1WithAccs = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accIcon, data: [DataTextItem("Need Attention"), DataTextItem("Yesterday")])
 let row2WithAccs = TableRowItem(leadingAccessories: [accIcon], trailingAccessory: nil, data: [DataTextItem("Stable"), DataTextItem("Jul 5, 2021")])
 let row3WithAccs = TableRowItem(leadingAccessories: [accIcon, accBtn, accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention"), DataTextItem("Jul 4, 2021")])
 let threeRowTwoColumnWithAcc = TableModel(headerData: nil, rowData: [row1WithAccs, row2WithAccs, row3WithAccs], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
