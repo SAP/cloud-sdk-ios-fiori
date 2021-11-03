@@ -58,43 +58,43 @@ struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
         case .critical:
             return .criticalLabel
         case .accent1:
-            return nil
+            return .mango3
         case .accent1b:
-            return nil
+            return .mango4
         case .accent2:
-            return nil
+            return .red4
         case .accent2b:
-            return nil
+            return .red5
         case .accent3:
-            return nil
+            return .pink5
         case .accent4:
-            return nil
+            return .pink6
         case .accent5:
-            return nil
+            return .indigo6
         case .accent6:
-            return nil
+            return .blue6
         case .accent6b:
-            return nil
+            return .blue7
         case .accent7:
-            return nil
+            return .teal4
         case .accent7b:
-            return nil
+            return .teal5
         case .accent8:
-            return nil
+            return .green4
         case .accent9:
-            return nil
+            return .indigo5
         case .accent10:
-            return nil
+            return .grey5
         case .accent10b:
-            return nil
+            return .grey4
         case .navigationBar:
-            return nil
+            return .headerBlended
         case .backgroundGradientTop:
-            return nil
+            return .headerBlended
         case .backgroundGradientBottom:
-            return nil
+            return .footer
         case .backgroundBase:
-            return nil
+            return .primaryGroupedBackground
         default:
             return nil
         }

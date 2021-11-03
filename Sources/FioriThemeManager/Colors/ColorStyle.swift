@@ -138,22 +138,22 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Green 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    /// (light variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
     case green1
     
     /// Green 2
     /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
-    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
     case green2
     
     /// Green 3
     /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
-    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
     case green3
     
     /// Green 4
     /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
-    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
     case green4
     
     /// Green 5
@@ -163,17 +163,17 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Green 6
     /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
     case green6
     
     /// Green 7
     /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
-    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
     case green7
     
     /// Green 8
     /// (dark variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
-    /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
+    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     case green8
     
     /// Green 9
