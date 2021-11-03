@@ -77,7 +77,7 @@ struct LeadingAccessoryView: View {
         
         return
             Group {
-                if self.layoutManager.isEditing, !isHeader {
+                if self.layoutManager.model.isEditing, !isHeader {
                     Button(action: {
                         if !self.layoutManager.selectedIndexes.contains(selectionIndex) {
                             self.layoutManager.selectedIndexes.append(selectionIndex)

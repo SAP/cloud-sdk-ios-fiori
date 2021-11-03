@@ -219,11 +219,9 @@ public struct DataTableExampleView: View {
     }
     
     func makeBody() -> some View {
-        var view = DataTable(model: self.model)
-        
-        return view
+        DataTable(model: self.model)
             .navigationBarTitle("Data Table")
-//            .navigationBarTitle("Data Table", displayMode: .inline)
+            //            .navigationBarTitle("Data Table", displayMode: .inline)
             .navigationBarItems(leading:
                 Button(action: {
                     showingSheet.toggle()
@@ -234,7 +232,7 @@ public struct DataTableExampleView: View {
                 },
                 trailing: Button(self.isEditing ? "Delete" : "Edit") {
                     self.isEditing = !self.isEditing
-                    view.isEditing = self.isEditing
+                    self.model.isEditing = self.isEditing
                     if !self.isEditing {
                         let indexSet = IndexSet(self.model.selectedIndexes)
                         print("remove indexset: \(indexSet)")
