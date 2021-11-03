@@ -42,7 +42,7 @@ struct ItemView: View {
                 }
                 
                 let selectedIndex = rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
-                if self.layoutManager.isEditing {
+                if self.layoutManager.model.isEditing {
                     if !self.layoutManager.selectedIndexes.contains(selectedIndex) {
                         self.layoutManager.selectedIndexes.append(selectedIndex)
                         self.layoutManager.model.selectedIndexes.append(selectedIndex)
