@@ -768,49 +768,49 @@ public enum ColorStyle: String, CaseIterable {
     
     // MARK: - Deprecated Accent Colors
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "mango3")
     case accent1
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "mango4")
     case accent1b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "red4")
     case accent2
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "red5")
     case accent2b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "pink5")
     case accent3
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "pink6")
     case accent4
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "indigo6")
     case accent5
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "blue6")
     case accent6
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "blue7")
     case accent6b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "teal4")
     case accent7
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "teal5")
     case accent7b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "green4")
     case accent8
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "indigo5")
     case accent9
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "grey5")
     case accent10
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
+    @available(*, deprecated, renamed: "grey4")
     case accent10b
     
     // MARK: - Deprecated Colors Since Fiori Palette V5
