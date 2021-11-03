@@ -1,5 +1,5 @@
 public enum ColorStyle: String, CaseIterable {
-    // MARK: - Fiori Next Core Colors
+    // MARK: - Fiori Next Core Colors (74 Colors)
     
     /// Grey 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
@@ -371,7 +371,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
     case baseBlack
     
-    // MARK: - Shadow Colors
+    // MARK: - Shadow Colors (2 Colors)
     
     /// Card Shadow
     /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
@@ -383,7 +383,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 0000003D
     case sectionShadow
     
-    // MARK: - Grouped Background Colors
+    // MARK: - Grouped Background Colors (3 Colors)
     
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
@@ -403,7 +403,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (elevated light variant) ![](https://dummyimage.com/48x18/1F272F.png&text=+)        Hex color: 1F272FFF
     case tertiaryGroupedBackground
     
-    // MARK: - Background Colors
+    // MARK: - Background Colors (3 Colors)
     
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
@@ -423,7 +423,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
     case tertiaryBackground
     
-    // MARK: - Label Colors
+    // MARK: - Label Colors (4 Colors)
     
     /// Standard color for primary label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
@@ -445,7 +445,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
     case quarternaryLabel
     
-    // MARK: - Fill Colors
+    // MARK: - Fill Colors (4 Colors)
     
     /// Standard color for primary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
@@ -467,7 +467,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
     case quarternaryFill
     
-    // MARK: - Tint Colors
+    // MARK: - Tint Colors (3 Colors)
     
     /// Standard color for tappable elements. Wraps `tintColorLight` and `tintColorDark`.
     /// Use `Color.preferredColor(forStyle:background:)` to select appropriate variant.
@@ -486,7 +486,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex color: 1B90FFFF
     case tintColorTapState
     
-    // MARK: - Semantic Colors
+    // MARK: - Semantic Colors (7 Colors)
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)        Hex color: #D20A0AFF
@@ -523,7 +523,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/00144A.png&text=+)        Hex color: #00144AFF
     case informationBackground
     
-    // MARK: - Separator Colors
+    // MARK: - Separator Colors (2 Colors)
     
     /// Standard separator color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex color: #5B738B5E
@@ -535,7 +535,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: #8396A8D4
     case separatorOpaque
     
-    // MARK: - UI Materials Colors
+    // MARK: - UI Materials Colors (6 Colors)
     
     /// Standard background color for navigation bar or headers.
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
@@ -567,7 +567,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex color: 22354800
     case cellBackground
     
-    // MARK: - Chart Colors
+    // MARK: - Chart Colors (13 Styles)
     
     /// Standard text color, with variants for light and dark color variants.
     /// Use `UIColor.preferredFioriColor(forStyle: background:)` to select appropriate variant.
@@ -603,7 +603,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/AB2217.png&text=+)        Hex color: AB2217
     case stockDownStroke
     
-    // MARK: - Map Colors
+    // MARK: - Map Colors (11 Styles)
     
     /// ![](https://dummyimage.com/48x18/2E4A62.png&text=+)        Hex color: 2E4A62
     case map1

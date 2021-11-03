@@ -199,7 +199,7 @@ struct PaletteV6: PaletteProvider {
             return HexColor(lightColor: "8396A845", darkColor: "5B738B29")
         case .quarternaryFill:
             return HexColor(lightColor: "8396A814", darkColor: "5B738B14")
-        /// Tint Colors:
+        /// Tint Colors
         case .tintColor:
             return HexColor(lightColor: "4DB1FFFF", darkColor: "0070F2FF")
         case .tintColor2:
