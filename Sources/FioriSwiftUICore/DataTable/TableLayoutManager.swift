@@ -2,8 +2,11 @@ import Foundation
 import SwiftUI
 
 class TableLayoutManager: ObservableObject {
-    @ObservedObject var model: TableModel
-    @Environment(\.backgroundColor) var backgroundColor
+    @Published var model: TableModel {
+        didSet {
+            self.numOfColumns = -1
+        }
+    }
     
     var horizontalScrolling: Bool {
         get {
@@ -17,17 +20,6 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _horizontalScrolling = true
     
-    var isEditing: Bool {
-        get {
-            self._isEditing
-        }
-        set {
-            self._isEditing = newValue
-        }
-    }
-    
-    @Published var _isEditing: Bool = false
-    
     var sizeClass: UserInterfaceSizeClass {
         get {
             self._sizeClass
@@ -40,24 +32,29 @@ class TableLayoutManager: ObservableObject {
         }
     }
     
-    @Published var _sizeClass: UserInterfaceSizeClass = .compact
-    
-    var rect: CGRect {
-        get {
-            self._rect
-        }
-        
-        set {
-            if newValue != self.rect {
-                self.actualTableViewSize = .zero
-                self._rect = newValue
+    @Published var sizeCategory: ContentSizeCategory = .medium {
+        didSet {
+            if !self.model.needsCalculateLayout {
+                self.model.needsCalculateLayout = true
             }
         }
     }
     
-    @Published var _rect: CGRect = .zero
+    @Published var _sizeClass: UserInterfaceSizeClass = .compact
     
-    /// private: X direction scale factor, scale is not allowed to be less than 1.0
+    var size: CGSize {
+        get {
+            self._size
+        }
+        
+        set {
+            self._size = newValue
+        }
+    }
+    
+    @Published var _size: CGSize = .zero
+    
+    /// private: X direction scale factor; the minimum scale is to display all data in the view
     @Published private var _scaleX: CGFloat = 1.0
     
     /// X direction scale factor, scale is not allowed to be less than 1.0
@@ -75,7 +72,7 @@ class TableLayoutManager: ObservableObject {
         }
     }
     
-    /// private: Y direction scale factor, scale is not allowed to be less than 1.0
+    /// private: Y direction scale factor; the minimum scale is to display all data in the view
     @Published private var _scaleY: CGFloat = 1.0
     
     /// Y direction scale factor, scale is not allowed to be less than 1.0
@@ -95,77 +92,45 @@ class TableLayoutManager: ObservableObject {
     
     @Published var centerPosition: CGPoint? = nil
     
-    var rowData: [TableRowItem] = []
+    @Published var isPinchZoomEnable: Bool = false
     
-    var allDataItems: [[DataTableItem]] = []
+    @Published var selectedIndexes: [Int] = []
     
-    var displayingItems: [[DataTableItem]] = []
+    var layoutWorkItem: DispatchWorkItem?
+    
+    ///
+    var cacheLayoutData: LayoutData?
+    
+    /// it will not be nil after layout process is completed
+    @Published var layoutData: LayoutData? = nil
+    
+    /// cache the result
+    var numOfColumns: Int = -1
     
     public func numberOfColumns() -> Int {
-        self.rowData.first?.data.count ?? 0
+        guard let ld = layoutData else { return 0 }
+        
+        return ld.numberOfColumns()
     }
     
     public func numberOfRows() -> Int {
-        self.rowData.count
-    }
-    
-    var columnWidths: [CGFloat] {
-        get {
-            self._columnWidths
-        }
-        set {
-            self._columnWidths = newValue
-        }
-    }
-    
-    @Published var _columnWidths: [CGFloat] = []
-    
-    var rowHeights: [CGFloat] {
-        get {
-            self._rowHeights
-        }
-        set {
-            self._rowHeights = newValue
-        }
-    }
-    
-    @Published var _rowHeights: [CGFloat] = []
-    
-    var actualTableViewSize: CGSize {
-        get {
-            self._actualTableViewSize
-        }
+        guard let ld = layoutData else { return 0 }
         
-        set {
-            if self.actualTableViewSize != newValue {
-                self._actualTableViewSize = newValue
-            }
-        }
+        return ld.numberOfRows()
     }
-    
-    @Published var _actualTableViewSize: CGSize = .zero
-    
-    @Published var isPinchZoomEnable: Bool = false
-    
-    var contentInset: CGFloat = 0
-    
-    var leadingAccessoryViewWidth: CGFloat = 0
-    var trailingAccessoryViewWidth: CGFloat = 0
-    
-    var tableLeadingLayoutMargin: CGFloat = 0
-    var tableTrailingLayoutMargin: CGFloat = 0
-    
-    var leadingAccessoryMargin: CGFloat = 0
-    
-    var leadingItemsWidths: [CGFloat] = []
     
     init(model: TableModel) {
         self.model = model
-        self.initRowData(model: self.model)
-        self.isEditing = self.model.isEditing
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
         self.isPinchZoomEnable = model.isPinchZoomEnable
-        self.allDataItems = self.initItems(self.model)
+        self.selectedIndexes = model.selectedIndexes
+    }
+    
+    func resetPosition() {
+        self.scaleX = 1.0
+        self.scaleY = 1.0
+        
+        self.centerPosition = nil
     }
 }

@@ -125,7 +125,7 @@
 		8AF60E2924D34553003889A8 /* StockChartSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */; };
 		8AF60E2A24D34553003889A8 /* HarveyBallSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */; };
 		8AF60E3324D34CF2003889A8 /* TimelineCardSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */; };
-		975CB76B256C5A7400DB7A15 /* SignatureCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */; };
+		975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */; };
 		993A122E26A726AC0018028B /* PrivacyText.html in Resources */ = {isa = PBXBuildFile; fileRef = 993A122C26A726AC0018028B /* PrivacyText.html */; };
 		993A122F26A726AC0018028B /* PrivacyText.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 993A122D26A726AC0018028B /* PrivacyText.rtf */; };
 		99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D562616980A001912C5 /* OnboardingExamples.swift */; };
@@ -325,7 +325,7 @@
 		8AF60E1B24D34553003889A8 /* StockChartSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockChartSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E1C24D34553003889A8 /* HarveyBallSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HarveyBallSnapshotTests.swift; sourceTree = "<group>"; };
 		8AF60E3224D34CF2003889A8 /* TimelineCardSnapshotTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineCardSnapshotTests.swift; sourceTree = "<group>"; };
-		975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCaptureView.swift; sourceTree = "<group>"; };
+		975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCaptureViewExample.swift; sourceTree = "<group>"; };
 		993A122C26A726AC0018028B /* PrivacyText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PrivacyText.html; sourceTree = "<group>"; };
 		993A122D26A726AC0018028B /* PrivacyText.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = PrivacyText.rtf; sourceTree = "<group>"; };
 		99942D562616980A001912C5 /* OnboardingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExamples.swift; sourceTree = "<group>"; };
@@ -758,7 +758,7 @@
 		97CEF8A92553D6F1008BFBEF /* SignatureView */ = {
 			isa = PBXGroup;
 			children = (
-				975CB76A256C5A7400DB7A15 /* SignatureCaptureView.swift */,
+				975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */,
 			);
 			path = SignatureView;
 			sourceTree = "<group>";
@@ -903,6 +903,8 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
+				ar,
 			);
 			mainGroup = 8A55794A24C1286E0098003A;
 			packageReferences = (
@@ -1055,7 +1057,7 @@
 				69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */,
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
-				975CB76B256C5A7400DB7A15 /* SignatureCaptureView.swift in Sources */,
+				975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				8A5579E624C1293C0098003A /* TestBundles.swift in Sources */,
 				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
@@ -1131,6 +1133,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1191,6 +1194,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

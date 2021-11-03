@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 // Standard Components
 
@@ -260,4 +261,61 @@ public protocol UserConsentFormModel {
 public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
+}
+
+// sourcery: importFrameworks = ["Combine"]
+// sourcery: virtualPropHeightDidChangePublisher = "public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)"
+// sourcery: virtualPropIsEditing = "@State var isEditing = false"
+// sourcery: virtualPropFullSignatureImage = "@State var fullSignatureImage: UIImage?"
+// sourcery: virtualPropCurrentDrawing = "@State var currentDrawing = Drawing()"
+// sourcery: virtualPropDrawings = "@State var drawings = [Drawing]()"
+// sourcery: virtualPropIsSaved = "@State var isSaved = false"
+// sourcery: virtualPropIsReenterTapped = "@State var isReenterTapped = false"
+// sourcery: virtualPropTitleFont = "var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)"
+// sourcery: virtualPropTitleColor = "var titleColor = Color.preferredColor(.primaryLabel)"
+// sourcery: virtualPropStrokeWidth = "var strokeWidth: CGFloat = 3.0"
+// sourcery: virtualPropStrokeColor = "var strokeColor = Color.preferredColor(.primaryLabel)"
+// sourcery: virtualPropDrawingViewBackgroundColor = "var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)"
+// sourcery: virtualPropXmarkColor = "var xmarkColor = Color.preferredColor(.quarternaryLabel)"
+// sourcery: virtualPropSignatureLineColor = "var signatureLineColor = Color.preferredColor(.quarternaryLabel)"
+// sourcery: virtualPropCropsImage = "var cropsImage = false"
+// sourcery: virtualPropDrawingViewMinHeight = "let _drawingViewMinHeight: CGFloat = 256"
+// sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"
+// sourcery: generated_component_composite
+public protocol SignatureCaptureViewModel: AnyObject {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var title: String? { get }
+
+    // sourcery: genericParameter.name = StartActionView
+    // sourcery: default.value = _TapToSignActionDefault()
+    var startAction: ActionModel? { get }
+
+    // sourcery: genericParameter.name = RestartActionView
+    // sourcery: default.value = _ReEnterSignatureActionDefault()
+    var restartAction: ActionModel? { get }
+
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+
+    // sourcery: genericParameter.name = ClearActionView
+    // sourcery: default.value = _ClearActionDefault()
+    var clearAction: ActionModel? { get }
+
+    // sourcery: genericParameter.name = SaveActionView
+    // sourcery: default.value = _SaveActionDefault()
+    var saveAction: ActionModel? { get }
+
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var signatureImage: UIImage? { get }
+
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onSave: ((UIImage) -> Void)? { get }
+
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onDelete: (() -> Void)? { get }
 }

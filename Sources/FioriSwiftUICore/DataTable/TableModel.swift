@@ -34,8 +34,12 @@ public class TableModel: ObservableObject {
             self._rowData = newValue.map { rowItem in
                 getMappedRowItem(for: rowItem)
             }
+            
+            self.needsCalculateLayout = true
         }
     }
+    
+    @Published var needsCalculateLayout: Bool = false
     
     /// Set header to be sticky.
     @Published public var isHeaderSticky: Bool = false
@@ -50,10 +54,18 @@ public class TableModel: ObservableObject {
     @Published public var showListView: Bool = false
     
     /// Column attribute for each column.
-    @Published public var columnAttributes: [ColumnAttribute] = []
+    @Published public var columnAttributes: [ColumnAttribute] = [] {
+        didSet {
+            self.needsCalculateLayout = true
+        }
+    }
     
     /// Switching between normal and editing mode.
-    @Published public var isEditing: Bool = false
+    @Published public var isEditing: Bool = false {
+        didSet {
+            self.needsCalculateLayout = true
+        }
+    }
     
     /// Enable or disable pinch and zoom.
     @Published public var isPinchZoomEnable: Bool = false
@@ -87,7 +99,7 @@ public class TableModel: ObservableObject {
     {
         self.headerData = headerData
         self.rowData = rowData
-        self.isHeaderSticky = isHeaderSticky
+        self.isHeaderSticky = headerData == nil ? false : isHeaderSticky
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
         self.isPinchZoomEnable = isPinchZoomEnable
