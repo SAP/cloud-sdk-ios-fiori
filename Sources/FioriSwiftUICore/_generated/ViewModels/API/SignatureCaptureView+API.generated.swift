@@ -23,7 +23,7 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	@State var fullSignatureImage: UIImage?
 	var titleColor = Color.preferredColor(.primaryLabel)
 	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-    var titleFont: Font = .subheadline.weight(.semibold)
+    var titleFont: Font = Font.subheadline.weight(Font.Weight.semibold)
 	@State var isEditing = false
 	var strokeColor = Color.preferredColor(.primaryLabel)
 	var xmarkColor = Color.preferredColor(.quarternaryLabel)
