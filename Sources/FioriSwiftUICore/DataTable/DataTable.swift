@@ -24,13 +24,6 @@ public struct DataTable: View {
     @Environment(\.verticalSizeClass) var verticalSizeClass
     @Environment(\.backgroundColor) var backgroundColor
     
-    /// Boolean for switching the data table in normal and editing mode.
-    public var isEditing: Bool = false {
-        didSet {
-            self.model.isEditing = self.isEditing
-        }
-    }
-    
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {

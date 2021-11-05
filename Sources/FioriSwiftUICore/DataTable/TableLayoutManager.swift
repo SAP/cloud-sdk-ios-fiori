@@ -20,17 +20,6 @@ class TableLayoutManager: ObservableObject {
     
     @Published var _horizontalScrolling = true
     
-    var isEditing: Bool {
-        get {
-            self._isEditing
-        }
-        set {
-            self._isEditing = newValue
-        }
-    }
-    
-    @Published var _isEditing: Bool = false
-    
     var sizeClass: UserInterfaceSizeClass {
         get {
             self._sizeClass
@@ -132,7 +121,6 @@ class TableLayoutManager: ObservableObject {
     
     init(model: TableModel) {
         self.model = model
-        self.isEditing = model.isEditing
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
         self.isPinchZoomEnable = model.isPinchZoomEnable

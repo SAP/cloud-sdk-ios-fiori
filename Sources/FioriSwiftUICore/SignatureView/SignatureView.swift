@@ -10,7 +10,7 @@ struct SignatureView: View {
     /// Background color of the drawing pad
     let backgroundColor: Color
     
-    public var onSave: ((SignatureCaptureView.Result) -> Void)?
+    public var onSave: ((SignatureView.Result) -> Void)?
     
     public var onCancel: (() -> Void)?
     
@@ -24,7 +24,7 @@ struct SignatureView: View {
     @State private var drawingPadSize: CGSize = .zero
     private var cropsImage = false
     
-    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureCaptureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
+    init(strokeWidth: CGFloat = 3.0, imageStrokeColor: Color = Color.preferredColor(.primaryLabel), backgroundColor: Color = Color.preferredColor(.primaryBackground), onSave: ((SignatureView.Result) -> Void)? = nil, onCancel: (() -> Void)? = nil) {
         self.strokeWidth = strokeWidth
         self.imageStrokeColor = imageStrokeColor
         self.backgroundColor = backgroundColor
@@ -65,7 +65,7 @@ struct SignatureView: View {
                         let imageSaver = ImageSaver()
                         guard let uimage = UIApplication.shared.windows[0].rootViewController?.view.asImage(rect: self.rect1) else { return }
                         imageSaver.writeToPhotoAlbum(image: uimage)
-                        self.onSave?(SignatureCaptureView.Result(image: Image(uiImage: uimage), uiImage: uimage, originalUIImage: uimage))
+                        self.onSave?(SignatureView.Result(image: Image(uiImage: uimage), uiImage: uimage, originalUIImage: uimage))
                         self.drawings.removeAll()
                     }) {
                         Text("Done")
@@ -92,6 +92,20 @@ struct SignatureView: View {
                 }.frame(height: 40).padding([.leading, .trailing]).padding(.bottom, 40)
             }
         }
+    }
+}
+
+extension SignatureView {
+    /// Result holds an `Image` and a `UIImage` type for the same signature image
+    struct Result {
+        /// Signature Image
+        let image: Image
+
+        /// SIgnature UIImage
+        let uiImage: UIImage
+
+        // This is the original not-cropped signature image to be displayed after the image is saved
+        internal let originalUIImage: UIImage
     }
 }
 
