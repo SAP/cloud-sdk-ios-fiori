@@ -8,57 +8,57 @@ class SignatureCaptureTests: XCTestCase {
     var isOnSaveCalled = false
     var isOnDeleteCalled = false
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+    @State var signature: Image? = nil
 
     func testBasic() throws {
-        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave, onDelete: self.onDelete)
+        let signatureCaptureView = SignatureCaptureView(
+            onSave: { [unowned self] image in
+                self.onSave(image)
+            },
+            onDelete: { [unowned self] in
+                self.onDelete()
+            }
+        )
 
-        XCTAssertEqual(signagureCaptureView.bundle, Bundle.module)
-        XCTAssertEqual(signagureCaptureView.tableName, "FioriSwiftUICore")
-        XCTAssertEqual(signagureCaptureView._drawingViewMinHeight, CGFloat(256))
-        XCTAssertNil(signagureCaptureView._drawingViewMaxHeight)
+        XCTAssertEqual(signatureCaptureView._drawingViewMinHeight, CGFloat(256))
+        XCTAssertNil(signatureCaptureView._drawingViewMaxHeight)
 
         // test default property values
-        XCTAssertEqual(signagureCaptureView.strokeWidth, CGFloat(3))
+        XCTAssertEqual(signatureCaptureView.strokeWidth, CGFloat(3))
         if #available(iOS 14.0, *) {
-            XCTAssertEqual(signagureCaptureView.strokeColor.cgColor, Color.preferredColor(.primaryLabel).cgColor)
-            XCTAssertEqual(signagureCaptureView.drawingViewBackgroundColor.cgColor, Color.preferredColor(.primaryBackground).cgColor)
+            XCTAssertEqual(signatureCaptureView.strokeColor.cgColor, Color.preferredColor(.primaryLabel).cgColor)
+            XCTAssertEqual(signatureCaptureView.drawingViewBackgroundColor.cgColor, Color.preferredColor(.primaryBackground).cgColor)
         }
 
         self.isOnSaveCalled = false
         let uiImage = UIImage(systemName: "xmark")!
-        let image = Image(uiImage: uiImage)
-        let result = SignatureCaptureView.Result(image: image, uiImage: uiImage, originalUIImage: uiImage)
 
         self.isOnSaveCalled = false
-        signagureCaptureView.onSave?(result)
+        signatureCaptureView.onSave(uiImage)
         XCTAssertTrue(self.isOnSaveCalled)
 
         self.isOnDeleteCalled = false
-        signagureCaptureView.onDelete?()
+        signatureCaptureView.onDelete()
         XCTAssertTrue(self.isOnDeleteCalled)
     }
 
     func testModifiers() throws {
-        let signagureCaptureView = SignatureCaptureView(onSave: self.onSave, onDelete: nil)
+        let signatureCaptureView = SignatureCaptureView(
+            onSave: { [unowned self] image in
+                self.onSave(image)
+            })
             ._drawingViewMaxHeight(256)
             .strokeWidth(10)
             .strokeColor(.blue)
             .drawingViewBackgroundColor(.yellow)
 
-        XCTAssertEqual(signagureCaptureView._drawingViewMaxHeight, CGFloat(256))
-        XCTAssertEqual(signagureCaptureView.strokeWidth, CGFloat(10))
-        XCTAssertEqual(signagureCaptureView.strokeColor, .blue)
-        XCTAssertEqual(signagureCaptureView.drawingViewBackgroundColor, .yellow)
+        XCTAssertEqual(signatureCaptureView._drawingViewMaxHeight, CGFloat(256))
+        XCTAssertEqual(signatureCaptureView.strokeWidth, CGFloat(10))
+        XCTAssertEqual(signatureCaptureView.strokeColor, Color.blue)
+        XCTAssertEqual(signatureCaptureView.drawingViewBackgroundColor, Color.yellow)
     }
 
-    func onSave(_ result: SignatureCaptureView.Result) {
+    func onSave(_ image: UIImage) {
         self.isOnSaveCalled = true
     }
 

@@ -293,6 +293,33 @@ extension EnvironmentValues {
         set { self[UpperBoundTitleModifierKey.self] = newValue }
     }
 
+    // The followings are manual added for SignatureCaptureView
+    // DO NOT DELETE
+    public var cancelActionModifier: AnyViewModifier {
+        get { return self[CancelActionModifierKey.self] }
+        set { self[CancelActionModifierKey.self] = newValue }
+    }
+
+    public var startActionModifier: AnyViewModifier {
+        get { return self[StartActionModifierKey.self] }
+        set { self[StartActionModifierKey.self] = newValue }
+    }
+
+    public var restartActionModifier: AnyViewModifier {
+        get { return self[RestartActionModifierKey.self] }
+        set { self[RestartActionModifierKey.self] = newValue }
+    }
+
+    public var clearActionModifier: AnyViewModifier {
+        get { return self[ClearActionModifierKey.self] }
+        set { self[ClearActionModifierKey.self] = newValue }
+    }
+
+    public var saveActionModifier: AnyViewModifier {
+        get { return self[SaveActionModifierKey.self] }
+        set { self[SaveActionModifierKey.self] = newValue }
+    }
+    // End manual added
 }
 
 public extension View {
@@ -1224,6 +1251,34 @@ public extension View {
             }
         }
     }
+
+    // The followings are manual added for SignatureCaptureView
+    // DO NOT DELETE
+    @ViewBuilder
+    func cancelActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.cancelActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func startActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.startActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func restartActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.restartActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func clearActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.clearActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.saveActionModifier, AnyViewModifier(transform))
+    }
+    // END manual added
 }
 
 
