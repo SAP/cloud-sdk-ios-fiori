@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ integrationSAPFiori6.1 ]
   pull_request:
-    branches: [ main ]
+    branches: [ integrationSAPFiori6.1 ]
   pull_request_target:
 
 jobs:
