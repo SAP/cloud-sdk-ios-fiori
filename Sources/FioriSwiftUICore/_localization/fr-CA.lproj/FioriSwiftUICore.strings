@@ -64,3 +64,6 @@
 /* XBUT: Disagree action title in EULAView */
 "Disagree" = "Refuser";
 
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Chargement en cours...";
+

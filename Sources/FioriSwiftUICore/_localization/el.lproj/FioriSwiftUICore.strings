@@ -19,3 +19,51 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Πάτημα για Υπογραφή";
 
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "Ακυρωμένο";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "Επόμενο";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "Ok";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "Κατάσταση";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "Χρήστης ακύρωσε Ένταξη";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "Χωρίς την συναίνεση δεν θα μπορείτε να συνεχίσετε την ένταξη.";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "Παροχή Συναίνεσης";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "Έξοδος";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "Θέλετε Απόρρητο Δεδομένων;";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "Να είστε λογικοί σχετικά με τα δεδομένα σας";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "Όχι Τώρα";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "Επιτρέπω";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "Αρνούμαι";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "Συμφωνώ";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "Διαφωνώ";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Φόρτωση...";
+

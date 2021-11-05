@@ -19,3 +19,51 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "แตะเพื่อลงลายเซ็น";
 
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "ถูกยกเลิก";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "ถัดไป";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "ตกลง";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "สถานะ";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "การจัดเตรียมระบบถูกยกเลิกโดยผู้ใช้";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "หากไม่มีความยินยอม คุณจะไม่สามารถดำเนินการจัดเตรียมระบบต่อได้";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "ให้ความยินยอม";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "ออก";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "ต้องการการคุ้มครองข้อมูลส่วนบุคคลหรือไม่?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "ระมัดระวังข้อมูลของคุณ";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "ภายหลัง";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "อนุญาต";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "ปฏิเสธ";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "ยอมรับ";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "ไม่ยอมรับ";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "กำลังโหลด...";
+
