@@ -2,9 +2,9 @@ name: CI (iOS 13)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ integrationSAPFiori6.1 ]
   pull_request:
-    branches: [ main ]
+    branches: [ integrationSAPFiori6.1 ]
 
 jobs:
   build:
