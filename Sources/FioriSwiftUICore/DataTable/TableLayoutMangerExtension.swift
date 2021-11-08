@@ -143,8 +143,6 @@ extension TableLayoutManager {
                         button.image
                     }
                 }
-            case .text(let value):
-                Text(value)
             case .icon(let value):
                 value
                     .resizable()

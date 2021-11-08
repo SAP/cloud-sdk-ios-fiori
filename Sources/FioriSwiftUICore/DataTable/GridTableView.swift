@@ -29,9 +29,6 @@ struct GridTableView: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let bundle = Bundle.module
-        let tableName = "FioriSwiftUICore"
-        
         if self.horizontalSizeClass != self.layoutManager.sizeClass {
             self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
         }
@@ -60,7 +57,7 @@ struct GridTableView: View {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 } else {
                     // Fallback on earlier versions
-                    Text("Loading...", tableName: tableName, bundle: bundle)
+                    Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                 }
             } else if self.layoutManager.layoutData != nil, self.layoutManager.numberOfRows() > 0, self.layoutManager.numberOfColumns() > 0, rect.size.width > 1, rect.size.height > 1 {
                 makeGridBody(layoutData: self.layoutManager.layoutData!, rect: rect)
