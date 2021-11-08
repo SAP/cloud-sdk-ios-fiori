@@ -9,94 +9,52 @@ struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
 
     private init() {}
     
-    func newColorStyle(for obsoletedStyle: ColorStyle) -> ColorStyle? {
-        switch obsoletedStyle {
-        case .shell:
-            return .header
-        case .background1:
-            return .primaryGroupedBackground
-        case .background2:
-            return .tertiaryGroupedBackground
-        case .line:
-            return .separatorOpaque
-        case .primary1:
-            return .primaryLabel
-        case .primary2:
-            return .secondaryLabel
-        case .primary3:
-            return .tertiaryLabel
-        case .primary4:
-            return .secondaryFill
-        case .primary5:
-            return .footer
-        case .primary6:
-            return .secondaryGroupedBackground
-        case .primary7:
-            return .quarternaryLabel
-        case .primary8:
-            return .barTransparent
-        case .primary9:
-            return .separator
-        case .primary10:
-            return .contrastElement
-        case .tintColorLight:
-            return .tintColor
-        case .tintColorDark:
-            return .tintColor2
-        case .tintColorTapStateLight:
-            return .tintColor
-        case .tintColorTapStateDark:
-            return .tintColor2
-        case .cellBackgroundTapState:
-            return .quarternaryFill
-        case .shadow:
-            return .cardShadow
-        case .negative:
-            return .negativeLabel
-        case .positive:
-            return .positiveLabel
-        case .critical:
-            return .criticalLabel
-        case .accent1:
-            return .mango3
-        case .accent1b:
-            return .mango4
-        case .accent2:
-            return .red4
-        case .accent2b:
-            return .red5
-        case .accent3:
-            return .pink5
-        case .accent4:
-            return .pink6
-        case .accent5:
-            return .indigo6
-        case .accent6:
-            return .blue6
-        case .accent6b:
-            return .blue7
-        case .accent7:
-            return .teal4
-        case .accent7b:
-            return .teal5
-        case .accent8:
-            return .green4
-        case .accent9:
-            return .indigo5
-        case .accent10:
-            return .grey5
-        case .accent10b:
-            return .grey4
-        case .navigationBar:
-            return .headerBlended
-        case .backgroundGradientTop:
-            return .headerBlended
-        case .backgroundGradientBottom:
-            return .footer
-        case .backgroundBase:
-            return .primaryGroupedBackground
-        default:
-            return nil
-        }
+    var obsoletedColorDefinitions: [ColorStyle: ColorStyle] = [
+        .shell: .header,
+        .background1: .primaryGroupedBackground,
+        .background2: .tertiaryGroupedBackground,
+        .line: .separatorOpaque,
+        .primary1: .primaryLabel,
+        .primary2: .secondaryLabel,
+        .primary3: .tertiaryLabel,
+        .primary4: .secondaryFill,
+        .primary5: .footer,
+        .primary6: .secondaryGroupedBackground,
+        .primary7: .quarternaryLabel,
+        .primary8: .barTransparent,
+        .primary9: .separator,
+        .primary10: .contrastElement,
+        .tintColorLight: .tintColor,
+        .tintColorDark: .tintColor2,
+        .tintColorTapStateLight: .tintColor,
+        .tintColorTapStateDark: .tintColor2,
+        .cellBackgroundTapState: .quarternaryFill,
+        .shadow: .cardShadow,
+        .negative: .negativeLabel,
+        .positive: .positiveLabel,
+        .critical: .criticalLabel,
+        .accent1: .mango3,
+        .accent1b: .mango4,
+        .accent2: .red4,
+        .accent2b: .red5,
+        .accent3: .pink5,
+        .accent4: .pink6,
+        .accent5: .indigo6,
+        .accent6: .blue6,
+        .accent6b: .blue7,
+        .accent7: .teal4,
+        .accent7b: .teal5,
+        .accent8: .green4,
+        .accent9: .indigo5,
+        .accent10: .grey5,
+        .accent10b: .grey4,
+        .navigationBar: .headerBlended,
+        .backgroundGradientTop: .headerBlended,
+        .backgroundGradientBottom: .footer,
+        .backgroundBase: .primaryGroupedBackground
+    ]
+    
+    func compatibleStyle(from style: ColorStyle) -> ColorStyle? {
+        self.obsoletedColorDefinitions[style]
     }
 }

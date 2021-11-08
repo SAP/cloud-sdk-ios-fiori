@@ -2,5 +2,6 @@ import Foundation
 
 internal protocol ColorStyleCompatibilityProvider {
     var uuid: UUID { get }
-    func newColorStyle(for obsoletedStyle: ColorStyle) -> ColorStyle?
+    var obsoletedColorDefinitions: [ColorStyle: ColorStyle] { get }
+    func compatibleStyle(from style: ColorStyle) -> ColorStyle?
 }

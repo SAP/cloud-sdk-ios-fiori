@@ -5,12 +5,14 @@ public protocol PaletteProvider {
     /// :nodoc:
     var uuid: UUID { get }
     
+    var colorDefinitions: [ColorStyle: HexColor] { get }
+    
     /// Required interface to supply color definitions for the `ColorStyle` and `BackgroundColorScheme` combination.
     ///
     /// - Parameters:
     ///   - style: `ColorStyle` for which color definition is required
     /// - Returns: Hex color, a dictionary contains `.light` and `.dark` variant
-    func hexColor(for style: ColorStyle) -> HexColor
+    func hexColor(for style: ColorStyle) -> HexColor?
 }
 
 extension PaletteProvider {
@@ -30,12 +32,12 @@ extension PaletteProvider {
         // if the style was never defined up to this palette version, use from .latest
         guard paletteVersion.supportedStyles().contains(style) else {
             guard paletteVersion != PaletteVersion.latest else { return nil }
-            return PaletteVersion.latest.rawValue.hexColor(for: style).colors[variant]
+            return PaletteVersion.latest.rawValue.hexColor(for: style)?.colors[variant]
         }
         
         // if the style was defined in one or more *older* palettes, iterate backwards from the palette version to find a valid value
         if let previous = paletteVersion.previous() {
-            return previous.rawValue.hexColor(for: style).colors[variant]
+            return previous.rawValue.hexColor(for: style)?.colors[variant]
         }
         
         return nil

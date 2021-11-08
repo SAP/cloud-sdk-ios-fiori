@@ -50,7 +50,7 @@ extension PaletteVersion: RawRepresentable {
 }
 
 /// An enum for different version of `Palette`.
-public enum PaletteVersion: CaseIterable {
+public enum PaletteVersion: CaseIterable, Comparable {
     /// First snapshotted palette, from SAP Fiori SDK version 3.0 SP01
     case v3_x
     
@@ -98,44 +98,26 @@ public enum PaletteVersion: CaseIterable {
         return PaletteVersion.allCases[index + 1]
     }
     
-    static let initialSupportedStyles: Set<ColorStyle> = [.primary1, .primary2, .primary3, .primary4, .primary5, .primary6, .primary7, .primary8, .primary9, .tintColor, .tintColorLight, .tintColorDark, .tintColorTapState, .tintColorTapStateLight, .tintColorTapStateDark, .navigationBar, .backgroundGradientTop, .backgroundGradientBottom, .backgroundBase, .cellBackgroundTapState, .line, .chart1, .chart2, .chart3, .chart4, .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11, .negative, .critical, .positive, .map1, .map2, .map3, .map4, .map5, .map6, .map7, .map8, .map9, .map10, .esriEdit]
+    static let initialSupportedStyles: Set<ColorStyle> = Set(PaletteV2.default.colorDefinitions.keys)
     
     /// Returns supported color styles in current palette.
     public func supportedStyles() -> Set<ColorStyle> {
-        guard let previous = self.previous() else { return PaletteVersion.initialSupportedStyles }
-        return previous.supportedStyles().subtracting(self.obsoletedStyles()).union(self.newStyles())
+        Set(self.rawValue.colorDefinitions.keys)
     }
     
     /// Returns obsoleted color styles since current palette.
     public func obsoletedStyles() -> Set<ColorStyle> {
         guard let previous = self.previous() else { return [] }
-        switch self {
-        case .v3_2:
-            return previous.obsoletedStyles().union([.tintColorTapStateLight, .tintColorTapStateDark, .tintColorLight, .tintColorDark])
-        case .v4:
-            return previous.obsoletedStyles().union([.backgroundGradientTop, .backgroundGradientBottom])
-        case .v5:
-            return previous.obsoletedStyles().union([.navigationBar, .backgroundBase])
-        case .v6:
-            return previous.obsoletedStyles().union([.accent1, .accent1b, .accent2, .accent2b, .accent3, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b, .shell, .background1, .background2, .line, .primary1, .primary2, .primary3, .primary4, .primary5, .primary6, .primary7, .primary8, .primary9, .primary10, .tintColorDark, .tintColorLight, .tintColorTapStateDark, .tintColorTapStateLight, .cellBackgroundTapState, .shadow, .negative, .positive, .critical])
-        default:
-            return []
-        }
+        let currentStyles = self.rawValue.colorDefinitions.keys
+        let previousStyles = previous.rawValue.colorDefinitions.keys
+        return Set(previousStyles).subtracting(currentStyles)
     }
     
     /// Returns new color styles added to current palette.
     public func newStyles() -> Set<ColorStyle> {
-        switch self {
-        case .v3_x:
-            return PaletteVersion.initialSupportedStyles
-        case .v3_2:
-            return [.primary10, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground, .accent1, .accent1b, .accent2, .accent2b, .accent3, .accent4, .accent5, .accent6, .accent6b, .accent7, .accent7b, .accent8, .accent9, .accent10, .accent10b]
-        case .v4:
-            return [.navigationBar, .stockUpStroke, .stockDownStroke]
-        case .v5:
-            return [.shell, .background1, .background2, .separator, .shadow, .primaryGroupedBackground, .secondaryGroupedBackground, .tertiaryGroupedBackground, .primaryBackground, .secondaryBackground, .tertiaryBackground, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill, .header, .headerBlended, .barTransparent, .contrastElement, .footer, .cellBackground, .negativeLabel, .positiveLabel, .criticalLabel, .negativeBackground, .positiveBackground, .criticalBackground, .informationBackground]
-        case .v6:
-            return [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6, .grey7, .grey8, .grey9, .blue1, .blue2, .blue3, .blue4, .blue5, .blue6, .blue7, .blue8, .blue9, .teal1, .teal2, .teal3, .teal4, .teal5, .teal6, .teal7, .teal8, .teal9, .green1, .green2, .green3, .green4, .green5, .green6, .green7, .green8, .green9, .mango1, .mango2, .mango3, .mango4, .mango5, .mango6, .mango7, .mango8, .mango9, .red1, .red2, .red3, .red4, .red5, .red6, .red7, .red8, .red9, .pink1, .pink2, .pink3, .pink4, .pink5, .pink6, .pink7, .pink8, .pink9, .indigo1, .indigo2, .indigo3, .indigo4, .indigo5, .indigo6, .indigo7, .indigo8, .indigo9, .baseWhite, .baseBlack, .cardShadow, .sectionShadow, .tintColor2]
-        }
+        guard let previous = self.previous() else { return Set(self.rawValue.colorDefinitions.keys) }
+        let currentStyles = self.rawValue.colorDefinitions.keys
+        let previousStyles = previous.rawValue.colorDefinitions.keys
+        return Set(currentStyles).subtracting(previousStyles)
     }
 }

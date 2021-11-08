@@ -12,9 +12,8 @@ public class ThemeManager {
     ///
     /// - Parameter version: Major version of the color palette.
     public func setPaletteVersion(_ version: PaletteVersion) {
-        if self.palette != version.rawValue {
-            self.palette = version.rawValue
-            self.compatibilityMap = version.compatibilityMap
+        if self._paletteVersion != version {
+            self._paletteVersion = version
         }
     }
     
@@ -23,19 +22,50 @@ public class ThemeManager {
     ///
     /// - Parameter palette: Complete palette implementation. Should include definitions for all consumed `ColorStyle` types.
     public func setPalette(_ palette: Palette) {
-        self.palette = palette
+        if let paletteVersion = PaletteVersion(rawValue: palette) {
+            self._paletteVersion = paletteVersion
+        } else {
+            self._palette = palette
+        }
     }
     
     /// Accessor to current palette.
     /// - note: It is unusual to need to read from the palette directly; generally, use the `UIColor.preferredFioriColor(...)` API.
-    public private(set) var palette: Palette = PaletteVersion.latest.rawValue
+    public var palette: Palette {
+        self._palette
+    }
     
-    internal var compatibilityMap: ColorCompatibilityMap? = PaletteVersion.latest.compatibilityMap
+    private var _palette: Palette = PaletteVersion.latest.rawValue
+    
+    internal var compatibilityMap: ColorCompatibilityMap? {
+        self._paletteVersion.compatibilityMap
+    }
+    
+    internal var _paletteVersion = PaletteVersion.latest {
+        didSet {
+            self._palette = self._paletteVersion.rawValue
+        }
+    }
     
     /// :nodoc:
-    internal func hexColor(for style: ColorStyle) -> HexColor {
-        let _style = self.compatibilityMap?.newColorStyle(for: style) ?? style
-        return self.palette.hexColor(for: _style)
+    internal func hexColor(for style: ColorStyle) -> HexColor? {
+        guard self._paletteVersion != .latest else {
+            let _style = self.compatibilityMap?.compatibleStyle(from: style) ?? style
+            return self.palette.hexColor(for: _style)
+        }
+        return self.mergedColorDefinitions()[style]
+    }
+    
+    private func mergedColorDefinitions() -> [ColorStyle: HexColor] {
+        var current = self._paletteVersion
+        var result = self._paletteVersion.rawValue.colorDefinitions
+        var cumulative = [ColorStyle: HexColor]()
+        while let next = current.next() {
+            cumulative.merge(next.rawValue.colorDefinitions) { _, new in new }
+            current = next
+        }
+        result.merge(cumulative) { current, _ in current }
+        return result
     }
     
     /// :nodoc:
@@ -46,7 +76,7 @@ public class ThemeManager {
     }
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
-        let hc: HexColor = self.hexColor(for: style)
+        guard let hc = self.hexColor(for: style) else { return UIColor() }
         let uc = UIColor { traitCollection in
             let variant: ColorVariant = hc.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
             let hexColorString: String = hc.hex(variant)

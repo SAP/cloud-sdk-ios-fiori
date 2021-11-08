@@ -2,8 +2,12 @@ import Foundation
 
 /// A struct for providing color palette.
 struct ColorCompatibilityMap: ColorStyleCompatibilityProvider {
-    func newColorStyle(for obsoletedStyle: ColorStyle) -> ColorStyle? {
-        self._compatibilityMap.newColorStyle(for: obsoletedStyle)
+    var obsoletedColorDefinitions: [ColorStyle: ColorStyle] {
+        self._compatibilityMap.obsoletedColorDefinitions
+    }
+    
+    func compatibleStyle(from style: ColorStyle) -> ColorStyle? {
+        self._compatibilityMap.compatibleStyle(from: style)
     }
     
     var uuid: UUID {
