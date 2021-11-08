@@ -579,26 +579,3 @@ struct UpperBoundTitleStyleClassModifierKey: EnvironmentKey {
 	struct TextInputValueStyleClassModifierKey: EnvironmentKey {
 		public static let defaultValue = AnyViewModifier { $0 }
 	}
-
-// The followings are manual added for SignatureCaptureView
-// DO NOT DELETE
-struct CancelActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct StartActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct RestartActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct ClearActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct SaveActionModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-// END manual added
