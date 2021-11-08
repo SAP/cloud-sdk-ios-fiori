@@ -49,11 +49,8 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
-        guard self._paletteVersion != .latest else {
-            let _style = self.compatibilityMap?.compatibleStyle(from: style) ?? style
-            return self.palette.hexColor(for: _style)
-        }
-        return self.mergedColorDefinitions()[style]
+        let _style = self.compatibilityMap?.compatibleStyle(from: style) ?? style
+        return self._paletteVersion == .latest ? self.palette.hexColor(for: _style) : self.mergedColorDefinitions()[style]
     }
     
     private func mergedColorDefinitions() -> [ColorStyle: HexColor] {

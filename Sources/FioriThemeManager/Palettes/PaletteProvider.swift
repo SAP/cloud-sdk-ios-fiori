@@ -5,6 +5,7 @@ public protocol PaletteProvider {
     /// :nodoc:
     var uuid: UUID { get }
     
+    /// :nodoc:
     var colorDefinitions: [ColorStyle: HexColor] { get }
     
     /// Required interface to supply color definitions for the `ColorStyle` and `BackgroundColorScheme` combination.
