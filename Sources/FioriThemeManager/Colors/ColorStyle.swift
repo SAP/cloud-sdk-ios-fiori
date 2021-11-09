@@ -1,5 +1,5 @@
 public enum ColorStyle: String, CaseIterable {
-    // MARK: - Fiori Next Core Colors
+    // MARK: - Fiori Next Core Colors (74 Colors)
     
     /// Grey 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
@@ -138,22 +138,22 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Green 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    /// (light variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
     case green1
     
     /// Green 2
     /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
-    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
     case green2
     
     /// Green 3
     /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
-    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
     case green3
     
     /// Green 4
     /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
-    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
     case green4
     
     /// Green 5
@@ -163,17 +163,17 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Green 6
     /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
     case green6
     
     /// Green 7
     /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
-    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
     case green7
     
     /// Green 8
     /// (dark variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
-    /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
+    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     case green8
     
     /// Green 9
@@ -371,7 +371,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
     case baseBlack
     
-    // MARK: - Shadow Colors
+    // MARK: - Shadow Colors (2 Colors)
     
     /// Card Shadow
     /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
@@ -383,7 +383,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 0000003D
     case sectionShadow
     
-    // MARK: - Grouped Background Colors
+    // MARK: - Grouped Background Colors (3 Colors)
     
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
@@ -403,7 +403,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (elevated light variant) ![](https://dummyimage.com/48x18/1F272F.png&text=+)        Hex color: 1F272FFF
     case tertiaryGroupedBackground
     
-    // MARK: - Background Colors
+    // MARK: - Background Colors (3 Colors)
     
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
@@ -423,7 +423,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
     case tertiaryBackground
     
-    // MARK: - Label Colors
+    // MARK: - Label Colors (4 Colors)
     
     /// Standard color for primary label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
@@ -445,7 +445,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
     case quarternaryLabel
     
-    // MARK: - Fill Colors
+    // MARK: - Fill Colors (4 Colors)
     
     /// Standard color for primary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
@@ -467,7 +467,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
     case quarternaryFill
     
-    // MARK: - Tint Colors
+    // MARK: - Tint Colors (3 Colors)
     
     /// Standard color for tappable elements. Wraps `tintColorLight` and `tintColorDark`.
     /// Use `Color.preferredColor(forStyle:background:)` to select appropriate variant.
@@ -486,7 +486,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex color: 1B90FFFF
     case tintColorTapState
     
-    // MARK: - Semantic Colors
+    // MARK: - Semantic Colors (7 Colors)
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)        Hex color: #D20A0AFF
@@ -523,7 +523,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/00144A.png&text=+)        Hex color: #00144AFF
     case informationBackground
     
-    // MARK: - Separator Colors
+    // MARK: - Separator Colors (2 Colors)
     
     /// Standard separator color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex color: #5B738B5E
@@ -535,7 +535,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: #8396A8D4
     case separatorOpaque
     
-    // MARK: - UI Materials Colors
+    // MARK: - UI Materials Colors (6 Colors)
     
     /// Standard background color for navigation bar or headers.
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
@@ -567,7 +567,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex color: 22354800
     case cellBackground
     
-    // MARK: - Chart Colors
+    // MARK: - Chart Colors (13 Styles)
     
     /// Standard text color, with variants for light and dark color variants.
     /// Use `UIColor.preferredFioriColor(forStyle: background:)` to select appropriate variant.
@@ -603,7 +603,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/AB2217.png&text=+)        Hex color: AB2217
     case stockDownStroke
     
-    // MARK: - Map Colors
+    // MARK: - Map Colors (11 Styles)
     
     /// ![](https://dummyimage.com/48x18/2E4A62.png&text=+)        Hex color: 2E4A62
     case map1
@@ -633,185 +633,185 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard base color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)        Hex color: 354A5F
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)        Hex color: 2C3D4F
-    @available(*, deprecated, renamed: "secondaryBackground")
-    public static let shell = ColorStyle.secondaryBackground
+    @available(*, deprecated, renamed: "header")
+    case shell
     
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/EDEFF0.png&text=+)        Hex color: EDEFF0
     /// (light variant) ![](https://dummyimage.com/48x18/1C2228.png&text=+)        Hex color: 1C2228
-    @available(*, deprecated, renamed: "primaryBackground")
-    public static let background1 = ColorStyle.primaryBackground
+    @available(*, deprecated, renamed: "primaryGroupedBackground")
+    case background1
     
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/F7F7F7.png&text=+)        Hex color: F7F7F7
     /// (light variant) ![](https://dummyimage.com/48x18/232A31.png&text=+)        Hex color: 232A31
-    @available(*, deprecated, renamed: "secondaryBackground")
-    public static let background2 = ColorStyle.secondaryBackground
+    @available(*, deprecated, renamed: "tertiaryGroupedBackground")
+    case background2
     
     /// Standard line color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex value: 8696A9
-    @available(*, deprecated, renamed: "separator")
-    public static let line = ColorStyle.separator
+    @available(*, deprecated, renamed: "separatorOpaque")
+    case line
     
     /// Standard text color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/32636A.png&text=+)        Hex color: 32636A
     /// (light variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)        Hex color: FAFAFA
     @available(*, deprecated, renamed: "primaryLabel")
-    public static let primary1 = ColorStyle.primaryLabel
+    case primary1
     
     /// Standard secondary text color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/515456.png&text=+)        Hex color: 515456
     /// (light variant) ![](https://dummyimage.com/48x18/EEF0F1.png&text=+)        Hex color: EEF0F1
     @available(*, deprecated, renamed: "secondaryLabel")
-    public static let primary2 = ColorStyle.secondaryLabel
+    case primary2
     
     /// Standard secondary text color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/6A6D70.png&text=+)        Hex color: 6A6D70
     /// (light variant) ![](https://dummyimage.com/48x18/D3D7D9.png&text=+)        Hex color: D3D7D9
     @available(*, deprecated, renamed: "tertiaryLabel")
-    public static let primary3 = ColorStyle.tertiaryLabel
+    case primary3
     
     /// Standard background and accent color, used in any color scheme.
     /// (dark variant) ![](https://dummyimage.com/48x18/CCCCCC.png&text=+)          Hex color: CCCCCC
     /// (light variant) ![](https://dummyimage.com/48x18/687D94.png&text=+)          Hex color: 687D94
-    @available(*, deprecated, renamed: "quarternaryLabel")
-    public static let primary4 = ColorStyle.quarternaryLabel
+    @available(*, deprecated, renamed: "secondaryFill")
+    case primary4
     
     /// Standard background and accent color, used in any color scheme.
     /// (dark variant) ![](https://dummyimage.com/48x18/FAFAFA.png&text=+)          Hex color: FAFAFA
     /// (light variant) ![](https://dummyimage.com/48x18/23303E.png&text=+)          Hex color: 23303E
-    @available(*, deprecated, renamed: "primaryGroupedBackground")
-    public static let primary5 = ColorStyle.primaryGroupedBackground
+    @available(*, deprecated, renamed: "footer")
+    case primary5
     
     /// Standard background and accent color, for use in header and cell background.
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex color: FFFFFF
     /// (light variant) ![](https://dummyimage.com/48x18/29313A.png&text=+)          Hex color: 29313A
-    @available(*, deprecated, renamed: "primaryFill")
-    public static let primary6 = ColorStyle.primaryFill
+    @available(*, deprecated, renamed: "secondaryGroupedBackground")
+    case primary6
     
     /// Standard background and accent color that is used in tag outline.
     /// (dark variant) ![](https://dummyimage.com/48x18/74777A.png&text=+)          Hex color: 74777A
     /// (light variant) ![](https://dummyimage.com/48x18/B8BEC1.png&text=+)          Hex color: B8BEC1
-    @available(*, deprecated, renamed: "secondaryFill")
-    public static let primary7 = ColorStyle.secondaryFill
+    @available(*, deprecated, renamed: "quarternaryLabel")
+    case primary7
     
     /// Background and accent color that is mainly used with dark color scheme.
     /// ![](https://dummyimage.com/48x18/2F3943.png&text=+)          Hex color: 2F3943
-    @available(*, deprecated, renamed: "tertiaryFill")
-    public static let primary8 = ColorStyle.tertiaryFill
+    @available(*, deprecated, renamed: "barTransparent")
+    case primary8
     
     /// Standard background and accent color.
     /// (dark variant) ![](https://dummyimage.com/48x18/E5E5E5.png&text=+)          Hex color: E5E5E5
     /// (light variant) ![](https://dummyimage.com/48x18/3A4552.png&text=+)          Hex color: 3A4552
-    @available(*, deprecated, renamed: "quarternaryFill")
-    public static let primary9 = ColorStyle.quarternaryFill
+    @available(*, deprecated, renamed: "separator")
+    case primary9
     
     /// Standard background and accent color.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex color: 8696A9
-    @available(*, deprecated, renamed: "baseBlack")
-    public static let primary10 = ColorStyle.baseBlack
+    @available(*, deprecated, renamed: "contrastElement")
+    case primary10
     
     /// Default light `tintColor`.
     /// (dark variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)          Hex color: 91C8F6
     /// (light variant) ![](https://dummyimage.com/48x18/91C8F6.png&text=+)          Hex color: 91C8F6
     @available(*, deprecated, renamed: "tintColor")
-    public static let tintColorLight = ColorStyle.tintColor
+    case tintColorLight
     
     /// Default dark `tintColor`.
     /// (dark variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)          Hex color: 0A6ED1
     /// (light variant) ![](https://dummyimage.com/48x18/0A6ED1.png&text=+)          Hex color: 0A6ED1
     @available(*, deprecated, renamed: "tintColor2")
-    public static let tintColorDark = ColorStyle.tintColor2
+    case tintColorDark
     
     /// Tap state (`UIControlState.highlighted`) color for control with `tintColor` equal to `tintColorLight`.  Should not be used as text color.
     /// (dark variant) ![](https://dummyimage.com/48x18/74A5D5.png&text=+)          Hex color: 74A5D5
     /// (light variant) ![](https://dummyimage.com/48x18/0A84FF.png&text=+)          Hex color: 0A84FF66 (alpha: 40%)
     @available(*, deprecated, renamed: "tintColorTapStateLight")
-    public static let tintColorTapStateLight = ColorStyle.tintColorTapState
+    case tintColorTapStateLight
     
     /// Tap state (`UIControlState.highlighted`) color for control with `tintColor` equal to `tintColorDark`.  May be used as text color.
     /// (dark variant) ![](https://dummyimage.com/48x18/0854A1.png&text=+)          Hex color: 0854A1
     /// (light variant) ![](https://dummyimage.com/48x18/0A84FF.png&text=+)          Hex color: 0A84FF66 (alpha: 40%)
     @available(*, deprecated, renamed: "tintColorTapStateDark")
-    public static let tintColorTapStateDark = ColorStyle.tintColorTapState
+    case tintColorTapStateDark
     
     /// Standard cell background color when being tapped, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A1C (alpha: 11%)
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex color: 8696A91C (alpha: 11%)
-    @available(*, deprecated, renamed: "cellBackground")
-    public static let cellBackgroundTapState = ColorStyle.cellBackground
+    @available(*, deprecated, renamed: "quarternaryFill")
+    case cellBackgroundTapState
     
     /// Standard shadow color.
     /// ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex color: 000000
     @available(*, deprecated, renamed: "cardShadow")
-    public static let shadow = ColorStyle.cardShadow
+    case shadow
     
     /// Semantic color for "negative" (bad) value, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/BB0000.png&text=+)        Hex color: BB0000
     /// (light variant) ![](https://dummyimage.com/48x18/FF453A.png&text=+)        Hex color: FF453A
     @available(*, deprecated, renamed: "negativeLabel")
-    public static let negative = ColorStyle.negativeLabel
+    case negative
     
     /// Semantic color for "positive" (good) value, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/107E3E.png&text=+)        Hex color: 107E3E
     /// (light variant) ![](https://dummyimage.com/48x18/32D74B.png&text=+)        Hex color: 32D74B
     @available(*, deprecated, renamed: "positiveLabel")
-    public static let positive = ColorStyle.positiveLabel
+    case positive
     
     /// Semantic color for "critical" (risky) value, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/E9730C.png&text=+)        Hex color: E9730C
     /// (light variant) ![](https://dummyimage.com/48x18/FF9F0A.png&text=+)        Hex color: FF9F0A
     @available(*, deprecated, renamed: "criticalLabel")
-    public static let critical = ColorStyle.criticalLabel
+    case critical
     
     // MARK: - Deprecated Accent Colors
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent1 = ColorStyle.grey1
+    @available(*, deprecated, renamed: "mango3")
+    case accent1
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent1b = ColorStyle.grey2
+    @available(*, deprecated, renamed: "mango4")
+    case accent1b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent2 = ColorStyle.blue1
+    @available(*, deprecated, renamed: "red4")
+    case accent2
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent2b = ColorStyle.blue2
+    @available(*, deprecated, renamed: "red5")
+    case accent2b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent3 = ColorStyle.teal1
+    @available(*, deprecated, renamed: "pink5")
+    case accent3
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent4 = ColorStyle.green1
+    @available(*, deprecated, renamed: "pink6")
+    case accent4
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent5 = ColorStyle.mango1
+    @available(*, deprecated, renamed: "indigo6")
+    case accent5
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent6 = ColorStyle.red1
+    @available(*, deprecated, renamed: "blue6")
+    case accent6
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent6b = ColorStyle.red2
+    @available(*, deprecated, renamed: "blue7")
+    case accent6b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent7 = ColorStyle.pink1
+    @available(*, deprecated, renamed: "teal4")
+    case accent7
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent7b = ColorStyle.pink2
+    @available(*, deprecated, renamed: "teal5")
+    case accent7b
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent8 = ColorStyle.baseBlack
+    @available(*, deprecated, renamed: "green4")
+    case accent8
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent9 = ColorStyle.baseWhite
+    @available(*, deprecated, renamed: "indigo5")
+    case accent9
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent10 = ColorStyle.indigo1
+    @available(*, deprecated, renamed: "grey5")
+    case accent10
     
-    @available(*, deprecated, message: "Please refer to new core colors for Fiori Next design guidance.")
-    public static let accent10b = ColorStyle.indigo2
+    @available(*, deprecated, renamed: "grey4")
+    case accent10b
     
     // MARK: - Deprecated Colors Since Fiori Palette V5
     
@@ -819,17 +819,45 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5F
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)          Hex value: 2C3D4F
     @available(*, deprecated, renamed: "header")
-    public static let navigationBar = ColorStyle.header
+    case navigationBar
     
     /// Top gradient color, originating at SAP Fiori `UINavigationBar`.  ![](https://dummyimage.com/48x18/445E75.png&text=+) Hex color: 445E75
     @available(*, deprecated, renamed: "header")
-    public static let backgroundGradientTop = ColorStyle.header
+    case backgroundGradientTop
     /// Bottom gradient color, originating at SAP Fiori `UINavigationBar`.  ![](https://dummyimage.com/48x18/3F566B.png&text=+) Hex color: 3F566B
     @available(*, deprecated, renamed: "header")
-    public static let backgroundGradientBottom = ColorStyle.header
+    case backgroundGradientBottom
     /// Standard background color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/F3F3F3.png&text=+)          Hex value: F3F3F3
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000
     @available(*, deprecated, renamed: "primaryBackground")
-    public static let backgroundBase = ColorStyle.primaryBackground
+    case backgroundBase
+    
+    public static var allCases: [ColorStyle] = [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6,
+                                                .grey7, .grey8, .grey9, .blue1, .blue2, .blue3,
+                                                .blue4, .blue5, .blue6, .blue7, .blue8, .blue9,
+                                                .teal1, .teal2, .teal3, .teal4, .teal5, .teal6,
+                                                .teal7, .teal8, .teal9, .green1, .green2, .green3,
+                                                .green4, .green5, .green6, .green7, .green8, .green9,
+                                                .mango1, .mango2, .mango3, .mango4, .mango5, .mango6,
+                                                .mango7, .mango8, .mango9, .red1, .red2, .red3,
+                                                .red4, .red5, .red6, .red7, .red8, .red9, .pink1,
+                                                .pink2, .pink3, .pink4, .pink5, .pink6, .pink7,
+                                                .pink8, .pink9, .indigo1, .indigo2, .indigo3, .indigo4,
+                                                .indigo5, .indigo6, .indigo7, .indigo8, .indigo9,
+                                                .baseWhite, .baseBlack, .cardShadow, .sectionShadow,
+                                                .primaryGroupedBackground, .secondaryGroupedBackground,
+                                                .tertiaryGroupedBackground, .primaryBackground,
+                                                .secondaryBackground, .tertiaryBackground, .primaryLabel,
+                                                .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
+                                                .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
+                                                .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
+                                                .positiveLabel, .criticalLabel, .negativeBackground,
+                                                .positiveBackground, .criticalBackground, .informationBackground,
+                                                .separator, .separatorOpaque, .header, .headerBlended,
+                                                .barTransparent, .contrastElement, .footer, .cellBackground,
+                                                .chart1, .chart2, .chart3, .chart4, .chart5, .chart6,
+                                                .chart7, .chart8, .chart9, .chart10, .chart11, .stockUpStroke,
+                                                .stockDownStroke, .map1, .map2, .map3, .map4, .map5,
+                                                .map6, .map7, .map8, map9, .map10, .esriEdit]
 }
