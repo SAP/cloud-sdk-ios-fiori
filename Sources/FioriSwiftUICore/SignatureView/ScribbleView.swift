@@ -27,7 +27,8 @@ public struct ScribbleView: View {
                 }
                 self.add(drawing: self.currentDrawing, toPath: &path)
             }
-            .stroke(self.strokeColor, lineWidth: self.strokeWidth)
+            .stroke(style: StrokeStyle(lineWidth: self.strokeWidth, lineCap: .round, lineJoin: .round))
+            .foregroundColor(self.strokeColor)
             .background(self.drawingViewBackgroundColor.cornerRadius(10))
             .gesture(
                 DragGesture(minimumDistance: 0.1)
