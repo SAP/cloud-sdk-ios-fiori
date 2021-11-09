@@ -22,6 +22,8 @@ extension UIView {
 func createUIBezierPath(drawings: [Drawing], lineWidth: CGFloat) -> UIBezierPath {
     let bezierPath = UIBezierPath()
     bezierPath.lineWidth = lineWidth
+    bezierPath.lineJoinStyle = .round
+    bezierPath.lineCapStyle = .round
     for dr in drawings {
         for (index, point) in dr.points.enumerated() {
             if index == 0 {

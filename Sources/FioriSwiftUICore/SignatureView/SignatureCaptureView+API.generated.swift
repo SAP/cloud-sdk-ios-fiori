@@ -19,23 +19,25 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
     let _signatureImage: UIImage?
     let _onSave: ((UIImage) -> Void)?
     let _onDelete: (() -> Void)?
-    var cropsImage = false
-    @State var fullSignatureImage: UIImage?
-    var titleColor = Color.preferredColor(.primaryLabel)
-    public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-    var titleFont = Font.subheadline.weight(Font.Weight.semibold)
-    @State var isEditing = false
-    var strokeColor = Color.preferredColor(.primaryLabel)
-    var xmarkColor = Color.preferredColor(.quarternaryLabel)
     var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-    var strokeWidth: CGFloat = 3.0
-    @State var drawings = [Drawing]()
-    @State var isReenterTapped = false
-    var _drawingViewMaxHeight: CGFloat?
-    @State var isSaved = false
-    let _drawingViewMinHeight: CGFloat = 256
+    public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
     var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+    var xmarkColor = Color.preferredColor(.quarternaryLabel)
+    var hidesXmark = false
+    @State var isEditing = false
+    let _drawingViewMinHeight: CGFloat = 256
+    var _drawingViewMaxHeight: CGFloat?
+    @State var fullSignatureImage: UIImage?
+    var cropsImage = false
+    @State var isSaved = false
+    var hidesSignatureLine = false
     @State var currentDrawing = Drawing()
+    var strokeColor = Color.preferredColor(.primaryLabel)
+    var titleColor = Color.preferredColor(.primaryLabel)
+    var strokeWidth: CGFloat = 3.0
+    @State var isReenterTapped = false
+    var titleFont = Font.subheadline.weight(Font.Weight.semibold)
+    @State var drawings = [Drawing]()
 
     private var isModelInit: Bool = false
     private var isTitleNil: Bool = false
@@ -109,7 +111,7 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
             _saveAction.modifier(saveActionModifier.concat(Fiori.SignatureCaptureView.saveAction))
         }
     }
-    
+
     var isStartActionEmptyView: Bool {
         ((self.isModelInit && self.isStartActionNil) || StartActionView.self == EmptyView.self) ? true : false
     }
