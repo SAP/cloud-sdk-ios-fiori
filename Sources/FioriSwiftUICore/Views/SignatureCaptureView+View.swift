@@ -172,9 +172,11 @@ extension SignatureCaptureView: View {
                     Image(systemName: "xmark")
                         .foregroundColor(xmarkColor)
                         .font(.body)
+                        .setHidden(self.hidesXmark)
                     Rectangle()
                         .foregroundColor(signatureLineColor)
                         .frame(height: 1)
+                        .setHidden(self.hidesSignatureLine)
                 }
                 .padding([.leading, .trailing]).padding(.bottom, 30)
             }
@@ -197,9 +199,11 @@ extension SignatureCaptureView: View {
                     Image(systemName: "xmark")
                         .foregroundColor(xmarkColor.opacity(0.4))
                         .font(.body)
+                        .setHidden(self.hidesXmark)
                     Rectangle()
                         .foregroundColor(signatureLineColor.opacity(0.4))
                         .frame(height: 1)
+                        .setHidden(self.hidesSignatureLine)
                 }
                 .padding([.leading, .trailing]).padding(.bottom, 30)
             }
@@ -348,6 +352,28 @@ public extension SignatureCaptureView {
         newSelf.signatureLineColor = color
         return newSelf
     }
+
+    /**
+     A view modify to indicate to hide XMark or not.
+
+     - parameter hidesXmark: Set this to true to hide the X Mark.
+     */
+    func hidesXmark(_ hidesXmark: Bool) -> Self {
+        var newSelf = self
+        newSelf.hidesXmark = hidesXmark
+        return newSelf
+    }
+
+    /**
+     A view modify to indicate to hide XMark or not.
+
+     - parameter hidesSignatureLine: Set this to true to hide the signature line.
+     */
+    func hidesSignatureLine(_ hidesSignatureLine: Bool) -> Self {
+        var newSelf = self
+        newSelf.hidesSignatureLine = hidesSignatureLine
+        return newSelf
+    }
 }
 
 private struct VStackPreferenceKey: PreferenceKey {
@@ -364,6 +390,16 @@ private struct VStackPreferenceSetter: View {
                 .fill(Color.clear)
                 .preference(key: VStackPreferenceKey.self,
                             value: [geometry.size.height])
+        }
+    }
+}
+
+extension View {
+    @ViewBuilder func setHidden(_ isHidden: Bool) -> some View {
+        if isHidden {
+            self.hidden()
+        } else {
+            self
         }
     }
 }
