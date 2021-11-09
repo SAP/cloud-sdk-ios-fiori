@@ -2,20 +2,68 @@
 "No Data" = "Ni podatkov";
 
 /* XBUT: Save action in inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Save" = "Shranjevanje";
+"Save" = "Shrani";
 
 /* XBUT: Re-enter action available in saved state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Re-enter Signature" = "Vnovični vnos podpisa";
+"Re-enter Signature" = "Znova vnesi podpis";
 
 /* XBUT: Clear action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Clear" = "Čiščenje";
+"Clear" = "Počisti";
 
 /* XBUT: Cancel action of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Cancel" = "Preklic";
+"Cancel" = "Prekliči";
 
 /* XTIT: Title of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Signature" = "Podpis";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Tap to Sign" = "Tapnite za podpis";
+"Tap to Sign" = "Tapni za podpis";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "Preklicano";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "Naprej";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "V redu";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "Status";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "Uporabnik je preklical uvajanje";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "Uvajanja ne boste mogli nadaljevati brez soglasja.";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "Soglašam";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "Zapri";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "Želite zaščito podatkov?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "Bodite previdni s svojimi podatki";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "Ne zdaj";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "Dovoli";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "Zavrni";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "Strinjam se";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "Ne strinjam se";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Prenos ...";
 

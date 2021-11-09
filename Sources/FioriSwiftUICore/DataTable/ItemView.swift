@@ -35,6 +35,17 @@ struct ItemView: View {
         let imageWidth = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleX)
         let imageHeight = min(min(contentWidth, contentHeight), 45 * self.layoutManager.scaleY)
         
+        var uifont: UIFont
+        if let tmpUIFont = dataItem.uifont {
+            uifont = tmpUIFont
+        } else if let _font = dataItem.font {
+            uifont = UIFont.preferredFont(from: _font)
+        } else {
+            uifont = TableViewLayout.defaultUIFont(isHeader)
+        }
+        let fontSize: CGFloat = uifont.pointSize * self.layoutManager.scaleX
+        let finalFont = Font(uifont.withSize(fontSize))
+        
         let tapGesture = TapGesture()
             .onEnded { _ in
                 guard rowIndex >= 0, !isHeader else {
@@ -42,7 +53,7 @@ struct ItemView: View {
                 }
                 
                 let selectedIndex = rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
-                if self.layoutManager.isEditing {
+                if self.layoutManager.model.isEditing {
                     if !self.layoutManager.selectedIndexes.contains(selectedIndex) {
                         self.layoutManager.selectedIndexes.append(selectedIndex)
                         self.layoutManager.model.selectedIndexes.append(selectedIndex)
@@ -72,9 +83,6 @@ struct ItemView: View {
                         .padding(self.paddingForImage(textAlignment: dataItem.textAlignment, value: contentWidth - imageWidth))
                         .foregroundColor(foregroundColor)
                 case .text(let value):
-                    let font = dataItem.font ?? TableViewLayout.defaultFont(isHeader)
-                    let fontSize: CGFloat = UIFont.preferredFont(from: font).pointSize * self.layoutManager.scaleX
-                    let finalFont = Font(UIFont.preferredFont(from: font).withSize(fontSize))
                     Text(value)
                         .font(finalFont)
                         .foregroundColor(foregroundColor)

@@ -27,6 +27,8 @@ struct DataTableItem: Identifiable, Hashable {
     
     var font: Font?
     
+    var uifont: UIFont?
+    
     var foregroundColor: Color?
     
     var isImage: Bool {
@@ -43,6 +45,7 @@ struct DataTableItem: Identifiable, Hashable {
          value: ValueType = .text(""),
          pos: CGPoint,
          font: Font?,
+         uifont: UIFont? = nil,
          foregroundColor: Color? = nil,
          size: CGSize = .zero,
          offset: CGPoint = .zero,
@@ -54,6 +57,7 @@ struct DataTableItem: Identifiable, Hashable {
         self.value = value
         self.pos = pos
         self.font = font
+        self.uifont = uifont
         self.foregroundColor = foregroundColor
         self.size = size
         self.offset = offset

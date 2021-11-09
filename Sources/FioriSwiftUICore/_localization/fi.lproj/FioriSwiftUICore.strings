@@ -19,3 +19,51 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Allekirjoita napauttamalla";
 
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Canceled" = "Peruutettu";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Next" = "Seuraava";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Ok" = "OK";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Status" = "Tila";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"User canceled Onboarding" = "Käyttäjä peruutti käyttöönoton";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Without consent you will not be able to continue onboarding." = "Et voi jatkaa käyttöönottoa ilman suostumusta.";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Give Consent" = "Anna suostumus";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Quit" = "Lopeta";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Want Data Privacy?" = "Haluatko tietosuojan?";
+
+/* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
+"Be wise about your data" = "Käytä tietoja harkiten";
+
+/* XBUT: Not Now action title in UserConsentForm */
+"Not Now" = "Ei nyt";
+
+/* XBUT: Allow action title in UserConsentForm */
+"Allow" = "Salli";
+
+/* XBUT: Deny action title in UserConsentForm */
+"Deny" = "Kiellä";
+
+/* XBUT: Agree action title in EULAView */
+"Agree" = "Hyväksyn";
+
+/* XBUT: Disagree action title in EULAView */
+"Disagree" = "En hyväksy";
+
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "Ladataan...";
+

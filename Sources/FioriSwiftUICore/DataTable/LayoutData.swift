@@ -127,7 +127,9 @@ class LayoutData {
                 
                 let title = item.text
                 var uifont: UIFont
-                if let _font = item.font {
+                if let tmpUIFont = item.uifont {
+                    uifont = tmpUIFont
+                } else if let _font = item.font {
                     uifont = UIFont.preferredFont(from: _font)
                 } else {
                     uifont = TableViewLayout.defaultUIFont(isHeader)
@@ -144,6 +146,7 @@ class LayoutData {
                                          value: .text(title),
                                          pos: .zero,
                                          font: font,
+                                         uifont: item.uifont,
                                          foregroundColor: textColor,
                                          size: size,
                                          textAlignment: textAlignment,
@@ -363,7 +366,9 @@ class LayoutData {
                 switch item.value {
                 case .text(let title):
                     var uifont: UIFont
-                    if let _font = item.font {
+                    if let tmpUIFont = item.uifont {
+                        uifont = tmpUIFont
+                    } else if let _font = item.font {
                         uifont = UIFont.preferredFont(from: _font)
                     } else {
                         uifont = TableViewLayout.defaultUIFont(isHeader)

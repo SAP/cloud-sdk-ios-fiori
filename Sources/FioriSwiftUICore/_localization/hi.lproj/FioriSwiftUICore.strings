@@ -64,3 +64,6 @@
 /* XBUT: Disagree action title in EULAView */
 "Disagree" = "असहमत हैं";
 
+/* XMSG: Placeholder text in DataTable for loading state */
+"Loading..." = "लोड हो रहा है...";
+
