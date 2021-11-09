@@ -36,6 +36,8 @@ struct SignatureCaptureViewExample2: View {
             .drawingViewBackgroundColor(.yellow)
             .xmarkColor(.green)
             .signatureLineColor(.orange)
+            .hidesXmark(false)
+            .hidesSignatureLine(true)
             ._drawingViewMaxHeight(300)
             .restartActionModifier {
                 $0.font(.callout).foregroundColor(.red)
