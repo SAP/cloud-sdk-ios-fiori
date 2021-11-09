@@ -281,6 +281,8 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropCropsImage = "var cropsImage = false"
 // sourcery: virtualPropDrawingViewMinHeight = "let _drawingViewMinHeight: CGFloat = 256"
 // sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"
+// sourcery: virtualPropHidesXmark = "var hidesXmark = false"
+// sourcery: virtualPropHidesSignatureLine = "var hidesSignatureLine = false"
 // sourcery: generated_component_composite
 public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
