@@ -41,8 +41,10 @@ extension PaletteVersion: RawRepresentable {
     
     var compatibilityMap: ColorCompatibilityMap? {
         switch self {
-        case .v6:
-            return ColorCompatibilityMapV6.default
+        case .v5:
+            return ColorCompatibilityMapV5.default
+        case .v4:
+            return ColorCompatibilityMapV4.default
         default:
             return nil
         }

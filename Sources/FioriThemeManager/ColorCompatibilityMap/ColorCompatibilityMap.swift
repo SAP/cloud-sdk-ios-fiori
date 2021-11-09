@@ -1,9 +1,9 @@
 import Foundation
 
-/// A struct for providing color palette.
+/// A struct for providing compatible styles in current palette for `future` styles in the next palette.
 struct ColorCompatibilityMap: ColorStyleCompatibilityProvider {
-    var obsoletedColorDefinitions: [ColorStyle: ColorStyle] {
-        self._compatibilityMap.obsoletedColorDefinitions
+    var compatibleColorDefinitions: [ColorStyle: ColorStyle] {
+        self._compatibilityMap.compatibleColorDefinitions
     }
     
     func compatibleStyle(from style: ColorStyle) -> ColorStyle? {

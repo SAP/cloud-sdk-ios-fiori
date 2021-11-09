@@ -49,19 +49,40 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
-        let _style = self.compatibilityMap?.compatibleStyle(from: style) ?? style
-        return self._paletteVersion == .latest ? self.palette.hexColor(for: _style) : self.mergedColorDefinitions()[style]
+        if self._paletteVersion == .latest {
+            return self.mergedDeprecatedDefinitions()[style]
+        } else {
+            let _style = self.mergedCompatibleDefinitions()[style] ?? style
+            return self.mergedDeprecatedDefinitions()[_style]
+        }
     }
     
-    private func mergedColorDefinitions() -> [ColorStyle: HexColor] {
+    /// Merges deprecated styles till the `current` palette.
+    private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
         var current = self._paletteVersion
         var result = self._paletteVersion.rawValue.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
-        while let next = current.next() {
-            cumulative.merge(next.rawValue.colorDefinitions) { _, new in new }
+        while let previous = current.previous() {
+            cumulative.merge(previous.rawValue.colorDefinitions) { curr, _ in curr }
+            current = previous
+        }
+        result.merge(cumulative) { curr, _ in curr }
+        return result
+    }
+    
+    /// Merges new styles that are not existed in current palette till the `latest` palette.
+    private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
+        guard let map = _paletteVersion.compatibilityMap else {
+            return [ColorStyle: ColorStyle]()
+        }
+        var current = self._paletteVersion
+        var result = map.compatibleColorDefinitions
+        var cumulative = [ColorStyle: ColorStyle]()
+        while let next = current.next(), let map = next.compatibilityMap {
+            cumulative.merge(map.compatibleColorDefinitions) { _, next in next }
             current = next
         }
-        result.merge(cumulative) { current, _ in current }
+        result.merge(cumulative) { curr, _ in curr }
         return result
     }
     

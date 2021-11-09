@@ -4,8 +4,9 @@ import UIKit
 import XCTest
 
 class ThemeManagerTests: XCTestCase {
-    func testPaletteLatest() throws {
+    func testPaletteV6() throws {
         let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v6)
         XCTAssertEqual(ColorStyle.allCases.count, 132)
         XCTAssertEqual(tm._paletteVersion.supportedStyles().count, 132)
         XCTAssertEqual(tm._paletteVersion.obsoletedStyles().count, 38)
@@ -15,9 +16,9 @@ class ThemeManagerTests: XCTestCase {
         let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
         XCTAssertEqual(newStyle_primaryLabel, HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF"))
         let obsoletedStyle_line = tm.hexColor(for: .line)
-        XCTAssertEqual(obsoletedStyle_line, HexColor(lightColor: "8396A8D4", darkColor: "5B738BD4"))
+        XCTAssertEqual(obsoletedStyle_line, HexColor(lightColor: "8696A9", darkColor: "89919A"))
         let obsoletedStyle_negative = tm.hexColor(for: .negative)
-        XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF5C77FF", darkColor: "D20A0AFF"))
+        XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF8888", darkColor: "BB0000"))
     }
     
     func testPaletteV5() throws {
@@ -31,8 +32,8 @@ class ThemeManagerTests: XCTestCase {
         XCTAssertEqual(v5Style_primaryLabel, HexColor(lightColor: "FAFAFA", darkColor: "32363A", contrastLightColor: "FAFAFA", contrastDarkColor: "FAFAFA"))
         let v5Style_shell = tm.hexColor(for: .shell)
         XCTAssertEqual(v5Style_shell, HexColor(lightColor: "2C3D4F", darkColor: "354A5F"))
-        let v5NewStyle_grey1 = tm.hexColor(for: .grey1)
-        XCTAssertEqual(v5NewStyle_grey1, HexColor(lightColor: "111D29FF", darkColor: "F5F6F7FF"))
+        let v5FutureStyle_cardShadow = tm.hexColor(for: .cardShadow)
+        XCTAssertEqual(v5FutureStyle_cardShadow, HexColor(lightColor: "000000"))
     }
     
     func testPaletteV4() throws {
@@ -46,7 +47,7 @@ class ThemeManagerTests: XCTestCase {
         XCTAssertEqual(v4Style_line, HexColor(lightColor: "38383A", darkColor: "F3F3F3"))
         let v4Style_negative = tm.hexColor(for: .negative)
         XCTAssertEqual(v4Style_negative, HexColor(lightColor: "FF453A", darkColor: "BB0000"))
-        let v4NewStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
-        XCTAssertEqual(v4NewStyle_primaryLabel, HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF"))
+        let v4FutureStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
+        XCTAssertEqual(v4FutureStyle_primaryLabel, HexColor(lightColor: "FFFFFF", darkColor: "32363A"))
     }
 }
