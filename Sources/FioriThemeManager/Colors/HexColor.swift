@@ -13,10 +13,12 @@ public struct HexColor: Hashable {
     ///     - darkColor: a hex color (RGB or RGBA) for `light` background color scheme, default is `FFFFFF`.
     ///     - elevatedLightColor: a hex color (RGB or RGBA) for `elevated` user interface in the `dark` background color scheme, default is `000000`.
     ///     - elevatedDarkColor: a hex color (RGB or RGBA) for `elevated` user interface in the `light` background color scheme, default is `FFFFFF`.
-    ///     - contrastLightColor: a hex color (RGB or RGBA) for contrast user interface in the `light` background color scheme, default is `000000`.
-    ///     - contrastDarkColor: a hex color (RGB or RGBA) for contrast user interface in the `light` background color scheme, default is `FFFFFF`.
-    public init(lightColor: String? = nil, darkColor: String? = nil, elevatedLightColor: String? = nil, elevatedDarkColor: String? = nil, contrastLightColor: String? = nil, contrastDarkColor: String? = nil) {
-        self.colors = [.light: "000000FF", .dark: "FFFFFFFF", .elevatedLight: "000000FF", .elevatedDark: "FFFFFFFF", .contrastLight: "000000FF", .contrastDark: "FFFFFFFF"]
+    ///     - contrastLightColor: a hex color (RGB or RGBA) for `contrast` user interface in the `dark` background color scheme, default is `000000`.
+    ///     - contrastDarkColor: a hex color (RGB or RGBA) for `contrast` user interface in the `light` background color scheme, default is `FFFFFF`.
+    ///     - elevatedContrastLightColor: a hex color (RGB or RGBA) for `elevated` and `contrast` user interface in the `dark` background color scheme, default is `000000`.
+    ///     - elevatedContrastDarkColor: a hex color (RGB or RGBA) for `elevated` and `contrast` user interface in the `light` background color scheme, default is `FFFFFF`.
+    public init(lightColor: String? = nil, darkColor: String? = nil, elevatedLightColor: String? = nil, elevatedDarkColor: String? = nil, contrastLightColor: String? = nil, contrastDarkColor: String? = nil, elevatedContrastLightColor: String? = nil, elevatedContrastDarkColor: String? = nil) {
+        self.colors = [.light: "000000FF", .dark: "FFFFFFFF", .elevatedLight: "000000FF", .elevatedDark: "FFFFFFFF", .contrastLight: "000000FF", .contrastDark: "FFFFFFFF", .elevatedContrastLight: "000000FF", .elevatedContrastDark: "FFFFFFFF"]
         
         if let color = lightColor {
             self.colors[.light] = color
@@ -25,20 +27,25 @@ public struct HexColor: Hashable {
             self.colors[.elevatedDark] = color
             self.colors[.contrastLight] = color
             self.colors[.contrastDark] = color
+            self.colors[.elevatedContrastLight] = color
+            self.colors[.elevatedContrastDark] = color
         }
         
         if let color = darkColor {
             self.colors.updateValue(color, forKey: .dark)
             self.colors.updateValue(color, forKey: .elevatedDark)
             self.colors.updateValue(color, forKey: .contrastDark)
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
         }
         
         if let color = elevatedLightColor {
             self.colors.updateValue(color, forKey: .elevatedLight)
+            self.colors.updateValue(color, forKey: .elevatedContrastLight)
         }
         
         if let color = elevatedDarkColor {
             self.colors.updateValue(color, forKey: .elevatedDark)
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
         }
         
         if let color = contrastLightColor {
@@ -48,6 +55,15 @@ public struct HexColor: Hashable {
         
         if let color = contrastDarkColor {
             self.colors.updateValue(color, forKey: .contrastDark)
+        }
+        
+        if let color = elevatedContrastLightColor {
+            self.colors.updateValue(color, forKey: .elevatedContrastLight)
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
+        }
+        
+        if let color = elevatedContrastDarkColor {
+            self.colors.updateValue(color, forKey: .elevatedContrastDark)
         }
     }
     
@@ -97,7 +113,7 @@ public struct HexColor: Hashable {
     public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> ColorVariant {
         var variant = ColorVariant.dark
         let isDarkInterfaceStyle = collection.userInterfaceStyle == .dark
-        let style: UIUserInterfaceStyle = {
+        let background: UIUserInterfaceStyle = {
             switch (scheme ?? .device, isDarkInterfaceStyle) {
             case (.lightConstant, _), (.deviceInverse, true), (.device, false):
                 return .light
@@ -114,7 +130,7 @@ public struct HexColor: Hashable {
                 return .elevated
             }
         }()
-        switch (style, level, mode) {
+        switch (background, level, mode) {
         case (.light, .base, .normal):
             variant = .dark
         case (.dark, .base, .normal):
@@ -123,10 +139,14 @@ public struct HexColor: Hashable {
             variant = .elevatedDark
         case (.dark, .elevated, .normal):
             variant = .elevatedLight
-        case (.light, _, .contrast):
+        case (.light, .base, .contrast):
             variant = .contrastDark
-        case (.dark, _, .contrast):
+        case (.dark, .base, .contrast):
             variant = .contrastLight
+        case (.light, .elevated, .contrast):
+            variant = .elevatedContrastDark
+        case (.dark, .elevated, .contrast):
+            variant = .elevatedContrastLight
         default:
             break
         }
@@ -138,7 +158,7 @@ extension HexColor: Equatable {
     /// :nodoc:
     public static func == (lhs: HexColor, rhs: HexColor) -> Bool {
         lhs.hex(.light) == rhs.hex(.light) &&
-            lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.elevatedLight) == rhs.hex(.elevatedLight) && lhs.hex(.elevatedDark) == rhs.hex(.elevatedDark) && lhs.hex(.contrastLight) == rhs.hex(.contrastLight) && lhs.hex(.contrastDark) == rhs.hex(.contrastDark)
+            lhs.hex(.dark) == rhs.hex(.dark) && lhs.hex(.elevatedLight) == rhs.hex(.elevatedLight) && lhs.hex(.elevatedDark) == rhs.hex(.elevatedDark) && lhs.hex(.contrastLight) == rhs.hex(.contrastLight) && lhs.hex(.contrastDark) == rhs.hex(.contrastDark) && lhs.hex(.elevatedContrastLight) == rhs.hex(.elevatedContrastLight) && lhs.hex(.elevatedContrastDark) == rhs.hex(.elevatedContrastDark)
     }
 }
 
@@ -151,6 +171,8 @@ extension HexColor: CustomStringConvertible {
                         "elevated dark": "\(self.hex(.elevatedDark))",
                         "contrast light": "\(self.hex(.contrastLight))",
                         "contrast dark": "\(self.hex(.contrastDark))",
+                        "elevated contrast light": "\(self.hex(.elevatedContrastLight))",
+                        "elevated contrast dark": "\(self.hex(.elevatedContrastDark))"
            }}
         """
     }
