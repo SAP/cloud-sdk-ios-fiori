@@ -90,12 +90,12 @@ struct PaletteV6: PaletteProvider {
         .cardShadow: HexColor(lightColor: "0000004D", darkColor: "5B738B14", contrastLightColor: "0000004D", contrastDarkColor: "47596C14"),
         .sectionShadow: HexColor(lightColor: "0000003D", darkColor: "5B738B3D", contrastLightColor: "9CA9B4FF", contrastDarkColor: "47596C3D"),
         /// Background Colors
-        .primaryBackground: HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", elevatedLightColor: "192027FF", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF"),
-        .secondaryBackground: HexColor(lightColor: "0F1216FF", darkColor: "F5F6F7FF", elevatedLightColor: "1F272FFF", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF"),
-        .tertiaryBackground: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF"),
-        .primaryGroupedBackground: HexColor(lightColor: "000000FF", darkColor: "F5F6F7FF", elevatedLightColor: "192027FF", contrastLightColor: "000000FF", contrastDarkColor: "E8EBEDFF"),
-        .secondaryGroupedBackground: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF"),
-        .tertiaryGroupedBackground: HexColor(lightColor: "0F1216FF", darkColor: "F5F6F7FF", elevatedLightColor: "1F272FFF", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF"),
+        .primaryBackground: HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", elevatedLightColor: "192027FF", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "1C242BFF"),
+        .secondaryBackground: HexColor(lightColor: "0F1216FF", darkColor: "F5F6F7FF", elevatedLightColor: "1F272FFF", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF", elevatedContrastLightColor: "252E38FF"),
+        .tertiaryBackground: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
+        .primaryGroupedBackground: HexColor(lightColor: "000000FF", darkColor: "F5F6F7FF", elevatedLightColor: "192027FF", contrastLightColor: "000000FF", contrastDarkColor: "E8EBEDFF", elevatedContrastLightColor: "1C242BFF"),
+        .secondaryGroupedBackground: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
+        .tertiaryGroupedBackground: HexColor(lightColor: "0F1216FF", darkColor: "F5F6F7FF", elevatedLightColor: "1F272FFF", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF", elevatedContrastLightColor: "252E38FF"),
         /// Label Colors
         .primaryLabel: HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .secondaryLabel: HexColor(lightColor: "D5DADDFF", darkColor: "475E75FF", contrastLightColor: "D5DADDFF", contrastDarkColor: "121C26FF"),
@@ -121,11 +121,11 @@ struct PaletteV6: PaletteProvider {
         .separator: HexColor(lightColor: "8396A85E", darkColor: "5B738B5E", contrastLightColor: "9CA9B45E", contrastDarkColor: "47596C5E"),
         .separatorOpaque: HexColor(lightColor: "8396A8D4", darkColor: "5B738BD4", contrastLightColor: "9CA9B4FF", contrastDarkColor: "47596CEB"),
         /// UI Materials Colors
-        .header: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF"),
-        .headerBlended: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF"),
+        .header: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
+        .headerBlended: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
         .barTransparent: HexColor(lightColor: "111D29D9", darkColor: "111D29D9", contrastLightColor: "000000D9", contrastDarkColor: "000000D9"),
         .contrastElement: HexColor(lightColor: "8396A8FF", darkColor: "5B738BFF", contrastLightColor: "9CA9B4FF", contrastDarkColor: "47596CFF"),
-        .footer: HexColor(lightColor: "192027FF", darkColor: "FFFFFFFF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF"),
+        .footer: HexColor(lightColor: "192027FF", darkColor: "FFFFFFFF", elevatedLightColor: "26303AFF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
         .cellBackground: HexColor(lightColor: "22354800", darkColor: "FFFFFF00", contrastLightColor: "00000000", contrastDarkColor: "FFFFFF00"),
         /// Chart Colors
         .chart1: HexColor(lightColor: "74B3F0", darkColor: "5899DA"),

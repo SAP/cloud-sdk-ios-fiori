@@ -13,6 +13,10 @@ public enum ColorVariant {
     case contrastLight
     /// Dark variant color, used as foreground color when `.colorScheme` sets to `.light` to display with dark background (contrast mode).
     case contrastDark
+    /// Elevated light color variant (contrast mode).
+    case elevatedContrastLight
+    /// Elevated dark color variant (contrast mode).
+    case elevatedContrastDark
     
     /// Helper function to return opposite color variant of current value.
     ///
@@ -31,6 +35,10 @@ public enum ColorVariant {
             return .contrastDark
         case .contrastDark:
             return .contrastLight
+        case .elevatedContrastLight:
+            return .elevatedContrastDark
+        case .elevatedContrastDark:
+            return .elevatedContrastLight
         }
     }
 }
@@ -50,6 +58,10 @@ extension ColorVariant: CustomDebugStringConvertible {
             return "contrastLight"
         case .contrastDark:
             return "contrastDark"
+        case .elevatedContrastLight:
+            return "elevatedContrastDark"
+        case .elevatedContrastDark:
+            return "elevatedContrastLight"
         }
     }
 }
