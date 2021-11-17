@@ -197,7 +197,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                 .lineLimit(1)
                                 .font(.system(size: 17.0))
                                 .truncationMode(.tail)
-                                .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
+                                .foregroundColor(.preferredColor(.quarternaryLabel, display: .highConstant))
                         }, isModelInit: true)
                     } else {
                         if item == selection.wrappedValue {
@@ -264,14 +264,14 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
                     .padding(.trailing, isModelInit ? 0 : 16)
-                    .foregroundColor(.preferredColor(.tintColor, display: .contrast))
+                    .foregroundColor(.preferredColor(.tintColor, display: .highConstant))
                     .onTapGesture {
                         isExpanded.toggle()
                     }
             }.padding(isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             if !isExpanded {
                 Rectangle()
-                    .fill(Color.preferredColor(.separator, display: .contrast))
+                    .fill(Color.preferredColor(.separator, display: .highConstant))
                     .frame(height: 0.5)
             }
         }
@@ -285,7 +285,7 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
     func body(content: Content) -> some View {
         Group {
             content
-                .background(RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color.preferredColor(.tintColor, display: .contrast)))
+                .background(RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color.preferredColor(.tintColor, display: .highConstant)))
         }
     }
 }

@@ -62,32 +62,32 @@ extension SideBarListItem: View {
     }
     
     private func getIconColor() -> Color {
-        sideBarListItemConfigMode.isSelected ? .preferredColor(.primaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .contrast)
+        sideBarListItemConfigMode.isSelected ? .preferredColor(.primaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .highConstant)
     }
     
     private func getAccessoryIconColor() -> Color {
-        sideBarListItemConfigMode.isSelected ? .preferredColor(.tertiaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .contrast)
+        sideBarListItemConfigMode.isSelected ? .preferredColor(.tertiaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .highConstant)
     }
     
     private func getTitleColor() -> Color {
         switch (sideBarListItemConfigMode.isSelected, sideBarListItemConfigMode.isHeaderContent) {
         case (_, true):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
+            return .preferredColor(.tertiaryLabel, display: .highConstant)
         case (true, false):
             return .preferredColor(.primaryLabel, background: .lightConstant)
         case (false, false):
-            return .preferredColor(.primaryLabel, display: .contrast)
+            return .preferredColor(.primaryLabel, display: .highConstant)
         }
     }
     
     private func getSubtitleColor() -> Color {
         switch (sideBarListItemConfigMode.isSelected, sideBarListItemConfigMode.isHeaderContent) {
         case (_, true):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
+            return .preferredColor(.tertiaryLabel, display: .highConstant)
         case (true, false):
             return .preferredColor(.tertiaryLabel, background: .lightConstant)
         case (false, false):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
+            return .preferredColor(.tertiaryLabel, display: .highConstant)
         }
     }
 }
