@@ -110,10 +110,10 @@ public struct HexColor: Hashable {
     ///     - interface: specifies the user interface level, default is `.device`.
     ///     - display: specifies the display mode, default is `.normal`.
     /// - Returns: the string value for corresponding `HexColor` with specific color variant.
-    public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .normal) -> ColorVariant {
+    public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
         var variant = ColorVariant.dark
         let isDarkInterfaceStyle = collection.userInterfaceStyle == .dark
-        let background: UIUserInterfaceStyle = {
+        let interfaceStyle: UIUserInterfaceStyle = {
             switch (scheme ?? .device, isDarkInterfaceStyle) {
             case (.lightConstant, _), (.deviceInverse, true), (.device, false):
                 return .light
@@ -122,7 +122,7 @@ public struct HexColor: Hashable {
             }
         }()
         let isElevatedInterfaceLevel = collection.userInterfaceLevel == .elevated
-        let level: UIUserInterfaceLevel = {
+        let interfaceLevel: UIUserInterfaceLevel = {
             switch (level ?? .device, isElevatedInterfaceLevel) {
             case (.baseConstant, _), (.deviceInverse, true), (.device, false):
                 return .base
@@ -130,7 +130,16 @@ public struct HexColor: Hashable {
                 return .elevated
             }
         }()
-        switch (background, level, mode) {
+        let isAccessibilityHighContrast = collection.accessibilityContrast == .high
+        let accessibilityContrast: UIAccessibilityContrast = {
+            switch (mode ?? .device, isAccessibilityHighContrast) {
+            case (.normalConstant, _), (.deviceInverse, true), (.device, false):
+                return .normal
+            case (.highConstant, _), (.deviceInverse, false), (.device, true):
+                return .high
+            }
+        }()
+        switch (interfaceStyle, interfaceLevel, accessibilityContrast) {
         case (.light, .base, .normal):
             variant = .dark
         case (.dark, .base, .normal):
@@ -139,13 +148,13 @@ public struct HexColor: Hashable {
             variant = .elevatedDark
         case (.dark, .elevated, .normal):
             variant = .elevatedLight
-        case (.light, .base, .contrast):
+        case (.light, .base, .high):
             variant = .contrastDark
-        case (.dark, .base, .contrast):
+        case (.dark, .base, .high):
             variant = .contrastLight
-        case (.light, .elevated, .contrast):
+        case (.light, .elevated, .high):
             variant = .elevatedContrastDark
-        case (.dark, .elevated, .contrast):
+        case (.dark, .elevated, .high):
             variant = .elevatedContrastLight
         default:
             break
