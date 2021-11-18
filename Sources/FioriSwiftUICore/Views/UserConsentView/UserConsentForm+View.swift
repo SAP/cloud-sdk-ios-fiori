@@ -53,19 +53,28 @@ extension UserConsentForm: View {
     func makeBody() -> some View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
+            .navigationBarTitle(self.navTitle)
             .alert(configuration: self.alertConfiguration, isPresented: $_showAlert)
     }
     
     var alertConfiguration: AlertConfiguration {
         var alertConfig = _alertConfiguration
-        
-        alertConfig.action._didSelectSetter {
-            self.didAllow?()
-            _alertConfiguration.action.didSelect?()
-        }
-        alertConfig.secondaryAction._didSelectSetter {
-            self.didDeny?(self._isRequired)
-            _alertConfiguration.action.didSelect?()
+        if self._showCancelAlert {
+            alertConfig = AlertConfiguration(title: "Are you sure you want to quit the onboarding process?", action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
+
+            alertConfig.secondaryAction._didSelectSetter {
+                _alertConfiguration.action.didSelect?()
+                userConsentFormDidCancel?()
+            }
+        } else {
+            alertConfig.action._didSelectSetter {
+                self.didAllow?()
+                _alertConfiguration.action.didSelect?()
+            }
+            alertConfig.secondaryAction._didSelectSetter {
+                self.didDeny?(self._isRequired)
+                _alertConfiguration.action.didSelect?()
+            }
         }
         
         return alertConfig
@@ -78,7 +87,12 @@ extension UserConsentForm: View {
                 if _isRequired {
                     denyAction
                         .onSimultaneousTapGesture {
-                            _showAlert = true
+                            if _didDeny == nil {
+                                _showAlert = true
+                                _showCancelAlert = false
+                            } else {
+                                self.didDeny?(_isRequired)
+                            }
                         }
                 } else {
                     notNowAction
@@ -125,6 +139,15 @@ extension UserConsentForm: View {
                 }
         }
     }
+    
+    @ViewBuilder
+    private var navTitle: String {
+        if _userConsentPages.count > 1 {
+            return "Step \(_pageIndex + 1) of \(_userConsentPages.count)"
+        } else {
+            return ""
+        }
+    }
 }
 
 extension UserConsentForm {
@@ -143,7 +166,6 @@ extension UserConsentForm {
         if userConsentFormDidDeny == nil, _didDeny == nil {
             return nil
         }
-        
         return {
             _didDeny?($0)
             userConsentFormDidDeny?($0)
@@ -154,10 +176,16 @@ extension UserConsentForm {
         if userConsentFormDidCancel == nil, _didCancel == nil {
             return nil
         }
-        
-        return {
-            _didCancel?()
-            userConsentFormDidCancel?()
+        if _didCancel == nil {
+            _showCancelAlert = true
+            _showAlert = true
+            return {
+//                userConsentFormDidCancel?()
+            }
+        } else {
+            return {
+                _didCancel?()
+            }
         }
     }
 }

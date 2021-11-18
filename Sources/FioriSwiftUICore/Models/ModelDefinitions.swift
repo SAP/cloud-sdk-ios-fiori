@@ -205,6 +205,7 @@ public protocol UserConsentViewModel {
 
 // sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
 // sourcery: virtualPropShowAlert = "@State var _showAlert = false"
+// sourcery: virtualPropShowCancelAlert = "@State var _showCancelAlert = false"
 // sourcery: add_env_props = "userConsentFormDidAllow"
 // sourcery: add_env_props = "userConsentFormDidDeny"
 // sourcery: add_env_props = "userConsentFormDidCancel"
