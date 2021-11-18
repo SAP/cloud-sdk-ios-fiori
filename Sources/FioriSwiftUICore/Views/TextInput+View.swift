@@ -49,8 +49,8 @@ struct TextFieldClearButton: ViewModifier {
 
 @available(iOS 14.0, *)
 struct BottomTextFieldStyle: TextFieldStyle {
-    let color1 = Color.preferredColor(.primary1).opacity(0)
-    let color2 = Color.preferredColor(.primary1).opacity(0.15)
+    let color1 = Color.preferredColor(.primaryLabel).opacity(0)
+    let color2 = Color.preferredColor(.primaryLabel).opacity(0.15)
     func _body(configuration: TextField<Self._Label>) -> some View {
         VStack {
             configuration

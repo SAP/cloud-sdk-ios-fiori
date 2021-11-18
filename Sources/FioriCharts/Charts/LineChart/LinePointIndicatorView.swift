@@ -5,7 +5,7 @@ struct LinePointIndicatorView: View {
     let strokeColr: Color
     
     var body: some View {
-        let circleColor: Color = .preferredColor(.primary6)
+        let circleColor: Color = .preferredColor(.secondaryGroupedBackground)
         let extraSelectedPointDiameterWidth = ChartViewLayout.extraSelectedPointRadiusWidth * 2
         let extraSelectedPointAndBorderDiameter = (ChartViewLayout.extraSelectedPointRadiusWidth + ChartViewLayout.extraSelectedPointWhiteBoderRadiusWidth) * 2
         

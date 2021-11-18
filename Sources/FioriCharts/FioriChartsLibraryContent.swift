@@ -35,11 +35,11 @@ import SwiftUI
                 title: "Micro Column Chart"
             )
             LibraryItem(
-                ChartView(ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.negative)]])),
+                ChartView(ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.negativeLabel)]])),
                 title: "Micro Radial Chart"
             )
             LibraryItem(
-                ChartView(ChartModel(chartType: .micro_harvey_ball, data: [[360, 8]], titlesForCategory: [["360 Mrd", "8 Mrd"]], colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.negative)]])),
+                ChartView(ChartModel(chartType: .micro_harvey_ball, data: [[360, 8]], titlesForCategory: [["360 Mrd", "8 Mrd"]], colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.negativeLabel)]])),
                 title: "Micro Harvey Ball Chart"
             )
             LibraryItem(
@@ -47,7 +47,7 @@ import SwiftUI
                 title: "Micro Bullet Chart"
             )
             LibraryItem(
-                ChartView(ChartModel(chartType: .waterfall, data: [[27, 3, 29, -2, -5, 52]], titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]], colorsForCategory: [0: [0: .preferredColor(.positive), 1: .preferredColor(.positive), 2: .preferredColor(.positive), 3: .preferredColor(.chart2), 4: .preferredColor(.chart2), 5: .preferredColor(.chart1)]], indexesOfTotalsCategories: [5])),
+                ChartView(ChartModel(chartType: .waterfall, data: [[27, 3, 29, -2, -5, 52]], titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]], colorsForCategory: [0: [0: .preferredColor(.positiveLabel), 1: .preferredColor(.positiveLabel), 2: .preferredColor(.positiveLabel), 3: .preferredColor(.chart2), 4: .preferredColor(.chart2), 5: .preferredColor(.chart1)]], indexesOfTotalsCategories: [5])),
                 title: "Waterfall Chart"
             )
             LibraryItem(

@@ -37,7 +37,7 @@ struct SingleActionCollectionView: View {
                             Image(systemName: "arrow.down.circle")
                                 .resizable()
 //                                .font(.callout)
-                                .foregroundColor(Color.preferredColor(.tintColorDark))
+                                .foregroundColor(Color.preferredColor(.tintColor))
                                 .frame(width: 32, height: 32)
                         }.buttonStyle(PlainButtonStyle())
                     })

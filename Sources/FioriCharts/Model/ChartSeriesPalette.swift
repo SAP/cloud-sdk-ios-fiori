@@ -12,7 +12,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 negativeMinColor: Color)
     {
         if colors.isEmpty {
-            self._colors = Published(initialValue: [.preferredColor(.primary1)])
+            self._colors = Published(initialValue: [.preferredColor(.primaryLabel)])
         } else {
             self._colors = Published(initialValue: colors)
         }
@@ -30,13 +30,13 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
     }
     
     public convenience init(colors: [Color], fillColor: Color) {
-        let color = colors.first ?? .preferredColor(.primary1)
+        let color = colors.first ?? .preferredColor(.primaryLabel)
         
         self.init(colors: colors, fillColor: fillColor, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
     
     public convenience init(colors: [Color]) {
-        let color = colors.first ?? .preferredColor(.primary1)
+        let color = colors.first ?? .preferredColor(.primaryLabel)
         
         self.init(colors: colors, fillColor: nil, labelColor: color, positiveMaxColor: color, positiveMinColor: color, negativeMaxColor: color, negativeMinColor: color)
     }
@@ -66,7 +66,7 @@ public class ChartSeriesPalette: ObservableObject, Identifiable, NSCopying {
                 if let color = colors.first {
                     return color
                 } else {
-                    return .preferredColor(.primary1)
+                    return .preferredColor(.primaryLabel)
                 }
             }
         }

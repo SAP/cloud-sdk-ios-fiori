@@ -111,11 +111,11 @@ struct ChartSeriesShapeStyleEnvironmentKey: EnvironmentKey {
 extension EnvironmentValues {
     var chartSeriesShapeStyle: [Int: AnyShapeStyle] {
         get {
-            self[ChartSeriesShapeStyleEnvironmentKey]
+            self[ChartSeriesShapeStyleEnvironmentKey.self]
         }
         
         set {
-            self[ChartSeriesShapeStyleEnvironmentKey] = newValue
+            self[ChartSeriesShapeStyleEnvironmentKey.self] = newValue
         }
     }
 }
@@ -127,11 +127,11 @@ struct ChartCategoryShapeStyleEnvironmentKey: EnvironmentKey {
 extension EnvironmentValues {
     var chartCategoryShapeStyle: [Int: [Int: AnyShapeStyle]] {
         get {
-            self[ChartCategoryShapeStyleEnvironmentKey]
+            self[ChartCategoryShapeStyleEnvironmentKey.self]
         }
         
         set {
-            self[ChartCategoryShapeStyleEnvironmentKey] = newValue
+            self[ChartCategoryShapeStyleEnvironmentKey.self] = newValue
         }
     }
 }

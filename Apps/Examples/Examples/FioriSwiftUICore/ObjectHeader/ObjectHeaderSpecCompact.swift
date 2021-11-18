@@ -73,7 +73,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -111,7 +111,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailContent: {
@@ -181,7 +181,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -220,7 +220,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailContent: {
@@ -283,7 +283,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -333,7 +333,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailContent: {
@@ -375,7 +375,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, subtitle: {
                 Text("Job 819701")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -422,7 +422,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, subtitle: {
                 Text("Job 819701")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Delayed")
             }, detailContent: {
@@ -471,7 +471,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, footnote: {
                 Text("Due on 12/31/16")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -486,7 +486,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, subtitle: {
                 Text("Job 819701")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High")
             }, detailImage: {
@@ -505,7 +505,7 @@ struct ObjectHeaderSpecCompact: ListDataProtocol {
             }, bodyText: {
                 Text("1000-Hamburg, MECHANIK")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High Priority")
             })

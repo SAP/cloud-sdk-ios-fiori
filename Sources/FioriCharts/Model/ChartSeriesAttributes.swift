@@ -46,9 +46,9 @@ public class ChartSeriesAttributes: ObservableObject, Identifiable, NSCopying {
     
     // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
-        ChartSeriesAttributes(palette: self.palette.copy() as! ChartSeriesPalette,
+        ChartSeriesAttributes(palette: self.palette.copy() as? ChartSeriesPalette,
                               lineWidth: Double(self.lineWidth),
-                              point: self.point.copy() as! ChartPointAttributes,
+                              point: self.point.copy() as? ChartPointAttributes,
                               firstLineCapDiameter: Double(self.firstLineCapDiameter),
                               lastLineCapDiameter: Double(self.lastLineCapDiameter))
     }

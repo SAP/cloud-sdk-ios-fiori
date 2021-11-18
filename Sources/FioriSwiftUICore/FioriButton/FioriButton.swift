@@ -197,7 +197,7 @@ struct DefaultFioriButtonStyle: FioriButtonStyle {
         case .highlighted, .selected:
             color = Color.preferredColor(.tintColorTapState)
         default:
-            color = Color.preferredColor(.primary3)
+            color = Color.preferredColor(.tertiaryLabel)
         }
         
         return configuration.label
