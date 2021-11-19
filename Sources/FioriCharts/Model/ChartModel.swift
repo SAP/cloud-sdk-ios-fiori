@@ -1157,9 +1157,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                                   let copy = $0.copy() as! ChartSeriesAttributes
                                   return copy
                               },
-                              categoryAxis: self.categoryAxis.copy() as! ChartCategoryAxisAttributes,
-                              numericAxis: self.numericAxis.copy() as! ChartNumericAxisAttributes,
-                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as! ChartNumericAxisAttributes,
+                              categoryAxis: self.categoryAxis.copy() as? ChartCategoryAxisAttributes,
+                              numericAxis: self.numericAxis.copy() as? ChartNumericAxisAttributes,
+                              secondaryNumericAxis: self.secondaryNumericAxis.copy() as? ChartNumericAxisAttributes,
                               xAxisLabelsPosition: self.xAxisLabelsPosition,
                               indexOfStockSeries: self.indexOfStockSeries,
                               indexesOfSecondaryValueAxis: self.indexesOfSecondaryValueAxis.sorted(),
@@ -1653,7 +1653,7 @@ extension ChartModel {
             }
         }
         
-        return .preferredColor(.primary2)
+        return .preferredColor(.secondaryLabel)
     }
     
     func columnColor(seriesIndex: Int, categoryIndex: Int) -> Color {
@@ -1681,7 +1681,7 @@ extension ChartModel {
             }
         }
         
-        return .preferredColor(.primary2)
+        return .preferredColor(.secondaryLabel)
     }
     
     func labelAt(seriesIndex: Int, categoryIndex: Int, dimensionIndex: Int) -> String? {

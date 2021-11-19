@@ -78,7 +78,7 @@ struct CustomFioriButtonStyle: FioriButtonStyle {
         case .highlighted, .selected:
             color = .red
         default:
-            color = Color.preferredColor(.primary3)
+            color = Color.preferredColor(.tertiaryLabel)
         }
         
         return configuration.label

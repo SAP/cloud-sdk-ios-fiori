@@ -5,7 +5,7 @@ extension Fiori {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.headline)
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 
@@ -13,7 +13,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.body)
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .lineLimit(1)
             }
         }
@@ -21,7 +21,7 @@ extension Fiori {
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary3))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
         }
@@ -30,19 +30,19 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary3))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
             }
         }
 
         struct Status: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline).foregroundColor(.preferredColor(.primary3)).lineLimit(1)
+                content.font(.subheadline).foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
             }
         }
 
         struct Substatus: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline).foregroundColor(.preferredColor(.primary3)).lineLimit(1)
+                content.font(.subheadline).foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
             }
         }
 
@@ -59,7 +59,7 @@ extension Fiori {
                 content
                     .font(.callout)
                     .lineLimit(2)
-                    .foregroundColor(Color.preferredColor(.tintColorDark))
+                    .foregroundColor(Color.preferredColor(.tintColor))
             }
         }
         
@@ -67,7 +67,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
                     .buttonStyle(PlainButtonStyle())
             }
         }
@@ -591,8 +591,8 @@ struct ObjectItemNumberOfLines: EnvironmentKey {
 
 public extension EnvironmentValues {
     var numberOfLines: Int {
-        get { self[ObjectItemNumberOfLines] }
-        set { self[ObjectItemNumberOfLines] = newValue }
+        get { self[ObjectItemNumberOfLines.self] }
+        set { self[ObjectItemNumberOfLines.self] = newValue }
     }
 }
 
@@ -771,7 +771,7 @@ struct ObjectItem_Previews: PreviewProvider {
                     .clipShape(Circle())
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             }, action: {
                 Button {
                     print("Tapped Follow")

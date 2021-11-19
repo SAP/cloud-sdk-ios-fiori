@@ -70,9 +70,9 @@ struct SingleActionFollowButton: ListDataProtocol {
                     Text(isLongText ? longText : "Follow")
                         .font(.callout)
                         .lineLimit(2)
-                        .foregroundColor(Color.preferredColor(.tintColorDark))
+                        .foregroundColor(Color.preferredColor(.tintColor))
                         .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
                 }.buttonStyle(PlainButtonStyle())
             })
             
@@ -114,9 +114,9 @@ struct SingleActionFollowButton: ListDataProtocol {
                     Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.")
                         .font(.callout)
                         .lineLimit(2)
-                        .foregroundColor(Color.preferredColor(.tintColorDark))
+                        .foregroundColor(Color.preferredColor(.tintColor))
                         .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
                 }.buttonStyle(PlainButtonStyle())
             })
             

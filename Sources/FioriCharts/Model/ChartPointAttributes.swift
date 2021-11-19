@@ -12,7 +12,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     @PublishedConstrainedValue(0 ... 100) public var gap: CGFloat = 2
     
     /// Stroke color for the point.
-    @Published public var strokeColor: Color = .preferredColor(.primary2)
+    @Published public var strokeColor: Color = .preferredColor(.secondaryLabel)
     
     /// Line width for the point's stroked path.
     // @Published public var lineWidth: CGFloat  = 0
@@ -21,7 +21,7 @@ public class ChartPointAttributes: ObservableObject, Identifiable, NSCopying {
     
     public init(isHidden: Bool = false,
                 diameter: Double = 7,
-                strokeColor: Color = .preferredColor(.primary2),
+                strokeColor: Color = .preferredColor(.secondaryLabel),
                 gap: Double = 2)
     {
         self._isHidden = Published(initialValue: isHidden)

@@ -103,7 +103,7 @@ struct SideBarListItemConfigMode: EnvironmentKey {
 
 internal extension EnvironmentValues {
     var sideBarListItemConfigMode: SideBarListItemConfig {
-        get { self[SideBarListItemConfigMode] }
-        set { self[SideBarListItemConfigMode] = newValue }
+        get { self[SideBarListItemConfigMode.self] }
+        set { self[SideBarListItemConfigMode.self] = newValue }
     }
 }

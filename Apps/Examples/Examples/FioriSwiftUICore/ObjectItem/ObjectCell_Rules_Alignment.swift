@@ -147,10 +147,10 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, icons: {
                 // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
                 .splitPercent(0.43)
             
@@ -255,7 +255,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -282,7 +282,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -356,10 +356,10 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, icons: {
 //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
                 .splitPercent(0.43)
             
@@ -462,7 +462,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -499,7 +499,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
                 .splitPercent(nil)
@@ -527,7 +527,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -556,7 +556,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -585,7 +585,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailImage: {
@@ -771,7 +771,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
             
@@ -806,7 +806,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("generic-file_28px").resizable().frame(width: 32, height: 32).clipShape(Circle())
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
                 .splitPercent(0.33)
@@ -901,9 +901,9 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, icons: {
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Text("2")
             })
             
@@ -932,7 +932,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
                 .splitPercent(0.33)
@@ -951,9 +951,9 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, icons: {
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
             
             return AnyView(oi)
@@ -982,7 +982,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             }, icons: {
                 Image(systemName: "paperclip").font(.system(size: 14))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
                 .splitPercent(0.33)
             
@@ -1015,15 +1015,15 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             }, icons: {
                 Text("123456789")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
                 .splitPercent(0.33)
             

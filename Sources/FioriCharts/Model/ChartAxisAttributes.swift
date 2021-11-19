@@ -221,10 +221,10 @@ public class ChartAxisAttributes: ObservableObject, Identifiable, NSCopying, Cus
     // swiftlint:disable force_cast
     public func copy(with zone: NSZone? = nil) -> Any {
         ChartAxisAttributes(axisId: self.axisId,
-                            baseline: self.baseline.copy() as! ChartBaselineAttributes,
-                            gridlines: self.gridlines.copy() as! ChartGridlineAttributes,
-                            labels: self.labels.copy() as! ChartLabelAttributes,
-                            titleLabel: self.titleLabel.copy() as! ChartLabelAttributes,
+                            baseline: self.baseline.copy() as? ChartBaselineAttributes,
+                            gridlines: self.gridlines.copy() as? ChartGridlineAttributes,
+                            labels: self.labels.copy() as? ChartLabelAttributes,
+                            titleLabel: self.titleLabel.copy() as? ChartLabelAttributes,
                             title: self.title)
     }
     
@@ -307,10 +307,10 @@ public class ChartNumericAxisAttributes: ChartAxisAttributes {
     // swiftlint:disable force_cast
     override public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartNumericAxisAttributes(axisId: axisId,
-                                              baseline: baseline.copy() as! ChartBaselineAttributes,
-                                              gridlines: gridlines.copy() as! ChartGridlineAttributes,
-                                              labels: labels.copy() as! ChartLabelAttributes,
-                                              titleLabel: titleLabel.copy() as! ChartLabelAttributes,
+                                              baseline: baseline.copy() as? ChartBaselineAttributes,
+                                              gridlines: gridlines.copy() as? ChartGridlineAttributes,
+                                              labels: labels.copy() as? ChartLabelAttributes,
+                                              titleLabel: titleLabel.copy() as? ChartLabelAttributes,
                                               title: title,
                                               isZeroBased: self.isZeroBased,
                                               allowLooseLabels: self.allowLooseLabels,
@@ -524,10 +524,10 @@ public class ChartCategoryAxisAttributes: ChartNumericAxisAttributes {
     // swiftlint:disable force_cast
     override public func copy(with zone: NSZone? = nil) -> Any {
         let copy = ChartCategoryAxisAttributes(axisId: axisId,
-                                               baseline: baseline.copy() as! ChartBaselineAttributes,
-                                               gridlines: gridlines.copy() as! ChartGridlineAttributes,
-                                               labels: labels.copy() as! ChartLabelAttributes,
-                                               titleLabel: titleLabel.copy() as! ChartLabelAttributes,
+                                               baseline: baseline.copy() as? ChartBaselineAttributes,
+                                               gridlines: gridlines.copy() as? ChartGridlineAttributes,
+                                               labels: labels.copy() as? ChartLabelAttributes,
+                                               titleLabel: titleLabel.copy() as? ChartLabelAttributes,
                                                title: title,
                                                isZeroBased: isZeroBased,
                                                allowLooseLabels: allowLooseLabels,

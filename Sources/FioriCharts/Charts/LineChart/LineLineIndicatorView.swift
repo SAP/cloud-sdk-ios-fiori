@@ -4,7 +4,7 @@ struct LineLineIndicatorView: View {
     let height: CGFloat
     
     var body: some View {
-        let selectionIndicatorColor: Color = .preferredColor(.primary2)
+        let selectionIndicatorColor: Color = .preferredColor(.secondaryLabel)
         
         return VStack(alignment: .center, spacing: 0) {
             SelectionAnchorShape()

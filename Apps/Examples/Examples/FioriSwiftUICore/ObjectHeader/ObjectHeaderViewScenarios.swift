@@ -76,7 +76,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, bodyText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
@@ -111,7 +111,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, bodyText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
                 Image("attachment009").resizable()
             })
@@ -194,7 +194,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Very High Priority")
             })
@@ -228,7 +228,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
             }, footnote: {
                 Text("Due on 12/31/16")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailContent: {
@@ -239,7 +239,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
                 }, trend: {
                     Text("11.5%")
                 }, trendImage: {
-                    Image(systemName: "triangle.fill").foregroundColor(.preferredColor(.negative))
+                    Image(systemName: "triangle.fill").foregroundColor(.preferredColor(.negativeLabel))
                 }, kpi: {
                     KPIItem(data: .components([.metric("79"), .unit("°F")]), subtitle: "")
                 })
