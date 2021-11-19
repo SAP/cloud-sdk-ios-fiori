@@ -138,49 +138,53 @@ struct GridTableView: View {
                 let rowIndex = indexOfRows[i]
                 let offsetY: CGFloat = (self.layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosY
                 let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - offsetY
-                
-                // all visible columns
-                ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
-                    let columnIndex = indexOfColumns[j]
-                    let currentItem = allItems[rowIndex][columnIndex]
-                    let offsetX: CGFloat = (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosX
-                    let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
-                    let zIndex: Double = {
-                        if rowIndex == 0 {
-                            return columnIndex == 0 ? 550 : 500
-                        } else {
-                            return columnIndex == 0 ? 200 : 100
-                        }
-                    }()
+                let allowsToShowTheRow = showTheRow(for: rowIndex, y: y, startPosY: startPosY, layoutData: layoutData, size: size)
+                if allowsToShowTheRow {
+                    // all visible columns
+                    ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
+                        let columnIndex = indexOfColumns[j]
+                        let currentItem = allItems[rowIndex][columnIndex]
+                        let offsetX: CGFloat = (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosX
+                        let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
+                        let zIndex: Double = {
+                            if rowIndex == 0 {
+                                return columnIndex == 0 ? 550 : 500
+                            } else {
+                                return columnIndex == 0 ? 200 : 100
+                            }
+                        }()
+                        
+                        // cell
+                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex)
+                            .position(x: x, y: y)
+                            .zIndex(zIndex)
+                    }
+                   
+                    // row leading accessory view
+                    LeadingAccessoryView(rowIndex: rowIndex)
+                        .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
+                        .zIndex(rowIndex == 0 ? 550 : 300)
                     
-                    // cell
-                    ItemView(rowIndex: rowIndex, columnIndex: columnIndex)
-                        .position(x: x, y: y)
-                        .zIndex(zIndex)
+                    // row trailing accesory view
+                    TrailingAccessoryView(rowIndex: rowIndex)
+                        .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)
+                        .zIndex(rowIndex == 0 ? 560 : 300)
                 }
-               
-                // row leading accessory view
-                LeadingAccessoryView(rowIndex: rowIndex)
-                    .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
-                    .zIndex(rowIndex == 0 ? 550 : 300)
                 
-                // row trailing accesory view
-                TrailingAccessoryView(rowIndex: rowIndex)
-                    .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)
-                    .zIndex(rowIndex == 0 ? 560 : 300)
-                
-                // row separators
-                Rectangle()
-                    .fill(Color.preferredColor(.separator))
-                    .frame(width: rect.size.width, height: 1)
-                    .position(x: rect.size.width / 2,
-                              y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
-                    .dropShadow(isVertical: false, show: rowIndex == 0 && self.dropHorizontalShadow)
-                    .zIndex(rowIndex == 0 ? 750 : 450)
+                // row dividers
+                if layoutManager.showRowDivider {
+                    Rectangle()
+                        .fill(Color.preferredColor(.separator))
+                        .frame(width: rect.size.width, height: 1)
+                        .position(x: rect.size.width / 2,
+                                  y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
+                        .dropShadow(isVertical: false, show: rowIndex == 0 && self.dropHorizontalShadow)
+                        .zIndex(rowIndex == 0 ? 750 : 450)
+                }
             }
             
             // first column separator
-            if numbOfColumns > 1 {
+            if numbOfColumns > 1 && layoutManager.showColoumnDivider {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
                 let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY - startPosY
@@ -209,5 +213,20 @@ struct GridTableView: View {
         }
         
         return height
+    }
+    
+    func showTheRow(for rowIndex: Int, y: CGFloat, startPosY: CGFloat, layoutData: LayoutData, size: CGSize) -> Bool {
+        let hasStickyHeader = self.layoutManager.model.isHeaderSticky && self.layoutManager.model.hasHeader
+        
+        if self.layoutManager.allowsPartialRowDisplay || (hasStickyHeader && rowIndex == 0) {
+            return true
+        }
+        
+        let tmpScaleY = self.layoutManager.scaleY(size: size)
+        let halfRowHeight = layoutData.rowHeights[rowIndex] * tmpScaleY / 2
+        let firstRowHeight = (layoutData.rowHeights.first ?? 0) * tmpScaleY
+        let minY = (hasStickyHeader ? firstRowHeight : 0) + halfRowHeight
+        
+        return y >= minY && y <= size.height - halfRowHeight
     }
 }

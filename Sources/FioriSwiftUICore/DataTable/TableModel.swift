@@ -60,6 +60,13 @@ public class TableModel: ObservableObject {
         }
     }
     
+    /// row alignment
+    @Published public var rowAlignment: RowAlignment = .top {
+        didSet {
+            self.needsCalculateLayout = true
+        }
+    }
+    
     /// Switching between normal and editing mode.
     @Published public var isEditing: Bool = false {
         didSet {

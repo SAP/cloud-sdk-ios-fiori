@@ -21,8 +21,6 @@ enum TableViewLayout {
     static let lineBorderRadius: CGFloat = 0
     
     static let lineHeight: CGFloat = 1
-    
-    static let minRowHeight: CGFloat = 48
                 
     static let columnGapInCompact: CGFloat = 8
     
@@ -35,8 +33,6 @@ enum TableViewLayout {
     
     static let minColumnWidth: CGFloat = 0.25
     static let maxColumnWidth: CGFloat = 0.5
-    
-    static let minColumnWidthInPt: CGFloat = 48
     
     /// fixed image size
     static let imageSize: CGFloat = 45
