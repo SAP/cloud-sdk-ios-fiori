@@ -13,22 +13,20 @@ struct TableListView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         let views = self.layoutManager.getListItems()
-        return
-            List {
-                ForEach(0 ..< views.count, id: \.self) { i in
-                    views[i]
-                        .background(self.backgroundColor)
-                        .padding([.leading, .trailing])
-                        .gesture(TapGesture()
-                            .onEnded { _ in
-                                if let handler = self.layoutManager.model.didSelectRowAt {
-                                    handler(i)
-                                }
+        return List {
+            ForEach(0 ..< views.count, id: \.self) { i in
+                views[i]
+                    .background(self.backgroundColor)
+                    .gesture(TapGesture()
+                        .onEnded { _ in
+                            if let handler = self.layoutManager.model.didSelectRowAt {
+                                handler(i)
                             }
-                        )
-                }
-                .listRowBackground(self.backgroundColor)
+                        })
             }
-            .background(self.backgroundColor)
+            .listRowBackground(self.backgroundColor)
+        }
+        .listStyle(PlainListStyle())
+        .background(self.backgroundColor)
     }
 }
