@@ -26,7 +26,7 @@ struct TableListView: View {
             }
             .listRowBackground(self.backgroundColor)
         }
-        .listStyle(.plain)
+        .listStyle(PlainListStyle())
         .background(self.backgroundColor)
     }
 }
