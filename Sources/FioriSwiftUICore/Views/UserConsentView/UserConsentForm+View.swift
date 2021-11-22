@@ -142,7 +142,7 @@ extension UserConsentForm: View {
     
     private var navTitle: String {
         if _userConsentPages.count > 1 {
-            return "\(NSLocalizedString("Step", comment: "")) \(_pageIndex + 1) \(NSLocalizedString("of", comment: ""))\(_userConsentPages.count)"
+            return "\(NSLocalizedString("Step", comment: "")) \(_pageIndex + 1) \(NSLocalizedString("of", comment: "")) \(_userConsentPages.count)"
         } else {
             return ""
         }
