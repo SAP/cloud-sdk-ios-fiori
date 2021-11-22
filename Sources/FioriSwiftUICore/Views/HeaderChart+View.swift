@@ -7,7 +7,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.headline)
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .lineLimit(1)
             }
         }
@@ -16,7 +16,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.footnote)
-                    .foregroundColor(.preferredColor(.primary3))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
         }
@@ -25,7 +25,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary3))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
         }
@@ -34,7 +34,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.caption)
-                    .foregroundColor(.preferredColor(.primary3))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
         }

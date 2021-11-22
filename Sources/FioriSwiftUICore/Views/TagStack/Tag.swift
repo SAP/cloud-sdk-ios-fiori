@@ -40,9 +40,9 @@ public struct LightTagStyle: TagStyle {
         configuration
             .label
             .font(.footnote)
-            .foregroundColor(.preferredColor(.primary2))
+            .foregroundColor(.preferredColor(.secondaryLabel))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.primary7), lineWidth: 0.5))
+            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quarternaryLabel), lineWidth: 0.5))
     }
 }
 
@@ -53,15 +53,15 @@ public struct DarkTagStyle: TagStyle {
         configuration
             .label
             .font(.footnote)
-            .foregroundColor(.preferredColor(.primary1, background: .darkConstant))
+            .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
-            .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.primary3)))
+            .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.tertiaryLabel)))
     }
 }
 
 public struct CustomTagStyle: TagStyle {
     /// text color
-    var textColor: Color = .preferredColor(.primary2)
+    var textColor: Color = .preferredColor(.secondaryLabel)
 
     // text font
     var font: Font = .footnote
@@ -79,7 +79,7 @@ public struct CustomTagStyle: TagStyle {
     var borderWidth: CGFloat = 0.5
 
     /// Color around the perimeter of the tag
-    var borderColor: Color = .preferredColor(.primary7)
+    var borderColor: Color = .preferredColor(.quarternaryLabel)
 
     public init(textColor: Color? = nil, font: Font? = nil, fillColor: Color? = nil, contentInsets: EdgeInsets? = nil, cornerRadius: CGFloat? = nil, borderWidth: CGFloat? = nil, borderColor: Color? = nil) {
         if let tc = textColor {
@@ -145,12 +145,12 @@ public extension EnvironmentValues {
     /// The maximum number of tags is 1 if the value is less than 1.
     /// If the value is nil, it uses as many tags as required. The default is nil.
     var tagLimit: Int? {
-        get { self[TagLimitEnvironmentKey] }
+        get { self[TagLimitEnvironmentKey.self] }
         set {
             if let tmpValue = newValue {
-                self[TagLimitEnvironmentKey] = max(1, tmpValue)
+                self[TagLimitEnvironmentKey.self] = max(1, tmpValue)
             } else {
-                self[TagLimitEnvironmentKey] = nil
+                self[TagLimitEnvironmentKey.self] = nil
             }
         }
     }

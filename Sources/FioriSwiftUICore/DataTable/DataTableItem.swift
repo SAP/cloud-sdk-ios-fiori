@@ -11,6 +11,8 @@ struct DataTableItem: Identifiable, Hashable {
     
     let columnIndex: Int
     
+    var firstBaselineHeight: CGFloat
+    
     // relative center postion in the cell
     var pos: CGPoint
     
@@ -43,6 +45,7 @@ struct DataTableItem: Identifiable, Hashable {
     init(index: Int,
          columnIndex: Int,
          value: ValueType = .text(""),
+         firstBaselineHeight: CGFloat = 0,
          pos: CGPoint,
          font: Font?,
          uifont: UIFont? = nil,
@@ -55,6 +58,7 @@ struct DataTableItem: Identifiable, Hashable {
         self.rowIndex = index
         self.columnIndex = columnIndex
         self.value = value
+        self.firstBaselineHeight = firstBaselineHeight
         self.pos = pos
         self.font = font
         self.uifont = uifont

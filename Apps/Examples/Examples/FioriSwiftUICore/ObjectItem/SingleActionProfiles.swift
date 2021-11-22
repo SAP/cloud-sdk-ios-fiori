@@ -10,7 +10,7 @@ struct ObjectItemActionButtonStyle: FioriButtonStyle {
         case .highlighted, .selected:
             color = .red
         default:
-            color = Color.preferredColor(.primary3)
+            color = Color.preferredColor(.tertiaryLabel)
         }
         
         return configuration.label
@@ -68,9 +68,9 @@ struct SingleActionProfiles: ListDataProtocol {
             Text("Follow")
                 .font(.callout)
                 .lineLimit(2)
-                .foregroundColor(Color.preferredColor(.tintColorDark))
+                .foregroundColor(Color.preferredColor(.tintColor))
                 .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColorDark), lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
         }.buttonStyle(PlainButtonStyle())
         
         switch (indexPath.section, indexPath.row) {
@@ -110,7 +110,7 @@ struct SingleActionProfiles: ListDataProtocol {
                     .clipShape(Circle())
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             }, action: {
                 actionBtn
             })
@@ -129,7 +129,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             }, action: {
                 actionBtn
@@ -200,7 +200,7 @@ struct SingleActionProfiles: ListDataProtocol {
                 Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
             }, icons: {
                 Text("1")
-                Circle().fill(Color.preferredColor(.tintColorDark)).frame(width: 14, height: 14)
+                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             }, action: {
                 actionBtn

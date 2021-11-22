@@ -22,7 +22,7 @@ struct ObjectHeaderTestApp: View {
         }, descriptionText: {
             Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
         }, status: {
-            Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+            Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
         }, substatus: {
             Text("High Hight excel")
         }, detailImage: {
@@ -37,7 +37,7 @@ struct ObjectHeaderTestApp: View {
         return List {
             Section(header: header) {}
                 .textCase(nil)
-                .listRowBackground(Color.preferredColor(.primary6))
+                .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
         }
     }
 }

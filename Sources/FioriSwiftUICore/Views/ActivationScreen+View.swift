@@ -11,7 +11,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 28, weight: .thin, design: .default))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
         }
@@ -21,7 +21,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 17))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
         }
@@ -32,7 +32,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
                     .keyboardType(.emailAddress)
                     .disableAutocorrection(true)
@@ -53,7 +53,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 
@@ -62,7 +62,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.system(size: 15))
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 

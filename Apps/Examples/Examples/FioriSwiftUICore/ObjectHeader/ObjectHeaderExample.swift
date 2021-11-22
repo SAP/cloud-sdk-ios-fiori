@@ -30,7 +30,7 @@ struct ObjectHeaderExample: View {
                 destination: ObjectItemListView(title: "Tags Example", listDataType: ObjectHeaderDeveloperExample.self, changeLeftMargin: false, showEditButton: false)) {
                 Text("Tags Example")
             }
-        }.background(Color.preferredColor(.primary6))
+        }.background(Color.preferredColor(.secondaryGroupedBackground))
             .navigationBarTitle("ObjectHeader")
     }
 }

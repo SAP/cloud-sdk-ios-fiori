@@ -7,11 +7,11 @@ struct ChartContentEnvironmentKey: EnvironmentKey {
 extension EnvironmentValues {
     var chartContext: ChartContext {
         get {
-            self[ChartContentEnvironmentKey]
+            self[ChartContentEnvironmentKey.self]
         }
         
         set {
-            self[ChartContentEnvironmentKey] = newValue
+            self[ChartContentEnvironmentKey.self] = newValue
         }
     }
 }

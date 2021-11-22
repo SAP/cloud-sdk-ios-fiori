@@ -60,13 +60,13 @@ struct BubbleIndicatorView: View {
                 LineShape(pos1: CGPoint(x: 0, y: y),
                           pos2: CGPoint(x: rect.size.width, y: y),
                           layoutDirection: layoutDirection)
-                    .stroke(Color.preferredColor(.primary3), lineWidth: 1)
+                    .stroke(Color.preferredColor(.tertiaryLabel), lineWidth: 1)
 
                 // vertical line
                 LineShape(pos1: CGPoint(x: x, y: 0),
                           pos2: CGPoint(x: x, y: rect.size.height),
                           layoutDirection: layoutDirection)
-                    .stroke(Color.preferredColor(.primary3), lineWidth: 1)
+                    .stroke(Color.preferredColor(.tertiaryLabel), lineWidth: 1)
             } else {
                 EmptyView()
             }

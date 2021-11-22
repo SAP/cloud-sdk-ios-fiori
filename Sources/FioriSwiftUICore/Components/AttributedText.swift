@@ -31,7 +31,7 @@ struct UITextViewContainer: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView {
         let textView = UITextView()
         
-        textView.textColor = Color.preferredColor(.primary3).uiColor()
+        textView.textColor = Color.preferredColor(.tertiaryLabel).uiColor()
         textView.dataDetectorTypes = .link
         textView.isEditable = false
         textView.isSelectable = true

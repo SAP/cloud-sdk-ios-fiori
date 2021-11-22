@@ -51,7 +51,7 @@ public enum Tests {
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
-                   colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
+                   colorsForCategory: [0: [4: .preferredColor(.negativeLabel), 5: .preferredColor(.negativeLabel), 6: .preferredColor(.negativeLabel)]],
                    selections: [0: [4, 5, 6, 7, 8]],
                    indexesOfSecondaryValueAxis: [0, 1]),
         
@@ -94,7 +94,7 @@ public enum Tests {
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
-                   colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
+                   colorsForCategory: [0: [4: .preferredColor(.negativeLabel), 5: .preferredColor(.negativeLabel), 6: .preferredColor(.negativeLabel)]],
                    selections: [0: [0, 1, 2, 6, 7, 8, 11], 1: [0, 3, 4, 5, 7]]),
         ChartModel(chartType: .line, data: [[nil]]),
         ChartModel(chartType: .line, data: [[]]),
@@ -141,9 +141,9 @@ public enum Tests {
         ChartModel(chartType: .waterfall,
                    data: [[27, 3, 29, -2, -5, 52]],
                    titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
-                   colorsForCategory: [0: [0: .preferredColor(.positive),
-                                           1: .preferredColor(.positive),
-                                           2: .preferredColor(.positive),
+                   colorsForCategory: [0: [0: .preferredColor(.positiveLabel),
+                                           1: .preferredColor(.positiveLabel),
+                                           2: .preferredColor(.positiveLabel),
                                            3: .preferredColor(.chart2),
                                            4: .preferredColor(.chart2),
                                            5: .preferredColor(.chart1)]],
@@ -152,9 +152,9 @@ public enum Tests {
         ChartModel(chartType: .waterfall,
                    data: [[27, 8, 24, -2, -5, 52]],
                    titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
-                   colorsForCategory: [0: [0: .preferredColor(.positive),
-                                           1: .preferredColor(.positive),
-                                           2: .preferredColor(.positive),
+                   colorsForCategory: [0: [0: .preferredColor(.positiveLabel),
+                                           1: .preferredColor(.positiveLabel),
+                                           2: .preferredColor(.positiveLabel),
                                            3: .preferredColor(.chart2),
                                            4: .preferredColor(.chart2),
                                            5: .preferredColor(.chart1)]],
@@ -163,9 +163,9 @@ public enum Tests {
         ChartModel(chartType: .waterfall,
                    data: [[27, 8, 24, -2, -5, 52]],
                    titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
-                   colorsForCategory: [0: [0: .preferredColor(.positive),
-                                           1: .preferredColor(.positive),
-                                           2: .preferredColor(.positive),
+                   colorsForCategory: [0: [0: .preferredColor(.positiveLabel),
+                                           1: .preferredColor(.positiveLabel),
+                                           2: .preferredColor(.positiveLabel),
                                            3: .preferredColor(.chart2),
                                            4: .preferredColor(.chart2),
                                            5: .preferredColor(.chart1)]],
@@ -175,9 +175,9 @@ public enum Tests {
         ChartModel(chartType: .waterfall,
                    data: [[-27, -8, -6, 2, 5, -52]],
                    titlesForCategory: [["17 Q1", "New hires", "Transfer-in", "Transfer-out", "Termination", "18 Q1"]],
-                   colorsForCategory: [0: [0: .preferredColor(.positive),
-                                           1: .preferredColor(.positive),
-                                           2: .preferredColor(.positive),
+                   colorsForCategory: [0: [0: .preferredColor(.positiveLabel),
+                                           1: .preferredColor(.positiveLabel),
+                                           2: .preferredColor(.positiveLabel),
                                            3: .preferredColor(.chart2),
                                            4: .preferredColor(.chart2),
                                            5: .preferredColor(.chart1)]],
@@ -475,7 +475,7 @@ public enum Tests {
                    data: [[1.8, 2.2, 1.1, 0.7, -1.2, -2.3, -2.95, 1.4, 3.5, 4.4, 4.2, 3.1].map { $0 * 100000 },
                           [3.3, 3.7, 3.55, 3.7, 3.3, 3.5, 3.5, 3.1, 3.4, 3.5, 3.0, 3.6].map { $0 * 100000 }],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]],
-                   colorsForCategory: [0: [4: .preferredColor(.negative), 5: .preferredColor(.negative), 6: .preferredColor(.negative)]],
+                   colorsForCategory: [0: [4: .preferredColor(.negativeLabel), 5: .preferredColor(.negativeLabel), 6: .preferredColor(.negativeLabel)]],
                    selections: [0: [4, 5, 6, 7, 8]],
                    indexesOfSecondaryValueAxis: [0, 1],
                    indexesOfColumnSeries: [1]),
@@ -544,7 +544,7 @@ public enum Tests {
         ChartModel(chartType: .micro_column,
                    data: [[200, 170, -165, 143, 166, 112, 110]],
                    titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                   colorsForCategory: [0: [2: .preferredColor(.negative)]],
+                   colorsForCategory: [0: [2: .preferredColor(.negativeLabel)]],
                    labelsForDimension: [["$200K", "avg", "-165K", nil, "$166K", "$112K", "$110K"]]),
         
         ChartModel(chartType: .micro_column,
@@ -562,22 +562,22 @@ public enum Tests {
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 8]],
                    titlesForCategory: [["360 Mrd", "8 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.negative)]]),
+                   colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.negativeLabel)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 352]],
                    titlesForCategory: [["360 Mrd", "352 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.positive)]]),
+                   colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.positiveLabel)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[360, 400]],
                    titlesForCategory: [["360 Mrd", "400 Mrd"]],
-                   colorsForCategory: [0: [0: .preferredColor(.primary4), 1: .preferredColor(.positive)]]),
+                   colorsForCategory: [0: [0: .preferredColor(.secondaryFill), 1: .preferredColor(.positiveLabel)]]),
         
         ChartModel(chartType: .micro_harvey_ball,
                    data: [[100, 8]],
                    titlesForCategory: [["100 Mrd", ""]],
-                   colorsForCategory: [0: [0: .preferredColor(.primary4), 1: .preferredColor(.critical)]]),
+                   colorsForCategory: [0: [0: .preferredColor(.secondaryFill), 1: .preferredColor(.criticalLabel)]]),
         
         ChartModel(chartType: .micro_harvey_ball, data: [[nil]])
     ]
@@ -611,13 +611,13 @@ public enum Tests {
     
     /// radial models for test
     public static let radialModels = [
-        ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.negative)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 45]], colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.negativeLabel)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 99]], colorsForCategory: [0: [0: .preferredColor(.primary3), 1: .preferredColor(.positive)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 99]], colorsForCategory: [0: [0: .preferredColor(.tertiaryLabel), 1: .preferredColor(.positiveLabel)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 10]], colorsForCategory: [0: [0: .preferredColor(.primary4), 1: .preferredColor(.critical)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 10]], colorsForCategory: [0: [0: .preferredColor(.secondaryFill), 1: .preferredColor(.criticalLabel)]]),
         
-        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: .preferredColor(.primary4), 1: .preferredColor(.critical)]]),
+        ChartModel(chartType: .micro_radial, data: [[100, 0]], colorsForCategory: [0: [0: .preferredColor(.secondaryFill), 1: .preferredColor(.criticalLabel)]]),
         
         ChartModel(chartType: .micro_radial, data: [[nil]])
     ]

@@ -154,9 +154,9 @@ public struct DimensionSelector: View {
         self.selectedIndex = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(textColor: Color.preferredColor(.primary3), font: Font.system(.subheadline), borderColor: Color.preferredColor(.primary4)),
+            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.secondaryFill)),
             .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.system(.subheadline), borderColor: Color.preferredColor(.tintColor)),
-            .disabled: SegmentAttributes(textColor: Color.preferredColor(.primary3), font: Font.system(.subheadline), borderColor: Color.preferredColor(.primary4))
+            .disabled: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.secondaryFill))
         ]
         
         if let _contentInset = contentInset {
