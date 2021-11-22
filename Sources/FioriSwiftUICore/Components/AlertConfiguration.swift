@@ -133,5 +133,5 @@ public extension AlertConfiguration {
 
 public extension AlertConfiguration {
     /// Default configuration for the alert view showing in the UserConsentForm (required form) when users tap on the deny action.
-    static let _UserConsentFormDefault = AlertConfiguration(title: "Without consent you will not be able to continue onboarding.", action: Action(label: NSLocalizedString("Give Consent", comment: "")), secondaryAction: Action(label: NSLocalizedString("Quit", comment: "")))
+    static let _UserConsentFormDefault = AlertConfiguration(title: NSLocalizedString("Without consent you will not be able to continue onboarding.", comment: ""), action: Action(label: NSLocalizedString("Give Consent", comment: "")), secondaryAction: Action(label: NSLocalizedString("Quit", comment: "")))
 }

@@ -60,7 +60,7 @@ extension UserConsentForm: View {
     var alertConfiguration: AlertConfiguration {
         var alertConfig = _alertConfiguration
         if self._showCancelAlert {
-            alertConfig = AlertConfiguration(title: "Are you sure you want to quit the onboarding process?", action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
+            alertConfig = AlertConfiguration(title: NSLocalizedString("Are you sure you want to quit the onboarding process?", comment: ""), action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
 
             alertConfig.secondaryAction._didSelectSetter {
                 _alertConfiguration.action.didSelect?()
@@ -121,7 +121,7 @@ extension UserConsentForm: View {
                     self.didCancel?()
                 }
         default:
-            Button("Back", action: {
+            Button(NSLocalizedString("Back", comment: ""), action: {
                 _pageIndex -= 1
             })
         }
@@ -140,10 +140,9 @@ extension UserConsentForm: View {
         }
     }
     
-    @ViewBuilder
     private var navTitle: String {
         if _userConsentPages.count > 1 {
-            return "Step \(_pageIndex + 1) of \(_userConsentPages.count)"
+            return "\(NSLocalizedString("Step", comment: "")) \(_pageIndex + 1) \(NSLocalizedString("of", comment: ""))\(_userConsentPages.count)"
         } else {
             return ""
         }
