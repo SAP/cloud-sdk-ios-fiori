@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -24,6 +24,7 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 	let _didDeny: ((Bool) -> Void)?
 	let _didCancel: (() -> Void)?
 	@State var _showAlert = false
+	@State var _showCancelAlert = false
 	@State var _pageIndex = 0
 
     private var isModelInit: Bool = false

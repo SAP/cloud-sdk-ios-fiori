@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 import Combine
@@ -19,25 +19,25 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	var hidesXmark = false
-	@State var isEditing = false
-	let _drawingViewMinHeight: CGFloat = 256
-	var _drawingViewMaxHeight: CGFloat?
-	@State var fullSignatureImage: UIImage?
-	var cropsImage = false
-	@State var isSaved = false
 	var hidesSignatureLine = false
-	@State var currentDrawing = Drawing()
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	var titleColor = Color.preferredColor(.primaryLabel)
-	var strokeWidth: CGFloat = 3.0
-	@State var isReenterTapped = false
 	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var _drawingViewMaxHeight: CGFloat?
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	var cropsImage = false
+	let _drawingViewMinHeight: CGFloat = 256
+	@State var isReenterTapped = false
+	var strokeColor = Color.preferredColor(.primaryLabel)
 	@State var drawings = [Drawing]()
+	var hidesXmark = false
+	@State var currentDrawing = Drawing()
+	@State var isSaved = false
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var fullSignatureImage: UIImage?
+	@State var isEditing = false
+	var strokeWidth: CGFloat = 3.0
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
