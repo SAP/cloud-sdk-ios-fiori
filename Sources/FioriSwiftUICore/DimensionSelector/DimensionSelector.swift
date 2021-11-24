@@ -154,7 +154,7 @@ public struct DimensionSelector: View {
         self.selectedIndex = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.secondaryFill)),
+            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.separator)),
             .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.system(.subheadline), borderColor: Color.preferredColor(.tintColor)),
             .disabled: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.secondaryFill))
         ]
@@ -203,7 +203,7 @@ public struct DimensionSelector: View {
     private func getHStack() -> some View {
         HStack(alignment: .center, spacing: self.model.interItemSpacing) {
             ForEach(self.model.titles.indices, id: \.self) { index in
-                Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
+                Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, cornerRadius: 10.0, backgroundColor: .preferredColor(.primaryFill), segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
                     .onTapGesture {
                         if self.model.isEnable {
                             self.selectionDidChange(index: index)
@@ -211,7 +211,6 @@ public struct DimensionSelector: View {
                     }
                     .background(SegmentPreferenceSetter())
                     .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
-                    .overlay(ButtonOverlayView(isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, segmentAttributes: self.model.segmentAttributes))
             }
         }
         .padding(self.contentInset)
@@ -257,6 +256,10 @@ extension DimensionSelector {
         
         let isEnable: Bool
         
+        let cornerRadius: CGFloat
+        
+        let backgroundColor: Color
+        
         let segmentAttributes: [ControlState: SegmentAttributes]
         
         let insets: EdgeInsets
@@ -264,9 +267,11 @@ extension DimensionSelector {
         var body: some View {
             Text(self.title)
                 .padding(insets)
-                .cornerRadius(8, antialiased: true)
-                .font(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
-                .foregroundColor(self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
+                .font(self.isEnable ? (isSelected ? segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
+                .foregroundColor(isEnable ? (isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
+                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .strokeBorder(isEnable ? (isSelected ? self.segmentAttributes[.selected]!.borderColor! : self.segmentAttributes[.normal]!.borderColor!) : (self.segmentAttributes[.disabled]!.borderColor!), lineWidth: isSelected ? 1.0 : 0.33)
+                    .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(backgroundColor)))
         }
     }
     
