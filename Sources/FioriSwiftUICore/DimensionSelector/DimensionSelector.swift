@@ -154,9 +154,9 @@ public struct DimensionSelector: View {
         self.selectedIndex = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.separator)),
-            .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.system(.subheadline), borderColor: Color.preferredColor(.tintColor)),
-            .disabled: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderColor: Color.preferredColor(.secondaryFill))
+            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.separator), backgroundColor: Color.preferredColor(.secondaryFill)),
+            .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.system(.subheadline), borderWidth: 1.0, borderColor: Color.preferredColor(.tintColor), backgroundColor: Color.preferredColor(.primaryFill)),
+            .disabled: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.system(.subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.secondaryFill), backgroundColor: Color.preferredColor(.secondaryFill))
         ]
         
         if let _contentInset = contentInset {
@@ -267,11 +267,14 @@ extension DimensionSelector {
         var body: some View {
             Text(self.title)
                 .padding(insets)
-                .font(self.isEnable ? (isSelected ? segmentAttributes[.selected]?.font : self.segmentAttributes[.normal]?.font) : self.segmentAttributes[.disabled]?.font)
-                .foregroundColor(isEnable ? (isSelected ? self.segmentAttributes[.selected]?.textColor : self.segmentAttributes[.normal]?.textColor) : (self.segmentAttributes[.disabled]?.textColor))
-                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                    .strokeBorder(isEnable ? (isSelected ? self.segmentAttributes[.selected]!.borderColor! : self.segmentAttributes[.normal]!.borderColor!) : (self.segmentAttributes[.disabled]!.borderColor!), lineWidth: isSelected ? 1.0 : 0.33)
-                    .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(backgroundColor)))
+                .font(getSegmentAttributes()?.font)
+                .foregroundColor(getSegmentAttributes()?.textColor)
+                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).strokeBorder(getSegmentAttributes()!.borderColor!, lineWidth: getSegmentAttributes()!.borderWidth!, antialiased: true))
+                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(getSegmentAttributes()!.backgroundColor!))
+        }
+        
+        func getSegmentAttributes() -> SegmentAttributes? {
+            self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected] : self.segmentAttributes[.normal]) : self.segmentAttributes[.disabled]
         }
     }
     
