@@ -86,7 +86,7 @@ struct ObjectHeaderDeveloperExample: ListDataProtocol {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {

@@ -237,7 +237,7 @@ class ChartModelTests: XCTestCase {
         let model = ChartModel(chartType: .micro_column,
                                data: [[200, 170, -165, 143, 166, 112, 110]],
                                titlesForCategory: [["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"]],
-                               colorsForCategory: [0: [2: .preferredColor(.negative)]],
+                               colorsForCategory: [0: [2: .preferredColor(.negativeLabel)]],
                                labelsForDimension: [["$200K", "avg", "-165K", nil, "$166K", "$112K", "$110K"]])
         
         let modelCopy = model.copy() as! ChartModel

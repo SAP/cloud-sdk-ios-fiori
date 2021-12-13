@@ -113,7 +113,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, descriptionText: {
                 Text("Description is one line of text without wrapping")
             }, status: {
-                Text("Available").foregroundColor(.preferredColor(.negative))
+                Text("Available").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
@@ -144,7 +144,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer discussed he needs a table to accomodate a family of 7.")
             }, status: {
-                Text("Available").foregroundColor(.preferredColor(.positive))
+                Text("Available").foregroundColor(.preferredColor(.positiveLabel))
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
@@ -211,7 +211,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, status: {
                 Text("This is a long status")
             }, substatus: {
-                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.primary3))
+                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
@@ -247,9 +247,9 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, descriptionText: {
                 Text("Customer discussed he needs a and chair to table to accomodate a big family.  This is really important so they can all eat dinner at the same time.")
             }, status: {
-                Text("This is a long status").foregroundColor(.preferredColor(.positive))
+                Text("This is a long status").foregroundColor(.preferredColor(.positiveLabel))
             }, substatus: {
-                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.primary3))
+                Image(systemName: "checkmark.circle.fill").foregroundColor(.preferredColor(.tertiaryLabel))
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })

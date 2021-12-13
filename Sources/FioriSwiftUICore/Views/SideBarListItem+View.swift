@@ -6,7 +6,6 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .lineLimit(1)
-                    .font(.system(size: 17))
                     .truncationMode(.tail)
             }
         }
@@ -15,7 +14,6 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .lineLimit(1)
-                    .font(.system(size: 17))
                     .truncationMode(.tail)
             }
         }
@@ -51,44 +49,26 @@ extension Fiori {
 extension SideBarListItem: View {
     public var body: some View {
         HStack(spacing: 0) {
-            icon.foregroundColor(getIconColor())
-            title.foregroundColor(getTitleColor())
+            icon.foregroundColor(.preferredColor(.primaryLabel))
+            title
+                .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                .foregroundColor(getColorStyle())
             Spacer()
-            subtitle.foregroundColor(getSubtitleColor())
-            accessoryIcon.foregroundColor(getAccessoryIconColor())
+            subtitle
+                .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                .foregroundColor(.preferredColor(.tertiaryLabel))
+            accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)
     }
     
-    private func getIconColor() -> Color {
-        sideBarListItemConfigMode.isSelected ? .preferredColor(.primaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .contrast)
+    private func getFontWeight() -> Font.Weight {
+        sideBarListItemConfigMode.isSelected ? .bold : .regular
     }
     
-    private func getAccessoryIconColor() -> Color {
-        sideBarListItemConfigMode.isSelected ? .preferredColor(.tertiaryLabel, background: .lightConstant) : .preferredColor(.tintColor, display: .contrast)
-    }
-    
-    private func getTitleColor() -> Color {
-        switch (sideBarListItemConfigMode.isSelected, sideBarListItemConfigMode.isHeaderContent) {
-        case (_, true):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
-        case (true, false):
-            return .preferredColor(.primaryLabel, background: .lightConstant)
-        case (false, false):
-            return .preferredColor(.primaryLabel, display: .contrast)
-        }
-    }
-    
-    private func getSubtitleColor() -> Color {
-        switch (sideBarListItemConfigMode.isSelected, sideBarListItemConfigMode.isHeaderContent) {
-        case (_, true):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
-        case (true, false):
-            return .preferredColor(.tertiaryLabel, background: .lightConstant)
-        case (false, false):
-            return .preferredColor(.tertiaryLabel, display: .contrast)
-        }
+    private func getColorStyle() -> Color {
+        sideBarListItemConfigMode.isHeaderContent ? .preferredColor(.tertiaryLabel) : .preferredColor(.primaryLabel)
     }
 }
 
@@ -103,7 +83,7 @@ struct SideBarListItemConfigMode: EnvironmentKey {
 
 internal extension EnvironmentValues {
     var sideBarListItemConfigMode: SideBarListItemConfig {
-        get { self[SideBarListItemConfigMode] }
-        set { self[SideBarListItemConfigMode] = newValue }
+        get { self[SideBarListItemConfigMode.self] }
+        set { self[SideBarListItemConfigMode.self] = newValue }
     }
 }

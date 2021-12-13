@@ -93,10 +93,12 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footer = footerModel != nil ?
             ViewBuilder.buildEither(first: AnyView(ObjectItem(model: footerModel!)
-                    .detailImageModifier { $0.foregroundColor(.white).padding(.leading, 16) }
-                    .titleModifier { $0.foregroundColor(.white) }
-                    .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
-                    .background(Color.preferredColor(.footer, background: .darkConstant))))
+                    .detailImageModifier { $0.foregroundColor(.preferredColor(.primaryLabel))
+                        .padding(.leading, 16)
+                    }
+                    .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel)) }
+                    .subtitleModifier { $0.foregroundColor(.preferredColor(.tertiaryLabel)) }
+                    .background(Color.preferredColor(.quarternaryFill))))
             : ViewBuilder.buildEither(second: EmptyView())
         self._detail = list != nil ? ViewBuilder.buildEither(first: AnyView(list)) : ViewBuilder.buildEither(second: EmptyView())
     }
@@ -134,16 +136,14 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
-                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false,
-                                                                                                isHeaderContent: true))
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false, isHeaderContent: true))
                         }, isModelInit: false)
                     } else {
                         if item == selection.wrappedValue {
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
-                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true,
-                                                                                                isHeaderContent: false))
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true, isHeaderContent: false))
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -153,8 +153,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
                             RowContentContainer<Data, Row>(item: item,
                                                            rowContent: rowContent(item),
                                                            selectionBinding: selection)
-                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false,
-                                                                                                isHeaderContent: false))
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false, isHeaderContent: false))
                         }
                     }
                 }
@@ -197,16 +196,13 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                 .lineLimit(1)
                                 .font(.system(size: 17.0))
                                 .truncationMode(.tail)
-                                .foregroundColor(.preferredColor(.quarternaryLabel, display: .contrast))
+                                .foregroundColor(.preferredColor(.tertiaryLabel))
                         }, isModelInit: true)
                     } else {
                         if item == selection.wrappedValue {
                             SideBarListItem(model: rowModel(item))
                                 .modifier(ListItemBackgroundSelectionStyle())
-                                .iconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
-                                .titleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
-                                .subtitleModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
-                                .accessoryIconModifier { $0.foregroundColor(.preferredColor(.primaryLabel, background: .lightConstant)) }
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: true, isHeaderContent: false))
                                 .overlay(NavigationLink(destination: destination(item),
                                                         tag: item,
                                                         selection: selection,
@@ -218,6 +214,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                                 }
                         } else {
                             SideBarListItem(model: rowModel(item))
+                                .environment(\.sideBarListItemConfigMode, SideBarListItemConfig(isSelected: false, isHeaderContent: false))
                                 .contentShape(Rectangle())
                                 .onTapGesture {
                                     selection.wrappedValue = item
@@ -262,16 +259,16 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 15, height: 15)
                     .padding(.trailing, isModelInit ? 0 : 16)
-                    .foregroundColor(.preferredColor(.tintColor, display: .contrast))
+                    .foregroundColor(.preferredColor(.primaryLabel))
                     .onTapGesture {
                         isExpanded.toggle()
                     }
             }.padding(isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
             if !isExpanded {
                 Rectangle()
-                    .fill(Color.preferredColor(.separator, display: .contrast))
+                    .fill(Color.preferredColor(.separator))
                     .frame(height: 0.5)
             }
         }
@@ -285,7 +282,7 @@ struct ListItemBackgroundSelectionStyle: ViewModifier {
     func body(content: Content) -> some View {
         Group {
             content
-                .background(RoundedRectangle(cornerRadius: 5, style: .continuous).fill(Color.preferredColor(.tintColor, display: .contrast)))
+                .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(Color.preferredColor(.tertiaryFill)))
         }
     }
 }

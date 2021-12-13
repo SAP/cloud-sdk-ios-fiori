@@ -1,4 +1,5 @@
 import Foundation
+import os.log
 import SwiftUI
 
 extension Font {
@@ -14,18 +15,27 @@ extension Font {
         self.registerFont("72-Italic", fileExtension: "ttf")
         self.registerFont("72-Light", fileExtension: "ttf")
         self.registerFont("72-Regular", fileExtension: "ttf")
-        print("All 72 font names: \(UIFont.fontNames(forFamilyName: "72"))")
+        os_log("Done registering 72 fonts", log: OSLog.fontLogger, type: .info)
     }
     
     // stackoverflow: https://stackoverflow.com/questions/62681206/xcode-12b1-swift-packages-custom-fonts
     static func registerFont(_ name: String, fileExtension: String, bundle: Bundle = Bundle.module) {
         guard let fontURL = bundle.url(forResource: name, withExtension: fileExtension) else {
-            print("No font named \(name).\(fileExtension) was found in the module bundle")
+            os_log("No font named %@.%@ was found in the module bundle", log: OSLog.fontLogger, type: .default, name, fileExtension)
             return
         }
 
         var error: Unmanaged<CFError>?
         CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &error)
-        print(error ?? "Successfully registered font: \(name)")
+        if let error = error {
+            os_log("Error registering font: %@", log: OSLog.fontLogger, type: .default, "\(error)")
+        } else {
+            os_log("Successfully registered font: %@", log: OSLog.fontLogger, type: .info, name)
+        }
     }
+}
+
+extension OSLog {
+    /// Logs `Font` related events.
+    static let fontLogger = OSLog(subsystem: "FioriThemeManager", category: "FioriThemeManager.Font")
 }

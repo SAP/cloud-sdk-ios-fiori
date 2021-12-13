@@ -40,7 +40,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                         print("delete \(indexSet)")
                     }
                 }
-            }.listRowBackground(Color.preferredColor(.primary6))
+            }.listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
                 .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
                     $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
                 }

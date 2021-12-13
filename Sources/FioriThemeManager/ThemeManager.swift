@@ -12,8 +12,8 @@ public class ThemeManager {
     ///
     /// - Parameter version: Major version of the color palette.
     public func setPaletteVersion(_ version: PaletteVersion) {
-        if self._paletteVersion != version {
-            self._paletteVersion = version
+        if self.paletteVersion != version {
+            self.palette = version.rawValue
         }
     }
     
@@ -22,45 +22,41 @@ public class ThemeManager {
     ///
     /// - Parameter palette: Complete palette implementation. Should include definitions for all consumed `ColorStyle` types.
     public func setPalette(_ palette: Palette) {
-        if let paletteVersion = PaletteVersion(rawValue: palette) {
-            self._paletteVersion = paletteVersion
-        } else {
-            self._palette = palette
-        }
+        self.palette = palette
     }
     
     /// Accessor to current palette.
     /// - note: It is unusual to need to read from the palette directly; generally, use the `UIColor.preferredFioriColor(...)` API.
-    public var palette: Palette {
-        self._palette
-    }
-    
-    private var _palette: Palette = PaletteVersion.latest.rawValue
-    
-    internal var compatibilityMap: ColorCompatibilityMap? {
-        self._paletteVersion.compatibilityMap
-    }
-    
-    internal var _paletteVersion = PaletteVersion.latest {
+    public private(set) var palette: Palette = PaletteVersion.latest.rawValue {
         didSet {
-            self._palette = self._paletteVersion.rawValue
+            self.paletteVersion = PaletteVersion(rawValue: self.palette)
         }
     }
     
+    internal var compatibilityMap: ColorCompatibilityMap? {
+        self.paletteVersion?.compatibilityMap
+    }
+    
+    internal var paletteVersion: PaletteVersion? = PaletteVersion.latest
+    
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
-        if self._paletteVersion == .latest {
+        switch self.paletteVersion {
+        case .v6:
             return self.mergedDeprecatedDefinitions()[style]
-        } else {
+        case .v3_x, .v3_2, .v4, .v5:
             let _style = self.mergedCompatibleDefinitions()[style] ?? style
             return self.mergedDeprecatedDefinitions()[_style]
+        default:
+            return self.palette.hexColor(for: style)
         }
     }
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        var current = self._paletteVersion
-        var result = self._paletteVersion.rawValue.colorDefinitions
+        guard let paletteVersion = paletteVersion else { return [ColorStyle: HexColor]() }
+        var current = paletteVersion
+        var result = paletteVersion.rawValue.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
         while let previous = current.previous() {
             cumulative.merge(previous.rawValue.colorDefinitions) { curr, _ in curr }
@@ -72,10 +68,12 @@ public class ThemeManager {
     
     /// Merges new styles that are not existed in current palette till the `latest` palette.
     private func mergedCompatibleDefinitions() -> [ColorStyle: ColorStyle] {
-        guard let map = _paletteVersion.compatibilityMap else {
+        guard let paletteVersion = paletteVersion,
+              let map = paletteVersion.compatibilityMap
+        else {
             return [ColorStyle: ColorStyle]()
         }
-        var current = self._paletteVersion
+        var current = paletteVersion
         var result = map.compatibleColorDefinitions
         var cumulative = [ColorStyle: ColorStyle]()
         while let next = current.next(), let map = next.compatibilityMap {

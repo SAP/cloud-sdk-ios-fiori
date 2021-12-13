@@ -43,12 +43,12 @@ extension Fiori {
                 if #available(iOS 14.0, *) {
                     return content
                         .font(.title3)
-                        .foregroundColor(.preferredColor(.primary1))
+                        .foregroundColor(.preferredColor(.primaryLabel))
                 } else {
                     // Fallback on earlier versions
                     return content
                         .font(.headline)
-                        .foregroundColor(.preferredColor(.primary1))
+                        .foregroundColor(.preferredColor(.primaryLabel))
                 }
             }
         }
@@ -57,21 +57,21 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.body)
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
         
         struct BodyText: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary2))
+                    .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }
         
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary2))
+                    .foregroundColor(.preferredColor(.secondaryLabel))
                     .lineLimit(1)
             }
         }
@@ -80,21 +80,21 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary1))
+                    .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
         
         struct Status: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary2))
+                    .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }
         
         struct Substatus: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.subheadline)
-                    .foregroundColor(.preferredColor(.primary2))
+                    .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }
         
@@ -162,7 +162,7 @@ extension ObjectHeader: View {
                     .padding(.vertical, 18)
             }
         }
-        .background(Color.preferredColor(.primary6))
+        .background(Color.preferredColor(.secondaryGroupedBackground))
     }
     
     /*
@@ -623,7 +623,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negative))
+                Image(systemName: "exclamationmark.square.fill").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("High Priority")
             }, detailImage: {
@@ -646,7 +646,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, subtitle: {
                 Text("Job 819701")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, detailImage: {
                 Image(systemName: "person").font(Font.system(size: 70))
             })
@@ -669,7 +669,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             })
@@ -701,7 +701,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, descriptionText: {
                 Text("Temperature sensor predicts overheating failure in 4 days Urgent and needs attention sensor predicts overheating failure in 4 days Urgent and need attention.")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             })
@@ -723,7 +723,7 @@ struct ObjectHeader_Preview: PreviewProvider {
             }, footnote: {
                 Text("Due on 12/31/16")
             }, status: {
-                Text("Very High Priority").foregroundColor(.preferredColor(.negative))
+                Text("Very High Priority").foregroundColor(.preferredColor(.negativeLabel))
             }, substatus: {
                 Text("Scheduled")
             }, detailContent: {
