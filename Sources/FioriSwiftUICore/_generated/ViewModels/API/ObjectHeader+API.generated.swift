@@ -27,9 +27,9 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 	let _detailContent: DetailContent
 	@State var mainViewSize: CGSize = .zero
 	@State var currentTabIndex: Int = 0
-	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
 	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
 	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
+	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
 	@State var statusViewSize: CGSize = .zero
 
     private var isModelInit: Bool = false
