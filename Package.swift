@@ -28,7 +28,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
         .package(name: "ObservableArray", url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
-        .package(url: "https://github.com/maparoni/Zip.git", .revision("059e7346082d02de16220cd79df7db18ddeba8c3"))
+        .package(url: "https://github.com/MarcoEidinger/Zip.git", .upToNextMinor(from: "2.1.2"))
     ],
     targets: [
         .target(
