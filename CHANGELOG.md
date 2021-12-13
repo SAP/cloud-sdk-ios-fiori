@@ -2,6 +2,71 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.0...2.0.0) (2021-12-13)
+
+### ⚠ BREAKING CHANGES
+
+* ✏️ Remove trailing underscore in the property names of component models.
+* ✏️ Reorganize those initializer pamameters belonging to the same component into one.
+
+```swift
+// Before
+public init(..., actionText: String? = nil, didSelectAction: (() -> Void)? = nil)
+
+// Now
+public init(..., action: Action? = nil)
+```
+
+### Features
+
+* 🎸 Add 72 fonts ([#334](https://github.com/SAP/cloud-sdk-ios-fiori/issues/334)) ([e9192ae](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e9192aef98832597ed2c3ed21e0ad2d065f2bbbd))
+* 🎸 Add KPIProgressItem ([#309](https://github.com/SAP/cloud-sdk-ios-fiori/issues/309)) ([6aeb5b5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/6aeb5b5f1e81e871c5f7c84eb739a3991ffe3b83))
+* 🎸 Add more features to DataTable ([#378](https://github.com/SAP/cloud-sdk-ios-fiori/issues/378)) ([7e30deb](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7e30deb44b993ef3c7c97c3391a9ce79a1e8d229))
+* 🎸 Add a new control ContactItem ([#307](https://github.com/SAP/cloud-sdk-ios-fiori/issues/307)) ([15eebe3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/15eebe375a2a02a0458de8fb3dfbfcb67cc6b795))
+* 🎸 Add uifont to DataTextItem in DataTable ([#362](https://github.com/SAP/cloud-sdk-ios-fiori/issues/362)) ([#363](https://github.com/SAP/cloud-sdk-ios-fiori/issues/363)) ([ed411e9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ed411e9e2e828ba969f89fe9ea8148edb18c2e7e))
+* 🎸 Fiori next color palette ([#344](https://github.com/SAP/cloud-sdk-ios-fiori/issues/344)) ([322501a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/322501a24d6f5fe867e0892624715fd0e837b35f))
+* 🎸 InlineSignatureControl refactoring ([#352](https://github.com/SAP/cloud-sdk-ios-fiori/issues/352)) ([fb08013](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fb08013039bc882c4dd838e57ec642651cea1027))
+* 🎸 Redo all views and layout process for DataTable ([#351](https://github.com/SAP/cloud-sdk-ios-fiori/issues/351)) ([78ae2ed](https://github.com/SAP/cloud-sdk-ios-fiori/commit/78ae2ed871e0ff8f1feb606fd572d53b85c34c32))
+* 🎸 Signature: new APIs to hide xmark and underline ([#370](https://github.com/SAP/cloud-sdk-ios-fiori/issues/370)) ([c4ffd36](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c4ffd3623106e2fd2b6b0b674d8bfdc19ab73445))
+
+### Bug Fixes
+
+* 🐛 Compilation error for MacCatalyst due to Zip package ([#348](https://github.com/SAP/cloud-sdk-ios-fiori/issues/348)) ([ddf18c5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ddf18c5cc2250fb1d4cf80c1214dfce39fc1881c))
+* 🐛 Croatian translation for "Tap to Sign" ([fb728a8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fb728a8b45407a742c0e28f5128ba0ee6144558b)), closes [#310](https://github.com/SAP/cloud-sdk-ios-fiori/issues/310)
+* 🐛 Dimension selector styling ([#380](https://github.com/SAP/cloud-sdk-ios-fiori/issues/380)) ([a19d9ab](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a19d9aba35165adb85f57e6676a31158b54c43e8))
+* 🐛 Fix an issue in Sourcery related to binding property ([31b2866](https://github.com/SAP/cloud-sdk-ios-fiori/commit/31b28666647815baa2bf509ff875a03faf90c10b))
+* 🐛 Fix an issue in Sourcery related to binding property ([#343](https://github.com/SAP/cloud-sdk-ios-fiori/issues/343)) ([5c4bbbe](https://github.com/SAP/cloud-sdk-ios-fiori/commit/5c4bbbeed8fd68f0cfeeab80dc95616d29d53a3a))
+* 🐛 Fix IntegrationCard examples for data requests ([68ff510](https://github.com/SAP/cloud-sdk-ios-fiori/commit/68ff5104da39fe3e42b94fb6c94db273baa50eb9))
+* 🐛 Honor maxItems in List integration card ([c605b8e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c605b8ef5696a34e1af7a8539774bba6e5de207c))
+* 🐛 Improve data table styling ([#382](https://github.com/SAP/cloud-sdk-ios-fiori/issues/382)) ([e932510](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e932510140d87783f6e9e3be2c476cf9b55e70f0))
+* 🐛 Replace print statements with os_log ([#374](https://github.com/SAP/cloud-sdk-ios-fiori/issues/374)) ([bc542ce](https://github.com/SAP/cloud-sdk-ios-fiori/commit/bc542ce66c71569e11d4c35bd0ad356e2ba2a610))
+* 🐛 Stroke not smooth problem when stroke width is large ([#369](https://github.com/SAP/cloud-sdk-ios-fiori/issues/369)) ([412ac29](https://github.com/SAP/cloud-sdk-ios-fiori/commit/412ac292d281049afb5fb2ad3c51daf33f9dea8d))
+* 🐛 Support chart for iOS Widget ([#329](https://github.com/SAP/cloud-sdk-ios-fiori/issues/329)) ([be896df](https://github.com/SAP/cloud-sdk-ios-fiori/commit/be896df5efc862d25b7a26cabe4b403e49422c42))
+* 🐛 Title of signature capture view use 72-semibold ([#353](https://github.com/SAP/cloud-sdk-ios-fiori/issues/353)) ([0039dc8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0039dc848676a11c894b1428ce9f6f8434574593))
+* 🐛 Xcode 13 compilation error in TimelineItemView ([13c35b6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/13c35b62087a7b34219a5822bf14fa56898343e6))
+* 🐛 Correct the size talbe for 72 font ([#345](https://github.com/SAP/cloud-sdk-ios-fiori/issues/345)) ([c1f4cf5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c1f4cf51118bee40ebeb33ab19c39abd20988ace))
+* 🐛 Data table ios15 crash ([#328](https://github.com/SAP/cloud-sdk-ios-fiori/issues/328)) ([a23964d](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a23964d8404072d67cf94ca2dd9502b9217ef044))
+* 🐛 Data table space issue ([#326](https://github.com/SAP/cloud-sdk-ios-fiori/issues/326)) ([86058d5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/86058d556dca12420b106bdd6f7fe8a15dc01514))
+
+### [1.0.3](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.2...1.0.3) (2021-10-25)
+
+### Bug Fixes
+
+* 🐛 compilation error for MacCatalyst due to Zip package ([31edc2a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/31edc2a7b985d8809033ccc8cacc165891c5acf3))
+
+### [1.0.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.1...1.0.2) (2021-09-28)
+
+### Bug Fixes
+
+* support chart for iOS Widget ([#330](https://github.com/SAP/cloud-sdk-ios-fiori/issues/330)) ([92dbf57](https://github.com/SAP/cloud-sdk-ios-fiori/commit/92dbf576414d0ec230603001556ba05c23e60093))
+
+### [1.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.0...1.0.1) (2021-09-21)
+
+### Bug Fixes
+
+* 🐛 Xcode 13 compilation error in SideBar ([3094ded](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3094ded0fc29e10f062eecffef753f694b741590))
+* 🐛 Xcode 13 compilation error in TimelineItemView ([90060e0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/90060e0313b676bfb5d3df115bffc91f621de735))
+
 ## [1.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/0.9.0...1.0.0) (2021-06-18)
 
 🎸 Introducing `FioriThemeManager`: This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) conforming to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
