@@ -176,6 +176,93 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     var didCancel: (() -> Void)? { get }
 }
 
+// sourcery: virtualPropFormIndex = "@State var _formIndex = 0"
+// sourcery: virtualPropAllowedFormIndexes = "@State var _allowedFormIndexes: [Int] = []"
+// sourcery: generated_component_composite
+public protocol UserConsentViewModel {
+    // sourcery: no_style
+    // sourcery: backingComponent=_UserConsentFormsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var userConsentForms: [UserConsentFormModel] { get }
+ 
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Int, Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: ((Int) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didFinish: (([Int]) -> Void)? { get }
+}
+
+// sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
+// sourcery: virtualPropShowAlert = "@State var _showAlert = false"
+// sourcery: add_env_props = "userConsentFormDidAllow"
+// sourcery: add_env_props = "userConsentFormDidDeny"
+// sourcery: add_env_props = "userConsentFormDidCancel"
+// sourcery: generated_component_composite
+public protocol UserConsentFormModel {
+    // sourcery: genericParameter.name = NextActionView
+    // sourcery: default.value = _NextActionDefault()
+    var nextAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = AllowActionView
+    // sourcery: default.value = _AllowActionDefault()
+    var allowAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = DenyActionView
+    // sourcery: default.value = _DenyActionDefault()
+    var denyAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = NotNowActionView
+    // sourcery: default.value = _NotNowActionDefault()
+    var notNowAction: ActionModel? { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=_UserConsentPagesContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var userConsentPages: [UserConsentPageModel] { get }
+    
+    // sourcery: no_view
+    // sourcery: default.value="true"
+    var isRequired: Bool { get }
+    
+    // sourcery: default.value = AlertConfiguration._UserConsentFormDefault
+    // sourcery: no_view
+    var alertConfiguration: AlertConfiguration { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didAllow: (() -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didDeny: ((Bool) -> Void)? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var didCancel: (() -> Void)? { get }
+}
+
+// sourcery: generated_component_composite
+public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+}
+
 // sourcery: importFrameworks = ["Combine"]
 // sourcery: virtualPropHeightDidChangePublisher = "public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)"
 // sourcery: virtualPropIsEditing = "@State var isEditing = false"

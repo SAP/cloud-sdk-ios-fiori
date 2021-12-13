@@ -239,6 +239,26 @@ extension EnvironmentValues {
         set { self[SaveActionModifierKey.self] = newValue }
     }
 
+    public var nextActionModifier: AnyViewModifier {
+        get { return self[NextActionModifierKey.self] }
+        set { self[NextActionModifierKey.self] = newValue }
+    }
+
+    public var allowActionModifier: AnyViewModifier {
+        get { return self[AllowActionModifierKey.self] }
+        set { self[AllowActionModifierKey.self] = newValue }
+    }
+
+    public var denyActionModifier: AnyViewModifier {
+        get { return self[DenyActionModifierKey.self] }
+        set { self[DenyActionModifierKey.self] = newValue }
+    }
+
+    public var notNowActionModifier: AnyViewModifier {
+        get { return self[NotNowActionModifierKey.self] }
+        set { self[NotNowActionModifierKey.self] = newValue }
+    }
+
 }
 
 public extension View {
@@ -476,6 +496,26 @@ public extension View {
     @ViewBuilder
     func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.saveActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func nextActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.nextActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func allowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.allowActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func denyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.denyActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func notNowActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.notNowActionModifier, AnyViewModifier(transform))
     }
 
 }
