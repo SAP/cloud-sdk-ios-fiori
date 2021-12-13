@@ -21,11 +21,11 @@
       },
       {
         "package": "Zip",
-        "repositoryURL": "https://github.com/maparoni/Zip.git",
+        "repositoryURL": "https://github.com/MarcoEidinger/Zip.git",
         "state": {
           "branch": null,
           "revision": "059e7346082d02de16220cd79df7db18ddeba8c3",
-          "version": null
+          "version": "2.1.2"
         }
       }
     ]
