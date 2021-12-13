@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.0.0...2.0.1) (2021-12-13)
+
+
+### Bug Fixes
+
+* 🐛 use FioriSwiftUI package with version-based requirement ([3eb1bc7](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3eb1bc70e3ab969b916248ee125ab4cf8c10c0a1))
+
 ## [2.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/1.0.0...2.0.0) (2021-12-13)
 
 ### ⚠ BREAKING CHANGES
