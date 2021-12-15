@@ -54,30 +54,34 @@ extension UserConsentForm: View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
             .navigationBarTitle(self.navTitle)
-            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert)
+            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert.0)
     }
     
     var alertConfiguration: AlertConfiguration {
-        var alertConfig = _alertConfiguration
-        if self._showCancelAlert {
-            alertConfig = AlertConfiguration(title: NSLocalizedString("Are you sure you want to quit the onboarding process?", comment: ""), action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
-
-            alertConfig.secondaryAction._didSelectSetter {
-                _alertConfiguration.action.didSelect?()
-                userConsentFormDidCancel?()
-            }
-        } else {
-            alertConfig.action._didSelectSetter {
+        guard let alertConfig = _alertConfiguration?(_showAlert.1) else {
+            fatalError("UserConsentForm: alert configuration cannot be nil")
+        }
+        
+        var newAlertConfig = alertConfig
+        
+        switch _showAlert.1 {
+        case .deny:
+            newAlertConfig.action._didSelectSetter {
                 self.didAllow?()
-                _alertConfiguration.action.didSelect?()
+                alertConfig.action.didSelect?()
             }
-            alertConfig.secondaryAction._didSelectSetter {
+            newAlertConfig.secondaryAction._didSelectSetter {
                 self.didDeny?(self._isRequired)
-                _alertConfiguration.action.didSelect?()
+                alertConfig.secondaryAction.didSelect?()
+            }
+        case .cancel:
+            newAlertConfig.secondaryAction._didSelectSetter {
+                self.didCancel?()
+                alertConfig.secondaryAction.didSelect?()
             }
         }
         
-        return alertConfig
+        return newAlertConfig
     }
     
     @ViewBuilder
@@ -87,9 +91,8 @@ extension UserConsentForm: View {
                 if _isRequired {
                     denyAction
                         .onSimultaneousTapGesture {
-                            if _didDeny == nil {
-                                _showAlert = true
-                                _showCancelAlert = false
+                            if _alertConfiguration?(.deny) != nil {
+                                self._showAlert = (true, .deny)
                             } else {
                                 self.didDeny?(_isRequired)
                             }
@@ -118,7 +121,11 @@ extension UserConsentForm: View {
         case 0:
             cancelAction
                 .onSimultaneousTapGesture {
-                    self.didCancel?()
+                    if _alertConfiguration?(.cancel) != nil {
+                        self._showAlert = (true, .cancel)
+                    } else {
+                        self.didCancel?()
+                    }
                 }
         default:
             Button(NSLocalizedString("Back", comment: ""), action: {
@@ -187,6 +194,15 @@ extension UserConsentForm {
             }
         }
     }
+}
+
+/// The action type of `UserConsentForm` that presents the alert.
+public enum UserConsentAlertType {
+    /// Cancel action
+    case cancel
+    
+    /// Deny action
+    case deny
 }
 
 // FIXME: - Implement UserConsentForm specific LibraryContentProvider

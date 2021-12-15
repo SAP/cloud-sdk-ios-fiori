@@ -20,24 +20,24 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
 	var hidesSignatureLine = false
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	var _drawingViewMaxHeight: CGFloat?
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	var cropsImage = false
-	let _drawingViewMinHeight: CGFloat = 256
-	@State var isReenterTapped = false
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	@State var drawings = [Drawing]()
 	var hidesXmark = false
-	@State var currentDrawing = Drawing()
-	@State var isSaved = false
-	var titleColor = Color.preferredColor(.primaryLabel)
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	@State var fullSignatureImage: UIImage?
-	@State var isEditing = false
+	var _drawingViewMaxHeight: CGFloat?
 	var strokeWidth: CGFloat = 3.0
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var isSaved = false
+	@State var drawings = [Drawing]()
+	let _drawingViewMinHeight: CGFloat = 256
 	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	@State var isEditing = false
+	var cropsImage = false
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	@State var currentDrawing = Drawing()
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	@State var isReenterTapped = false
+	@State var fullSignatureImage: UIImage?
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
