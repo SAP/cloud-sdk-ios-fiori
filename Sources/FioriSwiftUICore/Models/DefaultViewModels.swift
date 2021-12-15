@@ -91,10 +91,9 @@ public struct _SaveActionDefault: ActionModel {
 public let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> AlertConfiguration? = { alertType in
     switch alertType {
     case .deny:
-        // TODO: Localize the cancel string
-        return AlertConfiguration(title: "Without consent you will not be able to continue onboarding.", action: AlertConfiguration.Action(label: NSLocalizedString("Give Consent", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
+        return AlertConfiguration(title: NSLocalizedString("Without consent you will not be able to continue onboarding.", comment: ""), action: AlertConfiguration.Action(label: NSLocalizedString("Give Consent", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
     case .cancel:
-        return AlertConfiguration(title: "Are you sure you want to quit the onboarding process?", action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
+        return AlertConfiguration(title: NSLocalizedString("Are you sure you want to quit the onboarding process?", comment: ""), action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
     }
 }
 

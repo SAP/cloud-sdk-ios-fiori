@@ -182,16 +182,10 @@ extension UserConsentForm {
         if userConsentFormDidCancel == nil, _didCancel == nil {
             return nil
         }
-        if _didCancel == nil {
-            _showCancelAlert = true
-            _showAlert = true
-            return {
-//                userConsentFormDidCancel?()
-            }
-        } else {
-            return {
-                _didCancel?()
-            }
+        
+        return {
+            _didCancel?()
+            userConsentFormDidCancel?()
         }
     }
 }

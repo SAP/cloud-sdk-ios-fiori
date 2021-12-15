@@ -190,6 +190,15 @@ struct UserConsentCustomized: View {
     
     var body: some View {
         let detailText = "Detailed text about how info privacy pertains to this app and why it is important for the user to enable this functionality."
+        let alertConfig: (UserConsentAlertType) -> AlertConfiguration? = { alertType in
+            switch alertType {
+            case .deny:
+                return AlertConfiguration(title: "Customized: You will not be able to continue onboarding if not accept.", action: AlertConfiguration.Action(label: "Accept"), secondaryAction: AlertConfiguration.Action(label: "Deny"))
+            case .cancel:
+                return AlertConfiguration(title: "Customized: Cancel?", action: AlertConfiguration.Action(label: NSLocalizedString("No", comment: "")), secondaryAction: AlertConfiguration.Action(label: NSLocalizedString("Quit", comment: "")))
+            }
+        }
+        
         if #available(iOS 15.0, *) {
             UserConsentView {
                 UserConsentForm(userConsentPages: {
@@ -218,6 +227,7 @@ struct UserConsentCustomized: View {
                                     }
                                 },
                                 isRequired: true,
+                                alertConfiguration: alertConfig,
                                 didAllow: { print("UserConsentForm - didAllow") },
                                 didDeny: { print("UserConsentForm - didDeny: isRequired: \($0)")
                                     if $0 {
@@ -278,7 +288,7 @@ struct UserConsentCustomized: View {
             .alert("Security", isPresented: $showPageInfo3, actions: {}, message: { Text("Several data protection plans provided") })
             .alert("Data Sharing", isPresented: $showPageInfo4, actions: {}, message: { Text("Several data protection plans provided") })
             .alert("Onboarding process canceled", isPresented: $showCancelAlert, actions: { Button("Got it", action: { presentationMode.wrappedValue.dismiss() }) }, message: { Text("Customized message") })
-            .alert("Deny the user consent?", isPresented: $showDenyAlert, actions: { Button("ok", action: { presentationMode.wrappedValue.dismiss() }) }, message: { Text("Costomized alert message") })
+            .alert("The user consent denied", isPresented: $showDenyAlert, actions: { Button("ok", action: { presentationMode.wrappedValue.dismiss() }) }, message: { Text("Costomized alert message") })
         } else {
             // Fallback on earlier versions
         }
