@@ -53,22 +53,34 @@ extension UserConsentForm: View {
     func makeBody() -> some View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
-            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert)
+            .alert(configuration: self.alertConfiguration, isPresented: $_showAlert.0)
     }
     
     var alertConfiguration: AlertConfiguration {
-        var alertConfig = _alertConfiguration
-        
-        alertConfig.action._didSelectSetter {
-            self.didAllow?()
-            _alertConfiguration.action.didSelect?()
-        }
-        alertConfig.secondaryAction._didSelectSetter {
-            self.didDeny?(self._isRequired)
-            _alertConfiguration.action.didSelect?()
+        guard let alertConfig = _alertConfiguration?(_showAlert.1) else {
+            fatalError("UserConsentForm: alert configuration cannot be nil")
         }
         
-        return alertConfig
+        var newAlertConfig = alertConfig
+        
+        switch _showAlert.1 {
+        case .deny:
+            newAlertConfig.action._didSelectSetter {
+                self.didAllow?()
+                alertConfig.action.didSelect?()
+            }
+            newAlertConfig.secondaryAction._didSelectSetter {
+                self.didDeny?(self._isRequired)
+                alertConfig.secondaryAction.didSelect?()
+            }
+        case .cancel:
+            newAlertConfig.secondaryAction._didSelectSetter {
+                self.didCancel?()
+                alertConfig.secondaryAction.didSelect?()
+            }
+        }
+        
+        return newAlertConfig
     }
     
     @ViewBuilder
@@ -78,7 +90,11 @@ extension UserConsentForm: View {
                 if _isRequired {
                     denyAction
                         .onSimultaneousTapGesture {
-                            _showAlert = true
+                            if _alertConfiguration?(.deny) != nil {
+                                self._showAlert = (true, .deny)
+                            } else {
+                                self.didDeny?(_isRequired)
+                            }
                         }
                 } else {
                     notNowAction
@@ -104,7 +120,11 @@ extension UserConsentForm: View {
         case 0:
             cancelAction
                 .onSimultaneousTapGesture {
-                    self.didCancel?()
+                    if _alertConfiguration?(.cancel) != nil {
+                        self._showAlert = (true, .cancel)
+                    } else {
+                        self.didCancel?()
+                    }
                 }
         default:
             Button("Back", action: {
@@ -160,6 +180,15 @@ extension UserConsentForm {
             userConsentFormDidCancel?()
         }
     }
+}
+
+/// The action type of `UserConsentForm` that presents the alert.
+public enum UserConsentAlertType {
+    /// Cancel action
+    case cancel
+    
+    /// Deny action
+    case deny
 }
 
 // FIXME: - Implement UserConsentForm specific LibraryContentProvider

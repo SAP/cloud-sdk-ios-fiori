@@ -204,7 +204,7 @@ public protocol UserConsentViewModel {
 }
 
 // sourcery: virtualPropPageIndex = "@State var _pageIndex = 0"
-// sourcery: virtualPropShowAlert = "@State var _showAlert = false"
+// sourcery: virtualPropShowAlert = "@State var _showAlert: (Bool, UserConsentAlertType) = (false, .deny)"
 // sourcery: add_env_props = "userConsentFormDidAllow"
 // sourcery: add_env_props = "userConsentFormDidDeny"
 // sourcery: add_env_props = "userConsentFormDidCancel"
@@ -240,9 +240,9 @@ public protocol UserConsentFormModel {
     // sourcery: default.value="true"
     var isRequired: Bool { get }
     
-    // sourcery: default.value = AlertConfiguration._UserConsentFormDefault
+    // sourcery: default.value = _UserConsentFormAlertConfigurationDefault
     // sourcery: no_view
-    var alertConfiguration: AlertConfiguration { get }
+    var alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? { get }
     
     // sourcery: default.value = nil
     // sourcery: no_view
