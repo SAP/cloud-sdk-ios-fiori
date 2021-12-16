@@ -51,6 +51,7 @@ extension UserConsentView: View {
             }
             .userConsentFormDidCancel {
                 self._didCancel?(_formIndex)
+                self._didFinish?(_allowedFormIndexes)
             }
     }
 }

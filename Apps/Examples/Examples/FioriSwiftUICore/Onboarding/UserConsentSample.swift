@@ -69,7 +69,7 @@ struct UserConsentViewBuilderExample: View {
             } didDeny: {
                 print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
             } didCancel: { _ in
-                presentationMode.wrappedValue.dismiss()
+                print("UserConsentView - didCancel")
             } didFinish: { _ in
                 presentationMode.wrappedValue.dismiss()
             }
@@ -113,7 +113,7 @@ struct UserConsentSinglePageM: View {
             } didDeny: {
                 print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
             } didCancel: { _ in
-                presentationMode.wrappedValue.dismiss()
+                print("UserConsentView - didCancel")
             } didFinish: { _ in
                 presentationMode.wrappedValue.dismiss()
             }
@@ -147,7 +147,7 @@ struct UserConsentSinglePageO: View {
             } didDeny: {
                 print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
             } didCancel: { _ in
-                presentationMode.wrappedValue.dismiss()
+                print("UserConsentView - didCancel")
             } didFinish: { _ in
                 presentationMode.wrappedValue.dismiss()
             }
@@ -279,7 +279,7 @@ struct UserConsentCustomized: View {
                 print("UserConsentView - didDeny: index: \($0), isRequired: \($1)")
             } didCancel: { _ in
                 showCancelAlert = true
-                presentationMode.wrappedValue.dismiss()
+                print("UserConsentView - didCancel")
             } didFinish: { _ in
                 presentationMode.wrappedValue.dismiss()
             }
