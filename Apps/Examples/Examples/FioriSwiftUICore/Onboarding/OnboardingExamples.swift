@@ -24,7 +24,7 @@ struct OnboardingExamples: View {
                 destination: EULAExamples()) {
                 Text("EULA Examples")
             }
-
+            
             NavigationLink(
                 destination: UserConsentExamples()) {
                 Text("User Consent Form Examples")
@@ -98,27 +98,27 @@ struct EULAExamples: View {
                 destination: EULAViewSample()) {
                 Text("EULA Example")
             }
-
+            
             NavigationLink(
                 destination: EULALongHtmlSample()) {
                 Text("Long HTML")
             }
-
+            
             NavigationLink(
                 destination: EULAShortHtmlSample()) {
                 Text("Short HTML")
             }
-
+            
             NavigationLink(
                 destination: EULAConcatSample()) {
                 Text("Concat Attributed Strings")
             }
-
+            
             NavigationLink(
                 destination: EULAWithLinkSample()) {
                 Text("Short HTML with Link")
             }
-
+            
             NavigationLink(
                 destination: EULAShortWithLinkSample()) {
                 Text("Short Attributed Strings with Link")
@@ -128,7 +128,7 @@ struct EULAExamples: View {
                 destination: EULAViewCustomized()) {
                 Text("Customized EULA Example")
             }
-
+            
         }.navigationBarTitle("EULA Examples", displayMode: .inline)
     }
 }
@@ -137,66 +137,24 @@ struct UserConsentExamples: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: UserConsentViewBuilderExample()) {
-                Text("UserConsentView(ViewBuilder) Example")
+                destination: UserConsentSinglePageM()) {
+                Text("Single Page Form(Mandatory)")
             }
             
-//            NavigationLink(
-//                destination: UserConsentViewBuilderExample()) {
-//                Text("ViewBuilder Example")
-//            }
-//
-//            Group {
-//                NavigationLink(
-//                    destination: UserConsentSinglePageM()) {
-//                    Text("Single Page Form(S)-Mandatory")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentSinglePageO()) {
-//                    Text("Single Page Form(S)-Optional")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMultiplePageM()) {
-//                    Text("Multi Page Form(M)-Mandatory")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMultiplePageO()) {
-//                    Text("Multi Page Form(M)-Optional")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMixFormM()) {
-//                    Text("Mixed Forms: (S, M)-All Mandatory")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMixFormO()) {
-//                    Text("Mixed Forms: (S, M)-All Optional")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMixFormMO()) {
-//                    Text("(S,M,S,M)-S(mandatory)&M(optional)")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentMixFormOM()) {
-//                    Text("(M,S,M,S)-S(optional)&M(mandatory)-Customized")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentSinglePageHTML()) {
-//                    Text("HTML")
-//                }
-//
-//                NavigationLink(
-//                    destination: UserConsentLongText()) {
-//                    Text("Long RTF")
-//                }
-//            }
+            NavigationLink(
+                destination: UserConsentSinglePageO()) {
+                Text("Single Page Form(Optional, Long RTF)")
+            }
+            
+            NavigationLink(
+                destination: UserConsentViewBuilderExample()) {
+                Text("Multiple Forms(ViewBuilder)")
+            }
+            
+            NavigationLink(
+                destination: UserConsentCustomized()) {
+                Text("Multiple Forms(Customized)")
+            }
             
         }.navigationBarTitle("User Consent Examples", displayMode: .inline)
     }

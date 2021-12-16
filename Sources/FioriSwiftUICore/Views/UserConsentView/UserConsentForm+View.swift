@@ -53,6 +53,7 @@ extension UserConsentForm: View {
     func makeBody() -> some View {
         _userConsentPages.view(at: _pageIndex)
             .navigationBarItems(leading: self.navBarLeadingView, trailing: self.navBarTrailingView)
+            .navigationBarTitle(self.navTitle)
             .alert(configuration: self.alertConfiguration, isPresented: $_showAlert.0)
     }
     
@@ -127,7 +128,7 @@ extension UserConsentForm: View {
                     }
                 }
         default:
-            Button("Back", action: {
+            Button(NSLocalizedString("Back", comment: ""), action: {
                 _pageIndex -= 1
             })
         }
@@ -143,6 +144,14 @@ extension UserConsentForm: View {
                 .onSimultaneousTapGesture {
                     _pageIndex += 1
                 }
+        }
+    }
+    
+    private var navTitle: String {
+        if _userConsentPages.count > 1 {
+            return "\(NSLocalizedString("Step", comment: "")) \(_pageIndex + 1) \(NSLocalizedString("of", comment: "")) \(_userConsentPages.count)"
+        } else {
+            return ""
         }
     }
 }
@@ -163,7 +172,6 @@ extension UserConsentForm {
         if userConsentFormDidDeny == nil, _didDeny == nil {
             return nil
         }
-        
         return {
             _didDeny?($0)
             userConsentFormDidDeny?($0)
