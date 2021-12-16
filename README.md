@@ -60,6 +60,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | WelcomeScreen | :white_check_mark: |
 | ActivationScreen | :white_check_mark: |
 | InfoView | :white_check_mark: |
+| User Consent Form | :white_check_mark: |
 | KPIProgressItem | :white_check_mark: | 
 | EULAView | :white_check_mark: |
 | ContactItem | :white_check_mark: | 
