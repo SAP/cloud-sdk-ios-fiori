@@ -22,7 +22,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v1
+      - uses: wagoid/commitlint-github-action@v4
         with:
             configFile: '.github/configActions/commitlint.config.js'
 
