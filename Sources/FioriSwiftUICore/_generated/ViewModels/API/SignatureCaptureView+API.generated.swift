@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 import Combine
@@ -19,25 +19,25 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
+	@State var isEditing = false
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	@State var fullSignatureImage: UIImage?
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	var _drawingViewMaxHeight: CGFloat?
+	@State var currentDrawing = Drawing()
+	var cropsImage = false
+	@State var drawings = [Drawing]()
+	var strokeWidth: CGFloat = 3.0
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
 	var hidesSignatureLine = false
 	var hidesXmark = false
-	var _drawingViewMaxHeight: CGFloat?
-	var strokeWidth: CGFloat = 3.0
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	@State var isSaved = false
-	@State var drawings = [Drawing]()
-	let _drawingViewMinHeight: CGFloat = 256
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	@State var isEditing = false
-	var cropsImage = false
-	var titleColor = Color.preferredColor(.primaryLabel)
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	@State var currentDrawing = Drawing()
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
 	@State var isReenterTapped = false
-	@State var fullSignatureImage: UIImage?
+	@State var isSaved = false
 	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	let _drawingViewMinHeight: CGFloat = 256
+	var titleColor = Color.preferredColor(.primaryLabel)
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false

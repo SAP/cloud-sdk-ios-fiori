@@ -60,7 +60,6 @@ extension UserConsentPage: View {
                 action
                     .padding(.top, 30)
                     .foregroundColor(.preferredColor(.tintColor))
-                    .buttonStyle(StatefulButtonStyle())
             }
         }
         .padding(.top, 2)
