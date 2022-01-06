@@ -87,21 +87,60 @@ public class TableModel: ObservableObject {
     
     @Published private var _rowData: [TableRowItem] = []
     
+    /// show or hide row dividers
+    @Published public var showRowDivider: Bool = true
+    
+    /// show or hide first column divider
+    @Published public var showColoumnDivider: Bool = true
+    
+    // custom header cell's padding; if set it overwrites default value
+    @Published public var headerCellPadding: EdgeInsets? = nil
+    
+    // custom data cell's padding; if set it overwrites default value
+    @Published public var dataCellPadding: EdgeInsets? = nil
+    
+    /// min row height
+    @Published public var minRowHeight: CGFloat = 48
+    
+    /// min column width
+    @Published public var minColumnWidth: CGFloat = 48
+    
+    /// whether allows to display partial row; For Table Card, set this to false
+    @Published public var allowsPartialRowDisplay: Bool = true
+    
+    /// background color
+    @Published public var backgroundColor: Color = TableViewLayout.defaultBackgroundColor
+    
     /// Public initializer for TableModel.
     /// - Parameters:
-    ///   - headerData: Header data for displaying.
-    ///   - rowData: Data for each row.
-    ///   - isHeaderSticky: Set header to be sticky.
-    ///   - isFirstColumnSticky: Set first column to be sticky.
-    ///   - columnAttributes: Column attribute for each column.
+    ///   - headerData: Header data for displaying
+    ///   - rowData: Data for each row
+    ///   - isHeaderSticky: Set header to be sticky
+    ///   - isFirstColumnSticky: Set first column to be sticky
+    ///   - columnAttributes: Column attribute for each column
     ///   - isPinchZoomEnable: Set if pinch and zoom enble, the default is false.
-    ///   - showListView: Show list view in iPhone protrait mode.
+    ///   - showRowDivider: Show or hide row dividers
+    ///   - showColoumnDivider:Show or hide first column divider
+    ///   - headerCellPadding: Custom header cell's padding
+    ///   - dataCellPadding: Custom data cell's padding
+    ///   - minRowHeight: Min row height
+    ///   - minColumnWidth: Min column width
+    ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
+    ///   - showListView: Show list view in iPhone protrait mode
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
                 isHeaderSticky: Bool = false,
                 isFirstColumnSticky: Bool = false,
                 columnAttributes: [ColumnAttribute] = [],
                 isPinchZoomEnable: Bool = false,
+                showRowDivider: Bool = true,
+                showColoumnDivider: Bool = true,
+                headerCellPadding: EdgeInsets? = nil,
+                dataCellPadding: EdgeInsets? = nil,
+                minRowHeight: CGFloat = 48,
+                minColumnWidth: CGFloat = 48,
+                allowsPartialRowDisplay: Bool = true,
+                backgroundColor: Color = Color.preferredColor(.secondaryGroupedBackground),
                 showListView: Bool = false)
     {
         self.headerData = headerData
@@ -110,6 +149,14 @@ public class TableModel: ObservableObject {
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
         self.isPinchZoomEnable = isPinchZoomEnable
+        self.showRowDivider = showRowDivider
+        self.showColoumnDivider = showColoumnDivider
+        self.headerCellPadding = headerCellPadding
+        self.dataCellPadding = dataCellPadding
+        self.minRowHeight = max(1, minRowHeight)
+        self.minColumnWidth = max(1, minColumnWidth)
+        self.allowsPartialRowDisplay = allowsPartialRowDisplay
+        self.backgroundColor = backgroundColor
         self.showListView = showListView
     }
     

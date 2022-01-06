@@ -60,7 +60,6 @@ class LayoutData {
     }
     
     func initRowData(model: TableModel) -> [TableRowItem] {
-        print("LayoutData: initRowData")
         var rowData: [TableRowItem] = []
         if model.hasHeader, let header = model.headerData {
             rowData.append(header)
