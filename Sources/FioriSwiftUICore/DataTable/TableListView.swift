@@ -3,7 +3,6 @@ import SwiftUI
 
 struct TableListView: View {
     @ObservedObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
 
     var body: some View {
         GeometryReader { proxy in
@@ -13,20 +12,22 @@ struct TableListView: View {
     
     func makeBody(in rect: CGRect) -> some View {
         let views = self.layoutManager.getListItems()
-        return List {
+        
+        return VStack(alignment: .leading, spacing: 0) {
             ForEach(0 ..< views.count, id: \.self) { i in
-                views[i]
-                    .background(self.backgroundColor)
-                    .gesture(TapGesture()
-                        .onEnded { _ in
-                            if let handler = self.layoutManager.model.didSelectRowAt {
-                                handler(i)
-                            }
-                        })
+                VStack(alignment: .leading, spacing: 0) {
+                    views[i]
+                        .gesture(TapGesture()
+                            .onEnded { _ in
+                                if let handler = self.layoutManager.model.didSelectRowAt {
+                                    handler(i)
+                                }
+                            })
+                    
+                    Divider()
+                }
             }
-            .listRowBackground(self.backgroundColor)
         }
-        .listStyle(PlainListStyle())
-        .background(self.backgroundColor)
+        .background(self.layoutManager.model.backgroundColor)
     }
 }

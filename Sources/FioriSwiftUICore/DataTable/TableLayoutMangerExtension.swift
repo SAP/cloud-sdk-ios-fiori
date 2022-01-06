@@ -34,10 +34,10 @@ extension TableLayoutManager {
             tmpLayoutData.isEditing = model.isEditing
             tmpLayoutData.sizeClass = self.sizeClass
             tmpLayoutData.size = size
-            tmpLayoutData.headerCellPadding = self.headerCellPadding
-            tmpLayoutData.dataCellPadding = self.dataCellPadding
-            tmpLayoutData.minRowHeight = self.minRowHeight
-            tmpLayoutData.minColumnWidth = self.minColumnWidth
+            tmpLayoutData.headerCellPadding = model.headerCellPadding
+            tmpLayoutData.dataCellPadding = model.dataCellPadding
+            tmpLayoutData.minRowHeight = model.minRowHeight
+            tmpLayoutData.minColumnWidth = model.minColumnWidth
             tmpLayoutData.rowAlignment = model.rowAlignment
             
             if newWorkItem?.isCancelled ?? true {

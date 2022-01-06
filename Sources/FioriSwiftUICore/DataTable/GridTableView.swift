@@ -7,7 +7,6 @@ struct GridTableView: View {
     @Environment(\.sizeCategory) var sizeCategory
     
     @ObservedObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
     
     @State var lastScaleX: CGFloat = 1.0
     @State var lastScaleY: CGFloat = 1.0
@@ -66,7 +65,7 @@ struct GridTableView: View {
             }
         }
         .frame(width: rect.size.width, height: rect.size.height)
-        .background(self.backgroundColor)
+        .background(self.layoutManager.model.backgroundColor)
     }
     
     func makeGridBody(layoutData: LayoutData, rect: CGRect) -> some View {
@@ -99,7 +98,7 @@ struct GridTableView: View {
         // zoom in & out
         let mag = MagnificationGesture()
             .onChanged { value in
-                guard self.layoutManager.isPinchZoomEnable else {
+                guard self.layoutManager.model.isPinchZoomEnable else {
                     return
                 }
                 
@@ -172,7 +171,7 @@ struct GridTableView: View {
                 }
                 
                 // row dividers
-                if layoutManager.showRowDivider {
+                if layoutManager.model.showRowDivider {
                     Rectangle()
                         .fill(Color.preferredColor(.separator))
                         .frame(width: rect.size.width, height: 1)
@@ -184,7 +183,7 @@ struct GridTableView: View {
             }
             
             // first column separator
-            if numbOfColumns > 1 && layoutManager.showColoumnDivider {
+            if numbOfColumns > 1 && layoutManager.model.showColoumnDivider {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosX
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
                 let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY - startPosY
@@ -197,7 +196,7 @@ struct GridTableView: View {
             }
         }
         .frame(width: size.width, height: size.height)
-        .background(self.backgroundColor)
+        .background(self.layoutManager.model.backgroundColor)
         .gesture(drag)
         .gesture(mag)
     }
@@ -218,7 +217,7 @@ struct GridTableView: View {
     func showTheRow(for rowIndex: Int, y: CGFloat, startPosY: CGFloat, layoutData: LayoutData, size: CGSize) -> Bool {
         let hasStickyHeader = self.layoutManager.model.isHeaderSticky && self.layoutManager.model.hasHeader
         
-        if self.layoutManager.allowsPartialRowDisplay || (hasStickyHeader && rowIndex == 0) {
+        if self.layoutManager.model.allowsPartialRowDisplay || (hasStickyHeader && rowIndex == 0) {
             return true
         }
         
