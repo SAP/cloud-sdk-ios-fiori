@@ -118,6 +118,7 @@ public class TableModel: ObservableObject {
     ///   - isHeaderSticky: Set header to be sticky
     ///   - isFirstColumnSticky: Set first column to be sticky
     ///   - columnAttributes: Column attribute for each column
+    ///   - rowAlignment: Row alighnemt
     ///   - isPinchZoomEnable: Set if pinch and zoom enble, the default is false.
     ///   - showRowDivider: Show or hide row dividers
     ///   - showColoumnDivider:Show or hide first column divider
@@ -126,12 +127,14 @@ public class TableModel: ObservableObject {
     ///   - minRowHeight: Min row height
     ///   - minColumnWidth: Min column width
     ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
+    ///   - backgroundColor: background color
     ///   - showListView: Show list view in iPhone protrait mode
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
                 isHeaderSticky: Bool = false,
                 isFirstColumnSticky: Bool = false,
                 columnAttributes: [ColumnAttribute] = [],
+                rowAlignment: RowAlignment = .top,
                 isPinchZoomEnable: Bool = false,
                 showRowDivider: Bool = true,
                 showColoumnDivider: Bool = true,
@@ -148,6 +151,7 @@ public class TableModel: ObservableObject {
         self.isHeaderSticky = headerData == nil ? false : isHeaderSticky
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
+        self.rowAlignment = rowAlignment
         self.isPinchZoomEnable = isPinchZoomEnable
         self.showRowDivider = showRowDivider
         self.showColoumnDivider = showColoumnDivider
