@@ -5,7 +5,6 @@ struct LeadingAccessoryView: View {
     let rowIndex: Int
     
     @EnvironmentObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
     
     init(rowIndex: Int) {
         self.rowIndex = rowIndex
@@ -52,7 +51,7 @@ struct LeadingAccessoryView: View {
         }
         .frame(width: layoutData.leadingAccessoryViewWidth * self.layoutManager.scaleX,
                height: layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY)
-        .background(self.backgroundColor)
+        .background(self.layoutManager.model.backgroundColor)
     }
     
     func makeButton(button: AccessoryButton) -> some View {
