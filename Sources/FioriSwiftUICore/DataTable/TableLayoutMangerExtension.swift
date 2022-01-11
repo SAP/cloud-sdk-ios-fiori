@@ -20,6 +20,7 @@ extension TableLayoutManager {
         if needToInitModel {
             self.model.needsCalculateLayout = false
             self.cacheLayoutData = nil
+            self.selectedIndexes = self.model.selectedIndexes
         }
     
         self.layoutData = nil
@@ -33,13 +34,20 @@ extension TableLayoutManager {
             tmpLayoutData.isEditing = model.isEditing
             tmpLayoutData.sizeClass = self.sizeClass
             tmpLayoutData.size = size
+            tmpLayoutData.headerCellPadding = model.headerCellPadding
+            tmpLayoutData.dataCellPadding = model.dataCellPadding
+            tmpLayoutData.minRowHeight = model.minRowHeight
+            tmpLayoutData.minColumnWidth = model.minColumnWidth
+            tmpLayoutData.rowAlignment = model.rowAlignment
             
             if newWorkItem?.isCancelled ?? true {
                 return
             }
             if needToInitModel {
                 tmpLayoutData.rowData = tmpLayoutData.initRowData(model: model)
-                tmpLayoutData.allDataItems = tmpLayoutData.initItems(model: model, workItem: newWorkItem)
+                let (di, fbh) = tmpLayoutData.initItems(model: model, workItem: newWorkItem)
+                tmpLayoutData.allDataItems = di
+                tmpLayoutData.firstBaselineHeights = fbh
             } else {
                 tmpLayoutData.copyCacheData(self.cacheLayoutData)
             }
@@ -53,7 +61,7 @@ extension TableLayoutManager {
                 return
             }
             tmpLayoutData.trailingAccessoryViewWidth = tmpLayoutData.getTrailingAccessoryViewWidth()
-            tmpLayoutData.contentInset = TableViewLayout.contentInset(sizeClass: self.sizeClass)
+//            tmpLayoutData.contentInset = TableViewLayout.contentInset(sizeClass: self.sizeClass)
              
             if newWorkItem?.isCancelled ?? true {
                 return
@@ -115,22 +123,31 @@ extension TableLayoutManager {
             }
         }
         
-        return
-            ObjectItem {
-                textBindings[.title]
-            } subtitle: {
-                textBindings[.subtitle]
-            } footnote: {
-                textBindings[.footnote]
-            } status: {
-                textBindings[.status] ?? imageBindings[.statusImage]
-            } substatus: {
-                textBindings[.substatus] ?? imageBindings[.substatusImage]
-            } detailImage: {
-                imageBindings[.detailImage]?.frame(width: 45, height: 45, alignment: .center)
-            } icons: {
-                self.generateIconStack(icons: row.leadingAccessories)
+        return Group {
+            if textBindings.count == 2 && textBindings.keys.contains(.title) && textBindings.keys.contains(.subtitle) {
+                ObjectItem {
+                    textBindings[.title]
+                } subtitle: {
+                    textBindings[.subtitle]
+                }
+            } else {
+                ObjectItem {
+                    textBindings[.title]
+                } subtitle: {
+                    textBindings[.subtitle]
+                } footnote: {
+                    textBindings[.footnote]
+                } status: {
+                    textBindings[.status] ?? imageBindings[.statusImage]
+                } substatus: {
+                    textBindings[.substatus] ?? imageBindings[.substatusImage]
+                } detailImage: {
+                    imageBindings[.detailImage]?.frame(width: 45, height: 45, alignment: .center)
+                } icons: {
+                    self.generateIconStack(icons: row.leadingAccessories)
+                }
             }
+        }
     }
     
     func generateIconStack(icons: [AccessoryItem]) -> some View {

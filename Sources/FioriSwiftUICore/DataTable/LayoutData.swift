@@ -10,9 +10,21 @@ class LayoutData {
     
     var hasHeader: Bool = false
     
+    // custom header cell's padding; if set it overwrites default value
+    var headerCellPadding: EdgeInsets?
+    
+    // custom header cell's padding; if set it overwrites default value
+    var dataCellPadding: EdgeInsets?
+    
+    var minRowHeight: CGFloat = 48
+    
+    var minColumnWidth: CGFloat = 48
+    
     var rowData: [TableRowItem] = []
     
     var columnAttributes: [ColumnAttribute] = []
+    
+    var rowAlignment: RowAlignment = .top
     
     var allDataItems: [[DataTableItem]] = []
     
@@ -22,7 +34,8 @@ class LayoutData {
     /// row height including top and bottom padding
     var rowHeights: [CGFloat] = []
     
-    var contentInset: CGFloat = 0
+    /// firstBaselineHeights for rows
+    var firstBaselineHeights: [CGFloat] = []
     
     var leadingAccessoryViewWidth: CGFloat = 0
     var trailingAccessoryViewWidth: CGFloat = 0
@@ -61,32 +74,34 @@ class LayoutData {
         return rowData
     }
     
-    func initItems(model: TableModel, workItem: DispatchWorkItem?) -> [[DataTableItem]] {
+    func initItems(model: TableModel, workItem: DispatchWorkItem?) -> ([[DataTableItem]], [CGFloat]) {
         let numbOfRows = self.numberOfRows()
         var res: [[DataTableItem]] = []
-        
+        var maxFirstBaselineHeights = [CGFloat]()
         for i in 0 ..< numbOfRows {
             if workItem?.isCancelled ?? true {
-                return [[]]
+                return ([[]], [])
             }
             
-            let items = self.createDataItemForRow(model: model, at: i, workItem: workItem)
+            let (items, maxFirstBaselineHeight) = self.createDataItemForRow(model: model, at: i, workItem: workItem)
             res.append(items)
+            maxFirstBaselineHeights.append(maxFirstBaselineHeight)
         }
         
-        return res
+        return (res, maxFirstBaselineHeights)
     }
     
-    func createDataItemForRow(model: TableModel, at index: Int, workItem: DispatchWorkItem?) -> [DataTableItem] {
+    func createDataItemForRow(model: TableModel, at index: Int, workItem: DispatchWorkItem?) -> ([DataTableItem], CGFloat) {
         let numOfColumns = self.numberOfColumns()
         
         let dataInEachRow = self.rowData[index].data
         let isHeader: Bool = index == 0 && self.hasHeader
         
+        var maxFirstBaselineHeight: CGFloat = 0
         var res: [DataTableItem] = []
         for i in 0 ..< numOfColumns {
             if workItem?.isCancelled ?? true {
-                return []
+                return ([], 0)
             }
             
             var contentWidth = CGFloat(MAXFLOAT)
@@ -134,6 +149,8 @@ class LayoutData {
                 } else {
                     uifont = TableViewLayout.defaultUIFont(isHeader)
                 }
+                let firstBaselineHeight = uifont.lineHeight + uifont.descender
+                maxFirstBaselineHeight = max(maxFirstBaselineHeight, firstBaselineHeight)
                 let textColor = item.textColor ?? TableViewLayout.defaultFontColor(isHeader)
                 var size: CGSize = .zero
                 if contentWidth > 0 {
@@ -144,6 +161,7 @@ class LayoutData {
                 res.append(DataTableItem(index: index,
                                          columnIndex: i,
                                          value: .text(title),
+                                         firstBaselineHeight: firstBaselineHeight,
                                          pos: .zero,
                                          font: font,
                                          uifont: item.uifont,
@@ -166,7 +184,7 @@ class LayoutData {
             }
         }
         
-        return res
+        return (res, maxFirstBaselineHeight)
     }
     
     func getTrailingAccessoryViewWidth() -> CGFloat {
@@ -314,17 +332,28 @@ class LayoutData {
         let currentItem = self.allDataItems[rowIndex][columnIndex]
         let contentWidth = currentItem.size.width
         let maxColumnWidth: CGFloat = containerWidth * TableViewLayout.maxColumnWidth
-//        let minColumnWidth: CGFloat = containerWidth * TableViewLayout.minColumnWidth
-        let minColumnWidth: CGFloat = TableViewLayout.minColumnWidthInPt
-        
         let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
         let contentWidthWithPaddings: CGFloat = contentWidth + contentInset.horizontal
         
-        return applyMaxColumnWidthRule ? min(maxColumnWidth, max(minColumnWidth, contentWidthWithPaddings)) : contentWidthWithPaddings
+        return applyMaxColumnWidthRule ? min(maxColumnWidth, max(self.minColumnWidth, contentWidthWithPaddings)) : contentWidthWithPaddings
     }
     
     func cellContentInsets(for rowIndex: Int, columnIndex: Int) -> EdgeInsets {
         let isHeader = self.hasHeader && rowIndex == 0
+        if let padding = headerCellPadding, isHeader {
+            return padding
+        }
+        
+        if let padding = dataCellPadding {
+            if columnIndex == 0 {
+                return EdgeInsets(top: padding.top, leading: 0, bottom: padding.bottom, trailing: padding.trailing)
+            } else if columnIndex == numOfColumns - 1 {
+                return EdgeInsets(top: padding.top, leading: padding.leading, bottom: padding.bottom, trailing: 0)
+            } else {
+                return padding
+            }
+        }
+        
         let vPadding = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
         let contentInset: CGFloat = TableViewLayout.contentInset(sizeClass: self.sizeClass)
         
@@ -354,7 +383,6 @@ class LayoutData {
             
             var itemHeight: CGFloat = 0
             let isHeader = self.hasHeader && rowIndex == 0
-            let topAndBottom = isHeader ? TableViewLayout.topAndBottomPaddingsForHeader : TableViewLayout.topAndBottomPaddings
             
             for columnIndex in self.allDataItems[rowIndex].indices {
                 if workItem?.isCancelled ?? true {
@@ -387,6 +415,10 @@ class LayoutData {
                         }
 
                         itemHeight = max(size.height, itemHeight)
+                        if self.rowAlignment == .baseline {
+                            let baselineHeightOffset = self.firstBaselineHeights[rowIndex] - item.firstBaselineHeight
+                            itemHeight += baselineHeightOffset
+                        }
                     }
                     
                 case .image:
@@ -394,7 +426,8 @@ class LayoutData {
                 }
             }
             
-            let rowHeight = max(itemHeight + topAndBottom * 2, TableViewLayout.minRowHeight)
+            let verticalPadding = self.cellContentInsets(for: rowIndex, columnIndex: 0).vertical
+            let rowHeight = max(itemHeight + verticalPadding, self.minRowHeight)
             heights.append(rowHeight)
         }
         
@@ -433,6 +466,7 @@ class LayoutData {
         self.rowData = ld.rowData
         self.columnAttributes = ld.columnAttributes
         self.allDataItems = ld.allDataItems
+        self.firstBaselineHeights = ld.firstBaselineHeights
     }
     
     func multipleLineTextSize(text: String, font: UIFont, numberOfLines: Int, width: CGFloat) -> CGSize {

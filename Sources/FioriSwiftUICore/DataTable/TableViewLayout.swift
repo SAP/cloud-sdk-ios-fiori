@@ -8,21 +8,19 @@ enum TableViewLayout {
     ///
     static let minItemWidth: CGFloat = 90
     
-    static let seperationLineColor = Color(red: 243, green: 243, blue: 243)
+    static let seperationLineColor = Color.preferredColor(.separator)
     
-    static let defaultBackgroundColor = Color.preferredColor(.primaryBackground)
+    static let defaultBackgroundColor = Color.preferredColor(.secondaryGroupedBackground)
     
     static let defaultForegroundColor = Color.preferredColor(.quarternaryLabel)
     
     static let lineShadowColor = Color(red: 0, green: 0, blue: 0).opacity(0.15)
     
-    static let lineShadowOffset: CGFloat = 0.5
+    static let lineShadowOffset: CGFloat = 2.0
     
     static let lineBorderRadius: CGFloat = 0
     
-    static let lineHeight: CGFloat = 1
-    
-    static let minRowHeight: CGFloat = 48
+    static let lineHeight: CGFloat = 0.33
                 
     static let columnGapInCompact: CGFloat = 8
     
@@ -35,8 +33,6 @@ enum TableViewLayout {
     
     static let minColumnWidth: CGFloat = 0.25
     static let maxColumnWidth: CGFloat = 0.5
-    
-    static let minColumnWidthInPt: CGFloat = 48
     
     /// fixed image size
     static let imageSize: CGFloat = 45
@@ -102,18 +98,5 @@ extension TextAlignment {
         case .center:
             return .center
         }
-    }
-}
-
-// 1. Create the key with a default value
-private struct BackgroundColorKey: EnvironmentKey {
-    static let defaultValue = TableViewLayout.defaultBackgroundColor
-}
-
-// 2. Extend the environment with our property
-extension EnvironmentValues {
-    var backgroundColor: Color {
-        get { self[BackgroundColorKey.self] }
-        set { self[BackgroundColorKey.self] = newValue }
     }
 }
