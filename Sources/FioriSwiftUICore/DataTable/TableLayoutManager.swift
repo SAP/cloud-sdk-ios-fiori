@@ -92,8 +92,6 @@ class TableLayoutManager: ObservableObject {
     
     @Published var centerPosition: CGPoint? = nil
     
-    @Published var isPinchZoomEnable: Bool = false
-    
     @Published var selectedIndexes: [Int] = []
     
     var layoutWorkItem: DispatchWorkItem?
@@ -123,14 +121,13 @@ class TableLayoutManager: ObservableObject {
         self.model = model
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
-        self.isPinchZoomEnable = model.isPinchZoomEnable
         self.selectedIndexes = model.selectedIndexes
     }
     
     func resetPosition() {
         self.scaleX = 1.0
         self.scaleY = 1.0
-        
+
         self.centerPosition = nil
     }
 }
