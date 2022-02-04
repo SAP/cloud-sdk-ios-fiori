@@ -41,15 +41,12 @@ public class ThemeManager {
     
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
-        switch self.paletteVersion {
-        case .v6:
+        let compatibleDefinitions = self.mergedCompatibleDefinitions()
+        guard !compatibleDefinitions.isEmpty else {
             return self.mergedDeprecatedDefinitions()[style]
-        case .v3_x, .v3_2, .v4, .v5:
-            let _style = self.mergedCompatibleDefinitions()[style] ?? style
-            return self.mergedDeprecatedDefinitions()[_style]
-        default:
-            return self.palette.hexColor(for: style)
         }
+        let _style = compatibleDefinitions[style] ?? style
+        return self.mergedDeprecatedDefinitions()[_style]
     }
     
     /// Merges deprecated styles till the `current` palette.

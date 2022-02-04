@@ -100,16 +100,3 @@ extension TextAlignment {
         }
     }
 }
-
-// 1. Create the key with a default value
-private struct BackgroundColorKey: EnvironmentKey {
-    static let defaultValue = TableViewLayout.defaultBackgroundColor
-}
-
-// 2. Extend the environment with our property
-extension EnvironmentValues {
-    var backgroundColor: Color {
-        get { self[BackgroundColorKey.self] }
-        set { self[BackgroundColorKey.self] = newValue }
-    }
-}
