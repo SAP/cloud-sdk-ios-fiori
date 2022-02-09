@@ -500,7 +500,7 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/A93E00.png&text=+)        Hex color: #A93E00FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/F58B00.png&text=+)        Hex color: #F58B00FF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/F58B00.png&text=+)        Hex color: #C35500FF
     case criticalLabel
     
     /// Semantic color for "negative" (bad) background, with light and dark color variants.
