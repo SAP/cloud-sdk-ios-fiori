@@ -113,7 +113,7 @@ struct PaletteV6: PaletteProvider {
         /// Semantic Colors
         .negativeLabel: HexColor(lightColor: "FF5C77FF", darkColor: "D20A0AFF", contrastLightColor: "FFC2D6FF", contrastDarkColor: "840606FF"),
         .positiveLabel: HexColor(lightColor: "5DC122FF", darkColor: "256F3AFF", contrastLightColor: "A5E25AFF", contrastDarkColor: "1B502AFF"),
-        .criticalLabel: HexColor(lightColor: "F58B00FF", darkColor: "A93E00FF", contrastLightColor: "FFDA5CFF", contrastDarkColor: "7A2D00FF"),
+        .criticalLabel: HexColor(lightColor: "C35500FF", darkColor: "A93E00FF", contrastLightColor: "FFDA5CFF", contrastDarkColor: "7A2D00FF"),
         .negativeBackground: HexColor(lightColor: "350000FF", darkColor: "FFEAF4FF", contrastLightColor: "660505FF", contrastDarkColor: "FFE0EFFF"),
         .positiveBackground: HexColor(lightColor: "0E2B16FF", darkColor: "F5FAE5FF", contrastLightColor: "13391EFF", contrastDarkColor: "EEF7D4FF"),
         .criticalBackground: HexColor(lightColor: "450B00FF", darkColor: "FFF8D6FF", contrastLightColor: "5C1B00FF", contrastDarkColor: "FFF5C2FF"),
