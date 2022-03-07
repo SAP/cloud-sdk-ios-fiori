@@ -8,7 +8,7 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 
 This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`.
 
-- FioriThemeManager (*API documentation coming soon*)
+- [FioriThemeManager](./themeManager/index.html)
 - FioriSwiftUICore (*API documentation coming soon*)
 - [FioriCharts](./charts/index.html)
 - [FioriIntegrationCards](./integrationCards/index.html)
