@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Color Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Extension/Color" class="dashAnchor"></a>
+    <a title="Color Extension Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">FioriThemeManager Docs</a>
+          <span class="no-mobile"></span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">FioriThemeManager Reference</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+          </span>
+          Color Extension Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>Color</h1>
+                <div class="declaration">
+                  <div class="language">
+                    
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Color</span></code></pre>
+
+                  </div>
+                </div>
+              
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI5ColorV17FioriThemeManagerE09preferredC0_10background9interface7displayAcD0C5StyleO_AD010BackgroundC6SchemeOSgAD14InterfaceLevelOSgAD0C11DisplayModeOSgtFZ"></a>
+                      <a name="//apple_ref/swift/Method/preferredColor(_:background:interface:display:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI5ColorV17FioriThemeManagerE09preferredC0_10background9interface7displayAcD0C5StyleO_AD010BackgroundC6SchemeOSgAD14InterfaceLevelOSgAD0C11DisplayModeOSgtFZ">preferredColor(_:<wbr>background:<wbr>interface:<wbr>display:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Extension to <code>Color</code>, to return colors from the latest version of preset color palette used by <code><a href="../Classes/ThemeManager.html">ThemeManager</a></code>.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">preferredColor</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorStyle.html">ColorStyle</a></span><span class="p">,</span> <span class="n">background</span> <span class="nv">scheme</span><span class="p">:</span> <span class="kt"><a href="../Enums/BackgroundColorScheme.html">BackgroundColorScheme</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">interface</span> <span class="nv">level</span><span class="p">:</span> <span class="kt"><a href="../Enums/InterfaceLevel.html">InterfaceLevel</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">display</span> <span class="nv">mode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ColorDisplayMode.html">ColorDisplayMode</a></span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">device</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Color</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>style</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p><code><a href="../Enums/ColorStyle.html">ColorStyle</a></code> enum from the color palette.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>scheme</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>specifies whether the color should be used in front of a <em>light</em> background, or a <em>dark</em> background.  E.g. a &ldquo;white&rdquo; background is a &ldquo;light&rdquo; background.  A &ldquo;dark blue&rdquo; background is a &ldquo;dark&rdquo; background.  Defaults to <code>.device</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>level</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>specifies whether the color sould be used in the <em>base</em> or <em>elevated</em> level of the interface. E.g. alerts and popovers will be assigned with the <em>elevated</em> interface level. Defaults to <code>.device</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>a dynamic color provider wrapped in <code>Color</code></p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI5ColorV17FioriThemeManagerE08resolvedC04with2inAcA0C6SchemeOSg_So20UIUserInterfaceLevelVSgtF"></a>
+                      <a name="//apple_ref/swift/Method/resolvedColor(with:in:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI5ColorV17FioriThemeManagerE08resolvedC04with2inAcA0C6SchemeOSg_So20UIUserInterfaceLevelVSgtF">resolvedColor(with:<wbr>in:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Extension to <code>Color</code>, to resolve a static form of <code>Color</code> from the wrapped dynamic color provider.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">resolvedColor</span><span class="p">(</span><span class="n">with</span> <span class="nv">scheme</span><span class="p">:</span> <span class="kt">ColorScheme</span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">light</span><span class="p">,</span> <span class="k">in</span> <span class="nv">level</span><span class="p">:</span> <span class="kt">UIUserInterfaceLevel</span><span class="p">?</span> <span class="o">=</span> <span class="o">.</span><span class="n">base</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Color</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>scheme</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>specifies whether the color should be used in front of a <em>light</em> background, or a <em>dark</em> background. Defaults to <code>.light</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>level</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>specifies whether the color sould be used in the <em>base</em> or <em>elevated</em> level of the interface. Defaults to <code>.base</code>.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div>
+                          <h4>Return Value</h4>
+                          <p>a static form of <code>Color</code>resolved from the dynamic color provider.</p>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:7SwiftUI5ColorV17FioriThemeManagerE02uiC0So7UIColorCyF"></a>
+                      <a name="//apple_ref/swift/Method/uiColor()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:7SwiftUI5ColorV17FioriThemeManagerE02uiC0So7UIColorCyF">uiColor()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">uiColor</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">UIColor</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/ThemeManager.html">ThemeManager</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/BackgroundColorScheme.html">BackgroundColorScheme</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorDisplayMode.html">ColorDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorStyle.html">ColorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ColorVariant.html">ColorVariant</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/InterfaceLevel.html">InterfaceLevel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/PaletteVersion.html">PaletteVersion</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/Color.html">Color</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Font.html">Font</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Extensions/Font/FioriTextStyle.html">– FioriTextStyle</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Protocols/PaletteProvider.html">PaletteProvider</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Structs/HexColor.html">HexColor</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/Palette.html">Palette</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2022-03-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

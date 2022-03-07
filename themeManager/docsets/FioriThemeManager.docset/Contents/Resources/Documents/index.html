@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>FioriThemeManager  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="FioriThemeManager  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="index.html">FioriThemeManager Docs</a>
+          <span class="no-mobile"></span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="index.html">FioriThemeManager Reference</a>
+            <img id="carat" src="img/carat.png" alt=""/>
+          </span>
+          FioriThemeManager  Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              
+              <h1 id='fiorithememanager' class='heading'>FioriThemeManager</h1>
+
+<p>This module provides a <a href="https://experience.sap.com/fiori-design-ios/article/colors/">color palette</a> and a new font family <a href="https://experience.sap.com/72/">SAP 72</a> that conform to <a href="https://experience.sap.com/fiori-design-ios/">Fiori Design Language</a>. It is adopted by all the Fiori components in both this package and SAPFiori.</p>
+
+<p>All Fiori Colors are dynamic colors, which means they will adjust based on iOS Appearance settings (Light/Dark). Accessing Fiori Color using <code>Color.preferredFioriColor(forStyle:)</code>.</p>
+
+<p>72 is a SAP patent typeface that delivers great reading experience to our users. You can get these fonts using <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE5fiori12forTextStyleA2cDE0diJ0O_tFZ">Font.fiori(forTextStyle:)</a></code> or <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE14fioriCondensed12forTextStyleA2cDE0djK0O_tFZ">Font.fioriCondensed(forTextStyle:)</a></code>. Note that these fonts support Dynamic Type out of the box. If you want the fonts with fixed size, use <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE5fiori9fixedSizeAC12CoreGraphics7CGFloatV_tFZ">Font.fiori(fixedSize:)</a></code> or <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE14fioriCondensed9fixedSizeAC12CoreGraphics7CGFloatV_tFZ">Font.fioriCondensed(fixedSize:)</a></code> instead.</p>
+
+<blockquote>
+<p>Custom fonts need to be loaded and registered during App&rsquo;s runtime. Make sure you call <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE08registerD5FontsyyFZ">Font.registerFioriFonts()</a></code> inside <code>application(_:didFinishLaunchingWithOptions:)</code> of your <code>AppDelegate</code>.</p>
+</blockquote>
+
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Classes/ThemeManager.html">ThemeManager</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Enums/BackgroundColorScheme.html">BackgroundColorScheme</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ColorDisplayMode.html">ColorDisplayMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ColorStyle.html">ColorStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/ColorVariant.html">ColorVariant</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/InterfaceLevel.html">InterfaceLevel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Enums/PaletteVersion.html">PaletteVersion</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Extensions/Color.html">Color</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Extensions/Font.html">Font</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Extensions/Font/FioriTextStyle.html">– FioriTextStyle</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Protocols.html">Protocols</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Protocols/PaletteProvider.html">PaletteProvider</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="Structs/HexColor.html">HexColor</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="Structs/Palette.html">Palette</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2022-03-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

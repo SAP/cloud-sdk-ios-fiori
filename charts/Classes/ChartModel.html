@@ -1,0 +1,1622 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ChartModel Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+	<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1.0" />
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/ChartModel" class="dashAnchor"></a>
+    <a title="ChartModel Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p>
+          <a href="../index.html">FioriCharts Docs</a>
+          <span class="no-mobile"></span>
+        </p>
+    
+    
+      </div>
+    </header>
+    <div id="breadcrumbs-container">
+      <div class="content-wrapper">
+        <p id="breadcrumbs">
+          <span class="no-mobile">
+            <a href="../index.html">FioriCharts Reference</a>
+            <img id="carat" src="../img/carat.png" alt=""/>
+          </span>
+          ChartModel Class Reference
+        </p>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="article-wrapper">
+        <article class="main-content">
+          <section>
+            <section class="section">
+              <h1>ChartModel</h1>
+                <div class="declaration">
+                  <div class="language">
+                    
+                    <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">ChartModel</span> <span class="p">:</span> <span class="kt">ObservableObject</span><span class="p">,</span> <span class="kt">Identifiable</span><span class="p">,</span> <span class="kt">NSCopying</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ChartModel</span><span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ChartModel</span><span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                  </div>
+                </div>
+              <p>A common data model for all charts. Chart properties can be initialized in init() or changed after init().</p>
+<h2 id='usage' class='heading'>Usage</h2>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">model</span> <span class="o">=</span> <span class="kt">ChartModel</span><span class="p">(</span><span class="nv">chartType</span><span class="p">:</span> <span class="o">.</span><span class="n">line</span><span class="p">,</span>
+           <span class="nv">data</span><span class="p">:</span> <span class="p">[[</span><span class="kc">nil</span><span class="p">,</span> <span class="mi">220</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">230</span><span class="p">],</span>
+                  <span class="p">[</span><span class="mi">160</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">170</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="mi">190</span><span class="p">,</span> <span class="mi">180</span><span class="p">]],</span>
+           <span class="nv">titlesForCategory</span><span class="p">:</span> <span class="p">[[</span><span class="s">"Jan"</span><span class="p">,</span> <span class="s">"Feb"</span><span class="p">,</span> <span class="s">"Mar"</span><span class="p">,</span> <span class="s">"Apr"</span><span class="p">,</span> <span class="s">"May"</span><span class="p">,</span> <span class="s">"Jun"</span><span class="p">,</span> <span class="s">"Jul"</span><span class="p">]]</span>
+<span class="p">)</span>
+
+</code></pre>
+
+            </section>
+            <section class="section task-group-section">
+              <div class="task-group">
+                <ul>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13DimensionDataO"></a>
+                      <a name="//apple_ref/swift/Enum/DimensionData" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13DimensionDataO">DimensionData</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>An internal data structure to hold a single piece of data or an array of data</p>
+
+                          <a href="../Classes/ChartModel/DimensionData.html" class="slightly-smaller">See more</a>
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">DimensionData</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span><span class="p">,</span> <span class="kt">Equatable</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC9chartTypeAA0cF0Ovp"></a>
+                      <a name="//apple_ref/swift/Property/chartType" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC9chartTypeAA0cF0Ovp">chartType</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>chart type</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">chartType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartType.html">ChartType</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC16seriesAttributesSayAA0c6SeriesF0CGvp"></a>
+                      <a name="//apple_ref/swift/Property/seriesAttributes" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC16seriesAttributesSayAA0c6SeriesF0CGvp">seriesAttributes</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>seires attributes</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">seriesAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/ChartSeriesAttributes.html">ChartSeriesAttributes</a></span><span class="p">]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC12categoryAxisAA0c8CategoryF10AttributesCvp"></a>
+                      <a name="//apple_ref/swift/Property/categoryAxis" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC12categoryAxisAA0c8CategoryF10AttributesCvp">categoryAxis</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Provides attributes for the category axis.</p>
+
+<ul>
+<li>For stock, clustered column, line, and combo charts this is the X axis.</li>
+<li>For bar charts this is the Y axis.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">categoryAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartCategoryAxisAttributes.html">ChartCategoryAxisAttributes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC11numericAxisAA0c7NumericF10AttributesCvp"></a>
+                      <a name="//apple_ref/swift/Property/numericAxis" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC11numericAxisAA0c7NumericF10AttributesCvp">numericAxis</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Provides attributes for the primary numeric axis.</p>
+
+<ul>
+<li>For stock, clustered column, line, and combo charts this is the Y axis.</li>
+<li>For bar charts this is the X axis.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">numericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC20secondaryNumericAxisAA0cfG10AttributesCvp"></a>
+                      <a name="//apple_ref/swift/Property/secondaryNumericAxis" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC20secondaryNumericAxisAA0cfG10AttributesCvp">secondaryNumericAxis</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Provides attributes for the secondary numeric axis.</p>
+
+<ul>
+<li>For clustered line, area and combo charts this is the secondary Y axis.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">secondaryNumericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC17colorsForCategorySDySiSDySi7SwiftUI5ColorVGGvp"></a>
+                      <a name="//apple_ref/swift/Property/colorsForCategory" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC17colorsForCategorySDySiSDySi7SwiftUI5ColorVGGvp">colorsForCategory</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>colors for any category in any series
+it is optional. this color overwrite the color from seriesAttributes
+format: [seriesIndex1:  [catrgoryIndex1: Color,  &hellip;, catrgoryIndexN: Color], &hellip; , seriesIndexN:  [catrgoryIndex1: Color,  &hellip;, catrgoryIndexM: Color]]</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">colorsForCategory</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span> <span class="p">:</span> <span class="p">[</span><span class="kt">Int</span> <span class="p">:</span> <span class="kt">Color</span><span class="p">]]</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13titlesForAxisSDyAA0cG2IdOSSGSgvp"></a>
+                      <a name="//apple_ref/swift/Property/titlesForAxis" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13titlesForAxisSDyAA0cG2IdOSSGSgvp">titlesForAxis</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>titles for Axis</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">titlesForAxis</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/ChartAxisId.html">ChartAxisId</a></span> <span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC29numericAxisLabelFormatHandlerSSSgSd_AA0cF2IdOtcSgvp"></a>
+                      <a name="//apple_ref/swift/Property/numericAxisLabelFormatHandler" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC29numericAxisLabelFormatHandlerSSSgSd_AA0cF2IdOtcSgvp">numericAxisLabelFormatHandler</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>app to provide this to format values for labels of numeric axis</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">numericAxisLabelFormatHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:11FioriCharts29NumericAxisLabelFormatHandlera">NumericAxisLabelFormatHandler</a></span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC22userInteractionEnabledSbvp"></a>
+                      <a name="//apple_ref/swift/Property/userInteractionEnabled" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC22userInteractionEnabledSbvp">userInteractionEnabled</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>enable or disable user interaction
+Do not set this property to true if the chart is used as an iOS Widget. Otherwise it will be an empty view</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">userInteractionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC11snapToPointSbvp"></a>
+                      <a name="//apple_ref/swift/Property/snapToPoint" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC11snapToPointSbvp">snapToPoint</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>snap to point when dragging a chart</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">snapToPoint</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC17numberOfGridlinesSivp"></a>
+                      <a name="//apple_ref/swift/Property/numberOfGridlines" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC17numberOfGridlinesSivp">numberOfGridlines</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>number of gridlines for numeric axis</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd"><a href="../Structs/PublishedConstrainedValue.html">@PublishedConstrainedValue</a></span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">numberOfGridlines</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC19xAxisLabelsPositionAA05XAxisfG0Ovp"></a>
+                      <a name="//apple_ref/swift/Property/xAxisLabelsPosition" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC19xAxisLabelsPositionAA05XAxisfG0Ovp">xAxisLabelsPosition</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>the position of X Axis labels, .fixedBottom or .dynamic</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">xAxisLabelsPosition</span><span class="p">:</span> <span class="kt"><a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC18indexOfStockSeriesSivp"></a>
+                      <a name="//apple_ref/swift/Property/indexOfStockSeries" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC18indexOfStockSeriesSivp">indexOfStockSeries</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>current selected index of stock chart if there are multiple</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">indexOfStockSeries</span><span class="p">:</span> <span class="kt">Int</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC21indexesOfColumnSeries10Foundation8IndexSetVvp"></a>
+                      <a name="//apple_ref/swift/Property/indexesOfColumnSeries" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC21indexesOfColumnSeries10Foundation8IndexSetVvp">indexesOfColumnSeries</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">indexesOfColumnSeries</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC25indexesOfTotalsCategories10Foundation8IndexSetVvp"></a>
+                      <a name="//apple_ref/swift/Property/indexesOfTotalsCategories" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC25indexesOfTotalsCategories10Foundation8IndexSetVvp">indexesOfTotalsCategories</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">indexesOfTotalsCategories</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC27indexesOfSecondaryValueAxis10Foundation8IndexSetVvp"></a>
+                      <a name="//apple_ref/swift/Property/indexesOfSecondaryValueAxis" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC27indexesOfSecondaryValueAxis10Foundation8IndexSetVvp">indexesOfSecondaryValueAxis</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Indicates secondary value axis series indexes for line based charts.</p>
+
+<ul>
+<li>The secondary value index works with .line, .area and .combo charts only.</li>
+<li>Given series indexes will assign the corresponding series to the secondary value axis.</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">indexesOfSecondaryValueAxis</span><span class="p">:</span> <span class="kt">IndexSet</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13selectionModeAA0c9SelectionF0Ovp"></a>
+                      <a name="//apple_ref/swift/Property/selectionMode" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13selectionModeAA0c9SelectionF0Ovp">selectionMode</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Determines which plot items should be selected for a category.</p>
+
+<ul>
+<li>single : Selects a single value in the currently selected series and category indices.</li>
+<li>all : Selects one value in each series for the selected category index(es).</li>
+</ul>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">selectionMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartSelectionMode.html">ChartSelectionMode</a></span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC17selectionRequiredSbvp"></a>
+                      <a name="//apple_ref/swift/Property/selectionRequired" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC17selectionRequiredSbvp">selectionRequired</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>When false a state is allowed in which no series is selected/active.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">selectionRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC10selectionsSDySiSaySiGGSgvp"></a>
+                      <a name="//apple_ref/swift/Property/selections" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC10selectionsSDySiSaySiGGSgvp">selections</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Set / get current selection state for the chart view
+nil means no selection
+format: [seriesIndex: [categoryIndex]]?,
+selectin mode: single, single selection: [0: [0]]
+selectin mode: single, range selection: [0: [0,1,2,3,4,5,6]]
+selectin mode: all, [0: [0], 1: [0]]
+multiple seletion for donut: [0: [0], 2: [0], 4: [0]]</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">selections</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span> <span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]]?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC27selectionDidChangePublisher7Combine03AnyH0VySDySiSaySiGGSgs5NeverOGvp"></a>
+                      <a name="//apple_ref/swift/Property/selectionDidChangePublisher" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC27selectionDidChangePublisher7Combine03AnyH0VySDySiSaySiGGSgs5NeverOGvp">selectionDidChangePublisher</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>a publisher to notify the changes of chart selections
+usage:
+   var cancellableSet: Set<AnyCancellable> = []</p>
+
+<p>model.selectionDidChangePublisher
+   .subscribe(on: RunLoop.main)
+   .sink(receiveValue: { (selections) in
+    if let selections = selections {
+        for (seriesIndex, catIndices) in selections {
+            print(&ldquo;Selected series: (seriesIndex), selected categoies: (catIndices)&rdquo;)
+        }
+    }
+    else {
+        print(&ldquo;No selections&rdquo;)
+    }
+   })
+   .store(in: &amp;cancellableSet)</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">private(set)</span> <span class="kd">lazy</span> <span class="k">var</span> <span class="nv">selectionDidChangePublisher</span><span class="p">:</span> <span class="kt">AnyPublisher</span><span class="o">&lt;</span><span class="p">[</span><span class="kt">Int</span> <span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]]?,</span> <span class="kt">Never</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC14centerPositionSo7CGPointVSgvp"></a>
+                      <a name="//apple_ref/swift/Property/centerPosition" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC14centerPositionSo7CGPointVSgvp">centerPosition</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>the center postion of a chart in relative coordinate system, both x and y are range from 0 to 1</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">centerPosition</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC6scaleX12CoreGraphics7CGFloatVvp"></a>
+                      <a name="//apple_ref/swift/Property/scaleX" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC6scaleX12CoreGraphics7CGFloatVvp">scaleX</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>X direction scale factor, scale is not allowed to be less than 1.0</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">scaleX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC6scaleY12CoreGraphics7CGFloatVvp"></a>
+                      <a name="//apple_ref/swift/Property/scaleY" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC6scaleY12CoreGraphics7CGFloatVvp">scaleY</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Y direction scale factor, scale is not allowed to be less than 1.0</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">scaleY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13scaleXEnabledSbvp"></a>
+                      <a name="//apple_ref/swift/Property/scaleXEnabled" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13scaleXEnabledSbvp">scaleXEnabled</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>enable/disable X direction scale by gesture</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">scaleXEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13scaleYEnabledSbvp"></a>
+                      <a name="//apple_ref/swift/Property/scaleYEnabled" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13scaleYEnabledSbvp">scaleYEnabled</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>enable/disable Y direction scale by gesture</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">scaleYEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC20readableScaleEnabledSbvp"></a>
+                      <a name="//apple_ref/swift/Property/readableScaleEnabled" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC20readableScaleEnabledSbvp">readableScaleEnabled</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>when it is true there is a minimum width of a column (20 pts)</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">readableScaleEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC16selectionEnabledSbvp"></a>
+                      <a name="//apple_ref/swift/Property/selectionEnabled" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC16selectionEnabledSbvp">selectionEnabled</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>enable/disable selection gestures</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">@Published</span>
+<span class="kd">public</span> <span class="k">var</span> <span class="nv">selectionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:s12IdentifiableP2id2IDQzvp"></a>
+                      <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                      <a class="token" href="#/s:s12IdentifiableP2id2IDQzvp">id</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">UUID</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC9chartType4data17titlesForCategory06colorsiJ00hI4Axis06labelsI9Dimension17numberOfGridlines17selectionRequired0R4Mode10selections22userInteractionEnabled0rX014centerPosition6scaleX6scaleY13scaleXEnabled13scaleYEnabled013readableScaleX011snapToPoint16seriesAttributes08categoryL007numericL0016secondaryNumericL001xl6LabelsZ005indexP11StockSeries07indexesp14SecondaryValueL007indexesP12ColumnSeries07indexesP16TotalsCategories07numericL18LabelFormatHandlerAcA0cF0O_SaySaySdSgGGSaySaySSSgGGSgSDySiSDySi7SwiftUI5ColorVGGSgSDyAA0cL2IdOSSGSgA13_SiSbAA0c9SelectionT0OSDySiSaySiGGSgS2bSo7CGPointVSg12CoreGraphics7CGFloatVA34_S4bSayAA0C16SeriesAttributesCGSgAA0cjL10AttributesCSgAA0c7NumericL10AttributesCSgA44_AA011XAxisLabelsZ0OSiA26_SgA47_A47_A10_Sd_A21_tcSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(chartType:data:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionRequired:selectionMode:selections:userInteractionEnabled:selectionEnabled:centerPosition:scaleX:scaleY:scaleXEnabled:scaleYEnabled:readableScaleEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:xAxisLabelsPosition:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:numericAxisLabelFormatHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC9chartType4data17titlesForCategory06colorsiJ00hI4Axis06labelsI9Dimension17numberOfGridlines17selectionRequired0R4Mode10selections22userInteractionEnabled0rX014centerPosition6scaleX6scaleY13scaleXEnabled13scaleYEnabled013readableScaleX011snapToPoint16seriesAttributes08categoryL007numericL0016secondaryNumericL001xl6LabelsZ005indexP11StockSeries07indexesp14SecondaryValueL007indexesP12ColumnSeries07indexesP16TotalsCategories07numericL18LabelFormatHandlerAcA0cF0O_SaySaySdSgGGSaySaySSSgGGSgSDySiSDySi7SwiftUI5ColorVGGSgSDyAA0cL2IdOSSGSgA13_SiSbAA0c9SelectionT0OSDySiSaySiGGSgS2bSo7CGPointVSg12CoreGraphics7CGFloatVA34_S4bSayAA0C16SeriesAttributesCGSgAA0cjL10AttributesCSgAA0c7NumericL10AttributesCSgA44_AA011XAxisLabelsZ0OSiA26_SgA47_A47_A10_Sd_A21_tcSgtcfc">init(chartType:<wbr>data:<wbr>titlesForCategory:<wbr>colorsForCategory:<wbr>titlesForAxis:<wbr>labelsForDimension:<wbr>numberOfGridlines:<wbr>selectionRequired:<wbr>selectionMode:<wbr>selections:<wbr>userInteractionEnabled:<wbr>selectionEnabled:<wbr>centerPosition:<wbr>scaleX:<wbr>scaleY:<wbr>scaleXEnabled:<wbr>scaleYEnabled:<wbr>readableScaleEnabled:<wbr>snapToPoint:<wbr>seriesAttributes:<wbr>categoryAxis:<wbr>numericAxis:<wbr>secondaryNumericAxis:<wbr>xAxisLabelsPosition:<wbr>indexOfStockSeries:<wbr>indexesOfSecondaryValueAxis:<wbr>indexesOfColumnSeries:<wbr>indexesOfTotalsCategories:<wbr>numericAxisLabelFormatHandler:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Initializes and returns a newly allocated ChartModel for most of chart types. The data should contain only two dimension array of double values.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">chartType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartType.html">ChartType</a></span><span class="p">,</span>
+                        <span class="nv">data</span><span class="p">:</span> <span class="p">[[</span><span class="kt">Double</span><span class="p">?]],</span>
+                        <span class="nv">titlesForCategory</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span><span class="p">?]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">colorsForCategory</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="kt">Color</span><span class="p">]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">titlesForAxis</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/ChartAxisId.html">ChartAxisId</a></span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">labelsForDimension</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span><span class="p">?]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numberOfGridlines</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="nv">selectionRequired</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">selectionMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartSelectionMode.html">ChartSelectionMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">single</span><span class="p">,</span>
+                        <span class="nv">selections</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">userInteractionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">selectionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">centerPosition</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">scaleX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="nv">scaleY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="nv">scaleXEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">scaleYEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">readableScaleEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                        <span class="nv">snapToPoint</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">seriesAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/ChartSeriesAttributes.html">ChartSeriesAttributes</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">categoryAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartCategoryAxisAttributes.html">ChartCategoryAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">secondaryNumericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">xAxisLabelsPosition</span><span class="p">:</span> <span class="kt"><a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">fixedBottom</span><span class="p">,</span>
+                        <span class="nv">indexOfStockSeries</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nv">indexesOfSecondaryValueAxis</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">indexesOfColumnSeries</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">indexesOfTotalsCategories</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numericAxisLabelFormatHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:11FioriCharts29NumericAxisLabelFormatHandlera">NumericAxisLabelFormatHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                        <div>
+                          <h4>Parameters</h4>
+                          <table class="graybox">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>chartType</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>chart type</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>data</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>two dimension array of double values.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>titlesForCategory</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>labels for x axis</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>colorsForCategory</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>colors for any category in any series. it is optional. this color overwrite the color from seriesAttributes.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>titlesForAxis</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>titles for category and numeric Axis</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>labelsForDimension</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>labels for demension data</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>numberOfGridlines</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>number of gridlines for numeric axis</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>selectionMode</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>determines which plot items should be selected for a category. It could be single, all, multiple</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>selections</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>preselected categories or seires for the chart view. For example it could be [0: [0,1,2,3,4,5,6]], [0: [0], 1: [0]]</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>userInteractionEnabled</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>enable or disable user interaction</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>selectionEnabled</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>enable or disable user interaction for selection including single tap, double tap and two fingers long pressed</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>snapToPoint</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>snap to point when dragging a chart</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>seriesAttributes</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>seires attributes</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>categoryAxis</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>attributes for the category axis.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>numericAxis</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>attributes for the primary numeric axis.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>secondaryNumericAxis</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>attributes for the secondary numeric axis.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>xAxisLabelsPosition</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>the position of X Axis labels, .fixedBottom or .dynamic</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>indexOfStockSeries</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>current selected index of stock chart if there are multiple</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>indexesOfSecondaryValueAxis</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>indicates secondary value axis series indexes for line based charts (.line, .area and .combo).</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>indexesOfColumnSeries</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>indicates indexes of column series for combo chart.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>indexesOfTotalsCategories</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>indicates total indexes for waterfall chart.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <code>
+                                  <em>numericAxisLabelFormatHandler</em>
+                                  </code>
+                                </td>
+                                <td>
+                                  <div>
+                                    <p>format values for labels of numeric axis</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC9chartType6data3d17titlesForCategory06colorsiJ00hI4Axis06labelsI9Dimension17numberOfGridlines13selectionMode10selections22userInteractionEnabled0rW014centerPosition6scaleX0Z1Y0Z8XEnabled0Z8YEnabled013readableScaleW011snapToPoint16seriesAttributes08categoryL007numericL0016secondaryNumericL001xl6LabelsY005indexP11StockSeries07indexesp14SecondaryValueL007indexesP12ColumnSeries07indexesP16TotalsCategories07numericL18LabelFormatHandlerAcA0cF0O_SaySaySaySdSgGGGSaySaySSSgGGSgSDySiSDySi7SwiftUI5ColorVGGSgSDyAA0cL2IdOSSGSgSayA12_GSgSiAA0c9SelectionS0OSDySiSaySiGGSgS2bSo7CGPointVSg12CoreGraphics7CGFloatVA36_S4bSayAA0C16SeriesAttributesCGSgAA0cjL10AttributesCSgAA0c7NumericL10AttributesCSgA46_AA011XAxisLabelsY0OSiA28_SgA49_A49_A10_Sd_A21_tcSgtcfc"></a>
+                      <a name="//apple_ref/swift/Method/init(chartType:data3d:titlesForCategory:colorsForCategory:titlesForAxis:labelsForDimension:numberOfGridlines:selectionMode:selections:userInteractionEnabled:selectionEnabled:centerPosition:scaleX:scaleY:scaleXEnabled:scaleYEnabled:readableScaleEnabled:snapToPoint:seriesAttributes:categoryAxis:numericAxis:secondaryNumericAxis:xAxisLabelsPosition:indexOfStockSeries:indexesOfSecondaryValueAxis:indexesOfColumnSeries:indexesOfTotalsCategories:numericAxisLabelFormatHandler:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC9chartType6data3d17titlesForCategory06colorsiJ00hI4Axis06labelsI9Dimension17numberOfGridlines13selectionMode10selections22userInteractionEnabled0rW014centerPosition6scaleX0Z1Y0Z8XEnabled0Z8YEnabled013readableScaleW011snapToPoint16seriesAttributes08categoryL007numericL0016secondaryNumericL001xl6LabelsY005indexP11StockSeries07indexesp14SecondaryValueL007indexesP12ColumnSeries07indexesP16TotalsCategories07numericL18LabelFormatHandlerAcA0cF0O_SaySaySaySdSgGGGSaySaySSSgGGSgSDySiSDySi7SwiftUI5ColorVGGSgSDyAA0cL2IdOSSGSgSayA12_GSgSiAA0c9SelectionS0OSDySiSaySiGGSgS2bSo7CGPointVSg12CoreGraphics7CGFloatVA36_S4bSayAA0C16SeriesAttributesCGSgAA0cjL10AttributesCSgAA0c7NumericL10AttributesCSgA46_AA011XAxisLabelsY0OSiA28_SgA49_A49_A10_Sd_A21_tcSgtcfc">init(chartType:<wbr>data3d:<wbr>titlesForCategory:<wbr>colorsForCategory:<wbr>titlesForAxis:<wbr>labelsForDimension:<wbr>numberOfGridlines:<wbr>selectionMode:<wbr>selections:<wbr>userInteractionEnabled:<wbr>selectionEnabled:<wbr>centerPosition:<wbr>scaleX:<wbr>scaleY:<wbr>scaleXEnabled:<wbr>scaleYEnabled:<wbr>readableScaleEnabled:<wbr>snapToPoint:<wbr>seriesAttributes:<wbr>categoryAxis:<wbr>numericAxis:<wbr>secondaryNumericAxis:<wbr>xAxisLabelsPosition:<wbr>indexOfStockSeries:<wbr>indexesOfSecondaryValueAxis:<wbr>indexesOfColumnSeries:<wbr>indexesOfTotalsCategories:<wbr>numericAxisLabelFormatHandler:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">chartType</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartType.html">ChartType</a></span><span class="p">,</span>
+                        <span class="nv">data3d</span><span class="p">:</span> <span class="p">[[[</span><span class="kt">Double</span><span class="p">?]]],</span>
+                        <span class="nv">titlesForCategory</span><span class="p">:</span> <span class="p">[[</span><span class="kt">String</span><span class="p">?]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">colorsForCategory</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="kt">Color</span><span class="p">]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">titlesForAxis</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Enums/ChartAxisId.html">ChartAxisId</a></span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">labelsForDimension</span><span class="p">:</span> <span class="p">[[[</span><span class="kt">String</span><span class="p">?]]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numberOfGridlines</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                        <span class="nv">selectionMode</span><span class="p">:</span> <span class="kt"><a href="../Enums/ChartSelectionMode.html">ChartSelectionMode</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">single</span><span class="p">,</span>
+                        <span class="nv">selections</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">userInteractionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">selectionEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">centerPosition</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">scaleX</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="nv">scaleY</span><span class="p">:</span> <span class="kt">CGFloat</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
+                        <span class="nv">scaleXEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">scaleYEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">readableScaleEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+                        <span class="nv">snapToPoint</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+                        <span class="nv">seriesAttributes</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/ChartSeriesAttributes.html">ChartSeriesAttributes</a></span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">categoryAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartCategoryAxisAttributes.html">ChartCategoryAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">secondaryNumericAxis</span><span class="p">:</span> <span class="kt"><a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">xAxisLabelsPosition</span><span class="p">:</span> <span class="kt"><a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">fixedBottom</span><span class="p">,</span>
+                        <span class="nv">indexOfStockSeries</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="nv">indexesOfSecondaryValueAxis</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">indexesOfColumnSeries</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">indexesOfTotalsCategories</span><span class="p">:</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+                        <span class="nv">numericAxisLabelFormatHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:11FioriCharts29NumericAxisLabelFormatHandlera">NumericAxisLabelFormatHandler</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC4copy4withyp10ObjectiveC6NSZoneVSg_tF"></a>
+                      <a name="//apple_ref/swift/Method/copy(with:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC4copy4withyp10ObjectiveC6NSZoneVSg_tF">copy(with:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">copy</span><span class="p">(</span><span class="n">with</span> <span class="nv">zone</span><span class="p">:</span> <span class="kt">NSZone</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Any</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC11numOfSeriesSiyF"></a>
+                      <a name="//apple_ref/swift/Method/numOfSeries()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC11numOfSeriesSiyF">numOfSeries()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>number of series in the chart model</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">numOfSeries</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC15numOfCategoriesSiyF"></a>
+                      <a name="//apple_ref/swift/Method/numOfCategories()" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC15numOfCategoriesSiyF">numOfCategories()</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>number of categories for charts except stock, bubble and scatter</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">numOfCategories</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC15numOfCategories2inS2i_tF"></a>
+                      <a name="//apple_ref/swift/Method/numOfCategories(in:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC15numOfCategories2inS2i_tF">numOfCategories(in:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>number of categories in the series</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">numOfCategories</span><span class="p">(</span><span class="k">in</span> <span class="nv">seriesId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC13plotItemValue2at8category9dimensionSdSgSi_S2itF"></a>
+                      <a name="//apple_ref/swift/Method/plotItemValue(at:category:dimension:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC13plotItemValue2at8category9dimensionSdSgSi_S2itF">plotItemValue(at:<wbr>category:<wbr>dimension:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Returns plot item value  for given indexes of series, category and dimension.</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">plotItemValue</span><span class="p">(</span><span class="n">at</span> <span class="nv">series</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">category</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">dimension</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Double</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:11FioriCharts10ChartModelC14categoryTitles2at0E0SSSgSi_SitF"></a>
+                      <a name="//apple_ref/swift/Method/categoryTitles(at:category:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:11FioriCharts10ChartModelC14categoryTitles2at0E0SSSgSi_SitF">categoryTitles(at:<wbr>category:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          <p>Undocumented</p>
+
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">categoryTitles</span><span class="p">(</span><span class="n">at</span> <span class="nv">series</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">category</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:SQ2eeoiySbx_xtFZ"></a>
+                      <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                      <a class="token" href="#/s:SQ2eeoiySbx_xtFZ">==(_:<wbr>_:<wbr>)</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">ChartModel</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">ChartModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                  <li class="item">
+                    <div>
+                      <code>
+                      <a name="/s:s23CustomStringConvertibleP11descriptionSSvp"></a>
+                      <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                      <a class="token" href="#/s:s23CustomStringConvertibleP11descriptionSSvp">description</a>
+                      </code>
+                    </div>
+                    <div class="height-container">
+                      <div class="pointer-container"></div>
+                      <section class="section">
+                        <div class="pointer"></div>
+                        <div class="abstract">
+                          
+                        </div>
+                        <div class="declaration">
+                          <h4>Declaration</h4>
+                          <div class="language">
+                            <p class="aside-title">Swift</p>
+                            <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </section>
+        </article>
+      </div>
+      <div class="nav-wrapper">
+        <nav class="nav-bottom">
+          <ul class="nav-groups">
+            <li class="nav-group-name">
+              <a href="../Classes.html">Classes</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartAxisAttributes.html">ChartAxisAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartBaselineAttributes.html">ChartBaselineAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartCategoryAxisAttributes.html">ChartCategoryAxisAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartGridlineAttributes.html">ChartGridlineAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartLabelAttributes.html">ChartLabelAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartModel.html">ChartModel</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartModel/DimensionData.html">– DimensionData</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartNumericAxisAttributes.html">ChartNumericAxisAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartPointAttributes.html">ChartPointAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartSeriesAttributes.html">ChartSeriesAttributes</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Classes/ChartSeriesPalette.html">ChartSeriesPalette</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Enums.html">Enumerations</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Enums/ChartAxisId.html">ChartAxisId</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ChartCategoryAxisLabelLayoutStyle.html">ChartCategoryAxisLabelLayoutStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ChartSelectionMode.html">ChartSelectionMode</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/ChartType.html">ChartType</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/Tests.html">Tests</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Enums/XAxisLabelsPosition.html">XAxisLabelsPosition</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Extensions.html">Extensions</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Extensions/View.html">View</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Structs.html">Structures</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Structs/AnyShapeStyle.html">AnyShapeStyle</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/ChartView.html">ChartView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/NoDataView.html">NoDataView</a>
+                </li>
+                <li class="nav-group-task">
+                  <a href="../Structs/PublishedConstrainedValue.html">PublishedConstrainedValue</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-group-name">
+              <a href="../Typealiases.html">Type Aliases</a>
+              <ul class="nav-group-tasks">
+                <li class="nav-group-task">
+                  <a href="../Typealiases.html#/s:11FioriCharts29NumericAxisLabelFormatHandlera">NumericAxisLabelFormatHandler</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-wrapper">
+        <section id="footer">
+          <p>&copy; 2022 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2022-03-07)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,1720 @@
 {
   "warnings": [
-
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 14,
+      "symbol": "AnalyticalCard.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 85,
+      "symbol": "BackedDouble",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 86,
+      "symbol": "BackedDouble.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 108,
+      "symbol": "BackedDouble",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 118,
+      "symbol": "DataCategory",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 120,
+      "symbol": "DataCategory.names",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 121,
+      "symbol": "DataCategory.points",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 124,
+      "symbol": "DataCategory",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 132,
+      "symbol": "DataPoint",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 134,
+      "symbol": "DataPoint.series",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 135,
+      "symbol": "DataPoint.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 136,
+      "symbol": "DataPoint.secondaryValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 137,
+      "symbol": "DataPoint.tertiaryValue",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalCard.swift",
+      "line": 140,
+      "symbol": "DataPoint",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 4,
+      "symbol": "AnalyticalContent",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 5,
+      "symbol": "AnalyticalContent.chartType",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 6,
+      "symbol": "AnalyticalContent.legend",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 7,
+      "symbol": "AnalyticalContent.plotArea",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 8,
+      "symbol": "AnalyticalContent.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 9,
+      "symbol": "AnalyticalContent.measureAxis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 10,
+      "symbol": "AnalyticalContent.dimensionAxis",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalContent.swift",
+      "line": 22,
+      "symbol": "AnalyticalContent",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalData.swift",
+      "line": 3,
+      "symbol": "AnalyticalData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalData.swift",
+      "line": 4,
+      "symbol": "AnalyticalData.measures",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalData.swift",
+      "line": 5,
+      "symbol": "AnalyticalData.dimensions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalData.swift",
+      "line": 15,
+      "symbol": "AnalyticalData",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalDataLabel.swift",
+      "line": 3,
+      "symbol": "AnalyticalDataLabel",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalDataLabel.swift",
+      "line": 4,
+      "symbol": "AnalyticalDataLabel.isVisible",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalDataLabel.swift",
+      "line": 5,
+      "symbol": "AnalyticalDataLabel.isShowingTotal",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalDataLabel.swift",
+      "line": 13,
+      "symbol": "AnalyticalDataLabel",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 3,
+      "symbol": "AnalyticalLegend",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 4,
+      "symbol": "AnalyticalLegend.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 5,
+      "symbol": "AnalyticalLegend.drawingEffect",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 6,
+      "symbol": "AnalyticalLegend.isHierarchical",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 7,
+      "symbol": "AnalyticalLegend.isScrollable",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 8,
+      "symbol": "AnalyticalLegend.isVisible",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 48,
+      "symbol": "AnalyticalLegend.init(title:drawingEffect:isHierarchical:isScrollable:isVisible:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 69,
+      "symbol": "AnalyticalLegend",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 80,
+      "symbol": "DrawingEffect",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 81,
+      "symbol": "DrawingEffect.glossy",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalLegend.swift",
+      "line": 81,
+      "symbol": "DrawingEffect.normal",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalMeasureDimension.swift",
+      "line": 3,
+      "symbol": "AnalyticalMeasureDimension",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalMeasureDimension.swift",
+      "line": 4,
+      "symbol": "AnalyticalMeasureDimension.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalMeasureDimension.swift",
+      "line": 5,
+      "symbol": "AnalyticalMeasureDimension.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalMeasureDimension.swift",
+      "line": 8,
+      "symbol": "AnalyticalMeasureDimension",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalPlotArea.swift",
+      "line": 3,
+      "symbol": "AnalyticalPlotArea",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalPlotArea.swift",
+      "line": 4,
+      "symbol": "AnalyticalPlotArea.dataLabel",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalPlotArea.swift",
+      "line": 5,
+      "symbol": "AnalyticalPlotArea.categoryAxisText",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalPlotArea.swift",
+      "line": 6,
+      "symbol": "AnalyticalPlotArea.valueAxisText",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalPlotArea.swift",
+      "line": 9,
+      "symbol": "AnalyticalPlotArea",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalTitleAttributes.swift",
+      "line": 3,
+      "symbol": "AnalyticalTitleAttributes",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalTitleAttributes.swift",
+      "line": 4,
+      "symbol": "AnalyticalTitleAttributes.text",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalTitleAttributes.swift",
+      "line": 5,
+      "symbol": "AnalyticalTitleAttributes.isVisible",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalTitleAttributes.swift",
+      "line": 6,
+      "symbol": "AnalyticalTitleAttributes.alignment",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/Model/AnalyticalTitleAttributes.swift",
+      "line": 13,
+      "symbol": "AnalyticalTitleAttributes",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/UI/AnalyticalCardView.swift",
+      "line": 4,
+      "symbol": "AnalyticalCardView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Analytical/UI/AnalyticalCardView.swift",
+      "line": 7,
+      "symbol": "AnalyticalCardView.init(model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 57,
+      "symbol": "Configuration.Parameter.BasicDataType.string",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 58,
+      "symbol": "Configuration.Parameter.BasicDataType.integer",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 59,
+      "symbol": "Configuration.Parameter.BasicDataType.number",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 60,
+      "symbol": "Configuration.Parameter.BasicDataType.boolean",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 61,
+      "symbol": "Configuration.Parameter.BasicDataType.date",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Configuration/Configuration.swift",
+      "line": 62,
+      "symbol": "Configuration.Parameter.BasicDataType.datetime",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Action.swift",
+      "line": 3,
+      "symbol": "Action",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Action.swift",
+      "line": 4,
+      "symbol": "Action.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Action.swift",
+      "line": 5,
+      "symbol": "Action.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Action.swift",
+      "line": 8,
+      "symbol": "Action",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 3,
+      "symbol": "DefaultHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 4,
+      "symbol": "DefaultHeader.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 5,
+      "symbol": "DefaultHeader.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 6,
+      "symbol": "DefaultHeader.subTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 7,
+      "symbol": "DefaultHeader.actions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 8,
+      "symbol": "DefaultHeader.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 9,
+      "symbol": "DefaultHeader.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 12,
+      "symbol": "DefaultHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/DefaultHeader.swift",
+      "line": 23,
+      "symbol": "DefaultHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Header.swift",
+      "line": 4,
+      "symbol": "Header",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Header.swift",
+      "line": 5,
+      "symbol": "Header.default(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Header.swift",
+      "line": 6,
+      "symbol": "Header.numeric(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Header.swift",
+      "line": 26,
+      "symbol": "Header",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/MainIndicator.swift",
+      "line": 1,
+      "symbol": "MainIndicator",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/MainIndicator.swift",
+      "line": 8,
+      "symbol": "MainIndicator",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 3,
+      "symbol": "NumericHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 4,
+      "symbol": "NumericHeader.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 5,
+      "symbol": "NumericHeader.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 6,
+      "symbol": "NumericHeader.subTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 7,
+      "symbol": "NumericHeader.actions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 8,
+      "symbol": "NumericHeader.unitOfMeasurement",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 9,
+      "symbol": "NumericHeader.mainIndicator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 10,
+      "symbol": "NumericHeader.details",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 11,
+      "symbol": "NumericHeader.sideIndicators",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 12,
+      "symbol": "NumericHeader.status",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/NumericHeader.swift",
+      "line": 15,
+      "symbol": "NumericHeader",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/SideIndicator.swift",
+      "line": 1,
+      "symbol": "SideIndicator",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/SideIndicator.swift",
+      "line": 7,
+      "symbol": "SideIndicator",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Status.swift",
+      "line": 4,
+      "symbol": "Status",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Status.swift",
+      "line": 5,
+      "symbol": "Status.text",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Status.swift",
+      "line": 17,
+      "symbol": "Status",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Header/Status.swift",
+      "line": 24,
+      "symbol": "Status",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 4,
+      "symbol": "Highlight",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 5,
+      "symbol": "Highlight.error",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 6,
+      "symbol": "Highlight.warn",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 7,
+      "symbol": "Highlight.success",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 8,
+      "symbol": "Highlight.info",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 9,
+      "symbol": "Highlight.none",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 10,
+      "symbol": "Highlight.placeholder(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 60,
+      "symbol": "Highlight",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Highlight.swift",
+      "line": 72,
+      "symbol": "Highlight",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Info.swift",
+      "line": 3,
+      "symbol": "Info",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Info.swift",
+      "line": 18,
+      "symbol": "Info",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Info.swift",
+      "line": 26,
+      "symbol": "Info",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/App.swift",
+      "line": 3,
+      "symbol": "App",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/App.swift",
+      "line": 5,
+      "symbol": "App.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/App.swift",
+      "line": 6,
+      "symbol": "App.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/App.swift",
+      "line": 7,
+      "symbol": "App.subTitle",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/App.swift",
+      "line": 8,
+      "symbol": "App.dataSources",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 16,
+      "symbol": "OneOneCard.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 47,
+      "symbol": "OneManyCard.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 72,
+      "symbol": "ManyManyCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 81,
+      "symbol": "ManyManyCard.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 106,
+      "symbol": "BaseCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 109,
+      "symbol": "BaseCard.init(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 138,
+      "symbol": "BackingCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 150,
+      "symbol": "BackingCard.headerPublisher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 151,
+      "symbol": "BackingCard.configurationPublisher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 152,
+      "symbol": "BackingCard.contentPublisher",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/BaseCard.swift",
+      "line": 153,
+      "symbol": "BackingCard.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 3,
+      "symbol": "Card",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 4,
+      "symbol": "Card.list(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 5,
+      "symbol": "Card.table(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 6,
+      "symbol": "Card.object(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 7,
+      "symbol": "Card.timeline(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 8,
+      "symbol": "Card.analytical(_:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 61,
+      "symbol": "Card.loadDataIfNeeded(baseURL:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Card.swift",
+      "line": 77,
+      "symbol": "Card",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataFetcher.swift",
+      "line": 5,
+      "symbol": "DataFetcher",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataFetcher.swift",
+      "line": 36,
+      "symbol": "DataFetcher.load(baseURL:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataFetcher.swift",
+      "line": 43,
+      "symbol": "DataFetcher",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataFetcher.swift",
+      "line": 51,
+      "symbol": "DataFetcher",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/DataSource.swift",
+      "line": 3,
+      "symbol": "DataSource",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 6,
+      "symbol": "Icon",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 7,
+      "symbol": "Icon.src",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 8,
+      "symbol": "Icon.id",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 10,
+      "symbol": "Icon.size",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 38,
+      "symbol": "Icon",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Icon.swift",
+      "line": 45,
+      "symbol": "Icon",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/KeyValue.swift",
+      "line": 3,
+      "symbol": "KeyValue",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/KeyValue.swift",
+      "line": 8,
+      "symbol": "KeyValue",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 4,
+      "symbol": "Manifest",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 5,
+      "symbol": "Manifest.app",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 6,
+      "symbol": "Manifest.card",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 12,
+      "symbol": "Manifest.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 53,
+      "symbol": "Manifest.init(with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Common/Model/Manifest.swift",
+      "line": 83,
+      "symbol": "Manifest",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 5,
+      "symbol": "ListCard",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 17,
+      "symbol": "ListCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 19,
+      "symbol": "ListCardItem",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 20,
+      "symbol": "ListCardItem.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 21,
+      "symbol": "ListCardItem.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 22,
+      "symbol": "ListCardItem.info",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 23,
+      "symbol": "ListCardItem.highlight",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 24,
+      "symbol": "ListCardItem.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 25,
+      "symbol": "ListCardItem.actions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/Model/ListCard.swift",
+      "line": 29,
+      "symbol": "ListCardItem",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/UI/ListCardView.swift",
+      "line": 6,
+      "symbol": "ListCardView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/List/UI/ListCardView.swift",
+      "line": 9,
+      "symbol": "ListCardView.init(model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectCard.swift",
+      "line": 5,
+      "symbol": "ObjectCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectCard.swift",
+      "line": 7,
+      "symbol": "ObjectCard",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroup.swift",
+      "line": 3,
+      "symbol": "ObjectGroup",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroup.swift",
+      "line": 4,
+      "symbol": "ObjectGroup.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroup.swift",
+      "line": 5,
+      "symbol": "ObjectGroup.items",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroup.swift",
+      "line": 9,
+      "symbol": "ObjectGroup",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 3,
+      "symbol": "ObjectGroupItem",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 4,
+      "symbol": "ObjectGroupItem.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 5,
+      "symbol": "ObjectGroupItem.label",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 6,
+      "symbol": "ObjectGroupItem.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 7,
+      "symbol": "ObjectGroupItem.type",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 8,
+      "symbol": "ObjectGroupItem.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 9,
+      "symbol": "ObjectGroupItem.target",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 10,
+      "symbol": "ObjectGroupItem.emailSubject",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/ObjectGroupItem.swift",
+      "line": 14,
+      "symbol": "ObjectGroupItem",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/View/ObjectCardGroupView.swift",
+      "line": 4,
+      "symbol": "ObjectCardGroupView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/View/ObjectCardView.swift",
+      "line": 4,
+      "symbol": "ObjectCardView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/View/ObjectCardView.swift",
+      "line": 7,
+      "symbol": "ObjectCardView.init(model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Object/View/ObjectCardView.swift",
+      "line": 56,
+      "symbol": "ObjectCardView_Previews",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableCard.swift",
+      "line": 9,
+      "symbol": "TableCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableCard.swift",
+      "line": 11,
+      "symbol": "TableCard",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 3,
+      "symbol": "TableColumn",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 4,
+      "symbol": "TableColumn.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 5,
+      "symbol": "TableColumn.width",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 6,
+      "symbol": "TableColumn.value",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 7,
+      "symbol": "TableColumn.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 8,
+      "symbol": "TableColumn.state",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 9,
+      "symbol": "TableColumn.url",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 10,
+      "symbol": "TableColumn.target",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 11,
+      "symbol": "TableColumn.identifier",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 12,
+      "symbol": "TableColumn.progressIndicator",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableColumn.swift",
+      "line": 16,
+      "symbol": "TableColumn",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableRow.swift",
+      "line": 3,
+      "symbol": "TableRow",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableRow.swift",
+      "line": 4,
+      "symbol": "TableRow.columns",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableRow.swift",
+      "line": 5,
+      "symbol": "TableRow.actions",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/Model/TableRow.swift",
+      "line": 9,
+      "symbol": "TableRow",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/UI/TableCardView.swift",
+      "line": 3,
+      "symbol": "TableCardView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Table/UI/TableCardView.swift",
+      "line": 6,
+      "symbol": "TableCardView.init(model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TImelineCard.swift",
+      "line": 9,
+      "symbol": "TimelineCard",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TImelineCard.swift",
+      "line": 11,
+      "symbol": "TimelineCard",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 3,
+      "symbol": "TimelineItem",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 4,
+      "symbol": "TimelineItem.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 5,
+      "symbol": "TimelineItem.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 6,
+      "symbol": "TimelineItem.dateTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 7,
+      "symbol": "TimelineItem.owner",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 8,
+      "symbol": "TimelineItem.ownerImage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 9,
+      "symbol": "TimelineItem.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItem.swift",
+      "line": 13,
+      "symbol": "TimelineItem",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 3,
+      "symbol": "TimelineItemTemplate",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 4,
+      "symbol": "TimelineItemTemplate.title",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 5,
+      "symbol": "TimelineItemTemplate.description",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 6,
+      "symbol": "TimelineItemTemplate.dateTime",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 7,
+      "symbol": "TimelineItemTemplate.owner",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 8,
+      "symbol": "TimelineItemTemplate.ownerImage",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 9,
+      "symbol": "TimelineItemTemplate.icon",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/Model/TimelineItemTemplate.swift",
+      "line": 12,
+      "symbol": "TimelineBaseModel",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/UI/TimelineCardView.swift",
+      "line": 3,
+      "symbol": "TimelineCardView",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/UI/TimelineCardView.swift",
+      "line": 4,
+      "symbol": "TimelineCardView.model",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Components/Timeline/UI/TimelineCardView.swift",
+      "line": 22,
+      "symbol": "TimelineCardView.init(model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/DecodableUtils/HavingContent.swift",
+      "line": 3,
+      "symbol": "HavingContent",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/DecodableUtils/HavingData.swift",
+      "line": 3,
+      "symbol": "HavingData",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/DecodableUtils/HavingHeader.swift",
+      "line": 3,
+      "symbol": "HavingHeader",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/MustacheRegex.swift",
+      "line": 102,
+      "symbol": "JSONDictionary",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/MustacheRegex.swift",
+      "line": 103,
+      "symbol": "JSONArray",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkError.swift",
+      "line": 3,
+      "symbol": "NetworkError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkError.swift",
+      "line": 4,
+      "symbol": "NetworkError.invalidURL(url:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkError.swift",
+      "line": 5,
+      "symbol": "NetworkError.badAccess",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkError.swift",
+      "line": 6,
+      "symbol": "NetworkError.noData",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkService.swift",
+      "line": 64,
+      "symbol": "NetworkService",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/NetworkService.swift",
+      "line": 65,
+      "symbol": "NetworkService.shared",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 6,
+      "symbol": "Dictionary.resolve(keyPath:separator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 23,
+      "symbol": "Array.resolve(keyPath:separator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 39,
+      "symbol": "ObservableDictionary",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 42,
+      "symbol": "ObservableDictionary.DictionaryType",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 49,
+      "symbol": "ObservableDictionary.init(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 79,
+      "symbol": "ObservableDictionary.subscript(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.subscript",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/ObservableDictionary.swift",
+      "line": 100,
+      "symbol": "ObservableDictionary.resolve(keyPath:separator:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/Placeholding.swift",
+      "line": 3,
+      "symbol": "Placeholding",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriIntegrationCards/Utils/String+Extensions.swift",
+      "line": 17,
+      "symbol": "String.asURL()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
   ],
   "source_directory": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori"
 }
