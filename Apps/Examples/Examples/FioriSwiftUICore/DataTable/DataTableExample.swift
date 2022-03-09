@@ -175,14 +175,14 @@ let oneColumnWithInfinityWidth = TableModel(headerData: nil, rowData: [row0], is
 let oneColumnTwoColumnThreeColumn = TableModel(headerData: nil, rowData: [row0, row1, row1WithAlignment], isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)
 
 public enum TestRowData {
-    static let fonts = [Font.title, Font.body, Font.footnote]
+    static let fonts = [Font.callout, Font.body, Font.footnote]
     static let textColors = [Color.blue, Color.purple, Color.black]
     static func generateRowData(count: Int, for row: Int) -> TableRowItem {
         var data: [DataItem] = []
         for i in 0 ..< count {
             let textString = i % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
             
-            let textItem = DataTextItem(textString, fonts[i % 3], textColors[i % 3])
+            let textItem = DataTextItem("(\(row), \(i)): " + textString, self.fonts[i % 3], self.textColors[i % 3])
             let imageItem = DataImageItem(Image("wheel"))
             data.append(i == 0 ? imageItem : textItem)
         }
@@ -254,6 +254,7 @@ public struct DataTableExampleView: View {
     func makeBody() -> some View {
         DataTable(model: self.model)
             .editingMode(self.isEditing)
+            .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
             .navigationBarItems(leading:
                 Button(action: {

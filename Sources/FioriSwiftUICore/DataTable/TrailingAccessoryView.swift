@@ -38,6 +38,7 @@ struct TrailingAccessoryView: View {
                 case .icon(let image):
                     image
                         .resizable()
+                        .imageScale(.large)
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
@@ -47,7 +48,6 @@ struct TrailingAccessoryView: View {
                 EmptyView()
             }
         }
-        .background(self.layoutManager.model.backgroundColor)
     }
     
     func applyBlur(height: CGFloat) -> some View {

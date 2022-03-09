@@ -51,9 +51,9 @@ public struct DataTable: View {
                 TableListView(layoutManager: layoutManager)
             } else {
                 GridTableView(layoutManager: layoutManager)
-                    .clipped()
             }
         }
+        .clipped()
         .environmentObject(self.layoutManager)
         .background(self.model.backgroundColor)
     }
