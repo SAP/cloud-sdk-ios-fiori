@@ -48,19 +48,48 @@ extension Fiori {
 
 extension SideBarListItem: View {
     public var body: some View {
-        HStack(spacing: 0) {
-            icon.foregroundColor(.preferredColor(.primaryLabel))
-            title
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
-                .foregroundColor(getColorStyle())
-            Spacer()
-            subtitle
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
-                .foregroundColor(.preferredColor(.tertiaryLabel))
-            accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
+        if sizeCategory > ContentSizeCategory.extraExtraExtraLarge {
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    icon.foregroundColor(.preferredColor(.primaryLabel))
+                        .frame(width: 22*scale, height: 22*scale)
+                    title
+                        .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                        .foregroundColor(getColorStyle())
+                    Spacer()
+                }
+
+                HStack(spacing: 0) {
+                    Spacer()
+                    subtitle
+                        .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                        .foregroundColor(.preferredColor(.tertiaryLabel))
+                    accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
+                        .frame(width: 22*scale, height: 22*scale)
+                }
+                .padding(.bottom, 11)
+            }
+            .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+            .cornerRadius(8, antialiased: true)
+        } else {
+            HStack(spacing: 0) {
+                icon.foregroundColor(.preferredColor(.primaryLabel))
+                    .fixedSize()
+                    .frame(width: 22*scale, height: 22*scale)
+                title
+                    .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                    .foregroundColor(getColorStyle())
+                Spacer()
+                subtitle
+                    .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                    .foregroundColor(.preferredColor(.tertiaryLabel))
+                accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
+                    .fixedSize()
+                    .frame(width: 22*scale, height: 22*scale)
+            }
+            .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
+            .cornerRadius(8, antialiased: true)
         }
-        .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
-        .cornerRadius(8, antialiased: true)
     }
     
     private func getFontWeight() -> Font.Weight {
