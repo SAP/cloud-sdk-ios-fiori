@@ -296,6 +296,7 @@ struct InternalGridTableView: View {
         }
     }
     
+    // swiftlint:disable force_unwrapping
     func makeBody() -> some View {
         let size = self.layoutManager.size
         let rect = CGRect(origin: .zero, size: size)
@@ -410,12 +411,5 @@ struct InternalGridTableView: View {
     
     private func isDropHorizontalShadow(_ size: CGSize) -> Bool {
         self.layoutManager.startPosition(size: size).y >= 0.01
-    }
-    
-    struct ScrollViewOffsetPreferenceKey: PreferenceKey {
-        typealias Value = CGPoint
-        static var defaultValue = CGPoint.zero
-        
-        static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) {}
     }
 }

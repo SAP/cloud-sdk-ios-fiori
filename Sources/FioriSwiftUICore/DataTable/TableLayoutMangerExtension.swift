@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 extension TableLayoutManager {
-    /// Return value: whether need to reset State variables
+    // swiftlint:disable cyclomatic_complexity
     func layout(size: CGSize) {
         if self.size.width == size.width && !model.needsCalculateLayout {
             // isLayoutFinished could be true or false. it is either everything has not been changed or it is in the middle of layout
