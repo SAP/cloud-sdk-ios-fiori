@@ -17,19 +17,9 @@ extension Fiori {
                     .truncationMode(.tail)
             }
         }
-
-        struct Icon: ViewModifier {
-            func body(content: Content) -> some View {
-                content.padding(.trailing, 11)
-            }
-        }
-
-        struct AccessoryIcon: ViewModifier {
-            func body(content: Content) -> some View {
-                content.padding(.leading, 11)
-            }
-        }
         
+        typealias Icon = EmptyModifier
+        typealias AccessoryIcon = EmptyModifier
         typealias IconCumulative = EmptyModifier
         typealias TitleCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
@@ -48,8 +38,10 @@ extension Fiori {
 
 extension SideBarListItem: View {
     public var body: some View {
-        HStack(spacing: 0) {
-            icon.foregroundColor(.preferredColor(.primaryLabel))
+        HStack(spacing: 11) {
+            icon
+                .foregroundColor(.preferredColor(.primaryLabel))
+                .frame(width: 22 * scale, height: 22 * scale)
             title
                 .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
                 .foregroundColor(getColorStyle())
@@ -57,7 +49,9 @@ extension SideBarListItem: View {
             subtitle
                 .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
                 .foregroundColor(.preferredColor(.tertiaryLabel))
-            accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
+            accessoryIcon
+                .foregroundColor(.preferredColor(.tertiaryLabel))
+                .frame(width: 22 * scale, height: 22 * scale)
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)

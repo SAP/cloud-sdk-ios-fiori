@@ -92,6 +92,7 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
 // sourcery: add_env_props = "sideBarListItemConfigMode"
+// sourcery: virtualPropSidebarIconScaleMetric = "@ScaledMetric var scale: CGFloat = 1"
 // sourcery: generated_component
 public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
 

@@ -13,7 +13,7 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
 	let _title: Title
 	let _subtitle: Subtitle
 	let _accessoryIcon: AccessoryIcon
-	
+	@ScaledMetric var scale: CGFloat = 1
     private var isModelInit: Bool = false
 	private var isIconNil: Bool = false
 	private var isSubtitleNil: Bool = false
