@@ -92,26 +92,7 @@ class TableLayoutManager: ObservableObject {
     
     @Published var centerPosition: CGPoint? = nil
     
-    @Published var isPinchZoomEnable: Bool = false
-    
     @Published var selectedIndexes: [Int] = []
-    
-    @Published var showRowDivider: Bool = true
-    
-    @Published var showColoumnDivider: Bool = true
-    
-    // custom header cell's padding; if set it overwrites default value
-    @Published var headerCellPadding: EdgeInsets? = nil
-    
-    // custom header cell's padding; if set it overwrites default value
-    @Published var dataCellPadding: EdgeInsets? = nil
-    
-    @Published var minRowHeight: CGFloat = 48
-    
-    @Published var minColumnWidth: CGFloat = 48
-    
-    /// whether allows to display partial row; For Table Card, set this to false
-    @Published var allowsPartialRowDisplay: Bool = true
     
     var layoutWorkItem: DispatchWorkItem?
     
@@ -140,14 +121,13 @@ class TableLayoutManager: ObservableObject {
         self.model = model
         self.horizontalScrolling = model.horizontalScrolling
         self.centerPosition = model.centerPosition
-        self.isPinchZoomEnable = model.isPinchZoomEnable
         self.selectedIndexes = model.selectedIndexes
     }
     
     func resetPosition() {
         self.scaleX = 1.0
         self.scaleY = 1.0
-        
+
         self.centerPosition = nil
     }
 }

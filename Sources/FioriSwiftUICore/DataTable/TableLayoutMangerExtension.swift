@@ -3,12 +3,12 @@ import SwiftUI
 import UIKit
 
 extension TableLayoutManager {
-    /// Return value: whether need to reset State variables
-    func layout(size: CGSize) -> Bool {
+    // swiftlint:disable cyclomatic_complexity
+    func layout(size: CGSize) {
         if self.size.width == size.width && !model.needsCalculateLayout {
             // isLayoutFinished could be true or false. it is either everything has not been changed or it is in the middle of layout
             if self.layoutData != nil || layoutWorkItem != nil {
-                return false
+                return
             }
         }
 
@@ -34,10 +34,10 @@ extension TableLayoutManager {
             tmpLayoutData.isEditing = model.isEditing
             tmpLayoutData.sizeClass = self.sizeClass
             tmpLayoutData.size = size
-            tmpLayoutData.headerCellPadding = self.headerCellPadding
-            tmpLayoutData.dataCellPadding = self.dataCellPadding
-            tmpLayoutData.minRowHeight = self.minRowHeight
-            tmpLayoutData.minColumnWidth = self.minColumnWidth
+            tmpLayoutData.headerCellPadding = model.headerCellPadding
+            tmpLayoutData.dataCellPadding = model.dataCellPadding
+            tmpLayoutData.minRowHeight = model.minRowHeight
+            tmpLayoutData.minColumnWidth = model.minColumnWidth
             tmpLayoutData.rowAlignment = model.rowAlignment
             
             if newWorkItem?.isCancelled ?? true {
@@ -88,8 +88,6 @@ extension TableLayoutManager {
         layoutWorkItem?.cancel()
         layoutWorkItem = newWorkItem
         DispatchQueue.global(qos: .userInteractive).async(execute: newWorkItem!)
-        
-        return true
     }
     
     func getListItems() -> [AnyView] {
@@ -260,6 +258,23 @@ extension TableLayoutManager {
         return CGPoint(x: x, y: y)
     }
     
+    func startPositionInPoint(size: CGSize) -> CGPoint {
+        let pos = self.centerPosition(size: size)
+        let wUnit = self.widthPointInUnit(size: size)
+        let hUnit = self.heightPointInUnit(size: size)
+        let x = max(0, pos.x - wUnit * size.width / 2)
+        let y = max(0, pos.y - hUnit * size.height / 2)
+        
+        return CGPoint(x: x / wUnit, y: y / hUnit)
+    }
+    
+    func centerPosition(from startPosition: CGPoint, size: CGSize) -> CGPoint {
+        let x = max(0, (startPosition.x + size.width / 2) * self.widthPointInUnit(size: size))
+        let y = max(0, (startPosition.y + size.height / 2) * self.heightPointInUnit(size: size))
+        
+        return CGPoint(x: x, y: y)
+    }
+    
     func contentWidth() -> CGFloat {
         guard let ld = layoutData else { return 1 }
         
@@ -294,18 +309,32 @@ extension TableLayoutManager {
         return 1 / totalHeight
     }
     
-    func validCenterPosition(pt: CGPoint, size: CGSize) -> CGPoint {
-        guard let ld = layoutData else { return CGPoint(x: 0.5, y: 0.5) }
+    func totalContentWidth(size: CGSize) -> CGFloat {
+        guard let ld = layoutData else { return size.width }
         
-        let wUnit = self.widthPointInUnit(size: size)
-        let minX = size.width * wUnit / 2
         let totalContentWidth = (ld.leadingAccessoryViewWidth + ld.trailingAccessoryViewWidth + self.contentWidth()) * self.scaleX(size: size)
         let totalWidth = max(size.width, totalContentWidth)
+        
+        return totalWidth
+    }
+    
+    func totalContentHeight(size: CGSize) -> CGFloat {
+        max(size.height, self.contentHeight() * self.scaleY(size: size))
+    }
+    
+    func validCenterPosition(pt: CGPoint, size: CGSize) -> CGPoint {
+        if layoutData == nil {
+            return CGPoint(x: 0.5, y: 0.5)
+        }
+    
+        let wUnit = self.widthPointInUnit(size: size)
+        let minX = size.width * wUnit / 2
+        let totalWidth = self.totalContentWidth(size: size)
         let maxX = (totalWidth - size.width / 2) * wUnit
         
         let hUnit = self.heightPointInUnit(size: size)
         let minY = size.height * hUnit / 2
-        let totalHeight = max(size.height, self.contentHeight() * self.scaleY(size: size))
+        let totalHeight = self.totalContentHeight(size: size)
         let maxY = (totalHeight - size.height / 2) * hUnit
         
         let x = max(minX, min(maxX, pt.x))
@@ -316,8 +345,7 @@ extension TableLayoutManager {
     
     func centerPosition(size: CGSize) -> CGPoint {
         if let pos = self.centerPosition {
-            // check if it is valid for different size of views
-            return self.validCenterPosition(pt: pos, size: size)
+            return pos
         } else {
             let x = size.width * self.widthPointInUnit(size: size) / 2
             let y = size.height * self.heightPointInUnit(size: size) / 2

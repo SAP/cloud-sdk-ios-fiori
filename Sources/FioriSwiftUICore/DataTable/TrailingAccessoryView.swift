@@ -4,7 +4,6 @@ import SwiftUI
 struct TrailingAccessoryView: View {
     let rowIndex: Int
     @EnvironmentObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
 
     init(rowIndex: Int) {
         self.rowIndex = rowIndex
@@ -39,22 +38,20 @@ struct TrailingAccessoryView: View {
                 case .icon(let image):
                     image
                         .resizable()
+                        .imageScale(.large)
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
                         .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
-                default:
-                    EmptyView()
                 }
             } else {
                 EmptyView()
             }
         }
-        .background(self.backgroundColor)
     }
     
     func applyBlur(height: CGFloat) -> some View {
-        self.backgroundColor
+        self.layoutManager.model.backgroundColor
             .frame(width: 44 * self.layoutManager.scaleX, height: height, alignment: .center)
             .blur(radius: 8)
     }

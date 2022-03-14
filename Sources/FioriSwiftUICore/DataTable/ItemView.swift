@@ -6,7 +6,6 @@ struct ItemView: View {
     let columnIndex: Int
     
     @EnvironmentObject var layoutManager: TableLayoutManager
-    @Environment(\.backgroundColor) var backgroundColor
     
     init(rowIndex: Int, columnIndex: Int) {
         self.rowIndex = rowIndex
@@ -132,7 +131,7 @@ struct ItemView: View {
         }
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
-        .background(self.backgroundColor)
+        .background(self.layoutManager.model.backgroundColor)
         .gesture(tapGesture)
     }
     
