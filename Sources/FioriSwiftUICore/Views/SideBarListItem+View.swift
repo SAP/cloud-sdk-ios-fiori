@@ -51,20 +51,16 @@ extension SideBarListItem: View {
         HStack(spacing: 0) {
             icon.foregroundColor(.preferredColor(.primaryLabel))
             title
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
                 .foregroundColor(getColorStyle())
             Spacer()
             subtitle
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
+                .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
                 .foregroundColor(.preferredColor(.tertiaryLabel))
             accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)
-    }
-    
-    private func getFontWeight() -> Font.Weight {
-        sideBarListItemConfigMode.isSelected ? .bold : .regular
     }
     
     private func getColorStyle() -> Color {
