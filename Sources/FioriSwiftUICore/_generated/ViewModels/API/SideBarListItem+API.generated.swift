@@ -8,7 +8,9 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.accessoryIconModifier) private var accessoryIconModifier
 	@Environment(\.sideBarListItemConfigMode) var sideBarListItemConfigMode
-
+    @Environment(\.sizeCategory) var sizeCategory
+    @ScaledMetric var scale: CGFloat = 1
+    
     let _icon: Icon
 	let _title: Title
 	let _subtitle: Subtitle
