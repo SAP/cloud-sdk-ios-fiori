@@ -43,11 +43,11 @@ extension SideBarListItem: View {
                 .foregroundColor(.preferredColor(.primaryLabel))
                 .frame(width: 22 * scale, height: 22 * scale)
             title
-                .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
+                .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
                 .foregroundColor(getColorStyle())
             Spacer()
             subtitle
-                .font(.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? .bold : .regular))
+                .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
                 .foregroundColor(.preferredColor(.tertiaryLabel))
             accessoryIcon
                 .foregroundColor(.preferredColor(.tertiaryLabel))
