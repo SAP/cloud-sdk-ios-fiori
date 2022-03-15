@@ -38,20 +38,46 @@ extension Fiori {
 
 extension SideBarListItem: View {
     public var body: some View {
-        HStack(spacing: 11) {
-            icon
-                .foregroundColor(.preferredColor(.primaryLabel))
-                .frame(width: 22 * scale, height: 22 * scale)
-            title
-                .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
-                .foregroundColor(getColorStyle())
-            Spacer()
-            subtitle
-                .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
-                .foregroundColor(.preferredColor(.tertiaryLabel))
-            accessoryIcon
-                .foregroundColor(.preferredColor(.tertiaryLabel))
-                .frame(width: 22 * scale, height: 22 * scale)
+        Group {
+            if sizeCategory.isAccessibilityCategory {
+                VStack {
+                    HStack(spacing: 11) {
+                        icon
+                            .foregroundColor(.preferredColor(.primaryLabel))
+                            .frame(width: 22 * scale, height: 22 * scale)
+                        title
+                            .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                            .foregroundColor(getColorStyle())
+                        Spacer()
+                    }
+                    
+                    HStack(spacing: 11) {
+                        Spacer()
+                        subtitle
+                            .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                            .foregroundColor(.preferredColor(.tertiaryLabel))
+                        accessoryIcon
+                            .foregroundColor(.preferredColor(.tertiaryLabel))
+                            .frame(width: 22 * scale, height: 22 * scale)
+                    }
+                }
+            } else {
+                HStack(spacing: 11) {
+                    icon
+                        .foregroundColor(.preferredColor(.primaryLabel))
+                        .frame(width: 22 * scale, height: 22 * scale)
+                    title
+                        .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                        .foregroundColor(getColorStyle())
+                    Spacer()
+                    subtitle
+                        .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                        .foregroundColor(.preferredColor(.tertiaryLabel))
+                    accessoryIcon
+                        .foregroundColor(.preferredColor(.tertiaryLabel))
+                        .frame(width: 22 * scale, height: 22 * scale)
+                }
+            }
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)
