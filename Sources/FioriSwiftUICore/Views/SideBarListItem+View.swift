@@ -17,19 +17,9 @@ extension Fiori {
                     .truncationMode(.tail)
             }
         }
-
-        struct Icon: ViewModifier {
-            func body(content: Content) -> some View {
-                content.padding(.trailing, 11)
-            }
-        }
-
-        struct AccessoryIcon: ViewModifier {
-            func body(content: Content) -> some View {
-                content.padding(.leading, 11)
-            }
-        }
         
+        typealias Icon = EmptyModifier
+        typealias AccessoryIcon = EmptyModifier
         typealias IconCumulative = EmptyModifier
         typealias TitleCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
@@ -48,23 +38,49 @@ extension Fiori {
 
 extension SideBarListItem: View {
     public var body: some View {
-        HStack(spacing: 0) {
-            icon.foregroundColor(.preferredColor(.primaryLabel))
-            title
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
-                .foregroundColor(getColorStyle())
-            Spacer()
-            subtitle
-                .font(.system(size: 17, weight: getFontWeight(), design: .default))
-                .foregroundColor(.preferredColor(.tertiaryLabel))
-            accessoryIcon.foregroundColor(.preferredColor(.tertiaryLabel))
+        Group {
+            if sizeCategory.isAccessibilityCategory {
+                VStack {
+                    HStack(spacing: 11) {
+                        icon
+                            .foregroundColor(.preferredColor(.primaryLabel))
+                            .frame(width: 22 * scale, height: 22 * scale)
+                        title
+                            .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                            .foregroundColor(getColorStyle())
+                        Spacer()
+                    }
+                    
+                    HStack(spacing: 11) {
+                        Spacer()
+                        subtitle
+                            .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                            .foregroundColor(.preferredColor(.tertiaryLabel))
+                        accessoryIcon
+                            .foregroundColor(.preferredColor(.tertiaryLabel))
+                            .frame(width: 22 * scale, height: 22 * scale)
+                    }
+                }
+            } else {
+                HStack(spacing: 11) {
+                    icon
+                        .foregroundColor(.preferredColor(.primaryLabel))
+                        .frame(width: 22 * scale, height: 22 * scale)
+                    title
+                        .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                        .foregroundColor(getColorStyle())
+                    Spacer()
+                    subtitle
+                        .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
+                        .foregroundColor(.preferredColor(.tertiaryLabel))
+                    accessoryIcon
+                        .foregroundColor(.preferredColor(.tertiaryLabel))
+                        .frame(width: 22 * scale, height: 22 * scale)
+                }
+            }
         }
         .padding(EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11))
         .cornerRadius(8, antialiased: true)
-    }
-    
-    private func getFontWeight() -> Font.Weight {
-        sideBarListItemConfigMode.isSelected ? .bold : .regular
     }
     
     private func getColorStyle() -> Color {

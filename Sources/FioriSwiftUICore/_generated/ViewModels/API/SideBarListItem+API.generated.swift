@@ -7,13 +7,14 @@ public struct SideBarListItem<Icon: View, Title: View, Subtitle: View, Accessory
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.accessoryIconModifier) private var accessoryIconModifier
+	@Environment(\.sizeCategory) var sizeCategory
 	@Environment(\.sideBarListItemConfigMode) var sideBarListItemConfigMode
 
     let _icon: Icon
 	let _title: Title
 	let _subtitle: Subtitle
 	let _accessoryIcon: AccessoryIcon
-	
+	@ScaledMetric var scale: CGFloat = 1
     private var isModelInit: Bool = false
 	private var isIconNil: Bool = false
 	private var isSubtitleNil: Bool = false
