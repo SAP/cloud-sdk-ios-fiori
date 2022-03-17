@@ -11,13 +11,13 @@ public extension Font {
     /// - Returns: A scaled font for this text style.
     static func fiori(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
         guard UIFont.familyNames.contains("72") else {
-            return .system(fioriTextStyle.textStyle)
+            return Font.system(fioriTextStyle.textStyle)
         }
         
         if #available(iOS 14.0, *) {
-            return .custom("72", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
+            return Font.custom("72", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
         } else {
-            return .custom("72", size: fioriTextStyle.size)
+            return Font.custom("72", size: fioriTextStyle.size)
         }
     }
     
@@ -30,10 +30,10 @@ public extension Font {
     @available(iOS 14.0, *)
     static func fiori(fixedSize: CGFloat) -> Font {
         guard UIFont.familyNames.contains("72") else {
-            return .system(size: fixedSize)
+            return Font.system(size: fixedSize)
         }
         
-        return .custom("72", fixedSize: fixedSize)
+        return Font.custom("72", fixedSize: fixedSize)
     }
     
     /// Fiori (72) condensed fonts
@@ -44,13 +44,13 @@ public extension Font {
     /// - Returns: A scaled condensed font for this text style.
     static func fioriCondensed(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
         guard UIFont.familyNames.contains("72") else {
-            return .system(fioriTextStyle.textStyle)
+            return Font.system(fioriTextStyle.textStyle)
         }
         
         if #available(iOS 14.0, *) {
-            return .custom("72-Condensed", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
+            return Font.custom("72-Condensed", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
         } else {
-            return .custom("72-Condensed", size: fioriTextStyle.size)
+            return Font.custom("72-Condensed", size: fioriTextStyle.size)
         }
     }
     
@@ -63,10 +63,10 @@ public extension Font {
     @available(iOS 14.0, *)
     static func fioriCondensed(fixedSize: CGFloat) -> Font {
         guard UIFont.familyNames.contains("72") else {
-            return .system(size: fixedSize)
+            return Font.system(size: fixedSize)
         }
         
-        .custom("72-Condensed", fixedSize: fixedSize)
+        return Font.custom("72-Condensed", fixedSize: fixedSize)
     }
 }
 
