@@ -29,7 +29,11 @@ public extension Font {
     /// - Returns: A font with fixed size.
     @available(iOS 14.0, *)
     static func fiori(fixedSize: CGFloat) -> Font {
-        .custom("72", fixedSize: fixedSize)
+        guard UIFont.familyNames.contains("72") else {
+            return .system(size: fixedSize)
+        }
+        
+        return .custom("72", fixedSize: fixedSize)
     }
     
     /// Fiori (72) condensed fonts
@@ -39,6 +43,10 @@ public extension Font {
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A scaled condensed font for this text style.
     static func fioriCondensed(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
+        guard UIFont.familyNames.contains("72") else {
+            return .system(fioriTextStyle.textStyle)
+        }
+        
         if #available(iOS 14.0, *) {
             return .custom("72-Condensed", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
         } else {
@@ -54,6 +62,10 @@ public extension Font {
     /// - Returns: A condensed font with fixed size.
     @available(iOS 14.0, *)
     static func fioriCondensed(fixedSize: CGFloat) -> Font {
+        guard UIFont.familyNames.contains("72") else {
+            return .system(size: fixedSize)
+        }
+        
         .custom("72-Condensed", fixedSize: fixedSize)
     }
 }
