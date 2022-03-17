@@ -10,6 +10,10 @@ public extension Font {
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A scaled font for this text style.
     static func fiori(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
+        guard UIFont.familyNames.contains("72") else {
+            return .system(fioriTextStyle.textStyle)
+        }
+        
         if #available(iOS 14.0, *) {
             return .custom("72", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
         } else {
