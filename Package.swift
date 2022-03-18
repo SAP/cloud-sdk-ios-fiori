@@ -19,11 +19,6 @@ let package = Package(
             targets: ["FioriCharts"]
         ),
         .library(
-            name: "FioriIntegrationCards",
-            type: .dynamic,
-            targets: ["FioriIntegrationCards"]
-        ),
-        .library(
             name: "FioriThemeManager",
             type: .dynamic,
             targets: ["FioriThemeManager"]
@@ -31,18 +26,11 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.2.3"),
-        .package(name: "ObservableArray", url: "https://github.com/sstadelman/observable-array.git", from: "1.2.0"),
-        .package(url: "https://github.com/MarcoEidinger/Zip.git", .upToNextMinor(from: "2.1.2"))
     ],
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriSwiftUICore", "FioriIntegrationCards"]
-        ),
-        .target(
-            name: "FioriIntegrationCards",
-            dependencies: ["AnyCodable", "ObservableArray", "FioriCharts", "Zip", "FioriThemeManager"]
+            dependencies: ["FioriSwiftUICore"]
         ),
         .target(
             name: "FioriCharts",
