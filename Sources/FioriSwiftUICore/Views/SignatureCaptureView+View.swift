@@ -90,7 +90,7 @@ extension SignatureCaptureView: View {
                 ZStack {
                     if let uiImage = fullSignatureImage {
                         Image(uiImage: uiImage)
-                            .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
+                            .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
                             .cornerRadius(10)
                             .padding(.zero)
                     } else if let signature = _signatureImage {
@@ -100,7 +100,7 @@ extension SignatureCaptureView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
-                        .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
+                        .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
                         .padding(.zero)
                 }.padding(.zero)
             } else {
@@ -166,7 +166,7 @@ extension SignatureCaptureView: View {
     @ViewBuilder var drawingArea: some View {
         if self.isEditing {
             ZStack(alignment: .bottom) {
-                ScribbleView(image: $fullSignatureImage, currentDrawing: $currentDrawing, drawings: $drawings, isSaved: $isSaved, isEditing: $isEditing, onSave: self.onSave(_:), strokeWidth: strokeWidth, strokeColor: strokeColor, drawingViewBackgroundColor: drawingViewBackgroundColor, cropsImage: cropsImage)
+                ScribbleView(image: $fullSignatureImage, currentDrawing: $currentDrawing, drawings: $drawings, isSaved: $isSaved, isEditing: $isEditing, onSave: self.onSave(_:), strokeWidth: strokeWidth, strokeColor: strokeColor, drawingViewBackgroundColor: drawingViewBackgroundColor, cropsImage: cropsImage, watermarkText: watermarkText, watermarkTextColor: watermarkTextColor, watermarkTextFont: watermarkTextFont, watermarkTextAlignment: watermarkTextAlignment, addsTimestampInImage: addsTimestampInImage)
                     .frame(maxWidth: .infinity, minHeight: 256, maxHeight: _drawingViewMaxHeight)
                 HStack(alignment: .bottom) {
                     Image(systemName: "xmark")
@@ -178,7 +178,7 @@ extension SignatureCaptureView: View {
                         .frame(height: 1)
                         .setHidden(self.hidesSignatureLine)
                 }
-                .padding([.leading, .trailing]).padding(.bottom, 30)
+                .padding([.leading, .trailing]).padding(.bottom, 48)
             }
         } else {
             ZStack(alignment: .bottom) {
@@ -205,7 +205,7 @@ extension SignatureCaptureView: View {
                         .frame(height: 1)
                         .setHidden(self.hidesSignatureLine)
                 }
-                .padding([.leading, .trailing]).padding(.bottom, 30)
+                .padding([.leading, .trailing]).padding(.bottom, 48)
             }
         }
     }
@@ -226,6 +226,23 @@ extension SignatureCaptureView: View {
 
     func onDelete() {
         _onDelete?()
+    }
+
+    func imageMaxHeight() -> CGFloat? {
+        var imageHeight: CGFloat = 0
+        if let uiImage = fullSignatureImage {
+            imageHeight = uiImage.size.height
+        } else if let signature = _signatureImage {
+            imageHeight = signature.size.height
+        } else {
+            return _drawingViewMaxHeight
+        }
+        if let drawingViewMaxHeight = _drawingViewMaxHeight {
+            return max(imageHeight, drawingViewMaxHeight)
+        } else if imageHeight > 0 {
+            return imageHeight
+        }
+        return nil
     }
 }
 
@@ -372,6 +389,72 @@ public extension SignatureCaptureView {
     func hidesSignatureLine(_ hidesSignatureLine: Bool) -> Self {
         var newSelf = self
         newSelf.hidesSignatureLine = hidesSignatureLine
+        return newSelf
+    }
+
+    /**
+     A view modifier to indicate to add timestamp to the signature image or not.
+
+     - parameter addsTimestampInImage: Set this to true to add timestamp to the signature image.
+     */
+    func addsTimestampInImage(_ addsTimestampInImage: Bool) -> Self {
+        var newSelf = self
+        newSelf.addsTimestampInImage = addsTimestampInImage
+        return newSelf
+    }
+
+    /**
+     A view modifier to provide a customized timestamp formatter.
+
+     - parameter timestampFormatter: The customized timestamp formatter.
+     */
+    func timestampFormatter(_ timestampFormatter: DateFormatter?) -> Self {
+        var newSelf = self
+        newSelf.timestampFormatter = timestampFormatter
+        return newSelf
+    }
+
+    /**
+     A view modifier to provide a watermark text to be added to the signature image.
+
+     - parameter watermarkText: The watermark text to be added to the signature image.
+     */
+    func watermarkText(_ watermarkText: String?) -> Self {
+        var newSelf = self
+        newSelf.watermarkText = watermarkText
+        return newSelf
+    }
+
+    /**
+     A view modifier to change the alignment for the watermark text.
+
+     - parameter wartermarkTextAlignment: The watermark text alignment for the watermark text.
+     */
+    func watermarkTextAlignment(_ watermarkTextAlignment: NSTextAlignment) -> Self {
+        var newSelf = self
+        newSelf.watermarkTextAlignment = watermarkTextAlignment
+        return newSelf
+    }
+
+    /**
+     A view modifier to change the `UIFont` for the watermark text.
+
+     - parameter watermarkTextFont: The font for the watermark text.
+     */
+    func watermarkTextFont(_ watermarkTextFont: UIFont) -> Self {
+        var newSelf = self
+        newSelf.watermarkTextFont = watermarkTextFont
+        return newSelf
+    }
+
+    /**
+     A view modifier to provide a `Color` for the watermark text.
+
+     - parameter var watermarkTextColor: Color?: The font for the watermark text. If this is `nil`, the default font will be used.
+     */
+    func watermarkTextColor(_ watermarkTextColor: Color) -> Self {
+        var newSelf = self
+        newSelf.watermarkTextColor = watermarkTextColor
         return newSelf
     }
 }
