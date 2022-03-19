@@ -196,6 +196,12 @@ public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
 // sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"
 // sourcery: virtualPropHidesXmark = "var hidesXmark = false"
 // sourcery: virtualPropHidesSignatureLine = "var hidesSignatureLine = false"
+// sourcery: virtualPropAddsTimestampInImage = "var addsTimestampInImage: Bool = false"
+// sourcery: virtualPropTimestampFormatter = "var timestampFormatter: DateFormatter?"
+// sourcery: virtualPropWatermarkText = "var watermarkText: String?"
+// sourcery: virtualPropWatermarkTextAlignment = "var watermarkTextAlignment: NSTextAlignment = .natural"
+// sourcery: virtualPropWatermarkTextFont = "var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)"
+// sourcery: virtualPropWatermarkTextColor = "var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)"
 // sourcery: generated_component_composite
 public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
