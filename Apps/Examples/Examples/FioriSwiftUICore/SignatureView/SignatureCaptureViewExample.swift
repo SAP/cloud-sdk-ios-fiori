@@ -9,6 +9,9 @@ struct SignatureCaptureViewExample: View {
                 let imgSaver = ImageSaver()
                 imgSaver.writeToPhotoAlbum(image: uiImage)
             })
+            ._drawingViewMaxHeight(400)
+            .addsTimestampInImage(true)
+            .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman. A bird in the hand is worth two in the bush.")
     }
 }
 
@@ -38,6 +41,11 @@ struct SignatureCaptureViewExample2: View {
             .signatureLineColor(.orange)
             .hidesXmark(false)
             .hidesSignatureLine(true)
+            .addsTimestampInImage(true)
+            .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
+            .watermarkTextAlignment(.right)
+            .watermarkTextFont(.preferredFont(forTextStyle: .body))
+            .watermarkTextColor(.green)
             ._drawingViewMaxHeight(300)
             .restartActionModifier {
                 $0.font(.callout).foregroundColor(.red)

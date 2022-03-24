@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 import Combine
@@ -19,25 +19,31 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
+	let _drawingViewMinHeight: CGFloat = 256
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	var hidesXmark = false
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	@State var isReenterTapped = false
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var fullSignatureImage: UIImage?
 	@State var isEditing = false
 	var strokeColor = Color.preferredColor(.primaryLabel)
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	@State var fullSignatureImage: UIImage?
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	@State var drawings = [Drawing]()
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	var watermarkText: String?
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var addsTimestampInImage: Bool = false
 	var _drawingViewMaxHeight: CGFloat?
 	@State var currentDrawing = Drawing()
-	var cropsImage = false
-	@State var drawings = [Drawing]()
-	var strokeWidth: CGFloat = 3.0
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	var hidesSignatureLine = false
-	var hidesXmark = false
-	@State var isReenterTapped = false
-	@State var isSaved = false
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	let _drawingViewMinHeight: CGFloat = 256
 	var titleColor = Color.preferredColor(.primaryLabel)
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var strokeWidth: CGFloat = 3.0
+	@State var isSaved = false
+	var hidesSignatureLine = false
+	var cropsImage = false
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var timestampFormatter: DateFormatter?
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
