@@ -89,13 +89,29 @@ extension SignatureCaptureView: View {
             if fullSignatureImage != nil || (_signatureImage != nil && !isReenterTapped) {
                 ZStack {
                     if let uiImage = fullSignatureImage {
-                        Image(uiImage: uiImage)
-                            .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
-                            .cornerRadius(10)
-                            .padding(.zero)
+                        if appliesTintColorToImage {
+                            Image(uiImage: uiImage)
+                                .renderingMode(.template)
+                                .foregroundColor(strokeColor)
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
+                                .cornerRadius(10)
+                                .padding(.zero)
+                        } else {
+                            Image(uiImage: uiImage)
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
+                                .cornerRadius(10)
+                                .padding(.zero)
+                        }
                     } else if let signature = _signatureImage {
-                        Image(uiImage: signature)
-                            .padding(.zero)
+                        if appliesTintColorToImage {
+                            Image(uiImage: signature)
+                                .renderingMode(.template)
+                                .foregroundColor(strokeColor)
+                                .padding(.zero)
+                        } else {
+                            Image(uiImage: signature)
+                                .padding(.zero)
+                        }
                     }
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.preferredColor(.separator), lineWidth: 1)
@@ -455,6 +471,18 @@ public extension SignatureCaptureView {
     func watermarkTextColor(_ watermarkTextColor: Color) -> Self {
         var newSelf = self
         newSelf.watermarkTextColor = watermarkTextColor
+        return newSelf
+    }
+
+    /**
+     A view modifier to indicate if stroke color is to be applied when displaying a saved signature image.
+
+     - parameter appliesTintColorToImage: A boolean variable to indicate if stroke color is to be applied when displaying a saved signature image.
+        The default is true.
+     */
+    func appliesTintColorToImage(_ appliesTintColorToImage: Bool) -> Self {
+        var newSelf = self
+        newSelf.appliesTintColorToImage = appliesTintColorToImage
         return newSelf
     }
 }
