@@ -291,6 +291,7 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropWatermarkTextAlignment = "var watermarkTextAlignment: NSTextAlignment = .natural"
 // sourcery: virtualPropWatermarkTextFont = "var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)"
 // sourcery: virtualPropWatermarkTextColor = "var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)"
+// sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
 // sourcery: generated_component_composite
 public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil

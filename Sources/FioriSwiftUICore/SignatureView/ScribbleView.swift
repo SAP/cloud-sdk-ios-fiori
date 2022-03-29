@@ -108,15 +108,11 @@ extension ScribbleView {
             imageSize.height += extraHeight
             path.apply(CGAffineTransform(translationX: 0, y: -extraHeight))
         }
+        let lightTraitCollection = UITraitCollection(userInterfaceStyle: .light)
 
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 1)
-        if #available(iOS 14.0, *) {
-            let color = UIColor(self.drawingViewBackgroundColor)
-            color.setFill()
-        } else {
-            let color = self.drawingViewBackgroundColor.uiColor()
-            color.setFill()
-        }
+        let color = UIColor.clear
+        color.setFill()
 
         if let origin = origin {
             path.apply(CGAffineTransform(translationX: -1 * origin.x, y: -1 * origin.y))
@@ -128,10 +124,10 @@ extension ScribbleView {
 
         UIRectFill(CGRect(origin: .zero, size: imageSize))
         if #available(iOS 14.0, *) {
-            let color = UIColor(self.strokeColor)
+            let color = UIColor(self.strokeColor).resolvedColor(with: lightTraitCollection)
             color.setStroke()
         } else {
-            let color = self.strokeColor.uiColor()
+            let color = self.strokeColor.uiColor().resolvedColor(with: lightTraitCollection)
             color.setStroke()
         }
         path.stroke()
