@@ -2,5 +2,4 @@ module: FioriSwiftUI
 author: SAP SE
 author_url: https://www.sap.com
 theme: jony
-copyright: '© 2020 - 2021 [https://github.com/SAP/cloud-sdk-ios-fiori](https://github.com/SAP/cloud-sdk-ios-fiori) under Apache-2.0.'
 hide_documentation_coverage: true

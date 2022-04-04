@@ -41,6 +41,7 @@ struct LeadingAccessoryView: View {
                 case .icon(let image):
                     image
                         .resizable()
+                        .imageScale(.large)
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
@@ -54,17 +55,6 @@ struct LeadingAccessoryView: View {
         .background(self.layoutManager.model.backgroundColor)
     }
     
-    func makeButton(button: AccessoryButton) -> some View {
-        Button(action: {
-            button.action()
-        }) {
-            button.image?.resizable()
-                .aspectRatio(contentMode: .fit)
-                .padding(8)
-        }
-        .frame(width: 44 * self.layoutManager.scaleX, height: 44 * self.layoutManager.scaleY)
-    }
-    
     func makeSectionButton(layoutData: LayoutData) -> some View {
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let rowItem = layoutData.rowData[self.rowIndex]
@@ -74,29 +64,37 @@ struct LeadingAccessoryView: View {
         let selectedImage = rowItem.selectedImage ?? Image(systemName: "checkmark.circle.fill")
         let deSelectedImage = rowItem.deSelectedImage ?? Image(systemName: "circle")
         
-        return
-            Group {
-                if self.layoutManager.model.isEditing, !isHeader {
-                    Button(action: {
-                        if !self.layoutManager.selectedIndexes.contains(selectionIndex) {
-                            self.layoutManager.selectedIndexes.append(selectionIndex)
-                            self.layoutManager.model.selectedIndexes.append(selectionIndex)
-                        } else {
-                            self.layoutManager.selectedIndexes.removeAll { (target) -> Bool in
-                                target == selectionIndex
-                            }
-                            self.layoutManager.model.selectedIndexes.removeAll { (target) -> Bool in
-                                target == selectionIndex
-                            }
+        return Group {
+            if self.layoutManager.model.isEditing, !isHeader {
+                Button(action: {
+                    if !self.layoutManager.selectedIndexes.contains(selectionIndex) {
+                        self.layoutManager.selectedIndexes.append(selectionIndex)
+                        self.layoutManager.model.selectedIndexes.append(selectionIndex)
+                    } else {
+                        self.layoutManager.selectedIndexes.removeAll { (target) -> Bool in
+                            target == selectionIndex
                         }
-                        
-                    }) {
-                        isSelected ? AnyView(selectedImage.imageScale(.large)) : AnyView(deSelectedImage.imageScale(.large).foregroundColor(TableViewLayout.defaultForegroundColor))
+                        self.layoutManager.model.selectedIndexes.removeAll { (target) -> Bool in
+                            target == selectionIndex
+                        }
                     }
-                    .frame(width: 44 * self.layoutManager.scaleX, height: 44 * self.layoutManager.scaleY)
-                } else {
-                    AnyView(EmptyView())
+                }) {
+                    if isSelected {
+                        selectedImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(8 * self.layoutManager.scaleX)
+                    } else {
+                        deSelectedImage
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .padding(8 * self.layoutManager.scaleX)
+                    }
                 }
+                .frame(width: TableViewLayout.buttonSize * self.layoutManager.scaleX, height: TableViewLayout.buttonSize * self.layoutManager.scaleY)
+            } else {
+                AnyView(EmptyView())
             }
+        }
     }
 }

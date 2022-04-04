@@ -92,6 +92,8 @@ public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 public protocol ProgressIndicatorModel: ProgressIndicatorComponent {}
 
 // sourcery: add_env_props = "sideBarListItemConfigMode"
+// sourcery: add_env_props = "sizeCategory"
+// sourcery: virtualPropSidebarIconScaleMetric = "@ScaledMetric var scale: CGFloat = 1"
 // sourcery: generated_component
 public protocol SideBarListItemModel: IconComponent, TitleComponent, SubtitleComponent, AccessoryIconComponent {}
 
@@ -283,6 +285,13 @@ public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponen
 // sourcery: virtualPropDrawingViewMaxHeight = "var _drawingViewMaxHeight: CGFloat?"
 // sourcery: virtualPropHidesXmark = "var hidesXmark = false"
 // sourcery: virtualPropHidesSignatureLine = "var hidesSignatureLine = false"
+// sourcery: virtualPropAddsTimestampInImage = "var addsTimestampInImage: Bool = false"
+// sourcery: virtualPropTimestampFormatter = "var timestampFormatter: DateFormatter?"
+// sourcery: virtualPropWatermarkText = "var watermarkText: String?"
+// sourcery: virtualPropWatermarkTextAlignment = "var watermarkTextAlignment: NSTextAlignment = .natural"
+// sourcery: virtualPropWatermarkTextFont = "var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)"
+// sourcery: virtualPropWatermarkTextColor = "var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)"
+// sourcery: virtualPropAppliesTintColorToImage = "var appliesTintColorToImage = true"
 // sourcery: generated_component_composite
 public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: default.value = nil
