@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 import Combine
@@ -19,25 +19,32 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	@State var isEditing = false
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	@State var fullSignatureImage: UIImage?
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var _drawingViewMaxHeight: CGFloat?
+	var timestampFormatter: DateFormatter?
 	@State var currentDrawing = Drawing()
-	var cropsImage = false
-	@State var drawings = [Drawing]()
-	var strokeWidth: CGFloat = 3.0
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	var hidesSignatureLine = false
-	var hidesXmark = false
-	@State var isReenterTapped = false
-	@State var isSaved = false
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	let _drawingViewMinHeight: CGFloat = 256
 	var titleColor = Color.preferredColor(.primaryLabel)
+	var hidesXmark = false
+	@State var fullSignatureImage: UIImage?
+	var strokeWidth: CGFloat = 3.0
+	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
+	var addsTimestampInImage: Bool = false
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var cropsImage = false
+	var _drawingViewMaxHeight: CGFloat?
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	var appliesTintColorToImage = true
+	@State var isSaved = false
+	let _drawingViewMinHeight: CGFloat = 256
+	@State var isReenterTapped = false
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var watermarkText: String?
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	@State var isEditing = false
+	var hidesSignatureLine = false
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	@State var drawings = [Drawing]()
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
