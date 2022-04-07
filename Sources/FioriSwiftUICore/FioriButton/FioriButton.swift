@@ -57,6 +57,7 @@ public struct FioriButton<Label: View>: View {
     let action: ((UIControl.State) -> Void)?
     let label: (UIControl.State) -> Label
     let isSelectionPersistent: Bool
+    private let touchAreaInset: CGFloat = 50
     
     @Environment(\.isEnabled) private var isEnabled
     @Environment(\.fioriButtonStyle) private var fioriButtonStyle
@@ -94,24 +95,65 @@ public struct FioriButton<Label: View>: View {
         return ZStack {
             self.fioriButtonStyle.makeBody(configuration: config)
         }
-        .gesture(createGesture())
+        .overlay(GeometryReader { proxy in
+            Color.clear.contentShape(Rectangle()).gesture(createGesture(proxy.size))
+        })
     }
     
-    func createGesture() -> some Gesture {
+    func createGesture(_ size: CGSize) -> some Gesture {
+        let touchArea = CGRect(origin: .zero, size: size).insetBy(dx: -self.touchAreaInset, dy: -self.touchAreaInset)
+        var isCancelled = false
+        
         if self.isSelectionPersistent {
             return DragGesture(minimumDistance: 0)
-                .onChanged { _ in
+                .onChanged { value in
+                    guard !isCancelled else {
+                        return
+                    }
+                    
+                    if !touchArea.contains(value.location) {
+                        isCancelled = true
+                    }
                 }
                 .onEnded { _ in
+                    defer {
+                        isCancelled = false
+                    }
+                    
+                    guard !isCancelled else {
+                        return
+                    }
+                    
                     self._state = self.state == .normal ? .selected : .normal
                     self.action?(state)
                 }
         } else {
             return DragGesture(minimumDistance: 0)
-                .onChanged { _ in
-                    self._state = .highlighted
+                .onChanged { value in
+                    guard !isCancelled else {
+                        return
+                    }
+
+                    if !touchArea.contains(value.location) {
+                        isCancelled = true
+                        self._state = .normal
+
+                        return
+                    }
+                    
+                    if self._state == .normal {
+                        self._state = .highlighted
+                    }
                 }
                 .onEnded { _ in
+                    defer {
+                        isCancelled = false
+                    }
+
+                    guard !isCancelled else {
+                        return
+                    }
+                    
                     self._state = .normal
                     self.action?(state)
                 }
