@@ -19,25 +19,32 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	@State var fullSignatureImage: UIImage?
-	@State var drawings = [Drawing]()
-	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	@State var isReenterTapped = false
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	var timestampFormatter: DateFormatter?
 	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
-	@State var isEditing = false
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	let _drawingViewMinHeight: CGFloat = 256
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var fullSignatureImage: UIImage?
+	var appliesTintColorToImage = true
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
+	var strokeWidth: CGFloat = 3.0
+	var addsTimestampInImage: Bool = false
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	var titleColor = Color.preferredColor(.primaryLabel)
+	var watermarkText: String?
 	var hidesXmark = false
 	@State var isSaved = false
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	var strokeWidth: CGFloat = 3.0
-	var _drawingViewMaxHeight: CGFloat?
+	let _drawingViewMinHeight: CGFloat = 256
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	@State var drawings = [Drawing]()
 	@State var currentDrawing = Drawing()
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	var titleColor = Color.preferredColor(.primaryLabel)
 	var cropsImage = false
 	var hidesSignatureLine = false
+	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
+	var strokeColor = Color.preferredColor(.primaryLabel)
+	@State var isReenterTapped = false
+	@State var isEditing = false
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
+	var _drawingViewMaxHeight: CGFloat?
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
