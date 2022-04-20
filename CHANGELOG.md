@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/billzhou0223/cloud-sdk-ios-fiori/compare/2.0.1...2.1.0) (2022-04-11)
+
+
+### Features
+
+* 🎸 [BCP:2170239589]Signature add timestamp and watermark ([#412](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/412)) ([b724714](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/b7247143e7665b049dbb183def77162cae3d655d))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-2149] DataTable enhancements ([#404](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/404)) ([5c6a0f8](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/5c6a0f82d31e356c00e3aa53ffd96484d792e477))
+* 🎸 add one more parameter in TableModel's init() ([#393](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/393)) ([02fc042](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/02fc042f3c1cfd0736945a971eb2683332b0573a))
+
+
+### Bug Fixes
+
+* [JIRA:HCPSDKFIORIUIKIT-2076] Make icons and texts in SideBarListItem support dynamic type. ([#408](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/408)) ([f761e77](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/f761e77964284c4f4345698cde2cfe4f1e00bd1b))
+* [SN:CS20220002723901] Changed the critical label color ([#399](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/399)) ([1ed4afd](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/1ed4afd391753655e57e53ec0873642c605b086c))
+* 🐛 [BCP: 2280078347] Fix color for high constrast, elevated ([#401](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/401)) ([0961c5e](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/0961c5eab127225660f45c2830314a4e7ad41a56))
+* 🐛 [BCP:0] SignatureCaptureView display image color issue ([#414](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/414)) ([125c7a2](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/125c7a294499801edcb58af60327ae9b4a3a32d4))
+* 🐛 Add touch area in FioriButton to support action cancellation. ([#415](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/415)) ([493496e](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/493496efaf708a9c7c507b2a3d3e51d1e2201411))
+* 🐛 Add touch area in FioriButton to support cancel action ([61d35c0](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/61d35c035574eabd95ddb66e7580bf5692de18f0))
+* 🐛 Apply two lines layout when in acc content size ([00a76c2](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/00a76c2791f896a4df161c6e6bd8ab719a9e85c1))
+* 🐛 Explicitly set Font.fiori() to use system font when registerFont() is not called ([ae3d173](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/ae3d1735e06e535d8034b85ad59e72df9b2fbe88))
+* 🐛 Explicitly set Font.fiori() to use system font when registerFont() is not called. ([#409](https://github.com/billzhou0223/cloud-sdk-ios-fiori/issues/409)) ([a52c7db](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/a52c7db9cf7599611142169c84a8db8b12a51ce0))
+* 🐛 Make icons of SideBarListItem scalable ([d99b133](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/d99b1330f8df6cac1be8ba185f8505245b3a27ae))
+* 🐛 Use scaledFont for title and subtitle in SideBarListItem ([e2e2453](https://github.com/billzhou0223/cloud-sdk-ios-fiori/commit/e2e2453bb8fcc01d770ffb46274c32e2405688c2))
+
 ### [2.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.0.0...2.0.1) (2021-12-13)
 
 
