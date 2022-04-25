@@ -143,7 +143,13 @@ class LayoutData {
                 let title = item.text
                 var uifont: UIFont
                 if let tmpUIFont = item.uifont {
-                    uifont = tmpUIFont
+                    // `item.uifont` is passed by developer, although is a preferred font but can't resize according to system in SwiftUI. So need to redefine the UIFont instance.
+                    if let styleName = tmpUIFont.fontDescriptor.fontAttributes[.textStyle] as? String {
+                        let textStyle = UIFont.TextStyle(rawValue: styleName)
+                        uifont = UIFont.preferredFont(forTextStyle: textStyle)
+                    }else {
+                        uifont = tmpUIFont
+                    }
                 } else if let _font = item.font {
                     uifont = UIFont.preferredFont(from: _font)
                 } else {
@@ -164,7 +170,7 @@ class LayoutData {
                                          firstBaselineHeight: firstBaselineHeight,
                                          pos: .zero,
                                          font: font,
-                                         uifont: item.uifont,
+                                         uifont: uifont,
                                          foregroundColor: textColor,
                                          size: size,
                                          textAlignment: textAlignment,
