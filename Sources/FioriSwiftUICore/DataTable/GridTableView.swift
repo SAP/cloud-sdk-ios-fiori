@@ -33,7 +33,7 @@ struct GridTableView: View {
         }
         
         // trigger the layout if it has been changed
-        if self.sizeCategory != self.sizeCategory {
+        if self.layoutManager.sizeCategory != self.sizeCategory {
             self.layoutManager.sizeCategory = self.sizeCategory
         }
         
