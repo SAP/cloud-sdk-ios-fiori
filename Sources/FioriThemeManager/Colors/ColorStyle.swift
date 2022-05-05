@@ -56,7 +56,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/12171C.png&text=+)          Hex value: 12171CFF
     /// (light variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
     case grey11
-
+    
     // Core 2: Blues (1 - 11)
     /// Blue 1
     /// (dark variant) ![](https://dummyimage.com/48x18/EBF8FF.png&text=+)          Hex value: EBF8FFFF
@@ -168,63 +168,63 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/002A86.png&text=+)          Hex value: 002A86FF
     /// (light variant) ![](https://dummyimage.com/48x18/DAFDF5.png&text=+)          Hex value: DAFDF5FF
     case teal11
-
+    
     // Core 4: Greens (1 - 11)
     /// Green 1
-     /// (dark variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
-     /// (light variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
-     case green1
-     
-     /// Green 2
-     /// (dark variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
-     /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
-     case green2
-     
-     /// Green 3
-     /// (dark variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
-     /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
-     case green3
-     
-     /// Green 4
-     /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
-     /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-     case green4
-     
-     /// Green 5
-     /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
-     /// (light variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
-     case green5
-     
-     /// Green 6
-     /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
-     /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
-     case green6
-     
-     /// Green 7
-     /// (dark variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
-     /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
-     case green7
-     
-     /// Green 8
-     /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-     /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
-     case green8
-     
-     /// Green 9
-     /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
-     /// (light variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
-     case green9
-     
-     /// Green 10
-     /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
-     /// (light variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
-     case green10
-     
-     /// Green 11
-     /// (dark variant) ![](https://dummyimage.com/48x18/363636.png&text=+)          Hex value: 363636FF
-     /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
-     case green11
-  
+    /// (dark variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    /// (light variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
+    case green1
+    
+    /// Green 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
+    /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
+    case green2
+    
+    /// Green 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
+    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    case green3
+    
+    /// Green 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    case green4
+    
+    /// Green 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    /// (light variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
+    case green5
+    
+    /// Green 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    case green6
+    
+    /// Green 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    case green7
+    
+    /// Green 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    case green8
+    
+    /// Green 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
+    case green9
+    
+    /// Green 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
+    case green10
+    
+    /// Green 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/363636.png&text=+)          Hex value: 363636FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    case green11
+    
     // Core 5: Mangos (1 - 11)
     /// Mango 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)          Hex value: FFF8D6FF
@@ -280,7 +280,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)          Hex value: FFF8D6FF
     case mango11
-  
+    
     // Core 6: Reds (1 - 11)
     /// Red 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)          Hex value: FFEAF4FF
@@ -336,7 +336,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/350000.png&text=+)          Hex value: 350000FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)          Hex value: FFEAF4FF
     case red11
- 
+    
     // Core 7: Pinks (1 - 11)
     /// Pink 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFF0FA.png&text=+)          Hex value: FFF0FAFF
@@ -392,7 +392,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/28004A.png&text=+)          Hex value: 28004AFF
     /// (light variant) ![](https://dummyimage.com/48x18/FFF0FA.png&text=+)          Hex value: FFF0FAFF
     case pink11
- 
+    
     // Core 8: Raspberries (1 - 11)
     /// Raspberry 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFF0F5.png&text=+)          Hex value: FFF0F5FF
@@ -448,7 +448,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/510136.png&text=+)          Hex value: 510136FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFF0F5.png&text=+)          Hex value: FFF0F5FF
     case raspberry11
- 
+    
     // Core 9: Indigos (1 - 11)
     /// Indigo 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F1ECFF.png&text=+)          Hex value: F1ECFFFF
@@ -625,7 +625,7 @@ public enum ColorStyle: String, CaseIterable {
     /// (dark variant) ![](https://dummyimage.com/48x18/EAECEE.png&text=+)          Hex value: EAECEEFF
     /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
     case accentBackground10
-
+    
     // MARK: - Shadow Colors (2 Colors)
     
     /// Card Shadow
@@ -1152,41 +1152,41 @@ public enum ColorStyle: String, CaseIterable {
     case backgroundBase
     
     public static var allCases: [ColorStyle] = [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6,
-                                                   .grey7, .grey8, .grey9, .grey10, .grey11, .blue1,
-                                                   .blue2, .blue3, .blue4, .blue5, .blue6, .blue7,
-                                                   .blue8, .blue9, .blue10, .blue11, .teal1, .teal2,
-                                                   .teal3, .teal4, .teal5, .teal6, .teal7, .teal8,
-                                                   .teal9, .teal10, .teal11, .green1, .green2, .green3,
-                                                   .green4, .green5, .green6, .green7, .green8, .green9,
-                                                   .green10, .green11, .mango1, .mango2, .mango3, .mango4,
-                                                   .mango5, .mango6, .mango7, .mango8, .mango9, .mango10,
-                                                   .mango11, .red1, .red2, .red3, .red4, .red5, .red6,
-                                                   .red7, .red8, .red9, .red10, .red11, .pink1, .pink2,
-                                                   .pink3, .pink4, .pink5, .pink6, .pink7, .pink8, .pink9,
-                                                   .pink10, .pink11, .raspberry1, .raspberry2, .raspberry3,
-                                                   .raspberry4, .raspberry5, .raspberry6, .raspberry7,
-                                                   .raspberry8, .raspberry9, .raspberry10, .raspberry11,
-                                                   .indigo1, .indigo2, .indigo3, .indigo4, .indigo5,
-                                                   .indigo6, .indigo7, .indigo8, .indigo9, .indigo10,
-                                                   .indigo11, .baseWhite, .baseBlack, .base1, .base2,
-                                                   .accentLabel1, .accentLabel2, .accentLabel3, .accentLabel4,
-                                                   .accentLabel5, .accentLabel6, .accentLabel7, .accentLabel8,
-                                                   .accentLabel9, .accentLabel10, .accentBackground1,
-                                                   .accentBackground2, .accentBackground3, .accentBackground4,
-                                                   .accentBackground5, .accentBackground6, .accentBackground7,
-                                                   .accentBackground8, .accentBackground9, .accentBackground10,
-                                                   .cardShadow, .sectionShadow, .primaryGroupedBackground,
-                                                   .secondaryGroupedBackground,.tertiaryGroupedBackground,
-                                                   .primaryBackground, .secondaryBackground, .tertiaryBackground,
-                                                   .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
-                                                   .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
-                                                   .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
-                                                   .positiveLabel, .criticalLabel, .negativeBackground,
-                                                   .positiveBackground, .criticalBackground, .informationBackground,
-                                                   .separator, .separatorOpaque, .header, .headerBlended,
-                                                   .barTransparent, .contrastElement, .footer, .cellBackground,
-                                                   .chart1, .chart2, .chart3, .chart4, .chart5, .chart6,
-                                                   .chart7, .chart8, .chart9, .chart10, .chart11, .stockUpStroke,
-                                                   .stockDownStroke, .map1, .map2, .map3, .map4, .map5,
-                                                   .map6, .map7, .map8, .map9, .map10, .esriEdit]
+                                                .grey7, .grey8, .grey9, .grey10, .grey11, .blue1,
+                                                .blue2, .blue3, .blue4, .blue5, .blue6, .blue7,
+                                                .blue8, .blue9, .blue10, .blue11, .teal1, .teal2,
+                                                .teal3, .teal4, .teal5, .teal6, .teal7, .teal8,
+                                                .teal9, .teal10, .teal11, .green1, .green2, .green3,
+                                                .green4, .green5, .green6, .green7, .green8, .green9,
+                                                .green10, .green11, .mango1, .mango2, .mango3, .mango4,
+                                                .mango5, .mango6, .mango7, .mango8, .mango9, .mango10,
+                                                .mango11, .red1, .red2, .red3, .red4, .red5, .red6,
+                                                .red7, .red8, .red9, .red10, .red11, .pink1, .pink2,
+                                                .pink3, .pink4, .pink5, .pink6, .pink7, .pink8, .pink9,
+                                                .pink10, .pink11, .raspberry1, .raspberry2, .raspberry3,
+                                                .raspberry4, .raspberry5, .raspberry6, .raspberry7,
+                                                .raspberry8, .raspberry9, .raspberry10, .raspberry11,
+                                                .indigo1, .indigo2, .indigo3, .indigo4, .indigo5,
+                                                .indigo6, .indigo7, .indigo8, .indigo9, .indigo10,
+                                                .indigo11, .baseWhite, .baseBlack, .base1, .base2,
+                                                .accentLabel1, .accentLabel2, .accentLabel3, .accentLabel4,
+                                                .accentLabel5, .accentLabel6, .accentLabel7, .accentLabel8,
+                                                .accentLabel9, .accentLabel10, .accentBackground1,
+                                                .accentBackground2, .accentBackground3, .accentBackground4,
+                                                .accentBackground5, .accentBackground6, .accentBackground7,
+                                                .accentBackground8, .accentBackground9, .accentBackground10,
+                                                .cardShadow, .sectionShadow, .primaryGroupedBackground,
+                                                .secondaryGroupedBackground,.tertiaryGroupedBackground,
+                                                .primaryBackground, .secondaryBackground, .tertiaryBackground,
+                                                .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
+                                                .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
+                                                .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
+                                                .positiveLabel, .criticalLabel, .negativeBackground,
+                                                .positiveBackground, .criticalBackground, .informationBackground,
+                                                .separator, .separatorOpaque, .header, .headerBlended,
+                                                .barTransparent, .contrastElement, .footer, .cellBackground,
+                                                .chart1, .chart2, .chart3, .chart4, .chart5, .chart6,
+                                                .chart7, .chart8, .chart9, .chart10, .chart11, .stockUpStroke,
+                                                .stockDownStroke, .map1, .map2, .map3, .map4, .map5,
+                                                .map6, .map7, .map8, .map9, .map10, .esriEdit]
 }

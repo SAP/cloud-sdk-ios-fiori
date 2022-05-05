@@ -6,7 +6,7 @@ struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
     static let `default` = ColorCompatibilityMap(ColorCompatibilityMapV6())
     
     let version: PaletteVersion = .v6
-
+    
     private init() {}
     
     var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [

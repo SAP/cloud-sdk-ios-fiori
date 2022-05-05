@@ -25,7 +25,6 @@ class ThemeManagerTests: XCTestCase {
         XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF8888", darkColor: "BB0000"))
     }
     
-
     func testPaletteV6() throws {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v6)
