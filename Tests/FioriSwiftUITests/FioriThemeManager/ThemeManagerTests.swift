@@ -4,7 +4,6 @@ import UIKit
 import XCTest
 
 class ThemeManagerTests: XCTestCase {
-    
     func testLatestColorStyle() throws {
         XCTAssertEqual(ColorStyle.allCases.count, 181)
     }
