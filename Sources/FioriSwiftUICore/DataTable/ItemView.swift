@@ -39,6 +39,7 @@ struct ItemView: View {
                     .lineLimit(dataItem.lineLimit)
                     .multilineTextAlignment(dataItem.textAlignment)
                     .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                    .accessibility(hidden: value.isEmpty)
             }
             
             Spacer(minLength: 0)
@@ -65,6 +66,7 @@ struct ItemView: View {
                     .lineLimit(dataItem.lineLimit)
                     .multilineTextAlignment(dataItem.textAlignment)
                     .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                    .accessibility(hidden: value.isEmpty)
             }
             
             Spacer(minLength: 0)

@@ -84,7 +84,6 @@ struct CustomFioriButtonStyle: FioriButtonStyle {
         return configuration.label
             .foregroundColor(.white)
             .padding(50)
-            .frame(width: 500)
             .background(Circle().fill(color))
     }
 }
