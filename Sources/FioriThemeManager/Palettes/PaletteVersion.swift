@@ -18,6 +18,8 @@ extension PaletteVersion: RawRepresentable {
             self = .v5
         case PaletteV6.default:
             self = .v6
+        case PaletteV7.default:
+            self = .v7
         default:
             return nil
         }
@@ -36,11 +38,15 @@ extension PaletteVersion: RawRepresentable {
             return PaletteV5.default
         case .v6:
             return PaletteV6.default
+        case .v7:
+            return PaletteV7.default
         }
     }
     
     var compatibilityMap: ColorCompatibilityMap? {
         switch self {
+        case .v6:
+            return ColorCompatibilityMapV6.default
         case .v5:
             return ColorCompatibilityMapV5.default
         case .v4:
@@ -84,7 +90,14 @@ public enum PaletteVersion: CaseIterable, Comparable {
      */
     case v6
     
-    /// Palette version which should be adopted by developer, if creating a custom palette from scratch.
+    /**
+     Snapshot of palette at SAP Fiori SDK version 8.0.
+     
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori Next' styling.
+     */
+    case v7
+    
+    /// FUIPalette version which should be adopted by developer, if creating a custom palette from scratch.
     /// - Note: Creating a custom palette from scratch is very uncommon and not generally recommended: it is more typical and convenient to override specific colors of the current system-provided palette, using the `ThemeManager.shared.setColor(...)` or `ThemeManager.shared.setHexColor(...)` APIs.
     public static let latest: PaletteVersion = { allCases.last! }()
     
