@@ -1176,7 +1176,7 @@ public enum ColorStyle: String, CaseIterable {
                                                 .accentBackground5, .accentBackground6, .accentBackground7,
                                                 .accentBackground8, .accentBackground9, .accentBackground10,
                                                 .cardShadow, .sectionShadow, .primaryGroupedBackground,
-                                                .secondaryGroupedBackground,.tertiaryGroupedBackground,
+                                                .secondaryGroupedBackground, .tertiaryGroupedBackground,
                                                 .primaryBackground, .secondaryBackground, .tertiaryBackground,
                                                 .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
                                                 .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
