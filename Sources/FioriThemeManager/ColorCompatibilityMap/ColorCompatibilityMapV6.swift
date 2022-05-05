@@ -9,9 +9,7 @@ struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
     
     private init() {}
     
-    var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [
-        :
-    ]
+    var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [:]
     
     func compatibleStyle(from style: ColorStyle) -> ColorStyle? {
         self.compatibleColorDefinitions[style]
