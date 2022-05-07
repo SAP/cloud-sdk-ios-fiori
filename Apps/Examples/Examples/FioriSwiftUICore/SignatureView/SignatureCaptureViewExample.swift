@@ -42,6 +42,7 @@ struct SignatureCaptureViewExample2: View {
             .hidesXmark(false)
             .hidesSignatureLine(true)
             .addsTimestampInImage(true)
+            .timestampFormatter(customFormatter())
             .watermarkText("A bird in the hand is worth two in the bush. Behind every great man there's a great woman.")
             .watermarkTextAlignment(.right)
             .watermarkTextFont(.preferredFont(forTextStyle: .body))
@@ -53,6 +54,12 @@ struct SignatureCaptureViewExample2: View {
             .startActionModifier { content in
                 content.font(nil).foregroundColor(.green)
             }
+    }
+
+    func customFormatter() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
     }
 }
 
