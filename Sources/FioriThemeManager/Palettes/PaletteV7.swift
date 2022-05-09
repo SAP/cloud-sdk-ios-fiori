@@ -54,7 +54,7 @@ struct PaletteV7: PaletteProvider {
         .green7: HexColor(lightColor: "5DC122FF", darkColor: "188918FF", contrastLightColor: "60C723FF", contrastDarkColor: "1C542CFF"),
         .green8: HexColor(lightColor: "97DD40FF", darkColor: "256F3AFF", contrastLightColor: "BDE986FF", contrastDarkColor: "164323FF"),
         .green9: HexColor(lightColor: "BDE986FF", darkColor: "1E592FFF", contrastLightColor: "E1F0B2FF", contrastDarkColor: "0E2B16FF"),
-        .green10: HexColor(lightColor: "EBF5CBFF", darkColor: "450B00FF", contrastLightColor: "F5FAE5FF", contrastDarkColor: "091B0EFF"),
+        .green10: HexColor(lightColor: "EBF5CBFF", darkColor: "164323FF", contrastLightColor: "F5FAE5FF", contrastDarkColor: "091B0EFF"),
         .green11: HexColor(lightColor: "F5FAE5FF", darkColor: "363636FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .teal1: HexColor(lightColor: "012931FF", darkColor: "DAFDF5FF", contrastLightColor: "01262DFF", contrastDarkColor: "C2FCEEFF"),
         .teal2: HexColor(lightColor: "02414CFF", darkColor: "C2FCEEFF", contrastLightColor: "023741FF", contrastDarkColor: "84F1DBFF"),
