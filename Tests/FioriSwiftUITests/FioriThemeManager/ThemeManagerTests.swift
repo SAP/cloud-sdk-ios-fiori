@@ -4,10 +4,29 @@ import UIKit
 import XCTest
 
 class ThemeManagerTests: XCTestCase {
+    func testLatestColorStyle() throws {
+        XCTAssertEqual(ColorStyle.allCases.count, 181)
+    }
+    
+    func testPaletteV7() throws {
+        let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v7)
+        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 181)
+        XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
+        XCTAssertEqual(tm.paletteVersion?.newStyles().count, 49)
+        let newStyle_grey1 = tm.hexColor(for: .grey1)
+        XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
+        let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
+        XCTAssertEqual(newStyle_primaryLabel, HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"))
+        let obsoletedStyle_line = tm.hexColor(for: .line)
+        XCTAssertEqual(obsoletedStyle_line, HexColor(lightColor: "8696A9", darkColor: "89919A"))
+        let obsoletedStyle_negative = tm.hexColor(for: .negative)
+        XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF8888", darkColor: "BB0000"))
+    }
+    
     func testPaletteV6() throws {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v6)
-        XCTAssertEqual(ColorStyle.allCases.count, 132)
         XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 132)
         XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 38)
         XCTAssertEqual(tm.paletteVersion?.newStyles().count, 78)
