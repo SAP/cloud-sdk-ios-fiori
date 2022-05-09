@@ -147,7 +147,7 @@ class LayoutData {
                     if let styleName = tmpUIFont.fontDescriptor.fontAttributes[.textStyle] as? String {
                         let textStyle = UIFont.TextStyle(rawValue: styleName)
                         uifont = UIFont.preferredFont(forTextStyle: textStyle)
-                    }else {
+                    } else {
                         uifont = tmpUIFont
                     }
                 } else if let _font = item.font {

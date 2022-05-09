@@ -1,375 +1,630 @@
 public enum ColorStyle: String, CaseIterable {
-    // MARK: - Fiori Next Core Colors (74 Colors)
+    // MARK: - Fiori Next Core Colors (103 Colors)
     
+    // Core 1: Greys (1 - 11)
     /// Grey 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
-    /// (light variant) ![](https://dummyimage.com/48x18/111D29.png&text=+)          Hex value: 111D29FF
+    /// (light variant) ![](https://dummyimage.com/48x18/12171C.png&text=+)          Hex value: 12171CFF
     case grey1
     
     /// Grey 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/D5DADD.png&text=+)          Hex value: D5DADDFF
-    /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/EAECEE.png&text=+)          Hex value: EAECEEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/1A2733.png&text=+)          Hex value: 1A2733FF
     case grey2
     
     /// Grey 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
-    /// (light variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/D5DADD.png&text=+)          Hex value: D5DADDFF
+    /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
     case grey3
     
     /// Grey 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
-    /// (light variant) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
     case grey4
     
     /// Grey 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BFF
-    /// (light variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75FF
     case grey5
     
     /// Grey 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75FF
-    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BFF
     case grey6
     
     /// Grey 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
-    /// (light variant) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
     case grey7
     
     /// Grey 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
-    /// (light variant) ![](https://dummyimage.com/48x18/D5DADD.png&text=+)          Hex value: D5DADDFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
     case grey8
     
     /// Grey 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/111D29.png&text=+)          Hex value: 111D29FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    /// (light variant) ![](https://dummyimage.com/48x18/D5DADD.png&text=+)          Hex value: D5DADDFF
     case grey9
     
+    /// Grey 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/1A2733.png&text=+)          Hex value: 1A2733FF
+    /// (light variant) ![](https://dummyimage.com/48x18/EAECEE.png&text=+)          Hex value: EAECEEFF
+    case grey10
+    
+    /// Grey 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/12171C.png&text=+)          Hex value: 12171CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
+    case grey11
+    
+    // Core 2: Blues (1 - 11)
     /// Blue 1
     /// (dark variant) ![](https://dummyimage.com/48x18/EBF8FF.png&text=+)          Hex value: EBF8FFFF
     /// (light variant) ![](https://dummyimage.com/48x18/00144A.png&text=+)          Hex value: 00144AFF
     case blue1
     
     /// Blue 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/89D1FF.png&text=+)          Hex value: 89D1FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/D1EFFF.png&text=+)          Hex value: D1EFFFFF
     /// (light variant) ![](https://dummyimage.com/48x18/002A86.png&text=+)          Hex value: 002A86FF
     case blue2
     
     /// Blue 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/A6E0FF.png&text=+)          Hex value: A6E0FFFF
     /// (light variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex value: 0040B0FF
     case blue3
     
     /// Blue 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/89D1FF.png&text=+)          Hex value: 89D1FFFF
     /// (light variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
     case blue4
     
     /// Blue 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex value: 0070F2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FFFF
     /// (light variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex value: 0070F2FF
     case blue5
     
     /// Blue 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FFFF
     /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FFFF
     case blue6
     
     /// Blue 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex value: 0040B0FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex value: 0070F2FF
     /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FFFF
     case blue7
     
     /// Blue 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/002A86.png&text=+)          Hex value: 002A86FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
     /// (light variant) ![](https://dummyimage.com/48x18/89D1FF.png&text=+)          Hex value: 89D1FFFF
     case blue8
     
     /// Blue 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/00144A.png&text=+)          Hex value: 00144AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/EBF8FF.png&text=+)          Hex value: EBF8FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex value: 0040B0FF
+    /// (light variant) ![](https://dummyimage.com/48x18/A6E0FF.png&text=+)          Hex value: A6E0FFFF
     case blue9
     
+    /// Blue 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/002A86.png&text=+)          Hex value: 002A86FF
+    /// (light variant) ![](https://dummyimage.com/48x18/D1EFFF.png&text=+)          Hex value: D1EFFFFF
+    case blue10
+    
+    /// Blue 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/00144A.png&text=+)          Hex value: 00144AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/EBF8FF.png&text=+)          Hex value: EBF8FFFF
+    case blue11
+    
+    // Core 3: Teals (1 - 11)
     /// Teal 1
     /// (dark variant) ![](https://dummyimage.com/48x18/DAFDF5.png&text=+)          Hex value: DAFDF5FF
     /// (light variant) ![](https://dummyimage.com/48x18/012931.png&text=+)          Hex value: 012931FF
     case teal1
     
     /// Teal 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/64EDD2.png&text=+)          Hex value: 64EDD2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/C2FCEE.png&text=+)          Hex value: C2FCEEFF
     /// (light variant) ![](https://dummyimage.com/48x18/02414C.png&text=+)          Hex value: 02414CFF
     case teal2
     
     /// Teal 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEACFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/64EDD2.png&text=+)          Hex value: 64EDD2FF
     /// (light variant) ![](https://dummyimage.com/48x18/035663.png&text=+)          Hex value: 035663FF
     case teal3
     
     /// Teal 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/04ACA7.png&text=+)          Hex value: 04ACA7FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/2CE0BF.png&text=+)          Hex value: 2CE0BFFF
     /// (light variant) ![](https://dummyimage.com/48x18/046C7A.png&text=+)          Hex value: 046C7AFF
     case teal4
     
     /// Teal 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/07838F.png&text=+)          Hex value: 07838FFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEACFF
     /// (light variant) ![](https://dummyimage.com/48x18/07838F.png&text=+)          Hex value: 07838FFF
     case teal5
     
     /// Teal 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/046C7A.png&text=+)          Hex value: 046C7AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/04ACA7.png&text=+)          Hex value: 04ACA7FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9AFF
     case teal6
     
     /// Teal 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/035663.png&text=+)          Hex value: 035663FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/07838F.png&text=+)          Hex value: 07838FFF
     /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEACFF
     case teal7
     
     /// Teal 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/02414C.png&text=+)          Hex value: 02414CFF
-    /// (light variant) ![](https://dummyimage.com/48x18/64EDD2.png&text=+)          Hex value: 64EDD2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/046C7A.png&text=+)          Hex value: 046C7AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/2CE0BF.png&text=+)          Hex value: 2CE0BFFF
     case teal8
     
     /// Teal 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/012931.png&text=+)          Hex value: 012931FF
-    /// (light variant) ![](https://dummyimage.com/48x18/DAFDF5.png&text=+)          Hex value: DAFDF5FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/035663.png&text=+)          Hex value: 035663FF
+    /// (light variant) ![](https://dummyimage.com/48x18/64EDD2.png&text=+)          Hex value: 64EDD2FF
     case teal9
     
+    /// Teal 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/02414C.png&text=+)          Hex value: 02414CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/C2FCEE.png&text=+)          Hex value: C2FCEEFF
+    case teal10
+    
+    /// Teal 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/002A86.png&text=+)          Hex value: 002A86FF
+    /// (light variant) ![](https://dummyimage.com/48x18/DAFDF5.png&text=+)          Hex value: DAFDF5FF
+    case teal11
+    
+    // Core 4: Greens (1 - 11)
     /// Green 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
     /// (light variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
     case green1
     
     /// Green 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
     /// (light variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
     case green2
     
     /// Green 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
     /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
     case green3
     
     /// Green 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     /// (light variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
     case green4
     
     /// Green 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
     /// (light variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
     case green5
     
     /// Green 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
     /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
     case green6
     
     /// Green 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/188918.png&text=+)          Hex value: 188918FF
     /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
     case green7
     
     /// Green 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/164323.png&text=+)          Hex value: 164323FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
     /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     case green8
     
     /// Green 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)          Hex value: 0E2B16FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
     case green9
     
+    /// Green 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
+    case green10
+    
+    /// Green 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/363636.png&text=+)          Hex value: 363636FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)          Hex value: F5FAE5FF
+    case green11
+    
+    // Core 5: Mangos (1 - 11)
     /// Mango 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)          Hex value: FFF8D6FF
     /// (light variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
     case mango1
     
     /// Mango 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFDF72.png&text=+)          Hex value: FFDF72FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFF3B8.png&text=+)          Hex value: FFF3B8FF
     /// (light variant) ![](https://dummyimage.com/48x18/6D1900.png&text=+)          Hex value: 6D1900FF
     case mango2
     
     /// Mango 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFDF72.png&text=+)          Hex value: FFDF72FF
     /// (light variant) ![](https://dummyimage.com/48x18/8D2A00.png&text=+)          Hex value: 8D2A00FF
     case mango3
     
     /// Mango 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/F58B00.png&text=+)          Hex value: F58B00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
     /// (light variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
     case mango4
     
     /// Mango 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/F58F00.png&text=+)          Hex value: F58F00FF
     /// (light variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
     case mango5
     
     /// Mango 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
-    /// (light variant) ![](https://dummyimage.com/48x18/F58B00.png&text=+)          Hex value: F58B00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E76500FF
+    /// (light variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E76500FF
     case mango6
     
     /// Mango 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/8D2A00.png&text=+)          Hex value: 8D2A00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
     case mango7
     
     /// Mango 8
     /// (dark variant) ![](https://dummyimage.com/48x18/6D1900.png&text=+)          Hex value: 6D1900FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFDF72.png&text=+)          Hex value: FFDF72FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
     case mango8
     
     /// Mango 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)          Hex value: FFF8D6FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/8D2A00.png&text=+)          Hex value: 8D2A00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFDF72.png&text=+)          Hex value: FFDF72FF
     case mango9
     
+    /// Mango 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/6D1900.png&text=+)          Hex value: 6D1900FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFF3B8.png&text=+)          Hex value: FFF3B8FF
+    case mango10
+    
+    /// Mango 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/450B00.png&text=+)          Hex value: 450B00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)          Hex value: FFF8D6FF
+    case mango11
+    
+    // Core 6: Reds (1 - 11)
     /// Red 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)          Hex value: FFEAF4FF
     /// (light variant) ![](https://dummyimage.com/48x18/350000.png&text=+)          Hex value: 350000FF
     case red1
     
     /// Red 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFD5EA.png&text=+)          Hex value: FFD5EAFF
     /// (light variant) ![](https://dummyimage.com/48x18/5A0404.png&text=+)          Hex value: 5A0404FF
     case red2
     
     /// Red 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFB2D2.png&text=+)          Hex value: FFB2D2FF
     /// (light variant) ![](https://dummyimage.com/48x18/840606.png&text=+)          Hex value: 840606FF
     case red3
     
     /// Red 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
     /// (light variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
     case red4
     
     /// Red 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
     /// (light variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
     case red5
     
     /// Red 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939FF
     /// (light variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939FF
     case red6
     
     /// Red 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/840606.png&text=+)          Hex value: 840606FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
     /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
     case red7
     
     /// Red 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/5A0404.png&text=+)          Hex value: 5A0404FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
     /// (light variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
     case red8
     
     /// Red 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/350000.png&text=+)          Hex value: 350000FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)          Hex value: FFEAF4FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/840606.png&text=+)          Hex value: 840606FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFB2D2.png&text=+)          Hex value: FFB2D2FF
     case red9
     
+    /// Red 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/5A0404.png&text=+)          Hex value: 5A0404FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFD5EA.png&text=+)          Hex value: FFD5EAFF
+    case red10
+    
+    /// Red 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/350000.png&text=+)          Hex value: 350000FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)          Hex value: FFEAF4FF
+    case red11
+    
+    // Core 7: Pinks (1 - 11)
     /// Pink 1
     /// (dark variant) ![](https://dummyimage.com/48x18/FFF0FA.png&text=+)          Hex value: FFF0FAFF
     /// (light variant) ![](https://dummyimage.com/48x18/28004A.png&text=+)          Hex value: 28004AFF
     case pink1
     
     /// Pink 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFAFED.png&text=+)          Hex value: FFAFEDFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFDCF3.png&text=+)          Hex value: FFDCF3FF
     /// (light variant) ![](https://dummyimage.com/48x18/510080.png&text=+)          Hex value: 510080FF
     case pink2
     
     /// Pink 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF8AF0.png&text=+)          Hex value: FF8AF0FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFAFED.png&text=+)          Hex value: FFAFEDFF
     /// (light variant) ![](https://dummyimage.com/48x18/7800A4.png&text=+)          Hex value: 7800A4FF
     case pink3
     
     /// Pink 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DEDFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FF8AF0.png&text=+)          Hex value: FF8AF0FF
     /// (light variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2FF
     case pink4
     
     /// Pink 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/CC00DC.png&text=+)          Hex value: CC00DCFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2FF
     /// (light variant) ![](https://dummyimage.com/48x18/CC00DC.png&text=+)          Hex value: CC00DCFF
     case pink5
     
     /// Pink 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DEDFF
     /// (light variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DEDFF
     case pink6
     
     /// Pink 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/7800A4.png&text=+)          Hex value: 7800A4FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8AF0.png&text=+)          Hex value: FF8AF0FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/CC00DC.png&text=+)          Hex value: CC00DCFF
+    /// (light variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2FF
     case pink7
     
     /// Pink 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/510080.png&text=+)          Hex value: 510080FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFAFED.png&text=+)          Hex value: FFAFEDFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FF8AF0.png&text=+)          Hex value: FF8AF0FF
     case pink8
     
     /// Pink 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/28004A.png&text=+)          Hex value: 28004AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFF0FA.png&text=+)          Hex value: FFF0FAFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/7800A4.png&text=+)          Hex value: 7800A4FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFAFED.png&text=+)          Hex value: FFAFEDFF
     case pink9
     
+    /// Pink 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/510080.png&text=+)          Hex value: 510080FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFDCF3.png&text=+)          Hex value: FFDCF3FF
+    case pink10
+    
+    /// Pink 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/28004A.png&text=+)          Hex value: 28004AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFF0FA.png&text=+)          Hex value: FFF0FAFF
+    case pink11
+    
+    // Core 8: Raspberries (1 - 11)
+    /// Raspberry 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFF0F5.png&text=+)          Hex value: FFF0F5FF
+    /// (light variant) ![](https://dummyimage.com/48x18/510136.png&text=+)          Hex value: 510136FF
+    case raspberry1
+    
+    /// Raspberry 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFDCE8.png&text=+)          Hex value: FFDCE8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/71014B.png&text=+)          Hex value: 71014BFF
+    case raspberry2
+    
+    /// Raspberry 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/FECBDA.png&text=+)          Hex value: FECBDAFF
+    /// (light variant) ![](https://dummyimage.com/48x18/9B015D.png&text=+)          Hex value: 9B015DFF
+    case raspberry3
+    
+    /// Raspberry 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/FEADC8.png&text=+)          Hex value: FEADC8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/BA066C.png&text=+)          Hex value: BA066CFF
+    case raspberry4
+    
+    /// Raspberry 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/FE83AE.png&text=+)          Hex value: FE83AEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/DF1278.png&text=+)          Hex value: DF1278FF
+    case raspberry5
+    
+    /// Raspberry 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/FA4F96.png&text=+)          Hex value: FA4F96FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FA4F96.png&text=+)          Hex value: FA4F96FF
+    case raspberry6
+    
+    /// Raspberry 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/DF1278.png&text=+)          Hex value: DF1278FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FE83AE.png&text=+)          Hex value: FE83AEFF
+    case raspberry7
+    
+    /// Raspberry 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/BA066C.png&text=+)          Hex value: BA066CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FEADC8.png&text=+)          Hex value: FEADC8FF
+    case raspberry8
+    
+    /// Raspberry 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/9B015D.png&text=+)          Hex value: 9B015DFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FECBDA.png&text=+)          Hex value: FECBDAFF
+    case raspberry9
+    
+    /// Raspberry 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/71014B.png&text=+)          Hex value: 71014BFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFDCE8.png&text=+)          Hex value: FFDCE8FF
+    case raspberry10
+    
+    /// Raspberry 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/510136.png&text=+)          Hex value: 510136FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFF0F5.png&text=+)          Hex value: FFF0F5FF
+    case raspberry11
+    
+    // Core 9: Indigos (1 - 11)
     /// Indigo 1
     /// (dark variant) ![](https://dummyimage.com/48x18/F1ECFF.png&text=+)          Hex value: F1ECFFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/1C0C6E.png&text=+)          Hex value: 1C0C6EFF
+    /// (light variant) ![](https://dummyimage.com/48x18/0E0637.png&text=+)          Hex value: 0E0637FF
     case indigo1
     
     /// Indigo 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/D3B6FF.png&text=+)          Hex value: D3B6FFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/2C13AD.png&text=+)          Hex value: 2C13ADFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/E2D8FF.png&text=+)          Hex value: E2D8FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/1C0C6E.png&text=+)          Hex value: 1C0C6EFF
     case indigo2
     
     /// Indigo 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/B894FF.png&text=+)          Hex value: B894FFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CEDFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/D3B6FF.png&text=+)          Hex value: D3B6FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/2C13AD.png&text=+)          Hex value: 2C13ADFF
     case indigo3
     
     /// Indigo 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/B894FF.png&text=+)          Hex value: B894FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CEDFF
     case indigo4
     
     /// Indigo 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FFFF
     case indigo5
     
     /// Indigo 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FFFF
     case indigo6
     
     /// Indigo 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CEDFF
-    /// (light variant) ![](https://dummyimage.com/48x18/B894FF.png&text=+)          Hex value: B894FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/5D36FF.png&text=+)          Hex value: 5D36FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FFFF
     case indigo7
     
     /// Indigo 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/2C13AD.png&text=+)          Hex value: 2C13ADFF
-    /// (light variant) ![](https://dummyimage.com/48x18/D3B6FF.png&text=+)          Hex value: D3B6FFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CEDFF
+    /// (light variant) ![](https://dummyimage.com/48x18/B894FF.png&text=+)          Hex value: B894FFFF
     case indigo8
     
     /// Indigo 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/1C0C6E.png&text=+)          Hex value: 1C0C6EFF
-    /// (light variant) ![](https://dummyimage.com/48x18/F1ECFF.png&text=+)          Hex value: F1ECFFFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/2C13AD.png&text=+)          Hex value: 2C13ADFF
+    /// (light variant) ![](https://dummyimage.com/48x18/D3B6FF.png&text=+)          Hex value: D3B6FFFF
     case indigo9
     
+    /// Indigo 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/1C0C6E.png&text=+)          Hex value: 1C0C6EFF
+    /// (light variant) ![](https://dummyimage.com/48x18/E2D8FF.png&text=+)          Hex value: E2D8FFFF
+    case indigo10
+    
+    /// Indigo 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/0E0637.png&text=+)          Hex value: 0E0637FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F1ECFF.png&text=+)          Hex value: F1ECFFFF
+    case indigo11
+    
+    // Core 10: Basis (total 4)
     /// Base White
     /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
     /// (light variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
     case baseWhite
     
-    /// Base Black
+    /// BaseBlack
     /// (dark variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
     /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
     case baseBlack
+    
+    /// Base 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
+    case base1
+    
+    /// Base 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
+    case base2
+    
+    /// AccentLabel 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFDF72.png&text=+)          Hex value: FFDF72FF
+    case accentLabel1
+    
+    /// AccentLabel 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFB2D2.png&text=+)          Hex value: FFB2D2FF
+    case accentLabel2
+    
+    /// AccentLabel 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/BA066C.png&text=+)          Hex value: BA066CFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FECBDA.png&text=+)          Hex value: FECBDAFF
+    case accentLabel3
+    
+    /// AccentLabel 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/A100C2.png&text=+)          Hex value: A100C2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFAFED.png&text=+)          Hex value: FFAFEDFF
+    case accentLabel4
+    
+    /// AccentLabel 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/470CED.png&text=+)          Hex value: 470CEDFF
+    /// (light variant) ![](https://dummyimage.com/48x18/D3B6FF.png&text=+)          Hex value: D3B6FFFF
+    case accentLabel5
+    
+    /// AccentLabel 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/A6E0FF.png&text=+)          Hex value: A6E0FFFF
+    case accentLabel6
+    
+    /// AccentLabel 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/046C7A.png&text=+)          Hex value: 046C7AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/64EDD2.png&text=+)          Hex value: 64EDD2FF
+    case accentLabel7
+    
+    /// AccentLabel 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/BDE986.png&text=+)          Hex value: BDE986FF
+    case accentLabel8
+    
+    /// AccentLabel 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/6C32A9.png&text=+)          Hex value: 6C32A9FF
+    /// (light variant) ![](https://dummyimage.com/48x18/D0B8EA.png&text=+)          Hex value: D0B8EAFF
+    case accentLabel9
+    
+    /// AccentLabel 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/D5DADD.png&text=+)          Hex value: D5DADDFF
+    case accentLabel10
+    
+    /// AccentBackground 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFF3B8.png&text=+)          Hex value: FFF3B8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8D2A00.png&text=+)          Hex value: 8D2A00FF
+    case accentBackground1
+    
+    /// AccentBackground 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFD5EA.png&text=+)          Hex value: FFD5EAFF
+    /// (light variant) ![](https://dummyimage.com/48x18/840606.png&text=+)          Hex value: 840606FF
+    case accentBackground2
+    
+    /// AccentBackground 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFDCE8.png&text=+)          Hex value: FFDCE8FF
+    /// (light variant) ![](https://dummyimage.com/48x18/9B015D.png&text=+)          Hex value: 9B015DFF
+    case accentBackground3
+    
+    /// AccentBackground 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFDCF3.png&text=+)          Hex value: FFDCF3FF
+    /// (light variant) ![](https://dummyimage.com/48x18/7800A4.png&text=+)          Hex value: 7800A4FF
+    case accentBackground4
+    
+    /// AccentBackground 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/E2D8FF.png&text=+)          Hex value: E2D8FFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/2C13AD.png&text=+)          Hex value: 2C13ADFF
+    case accentBackground5
+    
+    /// AccentBackground 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/D1EFFF.png&text=+)          Hex value: D1EFFFFF
+    /// (light variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex value: 0040B0FF
+    case accentBackground6
+    
+    /// AccentBackground 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/C2FCEE.png&text=+)          Hex value: C2FCEEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/035663.png&text=+)          Hex value: 035663FF
+    case accentBackground7
+    
+    /// AccentBackground 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/EBF5CB.png&text=+)          Hex value: EBF5CBFF
+    /// (light variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    case accentBackground8
+    
+    /// AccentBackground 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/DDCCF0.png&text=+)          Hex value: DDCCF0FF
+    /// (light variant) ![](https://dummyimage.com/48x18/511F89.png&text=+)          Hex value: 511F89FF
+    case accentBackground9
+    
+    /// AccentBackground 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/EAECEE.png&text=+)          Hex value: EAECEEFF
+    /// (light variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    case accentBackground10
     
     // MARK: - Shadow Colors (2 Colors)
     
@@ -449,12 +704,12 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Standard color for primary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
     case primaryFill
     
     /// Standard color for secondary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B0F
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A81F
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A833
     case secondaryFill
     
     /// Standard color for tertiary fill.
@@ -490,17 +745,17 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)        Hex color: #D20A0AFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)        Hex color: #FF5C77FF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)        Hex color: #FF8CB2FF
     case negativeLabel
     
     /// Semantic color for "positive" (good) label, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/256F3A.png&text=+)        Hex color: #256F3AFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/5DC122.png&text=+)        Hex color: #5DC122FF
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     case positiveLabel
     
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/A93E00.png&text=+)        Hex color: #A93E00FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/F58B00.png&text=+)        Hex color: #C35500FF
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
     case criticalLabel
     
     /// Semantic color for "negative" (bad) background, with light and dark color variants.
@@ -569,63 +824,126 @@ public enum ColorStyle: String, CaseIterable {
     
     // MARK: - Chart Colors (13 Styles)
     
-    /// Standard text color, with variants for light and dark color variants.
-    /// Use `UIColor.preferredFioriColor(forStyle: background:)` to select appropriate variant.
-    /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)        Hex color: 5899DA
-    /// (light variant) ![](https://dummyimage.com/48x18/74B3F0.png&text=+)        Hex color: 74B3F0
+    /// Chart 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)          Hex value: 5899DA
+    /// (light variant) ![](https://dummyimage.com/48x18/74B3F0.png&text=+)          Hex value: 74B3F0
     case chart1
-    /// ![](https://dummyimage.com/48x18/E8743B.png&text=+)        Hex color: E8743B
+    
+    /// Chart 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/E8743B.png&text=+)          Hex value: E8743B
+    /// (light variant) ![](https://dummyimage.com/48x18/E8743B.png&text=+)          Hex value: E8743B
     case chart2
-    /// ![](https://dummyimage.com/48x18/19A979.png&text=+)        Hex color: 19A979
+    
+    /// Chart 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
+    /// (light variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
     case chart3
-    /// ![](https://dummyimage.com/48x18/ED4A7B.png&text=+)        Hex color: ED4A7B
+    
+    /// Chart 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/ED4A7B.png&text=+)          Hex value: ED4A7B
+    /// (light variant) ![](https://dummyimage.com/48x18/ED4A7B.png&text=+)          Hex value: ED4A7B
     case chart4
-    /// ![](https://dummyimage.com/48x18/945ECF.png&text=+)        Hex color: 945ECF
+    
+    /// Chart 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/945ECF.png&text=+)          Hex value: 945ECF
+    /// (light variant) ![](https://dummyimage.com/48x18/945ECF.png&text=+)          Hex value: 945ECF
     case chart5
-    /// ![](https://dummyimage.com/48x18/13A4B4.png&text=+)        Hex color: 13A4B4
+    
+    /// Chart 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/13A4B4.png&text=+)          Hex value: 13A4B4
+    /// (light variant) ![](https://dummyimage.com/48x18/13A4B4.png&text=+)          Hex value: 13A4B4
     case chart6
-    /// ![](https://dummyimage.com/48x18/525DF4.png&text=+)        Hex color: 525DF4
+    
+    /// Chart 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/525DF4.png&text=+)          Hex value: 525DF4
+    /// (light variant) ![](https://dummyimage.com/48x18/5C66F5.png&text=+)          Hex value: 5C66F5
     case chart7
-    /// ![](https://dummyimage.com/48x18/BF399E.png&text=+)        Hex color: BF399E
+    
+    /// Chart 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/BF399E.png&text=+)          Hex value: BF399E
+    /// (light variant) ![](https://dummyimage.com/48x18/C63FA4.png&text=+)          Hex value: C63FA4
     case chart8
-    /// ![](https://dummyimage.com/48x18/6C8893.png&text=+)        Hex color: 6C8893
+    
+    /// Chart 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/6C8893.png&text=+)          Hex value: 6C8893
+    /// (light variant) ![](https://dummyimage.com/48x18/6C8893.png&text=+)          Hex value: 6C8893
     case chart9
-    /// ![](https://dummyimage.com/48x18/EE6868.png&text=+)        Hex color: EE6868
+    
+    /// Chart 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
+    /// (light variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
     case chart10
-    /// ![](https://dummyimage.com/48x18/2F6497.png&text=+)        Hex color: 2F6497
+    
+    /// Chart 11
+    /// (dark variant) ![](https://dummyimage.com/48x18/2F6497.png&text=+)          Hex value: 2F6497
+    /// (light variant) ![](https://dummyimage.com/48x18/387BB7.png&text=+)          Hex value: 387BB7
     case chart11
     
-    /// Semantic stroke color for line when stock goes up.
-    /// (light variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)        Hex color: 19A979
+    /// StockUpStroke
+    /// (dark variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
+    /// (light variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
     case stockUpStroke
     
-    /// Semantic stroke color for line when stock goes down.
-    /// (light variant) ![](https://dummyimage.com/48x18/AB2217.png&text=+)        Hex color: AB2217
+    /// StockDownStroke
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
+    /// (light variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
     case stockDownStroke
     
     // MARK: - Map Colors (11 Styles)
     
-    /// ![](https://dummyimage.com/48x18/2E4A62.png&text=+)        Hex color: 2E4A62
+    /// Map 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/2E4A62.png&text=+)          Hex value: 2E4A62
+    /// (light variant) ![](https://dummyimage.com/48x18/2E4A62.png&text=+)          Hex value: 2E4A62
     case map1
-    /// ![](https://dummyimage.com/48x18/56840E.png&text=+)        Hex color: 56840E
+    
+    /// Map 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/56840E.png&text=+)          Hex value: 56840E
+    /// (light variant) ![](https://dummyimage.com/48x18/56840E.png&text=+)          Hex value: 56840E
     case map2
-    /// ![](https://dummyimage.com/48x18/A63788.png&text=+)        Hex color: A63788
+    
+    /// Map 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/A63788.png&text=+)          Hex value: A63788
+    /// (light variant) ![](https://dummyimage.com/48x18/A63788.png&text=+)          Hex value: A63788
     case map3
-    /// ![](https://dummyimage.com/48x18/0079C6.png&text=+)        Hex color: 0079C6
+    
+    /// Map 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/0079C6.png&text=+)          Hex value: 0079C6
+    /// (light variant) ![](https://dummyimage.com/48x18/0079C6.png&text=+)          Hex value: 0079C6
     case map4
-    /// ![](https://dummyimage.com/48x18/6B4EA0.png&text=+)        Hex color: 6B4EA0
+    
+    /// Map 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/6B4EA0.png&text=+)          Hex value: 6B4EA0
+    /// (light variant) ![](https://dummyimage.com/48x18/6B4EA0.png&text=+)          Hex value: 6B4EA0
     case map5
-    /// ![](https://dummyimage.com/48x18/A16B00.png&text=+)        Hex color: A16B00
+    
+    /// Map 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/A16B00.png&text=+)          Hex value: A16B00
+    /// (light variant) ![](https://dummyimage.com/48x18/A16B00.png&text=+)          Hex value: A16B00
     case map6
-    /// ![](https://dummyimage.com/48x18/0B6295.png&text=+)        Hex color: 0B6295
+    
+    /// Map 7
+    /// (dark variant) ![](https://dummyimage.com/48x18/0B6295.png&text=+)          Hex value: 0B6295
+    /// (light variant) ![](https://dummyimage.com/48x18/0B6295.png&text=+)          Hex value: 0B6295
     case map7
-    /// ![](https://dummyimage.com/48x18/D0R774.png&text=+)        Hex color: D0R774
+    
+    /// Map 8
+    /// (dark variant) ![](https://dummyimage.com/48x18/D0R774.png&text=+)          Hex value: D0R774
+    /// (light variant) ![](https://dummyimage.com/48x18/D0R774.png&text=+)          Hex value: D0R774
     case map8
-    /// ![](https://dummyimage.com/48x18/1C857A.png&text=+)        Hex color: 1C857A
+    
+    /// Map 9
+    /// (dark variant) ![](https://dummyimage.com/48x18/1C857A.png&text=+)          Hex value: 1C857A
+    /// (light variant) ![](https://dummyimage.com/48x18/1C857A.png&text=+)          Hex value: 1C857A
     case map9
-    /// ![](https://dummyimage.com/48x18/C45300.png&text=+)        Hex color: C45300
+    
+    /// Map 10
+    /// (dark variant) ![](https://dummyimage.com/48x18/C45300.png&text=+)          Hex value: C45300
+    /// (light variant) ![](https://dummyimage.com/48x18/C45300.png&text=+)          Hex value: C45300
     case map10
-    /// ![](https://dummyimage.com/48x18/1B6DD2.png&text=+)        Hex color: 1B6DD2
+    
+    /// EsriEdit
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B6DD2.png&text=+)          Hex value: 1B6DD2
+    /// (light variant) ![](https://dummyimage.com/48x18/FFF114.png&text=+)          Hex value: FFF114
     case esriEdit
     
     // MARK: - Deprecated Basic Colors
@@ -813,7 +1131,7 @@ public enum ColorStyle: String, CaseIterable {
     @available(*, deprecated, renamed: "grey4")
     case accent10b
     
-    // MARK: - Deprecated Colors Since Fiori Palette V5
+    // MARK: - Deprecated Colors Since Fiori FUIPalette V5
     
     /// Standard background color for `UINavigationBar`.
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5F
@@ -834,22 +1152,33 @@ public enum ColorStyle: String, CaseIterable {
     case backgroundBase
     
     public static var allCases: [ColorStyle] = [.grey1, .grey2, .grey3, .grey4, .grey5, .grey6,
-                                                .grey7, .grey8, .grey9, .blue1, .blue2, .blue3,
-                                                .blue4, .blue5, .blue6, .blue7, .blue8, .blue9,
-                                                .teal1, .teal2, .teal3, .teal4, .teal5, .teal6,
-                                                .teal7, .teal8, .teal9, .green1, .green2, .green3,
+                                                .grey7, .grey8, .grey9, .grey10, .grey11, .blue1,
+                                                .blue2, .blue3, .blue4, .blue5, .blue6, .blue7,
+                                                .blue8, .blue9, .blue10, .blue11, .teal1, .teal2,
+                                                .teal3, .teal4, .teal5, .teal6, .teal7, .teal8,
+                                                .teal9, .teal10, .teal11, .green1, .green2, .green3,
                                                 .green4, .green5, .green6, .green7, .green8, .green9,
-                                                .mango1, .mango2, .mango3, .mango4, .mango5, .mango6,
-                                                .mango7, .mango8, .mango9, .red1, .red2, .red3,
-                                                .red4, .red5, .red6, .red7, .red8, .red9, .pink1,
-                                                .pink2, .pink3, .pink4, .pink5, .pink6, .pink7,
-                                                .pink8, .pink9, .indigo1, .indigo2, .indigo3, .indigo4,
-                                                .indigo5, .indigo6, .indigo7, .indigo8, .indigo9,
-                                                .baseWhite, .baseBlack, .cardShadow, .sectionShadow,
-                                                .primaryGroupedBackground, .secondaryGroupedBackground,
-                                                .tertiaryGroupedBackground, .primaryBackground,
-                                                .secondaryBackground, .tertiaryBackground, .primaryLabel,
-                                                .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
+                                                .green10, .green11, .mango1, .mango2, .mango3, .mango4,
+                                                .mango5, .mango6, .mango7, .mango8, .mango9, .mango10,
+                                                .mango11, .red1, .red2, .red3, .red4, .red5, .red6,
+                                                .red7, .red8, .red9, .red10, .red11, .pink1, .pink2,
+                                                .pink3, .pink4, .pink5, .pink6, .pink7, .pink8, .pink9,
+                                                .pink10, .pink11, .raspberry1, .raspberry2, .raspberry3,
+                                                .raspberry4, .raspberry5, .raspberry6, .raspberry7,
+                                                .raspberry8, .raspberry9, .raspberry10, .raspberry11,
+                                                .indigo1, .indigo2, .indigo3, .indigo4, .indigo5,
+                                                .indigo6, .indigo7, .indigo8, .indigo9, .indigo10,
+                                                .indigo11, .baseWhite, .baseBlack, .base1, .base2,
+                                                .accentLabel1, .accentLabel2, .accentLabel3, .accentLabel4,
+                                                .accentLabel5, .accentLabel6, .accentLabel7, .accentLabel8,
+                                                .accentLabel9, .accentLabel10, .accentBackground1,
+                                                .accentBackground2, .accentBackground3, .accentBackground4,
+                                                .accentBackground5, .accentBackground6, .accentBackground7,
+                                                .accentBackground8, .accentBackground9, .accentBackground10,
+                                                .cardShadow, .sectionShadow, .primaryGroupedBackground,
+                                                .secondaryGroupedBackground, .tertiaryGroupedBackground,
+                                                .primaryBackground, .secondaryBackground, .tertiaryBackground,
+                                                .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
                                                 .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
                                                 .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
                                                 .positiveLabel, .criticalLabel, .negativeBackground,
@@ -859,5 +1188,5 @@ public enum ColorStyle: String, CaseIterable {
                                                 .chart1, .chart2, .chart3, .chart4, .chart5, .chart6,
                                                 .chart7, .chart8, .chart9, .chart10, .chart11, .stockUpStroke,
                                                 .stockDownStroke, .map1, .map2, .map3, .map4, .map5,
-                                                .map6, .map7, .map8, map9, .map10, .esriEdit]
+                                                .map6, .map7, .map8, .map9, .map10, .esriEdit]
 }
