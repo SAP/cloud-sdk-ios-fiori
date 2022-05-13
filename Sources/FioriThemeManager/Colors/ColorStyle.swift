@@ -744,6 +744,7 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Semantic Colors (14 Colors)
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
+
     /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
     /// (light variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
     case negativeLabel
@@ -756,6 +757,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
+
     case criticalLabel
     
     /// NegativeLabelTapState
