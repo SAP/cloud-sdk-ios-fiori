@@ -1,5 +1,5 @@
 public enum ColorStyle: String, CaseIterable {
-    // MARK: - Fiori Next Core Colors (103 Colors)
+    // MARK: - Fiori Next Core Colors (110 Colors)
     
     // Core 1: Greys (1 - 11)
     /// Grey 1
@@ -741,42 +741,77 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex color: 1B90FFFF
     case tintColorTapState
     
-    // MARK: - Semantic Colors (7 Colors)
+    // MARK: - Semantic Colors (14 Colors)
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)        Hex color: #D20A0AFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)        Hex color: #FF8CB2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
     case negativeLabel
     
     /// Semantic color for "positive" (good) label, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
     case positiveLabel
     
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
     case criticalLabel
     
+    /// NegativeLabelTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
+    case negativeLabelTapState
+    
+    /// PositiveLabelTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    case positiveLabelTapState
+    
+    /// CriticalLabelTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
+    case criticalLabelTapState
+    
     /// Semantic color for "negative" (bad) background, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFEAF4.png&text=+)        Hex color: #FFEAF4FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/350000.png&text=+)        Hex color: #350000FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FF80BC.png&text=+)          Hex value: FF80BC29
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5252.png&text=+)          Hex value: FF525229
     case negativeBackground
     
     /// Semantic color for "positive" (good) background, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/F5FAE5.png&text=+)        Hex color: #F5FAE5FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/0E2B16.png&text=+)        Hex color: #0E2B16FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/BDDE54.png&text=+)          Hex value: BDDE5429
+    /// (light variant) ![](https://dummyimage.com/48x18/66FF90.png&text=+)          Hex value: 66FF9029
     case positiveBackground
     
     /// Semantic color for "critical" (risky) background, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFF8D6.png&text=+)        Hex color: #FFF8D6FF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/450B00.png&text=+)        Hex color: #450B00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFD500.png&text=+)          Hex value: FFD50029
+    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC93329
     case criticalBackground
     
     /// Semantic color for "information" (neutral) background, with light and dark color variants.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/EBF8FF.png&text=+)        Hex color: #EBF8FFFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/00144A.png&text=+)        Hex color: #00144AFF
+    /// (dark variant) ![](https://dummyimage.com/48x18/85D4FF.png&text=+)          Hex value: 85D4FF29
+    /// (light variant) ![](https://dummyimage.com/48x18/366CFE.png&text=+)          Hex value: 366CFE29
     case informationBackground
+    
+    /// NegativeBackgroundTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/FF80BC.png&text=+)          Hex value: FF80BC52
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5252.png&text=+)          Hex value: FF52521F
+    case negativeBackgroundTapState
+    
+    /// PositiveBackgroundTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/BDDE54.png&text=+)          Hex value: BDDE5452
+    /// (light variant) ![](https://dummyimage.com/48x18/66FF90.png&text=+)          Hex value: 66FF901F
+    case positiveBackgroundTapState
+    
+    /// CriticalBackgroundTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFD500.png&text=+)          Hex value: FFD50052
+    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC9331F
+    case criticalBackgroundTapState
+    
+    /// InformationBackgroundTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/85D4FF.png&text=+)          Hex value: 85D4FF52
+    /// (light variant) ![](https://dummyimage.com/48x18/366CFE.png&text=+)          Hex value: 366CFE1F
+    case informationBackgroundTapState
     
     // MARK: - Separator Colors (2 Colors)
     
@@ -1181,12 +1216,15 @@ public enum ColorStyle: String, CaseIterable {
                                                 .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
                                                 .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
                                                 .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
-                                                .positiveLabel, .criticalLabel, .negativeBackground,
-                                                .positiveBackground, .criticalBackground, .informationBackground,
-                                                .separator, .separatorOpaque, .header, .headerBlended,
-                                                .barTransparent, .contrastElement, .footer, .cellBackground,
-                                                .chart1, .chart2, .chart3, .chart4, .chart5, .chart6,
-                                                .chart7, .chart8, .chart9, .chart10, .chart11, .stockUpStroke,
-                                                .stockDownStroke, .map1, .map2, .map3, .map4, .map5,
-                                                .map6, .map7, .map8, .map9, .map10, .esriEdit]
+                                                .positiveLabel, .criticalLabel, .negativeLabelTapState,
+                                                .positiveLabelTapState, .criticalLabelTapState,
+                                                .negativeBackground, .positiveBackground, .criticalBackground,
+                                                .informationBackground, .negativeBackgroundTapState,
+                                                .positiveBackgroundTapState, .criticalBackgroundTapState,
+                                                .informationBackgroundTapState, .separator, .separatorOpaque,
+                                                .header, .headerBlended, .barTransparent, .contrastElement,
+                                                .footer, .cellBackground, .chart1, .chart2, .chart3, .chart4,
+                                                .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
+                                                .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
+                                                .map5, .map6, .map7, .map8, .map9, .map10, .esriEdit]
 }
