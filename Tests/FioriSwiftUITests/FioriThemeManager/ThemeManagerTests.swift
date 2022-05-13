@@ -5,15 +5,15 @@ import XCTest
 
 class ThemeManagerTests: XCTestCase {
     func testLatestColorStyle() throws {
-        XCTAssertEqual(ColorStyle.allCases.count, 181)
+        XCTAssertEqual(ColorStyle.allCases.count, 188)
     }
     
     func testPaletteV7() throws {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v7)
-        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 181)
+        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 188)
         XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
-        XCTAssertEqual(tm.paletteVersion?.newStyles().count, 49)
+        XCTAssertEqual(tm.paletteVersion?.newStyles().count, 56)
         let newStyle_grey1 = tm.hexColor(for: .grey1)
         XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
         let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
