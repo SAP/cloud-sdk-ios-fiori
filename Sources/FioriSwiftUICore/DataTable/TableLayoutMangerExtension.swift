@@ -5,26 +5,22 @@ import UIKit
 extension TableLayoutManager {
     // swiftlint:disable cyclomatic_complexity
     func layout(size: CGSize) {
-        if self.size.width == size.width && !model.needsCalculateLayout {
-            // isLayoutFinished could be true or false. it is either everything has not been changed or it is in the middle of layout
-            if self.layoutData != nil || layoutWorkItem != nil {
-                return
-            }
+        // either the layout is finished or in progress
+        if (self.size.width == size.width && !model.needsCalculateLayout && self.layoutData != nil && layoutWorkItem == nil)
+            || (self.size.width == size.width && layoutWorkItem != nil)
+        {
+            print("TableLayoutManager - layout(\(size): end check, return, model.needsCalculateLayout = \(model.needsCalculateLayout)")
+            return
         }
 
         if self.size != size {
             self.size = size
         }
         
-        let needToInitModel = self.cacheLayoutData == nil || (self.model.needsCalculateLayout ? true : false)
+        let needToInitModel = self.cacheLayoutData == nil || self.model.needsCalculateLayout
         if needToInitModel {
-            self.model.needsCalculateLayout = false
             self.cacheLayoutData = nil
-            self.selectedIndexes = self.model.selectedIndexes
         }
-    
-        self.layoutData = nil
-        self.resetPosition()
         
         let model = self.model
         
@@ -51,7 +47,6 @@ extension TableLayoutManager {
             } else {
                 tmpLayoutData.copyCacheData(self.cacheLayoutData)
             }
-            
             if newWorkItem?.isCancelled ?? true {
                 return
             }
@@ -61,7 +56,6 @@ extension TableLayoutManager {
                 return
             }
             tmpLayoutData.trailingAccessoryViewWidth = tmpLayoutData.getTrailingAccessoryViewWidth()
-//            tmpLayoutData.contentInset = TableViewLayout.contentInset(sizeClass: self.sizeClass)
              
             if newWorkItem?.isCancelled ?? true {
                 return
@@ -82,6 +76,13 @@ extension TableLayoutManager {
                 self.layoutData = tmpLayoutData
                 self.cacheLayoutData = tmpLayoutData
                 self.layoutWorkItem = nil
+                self.resetPosition()
+                if needToInitModel {
+                    self.selectedIndexes = self.model.selectedIndexes
+                }
+                if self.model.needsCalculateLayout {
+                    self.model.needsCalculateLayout = false
+                }
             }
         }
         
@@ -97,7 +98,6 @@ extension TableLayoutManager {
             let view = self.makeObjectView(row: row)
             items.append(AnyView(view))
         }
-        model.needsCalculateLayout = false
         
         return items
     }
