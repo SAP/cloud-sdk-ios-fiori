@@ -9,7 +9,6 @@ extension TableLayoutManager {
         if (self.size.width == size.width && !model.needsCalculateLayout && self.layoutData != nil && layoutWorkItem == nil)
             || (self.size.width == size.width && layoutWorkItem != nil)
         {
-            print("TableLayoutManager - layout(\(size): end check, return, model.needsCalculateLayout = \(model.needsCalculateLayout)")
             return
         }
 
