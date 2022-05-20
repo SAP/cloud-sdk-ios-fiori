@@ -2,57 +2,25 @@ import Foundation
 import SwiftUI
 
 class TableLayoutManager: ObservableObject {
-    @Published var model: TableModel {
+    var model: TableModel {
         didSet {
             self.numOfColumns = -1
         }
     }
     
-    var horizontalScrolling: Bool {
-        get {
-            self._horizontalScrolling
-        }
-        
-        set {
-            self._horizontalScrolling = newValue
-        }
-    }
+    var horizontalScrolling: Bool = true
+
+    var sizeClass: UserInterfaceSizeClass = .compact
     
-    @Published var _horizontalScrolling = true
-    
-    var sizeClass: UserInterfaceSizeClass {
-        get {
-            self._sizeClass
-        }
-        
-        set {
-            if self._sizeClass != newValue {
-                self._sizeClass = newValue
-            }
-        }
-    }
-    
-    @Published var sizeCategory: ContentSizeCategory = .medium {
+    var sizeCategory: ContentSizeCategory = .medium {
         didSet {
             if !self.model.needsCalculateLayout {
                 self.model.needsCalculateLayout = true
             }
         }
     }
-    
-    @Published var _sizeClass: UserInterfaceSizeClass = .compact
-    
-    var size: CGSize {
-        get {
-            self._size
-        }
-        
-        set {
-            self._size = newValue
-        }
-    }
-    
-    @Published var _size: CGSize = .zero
+       
+    var size: CGSize = .zero
     
     /// private: X direction scale factor; the minimum scale is to display all data in the view
     @Published private var _scaleX: CGFloat = 1.0
@@ -104,6 +72,11 @@ class TableLayoutManager: ObservableObject {
     
     /// cache the result
     var numOfColumns: Int = -1
+    
+    /// check if layout process is finished
+    func isLayoutFinished(_ size: CGSize) -> Bool {
+        self.size.width == size.width && !self.model.needsCalculateLayout && self.layoutData != nil && self.layoutWorkItem == nil
+    }
     
     public func numberOfColumns() -> Int {
         guard let ld = layoutData else { return 0 }
