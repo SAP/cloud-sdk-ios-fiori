@@ -27,9 +27,6 @@ public struct DataTable: View {
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
         self.model = model
-        if !model.needsCalculateLayout {
-            model.needsCalculateLayout = true
-        }
         
         self.layoutManager = TableLayoutManager(model: model)
     }
@@ -42,15 +39,11 @@ public struct DataTable: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        if self.model.needsCalculateLayout {
-            self.layoutManager.model = self.model
-        }
-        
-        return Group {
+        Group {
             if self.model.showListView {
                 TableListView(layoutManager: layoutManager)
             } else {
-                GridTableView(layoutManager: layoutManager)
+                GridTableView(model: model, layoutManager: layoutManager)
             }
         }
         .clipped()

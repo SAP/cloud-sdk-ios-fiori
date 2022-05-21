@@ -5,8 +5,11 @@ struct GridTableView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.sizeCategory) var sizeCategory
     @ObservedObject var layoutManager: TableLayoutManager
+    @ObservedObject var model: TableModel
     
-    init(layoutManager: TableLayoutManager) {
+    init(model: TableModel, layoutManager: TableLayoutManager) {
+        self.model = model
+        layoutManager.model = model
         self.layoutManager = layoutManager
     }
     
@@ -38,14 +41,14 @@ struct GridTableView: View {
         self.layoutManager.layout(size: rect.size)
         
         return Group {
-            if layoutManager.layoutData == nil {
+            if !layoutManager.isLayoutFinished(rect.size) {
                 if #available(iOS 14.0, *) {
                     ProgressView().progressViewStyle(CircularProgressViewStyle())
                 } else {
                     // Fallback on earlier versions
                     Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                 }
-            } else if self.layoutManager.layoutData != nil, self.layoutManager.numberOfRows() > 0, self.layoutManager.numberOfColumns() > 0, rect.size.width > 1, rect.size.height > 1 {
+            } else if self.layoutManager.layoutData != nil, self.layoutManager.layoutWorkItem == nil, self.layoutManager.numberOfRows() > 0, self.layoutManager.numberOfColumns() > 0, rect.size.width > 1, rect.size.height > 1 {
                 ScrollAndZoomView(layoutManager: layoutManager, size: rect.size)
                     .frame(width: rect.size.width, height: rect.size.height)
             } else {
@@ -289,7 +292,7 @@ struct InternalGridTableView: View {
     }
     
     var body: some View {
-        if layoutManager.layoutData == nil {
+        if !layoutManager.isLayoutFinished(layoutManager.size) {
             EmptyView()
         } else {
             makeBody()
