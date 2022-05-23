@@ -14,7 +14,7 @@ struct ItemView: View {
     
     var body: some View {
         Group {
-            if self.layoutManager.layoutData != nil, rowIndex < self.layoutManager.numberOfRows(), columnIndex < self.layoutManager.numberOfColumns() {
+            if self.layoutManager.layoutData != nil, self.layoutManager.layoutWorkItem == nil, rowIndex < self.layoutManager.numberOfRows(), columnIndex < self.layoutManager.numberOfColumns() {
                 makeBody(layoutData: self.layoutManager.layoutData!)
             } else {
                 EmptyView()

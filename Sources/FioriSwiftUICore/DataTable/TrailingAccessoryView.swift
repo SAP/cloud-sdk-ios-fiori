@@ -11,7 +11,7 @@ struct TrailingAccessoryView: View {
     
     var body: some View {
         Group {
-            if self.layoutManager.layoutData != nil, rowIndex < self.layoutManager.numberOfRows() {
+            if self.layoutManager.layoutData != nil, self.layoutManager.layoutWorkItem == nil, rowIndex < self.layoutManager.numberOfRows() {
                 makeBody(layoutData: self.layoutManager.layoutData!)
             } else {
                 EmptyView()
