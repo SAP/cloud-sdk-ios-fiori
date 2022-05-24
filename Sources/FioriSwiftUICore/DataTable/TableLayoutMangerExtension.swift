@@ -251,8 +251,8 @@ extension TableLayoutManager {
     
     func startPosition(size: CGSize) -> CGPoint {
         let pos = self.centerPosition(size: size)
-        let x = max(0, pos.x - self.widthPointInUnit(size: size) * size.width / 2)
-        let y = max(0, pos.y - self.heightPointInUnit(size: size) * size.height / 2)
+        let x = pos.x - self.widthPointInUnit(size: size) * size.width / 2
+        let y = pos.y - self.heightPointInUnit(size: size) * size.height / 2
         
         return CGPoint(x: x, y: y)
     }
@@ -261,15 +261,15 @@ extension TableLayoutManager {
         let pos = self.centerPosition(size: size)
         let wUnit = self.widthPointInUnit(size: size)
         let hUnit = self.heightPointInUnit(size: size)
-        let x = max(0, pos.x - wUnit * size.width / 2)
-        let y = max(0, pos.y - hUnit * size.height / 2)
+        let x = pos.x - wUnit * size.width / 2
+        let y = pos.y - hUnit * size.height / 2
         
         return CGPoint(x: x / wUnit, y: y / hUnit)
     }
     
     func centerPosition(from startPosition: CGPoint, size: CGSize) -> CGPoint {
-        let x = max(0, (startPosition.x + size.width / 2) * self.widthPointInUnit(size: size))
-        let y = max(0, (startPosition.y + size.height / 2) * self.heightPointInUnit(size: size))
+        let x = (startPosition.x + size.width / 2) * self.widthPointInUnit(size: size)
+        let y = (startPosition.y + size.height / 2) * self.heightPointInUnit(size: size)
         
         return CGPoint(x: x, y: y)
     }
