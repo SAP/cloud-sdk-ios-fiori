@@ -18,14 +18,6 @@ struct GridTableView: View {
             self.makeBody(in: proxy.frame(in: .local))
         }
     }
-    
-    private func isDropVerticalShadow(_ size: CGSize) -> Bool {
-        self.layoutManager.startPosition(size: size).x >= 0.01
-    }
-    
-    private func isDropHorizontalShadow(_ size: CGSize) -> Bool {
-        self.layoutManager.startPosition(size: size).y >= 0.01
-    }
 
     func makeBody(in rect: CGRect) -> some View {
         if self.horizontalSizeClass != self.layoutManager.sizeClass {
@@ -198,8 +190,7 @@ struct ScrollAndZoomView: UIViewRepresentable {
                     return
                 }
                 
-                let offset = scrollView.contentOffset
-                let tmpXY = self.srollAndZoomView.layoutManager.centerPosition(from: CGPoint(x: abs(offset.x), y: abs(offset.y)), size: self.srollAndZoomView.layoutManager.size)
+                let tmpXY = self.srollAndZoomView.layoutManager.centerPosition(from: scrollView.contentOffset, size: self.srollAndZoomView.layoutManager.size)
                 self.srollAndZoomView.layoutManager.centerPosition = tmpXY
             }
         }
@@ -409,10 +400,10 @@ struct InternalGridTableView: View {
     }
     
     private func isDropVerticalShadow(_ size: CGSize) -> Bool {
-        self.layoutManager.startPosition(size: size).x >= 0.01
+        abs(self.layoutManager.startPosition(size: size).x) >= 0.01
     }
     
     private func isDropHorizontalShadow(_ size: CGSize) -> Bool {
-        self.layoutManager.startPosition(size: size).y >= 0.01
+        abs(self.layoutManager.startPosition(size: size).y) >= 0.01
     }
 }
