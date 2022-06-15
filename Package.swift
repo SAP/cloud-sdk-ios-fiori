@@ -22,6 +22,11 @@ let package = Package(
             name: "FioriIntegrationCards",
             type: .dynamic,
             targets: ["FioriIntegrationCards"]
+        ),
+        .library(
+            name: "FioriThemeManager",
+            type: .dynamic,
+            targets: ["FioriThemeManager"]
         )
     ],
     dependencies: [
