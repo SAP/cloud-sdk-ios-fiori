@@ -21,7 +21,7 @@ public struct KPIExample: View {
     
     public var body: some View {
         VStack(spacing: 16) {
-            KPIItem(data: .components([.unit("$"), .metric("121.98"), .unit("USD")]), subtitle: "Average Spending")
+            KPIItem(data: .components([.unit("$"), .metric("121.98"), .unit("USD")]), subtitle: "Average Spending", action: { print("KPI tapped") })
                 .subtitleModifier { content in
                     content
                         .foregroundColor(.yellow)
