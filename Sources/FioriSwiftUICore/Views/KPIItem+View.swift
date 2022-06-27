@@ -34,13 +34,21 @@ extension Fiori {
 
 extension KPIItem: View {
     public var body: some View {
-        Button(action: action ?? {}) {
+        if let buttonAction = action {
+            Button(action: buttonAction) {
+                VStack(alignment: .center, spacing: 2) {
+                    kpi
+                    subtitle
+                }
+                .frame(maxWidth: 216)
+            }.buttonStyle(ButtonContainerStyle())
+        } else {
             VStack(alignment: .center, spacing: 2) {
                 kpi
                 subtitle
             }
             .frame(maxWidth: 216)
-        }.buttonStyle(ButtonContainerStyle())
+        }
     }
 }
 
