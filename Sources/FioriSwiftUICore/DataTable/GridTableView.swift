@@ -311,6 +311,17 @@ struct InternalGridTableView: View {
                 let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - offsetY
                 let allowsToShowTheRow = showTheRow(for: rowIndex, y: y, startPosY: startPosition.y, layoutData: layoutData, size: size)
                 if allowsToShowTheRow {
+                    // general background color & selection background color for the row
+                    Group {
+                        if self.layoutManager.model.isEditing && self.layoutManager.selectedIndexes.contains(rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)) {
+                            Color.preferredColor(.informationBackground)
+                        } else {
+                            self.layoutManager.model.backgroundColor
+                        }
+                    }
+                    .frame(width: size.width, height: layoutData.rowHeights[rowIndex] * tmpScaleY)
+                    .position(x: size.width / 2, y: y)
+                    
                     // all visible columns
                     ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
                         let columnIndex = indexOfColumns[j]

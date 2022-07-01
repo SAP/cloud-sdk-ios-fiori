@@ -51,7 +51,6 @@ struct LeadingAccessoryView: View {
         }
         .frame(width: layoutData.leadingAccessoryViewWidth * self.layoutManager.scaleX,
                height: layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY)
-        .background(self.layoutManager.model.backgroundColor)
     }
     
     func makeSectionButton(layoutData: LayoutData) -> some View {
