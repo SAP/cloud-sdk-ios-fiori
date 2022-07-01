@@ -133,7 +133,6 @@ struct ItemView: View {
         }
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
-        .background(self.layoutManager.model.backgroundColor)
         .gesture(tapGesture)
     }
     
