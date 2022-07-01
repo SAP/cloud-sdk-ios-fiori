@@ -695,10 +695,10 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
     case tertiaryLabel
     
-    /// Standard color for quarternary label.
+    /// Standard color for quaternary label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BD4
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
-    case quarternaryLabel
+    case quaternaryLabel
     
     // MARK: - Fill Colors (4 Colors)
     
@@ -717,10 +717,10 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A845
     case tertiaryFill
     
-    /// Standard color for quarternary fill.
+    /// Standard color for quaternary fill.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
-    case quarternaryFill
+    case quaternaryFill
     
     // MARK: - Tint Colors (3 Colors)
     
@@ -985,6 +985,18 @@ public enum ColorStyle: String, CaseIterable {
     
     // MARK: - Deprecated Basic Colors
     
+    /// Standard color for quaternary label.
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BD4
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    @available(*, deprecated, renamed: "quaternaryLabel")
+    case quarternaryLabel
+    
+    /// Standard color for quaternary fill.
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
+    @available(*, deprecated, renamed: "quaternaryFill")
+    case quarternaryFill
+    
     /// Standard base color, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/354A5F.png&text=+)        Hex color: 354A5F
     /// (light variant) ![](https://dummyimage.com/48x18/2C3D4F.png&text=+)        Hex color: 2C3D4F
@@ -1048,7 +1060,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard background and accent color that is used in tag outline.
     /// (dark variant) ![](https://dummyimage.com/48x18/74777A.png&text=+)          Hex color: 74777A
     /// (light variant) ![](https://dummyimage.com/48x18/B8BEC1.png&text=+)          Hex color: B8BEC1
-    @available(*, deprecated, renamed: "quarternaryLabel")
+    @available(*, deprecated, renamed: "quaternaryLabel")
     case primary7
     
     /// Background and accent color that is mainly used with dark color scheme.
@@ -1095,7 +1107,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard cell background color when being tapped, with variants for light and dark color schemes.
     /// (dark variant) ![](https://dummyimage.com/48x18/89919A.png&text=+)          Hex color: 89919A1C (alpha: 11%)
     /// (light variant) ![](https://dummyimage.com/48x18/8696A9.png&text=+)          Hex color: 8696A91C (alpha: 11%)
-    @available(*, deprecated, renamed: "quarternaryFill")
+    @available(*, deprecated, renamed: "quaternaryFill")
     case cellBackgroundTapState
     
     /// Standard shadow color.
@@ -1215,8 +1227,8 @@ public enum ColorStyle: String, CaseIterable {
                                                 .cardShadow, .sectionShadow, .primaryGroupedBackground,
                                                 .secondaryGroupedBackground, .tertiaryGroupedBackground,
                                                 .primaryBackground, .secondaryBackground, .tertiaryBackground,
-                                                .primaryLabel, .secondaryLabel, .tertiaryLabel, .quarternaryLabel,
-                                                .primaryFill, .secondaryFill, .tertiaryFill, .quarternaryFill,
+                                                .primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel,
+                                                .primaryFill, .secondaryFill, .tertiaryFill, .quaternaryFill,
                                                 .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
                                                 .positiveLabel, .criticalLabel, .negativeLabelTapState,
                                                 .positiveLabelTapState, .criticalLabelTapState,
