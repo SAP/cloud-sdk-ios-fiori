@@ -11,7 +11,7 @@ class ThemeManagerTests: XCTestCase {
     func testPaletteV7() throws {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v7)
-        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 188)
+        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 190)
         XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
         XCTAssertEqual(tm.paletteVersion?.newStyles().count, 56)
         let newStyle_grey1 = tm.hexColor(for: .grey1)
@@ -27,7 +27,7 @@ class ThemeManagerTests: XCTestCase {
     func testPaletteV6() throws {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v6)
-        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 132)
+        XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 134)
         XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 38)
         XCTAssertEqual(tm.paletteVersion?.newStyles().count, 78)
         let newStyle_grey1 = tm.hexColor(for: .grey1)
