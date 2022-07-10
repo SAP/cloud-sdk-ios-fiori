@@ -92,72 +92,49 @@ public struct FioriButton<Label: View>: View {
             return FioriButtonStyleConfiguration.Label(v)
         }
         
-        return ZStack {
-            self.fioriButtonStyle.makeBody(configuration: config)
+        return Group {
+            if isSelectionPersistent {
+                self.fioriButtonStyle.makeBody(configuration: config)
+                    .overlay(GeometryReader { proxy in
+                        Color.clear.contentShape(Rectangle()).gesture(createGesture(proxy.size))
+                    })
+            } else {
+                Button {
+                    action?(.normal)
+                } label: {
+                    EmptyView()
+                }
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: fioriButtonStyle, label: label, isEnabled: isEnabled))
+            }
         }
-        .overlay(GeometryReader { proxy in
-            Color.clear.contentShape(Rectangle()).gesture(createGesture(proxy.size))
-        })
     }
     
     func createGesture(_ size: CGSize) -> some Gesture {
         let touchArea = CGRect(origin: .zero, size: size).insetBy(dx: -self.touchAreaInset, dy: -self.touchAreaInset)
         var isCancelled = false
         
-        if self.isSelectionPersistent {
-            return DragGesture(minimumDistance: 0)
-                .onChanged { value in
-                    guard !isCancelled else {
-                        return
-                    }
-                    
-                    if !touchArea.contains(value.location) {
-                        isCancelled = true
-                    }
+        return DragGesture(minimumDistance: 0)
+            .onChanged { value in
+                guard !isCancelled else {
+                    return
                 }
-                .onEnded { _ in
-                    defer {
-                        isCancelled = false
-                    }
-                    
-                    guard !isCancelled else {
-                        return
-                    }
-                    
-                    self._state = self.state == .normal ? .selected : .normal
-                    self.action?(state)
+                
+                if !touchArea.contains(value.location) {
+                    isCancelled = true
                 }
-        } else {
-            return DragGesture(minimumDistance: 0)
-                .onChanged { value in
-                    guard !isCancelled else {
-                        return
-                    }
-
-                    if !touchArea.contains(value.location) {
-                        isCancelled = true
-                        self._state = .normal
-
-                        return
-                    }
-                    
-                    if self._state == .normal {
-                        self._state = .highlighted
-                    }
+            }
+            .onEnded { _ in
+                defer {
+                    isCancelled = false
                 }
-                .onEnded { _ in
-                    defer {
-                        isCancelled = false
-                    }
-
-                    guard !isCancelled else {
-                        return
-                    }
-                    
-                    self._state = .normal
-                    self.action?(state)
+                
+                guard !isCancelled else {
+                    return
                 }
-        }
+                
+                self._state = self.state == .normal ? .selected : .normal
+                self.action?(state)
+            }
     }
 }
 
@@ -246,6 +223,26 @@ struct DefaultFioriButtonStyle: FioriButtonStyle {
             .foregroundColor(.white)
             .padding(15)
             .background(RoundedRectangle(cornerRadius: 5).fill(color))
+    }
+}
+
+private struct _ButtonStyleImpl<Label: View>: ButtonStyle {
+    let fioriButtonStyle: AnyFioriButtonStyle
+    let label: (UIControl.State) -> Label
+    let isEnabled: Bool
+    
+    func makeBody(configuration: Configuration) -> some View {
+        let state: UIControl.State = self.isEnabled ? (configuration.isPressed ? .highlighted : .normal) : .disabled
+        let config = FioriButtonStyleConfiguration(state: state) { state in
+            let v = self.label(state)
+            return FioriButtonStyleConfiguration.Label(v)
+        }
+        
+        return ZStack {
+            fioriButtonStyle.makeBody(configuration: config)
+            
+            configuration.label.hidden()
+        }
     }
 }
 
