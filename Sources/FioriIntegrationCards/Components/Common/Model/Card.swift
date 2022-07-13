@@ -1,5 +1,6 @@
 import Foundation
 
+@available(*, deprecated, message: "Module FioriIntegrationCards is deprecated and will be removed in a future major version")
 public enum Card: Decodable, Identifiable, CustomStringConvertible {
     case list(ListCard)
     case table(TableCard)

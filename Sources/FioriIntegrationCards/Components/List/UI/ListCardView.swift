@@ -3,6 +3,7 @@ import Combine
 import ObservableArray
 import SwiftUI
 
+@available(*, deprecated, message: "Module FioriIntegrationCards is deprecated and will be removed in a future major version")
 public struct ListCardView: View {
     @ObservedObject var model: ListCard
       
