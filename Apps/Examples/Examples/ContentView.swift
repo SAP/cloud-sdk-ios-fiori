@@ -11,7 +11,7 @@ struct ContentView: View {
                 }
                 NavigationLink(
                     destination: IntegrationCardsContentView()) {
-                    Text("Integration Cards")
+                    Text("*Integration Cards (Deprecated)* ")
                 }
                 NavigationLink(
                     destination: CoreContentView()) {

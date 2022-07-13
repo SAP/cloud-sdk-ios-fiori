@@ -1,6 +1,7 @@
 import Foundation
 import Zip
 
+@available(*, deprecated, message: "Module FioriIntegrationCards is deprecated and will be removed in a future major version")
 public class Manifest: Decodable, Identifiable, ObservableObject {
     @Published public var app: App
     @Published public var card: Card
