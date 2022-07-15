@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.1.0...2.2.0) (2022-07-15)
+### Features
+* [HCPSDKFIORIUIKIT-2157, 2162] new ColorPaletteV7. ([#426](https://github.com/SAP/cloud-sdk-ios-fiori/issues/426)) ([85dd2d6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/85dd2d642de075fa3d242d19c13481369ca69d10))
+* [HCPSDKFIORIUIKIT-2157] [HCPSDKFIORIUIKIT-2162] new color palette for sdk 8.0 ([f56bf82](https://github.com/SAP/cloud-sdk-ios-fiori/commit/f56bf8248ee2a91791706bc318306c5ff56f0d24))
+* [HCPSDKFIORIUIKIT-2157] [HCPSDKFIORIUIKIT-2162] new color palette for sdk 8.0 (Part2) ([dc9223c](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dc9223ca88981d154d6686565fa038a3014aa17f))
+* [JIRA: HCPSDKFIORIUIKIT-2157] adding more colors to color palette ([30d3f98](https://github.com/SAP/cloud-sdk-ios-fiori/commit/30d3f983001a606b087c85a524622a6ab9d81623))
+* 🎸 [BCP: 2280114088] support selected background color ([#441](https://github.com/SAP/cloud-sdk-ios-fiori/issues/441)) ([578b684](https://github.com/SAP/cloud-sdk-ios-fiori/commit/578b68429e22cc272bab90ec4acfa1f706a3c5fe))
+* 🎸 expose FioriThemeManager module as package product ([73334d5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/73334d579f0c68a1727103549a194ad66fbc239f))
+  
+### Bug Fixes
+* [BCP: 2270017144] fix `quaternary` is misspelled as `quarternary`. ([#440](https://github.com/SAP/cloud-sdk-ios-fiori/issues/440)) ([cea77a2](https://github.com/SAP/cloud-sdk-ios-fiori/commit/cea77a2ed811c7fcfa8b568cfba2538cd8ab2ba6))
+* [HCPSDKFIORIUIKIT-2043] resolve UIFont instance from Swift pass to SwiftUI can't be resized and empty text disable accessibility. ([#418](https://github.com/SAP/cloud-sdk-ios-fiori/issues/418)) ([530f3d1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/530f3d1b86ae9296128382282ddef20e8048f643))
+* [SN:CS20220002723901] Critical orange label color. Cherry pick from integrationSAPFiori7.0 branch ([#420](https://github.com/SAP/cloud-sdk-ios-fiori/issues/420)) ([d2dd280](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d2dd280fa90e867b8f5f4123b2f60b6402c18daf))
+* 🐛 [BCP: 0] fix DataTable position bug in bouncing effect ([#432](https://github.com/SAP/cloud-sdk-ios-fiori/issues/432)) ([a82de93](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a82de93715b34e0b834f1993c85e3488018f41bc))
+* 🐛 [BCP: 2270039185] fix datatable crash in MDK ([#430](https://github.com/SAP/cloud-sdk-ios-fiori/issues/430)) ([dd3024b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/dd3024b16324cc7f8651d8967d38ba812e0b837f))
+* 🐛 [BCP:2270089550] Fix signature timestamp formatter ([#427](https://github.com/SAP/cloud-sdk-ios-fiori/issues/427)) ([81c8c68](https://github.com/SAP/cloud-sdk-ios-fiori/commit/81c8c684522900e9c49458e2a9b0545da9ac4ff0))
+* 🐛 Button stays in highlighted state if pressed when scrolling ([#443](https://github.com/SAP/cloud-sdk-ios-fiori/issues/443)) ([c8f88aa](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c8f88aaed5a5ff7a4af57ebec7da82c703b46826)), closes [#436](https://github.com/SAP/cloud-sdk-ios-fiori/issues/436) [#435](https://github.com/SAP/cloud-sdk-ios-fiori/issues/435)
+* 🐛 Use labels to show KPIItem when action is not set ([#439](https://github.com/SAP/cloud-sdk-ios-fiori/issues/439)) ([1cd184e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1cd184eb9c4b1c5088b9925a0c008de689f81a69)), closes [#436](https://github.com/SAP/cloud-sdk-ios-fiori/issues/436)
+* 🐛 changing darkColor hex value for green10 ([2c90580](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2c90580400c5f5e9e173819ba3386af5781c1897))
+
 ## [2.1.0](https://github.com/billzhou0223/cloud-sdk-ios-fiori/compare/2.0.1...2.1.0) (2022-04-11)
 
 
