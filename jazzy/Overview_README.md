@@ -6,11 +6,10 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 <img src="https://user-images.githubusercontent.com/4176826/85931303-3ac81980-b878-11ea-8e7f-9b10ed380f2d.gif" alt="alt text" width="300" height="500" align="center">
 </p>
 
-This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore`, `FioriCharts`, and `FioriIntegrationCards`.
+This project currently contains four modules: `FioriThemeManager`, `FioriSwiftUICore` and `FioriCharts`.
 
 - [FioriThemeManager](./themeManager/index.html)
 - FioriSwiftUICore (*API documentation coming soon*)
 - [FioriCharts](./charts/index.html)
-- [FioriIntegrationCards](./integrationCards/index.html)
 
 For more details please visit https://github.com/SAP/cloud-sdk-ios-fiori
