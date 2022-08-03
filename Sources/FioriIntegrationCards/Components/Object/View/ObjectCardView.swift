@@ -1,6 +1,7 @@
 import Combine
 import SwiftUI
 
+@available(*, deprecated, message: "Module FioriIntegrationCards is deprecated and will be removed in a future major version")
 public struct ObjectCardView: View {
     @ObservedObject var model: ObjectCard
       
