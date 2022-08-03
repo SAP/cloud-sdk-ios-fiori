@@ -862,58 +862,58 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
-    /// (dark variant) ![](https://dummyimage.com/48x18/5899DA.png&text=+)          Hex value: 5899DA
-    /// (light variant) ![](https://dummyimage.com/48x18/74B3F0.png&text=+)          Hex value: 74B3F0
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
+    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
     case chart1
     
     /// Chart 2
-    /// (dark variant) ![](https://dummyimage.com/48x18/E8743B.png&text=+)          Hex value: E8743B
-    /// (light variant) ![](https://dummyimage.com/48x18/E8743B.png&text=+)          Hex value: E8743B
+    /// (dark variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E76500
+    /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300
     case chart2
     
     /// Chart 3
-    /// (dark variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
-    /// (light variant) ![](https://dummyimage.com/48x18/19A979.png&text=+)          Hex value: 19A979
+    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122
     case chart3
     
     /// Chart 4
-    /// (dark variant) ![](https://dummyimage.com/48x18/ED4A7B.png&text=+)          Hex value: ED4A7B
-    /// (light variant) ![](https://dummyimage.com/48x18/ED4A7B.png&text=+)          Hex value: ED4A7B
+    /// (dark variant) ![](https://dummyimage.com/48x18/FA4F96.png&text=+)          Hex value: FA4F96
+    /// (light variant) ![](https://dummyimage.com/48x18/FE83AE.png&text=+)          Hex value: FE83AE
     case chart4
     
     /// Chart 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/945ECF.png&text=+)          Hex value: 945ECF
-    /// (light variant) ![](https://dummyimage.com/48x18/945ECF.png&text=+)          Hex value: 945ECF
+    /// (dark variant) ![](https://dummyimage.com/48x18/7858FF.png&text=+)          Hex value: 7858FF
+    /// (light variant) ![](https://dummyimage.com/48x18/9B76FF.png&text=+)          Hex value: 9B76FF
     case chart5
     
     /// Chart 6
-    /// (dark variant) ![](https://dummyimage.com/48x18/13A4B4.png&text=+)          Hex value: 13A4B4
-    /// (light variant) ![](https://dummyimage.com/48x18/13A4B4.png&text=+)          Hex value: 13A4B4
+    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9A
+    /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEAC
     case chart6
     
     /// Chart 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/525DF4.png&text=+)          Hex value: 525DF4
-    /// (light variant) ![](https://dummyimage.com/48x18/5C66F5.png&text=+)          Hex value: 5C66F5
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
+    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
     case chart7
     
     /// Chart 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/BF399E.png&text=+)          Hex value: BF399E
-    /// (light variant) ![](https://dummyimage.com/48x18/C63FA4.png&text=+)          Hex value: C63FA4
+    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DED
+    /// (light variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2
     case chart8
     
     /// Chart 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/6C8893.png&text=+)          Hex value: 6C8893
-    /// (light variant) ![](https://dummyimage.com/48x18/6C8893.png&text=+)          Hex value: 6C8893
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
     case chart9
     
     /// Chart 10
-    /// (dark variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
-    /// (light variant) ![](https://dummyimage.com/48x18/EE6868.png&text=+)          Hex value: EE6868
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77
     case chart10
     
     /// Chart 11
-    /// (dark variant) ![](https://dummyimage.com/48x18/2F6497.png&text=+)          Hex value: 2F6497
-    /// (light variant) ![](https://dummyimage.com/48x18/387BB7.png&text=+)          Hex value: 387BB7
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
     case chart11
     
     /// StockUpStroke
