@@ -1010,8 +1010,6 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
     case customColor6
     
-    
-    
     /// EsriEdit
     /// (dark variant) ![](https://dummyimage.com/48x18/1B6DD2.png&text=+)          Hex value: 1B6DD2
     /// (light variant) ![](https://dummyimage.com/48x18/FFF114.png&text=+)          Hex value: FFF114
@@ -1274,8 +1272,5 @@ public enum ColorStyle: String, CaseIterable {
                                                 .footer, .cellBackground, .chart1, .chart2, .chart3, .chart4,
                                                 .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
                                                 .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
-                                                .map5, .map6, .map7, .map8, .map9, .map10,
-                                                .customColor1,.customColor2,.customColor3,.customColor4,
-                                                .customColor5,
-                                                .customColor6,.esriEdit]
+                                                .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6, .esriEdit]
 }
