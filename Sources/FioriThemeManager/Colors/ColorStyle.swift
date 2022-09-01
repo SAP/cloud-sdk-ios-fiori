@@ -892,8 +892,8 @@ public enum ColorStyle: String, CaseIterable {
     case chart6
     
     /// Chart 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
-    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/525DF4.png&text=+)          Hex value: 525DF4
+    /// (light variant) ![](https://dummyimage.com/48x18/5C66F5.png&text=+)          Hex value: 5C66F5
     case chart7
     
     /// Chart 8
@@ -912,8 +912,8 @@ public enum ColorStyle: String, CaseIterable {
     case chart10
     
     /// Chart 11
-    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
-    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
+    /// (dark variant) ![](https://dummyimage.com/48x18/2F6497.png&text=+)          Hex value: 2F6497
+    /// (light variant) ![](https://dummyimage.com/48x18/387BB7.png&text=+)          Hex value: 387BB7
     case chart11
     
     /// StockUpStroke
