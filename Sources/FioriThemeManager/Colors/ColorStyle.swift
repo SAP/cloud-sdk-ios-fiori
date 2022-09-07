@@ -1,5 +1,5 @@
 public enum ColorStyle: String, CaseIterable {
-    // MARK: - Fiori Next Core Colors (110 Colors)
+    // MARK: - Fiori Next Core Colors (116 Colors)
     
     // Core 1: Greys (1 - 11)
     /// Grey 1
@@ -978,6 +978,38 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant) ![](https://dummyimage.com/48x18/C45300.png&text=+)          Hex value: C45300
     case map10
     
+    // MARK: - Custom Colors (6 Styles)
+    
+    /// Custom Color 1
+    /// (dark variant) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    case customColor1
+    
+    /// Custom Color 2
+    /// (dark variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FFFF
+    case customColor2
+    
+    /// Custom Color 3
+    /// (dark variant) ![](https://dummyimage.com/48x18/046C7A.png&text=+)          Hex value: 046C7AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/04ACA7.png&text=+)          Hex value: 04ACA7FF
+    case customColor3
+    
+    /// Custom Color 4
+    /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
+    case customColor4
+    
+    /// Custom Color 5
+    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
+    /// (light variant) ![](https://dummyimage.com/48x18/F58B00.png&text=+)          Hex value: F58B00FF
+    case customColor5
+    
+    /// Custom Color 6
+    /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
+    /// (light variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
+    case customColor6
+    
     /// EsriEdit
     /// (dark variant) ![](https://dummyimage.com/48x18/1B6DD2.png&text=+)          Hex value: 1B6DD2
     /// (light variant) ![](https://dummyimage.com/48x18/FFF114.png&text=+)          Hex value: FFF114
@@ -1240,5 +1272,5 @@ public enum ColorStyle: String, CaseIterable {
                                                 .footer, .cellBackground, .chart1, .chart2, .chart3, .chart4,
                                                 .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
                                                 .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
-                                                .map5, .map6, .map7, .map8, .map9, .map10, .esriEdit]
+                                                .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6, .esriEdit]
 }

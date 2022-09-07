@@ -212,6 +212,12 @@ struct PaletteV7: PaletteProvider {
         .map8: HexColor(lightColor: "D0R774", darkColor: "D0R774"),
         .map9: HexColor(lightColor: "1C857A", darkColor: "1C857A"),
         .map10: HexColor(lightColor: "C45300", darkColor: "C45300"),
+        .customColor1: HexColor(lightColor: "475E75FF", darkColor: "8396A8FF", contrastLightColor: "344556FF", contrastDarkColor: "8799ABFF"),
+        .customColor2: HexColor(lightColor: "0057D2FF", darkColor: "1B90FFFF", contrastLightColor: "0046A8FF", contrastDarkColor: "2E99FFFF"),
+        .customColor3: HexColor(lightColor: "046C7AFF", darkColor: "04ACA7FF", contrastLightColor: "03535EFF", contrastDarkColor: "04ACA7FF"),
+        .customColor4: HexColor(lightColor: "256F3AFF", darkColor: "36A41DFF", contrastLightColor: "1B502AFF", contrastDarkColor: "39AD1FFF"),
+        .customColor5: HexColor(lightColor: "A93E00FF", darkColor: "F58B00FF", contrastLightColor: "7A2D00FF", contrastDarkColor: "F58B00FF"),
+        .customColor6: HexColor(lightColor: "D20A0AFF", darkColor: "D20A0AFF", contrastLightColor: "B40909FF", contrastDarkColor: "B40909FF"),
         .esriEdit: HexColor(lightColor: "FFF114", darkColor: "1B6DD2")
     ]
     
