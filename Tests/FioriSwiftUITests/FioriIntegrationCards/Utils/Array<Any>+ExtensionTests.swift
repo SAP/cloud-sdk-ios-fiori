@@ -20,7 +20,7 @@ class ArrayAnyExtensiontests: XCTestCase {
         let container = createContainer(objects: "Hello", optionalAny as Any)
         
         let unpackedParameters = container.params!
-        XCTAssertEqual(unpackedParameters.debugDescription, "[[\"Hello\", nil]]")
+        XCTAssertEqual(unpackedParameters.debugDescription, "[\"Hello\", nil]")
         
         let result = unpackedParameters.flatCompactMapForVariadicParameters()
         XCTAssertEqual(result.debugDescription, "[\"Hello\"]")
