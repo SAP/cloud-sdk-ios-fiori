@@ -73,6 +73,8 @@ extension SignatureCaptureView: View {
                 Text(_title ?? NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .font(titleFont)
                     .foregroundColor(titleColor)
+                    .padding(.top, 11)
+                    .padding(.bottom, 11)
                 Spacer()
                 if isEditing {
                     cancelAction
