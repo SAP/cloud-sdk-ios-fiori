@@ -51,7 +51,7 @@ public class ThemeManager {
     
     /// Merges deprecated styles till the `current` palette.
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
-        guard let paletteVersion = paletteVersion else { return [ColorStyle: HexColor]() }
+        guard let paletteVersion = paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
         var result = paletteVersion.rawValue.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
