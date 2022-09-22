@@ -21,7 +21,7 @@ struct SignatureCaptureViewExample2: View {
     let cancelAction = Action(actionText: "Cancel2")
     let tapAction = Action(model: _TapToSignActionDefault())
     var body: some View {
-        SignatureCaptureView(title: "Customer Signature",
+        SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
                              startAction: tapAction,
                              cancelAction: Action(actionText: "Cancel2"),
                              clearAction: Action(actionText: "ClearClear"),
