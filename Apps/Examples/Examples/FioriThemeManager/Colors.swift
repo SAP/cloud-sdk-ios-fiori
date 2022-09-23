@@ -8,8 +8,8 @@ struct Colors: View {
 
     var body: some View {
         List {
-            ForEach(Array(paletteVersion.supportedStyles()).sorted { $0.rawValue < $1.rawValue }
-                    , id: \.self) { colorStyle in
+            ForEach(Array(paletteVersion.supportedStyles()).sorted { $0.rawValue < $1.rawValue },
+                    id: \.self) { colorStyle in
                 ColorView(colorStyle: colorStyle)
             }
         }
@@ -20,16 +20,16 @@ struct Colors: View {
 }
 
 // MARK: Custom Color Palette (Example)
+
 struct CustomPaletteProvider: PaletteProvider {
+    var uuid = UUID()
     
-    var uuid: UUID = UUID()
-    
-    var colorDefinitions: [ColorStyle : HexColor] = [
+    var colorDefinitions: [ColorStyle: HexColor] = [
         .primaryLabel: HexColor(lightColor: "FF8CB2FF", darkColor: "D20A0AFF", contrastLightColor: "FFADD1FF", contrastDarkColor: "9C0707FF")
     ]
     
     func hexColor(for style: ColorStyle) -> HexColor? {
-        return colorDefinitions[style]
+        self.colorDefinitions[style]
     }
 }
 
@@ -38,8 +38,8 @@ struct CustomColors: View {
     
     var body: some View {
         List {
-            ForEach(Array(customColorPalette.colorDefinitions.keys).sorted { $0.rawValue < $1.rawValue }
-                    , id: \.self) { colorStyle in
+            ForEach(Array(customColorPalette.colorDefinitions.keys).sorted { $0.rawValue < $1.rawValue },
+                    id: \.self) { colorStyle in
                 ColorView(colorStyle: colorStyle)
             }
         }
@@ -57,7 +57,7 @@ struct ColorView: View {
     @Environment(\.colorScheme) var colorScheme
     
     var backgroundColorScheme: BackgroundColorScheme {
-        colorScheme == .dark ? .darkConstant : .lightConstant
+        self.colorScheme == .dark ? .darkConstant : .lightConstant
     }
     
     var body: some View {
