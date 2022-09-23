@@ -118,7 +118,7 @@ extension SignatureCaptureView: View {
                     }
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.preferredColor(.separator), lineWidth: 1)
-                        .background(Color.preferredColor(.quaternaryFill)).cornerRadius(10)
+                        .background(Color.preferredColor(.quarternaryFill)).cornerRadius(10)
                         .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
                         .padding(.zero)
                 }.padding(.zero)
@@ -206,7 +206,7 @@ extension SignatureCaptureView: View {
         } else {
             ZStack(alignment: .bottom) {
                 ZStack {
-                    Color.preferredColor(.quaternaryFill).cornerRadius(10)
+                    Color.preferredColor(.quarternaryFill).cornerRadius(10)
                     startAction
                         .simultaneousGesture(
                             TapGesture()
