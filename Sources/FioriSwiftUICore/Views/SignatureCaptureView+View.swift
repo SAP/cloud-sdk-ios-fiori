@@ -68,23 +68,26 @@ extension Fiori {
 
 extension SignatureCaptureView: View {
     public var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             HStack {
                 Text(_title ?? NSLocalizedString("Signature", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
                     .font(titleFont)
                     .foregroundColor(titleColor)
+                    .padding(.top, 11)
+                    .padding(.bottom, 11)
                 Spacer()
-                if isEditing {
-                    cancelAction
-                        .simultaneousGesture(
-                            TapGesture()
-                                .onEnded { _ in
-                                    clear()
-                                    isEditing = false
-                                }
-                        )
-                }
-            }.padding(EdgeInsets(top: 0, leading: 0, bottom: 11, trailing: 0))
+                cancelAction
+                    .simultaneousGesture(
+                        TapGesture()
+                            .onEnded { _ in
+                                clear()
+                                isEditing = false
+                            }
+                    )
+                    .frame(minWidth: 44, minHeight: 44)
+                    .setHidden(!isEditing)
+            }
+            .frame(minHeight: 44)
 
             if fullSignatureImage != nil || (_signatureImage != nil && !isReenterTapped) {
                 ZStack {
@@ -144,6 +147,7 @@ extension SignatureCaptureView: View {
                                 }
                         )
                         .disabled(drawings.isEmpty)
+                        .frame(minWidth: 44, minHeight: 44)
                     Spacer()
                     saveAction
                         .simultaneousGesture(
@@ -153,7 +157,9 @@ extension SignatureCaptureView: View {
                                 }
                         )
                         .disabled(drawings.isEmpty)
-                }.padding(.top, 11)
+                        .frame(minWidth: 44, minHeight: 44)
+                }
+                .padding(.top, 8)
             } else if (_signatureImage != nil && !isReenterTapped) || fullSignatureImage != nil {
                 restartAction
                     .simultaneousGesture(
@@ -165,10 +171,11 @@ extension SignatureCaptureView: View {
                                 self.isEditing = true
                             }
                     )
-                    .padding(.top, 11)
+                    .frame(minWidth: 44, minHeight: 44)
+                    .padding(.top, 8)
             }
         }
-        .padding(EdgeInsets(top: 11, leading: 16, bottom: isEditing || (_signatureImage != nil && !isReenterTapped) ? 11 : 16, trailing: 16))
+        .padding(EdgeInsets(top: 0, leading: 16, bottom: isEditing || (_signatureImage != nil && !isReenterTapped) ? 0 : 16, trailing: 16))
         .background(VStackPreferenceSetter())
         .onPreferenceChange(VStackPreferenceKey.self) { heights in
             guard let height = heights.first else {
