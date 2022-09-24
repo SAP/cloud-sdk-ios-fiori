@@ -19,32 +19,44 @@ struct Colors: View {
     }
 }
 
-// MARK: Custom Color Palette (Example)
-
-struct CustomPaletteProvider: PaletteProvider {
-    var uuid = UUID()
-    
-    var colorDefinitions: [ColorStyle: HexColor] = [
-        .primaryLabel: HexColor(lightColor: "FF8CB2FF", darkColor: "D20A0AFF", contrastLightColor: "FFADD1FF", contrastDarkColor: "9C0707FF")
-    ]
-    
-    func hexColor(for style: ColorStyle) -> HexColor? {
-        self.colorDefinitions[style]
-    }
-}
+// MARK: Custom Color Palette & StyleSheet (Example)
 
 struct CustomColors: View {
-    @State var customColorPalette = Palette(CustomPaletteProvider())
+    var testData: ColorTestData
+    var colorStyles: [ColorStyle] = [.primaryLabel, .tintColor, .positiveLabel, .negativeLabel]
+    
+    init(testData: ColorTestData) {
+        self.testData = testData
+    }
     
     var body: some View {
         List {
-            ForEach(Array(customColorPalette.colorDefinitions.keys).sorted { $0.rawValue < $1.rawValue },
+            switch testData {
+            case .customPalette:
+                Text("Here a custom palette provides random colors for all ColorStyles")
+            case .programmatic(_), .styleSheet:
+                Text("ℹ️ primaryLabel color was overriden (other colors come from .latest palette)")
+            }
+            ForEach(colorStyles,
                     id: \.self) { colorStyle in
                 ColorView(colorStyle: colorStyle)
             }
         }
         .onAppear(perform: {
-            ThemeManager.shared.setPalette(customColorPalette)
+            switch testData {
+            case .customPalette(let provider):
+                StyleSheetSettings.reset()
+                ThemeManager.shared.setPalette(Palette(provider))
+            case .programmatic(let color):
+                StyleSheetSettings.reset()
+                ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
+                ThemeManager.shared.setColor(color, for: .primaryLabel, variant: .light)
+                ThemeManager.shared.setColor(color, for: .primaryLabel, variant: .dark)
+            case .styleSheet(let content):
+                StyleSheetSettings.reset()
+                ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
+                try? StyleSheetSettings.loadStylesheetByString(content: content)
+            }
         })
     }
 }
@@ -74,6 +86,28 @@ struct ColorView: View {
     }
 }
 
+enum ColorTestData {
+    case customPalette(PaletteProvider)
+    case programmatic(Color)
+    case styleSheet(String)
+    
+    static var sampleStyleSheet: String { """
+    @primaryLabel:                  #FF6000;
+    @primaryLabel_darkBackground:   #00FFFF;
+    """
+    }
+    
+    struct RandomColorPaletteProvider: PaletteProvider {
+        var uuid = UUID()
+        
+        var colorDefinitions: [ColorStyle: HexColor] = [:]
+        
+        func hexColor(for style: ColorStyle) -> HexColor? {
+            HexColor.random()
+        }
+    }
+}
+
 extension Color {
     func toHex() -> String? {
         let uic = UIColor(self)
@@ -94,5 +128,19 @@ extension Color {
         } else {
             return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
         }
+    }
+}
+
+extension Color {
+    static var random: Color {
+        Color(red: .random(in: 0 ... 1),
+              green: .random(in: 0 ... 1),
+              blue: .random(in: 0 ... 1))
+    }
+}
+
+extension HexColor {
+    static func random() -> HexColor {
+        HexColor(lightColor: Color.random.toHex(), darkColor: Color.random.toHex(), elevatedLightColor: Color.random.toHex(), elevatedDarkColor: Color.random.toHex(), contrastLightColor: Color.random.toHex(), contrastDarkColor: Color.random.toHex(), elevatedContrastLightColor: Color.random.toHex(), elevatedContrastDarkColor: Color.random.toHex())
     }
 }

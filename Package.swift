@@ -51,7 +51,10 @@ let package = Package(
         ),
         .testTarget(
             name: "FioriSwiftUITests",
-            dependencies: ["FioriSwiftUI"]
+            dependencies: ["FioriSwiftUI"],
+            resources: [
+                .process("FioriThemeManager/TestResources")
+            ]
         )
     ]
 )

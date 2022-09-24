@@ -4,6 +4,10 @@ import UIKit
 import XCTest
 
 class ThemeManagerTests: XCTestCase {
+    override func tearDown() {
+        ThemeManager.shared.reset()
+    }
+    
     func testLatestColorStyle() throws {
         XCTAssertEqual(ColorStyle.allCases.count, 194)
     }
@@ -68,5 +72,47 @@ class ThemeManagerTests: XCTestCase {
         XCTAssertEqual(v4Style_negative, HexColor(lightColor: "FF453A", darkColor: "BB0000"))
         let v4FutureStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
         XCTAssertEqual(v4FutureStyle_primaryLabel, HexColor(lightColor: "FFFFFF", darkColor: "32363A"))
+    }
+    
+    func testSetColor() throws {
+        let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v7)
+
+        XCTAssertEqual(tm.developerOverrides.keys.count, 0)
+        
+        tm.setColor(.red, for: .grey1, variant: .light)
+        tm.setColor(.blue, for: .grey1, variant: .dark)
+        
+        XCTAssertEqual(tm.developerOverrides.keys.count, 1)
+        XCTAssertEqual(tm.developerOverrides[.grey1]?[.light], .red)
+        XCTAssertEqual(tm.developerOverrides[.grey1]?[.dark], .blue)
+    }
+    
+    func testSetColorIntegration() throws {
+        let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v7)
+        
+        tm.setColor(.red, for: .grey1, variant: .light)
+        XCTAssertEqual(Color.preferredColor(.grey1, background: .darkConstant), Color.red)
+    }
+    
+    func testSetHexColor() throws {
+        let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v7)
+
+        XCTAssertEqual(tm.developerOverrides.keys.count, 0)
+        
+        tm.setHexColor("223548FF", for: .grey1, variant: .light)
+        
+        XCTAssertEqual(tm.developerOverrides.keys.count, 1)
+        XCTAssertEqual(tm.developerOverrides[.grey1]?[.light]?.toHex(), "223548")
+    }
+    
+    func testSetHexColorIntegration() throws {
+        let tm = ThemeManager.shared
+        tm.setPaletteVersion(.v7)
+        
+        tm.setHexColor("223548FF", for: .grey1, variant: .light)
+        XCTAssertEqual(Color.preferredColor(.grey1, background: .darkConstant).toHex(), "223548")
     }
 }

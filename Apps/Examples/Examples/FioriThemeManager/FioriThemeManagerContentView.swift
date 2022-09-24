@@ -13,8 +13,16 @@ struct FioriThemeManagerContentView: View {
                 Text("Colors - latest")
             }
             NavigationLink(
-                destination: CustomColors()) {
-                Text("Colors - custom example")
+                destination: CustomColors(testData: .customPalette(ColorTestData.RandomColorPaletteProvider()))) {
+                Text("Colors - custom palette (random)")
+            }
+            NavigationLink(
+                destination: CustomColors(testData: .programmatic(.green))) {
+                Text("Colors - developer override")
+            }
+            NavigationLink(
+                destination: CustomColors(testData: .styleSheet(ColorTestData.sampleStyleSheet))) {
+                Text("Colors - style sheet override")
             }
         }
     }
