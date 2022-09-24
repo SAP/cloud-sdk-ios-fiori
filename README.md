@@ -132,7 +132,6 @@ Several functional limitations exist at present, which are planned for resolutio
 Key gaps which are present at time of open-source project launch:
 
  - **FioriCharts** requires design specifications to improve UI
- - **FioriCharts** must support theming with **NUI** nss stylesheets, as currently supported by **SAPFiori**. 
 
 ## Known Issues
 

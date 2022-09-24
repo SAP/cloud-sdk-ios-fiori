@@ -6,7 +6,8 @@ struct ContentView: View {
         NavigationView {
             List {
                 NavigationLink(
-                    destination: ChartsContentView()) {
+                    // putting `ChartsContentView` in a `LazyView` allows to demonstrate that overriden colors will be applied by `FioriCharts` views
+                    destination: LazyView(ChartsContentView())) {
                     Text("Charts")
                 }
                 NavigationLink(
