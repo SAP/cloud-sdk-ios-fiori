@@ -23,11 +23,15 @@ enum StyleSheetConverter {
         case "blue":
             return .blue
         case "cyan":
-            if #available(iOS 15.0, *) {
-                return .cyan
-            } else {
+            #if swift(>=5.5)
+                if #available(iOS 15.0, *) {
+                    return .cyan
+                } else {
+                    return Color(.cyan)
+                }
+            #else
                 return Color(.cyan)
-            }
+            #endif
         case "yellow":
             return .yellow
         case "magenta":
@@ -37,11 +41,15 @@ enum StyleSheetConverter {
         case "purple":
             return .purple
         case "brown":
-            if #available(iOS 15.0, *) {
-                return .brown
-            } else {
+            #if swift(>=5.5)
+                if #available(iOS 15.0, *) {
+                    return .brown
+                } else {
+                    return Color(.brown)
+                }
+            #else
                 return Color(.brown)
-            }
+            #endif
         case "clear":
             return .clear
         default:

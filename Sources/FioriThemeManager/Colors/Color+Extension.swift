@@ -57,36 +57,26 @@ extension Color {
 
 extension Color {
     init?(hex: String) {
-        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-
-        var rgb: UInt64 = 0
-
-        var r: CGFloat = 0.0
-        var g: CGFloat = 0.0
-        var b: CGFloat = 0.0
-        var a: CGFloat = 1.0
-
-        let length = hexSanitized.count
-
-        guard Scanner(string: hexSanitized).scanHexInt64(&rgb) else { return nil }
-
-        if length == 6 {
-            r = CGFloat((rgb & 0xff0000) >> 16) / 255.0
-            g = CGFloat((rgb & 0x00ff00) >> 8) / 255.0
-            b = CGFloat(rgb & 0x0000ff) / 255.0
-
-        } else if length == 8 {
-            r = CGFloat((rgb & 0xff000000) >> 24) / 255.0
-            g = CGFloat((rgb & 0x00ff0000) >> 16) / 255.0
-            b = CGFloat((rgb & 0x0000ff00) >> 8) / 255.0
-            a = CGFloat(rgb & 0x000000ff) / 255.0
-
-        } else {
-            return nil
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 6: // RGB (24-bit)
+            (r, g, b, a) = (int >> 16, int >> 8 & 0xff, int & 0xff, 255)
+        case 8: // ARGB (32-bit)
+            (r, g, b, a) = (int >> 24, int >> 16 & 0xff, int >> 8 & 0xff, int & 0xff)
+        default:
+            (r, g, b, a) = (0, 0, 0, 255)
         }
 
-        self.init(red: r, green: g, blue: b, opacity: a)
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue: Double(b) / 255,
+            opacity: Double(a) / 255
+        )
     }
     
     func toHex() -> String? {
