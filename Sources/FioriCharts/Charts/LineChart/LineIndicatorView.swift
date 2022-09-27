@@ -343,7 +343,7 @@ struct LineIndicatorView: View {
             if self.model.seriesAttributes.count > seriesIndex {
                 let attr = self.model.seriesAttributes[seriesIndex]
                 
-                strokeColor = isPriceGoingUp ? attr.palette.colors[0] : attr.palette.colors[1]
+                strokeColor = !isPriceGoingUp && attr.palette.colors.count > 1 ? attr.palette.colors[1] : attr.palette.colors[0]
             }
             
             if stroke {
