@@ -50,6 +50,65 @@
 <blockquote>
 <p>Custom fonts need to be loaded and registered during App&rsquo;s runtime. Make sure you call <code><a href="Extensions/Font.html#/s:7SwiftUI4FontV17FioriThemeManagerE08registerD5FontsyyFZ">Font.registerFioriFonts()</a></code> inside <code>application(_:didFinishLaunchingWithOptions:)</code> of your <code>AppDelegate</code>.</p>
 </blockquote>
+<h2 id='color-palette-customization' class='heading'>Color Palette Customization</h2>
+
+<p>The cases of the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> enum correspond to the colors of the <a href="https://experience.sap.com/fiori-design-ios/article/colors/">Fiori for iOS Design Guidelines palette</a>.</p>
+
+<p>Any <code>FioriSwiftUICore</code> or <code>FioriCharts</code> views will request a color for a given color style through calling an extension method</p>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kt">Color</span><span class="o">.</span><span class="nf">preferredColor</span><span class="p">(</span><span class="o">.</span><span class="n">primaryLabel</span><span class="p">)</span>
+</code></pre>
+
+<p>You can override the global constants used for the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> case</p>
+
+<ul>
+<li>programmatically</li>
+<li>through a style sheet</li>
+</ul>
+<h3 id='programmatically' class='heading'>Programmatically</h3>
+
+<p>Use one of the following methods:</p>
+
+<ul>
+<li><code><a href="Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C8setColor_3for7varianty7SwiftUI0E0V_AA0E5StyleOAA0E7VariantOSgtF">ThemeManager.setColor(_:for:variant:)</a></code></li>
+<li><code><a href="Classes/ThemeManager.html#/s:17FioriThemeManager0bC0C11setHexColor_3for7variantySS_AA0F5StyleOAA0F7VariantOtF">ThemeManager.setHexColor(_:for:variant:)</a></code></li>
+</ul>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kt">ThemeManager</span><span class="o">.</span><span class="n">shared</span><span class="o">.</span><span class="nf">setColor</span><span class="p">(</span><span class="o">.</span><span class="n">mint</span><span class="p">,</span> <span class="nv">for</span><span class="p">:</span> <span class="o">.</span><span class="n">primaryLabel</span><span class="p">)</span>
+</code></pre>
+<h3 id='style-sheet' class='heading'>Style Sheet</h3>
+
+<p>Add global color definitions to the top of your style sheet file, using the following pattern: a leading <code>@</code> symbol, then the variable key followed by <code>:</code> and the variable value and finally end the line with <code>;</code> .</p>
+
+<p>Example:</p>
+<pre class="highlight swift"><code><span class="kd">@tintColor</span><span class="p">:</span> <span class="n">blue</span><span class="p">;</span>                              <span class="cm">/* equivalent to @tintColor_lightBackground */</span>
+<span class="kd">@tintColor_darkBackground</span><span class="p">:</span> <span class="s">"12171CFF"</span><span class="p">;</span>
+<span class="kd">@tintColorTapState_lightBackground</span><span class="p">:</span> <span class="s">"F5F6F7FF"</span><span class="p">;</span>    <span class="cm">/* equivalent to @tintColorTapState */</span>
+<span class="kd">@tintColorTapState_darkBackground</span> <span class="p">:</span> <span class="n">purple</span><span class="p">;</span>
+</code></pre>
+
+<p>The strings used as the variable name should match the string values of the <code><a href="Enums/ColorStyle.html">ColorStyle</a></code> enums, and optionally append <code>_lightBackground</code> or <code>_darkBackground</code>, to specialize the <code>background</code> parameter passed to the <code>static Color.preferredColor(_:background:interface:display:)</code> invocation.</p>
+
+<p>Global color definitions in the style sheet file modify their corresponding attributes. All other color definitions for which an override is not provided retain their original values.  </p>
+
+<p>As per the Fiori guidelines, when the background is not explicitly specified it defaults to the light background. For example, the global constants, <code>tintColor</code> and <code>tintColor_lightBackground</code> are equivalent.  Similarly, <code>primary1</code> and <code>primary1_lightBackground</code> are equivalent.</p>
+
+<p>When overriding global constants in the style sheet file, if two equivalent constants are overridden, then the order of precedence is as shown below, where <code>Color.red</code> will be used for all invocations of <code>Color.preferredColor(.tintColor)</code> or <code>Color.preferredColor(.tintColor, background: .lightBackground)</code> :</p>
+<pre class="highlight swift"><code><span class="kd">@tintColor_lightBackground</span><span class="p">:</span> <span class="n">red</span><span class="p">;</span> <span class="cm">/* This takes precedence over tintColor */</span>
+<span class="kd">@tintColor</span><span class="p">:</span> <span class="n">blue</span><span class="p">;</span>
+<span class="kd">@tintColorDark</span><span class="p">:</span> <span class="n">green</span><span class="p">;</span>
+</code></pre>
+
+<blockquote>
+<p><code>tintColor</code> and <code>tintColor_lightBackground</code> also have another equivalent constant : <code>tintColorDark</code>. This has the last precedence. The dark background variant of it is <code>tintColorLight</code>, that is, <code>tintColorLight</code> and <code>tintColor_darkBackground</code> are equivalent.
+Similarly <code>tintColorTapStateDark</code> is equivalent to <code>tintColorTapState</code> and <code>tintColorTapState_lightBackground</code> whereas <code>tintColorTapStateLight</code> and <code>tintColorTapState_darkBackground</code> are equivalent.</p>
+</blockquote>
+<pre class="highlight swift"><code><span class="k">try</span><span class="p">?</span> <span class="kt">StyleSheetSettings</span><span class="o">.</span><span class="nf">loadStylesheetByString</span><span class="p">(</span><span class="nv">content</span><span class="p">:</span> <span class="s">"@tintColor: blue;"</span><span class="p">)</span>
+
+<span class="c1">// or load a style sheet from a local file with StyleSheetSettings.loadStylesheetByURL(url:)</span>
+</code></pre>
 
             </section>
           </section>
@@ -87,6 +146,9 @@
                 <li class="nav-group-task">
                   <a href="Enums/PaletteVersion.html">PaletteVersion</a>
                 </li>
+                <li class="nav-group-task">
+                  <a href="Enums/StyleSheetParsingError.html">StyleSheetParsingError</a>
+                </li>
               </ul>
             </li>
             <li class="nav-group-name">
@@ -120,6 +182,9 @@
                 <li class="nav-group-task">
                   <a href="Structs/Palette.html">Palette</a>
                 </li>
+                <li class="nav-group-task">
+                  <a href="Structs/StyleSheetSettings.html">StyleSheetSettings</a>
+                </li>
               </ul>
             </li>
           </ul>
@@ -127,8 +192,8 @@
       </div>
       <div class="footer-wrapper">
         <section id="footer">
-          <p>&copy; 2022 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2022-07-15)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+          <p>&copy; 2022 <a class="link" href="https://www.sap.com" target="_blank" rel="external noopener">SAP SE</a>. All rights reserved. (Last updated: 2022-09-28)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.3</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
         </section>
       </div>
     </div>
