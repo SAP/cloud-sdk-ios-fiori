@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.2.0...3.0.0) (2022-09-28)
+### ⚠ BREAKING CHANGES
+
+* 🧨 remove `FioriIntegrationCards` library and package dependencies ([c3aa684](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c3aa6842828747b5a0d0c2b3fcae32fd16c93bc0))
+
+### Features
+
+* 🎸 override color definitions (e.g. through style sheet) ([#461](https://github.com/SAP/cloud-sdk-ios-fiori/pull/461)), closes [#460](https://github.com/SAP/cloud-sdk-ios-fiori/issues/460)
+* 🎸 introduce custom color placeholders in latest (v7) color palette ([#448](https://github.com/SAP/cloud-sdk-ios-fiori/pull/448))
+
+
+### Bug Fixes
+
+* 🐛 fix column & stock layout issues in RTL ([#462](https://github.com/SAP/cloud-sdk-ios-fiori/issues/462)) ([8c29da5](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8c29da571c52b499417ac449d1939f52176e4690))
+* 🐛 fix crash when using custom palette ([7165742](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7165742b5b137780f1a7c7783a5d4a7b034e6dcb))
+* 🐛 update chart colors in latest (v7) color palette ([8c9875e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8c9875efa76bb4042854caa561c79012299bd2fa)) ([be2bfae](https://github.com/SAP/cloud-sdk-ios-fiori/commit/be2bfae88297d32e564a015bbee30d4af0dcacf8))
+* 🐛 [JIRA:HCPSDKFIORIUIKIT-2158] fix truncated key label issue in InlineSignatureFormCell ([#455](https://github.com/SAP/cloud-sdk-ios-fiori/issues/455)) ([b6bf20e](https://github.com/SAP/cloud-sdk-ios-fiori/commit/b6bf20e531bc460bf632536b4354b1c2caab3106))
+* 🐛 [BCP:2170177121] InlineSignature flickering problem ([#449](https://github.com/SAP/cloud-sdk-ios-fiori/issues/449)) ([ff32b9f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/ff32b9f647a2c85e54bf3241c55d4a2aa3867fea))
+
+
 ## [2.2.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.1.0...2.2.0) (2022-07-15)
 ### Features
 * [HCPSDKFIORIUIKIT-2157, 2162] new ColorPaletteV7. ([#426](https://github.com/SAP/cloud-sdk-ios-fiori/issues/426)) ([85dd2d6](https://github.com/SAP/cloud-sdk-ios-fiori/commit/85dd2d642de075fa3d242d19c13481369ca69d10))
