@@ -61,7 +61,7 @@ struct LineSeriesView: View {
                 }
             }
             
-            lineStrokeColor = isPriceGoingUp ? self.model.seriesAttributes[self.seriesIndex].palette.colors[0] : self.model.seriesAttributes[self.seriesIndex].palette.colors[1]
+            lineStrokeColor = !isPriceGoingUp && self.model.seriesAttributes[self.seriesIndex].palette.colors.count > 1 ? self.model.seriesAttributes[self.seriesIndex].palette.colors[1] : self.model.seriesAttributes[self.seriesIndex].palette.colors[0]
             lineFillGradient = LinearGradient(gradient: Gradient(colors: [lineStrokeColor.opacity(0.4), lineStrokeColor.opacity(0.0)]), startPoint: .top, endPoint: .bottom)
         } else {
             lineFillColor = self.model.seriesAttributes[self.seriesIndex].palette.fillColor

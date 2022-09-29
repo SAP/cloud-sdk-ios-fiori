@@ -89,7 +89,7 @@ class StockChartContext: LineChartContext {
     }
     
     override func xAxisGridLineLabels(_ model: ChartModel, rect: CGRect, isLabel: Bool, plotViewSize: CGSize) -> [AxisTitle] {
-        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 {
+        if abs(CGFloat(model.categoryAxis.baseline.width) - rect.size.height) < 1 || rect.size == .zero {
             return []
         }
         
@@ -119,7 +119,7 @@ class StockChartContext: LineChartContext {
         
         if model.categoryAxis.labelLayoutStyle == .range {
             var result: [AxisTitle] = []
-            if catIndexRange.count >= 1 {
+            if catIndexRange.count >= 1, !ret.isEmpty {
                 var item = ret[0]
                 
                 let offset = isLabel ? min(item.size.width, (rect.size.width - 2) / 2) / 2 : 0

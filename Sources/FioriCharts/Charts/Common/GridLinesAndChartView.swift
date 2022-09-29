@@ -11,11 +11,13 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     
     var chartView: Content
     var indicatorView: Indicator
+    @Binding var isLayoutNeeded: Bool
     
-    init(chartView: Content, indicatorView: Indicator, scaleX: CGFloat = 1.0, scaleY: CGFloat = 1.0, centerPosition: CGPoint? = nil) {
+    init(chartView: Content, indicatorView: Indicator, isLayoutNeeded: Binding<Bool>, scaleX: CGFloat = 1.0, scaleY: CGFloat = 1.0, centerPosition: CGPoint? = nil) {
         self.chartView = chartView
         self.indicatorView = indicatorView
-
+        self._isLayoutNeeded = isLayoutNeeded
+        
         self._lastScaleX = State(initialValue: scaleX)
         self._lastScaleY = State(initialValue: scaleY)
         self._lastCenterPosition = State(initialValue: centerPosition)
@@ -44,6 +46,10 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     return
                 }
                 
+                if self.isLayoutNeeded {
+                    self.isLayoutNeeded = false
+                }
+                
                 // pan the plot chart while it is zoomed in
                 if self.model.selections != nil {
                     self.model.selections = nil
@@ -59,20 +65,13 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 
                 let tmpX = self.layoutDirection == .leftToRight ? (tmpLastCenterPosition.x * scaleX * rect.size.width - value.translation.width) / (scaleX * rect.size.width) : (tmpLastCenterPosition.x * scaleX * rect.size.width + value.translation.width) / (scaleX * rect.size.width)
                 let x = max(0.5 / scaleX, min(1 - 0.5 / scaleX, tmpX))
-
+                
                 let tmpY = (tmpLastCenterPosition.y * scaleY * rect.size.height - value.translation.height) / (scaleY * rect.size.height)
                 let y = max(0.5 / scaleY, min(1 - 0.5 / scaleY, tmpY))
                 self.model.centerPosition = CGPoint(x: x, y: y)
 
                 if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.xAxisLabels = [:]
-                }
-                
-                if self.model.chartType == .bubble || self.model.chartType == .scatter {
-                    self.model.yAxisLabels = [:]
-                }
-                
-                if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.yAxisLabels = [:]
                     self.model.secondaryYAxisLabels = [:]
                 }
@@ -80,6 +79,9 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             .onEnded { _ in
                 self.adjustStartPosition(in: rect)
                 self.lastCenterPosition = self.chartContext.centerPosition(self.model, plotViewSize: rect.size)
+                
+                // refresh the layout
+                self.isLayoutNeeded = true
             }
         
         // zoom in & out
@@ -117,6 +119,9 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 if self.model.chartType == .bubble || self.model.chartType == .scatter {
                     self.model.yAxisLabels = [:]
                 }
+                
+                // refresh the layout
+                self.isLayoutNeeded = true
             }
             .onEnded { _ in
                 self.lastScaleX = self.model.scaleX
@@ -320,7 +325,8 @@ enum DragState {
 struct GridLinesAndChartView_Previews: PreviewProvider {
     static var previews: some View {
         GridLinesAndChartView(chartView: LinesView(),
-                              indicatorView: LineIndicatorView())
+                              indicatorView: LineIndicatorView(),
+                              isLayoutNeeded: .constant(false))
             .environmentObject(Tests.lineModels[0])
             .environment(\.chartContext, LineChartContext())
             .frame(width: 300, height: 400)
