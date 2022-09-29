@@ -176,6 +176,7 @@ class DefaultChartContext: ChartContext {
             
                 if catIndexRange.count >= 2 {
                     var item = ret[catIndexRange.upperBound]
+                    let offset = isLabel ? min(item.size.width, (rect.size.width - 2) / 2) / 2 : 0
                     let x = item.pos.x * tmpScaleX * rect.size.width - startPosX - offset
                     item.x(x)
                     
