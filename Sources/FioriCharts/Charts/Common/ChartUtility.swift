@@ -477,7 +477,7 @@ class ChartUtility {
         return (axisValues.plotBaselineValue - axisValues.plotMinimum) * axisValues.plotScale
     }
     
-    static func updateSelections(_ model: ChartModel, selectedPlotItems: [(Int, Int)], isTap: Bool = true) {
+    static func updateSelections(_ model: ChartModel, selectedPlotItems: [(Int, Int)], isClearSelectionIfSame: Bool = true) {
         if selectedPlotItems.isEmpty {
             return
         }
@@ -525,8 +525,7 @@ class ChartUtility {
             if tmpSelections != model.selections {
                 model.selections = tmpSelections
             } else {
-                // clear selection if it is not range selection
-                if selectedCategoryInRange.count == 1, isTap {
+                if isClearSelectionIfSame {
                     model.selections = nil
                 }
             }
