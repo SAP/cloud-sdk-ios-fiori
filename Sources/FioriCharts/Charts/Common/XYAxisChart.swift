@@ -20,7 +20,19 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     @ObservedObject var model: ChartModel
     @Environment(\.layoutDirection) var layoutDirection
     @State var yAxisExpanded: Bool = false
-  
+    
+    /// GridLinesAndChartView set this to true when chart panning is ended or chart magnification is in progress
+    @State var isLayoutNeeded = false
+    
+    /// cache layout info
+    @State var _xAxisRect: CGRect = .zero
+    @State var _xAxisLabelsRect: CGRect = .zero
+    @State var _yAxisRect: CGRect = .zero
+    @State var _secondaryYAxisRect: CGRect = .zero
+    @State var _chartRect: CGRect = .zero
+    @State var _insets = EdgeInsets()
+    @State var lastViewSize = CGSize.zero
+    
     var chartView: Content
     var indicatorView: Indicator
     var chartContext: ChartContext
@@ -43,7 +55,46 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        let (xAxisRect, xAxisLabelsRect, yAxisRect, secondaryYAxisRect, chartRect, insets) = self.layout(in: rect)
+        var xAxisRect = self._xAxisRect, xAxisLabelsRect = self._xAxisLabelsRect, yAxisRect = self._yAxisRect, secondaryYAxisRect = self._secondaryYAxisRect, chartRect = self._chartRect
+        var insets = self._insets
+        
+        /// check if layout is needed
+        if self.isLayoutNeeded || self.lastViewSize == .zero || abs(self.lastViewSize.width - rect.size.width) > 1 || abs(self.lastViewSize.height - rect.size.height) > 1 {
+            let tmpResults = self.layout(in: rect)
+            xAxisRect = tmpResults.xAxisRect
+            xAxisLabelsRect = tmpResults.xAxisLabelsRect
+            yAxisRect = tmpResults.yAxisRect
+            secondaryYAxisRect = tmpResults.secondaryYAxisRect
+            chartRect = tmpResults.chartRect
+            insets = tmpResults.insets
+            
+            DispatchQueue.main.async {
+                if xAxisRect != self._chartRect {
+                    self._xAxisRect = xAxisRect
+                }
+                if self._xAxisLabelsRect != xAxisLabelsRect {
+                    self._xAxisLabelsRect = xAxisLabelsRect
+                }
+                if self._yAxisRect != yAxisRect {
+                    self._yAxisRect = yAxisRect
+                }
+                if self._secondaryYAxisRect != secondaryYAxisRect {
+                    self._secondaryYAxisRect = secondaryYAxisRect
+                }
+                if self._chartRect != chartRect {
+                    self._chartRect = chartRect
+                }
+                if self._insets != insets {
+                    self._insets = insets
+                }
+                if self.lastViewSize != rect.size {
+                    self.lastViewSize = rect.size
+                }
+                if self.isLayoutNeeded {
+                    self.isLayoutNeeded = false
+                }
+            }
+        }
         
         let doubleTapGesture = TapGesture(count: 2).onEnded {
             self.yAxisExpanded.toggle()
@@ -51,6 +102,7 @@ struct XYAxisChart<Content: View, Indicator: View>: View {
         
         let gridLinesAndChartView = GridLinesAndChartView(chartView: chartView,
                                                           indicatorView: indicatorView,
+                                                          isLayoutNeeded: $isLayoutNeeded,
                                                           scaleX: model.scaleX,
                                                           scaleY: self.model.scaleY,
                                                           centerPosition: nil)
