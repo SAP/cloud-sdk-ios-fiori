@@ -1278,27 +1278,27 @@ public enum ColorStyle: String, CaseIterable {
 }
 
 #if !SAPFIORI_TARGET
-extension ColorStyle {
-    // get color from `Color.preferredColor` given a global definition name in a style sheet, e.g. tintColor_lightBackground
-    static func color(from stringName: String) -> Color? {
-        func parseColor(from string: String) -> Color? {
-            var styleString = string
-            var optSchemeString: String?
+    extension ColorStyle {
+        // get color from `Color.preferredColor` given a global definition name in a style sheet, e.g. tintColor_lightBackground
+        static func color(from stringName: String) -> Color? {
+            func parseColor(from string: String) -> Color? {
+                var styleString = string
+                var optSchemeString: String?
     
-            if let index = string.firstIndex(of: "_") {
-                styleString = String(string.prefix(upTo: index))
-                if let schemeIndex = string.index(index, offsetBy: 1, limitedBy: string.endIndex) {
-                    optSchemeString = String(string.suffix(from: schemeIndex))
+                if let index = string.firstIndex(of: "_") {
+                    styleString = String(string.prefix(upTo: index))
+                    if let schemeIndex = string.index(index, offsetBy: 1, limitedBy: string.endIndex) {
+                        optSchemeString = String(string.suffix(from: schemeIndex))
+                    }
                 }
-            }
     
-            guard let style = ColorStyle(rawValue: styleString) else { return nil }
-            guard let schemeString = optSchemeString, let scheme = BackgroundColorScheme(rawValue: schemeString) else {
-                return Color.preferredColor(style)
+                guard let style = ColorStyle(rawValue: styleString) else { return nil }
+                guard let schemeString = optSchemeString, let scheme = BackgroundColorScheme(rawValue: schemeString) else {
+                    return Color.preferredColor(style)
+                }
+                return Color.preferredColor(style, background: scheme)
             }
-            return Color.preferredColor(style, background: scheme)
+            return parseColor(from: stringName)
         }
-        return parseColor(from: stringName)
     }
-}
 #endif
