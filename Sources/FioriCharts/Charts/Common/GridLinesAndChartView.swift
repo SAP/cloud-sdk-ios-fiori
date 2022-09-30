@@ -1,5 +1,13 @@
 import SwiftUI
 
+/***
+ Supported gestures:
+ 1. DragGesture: pan the chart
+ 2. MagnificationGesture: pinch and zoom the chart
+ 3. UITapGestureRecognizer: single tap to do a selection
+ 4. UITapGestureRecognizer: double tap to cancel current selection
+ 5. ChartScrubGestureRecognizer: long pressed gesture to do single (one finger) or range selection (two fingers)
+ */
 struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     @EnvironmentObject var model: ChartModel
     @Environment(\.chartContext) var chartContext
@@ -9,8 +17,14 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     @State var lastScaleY: CGFloat = 1.0
     @State var lastCenterPosition: CGPoint? = nil
     
+    /// Once one of gestures started then other two gestures are not allowed to take effect
+    @State var isPanChartStarted = false
+    @State var isMagnificationGestureStarted = false
+    @State var isSelectionStarted = false
+    
     var chartView: Content
     var indicatorView: Indicator
+    /// set this to true if a explicit layout is needed
     @Binding var isLayoutNeeded: Bool
     
     init(chartView: Content, indicatorView: Indicator, isLayoutNeeded: Binding<Bool>, scaleX: CGFloat = 1.0, scaleY: CGFloat = 1.0, centerPosition: CGPoint? = nil) {
@@ -30,25 +44,25 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        // pan chart horizontally or slide to show the indicator if it is not zoomed in
         _ = self.chartContext.plotPath(self.model)
         
+        /// the gesture to pan the chart
         let drag = DragGesture()
             .onChanged { value in
-                let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
-                let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
-                
-                // not zoomed in, perform selection
-                if self.model.selectionEnabled && scaleX < 1.001 && scaleY < 1.001 {
-                    let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: value.location, rect: rect, layoutDirection: self.layoutDirection)
-                    
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: false)
+                if self.isSelectionStarted || self.isMagnificationGestureStarted {
                     return
+                }
+                
+                if !self.isPanChartStarted {
+                    self.isPanChartStarted = true
                 }
                 
                 if self.isLayoutNeeded {
                     self.isLayoutNeeded = false
                 }
+                
+                let scaleX = self.chartContext.scaleX(self.model, plotViewSize: rect.size)
+                let scaleY = self.chartContext.scaleY(self.model, plotViewSize: rect.size)
                 
                 // pan the plot chart while it is zoomed in
                 if self.model.selections != nil {
@@ -82,13 +96,22 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 
                 // refresh the layout
                 self.isLayoutNeeded = true
+                self.isPanChartStarted = false
             }
         
-        // zoom in & out
+        // pinch and zoom the chart
         let mag = MagnificationGesture()
             .onChanged { value in
                 if !self.model.scaleXEnabled && !self.model.scaleYEnabled {
                     return
+                }
+                
+                if self.isSelectionStarted || self.isPanChartStarted {
+                    return
+                }
+                
+                if !self.isMagnificationGestureStarted {
+                    self.isMagnificationGestureStarted = true
                 }
                 
                 if self.model.selections != nil {
@@ -128,6 +151,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                 self.lastScaleY = self.model.scaleY
                 
                 self.adjustStartPosition(in: rect)
+                self.isMagnificationGestureStarted = false
             }
 
         return ZStack {
@@ -141,14 +165,14 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
             indicatorView
             
             if self.model.userInteractionEnabled {
-                Background(tappedCallback: { point, chartRect, _ in
+                Background(tappedCallback: { point, chartRect, _ in // single selection
                     if !self.model.selectionEnabled {
                         return
                     }
                     
                     let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: point, rect: chartRect, layoutDirection: self.layoutDirection)
-                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isTap: true)
-                }, doubleTappedCallback: { _, _, _ in
+                    ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isClearSelectionIfSame: true)
+                }, doubleTappedCallback: { _, _, _ in // cancel current selection
                     if !self.model.selectionEnabled {
                         return
                     }
@@ -157,17 +181,36 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
                     if self.model.selections != nil {
                         self.model.selections = nil
                     }
-                }) { points, chartRect, state in
-                    if !self.model.selectionEnabled {
+                }) { points, chartRect, state in // single or range selection
+                    if !self.model.selectionEnabled || self.model.isBubbleType() {
                         return
                     }
                     
-                    if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock, state == UIGestureRecognizer.State.began.rawValue {
-                        let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: [points.0, points.1],
-                                                                               rect: chartRect,
-                                                                               layoutDirection: self.layoutDirection)
+                    // if it is already in the process of Magnification gesture, then just ignore this
+                    if self.isPanChartStarted || self.isMagnificationGestureStarted {
+                        return
+                    }
+                    
+                    if state == UIGestureRecognizer.State.began.rawValue || state == UIGestureRecognizer.State.changed.rawValue {
+                        if !self.isSelectionStarted {
+                            self.isSelectionStarted = true
+                        }
                         
-                        ChartUtility.updateSelections(self.model, selectedPlotItems: items, isTap: false)
+                        if points.count == 1 { // single selection
+                            let item = self.chartContext.closestSelectedPlotItem(self.model, atPoint: points[0], rect: chartRect, layoutDirection: self.layoutDirection)
+                            ChartUtility.updateSelections(self.model, selectedPlotItems: [item], isClearSelectionIfSame: false)
+                        } else if points.count == 2 { // range selection
+                            if self.model.selectionMode == .single || self.model.numOfSeries() == 1 || self.model.chartType == .stock {
+                                let items = self.chartContext.closestSelectedPlotItems(self.model, atPoints: points,
+                                                                                       rect: chartRect,
+                                                                                       layoutDirection: self.layoutDirection)
+                                
+                                ChartUtility.updateSelections(self.model, selectedPlotItems: items, isClearSelectionIfSame: false)
+                            }
+                        }
+                        
+                    } else if state == UIGestureRecognizer.State.ended.rawValue || state == UIGestureRecognizer.State.cancelled.rawValue || state == UIGestureRecognizer.State.failed.rawValue {
+                        self.isSelectionStarted = false
                     }
                 }
                 .gesture(drag)
@@ -211,7 +254,7 @@ struct GridLinesAndChartView<Content: View, Indicator: View>: View {
 struct Background: UIViewRepresentable {
     var tappedCallback: (CGPoint, CGRect, Int) -> Void
     var doubleTappedCallback: (CGPoint, CGRect, Int) -> Void
-    var longPressedCallback: ((CGPoint, CGPoint), CGRect, Int) -> Void
+    var longPressedCallback: ([CGPoint], CGRect, Int) -> Void
     
     func makeUIView(context: UIViewRepresentableContext<Background>) -> UIView {
         let v = UIView(frame: .zero)
@@ -229,14 +272,10 @@ struct Background: UIViewRepresentable {
         doubleTapGesture.numberOfTapsRequired = 2
         v.addGestureRecognizer(doubleTapGesture)
         
-        // long pressed gesture to do range selection
-        let longPressedGesture = UILongPressGestureRecognizer(target: context.coordinator,
-                                                              action: #selector(Coordinator.longPressed(gesture:)))
+        // long pressed gesture to do single and range selection
+        let longPressedGesture = ChartScrubGestureRecognizer(target: context.coordinator,
+                                                             action: #selector(Coordinator.longPressed(gesture:)))
         longPressedGesture.delegate = context.coordinator
-        longPressedGesture.numberOfTouchesRequired = 2
-        longPressedGesture.minimumPressDuration = 0.5
-        longPressedGesture.allowableMovement = 5
-        
         v.addGestureRecognizer(longPressedGesture)
         
         return v
@@ -245,11 +284,11 @@ struct Background: UIViewRepresentable {
     class Coordinator: NSObject, UIGestureRecognizerDelegate {
         var tappedCallback: (CGPoint, CGRect, Int) -> Void
         var doubleTappedCallback: (CGPoint, CGRect, Int) -> Void
-        var longPressedCallback: ((CGPoint, CGPoint), CGRect, Int) -> Void
+        var longPressedCallback: ([CGPoint], CGRect, Int) -> Void
         
         init(tappedCallback: @escaping ((CGPoint, CGRect, Int) -> Void),
              doubleTappedCallback: @escaping ((CGPoint, CGRect, Int) -> Void),
-             longPressedCallback: @escaping (((CGPoint, CGPoint), CGRect, Int) -> Void))
+             longPressedCallback: @escaping (([CGPoint], CGRect, Int) -> Void))
         {
             self.tappedCallback = tappedCallback
             self.doubleTappedCallback = doubleTappedCallback
@@ -257,6 +296,10 @@ struct Background: UIViewRepresentable {
         }
         
         @objc func tapped(gesture: UITapGestureRecognizer) {
+            if gesture.numberOfTouches < 1 {
+                return
+            }
+            
             let point = gesture.location(in: gesture.view)
             let rect = gesture.view?.frame ?? CGRect.zero
             let state = gesture.state.rawValue
@@ -265,6 +308,10 @@ struct Background: UIViewRepresentable {
         }
         
         @objc func doubleTapped(gesture: UITapGestureRecognizer) {
+            if gesture.numberOfTouches < 1 {
+                return
+            }
+            
             let point = gesture.location(in: gesture.view)
             let rect = gesture.view?.frame ?? CGRect.zero
             let state = gesture.state.rawValue
@@ -273,12 +320,21 @@ struct Background: UIViewRepresentable {
         }
         
         @objc func longPressed(gesture: UILongPressGestureRecognizer) {
+            if gesture.numberOfTouches < 1 {
+                return
+            }
+            
+            var points: [CGPoint] = []
             let first = gesture.location(ofTouch: 0, in: gesture.view)
-            let second = gesture.location(ofTouch: 1, in: gesture.view)
+            points.append(first)
+            if gesture.numberOfTouches > 1 {
+                let second = gesture.location(ofTouch: 1, in: gesture.view)
+                points.append(second)
+            }
             let rect = gesture.view?.frame ?? CGRect.zero
             let state = gesture.state.rawValue
             
-            self.longPressedCallback((first, second), rect, state)
+            self.longPressedCallback(points, rect, state)
         }
         
         func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
@@ -296,6 +352,76 @@ struct Background: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIView,
                       context: UIViewRepresentableContext<Background>) {}
+}
+
+// Hanlde chart specific gestures that combines interaction for single and range selection and long press delay.
+private class ChartScrubGestureRecognizer: UIGestureRecognizer {
+    override public var state: UIGestureRecognizer.State {
+        didSet {
+            if self.state != oldValue, self.state != .possible {
+                self.clearTimer()
+            }
+        }
+    }
+    
+    // Delay for the gesture to begin.
+    var minimumPressDuration = 0.5
+    
+    // Timer for delay.
+    private var timer: Timer?
+    
+    // Timer callback.
+    @objc private func triggerGestureBegan() {
+        self.state = .began
+    }
+    
+    override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+        
+        // Set up a timer for the delay if there isn't one already running.
+        if self.timer == nil, self.state == .possible {
+            self.timer = Timer.scheduledTimer(timeInterval: self.minimumPressDuration, target: self, selector: #selector(self.triggerGestureBegan), userInfo: nil, repeats: false)
+        }
+    }
+    
+    override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesMoved(touches, with: event)
+    
+        // Only change state if the gesture state has already changed to `.began`.
+        if self.state == .began {
+            self.state = .changed
+        }
+    }
+    
+    override public func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesEnded(touches, with: event)
+        
+        // End gesture if the active touches on the view are the same as the touches that are ending.
+        // View == 2 && Gesture == 2 : A range selection ended.
+        // View == 1 && Gesture == 1 : A single selection ended.
+        // View == 2 && Gesture == 1 : A Range selection muted into a single selection.
+        // View == 1 && Gesture == 2 : A single selection muted into a range selection.
+        if numberOfTouches == touches.count {
+            if self.state == .possible {
+                self.state = .failed
+            } else {
+                self.state = .ended
+            }
+        } else if self.state == .began {
+            self.state = .changed
+        }
+    }
+    
+    override public func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesCancelled(touches, with: event)
+        self.state = .cancelled
+    }
+    
+    // Stop and remove the timer.
+    private func clearTimer() {
+        self.timer?.invalidate()
+        self.timer = nil
+    }
 }
 
 enum DragState {
