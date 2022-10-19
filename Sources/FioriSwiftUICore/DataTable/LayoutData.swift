@@ -79,7 +79,7 @@ class LayoutData {
         var res: [[DataTableItem]] = []
         var maxFirstBaselineHeights = [CGFloat]()
         for i in 0 ..< numbOfRows {
-            if workItem?.isCancelled ?? true {
+            if workItem?.isCancelled ?? false {
                 return ([[]], [])
             }
             
@@ -100,7 +100,7 @@ class LayoutData {
         var maxFirstBaselineHeight: CGFloat = 0
         var res: [DataTableItem] = []
         for i in 0 ..< numOfColumns {
-            if workItem?.isCancelled ?? true {
+            if workItem?.isCancelled ?? false {
                 return ([], 0)
             }
             
@@ -256,7 +256,7 @@ class LayoutData {
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
             
-            if workItem?.isCancelled ?? true {
+            if workItem?.isCancelled ?? false {
                 return []
             }
             
@@ -267,7 +267,7 @@ class LayoutData {
             columnWidths.append(maxItemWidth)
         }
         
-        if workItem?.isCancelled ?? true {
+        if workItem?.isCancelled ?? false {
             return []
         }
         
@@ -298,7 +298,7 @@ class LayoutData {
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
             
-            if workItem?.isCancelled ?? true {
+            if workItem?.isCancelled ?? false {
                 return []
             }
             
@@ -337,7 +337,7 @@ class LayoutData {
         
         let currentItem = self.allDataItems[rowIndex][columnIndex]
         let contentWidth = currentItem.size.width
-        let maxColumnWidth: CGFloat = containerWidth * TableViewLayout.maxColumnWidth
+        let maxColumnWidth: CGFloat = containerWidth > 0 ? containerWidth * TableViewLayout.maxColumnWidth : CGFloat(MAXFLOAT)
         let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
         let contentWidthWithPaddings: CGFloat = contentWidth + contentInset.horizontal
         
@@ -383,7 +383,7 @@ class LayoutData {
         var heights: [CGFloat] = []
     
         for rowIndex in self.allDataItems.indices {
-            if workItem?.isCancelled ?? true {
+            if workItem?.isCancelled ?? false {
                 return []
             }
             
@@ -391,7 +391,7 @@ class LayoutData {
             let isHeader = self.hasHeader && rowIndex == 0
             
             for columnIndex in self.allDataItems[rowIndex].indices {
-                if workItem?.isCancelled ?? true {
+                if workItem?.isCancelled ?? false {
                     return []
                 }
                 
@@ -411,15 +411,7 @@ class LayoutData {
                     let contentWidth = self.columnWidths[columnIndex] - contentInset.horizontal
                     if contentWidth > 0 {
                         let numOfLines = item.lineLimit ?? 0
-                        var size = CGSize.zero
-                        DispatchQueue.main.sync {
-                            let tmpSize = multipleLineTextSize(text: title, font: uifont, numberOfLines: numOfLines, width: contentWidth)
-                            
-                            DispatchQueue.global(qos: .userInteractive).sync {
-                                size = tmpSize
-                            }
-                        }
-
+                        let size = title.boundingBoxSize(with: uifont, lineLimit: numOfLines, width: contentWidth)
                         itemHeight = max(size.height, itemHeight)
                         if self.rowAlignment == .baseline {
                             let baselineHeightOffset = self.firstBaselineHeights[rowIndex] - item.firstBaselineHeight
@@ -492,14 +484,38 @@ class LayoutData {
 }
 
 extension String {
-    func boundingBoxSize(with font: UIFont, width: CGFloat = CGFloat(MAXFLOAT), height: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
-        let size = (self as NSString)
-            .boundingRect(with: CGSize(width: width, height: height),
-                          options: .usesLineFragmentOrigin,
-                          attributes: [NSAttributedString.Key.font: font],
-                          context: nil).size
+    func boundingBoxSize(with font: UIFont, lineLimit: Int = 0, width: CGFloat = CGFloat(MAXFLOAT), height: CGFloat = CGFloat(MAXFLOAT)) -> CGSize {
+        let targetWidth = lineLimit == 1 ? 10000 : width
+        let size = (self as NSString).boundingRect(with: CGSize(width: targetWidth, height: height),
+                                                   options: .usesLineFragmentOrigin,
+                                                   attributes: [NSAttributedString.Key.font: font],
+                                                   context: nil).size
 
-        return size
+        if lineLimit == 0 {
+            return size
+        } else if lineLimit == 1 {
+            if size.width < width {
+                return size
+            } else {
+                return CGSize(width: width, height: size.height)
+            }
+        }
+        
+        // lineLimit > 1
+        let fontSize = font.pointSize
+        let lineHeight = font.lineHeight
+        let tmpLineSpacing = font.lineHeight / fontSize
+        let numberOfLines = Int(0.1 + (size.height + tmpLineSpacing) / (font.lineHeight + tmpLineSpacing))
+        
+        if Int(numberOfLines) <= lineLimit || numberOfLines <= 1 {
+            return size
+        }
+    
+        let lineSpacing2 = (size.height - CGFloat(numberOfLines) * lineHeight) / CGFloat(numberOfLines - 1)
+        let lineSpacing = lineSpacing2 > tmpLineSpacing ? lineSpacing2 : tmpLineSpacing
+        let height = CGFloat(lineLimit) * lineHeight + lineSpacing * (CGFloat(lineLimit) - 1)
+        
+        return CGSize(width: size.width, height: height)
     }
 }
 
