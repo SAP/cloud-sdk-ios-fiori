@@ -12,10 +12,12 @@ class TableLayoutManager: ObservableObject {
 
     var sizeClass: UserInterfaceSizeClass = .compact
     
-    var sizeCategory: ContentSizeCategory = .medium {
+    var sizeCategory: ContentSizeCategory? {
         didSet {
-            if !self.model.needsCalculateLayout {
-                self.model.needsCalculateLayout = true
+            if !self.model.needsCalculateLayout && oldValue != nil {
+                DispatchQueue.main.async {
+                    self.model.needsCalculateLayout = true
+                }
             }
         }
     }
@@ -64,7 +66,10 @@ class TableLayoutManager: ObservableObject {
     
     var layoutWorkItem: DispatchWorkItem?
     
-    ///
+    /// cached LayoutData for DataTable size measurement giving by View's Width
+    var cacheLayoutDataForMeasurement: LayoutData?
+    
+    /// cached LayoutData for display
     var cacheLayoutData: LayoutData?
     
     /// it will not be nil after layout process is completed
