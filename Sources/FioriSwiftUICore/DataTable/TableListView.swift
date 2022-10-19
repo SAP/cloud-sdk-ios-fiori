@@ -24,7 +24,9 @@ struct TableListView: View {
                                 }
                             })
                     
-                    Divider()
+                    if layoutManager.model.showRowDivider {
+                        Divider()
+                    }
                 }
             }
         }
