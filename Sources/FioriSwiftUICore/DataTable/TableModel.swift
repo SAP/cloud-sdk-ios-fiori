@@ -87,6 +87,9 @@ public class TableModel: ObservableObject {
     
     @Published private var _rowData: [TableRowItem] = []
     
+    /// show row dividers in every number of Rows; The values must be >= 1; The default is 1.
+    @Published public var everyNumOfRowsToShowDivider: Int = 1
+    
     /// show or hide row dividers
     @Published public var showRowDivider: Bool = true
     
@@ -121,6 +124,7 @@ public class TableModel: ObservableObject {
     ///   - rowAlignment: Row alighnemt
     ///   - isPinchZoomEnable: Set if pinch and zoom enble, the default is false.
     ///   - showRowDivider: Show or hide row dividers
+    ///   - everyNumOfRowsToShowDivider: Show row dividers in every number of Rows; The values must be >= 1; The default is 1.
     ///   - showColoumnDivider:Show or hide first column divider
     ///   - headerCellPadding: Custom header cell's padding
     ///   - dataCellPadding: Custom data cell's padding
@@ -137,6 +141,7 @@ public class TableModel: ObservableObject {
                 rowAlignment: RowAlignment = .top,
                 isPinchZoomEnable: Bool = false,
                 showRowDivider: Bool = true,
+                everyNumOfRowsToShowDivider: Int = 1,
                 showColoumnDivider: Bool = true,
                 headerCellPadding: EdgeInsets? = nil,
                 dataCellPadding: EdgeInsets? = nil,
@@ -154,6 +159,7 @@ public class TableModel: ObservableObject {
         self.rowAlignment = rowAlignment
         self.isPinchZoomEnable = isPinchZoomEnable
         self.showRowDivider = showRowDivider
+        self.everyNumOfRowsToShowDivider = max(1, everyNumOfRowsToShowDivider)
         self.showColoumnDivider = showColoumnDivider
         self.headerCellPadding = headerCellPadding
         self.dataCellPadding = dataCellPadding
@@ -224,5 +230,9 @@ public class TableModel: ObservableObject {
         }
                 
         return newRow
+    }
+    
+    public var isNoData: Bool {
+        self.headerData == nil && self.rowData.isEmpty
     }
 }
