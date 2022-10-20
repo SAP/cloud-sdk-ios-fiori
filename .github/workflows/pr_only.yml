@@ -19,7 +19,7 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - uses: wagoid/commitlint-github-action@v4
@@ -29,14 +29,14 @@ jobs:
   ReuseComplianceCheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: REUSE Compliance Check
         uses: fsfe/reuse-action@v1.1
 
   CodeFormattingCheck:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Cache Mint packages
         id: mint-cache
         uses: actions/cache@v2
@@ -63,7 +63,7 @@ jobs:
 #       DEVELOPER_DIR: /Applications/Xcode_11.6.app/Contents/Developer
 #     steps:
 #     - name: Checkout Repo
-#       uses: actions/checkout@v2
+#       uses: actions/checkout@v3
 #     - name: Check for file changes in Sources folder
 #       uses: getsentry/paths-filter@v2
 #       id: changes
@@ -72,7 +72,7 @@ jobs:
 #           src:
 #             - 'Sources/**'
 #     - name: Checkout Snapshot references
-#       uses: actions/checkout@v2
+#       uses: actions/checkout@v3
 #       if: steps.changes.outputs.src == 'true'
 #       with:
 #         repository: SAP/cloud-sdk-ios-fiori-snapshot-references
@@ -106,9 +106,9 @@ jobs:
   LocalizableTextCommentsCheck:
       runs-on: ubuntu-latest
       steps:
-        - uses: actions/checkout@v2
+        - uses: actions/checkout@v3
         - name: Checkout Repo
-          uses: actions/checkout@v2
+          uses: actions/checkout@v3
         - name: Check for changes in .strings files
           uses: getsentry/paths-filter@v2
           id: changes
