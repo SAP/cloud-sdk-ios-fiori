@@ -14,7 +14,7 @@ jobs:
     if: (github.repository == 'SAP/cloud-sdk-ios-fiori' && github.event_name == 'schedule') || github.event_name == 'pull_request'
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # The cache action will attempt to restore a cache based on the key.
       # When the action finds a cache, the action restores the cached files to the path you configure.
       # If there is no exact match, the action creates a new cache entry if the job completes successfully.
