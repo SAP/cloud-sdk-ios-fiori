@@ -7,6 +7,7 @@ on:
   schedule:
     # Run every day at 11pm (PST) - cron uses UTC times
     - cron:  '0 7 * * *'
+  workflow_dispatch:    
 
 jobs:
   mint:
@@ -14,14 +15,14 @@ jobs:
     if: (github.repository == 'SAP/cloud-sdk-ios-fiori' && github.event_name == 'schedule') || github.event_name == 'pull_request'
     runs-on: macOS-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       # The cache action will attempt to restore a cache based on the key.
       # When the action finds a cache, the action restores the cached files to the path you configure.
       # If there is no exact match, the action creates a new cache entry if the job completes successfully.
       # Note: Cache’s are scoped to a key and a branch, so it’s recommended to have workflow run on default branch so that worklows on other branches will have a cache to restore from.
       - name: Cache Mint packages
         id: mint-cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /usr/local/lib/mint
           key: ${{ runner.os }}-mint-${{ hashFiles('**/Mintfile') }}

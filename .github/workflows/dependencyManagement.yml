@@ -7,7 +7,7 @@ jobs:
   spm-dep-check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Check Swift package dependencies
       uses: MarcoEidinger/swift-package-dependencies-check@1.1.0
       with:
@@ -26,7 +26,7 @@ jobs:
   owasp-dep-check:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Run dependency-check (experimental for Swift)
       run: |
         brew install dependency-check
