@@ -79,3 +79,6 @@
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "Caricamento in corso...";
 
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "Nessuna informazione da visualizzare ancora";
+
