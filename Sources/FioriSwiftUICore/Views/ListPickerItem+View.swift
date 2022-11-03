@@ -63,6 +63,26 @@ public extension ListPickerItem {
 public struct ListPickerItemConfiguration {
     let destinationView: AnyView
     
+    /// Creates a searchable configuration object from a collection of data which supports signle-level picker with the ability to select.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    @available(iOS 15.0, macOS 12.0, *)
+    public init<Data, ID, RowContent>(_ data: Data,
+                                      id: KeyPath<Data.Element, ID>,
+                                      children: KeyPath<Data.Element, Data?>?,
+                                      selection: Binding<Set<ID>>?,
+                                      searchFilter: @escaping (Data.Element, String) -> Bool,
+                                      @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable
+    {
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, searchFilter: searchFilter, rowContent: rowContent)
+    }
+    
     /// Creates a configuration object from a collection of data which supports both signle-level and multi-level picker with the ability to select multiple items.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
@@ -124,6 +144,27 @@ public extension ListPickerItemConfiguration {
     }
 }
 
+private extension ListPickerItemConfiguration {
+    @available(iOS 15.0, macOS 12.0, *)
+    init<Data, ID, RowContent>(_ data: Data,
+                               id: KeyPath<Data.Element, ID>,
+                               children: KeyPath<Data.Element, Data?>?,
+                               selection: Binding<Set<ID>>?,
+                               isTopLevel: Bool,
+                               searchFilter: @escaping (Data.Element, String) -> Bool,
+                               @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable
+    {
+        self.destinationView = SearchListView(data: data,
+                                              id: id,
+                                              children: children,
+                                              selection: selection,
+                                              isTopLevel: isTopLevel,
+                                              searchFilter: searchFilter,
+                                              rowContent: rowContent).typeErased
+    }
+}
+
 extension ListPickerItem {
     struct Row<ID: Hashable>: View where Value == EmptyView {
         private let content: Key
@@ -157,6 +198,89 @@ extension ListPickerItem {
                     selection.insert(id)
                 }
             }
+        }
+    }
+}
+
+@available(iOS 15.0, macOS 12.0, *)
+public struct SearchListView<Data: RandomAccessCollection,
+    ID: Hashable,
+    RowContent: View>: View
+{
+    @Environment(\.presentationMode) var presentationMode
+    
+    @State var searchText = ""
+    @State private var selectionBuffer: Set<ID>
+
+    let data: Data
+    let id: KeyPath<Data.Element, ID>
+    let children: KeyPath<Data.Element, Data?>?
+    let selection: Binding<Set<ID>>?
+    let searchFilter: (Data.Element, String) -> Bool
+    let rowContent: (Data.Element) -> RowContent
+    
+    private let isTopLevel: Bool
+    
+    public init(data: Data,
+                id: KeyPath<Data.Element, ID>,
+                children: KeyPath<Data.Element, Data?>?,
+                selection: Binding<Set<ID>>?,
+                isTopLevel: Bool = true,
+                searchFilter: @escaping (Data.Element, String) -> Bool,
+                @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+    {
+        self.data = data
+        self.id = id
+        self.selection = selection
+        self.children = children
+        self.isTopLevel = isTopLevel
+        self.searchFilter = searchFilter
+        self.rowContent = rowContent
+        self._selectionBuffer = State(wrappedValue: selection?.wrappedValue ?? Set<ID>())
+    }
+
+    public var body: some View {
+        List {
+            ForEach(data.filter { element in
+                searchFilter(element, searchText)
+            }, id: id) { element in
+                let row = rowContent(element)
+                let id_value = element[keyPath: id]
+                
+                if let children = children, let childrenData = element[keyPath: children] {
+                    let configuration = ListPickerItemConfiguration(childrenData,
+                                                                    id: id,
+                                                                    children: children,
+                                                                    selection: !isTopLevel ? selection : $selectionBuffer,
+                                                                    isTopLevel: false,
+                                                                    searchFilter: searchFilter,
+                                                                    rowContent: rowContent)
+                    ListPickerItem<RowContent, EmptyView>(key: {
+                        row
+                    }, value: {
+                        EmptyView()
+                    }, configuration: configuration)
+                } else {
+                    ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
+                }
+            }
+        }
+        .searchable(text: $searchText)
+        .ifApply(isTopLevel) {
+            $0.toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Confirm") {
+                        selection?.wrappedValue = selectionBuffer
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
+            .navigationBarBackButtonHidden(true)
         }
     }
 }

@@ -42,7 +42,7 @@ struct CoreContentView: View {
 
             Group {
                 NavigationLink(
-                    destination: ListPickerItemDataNonIdentifiableExample()) {
+                    destination: ListPickerItemExample()) {
                     Text("ListPickerItem")
                 }
                 
