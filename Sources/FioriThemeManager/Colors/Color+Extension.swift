@@ -27,10 +27,9 @@ public extension Color {
     }
 }
 
-extension Color {
-    public func uiColor() -> UIColor {
-        return UIColor(self)
-        
+public extension Color {
+    func uiColor() -> UIColor {
+        UIColor(self)
     }
 }
 
