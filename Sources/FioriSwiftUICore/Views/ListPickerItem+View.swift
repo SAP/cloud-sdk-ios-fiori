@@ -240,47 +240,75 @@ public struct SearchListView<Data: RandomAccessCollection,
     }
 
     public var body: some View {
-        List {
-            ForEach(data.filter { element in
-                searchFilter(element, searchText)
-            }, id: id) { element in
-                let row = rowContent(element)
-                let id_value = element[keyPath: id]
+        #if swift(>=5.5)
+            List {
+                ForEach(data.filter { element in
+                    searchFilter(element, searchText)
+                }, id: id) { element in
+                    let row = rowContent(element)
+                    let id_value = element[keyPath: id]
                 
-                if let children = children, let childrenData = element[keyPath: children] {
-                    let configuration = ListPickerItemConfiguration(childrenData,
-                                                                    id: id,
-                                                                    children: children,
-                                                                    selection: !isTopLevel ? selection : $selectionBuffer,
-                                                                    isTopLevel: false,
-                                                                    searchFilter: searchFilter,
-                                                                    rowContent: rowContent)
-                    ListPickerItem<RowContent, EmptyView>(key: {
-                        row
-                    }, value: {
-                        EmptyView()
-                    }, configuration: configuration)
-                } else {
-                    ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
-                }
-            }
-        }
-        .searchable(text: $searchText)
-        .ifApply(isTopLevel) {
-            $0.toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Cancel") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Confirm") {
-                        selection?.wrappedValue = selectionBuffer
-                        presentationMode.wrappedValue.dismiss()
+                    if let children = children, let childrenData = element[keyPath: children] {
+                        let configuration = ListPickerItemConfiguration(childrenData,
+                                                                        id: id,
+                                                                        children: children,
+                                                                        selection: !isTopLevel ? selection : $selectionBuffer,
+                                                                        isTopLevel: false,
+                                                                        searchFilter: searchFilter,
+                                                                        rowContent: rowContent)
+                        ListPickerItem<RowContent, EmptyView>(key: {
+                            row
+                        }, value: {
+                            EmptyView()
+                        }, configuration: configuration)
+                    } else {
+                        ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
                     }
                 }
             }
-            .navigationBarBackButtonHidden(true)
-        }
+            .searchable(text: $searchText)
+            .ifApply(isTopLevel) {
+                $0.toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button("Confirm") {
+                            selection?.wrappedValue = selectionBuffer
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                }
+                .navigationBarBackButtonHidden(true)
+            }
+        #else
+            List {
+                ForEach(data.filter { element in
+                    searchFilter(element, searchText)
+                }, id: id) { element in
+                    let row = rowContent(element)
+                    let id_value = element[keyPath: id]
+                
+                    if let children = children, let childrenData = element[keyPath: children] {
+                        let configuration = ListPickerItemConfiguration(childrenData,
+                                                                        id: id,
+                                                                        children: children,
+                                                                        selection: !isTopLevel ? selection : $selectionBuffer,
+                                                                        isTopLevel: false,
+                                                                        searchFilter: searchFilter,
+                                                                        rowContent: rowContent)
+                        ListPickerItem<RowContent, EmptyView>(key: {
+                            row
+                        }, value: {
+                            EmptyView()
+                        }, configuration: configuration)
+                    } else {
+                        ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
+                    }
+                }
+            }
+        #endif
     }
 }
