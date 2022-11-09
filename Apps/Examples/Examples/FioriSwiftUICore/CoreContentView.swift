@@ -53,6 +53,11 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: DurationPickerExample()) {
+                    Text("DurationPicker")
+                }
+                
+                NavigationLink(
                     destination: FioriButtonContentView(),
                     label: {
                         Text("FioriButton")
