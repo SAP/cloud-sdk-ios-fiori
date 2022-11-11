@@ -1484,7 +1484,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return Array(repeating: sa, count: count)
             
         default:
-            let colors: [Color] = [.preferredColor(.chart1), .preferredColor(.chart2), .preferredColor(.chart3), .preferredColor(.chart4), .preferredColor(.chart5), .preferredColor(.chart6), .preferredColor(.chart7), .preferredColor(.chart8), .preferredColor(.chart9), .preferredColor(.chart10), .preferredColor(.chart11)]
+            let colors: [Color] = [.preferredColor(.chart1), .preferredColor(.chart2), .preferredColor(.chart3), .preferredColor(.chart4), .preferredColor(.chart5), .preferredColor(.chart6), .preferredColor(.chart7), .preferredColor(.chart8), .preferredColor(.chart9)]
             let count = max(1, seriesCount)
             // var pointAttributes: [ChartPointAttributes] = []
             var result: [ChartSeriesAttributes] = []
