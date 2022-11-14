@@ -7,8 +7,8 @@ import SwiftUI
  ```
  let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: false)
  model.columnAttributes = ...
- model.didSelectRowAt = { _ in
-     print(model.selectedIndexes)
+ model.didSelectRowAt = { rowIndex in
+    print("Tapped row \(rowIndex)")
  }
  model.selectedIndexes = [2, 3]
  DataTable(model: model)
