@@ -79,3 +79,6 @@
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "लोड हो रहा है...";
 
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "अभी तक प्रदर्शित करने के लिए कुछ भी नहीं है";
+

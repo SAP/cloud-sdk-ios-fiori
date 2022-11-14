@@ -79,3 +79,6 @@
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "正在加载...";
 
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "没有可显示的内容";
+

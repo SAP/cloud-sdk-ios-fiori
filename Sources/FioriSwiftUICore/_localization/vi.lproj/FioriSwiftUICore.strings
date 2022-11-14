@@ -79,3 +79,6 @@
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "Đang tải...";
 
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "Chưa có gì để hiển thị";
+
