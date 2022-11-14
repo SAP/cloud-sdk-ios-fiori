@@ -42,8 +42,6 @@ struct PaletteV4: PaletteProvider {
         .chart7: HexColor(lightColor: "5C66F5", darkColor: "525DF4"),
         .chart8: HexColor(lightColor: "C63FA4", darkColor: "BF399E"),
         .chart9: HexColor(lightColor: "6C8893", darkColor: "6C8893"),
-        .chart10: HexColor(lightColor: "EE6868", darkColor: "EE6868"),
-        .chart11: HexColor(lightColor: "387BB7", darkColor: "2F6497"),
         .negative: HexColor(lightColor: "FF453A", darkColor: "BB0000"),
         .critical: HexColor(lightColor: "FF9F0A", darkColor: "E9730C"),
         .positive: HexColor(lightColor: "32D74B", darkColor: "107E3E"),
