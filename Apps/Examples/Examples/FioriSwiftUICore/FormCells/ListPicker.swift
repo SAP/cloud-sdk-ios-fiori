@@ -30,7 +30,11 @@ private enum ListPickerItemDataModel {
                 }
                 
                 if let children = framework.children, !children.isEmpty {
-                    return findFramework(in: children)
+                    if let foundItem = findFramework(in: children) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
                 }
             }
             
@@ -38,6 +42,52 @@ private enum ListPickerItemDataModel {
         }
         
         return findFramework(in: self.data)
+    }
+}
+
+struct ListPickerItemExample: View {
+    enum ListPickerCases: CaseIterable, Identifiable {
+        case nonIdentifiable
+        case identifiable
+        case objectItem
+        case stringItem
+        case searchable
+        
+        var id: Self { self }
+    }
+    
+    private let model = ListPickerItemDataModel.data
+    
+    var body: some View {
+        List(ListPickerItemExample.ListPickerCases.allCases) { e in
+            switch e {
+            case .nonIdentifiable:
+                NavigationLink(
+                    destination: ListPickerItemDataNonIdentifiableExample()) {
+                    Text("NonIdentifiable")
+                }
+            case .identifiable:
+                NavigationLink(
+                    destination: ListPickerItemDataIdentifiableExample()) {
+                    Text("Identifiable")
+                }
+            case .objectItem:
+                NavigationLink(
+                    destination: ListPickerItemWithObjectItemExample()) {
+                    Text("ObjectItem")
+                }
+            case .stringItem:
+                NavigationLink(
+                    destination: ListPickerItemWithStringExample()) {
+                    Text("StringItem")
+                }
+            case .searchable:
+                NavigationLink(
+                    destination: ListPickerItemWithSearchExample()) {
+                    Text("Searchable")
+                }
+            }
+        }
     }
 }
 
@@ -116,6 +166,62 @@ struct ListPickerItemFormExample: View {
     }
 }
 
+struct ListPickerItemWithSearchExample: View {
+    private let model = ListPickerItemDataModel.data
+    
+    @State var selections: Set<UUID> = []
+    @State var trackingSelections: Set<UUID> = []
+    
+    var body: some View {
+        List {
+            if #available(iOS 15.0, *) {
+                ListPickerItem(key: {
+                    Text("Frameworks")
+                }, value: {
+                    let str = Array(selections).compactMap { uuid in
+                        if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                            return framework.name
+                        }
+                        return nil
+                    }.joined(separator: ", ")
+                    Text(str)
+                }, configuration: ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, searchFilter: { framework, searchText in
+                    if searchText.count > 0 {
+                        return framework.name.localizedCaseInsensitiveContains(searchText)
+                    } else {
+                        return true
+                    }
+                }, rowContent: { framework in
+                    ObjectItem {
+                        Text(framework.name)
+                    } descriptionText: {
+                        Text("description")
+                    } status: {
+                        Image(systemName: "sun.min")
+                    } detailImage: {
+                        Image(systemName: "mail")
+                    }
+                }))
+            } else {
+                ListPickerItem(key: {
+                    Text("Frameworks")
+                }, value: {
+                    let str = Array(selections).compactMap { uuid in
+                        if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                            return framework.name
+                        }
+                        
+                        return nil
+                    }.joined(separator: ", ")
+                    Text(str)
+                }, configuration: ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, rowContent: { framework in
+                    Text(framework.name)
+                }))
+            }
+        }
+    }
+}
+
 struct ListPickerItemWithObjectItemExample: View {
     private let model = ListPickerItemDataModel.data
     
@@ -187,6 +293,10 @@ struct ListPickerItemPreview: PreviewProvider {
         
         NavigationView {
             ListPickerItemWithStringExample()
+        }
+        
+        NavigationView {
+            ListPickerItemWithSearchExample()
         }
     }
 }

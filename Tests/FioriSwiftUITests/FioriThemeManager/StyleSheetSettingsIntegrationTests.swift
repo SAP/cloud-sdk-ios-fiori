@@ -4,7 +4,7 @@ import UIKit
 import XCTest
 
 let sampleStyleSheetContent = """
-@tintColor:#FF00F9;
+@tintColor:#f46;
 @tintColor2:#FF00F9;
 @tintColorTapState:#FF00F9;
 @header:#fff;
@@ -65,6 +65,10 @@ class StyleSheetSettingsIntegrationTests: XCTestCase {
         
         XCTAssertNotEqual(originalColor.toHex(), Color.preferredColor(.primaryLabel).toHex(), "Color.preferredColor should return the color specified in the styleSheet")
         XCTAssertEqual(ThemeManager.shared.styleSheetOverrides.keys.count, 1)
+        
+        let tintColor = Color.preferredColor(.tintColor, background: .darkConstant)
+        let expectedColor = Color(hex: "ff4466")!
+        XCTAssertEqual(tintColor.cgColor, expectedColor.cgColor)
     }
     
     func testReset() {
