@@ -52,6 +52,7 @@ struct ListPickerItemExample: View {
         case objectItem
         case stringItem
         case searchable
+        case emptyKeyItem
         
         var id: Self { self }
     }
@@ -85,6 +86,11 @@ struct ListPickerItemExample: View {
                 NavigationLink(
                     destination: ListPickerItemWithSearchExample()) {
                     Text("Searchable")
+                }
+            case .emptyKeyItem:
+                NavigationLink(
+                    destination: ListPickerItemWithEmptyKeyExample()) {
+                    Text("Item With Empty Key")
                 }
             }
         }
@@ -222,6 +228,66 @@ struct ListPickerItemWithSearchExample: View {
     }
 }
 
+struct ListPickerItemWithEmptyKeyExample: View {
+    var body: some View {
+        List {
+            ForEach(0 ..< 10, id: \.self) { index in
+                PickerCell(index: index)
+                    .buttonStyle(.plain)
+            }
+        }
+        .navigationTitle("Item With Empty Key")
+    }
+}
+
+struct PickerCell: View {
+    var index: Int
+    private let model = ListPickerItemDataModel.data
+    @State var selections: Set<UUID> = []
+    
+    @State var dateSelection = Date()
+
+    var body: some View {
+        HStack {
+            Image(systemName: "person.circle")
+            Text("Name: \(index)")
+            DatePicker("", selection: $dateSelection, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+            Spacer()
+            if #available(iOS 15.0, *) {
+                ListPickerItem(key: {
+                    EmptyView()
+                }, value: {
+                    let str = Array(selections).compactMap { uuid in
+                        if let framework = ListPickerItemDataModel.getFramwork(with: uuid) {
+                            return framework.name
+                        }
+                        return nil
+                    }.joined(separator: ", ")
+                    Text(str.isEmpty ? "Pick One" : str)
+                        .background(str.isEmpty ? .white : .red)
+                }, configuration: ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, searchFilter: { framework, searchText in
+                    if searchText.count > 0 {
+                        return framework.name.localizedCaseInsensitiveContains(searchText)
+                    } else {
+                        return true
+                    }
+                }, rowContent: { framework in
+                    ObjectItem {
+                        Text(framework.name)
+                    } descriptionText: {
+                        Text("description")
+                    } status: {
+                        Image(systemName: "sun.min")
+                    } detailImage: {
+                        Image(systemName: "mail")
+                    }
+                }))
+            }
+        }
+    }
+}
+
 struct ListPickerItemWithObjectItemExample: View {
     private let model = ListPickerItemDataModel.data
     
@@ -297,6 +363,10 @@ struct ListPickerItemPreview: PreviewProvider {
         
         NavigationView {
             ListPickerItemWithSearchExample()
-        }
+        }.previewDisplayName("Searchable")
+        
+        NavigationView {
+            ListPickerItemWithEmptyKeyExample()
+        }.previewDisplayName("EmptyKey")
     }
 }
