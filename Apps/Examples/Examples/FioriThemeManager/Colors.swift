@@ -39,7 +39,7 @@ struct CustomColors: View {
             }
             ForEach(colorStyles,
                     id: \.self) { colorStyle in
-                ColorView(colorStyle: colorStyle)
+                ColorViewWithNoHexDescription(colorStyle: colorStyle)
             }
         }
         .onAppear(perform: {
@@ -47,11 +47,11 @@ struct CustomColors: View {
             case .customPalette(let provider):
                 StyleSheetSettings.reset()
                 ThemeManager.shared.setPalette(Palette(provider))
-            case .programmatic(let color):
+            case .programmatic(let lightColor, let darkColor):
                 StyleSheetSettings.reset()
                 ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
-                ThemeManager.shared.setColor(color, for: .primaryLabel, variant: .light)
-                ThemeManager.shared.setColor(color, for: .primaryLabel, variant: .dark)
+                ThemeManager.shared.setColor(lightColor, for: .primaryLabel, variant: .light)
+                ThemeManager.shared.setColor(darkColor, for: .primaryLabel, variant: .dark)
             case .styleSheet(let content):
                 StyleSheetSettings.reset()
                 ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
@@ -86,9 +86,25 @@ struct ColorView: View {
     }
 }
 
+struct ColorViewWithNoHexDescription: View {
+    var colorStyle: ColorStyle
+    
+    var body: some View {
+        HStack {
+            Circle()
+                .fill(Color.preferredColor(colorStyle))
+                .frame(width: 50, height: 50)
+                .padding()
+            VStack {
+                Text(colorStyle.rawValue)
+            }
+        }
+    }
+}
+
 enum ColorTestData {
     case customPalette(PaletteProvider)
-    case programmatic(Color)
+    case programmatic(Color, Color)
     case styleSheet(String)
     
     static var sampleStyleSheet: String { """
