@@ -92,8 +92,12 @@ class ThemeManagerTests: XCTestCase {
         let tm = ThemeManager.shared
         tm.setPaletteVersion(.v7)
         
-        tm.setColor(.red, for: .grey1, variant: .light)
-        XCTAssertEqual(Color.preferredColor(.grey1, background: .darkConstant), Color.red)
+        let expectedColor = Color.red
+        tm.setColor(expectedColor, for: .grey1, variant: .light)
+        
+        let actualColor = Color.preferredColor(.grey1, background: .darkConstant)
+
+        XCTAssertEqual(expectedColor.toHex(), actualColor.toHex())
     }
     
     func testSetHexColor() throws {
@@ -122,7 +126,6 @@ class ThemeManagerTests: XCTestCase {
         
         tm.setHexColor("#f46", for: .tintColor, variant: .light)
         let tintColor = Color.preferredColor(.tintColor, background: .darkConstant)
-        let expectedColor = Color(hex: "ff4466")!
-        XCTAssertEqual(tintColor.cgColor, expectedColor.cgColor)
+        XCTAssertEqual(tintColor.toHex(), "FF4466")
     }
 }
