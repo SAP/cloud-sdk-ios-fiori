@@ -65,18 +65,16 @@ enum StyleSheetConverter {
         let cString = value.components(
             separatedBy: NSCharacterSet.whitespacesAndNewlines).reduce("", +).uppercased()
         
-        let hexAlphaStrings = self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{8})")
         // example of such a value: #1EA65395, where "1E" is 30% for alpha; "A6" is R in hex; "53" is G in hex; "95" is R in hex
         // alpha range is 0% to 100%.  When the given value is more than 100%, the value would be automatically reset to 100%
         // An example of online tool to convert decimal to Hex: http://www.rapidtables.com/convert/number/decimal-to-hex.htm
+        let hexAlphaStrings = self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{8})") ??
+            // example of such a value: #A65395, where "A6" is R in hex; "53" is G in hex; "95" is B in hex; alpha is default to 1.0
+            self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{6})") ??
+            // example of such a value: #A59, which is equal to #AA5599, where "AA" is R in hex; "55" is G in hex; "99" is B in hex; alpha is default to 1.0
+            self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{3})")
         if let hexAlphaStrings = hexAlphaStrings {
             return Color(hex: hexAlphaStrings[1])
-        }
-        
-        let hexStrings = self.getCapturedStrings(content: cString, withPattern: "(?:0X|#)([0-9A-F]{6})")
-        /// example of such a value: #A65395, where "A6" is R in hex; "53" is G in hex; "95" is R in hex; alpha is default to 1.0
-        if let hexStrings = hexStrings {
-            return Color(hex: hexStrings[1])
         }
         
         return nil
