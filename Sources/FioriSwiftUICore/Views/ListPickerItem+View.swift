@@ -63,12 +63,13 @@ public extension ListPickerItem {
 public struct ListPickerItemConfiguration {
     let destinationView: AnyView
     
-    /// Creates a searchable configuration object from a collection of data which supports signle-level picker with the ability to select.
+    /// Creates a searchable configuration object from a collection of data which supports single-level picker with the ability to select.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
     ///   - id: The key path to the data model's unique identifier.
     ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
     ///   - selection: A binding to a set which stores the selected items.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
     @available(iOS 15.0, macOS 12.0, *)
@@ -76,14 +77,15 @@ public struct ListPickerItemConfiguration {
                                       id: KeyPath<Data.Element, ID>,
                                       children: KeyPath<Data.Element, Data?>?,
                                       selection: Binding<Set<ID>>?,
+                                      allowsMultipleSelection: Bool = true,
                                       searchFilter: @escaping (Data.Element, String) -> Bool,
                                       @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
-        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, searchFilter: searchFilter, rowContent: rowContent)
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent)
     }
     
-    /// Creates a configuration object from a collection of data which supports both signle-level and multi-level picker with the ability to select multiple items.
+    /// Creates a configuration object from a collection of data which supports both single-level and multi-level picker with the ability to select multiple items.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
     ///   - id: The key path to the data model's unique identifier.
@@ -151,17 +153,19 @@ private extension ListPickerItemConfiguration {
                                children: KeyPath<Data.Element, Data?>?,
                                selection: Binding<Set<ID>>?,
                                isTopLevel: Bool,
-                               searchFilter: @escaping (Data.Element, String) -> Bool,
+                               allowsMultipleSelection: Bool,
+                               searchFilter: ((Data.Element, String) -> Bool)?,
                                @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
-        self.destinationView = SearchListView(data: data,
-                                              id: id,
-                                              children: children,
-                                              selection: selection,
-                                              isTopLevel: isTopLevel,
-                                              searchFilter: searchFilter,
-                                              rowContent: rowContent).typeErased
+        self.destinationView = SearchableListView(data: data,
+                                                  id: id,
+                                                  children: children,
+                                                  selection: selection,
+                                                  isTopLevel: isTopLevel,
+                                                  allowsMultipleSelection: allowsMultipleSelection,
+                                                  searchFilter: searchFilter,
+                                                  rowContent: rowContent).typeErased
     }
 }
 
@@ -169,11 +173,13 @@ extension ListPickerItem {
     struct Row<ID: Hashable>: View where Value == EmptyView {
         private let content: Key
         private let id: ID
+        private let allowsMultipleSelection: Bool
         @Binding private var selection: Set<ID>
         
-        init(content: Key, id: ID, selection: Binding<Set<ID>>?) {
+        init(content: Key, id: ID, selection: Binding<Set<ID>>?, allowsMultipleSelection: Bool = true) {
             self.content = content
             self.id = id
+            self.allowsMultipleSelection = allowsMultipleSelection
             self._selection = selection ?? Binding.constant(Set<ID>())
         }
         
@@ -195,6 +201,9 @@ extension ListPickerItem {
                 if isSelected {
                     selection.remove(id)
                 } else {
+                    if !allowsMultipleSelection {
+                        selection.removeAll()
+                    }
                     selection.insert(id)
                 }
             }
@@ -203,7 +212,7 @@ extension ListPickerItem {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-public struct SearchListView<Data: RandomAccessCollection,
+public struct SearchableListView<Data: RandomAccessCollection,
     ID: Hashable,
     RowContent: View>: View
 {
@@ -216,18 +225,47 @@ public struct SearchListView<Data: RandomAccessCollection,
     let id: KeyPath<Data.Element, ID>
     let children: KeyPath<Data.Element, Data?>?
     let selection: Binding<Set<ID>>?
-    let searchFilter: (Data.Element, String) -> Bool
+    let searchFilter: ((Data.Element, String) -> Bool)?
+    let allowsMultipleSelection: Bool
     let rowContent: (Data.Element) -> RowContent
     
     private let isTopLevel: Bool
     
+    /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
     public init(data: Data,
                 id: KeyPath<Data.Element, ID>,
                 children: KeyPath<Data.Element, Data?>?,
                 selection: Binding<Set<ID>>?,
-                isTopLevel: Bool = true,
-                searchFilter: @escaping (Data.Element, String) -> Bool,
+                allowsMultipleSelection: Bool = true,
+                searchFilter: ((Data.Element, String) -> Bool)?,
                 @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+    {
+        self.init(data: data,
+                  id: id,
+                  children: children,
+                  selection: selection,
+                  isTopLevel: true,
+                  allowsMultipleSelection: allowsMultipleSelection,
+                  searchFilter: searchFilter,
+                  rowContent: rowContent)
+    }
+    
+    internal init(data: Data,
+                  id: KeyPath<Data.Element, ID>,
+                  children: KeyPath<Data.Element, Data?>?,
+                  selection: Binding<Set<ID>>?,
+                  isTopLevel: Bool,
+                  allowsMultipleSelection: Bool,
+                  searchFilter: ((Data.Element, String) -> Bool)?,
+                  @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
     {
         self.data = data
         self.id = id
@@ -235,6 +273,7 @@ public struct SearchListView<Data: RandomAccessCollection,
         self.children = children
         self.isTopLevel = isTopLevel
         self.searchFilter = searchFilter
+        self.allowsMultipleSelection = allowsMultipleSelection
         self.rowContent = rowContent
         self._selectionBuffer = State(wrappedValue: selection?.wrappedValue ?? Set<ID>())
     }
@@ -243,7 +282,11 @@ public struct SearchListView<Data: RandomAccessCollection,
         #if swift(>=5.5)
             List {
                 ForEach(data.filter { element in
-                    searchFilter(element, searchText)
+                    if let searchFilter = searchFilter {
+                        return searchFilter(element, searchText)
+                    } else {
+                        return true
+                    }
                 }, id: id) { element in
                     let row = rowContent(element)
                     let id_value = element[keyPath: id]
@@ -254,6 +297,7 @@ public struct SearchListView<Data: RandomAccessCollection,
                                                                         children: children,
                                                                         selection: !isTopLevel ? selection : $selectionBuffer,
                                                                         isTopLevel: false,
+                                                                        allowsMultipleSelection: allowsMultipleSelection,
                                                                         searchFilter: searchFilter,
                                                                         rowContent: rowContent)
                         ListPickerItem<RowContent, EmptyView>(key: {
@@ -262,11 +306,16 @@ public struct SearchListView<Data: RandomAccessCollection,
                             EmptyView()
                         }, configuration: configuration)
                     } else {
-                        ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
+                        ListPickerItem.Row(content: row,
+                                           id: id_value,
+                                           selection: !isTopLevel ? selection : $selectionBuffer,
+                                           allowsMultipleSelection: allowsMultipleSelection)
                     }
                 }
             }
-            .searchable(text: $searchText)
+            .ifApply(searchFilter != nil, content: {
+                $0.searchable(text: $searchText)
+            })
             .ifApply(isTopLevel) {
                 $0.toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -286,17 +335,21 @@ public struct SearchListView<Data: RandomAccessCollection,
         #else
             List {
                 ForEach(data.filter { element in
-                    searchFilter(element, searchText)
+                    if let searchFilter = searchFilter {
+                        return searchFilter(element, searchText)
+                    } else {
+                        return true
+                    }
                 }, id: id) { element in
                     let row = rowContent(element)
                     let id_value = element[keyPath: id]
-                
                     if let children = children, let childrenData = element[keyPath: children] {
                         let configuration = ListPickerItemConfiguration(childrenData,
                                                                         id: id,
                                                                         children: children,
                                                                         selection: !isTopLevel ? selection : $selectionBuffer,
                                                                         isTopLevel: false,
+                                                                        allowsMultipleSelection: allowsMultipleSelection,
                                                                         searchFilter: searchFilter,
                                                                         rowContent: rowContent)
                         ListPickerItem<RowContent, EmptyView>(key: {
