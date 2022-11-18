@@ -356,8 +356,8 @@ struct InternalGridTableView: View {
                 // row dividers
                 if layoutManager.model.showRowDivider && (rowIndex + 1) % max(1, layoutManager.model.everyNumOfRowsToShowDivider) == 0 {
                     Rectangle()
-                        .fill(Color.preferredColor(.separator))
-                        .frame(width: rect.size.width, height: 1)
+                        .fill(layoutManager.model.rowDividerColor)
+                        .frame(width: rect.size.width, height: layoutManager.model.rowDividerHeight)
                         .position(x: rect.size.width / 2,
                                   y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
                         .dropShadow(isVertical: false, show: rowIndex == 0 && isDropHorizontalShadow(size))
@@ -365,14 +365,14 @@ struct InternalGridTableView: View {
                 }
             }
             
-            // first column separator
+            // first column divider
             if numbOfColumns > 1 && layoutManager.model.showColoumnDivider {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosition.x
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
                 let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY
                 Rectangle()
-                    .fill(Color.preferredColor(.separator))
-                    .frame(width: 1, height: height)
+                    .fill(layoutManager.model.columnDividerColor)
+                    .frame(width: layoutManager.model.columnDividerWidth, height: height)
                     .position(x: x, y: height / 2)
                     .dropShadow(isVertical: true, show: isDropVerticalShadow(size))
                     .zIndex(700)

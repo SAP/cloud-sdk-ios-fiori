@@ -8,8 +8,8 @@ import SwiftUI
  let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
  let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: true)
  model.columnAttributes = ...
- model.didSelectRowAt = { _ in
- print(model.selectedIndexes)
+ model.didSelectRowAt = { rowIndex in
+    print("Tapped row \(rowIndex)")
  }
  ```
  */
@@ -96,6 +96,18 @@ public class TableModel: ObservableObject {
     /// show or hide first column divider
     @Published public var showColoumnDivider: Bool = true
     
+    /// the row divider height
+    @Published public var rowDividerHeight: CGFloat = 1
+    
+    /// the row divider color
+    @Published public var rowDividerColor = Color.preferredColor(.separator)
+    
+    /// the column divider width
+    @Published public var columnDividerWidth: CGFloat = 1
+    
+    /// the column divider color
+    @Published public var columnDividerColor = Color.preferredColor(.separator)
+    
     // custom header cell's padding; if set it overwrites default value
     @Published public var headerCellPadding: EdgeInsets? = nil
     
@@ -124,14 +136,18 @@ public class TableModel: ObservableObject {
     ///   - rowAlignment: Row alighnemt
     ///   - isPinchZoomEnable: Set if pinch and zoom enble, the default is false.
     ///   - showRowDivider: Show or hide row dividers
+    ///   - rowDividerHeight:The row divider height
+    ///   - rowDividerColor: The row divider color
     ///   - everyNumOfRowsToShowDivider: Show row dividers in every number of Rows; The values must be >= 1; The default is 1.
-    ///   - showColoumnDivider:Show or hide first column divider
+    ///   - showColoumnDivider: Show or hide first column divider
+    ///   - columnDividerWidth: The column divider width
+    ///   - columnDividerColor: The column divider color
     ///   - headerCellPadding: Custom header cell's padding
     ///   - dataCellPadding: Custom data cell's padding
     ///   - minRowHeight: Min row height
     ///   - minColumnWidth: Min column width
     ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
-    ///   - backgroundColor: background color
+    ///   - backgroundColor: Background color
     ///   - showListView: Show list view in iPhone protrait mode
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
@@ -141,8 +157,12 @@ public class TableModel: ObservableObject {
                 rowAlignment: RowAlignment = .top,
                 isPinchZoomEnable: Bool = false,
                 showRowDivider: Bool = true,
+                rowDividerHeight: CGFloat = 1,
+                rowDividerColor: Color = Color.preferredColor(.separator),
                 everyNumOfRowsToShowDivider: Int = 1,
                 showColoumnDivider: Bool = true,
+                columnDividerWidth: CGFloat = 1,
+                columnDividerColor: Color = Color.preferredColor(.separator),
                 headerCellPadding: EdgeInsets? = nil,
                 dataCellPadding: EdgeInsets? = nil,
                 minRowHeight: CGFloat = 48,
@@ -159,8 +179,12 @@ public class TableModel: ObservableObject {
         self.rowAlignment = rowAlignment
         self.isPinchZoomEnable = isPinchZoomEnable
         self.showRowDivider = showRowDivider
+        self.rowDividerHeight = rowDividerHeight
+        self.rowDividerColor = rowDividerColor
         self.everyNumOfRowsToShowDivider = max(1, everyNumOfRowsToShowDivider)
         self.showColoumnDivider = showColoumnDivider
+        self.columnDividerWidth = columnDividerWidth
+        self.columnDividerColor = columnDividerColor
         self.headerCellPadding = headerCellPadding
         self.dataCellPadding = dataCellPadding
         self.minRowHeight = max(1, minRowHeight)
