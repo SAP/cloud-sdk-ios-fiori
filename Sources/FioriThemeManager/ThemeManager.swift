@@ -156,34 +156,37 @@ public class ThemeManager {
     internal func color(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> Color {
         let uiColor = self.uiColor(for: style, background: scheme, interface: level, display: mode)
         let color = Color(uiColor)
+        
+        guard let hexColor = self.hexColor(for: style) else { return color }
+        
+        let variant = hexColor.getVariant(traits: UITraitCollection.current, background: scheme, interface: level, display: mode)
+        
+        if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
+            return ssOverrideColor
+        }
+        
+        if let ssHexColor = nssHexColor(for: style, with: variant) {
+            if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
+                self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
+                return ssColor
+            }
+        }
+        
+        if let devOverrideColor = developerOverrides[style, default: [:]][variant] {
+            return devOverrideColor
+        }
+        
         return color
     }
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
-        guard let hc = self.hexColor(for: style) else { return .clear }
-        let uc = UIColor { [weak self] traitCollection in
-            guard let self = self else { return .clear }
-            guard let hexColor = self.hexColor(for: style) else { return .clear }
-            let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
-            
+        guard let hc = self.hexColor(for: style) else { return UIColor() }
+        let uc = UIColor { traitCollection in
+            let variant: ColorVariant = hc.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
             let hexColorString: String = hc.hex(variant)
-            
-            if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
-                return ssOverrideColor.uiColor()
-            }
-            
-            if let ssHexColor = self.nssHexColor(for: style, with: variant) {
-                if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
-                    self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
-                    return ssColor.uiColor()
-                }
-            }
-            
-            if let devOverrideColor = self.developerOverrides[style, default: [:]][variant] {
-                return devOverrideColor.uiColor()
-            }
-            
-            return Color(hex: hexColorString)?.uiColor() ?? .clear
+            let components = hc.rgba(hexColorString)
+            return UIColor(red: CGFloat(components.r), green: CGFloat(components.g),
+                           blue: CGFloat(components.b), alpha: CGFloat(components.a))
         }
         return uc
     }
@@ -191,7 +194,7 @@ public class ThemeManager {
     func nssHexColor(for style: ColorStyle, with variant: ColorVariant) -> String? {
         var developerOverriddenColors = [String: String]()
         
-        // Get the developer defined color definitions from the .nss file
+//        // Get the developer defined color definitions from the .nss file
         developerOverriddenColors = StyleSheetSettings.shared.globalDefinitions // NUISettings.getInstance()._globalDefinitions
         
         // In .nss file color is defined using background scheme, so check for inversed color variant
