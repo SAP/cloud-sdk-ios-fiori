@@ -78,7 +78,7 @@ public struct ListPickerItemConfiguration {
                                       children: KeyPath<Data.Element, Data?>?,
                                       selection: Binding<Set<ID>>?,
                                       allowsMultipleSelection: Bool = true,
-                                      searchFilter: @escaping (Data.Element, String) -> Bool,
+                                      searchFilter: ((Data.Element, String) -> Bool)?,
                                       @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
