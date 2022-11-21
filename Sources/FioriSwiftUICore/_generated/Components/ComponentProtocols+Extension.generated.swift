@@ -70,6 +70,24 @@ public extension DetailImageComponent {
     }
 }
 
+public extension DurationPickerComponent {
+    var maximumMinutes: Int {
+        return 1439
+    }
+
+	var minimumMinutes: Int {
+        return 0
+    }
+
+	var minuteInterval: Int {
+        return 1
+    }
+
+	var measurementFormatter: MeasurementFormatter {
+        return MeasurementFormatter()
+    }
+}
+
 public extension EmptyTextComponent {
     var emptyText: String? {
         return nil

@@ -336,3 +336,6 @@ public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, D
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
 }
+
+// sourcery: generated_component_not_configurable
+public protocol DurationPickerModel: DurationPickerComponent {}

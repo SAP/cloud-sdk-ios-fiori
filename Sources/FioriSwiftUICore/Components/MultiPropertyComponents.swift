@@ -31,3 +31,25 @@ internal protocol _KpiProgress: KpiComponent, _ComponentMultiPropGenerating {
 internal protocol _ProgressIndicator: _ComponentMultiPropGenerating {
     var progressIndicatorText_: String? { get }
 }
+
+internal protocol _DurationPicker: _ComponentMultiPropGenerating, AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: no_view
+    var selection: Int { get set }
+    
+    // sourcery: no_view
+    // sourcery: default.value = 1439
+    var maximumMinutes: Int { get set }
+    
+    // sourcery: no_view
+    // sourcery: default.value = 0
+    var minimumMinutes: Int { get set }
+    
+    // sourcery: no_view
+    // sourcery: default.value = 1
+    var minuteInterval: Int { get set }
+    
+    // sourcery: no_view
+    // sourcery: default.value = MeasurementFormatter()
+    var measurementFormatter: MeasurementFormatter { get set }
+}
