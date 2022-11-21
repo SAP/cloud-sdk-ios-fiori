@@ -133,6 +133,7 @@ struct ItemView: View {
         }
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
+        .contentShape(Rectangle())
         .gesture(tapGesture)
     }
     

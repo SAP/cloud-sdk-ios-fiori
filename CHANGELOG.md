@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.0.1...3.0.2) (2022-11-17)
+### Bug Fixes
+
+* 🐛 Custom colors were not updated when appearance changed ([3f3588b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3f3588bc3908089d4676b6d44ecb2fe960bbac7b)), closes [#481](https://github.com/SAP/cloud-sdk-ios-fiori/issues/481)
+
+## [3.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.0.0...3.0.1) (2022-11-03)
+### Bug Fixes
+
+* 🐛 [BCP: 675290] improve selection as same as rombichart ([#464](https://github.com/SAP/cloud-sdk-ios-fiori/issues/464)) ([86114e1](https://github.com/SAP/cloud-sdk-ios-fiori/commit/86114e10d55b803de825b0151561835c3bfe52cc))
+* 🐛 3-digit hex color is not parsed correctly ([e4a62e0](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e4a62e0f18ff2709826fecc8f2fa5ba8495d6a74)), closes [#477](https://github.com/SAP/cloud-sdk-ios-fiori/issues/477)
+
 ## [3.0.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/2.2.0...3.0.0) (2022-09-28)
 ### ⚠ BREAKING CHANGES
 

@@ -228,8 +228,8 @@ public enum TestRowData {
         let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
         model.columnAttributes = self.generateColumnAttributes(column: column)
-        model.didSelectRowAt = { _ in
-            print(model.selectedIndexes)
+        model.didSelectRowAt = { rowIndex in
+            print("Tapped row \(rowIndex)")
         }
         model.selectedIndexes = [0]
         
