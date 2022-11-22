@@ -1,4 +1,4 @@
-@tintColor:#FF00F9;
+@tintColor:#f46;
 @tintColor2:#FF00F9;
 @tintColorTapState:#FF00F9;
 @header:#fff;
@@ -11,7 +11,7 @@
 @primaryGroupedBackground:#f5f6f7;
 @tertiaryGroupedBackground:#f5f6f7;
 @primaryLabel:#FF6000;
-@tintColor_darkBackground:#FF0000;
+@tintColor_darkBackground:#f46;
 @tintColor2_darkBackground:#FF0000;
 @tintColorTapState_darkBackground:#FF0000;
 @header_darkBackground:#1d232a;
