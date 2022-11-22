@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
-private enum ListPickerItemDataModel {
+enum ListPickerItemDataModel {
     struct Framework: Identifiable {
         var id = UUID()
         let name: String
@@ -52,7 +52,7 @@ struct ListPickerItemExample: View {
         case objectItem
         case stringItem
         case searchable
-        
+        case searchableListView
         var id: Self { self }
     }
     
@@ -84,7 +84,12 @@ struct ListPickerItemExample: View {
             case .searchable:
                 NavigationLink(
                     destination: ListPickerItemWithSearchExample()) {
-                    Text("Searchable")
+                    Text("Searchable List Picker Item")
+                }
+            case .searchableListView:
+                NavigationLink(
+                    destination: SearchableListViewExample()) {
+                    Text("Searchable List View")
                 }
             }
         }

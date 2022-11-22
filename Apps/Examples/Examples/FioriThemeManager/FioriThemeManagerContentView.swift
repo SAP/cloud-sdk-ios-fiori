@@ -17,7 +17,7 @@ struct FioriThemeManagerContentView: View {
                 Text("Colors - custom palette (random)")
             }
             NavigationLink(
-                destination: CustomColors(testData: .programmatic(.green))) {
+                destination: CustomColors(testData: .programmatic(.green, .red))) {
                 Text("Colors - developer override")
             }
             NavigationLink(
