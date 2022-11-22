@@ -911,14 +911,12 @@ public enum ColorStyle: String, CaseIterable {
     /// Chart 10
     /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9A
     /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEAC
-    ///
     /// - Note: Removed since Palette V7. Mapping to `chart6`.
     case chart10
     
     /// Chart 11
     /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
     /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
-    /// 
     /// - Note: Removed since Palette V7. Mapping to `chart1`.
     case chart11
     
