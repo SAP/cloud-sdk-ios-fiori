@@ -894,28 +894,30 @@ public enum ColorStyle: String, CaseIterable {
     case chart6
     
     /// Chart 7
-    /// (dark variant) ![](https://dummyimage.com/48x18/525DF4.png&text=+)          Hex value: 525DF4
-    /// (light variant) ![](https://dummyimage.com/48x18/5C66F5.png&text=+)          Hex value: 5C66F5
+    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DED
+    /// (light variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2
     case chart7
     
     /// Chart 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/F31DED.png&text=+)          Hex value: F31DED
-    /// (light variant) ![](https://dummyimage.com/48x18/F65AF2.png&text=+)          Hex value: F65AF2
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
     case chart8
     
     /// Chart 9
-    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B
-    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77
     case chart9
     
     /// Chart 10
-    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939
-    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77
+    /// (dark variant) ![](https://dummyimage.com/48x18/049F9A.png&text=+)          Hex value: 049F9A
+    /// (light variant) ![](https://dummyimage.com/48x18/00CEAC.png&text=+)          Hex value: 00CEAC
+    /// - Note: Removed since Palette V7. Mapping to `chart6`.
     case chart10
     
     /// Chart 11
-    /// (dark variant) ![](https://dummyimage.com/48x18/2F6497.png&text=+)          Hex value: 2F6497
-    /// (light variant) ![](https://dummyimage.com/48x18/387BB7.png&text=+)          Hex value: 387BB7
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF
+    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FF
+    /// - Note: Removed since Palette V7. Mapping to `chart1`.
     case chart11
     
     /// StockUpStroke
