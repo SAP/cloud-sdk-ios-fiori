@@ -197,8 +197,8 @@ struct PaletteV7: PaletteProvider {
         .chart7: HexColor(lightColor: "5C66F5", darkColor: "525DF4"),
         .chart8: HexColor(lightColor: "F65AF2", darkColor: "F31DED"),
         .chart9: HexColor(lightColor: "8396A8", darkColor: "5B738B"),
-        .chart10: HexColor(lightColor: "FF5C77", darkColor: "EE3939"),
-        .chart11: HexColor(lightColor: "387BB7", darkColor: "2F6497"),
+        .chart10: HexColor(lightColor: "00CEAC", darkColor: "049F9A"),
+        .chart11: HexColor(lightColor: "4DB1FF", darkColor: "1B90FF"),
         .stockUpStroke: HexColor(lightColor: "19A979", darkColor: "19A979"),
         .stockDownStroke: HexColor(lightColor: "EE6868", darkColor: "EE6868"),
         /// Map Colors

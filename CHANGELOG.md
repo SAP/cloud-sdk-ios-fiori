@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.2](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.0.1...3.0.2) (2022-11-17)
+### Bug Fixes
+
+* 🐛 Custom colors were not updated when appearance changed ([3f3588b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3f3588bc3908089d4676b6d44ecb2fe960bbac7b)), closes [#481](https://github.com/SAP/cloud-sdk-ios-fiori/issues/481)
+
 ## [3.0.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.0.0...3.0.1) (2022-11-03)
 ### Bug Fixes
 
