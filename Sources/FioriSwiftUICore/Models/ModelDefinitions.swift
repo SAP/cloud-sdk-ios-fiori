@@ -330,3 +330,9 @@ public protocol SignatureCaptureViewModel: AnyObject {
     // sourcery: no_view
     var onDelete: (() -> Void)? { get }
 }
+
+// sourcery: generated_component_composite
+public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
+    // sourcery: genericParameter.name = ActionView
+    var action: ActionModel? { get }
+}

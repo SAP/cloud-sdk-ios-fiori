@@ -7,7 +7,8 @@ struct CoreContentView: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: DataTableExample()) {
+                destination: DataTableExample())
+            {
                 Text("Data Table")
             }
             
@@ -19,30 +20,35 @@ struct CoreContentView: View {
             )
             
             NavigationLink(
-                destination: DimensionSelector_Chart()) {
+                destination: DimensionSelector_Chart())
+            {
                 Text("Dimension Selector")
             }
             
             Group {
                 NavigationLink(
-                    destination: SignatureCaptureViewExample()) {
+                    destination: SignatureCaptureViewExample())
+                {
                     Text("Signature Inline View")
                 }
 
                 NavigationLink(
-                    destination: SignatureCaptureViewExample2()) {
+                    destination: SignatureCaptureViewExample2())
+                {
                     Text("Customized Signature Inline View")
                 }
             }
             
             NavigationLink(
-                destination: ExperimentalContentView()) {
+                destination: ExperimentalContentView())
+            {
                 Text("🚧 Experimental 🚧")
             }
 
             Group {
                 NavigationLink(
-                    destination: ListPickerItemExample()) {
+                    destination: ListPickerItemExample())
+                {
                     Text("ListPickerItem")
                 }
                 
@@ -54,17 +60,20 @@ struct CoreContentView: View {
                 )
                 
                 NavigationLink(
-                    destination: KPIExample()) {
+                    destination: KPIExample())
+                {
                     Text("KPI")
                 }
                 
                 NavigationLink(
-                    destination: KPIProgressExample()) {
+                    destination: KPIProgressExample())
+                {
                     Text("KPIProgressItem")
                 }
                 
                 NavigationLink(
-                    destination: OnboardingExamples()) {
+                    destination: OnboardingExamples())
+                {
                     Text("Onboarding")
                 }
                 
@@ -84,6 +93,12 @@ struct CoreContentView: View {
                 
                 NavigationLink(destination: ContactItemExample()) {
                     Text("ContactItem")
+                }
+                
+                NavigationLink(
+                    destination: EmptyStateViewExample())
+                {
+                    Text("EmptyStateViewExample")
                 }
             }
         }.navigationBarTitle("FioriSwiftUICore")

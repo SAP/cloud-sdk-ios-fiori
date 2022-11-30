@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
 		1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90888B261A59820015A84D /* FioriButtonExample.swift */; };
@@ -148,6 +149,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
 		1F90888B261A59820015A84D /* FioriButtonExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonExample.swift; sourceTree = "<group>"; };
@@ -276,6 +278,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		108E43D3292DAB3E006532F3 /* EmptyStateView */ = {
+			isa = PBXGroup;
+			children = (
+				108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */,
+			);
+			path = EmptyStateView;
+			sourceTree = "<group>";
+		};
 		1F3C92EF25DF12A100A99A07 /* FormCells */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +418,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				108E43D3292DAB3E006532F3 /* EmptyStateView */,
 				B8239D8626815C11003455D2 /* ContactItem */,
 				692F338926556A34009B98DA /* SideBar */,
 				1FF3662C264C662A00AB8BD8 /* DimensionSelector */,
@@ -719,6 +730,7 @@
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */,
+				108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */,
 				8AD9DFB525D49967007448EC /* KPIHeaderFreestyleExample.swift in Sources */,
 				B84D24F22652F343007F2373 /* ObjectHeaderDeveloperExample.swift in Sources */,
 				B80DA9C2260D04FB00C0B2E9 /* SingleActionLongFollowButton.swift in Sources */,
