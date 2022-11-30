@@ -96,9 +96,9 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
-                    destination: EmptyViewExample())
+                    destination: EmptyStateViewExample())
                 {
-                    Text("EmptyViewExample")
+                    Text("EmptyStateViewExample")
                 }
             }
         }.navigationBarTitle("FioriSwiftUICore")

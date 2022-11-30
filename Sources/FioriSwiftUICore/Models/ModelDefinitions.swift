@@ -332,11 +332,7 @@ public protocol SignatureCaptureViewModel: AnyObject {
 }
 
 // sourcery: generated_component_composite
-public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent {
-    // sourcery: default.value = nil
-    // sourcery: no_view
-    var image: Image? { get }
-    
+public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
 }

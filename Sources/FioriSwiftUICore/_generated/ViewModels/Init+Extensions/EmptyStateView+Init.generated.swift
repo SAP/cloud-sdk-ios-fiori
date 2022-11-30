@@ -5,13 +5,28 @@ import SwiftUI
 extension EmptyStateView where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		image: Image? = nil,
+		@ViewBuilder detailImage: () -> DetailImage,
 		@ViewBuilder action: () -> ActionView
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			image: image,
+			detailImage: detailImage,
+			action: action
+        )
+    }
+}
+
+extension EmptyStateView where DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			detailImage: { EmptyView() },
 			action: action
         )
     }
@@ -21,13 +36,27 @@ extension EmptyStateView where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		image: Image? = nil
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
-			image: image,
+			detailImage: detailImage,
 			action: { EmptyView() }
+        )
+    }
+}
+
+extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			detailImage: { EmptyView() },
+			action: action
         )
     }
 }
@@ -35,12 +64,39 @@ extension EmptyStateView where ActionView == EmptyView {
 extension EmptyStateView where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		image: Image? = nil
+		@ViewBuilder detailImage: () -> DetailImage
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
-			image: image,
+			detailImage: detailImage,
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension EmptyStateView where DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder descriptionText: () -> DescriptionText
+    ) {
+        self.init(
+            title: title,
+			descriptionText: descriptionText,
+			detailImage: { EmptyView() },
+			action: { EmptyView() }
+        )
+    }
+}
+
+extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
+    public init(
+    @ViewBuilder title: () -> Title
+    ) {
+        self.init(
+            title: title,
+			descriptionText: { EmptyView() },
+			detailImage: { EmptyView() },
 			action: { EmptyView() }
         )
     }

@@ -1,7 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct EmptyViewExample: View {
+struct EmptyStateViewExample: View {
     let data: [EmptyViewShowType] = [.title, .titleAndIcon, .titleAndDescription, .titleAndIconAndDescription, .all, .custom]
     
     var body: some View {
@@ -15,7 +15,7 @@ struct EmptyViewExample: View {
                 )
             }
         }
-        .navigationTitle("EmptyViewExample")
+        .navigationTitle("EmptyStateViewExample")
     }
 }
 
@@ -61,38 +61,42 @@ struct EmptyContentViewExample: View {
                 case .title:
                     EmptyStateView(title: "This is a placeholder title")
                 case .titleAndIcon:
-                    EmptyStateView(title: "This is a placeholder title", image: Image("rw"))
+                    EmptyStateView(title: "This is a placeholder title",
+                                   detailImage: Image("rw"))
                 case .titleAndDescription:
                     EmptyStateView(title: "This is a placeholder title",
                                    descriptionText: "This is a very long description text, maximum line number is 3.")
                 case .titleAndIconAndDescription:
                     EmptyStateView(title: "This is a placeholder title",
                                    descriptionText: "This is a very long description text, maximum line number is 3.",
-                                   image: Image("rw"))
+                                   detailImage: Image("rw"))
                 case .all:
                     EmptyStateView(title: "This is a placeholder title",
                                    descriptionText: "This is a very long description text, maximum line number is 3.",
-                                   image: Image("rw"),
+                                   detailImage: Image("rw").resizable(),
                                    action: Action(actionText: "Refresh", didSelectAction: {
                                        self.isEmpty.toggle()
                                    }))
                 case .custom:
-                    EmptyStateView(title: {
+                    EmptyStateView {
                         Text("custom title")
                             .font(Font.title)
                             .foregroundColor(Color.red)
                             .background(Color.green)
-                    }, descriptionText: {
+                    } descriptionText: {
                         Text("custom description")
                             .font(Font.subheadline)
                             .foregroundColor(Color.green)
                             .background(Color.red)
-                    }, image: Image("rw"),
-                    action: {
+                    } detailImage: {
+                        Image("rw")
+                            .resizable()
+                            .cornerRadius(10)
+                    } action: {
                         Action(actionText: "Clear", didSelectAction: {
                             self.isEmpty.toggle()
                         })
-                    })
+                    }
                 }
             }
         }
@@ -102,8 +106,8 @@ struct EmptyContentViewExample: View {
     }
 }
 
-struct EmptyViewExample_Previews: PreviewProvider {
+struct EmptyStateViewExample_Previews: PreviewProvider {
     static var previews: some View {
-        EmptyViewExample()
+        EmptyStateViewExample()
     }
 }

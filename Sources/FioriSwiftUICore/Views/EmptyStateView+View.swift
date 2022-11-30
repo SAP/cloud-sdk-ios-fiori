@@ -25,6 +25,16 @@ extension Fiori {
         
         typealias DescriptionTextCumulative = EmptyModifier
         
+        struct DetailImage: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 160, height: 160)
+            }
+        }
+
+        typealias DetailImageCumulative = EmptyModifier
+        
         struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -36,23 +46,19 @@ extension Fiori {
         
         static let title = Title()
         static let descriptionText = DescriptionText()
+        static let detailImage = DetailImage()
         static let action = Action()
         static let titleCumulative = TitleCumulative()
         static let descriptionTextCumulative = DescriptionTextCumulative()
+        static let detailImageCumulative = DetailImageCumulative()
         static let actionCumulative = ActionCumulative()
     }
 }
 
 extension EmptyStateView: View {
     public var body: some View {
-        if let _image {
-            _image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 160, height: 160)
-                .background(Color.gray)
-                .padding(.bottom, 8)
-        }
+        detailImage
+            .padding(.bottom, 6)
         
         title
             .padding(.bottom, 2)
@@ -60,6 +66,6 @@ extension EmptyStateView: View {
             .padding(.bottom, 2)
         
         action
-            .padding(.top, 6)
+            .padding(.top, 4)
     }
 }
