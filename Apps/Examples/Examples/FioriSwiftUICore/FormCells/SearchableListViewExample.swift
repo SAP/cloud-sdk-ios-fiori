@@ -1,6 +1,7 @@
 import FioriSwiftUICore
 import SwiftUI
 
+@available(iOS 15, *)
 struct SearchableListViewExample: View {
     @Environment(\.presentationMode) var presentationMode
     
@@ -21,6 +22,7 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection1)
+                        .navigationTitle("TItle: Pick One")
                 } label: {
                     let str = selectedValues(Array(selection1))
                     Text(str.isEmpty ? "pick one" : str)
@@ -34,6 +36,7 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection2)
+                        .navigationTitle("TItle: Pick One")
                 } label: {
                     let str = selectedValues(Array(selection2))
                     Text(str)
@@ -47,6 +50,13 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection3, true, false)
+                        .cancelActionModifier {
+                            $0.font(.callout).foregroundColor(Color.red)
+                        }
+                        .doneActionModifier {
+                            $0.font(.callout.bold()).foregroundColor(Color.black)
+                        }
+                        .navigationTitle("TItle: Pick Any Values")
                 } label: {
                     let str = selectedValues(Array(selection3))
                     Text(str)
@@ -59,7 +69,8 @@ struct SearchableListViewExample: View {
                 Text("empty search filter")
                 Spacer()
                 NavigationLink {
-                    pickerView($selection4, false, true)
+                    pickerView($selection4, false, true, useActions: true)
+                        .navigationTitle("TItle: Pick A Value")
                 } label: {
                     let str = selectedValues(Array(selection4))
                     Text(str)
@@ -80,7 +91,32 @@ struct SearchableListViewExample: View {
                     }
                     .sheet(isPresented: $presentingModal) {
                         NavigationView {
-                            pickerView($selection5)
+                            if #available(iOS 16.0, *) {
+                                pickerView($selection5, useActions: true)
+                                    .listStyle(.plain)
+                                    .background(Color.cyan)
+                                    .environment(\.listRowBackground, Color.red)
+                                    .scrollContentBackground(.hidden)
+                                    .cancelActionModifier {
+                                        $0.font(.callout).foregroundColor(Color.red)
+                                    }
+                                    .doneActionModifier {
+                                        $0.font(.title.bold()).foregroundColor(Color.black)
+                                    }
+                                    .navigationTitle("TItle: Pick A Value")
+                            } else {
+                                pickerView($selection5, useActions: true)
+                                    .listStyle(.plain)
+                                    .background(Color.cyan)
+                                    .environment(\.listRowBackground, Color.red)
+                                    .cancelActionModifier {
+                                        $0.font(.callout).foregroundColor(Color.red)
+                                    }
+                                    .doneActionModifier {
+                                        $0.font(.title.bold()).foregroundColor(Color.black)
+                                    }
+                                    .navigationTitle("TItle: Pick A Value")
+                            }
                         }
                     }
             }
@@ -101,19 +137,41 @@ struct SearchableListViewExample: View {
         return str
     }
     
-    func pickerView(_ selection: Binding<Set<UUID>>, _ allowsMultipleSelection: Bool = false, _ emptySearch: Bool = false) -> some View {
-        if #available(iOS 15.0, *) {
-            let filter: ((ListPickerItemDataModel.Framework, String) -> Bool) = { f, s in
-                if s.count > 0 {
-                    return f.name.localizedCaseInsensitiveContains(s)
-                } else {
-                    return true
-                }
+    func pickerView(_ selection: Binding<Set<UUID>>, _ allowsMultipleSelection: Bool = false, _ emptySearch: Bool = false, useActions: Bool = false) -> some View {
+        let filter: ((ListPickerItemDataModel.Framework, String) -> Bool) = { f, s in
+            if s.count > 0 {
+                return f.name.localizedCaseInsensitiveContains(s)
+            } else {
+                return true
             }
-            return SearchableListView(data: model, id: \.id, children: \.children,
-                                      selection: selection,
-                                      allowsMultipleSelection: allowsMultipleSelection,
-                                      searchFilter: emptySearch ? nil : filter) { framework in
+        }
+        if useActions {
+            return SearchableList(data: self.model, id: \.id, children: nil,
+                                  selection: selection,
+                                  allowsMultipleSelection: allowsMultipleSelection,
+                                  searchFilter: emptySearch ? nil : filter,
+                                  rowContent: { framework in
+                                      ObjectItem {
+                                          Text(framework.name)
+                                      } descriptionText: {
+                                          Text("description")
+                                      } status: {
+                                          Image(systemName: "sun.min")
+                                      } detailImage: {
+                                          Image(systemName: "mail")
+                                      }
+                                  },
+                                  cancelAction: Action(actionText: "CacnelAction") {
+                                      print("cancel action tapped")
+                                  },
+                                  doneAction: Action(actionText: "DoneAction") {
+                                      print("done action tapped")
+                                  })
+        } else {
+            return SearchableList(data: self.model, id: \.id, children: \.children,
+                                  selection: selection,
+                                  allowsMultipleSelection: allowsMultipleSelection,
+                                  searchFilter: emptySearch ? nil : filter) { framework in
                 ObjectItem {
                     Text(framework.name)
                 } descriptionText: {
@@ -124,12 +182,11 @@ struct SearchableListViewExample: View {
                     Image(systemName: "mail")
                 }
             }
-        } else {
-            return EmptyView()
         }
     }
 }
 
+@available(iOS 15, *)
 struct SearchableListViewExample_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {

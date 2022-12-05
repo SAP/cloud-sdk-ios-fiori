@@ -339,3 +339,19 @@ public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, D
 
 // sourcery: generated_component_not_configurable
 public protocol DurationPickerModel: DurationPickerComponent {}
+
+// sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
+// sourcery: add_env_props = "presentationMode"
+// sourcery: add_env_props = "listRowBackground"
+// sourcery: virtualPropContentView = "var contentView: AnyView? = nil"
+// sourcery: virtualPropIsTopLevel = "var isTopLevel: Bool = true"
+// sourcery: virtualPropDataHandler = "var dataHandler: (() -> ())? = nil"
+public protocol SearchableListModel {
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = DoneActionView
+    // sourcery: default.value = _DoneActionDefault()
+    var doneAction: ActionModel? { get }
+}
