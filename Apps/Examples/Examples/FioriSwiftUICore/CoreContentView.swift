@@ -47,6 +47,11 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: DurationPickerExample()) {
+                    Text("DurationPicker")
+                }
+                
+                NavigationLink(
                     destination: FioriButtonContentView(),
                     label: {
                         Text("FioriButton")
@@ -84,6 +89,11 @@ struct CoreContentView: View {
                 
                 NavigationLink(destination: ContactItemExample()) {
                     Text("ContactItem")
+                }
+                
+                NavigationLink(
+                    destination: EmptyStateViewExample()) {
+                    Text("EmptyStateViewExample")
                 }
             }
         }.navigationBarTitle("FioriSwiftUICore")
