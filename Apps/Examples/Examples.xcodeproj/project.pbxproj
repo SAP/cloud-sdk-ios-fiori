@@ -80,6 +80,7 @@
 		9996CD03262FFEBE001B99AE /* EULA2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CD02262FFEBD001B99AE /* EULA2.html */; };
 		99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6EF8B2672224C00515E8E /* UserConsentSample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
+		B101F3EC293F27130023F321 /* DatePickerWrapperExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B101F3EB293F27130023F321 /* DatePickerWrapperExample.swift */; };
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */; };
 		B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */; };
@@ -224,6 +225,7 @@
 		9996CD02262FFEBD001B99AE /* EULA2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EULA2.html; sourceTree = "<group>"; };
 		99B6EF8B2672224C00515E8E /* UserConsentSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentSample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
+		B101F3EB293F27130023F321 /* DatePickerWrapperExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerWrapperExample.swift; sourceTree = "<group>"; };
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPickerExample.swift; sourceTree = "<group>"; };
 		B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionProfiles.swift; sourceTree = "<group>"; };
@@ -474,6 +476,7 @@
 				8AD9DFA725D49967007448EC /* StylingModifierExample.swift */,
 				8AD9DFA825D49967007448EC /* ContactItemInitModelExample.swift */,
 				8AD9DFA925D49967007448EC /* ContactItemInitViewBuilderExample.swift */,
+				B101F3EB293F27130023F321 /* DatePickerWrapperExample.swift */,
 				8AD9DFAA25D49967007448EC /* KPIHeaderFreestyleExample.swift */,
 			);
 			path = Examples;
@@ -738,6 +741,7 @@
 				9996CD00262EB4E8001B99AE /* EULAViewSample.swift in Sources */,
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */,
+				B101F3EC293F27130023F321 /* DatePickerWrapperExample.swift in Sources */,
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
