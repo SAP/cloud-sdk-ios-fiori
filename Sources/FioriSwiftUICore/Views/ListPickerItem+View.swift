@@ -1,3 +1,4 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -28,7 +29,7 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         NavigationLink(
-            destination: destinationView,
+            destination: destinationView?.environment(\.listBackground, listBackground),
             label: {
                 KeyValueItem {
                     key
@@ -72,6 +73,23 @@ public struct ListPickerItemConfiguration {
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    ///   - rowBackground: `listRowBackground` for each row.
+    @available(iOS 15.0, macOS 12.0, *)
+    public init<Data, ID, RowContent, RowBackground>(
+        _ data: Data,
+        id: KeyPath<Data.Element, ID>,
+        children: KeyPath<Data.Element, Data?>?,
+        selection: Binding<Set<ID>>?,
+        allowsMultipleSelection: Bool = true,
+        searchFilter: ((Data.Element, String) -> Bool)?,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
+    )
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
+    {
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground)
+    }
+    
     @available(iOS 15.0, macOS 12.0, *)
     public init<Data, ID, RowContent>(_ data: Data,
                                       id: KeyPath<Data.Element, ID>,
@@ -82,7 +100,7 @@ public struct ListPickerItemConfiguration {
                                       @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
-        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent)
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) })
     }
     
     /// Creates a configuration object from a collection of data which supports both single-level and multi-level picker with the ability to select multiple items.
@@ -148,24 +166,29 @@ public extension ListPickerItemConfiguration {
 
 internal extension ListPickerItemConfiguration {
     @available(iOS 15.0, macOS 12.0, *)
-    init<Data, ID, RowContent>(_ data: Data,
-                               id: KeyPath<Data.Element, ID>,
-                               children: KeyPath<Data.Element, Data?>?,
-                               selection: Binding<Set<ID>>?,
-                               isTopLevel: Bool,
-                               allowsMultipleSelection: Bool,
-                               searchFilter: ((Data.Element, String) -> Bool)?,
-                               @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-        where Data: RandomAccessCollection, RowContent: View, ID: Hashable
+    init<Data, ID, RowContent, RowBackground>(
+        _ data: Data,
+        id: KeyPath<Data.Element, ID>,
+        children: KeyPath<Data.Element, Data?>?,
+        selection: Binding<Set<ID>>?,
+        isTopLevel: Bool,
+        allowsMultipleSelection: Bool,
+        searchFilter: ((Data.Element, String) -> Bool)?,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
+    )
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
     {
-        self.destinationView = SearchableList(data: data,
-                                              id: id,
-                                              children: children,
-                                              selection: selection,
-                                              isTopLevel: isTopLevel,
-                                              allowsMultipleSelection: allowsMultipleSelection,
-                                              searchFilter: searchFilter,
-                                              rowContent: rowContent).typeErased
+        self.destinationView = SearchableListView(data: data,
+                                                  id: id,
+                                                  children: children,
+                                                  selection: selection,
+                                                  isTopLevel: isTopLevel,
+                                                  allowsMultipleSelection: allowsMultipleSelection,
+                                                  searchFilter: searchFilter,
+                                                  rowContent: rowContent,
+                                                  rowBackground: rowBackground)
+            .typeErased
     }
 }
 

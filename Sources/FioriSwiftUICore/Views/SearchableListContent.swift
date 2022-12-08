@@ -1,10 +1,11 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
-struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View>: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Environment(\.listRowBackground) var listRowBackground
+
+struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>: View {
+    @Environment(\.listBackground) var listBackground
     
     @State var searchText = ""
     @State var selectionBuffer: Set<ID>
@@ -16,10 +17,11 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
     let searchFilter: ((Data.Element, String) -> Bool)?
     let allowsMultipleSelection: Bool
     let rowContent: (Data.Element) -> RowContent
+    var rowBackground: ((Data.Element) -> RowBackground)?
     var selectionUpdated: ((Set<ID>) -> Void)?
     
     private let isTopLevel: Bool
-
+    
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
     /// - Parameters:
     ///   - data: The data for constructing the list picker.
@@ -35,7 +37,8 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
          selection: Binding<Set<ID>>?,
          allowsMultipleSelection: Bool = true,
          searchFilter: ((Data.Element, String) -> Bool)?,
-         @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+         @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+         rowBackground: ((Data.Element) -> RowBackground)? = nil)
     {
         self.init(data: data,
                   id: id,
@@ -44,9 +47,10 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                   isTopLevel: true,
                   allowsMultipleSelection: allowsMultipleSelection,
                   searchFilter: searchFilter,
-                  rowContent: rowContent)
+                  rowContent: rowContent,
+                  rowBackground: rowBackground)
     }
-
+    
     internal init(data: Data,
                   id: KeyPath<Data.Element, ID>,
                   children: KeyPath<Data.Element, Data?>?,
@@ -54,7 +58,8 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                   isTopLevel: Bool,
                   allowsMultipleSelection: Bool,
                   searchFilter: ((Data.Element, String) -> Bool)?,
-                  @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
+                  @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+                  rowBackground: ((Data.Element) -> RowBackground)? = nil)
     {
         self.data = data
         self.id = id
@@ -64,18 +69,82 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
         self.searchFilter = searchFilter
         self.allowsMultipleSelection = allowsMultipleSelection
         self.rowContent = rowContent
+        self.rowBackground = rowBackground
         _selectionBuffer = State(wrappedValue: selection?.wrappedValue ?? Set<ID>())
     }
     
     var body: some View {
-        List {
-            ForEach(data.filter { element in
-                if let searchFilter = searchFilter {
-                    return searchFilter(element, searchText)
-                } else {
-                    return true
+        #if swift(>=5.6)
+            if #available(iOS 16.0, *) {
+                List {
+                    listContent
                 }
-            }, id: id) { element in
+                .scrollContentBackground(.hidden)
+                .background(listBackground)
+                .onChange(of: selectionBuffer) { newValue in
+                    selectionUpdated?(newValue)
+                }
+                .ifApply(searchFilter != nil, content: {
+                    $0.searchable(text: $searchText)
+                })
+            } else {
+                List {
+                    listContent
+                }
+                .background(listBackground)
+                .onAppear {
+                    UITableView.appearance().backgroundColor = .clear
+                }
+                .onDisappear {
+                    UITableView.appearance().backgroundColor = .systemGroupedBackground
+                }
+                .onChange(of: selectionBuffer) { newValue in
+                    selectionUpdated?(newValue)
+                }
+                .ifApply(searchFilter != nil, content: {
+                    $0.searchable(text: $searchText)
+                })
+            }
+        #elseif swift(>=5.5)
+            List {
+                listContent
+            }
+            .background(listBackground)
+            .onAppear {
+                UITableView.appearance().backgroundColor = .clear
+            }
+            .onDisappear {
+                UITableView.appearance().backgroundColor = .systemGroupedBackground
+            }
+            .onChange(of: selectionBuffer) { newValue in
+                selectionUpdated?(newValue)
+            }
+            .ifApply(searchFilter != nil, content: {
+                $0.searchable(text: $searchText)
+            })
+        #else
+            List {
+                listContent
+            }
+            .background(listBackground)
+            .onAppear {
+                UITableView.appearance().backgroundColor = .clear
+            }
+            .onDisappear {
+                UITableView.appearance().backgroundColor = .systemGroupedBackground
+            }
+        #endif
+    }
+    
+    var listContent: some View {
+        ForEach(data.filter { element in
+            if let searchFilter = searchFilter, !searchText.isEmpty {
+                return searchFilter(element, searchText)
+            } else {
+                return true
+            }
+        }, id: id) { element in
+            Group {
                 let row = rowContent(element)
                 let id_value = element[keyPath: id]
                 
@@ -91,22 +160,23 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                                                                   isTopLevel: false,
                                                                   allowsMultipleSelection: allowsMultipleSelection,
                                                                   searchFilter: searchFilter,
-                                                                  rowContent: rowContent))
+                                                                  rowContent: rowContent,
+                                                                  rowBackground: rowBackground))
+                        .environment(\.listBackground, listBackground)
                 } else {
                     ListPickerItem.Row(content: row,
                                        id: id_value,
                                        selection: !isTopLevel ? selection : $selectionBuffer,
                                        allowsMultipleSelection: allowsMultipleSelection)
                 }
-            }.listRowBackground(listRowBackground)
-        }
-        #if swift(>=5.3)
-            .ifApply(searchFilter != nil, content: {
-                $0.searchable(text: $searchText)
+            }
+            .listRowBackground(Group {
+                if let rowBG = rowBackground?(element) {
+                    rowBG
+                } else {
+                    Color.preferredColor(.primaryBackground)
+                }
             })
-        #endif
-        .onChange(of: selectionBuffer) { newValue in
-            selectionUpdated?(newValue)
         }
     }
 }

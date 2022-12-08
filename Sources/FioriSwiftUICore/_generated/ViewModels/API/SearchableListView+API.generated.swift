@@ -3,10 +3,10 @@
 import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
-public struct SearchableList<CancelActionView: View, DoneActionView: View> {
+public struct SearchableListView<CancelActionView: View, DoneActionView: View> {
     @Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.doneActionModifier) private var doneActionModifier
-	@Environment(\.listRowBackground) var listRowBackground
+	@Environment(\.listBackground) var listBackground
 	@Environment(\.presentationMode) var presentationMode
 
     let _cancelAction: CancelActionView
@@ -29,16 +29,16 @@ public struct SearchableList<CancelActionView: View, DoneActionView: View> {
 
     @ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SearchableList.cancelAction).concat(Fiori.SearchableList.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SearchableListView.cancelAction).concat(Fiori.SearchableListView.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SearchableList.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SearchableListView.cancelAction))
         }
     }
 	@ViewBuilder var doneAction: some View {
         if isModelInit {
-            _doneAction.modifier(doneActionModifier.concat(Fiori.SearchableList.doneAction).concat(Fiori.SearchableList.doneActionCumulative))
+            _doneAction.modifier(doneActionModifier.concat(Fiori.SearchableListView.doneAction).concat(Fiori.SearchableListView.doneActionCumulative))
         } else {
-            _doneAction.modifier(doneActionModifier.concat(Fiori.SearchableList.doneAction))
+            _doneAction.modifier(doneActionModifier.concat(Fiori.SearchableListView.doneAction))
         }
     }
     
@@ -52,10 +52,10 @@ public struct SearchableList<CancelActionView: View, DoneActionView: View> {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList where CancelActionView == _ConditionalContent<Action, EmptyView>,
+extension SearchableListView where CancelActionView == _ConditionalContent<Action, EmptyView>,
 		DoneActionView == _ConditionalContent<Action, EmptyView> {
 
-    public init(model: SearchableListModel) {
+    public init(model: SearchableListViewModel) {
         self.init(cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil, doneAction: model.doneAction != nil ? Action(model: model.doneAction!) : nil)
     }
 

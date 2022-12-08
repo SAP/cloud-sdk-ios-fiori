@@ -12,9 +12,11 @@ struct SearchableListViewExample: View {
     @State var selection3: Set<UUID> = []
     @State var selection4: Set<UUID> = []
     @State var selection5: Set<UUID> = []
+    @State var selection6: Set<String> = []
     
     @State var presentingModal: Bool = false
-    
+    @State var stringPresentingModal: Bool = false
+
     public var body: some View {
         VStack {
             HStack {
@@ -22,7 +24,7 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection1)
-                        .navigationTitle("TItle: Pick One")
+                        .navigationTitle("Title: Pick One")
                 } label: {
                     let str = selectedValues(Array(selection1))
                     Text(str.isEmpty ? "pick one" : str)
@@ -36,7 +38,7 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection2)
-                        .navigationTitle("TItle: Pick One")
+                        .navigationTitle("Title: Pick One")
                 } label: {
                     let str = selectedValues(Array(selection2))
                     Text(str)
@@ -56,7 +58,7 @@ struct SearchableListViewExample: View {
                         .doneActionModifier {
                             $0.font(.callout.bold()).foregroundColor(Color.black)
                         }
-                        .navigationTitle("TItle: Pick Any Values")
+                        .navigationTitle("Title: Pick Any Values")
                 } label: {
                     let str = selectedValues(Array(selection3))
                     Text(str)
@@ -70,7 +72,8 @@ struct SearchableListViewExample: View {
                 Spacer()
                 NavigationLink {
                     pickerView($selection4, false, true, useActions: true)
-                        .navigationTitle("TItle: Pick A Value")
+                        .navigationTitle("Title: Pick A Value")
+                        .listBackground(Color.cyan)
                 } label: {
                     let str = selectedValues(Array(selection4))
                     Text(str)
@@ -91,36 +94,46 @@ struct SearchableListViewExample: View {
                     }
                     .sheet(isPresented: $presentingModal) {
                         NavigationView {
-                            if #available(iOS 16.0, *) {
-                                pickerView($selection5, useActions: true)
-                                    .listStyle(.plain)
-                                    .background(Color.cyan)
-                                    .environment(\.listRowBackground, Color.red)
-                                    .scrollContentBackground(.hidden)
-                                    .cancelActionModifier {
-                                        $0.font(.callout).foregroundColor(Color.red)
-                                    }
-                                    .doneActionModifier {
-                                        $0.font(.title.bold()).foregroundColor(Color.black)
-                                    }
-                                    .navigationTitle("TItle: Pick A Value")
-                            } else {
-                                pickerView($selection5, useActions: true)
-                                    .listStyle(.plain)
-                                    .background(Color.cyan)
-                                    .environment(\.listRowBackground, Color.red)
-                                    .cancelActionModifier {
-                                        $0.font(.callout).foregroundColor(Color.red)
-                                    }
-                                    .doneActionModifier {
-                                        $0.font(.title.bold()).foregroundColor(Color.black)
-                                    }
-                                    .navigationTitle("TItle: Pick A Value")
-                            }
+                            pickerView($selection5, useActions: true)
+                                .listStyle(.plain)
+                                .listBackground(Color.cyan)
+                                .cancelActionModifier {
+                                    $0.font(.callout).foregroundColor(Color.red)
+                                }
+                                .doneActionModifier {
+                                    $0.font(.title.bold()).foregroundColor(Color.black)
+                                }
+                                .navigationTitle("Title: Pick A Value")
                         }
                     }
             }
             
+            HStack {
+                Text("simple string list")
+                Spacer()
+                Text(selection6.joined(separator: ","))
+                    .frame(minWidth: 100, minHeight: 40)
+                    .background(Color.black.opacity(0.1))
+                    .onTapGesture {
+                        stringPresentingModal = true
+                    }
+                    .sheet(isPresented: $stringPresentingModal) {
+                        NavigationView {
+                            SearchableListView(data: ["1", "2", "3", "4"],
+                                               selection: $selection6,
+                                               searchFilter: { f, s in f.contains(s) },
+                                               rowBackground: { _ in Color.green })
+                                .listStyle(.grouped)
+                                .cancelActionModifier {
+                                    $0.font(.callout).foregroundColor(Color.red)
+                                }
+                                .doneActionModifier {
+                                    $0.font(.title.bold()).foregroundColor(Color.blue)
+                                }
+                                .navigationTitle("Title: Pick A Value")
+                        }
+                    }
+            }
             Spacer()
         }
         .padding()
@@ -146,32 +159,39 @@ struct SearchableListViewExample: View {
             }
         }
         if useActions {
-            return SearchableList(data: self.model, id: \.id, children: nil,
-                                  selection: selection,
-                                  allowsMultipleSelection: allowsMultipleSelection,
-                                  searchFilter: emptySearch ? nil : filter,
-                                  rowContent: { framework in
-                                      ObjectItem {
-                                          Text(framework.name)
-                                      } descriptionText: {
-                                          Text("description")
-                                      } status: {
-                                          Image(systemName: "sun.min")
-                                      } detailImage: {
-                                          Image(systemName: "mail")
-                                      }
-                                  },
-                                  cancelAction: Action(actionText: "CacnelAction") {
-                                      print("cancel action tapped")
-                                  },
-                                  doneAction: Action(actionText: "DoneAction") {
-                                      print("done action tapped")
-                                  })
+            return SearchableListView(data: self.model, id: \.id, children: \.children,
+                                      selection: selection,
+                                      allowsMultipleSelection: allowsMultipleSelection,
+                                      searchFilter: emptySearch ? nil : filter,
+                                      rowContent: { framework in
+                                          ObjectItem {
+                                              Text(framework.name)
+                                          } descriptionText: {
+                                              Text("description")
+                                          } status: {
+                                              Image(systemName: "sun.min")
+                                          } detailImage: {
+                                              Image(systemName: "mail")
+                                          }
+                                      },
+                                      rowBackground: { framework in
+                                          if framework.name == "Core Data" {
+                                              return Color.yellow
+                                          } else {
+                                              return Color.mint
+                                          }
+                                      },
+                                      cancelAction: Action(actionText: "CacnelAction") {
+                                          print("cancel action tapped")
+                                      },
+                                      doneAction: Action(actionText: "DoneAction") {
+                                          print("done action tapped")
+                                      })
         } else {
-            return SearchableList(data: self.model, id: \.id, children: \.children,
-                                  selection: selection,
-                                  allowsMultipleSelection: allowsMultipleSelection,
-                                  searchFilter: emptySearch ? nil : filter) { framework in
+            return SearchableListView(data: self.model, id: \.id, children: \.children,
+                                      selection: selection,
+                                      allowsMultipleSelection: allowsMultipleSelection,
+                                      searchFilter: emptySearch ? nil : filter) { framework in
                 ObjectItem {
                     Text(framework.name)
                 } descriptionText: {

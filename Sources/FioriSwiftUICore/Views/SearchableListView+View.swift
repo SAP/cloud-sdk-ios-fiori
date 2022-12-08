@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum SearchableList {
+    enum SearchableListView {
         typealias CancelActionCumulative = EmptyModifier
         typealias DoneActionCumulative = EmptyModifier
         
@@ -30,11 +30,11 @@ extension Fiori {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList: View {
+extension SearchableListView: View {
     public var body: some View {
         if let contentView = contentView {
             contentView
-                .environment(\.listRowBackground, listRowBackground)
+                .environment(\.listBackground, listBackground)
                 .ifApply(isTopLevel) {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
@@ -58,7 +58,7 @@ extension SearchableList: View {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-public extension SearchableList where CancelActionView == _ConditionalContent<Action, EmptyView>,
+public extension SearchableListView where CancelActionView == _ConditionalContent<Action, EmptyView>,
     DoneActionView == _ConditionalContent<Action, EmptyView>
 {
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
@@ -70,32 +70,56 @@ public extension SearchableList where CancelActionView == _ConditionalContent<Ac
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
-    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View>(
+    ///   - rowBackground: The background for the list row.
+    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
-        allowsMultipleSelection: Bool = true,
+        allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
     ) {
-        self.init()
-        var selectionBuffer: Set<ID>?
-        var content = SearchableListContent(data: data,
-                                            id: id,
-                                            children: children,
-                                            selection: selection,
-                                            isTopLevel: true,
-                                            allowsMultipleSelection: allowsMultipleSelection,
-                                            searchFilter: searchFilter,
-                                            rowContent: rowContent)
-        content.selectionUpdated = { newSelections in
-            selectionBuffer = newSelections
-        }
-        dataHandler = {
-            selection?.wrappedValue = selectionBuffer ?? Set<ID>()
-        }
-        contentView = content.typeErased
+        self.init(data: data, id: id, children: children, selection: selection,
+                  searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground,
+                  cancelAction: Action(model: _CancelActionDefault()),
+                  doneAction: Action(model: _DoneActionDefault()))
+    }
+    
+    /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    init(data: [String],
+         selection: Binding<Set<String>>?,
+         allowsMultipleSelection: Bool = false,
+         searchFilter: ((String, String) -> Bool)? = nil)
+    {
+        self.init(data: data, id: \.self, children: nil, selection: selection,
+                  searchFilter: searchFilter, rowContent: { Text($0) },
+                  rowBackground: { _ in Color.preferredColor(.primaryBackground) })
+    }
+    
+    /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - rowBackground: The background for the list row.
+    init<RowBackground: View>(data: [String],
+                              selection: Binding<Set<String>>?,
+                              allowsMultipleSelection: Bool = false,
+                              searchFilter: ((String, String) -> Bool)?,
+                              rowBackground: ((String) -> RowBackground)? = nil)
+    {
+        self.init(data: data, id: \.self, children: nil, selection: selection,
+                  searchFilter: searchFilter, rowContent: { Text($0) }, rowBackground: rowBackground,
+                  cancelAction: Action(model: _CancelActionDefault()),
+                  doneAction: Action(model: _DoneActionDefault()))
     }
     
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
@@ -107,16 +131,42 @@ public extension SearchableList where CancelActionView == _ConditionalContent<Ac
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
-    ///   - cancelAction: Customzation searchable list cancel action.
-    ///   - doneAction: Customzation searchable list done action.
     init<Data: RandomAccessCollection, ID: Hashable, RowContent: View>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
-        allowsMultipleSelection: Bool = true,
+        allowsMultipleSelection: Bool = false,
+        searchFilter: ((Data.Element, String) -> Bool)?,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent
+    ) {
+        self.init(data: data, id: id, children: children, selection: selection, searchFilter: searchFilter,
+                  rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) },
+                  cancelAction: Action(model: _CancelActionDefault()),
+                  doneAction: Action(model: _DoneActionDefault()))
+    }
+    
+    /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
+    /// - Parameters:
+    ///   - data: The data for constructing the list picker.
+    ///   - id: The key path to the data model's unique identifier.
+    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
+    ///   - selection: A binding to a set which stores the selected items.
+    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
+    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
+    ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    ///   - rowBackground: The background for the list row.
+    ///   - cancelAction: Customzation searchable list cancel action.
+    ///   - doneAction: Customzation searchable list done action.
+    init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
+        data: Data,
+        id: KeyPath<Data.Element, ID>,
+        children: KeyPath<Data.Element, Data?>?,
+        selection: Binding<Set<ID>>?,
+        allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
         @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil,
         cancelAction: Action? = Action(model: _CancelActionDefault()),
         doneAction: Action? = Action(model: _DoneActionDefault())
     ) {
@@ -129,7 +179,8 @@ public extension SearchableList where CancelActionView == _ConditionalContent<Ac
                                             isTopLevel: true,
                                             allowsMultipleSelection: allowsMultipleSelection,
                                             searchFilter: searchFilter,
-                                            rowContent: rowContent)
+                                            rowContent: rowContent,
+                                            rowBackground: rowBackground)
         content.selectionUpdated = { newSelections in
             selectionBuffer = newSelections
         }
@@ -139,15 +190,16 @@ public extension SearchableList where CancelActionView == _ConditionalContent<Ac
         contentView = content.typeErased
     }
     
-    internal init<Data: RandomAccessCollection, ID: Hashable, RowContent: View>(
+    internal init<Data: RandomAccessCollection, ID: Hashable, RowContent: View, RowBackground: View>(
         data: Data,
         id: KeyPath<Data.Element, ID>,
         children: KeyPath<Data.Element, Data?>?,
         selection: Binding<Set<ID>>?,
         isTopLevel: Bool,
-        allowsMultipleSelection: Bool = true,
+        allowsMultipleSelection: Bool = false,
         searchFilter: ((Data.Element, String) -> Bool)?,
-        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
     ) {
         self.init()
         self.isTopLevel = isTopLevel
@@ -158,26 +210,28 @@ public extension SearchableList where CancelActionView == _ConditionalContent<Ac
                                             isTopLevel: isTopLevel,
                                             allowsMultipleSelection: allowsMultipleSelection,
                                             searchFilter: searchFilter,
-                                            rowContent: rowContent).typeErased
+                                            rowContent: rowContent,
+                                            rowBackground: rowBackground).typeErased
     }
 }
 
-struct ListRowBackgroundKey: EnvironmentKey {
-    static let defaultValue = Color.preferredColor(.primaryBackground)
+struct ListBackgroundKey: EnvironmentKey {
+    static let defaultValue = Color.preferredColor(.secondaryBackground)
 }
 
 public extension EnvironmentValues {
-    var listRowBackground: Color {
-        get { self[ListRowBackgroundKey.self] }
-        set { self[ListRowBackgroundKey.self] = newValue }
+    /// listBackground environment value
+    var listBackground: Color {
+        get { self[ListBackgroundKey.self] }
+        set { self[ListBackgroundKey.self] = newValue }
     }
 }
 
 public extension View {
     /// List row background color
-    /// - Parameter color: color for list row in searchable list
+    /// - Parameter color: background for `SearchableListView`
     /// - Returns: some View
-    func listRowBackgroundColor(_ color: Color) -> some View {
-        self.environment(\.listRowBackground, color)
+    func listBackground(_ color: Color) -> some View {
+        self.environment(\.listBackground, color)
     }
 }

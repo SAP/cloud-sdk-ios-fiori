@@ -85,6 +85,7 @@ public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 public protocol ActivityItemsModel: ActionItemsComponent {}
 
 // sourcery: generated_component
+// sourcery: add_env_props = "listBackground"
 // sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
@@ -342,11 +343,12 @@ public protocol DurationPickerModel: DurationPickerComponent {}
 
 // sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
 // sourcery: add_env_props = "presentationMode"
-// sourcery: add_env_props = "listRowBackground"
+// sourcery: add_env_props = "listBackground"
 // sourcery: virtualPropContentView = "var contentView: AnyView? = nil"
 // sourcery: virtualPropIsTopLevel = "var isTopLevel: Bool = true"
 // sourcery: virtualPropDataHandler = "var dataHandler: (() -> ())? = nil"
-public protocol SearchableListModel {
+// sourcery: generated_component_composite
+public protocol SearchableListViewModel {
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
     var cancelAction: ActionModel? { get }

@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SearchableList+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SearchableListView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SearchableList `View` body
+//TODO: Implement SearchableListView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SearchableList {
+    enum SearchableListView {
         typealias CancelAction = EmptyModifier
         typealias CancelActionCumulative = EmptyModifier
 		typealias DoneAction = EmptyModifier
@@ -41,22 +41,22 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement SearchableList View body
+// FIXME: - Implement SearchableListView View body
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList: View {
+extension SearchableListView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SearchableList specific LibraryContentProvider
+// FIXME: - Implement SearchableListView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SearchableListLibraryContent: LibraryContentProvider {
+struct SearchableListViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SearchableList(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(SearchableListView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

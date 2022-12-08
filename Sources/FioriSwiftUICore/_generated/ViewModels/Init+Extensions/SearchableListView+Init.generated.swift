@@ -3,7 +3,7 @@
 import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList where CancelActionView == Action {
+extension SearchableListView where CancelActionView == Action {
     public init(
     @ViewBuilder doneAction: () -> DoneActionView
     ) {
@@ -15,7 +15,7 @@ extension SearchableList where CancelActionView == Action {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList where DoneActionView == Action {
+extension SearchableListView where DoneActionView == Action {
     public init(
     @ViewBuilder cancelAction: () -> CancelActionView
     ) {
@@ -27,7 +27,7 @@ extension SearchableList where DoneActionView == Action {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableList where CancelActionView == Action, DoneActionView == Action {
+extension SearchableListView where CancelActionView == Action, DoneActionView == Action {
     public init(
     
     ) {
