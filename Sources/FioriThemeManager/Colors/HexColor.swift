@@ -101,64 +101,90 @@ public struct HexColor: Hashable {
         self.colors[variant] ?? "FFFFFFFF"
     }
     
-    /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
-    ///
-    /// - parameters:
-    ///     - background: specifies the background color scheme, default is `.device`.
-    ///     - interface: specifies the user interface level, default is `.device`.
-    ///     - display: specifies the display mode, default is `.normal`.
-    /// - Returns: the string value for corresponding `HexColor` with specific color variant.
-    public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
-        var variant = ColorVariant.dark
-        let isDarkInterfaceStyle = collection.userInterfaceStyle == .dark
-        let interfaceStyle: UIUserInterfaceStyle = {
-            switch (scheme ?? .device, isDarkInterfaceStyle) {
-            case (.lightConstant, _), (.deviceInverse, true), (.device, false):
-                return .light
-            case (.darkConstant, _), (.deviceInverse, false), (.device, true):
-                return .dark
+    #if os(iOS)
+        /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
+        ///
+        /// - parameters:
+        ///     - background: specifies the background color scheme, default is `.device`.
+        ///     - interface: specifies the user interface level, default is `.device`.
+        ///     - display: specifies the display mode, default is `.normal`.
+        /// - Returns: the string value for corresponding `HexColor` with specific color variant.
+        public func getVariant(traits collection: UITraitCollection, background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
+            var variant = ColorVariant.dark
+            let isDarkInterfaceStyle = collection.userInterfaceStyle == .dark
+            let interfaceStyle: UIUserInterfaceStyle = {
+                switch (scheme ?? .device, isDarkInterfaceStyle) {
+                case (.lightConstant, _), (.deviceInverse, true), (.device, false):
+                    return .light
+                case (.darkConstant, _), (.deviceInverse, false), (.device, true):
+                    return .dark
+                }
+            }()
+            let isElevatedInterfaceLevel = collection.userInterfaceLevel == .elevated
+            let interfaceLevel: UIUserInterfaceLevel = {
+                switch (level ?? .device, isElevatedInterfaceLevel) {
+                case (.baseConstant, _), (.deviceInverse, true), (.device, false):
+                    return .base
+                case (.elevatedConstant, _), (.deviceInverse, false), (.device, true):
+                    return .elevated
+                }
+            }()
+            let isAccessibilityHighContrast = collection.accessibilityContrast == .high
+            let accessibilityContrast: UIAccessibilityContrast = {
+                switch (mode ?? .device, isAccessibilityHighContrast) {
+                case (.normalConstant, _), (.deviceInverse, true), (.device, false):
+                    return .normal
+                case (.highConstant, _), (.deviceInverse, false), (.device, true):
+                    return .high
+                }
+            }()
+            switch (interfaceStyle, interfaceLevel, accessibilityContrast) {
+            case (.light, .base, .normal):
+                variant = .dark
+            case (.dark, .base, .normal):
+                variant = .light
+            case (.light, .elevated, .normal):
+                variant = .elevatedDark
+            case (.dark, .elevated, .normal):
+                variant = .elevatedLight
+            case (.light, .base, .high):
+                variant = .contrastDark
+            case (.dark, .base, .high):
+                variant = .contrastLight
+            case (.light, .elevated, .high):
+                variant = .elevatedContrastDark
+            case (.dark, .elevated, .high):
+                variant = .elevatedContrastLight
+            default:
+                break
             }
-        }()
-        let isElevatedInterfaceLevel = collection.userInterfaceLevel == .elevated
-        let interfaceLevel: UIUserInterfaceLevel = {
-            switch (level ?? .device, isElevatedInterfaceLevel) {
-            case (.baseConstant, _), (.deviceInverse, true), (.device, false):
-                return .base
-            case (.elevatedConstant, _), (.deviceInverse, false), (.device, true):
-                return .elevated
-            }
-        }()
-        let isAccessibilityHighContrast = collection.accessibilityContrast == .high
-        let accessibilityContrast: UIAccessibilityContrast = {
-            switch (mode ?? .device, isAccessibilityHighContrast) {
-            case (.normalConstant, _), (.deviceInverse, true), (.device, false):
-                return .normal
-            case (.highConstant, _), (.deviceInverse, false), (.device, true):
-                return .high
-            }
-        }()
-        switch (interfaceStyle, interfaceLevel, accessibilityContrast) {
-        case (.light, .base, .normal):
-            variant = .dark
-        case (.dark, .base, .normal):
-            variant = .light
-        case (.light, .elevated, .normal):
-            variant = .elevatedDark
-        case (.dark, .elevated, .normal):
-            variant = .elevatedLight
-        case (.light, .base, .high):
-            variant = .contrastDark
-        case (.dark, .base, .high):
-            variant = .contrastLight
-        case (.light, .elevated, .high):
-            variant = .elevatedContrastDark
-        case (.dark, .elevated, .high):
-            variant = .elevatedContrastLight
-        default:
-            break
+            return variant
         }
-        return variant
-    }
+    #endif
+    
+    #if os(watchOS)
+        /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
+        ///
+        /// - parameters:
+        ///     - background: specifies the background color scheme, default is `.device`.
+        ///     - interface: specifies the user interface level, default is `.device`.
+        ///     - display: specifies the display mode, default is `.normal`.
+        /// - Returns: the string value for corresponding `HexColor` with specific color variant.
+        public func getVariant(background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
+            switch scheme ?? .device {
+            /// - Use device interface style for background scheme, so foreground colors will be adjusted based on device background
+            case .device:
+                /// - Use inversed device interface style for background scheme, so foreground colors will be adjusted as opposite to device background
+                return .light
+            case .deviceInverse:
+                return .dark
+            case .lightConstant:
+                return .dark
+            case .darkConstant:
+                return .light
+            }
+        }
+    #endif
 }
 
 extension HexColor: Equatable {

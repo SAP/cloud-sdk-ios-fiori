@@ -161,31 +161,39 @@ public class ThemeManager {
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
         guard let hc = self.hexColor(for: style) else { return .clear }
-        let uc = UIColor { [weak self] traitCollection in
-            guard let self = self else { return .clear }
-            guard let hexColor = self.hexColor(for: style) else { return .clear }
-            let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
-            
-            let hexColorString: String = hc.hex(variant)
-            
-            if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
-                return ssOverrideColor.uiColor()
+        #if os(iOS)
+            let uc = UIColor { [weak self] traitCollection in
+                guard let self = self else { return .clear }
+                guard let hexColor = self.hexColor(for: style) else { return .clear }
+                let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
+                return self.color(for: style, hexColor: hc, variant: variant)?.uiColor() ?? .clear
             }
-            
-            if let ssHexColor = self.nssHexColor(for: style, with: variant) {
-                if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
-                    self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
-                    return ssColor.uiColor()
-                }
-            }
-            
-            if let devOverrideColor = self.developerOverrides[style, default: [:]][variant] {
-                return devOverrideColor.uiColor()
-            }
-            
-            return Color(hex: hexColorString)?.uiColor() ?? .clear
+            return uc
+        #else
+            let variant = hc.getVariant(background: scheme, interface: level, display: mode)
+            return self.color(for: style, hexColor: hc, variant: variant)?.uiColor() ?? .clear
+        #endif
+    }
+    
+    func color(for style: ColorStyle, hexColor: HexColor, variant: ColorVariant) -> Color? {
+        let hexColorString: String = hexColor.hex(variant)
+
+        if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
+            return ssOverrideColor
         }
-        return uc
+
+        if let ssHexColor = self.nssHexColor(for: style, with: variant) {
+            if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
+                self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
+                return ssColor
+            }
+        }
+
+        if let devOverrideColor = self.developerOverrides[style, default: [:]][variant] {
+            return devOverrideColor
+        }
+
+        return Color(hex: hexColorString)
     }
     
     func nssHexColor(for style: ColorStyle, with variant: ColorVariant) -> String? {

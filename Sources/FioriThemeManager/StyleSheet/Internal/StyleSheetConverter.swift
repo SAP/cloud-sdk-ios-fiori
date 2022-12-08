@@ -24,7 +24,7 @@ enum StyleSheetConverter {
             return .blue
         case "cyan":
             #if swift(>=5.5)
-                if #available(iOS 15.0, *) {
+                if #available(iOS 15.0, watchOS 8.0, *) {
                     return .cyan
                 } else {
                     return Color(.cyan)
@@ -42,7 +42,7 @@ enum StyleSheetConverter {
             return .purple
         case "brown":
             #if swift(>=5.5)
-                if #available(iOS 15.0, *) {
+                if #available(iOS 15.0, watchOS 8.0, *) {
                     return .brown
                 } else {
                     return Color(.brown)
