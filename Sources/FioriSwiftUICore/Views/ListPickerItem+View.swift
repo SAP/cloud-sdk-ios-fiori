@@ -1,3 +1,4 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -28,7 +29,7 @@ extension Fiori {
 extension ListPickerItem: View {
     public var body: some View {
         NavigationLink(
-            destination: destinationView,
+            destination: destinationView?.environment(\.listBackground, listBackground),
             label: {
                 KeyValueItem {
                     key
@@ -72,6 +73,23 @@ public struct ListPickerItemConfiguration {
     ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
     ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
     ///   - rowContent: The view builder which returns the content of each row in the list picker.
+    ///   - rowBackground: `listRowBackground` for each row.
+    @available(iOS 15.0, macOS 12.0, *)
+    public init<Data, ID, RowContent, RowBackground>(
+        _ data: Data,
+        id: KeyPath<Data.Element, ID>,
+        children: KeyPath<Data.Element, Data?>?,
+        selection: Binding<Set<ID>>?,
+        allowsMultipleSelection: Bool = true,
+        searchFilter: ((Data.Element, String) -> Bool)?,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
+    )
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
+    {
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground)
+    }
+    
     @available(iOS 15.0, macOS 12.0, *)
     public init<Data, ID, RowContent>(_ data: Data,
                                       id: KeyPath<Data.Element, ID>,
@@ -82,7 +100,7 @@ public struct ListPickerItemConfiguration {
                                       @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
         where Data: RandomAccessCollection, RowContent: View, ID: Hashable
     {
-        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent)
+        self.init(data, id: id, children: children, selection: selection, isTopLevel: true, allowsMultipleSelection: allowsMultipleSelection, searchFilter: searchFilter, rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) })
     }
     
     /// Creates a configuration object from a collection of data which supports both single-level and multi-level picker with the ability to select multiple items.
@@ -146,17 +164,20 @@ public extension ListPickerItemConfiguration {
     }
 }
 
-private extension ListPickerItemConfiguration {
+internal extension ListPickerItemConfiguration {
     @available(iOS 15.0, macOS 12.0, *)
-    init<Data, ID, RowContent>(_ data: Data,
-                               id: KeyPath<Data.Element, ID>,
-                               children: KeyPath<Data.Element, Data?>?,
-                               selection: Binding<Set<ID>>?,
-                               isTopLevel: Bool,
-                               allowsMultipleSelection: Bool,
-                               searchFilter: ((Data.Element, String) -> Bool)?,
-                               @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-        where Data: RandomAccessCollection, RowContent: View, ID: Hashable
+    init<Data, ID, RowContent, RowBackground>(
+        _ data: Data,
+        id: KeyPath<Data.Element, ID>,
+        children: KeyPath<Data.Element, Data?>?,
+        selection: Binding<Set<ID>>?,
+        isTopLevel: Bool,
+        allowsMultipleSelection: Bool,
+        searchFilter: ((Data.Element, String) -> Bool)?,
+        @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
+        rowBackground: ((Data.Element) -> RowBackground)? = nil
+    )
+        where Data: RandomAccessCollection, RowContent: View, ID: Hashable, RowBackground: View
     {
         self.destinationView = SearchableListView(data: data,
                                                   id: id,
@@ -165,7 +186,9 @@ private extension ListPickerItemConfiguration {
                                                   isTopLevel: isTopLevel,
                                                   allowsMultipleSelection: allowsMultipleSelection,
                                                   searchFilter: searchFilter,
-                                                  rowContent: rowContent).typeErased
+                                                  rowContent: rowContent,
+                                                  rowBackground: rowBackground)
+            .typeErased
     }
 }
 
@@ -208,160 +231,5 @@ extension ListPickerItem {
                 }
             }
         }
-    }
-}
-
-@available(iOS 15.0, macOS 12.0, *)
-public struct SearchableListView<Data: RandomAccessCollection,
-    ID: Hashable,
-    RowContent: View>: View
-{
-    @Environment(\.presentationMode) var presentationMode
-    
-    @State var searchText = ""
-    @State private var selectionBuffer: Set<ID>
-
-    let data: Data
-    let id: KeyPath<Data.Element, ID>
-    let children: KeyPath<Data.Element, Data?>?
-    let selection: Binding<Set<ID>>?
-    let searchFilter: ((Data.Element, String) -> Bool)?
-    let allowsMultipleSelection: Bool
-    let rowContent: (Data.Element) -> RowContent
-    
-    private let isTopLevel: Bool
-    
-    /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
-    /// - Parameters:
-    ///   - data: The data for constructing the list picker.
-    ///   - id: The key path to the data model's unique identifier.
-    ///   - children: The key path to the optional property of a data element whose value indicates the children of that element.
-    ///   - selection: A binding to a set which stores the selected items.
-    ///   - allowsMultipleSelection: A boolean value to indicate to allow multiple selections or not.
-    ///   - searchFilter: The closure to filter the `data` in searching process. Request a boolen by the element and the filter key.
-    ///   - rowContent: The view builder which returns the content of each row in the list picker.
-    public init(data: Data,
-                id: KeyPath<Data.Element, ID>,
-                children: KeyPath<Data.Element, Data?>?,
-                selection: Binding<Set<ID>>?,
-                allowsMultipleSelection: Bool = true,
-                searchFilter: ((Data.Element, String) -> Bool)?,
-                @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-    {
-        self.init(data: data,
-                  id: id,
-                  children: children,
-                  selection: selection,
-                  isTopLevel: true,
-                  allowsMultipleSelection: allowsMultipleSelection,
-                  searchFilter: searchFilter,
-                  rowContent: rowContent)
-    }
-    
-    internal init(data: Data,
-                  id: KeyPath<Data.Element, ID>,
-                  children: KeyPath<Data.Element, Data?>?,
-                  selection: Binding<Set<ID>>?,
-                  isTopLevel: Bool,
-                  allowsMultipleSelection: Bool,
-                  searchFilter: ((Data.Element, String) -> Bool)?,
-                  @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent)
-    {
-        self.data = data
-        self.id = id
-        self.selection = selection
-        self.children = children
-        self.isTopLevel = isTopLevel
-        self.searchFilter = searchFilter
-        self.allowsMultipleSelection = allowsMultipleSelection
-        self.rowContent = rowContent
-        self._selectionBuffer = State(wrappedValue: selection?.wrappedValue ?? Set<ID>())
-    }
-
-    public var body: some View {
-        #if swift(>=5.5)
-            List {
-                ForEach(data.filter { element in
-                    if let searchFilter = searchFilter {
-                        return searchFilter(element, searchText)
-                    } else {
-                        return true
-                    }
-                }, id: id) { element in
-                    let row = rowContent(element)
-                    let id_value = element[keyPath: id]
-                
-                    if let children = children, let childrenData = element[keyPath: children] {
-                        let configuration = ListPickerItemConfiguration(childrenData,
-                                                                        id: id,
-                                                                        children: children,
-                                                                        selection: !isTopLevel ? selection : $selectionBuffer,
-                                                                        isTopLevel: false,
-                                                                        allowsMultipleSelection: allowsMultipleSelection,
-                                                                        searchFilter: searchFilter,
-                                                                        rowContent: rowContent)
-                        ListPickerItem<RowContent, EmptyView>(key: {
-                            row
-                        }, value: {
-                            EmptyView()
-                        }, configuration: configuration)
-                    } else {
-                        ListPickerItem.Row(content: row,
-                                           id: id_value,
-                                           selection: !isTopLevel ? selection : $selectionBuffer,
-                                           allowsMultipleSelection: allowsMultipleSelection)
-                    }
-                }
-            }
-            .ifApply(searchFilter != nil, content: {
-                $0.searchable(text: $searchText)
-            })
-            .ifApply(isTopLevel) {
-                $0.toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Button("Cancel") {
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button("Confirm") {
-                            selection?.wrappedValue = selectionBuffer
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    }
-                }
-                .navigationBarBackButtonHidden(true)
-            }
-        #else
-            List {
-                ForEach(data.filter { element in
-                    if let searchFilter = searchFilter {
-                        return searchFilter(element, searchText)
-                    } else {
-                        return true
-                    }
-                }, id: id) { element in
-                    let row = rowContent(element)
-                    let id_value = element[keyPath: id]
-                    if let children = children, let childrenData = element[keyPath: children] {
-                        let configuration = ListPickerItemConfiguration(childrenData,
-                                                                        id: id,
-                                                                        children: children,
-                                                                        selection: !isTopLevel ? selection : $selectionBuffer,
-                                                                        isTopLevel: false,
-                                                                        allowsMultipleSelection: allowsMultipleSelection,
-                                                                        searchFilter: searchFilter,
-                                                                        rowContent: rowContent)
-                        ListPickerItem<RowContent, EmptyView>(key: {
-                            row
-                        }, value: {
-                            EmptyView()
-                        }, configuration: configuration)
-                    } else {
-                        ListPickerItem.Row(content: row, id: id_value, selection: !isTopLevel ? selection : $selectionBuffer)
-                    }
-                }
-            }
-        #endif
     }
 }
