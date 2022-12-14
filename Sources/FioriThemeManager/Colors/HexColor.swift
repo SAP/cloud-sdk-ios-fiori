@@ -171,17 +171,24 @@ public struct HexColor: Hashable {
         ///     - display: specifies the display mode, default is `.normal`.
         /// - Returns: the string value for corresponding `HexColor` with specific color variant.
         public func getVariant(background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
-            switch scheme ?? .device {
-            /// - Use device interface style for background scheme, so foreground colors will be adjusted based on device background
-            case .device:
-                /// - Use inversed device interface style for background scheme, so foreground colors will be adjusted as opposite to device background
+            // using "High Contrast Dark Mode" color palette for watch per default, because the colors in watch apps are generally brighter than in the related mobile apps in dark mode.
+            switch (scheme ?? .device, mode ?? .device) {
+            case (.device, .normalConstant):
                 return .light
-            case .deviceInverse:
+            case (.deviceInverse, .normalConstant):
                 return .dark
-            case .lightConstant:
+            case (.device, _):
+                return .contrastLight
+            case (.lightConstant, .normalConstant):
                 return .dark
-            case .darkConstant:
-                return .light
+            case (.lightConstant, _):
+                return .dark
+            case (.darkConstant, .normalConstant):
+                return .dark
+            case (.darkConstant, _):
+                return .contrastDark
+            default:
+                return .contrastLight
             }
         }
     #endif
