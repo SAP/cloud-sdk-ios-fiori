@@ -171,7 +171,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         doneAction: Action? = Action(model: _DoneActionDefault())
     ) {
         self.init(cancelAction: cancelAction, doneAction: doneAction)
-        var selectionBuffer: Set<ID>?
+        var selectionBuffer = selection?.wrappedValue
         var content = SearchableListContent(data: data,
                                             id: id,
                                             children: children,
