@@ -88,6 +88,14 @@ public struct _SaveActionDefault: ActionModel {
     public init() {}
 }
 
+public struct _DoneActionDefault: ActionModel {
+    public var actionText: String? {
+        NSLocalizedString("Done", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
+    }
+
+    public init() {}
+}
+
 public let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> AlertConfiguration? = { alertType in
     switch alertType {
     case .deny:

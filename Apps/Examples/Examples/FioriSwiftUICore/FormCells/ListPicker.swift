@@ -87,9 +87,13 @@ struct ListPickerItemExample: View {
                     Text("Searchable List Picker Item")
                 }
             case .searchableListView:
-                NavigationLink(
-                    destination: SearchableListViewExample()) {
-                    Text("Searchable List View")
+                if #available(iOS 15, *) {
+                    NavigationLink(
+                        destination: SearchableListViewExample()) {
+                        Text("Searchable List View")
+                    }
+                } else {
+                    Text("Searchable List View only available for iOS 15+")
                 }
             }
         }
