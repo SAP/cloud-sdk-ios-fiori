@@ -39,41 +39,13 @@ class Universe: KPIItemModel, Identifiable {
     }
 }
 
-struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagination is responsibility of container
+struct KPIHeaderFreestyleExample: View {
     var data: [KPIItemModel] = [World(), Space(), Universe()]
 
     var body: some View {
         VStack {
             ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
-
-            // pro: don't have to work with KPI view
-            // con: no individual styling possible
-            KPIHeaderControl(data, id: \.kpi).titleModifier { $0.font(.headline).foregroundColor(.red) }
-
-            // pro: can work with any view
-            // pro: allow individual styling
-            KPILayoutContainer(data, id: \.kpi) { element in
-                KPIItem(kpi: {
-                    Text(element.kpi ?? "")
-                }, subtitle: {
-                    if element.subtitle != nil {
-                        Text(element.subtitle!)
-                    } else {
-                        EmptyView()
-                    }
-                })
-            }
-
-            // pro: can restrict number of elements (i.e. only two KPIs will be shown even more were specified)
-            KPILayoutContainer(0 ..< 6, id: \.self) { index in
-                KPIItem(kpi: {
-                    Text("\(index)")
-                }, subtitle: {
-                    EmptyView()
-                })
-            }
-
-            // con: not possible to limit the number of views to be shown (only possible with model-based initializers)
+            
             KPIHeader {
                 KPIItem(kpi: {
                     Text("One")
@@ -84,6 +56,9 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
+                    .background(Color.random)
+                    .frame(width: 100)
+
                 KPIItem(kpi: {
                     Text("Two")
                 }, subtitle: {
@@ -93,6 +68,9 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
+                    .background(Color.random)
+                    .frame(width: 80)
+
                 KPIItem(kpi: {
                     Text("Three")
                 }, subtitle: {
@@ -102,6 +80,8 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
+                    .background(Color.random)
+                
                 KPIItem(kpi: {
                     Text("Four")
                 }, subtitle: {
@@ -111,6 +91,8 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
+                    .background(Color.random)
+                
                 KPIItem(kpi: {
                     Text("Five")
                 }, subtitle: {
@@ -120,6 +102,8 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
+                    .background(Color.random)
+                
                 KPIItem(kpi: {
                     Text("Six")
                 }, subtitle: {
@@ -129,18 +113,42 @@ struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagina
                         Image(systemName: "square.and.pencil")
                     }
                 })
-                KPIItem(kpi: {
-                    Text("Seven")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
+                    .background(Color.random)
             }
+            .frame(height: 150)
+            
+            KPIHeader {
+                createItem(120)
+                createItem(200)
+                createItem(400)
+                createItem(200)
+                createItem(222)
+            }
+            .frame(height: 100)
+            
+            Text("Group may break the max count limitation and pages organization")
+            KPIHeader {
+                createItem(120)
+                Group {
+                    createItem(200)
+                    createItem(400)
+                    createItem(200)
+                    createItem(222)
+                }
+            }
+            .frame(height: 100)
+            
+            Spacer()
         }
-        .environment(\.horizontalSizeClass, .regular)
+    }
+    
+    @ViewBuilder
+    private func createItem(_ width: CGFloat) -> some View {
+        ZStack {
+            Color.random
+            Text(String(format: "width: %.1f", width))
+        }
+        .frame(width: width)
     }
 }
 

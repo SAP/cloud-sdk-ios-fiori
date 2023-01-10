@@ -1,217 +1,131 @@
-import Foundation
+import Combine
 import SwiftUI
 
-public protocol KPIListModel: KPIListComponent {}
-
-/// Components for KPIListModel
-public protocol KPIListComponent {
-    /// List of KPIItems
-    var kpis: [KPIItemModel]? { get }
-}
-
-public struct KPIHeader<KPIContainer: View> {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
-    private let _kpis: () -> KPIContainer
-
-    public init(@ViewBuilder kpis: @escaping () -> KPIContainer) {
-        self._kpis = kpis
+public struct KPIHeader: View {
+    private let items: [AnyView]
+    private let minItemSpacing: CGFloat = 4
+    private let maxNumberOfItems = 4
+    
+    @ObservedObject private var context = KPIHeaderContext()
+    
+    public init(@ListItemsBuilder items: @escaping () -> [AnyView]) {
+        self.items = items()
     }
-
-    @ViewBuilder var kpis: some View {
-        _kpis()
-    }
-}
-
-// Question: can the initializer be for everything?
-public extension KPIHeader where KPIContainer == KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>> {
-    /// Initializer for building one KPI item model in a KPIContainer
-    init(oneKpi: [KPIItemModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: oneKpi[0])) }
-    }
-}
-
-public extension KPIHeader where KPIContainer == TupleView<(KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>)> {
-    /// Initializer for building two KPI item models in a KPIContainer
-    init(twoKpis: [KPIItemModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: twoKpis[0]), KPIItem(model: twoKpis[1])) }
-    }
-}
-
-public extension KPIHeader where KPIContainer == TupleView<(KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>, KPIItem<_ConditionalContent<Text, EmptyView>, _ConditionalContent<Text, EmptyView>>)> {
-    /// Initializer for building three KPI item models in a KPIContainer
-    init(threeKpis: [KPIItemModel]) {
-        self._kpis = { ViewBuilder.buildBlock(KPIItem(model: threeKpis[0]), KPIItem(model: threeKpis[1]), KPIItem(model: threeKpis[2])) }
-    }
-}
-
-extension Fiori {
-    enum KPIHeader {
-        typealias KPIList = EmptyModifier
-
-        // TODO: - substitute type-specific ViewModifier for EmptyModifier
-        /*
-         // replace `typealias Subtitle = EmptyModifier` with:
-
-         struct Subtitle: ViewModifier {
-         func body(content: Content) -> some View {
-         content
-         .font(.body)
-         .foregroundColor(.preferredColor(.primary3))
-         }
-         }
-         */
-        static let kpiList = KPIList()
-    }
-}
-
-// TODO: - Implement KPI View body
-
-extension KPIHeader: View {
+    
     public var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(alignment: .leading) {
-                kpis
+        if context.isViewOrganized {
+            TabView {
+                ForEach(0 ..< context.organizedItems.count, id: \.self) { index in
+                    context.organizedItems[index]
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+            .onReceive(resizePublisher) { _ in
+                context.reset()
             }
         } else {
-            if #available(iOS 14.0, *) {
-                TabView {
-                    kpis
-                }
-                .tabViewStyle(PageTabViewStyle())
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            } else {
-                HStack {
-                    kpis
-                }
-            }
-        }
-    }
-}
-
-public struct KPIHeaderControl<Data, ID>: View where Data: RandomAccessCollection, ID: Hashable {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
-    private let data: Data
-    private let dataId: KeyPath<Data.Element, ID>
-
-    public var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(alignment: .leading) {
-                ForEach(data, id: self.dataId) { element in
-                    if let model = element as? KPIItemModel {
-                        KPIItem(kpi: model.kpi, subtitle: model.subtitle)
-                    }
-                }
-            }
-        } else {
-            if #available(iOS 14.0, *) {
-                TabView {
-                    ForEach(data, id: self.dataId) { element in
-                        if let model = element as? KPIItemModel {
-                            KPIItem(kpi: model.kpi, subtitle: model.subtitle)
+            ScrollView {
+                VStack {
+                    ForEach(0 ..< min(items.count, maxNumberOfItems), id: \.self) { index in
+                        TabView {
+                            HStack(spacing: 0) {
+                                items[index]
+                            }
+                            .sizeReader { size in
+                                updateContext(index: index, size: size)
+                            }
                         }
+                        .tabViewStyle(PageTabViewStyle())
                     }
                 }
-                .tabViewStyle(PageTabViewStyle())
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-            } else {
-                HStack {
-                    ForEach(data, id: self.dataId) { element in
-                        if let model = element as? KPIItemModel {
-                            KPIItem(kpi: model.kpi, subtitle: model.subtitle)
-                        }
-                    }
-                }
+            }
+            .sizeReader { size in
+                context.containerSize = size
+                reLayoutView()
             }
         }
     }
-}
-
-public extension KPIHeaderControl {
-    /// Creates an instance that uniquely identifies views across updates based
-    /// on the `id` key path to a property on an underlying data element.
-    ///
-    /// - Parameter data: A collection of data.
-    /// - Parameter id: Key path to a property on an underlying data element.
-    /// - Parameter content: A function that can be used to generate content on demand given underlying data.
-    init(_ data: Data, id: KeyPath<Data.Element, ID>) {
-        self.data = data
-        self.dataId = id
-    }
-}
-
-public extension KPIHeaderControl where ID == Data.Element.ID, Data.Element: Identifiable {
-    /// Creates an instance that uniquely identifies views across updates based
-    /// on the identity of the underlying data element.
-    ///
-    /// - Parameter data: A collection of identified data.
-    /// - Parameter content: A function that can be used to generate content on demand given underlying data.
-    init(_ data: Data) {
-        self.data = data
-        self.dataId = \Data.Element.id
-    }
-}
-
-public struct KPILayoutContainer<Data, ID, Content>: View where Data: RandomAccessCollection, Content: View, ID: Hashable {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-
-    private let data: Data
-    private let dataId: KeyPath<Data.Element, ID>
-    private let content: (Data.Element) -> Content
-
-    private let maxNumerOfItems: Int = 2
-
-    public var body: some View {
-        if horizontalSizeClass == .compact {
-            VStack(alignment: .leading) {
-                ForEach(data.prefix(maxNumerOfItems), id: self.dataId) { element in
-                    self.content(element)
-                }
-            }
+    
+    private func updateContext(index: Int, size: CGSize) {
+        if let oldSize = context.itemsSize[index], oldSize == size {
         } else {
-            if #available(iOS 14.0, *) {
-                TabView {
-                    ForEach(data.prefix(maxNumerOfItems), id: self.dataId) { element in
-                        self.content(element)
-                    }
+            self.context.itemsSize[index] = size
+        }
+        self.reLayoutView()
+    }
+    
+    private func reLayoutView() {
+        guard self.context.itemsSize.count == min(self.items.count, self.maxNumberOfItems), self.context.containerSize.width > 0 else { return }
+        self.context.organizedItems = self.organizeItems()
+        self.context.isViewOrganized = true
+    }
+    
+    private func organizeItems() -> [AnyView] {
+        var organizedItems: [AnyView] = []
+        let pageWidth = self.context.containerSize.width
+        var itemsTotalWidth: CGFloat = 0
+        var pageItems: [AnyView] = []
+        for index in 0 ..< self.context.itemsSize.count {
+            guard let itemSize = context.itemsSize[index] else { break }
+            let itemWidth = itemSize.width
+            if itemWidth + itemsTotalWidth > pageWidth {
+                itemsTotalWidth = 0
+                if pageItems.count == 0 {
+                    organizedItems.append(self.items[index])
+                } else if pageItems.count == 1 {
+                    organizedItems.append(pageItems[0])
+                    pageItems.removeAll()
+                    pageItems.append(self.items[index])
+                    itemsTotalWidth += (itemWidth + self.minItemSpacing)
+                } else {
+                    organizedItems.append(self.mergedHorizontalItems(pageItems))
+                    pageItems.removeAll()
+                    pageItems.append(self.items[index])
+                    itemsTotalWidth += (itemWidth + self.minItemSpacing)
                 }
-                .tabViewStyle(PageTabViewStyle())
-                .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
             } else {
-                HStack {
-                    ForEach(data.prefix(maxNumerOfItems), id: self.dataId) { element in
-                        self.content(element)
-                    }
-                }
+                pageItems.append(self.items[index])
+                itemsTotalWidth += (itemWidth + self.minItemSpacing)
             }
         }
+        if pageItems.count == 1 {
+            organizedItems.append(pageItems[0])
+        } else if pageItems.count > 1 {
+            organizedItems.append(self.mergedHorizontalItems(pageItems))
+        }
+        return organizedItems
+    }
+    
+    private func mergedHorizontalItems(_ items: [AnyView]) -> AnyView {
+        HStack(spacing: self.minItemSpacing) {
+            ForEach(0 ..< items.count, id: \.self) { index in
+                items[index]
+            }
+        }.typeErased
+    }
+    
+    private var resizePublisher: AnyPublisher<Void, Never> {
+        let orientationPublisher = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+            .compactMap { _ in () }
+        let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+            .compactMap { _ in () }
+        return Publishers.Merge(orientationPublisher, sizeCategoryPublisher)
+            .eraseToAnyPublisher()
     }
 }
 
-public extension KPILayoutContainer {
-    /// Creates an instance that uniquely identifies views across updates based
-    /// on the `id` key path to a property on an underlying data element.
-    ///
-    /// - Parameter data: A collection of data.
-    /// - Parameter id: Key path to a property on an underlying data element.
-    /// - Parameter content: A function that can be used to generate content on demand given underlying data.
-    init(_ data: Data, id: KeyPath<Data.Element, ID>, content: @escaping (Data.Element) -> Content) {
-        self.data = data
-        self.dataId = id
-        self.content = content
-    }
-}
-
-public extension KPILayoutContainer where ID == Data.Element.ID, Data.Element: Identifiable {
-    /// Creates an instance that uniquely identifies views across updates based
-    /// on the identity of the underlying data element.
-    ///
-    /// - Parameter data: A collection of identified data.
-    /// - Parameter content: A function that can be used to generate content on demand given underlying data.
-    init(_ data: Data, content: @escaping (Data.Element) -> Content) {
-        self.data = data
-        self.dataId = \Data.Element.id
-        self.content = content
+class KPIHeaderContext: ObservableObject {
+    var containerSize: CGSize = .zero
+    var itemsSize: [Int: CGSize] = [:]
+    var organizedItems: [AnyView] = []
+    
+    @Published var isViewOrganized: Bool = false
+    
+    func reset() {
+        self.containerSize = .zero
+        self.itemsSize.removeAll()
+        self.organizedItems.removeAll()
+        self.isViewOrganized = false
     }
 }
