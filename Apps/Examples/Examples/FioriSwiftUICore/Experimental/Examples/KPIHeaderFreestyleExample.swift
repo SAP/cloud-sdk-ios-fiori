@@ -7,7 +7,23 @@ class World: KPIItemModel, Identifiable {
         "Hello World"
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "World subtitle"
+    }
+}
+
+class Galaxy: KPIProgressItemModel, Identifiable {
+    var kpi: String? {
+        "Hello Galaxy"
+    }
+    
+    var footnote: String? {
+        "Galaxy footnote"
+    }
+    
+    var subtitle: String? {
+        "What's outside"
+    }
 }
 
 class Space: KPIItemModel, Identifiable {
@@ -18,7 +34,9 @@ class Space: KPIItemModel, Identifiable {
         return formatter.string(from: distanceInMiles)
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "Space subtitle"
+    }
 }
 
 class Universe: KPIItemModel, Identifiable {
@@ -28,7 +46,9 @@ class Universe: KPIItemModel, Identifiable {
         return formattedValue ?? "Hello Universe"
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "Universe subtitle"
+    }
 
     var formatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -40,105 +60,40 @@ class Universe: KPIItemModel, Identifiable {
 }
 
 struct KPIHeaderFreestyleExample: View {
-    var data: [KPIItemModel] = [World(), Space(), Universe()]
+    var data: [KPIHeaderItemModel] = [World(), Galaxy(), Space(), Universe()]
 
     var body: some View {
-        VStack {
-            ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
-            
-            KPIHeader {
-                KPIItem(kpi: {
-                    Text("One")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-                    .frame(width: 100)
-
-                KPIItem(kpi: {
-                    Text("Two")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-                    .frame(width: 80)
-
-                KPIItem(kpi: {
-                    Text("Three")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-                
-                KPIItem(kpi: {
-                    Text("Four")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-                
-                KPIItem(kpi: {
-                    Text("Five")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-                
-                KPIItem(kpi: {
-                    Text("Six")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                    .background(Color.random)
-            }
-            .frame(height: 150)
-            
-            KPIHeader {
-                createItem(120)
-                createItem(200)
-                createItem(400)
-                createItem(200)
-                createItem(222)
-            }
-            .frame(height: 100)
-            
-            Text("Group may break the max count limitation and pages organization")
-            KPIHeader {
-                createItem(120)
-                Group {
+        ScrollView {
+            VStack {
+                ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
+                KPIHeader {
+                    KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
+                    KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
+                        .disabled(true)
+                    KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
+                    KPIProgressItem(data: .percent(0.66), footnote: "Completed")
+                }
+                KPIHeader(data)
+                KPIHeader {
+                    createItem(120)
                     createItem(200)
                     createItem(400)
                     createItem(200)
-                    createItem(222)
                 }
+                .frame(height: 100)
+                Text("Group may break the max count limitation and pages organization")
+                KPIHeader {
+                    createItem(120)
+                    Group {
+                        createItem(200)
+                        createItem(400)
+                        createItem(200)
+                        createItem(222)
+                    }
+                }
+                .frame(height: 100)
+                Spacer()
             }
-            .frame(height: 100)
-            
-            Spacer()
         }
     }
     

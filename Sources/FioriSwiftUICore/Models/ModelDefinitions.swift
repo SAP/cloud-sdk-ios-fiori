@@ -60,14 +60,14 @@ public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
-public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
+public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
 
 // sourcery: virtualPropIsPressed = "@State var isPressed: Bool = false"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 // sourcery: add_env_props = "kpiProgressViewStyle"
 // sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
@@ -357,3 +357,5 @@ public protocol SearchableListViewModel {
     // sourcery: default.value = _DoneActionDefault()
     var doneAction: ActionModel? { get }
 }
+
+public protocol KPIHeaderItemModel {}
