@@ -22,9 +22,28 @@ extension View {
             .hidden()
         )
     }
+    
+    func sizeReader(in coordinateSpace: CoordinateSpace = .global, size: @escaping (CGSize) -> Void) -> some View {
+        background(
+            GeometryReader { geometry in
+                let frame = geometry.frame(in: coordinateSpace)
+                Color.clear
+                    .preference(key: ContentSizeReaderPreferenceKey.self, value: frame.size)
+                    .onPreferenceChange(ContentSizeReaderPreferenceKey.self) { newValue in
+                        size(newValue)
+                    }
+            }
+            .hidden()
+        )
+    }
 }
 
 struct ContentFrameReaderPreferenceKey: PreferenceKey {
     static var defaultValue: CGRect { CGRect() }
     static func reduce(value: inout CGRect, nextValue: () -> CGRect) { value = nextValue() }
+}
+
+struct ContentSizeReaderPreferenceKey: PreferenceKey {
+    static var defaultValue: CGSize { .zero }
+    static func reduce(value: inout CGSize, nextValue: () -> CGSize) { value = nextValue() }
 }
