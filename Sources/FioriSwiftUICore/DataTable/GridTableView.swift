@@ -1,69 +1,128 @@
+import Combine
 import Foundation
 import SwiftUI
 
-struct GridTableView: View {
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.sizeCategory) var sizeCategory
-    @ObservedObject var layoutManager: TableLayoutManager
-    @ObservedObject var model: TableModel
+struct BannerData {
+    let title: String
     
-    init(model: TableModel, layoutManager: TableLayoutManager) {
-        self.model = model
-        layoutManager.model = model
-        self.layoutManager = layoutManager
-    }
-    
-    var body: some View {
-        GeometryReader { proxy in
-            self.makeBody(in: proxy.frame(in: .local))
-        }
-    }
+    // Level to drive tint colors and importance of the banner.
+    var level: Level = .error
 
-    func makeBody(in rect: CGRect) -> some View {
-        if self.horizontalSizeClass != self.layoutManager.sizeClass {
-            self.layoutManager.sizeClass = self.horizontalSizeClass ?? .compact
-        }
-        
-        // trigger the layout if it has been changed
-        if self.layoutManager.sizeCategory != self.sizeCategory {
-            self.layoutManager.sizeCategory = self.sizeCategory
-        }
-        
-        // it only layouts when necessary
-        self.layoutManager.layout(size: rect.size)
-        
-        return Group {
-            if !layoutManager.isLayoutFinished(rect.size) {
-                if #available(iOS 14.0, *) {
-                    ProgressView().progressViewStyle(CircularProgressViewStyle())
-                } else {
-                    // Fallback on earlier versions
-                    Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                }
-            } else if self.layoutManager.layoutData != nil, self.layoutManager.layoutWorkItem == nil, self.layoutManager.numberOfRows() > 0, self.layoutManager.numberOfColumns() > 0, rect.size.width > 1, rect.size.height > 1 {
-                ScrollAndZoomView(layoutManager: layoutManager, size: rect.size)
-                    .frame(width: rect.size.width, height: rect.size.height)
-            } else {
-                EmptyView()
+    enum Level {
+        case info
+        case warning
+        case error
+
+        var tintColor: Color {
+            switch self {
+            case .info:
+                return .black
+            case .warning:
+                return .yellow
+            case .error:
+                return Color.preferredColor(.negativeLabel)
             }
         }
-        .frame(width: rect.size.width, height: rect.size.height)
-        .background(self.layoutManager.model.backgroundColor)
     }
 }
 
+struct BannerView: View {
+    let data: BannerData
+    @Binding var showBanner: Bool
+    var action: (() -> Void)?
+
+    init(data: BannerData, showBanner: Binding<Bool>, action: (() -> Void)? = nil) {
+        self.data = data
+        self._showBanner = showBanner
+        self.action = action
+    }
+    
+    var body: some View {
+        HStack {
+            HStack {
+                Spacer()
+                
+                Image(systemName: "exclamationmark.triangle")
+                    .foregroundColor(data.level.tintColor)
+                    .fixedSize()
+                    .frame(width: 16, height: 18)
+                    
+                Spacer().frame(width: 6)
+                Text(data.title)
+                    .font(.footnote)
+                    .foregroundColor(data.level.tintColor)
+                
+                Spacer()
+            }
+            
+            Button {
+                action?()
+                showBanner = false
+            } label: {
+                Image(systemName: "xmark")
+                    .foregroundColor(Color.preferredColor(.quaternaryLabel))
+            }
+        }
+        .padding(EdgeInsets(top: 13, leading: 8, bottom: 13, trailing: 8))
+        .background(Color.preferredColor(.header))
+        .onTapGesture {
+            self.showBanner = false
+        }
+    }
+}
+
+struct BannerViewModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    let data: BannerData
+    let action: (() -> Void)?
+
+    func body(content: Content) -> some View {
+        content.overlay(
+            Group {
+                if isPresented {
+                    VStack {
+                        Color.preferredColor(.negativeLabel).frame(height: 4)
+                        
+                        BannerView(data: data, showBanner: $isPresented)
+                            .animation(.easeInOut)
+                            .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
+                        
+                        Color.preferredColor(.primaryLabel).frame(height: 0.33).opacity(0.7)
+                    }
+                    .background(Color.preferredColor(.header))
+                }
+            },
+            alignment: .top
+        )
+    }
+}
+
+extension View {
+    func banner(isPresented: Binding<Bool>, data: BannerData, action: (() -> Void)? = nil) -> some View {
+        self.modifier(BannerViewModifier(isPresented: isPresented, data: data, action: action))
+    }
+}
+
+/**
+ DataTable
+                     -- ScrollAndZoomView (UIScrollView)
+                                     -- InternalGridTableBackgroundUIView
+                            
+                                     -- InternalGridTableUIView
+                                                        -- InternalGridTableView
+                                                                          -- Group of ItemView
+                                                                          -- InlineEditingView
+ 
+ */
+
 struct ScrollAndZoomView: UIViewRepresentable {
     @Environment(\.layoutDirection) var layoutDirection
-    
     @ObservedObject var layoutManager: TableLayoutManager
-    var size: CGSize
-    
+    let size: CGSize
+
     init(layoutManager: TableLayoutManager, size: CGSize) {
-        self.layoutManager = layoutManager
         self.size = size
-        if self.layoutManager.size != size {
-            self.layoutManager.size = size
-        }
+        self.layoutManager = layoutManager
     }
     
     func makeCoordinator() -> Coordinator {
@@ -71,9 +130,6 @@ struct ScrollAndZoomView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UIScrollView {
-        let contentSizeWidth = self.layoutManager.totalContentWidth()
-        let contentSizeHeight = self.layoutManager.totalContentHeight()
-        
         let scrollView = UIScrollView()
         scrollView.isUserInteractionEnabled = true
         scrollView.isScrollEnabled = true
@@ -81,34 +137,25 @@ struct ScrollAndZoomView: UIViewRepresentable {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bouncesZoom = false
         scrollView.indicatorStyle = .default
-        scrollView.minimumZoomScale = min(1, self.size.width / contentSizeWidth)
-        scrollView.zoomScale = 1
-        scrollView.maximumZoomScale = 8
-        
+//        scrollView.minimumZoomScale = min(1, self.size.width / contentSizeWidth)
+        scrollView.minimumZoomScale = 0.5
+        scrollView.zoomScale = max(0.5, min(4, self.layoutManager.scaleX))
+        scrollView.maximumZoomScale = 4
         scrollView.delegate = context.coordinator
-        scrollView.frame = CGRect(origin: .zero, size: self.size)
         
         // an UIView to zoom & scroll as UIScrollView does
-        let gridTableViewBackground = InternalGridTableBackgroundUIView(layoutManager: layoutManager)
-        gridTableViewBackground.frame.size = CGSize(width: contentSizeWidth, height: contentSizeHeight)
+        let gridTableViewBackground = UIView(frame: .zero)
         scrollView.addSubview(gridTableViewBackground)
-        
-        gridTableViewBackground.translatesAutoresizingMaskIntoConstraints = false
-        gridTableViewBackground.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor).isActive = true
-        gridTableViewBackground.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor).isActive = true
-        gridTableViewBackground.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor).isActive = true
-        gridTableViewBackground.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor).isActive = true
         
         // an UIView with same frame size as UIScrollView to display real content
         let gridTableView = InternalGridTableUIView(layoutManager: layoutManager)
-        gridTableView.frame.size = self.size
         scrollView.addSubview(gridTableView)
         gridTableView.translatesAutoresizingMaskIntoConstraints = false
         gridTableView.topAnchor.constraint(equalTo: scrollView.frameLayoutGuide.topAnchor).isActive = true
         gridTableView.bottomAnchor.constraint(equalTo: scrollView.frameLayoutGuide.bottomAnchor).isActive = true
         gridTableView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor).isActive = true
         gridTableView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor).isActive = true
-        
+
         if self.layoutDirection == .rightToLeft {
             let transform = CGAffineTransform(scaleX: -1, y: 1)
 
@@ -122,37 +169,114 @@ struct ScrollAndZoomView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIScrollView, context: Context) {
-        if self.layoutManager.layoutData == nil {
-            return
+        if !self.layoutManager.isLayoutFinished(self.size) { return }
+        
+        let contentSizeWidth = self.layoutManager.totalContentWidth()
+        let contentSizeHeight = self.layoutManager.totalContentHeight()
+        
+        // check & restore scrollView's contentSize
+        if abs(uiView.contentSize.width.distance(to: contentSizeWidth)) > 1 || abs(uiView.contentSize.height.distance(to: contentSizeHeight)) > 1 {
+            uiView.contentSize = CGSize(width: contentSizeWidth, height: contentSizeHeight)
         }
         
-        // update it when the orientation changes
-        if abs(uiView.frame.width.distance(to: self.size.width)) > 1 || abs(uiView.frame.height.distance(to: self.size.height)) > 1 {
-            DispatchQueue.main.async {
-                if uiView.subviews.count < 2 {
-                    return
-                }
-                
-                uiView.frame.size = size
-                let contentSizeWidth = layoutManager.totalContentWidth()
-                let contentSizeHeight = layoutManager.totalContentHeight()
-                let contentSize = CGSize(width: contentSizeWidth, height: contentSizeHeight)
-                uiView.subviews[0].frame = CGRect(origin: .zero, size: contentSize)
-                uiView.contentSize = contentSize
-                uiView.contentOffset = .zero
-                uiView.subviews[1].frame = CGRect(origin: .zero, size: size)
-                layoutManager.resetPosition()
-            }
-        } else {
-            let contentSizeWidth = self.layoutManager.totalContentWidth()
-            let contentSizeHeight = self.layoutManager.totalContentHeight()
-            
-            if abs(uiView.contentSize.width.distance(to: contentSizeWidth)) > 1 || abs(uiView.contentSize.height.distance(to: contentSizeHeight)) > 1 {
-                let contentSize = CGSize(width: contentSizeWidth, height: contentSizeHeight)
-                uiView.subviews[0].frame = CGRect(origin: .zero, size: contentSize)
-                uiView.contentSize = contentSize
+        // check & restore scrollView's zoomScale
+        if abs(self.layoutManager.scaleX.distance(to: uiView.zoomScale)) > 0.001 {
+            uiView.zoomScale = self.layoutManager.scaleX
+        }
+        
+        // check minimumZoomScale
+        let minZoomScale = max(0.5, size.width / contentSizeWidth)
+        if abs(uiView.minimumZoomScale.distance(to: minZoomScale)) > 0.001 {
+            uiView.minimumZoomScale = max(0.5, self.size.width / contentSizeWidth)
+        }
+        
+        // check & restore scrollView's contentOffset
+        let tmpOffsetX = contentSizeWidth * self.layoutManager.startPosition.x
+        let tmpOffsetY = contentSizeHeight * self.layoutManager.startPosition.y
+        if abs(uiView.contentOffset.x.distance(to: tmpOffsetX)) > 1 || abs(uiView.contentOffset.y.distance(to: tmpOffsetY)) > 1 {
+            uiView.contentOffset = CGPoint(x: tmpOffsetX, y: tmpOffsetY)
+        }
+        
+        // InternalGridTableBackgroundUIView
+        if let bkView = uiView.subviews.first {
+            let bkSize = bkView.frame.size
+            if abs(bkSize.width.distance(to: contentSizeWidth)) > 1 || abs(bkSize.height.distance(to: contentSizeHeight)) > 1 {
+                bkView.frame = CGRect(origin: .zero, size: CGSize(width: contentSizeWidth, height: contentSizeHeight))
             }
         }
+        
+        if self.layoutManager.model.editMode == .inline, self.layoutManager.cachedKeyboardHeight != self.layoutManager.keyboardHeight {
+            let originalContentOffset = uiView.contentOffset
+            var contentOffset = uiView.contentOffset
+            
+            if self.layoutManager.keyboardHeight > 0 { // show keyboard
+                contentOffset = self.adjustContentOffset(uiView)
+            } else { // hide keyboard, may adjust start position
+                let tmpPos = self.layoutManager.startPosition
+                let validPos = self.layoutManager.validStartPosition(pt: tmpPos, size: self.size)
+                contentOffset = self.layoutManager.convertUnitPointToContentPoint(validPos, size: self.size)
+            }
+            
+            if contentOffset != originalContentOffset {
+                uiView.setContentOffset(contentOffset, animated: false)
+            }
+            
+            self.layoutManager.cachedKeyboardHeight = self.layoutManager.keyboardHeight
+        }
+    }
+    
+    func adjustContentOffset(_ uiView: UIScrollView) -> CGPoint {
+        var contentOffset = uiView.contentOffset
+        
+        // show keyboard
+        guard self.layoutManager.model.editMode == .inline, self.layoutManager.keyboardHeight > 0, let cellIndex = layoutManager.currentCell, let layoutData = self.layoutManager.layoutData else { return contentOffset }
+        
+        let size = self.layoutManager.size
+        let rowIndex = cellIndex.0
+        let columnIndex = cellIndex.1
+        let dataItem = layoutData.allDataItems[cellIndex.0][cellIndex.1]
+        let startPosition = contentOffset
+        let tmpScaleX = self.layoutManager.scaleX(size: size)
+        let tmpScaleY = self.layoutManager.scaleY(size: size)
+        
+        // adjust contentOffset.y
+        let y: CGFloat = dataItem.pos.y * tmpScaleY - ((self.layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosition.y)
+        let cellHeight = layoutData.rowHeights[rowIndex] * tmpScaleY
+        let bottomY = y + cellHeight / 2
+        
+        let offsetY: CGFloat = self.layoutManager.model.hasHeader && self.layoutManager.model.isHeaderSticky ? layoutData.rowHeights[0] * tmpScaleY : 0
+        
+        // move the cell up
+        if bottomY > size.height {
+            contentOffset.y += bottomY - size.height
+        } else if y - cellHeight / 2 < offsetY {
+            // move the cell down and consider not to block the header
+            contentOffset.y -= offsetY - (y - cellHeight / 2)
+        }
+        if contentOffset.y < 0 {
+            contentOffset.y = 0
+        }
+        
+        // adjust contentOffset.x
+        let leadingAccessoryViewWidth = layoutData.leadingAccessoryViewWidth
+        let x: CGFloat = (leadingAccessoryViewWidth + dataItem.pos.x) * tmpScaleX - ((self.layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosition.x)
+        let cellWidth = layoutData.columnWidths[columnIndex] * tmpScaleX
+        let padding = CGFloat(0) // layoutData.cellContentInsets(for: rowIndex, columnIndex: 1).trailing
+        let offsetX: CGFloat = (layoutManager.model.isFirstColumnSticky ? (layoutData.columnWidths[0] + padding) * tmpScaleX : 0) + leadingAccessoryViewWidth * tmpScaleX
+        
+        // move the cell right and consider not to block by first sticky row and leadingAccessoryView
+        if x - cellWidth / 2 < offsetX {
+            contentOffset.x -= offsetX - (x - cellWidth / 2)
+        } else if x + cellWidth / 2 > size.width - layoutData.trailingAccessoryViewWidth * tmpScaleX {
+            // move the cell left and consider not to block by the trailingAccessoryView
+            contentOffset.x += (x + cellWidth / 2) - size.width + layoutData.trailingAccessoryViewWidth * tmpScaleX
+        }
+        
+        if contentOffset.x < 0 {
+            contentOffset.x = 0
+        }
+        
+        return contentOffset
     }
 
     class Coordinator: NSObject, UIScrollViewDelegate {
@@ -161,18 +285,28 @@ struct ScrollAndZoomView: UIViewRepresentable {
         init(_ srollAndZoomView: ScrollAndZoomView) {
             self.srollAndZoomView = srollAndZoomView
         }
-    
-        func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        
+        func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
             DispatchQueue.main.async {
                 if self.srollAndZoomView.layoutManager.layoutData == nil {
                     return
                 }
                 
+                if self.srollAndZoomView.layoutManager.model.editMode == .inline, self.srollAndZoomView.layoutManager.currentCell != nil {
+                    self.srollAndZoomView.layoutManager.currentCell = nil
+                }
+            }
+        }
+        
+        func scrollViewDidZoom(_ scrollView: UIScrollView) {
+            DispatchQueue.main.async {
+                if self.srollAndZoomView.layoutManager.layoutData == nil {
+                    return
+                }
+            
                 self.srollAndZoomView.layoutManager.scaleX = scrollView.zoomScale
                 self.srollAndZoomView.layoutManager.scaleY = scrollView.zoomScale
-                let offset = scrollView.contentOffset
-                let tmpXY = self.srollAndZoomView.layoutManager.centerPosition(from: CGPoint(x: abs(offset.x), y: abs(offset.y)), size: self.srollAndZoomView.layoutManager.size)
-                self.srollAndZoomView.layoutManager.centerPosition = tmpXY
+                self.srollAndZoomView.layoutManager.startPosition = self.srollAndZoomView.layoutManager.startPosition(from: scrollView.contentOffset)
             }
         }
         
@@ -184,63 +318,27 @@ struct ScrollAndZoomView: UIViewRepresentable {
             }
         }
         
+        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            DispatchQueue.main.async {
+                if self.srollAndZoomView.layoutManager.layoutData == nil {
+                    return
+                }
+                
+                if self.srollAndZoomView.layoutManager.model.editMode == .inline, self.srollAndZoomView.layoutManager.currentCell != nil {
+                    self.srollAndZoomView.layoutManager.currentCell = nil
+                }
+            }
+        }
+
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
             DispatchQueue.main.async {
                 if self.srollAndZoomView.layoutManager.layoutData == nil {
                     return
                 }
                 
-                let tmpXY = self.srollAndZoomView.layoutManager.centerPosition(from: scrollView.contentOffset, size: self.srollAndZoomView.layoutManager.size)
-                self.srollAndZoomView.layoutManager.centerPosition = tmpXY
+                self.srollAndZoomView.layoutManager.startPosition = self.srollAndZoomView.layoutManager.startPosition(from: scrollView.contentOffset)
             }
         }
-    }
-}
-
-class InternalGridTableBackgroundUIView: UIView {
-    var layoutManager: TableLayoutManager
-
-    init(layoutManager: TableLayoutManager) {
-        self.layoutManager = layoutManager
-        super.init(frame: .zero)
-        self.createView()
-    }
-    
-    @available(*, unavailable)
-    public required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func createView() {
-        let dataTableBackground = InternalGridTableViewBackground(layoutManager: layoutManager)
-        let hostingVC = UIHostingController(rootView: dataTableBackground)
-        if let hostingView = hostingVC.view {
-            hostingView.removeFromSuperview()
-            self.addSubview(hostingView)
-            
-            hostingView.backgroundColor = .clear
-            hostingView.translatesAutoresizingMaskIntoConstraints = false
-            hostingView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-            hostingView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-            hostingView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-            hostingView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        }
-    }
-}
-
-struct InternalGridTableViewBackground: View {
-    @Environment(\.layoutDirection) var layoutDirection
-    @ObservedObject var layoutManager: TableLayoutManager
-
-    init(layoutManager: TableLayoutManager) {
-        self.layoutManager = layoutManager
-    }
-    
-    var body: some View {
-        Color.clear
-            .frame(width: self.layoutManager.totalContentWidth(),
-                   height: self.layoutManager.totalContentHeight())
-            .flipsForRightToLeftLayoutDirection(layoutDirection == .rightToLeft)
     }
 }
 
@@ -277,21 +375,44 @@ class InternalGridTableUIView: UIView {
 
 struct InternalGridTableView: View {
     @ObservedObject var layoutManager: TableLayoutManager
+    @State var showBanner: Bool = false
     
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
+        
+        let numOfErrors = layoutManager.layoutData?.numOfErrors ?? 0
+        self._showBanner = State(initialValue: numOfErrors > 0 ? true : false)
+        if numOfErrors > 0 {
+            self._showBanner = State(initialValue: true)
+            DispatchQueue.main.async {
+                let errFormat = NSLocalizedString("There are %d errors in the data table.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                let errMsg = String(format: errFormat, numOfErrors)
+                layoutManager.isValid = (false, errMsg)
+            }
+        }
     }
-    
+
     var body: some View {
         if !layoutManager.isLayoutFinished(layoutManager.size) {
             EmptyView()
         } else {
-            makeBody()
+            ZStack(alignment: .top) {
+                makeTable()
+                    .banner(isPresented: $showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
+                    
+                // show the textfield
+                if let cellIndex = layoutManager.currentCell, layoutManager.layoutData!.allDataItems[cellIndex.0][cellIndex.1].type == .text {
+                    InlineEditingView(layoutManager: layoutManager, showBanner: $showBanner)
+                        .id("\(cellIndex.0), \(cellIndex.1)")
+                        .position(textFieldPosition(layoutManager.size))
+                }
+            }
+            .frame(width: layoutManager.size.width, height: layoutManager.size.height)
         }
     }
     
     // swiftlint:disable force_unwrapping
-    func makeBody() -> some View {
+    func makeTable() -> some View {
         let size = self.layoutManager.size
         let rect = CGRect(origin: .zero, size: size)
         let layoutData = self.layoutManager.layoutData!
@@ -313,7 +434,7 @@ struct InternalGridTableView: View {
                 if allowsToShowTheRow {
                     // general background color & selection background color for the row
                     Group {
-                        if self.layoutManager.model.isEditing && self.layoutManager.selectedIndexes.contains(rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)) {
+                        if self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)) {
                             Color.preferredColor(.informationBackground)
                         } else {
                             self.layoutManager.model.backgroundColor
@@ -337,18 +458,21 @@ struct InternalGridTableView: View {
                         }()
                         
                         // cell
-                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex)
+                        ItemView(currentItem, layoutManager: layoutManager, showBanner: $showBanner, isInlineEdit: checkIsInlineEdit(for: rowIndex, columnIndex: columnIndex))
+                            .id("\(rowIndex), \(columnIndex)")
                             .position(x: x, y: y)
                             .zIndex(zIndex)
                     }
                     
                     // row leading accessory view
                     LeadingAccessoryView(rowIndex: rowIndex)
+                        .id("\(rowIndex)")
                         .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
                         .zIndex(rowIndex == 0 ? 550 : 300)
                     
                     // row trailing accesory view
                     TrailingAccessoryView(rowIndex: rowIndex)
+                        .id("\(rowIndex)")
                         .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)
                         .zIndex(rowIndex == 0 ? 460 : 290)
                 }
@@ -382,6 +506,34 @@ struct InternalGridTableView: View {
         .background(self.layoutManager.model.backgroundColor)
     }
     
+    func textFieldPosition(_ size: CGSize) -> CGPoint {
+        guard let layoutData = layoutManager.layoutData, let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text else { return .zero }
+        let rowIndex = currentCell.0
+        let columnIndex = currentCell.1
+        let dataItem = layoutData.allDataItems[rowIndex][columnIndex]
+        let tmpScaleY = self.layoutManager.scaleY(size: size)
+        let startPosition = self.layoutManager.startPositionInPoint(size: size)
+        let leadingAccessoryViewWidth = layoutData.leadingAccessoryViewWidth
+        let offsetY: CGFloat = (layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosition.y
+        let y: CGFloat = dataItem.pos.y * tmpScaleY - offsetY
+        let offsetX: CGFloat = (layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosition.x
+        let x: CGFloat = (leadingAccessoryViewWidth + dataItem.pos.x) * tmpScaleY - offsetX
+        
+        return CGPoint(x: x, y: y)
+    }
+    
+    func checkIsInlineEdit(for rowIndex: Int, columnIndex: Int) -> Bool {
+        if self.layoutManager.model.editMode != .inline {
+            return false
+        }
+        
+        if let curr = self.layoutManager.currentCell, curr == (rowIndex, columnIndex) {
+            return true
+        }
+        
+        return false
+    }
+    
     func columnDividerHeight(layoutData: LayoutData) -> CGFloat {
         var height: CGFloat = 0
         if let theCell = layoutData.allDataItems.last?.first {
@@ -411,10 +563,10 @@ struct InternalGridTableView: View {
     }
     
     private func isDropVerticalShadow(_ size: CGSize) -> Bool {
-        abs(self.layoutManager.startPosition(size: size).x) >= 0.01
+        abs(self.layoutManager.startPosition.x) >= 0.01
     }
     
     private func isDropHorizontalShadow(_ size: CGSize) -> Bool {
-        abs(self.layoutManager.startPosition(size: size).y) >= 0.01
+        abs(self.layoutManager.startPosition.y) >= 0.01
     }
 }

@@ -1,13 +1,15 @@
 import SwiftUI
 
-/// Text item for `DataTable`
-public struct DataTextItem: DataItemTextComponent, CheckBinding {
-    // DataItem, CheckBinding {
+/// Date item for `DataTable`
+public struct DataDateItem: DataItemTextComponent, CheckBinding {
     /// Type.
-    public let type: DataItemType = .text
-
+    public let type: DataItemType = .date
+    
+    /// date
+    public var date: Date
+    
     /// String for text item.
-    public var text: String
+    public var text: String = ""
     
     /// font, if both font and uifont are provided, uifont is used.
     public var font: Font?
@@ -23,7 +25,7 @@ public struct DataTextItem: DataItemTextComponent, CheckBinding {
 
     /// Binding rule.
     public var binding: ObjectViewProperty.Text?
-
+    
     var hasBinding: Bool {
         self.binding != nil
     }
@@ -35,8 +37,8 @@ public struct DataTextItem: DataItemTextComponent, CheckBinding {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    public init(_ text: String, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
-        self.text = text
+    public init(_ date: Date, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+        self.date = date
         self.font = font
         self.textColor = textColor
         self.binding = binding
@@ -50,8 +52,8 @@ public struct DataTextItem: DataItemTextComponent, CheckBinding {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    public init(text: String, uifont: UIFont? = nil, textColor: Color? = nil, binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
-        self.text = text
+    public init(date: Date, uifont: UIFont? = nil, textColor: Color? = nil, binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+        self.date = date
         self.uifont = uifont
         self.textColor = textColor
         self.binding = binding
@@ -59,12 +61,7 @@ public struct DataTextItem: DataItemTextComponent, CheckBinding {
     }
     
     func string(for columnAttribute: ColumnAttribute) -> String {
-        self.text
+        let df = columnAttribute.dateFormatter(for: .date)
+        return df.string(from: self.date)
     }
-
-//    func toTextView() -> some View {
-//        Text(self.text)
-//            .font(self.font)
-//            .foregroundColor(self.textColor)
-//    }
 }

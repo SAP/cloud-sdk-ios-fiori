@@ -4,46 +4,41 @@ import UIKit
 
 extension TableLayoutManager {
     // swiftlint:disable cyclomatic_complexity
-    func layout(size: CGSize) {
-        // either the layout is finished or in progress
-        if (self.size.width == size.width && !self.model.needsCalculateLayout && self.layoutData != nil && self.layoutWorkItem == nil)
-            || (self.size.width == size.width && self.layoutWorkItem != nil)
-        {
-            return
-        }
-
-        if self.size != size {
-            self.size = size
-        }
-        let needToInitModel = self.cacheLayoutData == nil || self.model.needsCalculateLayout
-        if needToInitModel {
+    func createLayoutWorkItem(_ size: CGSize) {
+        let needToInitModel = cacheLayoutData == nil || needsCalculateLayout
+        if needToInitModel, cacheLayoutData != nil {
             self.cacheLayoutData = nil
         }
-        
-        let model = self.model
-        
+
         var newWorkItem: DispatchWorkItem?
+        let tmpLayoutData = LayoutData()
+        tmpLayoutData.size = size
+        workingLayoutData = tmpLayoutData
+        
         newWorkItem = DispatchWorkItem {
-            let tmpLayoutData = LayoutData()
-            tmpLayoutData.isEditing = model.isEditing
+            tmpLayoutData.editMode = self.model.editMode
             tmpLayoutData.sizeClass = self.sizeClass
             tmpLayoutData.size = size
-            tmpLayoutData.headerCellPadding = model.headerCellPadding
-            tmpLayoutData.dataCellPadding = model.dataCellPadding
-            tmpLayoutData.minRowHeight = model.minRowHeight
-            tmpLayoutData.minColumnWidth = model.minColumnWidth
-            tmpLayoutData.rowAlignment = model.rowAlignment
+            tmpLayoutData.headerCellPadding = self.model.headerCellPadding
+            tmpLayoutData.dataCellPadding = self.model.dataCellPadding
+            tmpLayoutData.minRowHeight = self.model.minRowHeight
+            tmpLayoutData.minColumnWidth = self.model.minColumnWidth
+            tmpLayoutData.rowAlignment = self.model.rowAlignment
             
             if newWorkItem?.isCancelled ?? true {
                 return
             }
             if needToInitModel {
-                tmpLayoutData.rowData = tmpLayoutData.initRowData(model: model)
-                let (di, fbh) = tmpLayoutData.initItems(model: model, workItem: newWorkItem)
+                tmpLayoutData.rowData = tmpLayoutData.initRowData(model: self.model)
+                let (di, fbh) = tmpLayoutData.initItems(model: self.model, workItem: newWorkItem)
                 tmpLayoutData.allDataItems = di
                 tmpLayoutData.firstBaselineHeights = fbh
             } else {
-                tmpLayoutData.copyCacheData(self.cacheLayoutData)
+                if let tmpLd = self.layoutData, self.model.editMode == .inline {
+                    tmpLayoutData.copyCacheData(tmpLd)
+                } else {
+                    tmpLayoutData.copyCacheData(self.cacheLayoutData)
+                }
             }
             if newWorkItem?.isCancelled ?? true {
                 return
@@ -54,7 +49,7 @@ extension TableLayoutManager {
                 return
             }
             tmpLayoutData.trailingAccessoryViewWidth = tmpLayoutData.getTrailingAccessoryViewWidth()
-             
+            
             if newWorkItem?.isCancelled ?? true {
                 return
             }
@@ -71,22 +66,54 @@ extension TableLayoutManager {
             tmpLayoutData.allDataItems = tmpLayoutData.updatedItemsPos()
             
             DispatchQueue.main.async {
-                self.layoutData = tmpLayoutData
-                self.cacheLayoutData = tmpLayoutData
-                self.layoutWorkItem = nil
-                self.resetPosition()
+                if self.model.editMode != .inline {
+                    self.cacheLayoutData = tmpLayoutData.copy()
+                }
+                
                 if needToInitModel {
                     self.selectedIndexes = self.model.selectedIndexes
                 }
-                if self.model.needsCalculateLayout {
-                    self.model.needsCalculateLayout = false
+                if self.needsCalculateLayout {
+                    self.needsCalculateLayout = false
                 }
+                
+                self.workingLayoutData = nil
+                self.layoutWorkItem = nil
+                self.currentCell = nil
+                self.layoutData = tmpLayoutData
+                // check if prev startPosition is valid
+                let tmpPos = self.validStartPosition(pt: self.startPosition, size: self.size)
+                if self.startPosition != tmpPos {
+                    self.startPosition = tmpPos
+                }
+                self.model.layoutManager = self
             }
         }
         
-        layoutWorkItem?.cancel()
-        layoutWorkItem = newWorkItem
-        DispatchQueue.global(qos: .userInteractive).async(execute: newWorkItem!)
+        self.layoutWorkItem?.cancel()
+        self.layoutWorkItem = newWorkItem
+        layoutQueue.async(execute: newWorkItem!)
+    }
+    
+    func layout(_ size: CGSize) {
+        if size.width <= 0 || size.height <= 0 {
+            return
+        }
+        
+        if self.size != size {
+            self.size = size
+        }
+        
+        if let ld = layoutData, ld.size.width == size.width {
+            return
+        }
+        
+        if (workingLayoutData?.size ?? .zero).width == size.width {
+            return
+        } else {
+            self.createLayoutWorkItem(size)
+        }
+        // there is one ongoing layout process, continue it
     }
     
     /// Asks the DataTable to calculate and return the size that best fits all rows & columns by giving a size.width (the passed size.height is ignored).
@@ -116,7 +143,7 @@ extension TableLayoutManager {
         
         let model = self.model
         
-        tmpLayoutData.isEditing = model.isEditing
+        tmpLayoutData.editMode = model.editMode
         tmpLayoutData.sizeClass = self.sizeClass
         tmpLayoutData.size = size
         tmpLayoutData.headerCellPadding = model.headerCellPadding
@@ -166,11 +193,11 @@ extension TableLayoutManager {
             switch item {
             case is DataTextItem:
                 if let _item = item as? DataTextItem, let binding = _item.binding {
-                    textBindings[binding] = AnyView(_item.toTextView())
+                    textBindings[binding] = _item.toView() // AnyView(_item.toTextView())
                 }
             case is DataImageItem:
                 if let _item = item as? DataImageItem, let binding = _item.binding {
-                    imageBindings[binding] = AnyView(_item.image)
+                    imageBindings[binding] = _item.toView() // AnyView(_item.image)
                 }
             default:
                 break
@@ -227,9 +254,9 @@ extension TableLayoutManager {
     func visibleRowAndColumnIndexes() -> ([Int], [Int]) {
         guard let ld = layoutData else { return ([], []) }
         
-        if model.needsCalculateLayout {
-            return ([], [])
-        }
+//        if model.needsCalculateLayout {
+//            return ([], [])
+//        }
         
         let numbOfColumns = self.numberOfColumns()
         let numbOfRows = self.numberOfRows()
@@ -240,7 +267,7 @@ extension TableLayoutManager {
         
         let width: CGFloat = size.width
         
-        let tmpStartPosition = self.startPosition(size: size)
+        let tmpStartPosition = self.startPosition
         let wUnit = self.widthPointInUnit(size: size)
         let startPosX = tmpStartPosition.x / wUnit // * width
 
@@ -305,25 +332,44 @@ extension TableLayoutManager {
     func scaleY(size: CGSize) -> CGFloat {
         self.scaleX
     }
+
+    /*
+         func startPosition(size: CGSize) -> CGPoint {
+     //        let pos = self.centerPosition(size: size)
+     //        let x = pos.x - self.widthPointInUnit(size: size) * size.width / 2
+     //        let y = pos.y - self.heightPointInUnit(size: size) * size.height / 2
+     //
+     //        return CGPoint(x: x, y: y)
+             return startPosition
+         }
+         */
     
-    func startPosition(size: CGSize) -> CGPoint {
-        let pos = self.centerPosition(size: size)
-        let x = pos.x - self.widthPointInUnit(size: size) * size.width / 2
-        let y = pos.y - self.heightPointInUnit(size: size) * size.height / 2
+    /// contentOffset: x:  0 ~ contentWidth;  y: 0 ~ contentHeight
+    func startPosition(from contentOffset: CGPoint) -> CGPoint {
+        let contentSizeWidth = self.totalContentWidth()
+        let contentSizeHeight = self.totalContentHeight()
         
-        return CGPoint(x: x, y: y)
+        return CGPoint(x: contentOffset.x / contentSizeWidth, y: contentOffset.y / contentSizeHeight)
+    }
+    
+    func convertUnitPointToContentPoint(_ pt: CGPoint, size: CGSize) -> CGPoint {
+        let wUnit = self.widthPointInUnit(size: size)
+        let hUnit = self.heightPointInUnit(size: size)
+        
+        return CGPoint(x: pt.x / wUnit, y: pt.y / hUnit)
     }
     
     func startPositionInPoint(size: CGSize) -> CGPoint {
-        let pos = self.centerPosition(size: size)
+        let pos = self.startPosition
         let wUnit = self.widthPointInUnit(size: size)
         let hUnit = self.heightPointInUnit(size: size)
-        let x = pos.x - wUnit * size.width / 2
-        let y = pos.y - hUnit * size.height / 2
         
-        return CGPoint(x: x / wUnit, y: y / hUnit)
+        return CGPoint(x: pos.x / wUnit, y: pos.y / hUnit)
     }
     
+    /**
+     startPosition is in point
+     */
     func centerPosition(from startPosition: CGPoint, size: CGSize) -> CGPoint {
         let x = (startPosition.x + size.width / 2) * self.widthPointInUnit(size: size)
         let y = (startPosition.y + size.height / 2) * self.heightPointInUnit(size: size)
@@ -358,13 +404,15 @@ extension TableLayoutManager {
     }
     
     func widthPointInUnit(size: CGSize) -> CGFloat {
-        let totalWidth = max(size.width, self.contentWidth()) * self.scaleX(size: size)
+//        let totalWidth = max(size.width, self.contentWidth()) * self.scaleX(size: size)
+        let totalWidth = max(1, totalContentWidth())
         
         return 1 / totalWidth
     }
     
     func heightPointInUnit(size: CGSize) -> CGFloat {
-        let totalHeight = max(size.height, self.contentHeight()) * self.scaleX(size: size)
+//        let totalHeight = max(size.height, self.contentHeight()) * self.scaleX(size: size)
+        let totalHeight = max(1, totalContentHeight())
         
         return 1 / totalHeight
     }
@@ -385,35 +433,23 @@ extension TableLayoutManager {
         return isMaxValue ? max(size.height, height) : height
     }
     
-    func validCenterPosition(pt: CGPoint, size: CGSize) -> CGPoint {
+    // check if pt as startPosition is valid; if not return the valid pos
+    func validStartPosition(pt: CGPoint, size: CGSize) -> CGPoint {
         if layoutData == nil {
-            return CGPoint(x: 0.5, y: 0.5)
+            return .zero
         }
     
         let wUnit = self.widthPointInUnit(size: size)
-        let minX = size.width * wUnit / 2
         let totalWidth = self.totalContentWidth()
-        let maxX = (totalWidth - size.width / 2) * wUnit
+        let maxX = (totalWidth - size.width) * wUnit
         
         let hUnit = self.heightPointInUnit(size: size)
-        let minY = size.height * hUnit / 2
         let totalHeight = self.totalContentHeight()
-        let maxY = (totalHeight - size.height / 2) * hUnit
+        let maxY = (totalHeight - size.height) * hUnit
         
-        let x = max(minX, min(maxX, pt.x))
-        let y = max(minY, min(maxY, pt.y))
+        let x = max(0, min(maxX, pt.x))
+        let y = max(0, min(maxY, pt.y))
         
         return CGPoint(x: x, y: y)
-    }
-    
-    func centerPosition(size: CGSize) -> CGPoint {
-        if let pos = self.centerPosition {
-            return pos
-        } else {
-            let x = size.width * self.widthPointInUnit(size: size) / 2
-            let y = size.height * self.heightPointInUnit(size: size) / 2
-            
-            return CGPoint(x: x, y: y)
-        }
     }
 }

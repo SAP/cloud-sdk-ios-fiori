@@ -28,6 +28,14 @@ public struct TableRowItem {
         self.selectedImage = selectedImage
         self.deSelectedImage = deSelectedImage
     }
+    
+    public init(data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
+        self.leadingAccessories = []
+        self.trailingAccessory = nil
+        self.data = data
+        self.selectedImage = selectedImage
+        self.deSelectedImage = deSelectedImage
+    }
 }
 
 /// Accessory item type.

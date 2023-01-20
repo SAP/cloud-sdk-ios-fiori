@@ -1,10 +1,9 @@
+
 import SwiftUI
 
-/// Text item for `DataTable`
-public struct DataTextItem: DataItemTextComponent, CheckBinding {
-    // DataItem, CheckBinding {
-    /// Type.
-    public let type: DataItemType = .text
+/// List item for `DataTable`
+public struct DataListItem: DataItemTextComponent, CheckBinding {
+    public let type: DataItemType = .listitem
 
     /// String for text item.
     public var text: String
@@ -61,10 +60,4 @@ public struct DataTextItem: DataItemTextComponent, CheckBinding {
     func string(for columnAttribute: ColumnAttribute) -> String {
         self.text
     }
-
-//    func toTextView() -> some View {
-//        Text(self.text)
-//            .font(self.font)
-//            .foregroundColor(self.textColor)
-//    }
 }

@@ -1,3 +1,4 @@
+import Combine
 import SwiftUI
 
 /**
@@ -19,16 +20,18 @@ public struct DataTable: View {
     /// Data table's data model
     @ObservedObject public var model: TableModel
     @ObservedObject var layoutManager: TableLayoutManager
-    
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
-    @Environment(\.verticalSizeClass) var verticalSizeClass
-    
+    @Environment(\.sizeCategory) var sizeCategory
+
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
         self.model = model
-        
-        self.layoutManager = TableLayoutManager(model: model)
+
+        if let lm = model.layoutManager, model.editMode == .inline {
+            self.layoutManager = lm
+        } else {
+            self.layoutManager = TableLayoutManager(model: model)
+        }
     }
             
     /// Body of the View
@@ -39,18 +42,42 @@ public struct DataTable: View {
     }
     
     func makeBody(in rect: CGRect) -> some View {
-        Group {
+        // it only layouts when necessary
+        self.layoutManager.layout(rect.size)
+        
+        return Group {
             if self.model.isNoData {
                 Text("There is nothing to display yet", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                     .foregroundColor(Color.preferredColor(.tertiaryLabel))
                     .font(.body)
-                    .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
             } else if self.model.showListView {
                 TableListView(layoutManager: layoutManager)
             } else {
-                GridTableView(model: model, layoutManager: layoutManager)
+                if !layoutManager.isLayoutFinished(rect.size) {
+                    if #available(iOS 14.0, *) {
+                        ProgressView().progressViewStyle(CircularProgressViewStyle())
+                    } else {
+                        // Fallback on earlier versions
+                        Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
+                    }
+                } else {
+                    ScrollAndZoomView(layoutManager: layoutManager, size: rect.size)
+                }
             }
         }
+        .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
+        .onReceive(Publishers.keyboardHeight) { keyboardHeight in
+            self.layoutManager.keyboardHeight = keyboardHeight
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+            if layoutManager.currentCell != nil {
+                layoutManager.currentCell = nil
+            }
+        }
+        .onChange(of: self.sizeCategory, perform: { newValue in
+            layoutManager.sizeCategory = newValue
+            layoutManager.layoutData = nil
+        })
         .clipped()
         .environmentObject(self.layoutManager)
         .background(self.model.backgroundColor)
@@ -98,9 +125,10 @@ public extension DataTable {
     /// - Parameter value: true to enter editing mode, false to leave it. The default value is false .
     ///
     /// - Returns: DataTable
+    @available(*, deprecated)
     func editingMode(_ value: Bool = false) -> DataTable {
         self.model.isEditing = value
-        
+
         return self
     }
     
@@ -182,5 +210,17 @@ public extension DataTable {
     /// Warning: it is a sync process so it may take long time if the DataTable has a lot of rows and columns.
     func sizeThatFits(_ size: CGSize) -> CGSize {
         self.layoutManager.sizeThatFits(size)
+    }
+}
+
+extension Publishers {
+    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
+        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification).map { notif in
+            (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
+        }
+        
+        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification).map { _ in CGFloat(0) }
+        
+        return MergeMany(willShow, willHide).eraseToAnyPublisher()
     }
 }
