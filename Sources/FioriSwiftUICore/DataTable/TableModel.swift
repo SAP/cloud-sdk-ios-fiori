@@ -360,8 +360,8 @@ public class TableModel: ObservableObject {
     }
     
     private func dataItem(for rowIndex: Int, columnIndex: Int) -> DataItem {
-        if self.hasHeader, rowIndex == 0 {
-            return self.headerData!.data[columnIndex]
+        if let header = headerData, rowIndex == 0 {
+            return header.data[columnIndex]
         }
         
         return self.rowData[rowIndex - (self.hasHeader ? 1 : 0)].data[columnIndex]

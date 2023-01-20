@@ -3,7 +3,7 @@ import SwiftUI
 import UIKit
 
 extension TableLayoutManager {
-    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable cyclomatic_complexity force_unwrapping function_body_length
     func createLayoutWorkItem(_ size: CGSize) {
         let needToInitModel = cacheLayoutData == nil || needsCalculateLayout
         if needToInitModel, cacheLayoutData != nil {

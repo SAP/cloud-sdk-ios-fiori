@@ -29,8 +29,14 @@ struct InlineEditingView: View {
     }
 
     var body: some View {
-        let size = inlineEditingModel.size
-        let layoutData = layoutManager.layoutData!
+        if let layoutData = layoutManager.layoutData {
+            makeBody(layoutData)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    func makeBody(_ layoutData: LayoutData) -> some View {
         let dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
         let foregroundColor: Color? = dataItem.foregroundColor
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
@@ -39,12 +45,8 @@ struct InlineEditingView: View {
         let contentInset = layoutData.cellContentInsets(for: self.rowIndex, columnIndex: self.columnIndex)
         let contentWidth = max(0, cellWidth - contentInset.horizontal * self.layoutManager.scaleX)
         let contentHeight = max(0, cellHeight - contentInset.vertical * self.layoutManager.scaleY)
-        let isValid = layoutManager.checkIsValid(for: layoutData.allDataItems[rowIndex][columnIndex])
+        let isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
         let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(isHeader)
-        
-        let tmpScaleY = self.layoutManager.scaleY(size: size)
-        let startPosition = self.layoutManager.startPositionInPoint(size: size)
-        let leadingAccessoryViewWidth = layoutData.leadingAccessoryViewWidth
         let baselineHeightOffset = (layoutData.firstBaselineHeights[self.rowIndex] - dataItem.firstBaselineHeight) * self.layoutManager.scaleY
         let fontSize: CGFloat = uifont.pointSize * self.layoutManager.scaleX
         let finalFont = Font(uifont.withSize(fontSize))

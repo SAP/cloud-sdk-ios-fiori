@@ -131,6 +131,7 @@ class TableLayoutManager: ObservableObject {
         self.selectedIndexes = model.selectedIndexes
     }
     
+    // swiftlint:disable cyclomatic_complexity function_body_length
     func queryInlineEditChanges(applyValidation: Bool = true, findFirstChangeThenReturn: Bool = false) -> (newRowData: [TableRowItem], changes: [DataTableChange], isThereRejectedErrors: Bool) {
         if self.model.editMode != .inline {
             return ([], [], false)
@@ -243,7 +244,7 @@ class TableLayoutManager: ObservableObject {
         }
         
         // update model
-        guard let ld = layoutData, let _ = cacheLayoutData else { return [] }
+        guard let ld = layoutData, cacheLayoutData != nil else { return [] }
         
         let changeResult = self.queryInlineEditChanges(applyValidation: true, findFirstChangeThenReturn: false)
         let isThereRejectedErrors: Bool = changeResult.isThereRejectedErrors

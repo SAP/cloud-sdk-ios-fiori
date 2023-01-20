@@ -397,11 +397,11 @@ struct InternalGridTableView: View {
             EmptyView()
         } else {
             ZStack(alignment: .top) {
-                makeTable()
+                makeBody()
                     .banner(isPresented: $showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
                     
                 // show the textfield
-                if let cellIndex = layoutManager.currentCell, layoutManager.layoutData!.allDataItems[cellIndex.0][cellIndex.1].type == .text {
+                if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
                     InlineEditingView(layoutManager: layoutManager, showBanner: $showBanner)
                         .id("\(cellIndex.0), \(cellIndex.1)")
                         .position(textFieldPosition(layoutManager.size))
@@ -411,8 +411,8 @@ struct InternalGridTableView: View {
         }
     }
     
-    // swiftlint:disable force_unwrapping
-    func makeTable() -> some View {
+    // swiftlint:disable force_unwrapping function_body_length
+    func makeBody() -> some View {
         let size = self.layoutManager.size
         let rect = CGRect(origin: .zero, size: size)
         let layoutData = self.layoutManager.layoutData!

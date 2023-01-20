@@ -421,7 +421,6 @@ class LayoutData {
             }
             
             var itemHeight: CGFloat = 0
-            let isHeader = self.hasHeader && rowIndex == 0
             
             for columnIndex in self.allDataItems[rowIndex].indices {
                 if workItem?.isCancelled ?? false {
@@ -446,7 +445,7 @@ class LayoutData {
                             itemHeight += baselineHeightOffset
                         }
                     }
-                } else if let _ = item.image {
+                } else if item.image != nil {
                     itemHeight = max(item.size.height, itemHeight)
                 }
             }

@@ -61,7 +61,7 @@ struct ItemView: View {
         
         if #available(iOS 15.0, *) {
             let filter: ((String, String) -> Bool) = { f, s in
-                if s.count > 0 {
+                if !s.isEmpty {
                     return f.localizedCaseInsensitiveContains(s)
                 } else {
                     return true
@@ -106,6 +106,7 @@ struct ItemView: View {
         }
     }
     
+    // swiftlint:disable cyclomatic_complexity function_body_length function_parameter_count
     func theView(dataItem: DataTableItem, baselineHeightOffset: CGFloat, imageWidth: CGFloat, imageHeight: CGFloat, contentWidth: CGFloat, contentHeight: CGFloat, font: Font, foregroundColor: Color?) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             if let image = dataItem.image {

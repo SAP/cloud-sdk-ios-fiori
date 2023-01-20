@@ -30,6 +30,7 @@ public protocol DataItem {
     func toView() -> AnyView
 }
 
+// swiftlint:disable function_parameter_count
 protocol DataTableItemConvertion {
     func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment, isHeader: Bool, isValid: Bool) -> DataTableItem?
 }
@@ -125,6 +126,7 @@ extension DataItemTextComponent {
         return uifont
     }
     
+    /// conver itself to a SwiftUI View
     public func toView() -> AnyView {
         AnyView(Text(self.text)
             .font(self.font)
@@ -161,6 +163,7 @@ extension DataItemImageComponent {
                              isValid: isValid)
     }
     
+    /// conver itself to a SwiftUI View
     public func toView() -> AnyView {
         AnyView(image)
     }
