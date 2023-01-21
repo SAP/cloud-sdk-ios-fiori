@@ -504,7 +504,7 @@ let SFBuildings: [SFBuilding] = [
  - 12 : "Service, Repair, and Storage"
  - 13 : "Transit Stations"
  */
-let SFBuildingFacilityTypes = Array(Set(SFBuildings.map { $0.bldgCategory })).sorted()
+let SFBuildingFacilityTypes = Array(Set(SFBuildings.map(\.bldgCategory))).sorted()
 
 var SFBuildingFacilities: [String: [SFBuilding]] {
     var facilities: [String: [SFBuilding]] = [:]
