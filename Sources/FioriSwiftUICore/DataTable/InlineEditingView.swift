@@ -61,19 +61,35 @@ struct InlineEditingView: View {
                     Spacer(minLength: 0)
                 }
                 
-                if #available(iOS 16, *) {
-                    TextField("", text: $editingText, axis: .vertical)
-                        .focused($focusState, equals: true)
-                        .onSubmit {
-                            updateText(editingText)
-                        }
-                        .lineLimit(dataItem.lineLimit)
-                        .multilineTextAlignment(dataItem.textAlignment)
-                        .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
-                        .font(finalFont)
-                        .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
-                        .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
-                } else {
+                #if swift(>=5.7)
+                    if #available(iOS 16, *) {
+                        TextField("", text: $editingText, axis: Axis.vertical)
+                            .focused($focusState, equals: true)
+                            .onSubmit {
+                                updateText(editingText)
+                            }
+                            .lineLimit(dataItem.lineLimit)
+                            .multilineTextAlignment(dataItem.textAlignment)
+                            .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                            .font(finalFont)
+                            .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
+                            .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
+                    } else {
+                        TextField("", text: $editingText)
+                            .focused($focusState, equals: true)
+                            .onSubmit {
+                                updateText(editingText)
+                            }
+                            .lineLimit(dataItem.lineLimit)
+                            .multilineTextAlignment(dataItem.textAlignment)
+                            .textInputAutocapitalization(.never)
+                            .disableAutocorrection(true)
+                            .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
+                            .font(finalFont)
+                            .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
+                            .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
+                    }
+                #else
                     TextField("", text: $editingText)
                         .focused($focusState, equals: true)
                         .onSubmit {
@@ -87,7 +103,7 @@ struct InlineEditingView: View {
                         .font(finalFont)
                         .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
                         .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
-                }
+                #endif
                 
                 if dataItem.textAlignment == .center || dataItem.textAlignment == .leading {
                     Spacer(minLength: 0)
