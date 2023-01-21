@@ -104,9 +104,9 @@ The API is designed for backwards compatibility to the existing SAPFiori chartin
 
 ## Requirements
 
-- iOS 13 or higher, macOS 10.15.4 or higher
-- Xcode 12 or higher
-- Swift Package Manager
+- iOS 15 or higher
+- Xcode 13 or higher
+- Swift Package Manager 
 
 ## Download and Installation
 
