@@ -1250,7 +1250,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                     
                 } else {
                     let allValues = data[i]
-                        .compactMap { $0.first }
+                        .compactMap(\.first)
                         .compactMap { $0 }
                     
                     let dmin = allValues.min() ?? 0
