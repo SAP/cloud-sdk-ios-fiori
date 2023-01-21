@@ -59,51 +59,55 @@ struct ItemView: View {
         let cancelText = NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         let doneText = NSLocalizedString("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         
-        if #available(iOS 15.0, *) {
-            let filter: ((String, String) -> Bool) = { f, s in
-                if !s.isEmpty {
-                    return f.localizedCaseInsensitiveContains(s)
-                } else {
-                    return true
+        #if swift(>=5.7)
+            if #available(iOS 15.0, *) {
+                let filter: ((String, String) -> Bool) = { f, s in
+                    if !s.isEmpty {
+                        return f.localizedCaseInsensitiveContains(s)
+                    } else {
+                        return true
+                    }
                 }
-            }
             
-            return SearchableListView(data: data.0, id: \.self, children: nil,
-                                      selection: selection,
-                                      allowsMultipleSelection: false,
-                                      searchFilter: filter,
-                                      rowContent: { item in
-                                          Text(item)
-                                              .font(Font.body)
-                                              .foregroundColor(Color.preferredColor(.primaryLabel))
-                                      },
-                                      rowBackground: { _ in
-                                          Color.preferredColor(.primaryBackground)
-                                      },
-                                      cancelAction: Action(actionText: cancelText) {},
-                                      doneAction: Action(actionText: doneText) {
-                                          let theValue = selection.wrappedValue.joined()
+                return SearchableListView(data: data.0, id: \.self, children: nil,
+                                          selection: selection,
+                                          allowsMultipleSelection: false,
+                                          searchFilter: filter,
+                                          rowContent: { item in
+                                              Text(item)
+                                                  .font(Font.body)
+                                                  .foregroundColor(Color.preferredColor(.primaryLabel))
+                                          },
+                                          rowBackground: { _ in
+                                              Color.preferredColor(.primaryBackground)
+                                          },
+                                          cancelAction: Action(actionText: cancelText) {},
+                                          doneAction: Action(actionText: doneText) {
+                                              let theValue = selection.wrappedValue.joined()
                         
-                                          guard let layoutData = self.layoutManager.layoutData else { return }
-                                          var dataItem = layoutData.allDataItems[rowIndex][columnIndex]
-                                          dataItem.text = theValue
-                                          dataItem.size = layoutData.calcDataItemSize(dataItem)
-                                          layoutData.allDataItems[rowIndex][columnIndex] = dataItem
+                                              guard let layoutData = self.layoutManager.layoutData else { return }
+                                              var dataItem = layoutData.allDataItems[rowIndex][columnIndex]
+                                              dataItem.text = theValue
+                                              dataItem.size = layoutData.calcDataItemSize(dataItem)
+                                              layoutData.allDataItems[rowIndex][columnIndex] = dataItem
                 
-                                          layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
-                                          self.layoutManager.layoutData = layoutData.copy()
-                                          self.showBanner = false
-                                          editingText = theValue
-                                          isValid = (true, nil)
-                                          focusField = false
+                                              layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
+                                              self.layoutManager.layoutData = layoutData.copy()
+                                              self.showBanner = false
+                                              editingText = theValue
+                                              isValid = (true, nil)
+                                              focusField = false
                 
-                                          self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
-                                      })
-                .listBackground(Color.preferredColor(.primaryBackground))
-                .navigationTitle(data.1)
-        } else {
+                                              self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
+                                          })
+                    .listBackground(Color.preferredColor(.primaryBackground))
+                    .navigationTitle(data.1)
+            } else {
+                return EmptyView()
+            }
+        #else
             return EmptyView()
-        }
+        #endif
     }
     
     // swiftlint:disable cyclomatic_complexity function_body_length function_parameter_count
