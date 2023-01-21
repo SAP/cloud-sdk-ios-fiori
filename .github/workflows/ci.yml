@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        xcode: ['Xcode_13.0', 'Xcode_12.5.1', 'Xcode_12.4']
+        xcode: ['Xcode_13.0']
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
 
