@@ -1,9 +1,9 @@
 import SwiftUI
 
 /// An image item for `DataTable`
-public struct DataImageItem: DataItem, CheckBinding {
+public struct DataImageItem: DataItemImageComponent, CheckBinding {
     /// Type.
-    public var type: DataItemType
+    public var type: DataItemType = .image
     /// Mapping rule.
     public var binding: ObjectViewProperty.Image?
     
@@ -24,7 +24,6 @@ public struct DataImageItem: DataItem, CheckBinding {
     public init(_ image: Image, _ tintColor: Color? = nil, _ binding: ObjectViewProperty.Image? = nil) {
         self.image = image.resizable()
         self.tintColor = tintColor
-        self.type = .image
         self.binding = binding
     }
 }

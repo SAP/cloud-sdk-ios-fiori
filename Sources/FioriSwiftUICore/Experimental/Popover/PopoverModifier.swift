@@ -25,6 +25,10 @@ struct PopoverModifier<PopView: View>: ViewModifier {
                         popover.dismiss()
                     }
                 }
+                .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                    guard let popover = popover else { return }
+                    popover.dismiss()
+                }
         }
     }
 }

@@ -1,9 +1,8 @@
 import SwiftUI
 
-/// Text item for `DataTable`
-public struct DataTextItem: DataItemTextComponent, CheckBinding {
-    /// Type.
-    public let type: DataItemType = .text
+/// List item for `DataTable`
+public struct DataListItem: DataItemTextComponent, CheckBinding {
+    public let type: DataItemType = .listitem
 
     /// String for text item.
     public var text: String

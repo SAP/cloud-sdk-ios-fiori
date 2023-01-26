@@ -7,7 +7,23 @@ class World: KPIItemModel, Identifiable {
         "Hello World"
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "World subtitle"
+    }
+}
+
+class Galaxy: KPIProgressItemModel, Identifiable {
+    var kpi: String? {
+        "Hello Galaxy"
+    }
+    
+    var footnote: String? {
+        "Galaxy footnote"
+    }
+    
+    var subtitle: String? {
+        "What's outside"
+    }
 }
 
 class Space: KPIItemModel, Identifiable {
@@ -18,7 +34,9 @@ class Space: KPIItemModel, Identifiable {
         return formatter.string(from: distanceInMiles)
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "Space subtitle"
+    }
 }
 
 class Universe: KPIItemModel, Identifiable {
@@ -28,7 +46,9 @@ class Universe: KPIItemModel, Identifiable {
         return formattedValue ?? "Hello Universe"
     }
     
-    var subtitle: String?
+    var subtitle: String? {
+        "Universe subtitle"
+    }
 
     var formatter: NumberFormatter {
         let formatter = NumberFormatter()
@@ -39,108 +59,51 @@ class Universe: KPIItemModel, Identifiable {
     }
 }
 
-struct KPIHeaderFreestyleExample: View { // alignment (h/v) and potential pagination is responsibility of container
-    var data: [KPIItemModel] = [World(), Space(), Universe()]
+struct KPIHeaderFreestyleExample: View {
+    var data: [KPIHeaderItemModel] = [World(), Galaxy(), Space(), Universe()]
 
     var body: some View {
-        VStack {
-            ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
-
-            // pro: don't have to work with KPI view
-            // con: no individual styling possible
-            KPIHeaderControl(data, id: \.kpi).titleModifier { $0.font(.headline).foregroundColor(.red) }
-
-            // pro: can work with any view
-            // pro: allow individual styling
-            KPILayoutContainer(data, id: \.kpi) { element in
-                KPIItem(kpi: {
-                    Text(element.kpi ?? "")
-                }, subtitle: {
-                    if element.subtitle != nil {
-                        Text(element.subtitle!)
-                    } else {
-                        EmptyView()
+        ScrollView {
+            VStack {
+                ExpHeaderView("KPI Header", subtitle: "Header vs Layout container", desc: "semantic vs container. see code for comments")
+                KPIHeader {
+                    KPIItem(data: .components([.icon(Image(systemName: "heart.fill")), .metric("2K"), .icon(Image(systemName: "hand.thumbsup")), .metric("7.5K")]), subtitle: "Likes & Thumbs-Up")
+                    KPIItem(data: .percent(0.695), subtitle: "Acceptance Rate")
+                        .disabled(true)
+                    KPIProgressItem(data: .percent(0.88), subtitle: "Completed")
+                    KPIProgressItem(data: .percent(0.66), footnote: "Completed")
+                }
+                KPIHeader(data)
+                KPIHeader {
+                    createItem(120)
+                    createItem(200)
+                    createItem(400)
+                    createItem(200)
+                }
+                .frame(height: 100)
+                Text("Group may break the max count limitation and pages organization")
+                KPIHeader {
+                    createItem(120)
+                    Group {
+                        createItem(200)
+                        createItem(400)
+                        createItem(200)
+                        createItem(222)
                     }
-                })
-            }
-
-            // pro: can restrict number of elements (i.e. only two KPIs will be shown even more were specified)
-            KPILayoutContainer(0 ..< 6, id: \.self) { index in
-                KPIItem(kpi: {
-                    Text("\(index)")
-                }, subtitle: {
-                    EmptyView()
-                })
-            }
-
-            // con: not possible to limit the number of views to be shown (only possible with model-based initializers)
-            KPIHeader {
-                KPIItem(kpi: {
-                    Text("One")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Two")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Three")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Four")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Five")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Six")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
-                KPIItem(kpi: {
-                    Text("Seven")
-                }, subtitle: {
-                    if #available(iOS 14.0, *) {
-                        Text(Image(systemName: "square.and.pencil"))
-                    } else {
-                        Image(systemName: "square.and.pencil")
-                    }
-                })
+                }
+                .frame(height: 100)
+                Spacer()
             }
         }
-        .environment(\.horizontalSizeClass, .regular)
+    }
+    
+    @ViewBuilder
+    private func createItem(_ width: CGFloat) -> some View {
+        ZStack {
+            Color.random
+            Text(String(format: "width: %.1f", width))
+        }
+        .frame(width: width)
     }
 }
 

@@ -14,6 +14,9 @@ struct DataTableExample: View {
 
                 NavigationLink("3 columns, 2nd column fixed(80), with different alignment",
                                destination: DataTableExampleView(model: threeRowThreeColumnWithAlignment))
+                
+                NavigationLink("All kinds of Data Types",
+                               destination: DataTableExampleView(model: threeRowThreeColumnWithDates))
             }
             
             Section(header: Text("Accessories")) {
@@ -78,16 +81,16 @@ struct DataTableExample: View {
             
             Section(header: Text("Sticky header/column")) {
                 NavigationLink("Not sticky header & column, baseline alignment",
-                               destination: DataTable(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)).rowAlignment(.baseline))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("Sticky header",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: true, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("Sticky column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: true, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("Sticky header & column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
             }
             
             Section(header: Text("Variant rows/columns")) {
@@ -97,26 +100,23 @@ struct DataTableExample: View {
                 NavigationLink("One column, two column, three column",
                                destination: DataTableExampleView(model: oneColumnTwoColumnThreeColumn))
                 
-                NavigationLink("5 rows 3 columns list view",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: true)))
+                NavigationLink("5 rows 3 columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("30 rows 12 columns",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 30, column: 12, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
-                
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 30, column: 12, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+               
                 NavigationLink("300 rows 60 columns",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
-                
-                NavigationLink("1000 rows 100 columns",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 1000, column: 100, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
             }
         }
     }
 }
 
 let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention")])
-let row1 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
-let row2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
-let row3 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
+let row1 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
+let row2 = TableRowItem(data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
+let row3 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let threeRowTwoColumn = TableModel(headerData: nil, rowData: [row1, row2, row3], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
 let tableCard1 = TableModel(headerData: nil, rowData: [row1, row2, row3], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [ColumnAttribute(textAlignment: .leading, width: .flexible), ColumnAttribute(textAlignment: .trailing, width: .infinity)], isPinchZoomEnable: false, showListView: false)
@@ -130,16 +130,16 @@ let accBtn = AccessoryItem.button(AccessoryButton(image: Image(systemName: "squa
                                                       print("Tapped the leading accessory button")
                                                   }))
 
-let row1Linelimit = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 1 line limit", lineLimit: 1), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 1 line limit", lineLimit: 1)])
-let row2Linelimit = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", lineLimit: 2)])
-let row3Linelimit = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", lineLimit: 3)])
-let row4Linelimit = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - no line limit", Font.system(size: 48, weight: .bold, design: .rounded), Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.system(size: 52, weight: .heavy, design: .monospaced))])
+let row1Linelimit = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 1 line limit", lineLimit: 1), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 1 line limit", lineLimit: 1)])
+let row2Linelimit = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", lineLimit: 2)])
+let row3Linelimit = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", lineLimit: 3)])
+let row4Linelimit = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - no line limit", Font.system(size: 48, weight: .bold, design: .rounded), Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.system(size: 52, weight: .heavy, design: .monospaced))])
 let linelimit = TableModel(headerData: nil, rowData: [row1Linelimit, row2Linelimit, row3Linelimit, row4Linelimit], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
-let row1Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 1 line limit", Font.footnote, Color.green, lineLimit: 1), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 1 line limit", Font.caption, Color.red, lineLimit: 1)])
-let row2Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", Font.body, Color.orange, lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", Font.callout, Color.green, lineLimit: 2)])
-let row3Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", Font.title, Color.red, lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", Font.headline, Color.orange, lineLimit: 3)])
-let row4Linelimit2 = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("No line limit", Font.largeTitle, Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.footnote, Color.blue)])
+let row1Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 1 line limit", Font.footnote, Color.green, lineLimit: 1), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 1 line limit", Font.caption, Color.red, lineLimit: 1)])
+let row2Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", Font.body, Color.orange, lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", Font.callout, Color.green, lineLimit: 2)])
+let row3Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", Font.title, Color.red, lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", Font.headline, Color.orange, lineLimit: 3)])
+let row4Linelimit2 = TableRowItem(data: [DataTextItem("No line limit", Font.largeTitle, Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.footnote, Color.blue)])
 let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
 let row1WithAccs = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accIcon, data: [DataTextItem("Need Attention"), DataTextItem("Yesterday")])
@@ -147,9 +147,13 @@ let row2WithAccs = TableRowItem(leadingAccessories: [accIcon], trailingAccessory
 let row3WithAccs = TableRowItem(leadingAccessories: [accIcon, accBtn, accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention"), DataTextItem("Jul 4, 2021")])
 let threeRowTwoColumnWithAcc = TableModel(headerData: nil, rowData: [row1WithAccs, row2WithAccs, row3WithAccs], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
-let row1WithAlignment = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Leading"), DataTextItem("C"), DataImageItem(Image("wheel"))])
-let row2WithAlignment = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataTextItem("Leading Leading"), DataImageItem(Image("wheel")), DataTextItem("Trailing Trailing")])
-let row3WithAlignment = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end")])
+let row1WithAlignment = TableRowItem(data: [DataTextItem("Leading"), DataTextItem("C"), DataImageItem(Image("wheel"))])
+let row2WithAlignment = TableRowItem(data: [DataTextItem("Leading Leading"), DataImageItem(Image("wheel")), DataTextItem("Trailing Trailing")])
+let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end")])
+
+let row1WithDate = TableRowItem(data: [DataTextItem("Hello", Font.headline, Color.orange), DataImageItem(Image("wheel")), DataDateItem(Date(timeIntervalSince1970: 1), Font.largeTitle, Color.preferredColor(.chart2)), DataTimeItem(Date(timeIntervalSince1970: 1), Font.headline, Color.purple), DataDurationItem(3000, Font.footnote, Color.preferredColor(.secondaryLabel)), DataListItem("San Jose")])
+let row2WithDate = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("World"), DataDateItem(Date(timeIntervalSinceReferenceDate: 1), Font.title2), DataTimeItem(Date(timeIntervalSinceReferenceDate: 1000)), DataDurationItem(23000), DataListItem("New York", Font.headline)])
+let row3WithDate = TableRowItem(data: [DataTextItem("Leading", Font.largeTitle, Color.purple), DataImageItem(Image("wheel")), DataDateItem(Date(), Font.headline), DataTimeItem(Date()), DataDurationItem(12002), DataListItem("Los Angeles", Font.title3, Color.pink)])
 
 let threeRowThreeColumn = TableModel(headerData: nil,
                                      rowData: [row1WithAlignment, row2WithAlignment, row3WithAlignment],
@@ -169,30 +173,69 @@ let threeRowThreeColumnWithAlignment = TableModel(headerData: nil,
                                                                      ColumnAttribute(textAlignment: .trailing, width: .infinity)],
                                                   isPinchZoomEnable: true, showListView: false)
 
+let threeRowThreeColumnWithDates = TableModel(headerData: nil,
+                                              rowData: [row1WithDate, row2WithDate, row3WithDate],
+                                              isHeaderSticky: false,
+                                              isFirstColumnSticky: false,
+                                              columnAttributes: [ColumnAttribute(textAlignment: .leading, width: .infinity),
+                                                                 ColumnAttribute(textAlignment: .center, width: .fixed(80)),
+                                                                 ColumnAttribute(textAlignment: .leading, width: .flexible),
+                                                                 ColumnAttribute(textAlignment: .center, width: .flexible),
+                                                                 ColumnAttribute(textAlignment: .leading, width: .flexible),
+                                                                 ColumnAttribute(textAlignment: .trailing, width: .flexible)],
+                                              isPinchZoomEnable: true, showListView: false)
+
 let oneColumn = TableModel(headerData: nil, rowData: [row0], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [ColumnAttribute(textAlignment: .leading, width: .flexible)], isPinchZoomEnable: true, showListView: false)
 let oneColumnWithInfinityWidth = TableModel(headerData: nil, rowData: [row0], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [ColumnAttribute(textAlignment: .trailing, width: .infinity)], isPinchZoomEnable: true, showListView: false)
 
 let oneColumnTwoColumnThreeColumn = TableModel(headerData: nil, rowData: [row0, row1, row1WithAlignment], isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)
 
 public enum TestRowData {
+    static let types = ["Image", "Text", "Date", "Time", "Duration", "ListItem"]
+    static let imageNames = ["sun.min", "cloud.sleet", "cloud.snow", "tornado", "snowflake", "cloud.sun.bolt", "moon"]
     static let fonts = [Font.callout, Font.body, Font.footnote]
-    static let textColors = [Color.blue, Color.purple, Color.black]
-    static func generateRowData(count: Int, for row: Int) -> TableRowItem {
+    static let colors = [Color.purple, Color.green, Color.indigo, Color.orange, Color.preferredColor(.primaryLabel)]
+    static let cities = ["Aberdeen", "Anchorage", "Arvada", "Bakersfield", "Birmingham", "Davenport", "Duluth", "Elkhart", "Hollywood", "Indianapolis", "Knoxville", "Laredo", "San Jose", "New York", "Los Angeles", "Las Vegas", "Tokyo", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "Dallas", "Rancho Cucamonga", "Vancouver"]
+    
+    static func generateRowData(numOfColumns: Int, rowIndex: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, newRowHint: Bool = false) -> TableRowItem {
         var data: [DataItem] = []
-        for i in 0 ..< count {
-            let textString = i % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
+        for i in 0 ..< numOfColumns {
+            let dataType = i % DataItemType.allCases.count
+            let font = self.fonts[(i + rowIndex) % self.fonts.count]
+            let color = self.colors[(i + rowIndex) % self.colors.count]
             
-            let textItem = DataTextItem("(\(row), \(i)): " + textString, self.fonts[i % 3], self.textColors[i % 3])
-            let imageItem = DataImageItem(Image("wheel"))
-            data.append(i == 0 ? imageItem : textItem)
+            switch dataType {
+            case 0:
+                let imageItem = DataImageItem(Image(systemName: imageNames[(rowIndex + i) % self.imageNames.count]), color)
+                data.append(imageItem)
+            case 1:
+                let textString = i / DataItemType.allCases.count % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
+                let finalText = containIndex ? "(\(rowIndex), \(i)): " + textString : textString
+                let textItem = DataTextItem(newRowHint ? "New column" : finalText, font, color)
+                data.append(textItem)
+            case 2:
+                let ti = rowIndex * 3600 * 24 + (i + 4) * 3600
+                let dateItem = DataDateItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color)
+                data.append(dateItem)
+            case 3:
+                let ti = rowIndex * 3600 + i * 60
+                let timeItem = DataTimeItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color)
+                data.append(timeItem)
+            case 4:
+                let durationItem = DataDurationItem(TimeInterval(3600 + rowIndex * 600 + i), font, color)
+                data.append(durationItem)
+            default:
+                let listItem = DataListItem(cities[(rowIndex + i) % self.cities.count], font, color)
+                data.append(listItem)
+            }
         }
         let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
         let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "cart.badge.plus"), title: "", action: {
-            print("trailing accessory tapped: \(row) tapped")
+            print("trailing accessory tapped: \(rowIndex) tapped")
         }))
         
-        let output = TableRowItem(leadingAccessories: lAccessories, trailingAccessory: tAccessory, data: data)
+        let output = TableRowItem(leadingAccessories: containLeadingAccessory ? lAccessories : [], trailingAccessory: containTrailingAccessory ? tAccessory : nil, data: data)
         
         return output
     }
@@ -203,7 +246,7 @@ public enum TestRowData {
             let textItem = DataTextItem("New item was added", lineLimit: 2)
             data.append(textItem)
         }
-        return TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: data)
+        return TableRowItem(data: data)
     }
     
     static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
@@ -215,17 +258,16 @@ public enum TestRowData {
         return output
     }
     
-    static func generateData(row: Int, column: Int, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false) -> TableModel {
+    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [DataTextItem] = []
         for k in 0 ..< column {
-            let title = k == 0 ? "" : (k % 2 != 0 ? "Pellentesque risus elit" : "Vivamus et enim eu nisi gravida semper")
-            titles.append(DataTextItem(title))
+            titles.append(DataTextItem(self.types[k % self.types.count]))
         }
         for i in 0 ..< row {
-            res.append(self.generateRowData(count: column, for: i))
+            res.append(self.generateRowData(numOfColumns: column, rowIndex: i, containLeadingAccessory: containLeadingAccessory, containTrailingAccessory: containTrailingAccessory, containIndex: containIndex))
         }
-        let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
+        let header = TableRowItem(data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
         model.columnAttributes = self.generateColumnAttributes(column: column)
         model.didSelectRowAt = { rowIndex in
@@ -239,11 +281,56 @@ public enum TestRowData {
 
 public struct DataTableExampleView: View {
     var model: TableModel
-    @State var isEditing: Bool = false
-    @State private var showingSheet = false
- 
+    
+    @State var editMode: TableModel.EditMode = .none
+    
     public init(model: TableModel) {
         self.model = model
+        self.model.validateDataItem = { _, columnIndex, dataItem in
+            if let item = dataItem as? DataTextItem {
+                if columnIndex == 0, item.text.count > 40 {
+                    return (false, "Text length should not be greater than 40.")
+                } else if item.text.count > 120 {
+                    return (false, "Text length should not be greater than 120.")
+                }
+            } else if let item = dataItem as? DataDateItem {
+                let refDate = Date(timeIntervalSinceReferenceDate: 0)
+                if item.date <= refDate {
+                    let df = DateFormatter()
+                    df.dateStyle = .medium
+                    df.timeStyle = .none
+                    
+                    return (false, "The date must be later than \(df.string(from: refDate))")
+                }
+            } else if let item = dataItem as? DataTimeItem {
+                let hour = Calendar.current.component(.hour, from: item.date)
+                if hour < 2 {
+                    let df = DateFormatter()
+                    df.dateStyle = .none
+                    df.timeStyle = .short
+                                        
+                    return (false, "The time must be later than 2am")
+                }
+            } else if let item = dataItem as? DataDurationItem {
+                if item.duration <= 3600 {
+                    return (false, "Duration must be greater than one hour")
+                }
+            }
+            
+            return (true, nil)
+        }
+        
+        self.model.listItemDataAndTitle = { rowIndex, _ in
+            if rowIndex < 1 {
+                return (Array(TestRowData.cities.prefix(6)), "Select a city")
+            } else {
+                return (TestRowData.cities, "Select a city")
+            }
+        }
+        
+        self.model.valueDidChange = { change in
+            print("valueDidChange: \(change.description)")
+        }
     }
     
     public var body: some View {
@@ -254,61 +341,64 @@ public struct DataTableExampleView: View {
         DataTable(model: self.model)
             .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
-            .navigationBarItems(leading:
-                Button(action: {
-                    showingSheet.toggle()
-                }) {
-                    Image(systemName: "plus")
-                }.sheet(isPresented: $showingSheet) {
-                    SheetView(model: self.model)
-                },
-                trailing: Button(self.isEditing ? "Delete" : "Edit") {
-                    self.isEditing = !self.isEditing
-                    model.isEditing = self.isEditing
-                    if !self.isEditing {
-                        let indexSet = IndexSet(self.model.selectedIndexes)
-                        print("remove indexset: \(indexSet)")
-                        self.model.rowData.remove(atOffsets: indexSet)
-                        self.model.selectedIndexes = []
+            .toolbar(content: {
+                ToolbarItemGroup {
+                    if editMode == .none {
+                        Button(action: {
+                            let numOfColumn: Int = model.rowData.first?.data.count ?? 0
+                            self.model.rowData.insert(TestRowData.generateRowData(numOfColumns: numOfColumn, rowIndex: 0, newRowHint: true), at: 0)
+                        }) {
+                            Image(systemName: "plus")
+                        }
+                        
+                        Button("Edit") {
+                            editMode = .inline
+                            model.editMode = .inline
+                        }
+                        Button("Select") {
+                            editMode = .select
+                            model.editMode = .select
+                        }
+                    } else {
+                        if editMode == .select {
+                            Button(action: {
+                                self.model.selectedIndexes = []
+                                let numOfColumn: Int = model.rowData.first?.data.count ?? 0
+                                self.model.rowData.insert(TestRowData.generateRowData(numOfColumns: numOfColumn, rowIndex: 0, newRowHint: true), at: 0)
+                            }) {
+                                Image(systemName: "plus")
+                            }
+                            
+                            Button("Delete") {
+                                let indexSet = IndexSet(self.model.selectedIndexes)
+                                print("remove indexset: \(indexSet)")
+                                self.model.rowData.remove(atOffsets: indexSet)
+                                self.model.selectedIndexes = []
+                            }
+                        }
+                        if editMode == .inline {
+                            Button("Cancel") {
+                                _ = model.onSave(false)
+                                
+                                editMode = .none
+                                model.editMode = .none
+                            }
+                        }
+                        
+                        Button("Done") {
+                            if model.editMode == .inline {
+                                let changes = model.onSave(true)
+                                print("Model changes:")
+                                for change in changes {
+                                    print("\(change.description)")
+                                }
+                            }
+                            
+                            editMode = .none
+                            self.model.editMode = .none
+                        }
                     }
-                })
-    }
-}
-
-struct SheetView: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    var model: TableModel!
-    
-    init(model: TableModel) {
-        self.model = model
-    }
-    
-    var body: some View {
-        let numOfColumn: Int = model.rowData.first?.data.count ?? 0
-        return NavigationView {
-            List {
-                ForEach(0 ..< numOfColumn, id: \.self) { i in
-                    Text("New column: \(i)")
                 }
-            }
-            .navigationBarTitle(Text("Add some new data"), displayMode: .inline)
-            .navigationBarItems(trailing: Button(action: {
-                self.model.rowData.insert(generateNewRow(column: numOfColumn), at: 0)
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Text("Done").bold()
             })
-        }
-    }
-    
-    func generateNewRow(column: Int) -> TableRowItem {
-        var data: [DataItem] = []
-        for i in 0 ..< column {
-            let textItem = DataTextItem("New column: \(i)", lineLimit: 2)
-            data.append(textItem)
-        }
-        let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "square.and.arrow.up"), title: "", action: {}))
-        return TableRowItem(leadingAccessories: [], trailingAccessory: tAccessory, data: data)
     }
 }
