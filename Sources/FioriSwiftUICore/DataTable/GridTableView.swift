@@ -375,10 +375,14 @@ class InternalGridTableUIView: UIView {
 
 struct InternalGridTableView: View {
     @ObservedObject var layoutManager: TableLayoutManager
+    
+    /// observe this to make DataListItem refresh to show/hide the chevron icon when it enters in/out of the inline edit mode
+    @ObservedObject var model: TableModel
     @State var showBanner: Bool = false
     
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
+        self.model = layoutManager.model
         
         let numOfErrors = layoutManager.layoutData?.numOfErrors ?? 0
         self._showBanner = State(initialValue: numOfErrors > 0 ? true : false)
