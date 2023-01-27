@@ -14,9 +14,7 @@ struct ItemView: View {
     @State var editingText: String = ""
     @State var editingDate = Date()
     @State var editingDuration: Int = 0
-    
     @State var listItemSelection: Set<String> = []
-    @FocusState var focusField: Bool
     @State var isValid: (Bool, String?) = (true, nil)
     
     init(_ dataItem: DataTableItem, layoutManager: TableLayoutManager, showBanner: Binding<Bool>, isInlineEdit: Bool) {
@@ -75,7 +73,7 @@ struct ItemView: View {
                                           searchFilter: filter,
                                           rowContent: { item in
                                               Text(item)
-                                                  .font(Font.body)
+                                                  .font(Font.fiori(forTextStyle: .body))
                                                   .foregroundColor(Color.preferredColor(.primaryLabel))
                                           },
                                           rowBackground: { _ in
@@ -84,7 +82,7 @@ struct ItemView: View {
                                           cancelAction: Action(actionText: cancelText) {},
                                           doneAction: Action(actionText: doneText) {
                                               let theValue = selection.wrappedValue.joined()
-                        
+                
                                               guard let layoutData = self.layoutManager.layoutData else { return }
                                               var dataItem = layoutData.allDataItems[rowIndex][columnIndex]
                                               dataItem.text = theValue
@@ -96,7 +94,6 @@ struct ItemView: View {
                                               self.showBanner = false
                                               editingText = theValue
                                               isValid = (true, nil)
-                                              focusField = false
                 
                                               self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
                                           })
@@ -300,14 +297,13 @@ struct ItemView: View {
                     if let currentCell = self.layoutManager.currentCell, currentCell == (rowIndex, columnIndex), dataItem.type != .text && dataItem.type != .listitem {
                         self.layoutManager.currentCell = nil
                         isInlineEdit = false
-                        focusField = false
                         showPopover = false
                         showSheet = false
                         return
                     }
                     
                     isInlineEdit = true
-                    focusField = true
+                    
                     let popoverTypes: [DataItemType] = [.date, .time, .duration]
                     if popoverTypes.contains(dataItem.type) {
                         showPopover = true

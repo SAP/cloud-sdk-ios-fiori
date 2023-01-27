@@ -26,8 +26,8 @@ public struct DataTable: View {
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
         self.model = model
-
-        if let lm = model.layoutManager, model.editMode == .inline {
+        
+        if let lm = model.layoutManager {
             self.layoutManager = lm
         } else {
             self.layoutManager = TableLayoutManager(model: model)
