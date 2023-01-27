@@ -13,8 +13,8 @@ struct InlineEditingView: View {
     @ObservedObject var inlineEditingModel: InlineEditingModel
     @Binding var showBanner: Bool
     @State var editingText: String = ""
-    @FocusState var focusState: Bool?
     @State var isValid: (Bool, String?) = (true, nil)
+    @FocusState var focusState: Bool
     
     init(layoutManager: TableLayoutManager, showBanner: Binding<Bool>) {
         self.layoutManager = layoutManager
@@ -24,7 +24,6 @@ struct InlineEditingView: View {
         self.columnIndex = (layoutManager.currentCell ?? (0, 0)).1
         let dataItem = layoutManager.layoutData?.allDataItems[self.rowIndex][self.columnIndex]
         self._editingText = State(initialValue: dataItem?.text ?? "")
-        self.focusState = true
         self._isValid = State(initialValue: (dataItem?.isValid ?? true, ""))
     }
 
@@ -64,34 +63,34 @@ struct InlineEditingView: View {
                 #if swift(>=5.7)
                     if #available(iOS 16, *) {
                         TextField("", text: $editingText, axis: Axis.vertical)
-                            .focused($focusState, equals: true)
-                            .onSubmit {
-                                updateText(editingText)
-                            }
-                            .lineLimit(dataItem.lineLimit)
-                            .multilineTextAlignment(dataItem.textAlignment)
-                            .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .font(finalFont)
                             .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
                             .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
-                    } else {
-                        TextField("", text: $editingText)
-                            .focused($focusState, equals: true)
+                            .lineLimit(dataItem.lineLimit)
+                            .multilineTextAlignment(dataItem.textAlignment)
+                            .focused($focusState)
+                            .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .onSubmit {
                                 updateText(editingText)
                             }
+                    } else {
+                        TextField("", text: $editingText)
+                            .font(finalFont)
+                            .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
+                            .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
                             .lineLimit(dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
                             .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
+                            .focused($focusState)
                             .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
-                            .font(finalFont)
-                            .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
-                            .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
+                            .onSubmit {
+                                updateText(editingText)
+                            }
                     }
                 #else
                     TextField("", text: $editingText)
-                        .focused($focusState, equals: true)
+                        .focused($focusState)
                         .onSubmit {
                             updateText(editingText)
                         }
@@ -128,7 +127,9 @@ struct InlineEditingView: View {
             }
         }
         .onAppear {
-            focusState = true
+            DispatchQueue.main.async {
+                focusState = true
+            }
         }
     }
     
@@ -149,7 +150,6 @@ struct InlineEditingView: View {
             self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .text(self.editingText), text: self.editingText))
         }
         
-        self.focusState = nil
         self.layoutManager.currentCell = nil
     }
 }

@@ -32,8 +32,7 @@ struct DataTableExample: View {
                                destination: DataTableExampleView(model: linelimit))
                 
                 NavigationLink("Different kinds of fonts with baseline alignment",
-                               destination: DataTable(model: linelimit2)
-                                   .rowAlignment(.baseline))
+                               destination: DataTableExampleView(model: linelimit2))
             }
             
             Section(header: Text("Table Card")) {
@@ -140,7 +139,7 @@ let row1Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Atten
 let row2Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", Font.body, Color.orange, lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", Font.callout, Color.green, lineLimit: 2)])
 let row3Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", Font.title, Color.red, lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", Font.headline, Color.orange, lineLimit: 3)])
 let row4Linelimit2 = TableRowItem(data: [DataTextItem("No line limit", Font.largeTitle, Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.footnote, Color.blue)])
-let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
+let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], rowAlignment: .baseline, isPinchZoomEnable: true, showListView: false)
 
 let row1WithAccs = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accIcon, data: [DataTextItem("Need Attention"), DataTextItem("Yesterday")])
 let row2WithAccs = TableRowItem(leadingAccessories: [accIcon], trailingAccessory: nil, data: [DataTextItem("Stable"), DataTextItem("Jul 5, 2021")])
@@ -281,7 +280,6 @@ public enum TestRowData {
 
 public struct DataTableExampleView: View {
     var model: TableModel
-    
     @State var editMode: TableModel.EditMode = .none
     
     public init(model: TableModel) {
@@ -334,15 +332,11 @@ public struct DataTableExampleView: View {
     }
     
     public var body: some View {
-        makeBody()
-    }
-    
-    func makeBody() -> some View {
         DataTable(model: self.model)
             .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
-            .toolbar(content: {
-                ToolbarItemGroup {
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if editMode == .none {
                         Button(action: {
                             let numOfColumn: Int = model.rowData.first?.data.count ?? 0
@@ -399,6 +393,6 @@ public struct DataTableExampleView: View {
                         }
                     }
                 }
-            })
+            }
     }
 }

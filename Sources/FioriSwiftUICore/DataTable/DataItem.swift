@@ -120,7 +120,7 @@ extension DataItemTextComponent {
         } else if let _font = self.font {
             uifont = UIFont.preferredFont(from: _font)
         } else {
-            uifont = TableViewLayout.defaultUIFont(isHeader) // isHeader ? UIFont.preferredFont(from: .subheadline) : UIFont.preferredFont(from: .body) //
+            uifont = TableViewLayout.defaultUIFont(isHeader)
         }
         
         return uifont
