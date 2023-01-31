@@ -6,7 +6,6 @@ struct ExperimentalContentView: View {
         .init(view: ContactItemInitModelExample().asAnyView, label: "ViewModel-based initializer (ContactItem)"),
         .init(view: ContactItemStateAndDataBindingExample(model: EmailContactViewModel.mike).asAnyView, label: "Example: State and Data Binding (ContactItem)"),
         .init(view: ContactItemActionItemsExample().asAnyView, label: "🧪 View - Action Items"),
-        .init(view: KPIHeaderFreestyleExample().asAnyView, label: "🚧 KPI Header / Layout"),
         .init(view: StylingModifierExample().asAnyView, label: "🔬 Styling (Modifier)")
     ]
     var body: some View {
