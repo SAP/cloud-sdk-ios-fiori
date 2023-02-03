@@ -11,6 +11,21 @@ import SwiftUI
  model.didSelectRowAt = { rowIndex in
     print("Tapped row \(rowIndex)")
  }
+ 
+ /// set a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
+ model.validateDataItem = { rowIndex, columnIndex, dataItem in
+ ...
+ }
+ 
+ /// set a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
+ model.listItemDataAndTitle = { rowIndex, columnIndex in
+ ...
+ }
+ 
+ /// set a closure to observe a value change for inline editing mode
+ model.valueDidChange = { change in
+     print("valueDidChange: \(change.description)")
+ }
  ```
  */
 public class TableModel: ObservableObject {
@@ -162,10 +177,10 @@ public class TableModel: ObservableObject {
     /// background color
     @Published public var backgroundColor: Color = TableViewLayout.defaultBackgroundColor
     
-    /// a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
+    /// a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users
     public var validateDataItem: ((_ rowIndex: Int, _ columnIndex: Int, _ dataItem: DataItem) -> (Bool, String?))?
     
-    /// a closure to provide a 'DataListItem' type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title to choose when it is in inline edit mode.
+    /// a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
     public var listItemDataAndTitle: ((_ rowIndex: Int, _ columnIndex: Int) -> (listItems: [String], title: String))?
     
     // cached TableLayoutManager
@@ -194,7 +209,7 @@ public class TableModel: ObservableObject {
     ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
     ///   - backgroundColor: Background color
     ///   - showListView: Show list view in iPhone protrait mode
-    ///   - editMode: one of edit mode; The default is '.none'.
+    ///   - editMode: one of edit mode; The default is `.none`.
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
                 isHeaderSticky: Bool = false,
@@ -367,7 +382,7 @@ public class TableModel: ObservableObject {
         return self.rowData[rowIndex - (self.hasHeader ? 1 : 0)].data[columnIndex]
     }
     
-    /// save the model after the editing
+    /// Save the model after the editing. If chagnes were not valid then those changes are rolled back to original values.
     /// - Parameter isSave: Save it or not
     /// - Returns: Return an array of changes
     public func onSave(_ isSave: Bool) -> [DataTableChange] {
@@ -394,8 +409,20 @@ public struct DataTableChange: CustomStringConvertible {
     // the text description for the value
     public let text: String
     
+    /// the selected index for DataListItem
+    public let selectedIndex: Int?
+    
+    /// init
+    public init(rowIndex: Int, columnIndex: Int, value: ValueType, text: String, selectedIndex: Int? = nil) {
+        self.rowIndex = rowIndex
+        self.columnIndex = columnIndex
+        self.value = value
+        self.text = text
+        self.selectedIndex = selectedIndex
+    }
+    
     /// debug description
     public var description: String {
-        "rowIndex: \(self.rowIndex), columnIndex: \(self.columnIndex), value: \(self.text)"
+        "rowIndex: \(self.rowIndex), columnIndex: \(self.columnIndex), value: \(self.text), selectedIndex = \(String(describing: self.selectedIndex))"
     }
 }

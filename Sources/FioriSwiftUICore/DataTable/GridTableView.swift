@@ -104,15 +104,15 @@ extension View {
 }
 
 /**
- DataTable
-                     -- ScrollAndZoomView (UIScrollView)
-                                     -- InternalGridTableBackgroundUIView
-                            
-                                     -- InternalGridTableUIView
-                                                        -- InternalGridTableView
-                                                                          -- Group of ItemView
-                                                                          -- InlineEditingView
+ DataTable view hierarchy
  
+ DataTable
+        -- ScrollAndZoomView (UIScrollView)
+                -- InternalGridTableBackgroundUIView
+                -- InternalGridTableUIView
+                    -- InternalGridTableView
+                        -- Group of ItemView
+                        -- InlineEditingView
  */
 
 struct ScrollAndZoomView: UIViewRepresentable {
@@ -137,10 +137,9 @@ struct ScrollAndZoomView: UIViewRepresentable {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.bouncesZoom = false
         scrollView.indicatorStyle = .default
-//        scrollView.minimumZoomScale = min(1, self.size.width / contentSizeWidth)
-        scrollView.minimumZoomScale = 0.5
-        scrollView.zoomScale = max(0.5, min(4, self.layoutManager.scaleX))
-        scrollView.maximumZoomScale = 4
+        scrollView.minimumZoomScale = self.layoutManager.minScaleAllowed
+        scrollView.zoomScale = max(self.layoutManager.minScaleAllowed, min(self.layoutManager.maxScaleAllowed, self.layoutManager.scaleX))
+        scrollView.maximumZoomScale = self.layoutManager.maxScaleAllowed
         scrollView.delegate = context.coordinator
         
         // an UIView to zoom & scroll as UIScrollView does
@@ -378,46 +377,52 @@ struct InternalGridTableView: View {
     
     /// observe this to make DataListItem refresh to show/hide the chevron icon when it enters in/out of the inline edit mode
     @ObservedObject var model: TableModel
-    @State var showBanner: Bool = false
+    @State var showBanner: Bool = true
     
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
         self.model = layoutManager.model
         
         let numOfErrors = layoutManager.layoutData?.numOfErrors ?? 0
-        self._showBanner = State(initialValue: numOfErrors > 0 ? true : false)
         if numOfErrors > 0 {
-            self._showBanner = State(initialValue: true)
-            DispatchQueue.main.async {
-                let errFormat = NSLocalizedString("There are %d errors in the data table.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
-                let errMsg = String(format: errFormat, numOfErrors)
-                layoutManager.isValid = (false, errMsg)
-            }
+            let errFormat = NSLocalizedString("There are %d errors in the data table.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            let errMsg = String(format: errFormat, numOfErrors)
+            layoutManager.isValid = (false, errMsg)
         }
+        
+        self._showBanner = State(initialValue: numOfErrors > 0 && self.showBanner)
     }
 
     var body: some View {
-        if !layoutManager.isLayoutFinished(layoutManager.size) {
-            EmptyView()
-        } else {
-            ZStack(alignment: .top) {
-                makeBody()
-                    .banner(isPresented: $showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
+        GeometryReader { proxy in
+            self.makeRootBody(proxy.frame(in: .local).size)
+        }
+    }
+    
+    func makeRootBody(_ size: CGSize) -> some View {
+        Group {
+            if size == .zero || !layoutManager.isLayoutFinished(layoutManager.size) {
+                EmptyView()
+            } else {
+                ZStack(alignment: .top) {
+                    makeBody(size)
+                        .banner(isPresented: $showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
                     
-                // show the textfield
-                if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
-                    InlineEditingView(layoutManager: layoutManager, showBanner: $showBanner)
-                        .id("\(cellIndex.0), \(cellIndex.1)")
-                        .position(textFieldPosition(layoutManager.size))
+                    // show the textfield
+                    if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
+                        InlineEditingView(layoutManager: layoutManager, showBanner: $showBanner)
+                            .id("\(cellIndex.0), \(cellIndex.1)")
+                            .position(textFieldPosition(layoutManager.size))
+                    }
                 }
+                .frame(width: size.width, height: size.height)
             }
-            .frame(width: layoutManager.size.width, height: layoutManager.size.height)
         }
     }
     
     // swiftlint:disable force_unwrapping function_body_length
-    func makeBody() -> some View {
-        let size = self.layoutManager.size
+    func makeBody(_ size: CGSize) -> some View {
+//        let size = self.layoutManager.size
         let rect = CGRect(origin: .zero, size: size)
         let layoutData = self.layoutManager.layoutData!
         let allItems = layoutData.allDataItems
@@ -446,6 +451,7 @@ struct InternalGridTableView: View {
                     }
                     .frame(width: size.width, height: layoutData.rowHeights[rowIndex] * tmpScaleY)
                     .position(x: size.width / 2, y: y)
+                    .zIndex(rowIndex == 0 ? 510 : 0)
                     
                     // all visible columns
                     ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
