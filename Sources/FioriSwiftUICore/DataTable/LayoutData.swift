@@ -59,6 +59,7 @@ class LayoutData {
         copy.columnAttributes = self.columnAttributes
         copy.rowAlignment = self.rowAlignment
         copy.allDataItems = self.allDataItems
+        copy.numOfErrors = self.numOfErrors
         copy.columnWidths = self.columnWidths
         copy.rowHeights = self.rowHeights
         copy.firstBaselineHeights = self.firstBaselineHeights
@@ -192,24 +193,7 @@ class LayoutData {
                                          isValid: true))
                 continue
             }
-            /*
-             let currentItem = dataInEachRow[i]
-            
-             if let textItem = currentItem as? DataItemTextComponent {
-                 if let item = textItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader) {
-                     res.append(item)
-                    
-                     if let uifont = item.uifont {
-                         let firstBaselineHeight = uifont.lineHeight + uifont.descender
-                         maxFirstBaselineHeight = max(maxFirstBaselineHeight, firstBaselineHeight)
-                     }
-                 }
-             } else if let imageItem = currentItem as? DataItemImageComponent {
-                 if let item = imageItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader) {
-                     res.append(item)
-                 }
-             }
-              */
+
             let validState = model.checkIsValid(for: dataInEachRow[i], rowIndex: index, columnIndex: i)
             if !validState.0 {
                 self.numOfErrors += 1

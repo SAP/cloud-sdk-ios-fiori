@@ -14,7 +14,7 @@ struct ItemView: View {
     @State var editingText: String = ""
     @State var editingDate = Date()
     @State var editingDuration: Int = 0
-    @State var listItemSelection: Set<String> = []
+    @State var listItemSelection: Set<Int> = []
     @State var isValid: (Bool, String?) = (true, nil)
     
     init(_ dataItem: DataTableItem, layoutManager: TableLayoutManager, showBanner: Binding<Bool>, isInlineEdit: Bool) {
@@ -30,7 +30,9 @@ struct ItemView: View {
         
         switch dataItem.type {
         case .listitem:
-            self._listItemSelection = State(initialValue: [dataItem.text ?? ""])
+            if let selectedIndex = dataItem.selectedIndex {
+                self._listItemSelection = State(initialValue: [selectedIndex])
+            }
         case .date, .time:
             self._editingDate = State(initialValue: dataItem.date ?? Date())
         case .duration:
@@ -52,27 +54,28 @@ struct ItemView: View {
         }
     }
     
-    func pickerView(_ selection: Binding<Set<String>>) -> some View {
+    func pickerView() -> some View {
         let data = self.layoutManager.model.listItemDataAndTitle?(self.rowIndex, self.columnIndex) ?? ([self.editingText], "")
+        let indexData: [Int] = (0 ..< data.0.count).map { $0 }
         let cancelText = NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         let doneText = NSLocalizedString("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         
         #if swift(>=5.7)
             if #available(iOS 15.0, *) {
-                let filter: ((String, String) -> Bool) = { f, s in
+                let filter: ((Int, String) -> Bool) = { f, s in
                     if !s.isEmpty {
-                        return f.localizedCaseInsensitiveContains(s)
+                        return data.0[f].localizedCaseInsensitiveContains(s)
                     } else {
                         return true
                     }
                 }
             
-                return SearchableListView(data: data.0, id: \.self, children: nil,
-                                          selection: selection,
+                return SearchableListView(data: indexData, id: \.self, children: nil,
+                                          selection: $listItemSelection,
                                           allowsMultipleSelection: false,
                                           searchFilter: filter,
-                                          rowContent: { item in
-                                              Text(item)
+                                          rowContent: { index in
+                                              Text(data.0[index])
                                                   .font(Font.fiori(forTextStyle: .body))
                                                   .foregroundColor(Color.preferredColor(.primaryLabel))
                                           },
@@ -81,21 +84,22 @@ struct ItemView: View {
                                           },
                                           cancelAction: Action(actionText: cancelText) {},
                                           doneAction: Action(actionText: doneText) {
-                                              let theValue = selection.wrappedValue.joined()
+                                              guard let selectedIndex = listItemSelection.first else { return } // selection.wrappedValue.joined()
                 
                                               guard let layoutData = self.layoutManager.layoutData else { return }
                                               var dataItem = layoutData.allDataItems[rowIndex][columnIndex]
-                                              dataItem.text = theValue
+                                              dataItem.text = data.0[selectedIndex]
+                                              dataItem.selectedIndex = selectedIndex
                                               dataItem.size = layoutData.calcDataItemSize(dataItem)
                                               layoutData.allDataItems[rowIndex][columnIndex] = dataItem
                 
                                               layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
                                               self.layoutManager.layoutData = layoutData.copy()
                                               self.showBanner = false
-                                              editingText = theValue
+                                              editingText = data.0[selectedIndex]
                                               isValid = (true, nil)
                 
-                                              self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
+                                              self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText, selectedIndex: selectedIndex))
                                           })
                     .listBackground(Color.preferredColor(.primaryBackground))
                     .navigationTitle(data.1)
@@ -144,7 +148,7 @@ struct ItemView: View {
                                         .frame(width: contentWidth - 15, alignment: dataItem.textAlignment.toTextFrameAlignment())
                                         .sheet(isPresented: $showSheet) {
                                             NavigationView {
-                                                pickerView($listItemSelection)
+                                                pickerView()
                                             }
                                         }
                                     
@@ -171,12 +175,11 @@ struct ItemView: View {
                                         .font(font)
                                         .foregroundColor(foregroundColor)
                                         .lineLimit(dataItem.lineLimit)
-//                                        .multilineTextAlignment(dataItem.textAlignment)
                                         .frame(width: contentWidth - 15, alignment: dataItem.textAlignment.toTextFrameAlignment())
                                         .frame(alignment: dataItem.textAlignment.toTextFrameAlignment())
                                         .sheet(isPresented: $showSheet) {
                                             NavigationView {
-                                                pickerView($listItemSelection)
+                                                pickerView()
                                             }
                                         }
 
@@ -229,6 +232,8 @@ struct ItemView: View {
                         var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
                         dataItem.date = newValue
                         isValid = layoutManager.checkIsValid(for: dataItem)
+                        let errorChange: Int = dataItem.isValid != isValid.0 ? (isValid.0 ? -1 : 1) : 0
+                        layoutData.numOfErrors += errorChange
                         dataItem.isValid = isValid.0
                         if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
                             editingText = value
@@ -250,6 +255,8 @@ struct ItemView: View {
                         var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
                         dataItem.ti = TimeInterval(newValue * 60)
                         isValid = layoutManager.checkIsValid(for: dataItem)
+                        let errorChange: Int = dataItem.isValid != isValid.0 ? (isValid.0 ? -1 : 1) : 0
+                        layoutData.numOfErrors += errorChange
                         dataItem.isValid = isValid.0
                         if let value = dataItem.string(for: layoutManager.model.columnAttribute(for: columnIndex)) {
                             self.editingText = value
@@ -294,6 +301,17 @@ struct ItemView: View {
         let tapGesture = TapGesture()
             .onEnded { _ in
                 if self.layoutManager.model.editMode == .inline {
+                    // header is not editable
+                    if isHeader {
+                        if self.layoutManager.currentCell != nil {
+                            self.layoutManager.currentCell = nil
+                        }
+                        isInlineEdit = false
+                        showPopover = false
+                        showSheet = false
+                        return
+                    }
+                    
                     if let currentCell = self.layoutManager.currentCell, currentCell == (rowIndex, columnIndex), dataItem.type != .text && dataItem.type != .listitem {
                         self.layoutManager.currentCell = nil
                         isInlineEdit = false
@@ -312,11 +330,15 @@ struct ItemView: View {
                     }
                     
                     if dataItem.type == .listitem {
+                        let data = self.layoutManager.model.listItemDataAndTitle?(self.rowIndex, self.columnIndex) ?? ([self.editingText], "")
+                        if listItemSelection.isEmpty, let curIndex = data.0.firstIndex(of: dataItem.text ?? "") {
+                            listItemSelection = [curIndex]
+                        }
+                        
                         showSheet = true
                     } else {
                         showSheet = false
                     }
-                    self.layoutManager.cacheCurrentCell = self.layoutManager.currentCell
                     self.layoutManager.currentCell = (rowIndex, columnIndex)
                     isValid = layoutManager.checkIsValid(for: layoutData.allDataItems[rowIndex][columnIndex])
                     

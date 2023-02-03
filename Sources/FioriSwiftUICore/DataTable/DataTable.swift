@@ -2,7 +2,7 @@ import Combine
 import SwiftUI
 
 /**
- A Data Table is a View that is used for displaying data in either list view or grid table view.
+ A Data Table is a View that is used for displaying data in either list view or grid table view. It supports cell types of `DataImageItem`, `DataTextItem`, `DataDateItem`, `DataTimeItem`, `DataDurationItem` and `DataListItem`.
  
  ## Code usage:
  ```
@@ -12,6 +12,22 @@ import SwiftUI
     print("Tapped row \(rowIndex)")
  }
  model.selectedIndexes = [2, 3]
+ 
+ /// set a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
+ model.validateDataItem = { rowIndex, columnIndex, dataItem in
+ ...
+ }
+ 
+ /// set a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
+ model.listItemDataAndTitle = { rowIndex, columnIndex in
+ ...
+ }
+ 
+ /// set a closure to observe a value change for inline editing mode
+ model.valueDidChange = { change in
+     print("valueDidChange: \(change.description)")
+ }
+ 
  DataTable(model: model)
  ```
  */

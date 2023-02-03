@@ -140,6 +140,8 @@ struct InlineEditingView: View {
         if dataItem.text != newValue {
             dataItem.text = newValue
             self.isValid = self.layoutManager.checkIsValid(for: dataItem)
+            let errorChange: Int = dataItem.isValid != self.isValid.0 ? (self.isValid.0 ? -1 : 1) : 0
+            layoutData.numOfErrors += errorChange
             dataItem.isValid = self.isValid.0
             dataItem.size = layoutData.calcDataItemSize(dataItem)
             layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
