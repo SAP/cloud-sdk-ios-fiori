@@ -5,7 +5,7 @@ struct ItemView: View {
     var dataItem: DataTableItem
     let rowIndex: Int
     let columnIndex: Int
-    
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
     @Binding var showBanner: Bool
     @State var showPopover: Bool = false
     @State var showSheet: Bool = false
@@ -163,7 +163,7 @@ struct ItemView: View {
                                 Text(editingText)
                                     .font(font)
                                     .foregroundColor(self.isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
-                                    .background(Color.preferredColor(.tintColor).opacity(0.2))
+                                    .background((self.checkIsValid() ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel)).opacity(colorScheme == .light ? 0.1 : 0.2))
                                     .lineLimit(dataItem.lineLimit)
                                     .multilineTextAlignment(dataItem.textAlignment)
                                     .accessibility(hidden: editingText.isEmpty)
