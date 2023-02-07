@@ -101,7 +101,7 @@ public struct HexColor: Hashable {
         self.colors[variant] ?? "FFFFFFFF"
     }
     
-    #if os(iOS)
+    #if !os(watchOS)
         /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
         ///
         /// - parameters:
@@ -160,9 +160,8 @@ public struct HexColor: Hashable {
             }
             return variant
         }
-    #endif
+    #else
     
-    #if os(watchOS)
         /// Returns the `ColorVariant` that matches with the specified combination of background color scheme, user interface level and display mode settings.
         ///
         /// - parameters:
@@ -190,6 +189,27 @@ public struct HexColor: Hashable {
             default:
                 return .contrastLight
             }
+        
+//        switch (scheme, level, mode) {
+//        case (.light, .base, .normal):
+//            variant = .dark
+//        case (.dark, .base, .normal):
+//            variant = .light
+//        case (.light, .elevated, .normal):
+//            variant = .elevatedDark
+//        case (.dark, .elevated, .normal):
+//            variant = .elevatedLight
+//        case (.light, .base, .high):
+//            variant = .contrastDark
+//        case (.dark, .base, .high):
+//            variant = .contrastLight
+//        case (.light, .elevated, .high):
+//            variant = .elevatedContrastDark
+//        case (.dark, .elevated, .high):
+//            variant = .elevatedContrastLight
+//        default:
+//            break
+//        }
         }
     #endif
 }

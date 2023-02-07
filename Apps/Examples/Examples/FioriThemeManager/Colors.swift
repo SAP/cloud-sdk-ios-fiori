@@ -49,12 +49,12 @@ struct CustomColors: View {
                 ThemeManager.shared.setPalette(Palette(provider))
             case .programmatic(let lightColor, let darkColor):
                 StyleSheetSettings.reset()
-                ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
+                ThemeManager.shared.setPalette(PaletteVersion.latest.palette)
                 ThemeManager.shared.setColor(lightColor, for: .primaryLabel, variant: .light)
                 ThemeManager.shared.setColor(darkColor, for: .primaryLabel, variant: .dark)
             case .styleSheet(let content):
                 StyleSheetSettings.reset()
-                ThemeManager.shared.setPalette(PaletteVersion.latest.rawValue)
+                ThemeManager.shared.setPalette(PaletteVersion.latest.palette)
                 try? StyleSheetSettings.loadStylesheetByString(content: content)
             }
         })
