@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "अभी तक प्रदर्शित करने के लिए कुछ भी नहीं है";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d घंटे %d मिनट";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "संपन्न";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "डेटा तालिका में %d त्रुटियां हैं.";
+
