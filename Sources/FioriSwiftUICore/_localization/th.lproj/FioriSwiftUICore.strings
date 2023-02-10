@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "ยังไม่มีอะไรที่จะแสดง";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d ชั่วโมง %d นาที";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "เสร็จสิ้น";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "มีข้อผิดพลาด %d รายการในตารางข้อมูล";
+

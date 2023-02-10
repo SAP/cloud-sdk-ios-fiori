@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Δεν υπάρχει τίποτα για εμφάνιση ακόμη";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d Ώρες %d Λεπ";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Τέλος";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "Υπάρχουν %d σφάλματα στον πίνακα δεδομένων.";
+
