@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DurationPickerViewWrapper: UIViewRepresentable {
+    @Environment(\.layoutDirection) var layoutDirection
     var pickerView = UIPickerView()
     @Binding var selection: Int
     
@@ -63,7 +64,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         minuteLabel.centerYAnchor.constraint(equalTo: self.pickerView.centerYAnchor).isActive = true
         minuteLabel.heightAnchor.constraint(equalToConstant: context.coordinator.minuteSize.height).isActive = true
         minuteLabel.widthAnchor.constraint(equalToConstant: context.coordinator.minuteSize.width).isActive = true
-        minuteLabel.leadingAnchor.constraint(equalTo: self.pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + padding + 8).isActive = true
+        let offset: CGFloat = self.layoutDirection == .leftToRight ? 0 : 8
+        minuteLabel.leadingAnchor.constraint(equalTo: self.pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + padding + 8 + offset).isActive = true
         return self.pickerView
     }
     
@@ -124,7 +126,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             let label = UILabel()
             label.font = self.pickerFont
             label.text = text
-            label.textAlignment = .right
+            label.textAlignment = self.parent.layoutDirection == .leftToRight ? .right : .left
             if component == 0 {
                 return self.setupHourView(label, forComponent: component)
             } else {
@@ -195,7 +197,6 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         lazy var componentValueWidth: CGFloat = {
             let label = UILabel()
             label.font = pickerFont
-            label.textAlignment = .right
             var maxWidth: CGFloat = 0
             for item in 0 ... 59 {
                 label.text = item.description
