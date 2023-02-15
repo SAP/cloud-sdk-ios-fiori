@@ -32,8 +32,7 @@ struct DataTableExample: View {
                                destination: DataTableExampleView(model: linelimit))
                 
                 NavigationLink("Different kinds of fonts with baseline alignment",
-                               destination: DataTable(model: linelimit2)
-                                   .rowAlignment(.baseline))
+                               destination: DataTableExampleView(model: linelimit2))
             }
             
             Section(header: Text("Table Card")) {
@@ -140,7 +139,7 @@ let row1Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Atten
 let row2Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 2 lines limit", Font.body, Color.orange, lineLimit: 2), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 2 line2 limit", Font.callout, Color.green, lineLimit: 2)])
 let row3Linelimit2 = TableRowItem(data: [DataTextItem("Need Attention Need Attention Need Attention Need Attention Need Attention - 3 lines limit", Font.title, Color.red, lineLimit: 3), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - 3 lines limit", Font.headline, Color.orange, lineLimit: 3)])
 let row4Linelimit2 = TableRowItem(data: [DataTextItem("No line limit", Font.largeTitle, Color.orange), DataTextItem("Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday Yesterday - no line limit", Font.footnote, Color.blue)])
-let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
+let linelimit2 = TableModel(headerData: nil, rowData: [row1Linelimit2, row2Linelimit2, row3Linelimit2, row4Linelimit2], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], rowAlignment: .baseline, isPinchZoomEnable: true, showListView: false)
 
 let row1WithAccs = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accIcon, data: [DataTextItem("Need Attention"), DataTextItem("Yesterday")])
 let row2WithAccs = TableRowItem(leadingAccessories: [accIcon], trailingAccessory: nil, data: [DataTextItem("Stable"), DataTextItem("Jul 5, 2021")])
@@ -195,7 +194,7 @@ public enum TestRowData {
     static let imageNames = ["sun.min", "cloud.sleet", "cloud.snow", "tornado", "snowflake", "cloud.sun.bolt", "moon"]
     static let fonts = [Font.callout, Font.body, Font.footnote]
     static let colors = [Color.purple, Color.green, Color.indigo, Color.orange, Color.preferredColor(.primaryLabel)]
-    static let cities = ["Aberdeen", "Anchorage", "Arvada", "Bakersfield", "Birmingham", "Davenport", "Duluth", "Elkhart", "Hollywood", "Indianapolis", "Knoxville", "Laredo", "San Jose", "New York", "Los Angeles", "Las Vegas", "Tokyo", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "Dallas", "Rancho Cucamonga", "Vancouver"]
+    static let cities = ["Aberdeen", "Anchorage", "Arvada", "Arvada", "Bakersfield", "Birmingham", "Davenport", "Duluth", "Elkhart", "Hollywood", "Indianapolis", "Knoxville", "Laredo", "San Jose", "New York", "Los Angeles", "Las Vegas", "Tokyo", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "Dallas", "Rancho Cucamonga", "Vancouver"]
     
     static func generateRowData(numOfColumns: Int, rowIndex: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, newRowHint: Bool = false) -> TableRowItem {
         var data: [DataItem] = []
@@ -229,8 +228,8 @@ public enum TestRowData {
                 data.append(listItem)
             }
         }
-        let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         
+        let lAccessories: [AccessoryItem] = [.icon(Image(systemName: "arrow.triangle.2.circlepath"))]
         let tAccessory: AccessoryItem = .button(.init(image: Image(systemName: "cart.badge.plus"), title: "", action: {
             print("trailing accessory tapped: \(rowIndex) tapped")
         }))
@@ -281,12 +280,13 @@ public enum TestRowData {
 
 public struct DataTableExampleView: View {
     var model: TableModel
-    
     @State var editMode: TableModel.EditMode = .none
     
     public init(model: TableModel) {
         self.model = model
-        self.model.validateDataItem = { _, columnIndex, dataItem in
+        
+        /// set a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
+        model.validateDataItem = { _, columnIndex, dataItem in
             if let item = dataItem as? DataTextItem {
                 if columnIndex == 0, item.text.count > 40 {
                     return (false, "Text length should not be greater than 40.")
@@ -320,7 +320,8 @@ public struct DataTableExampleView: View {
             return (true, nil)
         }
         
-        self.model.listItemDataAndTitle = { rowIndex, _ in
+        /// set a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
+        model.listItemDataAndTitle = { rowIndex, _ in
             if rowIndex < 1 {
                 return (Array(TestRowData.cities.prefix(6)), "Select a city")
             } else {
@@ -328,21 +329,18 @@ public struct DataTableExampleView: View {
             }
         }
         
-        self.model.valueDidChange = { change in
+        /// set a closure to observe a value change for inline editing mode
+        model.valueDidChange = { change in
             print("valueDidChange: \(change.description)")
         }
     }
     
     public var body: some View {
-        makeBody()
-    }
-    
-    func makeBody() -> some View {
         DataTable(model: self.model)
             .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
-            .toolbar(content: {
-                ToolbarItemGroup {
+            .toolbar {
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
                     if editMode == .none {
                         Button(action: {
                             let numOfColumn: Int = model.rowData.first?.data.count ?? 0
@@ -399,6 +397,6 @@ public struct DataTableExampleView: View {
                         }
                     }
                 }
-            })
+            }
     }
 }

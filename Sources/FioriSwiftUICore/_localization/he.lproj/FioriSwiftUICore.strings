@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "אין מה להציג עדיין";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d שעות %d דקות";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "בוצע";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "יש %d שגיאות בטבלת הנתונים.";
+

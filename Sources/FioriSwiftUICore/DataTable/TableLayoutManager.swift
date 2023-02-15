@@ -2,6 +2,9 @@ import Foundation
 import SwiftUI
 
 class TableLayoutManager: ObservableObject {
+    let maxScaleAllowed: CGFloat = 4
+    let minScaleAllowed: CGFloat = 0.5
+    
     var model: TableModel {
         didSet {
             self.numOfColumns = -1
@@ -35,15 +38,13 @@ class TableLayoutManager: ObservableObject {
     
     @Published var keyboardHeight: CGFloat = 0
     
-    var cacheCurrentCell: (Int, Int)?
-    
     @Published var currentCell: (Int, Int)? = nil
     
     @Published var startPosition: CGPoint = .zero
     
     @Published var selectedIndexes: [Int] = []
     
-    @Published var isValid: (Bool, String?) = (true, nil)
+    var isValid: (Bool, String?) = (true, nil)
     
     /// it will not be nil after layout process is completed
     @Published var layoutData: LayoutData? = nil
@@ -60,10 +61,10 @@ class TableLayoutManager: ObservableObject {
         }
         
         set {
-            if newValue > 4 {
-                self._scaleX = 4
-            } else if newValue < 0.5 {
-                self._scaleX = 0.5
+            if newValue > self.maxScaleAllowed {
+                self._scaleX = self.maxScaleAllowed
+            } else if newValue < self.minScaleAllowed {
+                self._scaleX = self.minScaleAllowed
             } else {
                 self._scaleX = newValue
             }
@@ -80,19 +81,23 @@ class TableLayoutManager: ObservableObject {
         }
         
         set {
-            if newValue > 4 {
-                self._scaleY = 4
-            } else if newValue < 0.5 {
-                self._scaleY = 0.5
+            if newValue > self.maxScaleAllowed {
+                self._scaleY = self.maxScaleAllowed
+            } else if newValue < self.minScaleAllowed {
+                self._scaleY = self.minScaleAllowed
             } else {
                 self._scaleY = newValue
             }
         }
     }
 
+    /// current layout out work item
     var layoutWorkItem: DispatchWorkItem?
+    
+    /// current working LayoutData
     var workingLayoutData: LayoutData?
     
+    /// layout queue
     let layoutQueue = DispatchQueue(label: "TableLayoutManager_layout")
 
     /// cached LayoutData for DataTable size measurement giving by View's Width
@@ -147,16 +152,19 @@ class TableLayoutManager: ObservableObject {
             for j in 0 ..< newRowData[i].data.count {
                 switch newRowData[i].data[j].type {
                 case .text:
+                    /// compare two if there is a change
                     if var item = newRowData[i].data[j] as? DataTextItem, ld.allDataItems[i][j].text != item.text {
+                        /// return here if it is for "Cancel"
                         if findFirstChangeThenReturn {
                             return ([], [DataTableChange(rowIndex: i, columnIndex: j, value: .text(item.text), text: item.text)], false)
                         }
                         
+                        /// if the change is valid, then save it back to model
                         if !applyValidation || (applyValidation && ld.allDataItems[i][j].isValid) {
                             item.text = ld.allDataItems[i][j].text ?? ""
                             newRowData[i].data[j] = item
                             changes.append(DataTableChange(rowIndex: i, columnIndex: j, value: .text(item.text), text: item.text))
-                        } else {
+                        } else { /// if it is not valid then discard the change and restore the original data
                             isThereRejectedErrors = true
                             ld.allDataItems[i][j] = cacheLd.allDataItems[i][j]
                         }
@@ -228,6 +236,9 @@ class TableLayoutManager: ObservableObject {
         return (newRowData, changes, isThereRejectedErrors)
     }
     
+    /// Save the model after the editing. If chagnes were not valid then those changes are rolled back to original values.
+    /// - Parameter isSave: Save it or not
+    /// - Returns: Return an array of changes
     func onSave(_ isSave: Bool) -> [DataTableChange] {
         if self.model.editMode != .inline {
             return []
@@ -253,6 +264,14 @@ class TableLayoutManager: ObservableObject {
         
         self.model._rowData = newRowData.suffix(self.model._rowData.count)
         if isThereRejectedErrors {
+            // need to update numOfErrors
+            var numOfErrors = 0
+            for row in ld.allDataItems {
+                for cell in row {
+                    numOfErrors += cell.isValid ? 0 : 1
+                }
+            }
+            ld.numOfErrors = numOfErrors
             self.cacheLayoutData = ld.copy()
             self.layoutData = nil
         } else {

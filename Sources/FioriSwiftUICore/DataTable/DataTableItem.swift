@@ -17,6 +17,7 @@ struct DataTableItem: Identifiable, Hashable {
     // the row index
     let rowIndex: Int
     
+    // the column index
     let columnIndex: Int
     
     var firstBaselineHeight: CGFloat
@@ -52,6 +53,9 @@ struct DataTableItem: Identifiable, Hashable {
     var lineLimit: Int?
     
     var isValid: Bool = true
+    
+    // cache the selected index for `DataListItem`
+    var selectedIndex: Int?
     
     init(type: DataItemType,
          rowIndex: Int,
@@ -139,6 +143,8 @@ struct DataTableItem: Identifiable, Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.type)
+        hasher.combine(self.rowIndex)
+        hasher.combine(self.columnIndex)
         hasher.combine(self.pos.x)
         hasher.combine(self.pos.y)
         hasher.combine(self.size.width)

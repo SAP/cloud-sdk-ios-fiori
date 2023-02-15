@@ -12,7 +12,7 @@ enum TableViewLayout {
     
     static let defaultBackgroundColor = Color.preferredColor(.secondaryGroupedBackground)
     
-    static let defaultForegroundColor = Color.preferredColor(.quarternaryLabel)
+    static let defaultForegroundColor = Color.preferredColor(.quaternaryLabel)
     
     static let lineShadowColor = Color.preferredColor(.cardShadow)
     

@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Pour l'instant, il n'y a rien à afficher.";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d hre(s) %d min";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Terminé";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "La table de données contient %d erreurs.";
+

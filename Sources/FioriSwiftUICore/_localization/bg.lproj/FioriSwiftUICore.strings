@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Още няма нищо за показване";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d ч %d мин";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Готово";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "В таблицата с данни има %d грешки.";
+

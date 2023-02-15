@@ -59,7 +59,7 @@ class Universe: KPIItemModel, Identifiable {
     }
 }
 
-struct KPIHeaderFreestyleExample: View {
+struct KPIHeaderExample: View {
     var data: [KPIHeaderItemModel] = [World(), Galaxy(), Space(), Universe()]
 
     var body: some View {
@@ -107,10 +107,10 @@ struct KPIHeaderFreestyleExample: View {
     }
 }
 
-struct KPIHeaderFreestyleExample_Previews: PreviewProvider {
+struct KPIHeaderExample_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            KPIHeaderFreestyleExample()
+            KPIHeaderExample()
         }
     }
 }

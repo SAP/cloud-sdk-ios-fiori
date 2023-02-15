@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "表示する内容がまだありません";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d 時間 %d 分";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "完了";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "データテーブルに %d エラーがあります。";
+

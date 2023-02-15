@@ -31,7 +31,9 @@ struct LeadingAccessoryView: View {
                     Button(action: {
                         button.action()
                     }) {
-                        button.image?.resizable()
+                        button.image?
+                            .renderingMode(.template)
+                            .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(8 * self.layoutManager.scaleX)
                     }
@@ -39,6 +41,7 @@ struct LeadingAccessoryView: View {
                     
                 case .icon(let image):
                     image
+                        .renderingMode(.template)
                         .resizable()
                         .imageScale(.large)
                         .aspectRatio(contentMode: .fit)
