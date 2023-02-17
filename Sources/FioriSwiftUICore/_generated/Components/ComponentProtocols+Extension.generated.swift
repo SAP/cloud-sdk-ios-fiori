@@ -40,6 +40,12 @@ public extension AttributeComponent {
     }
 }
 
+public extension AvatarsComponent {
+    var avatars: [TextOrIcon]? {
+        return nil
+    }
+}
+
 public extension BodyAttributedTextComponent {
     var bodyAttributedText: NSAttributedString? {
         return nil
@@ -102,6 +108,12 @@ public extension FirstActionTitleComponent {
 
 public extension FootnoteComponent {
     var footnote: String? {
+        return nil
+    }
+}
+
+public extension FootnoteIconsComponent {
+    var footnoteIcons: [TextOrIcon]? {
         return nil
     }
 }

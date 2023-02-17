@@ -7,12 +7,26 @@ import SwiftUI
 // sourcery: add_env_props = "numberOfLines"
 public protocol IconStackModel: IconsComponent {}
 
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "avatarSize"
+// sourcery: add_env_props = "isAvatarCircular"
+// sourcery: add_env_props = "avatarBorderWidth"
+// sourcery: add_env_props = "avatarBorderColor"
+public protocol AvatarStackModel: AvatarsComponent {}
+
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "footnoteIconsSize"
+// sourcery: add_env_props = "footnoteIconsSpacing"
+// sourcery: add_env_props = "isFootnoteIconsCircular"
+// sourcery: add_env_props = "footnoteIconsMaxCount"
+public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
+
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent {
+public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent, AvatarsComponent, FootnoteIconsComponent, TagsComponent {
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
 }

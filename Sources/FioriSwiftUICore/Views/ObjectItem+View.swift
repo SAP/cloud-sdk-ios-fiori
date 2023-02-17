@@ -71,6 +71,24 @@ extension Fiori {
                     .buttonStyle(PlainButtonStyle())
             }
         }
+        
+        struct Avatars: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+            }
+        }
+        
+        struct FootnoteIcons: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+            }
+        }
+        
+        struct Tags: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+            }
+        }
 
         typealias TitleCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
@@ -80,7 +98,10 @@ extension Fiori {
         typealias SubstatusCumulative = EmptyModifier
         typealias DetailImageCumulative = EmptyModifier
         typealias IconsCumulative = EmptyModifier
-        
+        typealias AvatarsCumulative = EmptyModifier
+        typealias FootnoteIconsCumulative = EmptyModifier
+        typealias TagsCumulative = EmptyModifier
+
         typealias Icons = EmptyModifier
         static let title = Title()
         static let subtitle = Subtitle()
@@ -91,6 +112,10 @@ extension Fiori {
         static let detailImage = DetailImage()
         static let icons = Icons()
         static let action = Action()
+        static let avatars = Avatars()
+        static let footnoteIcons = FootnoteIcons()
+        static let tags = Tags()
+        
         static let titleCumulative = TitleCumulative()
         static let subtitleCumulative = SubtitleCumulative()
         static let footnoteCumulative = FootnoteCumulative()
@@ -100,22 +125,46 @@ extension Fiori {
         static let detailImageCumulative = DetailImageCumulative()
         static let iconsCumulative = IconsCumulative()
         static let actionCumulative = ActionCumulative()
+        static let avatarsCumulative = AvatarsCumulative()
+        static let footnoteIconsCumulative = FootnoteIconsCumulative()
+        static let tagsCumulative = TagsCumulative()
     }
 }
 
 extension ObjectItem: View {
+    var shouldShowAvatar: Bool {
+        !isAvatarsEmptyView || !isDetailImageEmptyView
+    }
+    
+    @ViewBuilder
+    var avatarView: some View {
+        if !isAvatarsEmptyView {
+            avatars.clipped()
+            Spacer().frame(width: 12)
+        } else if !isDetailImageEmptyView {
+            detailImage.clipped()
+            Spacer().frame(width: 12)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    var isCenterAligned: Bool {
+        isSubtitleEmptyView && isFootnoteEmptyView && isTagsEmptyView && isFootnoteIconsEmptyView
+    }
+    
     public var body: some View {
         Group {
             if !isActionEmptyView {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isSubtitleEmptyView && isFootnoteEmptyView {
+                if isCenterAligned {
                     self.makeOneLineSingleActionView()
                 } else {
                     self.makeRegularSingleActionView()
                 }
             } else if horizontalSizeClass == .some(.compact) || splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isSubtitleEmptyView && isFootnoteEmptyView {
+                if isCenterAligned {
                     self.makeCompactOneLineView()
                 }
                 // If only 1 status is being used with either a chevron or with no accessory view, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
@@ -127,7 +176,7 @@ extension ObjectItem: View {
                 }
             } else { // horizontalSizeClass is Regular
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-                if isSubtitleEmptyView && isFootnoteEmptyView {
+                if isCenterAligned {
                     self.makeRegularCenterView()
                 } else {
                     self.makeRegularGeneralView()
@@ -150,8 +199,8 @@ extension ObjectItem: View {
             HStack {
                 if horizontalSizeClass == .some(.compact) || splitPercent == nil {
                     HStack(alignment: .center, spacing: 0) {
-                        if !isDetailImageEmptyView {
-                            detailImage.clipped()
+                        if !shouldShowAvatar {
+                            avatarView.clipped()
                             Spacer().frame(width: 12)
                         }
                         title.lineLimit(1)
@@ -160,8 +209,8 @@ extension ObjectItem: View {
                 } else {
                     HStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
-                            if !isDetailImageEmptyView {
-                                detailImage.clipped()
+                            if !shouldShowAvatar {
+                                avatarView.clipped()
                                 Spacer().frame(width: 12)
                             }
                             
@@ -202,9 +251,8 @@ extension ObjectItem: View {
             if horizontalSizeClass == .some(.compact) || splitPercent == nil {
                 HStack(alignment: .center) {
                     HStack(alignment: .top) {
-                        if !isDetailImageEmptyView {
-                            detailImage.clipped()
-                            
+                        if shouldShowAvatar {
+                            avatarView.clipped()
                             Spacer().frame(width: 12)
                         }
                         
@@ -212,6 +260,8 @@ extension ObjectItem: View {
                             title.lineLimit(2)
                             subtitle
                             footnote
+                            tags
+                            footnoteIcons
                         }
                         
                         Spacer(minLength: 16)
@@ -223,8 +273,8 @@ extension ObjectItem: View {
                 HStack(alignment: .center) {
                     HStack(alignment: .iconStackAlignmentGuide) {
                         HStack(alignment: .top) {
-                            if !isDetailImageEmptyView {
-                                detailImage
+                            if shouldShowAvatar {
+                                avatarView
                                     .clipped()
                                     .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                         [MyViewPreferenceData(element: .detailImage, bounds: $0)]
@@ -241,6 +291,8 @@ extension ObjectItem: View {
                                     }
                                 subtitle
                                 footnote
+                                tags
+                                footnoteIcons
                             }
                             
                             Spacer(minLength: 16)
@@ -287,9 +339,8 @@ extension ObjectItem: View {
             }
             
             HStack {
-                if !isDetailImageEmptyView {
-                    detailImage
-                        .clipped()
+                if shouldShowAvatar {
+                    avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -313,9 +364,8 @@ extension ObjectItem: View {
             }
             
             HStack(alignment: .top) {
-                if !isDetailImageEmptyView {
-                    detailImage
-                        .clipped()
+                if shouldShowAvatar {
+                    avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -330,6 +380,8 @@ extension ObjectItem: View {
                         VStack(alignment: .leading, spacing: 3) {
                             subtitle
                             footnote
+                            tags
+                            footnoteIcons
                         }
                         Spacer(minLength: 0)
                     }
@@ -347,9 +399,8 @@ extension ObjectItem: View {
             }
             
             HStack(alignment: .top) {
-                if !isDetailImageEmptyView {
-                    detailImage
-                        .clipped()
+                if shouldShowAvatar {
+                    avatarView.clipped()
                     Spacer().frame(width: 12)
                 }
                 
@@ -357,6 +408,8 @@ extension ObjectItem: View {
                     title.lineLimit(2)
                     subtitle
                     footnote
+                    tags
+                    footnoteIcons
                 }
                 
                 Spacer(minLength: 8)
@@ -381,14 +434,12 @@ extension ObjectItem: View {
             
             HStack(alignment: .center, spacing: 0) {
                 HStack(alignment: .center) {
-                    if !isDetailImageEmptyView {
-                        detailImage
-                            .clipped()
+                    if shouldShowAvatar {
+                        avatarView.clipped()
                         Spacer().frame(width: 12)
                     }
                     
                     title.lineLimit(1)
-                    
                     Spacer(minLength: 16)
                 }
                 .frame(width: self.doesShowDescriptionOrStatus() ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
@@ -421,8 +472,8 @@ extension ObjectItem: View {
             
             HStack(alignment: .iconStackAlignmentGuide) {
                 HStack(alignment: .top) {
-                    if !isDetailImageEmptyView {
-                        detailImage
+                    if shouldShowAvatar {
+                        avatarView
                             .clipped()
                             .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                 [MyViewPreferenceData(element: .detailImage, bounds: $0)]
@@ -439,8 +490,9 @@ extension ObjectItem: View {
                             }
                         subtitle
                         footnote
+                        tags
+                        footnoteIcons
                     }
-                    
                     Spacer(minLength: 16)
                 }
                 .frame(width: self.doesShowDescriptionOrStatus() ? self.mainViewSize.width * splitPercent! : self.mainViewSize.width)
@@ -489,7 +541,7 @@ extension ObjectItem: View {
 //        print("global frame is \(globalFrame)")
         
         return ZStack {
-            detailImage
+            avatarView
                 .clipped()
                 .position(x: (boundDetail.minX + boundDetail.maxX) / 2, y: boundDetail.size.height / 2)
             
