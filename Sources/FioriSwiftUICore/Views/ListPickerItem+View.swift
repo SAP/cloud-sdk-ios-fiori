@@ -8,7 +8,7 @@ extension Fiori {
     enum ListPickerItem {
         struct Key: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.headline).foregroundColor(.preferredColor(.primaryLabel))
+                content.font(.fiori(forTextStyle: .headline)).foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 

@@ -9,7 +9,7 @@ extension Fiori {
                     .frame(alignment: .leading)
                     .padding(EdgeInsets(top: 16, leading: 16, bottom: 0, trailing: 16))
                     .lineLimit(1)
-                    .font(.system(size: 24))
+                    .font(.fiori(fixedSize: 24))
                     .truncationMode(.tail)
                     .foregroundColor(.preferredColor(.primaryLabel))
             }
@@ -194,7 +194,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
                         }, header: {
                             Text(rowModel(item).title)
                                 .lineLimit(1)
-                                .font(.system(size: 17.0))
+                                .font(.fiori(fixedSize: 17.0))
                                 .truncationMode(.tail)
                                 .foregroundColor(.preferredColor(.tertiaryLabel))
                         }, isModelInit: true)
