@@ -14,17 +14,13 @@ extension Fiori {
 
 extension TextInput: View {
     public var body: some View {
-        if #available(iOS 14.0, *) {
-            TextField("Default",
-                      text: self._textInputValue,
-                      onCommit: self._onCommit ?? {})
-                .modifier(TextFieldClearButton(textValue: self._textInputValue))
-                .textFieldStyle(BottomTextFieldStyle())
-        } else {
-            TextField("Default", text: self._textInputValue)
-                .modifier(TextFieldClearButton(textValue: self._textInputValue))
-                .padding(.top, 8)
-        }
+        TextField("Default",
+                  text: self._textInputValue,
+                  onCommit: self._onCommit ?? {})
+            .modifier(TextFieldClearButton(textValue: self._textInputValue))
+            .textFieldStyle(BottomTextFieldStyle())
+            .font(.fiori(forTextStyle: .body))
+            .foregroundColor(.preferredColor(.primaryLabel))
     }
 }
 
