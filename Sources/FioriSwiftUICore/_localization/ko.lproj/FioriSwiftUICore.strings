@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "아직 아무것도 표시되지 않았습니다.";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d시간 %d분";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "완료";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "데이터 테이블에 %d개의 오류가 있습니다.";
+

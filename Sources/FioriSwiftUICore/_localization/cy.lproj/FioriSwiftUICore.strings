@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Does dim i'w ddangos eto";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d Awr %d Mun";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Wedi gwneud";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "Mae %d gwall yn y tabl data.";
+

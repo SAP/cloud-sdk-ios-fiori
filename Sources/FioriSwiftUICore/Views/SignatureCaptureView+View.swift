@@ -1,4 +1,5 @@
 import Combine
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
@@ -6,7 +7,7 @@ extension Fiori {
         struct StartAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -16,7 +17,7 @@ extension Fiori {
         struct RestartAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -26,7 +27,7 @@ extension Fiori {
         struct CancelAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -36,7 +37,7 @@ extension Fiori {
         struct ClearAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -46,7 +47,7 @@ extension Fiori {
         struct SaveAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .accentColor(.preferredColor(.tintColor))
             }
         }
@@ -194,7 +195,7 @@ extension SignatureCaptureView: View {
                 HStack(alignment: .bottom) {
                     Image(systemName: "xmark")
                         .foregroundColor(xmarkColor)
-                        .font(.body)
+                        .font(.fiori(forTextStyle: .body))
                         .setHidden(self.hidesXmark)
                     Rectangle()
                         .foregroundColor(signatureLineColor)
@@ -214,14 +215,14 @@ extension SignatureCaptureView: View {
                                     self.isEditing = true
                                 }
                         )
-                        .font(.body)
+                        .font(.fiori(forTextStyle: .body))
                         .foregroundColor(Color.preferredColor(.tintColor))
                 }
                 .frame(maxWidth: .infinity, minHeight: 256, maxHeight: _drawingViewMaxHeight)
                 HStack(alignment: .bottom) {
                     Image(systemName: "xmark")
                         .foregroundColor(xmarkColor.opacity(0.4))
-                        .font(.body)
+                        .font(.fiori(forTextStyle: .body))
                         .setHidden(self.hidesXmark)
                     Rectangle()
                         .foregroundColor(signatureLineColor.opacity(0.4))
