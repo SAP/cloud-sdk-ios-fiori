@@ -17,7 +17,7 @@ public struct ActivityButtonView: View {
     public var body: some View {
         Button(action: handle) {
             image
-                .font(Font.body.weight(Font.Weight.light))
+                .font(.fiori(forTextStyle: .body).weight(.light))
                 .imageScale(.large)
                 .foregroundColor(.preferredColor(.tintColor))
                 .frame(width: 44, height: 44, alignment: .center)
@@ -29,6 +29,6 @@ public struct ActivityButtonView: View {
 public struct ActivityButtonStyle: ButtonStyle {
     public func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundColor(.blue)
+            .foregroundColor(.preferredColor(.tintColor))
     }
 }

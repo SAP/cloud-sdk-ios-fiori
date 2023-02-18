@@ -5,23 +5,26 @@ import SwiftUI
 
 extension Fiori {
     enum KeyValueItem {
-        typealias Key = EmptyModifier
         typealias KeyCumulative = EmptyModifier
-        typealias Value = EmptyModifier
         typealias ValueCumulative = EmptyModifier
+        
+        struct Key: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .font(.fiori(forTextStyle: .subheadline).weight(.semibold))
+                    .foregroundColor(.preferredColor(.primaryLabel))
+            }
+        }
+        
+        struct Value: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .font(.fiori(forTextStyle: .body))
+                    .foregroundColor(.preferredColor(.primaryLabel))
+                    .multilineTextAlignment(.trailing)
+            }
+        }
 
-        // TODO: - substitute type-specific ViewModifier for EmptyModifier
-        /*
-             // replace `typealias Subtitle = EmptyModifier` with:
-
-             struct Subtitle: ViewModifier {
-                 func body(content: Content) -> some View {
-                     content
-                         .font(.body)
-                         .foregroundColor(.preferredColor(.primary3))
-                 }
-             }
-         */
         static let key = Key()
         static let value = Value()
         static let keyCumulative = KeyCumulative()
@@ -37,7 +40,6 @@ extension KeyValueItem: View {
             key
             Spacer()
             value
-                .multilineTextAlignment(.trailing)
         }
         .frame(maxWidth: .infinity)
     }
