@@ -92,6 +92,7 @@ struct ObjectItemAvatarsExample: ListDataProtocol {
                 .avatarBorderColor(Color.yellow)
                 .avatarSize(CGSize(width: 40, height: 40))
                 .splitPercent(0.5)
+                .footnoteIconsMaxCount(-2)
             return AnyView(oi)
         case (0, 2):
             let oi = ObjectItem(title: {

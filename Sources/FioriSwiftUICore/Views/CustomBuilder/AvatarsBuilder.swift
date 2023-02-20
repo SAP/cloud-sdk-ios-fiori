@@ -12,8 +12,8 @@ public protocol AvatarList: View {
 }
 
 public extension AvatarList {
-    @ViewBuilder
-    func buildAvatar(_ avatar: V) -> some View {
+    /// :nodoc:
+    @ViewBuilder func buildAvatar(_ avatar: V) -> some View {
         Group {
             if isCircular {
                 avatar
@@ -31,6 +31,7 @@ public extension AvatarList {
         }
     }
     
+    /// :nodoc:
     var body: some View {
         Group {
             if count == 1 {
@@ -173,6 +174,7 @@ public enum AvatarsBuilder {
         SingleAvatar(view: content)
     }
     
+    /// :nodoc:
     public static func buildBlock<C0, C1>(_ c0: C0, _ c1: C1) -> some AvatarList where C0: View, C1: View {
         PairAvatar(first: c0, remainder: SingleAvatar(view: c1))
     }
@@ -238,6 +240,7 @@ struct AvatarBorderColor: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// The avatars border color. Default value is `clear`.
     var avatarBorderColor: Color {
         get { self[AvatarBorderColor.self] }
         set { self[AvatarBorderColor.self] = newValue }
@@ -249,6 +252,7 @@ struct AvatarBorderWidth: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// Dimensions of the avatars border width. Default value is 0.
     var avatarBorderWidth: CGFloat {
         get { self[AvatarBorderWidth.self] }
         set { self[AvatarBorderWidth.self] = newValue }
@@ -260,6 +264,7 @@ struct IsAvatarCircular: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// Specifies whether the `avatars` are drawn as circular. Default value is `true`.
     var isAvatarCircular: Bool {
         get { self[IsAvatarCircular.self] }
         set { self[IsAvatarCircular.self] = newValue }
@@ -271,6 +276,7 @@ struct AvatarSize: EnvironmentKey {
 }
 
 public extension EnvironmentValues {
+    /// Dimensions of avatars size. Default value is `45x45`.
     var avatarSize: CGSize {
         get { self[AvatarSize.self] }
         set { self[AvatarSize.self] = newValue }
@@ -278,18 +284,58 @@ public extension EnvironmentValues {
 }
 
 public extension View {
+    /// Set the avatars border color. Default value is `clear`.
+    /// ```swift
+    ///  ObjectItem(title: "Object Item",
+    ///             avatars: {
+    ///                 Image(systemName: "circle.fill")
+    ///             })
+    ///             .avatarBorderColor(Color.red)
+    /// ```
+    /// - Parameter color: Border color.
+    /// - Returns: A view with specific border color of avatars.
     func avatarBorderColor(_ color: Color) -> some View {
         environment(\.avatarBorderColor, color)
     }
     
+    /// Dimensions of avatars. Default value is `45x45`.
+    /// ```swift
+    ///  ObjectItem(title: "Object Item",
+    ///             avatars: {
+    ///                 Image(systemName: "circle.fill")
+    ///             })
+    ///             .avatarSize(CGSize(30, 30))
+    /// ```
+    /// - Parameter size: The size of the avatars.
+    /// - Returns: A view that limits the size of avatars.
     func avatarSize(_ size: CGSize) -> some View {
         environment(\.avatarSize, size)
     }
     
+    /// Specifies whether the `avatars` are drawn as circular. Default value is `true`.
+    /// ```swift
+    ///  ObjectItem(title: "Object Item",
+    ///             avatars: {
+    ///                 Image(systemName: "circle.fill")
+    ///             })
+    ///             .isAvatarCircular(true)
+    /// ```
+    /// - Parameter isCircular: Boolean denoting whether the avatars are circular.
+    /// - Returns: A view that avatars are cirlcular or not.
     func isAvatarCircular(_ isCircular: Bool) -> some View {
         environment(\.isAvatarCircular, isCircular)
     }
     
+    /// Dimensions of the avatars border width. Default value is 0.
+    /// ```swift
+    ///  ObjectItem(title: "Object Item",
+    ///             avatars: {
+    ///                 Image(systemName: "circle.fill")
+    ///             })
+    ///             .avatarBorderWidth(2)
+    /// ```
+    /// - Parameter borderWidth: Dimensions of the avatars border width.
+    /// - Returns: A view that avatars with specific boreder width.
     func avatarBorderWidth(_ borderWidth: CGFloat) -> some View {
         environment(\.avatarBorderWidth, borderWidth)
     }
