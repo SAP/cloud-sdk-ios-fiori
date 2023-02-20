@@ -14,7 +14,7 @@ extension ProgressIndicator: View {
                 ActivityIndicator(style: .medium)
                 if self._progressIndicatorText?.isEmpty == false {
                     Text(self._progressIndicatorText ?? "")
-                        .font(.system(size: 11, weight: .regular, design: .default))
+                        .font(.fiori(fixedSize: 11).weight(.regular))
                         .foregroundColor(.preferredColor(.tertiaryLabel))
                 }
             }

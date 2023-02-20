@@ -209,20 +209,25 @@ public struct FioriButtonStyleConfiguration {
 
 struct DefaultFioriButtonStyle: FioriButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        let color: Color
+        let backgroundColor: Color
+        let foregroundColor: Color
         switch configuration.state {
         case .normal:
-            color = Color.preferredColor(.tintColor)
+            foregroundColor = Color.preferredColor(.base2)
+            backgroundColor = Color.preferredColor(.tintColor)
         case .highlighted, .selected:
-            color = Color.preferredColor(.tintColorTapState)
+            foregroundColor = Color.preferredColor(.base2)
+            backgroundColor = Color.preferredColor(.tintColorTapState)
         default:
-            color = Color.preferredColor(.tertiaryLabel)
+            foregroundColor = Color.preferredColor(.separator)
+            backgroundColor = Color.preferredColor(.tertiaryFill)
         }
         
         return configuration.label
-            .foregroundColor(.white)
+            .foregroundColor(foregroundColor)
+            .font(.fiori(forTextStyle: .body).weight(.bold))
             .padding(15)
-            .background(RoundedRectangle(cornerRadius: 5).fill(color))
+            .background(RoundedRectangle(cornerRadius: 5).fill(backgroundColor))
     }
 }
 
