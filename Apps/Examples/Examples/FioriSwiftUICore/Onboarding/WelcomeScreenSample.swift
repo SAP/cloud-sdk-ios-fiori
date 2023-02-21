@@ -5,17 +5,13 @@ import SwiftUI
 class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
     // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
     @Published var textInput: TextInputModel?
-    lazy var action: ActionModel? = {
-        ActionDataModel { [unowned self] in
-            print("Primary button clicked: \(self.textInput!.textInputValue)")
-        }
-    }()
+    lazy var action: ActionModel? = ActionDataModel { [unowned self] in
+        print("Primary button clicked: \(self.textInput!.textInputValue)")
+    }
 
-    lazy var secondaryAction: ActionModel? = {
-        SecondaryActionDataModel { [unowned self] in
-            UIApplication.shared.open(URL(string: "http://www.google.com")!)
-        }
-    }()
+    lazy var secondaryAction: ActionModel? = SecondaryActionDataModel { [unowned self] in
+        UIApplication.shared.open(URL(string: "http://www.google.com")!)
+    }
 
     var title: String = "SAP Project Companion for Managers"
     var descriptionText: String? = "Please follow the instructions you received in the welcome email to start the activation process."
@@ -77,7 +73,7 @@ struct WelcomeScreenCustomized: View {
     var body: some View {
         VStack {
             WelcomeScreen(model: model)
-                .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
+                .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { $0.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing)) }
         }
     }
@@ -90,7 +86,7 @@ struct WelcomeScreenDiscoveryService: View {
     var body: some View {
         VStack {
             WelcomeScreen(model: model)
-                .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
+                .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionTextModifier { content in
                     content.background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.orange]), startPoint: .leading, endPoint: .trailing))
                         .disabled(model.textInput?.textInputValue.isEmpty ?? true)

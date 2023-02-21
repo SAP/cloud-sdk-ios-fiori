@@ -23,7 +23,7 @@ extension Fiori {
         
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.headline).foregroundColor(.preferredColor(.primaryLabel))
+                content.font(.fiori(forTextStyle: .headline)).foregroundColor(.preferredColor(.primaryLabel))
             }
         }
 
