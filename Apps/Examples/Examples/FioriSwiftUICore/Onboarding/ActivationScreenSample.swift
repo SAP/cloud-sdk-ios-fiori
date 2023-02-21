@@ -5,17 +5,13 @@ import SwiftUI
 class ActivationScreenDataModel: ActivationScreenModel, ObservableObject {
     // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
     @Published var textInput: TextInputModel?
-    lazy var action: ActionModel? = {
-        ActionDataModel { [unowned self] in
-            print("ActivationScreen Primary button clicked, email: \(self.textInput!.textInputValue)")
-        }
-    }()
+    lazy var action: ActionModel? = ActionDataModel { [unowned self] in
+        print("ActivationScreen Primary button clicked, email: \(self.textInput!.textInputValue)")
+    }
 
-    lazy var secondaryAction: ActionModel? = {
-        SecondaryActionDataModel { [unowned self] in
-            print("call barcode scanner")
-        }
-    }()
+    lazy var secondaryAction: ActionModel? = SecondaryActionDataModel { [unowned self] in
+        print("call barcode scanner")
+    }
     
     var title: String = "Activation"
     var descriptionText: String? = "If you received a welcome email, follow the activation link in the email.Otherwise, enter your email address or scan the QR code to start onboarding. "
@@ -76,7 +72,7 @@ struct ActivationScreenCustomizedSample: View {
     var body: some View {
         VStack {
             ActivationScreen(model: model)
-                .footnoteModifier { $0.font(.headline).foregroundColor(.green) }
+                .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
                 .actionModifier { $0.disabled(model.textInput!.textInputValue.isEmpty) }
                 .textInputModifier { $0.padding(.top, 8)
                     .border(Color(UIColor.separator))
