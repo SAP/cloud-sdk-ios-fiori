@@ -10,7 +10,7 @@ extension Fiori {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 28, weight: .thin, design: .default))
+                    .font(.fiori(forTextStyle: .title1).weight(.black))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
@@ -19,7 +19,7 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 17))
+                    .font(.fiori(forTextStyle: .body))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
@@ -28,7 +28,7 @@ extension Fiori {
         struct ProgressIndicator: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 17))
+                    .font(.fiori(forTextStyle: .body))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
@@ -37,14 +37,14 @@ extension Fiori {
         struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 15))
+                    .font(.fiori(forTextStyle: .body).weight(.bold))
             }
         }
         
         struct SecondaryAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 15))
+                    .font(.fiori(forTextStyle: .body).weight(.bold))
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
