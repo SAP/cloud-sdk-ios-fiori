@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 
+// swiftlint:disable file_length
 class LayoutData {
     var size: CGSize = .zero
     
@@ -735,7 +736,6 @@ extension UIFont {
             description = "Unknown"
         }
 
-        // TODO: waiting for designer to update font name in 72-black.ttf
         if weight == .black {
             return "72\(description)"
         }
