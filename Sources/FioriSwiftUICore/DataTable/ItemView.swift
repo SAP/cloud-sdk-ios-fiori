@@ -76,7 +76,7 @@ struct ItemView: View {
                                           searchFilter: filter,
                                           rowContent: { index in
                                               Text(data.0[index])
-                                                  .font(Font.fiori(forTextStyle: .body))
+                                                  .font(.fiori(forTextStyle: .body))
                                                   .foregroundColor(Color.preferredColor(.primaryLabel))
                                           },
                                           rowBackground: { _ in
@@ -155,7 +155,7 @@ struct ItemView: View {
                                     Spacer(minLength: 4)
                                     
                                     Image(systemName: "chevron.right")
-                                        .font(Font.fiori(fixedSize: 17).weight(.semibold))
+                                        .font(.fiori(fixedSize: 17).weight(.semibold))
                                         .foregroundColor(Color.preferredColor(.separator))
                                 }
                                 
@@ -186,7 +186,7 @@ struct ItemView: View {
                                     Spacer(minLength: 4)
                                     
                                     Image(systemName: "chevron.right")
-                                        .font(Font.fiori(fixedSize: 17).weight(.semibold))
+                                        .font(.fiori(fixedSize: 17).weight(.semibold))
                                         .foregroundColor(Color.preferredColor(.separator))
                                 }
                             } else {

@@ -56,7 +56,7 @@ struct ChartDetailView: View {
             if geometry.size.width <= geometry.size.height {
                 ZStack(alignment: .topLeading) {
                     Image(systemName: "arrow.up.left.and.arrow.down.right")
-                        .font(.body)
+                        .font(.fiori(forTextStyle: .body))
                         .padding(8)
                         .onTapGesture {
                             self.isFullScreen.toggle()
@@ -104,7 +104,7 @@ struct ChartDetailView: View {
                             .frame(width: self.isFullScreen ? (geometry.size.width - 32) : geometry.size.width / 2)
                         
                         Image(systemName: "arrow.up.left.and.arrow.down.right")
-                            .font(.body)
+                            .font(.fiori(forTextStyle: .body))
                             .padding(8)
                             .onTapGesture {
                                 self.isFullScreen.toggle()

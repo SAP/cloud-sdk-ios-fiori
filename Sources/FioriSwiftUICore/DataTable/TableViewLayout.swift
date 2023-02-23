@@ -62,7 +62,7 @@ enum TableViewLayout {
     }
     
     static func defaultUIFont(_ isHeader: Bool) -> UIFont {
-        isHeader ? UIFont.preferredFont(from: .subheadline) : UIFont.preferredFont(from: .body)
+        isHeader ? UIFont.preferredFioriFont(forTextStyle: .subheadline) : UIFont.preferredFioriFont(forTextStyle: .body)
     }
     
     static func defaultFontColor(_ isHeader: Bool) -> Color {
