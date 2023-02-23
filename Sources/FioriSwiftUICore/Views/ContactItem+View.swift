@@ -5,7 +5,7 @@ extension Fiori {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.headline)
+                    .font(.fiori(forTextStyle: .headline))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .lineLimit(2)
             }
@@ -16,7 +16,7 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.subheadline)
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
@@ -27,7 +27,7 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.subheadline)
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(3)
             }

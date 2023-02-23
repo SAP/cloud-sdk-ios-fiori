@@ -65,7 +65,8 @@ struct ChartsContentView: View {
         List {
             ForEach(0 ..< charts.count, id: \.self) { index in
                 NavigationLink(destination: ChartHomeView(info: self.charts[index], isPopUp: self.$isPopUp)) {
-                    Text(self.charts[index].0).font(.headline)
+                    Text(self.charts[index].0)
+                        .font(.fiori(forTextStyle: .headline))
                 }
             }
         }.navigationBarTitle("FioriCharts")
@@ -173,7 +174,9 @@ struct ChartHomeView: View {
                     
                     Spacer().frame(height: 8)
                     
-                    Text(desc).font(.subheadline).foregroundColor(.primary)
+                    Text(desc)
+                        .font(.fiori(forTextStyle: .subheadline))
+                        .foregroundColor(.preferredColor(.primaryLabel))
                 }.onTapGesture {
                     self.currentModel = model
                     if self.isPopUp {
@@ -189,7 +192,9 @@ struct ChartHomeView: View {
 
                         Spacer().frame(height: 8)
                         
-                        Text(desc).font(.subheadline).foregroundColor(.primary)
+                        Text(desc)
+                            .font(.fiori(forTextStyle: .subheadline))
+                            .foregroundColor(.preferredColor(.primaryLabel))
                     }
                 }
             }

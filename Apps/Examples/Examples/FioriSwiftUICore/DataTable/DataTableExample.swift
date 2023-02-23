@@ -9,7 +9,7 @@ struct DataTableExample: View {
                 NavigationLink("One column infinity width trailing alignment",
                                destination: DataTableExampleView(model: oneColumnWithInfinityWidth))
 
-                NavigationLink("3 columns, 2nd column fixed(30), with different alignment",
+                NavigationLink("3 columns, 2nd column fixed(30), with different alignment & Fiori Fonts",
                                destination: DataTableExampleView(model: threeRowThreeColumn))
 
                 NavigationLink("3 columns, 2nd column fixed(80), with different alignment",
@@ -112,7 +112,7 @@ struct DataTableExample: View {
     }
 }
 
-let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention")])
+let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.fiori(forTextStyle: .largeTitle))])
 let row1 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row2 = TableRowItem(data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row3 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
@@ -146,9 +146,9 @@ let row2WithAccs = TableRowItem(leadingAccessories: [accIcon], trailingAccessory
 let row3WithAccs = TableRowItem(leadingAccessories: [accIcon, accBtn, accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention"), DataTextItem("Jul 4, 2021")])
 let threeRowTwoColumnWithAcc = TableModel(headerData: nil, rowData: [row1WithAccs, row2WithAccs, row3WithAccs], isHeaderSticky: false, isFirstColumnSticky: false, columnAttributes: [], isPinchZoomEnable: true, showListView: false)
 
-let row1WithAlignment = TableRowItem(data: [DataTextItem("Leading"), DataTextItem("C"), DataImageItem(Image("wheel"))])
-let row2WithAlignment = TableRowItem(data: [DataTextItem("Leading Leading"), DataImageItem(Image("wheel")), DataTextItem("Trailing Trailing")])
-let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end")])
+let row1WithAlignment = TableRowItem(data: [DataTextItem("Leading", Font.fiori(forTextStyle: .title1)), DataTextItem("C"), DataImageItem(Image("wheel"))])
+let row2WithAlignment = TableRowItem(data: [DataTextItem("Leading", Font.title), DataImageItem(Image("wheel")), DataTextItem("Trailing Trailing")])
+let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("Center Center"), DataTextItem("Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing Trailing end", Font.fioriCondensed(forTextStyle: .title1))])
 
 let row1WithDate = TableRowItem(data: [DataTextItem("Hello", Font.headline, Color.orange), DataImageItem(Image("wheel")), DataDateItem(Date(timeIntervalSince1970: 1), Font.largeTitle, Color.preferredColor(.chart2)), DataTimeItem(Date(timeIntervalSince1970: 1), Font.headline, Color.purple), DataDurationItem(3000, Font.footnote, Color.preferredColor(.secondaryLabel)), DataListItem("San Jose")])
 let row2WithDate = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("World"), DataDateItem(Date(timeIntervalSinceReferenceDate: 1), Font.title2), DataTimeItem(Date(timeIntervalSinceReferenceDate: 1000)), DataDurationItem(23000), DataListItem("New York", Font.headline)])

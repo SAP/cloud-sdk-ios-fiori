@@ -121,7 +121,7 @@ struct InlineEditingView: View {
                     updateText(editingText)
                 } label: {
                     Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                        .font(Font.fiori(forTextStyle: .body).bold())
+                        .font(.fiori(forTextStyle: .body).bold())
                         .foregroundColor(Color.preferredColor(.tintColor))
                 }
             }

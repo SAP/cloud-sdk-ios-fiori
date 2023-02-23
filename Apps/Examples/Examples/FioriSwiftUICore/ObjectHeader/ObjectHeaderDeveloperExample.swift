@@ -73,7 +73,10 @@ struct ObjectHeaderDeveloperExample: ListDataProtocol {
                 
                 Tag("PM01")
                 
-                Text("LongLongLongTag").font(.footnote).padding().border(Color.green, width: 1)
+                Text("LongLongLongTag")
+                    .font(.fiori(forTextStyle: .footnote))
+                    .padding()
+                    .border(Color.green, width: 1)
                 
                 Image(systemName: "person")
                 
