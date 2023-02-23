@@ -9,7 +9,7 @@ extension Fiori {
         struct CancelAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 16))
+                    .font(.fiori(forTextStyle: .callout))
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }
@@ -17,7 +17,7 @@ extension Fiori {
         struct DoneAction: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.system(size: 16))
+                    .font(.fiori(forTextStyle: .callout))
                     .foregroundColor(.preferredColor(.tintColor))
             }
         }

@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 struct DurationPickerViewWrapper: UIViewRepresentable {
@@ -75,7 +76,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent: DurationPickerViewWrapper
-        let pickerFont = UIFont.systemFont(ofSize: 22)
+        let pickerFont = UIFont.preferredFioriFont(fixedSize: 22)
         
         init(_ parent: DurationPickerViewWrapper) {
             self.parent = parent
@@ -179,7 +180,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         lazy var hourLabel: UILabel = {
             let label = UILabel()
             label.text = parent.hourText
-            label.font = UIFont.systemFont(ofSize: 17)
+            label.font = UIFont.preferredFioriFont(fixedSize: 17)
             label.textColor = UIColor.label
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
@@ -188,7 +189,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         lazy var minuteLabel: UILabel = {
             let label = UILabel()
             label.text = parent.minuteText
-            label.font = UIFont.systemFont(ofSize: 17)
+            label.font = UIFont.preferredFioriFont(fixedSize: 17)
             label.textColor = UIColor.label
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
