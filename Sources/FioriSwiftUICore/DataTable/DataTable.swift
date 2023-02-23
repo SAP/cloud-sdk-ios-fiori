@@ -65,7 +65,7 @@ public struct DataTable: View {
             if self.model.isNoData {
                 Text("There is nothing to display yet", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                     .foregroundColor(Color.preferredColor(.tertiaryLabel))
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
             } else if self.model.showListView {
                 TableListView(layoutManager: layoutManager)
             } else {

@@ -19,7 +19,7 @@ struct ExpHeaderView: View {
         VStack(spacing: 15) {
             if title != nil {
                 Text(title!)
-                    .font(.largeTitle)
+                    .font(.fiori(forTextStyle: .largeTitle))
             } else {
                 EmptyView()
             }
