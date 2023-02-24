@@ -169,47 +169,9 @@ public struct HexColor: Hashable {
         ///     - interface: specifies the user interface level, default is `.device`.
         ///     - display: specifies the display mode, default is `.normal`.
         /// - Returns: the string value for corresponding `HexColor` with specific color variant.
-        public func getVariant(background scheme: BackgroundColorScheme? = .device, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
-            // using "High Contrast Dark Mode" color palette for watch per default, because the colors in watch apps are generally brighter than in the related mobile apps in dark mode.
-            switch (scheme ?? .device, mode ?? .device) {
-            case (.device, .normalConstant):
-                return .light
-            case (.deviceInverse, .normalConstant):
-                return .dark
-            case (.device, _):
-                return .contrastLight
-            case (.lightConstant, .normalConstant):
-                return .dark
-            case (.lightConstant, _):
-                return .dark
-            case (.darkConstant, .normalConstant):
-                return .dark
-            case (.darkConstant, _):
-                return .contrastDark
-            default:
-                return .contrastLight
-            }
-        
-//        switch (scheme, level, mode) {
-//        case (.light, .base, .normal):
-//            variant = .dark
-//        case (.dark, .base, .normal):
-//            variant = .light
-//        case (.light, .elevated, .normal):
-//            variant = .elevatedDark
-//        case (.dark, .elevated, .normal):
-//            variant = .elevatedLight
-//        case (.light, .base, .high):
-//            variant = .contrastDark
-//        case (.dark, .base, .high):
-//            variant = .contrastLight
-//        case (.light, .elevated, .high):
-//            variant = .elevatedContrastDark
-//        case (.dark, .elevated, .high):
-//            variant = .elevatedContrastLight
-//        default:
-//            break
-//        }
+        func getVariant(background scheme: BackgroundColorScheme? = .darkConstant, interface level: InterfaceLevel? = .device, display mode: ColorDisplayMode? = .device) -> ColorVariant {
+            // watchOS only supports dark mode.
+            .light
         }
     #endif
 }
