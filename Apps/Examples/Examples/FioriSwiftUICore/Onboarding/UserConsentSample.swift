@@ -204,10 +204,10 @@ struct UserConsentCustomized: View {
                 UserConsentForm(userConsentPages: {
                                     UserConsentPage {
                                         Text("Form 0: Info Privacy")
-                                            .font(.title).foregroundColor(.green)
+                                            .font(.fiori(forTextStyle: .title1)).foregroundColor(.green)
                                     } bodyAttributedText: {
                                         Text(detailText)
-                                            .font(.subheadline).foregroundColor(.green)
+                                            .font(.fiori(forTextStyle: .subheadline)).foregroundColor(.green)
                                     } action: {
                                         Action(actionText: "Learn more about Info Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 0")

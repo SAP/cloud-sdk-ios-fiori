@@ -44,4 +44,11 @@ internal struct _Component: _ComponentGenerating {
     let placeholder_: String?
     let lowerBoundTitle_: String?
     let upperBoundTitle_: String?
+    
+    // sourcery: backingComponent=AvatarStack
+    // sourcery: customFunctionBuilder=AvatarsBuilder
+    let avatars_: [TextOrIcon]?
+    // sourcery: backingComponent=FootnoteIconStack
+    // sourcery: customFunctionBuilder=FootnoteIconsBuilder
+    let footnoteIcons_: [TextOrIcon]?
 }

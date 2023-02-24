@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Der er endnu ingenting at vise";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d timer %d minutter";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Færdig";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "Der er %d fejl i datatabellen.";
+

@@ -82,3 +82,12 @@
 /* XMSG: Placeholder text in DataTable when there is no data */
 "There is nothing to display yet" = "Ještě není nic k zobrazení";
 
+/* XBUT: Default duration foramtter in DataTable */
+"%d Hrs %d Min" = "%d h %d min";
+
+/* XBUT: Done action in keyboard toolbar for a Textfield in DataTable */
+"Done" = "Hotovo";
+
+/* XBUT: Error messages shown to users in DataTable */
+"There are %d errors in the data table." = "V datové tabulce jsou %d chyby.";
+

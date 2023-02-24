@@ -1,22 +1,28 @@
 import SwiftUI
 
 /// Text item for `DataTable`
-public struct DataTextItem: DataItem, CheckBinding {
+public struct DataTextItem: DataItemTextComponent, CheckBinding {
     /// Type.
-    public var type: DataItemType
-    /// Binding rule.
-    public var binding: ObjectViewProperty.Text?
+    public let type: DataItemType = .text
+
     /// String for text item.
     public var text: String
+    
     /// font, if both font and uifont are provided, uifont is used.
     public var font: Font?
+    
     /// uifont
     public var uifont: UIFont?
+    
     /// Line limit for item.
     public var lineLimit: Int?
+    
     /// Foreground color for text item.
     public var textColor: Color?
-    
+
+    /// Binding rule.
+    public var binding: ObjectViewProperty.Text?
+
     var hasBinding: Bool {
         self.binding != nil
     }
@@ -32,7 +38,6 @@ public struct DataTextItem: DataItem, CheckBinding {
         self.text = text
         self.font = font
         self.textColor = textColor
-        self.type = .text
         self.binding = binding
         self.lineLimit = lineLimit
     }
@@ -48,14 +53,11 @@ public struct DataTextItem: DataItem, CheckBinding {
         self.text = text
         self.uifont = uifont
         self.textColor = textColor
-        self.type = .text
         self.binding = binding
         self.lineLimit = lineLimit
     }
     
-    func toTextView() -> some View {
-        Text(self.text)
-            .font(self.font)
-            .foregroundColor(self.textColor)
+    func string(for columnAttribute: ColumnAttribute) -> String {
+        self.text
     }
 }

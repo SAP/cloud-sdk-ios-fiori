@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, Icons: View, ActionView: View> {
+public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, DescriptionText: View, Status: View, Substatus: View, DetailImage: View, Icons: View, Avatars: View, FootnoteIcons: View, Tags: View, ActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.subtitleModifier) private var subtitleModifier
 	@Environment(\.footnoteModifier) private var footnoteModifier
@@ -11,6 +11,9 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	@Environment(\.substatusModifier) private var substatusModifier
 	@Environment(\.detailImageModifier) private var detailImageModifier
 	@Environment(\.iconsModifier) private var iconsModifier
+	@Environment(\.avatarsModifier) private var avatarsModifier
+	@Environment(\.footnoteIconsModifier) private var footnoteIconsModifier
+	@Environment(\.tagsModifier) private var tagsModifier
 	@Environment(\.actionModifier) private var actionModifier
 	@Environment(\.splitPercent) var splitPercent
 	@Environment(\.sizeCategory) var sizeCategory
@@ -24,6 +27,9 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	let _substatus: Substatus
 	let _detailImage: DetailImage
 	let _icons: Icons
+	let _avatars: Avatars
+	let _footnoteIcons: FootnoteIcons
+	let _tags: Tags
 	let _action: ActionView
 	@State var mainViewSize: CGSize = .zero
 
@@ -35,6 +41,9 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 	private var isSubstatusNil: Bool = false
 	private var isDetailImageNil: Bool = false
 	private var isIconsNil: Bool = false
+	private var isAvatarsNil: Bool = false
+	private var isFootnoteIconsNil: Bool = false
+	private var isTagsNil: Bool = false
 	private var isActionNil: Bool = false
 
     public init(
@@ -46,6 +55,9 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 		@ViewBuilder substatus: () -> Substatus,
 		@ViewBuilder detailImage: () -> DetailImage,
 		@IconBuilder icons: () -> Icons,
+		@AvatarsBuilder avatars: () -> Avatars,
+		@FootnoteIconsBuilder footnoteIcons: () -> FootnoteIcons,
+		@TagBuilder tags: () -> Tags,
 		@ViewBuilder action: () -> ActionView
         ) {
             self._title = title()
@@ -56,6 +68,9 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
 			self._substatus = substatus()
 			self._detailImage = detailImage()
 			self._icons = icons()
+			self._avatars = avatars()
+			self._footnoteIcons = footnoteIcons()
+			self._tags = tags()
 			self._action = action()
     }
 
@@ -115,6 +130,27 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
             _icons.modifier(iconsModifier.concat(Fiori.ObjectItem.icons))
         }
     }
+	@ViewBuilder var avatars: some View {
+        if isModelInit {
+            _avatars.modifier(avatarsModifier.concat(Fiori.ObjectItem.avatars).concat(Fiori.ObjectItem.avatarsCumulative))
+        } else {
+            _avatars.modifier(avatarsModifier.concat(Fiori.ObjectItem.avatars))
+        }
+    }
+	@ViewBuilder var footnoteIcons: some View {
+        if isModelInit {
+            _footnoteIcons.modifier(footnoteIconsModifier.concat(Fiori.ObjectItem.footnoteIcons).concat(Fiori.ObjectItem.footnoteIconsCumulative))
+        } else {
+            _footnoteIcons.modifier(footnoteIconsModifier.concat(Fiori.ObjectItem.footnoteIcons))
+        }
+    }
+	@ViewBuilder var tags: some View {
+        if isModelInit {
+            _tags.modifier(tagsModifier.concat(Fiori.ObjectItem.tags).concat(Fiori.ObjectItem.tagsCumulative))
+        } else {
+            _tags.modifier(tagsModifier.concat(Fiori.ObjectItem.tags))
+        }
+    }
 	@ViewBuilder var action: some View {
         if isModelInit {
             _action.modifier(actionModifier.concat(Fiori.ObjectItem.action).concat(Fiori.ObjectItem.actionCumulative))
@@ -151,6 +187,18 @@ public struct ObjectItem<Title: View, Subtitle: View, Footnote: View, Descriptio
         ((isModelInit && isIconsNil) || Icons.self == EmptyView.self) ? true : false
     }
 
+	var isAvatarsEmptyView: Bool {
+        ((isModelInit && isAvatarsNil) || Avatars.self == EmptyView.self) ? true : false
+    }
+
+	var isFootnoteIconsEmptyView: Bool {
+        ((isModelInit && isFootnoteIconsNil) || FootnoteIcons.self == EmptyView.self) ? true : false
+    }
+
+	var isTagsEmptyView: Bool {
+        ((isModelInit && isTagsNil) || Tags.self == EmptyView.self) ? true : false
+    }
+
 	var isActionEmptyView: Bool {
         ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
@@ -164,13 +212,16 @@ extension ObjectItem where Title == Text,
 		Substatus == _ConditionalContent<TextOrIconView, EmptyView>,
 		DetailImage == _ConditionalContent<Image, EmptyView>,
 		Icons == _ConditionalContent<IconStack, EmptyView>,
+		Avatars == _ConditionalContent<AvatarStack, EmptyView>,
+		FootnoteIcons == _ConditionalContent<FootnoteIconStack, EmptyView>,
+		Tags == _ConditionalContent<TagStack, EmptyView>,
 		ActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: ObjectItemModel) {
-        self.init(title: model.title, subtitle: model.subtitle, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, icons: model.icons, action: model.action != nil ? Action(model: model.action!) : nil)
+        self.init(title: model.title, subtitle: model.subtitle, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, icons: model.icons, avatars: model.avatars, footnoteIcons: model.footnoteIcons, tags: model.tags, action: model.action != nil ? Action(model: model.action!) : nil)
     }
 
-    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, icons: [TextOrIcon]? = nil, action: Action? = nil) {
+    public init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, icons: [TextOrIcon]? = nil, avatars: [TextOrIcon]? = nil, footnoteIcons: [TextOrIcon]? = nil, tags: [String]? = nil, action: Action? = nil) {
         self._title = Text(title)
 		self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())
@@ -179,6 +230,9 @@ extension ObjectItem where Title == Text,
 		self._substatus = substatus != nil ? ViewBuilder.buildEither(first: TextOrIconView(substatus: substatus!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._icons = icons != nil ? ViewBuilder.buildEither(first: IconStack(icons: icons!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._avatars = avatars != nil ? ViewBuilder.buildEither(first: AvatarStack(avatars: avatars!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._footnoteIcons = footnoteIcons != nil ? ViewBuilder.buildEither(first: FootnoteIconStack(footnoteIcons: footnoteIcons!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._tags = tags != nil ? ViewBuilder.buildEither(first: TagStack(tags: tags!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
@@ -189,6 +243,9 @@ extension ObjectItem where Title == Text,
 		isSubstatusNil = substatus == nil ? true : false
 		isDetailImageNil = detailImage == nil ? true : false
 		isIconsNil = icons == nil ? true : false
+		isAvatarsNil = avatars == nil ? true : false
+		isFootnoteIconsNil = footnoteIcons == nil ? true : false
+		isTagsNil = tags == nil ? true : false
 		isActionNil = action == nil ? true : false
     }
 }

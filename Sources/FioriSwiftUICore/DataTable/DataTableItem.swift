@@ -1,14 +1,23 @@
 import Foundation
 import SwiftUI
 
+/**
+ DataTableItem. It contains layout info. Internal usage only.
+ */
 struct DataTableItem: Identifiable, Hashable {
-    let value: ValueType
+    let type: DataItemType
+    // store the edited value
+    var text: String?
+    var image: Image?
+    var ti: TimeInterval?
+    var date: Date?
     
     let textAlignment: TextAlignment
     
     // the row index
     let rowIndex: Int
     
+    // the column index
     let columnIndex: Int
     
     var firstBaselineHeight: CGFloat
@@ -19,8 +28,8 @@ struct DataTableItem: Identifiable, Hashable {
     // the size of title in one line
     var size: CGSize
     
-    var id: Int {
-        self.rowIndex
+    var id: String {
+        "\(self.rowIndex)+\(self.columnIndex)"
     }
     
     var offset: CGPoint
@@ -34,17 +43,25 @@ struct DataTableItem: Identifiable, Hashable {
     var foregroundColor: Color?
     
     var isImage: Bool {
-        if case .image = self.value {
+        if self.type == .image {
             return true
         }
+        
         return false
     }
     
     var lineLimit: Int?
     
-    init(index: Int,
+    var isValid: Bool = true
+    
+    // cache the selected index for `DataListItem`
+    var selectedIndex: Int?
+    
+    init(type: DataItemType,
+         rowIndex: Int,
          columnIndex: Int,
-         value: ValueType = .text(""),
+         text: String? = nil,
+         image: Image? = nil,
          firstBaselineHeight: CGFloat = 0,
          pos: CGPoint,
          font: Font?,
@@ -53,11 +70,14 @@ struct DataTableItem: Identifiable, Hashable {
          size: CGSize = .zero,
          offset: CGPoint = .zero,
          textAlignment: TextAlignment = .leading,
-         lineLimit: Int? = nil)
+         lineLimit: Int? = nil,
+         isValid: Bool)
     {
-        self.rowIndex = index
+        self.type = type
+        self.rowIndex = rowIndex
         self.columnIndex = columnIndex
-        self.value = value
+        self.text = text
+        self.image = image
         self.firstBaselineHeight = firstBaselineHeight
         self.pos = pos
         self.font = font
@@ -67,6 +87,7 @@ struct DataTableItem: Identifiable, Hashable {
         self.offset = offset
         self.textAlignment = textAlignment
         self.lineLimit = lineLimit
+        self.isValid = isValid
     }
     
     mutating func x(_ x: CGFloat) {
@@ -89,25 +110,45 @@ struct DataTableItem: Identifiable, Hashable {
         self.size = s
     }
     
+    func string(for columnAttribute: ColumnAttribute) -> String? {
+        var result: String?
+        
+        switch self.type {
+        case .date:
+            if let tmpDate = self.date {
+                let df = columnAttribute.dateFormatter(for: .date)
+                result = df.string(from: tmpDate)
+            }
+        case .time:
+            if let tmpDate = self.date {
+                let df = columnAttribute.dateFormatter(for: .time)
+                result = df.string(from: tmpDate)
+            }
+        
+        case .duration:
+            if let value = ti {
+                let durationTextFormat = columnAttribute.durationTextFormat
+                let hrs = Int(value) / 3600
+                let min = (Int(value) - hrs * 3600) / 60
+                
+                result = String(format: durationTextFormat, locale: Locale.autoupdatingCurrent, hrs, min)
+            }
+            
+        default:
+            break
+        }
+        
+        return result
+    }
+    
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.value)
+        hasher.combine(self.type)
+        hasher.combine(self.rowIndex)
+        hasher.combine(self.columnIndex)
         hasher.combine(self.pos.x)
         hasher.combine(self.pos.y)
         hasher.combine(self.size.width)
         hasher.combine(self.size.height)
-    }
-}
-
-enum ValueType: Hashable {
-    case text(String)
-    case image(Image)
-    
-    func hash(into hasher: inout Hasher) {
-        switch self {
-        case .text(let value):
-            hasher.combine(value)
-        default:
-            break
-        }
+        hasher.combine(self.isValid)
     }
 }

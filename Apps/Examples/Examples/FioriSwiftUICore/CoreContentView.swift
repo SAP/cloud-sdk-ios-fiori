@@ -58,14 +58,21 @@ struct CoreContentView: View {
                     }
                 )
                 
-                NavigationLink(
-                    destination: KPIExample()) {
-                    Text("KPI")
-                }
-                
-                NavigationLink(
-                    destination: KPIProgressExample()) {
-                    Text("KPIProgressItem")
+                Group {
+                    NavigationLink(
+                        destination: KPIExample()) {
+                        Text("KPI")
+                    }
+                    
+                    NavigationLink(
+                        destination: KPIProgressExample()) {
+                        Text("KPIProgressItem")
+                    }
+                    
+                    NavigationLink(
+                        destination: KPIHeaderExample()) {
+                        Text("KPIHeader")
+                    }
                 }
                 
                 NavigationLink(

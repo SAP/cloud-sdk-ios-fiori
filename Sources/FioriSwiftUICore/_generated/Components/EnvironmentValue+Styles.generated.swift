@@ -174,6 +174,16 @@ extension EnvironmentValues {
         set { self[UpperBoundTitleModifierKey.self] = newValue }
     }
 
+    public var avatarsModifier: AnyViewModifier {
+        get { return self[AvatarsModifierKey.self] }
+        set { self[AvatarsModifierKey.self] = newValue }
+    }
+
+    public var footnoteIconsModifier: AnyViewModifier {
+        get { return self[FootnoteIconsModifierKey.self] }
+        set { self[FootnoteIconsModifierKey.self] = newValue }
+    }
+
     public var actionTextModifier: AnyViewModifier {
         get { return self[ActionTextModifierKey.self] }
         set { self[ActionTextModifierKey.self] = newValue }
@@ -217,6 +227,11 @@ extension EnvironmentValues {
     public var progressIndicatorModifier: AnyViewModifier {
         get { return self[ProgressIndicatorModifierKey.self] }
         set { self[ProgressIndicatorModifierKey.self] = newValue }
+    }
+
+    public var doneActionModifier: AnyViewModifier {
+        get { return self[DoneActionModifierKey.self] }
+        set { self[DoneActionModifierKey.self] = newValue }
     }
 
     public var startActionModifier: AnyViewModifier {
@@ -434,6 +449,16 @@ public extension View {
     }
 
     @ViewBuilder
+    func avatarsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.avatarsModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func footnoteIconsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.footnoteIconsModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
     func actionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.actionTextModifier, AnyViewModifier(transform))
     }
@@ -476,6 +501,11 @@ public extension View {
     @ViewBuilder
     func progressIndicatorModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.progressIndicatorModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func doneActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.doneActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

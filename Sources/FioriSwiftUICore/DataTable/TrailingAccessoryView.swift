@@ -29,7 +29,9 @@ struct TrailingAccessoryView: View {
                     Button(action: {
                         button.action()
                     }) {
-                        button.image?.resizable()
+                        button.image?
+                            .renderingMode(.template)
+                            .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(8 * self.layoutManager.scaleX)
                     }
@@ -37,6 +39,7 @@ struct TrailingAccessoryView: View {
                     .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
                 case .icon(let image):
                     image
+                        .renderingMode(.template)
                         .resizable()
                         .imageScale(.large)
                         .aspectRatio(contentMode: .fit)

@@ -11,10 +11,36 @@ import SwiftUI
  model.didSelectRowAt = { rowIndex in
     print("Tapped row \(rowIndex)")
  }
+ 
+ /// set a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
+ model.validateDataItem = { rowIndex, columnIndex, dataItem in
+ ...
+ }
+ 
+ /// set a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
+ model.listItemDataAndTitle = { rowIndex, columnIndex in
+ ...
+ }
+ 
+ /// set a closure to observe a value change for inline editing mode
+ model.valueDidChange = { change in
+     print("valueDidChange: \(change.description)")
+ }
  ```
  */
-
 public class TableModel: ObservableObject {
+    /// Edit mode for DataTable
+    public enum EditMode: Int, CaseIterable {
+        /// none edit mode
+        case none
+        
+        /// selection mode
+        case select
+        
+        /// inline editing mode
+        case inline
+    }
+    
     /// `TableRowItem`, header data for displaying.
     @Published public var headerData: TableRowItem?
     
@@ -25,21 +51,20 @@ public class TableModel: ObservableObject {
         return false
     }
     
-    /// Data for each row.
+    /// Data for each row. Header is not included.
     public var rowData: [TableRowItem] {
         get {
             self._rowData
         }
         set {
             self._rowData = newValue.map { rowItem in
-                getMappedRowItem(for: rowItem)
+                // process binding and generate titles for cells like .date, .time and .duration
+                processRowItem(for: rowItem)
             }
             
-            self.needsCalculateLayout = true
+            self.layoutManager?.needsCalculateLayout = true
         }
     }
-    
-    @Published var needsCalculateLayout: Bool = false
     
     /// Set header to be sticky.
     @Published public var isHeaderSticky: Bool = false
@@ -56,21 +81,46 @@ public class TableModel: ObservableObject {
     /// Column attribute for each column.
     @Published public var columnAttributes: [ColumnAttribute] = [] {
         didSet {
-            self.needsCalculateLayout = true
+            self.layoutManager?.needsCalculateLayout = true
         }
+    }
+    
+    public func columnAttribute(for columnIndex: Int) -> ColumnAttribute {
+        if columnIndex < self.columnAttributes.count {
+            return self.columnAttributes[columnIndex]
+        }
+        
+        return ColumnAttribute()
     }
     
     /// row alignment
     @Published public var rowAlignment: RowAlignment = .top {
         didSet {
-            self.needsCalculateLayout = true
+            self.layoutManager?.needsCalculateLayout = true
         }
     }
     
     /// Switching between normal and editing mode.
+    @available(*, deprecated, renamed: "editMode")
     @Published public var isEditing: Bool = false {
         didSet {
-            self.needsCalculateLayout = true
+            if self.isEditing == true {
+                self.editMode = .select
+            } else {
+                self.editMode = .none
+            }
+        }
+    }
+    
+    @Published public var editMode: EditMode = .none {
+        didSet {
+            if oldValue == self.editMode {
+                return
+            }
+
+            if self.editMode == .select || oldValue == .select {
+                self.layoutManager?.needsCalculateLayout = true
+            }
         }
     }
     
@@ -80,12 +130,13 @@ public class TableModel: ObservableObject {
     /// Selection did change handler.
     @Published public var didSelectRowAt: ((_ index: Int) -> Void)?
     
+    /// value did change
+    @Published public var valueDidChange: ((DataTableChange) -> Void)?
+    
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
-    internal var centerPosition: CGPoint?
-    
-    @Published private var _rowData: [TableRowItem] = []
+    @Published internal var _rowData: [TableRowItem] = []
     
     /// show row dividers in every number of Rows; The values must be >= 1; The default is 1.
     @Published public var everyNumOfRowsToShowDivider: Int = 1
@@ -126,6 +177,15 @@ public class TableModel: ObservableObject {
     /// background color
     @Published public var backgroundColor: Color = TableViewLayout.defaultBackgroundColor
     
+    /// a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users
+    public var validateDataItem: ((_ rowIndex: Int, _ columnIndex: Int, _ dataItem: DataItem) -> (Bool, String?))?
+    
+    /// a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
+    public var listItemDataAndTitle: ((_ rowIndex: Int, _ columnIndex: Int) -> (listItems: [String], title: String))?
+    
+    // cached TableLayoutManager
+    weak var layoutManager: TableLayoutManager?
+    
     /// Public initializer for TableModel.
     /// - Parameters:
     ///   - headerData: Header data for displaying
@@ -149,6 +209,7 @@ public class TableModel: ObservableObject {
     ///   - allowsPartialRowDisplay: Whether allows to display partial row; For Table Card, set this to false
     ///   - backgroundColor: Background color
     ///   - showListView: Show list view in iPhone protrait mode
+    ///   - editMode: one of edit mode; The default is `.none`.
     public init(headerData: TableRowItem? = nil,
                 rowData: [TableRowItem] = [],
                 isHeaderSticky: Bool = false,
@@ -169,10 +230,10 @@ public class TableModel: ObservableObject {
                 minColumnWidth: CGFloat = 48,
                 allowsPartialRowDisplay: Bool = true,
                 backgroundColor: Color = Color.preferredColor(.secondaryGroupedBackground),
-                showListView: Bool = false)
+                showListView: Bool = false,
+                editMode: EditMode = .none)
     {
         self.headerData = headerData
-        self.rowData = rowData
         self.isHeaderSticky = headerData == nil ? false : isHeaderSticky
         self.isFirstColumnSticky = isFirstColumnSticky
         self.columnAttributes = columnAttributes
@@ -192,13 +253,43 @@ public class TableModel: ObservableObject {
         self.allowsPartialRowDisplay = allowsPartialRowDisplay
         self.backgroundColor = backgroundColor
         self.showListView = showListView
+        self.editMode = editMode
+        
+        self.rowData = rowData
     }
     
-    func getMappedRowItem(for row: TableRowItem) -> TableRowItem {
-        let items = row.data
+    // make a deep copy
+    public func copy() -> TableModel {
+        let copy = TableModel(headerData: self.headerData,
+                              rowData: self.rowData,
+                              isHeaderSticky: self.isHeaderSticky,
+                              isFirstColumnSticky: self.isFirstColumnSticky,
+                              columnAttributes: self.columnAttributes,
+                              rowAlignment: self.rowAlignment,
+                              isPinchZoomEnable: self.isPinchZoomEnable,
+                              showRowDivider: self.showRowDivider,
+                              rowDividerHeight: self.rowDividerHeight,
+                              rowDividerColor: self.rowDividerColor,
+                              everyNumOfRowsToShowDivider: self.everyNumOfRowsToShowDivider,
+                              showColoumnDivider: self.showColoumnDivider,
+                              columnDividerWidth: self.columnDividerWidth,
+                              columnDividerColor: self.columnDividerColor,
+                              headerCellPadding: self.headerCellPadding,
+                              dataCellPadding: self.dataCellPadding,
+                              minRowHeight: self.minRowHeight,
+                              minColumnWidth: self.minColumnWidth,
+                              allowsPartialRowDisplay: self.allowsPartialRowDisplay,
+                              backgroundColor: self.backgroundColor,
+                              showListView: self.showListView,
+                              editMode: self.editMode)
         
+        return copy
+    }
+    
+    // process binding and generate titles for cells like .date, .time and .duration
+    func processRowItem(for row: TableRowItem) -> TableRowItem {
+        let items = row.data
         var newRow = row
-        var newItems: [DataItem] = []
         
         if items.filter({ ($0 as? CheckBinding)?.hasBinding ?? false }).isEmpty {
             var labelIndex: Int = 0
@@ -234,29 +325,104 @@ public class TableModel: ObservableObject {
                 }
             }
             
-            for item in items {
-                switch item {
-                case is DataTextItem:
-                    var _item = item as! DataTextItem
-                    _item.binding = textBinding(forIndex: labelIndex)
+            newRow.data = items.map {
+                if var item = $0 as? DataItemTextComponent {
+                    item.binding = textBinding(forIndex: labelIndex)
                     labelIndex += 1
-                    newItems.append(_item)
-                case is DataImageItem:
-                    var _item = item as! DataImageItem
-                    _item.binding = imageBinding(forIndex: imageIndex)
-                    imageIndex += 1
-                    newItems.append(_item)
-                default:
-                    break
+                    
+                    return item
                 }
-            }
-            newRow.data = newItems
-        }
+
+                if var item = $0 as? DataItemImageComponent {
+                    item.binding = imageBinding(forIndex: imageIndex)
+                    imageIndex += 1
+                    
+                    return item
+                }
                 
+                return $0
+            }
+        }
+        
+        // format text for cells like .date, .time and .duration
+        for i in 0 ..< newRow.data.count {
+            if var item = newRow.data[i] as? DataItemTextComponent {
+                item.text = item.string(for: self.columnAttribute(for: i))
+                newRow.data[i] = item
+            }
+        }
+
         return newRow
     }
     
+    func checkIsValid(for di: DataItem, rowIndex: Int, columnIndex: Int) -> (Bool, String?) {
+        let needToCheckTypes: [DataItemType] = [.text, .date, .time, .duration]
+        var isValid: (Bool, String?) = (true, nil)
+        if let validateClosure = validateDataItem, needToCheckTypes.contains(di.type) {
+            isValid = validateClosure(rowIndex, columnIndex, di)
+
+            if !isValid.0 {
+                return isValid
+            }
+        }
+
+        return (true, nil)
+    }
+    
+    /// check if the model contains no data
     public var isNoData: Bool {
         self.headerData == nil && self.rowData.isEmpty
+    }
+    
+    private func dataItem(for rowIndex: Int, columnIndex: Int) -> DataItem {
+        if let header = headerData, rowIndex == 0 {
+            return header.data[columnIndex]
+        }
+        
+        return self.rowData[rowIndex - (self.hasHeader ? 1 : 0)].data[columnIndex]
+    }
+    
+    /// Save the model after the editing. If chagnes were not valid then those changes are rolled back to original values.
+    /// - Parameter isSave: Save it or not
+    /// - Returns: Return an array of changes
+    public func onSave(_ isSave: Bool) -> [DataTableChange] {
+        self.layoutManager?.onSave(isSave) ?? []
+    }
+}
+
+/// DataTable change for inline editing
+public struct DataTableChange: CustomStringConvertible {
+    public let rowIndex: Int
+    public let columnIndex: Int
+    
+    /// value type for DataTableChange
+    public enum ValueType {
+        case text(String)
+        case date(Date)
+        case duration(TimeInterval)
+        case image
+    }
+    
+    /// value type
+    public let value: ValueType
+    
+    // the text description for the value
+    public let text: String
+    
+    /// the selected index for DataListItem
+    public let selectedIndex: Int?
+    
+    /// init
+    public init(rowIndex: Int, columnIndex: Int, value: ValueType, text: String, selectedIndex: Int? = nil) {
+        self.rowIndex = rowIndex
+        self.columnIndex = columnIndex
+        self.value = value
+        self.text = text
+        self.selectedIndex = selectedIndex
+    }
+    
+    /// debug description
+    public var description: String {
+        "rowIndex: \(self.rowIndex), columnIndex: \(self.columnIndex), value: \(self.text), selectedIndex = \(String(describing: self.selectedIndex))"
     }
 }

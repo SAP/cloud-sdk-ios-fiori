@@ -31,7 +31,9 @@ struct LeadingAccessoryView: View {
                     Button(action: {
                         button.action()
                     }) {
-                        button.image?.resizable()
+                        button.image?
+                            .renderingMode(.template)
+                            .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(8 * self.layoutManager.scaleX)
                     }
@@ -39,6 +41,7 @@ struct LeadingAccessoryView: View {
                     
                 case .icon(let image):
                     image
+                        .renderingMode(.template)
                         .resizable()
                         .imageScale(.large)
                         .aspectRatio(contentMode: .fit)
@@ -51,6 +54,7 @@ struct LeadingAccessoryView: View {
         }
         .frame(width: layoutData.leadingAccessoryViewWidth * self.layoutManager.scaleX,
                height: layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY)
+        .background(self.layoutManager.model.backgroundColor)
     }
     
     func makeSectionButton(layoutData: LayoutData) -> some View {
@@ -63,7 +67,7 @@ struct LeadingAccessoryView: View {
         let deSelectedImage = rowItem.deSelectedImage ?? Image(systemName: "circle")
         
         return Group {
-            if self.layoutManager.model.isEditing, !isHeader {
+            if self.layoutManager.model.editMode == .select, !isHeader {
                 Button(action: {
                     if !self.layoutManager.selectedIndexes.contains(selectionIndex) {
                         self.layoutManager.selectedIndexes.append(selectionIndex)

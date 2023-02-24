@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v14), .watchOS(.v7)],
+    platforms: [.iOS(.v15), .watchOS(.v7)],
     products: [
         .library(
             name: "FioriSwiftUI",

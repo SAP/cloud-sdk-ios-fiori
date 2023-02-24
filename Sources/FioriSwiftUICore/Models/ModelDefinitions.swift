@@ -7,12 +7,26 @@ import SwiftUI
 // sourcery: add_env_props = "numberOfLines"
 public protocol IconStackModel: IconsComponent {}
 
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "avatarSize"
+// sourcery: add_env_props = "isAvatarCircular"
+// sourcery: add_env_props = "avatarBorderWidth"
+// sourcery: add_env_props = "avatarBorderColor"
+public protocol AvatarStackModel: AvatarsComponent {}
+
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "footnoteIconsSize"
+// sourcery: add_env_props = "footnoteIconsSpacing"
+// sourcery: add_env_props = "isFootnoteIconsCircular"
+// sourcery: add_env_props = "footnoteIconsMaxCount"
+public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
+
 // sourcery: add_env_props = "horizontalSizeClass"
 // sourcery: add_env_props = "sizeCategory"
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent {
+public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent, AvatarsComponent, FootnoteIconsComponent, TagsComponent {
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
 }
@@ -60,14 +74,14 @@ public protocol SectionHeaderModel: TitleComponent, AttributeComponent {}
 
 // sourcery: generated_component
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
-public protocol KPIItemModel: KpiComponent, SubtitleComponent {}
+public protocol KPIItemModel: KpiComponent, SubtitleComponent, KPIHeaderItemModel {}
 
 // sourcery: virtualPropIsPressed = "@State var isPressed: Bool = false"
 // sourcery: virtualPropAction = "var action: (() -> Void)? = nil"
 // sourcery: add_env_props = "kpiProgressViewStyle"
 // sourcery: add_env_props = "isEnabled"
 // sourcery: generated_component
-public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent {}
+public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, FootnoteComponent, KPIHeaderItemModel {}
 
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
@@ -85,6 +99,7 @@ public protocol ActivityItemModel: IconComponent, SubtitleComponent {}
 public protocol ActivityItemsModel: ActionItemsComponent {}
 
 // sourcery: generated_component
+// sourcery: add_env_props = "listBackground"
 // sourcery: virtualPropDestinationView = "var destinationView: AnyView? = nil"
 public protocol ListPickerItemModel: KeyComponent, ValueComponent {}
 
@@ -339,3 +354,22 @@ public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, D
 
 // sourcery: generated_component_not_configurable
 public protocol DurationPickerModel: DurationPickerComponent {}
+
+// sourcery: availableAttributeContent = "iOS 15.0, macOS 12.0, *"
+// sourcery: add_env_props = "presentationMode"
+// sourcery: add_env_props = "listBackground"
+// sourcery: virtualPropContentView = "var contentView: AnyView? = nil"
+// sourcery: virtualPropIsTopLevel = "var isTopLevel: Bool = true"
+// sourcery: virtualPropDataHandler = "var dataHandler: (() -> ())? = nil"
+// sourcery: generated_component_composite
+public protocol SearchableListViewModel {
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = DoneActionView
+    // sourcery: default.value = _DoneActionDefault()
+    var doneAction: ActionModel? { get }
+}
+
+public protocol KPIHeaderItemModel {}

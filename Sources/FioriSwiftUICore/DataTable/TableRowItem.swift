@@ -28,6 +28,19 @@ public struct TableRowItem {
         self.selectedImage = selectedImage
         self.deSelectedImage = deSelectedImage
     }
+    
+    /// Public initializer for TableRowItem
+    /// - Parameters:
+    ///   - data: Row data.
+    ///   - selectedImage: Selected image in editing mode.
+    ///   - deSelectedImage: Desekected image in edting mode.
+    public init(data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
+        self.leadingAccessories = []
+        self.trailingAccessory = nil
+        self.data = data
+        self.selectedImage = selectedImage
+        self.deSelectedImage = deSelectedImage
+    }
 }
 
 /// Accessory item type.

@@ -23,30 +23,6 @@ struct ContactItemActionItemsExample: View {
                 .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: ViewBuilder init - SDK reuse", desc: "pass an SDK standard composite view (control / container) to represent actionItems", back: .green, textColor: .white)
-
-//                ContactItem(title: {
-//                    Text("Title")
-//                }, subtitle: {
-//                    Text("SubTitle")
-//                }, descriptionText: {
-//                    Text("Description")
-//                }, detailImage: {
-//                    EmptyView()
-//                }, actionItems: {
-//                    if useCompositeControl {
-//                        // equivalent to `ActivityItems(model: viewModel)`
-//                        ActivityItems(actionItems: viewModel.actionItems_ ?? []) { selectedActivity in
-//                            self.viewModel.selectedActivity = selectedActivity
-//                        }
-//                    } else {
-//                        ActivityControlLayoutContainer(viewModel.actionItems_!) { activity in
-//                            ActivityButtonView(activity) {
-//                                self.viewModel.selectedActivity = activity
-//                            }
-//                        }
-//                    }
-//                })
-//                    .exampleHighlighting()
                 
                 ContactItem {
                     Text("Title")

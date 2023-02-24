@@ -44,7 +44,7 @@ public struct NoDataView<Content: View>: View {
             if self.useDefault {
                 Text("No Data")
                     .foregroundColor(.primary)
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .frame(width: proxy.size.width, height: proxy.size.height, alignment: .center)
                     .border(Color.primary, width: 1)
             } else {

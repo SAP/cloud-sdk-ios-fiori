@@ -12,7 +12,7 @@ enum TableViewLayout {
     
     static let defaultBackgroundColor = Color.preferredColor(.secondaryGroupedBackground)
     
-    static let defaultForegroundColor = Color.preferredColor(.quarternaryLabel)
+    static let defaultForegroundColor = Color.preferredColor(.quaternaryLabel)
     
     static let lineShadowColor = Color.preferredColor(.cardShadow)
     
@@ -62,7 +62,7 @@ enum TableViewLayout {
     }
     
     static func defaultUIFont(_ isHeader: Bool) -> UIFont {
-        isHeader ? UIFont.preferredFont(from: .subheadline) : UIFont.preferredFont(from: .body)
+        isHeader ? UIFont.preferredFioriFont(forTextStyle: .subheadline) : UIFont.preferredFioriFont(forTextStyle: .body)
     }
     
     static func defaultFontColor(_ isHeader: Bool) -> Color {
