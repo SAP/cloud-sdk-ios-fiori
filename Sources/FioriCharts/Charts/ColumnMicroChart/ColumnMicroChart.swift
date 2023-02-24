@@ -46,7 +46,7 @@ struct ColumnMicroChart: View {
                             if positiveLablesHeight > 0 && self.columnLabel(for: item, positive: true) != nil {
                                 Text(self.columnLabel(for: item, positive: true) ?? "")
                                     .lineLimit(1)
-                                    .font(.caption)
+                                    .font(.fiori(forTextStyle: .caption1))
                                     .foregroundColor(item.color)
                             }
                             
@@ -70,7 +70,7 @@ struct ColumnMicroChart: View {
                                 if negativeLabelsHeight > 0 && self.columnLabel(for: item, positive: false) != nil {
                                     Text(self.columnLabel(for: item, positive: false) ?? "")
                                         .lineLimit(1)
-                                        .font(.caption)
+                                        .font(.fiori(forTextStyle: .caption1))
                                         .foregroundColor(item.color)
                                 }
                                 
@@ -86,7 +86,7 @@ struct ColumnMicroChart: View {
                         ForEach(columns) { item in
                             Text(item.label ?? "")
                                 .lineLimit(1)
-                                .font(.caption)
+                                .font(.fiori(forTextStyle: .caption1))
                         }.frame(width: barWidth)
                     }
                 }

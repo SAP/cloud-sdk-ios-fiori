@@ -34,7 +34,7 @@ struct RadialMicroChart: View {
                     self.chartView(in: size)
                     if mode == .inside {
                         Text(str)
-                            .font(Font.system(.largeTitle))
+                            .font(.fiori(forTextStyle: .largeTitle))
                             .foregroundColor(percentage!.color)
                     }
                 }

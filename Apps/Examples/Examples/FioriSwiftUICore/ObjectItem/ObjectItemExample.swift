@@ -20,6 +20,11 @@ struct ObjectItemExample: View {
                 destination: ObjectItemListView(title: "Init tests", listDataType: ObjectItemInitExamples.self)) {
                 Text("Init tests")
             }
+            
+            NavigationLink(
+                destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self)) {
+                Text("Avatars and Icons Tests")
+            }
         }.navigationBarTitle("ObjectItem", displayMode: .inline)
     }
 }

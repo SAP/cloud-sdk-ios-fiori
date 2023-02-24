@@ -49,7 +49,7 @@ struct BannerView: View {
                     
                 Spacer().frame(width: 6)
                 Text(data.title)
-                    .font(.footnote)
+                    .font(.fiori(forTextStyle: .footnote))
                     .foregroundColor(data.level.tintColor)
                 
                 Spacer()

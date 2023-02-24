@@ -6,17 +6,13 @@ class InfoViewDataModel: InfoViewModel {
     var descriptionText: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
     var progressIndicatorText: String? = "Loading..."
     
-    lazy var action: ActionModel? = {
-        ActionDataModel { [unowned self] in
-            print("InfoView Primary button clicked")
-        }
-    }()
+    lazy var action: ActionModel? = ActionDataModel { [unowned self] in
+        print("InfoView Primary button clicked")
+    }
 
-    lazy var secondaryAction: ActionModel? = {
-        SecondaryActionDataModel { [unowned self] in
-            print("InfoView secondary button clicked")
-        }
-    }()
+    lazy var secondaryAction: ActionModel? = SecondaryActionDataModel { [unowned self] in
+        print("InfoView secondary button clicked")
+    }
     
     func didSelectAction() {
         print("InfoView Primary button clicked")
@@ -78,7 +74,7 @@ struct InfoViewCustomized: View {
         if #available(iOS 14.0, *) {
             VStack {
                 InfoView(model: model)
-                    .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
+                    .descriptionTextModifier { $0.font(.fiori(forTextStyle: .subheadline)).foregroundColor(.blue) }
                     .actionModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { content in
                         content
@@ -88,7 +84,7 @@ struct InfoViewCustomized: View {
         } else {
             VStack {
                 InfoView(model: model)
-                    .descriptionTextModifier { $0.font(.subheadline).foregroundColor(.blue) }
+                    .descriptionTextModifier { $0.font(.fiori(forTextStyle: .subheadline)).foregroundColor(.blue) }
                     .actionModifier { $0.foregroundColor(.blue) }
                     .progressIndicatorTextModifier { $0.scaleEffect(x: 2, y: 2, anchor: .center) }
             }

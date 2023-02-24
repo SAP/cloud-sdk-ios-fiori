@@ -42,12 +42,12 @@ extension Fiori {
             func body(content: Content) -> some View {
                 if #available(iOS 14.0, *) {
                     return content
-                        .font(.title3)
+                        .font(.fiori(forTextStyle: .title3))
                         .foregroundColor(.preferredColor(.primaryLabel))
                 } else {
                     // Fallback on earlier versions
                     return content
-                        .font(.headline)
+                        .font(.fiori(forTextStyle: .headline))
                         .foregroundColor(.preferredColor(.primaryLabel))
                 }
             }
@@ -56,21 +56,23 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
         
         struct BodyText: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline)
+                content
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }
         
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline)
+                content
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.secondaryLabel))
                     .lineLimit(1)
             }
@@ -79,21 +81,23 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.subheadline)
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
         
         struct Status: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline)
+                content
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }
         
         struct Substatus: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline)
+                content
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.secondaryLabel))
             }
         }

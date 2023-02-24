@@ -174,6 +174,16 @@ extension EnvironmentValues {
         set { self[UpperBoundTitleModifierKey.self] = newValue }
     }
 
+    public var avatarsModifier: AnyViewModifier {
+        get { return self[AvatarsModifierKey.self] }
+        set { self[AvatarsModifierKey.self] = newValue }
+    }
+
+    public var footnoteIconsModifier: AnyViewModifier {
+        get { return self[FootnoteIconsModifierKey.self] }
+        set { self[FootnoteIconsModifierKey.self] = newValue }
+    }
+
     public var actionTextModifier: AnyViewModifier {
         get { return self[ActionTextModifierKey.self] }
         set { self[ActionTextModifierKey.self] = newValue }
@@ -436,6 +446,16 @@ public extension View {
     @ViewBuilder
     func upperBoundTitleModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.upperBoundTitleModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func avatarsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.avatarsModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func footnoteIconsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.footnoteIconsModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
