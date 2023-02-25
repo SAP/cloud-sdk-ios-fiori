@@ -48,6 +48,7 @@ Files:
   Mintfile
   .swift-version
   .swiftformat
+  Makefile
 Copyright:  2020 SAP SE or an SAP affiliate company and cloud-sdk-ios-fiori contributors
 License: Apache-2.0
 
