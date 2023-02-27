@@ -96,7 +96,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     UITableView.appearance().backgroundColor = .clear
                 }
                 .onDisappear {
-                    UITableView.appearance().backgroundColor = UIColor.preferredFioriColor(.secondaryBackground)
+                    UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
                 }
                 .onChange(of: selectionBuffer) { newValue in
                     selectionUpdated?(newValue)
@@ -114,7 +114,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 UITableView.appearance().backgroundColor = .clear
             }
             .onDisappear {
-                UITableView.appearance().backgroundColor = UIColor.preferredFioriColor(.secondaryBackground)
+                UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
             }
             .onChange(of: selectionBuffer) { newValue in
                 selectionUpdated?(newValue)
@@ -131,7 +131,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 UITableView.appearance().backgroundColor = .clear
             }
             .onDisappear {
-                UITableView.appearance().backgroundColor = UIColor.preferredFioriColor(.secondaryBackground)
+                UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
             }
         #endif
     }

@@ -127,7 +127,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             let label = UILabel()
             label.font = self.pickerFont
             label.text = text
-            label.textColor = UIColor.preferredFioriColor(.base1)
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.textAlignment = self.parent.layoutDirection == .leftToRight ? .right : .left
             if component == 0 {
                 return self.setupHourView(label, forComponent: component)
@@ -182,7 +182,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             let label = UILabel()
             label.text = parent.hourText
             label.font = UIFont.preferredFioriFont(fixedSize: 17)
-            label.textColor = UIColor.preferredFioriColor(.base1)
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
@@ -191,7 +191,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             let label = UILabel()
             label.text = parent.minuteText
             label.font = UIFont.preferredFioriFont(fixedSize: 17)
-            label.textColor = UIColor.preferredFioriColor(.base1)
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
