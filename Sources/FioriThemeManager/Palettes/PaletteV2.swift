@@ -1,16 +1,17 @@
 import Foundation
 
+@available(watchOS, unavailable)
 struct PaletteV2: PaletteProvider {
     /// :nodoc:
     public let uuid = UUID()
-
+    
     /// :nodoc:
     public static let `default` = Palette(PaletteV2())
-
+    
     let version: PaletteVersion = .v3_x
-
+    
     private init() {}
-
+    
     public var colorDefinitions: [ColorStyle: HexColor] = [
         .primary1: HexColor(lightColor: "FFFFFF", darkColor: "3F3A3A"),
         .primary2: HexColor(lightColor: "D3D3D3", darkColor: "4E4E52"),

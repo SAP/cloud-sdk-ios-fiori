@@ -30,7 +30,7 @@ public class ThemeManager {
     /// - Parameter version: Major version of the color palette.
     public func setPaletteVersion(_ version: PaletteVersion) {
         if self.paletteVersion != version {
-            self.palette = version.rawValue
+            self.palette = version.palette
         }
     }
     
@@ -44,9 +44,9 @@ public class ThemeManager {
     
     /// Accessor to current palette.
     /// - note: It is unusual to need to read from the palette directly; generally, use the `Color.preferredColor(...)` API.
-    public private(set) var palette: Palette = PaletteVersion.latest.rawValue {
+    public private(set) var palette: Palette = PaletteVersion.latest.palette {
         didSet {
-            self.paletteVersion = PaletteVersion(rawValue: self.palette)
+            self.paletteVersion = PaletteVersion(palette: self.palette)
         }
     }
     
@@ -108,13 +108,23 @@ public class ThemeManager {
     /// :nodoc:
     internal func hexColor(for style: ColorStyle) -> HexColor? {
         switch self.paletteVersion {
-        case .v3_x, .v3_2, .v4, .v5, .v6, .v7:
-            let compatibleDefinitions = self.mergedCompatibleDefinitions()
-            guard !compatibleDefinitions.isEmpty else {
-                return self.mergedDeprecatedDefinitions()[style]
-            }
-            let _style = compatibleDefinitions[style] ?? style
-            return self.mergedDeprecatedDefinitions()[_style]
+        #if !os(watchOS)
+            case .v3_x, .v3_2, .v4, .v5, .v6, .v7:
+                let compatibleDefinitions = self.mergedCompatibleDefinitions()
+                guard !compatibleDefinitions.isEmpty else {
+                    return self.mergedDeprecatedDefinitions()[style]
+                }
+                let _style = compatibleDefinitions[style] ?? style
+                return self.mergedDeprecatedDefinitions()[_style]
+        #else
+            case .v1:
+                let compatibleDefinitions = self.mergedCompatibleDefinitions()
+                guard !compatibleDefinitions.isEmpty else {
+                    return self.mergedDeprecatedDefinitions()[style]
+                }
+                let _style = compatibleDefinitions[style] ?? style
+                return self.mergedDeprecatedDefinitions()[_style]
+        #endif
         default:
             return self.palette.hexColor(for: style)
         }
@@ -124,10 +134,10 @@ public class ThemeManager {
     private func mergedDeprecatedDefinitions() -> [ColorStyle: HexColor] {
         guard let paletteVersion = paletteVersion else { return self.palette.colorDefinitions }
         var current = paletteVersion
-        var result = paletteVersion.rawValue.colorDefinitions
+        var result = paletteVersion.palette.colorDefinitions
         var cumulative = [ColorStyle: HexColor]()
         while let previous = current.previous() {
-            cumulative.merge(previous.rawValue.colorDefinitions) { curr, _ in curr }
+            cumulative.merge(previous.palette.colorDefinitions) { curr, _ in curr }
             current = previous
         }
         result.merge(cumulative) { curr, _ in curr }
@@ -161,31 +171,39 @@ public class ThemeManager {
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
         guard let hc = self.hexColor(for: style) else { return .clear }
-        let uc = UIColor { [weak self] traitCollection in
-            guard let self = self else { return .clear }
-            guard let hexColor = self.hexColor(for: style) else { return .clear }
-            let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
-            
-            let hexColorString: String = hc.hex(variant)
-            
-            if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
-                return ssOverrideColor.uiColor()
+        #if os(iOS)
+            let uc = UIColor { [weak self] traitCollection in
+                guard let self = self else { return .clear }
+                guard let hexColor = self.hexColor(for: style) else { return .clear }
+                let variant = hexColor.getVariant(traits: traitCollection, background: scheme, interface: level, display: mode)
+                return self.color(for: style, hexColor: hc, variant: variant)?.uiColor() ?? .clear
             }
-            
-            if let ssHexColor = self.nssHexColor(for: style, with: variant) {
-                if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
-                    self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
-                    return ssColor.uiColor()
-                }
-            }
-            
-            if let devOverrideColor = self.developerOverrides[style, default: [:]][variant] {
-                return devOverrideColor.uiColor()
-            }
-            
-            return Color(hex: hexColorString)?.uiColor() ?? .clear
+            return uc
+        #else
+            let variant = hc.getVariant(background: scheme, interface: level, display: mode)
+            return self.color(for: style, hexColor: hc, variant: variant)?.uiColor() ?? .clear
+        #endif
+    }
+    
+    func color(for style: ColorStyle, hexColor: HexColor, variant: ColorVariant) -> Color? {
+        let hexColorString: String = hexColor.hex(variant)
+
+        if let ssOverrideColor = self.styleSheetOverrides[style, default: [:]][variant] {
+            return ssOverrideColor
         }
-        return uc
+
+        if let ssHexColor = self.nssHexColor(for: style, with: variant) {
+            if let ssColor: Color = StyleSheetConverter.toColor(value: ssHexColor) {
+                self.styleSheetOverrides[style, default: [:]].updateValue(ssColor, forKey: variant)
+                return ssColor
+            }
+        }
+
+        if let devOverrideColor = self.developerOverrides[style, default: [:]][variant] {
+            return devOverrideColor
+        }
+
+        return Color(hex: hexColorString)
     }
     
     func nssHexColor(for style: ColorStyle, with variant: ColorVariant) -> String? {
