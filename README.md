@@ -68,13 +68,13 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | KPIProgressItem | :white_check_mark: | 
 | EULAView | :white_check_mark: |
 | ContactItem | :white_check_mark: | 
+| KPIHeader | :white_check_mark: |
 | KeyValueItem | :x: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
 | ChartFloorplan | :x: |
 | ProfileHeader | :x: |
 | CollectionItem | :x: |
-| KPIHeader | :x: |
 | BarcodeScanner | :x: |
 | PasscodeView | :x: |
 | MultiUserPasscodeView | :x: |
