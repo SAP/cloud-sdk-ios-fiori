@@ -54,7 +54,12 @@ class StyleSheetSettingsIntegrationTests: XCTestCase {
         
         XCTAssertNoThrow(try? StyleSheetSettings.loadStylesheetByString(content: sampleStyleSheetContent))
         
-        XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #if os(iOS)
+            XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #else
+            XCTAssertNotEqual(originalColor.uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #endif
+
         XCTAssertEqual(ThemeManager.shared.styleSheetOverrides.keys.count, 1)
     }
     
@@ -63,7 +68,11 @@ class StyleSheetSettingsIntegrationTests: XCTestCase {
         
         XCTAssertNoThrow(try? StyleSheetSettings.loadStylesheetByURL(url: Bundle.module.url(forResource: "styleSheet", withExtension: "nss")!))
         
-        XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #if os(iOS)
+            XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #else
+            XCTAssertNotEqual(originalColor.uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
+        #endif
         XCTAssertEqual(ThemeManager.shared.styleSheetOverrides.keys.count, 1)
         
         let tintColor = Color.preferredColor(.tintColor, background: .darkConstant)

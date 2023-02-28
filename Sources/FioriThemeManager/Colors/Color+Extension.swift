@@ -14,17 +14,19 @@ public extension Color {
         ThemeManager.shared.color(for: style, background: scheme, interface: level, display: mode)
     }
     
-    /// Extension to `Color`, to resolve a static form of `Color` from the wrapped dynamic color provider.
-    ///
-    /// - parameters:
-    ///     - scheme: specifies whether the color should be used in front of a *light* background, or a *dark* background. Defaults to `.light`.
-    ///     - level: specifies whether the color sould be used in the *base* or *elevated* level of the interface. Defaults to `.base`.
-    /// - Returns: a static form of `Color`resolved from the dynamic color provider.
-    func resolvedColor(with scheme: ColorScheme? = .light, in level: UIUserInterfaceLevel? = .base) -> Color {
-        let style: UITraitCollection = scheme == .light ? .init(userInterfaceStyle: .light) : .init(userInterfaceStyle: .dark)
-        let level: UITraitCollection = .init(userInterfaceLevel: level ?? .base)
-        return Color(self.uiColor().resolvedColor(with: .init(traitsFrom: [style, level])))
-    }
+    #if os(iOS)
+        /// Extension to `Color`, to resolve a static form of `Color` from the wrapped dynamic color provider.
+        ///
+        /// - parameters:
+        ///     - scheme: specifies whether the color should be used in front of a *light* background, or a *dark* background. Defaults to `.light`.
+        ///     - level: specifies whether the color sould be used in the *base* or *elevated* level of the interface. Defaults to `.base`.
+        /// - Returns: a static form of `Color`resolved from the dynamic color provider.
+        func resolvedColor(with scheme: ColorScheme? = .light, in level: UIUserInterfaceLevel? = .base) -> Color {
+            let style: UITraitCollection = scheme == .light ? .init(userInterfaceStyle: .light) : .init(userInterfaceStyle: .dark)
+            let level: UITraitCollection = .init(userInterfaceLevel: level ?? .base)
+            return Color(self.uiColor().resolvedColor(with: .init(traitsFrom: [style, level])))
+        }
+    #endif
 }
 
 public extension Color {
