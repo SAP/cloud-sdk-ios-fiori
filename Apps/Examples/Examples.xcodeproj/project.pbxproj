@@ -10,6 +10,14 @@
 		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
+		1F60179729A8439A00DBDCDE /* WatchExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */; };
+		1F60179929A8439A00DBDCDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179829A8439A00DBDCDE /* ContentView.swift */; };
+		1F60179B29A8439C00DBDCDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F60179A29A8439C00DBDCDE /* Assets.xcassets */; };
+		1F60179E29A8439C00DBDCDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F60179D29A8439C00DBDCDE /* Preview Assets.xcassets */; };
+		1F6017A129A8439C00DBDCDE /* WatchExamples Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1F6017A729A8450E00DBDCDE /* FioriThemeManager in Frameworks */ = {isa = PBXBuildFile; productRef = 1F6017A629A8450E00DBDCDE /* FioriThemeManager */; };
+		1F6017A829A8450E00DBDCDE /* FioriThemeManager in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 1F6017A629A8450E00DBDCDE /* FioriThemeManager */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		1F6017AD29A8481A00DBDCDE /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A6DE30A28DD27F9003222E3 /* Colors.swift */; };
 		1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90888B261A59820015A84D /* FioriButtonExample.swift */; };
 		1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30411270540FB004BEE00 /* 72-Fonts.swift */; };
 		1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */; };
@@ -117,6 +125,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1F60179F29A8439C00DBDCDE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A55794B24C1286E0098003A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F60179329A8439A00DBDCDE;
+			remoteInfo = "WatchExamples Watch App";
+		};
 		8A55796A24C1286F0098003A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8A55794B24C1286E0098003A /* Project object */;
@@ -127,6 +142,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		1F6017A229A8439C00DBDCDE /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				1F6017A129A8439C00DBDCDE /* WatchExamples Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1F6017A929A8450E00DBDCDE /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				1F6017A829A8450E00DBDCDE /* FioriThemeManager in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A4A31BD24E3568700B63AF0 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +191,11 @@
 		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
+		1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchExamples Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExamplesApp.swift; sourceTree = "<group>"; };
+		1F60179829A8439A00DBDCDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1F60179A29A8439C00DBDCDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1F60179D29A8439C00DBDCDE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1F90888B261A59820015A84D /* FioriButtonExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FioriButtonExample.swift; sourceTree = "<group>"; };
 		1FC30411270540FB004BEE00 /* 72-Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "72-Fonts.swift"; sourceTree = "<group>"; };
 		1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriThemeManagerContentView.swift; sourceTree = "<group>"; };
@@ -262,6 +304,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1F60179129A8439A00DBDCDE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F6017A729A8450E00DBDCDE /* FioriThemeManager in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A55795024C1286E0098003A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -308,6 +358,25 @@
 			path = FioriButton;
 			sourceTree = "<group>";
 		};
+		1F60179529A8439A00DBDCDE /* WatchExamples Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */,
+				1F60179829A8439A00DBDCDE /* ContentView.swift */,
+				1F60179A29A8439C00DBDCDE /* Assets.xcassets */,
+				1F60179C29A8439C00DBDCDE /* Preview Content */,
+			);
+			path = "WatchExamples Watch App";
+			sourceTree = "<group>";
+		};
+		1F60179C29A8439C00DBDCDE /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1F60179D29A8439C00DBDCDE /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		1FC3040F2705409C004BEE00 /* FioriThemeManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -349,6 +418,7 @@
 			children = (
 				8A55795524C1286E0098003A /* Examples */,
 				8A55796C24C1286F0098003A /* ExamplesTests */,
+				1F60179529A8439A00DBDCDE /* WatchExamples Watch App */,
 				8A55795424C1286E0098003A /* Products */,
 				8A557A1224C129900098003A /* Frameworks */,
 			);
@@ -359,6 +429,7 @@
 			children = (
 				8A55795324C1286E0098003A /* Examples.app */,
 				8A55796924C1286F0098003A /* ExamplesTests.xctest */,
+				1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -615,6 +686,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1F60179329A8439A00DBDCDE /* WatchExamples Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F6017A529A8439C00DBDCDE /* Build configuration list for PBXNativeTarget "WatchExamples Watch App" */;
+			buildPhases = (
+				1F60179029A8439A00DBDCDE /* Sources */,
+				1F60179129A8439A00DBDCDE /* Frameworks */,
+				1F60179229A8439A00DBDCDE /* Resources */,
+				1F6017A929A8450E00DBDCDE /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "WatchExamples Watch App";
+			packageProductDependencies = (
+				1F6017A629A8450E00DBDCDE /* FioriThemeManager */,
+			);
+			productName = "WatchExamples Watch App";
+			productReference = 1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8A55795224C1286E0098003A /* Examples */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A55797224C1286F0098003A /* Build configuration list for PBXNativeTarget "Examples" */;
@@ -623,10 +715,12 @@
 				8A55795024C1286E0098003A /* Frameworks */,
 				8A55795124C1286E0098003A /* Resources */,
 				8A557A1624C129900098003A /* Embed Frameworks */,
+				1F6017A229A8439C00DBDCDE /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1F6017A029A8439C00DBDCDE /* PBXTargetDependency */,
 			);
 			name = Examples;
 			packageProductDependencies = (
@@ -665,10 +759,13 @@
 		8A55794B24C1286E0098003A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = SAP;
 				TargetAttributes = {
+					1F60179329A8439A00DBDCDE = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					8A55795224C1286E0098003A = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -698,11 +795,21 @@
 			targets = (
 				8A55795224C1286E0098003A /* Examples */,
 				8A55796824C1286F0098003A /* ExamplesTests */,
+				1F60179329A8439A00DBDCDE /* WatchExamples Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1F60179229A8439A00DBDCDE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F60179E29A8439C00DBDCDE /* Preview Assets.xcassets in Resources */,
+				1F60179B29A8439C00DBDCDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A55795124C1286E0098003A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -727,6 +834,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1F60179029A8439A00DBDCDE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F60179929A8439A00DBDCDE /* ContentView.swift in Sources */,
+				1F6017AD29A8481A00DBDCDE /* Colors.swift in Sources */,
+				1F60179729A8439A00DBDCDE /* WatchExamplesApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8A55794F24C1286E0098003A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -840,6 +957,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1F6017A029A8439C00DBDCDE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1F60179329A8439A00DBDCDE /* WatchExamples Watch App */;
+			targetProxy = 1F60179F29A8439C00DBDCDE /* PBXContainerItemProxy */;
+		};
 		8A55796B24C1286F0098003A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8A55795224C1286E0098003A /* Examples */;
@@ -859,6 +981,70 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1F6017A329A8439C00DBDCDE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchExamples Watch App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchExamples;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sap.cloud-sdk-ios-fiori.Examples";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sap.cloud-sdk-ios-fiori.Examples.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Debug;
+		};
+		1F6017A429A8439C00DBDCDE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"WatchExamples Watch App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = WatchExamples;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = "com.sap.cloud-sdk-ios-fiori.Examples";
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sap.cloud-sdk-ios-fiori.Examples.watchkitapp";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.1;
+			};
+			name = Release;
+		};
 		8A55797024C1286F0098003A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -978,6 +1164,7 @@
 		8A55797324C1286F0098003A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/Preview Content\"";
@@ -999,6 +1186,7 @@
 		8A55797424C1286F0098003A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/Preview Content\"";
@@ -1062,6 +1250,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1F6017A529A8439C00DBDCDE /* Build configuration list for PBXNativeTarget "WatchExamples Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1F6017A329A8439C00DBDCDE /* Debug */,
+				1F6017A429A8439C00DBDCDE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8A55794E24C1286E0098003A /* Build configuration list for PBXProject "Examples" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1103,6 +1300,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1F6017A629A8450E00DBDCDE /* FioriThemeManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FioriThemeManager;
+		};
 		8A17AA2C24E211CD00ED8131 /* SnapshotTesting */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8A17AA2B24E211CD00ED8131 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */;

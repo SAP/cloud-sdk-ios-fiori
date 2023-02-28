@@ -33,12 +33,12 @@ extension PaletteProvider {
         // if the style was never defined up to this palette version, use from .latest
         guard paletteVersion.supportedStyles().contains(style) else {
             guard paletteVersion != PaletteVersion.latest else { return nil }
-            return PaletteVersion.latest.rawValue.hexColor(for: style)?.colors[variant]
+            return PaletteVersion.latest.palette.hexColor(for: style)?.colors[variant]
         }
         
         // if the style was defined in one or more *older* palettes, iterate backwards from the palette version to find a valid value
         if let previous = paletteVersion.previous() {
-            return previous.rawValue.hexColor(for: style)?.colors[variant]
+            return previous.palette.hexColor(for: style)?.colors[variant]
         }
         
         return nil

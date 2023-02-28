@@ -54,6 +54,12 @@ To add additional snapshot tests please follow this approach:
 3. push reference images (from `/Apps/Examples/cloud-sdk-ios-fiori-snapshot-references`) to its remote and create PR for companion  https://github.com/SAP/cloud-sdk-ios-fiori-snapshot-references repository
 4. finally push your code changes and create PR for this repository
 
+## Platform-specific Testing
+
+For iOS you can leverage `xcodebuild` and scheme `FioriSwiftUI-Package` to run tests for all test target schemes. A convenient command is `make test_ios`. 
+
+For watchOS only `FioriThemeManager` is supported. To create and run the respective test scheme you can leverage command `make test_watch`.
+
 ## Legal stuff
 
 ### Developer Certificate of Origin (DCO)

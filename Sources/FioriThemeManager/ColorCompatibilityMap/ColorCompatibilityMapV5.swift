@@ -1,12 +1,13 @@
 import Foundation
 
+@available(watchOS, unavailable)
 struct ColorCompatibilityMapV5: ColorStyleCompatibilityProvider {
     let uuid = UUID()
     
     static let `default` = ColorCompatibilityMap(ColorCompatibilityMapV5())
     
     let version: PaletteVersion = .v5
-
+    
     private init() {}
     
     var compatibleColorDefinitions: [ColorStyle: ColorStyle] = [
