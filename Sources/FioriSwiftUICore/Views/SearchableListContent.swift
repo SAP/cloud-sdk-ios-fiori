@@ -92,12 +92,6 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     listContent
                 }
                 .background(listBackground)
-                .onAppear {
-                    UITableView.appearance().backgroundColor = .clear
-                }
-                .onDisappear {
-                    UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
-                }
                 .onChange(of: selectionBuffer) { newValue in
                     selectionUpdated?(newValue)
                 }
@@ -105,34 +99,17 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     $0.searchable(text: $searchText, placement: .navigationBarDrawer)
                 })
             }
-        #elseif swift(>=5.5)
-            List {
-                listContent
-            }
-            .background(listBackground)
-            .onAppear {
-                UITableView.appearance().backgroundColor = .clear
-            }
-            .onDisappear {
-                UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
-            }
-            .onChange(of: selectionBuffer) { newValue in
-                selectionUpdated?(newValue)
-            }
-            .ifApply(searchFilter != nil, content: {
-                $0.searchable(text: $searchText, placement: .navigationBarDrawer)
-            })
         #else
             List {
                 listContent
             }
             .background(listBackground)
-            .onAppear {
-                UITableView.appearance().backgroundColor = .clear
+            .onChange(of: selectionBuffer) { newValue in
+                selectionUpdated?(newValue)
             }
-            .onDisappear {
-                UITableView.appearance().backgroundColor = Color.preferredColor(.secondaryBackground).uiColor()
-            }
+            .ifApply(searchFilter != nil, content: {
+                $0.searchable(text: $searchText)
+            })
         #endif
     }
     

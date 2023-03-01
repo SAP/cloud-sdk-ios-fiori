@@ -34,6 +34,7 @@ extension SearchableListView: View {
     public var body: some View {
         if let contentView = contentView {
             contentView
+                .listStyle(.plain)
                 .environment(\.listBackground, listBackground)
                 .ifApply(isTopLevel) {
                     $0.toolbar {
