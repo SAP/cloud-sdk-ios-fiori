@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 struct DurationPickerViewWrapper: UIViewRepresentable {
@@ -75,7 +76,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     
     class Coordinator: NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent: DurationPickerViewWrapper
-        let pickerFont = UIFont.systemFont(ofSize: 22)
+        let pickerFont = UIFont.preferredFioriFont(fixedSize: 22)
         
         init(_ parent: DurationPickerViewWrapper) {
             self.parent = parent
@@ -126,6 +127,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             let label = UILabel()
             label.font = self.pickerFont
             label.text = text
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.textAlignment = self.parent.layoutDirection == .leftToRight ? .right : .left
             if component == 0 {
                 return self.setupHourView(label, forComponent: component)
@@ -179,8 +181,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         lazy var hourLabel: UILabel = {
             let label = UILabel()
             label.text = parent.hourText
-            label.font = UIFont.systemFont(ofSize: 17)
-            label.textColor = UIColor.label
+            label.font = UIFont.preferredFioriFont(fixedSize: 17)
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
@@ -188,8 +190,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
         lazy var minuteLabel: UILabel = {
             let label = UILabel()
             label.text = parent.minuteText
-            label.font = UIFont.systemFont(ofSize: 17)
-            label.textColor = UIColor.label
+            label.font = UIFont.preferredFioriFont(fixedSize: 17)
+            label.textColor = Color.preferredColor(.base1).uiColor()
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
