@@ -1,10 +1,11 @@
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
     enum ObjectItem {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.headline)
+                content.font(.fiori(forTextStyle: .headline))
                     .foregroundColor(.preferredColor(.primaryLabel))
             }
         }
@@ -12,7 +13,7 @@ extension Fiori {
         struct Subtitle: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.body)
+                    .font(.fiori(forTextStyle: .body))
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .lineLimit(1)
             }
@@ -20,7 +21,7 @@ extension Fiori {
 
         struct Footnote: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline)
+                content.font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.tertiaryLabel))
                     .lineLimit(1)
             }
@@ -29,20 +30,22 @@ extension Fiori {
         struct DescriptionText: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.subheadline)
+                    .font(.fiori(forTextStyle: .subheadline))
                     .foregroundColor(.preferredColor(.tertiaryLabel))
             }
         }
 
         struct Status: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline).foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
+                content.font(.fiori(forTextStyle: .subheadline))
+                    .foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
             }
         }
 
         struct Substatus: ViewModifier {
             func body(content: Content) -> some View {
-                content.font(.subheadline).foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
+                content.font(.fiori(forTextStyle: .subheadline))
+                    .foregroundColor(.preferredColor(.tertiaryLabel)).lineLimit(1)
             }
         }
 
@@ -57,7 +60,7 @@ extension Fiori {
         struct Action: ViewModifier {
             func body(content: Content) -> some View {
                 content
-                    .font(.callout)
+                    .font(.fiori(forTextStyle: .callout))
                     .lineLimit(2)
                     .foregroundColor(Color.preferredColor(.tintColor))
             }
