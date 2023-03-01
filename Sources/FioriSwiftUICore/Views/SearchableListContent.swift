@@ -85,7 +85,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     selectionUpdated?(newValue)
                 }
                 .ifApply(searchFilter != nil, content: {
-                    $0.searchable(text: $searchText)
+                    $0.searchable(text: $searchText, placement: .navigationBarDrawer)
                 })
             } else {
                 List {
@@ -102,7 +102,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     selectionUpdated?(newValue)
                 }
                 .ifApply(searchFilter != nil, content: {
-                    $0.searchable(text: $searchText)
+                    $0.searchable(text: $searchText, placement: .navigationBarDrawer)
                 })
             }
         #elseif swift(>=5.5)
@@ -120,7 +120,7 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 selectionUpdated?(newValue)
             }
             .ifApply(searchFilter != nil, content: {
-                $0.searchable(text: $searchText)
+                $0.searchable(text: $searchText, placement: .navigationBarDrawer)
             })
         #else
             List {

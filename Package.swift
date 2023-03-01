@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .watchOS(.v7)],
     products: [
         .library(
             name: "FioriSwiftUI",
@@ -30,7 +30,7 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: ["FioriSwiftUICore"]
+            dependencies: [.target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS]))]
         ),
         .target(
             name: "FioriCharts",
@@ -39,7 +39,10 @@ let package = Package(
         ),
         .target(
             name: "FioriSwiftUICore",
-            dependencies: ["FioriThemeManager", "FioriCharts"],
+            dependencies: [
+                .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS])),
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS]))
+            ],
             resources: [.process("FioriSwiftUICore.strings")]
         ),
         .target(
@@ -50,11 +53,22 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "FioriSwiftUITests",
-            dependencies: ["FioriSwiftUI"],
+            name: "FioriThemeManagerTests",
+            dependencies: ["FioriThemeManager"],
+            path: "Tests/FioriSwiftUITests/FioriThemeManager",
             resources: [
-                .process("FioriThemeManager/TestResources")
+                .process("TestResources")
             ]
+        ),
+        .testTarget(
+            name: "FioriChartsTests",
+            dependencies: ["FioriCharts"],
+            path: "Tests/FioriSwiftUITests/FioriCharts"
+        ),
+        .testTarget(
+            name: "FioriSwiftUICoreTests",
+            dependencies: ["FioriSwiftUICore"],
+            path: "Tests/FioriSwiftUITests/FioriSwiftUICore"
         )
     ]
 )

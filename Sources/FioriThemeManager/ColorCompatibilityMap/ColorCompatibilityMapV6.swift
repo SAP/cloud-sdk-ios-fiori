@@ -1,5 +1,6 @@
 import Foundation
 
+@available(watchOS, unavailable)
 struct ColorCompatibilityMapV6: ColorStyleCompatibilityProvider {
     let uuid = UUID()
     

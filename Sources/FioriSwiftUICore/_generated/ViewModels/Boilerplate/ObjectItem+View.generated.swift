@@ -33,6 +33,12 @@ extension Fiori {
         typealias DetailImageCumulative = EmptyModifier
 		typealias Icons = EmptyModifier
         typealias IconsCumulative = EmptyModifier
+		typealias Avatars = EmptyModifier
+        typealias AvatarsCumulative = EmptyModifier
+		typealias FootnoteIcons = EmptyModifier
+        typealias FootnoteIconsCumulative = EmptyModifier
+		typealias Tags = EmptyModifier
+        typealias TagsCumulative = EmptyModifier
 		typealias Action = EmptyModifier
         typealias ActionCumulative = EmptyModifier
 
@@ -56,6 +62,9 @@ extension Fiori {
 		static let substatus = Substatus()
 		static let detailImage = DetailImage()
 		static let icons = Icons()
+		static let avatars = Avatars()
+		static let footnoteIcons = FootnoteIcons()
+		static let tags = Tags()
 		static let action = Action()
         static let titleCumulative = TitleCumulative()
 		static let subtitleCumulative = SubtitleCumulative()
@@ -65,6 +74,9 @@ extension Fiori {
 		static let substatusCumulative = SubstatusCumulative()
 		static let detailImageCumulative = DetailImageCumulative()
 		static let iconsCumulative = IconsCumulative()
+		static let avatarsCumulative = AvatarsCumulative()
+		static let footnoteIconsCumulative = FootnoteIconsCumulative()
+		static let tagsCumulative = TagsCumulative()
 		static let actionCumulative = ActionCumulative()
     }
 }

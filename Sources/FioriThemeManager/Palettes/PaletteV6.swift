@@ -1,5 +1,6 @@
 import Foundation
 
+@available(watchOS, unavailable)
 struct PaletteV6: PaletteProvider {
     /// :nodoc:
     public let uuid = UUID()

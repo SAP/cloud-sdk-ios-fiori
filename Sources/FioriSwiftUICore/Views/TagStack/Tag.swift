@@ -39,7 +39,7 @@ public struct LightTagStyle: TagStyle {
     public func makeBody(configuration: Self.Configuration) -> some View {
         configuration
             .label
-            .font(.footnote)
+            .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.secondaryLabel))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.quarternaryLabel), lineWidth: 0.5))
@@ -52,7 +52,7 @@ public struct DarkTagStyle: TagStyle {
     public func makeBody(configuration: Self.Configuration) -> some View {
         configuration
             .label
-            .font(.footnote)
+            .font(.fiori(forTextStyle: .footnote))
             .foregroundColor(.preferredColor(.primaryLabel, background: .darkConstant))
             .padding(EdgeInsets(top: 2, leading: 3, bottom: 2, trailing: 3))
             .background(RoundedRectangle(cornerRadius: 4).fill(Color.preferredColor(.tertiaryLabel)))

@@ -138,6 +138,14 @@ struct UpperBoundTitleModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
+struct AvatarsModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
+struct FootnoteIconsModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
 struct ActionTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
