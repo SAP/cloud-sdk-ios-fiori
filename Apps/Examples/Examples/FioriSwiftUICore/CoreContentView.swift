@@ -3,11 +3,60 @@ import FioriSwiftUI
 import FioriSwiftUICore
 import SwiftUI
 
+struct FioriExampleItem: Identifiable {
+    let id = UUID()
+    let name: String
+    let destination: AnyView
+}
+
+struct FioriExampleSection: Identifiable {
+    let id = UUID()
+    let name: String
+    let examples: [FioriExampleItem]
+}
+
 struct CoreContentView: View {
+    var sections: [FioriExampleSection]
+    
+    init() {
+        let controls = [FioriExampleItem(name: "ListPickerItem", destination: ListPickerItemExample().typeErased),
+                        FioriExampleItem(name: "FioriButton", destination: FioriButtonContentView().typeErased),
+                        FioriExampleItem(name: "DurationPicker", destination: DurationPickerExample().typeErased)]
+        let views = [FioriExampleItem(name: "Data Table", destination: DataTableExample().typeErased),
+                     FioriExampleItem(name: "Dimension Selector", destination: DimensionSelector_Chart().typeErased),
+                     FioriExampleItem(name: "KPI", destination: KPIExample().typeErased),
+                     FioriExampleItem(name: "KPIProgressItem", destination: KPIProgressExample().typeErased),
+                     FioriExampleItem(name: "KPIHeader", destination: KPIHeaderExample().typeErased),
+                     FioriExampleItem(name: "ObjectItem", destination: ObjectItemExample().typeErased),
+                     FioriExampleItem(name: "ObjectHeader", destination: ObjectHeaderExample().typeErased),
+                     FioriExampleItem(name: "ContactItem", destination: ContactItemExample().typeErased),
+                     FioriExampleItem(name: "Step Progress Indicator", destination: StepProgressIndicatorExample().typeErased)]
+        let patterns = [FioriExampleItem(name: "Onboarding", destination: OnboardingExamples().typeErased),
+                        FioriExampleItem(name: "Signature Inline View", destination: SignatureCaptureViewExample().typeErased),
+                        FioriExampleItem(name: "Customized Signature Inline View", destination: SignatureCaptureViewExample2().typeErased)]
+        let floorplans = [FioriExampleItem(name: "Side Bar Example", destination: SideBarExample().typeErased),
+                          FioriExampleItem(name: "EmptyStateViewExample", destination: EmptyStateViewExample().typeErased)]
+        let experiment = [FioriExampleItem(name: "🚧 Experimental 🚧", destination: ExperimentalContentView().typeErased)]
+        
+        self.sections = [FioriExampleSection(name: "Controls", examples: controls),
+                         FioriExampleSection(name: "Views", examples: views),
+                         FioriExampleSection(name: "Patterns", examples: patterns),
+                         FioriExampleSection(name: "Floorplans", examples: floorplans),
+                         FioriExampleSection(name: "Experimental", examples: experiment)]
+    }
+    
     var body: some View {
         List {
-            ForEach(CoreItem.allCases) {
-                $0.content
+            ForEach(sections) { s in
+                Section(s.name) {
+                    ForEach(s.examples) { e in
+                        NavigationLink {
+                            e.destination
+                        } label: {
+                            Text(e.name)
+                        }
+                    }
+                }
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }
@@ -16,141 +65,5 @@ struct CoreContentView: View {
 struct CoreContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView().environment(\.horizontalSizeClass, .compact)
-    }
-}
-
-enum CoreItem: String, CaseIterable, Identifiable {
-    case dataTable = "Data Table"
-    case sideBar = "Side Bar Example"
-    case dimensionSelector_Chart = "Dimension Selector"
-    case signatureCapture = "Signature Inline View"
-    case signatureCapture2 = "Customized Signature Inline View"
-    case experimental = "🚧 Experimental 🚧"
-    case listPickerItem = "ListPickerItem"
-    case durationPicker = "DurationPicker"
-    case fioriButton = "FioriButton"
-    case kPI = "KPI"
-    case kPIProgress = "KPIProgressItem"
-    case kPIHeader = "KPIHeader"
-    case onboarding = "Onboarding"
-    case objectItem = "ObjectItem"
-    case objectHeader = "ObjectHeader"
-    case contactItem = "ContactItem"
-    case emptyState = "EmptyStateViewExample"
-    case stepperIndicator = "Stepper Indicator"
-    
-    var id: String { self.rawValue }
-    
-    @ViewBuilder var content: some View {
-        switch self {
-        case .dataTable:
-            NavigationLink {
-                DataTableExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .sideBar:
-            NavigationLink {
-                SideBarExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .dimensionSelector_Chart:
-            NavigationLink {
-                DimensionSelector_Chart()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .signatureCapture:
-            NavigationLink {
-                SignatureCaptureViewExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .signatureCapture2:
-            NavigationLink {
-                SignatureCaptureViewExample2()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .experimental:
-            NavigationLink {
-                ExperimentalContentView()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .listPickerItem:
-            NavigationLink {
-                ListPickerItemExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .durationPicker:
-            NavigationLink {
-                DurationPickerExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .fioriButton:
-            NavigationLink {
-                FioriButtonContentView()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .kPI:
-            NavigationLink {
-                KPIExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .kPIProgress:
-            NavigationLink {
-                KPIProgressExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .kPIHeader:
-            NavigationLink {
-                KPIHeaderExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .onboarding:
-            NavigationLink {
-                OnboardingExamples()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .objectItem:
-            NavigationLink {
-                ObjectItemExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .objectHeader:
-            NavigationLink {
-                ObjectHeaderExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .contactItem:
-            NavigationLink {
-                ContactItemExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .emptyState:
-            NavigationLink {
-                EmptyStateViewExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        case .stepperIndicator:
-            NavigationLink {
-                StepperIndicatorExample()
-            } label: {
-                Text("\(self.rawValue)")
-            }
-        }
     }
 }
