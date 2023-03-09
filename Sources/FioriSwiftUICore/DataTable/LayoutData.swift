@@ -123,7 +123,7 @@ class LayoutData {
             res.append(items)
             maxFirstBaselineHeights.append(maxFirstBaselineHeight)
         }
-        
+
         return (res, maxFirstBaselineHeights)
     }
     
@@ -136,9 +136,12 @@ class LayoutData {
         default:
             contentWidth = CGFloat(MAXFLOAT)
         }
-        
+
         let contentInset = self.cellContentInsets(for: dataItem.rowIndex, columnIndex: dataItem.columnIndex)
         contentWidth -= contentInset.horizontal * 2
+        if dataItem.type == .listitem {
+            contentWidth -= 15
+        }
         
         if let uifont = dataItem.uifont, let title = dataItem.text {
             var size = title.boundingBoxSize(with: uifont, width: contentWidth, height: CGFloat(MAXFLOAT))
@@ -146,7 +149,7 @@ class LayoutData {
                 size.width += 15
                 size.height = max(size.height, 22)
             }
-            
+
             return size
         }
         
@@ -199,7 +202,7 @@ class LayoutData {
             if !validState.0 {
                 self.numOfErrors += 1
             }
-            
+
             if let currentItem = dataInEachRow[i] as? DataTableItemConvertion, let item = currentItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader, isValid: validState.0) {
                 res.append(item)
                 
@@ -263,6 +266,12 @@ class LayoutData {
         return width
     }
     
+    /**
+     columnWidth:
+         .fixed: max(1, fixedWidth)
+         .flexible: 48 pt -- 50%
+         .infinity: 48 pt -- 50%, then fill the remaining space if possible
+      */
     func getColumnWidths(workItem: DispatchWorkItem?) -> [CGFloat] {
         let numberOfColumns = self.numberOfColumns()
         let numberOfRows = self.numberOfRows()
@@ -270,9 +279,9 @@ class LayoutData {
             return []
         }
         
-        var columnWidths: [CGFloat] = []
+        var tmpColumnWidths: [CGFloat] = []
         
-        // first round
+        // first round, go through all columns without applying 50% rule
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
             
@@ -285,37 +294,30 @@ class LayoutData {
                 let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: j, containerWidth: self.size.width, applyMaxColumnWidthRule: false)
                 maxItemWidth = max(maxItemWidth, currentItemWidth)
             }
-            columnWidths.append(maxItemWidth)
+            tmpColumnWidths.append(maxItemWidth)
         }
         
         if workItem?.isCancelled ?? false {
             return []
         }
         
-        var allColumnWidth = columnWidths.reduce(0) { partialResult, width in
+        var allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
         }
-        // by default, the first column will expand to fill the space
-        var infinityIndex: Int = 0
-        for (index, columnAttribute) in self.columnAttributes.enumerated() {
-            switch columnAttribute.width {
-            case .infinity:
-                infinityIndex = index
-            
-            default:
-                continue
-            }
-        }
         
+        // by default, the first column will expand to fill the space
+        let infinityIndex: Int = self.infinityColumnIndex()
         // all columns fit in the container width
         var totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
+        
+        // totalWidth is less or equal than the container width so the infinity column needs to expand its width to fill th remaining space then return
         if totalWidth <= self.size.width {
-            columnWidths[infinityIndex] += self.size.width - totalWidth
-            self.columnWidths = columnWidths
-            return columnWidths
+            tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
+            return tmpColumnWidths
         }
         
         // second round
+        // totalWidth is great than the container width: go through all columns with applying 50% rule
         for j in 0 ..< numberOfColumns {
             var maxItemWidth: CGFloat = 0
             
@@ -327,23 +329,83 @@ class LayoutData {
                 let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: j, containerWidth: self.size.width, applyMaxColumnWidthRule: true)
                 maxItemWidth = max(maxItemWidth, currentItemWidth)
             }
-            columnWidths[j] = maxItemWidth
+            tmpColumnWidths[j] = maxItemWidth
         }
         
         // check it again, all columns fit in the container width
-        allColumnWidth = columnWidths.reduce(0) { partialResult, width in
+        allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
             partialResult + width
         }
         totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
         if totalWidth <= self.size.width {
-            columnWidths[infinityIndex] += self.size.width - totalWidth
-            self.columnWidths = columnWidths
-            return columnWidths
+            tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
+            return tmpColumnWidths
         }
         
-        return columnWidths
+        return tmpColumnWidths
     }
     
+    /// one cell change can cause the change of two column width. One is its column and other is the .infinity column
+    func updateOneColumnWidth(for rowIndex: Int, columnIndex: Int) -> [CGFloat] {
+        let numberOfColumns = self.numberOfColumns()
+        let numberOfRows = self.numberOfRows()
+        if numberOfColumns < 1 || numberOfRows < 1 {
+            return []
+        }
+        
+        var tmpColumnWidths: [CGFloat] = self.columnWidths
+        
+        // first round, go through all columns without applying 50% rule
+        var maxItemWidth: CGFloat = 0
+        
+        /// find max column width in all rows
+        for i in 0 ..< numberOfRows {
+            let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: columnIndex, containerWidth: self.size.width, applyMaxColumnWidthRule: false)
+            maxItemWidth = max(maxItemWidth, currentItemWidth)
+        }
+        tmpColumnWidths[columnIndex] = maxItemWidth
+        
+        var allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
+            partialResult + width
+        }
+        // by default, the first column will expand to fill the space
+        let infinityIndex: Int = self.infinityColumnIndex()
+        // all columns fit in the container width
+        var totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
+        
+        // totalWidth is less or equal than the container width so the infinity column needs to expand its width to fill th remaining space then return
+        if totalWidth <= self.size.width {
+            tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
+            return tmpColumnWidths
+        }
+        
+        // second round
+        // totalWidth is great than the container width: go through all columns with applying 50% rule
+        maxItemWidth = 0
+        for i in 0 ..< numberOfRows {
+            let currentItemWidth: CGFloat = self.cellWidth(rowIndex: i, columnIndex: columnIndex, containerWidth: self.size.width, applyMaxColumnWidthRule: true)
+            maxItemWidth = max(maxItemWidth, currentItemWidth)
+        }
+        tmpColumnWidths[columnIndex] = maxItemWidth
+        
+        // check it again, all columns fit in the container width
+        allColumnWidth = tmpColumnWidths.reduce(0) { partialResult, width in
+            partialResult + width
+        }
+        totalWidth = self.leadingAccessoryViewWidth + self.trailingAccessoryViewWidth + allColumnWidth
+        if totalWidth <= self.size.width {
+            tmpColumnWidths[infinityIndex] += self.size.width - totalWidth
+            return tmpColumnWidths
+        }
+        
+        return tmpColumnWidths
+    }
+    
+    /**
+        .fixed: max(1, fixedWidth)
+        .flexible: 48 pt --50%
+        .infinity: 48 pt -- 50%, then fill the remaining space if possible
+     */
     func cellWidth(rowIndex: Int, columnIndex: Int, containerWidth: CGFloat, applyMaxColumnWidthRule: Bool = true) -> CGFloat {
         let columnAttri = self.columnAttribute(for: columnIndex)
         switch columnAttri.width {
@@ -423,7 +485,8 @@ class LayoutData {
                             size.width += 15
                             size.height = max(size.height, 22)
                         }
-                        
+                        // update cell height
+                        self.allDataItems[rowIndex][columnIndex].rowHeight = size.height
                         itemHeight = max(size.height, itemHeight)
                         if self.rowAlignment == .baseline {
                             let baselineHeightOffset = self.firstBaselineHeights[rowIndex] - item.firstBaselineHeight
@@ -443,9 +506,66 @@ class LayoutData {
         return heights
     }
     
+    /// only recalculate cells heights that its columnIndex is contained in the columnIndexes
+    func updateRowHeights(for rowIndex: Int, columnIndexes: Set<Int>) -> [CGFloat] {
+        var heights: [CGFloat] = self.rowHeights
+    
+        for rowIndex in self.allDataItems.indices {
+            var itemHeight: CGFloat = 0
+            
+            for columnIndex in self.allDataItems[rowIndex].indices {
+                if !columnIndexes.contains(columnIndex) {
+                    itemHeight = max(self.allDataItems[rowIndex][columnIndex].rowHeight, itemHeight)
+                    continue
+                }
+                
+                let contentInset = self.cellContentInsets(for: rowIndex, columnIndex: columnIndex)
+                let item = self.allDataItems[rowIndex][columnIndex]
+                if let title = item.text, let uifont = item.uifont {
+                    let contentWidth = self.columnWidths[columnIndex] - contentInset.horizontal
+                    if contentWidth > 0 {
+                        let numOfLines = item.lineLimit ?? 0
+                        var size = title.boundingBoxSize(with: uifont, lineLimit: numOfLines, width: contentWidth)
+                        if item.type == .listitem { // add a spacing and chevron's size
+                            size.width += 15
+                            size.height = max(size.height, 22)
+                        }
+                        // update cell height
+                        self.allDataItems[rowIndex][columnIndex].rowHeight = size.height
+                        itemHeight = max(size.height, itemHeight)
+                        if self.rowAlignment == .baseline {
+                            let baselineHeightOffset = self.firstBaselineHeights[rowIndex] - item.firstBaselineHeight
+                            itemHeight += baselineHeightOffset
+                        }
+                    }
+                } else if item.image != nil {
+                    itemHeight = max(item.size.height, itemHeight)
+                }
+            }
+            
+            let verticalPadding = self.cellContentInsets(for: rowIndex, columnIndex: 0).vertical
+            let rowHeight = max(itemHeight + verticalPadding, self.minRowHeight)
+            heights[rowIndex] = rowHeight
+        }
+        
+        return heights
+    }
+    
+    /**
+        Steps:
+        1. update that column width: one cell change can cause the change of two column width. One is its column and other is the .infinity column
+        2. update all rows height (only recalculate cells heights that its columnIndex is contained in the columnIndexes)
+        3. update positions
+     */
     func updateCellLayout(for rowIndex: Int, columnIndex: Int) {
-        self.columnWidths = self.getColumnWidths(workItem: nil)
-        self.rowHeights = self.getRowHeights(workItem: nil)
+        let origColumnWidths = self.columnWidths
+        self.columnWidths = self.updateOneColumnWidth(for: rowIndex, columnIndex: columnIndex)
+        let infinityIndex: Int = self.infinityColumnIndex()
+        var changedColumns: Set<Int> = [columnIndex]
+        if origColumnWidths.count > infinityIndex, abs(origColumnWidths[infinityIndex].distance(to: self.columnWidths[infinityIndex])) > 0.1 {
+            changedColumns.insert(infinityIndex)
+        }
+        self.rowHeights = self.updateRowHeights(for: rowIndex, columnIndexes: changedColumns)
         self.allDataItems = self.updatedItemsPos()
     }
     
@@ -472,6 +592,22 @@ class LayoutData {
         }
         
         return items
+    }
+    
+    func infinityColumnIndex() -> Int {
+        // by default, the first column will expand to fill the space
+        var infinityIndex: Int = 0
+        for (index, columnAttribute) in self.columnAttributes.enumerated() {
+            switch columnAttribute.width {
+            case .infinity:
+                infinityIndex = index
+                
+            default:
+                continue
+            }
+        }
+        
+        return infinityIndex
     }
     
     func copyCacheData(_ layoutData: LayoutData?) {
@@ -598,7 +734,7 @@ extension UIFont {
                 uiFont = UIFont.preferredFioriFont(forTextStyle: .KPI, isCondensed: true)
             case .fioriCondensed(forTextStyle: .largeKPI):
                 uiFont = UIFont.preferredFioriFont(forTextStyle: .largeKPI, isCondensed: true)
-            
+                
             /// system font
             case .largeTitle:
                 uiFont = UIFont.preferredFont(forTextStyle: .largeTitle)

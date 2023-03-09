@@ -94,7 +94,7 @@ struct ItemView: View {
                                               layoutData.allDataItems[rowIndex][columnIndex] = dataItem
                 
                                               layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
-                                              self.layoutManager.layoutData = layoutData.copy()
+                                              layoutManager.needRefresh.toggle()
                                               self.showBanner = false
                                               editingText = data.0[selectedIndex]
                                               isValid = (true, nil)
@@ -243,7 +243,7 @@ struct ItemView: View {
                         
                         layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
                         layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
-                        self.layoutManager.layoutData = layoutData.copy()
+                        layoutManager.needRefresh.toggle()
                         self.layoutManager.isValid = isValid
                         self.showBanner = !isValid.0
                         
@@ -265,11 +265,11 @@ struct ItemView: View {
                         }
                         layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
                         layoutData.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
-                        self.layoutManager.layoutData = layoutData.copy()
-                        self.layoutManager.isValid = isValid
+                        layoutManager.needRefresh.toggle()
+                        layoutManager.isValid = isValid
                         self.showBanner = !isValid.0
                         
-                        self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .duration(TimeInterval(newValue * 60)), text: editingText))
+                        layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .duration(TimeInterval(newValue * 60)), text: editingText))
                     }
                     
                     if dataItem.textAlignment == .center || dataItem.textAlignment == .leading {
@@ -312,12 +312,18 @@ struct ItemView: View {
                         return
                     }
                     
+                    // tap again to dismiss .date, .time & .duration popover
                     if let currentCell = self.layoutManager.currentCell, currentCell == (rowIndex, columnIndex), dataItem.type != .text && dataItem.type != .listitem {
                         self.layoutManager.currentCell = nil
                         isInlineEdit = false
                         showPopover = false
                         showSheet = false
                         return
+                    }
+                    
+                    // save text changes if an other cell is tapped
+                    if let currentCell = self.layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text {
+                        layoutManager.updateText(rowIndex: currentCell.0, columnIndex: currentCell.1)
                     }
                     
                     isInlineEdit = true
