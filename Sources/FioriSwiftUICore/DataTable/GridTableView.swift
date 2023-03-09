@@ -422,7 +422,6 @@ struct InternalGridTableView: View {
     
     // swiftlint:disable force_unwrapping function_body_length
     func makeBody(_ size: CGSize) -> some View {
-//        let size = self.layoutManager.size
         let rect = CGRect(origin: .zero, size: size)
         let layoutData = self.layoutManager.layoutData!
         let allItems = layoutData.allDataItems
