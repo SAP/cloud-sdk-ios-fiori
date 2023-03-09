@@ -23,6 +23,7 @@ struct InlineEditingView: View {
         self.rowIndex = (layoutManager.currentCell ?? (0, 0)).0
         self.columnIndex = (layoutManager.currentCell ?? (0, 0)).1
         let dataItem = layoutManager.layoutData?.allDataItems[self.rowIndex][self.columnIndex]
+        layoutManager.cacheEditingText = dataItem?.text ?? ""
         self._editingText = State(initialValue: dataItem?.text ?? "")
         self._isValid = State(initialValue: (dataItem?.isValid ?? true, ""))
     }
@@ -131,6 +132,9 @@ struct InlineEditingView: View {
                 focusState = true
             }
         }
+        .onChange(of: self.editingText, perform: { _ in
+            layoutManager.cacheEditingText = editingText
+        })
     }
     
     func updateText(_ newValue: String) {
@@ -146,7 +150,7 @@ struct InlineEditingView: View {
             dataItem.size = layoutData.calcDataItemSize(dataItem)
             layoutData.allDataItems[self.rowIndex][self.columnIndex] = dataItem
             layoutData.updateCellLayout(for: self.rowIndex, columnIndex: self.columnIndex)
-            self.layoutManager.layoutData = layoutData.copy()
+            self.layoutManager.needRefresh.toggle()
             self.layoutManager.isValid = self.isValid
             self.showBanner = !self.isValid.0
             self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .text(self.editingText), text: self.editingText))
