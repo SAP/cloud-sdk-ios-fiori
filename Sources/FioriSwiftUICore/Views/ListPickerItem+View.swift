@@ -188,6 +188,7 @@ internal extension ListPickerItemConfiguration {
                                                   searchFilter: searchFilter,
                                                   rowContent: rowContent,
                                                   rowBackground: rowBackground)
+            .listStyle(.plain)
             .typeErased
     }
 }

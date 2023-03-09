@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 extension DurationPicker: View {
@@ -7,8 +8,8 @@ extension DurationPicker: View {
             .background(Color.preferredColor(.primaryBackground))
             .foregroundColor(Color.preferredColor(.primaryLabel))
             .cornerRadius(18)
-            .shadow(color: Color.black.opacity(0.2), radius: 5)
-            .shadow(color: Color.black.opacity(0.15), radius: 20)
+            .shadow(color: Color.preferredColor(.cardShadow), radius: 5)
+            .shadow(color: Color.preferredColor(.cardShadow), radius: 20)
     }
     
     /// Measurement formatter for duration picker.

@@ -1,3 +1,4 @@
+import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
