@@ -49,6 +49,9 @@ class TableLayoutManager: ObservableObject {
     /// it will not be nil after layout process is completed
     @Published var layoutData: LayoutData? = nil
     
+    /// toggle this to trigger a refresh of the DataTable
+    @Published var needRefresh = false
+    
     var inlineEditingModel = InlineEditingModel()
     
     /// private: X direction scale factor; the minimum scale is to display all data in the view
@@ -105,6 +108,9 @@ class TableLayoutManager: ObservableObject {
     
     /// cached LayoutData for display
     var cacheLayoutData: LayoutData?
+    
+    /// cache editing text to save if users tap another cell before the editing text has been saved explicitly
+    var cacheEditingText: String = ""
     
     /// cache the result
     var numOfColumns: Int = -1
@@ -244,6 +250,7 @@ class TableLayoutManager: ObservableObject {
             return []
         }
         
+        let cacheCurrentCell = self.currentCell
         self.currentCell = nil
         if !isSave {
             let changeResult = self.queryInlineEditChanges(applyValidation: false, findFirstChangeThenReturn: true)
@@ -256,6 +263,11 @@ class TableLayoutManager: ObservableObject {
         
         // update model
         guard let ld = layoutData, cacheLayoutData != nil else { return [] }
+        
+        // save text changes if an other cell is tapped
+        if let tmpCell = cacheCurrentCell, ld.allDataItems[tmpCell.0][tmpCell.1].type == .text {
+            self.updateText(rowIndex: tmpCell.0, columnIndex: tmpCell.1, updateItValidOnly: true)
+        }
         
         let changeResult = self.queryInlineEditChanges(applyValidation: true, findFirstChangeThenReturn: false)
         let isThereRejectedErrors: Bool = changeResult.isThereRejectedErrors
@@ -278,6 +290,32 @@ class TableLayoutManager: ObservableObject {
             self.cacheLayoutData = self.layoutData?.copy()
         }
         return changes
+    }
+    
+    func updateText(rowIndex: Int, columnIndex: Int, updateItValidOnly: Bool = false) {
+        guard let ld = layoutData else { return }
+        
+        var dataItem = ld.allDataItems[rowIndex][columnIndex]
+        if dataItem.text != self.cacheEditingText {
+            let originalText = dataItem.text
+            dataItem.text = self.cacheEditingText
+            let validState = self.checkIsValid(for: dataItem)
+            
+            // not valid then roll back
+            if updateItValidOnly, !validState.0 {
+                dataItem.text = originalText
+                return
+            }
+            
+            let errorChange: Int = dataItem.isValid != validState.0 ? (validState.0 ? -1 : 1) : 0
+            ld.numOfErrors += errorChange
+            dataItem.isValid = validState.0
+            dataItem.size = ld.calcDataItemSize(dataItem)
+            ld.allDataItems[rowIndex][columnIndex] = dataItem
+            ld.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
+            self.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(self.cacheEditingText), text: self.cacheEditingText))
+            self.needRefresh.toggle()
+        }
     }
     
     func checkIsValid(for dti: DataTableItem) -> (Bool, String?) {

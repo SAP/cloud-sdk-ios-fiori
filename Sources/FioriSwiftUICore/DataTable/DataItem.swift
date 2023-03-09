@@ -73,8 +73,13 @@ extension DataItemTextComponent {
         let firstBaselineHeight = uifont.lineHeight + uifont.descender
         let textColor = self.textColor ?? TableViewLayout.defaultFontColor(isHeader)
         var size: CGSize = .zero
-        if contentWidth > 0 {
-            size = title.boundingBoxSize(with: uifont, width: contentWidth, height: CGFloat(MAXFLOAT))
+        var realContentWidth = contentWidth
+        if type == .listitem { // subtract the spacing and chevron's size
+            realContentWidth -= 15
+        }
+        
+        if realContentWidth > 0 {
+            size = title.boundingBoxSize(with: uifont, width: realContentWidth, height: CGFloat(MAXFLOAT))
         }
         if type == .listitem { // add a spacing and chevron's size
             size.width += 15
