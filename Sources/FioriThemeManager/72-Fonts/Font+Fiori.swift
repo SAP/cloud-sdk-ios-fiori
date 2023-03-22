@@ -21,7 +21,7 @@ public extension Font {
         if isItalic {
             font = font.italic()
         } else if isCondensed {
-            if #available(iOS 16.0, watchOS 9.0, *) {
+            if #available(iOS 16.1, watchOS 9.0, *) {
                 font = font.width(Font.Width.condensed)
             } else {
                 font = Font.fioriCondensed(forTextStyle: fioriTextStyle, weight: weight)
@@ -49,7 +49,7 @@ public extension Font {
         if isItalic {
             font = font.italic()
         } else if isCondensed {
-            if #available(iOS 16.0, watchOS 9.0, *) {
+            if #available(iOS 16.1, watchOS 9.0, *) {
                 font = font.width(Font.Width.condensed)
             } else {
                 font = Font.fioriCondensed(fixedSize: fixedSize, weight: weight)
@@ -73,7 +73,7 @@ public extension Font {
             font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
         } else {
             font = Font.system(fioriTextStyle.textStyle).weight(weight)
-            if #available(iOS 16.0, watchOS 9.0, *) {
+            if #available(iOS 16.1, watchOS 9.0, *) {
                 font = font.width(Font.Width.condensed)
             }
         }
@@ -96,7 +96,7 @@ public extension Font {
             font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
         } else {
             font = Font.system(size: fixedSize).weight(weight)
-            if #available(iOS 16.0, watchOS 9.0, *) {
+            if #available(iOS 16.1, watchOS 9.0, *) {
                 font = font.width(Font.Width.condensed)
             }
         }
