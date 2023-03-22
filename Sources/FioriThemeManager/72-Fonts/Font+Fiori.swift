@@ -21,11 +21,15 @@ public extension Font {
         if isItalic {
             font = font.italic()
         } else if isCondensed {
-            if #available(iOS 16.2, watchOS 9.0, *) {
-                font = font.width(Font.Width.condensed)
-            } else {
+            #if swift(>=5.7.1)
+                if #available(iOS 16.0, watchOS 9.0, *) {
+                    font = font.width(Font.Width.condensed)
+                } else {
+                    font = Font.fioriCondensed(forTextStyle: fioriTextStyle, weight: weight)
+                }
+            #else
                 font = Font.fioriCondensed(forTextStyle: fioriTextStyle, weight: weight)
-            }
+            #endif
         }
         
         return font
@@ -49,11 +53,15 @@ public extension Font {
         if isItalic {
             font = font.italic()
         } else if isCondensed {
-            if #available(iOS 16.2, watchOS 9.0, *) {
-                font = font.width(Font.Width.condensed)
-            } else {
+            #if swift(>=5.7.1)
+                if #available(iOS 16.0, watchOS 9.0, *) {
+                    font = font.width(Font.Width.condensed)
+                } else {
+                    font = Font.fioriCondensed(fixedSize: fixedSize, weight: weight)
+                }
+            #else
                 font = Font.fioriCondensed(fixedSize: fixedSize, weight: weight)
-            }
+            #endif
         }
         
         return font
@@ -73,9 +81,11 @@ public extension Font {
             font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
         } else {
             font = Font.system(fioriTextStyle.textStyle).weight(weight)
-            if #available(iOS 16.2, watchOS 9.0, *) {
-                font = font.width(Font.Width.condensed)
-            }
+            #if swift(>=5.7.1)
+                if #available(iOS 16.0, watchOS 9.0, *) {
+                    font = font.width(Font.Width.condensed)
+                }
+            #endif
         }
         
         return font
@@ -96,9 +106,11 @@ public extension Font {
             font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
         } else {
             font = Font.system(size: fixedSize).weight(weight)
-            if #available(iOS 16.2, watchOS 9.0, *) {
-                font = font.width(Font.Width.condensed)
-            }
+            #if swift(>=5.7.1)
+                if #available(iOS 16.0, watchOS 9.0, *) {
+                    font = font.width(Font.Width.condensed)
+                }
+            #endif
         }
         
         return font
