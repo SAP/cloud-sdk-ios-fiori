@@ -9,16 +9,26 @@ public extension Font {
     ///
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A scaled font for this text style.
-    static func fiori(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
-        guard UIFont.familyNames.contains("72") else {
-            return Font.system(fioriTextStyle.textStyle)
+    static func fiori(forTextStyle fioriTextStyle: Font.FioriTextStyle, weight: Font.Weight = .regular, isItalic: Bool = false, isCondensed: Bool = false) -> Font {
+        var font: Font
+        if UIFont.familyNames.contains("72") {
+            font = Font.custom("72", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
+            font = font.weight(weight.getFioriWeight(isItalic: isItalic, isCondensed: isCondensed))
+        } else {
+            font = Font.system(fioriTextStyle.textStyle).weight(weight)
         }
         
-        if #available(iOS 14.0, *) {
-            return Font.custom("72", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
-        } else {
-            return Font.custom("72", size: fioriTextStyle.size)
+        if isItalic {
+            font = font.italic()
+        } else if isCondensed {
+            if #available(iOS 16.0, watchOS 9.0, *) {
+                font = font.width(.condensed)
+            } else {
+                font = Font.fioriCondensed(forTextStyle: fioriTextStyle, weight: weight)
+            }
         }
+        
+        return font
     }
     
     /// Fiori (72) fonts
@@ -27,13 +37,26 @@ public extension Font {
     ///
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A font with fixed size.
-    @available(iOS 14.0, *)
-    static func fiori(fixedSize: CGFloat) -> Font {
-        guard UIFont.familyNames.contains("72") else {
-            return Font.system(size: fixedSize)
+    static func fiori(fixedSize: CGFloat, weight: Font.Weight = .regular, isItalic: Bool = false, isCondensed: Bool = false) -> Font {
+        var font: Font
+        if UIFont.familyNames.contains("72") {
+            font = Font.custom("72", fixedSize: fixedSize)
+            font = font.weight(weight.getFioriWeight(isItalic: isItalic, isCondensed: isCondensed))
+        } else {
+            font = Font.system(size: fixedSize).weight(weight)
         }
         
-        return Font.custom("72", fixedSize: fixedSize)
+        if isItalic {
+            font = font.italic()
+        } else if isCondensed {
+            if #available(iOS 16.0, watchOS 9.0, *) {
+                font = font.width(.condensed)
+            } else {
+                font = Font.fioriCondensed(fixedSize: fixedSize, weight: weight)
+            }
+        }
+        
+        return font
     }
     
     /// Fiori (72) condensed fonts
@@ -42,16 +65,20 @@ public extension Font {
     ///
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A scaled condensed font for this text style.
-    static func fioriCondensed(forTextStyle fioriTextStyle: Font.FioriTextStyle) -> Font {
-        guard UIFont.familyNames.contains("72") else {
-            return Font.system(fioriTextStyle.textStyle)
+    @available(*, deprecated, message: "Use UIFont.fiori(forTextStyle:) with isCondensed parameter set to true")
+    static func fioriCondensed(forTextStyle fioriTextStyle: Font.FioriTextStyle, weight: Font.Weight = .regular) -> Font {
+        var font: Font
+        if UIFont.familyNames.contains("72") {
+            font = Font.custom("72-Condensed", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
+            font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
+        } else {
+            font = Font.system(fioriTextStyle.textStyle).weight(weight)
+            if #available(iOS 16.0, watchOS 9.0, *) {
+                font = font.width(.condensed)
+            }
         }
         
-        if #available(iOS 14.0, *) {
-            return Font.custom("72-Condensed", size: fioriTextStyle.size, relativeTo: fioriTextStyle.textStyle)
-        } else {
-            return Font.custom("72-Condensed", size: fioriTextStyle.size)
-        }
+        return font
     }
     
     /// Fiori (72) condensed fonts
@@ -61,12 +88,20 @@ public extension Font {
     /// - Parameter fioriTextStyle: Text style.
     /// - Returns: A condensed font with fixed size.
     @available(iOS 14.0, *)
-    static func fioriCondensed(fixedSize: CGFloat) -> Font {
-        guard UIFont.familyNames.contains("72") else {
-            return Font.system(size: fixedSize)
+    @available(*, deprecated, message: "Use UIFont.fiori(fixedSize:) with isCondensed parameter set to true")
+    static func fioriCondensed(fixedSize: CGFloat, weight: Font.Weight = .regular) -> Font {
+        var font: Font
+        if UIFont.familyNames.contains("72") {
+            font = Font.custom("72-Condensed", fixedSize: fixedSize)
+            font = font.weight(weight.getFioriWeight(isItalic: false, isCondensed: true))
+        } else {
+            font = Font.system(size: fixedSize).weight(weight)
+            if #available(iOS 16.0, watchOS 9.0, *) {
+                font = font.width(.condensed)
+            }
         }
         
-        return Font.custom("72-Condensed", fixedSize: fixedSize)
+        return font
     }
 }
 
@@ -185,6 +220,45 @@ extension Font.FioriTextStyle: CustomStringConvertible {
             return "KPI"
         case .largeKPI:
             return "largeKPI"
+        }
+    }
+}
+
+extension Font.Weight {
+    func getFioriWeight(isItalic: Bool, isCondensed: Bool) -> Font.Weight {
+        isItalic ? self.italicWeight : (isCondensed ? self.condensedWeight : self.fioriWeight)
+    }
+    
+    private var fioriWeight: Font.Weight {
+        switch self {
+        case .heavy, .black:
+            return .black
+        case .medium, .semibold, .bold:
+            return .bold
+        case .regular:
+            return .regular
+        case .ultraLight, .thin, .light:
+            return .light
+        default:
+            return .regular
+        }
+    }
+    
+    private var italicWeight: Font.Weight {
+        switch self.fioriWeight {
+        case .black, .bold:
+            return .bold
+        default:
+            return .regular
+        }
+    }
+    
+    private var condensedWeight: Font.Weight {
+        switch self.fioriWeight {
+        case .black, .bold:
+            return .bold
+        default:
+            return .regular
         }
     }
 }
