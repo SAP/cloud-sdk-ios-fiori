@@ -2,9 +2,62 @@ import FioriSwiftUICore
 import Foundation
 import SwiftUI
 
+struct FontConversionView: View {
+    var body: some View {
+        List {
+            Section(header: Text("System Font")) {
+                Text("Gg italic").font(Font.largeTitle.italic())
+                Text("Gg italic").font(Font(UIFont.preferredFont(from: Font.largeTitle.italic())))
+
+                Text("Gg bold italic").font(Font.title.bold().italic())
+                Text("Gg bold italic").font(Font(UIFont.preferredFont(from: Font.title.bold().italic())))
+
+                Text("Gg black").font(Font.headline.weight(.black))
+                Text("Gg black").font(Font(UIFont.preferredFont(from: Font.headline.weight(.black))))
+
+                Text("Gg light italic").font(Font.body.weight(.light).italic())
+                Text("Gg light italic").font(Font(UIFont.preferredFont(from: Font.body.weight(.light).italic())))
+
+                Text("Gg system size thin rounded").font(Font.system(size: 18, weight: .thin, design: .rounded))
+                Text("Gg system size thin rounded").font(Font(UIFont.preferredFont(from: Font.system(size: 18, weight: .thin, design: .rounded))))
+            }
+
+            Section(header: Text("Fiori Font")) {
+                Text("Gg fiori semibold").font(Font.fiori(forTextStyle: .headline).weight(.semibold))
+                Text("Gg fiori semibold").font(Font(UIFont.preferredFont(from: Font.fiori(forTextStyle: .headline).weight(.semibold))))
+
+                Text("Gg fiori light italic").font(Font.fiori(forTextStyle: .largeTitle).weight(.light).italic())
+                Text("Gg fiori light italic").font(Font(UIFont.preferredFont(from: Font.fiori(forTextStyle: .largeTitle).weight(.light).italic())))
+
+                Text("Gg fiori black italic").font(Font.fiori(forTextStyle: .subheadline).weight(.black).italic())
+                Text("Gg fiori black italic").font(Font(UIFont.preferredFont(from: Font.fiori(forTextStyle: .subheadline).weight(.black).italic())))
+
+                Text("Gg fiori condensed").font(Font.fiori(forTextStyle: .caption2, isCondensed: true))
+                Text("Gg fiori condensed").font(Font(UIFont.preferredFont(from: Font.fiori(forTextStyle: .caption2, isCondensed: true))))
+                
+                Text("Gg fiori size 18 light").font(Font.fiori(fixedSize: 18).weight(.light))
+                Text("Gg fiori size 18 light").font(Font(UIFont.preferredFont(from: Font.fiori(fixedSize: 18).weight(.light))))
+            }
+            
+            Section(header: Text("Custom Font")) {
+                Text("Gg Helvetica font").font(Font.custom("Helvetica", size: 34, relativeTo: .largeTitle))
+                Text("Gg Helvetica font").font(Font(UIFont.preferredFont(from: Font.custom("Helvetica", size: 34, relativeTo: .largeTitle))))
+
+                Text("Gg Helvetica italic").font(Font.custom("Helvetica", size: 17, relativeTo: .body).italic())
+                Text("Gg Helvetica italic").font(Font(UIFont.preferredFont(from: Font.custom("Helvetica", size: 17, relativeTo: .body).italic())))
+
+                Text("Gg Helvetica bold").font(Font.custom("Helvetica", size: 17, relativeTo: .body).bold())
+                Text("Gg Helvetica bold").font(Font(UIFont.preferredFont(from: Font.custom("Helvetica", size: 17, relativeTo: .body).bold())))
+            }
+        }
+    }
+}
+
 struct DataTableExample: View {
     var body: some View {
         List {
+            NavigationLink("Font to UIFont Conversoin", destination: FontConversionView())
+            
             Section(header: Text("Width attribute & alignment")) {
                 NavigationLink("One column infinity width trailing alignment",
                                destination: DataTableExampleView(model: oneColumnWithInfinityWidth))
@@ -112,7 +165,10 @@ struct DataTableExample: View {
     }
 }
 
-let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.fiori(forTextStyle: .largeTitle))])
+// let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.fiori(forTextStyle: .largeTitle).bold().italic())])
+
+let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.largeTitle.bold().italic())])
+
 let row1 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline.weight(.medium), Color.preferredColor(.criticalLabel)), DataTextItem("Yesterday", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row2 = TableRowItem(data: [DataTextItem("Stable", Font.subheadline), DataTextItem("Jul 5, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
 let row3 = TableRowItem(data: [DataTextItem("Need Attention", Font.subheadline), DataTextItem("Jul 4, 2021", Font.caption, Color.preferredColor(.tertiaryLabel))])
@@ -398,5 +454,11 @@ public struct DataTableExampleView: View {
                     }
                 }
             }
+    }
+}
+
+struct DataTableExamplePreview: PreviewProvider {
+    static var previews: some View {
+        FontConversionView()
     }
 }
