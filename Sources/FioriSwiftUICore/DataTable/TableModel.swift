@@ -128,10 +128,10 @@ public class TableModel: ObservableObject {
     @Published public var isPinchZoomEnable: Bool = false
     
     /// Selection did change handler.
-    @Published public var didSelectRowAt: ((_ index: Int) -> Void)?
+    public var didSelectRowAt: ((_ index: Int) -> Void)?
     
     /// value did change
-    @Published public var valueDidChange: ((DataTableChange) -> Void)?
+    public var valueDidChange: ((DataTableChange) -> Void)?
     
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
