@@ -53,3 +53,8 @@ internal protocol _DurationPicker: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: default.value = MeasurementFormatter()
     var measurementFormatter: MeasurementFormatter { get set }
 }
+
+internal protocol _SingleStep: _ComponentMultiPropGenerating {
+    var name: String? { get }
+    var overText: String? { get }
+}

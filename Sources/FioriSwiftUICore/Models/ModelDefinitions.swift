@@ -373,3 +373,37 @@ public protocol SearchableListViewModel {
 }
 
 public protocol KPIHeaderItemModel {}
+
+// sourcery: add_env_props = "presentationMode"
+// sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
+// sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
+// sourcery: generated_component_composite
+public protocol StepProgressIndicatorModel {
+    var currentStepName: String? { get }
+    
+    // sourcery: genericParameter.name = AllStepsActionView
+    // sourcery: default.value = _AllStepsActionDefault()
+    var allStepsAction: ActionModel? { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=StepsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var steps: [SingleStepModel] { get }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+}
+
+// sourcery: add_env_props = "stepLineColor"
+// sourcery: add_env_props = "stepAxis"
+// sourcery: virtualPropTop = "var top: CGFloat = 8"
+// sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
+// sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
+// sourcery: virtualPropLeading = "var leading: CGFloat = 8"
+// sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
+// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
+// sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
+// sourcery: generated_component_composite
+public protocol SingleStepModel: SingleStepComponent {}

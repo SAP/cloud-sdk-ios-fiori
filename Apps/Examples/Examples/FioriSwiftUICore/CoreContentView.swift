@@ -25,6 +25,11 @@ struct CoreContentView: View {
             
             Group {
                 NavigationLink(
+                    destination: StepProgressIndicatorExample()) {
+                    Text("Step Progress Indicator")
+                }
+                
+                NavigationLink(
                     destination: SignatureCaptureViewExample()) {
                     Text("Signature Inline View")
                 }
