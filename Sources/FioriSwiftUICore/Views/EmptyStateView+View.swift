@@ -8,6 +8,7 @@ extension Fiori {
                     .font(Font.fiori(forTextStyle: .body).weight(.medium))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                     .lineLimit(1)
+                    .multilineTextAlignment(.center)
             }
         }
         
@@ -29,7 +30,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 160, height: 160)
+                    .frame(width: 160, height: 160, alignment: .center)
             }
         }
 
@@ -57,15 +58,17 @@ extension Fiori {
 
 extension EmptyStateView: View {
     public var body: some View {
-        detailImage
-            .padding(.bottom, 6)
-        
-        title
-            .padding(.bottom, 2)
-        descriptionText
-            .padding(.bottom, 2)
-        
-        action
-            .padding(.top, 4)
+        VStack(alignment: .center) {
+            detailImage
+                .padding(.bottom, 6)
+            
+            title
+                .padding(.bottom, 2)
+            descriptionText
+                .padding(.bottom, 2)
+            
+            action
+                .padding(.top, 4)
+        }
     }
 }
