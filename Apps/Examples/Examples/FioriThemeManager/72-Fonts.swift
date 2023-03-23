@@ -15,7 +15,7 @@ struct FioriFonts: View {
             ForEach(0 ..< textStyles.count) { index in
                 let textStyle = textStyles[index]
                 Text(String(describing: textStyle))
-                    .font(fioriFont(textStyle))
+                    .font(.fiori(forTextStyle: textStyle, weight: fontWeight, isItalic: isItalic, isCondensed: isCondensed))
             }
         }
         .environment(\.sizeCategory, sizeCategory)
@@ -31,18 +31,6 @@ struct FioriFonts: View {
         .sheet(isPresented: $showSettings) {
             Settings(fontWeight: $fontWeight, isItalic: $isItalic, isCondensed: $isCondensed, sizeCategory: $sizeCategory)
         }
-    }
-    
-    func fioriFont(_ textStyle: Font.FioriTextStyle) -> Font {
-        var font: Font = self.isCondensed ? .fioriCondensed(forTextStyle: textStyle) : .fiori(forTextStyle: textStyle)
-        
-        font = font.weight(self.fontWeight)
-        
-        if self.isItalic {
-            font = font.italic()
-        }
-        
-        return font
     }
 }
 
