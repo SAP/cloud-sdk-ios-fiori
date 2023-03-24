@@ -204,9 +204,9 @@ extension EnvironmentValues {
         set { self[NameModifierKey.self] = newValue }
     }
 
-    public var overTextModifier: AnyViewModifier {
-        get { return self[OverTextModifierKey.self] }
-        set { self[OverTextModifierKey.self] = newValue }
+    public var nodeModifier: AnyViewModifier {
+        get { return self[NodeModifierKey.self] }
+        set { self[NodeModifierKey.self] = newValue }
     }
 
     public var textInputValueModifier: AnyViewModifier {
@@ -499,8 +499,8 @@ public extension View {
     }
 
     @ViewBuilder
-    func overTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.overTextModifier, AnyViewModifier(transform))
+    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

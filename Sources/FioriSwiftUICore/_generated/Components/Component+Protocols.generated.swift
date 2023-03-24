@@ -200,7 +200,7 @@ public protocol ProgressIndicatorComponent {
 
 public protocol SingleStepComponent {
     var name: String? { get }
-    var overText: String? { get }
+    var node: String? { get }
 }
 
 public protocol TextInputComponent : AnyObject {

@@ -4,33 +4,33 @@ import SwiftUI
 
 extension SingleStep where Name == EmptyView {
     public init(
-    @ViewBuilder overText: () -> OverText
+    @ViewBuilder node: () -> Node
     ) {
         self.init(
             name: { EmptyView() },
-			overText: overText
+			node: node
         )
     }
 }
 
-extension SingleStep where OverText == EmptyView {
+extension SingleStep where Node == EmptyView {
     public init(
     @ViewBuilder name: () -> Name
     ) {
         self.init(
             name: name,
-			overText: { EmptyView() }
+			node: { EmptyView() }
         )
     }
 }
 
-extension SingleStep where Name == EmptyView, OverText == EmptyView {
+extension SingleStep where Name == EmptyView, Node == EmptyView {
     public init(
     
     ) {
         self.init(
             name: { EmptyView() },
-			overText: { EmptyView() }
+			node: { EmptyView() }
         )
     }
 }

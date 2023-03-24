@@ -374,9 +374,23 @@ public protocol SearchableListViewModel {
 
 public protocol KPIHeaderItemModel {}
 
+// sourcery: add_env_props = "stepLineColor"
+// sourcery: add_env_props = "stepAxis"
+// sourcery: virtualPropTop = "var top: CGFloat = 8"
+// sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
+// sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
+// sourcery: virtualPropLeading = "var leading: CGFloat = 8"
+// sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
+// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
+// sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
+// sourcery: generated_component_composite
+public protocol SingleStepModel: SingleStepComponent {}
+
 // sourcery: add_env_props = "presentationMode"
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
+// sourcery: virtualPropStepsData = "var stepsData: [StepModel] = []"
 // sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
+// sourcery: virtualPropSelection = "var selection: Binding<Int> = .constant(0)"
 // sourcery: generated_component_composite
 public protocol StepProgressIndicatorModel {
     var currentStepName: String? { get }
@@ -395,15 +409,3 @@ public protocol StepProgressIndicatorModel {
     // sourcery: default.value = _CancelActionDefault()
     var cancelAction: ActionModel? { get }
 }
-
-// sourcery: add_env_props = "stepLineColor"
-// sourcery: add_env_props = "stepAxis"
-// sourcery: virtualPropTop = "var top: CGFloat = 8"
-// sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
-// sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
-// sourcery: virtualPropLeading = "var leading: CGFloat = 8"
-// sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
-// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
-// sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
-// sourcery: generated_component_composite
-public protocol SingleStepModel: SingleStepComponent {}

@@ -1,6 +1,35 @@
 import FioriThemeManager
 import SwiftUI
 
+public enum StepIndicatorState {
+    case normal, completed, disabled, error
+    
+    func convert(_ isSelected: Bool) -> InternalStepState {
+        switch (isSelected, self) {
+        case (true, .normal):
+            return .active
+        case (_, .completed):
+            return .completed
+        case (_, .disabled):
+            return .disabled
+        case (true, .error):
+            return .errorActive
+        case (false, .normal):
+            return .inactive
+        case (false, .error):
+            return .error
+        }
+    }
+}
+
+public enum InternalStepState {
+    case inactive, active, completed, disabled, error, errorActive
+}
+
+public protocol StepModel: SingleStepModel {
+    var state: StepIndicatorState { get }
+}
+
 struct IconTrailedTitleLabelStyle: LabelStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 2) {
@@ -31,13 +60,13 @@ extension HorizontalAlignment {
 }
 
 struct StepButtonStyle: ButtonStyle {
-    var state: StepIndicatorState
+    var state: InternalStepState
     var showLine: Bool
     
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
         configuration.label
-            .overTextModifier {
+            .nodeModifier {
                 $0.background(nodeBackground(isPressed: isPressed)
                     .clipShape(Circle()))
                     .foregroundColor(nodeForeground(isPressed: isPressed))

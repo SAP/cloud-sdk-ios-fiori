@@ -189,7 +189,7 @@ public extension SingleStepComponent {
         return nil
     }
 
-	var overText: String? {
+	var node: String? {
         return nil
     }
 }

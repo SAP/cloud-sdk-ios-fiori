@@ -162,7 +162,7 @@ struct NameModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct OverTextModifierKey: EnvironmentKey {
+struct NodeModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

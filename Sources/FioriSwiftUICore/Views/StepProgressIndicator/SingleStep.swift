@@ -3,13 +3,12 @@ extension Fiori {
     enum SingleStep {
         typealias Name = EmptyModifier
         typealias NameCumulative = EmptyModifier
-        typealias OverText = EmptyModifier
-        typealias OverTextCumulative = EmptyModifier
-        
+        typealias Node = EmptyModifier
+        typealias NodeCumulative = EmptyModifier
         static let name = Name()
-        static let overText = OverText()
+        static let node = Node()
         static let nameCumulative = NameCumulative()
-        static let overTextCumulative = OverTextCumulative()
+        static let nodeCumulative = NodeCumulative()
     }
 }
 
@@ -24,7 +23,7 @@ extension SingleStep: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: top)
                 HStack(spacing: stepsSpacing) {
-                    overText
+                    node
                     Rectangle().fill(stepLineColor)
                         .frame(width: lineWidth, height: lineHeight)
                 }.sizeReader { size in
@@ -40,7 +39,7 @@ extension SingleStep: View {
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
                 Spacer().frame(width: leading)
                 VStack(spacing: stepsSpacing) {
-                    overText
+                    node
                         .alignmentGuide(.stepsTopAlignment) { $0.height / 2.0 }
                     Rectangle().fill(stepLineColor)
                         .frame(maxWidth: lineWidth, minHeight: lineHeight)

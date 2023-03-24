@@ -19,8 +19,8 @@ extension Fiori {
     enum SingleStep {
         typealias Name = EmptyModifier
         typealias NameCumulative = EmptyModifier
-		typealias OverText = EmptyModifier
-        typealias OverTextCumulative = EmptyModifier
+		typealias Node = EmptyModifier
+        typealias NodeCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -35,9 +35,9 @@ extension Fiori {
             }
         */
         static let name = Name()
-		static let overText = OverText()
+		static let node = Node()
         static let nameCumulative = NameCumulative()
-		static let overTextCumulative = OverTextCumulative()
+		static let nodeCumulative = NodeCumulative()
     }
 }
 

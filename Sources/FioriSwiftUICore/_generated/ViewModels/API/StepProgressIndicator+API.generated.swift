@@ -12,7 +12,9 @@ public struct StepProgressIndicator<CurrentStepName: View, AllStepsActionView: V
 	let _allStepsAction: AllStepsActionView
 	let _steps: Steps
 	let _cancelAction: CancelActionView
+	var stepsData: [StepModel] = []
 	var axis: Axis = .horizontal
+	var selection: Binding<Int> = .constant(0)
 	@State var isPresented: Bool = false
 
     private var isModelInit: Bool = false

@@ -2,32 +2,32 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SingleStep<Name: View, OverText: View> {
+public struct SingleStep<Name: View, Node: View> {
     @Environment(\.nameModifier) private var nameModifier
-	@Environment(\.overTextModifier) private var overTextModifier
+	@Environment(\.nodeModifier) private var nodeModifier
 	@Environment(\.stepAxis) var stepAxis
 	@Environment(\.stepLineColor) var stepLineColor
 
     let _name: Name
-	let _overText: OverText
-	var bottom: CGFloat = 8
-	@State var nodeAndLineSize: CGSize = .zero
-	var top: CGFloat = 8
+	let _node: Node
 	var leading: CGFloat = 8
-	var trailing: CGFloat = 8
-	var horizontalSpacing: CGFloat = 14
+	var bottom: CGFloat = 8
 	var verticalSpacing: CGFloat = 8
+	var horizontalSpacing: CGFloat = 14
+	@State var nodeAndLineSize: CGSize = .zero
+	var trailing: CGFloat = 8
+	var top: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isNameNil: Bool = false
-	private var isOverTextNil: Bool = false
+	private var isNodeNil: Bool = false
 
     public init(
         @ViewBuilder name: () -> Name,
-		@ViewBuilder overText: () -> OverText
+		@ViewBuilder node: () -> Node
         ) {
             self._name = name()
-			self._overText = overText()
+			self._node = node()
     }
 
     @ViewBuilder var name: some View {
@@ -37,11 +37,11 @@ public struct SingleStep<Name: View, OverText: View> {
             _name.modifier(nameModifier.concat(Fiori.SingleStep.name))
         }
     }
-	@ViewBuilder var overText: some View {
+	@ViewBuilder var node: some View {
         if isModelInit {
-            _overText.modifier(overTextModifier.concat(Fiori.SingleStep.overText).concat(Fiori.SingleStep.overTextCumulative))
+            _node.modifier(nodeModifier.concat(Fiori.SingleStep.node).concat(Fiori.SingleStep.nodeCumulative))
         } else {
-            _overText.modifier(overTextModifier.concat(Fiori.SingleStep.overText))
+            _node.modifier(nodeModifier.concat(Fiori.SingleStep.node))
         }
     }
     
@@ -49,24 +49,24 @@ public struct SingleStep<Name: View, OverText: View> {
         ((isModelInit && isNameNil) || Name.self == EmptyView.self) ? true : false
     }
 
-	var isOverTextEmptyView: Bool {
-        ((isModelInit && isOverTextNil) || OverText.self == EmptyView.self) ? true : false
+	var isNodeEmptyView: Bool {
+        ((isModelInit && isNodeNil) || Node.self == EmptyView.self) ? true : false
     }
 }
 
 extension SingleStep where Name == _ConditionalContent<Text, EmptyView>,
-		OverText == _ConditionalContent<Text, EmptyView> {
+		Node == _ConditionalContent<Text, EmptyView> {
 
     public init(model: SingleStepModel) {
-        self.init(name: model.name, overText: model.overText)
+        self.init(name: model.name, node: model.node)
     }
 
-    public init(name: String? = nil, overText: String? = nil) {
+    public init(name: String? = nil, node: String? = nil) {
         self._name = name != nil ? ViewBuilder.buildEither(first: Text(name!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._overText = overText != nil ? ViewBuilder.buildEither(first: Text(overText!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._node = node != nil ? ViewBuilder.buildEither(first: Text(node!)) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
 		isNameNil = name == nil ? true : false
-		isOverTextNil = overText == nil ? true : false
+		isNodeNil = node == nil ? true : false
     }
 }
