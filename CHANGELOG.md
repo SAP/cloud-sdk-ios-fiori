@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.1.0...3.1.1) (2023-03-27)
+
+
+### Bug Fixes
+
+* [SN:CS20230004967806] FUIEmptyStateView not centered and content clickable ([#534](https://github.com/SAP/cloud-sdk-ios-fiori/issues/534)) ([28e9f27](https://github.com/SAP/cloud-sdk-ios-fiori/commit/28e9f2713f3aa8c9326c932d0fd50bc0b2b45f8c))
+* 🐛 [bcp: 2380035203] save text change if other cells tapped ([#533](https://github.com/SAP/cloud-sdk-ios-fiori/issues/533)) ([08973ce](https://github.com/SAP/cloud-sdk-ios-fiori/commit/08973ce13909d2a2d26cfb75f78e679b6345a1c2))
+* 🐛 better Font to UIFont conversion support in DataTable ([00e8cda](https://github.com/SAP/cloud-sdk-ios-fiori/commit/00e8cda0e5e3304e0ffca7a6e0cedcb4987a243d))
+* 🐛 map fonts with unsupported weight and trait combo to existing 72 fonts. ([#536](https://github.com/SAP/cloud-sdk-ios-fiori/issues/536)) ([8f95c16](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8f95c16572dd64c9a76bb7d132be9e5ab0503fd0))
+
 ## [3.1.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.0.1...3.1.0) (2023-03-04)
 
 
