@@ -125,7 +125,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
                 ForEach(data) { item in
-                    if let _children = children, let childElements = item[keyPath: _children] {
+                    if let childElements = item[keyPath: children] {
                         ExpandableSection(list: {
                             ExpandableList(data: childElements,
                                            children: children,
@@ -184,7 +184,7 @@ public extension ExpandableList where Row == SideBarListItem<_ConditionalContent
         self.contentView = ScrollView(.vertical, showsIndicators: false, content: {
             LazyVStack(spacing: 0) {
                 ForEach(data) { item in
-                    if let _children = children, let group = item[keyPath: _children] {
+                    if let group = item[keyPath: children] {
                         ExpandableSection(list: {
                             ExpandableList(data: group,
                                            children: children,
