@@ -44,7 +44,7 @@
 "Quit" = "Beenden";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
-"Back" = "Zuück";
+"Back" = "Zurück";
 
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Step" = "Schritt";
@@ -78,4 +78,7 @@
 
 /* XMSG: Placeholder text in DataTable for loading state */
 "Loading..." = "Wird geladen ...";
+
+/* XMSG: Placeholder text in DataTable when there is no data */
+"There is nothing to display yet" = "Noch keine anzuzeigenden Daten";
 

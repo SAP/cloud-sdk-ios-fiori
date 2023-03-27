@@ -228,8 +228,8 @@ public enum TestRowData {
         let header = TableRowItem(leadingAccessories: [], trailingAccessory: nil, data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
         model.columnAttributes = self.generateColumnAttributes(column: column)
-        model.didSelectRowAt = { _ in
-            print(model.selectedIndexes)
+        model.didSelectRowAt = { rowIndex in
+            print("Tapped row \(rowIndex)")
         }
         model.selectedIndexes = [0]
         
@@ -239,10 +239,9 @@ public enum TestRowData {
 
 public struct DataTableExampleView: View {
     var model: TableModel
-    
     @State var isEditing: Bool = false
     @State private var showingSheet = false
-    
+ 
     public init(model: TableModel) {
         self.model = model
     }
@@ -253,7 +252,6 @@ public struct DataTableExampleView: View {
     
     func makeBody() -> some View {
         DataTable(model: self.model)
-            .editingMode(self.isEditing)
             .padding([.leading, .trailing])
             .navigationBarTitle("Data Table")
             .navigationBarItems(leading:
@@ -266,6 +264,7 @@ public struct DataTableExampleView: View {
                 },
                 trailing: Button(self.isEditing ? "Delete" : "Edit") {
                     self.isEditing = !self.isEditing
+                    model.isEditing = self.isEditing
                     if !self.isEditing {
                         let indexSet = IndexSet(self.model.selectedIndexes)
                         print("remove indexset: \(indexSet)")
@@ -289,7 +288,7 @@ struct SheetView: View {
         let numOfColumn: Int = model.rowData.first?.data.count ?? 0
         return NavigationView {
             List {
-                ForEach(0 ..< numOfColumn) { i in
+                ForEach(0 ..< numOfColumn, id: \.self) { i in
                     Text("New column: \(i)")
                 }
             }

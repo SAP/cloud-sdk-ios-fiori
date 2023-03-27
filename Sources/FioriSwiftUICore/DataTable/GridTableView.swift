@@ -71,8 +71,8 @@ struct ScrollAndZoomView: UIViewRepresentable {
     }
     
     func makeUIView(context: Context) -> UIScrollView {
-        let contentSizeWidth = self.layoutManager.totalContentWidth(size: self.size)
-        let contentSizeHeight = self.layoutManager.totalContentHeight(size: self.size)
+        let contentSizeWidth = self.layoutManager.totalContentWidth()
+        let contentSizeHeight = self.layoutManager.totalContentHeight()
         
         let scrollView = UIScrollView()
         scrollView.isUserInteractionEnabled = true
@@ -134,8 +134,8 @@ struct ScrollAndZoomView: UIViewRepresentable {
                 }
                 
                 uiView.frame.size = size
-                let contentSizeWidth = layoutManager.totalContentWidth(size: size)
-                let contentSizeHeight = layoutManager.totalContentHeight(size: size)
+                let contentSizeWidth = layoutManager.totalContentWidth()
+                let contentSizeHeight = layoutManager.totalContentHeight()
                 let contentSize = CGSize(width: contentSizeWidth, height: contentSizeHeight)
                 uiView.subviews[0].frame = CGRect(origin: .zero, size: contentSize)
                 uiView.contentSize = contentSize
@@ -144,8 +144,8 @@ struct ScrollAndZoomView: UIViewRepresentable {
                 layoutManager.resetPosition()
             }
         } else {
-            let contentSizeWidth = self.layoutManager.totalContentWidth(size: self.layoutManager.size)
-            let contentSizeHeight = self.layoutManager.totalContentHeight(size: self.layoutManager.size)
+            let contentSizeWidth = self.layoutManager.totalContentWidth()
+            let contentSizeHeight = self.layoutManager.totalContentHeight()
             
             if abs(uiView.contentSize.width.distance(to: contentSizeWidth)) > 1 || abs(uiView.contentSize.height.distance(to: contentSizeHeight)) > 1 {
                 let contentSize = CGSize(width: contentSizeWidth, height: contentSizeHeight)
@@ -238,8 +238,8 @@ struct InternalGridTableViewBackground: View {
     
     var body: some View {
         Color.clear
-            .frame(width: self.layoutManager.totalContentWidth(size: layoutManager.size),
-                   height: self.layoutManager.totalContentHeight(size: layoutManager.size))
+            .frame(width: self.layoutManager.totalContentWidth(),
+                   height: self.layoutManager.totalContentHeight())
             .flipsForRightToLeftLayoutDirection(layoutDirection == .rightToLeft)
     }
 }
@@ -354,10 +354,10 @@ struct InternalGridTableView: View {
                 }
                 
                 // row dividers
-                if layoutManager.model.showRowDivider {
+                if layoutManager.model.showRowDivider && (rowIndex + 1) % max(1, layoutManager.model.everyNumOfRowsToShowDivider) == 0 {
                     Rectangle()
-                        .fill(Color.preferredColor(.separator))
-                        .frame(width: rect.size.width, height: 1)
+                        .fill(layoutManager.model.rowDividerColor)
+                        .frame(width: rect.size.width, height: layoutManager.model.rowDividerHeight)
                         .position(x: rect.size.width / 2,
                                   y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
                         .dropShadow(isVertical: false, show: rowIndex == 0 && isDropHorizontalShadow(size))
@@ -365,14 +365,14 @@ struct InternalGridTableView: View {
                 }
             }
             
-            // first column separator
+            // first column divider
             if numbOfColumns > 1 && layoutManager.model.showColoumnDivider {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosition.x
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
                 let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY
                 Rectangle()
-                    .fill(Color.preferredColor(.separator))
-                    .frame(width: 1, height: height)
+                    .fill(layoutManager.model.columnDividerColor)
+                    .frame(width: layoutManager.model.columnDividerWidth, height: height)
                     .position(x: x, y: height / 2)
                     .dropShadow(isVertical: true, show: isDropVerticalShadow(size))
                     .zIndex(700)

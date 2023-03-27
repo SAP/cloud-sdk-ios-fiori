@@ -7,8 +7,8 @@ import SwiftUI
  ```
  let model = TableModel(headerData: header, rowData: res, isFirstRowSticky: true, isFirstColumnSticky: true, showListView: false)
  model.columnAttributes = ...
- model.didSelectRowAt = { _ in
-     print(model.selectedIndexes)
+ model.didSelectRowAt = { rowIndex in
+    print("Tapped row \(rowIndex)")
  }
  model.selectedIndexes = [2, 3]
  DataTable(model: model)
@@ -40,7 +40,12 @@ public struct DataTable: View {
     
     func makeBody(in rect: CGRect) -> some View {
         Group {
-            if self.model.showListView {
+            if self.model.isNoData {
+                Text("There is nothing to display yet", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
+                    .foregroundColor(Color.preferredColor(.tertiaryLabel))
+                    .font(.body)
+                    .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
+            } else if self.model.showListView {
                 TableListView(layoutManager: layoutManager)
             } else {
                 GridTableView(model: model, layoutManager: layoutManager)
@@ -171,5 +176,11 @@ public extension DataTable {
         self.model.rowAlignment = value
         
         return self
+    }
+    
+    /// Asks the DataTable to calculate and return the size that best fits all rows & columns by giving a size.width (the passed size.height is ignored).
+    /// Warning: it is a sync process so it may take long time if the DataTable has a lot of rows and columns.
+    func sizeThatFits(_ size: CGSize) -> CGSize {
+        self.layoutManager.sizeThatFits(size)
     }
 }
