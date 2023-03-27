@@ -118,7 +118,7 @@ struct StepButtonStyle: ButtonStyle {
         case .disabled:
             return Color.preferredColor(.quaternaryFill)
         case .error:
-            return Color.preferredColor(.negativeBackground)
+            return Color.preferredColor(.primaryBackground)
         case .errorActive:
             return Color.preferredColor(.negativeBackground)
         }

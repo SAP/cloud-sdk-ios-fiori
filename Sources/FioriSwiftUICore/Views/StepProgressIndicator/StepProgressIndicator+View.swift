@@ -85,8 +85,7 @@ extension StepProgressIndicator: View {
         newSelf.axis = .vertical
         return NavigationView {
             newSelf.stepAxis(.vertical)
-                // TODO: localized string
-                .navigationTitle("All Steps")
+                .navigationTitle(NSLocalizedString("All Steps", comment: ""))
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         cancelAction.onSimultaneousTapGesture {
@@ -234,8 +233,6 @@ public struct DefaultSteps: IndexedViewContainer {
     @ViewBuilder
     func node(by state: InternalStepState) -> some View {
         switch state {
-        case .inactive:
-            Circle().strokeBorder(lineWidth: 1)
         case .active:
             Circle().strokeBorder(lineWidth: 2)
         case .completed:
@@ -244,10 +241,7 @@ public struct DefaultSteps: IndexedViewContainer {
             let strokeStyle = StrokeStyle(lineWidth: 2, lineCap: .butt, lineJoin: .miter, miterLimit: 0, dash: [3], dashPhase: 0)
             Circle()
                 .strokeBorder(style: strokeStyle)
-        case .error:
-            Circle()
-                .strokeBorder(lineWidth: 1)
-        case .errorActive:
+        case .inactive, .error, .errorActive:
             Circle().strokeBorder(lineWidth: 1)
         }
     }

@@ -27,7 +27,10 @@ extension SingleStep: View {
                     Rectangle().fill(stepLineColor)
                         .frame(width: lineWidth, height: lineHeight)
                 }.sizeReader { size in
-                    nodeAndLineSize = size
+                    if nodeAndLineSize.different(with: size) {
+                        print("\(size)")
+                        nodeAndLineSize = size
+                    }
                 }
                 Spacer().frame(height: verticalSpacing)
                 name
@@ -122,5 +125,15 @@ public extension EnvironmentValues {
 public extension View {
     func stepAxis(_ axis: Axis) -> some View {
         self.environment(\.stepAxis, axis)
+    }
+}
+
+extension CGSize {
+    func different(with size: CGSize) -> Bool {
+        if abs(self.width - size.width) > 0.01 || abs(self.height - size.height) > 0.01 {
+            return true
+        } else {
+            return false
+        }
     }
 }
