@@ -2,39 +2,38 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SingleStep<Name: View, Node: View> {
-    @Environment(\.nameModifier) private var nameModifier
+public struct SingleStep<Title: View, Node: View> {
+    @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.nodeModifier) private var nodeModifier
 	@Environment(\.stepAxis) var stepAxis
 	@Environment(\.stepLineColor) var stepLineColor
 
-    let _name: Name
+    let _title: Title
 	let _node: Node
-	var leading: CGFloat = 8
+	var top: CGFloat = 8
 	var bottom: CGFloat = 8
-	var verticalSpacing: CGFloat = 8
 	var horizontalSpacing: CGFloat = 14
 	@State var nodeAndLineSize: CGSize = .zero
+	var verticalSpacing: CGFloat = 8
+	var leading: CGFloat = 8
 	var trailing: CGFloat = 8
-	var top: CGFloat = 8
 
     private var isModelInit: Bool = false
-	private var isNameNil: Bool = false
-	private var isNodeNil: Bool = false
+	private var isTitleNil: Bool = false
 
     public init(
-        @ViewBuilder name: () -> Name,
+        @ViewBuilder title: () -> Title,
 		@ViewBuilder node: () -> Node
         ) {
-            self._name = name()
+            self._title = title()
 			self._node = node()
     }
 
-    @ViewBuilder var name: some View {
+    @ViewBuilder var title: some View {
         if isModelInit {
-            _name.modifier(nameModifier.concat(Fiori.SingleStep.name).concat(Fiori.SingleStep.nameCumulative))
+            _title.modifier(titleModifier.concat(Fiori.SingleStep.title).concat(Fiori.SingleStep.titleCumulative))
         } else {
-            _name.modifier(nameModifier.concat(Fiori.SingleStep.name))
+            _title.modifier(titleModifier.concat(Fiori.SingleStep.title))
         }
     }
 	@ViewBuilder var node: some View {
@@ -45,28 +44,23 @@ public struct SingleStep<Name: View, Node: View> {
         }
     }
     
-	var isNameEmptyView: Bool {
-        ((isModelInit && isNameNil) || Name.self == EmptyView.self) ? true : false
-    }
-
-	var isNodeEmptyView: Bool {
-        ((isModelInit && isNodeNil) || Node.self == EmptyView.self) ? true : false
+	var isTitleEmptyView: Bool {
+        ((isModelInit && isTitleNil) || Title.self == EmptyView.self) ? true : false
     }
 }
 
-extension SingleStep where Name == _ConditionalContent<Text, EmptyView>,
-		Node == _ConditionalContent<Text, EmptyView> {
+extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
+		Node == TextOrIconView {
 
     public init(model: SingleStepModel) {
-        self.init(name: model.name, node: model.node)
+        self.init(title: model.title, node: model.node)
     }
 
-    public init(name: String? = nil, node: String? = nil) {
-        self._name = name != nil ? ViewBuilder.buildEither(first: Text(name!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._node = node != nil ? ViewBuilder.buildEither(first: Text(node!)) : ViewBuilder.buildEither(second: EmptyView())
+    public init(title: String? = nil, node: TextOrIcon) {
+        self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._node = TextOrIconView(node: node)
 
 		isModelInit = true
-		isNameNil = name == nil ? true : false
-		isNodeNil = node == nil ? true : false
+		isTitleNil = title == nil ? true : false
     }
 }

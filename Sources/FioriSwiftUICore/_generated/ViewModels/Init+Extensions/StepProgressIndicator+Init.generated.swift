@@ -2,30 +2,30 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension StepProgressIndicator where CurrentStepName == EmptyView {
+extension StepProgressIndicator where Title == EmptyView {
     public init(
-    @ViewBuilder allStepsAction: () -> AllStepsActionView,
+    @ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            currentStepName: { EmptyView() },
-			allStepsAction: allStepsAction,
+            title: { EmptyView() },
+			action: action,
 			steps: steps,
 			cancelAction: cancelAction
         )
     }
 }
 
-extension StepProgressIndicator where AllStepsActionView == Action {
+extension StepProgressIndicator where ActionView == Action {
     public init(
-    @ViewBuilder currentStepName: () -> CurrentStepName,
+    @ViewBuilder title: () -> Title,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            currentStepName: currentStepName,
-			allStepsAction: { Action(model: _AllStepsActionDefault()) },
+            title: title,
+			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: cancelAction
         )
@@ -34,68 +34,68 @@ extension StepProgressIndicator where AllStepsActionView == Action {
 
 extension StepProgressIndicator where CancelActionView == Action {
     public init(
-    @ViewBuilder currentStepName: () -> CurrentStepName,
-		@ViewBuilder allStepsAction: () -> AllStepsActionView,
+    @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            currentStepName: currentStepName,
-			allStepsAction: allStepsAction,
+            title: title,
+			action: action,
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
         )
     }
 }
 
-extension StepProgressIndicator where CurrentStepName == EmptyView, AllStepsActionView == Action {
+extension StepProgressIndicator where Title == EmptyView, ActionView == Action {
     public init(
     @IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            currentStepName: { EmptyView() },
-			allStepsAction: { Action(model: _AllStepsActionDefault()) },
+            title: { EmptyView() },
+			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: cancelAction
         )
     }
 }
 
-extension StepProgressIndicator where CurrentStepName == EmptyView, CancelActionView == Action {
+extension StepProgressIndicator where Title == EmptyView, CancelActionView == Action {
     public init(
-    @ViewBuilder allStepsAction: () -> AllStepsActionView,
+    @ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            currentStepName: { EmptyView() },
-			allStepsAction: allStepsAction,
+            title: { EmptyView() },
+			action: action,
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
         )
     }
 }
 
-extension StepProgressIndicator where AllStepsActionView == Action, CancelActionView == Action {
+extension StepProgressIndicator where ActionView == Action, CancelActionView == Action {
     public init(
-    @ViewBuilder currentStepName: () -> CurrentStepName,
+    @ViewBuilder title: () -> Title,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            currentStepName: currentStepName,
-			allStepsAction: { Action(model: _AllStepsActionDefault()) },
+            title: title,
+			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
         )
     }
 }
 
-extension StepProgressIndicator where CurrentStepName == EmptyView, AllStepsActionView == Action, CancelActionView == Action {
+extension StepProgressIndicator where Title == EmptyView, ActionView == Action, CancelActionView == Action {
     public init(
     @IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            currentStepName: { EmptyView() },
-			allStepsAction: { Action(model: _AllStepsActionDefault()) },
+            title: { EmptyView() },
+			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
         )

@@ -2,50 +2,50 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct StepProgressIndicator<CurrentStepName: View, AllStepsActionView: View, Steps: IndexedViewContainer, CancelActionView: View> {
-    @Environment(\.currentStepNameModifier) private var currentStepNameModifier
-	@Environment(\.allStepsActionModifier) private var allStepsActionModifier
+public struct StepProgressIndicator<Title: View, ActionView: View, Steps: IndexedViewContainer, CancelActionView: View> {
+    @Environment(\.titleModifier) private var titleModifier
+	@Environment(\.actionModifier) private var actionModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
-    let _currentStepName: CurrentStepName
-	let _allStepsAction: AllStepsActionView
+    let _title: Title
+	let _action: ActionView
 	let _steps: Steps
 	let _cancelAction: CancelActionView
-	var stepsData: [StepModel] = []
-	var axis: Axis = .horizontal
-	var selection: Binding<Int> = .constant(0)
 	@State var isPresented: Bool = false
+	var stepsData: [StepModel] = []
+	var selection: Binding<Int> = .constant(0)
+	var axis: Axis = .horizontal
 
     private var isModelInit: Bool = false
-	private var isCurrentStepNameNil: Bool = false
-	private var isAllStepsActionNil: Bool = false
+	private var isTitleNil: Bool = false
+	private var isActionNil: Bool = false
 	private var isCancelActionNil: Bool = false
 
     public init(
-        @ViewBuilder currentStepName: () -> CurrentStepName,
-		@ViewBuilder allStepsAction: () -> AllStepsActionView,
+        @ViewBuilder title: () -> Title,
+		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
         ) {
-            self._currentStepName = currentStepName()
-			self._allStepsAction = allStepsAction()
+            self._title = title()
+			self._action = action()
 			self._steps = steps()
 			self._cancelAction = cancelAction()
     }
 
-    @ViewBuilder var currentStepName: some View {
+    @ViewBuilder var title: some View {
         if isModelInit {
-            _currentStepName.modifier(currentStepNameModifier.concat(Fiori.StepProgressIndicator.currentStepName).concat(Fiori.StepProgressIndicator.currentStepNameCumulative))
+            _title.modifier(titleModifier.concat(Fiori.StepProgressIndicator.title).concat(Fiori.StepProgressIndicator.titleCumulative))
         } else {
-            _currentStepName.modifier(currentStepNameModifier.concat(Fiori.StepProgressIndicator.currentStepName))
+            _title.modifier(titleModifier.concat(Fiori.StepProgressIndicator.title))
         }
     }
-	@ViewBuilder var allStepsAction: some View {
+	@ViewBuilder var action: some View {
         if isModelInit {
-            _allStepsAction.modifier(allStepsActionModifier.concat(Fiori.StepProgressIndicator.allStepsAction).concat(Fiori.StepProgressIndicator.allStepsActionCumulative))
+            _action.modifier(actionModifier.concat(Fiori.StepProgressIndicator.action).concat(Fiori.StepProgressIndicator.actionCumulative))
         } else {
-            _allStepsAction.modifier(allStepsActionModifier.concat(Fiori.StepProgressIndicator.allStepsAction))
+            _action.modifier(actionModifier.concat(Fiori.StepProgressIndicator.action))
         }
     }
 	var steps: Steps {
@@ -59,12 +59,12 @@ public struct StepProgressIndicator<CurrentStepName: View, AllStepsActionView: V
         }
     }
     
-	var isCurrentStepNameEmptyView: Bool {
-        ((isModelInit && isCurrentStepNameNil) || CurrentStepName.self == EmptyView.self) ? true : false
+	var isTitleEmptyView: Bool {
+        ((isModelInit && isTitleNil) || Title.self == EmptyView.self) ? true : false
     }
 
-	var isAllStepsActionEmptyView: Bool {
-        ((isModelInit && isAllStepsActionNil) || AllStepsActionView.self == EmptyView.self) ? true : false
+	var isActionEmptyView: Bool {
+        ((isModelInit && isActionNil) || ActionView.self == EmptyView.self) ? true : false
     }
 
 	var isCancelActionEmptyView: Bool {
@@ -72,24 +72,24 @@ public struct StepProgressIndicator<CurrentStepName: View, AllStepsActionView: V
     }
 }
 
-extension StepProgressIndicator where CurrentStepName == _ConditionalContent<Text, EmptyView>,
-		AllStepsActionView == _ConditionalContent<Action, EmptyView>,
-		Steps == StepsContainer,
+extension StepProgressIndicator where Title == _ConditionalContent<Text, EmptyView>,
+		ActionView == _ConditionalContent<Action, EmptyView>,
+		Steps == _StepsContainer,
 		CancelActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: StepProgressIndicatorModel) {
-        self.init(currentStepName: model.currentStepName, allStepsAction: model.allStepsAction != nil ? Action(model: model.allStepsAction!) : nil, steps: model.steps, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil)
+        self.init(title: model.title, action: model.action != nil ? Action(model: model.action!) : nil, steps: model.steps, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil)
     }
 
-    public init(currentStepName: String? = nil, allStepsAction: Action? = Action(model: _AllStepsActionDefault()), steps: [SingleStepModel] = [], cancelAction: Action? = Action(model: _CancelActionDefault())) {
-        self._currentStepName = currentStepName != nil ? ViewBuilder.buildEither(first: Text(currentStepName!)) : ViewBuilder.buildEither(second: EmptyView())
-		self._allStepsAction = allStepsAction != nil ? ViewBuilder.buildEither(first: allStepsAction!) : ViewBuilder.buildEither(second: EmptyView())
-		self._steps = StepsContainer(steps: steps)
+    public init(title: String? = nil, action: Action? = Action(model: _AllStepsActionDefault()), steps: [SingleStepModel] = [], cancelAction: Action? = Action(model: _CancelActionDefault())) {
+        self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
+		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
+		self._steps = _StepsContainer(steps: steps)
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())
 
 		isModelInit = true
-		isCurrentStepNameNil = currentStepName == nil ? true : false
-		isAllStepsActionNil = allStepsAction == nil ? true : false
+		isTitleNil = title == nil ? true : false
+		isActionNil = action == nil ? true : false
 		isCancelActionNil = cancelAction == nil ? true : false
     }
 }

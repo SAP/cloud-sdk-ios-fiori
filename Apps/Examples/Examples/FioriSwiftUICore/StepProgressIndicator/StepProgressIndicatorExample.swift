@@ -2,71 +2,76 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct StepProgressIndicatorExample: View {
-    @State var selection: Int = 0
-    @State var selection2: Int = 0
-    @State var currentStepName: String = ""
-
-    struct StepExampleData: StepModel {
-        var name: String?
-        var node: String?
-        var state: StepIndicatorState
+    var body: some View {
+        List {
+            NavigationLink {
+                SPIExampleWithHeader()
+            } label: {
+                Text("Steps With Header")
+            }
+            NavigationLink {
+                SPIExampleWithoutHeader()
+            } label: {
+                Text("Steps Without Header")
+            }
+            NavigationLink {
+                SPIExampleWithoutName()
+            } label: {
+                Text("Steps Without Names")
+            }
+        }
     }
+}
 
-    @State var steps = [StepExampleData(name: "Step A", node: "1", state: .completed),
-                        StepExampleData(name: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name", node: "2", state: .normal),
-                        StepExampleData(name: "Step 3", node: "3", state: .normal),
-                        StepExampleData(name: "Step 3.1", state: .normal),
-                        StepExampleData(name: "Step 3.2", state: .disabled),
-                        StepExampleData(name: "Step 3.3", state: .error),
-                        StepExampleData(name: "Step 3.4", state: .error),
-                        StepExampleData(name: "Step 3.p", state: .completed),
-                        StepExampleData(name: "Step P", node: "4", state: .disabled),
-                        StepExampleData(name: "Step D", node: "5", state: .error),
-                        StepExampleData(name: "Step E", node: "6", state: .error),
-                        StepExampleData(name: "Step F", node: "7", state: .normal)]
+struct StepProgressIndicatorExample_Previews: PreviewProvider {
+    static var previews: some View {
+        StepProgressIndicatorExample()
+    }
+}
+
+struct SPIExampleWithoutHeader: View {
+    @State var selection: Int = 0
+    @State var steps = StepExampleData().steps
 
     var body: some View {
-        ScrollView(.vertical) {
-            VStack(alignment: .leading) {
-                Text("Without Header").bold()
-                StepProgressIndicator(selection: $selection,
-                                      stepsData: steps)
-                Text("With Header").bold()
-                StepProgressIndicator(selection: $selection, stepsData: steps) {
-                    Text(currentStepName).lineLimit(1)
-                } allStepsAction: {
-                    HStack(spacing: 2) {
-                        Text("All Steps(7)")
-                        Image(systemName: "chevron.right")
-                    }
-                }
-                Text("Just Two Steps").bold()
-                let steps2 = [StepExampleData(name: "Step A", node: "", state: .completed),
-                              StepExampleData(name: "Step B", node: "2", state: .normal)]
-                StepProgressIndicator(selection: $selection2,
-                                      stepsData: steps2)
-                
-                Text("Steps Without Names").bold()
-                let steps3 = [StepExampleData(node: "1", state: .completed),
-                              StepExampleData(node: "2", state: .normal),
-                              StepExampleData(node: "3", state: .normal),
-                              StepExampleData(state: .normal),
-                              StepExampleData(state: .normal),
-                              StepExampleData(state: .completed),
-                              StepExampleData(state: .error),
-                              StepExampleData(node: "4", state: .error),
-                              StepExampleData(node: "5", state: .error),
-                              StepExampleData(node: "6", state: .normal)]
-                StepProgressIndicator(selection: $selection2,
-                                      stepsData: steps3)
-                Spacer().padding(20)
-                Button {
-                    steps[selection].state = .completed
-                } label: {
-                    Text("Mark as Completed")
-                }
-                .padding(20)
+        VStack(alignment: .leading) {
+            Text("Without Header").bold()
+            StepProgressIndicator(selection: $selection,
+                                  stepsData: steps)
+            Spacer().padding(20)
+            Button {
+                steps[selection].state = .completed
+            } label: {
+                Text("Mark as Completed")
             }
+            .padding(20)
+        }
+    }
+}
+
+struct SPIExampleWithHeader: View {
+    @State var selection: Int = 0
+    @State var title: String = ""
+    @State var steps = StepExampleData().steps
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("With Header").bold()
+            StepProgressIndicator(selection: $selection, stepsData: steps) {
+                Text(title).lineLimit(1)
+            } action: {
+                HStack(spacing: 2) {
+                    Text("All Steps(7)")
+                    Image(systemName: "chevron.right")
+                }
+            }
+            Spacer().padding(20)
+            Button {
+                steps[selection].state = .completed
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
         }
         .padding()
         .onChange(of: selection, perform: { _ in
@@ -76,18 +81,62 @@ struct StepProgressIndicatorExample: View {
             updateCurrentStepName()
         }
     }
-
+    
     func updateCurrentStepName() {
         let step = self.steps[self.selection]
-        let selectedName = "\(step.name ?? "no name")"
-        if self.currentStepName != selectedName {
-            self.currentStepName = selectedName
+        let selectedTitle = "\(step.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
         }
     }
 }
 
-struct StepProgressIndicatorExample_Previews: PreviewProvider {
-    static var previews: some View {
-        StepProgressIndicatorExample()
+struct SPIExampleWithoutName: View {
+    @State var selection: Int = 0
+    @State var steps = [StepExampleModel(node: "1", state: .completed),
+                        StepExampleModel(node: "2", state: .normal),
+                        StepExampleModel(node: "3", state: .normal),
+                        StepExampleModel(state: .normal),
+                        StepExampleModel(state: .normal),
+                        StepExampleModel(state: .completed),
+                        StepExampleModel(state: .error),
+                        StepExampleModel(node: "4", state: .error),
+                        StepExampleModel(node: "5", state: .error),
+                        StepExampleModel(node: "6", state: .normal)]
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Steps Without Names").bold()
+            
+            StepProgressIndicator(selection: $selection,
+                                  stepsData: steps)
+            Spacer().padding(20)
+            Button {
+                steps[selection].state = .completed
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
     }
+}
+
+struct StepExampleModel: StepModel {
+    var title: String?
+    var node: String?
+    var state: StepIndicatorState
+}
+
+struct StepExampleData {
+    @State var steps = [StepExampleModel(title: "Step A", node: "1", state: .completed),
+                        StepExampleModel(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name", node: "2", state: .normal),
+                        StepExampleModel(title: "Step 3", node: "3", state: .normal),
+                        StepExampleModel(title: "Step 3.1", state: .normal),
+                        StepExampleModel(title: "Step 3.2", state: .disabled),
+                        StepExampleModel(title: "Step 3.3", state: .error),
+                        StepExampleModel(title: "Step 3.4", state: .error),
+                        StepExampleModel(title: "Step 3.p", state: .completed),
+                        StepExampleModel(title: "Step P", node: "4", state: .disabled),
+                        StepExampleModel(title: "Step D", node: "5", state: .error),
+                        StepExampleModel(title: "Step E", node: "6", state: .error),
+                        StepExampleModel(title: "Step F", node: "7", state: .normal)]
 }

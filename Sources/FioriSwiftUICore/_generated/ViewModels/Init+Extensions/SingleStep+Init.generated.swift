@@ -2,35 +2,13 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SingleStep where Name == EmptyView {
+extension SingleStep where Title == EmptyView {
     public init(
     @ViewBuilder node: () -> Node
     ) {
         self.init(
-            name: { EmptyView() },
+            title: { EmptyView() },
 			node: node
-        )
-    }
-}
-
-extension SingleStep where Node == EmptyView {
-    public init(
-    @ViewBuilder name: () -> Name
-    ) {
-        self.init(
-            name: name,
-			node: { EmptyView() }
-        )
-    }
-}
-
-extension SingleStep where Name == EmptyView, Node == EmptyView {
-    public init(
-    
-    ) {
-        self.init(
-            name: { EmptyView() },
-			node: { EmptyView() }
         )
     }
 }

@@ -55,6 +55,7 @@ internal protocol _DurationPicker: _ComponentMultiPropGenerating, AnyObject {
 }
 
 internal protocol _SingleStep: _ComponentMultiPropGenerating {
-    var name: String? { get }
-    var node: String? { get }
+    var title: String? { get }
+    // sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
 }

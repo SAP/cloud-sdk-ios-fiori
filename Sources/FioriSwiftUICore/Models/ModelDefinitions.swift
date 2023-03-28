@@ -393,14 +393,14 @@ public protocol SingleStepModel: SingleStepComponent {}
 // sourcery: virtualPropSelection = "var selection: Binding<Int> = .constant(0)"
 // sourcery: generated_component_composite
 public protocol StepProgressIndicatorModel {
-    var currentStepName: String? { get }
+    var title: String? { get }
     
-    // sourcery: genericParameter.name = AllStepsActionView
+    // sourcery: genericParameter.name = ActionView
     // sourcery: default.value = _AllStepsActionDefault()
-    var allStepsAction: ActionModel? { get }
+    var action: ActionModel? { get }
     
     // sourcery: no_style
-    // sourcery: backingComponent=StepsContainer
+    // sourcery: backingComponent=_StepsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
     var steps: [SingleStepModel] { get }

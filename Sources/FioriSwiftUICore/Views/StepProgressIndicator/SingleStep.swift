@@ -1,13 +1,13 @@
 import SwiftUI
 extension Fiori {
     enum SingleStep {
-        typealias Name = EmptyModifier
-        typealias NameCumulative = EmptyModifier
+        typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
         typealias Node = EmptyModifier
         typealias NodeCumulative = EmptyModifier
-        static let name = Name()
+        static let title = Title()
         static let node = Node()
-        static let nameCumulative = NameCumulative()
+        static let titleCumulative = TitleCumulative()
         static let nodeCumulative = NodeCumulative()
     }
 }
@@ -33,7 +33,7 @@ extension SingleStep: View {
                     }
                 }
                 Spacer().frame(height: verticalSpacing)
-                name
+                title
                     .frame(width: nodeAndLineSize.width, alignment: .leading)
                     .lineLimit(2)
                 Spacer().frame(height: bottom)
@@ -48,7 +48,7 @@ extension SingleStep: View {
                         .frame(maxWidth: lineWidth, minHeight: lineHeight)
                 }
                 Spacer().frame(width: horizontalSpacing)
-                name.lineLimit(nil)
+                title.lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .alignmentGuide(.stepsTopAlignment) {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2

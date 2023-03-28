@@ -17,8 +17,8 @@ import SwiftUI
 
 extension Fiori {
     enum SingleStep {
-        typealias Name = EmptyModifier
-        typealias NameCumulative = EmptyModifier
+        typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
 		typealias Node = EmptyModifier
         typealias NodeCumulative = EmptyModifier
 
@@ -34,9 +34,9 @@ extension Fiori {
                 }
             }
         */
-        static let name = Name()
+        static let title = Title()
 		static let node = Node()
-        static let nameCumulative = NameCumulative()
+        static let titleCumulative = TitleCumulative()
 		static let nodeCumulative = NodeCumulative()
     }
 }

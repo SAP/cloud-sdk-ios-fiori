@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension StepProgressIndicatorModel {
-    var allStepsAction: ActionModel? {
+    var action: ActionModel? {
         return _AllStepsActionDefault()
     }
 
@@ -11,7 +11,7 @@ public extension StepProgressIndicatorModel {
         return _CancelActionDefault()
     }
 
-	var currentStepName: String? {
+	var title: String? {
         return nil
     }
 }

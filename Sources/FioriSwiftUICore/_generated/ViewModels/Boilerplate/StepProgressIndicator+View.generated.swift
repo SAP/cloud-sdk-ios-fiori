@@ -17,10 +17,10 @@ import SwiftUI
 
 extension Fiori {
     enum StepProgressIndicator {
-        typealias CurrentStepName = EmptyModifier
-        typealias CurrentStepNameCumulative = EmptyModifier
-		typealias AllStepsAction = EmptyModifier
-        typealias AllStepsActionCumulative = EmptyModifier
+        typealias Title = EmptyModifier
+        typealias TitleCumulative = EmptyModifier
+		typealias Action = EmptyModifier
+        typealias ActionCumulative = EmptyModifier
 		typealias CancelAction = EmptyModifier
         typealias CancelActionCumulative = EmptyModifier
 
@@ -36,11 +36,11 @@ extension Fiori {
                 }
             }
         */
-        static let currentStepName = CurrentStepName()
-		static let allStepsAction = AllStepsAction()
+        static let title = Title()
+		static let action = Action()
 		static let cancelAction = CancelAction()
-        static let currentStepNameCumulative = CurrentStepNameCumulative()
-		static let allStepsActionCumulative = AllStepsActionCumulative()
+        static let titleCumulative = TitleCumulative()
+		static let actionCumulative = ActionCumulative()
 		static let cancelActionCumulative = CancelActionCumulative()
     }
 }

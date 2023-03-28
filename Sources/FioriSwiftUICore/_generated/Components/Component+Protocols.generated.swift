@@ -199,8 +199,9 @@ public protocol ProgressIndicatorComponent {
 }
 
 public protocol SingleStepComponent {
-    var name: String? { get }
-    var node: String? { get }
+    var title: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
 }
 
 public protocol TextInputComponent : AnyObject {

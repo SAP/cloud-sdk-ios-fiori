@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-public struct StepsContainer {
+public struct _StepsContainer {
     var steps: [SingleStepModel]
     
     public init(steps: [SingleStepModel]) {
@@ -9,7 +9,7 @@ public struct StepsContainer {
     }
 }
 
-extension StepsContainer: IndexedViewContainer {
+extension _StepsContainer: IndexedViewContainer {
     public var count: Int {
         self.steps.count
     }
@@ -17,12 +17,12 @@ extension StepsContainer: IndexedViewContainer {
     @ViewBuilder
     public func view(at index: Int) -> some View {
         if index < self.count {
-            let name = self.steps[index].name
+            let title = self.steps[index].title
             let node = self.steps[index].node
             SingleStep {
-                Text(name ?? "")
+                Text(title ?? "")
             } node: {
-                Text(node ?? "")
+                TextOrIconView(node: node)
             }
         } else {
             EmptyView()

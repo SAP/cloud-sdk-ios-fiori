@@ -22,11 +22,13 @@ public enum StepIndicatorState {
     }
 }
 
-public enum InternalStepState {
+enum InternalStepState {
     case inactive, active, completed, disabled, error, errorActive
 }
 
-public protocol StepModel: SingleStepModel {
+public protocol StepModel {
+    var title: String? { get }
+    var node: String? { get }
     var state: StepIndicatorState { get }
 }
 
@@ -71,7 +73,7 @@ struct StepButtonStyle: ButtonStyle {
                     .clipShape(Circle()))
                     .foregroundColor(nodeForeground(isPressed: isPressed))
             }
-            .nameModifier {
+            .titleModifier {
                 $0.foregroundColor(nameColor(isPressed: isPressed))
                     .font(Font.fiori(forTextStyle: .footnote)
                         .weight(useSemibold ? .semibold : .regular))

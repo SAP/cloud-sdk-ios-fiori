@@ -199,11 +199,6 @@ extension EnvironmentValues {
         set { self[ProgressIndicatorTextModifierKey.self] = newValue }
     }
 
-    public var nameModifier: AnyViewModifier {
-        get { return self[NameModifierKey.self] }
-        set { self[NameModifierKey.self] = newValue }
-    }
-
     public var nodeModifier: AnyViewModifier {
         get { return self[NodeModifierKey.self] }
         set { self[NodeModifierKey.self] = newValue }
@@ -262,16 +257,6 @@ extension EnvironmentValues {
     public var saveActionModifier: AnyViewModifier {
         get { return self[SaveActionModifierKey.self] }
         set { self[SaveActionModifierKey.self] = newValue }
-    }
-
-    public var currentStepNameModifier: AnyViewModifier {
-        get { return self[CurrentStepNameModifierKey.self] }
-        set { self[CurrentStepNameModifierKey.self] = newValue }
-    }
-
-    public var allStepsActionModifier: AnyViewModifier {
-        get { return self[AllStepsActionModifierKey.self] }
-        set { self[AllStepsActionModifierKey.self] = newValue }
     }
 
     public var nextActionModifier: AnyViewModifier {
@@ -494,11 +479,6 @@ public extension View {
     }
 
     @ViewBuilder
-    func nameModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nameModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
     func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
@@ -556,16 +536,6 @@ public extension View {
     @ViewBuilder
     func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.saveActionModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func currentStepNameModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.currentStepNameModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func allStepsActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.allStepsActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

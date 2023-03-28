@@ -185,11 +185,7 @@ public extension SecondaryValuesAxisTitleComponent {
 }
 
 public extension SingleStepComponent {
-    var name: String? {
-        return nil
-    }
-
-	var node: String? {
+    var title: String? {
         return nil
     }
 }
