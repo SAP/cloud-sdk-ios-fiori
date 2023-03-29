@@ -1,12 +1,19 @@
 import FioriThemeManager
 import SwiftUI
 
-public enum StepIndicatorState {
-    case normal, completed, disabled, error
+public struct StepIndicatorState: OptionSet {
+    public let rawValue: UInt
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+
+    public static let completed = StepIndicatorState(rawValue: 1 << 0)
+    public static let disabled = StepIndicatorState(rawValue: 1 << 1)
+    public static let error = StepIndicatorState(rawValue: 1 << 2)
     
-    func convert(_ isSelected: Bool) -> InternalStepState {
+    func convert(_ isSelected: Bool) -> InternalStepState? {
         switch (isSelected, self) {
-        case (true, .normal):
+        case (true, []):
             return .active
         case (_, .completed):
             return .completed
@@ -14,10 +21,12 @@ public enum StepIndicatorState {
             return .disabled
         case (true, .error):
             return .errorActive
-        case (false, .normal):
+        case (false, []):
             return .inactive
         case (false, .error):
             return .error
+        case (_, _):
+            return nil
         }
     }
 }
@@ -26,10 +35,22 @@ enum InternalStepState {
     case inactive, active, completed, disabled, error, errorActive
 }
 
-public protocol StepModel {
-    var title: String? { get }
-    var node: String? { get }
-    var state: StepIndicatorState { get }
+public struct StepItem: Identifiable {
+    public var id = UUID()
+    public var title: String?
+    public var state: StepIndicatorState
+    public var children: [StepItem]?
+    
+    public init(id: UUID = UUID(),
+                title: String? = nil,
+                state: StepIndicatorState = [],
+                children: [StepItem]? = nil)
+    {
+        self.id = id
+        self.title = title
+        self.state = state
+        self.children = children
+    }
 }
 
 struct IconTrailedTitleLabelStyle: LabelStyle {

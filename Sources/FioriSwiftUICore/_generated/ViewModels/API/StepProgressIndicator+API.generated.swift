@@ -8,14 +8,14 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
-    let _title: Title
+    var _selection: Binding<UUID>
+	let _title: Title
 	let _action: ActionView
 	let _steps: Steps
 	let _cancelAction: CancelActionView
-	@State var isPresented: Bool = false
-	var stepsData: [StepModel] = []
-	var selection: Binding<Int> = .constant(0)
 	var axis: Axis = .horizontal
+	var stepsData: [StepItem] = []
+	@State var isPresented: Bool = false
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
@@ -23,12 +23,14 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	private var isCancelActionNil: Bool = false
 
     public init(
-        @ViewBuilder title: () -> Title,
+        selection: Binding<UUID>,
+		@ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
         ) {
-            self._title = title()
+            self._selection = selection
+			self._title = title()
 			self._action = action()
 			self._steps = steps()
 			self._cancelAction = cancelAction()
@@ -78,11 +80,12 @@ extension StepProgressIndicator where Title == _ConditionalContent<Text, EmptyVi
 		CancelActionView == _ConditionalContent<Action, EmptyView> {
 
     public init(model: StepProgressIndicatorModel) {
-        self.init(title: model.title, action: model.action != nil ? Action(model: model.action!) : nil, steps: model.steps, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil)
+        self.init(selection: Binding<UUID>(get: { model.selection }, set: { model.selection = $0 }), title: model.title, action: model.action != nil ? Action(model: model.action!) : nil, steps: model.steps, cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil)
     }
 
-    public init(title: String? = nil, action: Action? = Action(model: _AllStepsActionDefault()), steps: [SingleStepModel] = [], cancelAction: Action? = Action(model: _CancelActionDefault())) {
-        self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
+    public init(selection: Binding<UUID>, title: String? = nil, action: Action? = Action(model: _AllStepsActionDefault()), steps: [SingleStepModel] = [], cancelAction: Action? = Action(model: _CancelActionDefault())) {
+        self._selection = selection
+		self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
 		self._steps = _StepsContainer(steps: steps)
 		self._cancelAction = cancelAction != nil ? ViewBuilder.buildEither(first: cancelAction!) : ViewBuilder.buildEither(second: EmptyView())

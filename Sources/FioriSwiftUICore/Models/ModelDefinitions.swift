@@ -388,11 +388,14 @@ public protocol SingleStepModel: SingleStepComponent {}
 
 // sourcery: add_env_props = "presentationMode"
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
-// sourcery: virtualPropStepsData = "var stepsData: [StepModel] = []"
+// sourcery: virtualPropStepsData = "var stepsData: [StepItem] = []"
 // sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
-// sourcery: virtualPropSelection = "var selection: Binding<Int> = .constant(0)"
 // sourcery: generated_component_composite
-public protocol StepProgressIndicatorModel {
+public protocol StepProgressIndicatorModel: AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: no_view
+    var selection: UUID { get set }
+    
     var title: String? { get }
     
     // sourcery: genericParameter.name = ActionView

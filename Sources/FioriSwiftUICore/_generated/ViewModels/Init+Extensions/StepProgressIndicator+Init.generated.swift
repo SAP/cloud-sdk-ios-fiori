@@ -4,12 +4,14 @@ import SwiftUI
 
 extension StepProgressIndicator where Title == EmptyView {
     public init(
-    @ViewBuilder action: () -> ActionView,
+    selection: Binding<UUID>,
+		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            title: { EmptyView() },
+            selection: selection,
+			title: { EmptyView() },
 			action: action,
 			steps: steps,
 			cancelAction: cancelAction
@@ -19,12 +21,14 @@ extension StepProgressIndicator where Title == EmptyView {
 
 extension StepProgressIndicator where ActionView == Action {
     public init(
-    @ViewBuilder title: () -> Title,
+    selection: Binding<UUID>,
+		@ViewBuilder title: () -> Title,
 		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            title: title,
+            selection: selection,
+			title: title,
 			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: cancelAction
@@ -34,12 +38,14 @@ extension StepProgressIndicator where ActionView == Action {
 
 extension StepProgressIndicator where CancelActionView == Action {
     public init(
-    @ViewBuilder title: () -> Title,
+    selection: Binding<UUID>,
+		@ViewBuilder title: () -> Title,
 		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            title: title,
+            selection: selection,
+			title: title,
 			action: action,
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
@@ -49,11 +55,13 @@ extension StepProgressIndicator where CancelActionView == Action {
 
 extension StepProgressIndicator where Title == EmptyView, ActionView == Action {
     public init(
-    @IndexedViewBuilder steps: () -> Steps,
+    selection: Binding<UUID>,
+		@IndexedViewBuilder steps: () -> Steps,
 		@ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
-            title: { EmptyView() },
+            selection: selection,
+			title: { EmptyView() },
 			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: cancelAction
@@ -63,11 +71,13 @@ extension StepProgressIndicator where Title == EmptyView, ActionView == Action {
 
 extension StepProgressIndicator where Title == EmptyView, CancelActionView == Action {
     public init(
-    @ViewBuilder action: () -> ActionView,
+    selection: Binding<UUID>,
+		@ViewBuilder action: () -> ActionView,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            title: { EmptyView() },
+            selection: selection,
+			title: { EmptyView() },
 			action: action,
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
@@ -77,11 +87,13 @@ extension StepProgressIndicator where Title == EmptyView, CancelActionView == Ac
 
 extension StepProgressIndicator where ActionView == Action, CancelActionView == Action {
     public init(
-    @ViewBuilder title: () -> Title,
+    selection: Binding<UUID>,
+		@ViewBuilder title: () -> Title,
 		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            title: title,
+            selection: selection,
+			title: title,
 			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }
@@ -91,10 +103,12 @@ extension StepProgressIndicator where ActionView == Action, CancelActionView == 
 
 extension StepProgressIndicator where Title == EmptyView, ActionView == Action, CancelActionView == Action {
     public init(
-    @IndexedViewBuilder steps: () -> Steps
+    selection: Binding<UUID>,
+		@IndexedViewBuilder steps: () -> Steps
     ) {
         self.init(
-            title: { EmptyView() },
+            selection: selection,
+			title: { EmptyView() },
 			action: { Action(model: _AllStepsActionDefault()) },
 			steps: steps,
 			cancelAction: { Action(model: _CancelActionDefault()) }

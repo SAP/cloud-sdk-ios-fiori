@@ -1,34 +1,44 @@
 import SwiftUI
 
 public struct _DefaultSteps: IndexedViewContainer {
-    var stepsData: [StepModel]
-    @Binding var selection: Int
+    var stepsData: [StepItem]
+    @Binding var selection: UUID
     
     public var count: Int {
         self.stepsData.count
     }
     
+    @ViewBuilder
     public func view(at index: Int) -> some View {
-        self.singleStep(at: index)
+        let stepData = self.stepsData[index]
+        if let children = stepData.children {
+            Group {
+                self.singleStep(at: index)
+                ForEach(0 ..< children.count, id: \.self) { subIndex in
+                    self.singleSubstep(at: subIndex, for: children, isTail: index == count - 1)
+                }
+            }
+        } else {
+            self.singleStep(at: index)
+        }
     }
     
     @ViewBuilder
     func singleStep(at index: Int) -> some View {
         let data = self.stepsData[index]
-        let state = state(for: index)
-        
-        Button {
-            if state != .disabled {
-                selection = index
-            }
-        } label: {
-            if let txt = data.node {
+        let showLine = index < self.count - 1 || !(data.children?.isEmpty ?? true)
+        if let state = state(at: index, for: stepsData) {
+            Button {
+                if state != .disabled {
+                    selection = stepsData[index].id
+                }
+            } label: {
                 SingleStep {
                     Text(data.title ?? "")
                 } node: {
                     ZStack {
                         node(by: state)
-                        Text(txt)
+                        Text("\(index + 1)")
                             .font(Font.fiori(forTextStyle: .footnote))
                     }
                     .frame(width: nodeWidth, height: nodeHeight)
@@ -39,7 +49,23 @@ public struct _DefaultSteps: IndexedViewContainer {
                         }
                     }
                 }
-            } else {
+            }
+            .buttonStyle(StepButtonStyle(state: state, showLine: showLine))
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func singleSubstep(at index: Int, for children: [StepItem], isTail: Bool = false) -> some View {
+        let data = children[index]
+        if let state = state(at: index, for: children) {
+            let showLine = (index < children.count - 1) || !isTail
+            Button {
+                if state != .disabled {
+                    selection = children[index].id
+                }
+            } label: {
                 SingleStep {
                     Text(data.title ?? "")
                 } node: {
@@ -59,13 +85,15 @@ public struct _DefaultSteps: IndexedViewContainer {
                     }.frame(width: 16, height: 16)
                 }.stepPadding(top: 14, bottom: 4, leading: 14, trailing: 4, vertical: 14, horizontal: 14)
             }
+            .buttonStyle(StepButtonStyle(state: state, showLine: showLine))
+        } else {
+            EmptyView()
         }
-        .buttonStyle(StepButtonStyle(state: state, showLine: index < self.count - 1))
     }
     
-    func state(for index: Int) -> InternalStepState {
-        let data = self.stepsData[index]
-        let isSelected = index == self.selection
+    func state(at index: Int, for data: [StepItem]) -> InternalStepState? {
+        let data = data[index]
+        let isSelected = data.id == self.selection
         return data.state.convert(isSelected)
     }
     

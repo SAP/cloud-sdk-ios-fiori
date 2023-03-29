@@ -98,11 +98,11 @@ extension StepProgressIndicator: View {
 }
 
 public extension StepProgressIndicator {
-    init(selection: Binding<Int>,
-         stepsData: [StepModel])
+    init(selection: Binding<UUID>,
+         stepsData: [StepItem])
         where Steps == _DefaultSteps, ActionView == EmptyView, Title == EmptyView, CancelActionView == Action
     {
-        self.selection = selection
+        self._selection = selection
         self.stepsData = stepsData
         
         self._title = EmptyView()
@@ -113,13 +113,13 @@ public extension StepProgressIndicator {
                                     selection: selection)
     }
     
-    init(selection: Binding<Int>,
-         stepsData: [StepModel],
+    init(selection: Binding<UUID>,
+         stepsData: [StepItem],
          @ViewBuilder title: @escaping () -> Title,
          @ViewBuilder action: @escaping () -> ActionView)
         where Steps == _DefaultSteps, CancelActionView == Action
     {
-        self.selection = selection
+        self._selection = selection
         self.stepsData = stepsData
         self._title = title()
         self._action = action()
@@ -129,12 +129,12 @@ public extension StepProgressIndicator {
                                     selection: selection)
     }
     
-    init(selection: Binding<Int>,
-         stepsData: [StepModel],
+    init(selection: Binding<UUID>,
+         stepsData: [StepItem],
          @ViewBuilder action: @escaping () -> ActionView)
         where Steps == _DefaultSteps, CancelActionView == Action, Title == EmptyView
     {
-        self.selection = selection
+        self._selection = selection
         self.stepsData = stepsData
         self._title = EmptyView()
         self._action = action()
@@ -144,12 +144,12 @@ public extension StepProgressIndicator {
                                     selection: selection)
     }
     
-    init(selection: Binding<Int>,
-         stepsData: [StepModel],
+    init(selection: Binding<UUID>,
+         stepsData: [StepItem],
          @ViewBuilder title: @escaping () -> Title)
         where Steps == _DefaultSteps, CancelActionView == Action, ActionView == EmptyView
     {
-        self.selection = selection
+        self._selection = selection
         self.stepsData = stepsData
         self._title = title()
         self._action = EmptyView()
