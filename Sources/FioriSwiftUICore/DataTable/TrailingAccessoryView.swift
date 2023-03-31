@@ -3,24 +3,17 @@ import SwiftUI
 
 struct TrailingAccessoryView: View {
     let rowIndex: Int
-    @EnvironmentObject var layoutManager: TableLayoutManager
-
-    init(rowIndex: Int) {
+    let layoutManager: TableLayoutManager
+    let layoutData: LayoutData
+    
+    init(rowIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData) {
         self.rowIndex = rowIndex
+        self.layoutManager = layoutManager
+        self.layoutData = layoutData
     }
     
     var body: some View {
-        Group {
-            if self.layoutManager.layoutData != nil, self.layoutManager.layoutWorkItem == nil, rowIndex < self.layoutManager.numberOfRows() {
-                makeBody(layoutData: self.layoutManager.layoutData!)
-            } else {
-                EmptyView()
-            }
-        }
-    }
-    
-    func makeBody(layoutData: LayoutData) -> some View {
-        let trailingItem: AccessoryItem? = layoutData.rowData[self.rowIndex].trailingAccessory
+        let trailingItem: AccessoryItem? = self.layoutData.rowData[self.rowIndex].trailingAccessory
         
         return Group {
             if let item = trailingItem {
@@ -51,11 +44,5 @@ struct TrailingAccessoryView: View {
                 EmptyView()
             }
         }
-    }
-    
-    func applyBlur(height: CGFloat) -> some View {
-        self.layoutManager.model.backgroundColor
-            .frame(width: 44 * self.layoutManager.scaleX, height: height, alignment: .center)
-            .blur(radius: 8)
     }
 }
