@@ -10,15 +10,17 @@ struct InlineEditingView: View {
     let layoutManager: TableLayoutManager
     let rowIndex: Int
     let columnIndex: Int
+    let layoutData: LayoutData
     @ObservedObject var inlineEditingModel: InlineEditingModel
     @Binding var showBanner: Bool
     @State var editingText: String = ""
     @State var isValid: (Bool, String?) = (true, nil)
     @FocusState var focusState: Bool
     
-    init(layoutManager: TableLayoutManager, showBanner: Binding<Bool>) {
+    init(layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>) {
         self.layoutManager = layoutManager
         self.inlineEditingModel = layoutManager.inlineEditingModel
+        self.layoutData = layoutData
         self._showBanner = showBanner
         self.rowIndex = (layoutManager.currentCell ?? (0, 0)).0
         self.columnIndex = (layoutManager.currentCell ?? (0, 0)).1
@@ -29,23 +31,15 @@ struct InlineEditingView: View {
     }
 
     var body: some View {
-        if let layoutData = layoutManager.layoutData {
-            makeBody(layoutData)
-        } else {
-            EmptyView()
-        }
-    }
-    
-    func makeBody(_ layoutData: LayoutData) -> some View {
-        let dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
+        let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
         let foregroundColor: Color? = dataItem.foregroundColor
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
-        let cellWidth = layoutData.columnWidths[self.columnIndex] * self.layoutManager.scaleX
-        let cellHeight = layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY
-        let contentInset = layoutData.cellContentInsets(for: self.rowIndex, columnIndex: self.columnIndex)
+        let cellWidth = self.layoutData.columnWidths[self.columnIndex] * self.layoutManager.scaleX
+        let cellHeight = self.layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY
+        let contentInset = self.layoutData.cellContentInsets(for: self.rowIndex, columnIndex: self.columnIndex)
         let contentWidth = max(0, cellWidth - contentInset.horizontal * self.layoutManager.scaleX)
         let contentHeight = max(0, cellHeight - contentInset.vertical * self.layoutManager.scaleY)
-        let isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
+        let isValid = self.layoutManager.checkIsValid(for: self.layoutData.allDataItems[self.rowIndex][self.columnIndex])
         let uifont = dataItem.uifont ?? TableViewLayout.defaultUIFont(isHeader)
         let baselineHeightOffset = (layoutData.firstBaselineHeights[self.rowIndex] - dataItem.firstBaselineHeight) * self.layoutManager.scaleY
         let fontSize: CGFloat = uifont.pointSize * self.layoutManager.scaleX
@@ -75,7 +69,7 @@ struct InlineEditingView: View {
                                 updateText(editingText)
                             }
                     } else {
-                        TextField("", text: $editingText)
+                        TextField("", text: self.$editingText)
                             .font(finalFont)
                             .foregroundColor(isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
                             .accentColor(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel))
@@ -83,17 +77,17 @@ struct InlineEditingView: View {
                             .multilineTextAlignment(dataItem.textAlignment)
                             .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
-                            .focused($focusState)
+                            .focused(self.$focusState)
                             .frame(width: contentWidth, height: contentHeight, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .onSubmit {
-                                updateText(editingText)
+                                self.updateText(self.editingText)
                             }
                     }
                 #else
-                    TextField("", text: $editingText)
-                        .focused($focusState)
+                    TextField("", text: self.$editingText)
+                        .focused(self.$focusState)
                         .onSubmit {
-                            updateText(editingText)
+                            self.updateText(self.editingText)
                         }
                         .lineLimit(dataItem.lineLimit)
                         .multilineTextAlignment(dataItem.textAlignment)
@@ -114,12 +108,13 @@ struct InlineEditingView: View {
         }
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
+        .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 
                 Button {
-                    updateText(editingText)
+                    self.updateText(self.editingText)
                 } label: {
                     Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                         .font(.fiori(forTextStyle: .body).bold())
@@ -129,16 +124,16 @@ struct InlineEditingView: View {
         }
         .onAppear {
             DispatchQueue.main.async {
-                focusState = true
+                self.focusState = true
             }
         }
         .onChange(of: self.editingText, perform: { _ in
-            layoutManager.cacheEditingText = editingText
+            self.layoutManager.cacheEditingText = self.editingText
         })
     }
     
     func updateText(_ newValue: String) {
-        guard let layoutData = self.layoutManager.layoutData else { return }
+        guard let layoutData = layoutManager.layoutData else { return }
             
         var dataItem = layoutData.allDataItems[self.rowIndex][self.columnIndex]
         if dataItem.text != newValue {
