@@ -132,7 +132,6 @@ struct FocusedEditingView: View {
             }
     }
     
-    // swiftlint:disable cyclomatic_complexity function_body_length function_parameter_count
     func theView(dataItem: DataTableItem, baselineHeightOffset: CGFloat, imageWidth: CGFloat, imageHeight: CGFloat, contentWidth: CGFloat, contentHeight: CGFloat, font: Font, foregroundColor: Color?) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             if let image = dataItem.image {

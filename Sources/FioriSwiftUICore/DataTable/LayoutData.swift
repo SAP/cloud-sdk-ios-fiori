@@ -113,7 +113,7 @@ class LayoutData {
         var res: [[DataTableItem]] = []
         var maxFirstBaselineHeights = [CGFloat]()
         // reset it
-        numOfErrors = 0
+        self.numOfErrors = 0
         for i in 0 ..< numbOfRows {
             if workItem?.isCancelled ?? false {
                 return ([[]], [])
@@ -239,11 +239,11 @@ class LayoutData {
     
     func getleadingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
-        var icons: Int = 0
-        var buttons: Int = 0
+        var icons = 0
+        var buttons = 0
         for row in self.rowData {
-            var currentIcons: Int = 0
-            var currentButtons: Int = 0
+            var currentIcons = 0
+            var currentButtons = 0
             for item in row.leadingAccessories {
                 if case .button = item {
                     currentButtons += 1
@@ -598,7 +598,7 @@ class LayoutData {
     
     func infinityColumnIndex() -> Int {
         // by default, the first column will expand to fill the space
-        var infinityIndex: Int = 0
+        var infinityIndex = 0
         for (index, columnAttribute) in self.columnAttributes.enumerated() {
             switch columnAttribute.width {
             case .infinity:
@@ -804,7 +804,7 @@ struct NamedProvider: FontProvider {
             let metrics = UIFontMetrics(forTextStyle: textStyle)
             let fd = UIFontDescriptor(fontAttributes: [
                 .name: name,
-                .size: metrics.scaledValue(for: size, compatibleWith: traitCollection)
+                .size: metrics.scaledValue(for: self.size, compatibleWith: traitCollection)
             ])
             
             return UIFontInfo(fontDescriptor: fd, textStyle: textStyle)
@@ -917,10 +917,7 @@ extension UIFont {
                 return nil
             }
             
-//            var weight = UIFont.Weight.regular
             if let widthValue = mirror.descendant("modifier", "width") as? CGFloat {
-//                let tmpWeight = UIFont.Weight(rawValue: weightValue)
-//                weight = tmpWeight
                 #if swift(>=5.7.1)
                     if #available(iOS 16.0, watchOS 9.0, *) {
                         if abs(widthValue - Font.Width.condensed.value) < 0.01 {
