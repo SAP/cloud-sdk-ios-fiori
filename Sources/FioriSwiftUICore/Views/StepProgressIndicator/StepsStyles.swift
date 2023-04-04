@@ -1,14 +1,20 @@
 import FioriThemeManager
 import SwiftUI
 
+/// An option set for step state that used for default `StepProgressIndicator`
 public struct StepIndicatorState: OptionSet {
+    /// :nodoc:
     public let rawValue: UInt
+    /// :nodoc:
     public init(rawValue: UInt) {
         self.rawValue = rawValue
     }
-
+    
+    /// Completed state for a step.
     public static let completed = StepIndicatorState(rawValue: 1 << 0)
+    /// disabled state for a step.
     public static let disabled = StepIndicatorState(rawValue: 1 << 1)
+    /// error state for a step.
     public static let error = StepIndicatorState(rawValue: 1 << 2)
     
     func convert(_ isSelected: Bool) -> InternalStepState? {
@@ -35,21 +41,32 @@ enum InternalStepState {
     case inactive, active, completed, disabled, error, errorActive
 }
 
+/// Step items data model for `StepProgressIndicator` with a default style.
 public struct StepItem: Identifiable {
-    public var id = UUID()
+    /// Step id.
+    public var id = UUID().uuidString
+    /// Step title.
     public var title: String?
+    /// Step state.
     public var state: StepIndicatorState
-    public var children: [StepItem]?
+    /// Sub-steps for this one.
+    public var substeps: [StepItem]
     
-    public init(id: UUID = UUID(),
+    /// Convenience initialization for step tiem.
+    /// - Parameters:
+    ///   - id: Step id.
+    ///   - title: Step title.
+    ///   - state: Step state.
+    ///   - children: Sub-steps for this one.
+    public init(id: String = UUID().uuidString,
                 title: String? = nil,
                 state: StepIndicatorState = [],
-                children: [StepItem]? = nil)
+                substeps: [StepItem] = [])
     {
         self.id = id
         self.title = title
         self.state = state
-        self.children = children
+        self.substeps = substeps
     }
 }
 

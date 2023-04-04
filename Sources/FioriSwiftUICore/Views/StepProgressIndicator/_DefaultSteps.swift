@@ -1,39 +1,64 @@
 import SwiftUI
 
+/// Not used by developers.
 public struct _DefaultSteps: IndexedViewContainer {
-    var stepsData: [StepItem]
-    @Binding var selection: UUID
-    
-    public var count: Int {
-        self.stepsData.count
+    var stepItems: [StepItem]
+    @Binding var selection: String
+    var isSubstep: Bool = false
+    @Environment(\.stepAxis) var stepAxis
+
+    init(stepItems: [StepItem],
+         selection: Binding<String>,
+         isSubstep: Bool = false)
+    {
+        self.stepItems = stepItems
+        self._selection = selection
+        self.isSubstep = isSubstep
     }
     
+    /// :nodoc:
+    public var count: Int {
+        self.stepItems.count
+    }
+    
+    /// :nodoc:
     @ViewBuilder
     public func view(at index: Int) -> some View {
-        let stepData = self.stepsData[index]
-        if let children = stepData.children {
+        let data = self.stepItems[index]
+        if self.isSubstep {
             Group {
-                self.singleStep(at: index)
-                ForEach(0 ..< children.count, id: \.self) { subIndex in
-                    self.singleSubstep(at: subIndex, for: children, isTail: index == count - 1)
+                singleSubstep(at: index)
+                if !data.substeps.isEmpty {
+                    StepProgressIndicatorContainer(selection: $selection,
+                                                   steps: _DefaultSteps(stepItems: data.substeps,
+                                                                        selection: $selection,
+                                                                        isSubstep: true))
                 }
             }
         } else {
-            self.singleStep(at: index)
+            Group {
+                singleStep(at: index)
+                if !data.substeps.isEmpty {
+                    StepProgressIndicatorContainer(selection: $selection,
+                                                   steps: _DefaultSteps(stepItems: data.substeps,
+                                                                        selection: $selection,
+                                                                        isSubstep: true))
+                }
+            }
         }
     }
     
     @ViewBuilder
     func singleStep(at index: Int) -> some View {
-        let data = self.stepsData[index]
-        let showLine = index < self.count - 1 || !(data.children?.isEmpty ?? true)
-        if let state = state(at: index, for: stepsData) {
+        let data = self.stepItems[index]
+        let showLine = index < self.count - 1 || !data.substeps.isEmpty
+        if let state = state(at: index) {
             Button {
                 if state != .disabled {
-                    selection = stepsData[index].id
+                    selection = stepItems[index].id
                 }
             } label: {
-                SingleStep {
+                SingleStep(stepId: data.id, tappable: false) {
                     Text(data.title ?? "")
                 } node: {
                     ZStack {
@@ -57,16 +82,16 @@ public struct _DefaultSteps: IndexedViewContainer {
     }
     
     @ViewBuilder
-    func singleSubstep(at index: Int, for children: [StepItem], isTail: Bool = false) -> some View {
-        let data = children[index]
-        if let state = state(at: index, for: children) {
-            let showLine = (index < children.count - 1) || !isTail
+    func singleSubstep(at index: Int, isTail: Bool = false) -> some View {
+        let data = self.stepItems[index]
+        if let state = state(at: index) {
+            let showLine = index < self.count - 1 || !data.substeps.isEmpty || !isTail
             Button {
                 if state != .disabled {
-                    selection = children[index].id
+                    selection = data.id
                 }
             } label: {
-                SingleStep {
+                SingleStep(stepId: data.id, tappable: false) {
                     Text(data.title ?? "")
                 } node: {
                     Group {
@@ -91,8 +116,8 @@ public struct _DefaultSteps: IndexedViewContainer {
         }
     }
     
-    func state(at index: Int, for data: [StepItem]) -> InternalStepState? {
-        let data = data[index]
+    func state(at index: Int) -> InternalStepState? {
+        let data = self.stepItems[index]
         let isSelected = data.id == self.selection
         return data.state.convert(isSelected)
     }

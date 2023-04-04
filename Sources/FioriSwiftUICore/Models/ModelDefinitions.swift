@@ -376,6 +376,8 @@ public protocol KPIHeaderItemModel {}
 
 // sourcery: add_env_props = "stepLineColor"
 // sourcery: add_env_props = "stepAxis"
+// sourcery: add_env_props = "currentStepId"
+// sourcery: virtualPropWithGesture = "var tappable: Bool = true"
 // sourcery: virtualPropTop = "var top: CGFloat = 8"
 // sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
 // sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
@@ -384,17 +386,31 @@ public protocol KPIHeaderItemModel {}
 // sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
 // sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol SingleStepModel: SingleStepComponent {}
+public protocol SingleStepModel {
+    // sourcery: default.value = UUID().uuidString
+    // sourcery: no_view
+    var stepId: String { get set }
+    
+    var title: String? { get }
+    // sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=_StepsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var substeps: [SingleStepModel] { get }
+}
 
 // sourcery: add_env_props = "presentationMode"
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
-// sourcery: virtualPropStepsData = "var stepsData: [StepItem] = []"
+// sourcery: virtualPropStepsData = "var stepItems: [StepItem] = []"
 // sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
 // sourcery: generated_component_composite
 public protocol StepProgressIndicatorModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: no_view
-    var selection: UUID { get set }
+    var selection: String { get set }
     
     var title: String? { get }
     

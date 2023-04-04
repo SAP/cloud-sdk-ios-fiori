@@ -12,12 +12,81 @@ extension Fiori {
     }
 }
 
+extension SingleStep where Substeps == EmptyView {
+    /// Convenience initialization for empty sub-steps.
+    /// - Parameters:
+    ///   - stepId: String value for step id.
+    ///   - title: Title for single step.
+    ///   - node: Node for single step.
+    public init(stepId: String = UUID().uuidString,
+                @ViewBuilder title: () -> Title,
+                @ViewBuilder node: () -> Node)
+    {
+        self.init(stepId: stepId, tappable: true, title: title, node: node)
+    }
+    
+    init(stepId: String = UUID().uuidString,
+         tappable: Bool = true,
+         @ViewBuilder title: () -> Title,
+         @ViewBuilder node: () -> Node)
+    {
+        self._stepId = stepId
+        self.tappable = tappable
+        self._title = title()
+        self._node = node()
+        self._substeps = EmptyView()
+    }
+}
+
+public extension SingleStep where Title == EmptyView, Substeps == EmptyView {
+    /// Convenience initialization for empty title and sub-steps.
+    /// - Parameters:
+    ///   - stepId: String value for step id.
+    ///   - node: Node for single step.
+    init(stepId: String = UUID().uuidString,
+         @ViewBuilder node: () -> Node)
+    {
+        self.init(stepId: stepId, tappable: true, title: { EmptyView() }, node: node)
+    }
+}
+
 extension SingleStep: View {
     var stepsSpacing: CGFloat {
         2
     }
-
+    
+    /// :nodoc:
     public var body: some View {
+        switch stepAxis {
+        case .horizontal:
+            HStack {
+                oneStep
+                    .ifApply(tappable) {
+                        $0.onTapGesture {
+                            currentStepId.wrappedValue = _stepId
+                        }
+                    }
+                ForEach(0 ..< substeps.count, id: \.self) { index in
+                    substeps.view(at: index)
+                }
+            }
+        case .vertical:
+            VStack {
+                oneStep
+                    .ifApply(tappable) {
+                        $0.onTapGesture {
+                            currentStepId.wrappedValue = _stepId
+                        }
+                    }
+                ForEach(0 ..< substeps.count, id: \.self) { index in
+                    substeps.view(at: index)
+                }
+            }
+        }
+    }
+    
+    @ViewBuilder
+    var oneStep: some View {
         switch stepAxis {
         case .horizontal:
             VStack(alignment: .leading, spacing: 0) {
@@ -28,7 +97,6 @@ extension SingleStep: View {
                         .frame(width: lineWidth, height: lineHeight)
                 }.sizeReader { size in
                     if nodeAndLineSize.different(with: size) {
-                        print("\(size)")
                         nodeAndLineSize = size
                     }
                 }
@@ -54,6 +122,7 @@ extension SingleStep: View {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2
                     }
                 Spacer().frame(width: trailing)
+                Spacer()
             }
         }
     }
@@ -92,13 +161,23 @@ extension SingleStep: View {
         newSelf.verticalSpacing = vertical
         return newSelf
     }
+    
+    /// Customize step id.
+    /// - Parameter id: String value for step id.
+    /// - Returns: A new `SingleStep` with specific step id.
+    public func customStepId(_ id: String) -> Self {
+        var newSelf = self
+        newSelf._stepId = id
+        return newSelf
+    }
 }
 
 struct StepLineColor: EnvironmentKey {
-    public static let defaultValue = Color.clear
+    static let defaultValue = Color.clear
 }
 
 public extension EnvironmentValues {
+    /// Single step line color environment value.
     var stepLineColor: Color {
         get { self[StepLineColor.self] }
         set { self[StepLineColor.self] = newValue }
@@ -106,6 +185,9 @@ public extension EnvironmentValues {
 }
 
 public extension View {
+    /// Customize `SingleStep` line color.
+    /// - Parameter color: Line color for `SingleStep`.
+    /// - Returns: A new view with specific line color.
     func stepLineColor(_ color: Color) -> some View {
         environment(\.stepLineColor, color)
     }
@@ -115,14 +197,14 @@ struct StepAxisKey: EnvironmentKey {
     static let defaultValue = Axis.horizontal
 }
 
-public extension EnvironmentValues {
+extension EnvironmentValues {
     var stepAxis: Axis {
         get { self[StepAxisKey.self] }
         set { self[StepAxisKey.self] = newValue }
     }
 }
 
-public extension View {
+extension View {
     func stepAxis(_ axis: Axis) -> some View {
         self.environment(\.stepAxis, axis)
     }
@@ -135,5 +217,17 @@ extension CGSize {
         } else {
             return false
         }
+    }
+}
+
+extension EmptyView: IndexedViewContainer {
+    /// :nodoc:
+    public var count: Int {
+        0
+    }
+    
+    /// :nodoc:
+    public func view(at index: Int) -> some View {
+        EmptyView()
     }
 }

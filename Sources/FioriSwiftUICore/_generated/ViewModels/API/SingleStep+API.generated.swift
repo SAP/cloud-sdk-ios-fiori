@@ -2,31 +2,39 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SingleStep<Title: View, Node: View> {
+public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.nodeModifier) private var nodeModifier
+	@Environment(\.currentStepId) var currentStepId
 	@Environment(\.stepAxis) var stepAxis
 	@Environment(\.stepLineColor) var stepLineColor
 
-    let _title: Title
+    var _stepId: String
+	let _title: Title
 	let _node: Node
+	let _substeps: Substeps
+	var tappable: Bool = true
 	var top: CGFloat = 8
-	var bottom: CGFloat = 8
-	var horizontalSpacing: CGFloat = 14
+	var trailing: CGFloat = 8
 	@State var nodeAndLineSize: CGSize = .zero
 	var verticalSpacing: CGFloat = 8
+	var horizontalSpacing: CGFloat = 14
 	var leading: CGFloat = 8
-	var trailing: CGFloat = 8
+	var bottom: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
 
     public init(
-        @ViewBuilder title: () -> Title,
-		@ViewBuilder node: () -> Node
+        stepId: String = UUID().uuidString,
+		@ViewBuilder title: () -> Title,
+		@ViewBuilder node: () -> Node,
+		@IndexedViewBuilder substeps: () -> Substeps
         ) {
-            self._title = title()
+            self._stepId = stepId
+			self._title = title()
 			self._node = node()
+			self._substeps = substeps()
     }
 
     @ViewBuilder var title: some View {
@@ -43,6 +51,9 @@ public struct SingleStep<Title: View, Node: View> {
             _node.modifier(nodeModifier.concat(Fiori.SingleStep.node))
         }
     }
+	var substeps: Substeps {
+        _substeps
+    }
     
 	var isTitleEmptyView: Bool {
         ((isModelInit && isTitleNil) || Title.self == EmptyView.self) ? true : false
@@ -50,15 +61,18 @@ public struct SingleStep<Title: View, Node: View> {
 }
 
 extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
-		Node == TextOrIconView {
+		Node == TextOrIconView,
+		Substeps == _StepsContainer {
 
     public init(model: SingleStepModel) {
-        self.init(title: model.title, node: model.node)
+        self.init(stepId: model.stepId, title: model.title, node: model.node, substeps: model.substeps)
     }
 
-    public init(title: String? = nil, node: TextOrIcon) {
-        self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
+    public init(stepId: String = UUID().uuidString, title: String? = nil, node: TextOrIcon, substeps: [SingleStepModel] = []) {
+        self._stepId = stepId
+		self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._node = TextOrIconView(node: node)
+		self._substeps = _StepsContainer(substeps: substeps)
 
 		isModelInit = true
 		isTitleNil = title == nil ? true : false

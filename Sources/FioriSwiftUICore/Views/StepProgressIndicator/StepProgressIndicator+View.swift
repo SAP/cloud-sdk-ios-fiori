@@ -27,6 +27,7 @@ extension StepProgressIndicator: View {
         2
     }
     
+    /// :nodoc:
     public var body: some View {
         switch axis {
         case .horizontal:
@@ -43,19 +44,13 @@ extension StepProgressIndicator: View {
         switch axis {
         case .horizontal:
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: stepsSpacing) {
-                    ForEach(0 ..< stepsCount, id: \.self) { index in
-                        steps.view(at: index)
-                    }
-                }
+                StepProgressIndicatorContainer(selection: _selection,
+                                               steps: steps)
             }
         case .vertical:
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: stepsSpacing) {
-                    ForEach(0 ..< stepsCount, id: \.self) { index in
-                        steps.view(at: index)
-                    }
-                }
+                StepProgressIndicatorContainer(selection: _selection,
+                                               steps: steps)
             }.padding(20)
         }
     }
@@ -97,65 +92,26 @@ extension StepProgressIndicator: View {
     }
 }
 
-public extension StepProgressIndicator {
-    init(selection: Binding<UUID>,
-         stepsData: [StepItem])
-        where Steps == _DefaultSteps, ActionView == EmptyView, Title == EmptyView, CancelActionView == Action
+/// :nodoc:
+public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActionView == Action {
+    /// Convenience initialization for default step progress indicator.
+    /// - Parameters:
+    ///   - selection: A binding string for selected step id.
+    ///   - stepItems: An array of `StepItem` for default steps generation.
+    ///   - title: Title for current step displayed on steps top-left .
+    ///   - action: Action for steps displayed on steps top-right that will show a vertical steps.
+    init(selection: Binding<String>,
+         stepItems: [StepItem],
+         @ViewBuilder title: @escaping () -> Title = { EmptyView() },
+         @ViewBuilder action: @escaping () -> ActionView = { EmptyView() })
     {
         self._selection = selection
-        self.stepsData = stepsData
-        
-        self._title = EmptyView()
-        self._action = EmptyView()
-        self._cancelAction = Action(model: _CancelActionDefault())
-        
-        self._steps = _DefaultSteps(stepsData: stepsData,
-                                    selection: selection)
-    }
-    
-    init(selection: Binding<UUID>,
-         stepsData: [StepItem],
-         @ViewBuilder title: @escaping () -> Title,
-         @ViewBuilder action: @escaping () -> ActionView)
-        where Steps == _DefaultSteps, CancelActionView == Action
-    {
-        self._selection = selection
-        self.stepsData = stepsData
+        self.stepItems = stepItems
         self._title = title()
         self._action = action()
         self._cancelAction = Action(model: _CancelActionDefault())
-
-        self._steps = _DefaultSteps(stepsData: stepsData,
-                                    selection: selection)
-    }
-    
-    init(selection: Binding<UUID>,
-         stepsData: [StepItem],
-         @ViewBuilder action: @escaping () -> ActionView)
-        where Steps == _DefaultSteps, CancelActionView == Action, Title == EmptyView
-    {
-        self._selection = selection
-        self.stepsData = stepsData
-        self._title = EmptyView()
-        self._action = action()
-        self._cancelAction = Action(model: _CancelActionDefault())
         
-        self._steps = _DefaultSteps(stepsData: stepsData,
-                                    selection: selection)
-    }
-    
-    init(selection: Binding<UUID>,
-         stepsData: [StepItem],
-         @ViewBuilder title: @escaping () -> Title)
-        where Steps == _DefaultSteps, CancelActionView == Action, ActionView == EmptyView
-    {
-        self._selection = selection
-        self.stepsData = stepsData
-        self._title = title()
-        self._action = EmptyView()
-        self._cancelAction = Action(model: _CancelActionDefault())
-        
-        self._steps = _DefaultSteps(stepsData: stepsData,
+        self._steps = _DefaultSteps(stepItems: stepItems,
                                     selection: selection)
     }
 }
