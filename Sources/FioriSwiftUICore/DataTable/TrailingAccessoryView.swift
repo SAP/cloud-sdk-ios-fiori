@@ -20,6 +20,8 @@ struct TrailingAccessoryView: View {
                 switch item {
                 case .button(let button):
                     Button(action: {
+                        self.layoutManager.saveEditingTextChange()
+                        
                         button.action()
                     }) {
                         button.image?
@@ -43,6 +45,10 @@ struct TrailingAccessoryView: View {
             } else {
                 EmptyView()
             }
+        }
+        .onTapGesture {
+            // save text changes
+            self.layoutManager.saveEditingTextChange()
         }
     }
 }
