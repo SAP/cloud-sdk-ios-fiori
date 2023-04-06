@@ -4,12 +4,12 @@ import SwiftUI
 
 extension SingleStep where Title == EmptyView {
     public init(
-    stepId: String = UUID().uuidString,
+    id: String = UUID().uuidString,
 		@ViewBuilder node: () -> Node,
 		@IndexedViewBuilder substeps: () -> Substeps
     ) {
         self.init(
-            stepId: stepId,
+            id: id,
 			title: { EmptyView() },
 			node: node,
 			substeps: substeps

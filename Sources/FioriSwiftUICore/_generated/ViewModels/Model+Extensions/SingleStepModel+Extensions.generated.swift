@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension SingleStepModel {
-    var stepId: String {
+    var id: String {
         return UUID().uuidString
     }
 

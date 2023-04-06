@@ -15,22 +15,22 @@ extension Fiori {
 extension SingleStep where Substeps == EmptyView {
     /// Convenience initialization for empty sub-steps.
     /// - Parameters:
-    ///   - stepId: String value for step id.
+    ///   - id: String value for step id.
     ///   - title: Title for single step.
     ///   - node: Node for single step.
-    public init(stepId: String = UUID().uuidString,
+    public init(id: String = UUID().uuidString,
                 @ViewBuilder title: () -> Title,
                 @ViewBuilder node: () -> Node)
     {
-        self.init(stepId: stepId, tappable: true, title: title, node: node)
+        self.init(id: id, tappable: true, title: title, node: node)
     }
     
-    init(stepId: String = UUID().uuidString,
+    init(id: String = UUID().uuidString,
          tappable: Bool = true,
          @ViewBuilder title: () -> Title,
          @ViewBuilder node: () -> Node)
     {
-        self._stepId = stepId
+        self._id = id
         self.tappable = tappable
         self._title = title()
         self._node = node()
@@ -41,12 +41,12 @@ extension SingleStep where Substeps == EmptyView {
 public extension SingleStep where Title == EmptyView, Substeps == EmptyView {
     /// Convenience initialization for empty title and sub-steps.
     /// - Parameters:
-    ///   - stepId: String value for step id.
+    ///   - id: String value for step id.
     ///   - node: Node for single step.
-    init(stepId: String = UUID().uuidString,
+    init(id: String = UUID().uuidString,
          @ViewBuilder node: () -> Node)
     {
-        self.init(stepId: stepId, tappable: true, title: { EmptyView() }, node: node)
+        self.init(id: id, tappable: true, title: { EmptyView() }, node: node)
     }
 }
 
@@ -63,7 +63,7 @@ extension SingleStep: View {
                 oneStep
                     .ifApply(tappable) {
                         $0.onTapGesture {
-                            currentStepId.wrappedValue = _stepId
+                            currentStepId.wrappedValue = _id
                         }
                     }
                 ForEach(0 ..< substeps.count, id: \.self) { index in
@@ -75,7 +75,7 @@ extension SingleStep: View {
                 oneStep
                     .ifApply(tappable) {
                         $0.onTapGesture {
-                            currentStepId.wrappedValue = _stepId
+                            currentStepId.wrappedValue = _id
                         }
                     }
                 ForEach(0 ..< substeps.count, id: \.self) { index in
@@ -167,7 +167,7 @@ extension SingleStep: View {
     /// - Returns: A new `SingleStep` with specific step id.
     public func customStepId(_ id: String) -> Self {
         var newSelf = self
-        newSelf._stepId = id
+        newSelf._id = id
         return newSelf
     }
 }

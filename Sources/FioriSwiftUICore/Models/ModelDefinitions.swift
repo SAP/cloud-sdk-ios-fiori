@@ -389,7 +389,7 @@ public protocol KPIHeaderItemModel {}
 public protocol SingleStepModel {
     // sourcery: default.value = UUID().uuidString
     // sourcery: no_view
-    var stepId: String { get set }
+    var id: String { get set }
     
     var title: String? { get }
     // sourcery: backingComponent=TextOrIconView

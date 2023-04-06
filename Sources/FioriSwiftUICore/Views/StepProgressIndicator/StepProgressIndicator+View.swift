@@ -102,8 +102,8 @@ public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActio
     ///   - action: Action for steps displayed on steps top-right that will show a vertical steps.
     init(selection: Binding<String>,
          stepItems: [StepItem],
-         @ViewBuilder title: @escaping () -> Title = { EmptyView() },
-         @ViewBuilder action: @escaping () -> ActionView = { EmptyView() })
+         @ViewBuilder title: @escaping () -> Title,
+         @ViewBuilder action: @escaping () -> ActionView)
     {
         self._selection = selection
         self.stepItems = stepItems
@@ -113,5 +113,48 @@ public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActio
         
         self._steps = _DefaultSteps(stepItems: stepItems,
                                     selection: selection)
+    }
+    
+    /// Convenience initialization for default step progress indicator.
+    /// - Parameters:
+    ///   - selection: A binding string for selected step id.
+    ///   - stepItems: An array of `StepItem` for default steps generation.
+    ///   - title: Title for current step displayed on steps top-left .
+    init(selection: Binding<String>,
+         stepItems: [StepItem],
+         @ViewBuilder title: @escaping () -> Title) where ActionView == EmptyView
+    {
+        self.init(selection: selection,
+                  stepItems: stepItems,
+                  title: title,
+                  action: { EmptyView() })
+    }
+    
+    /// Convenience initialization for default step progress indicator.
+    /// - Parameters:
+    ///   - selection: A binding string for selected step id.
+    ///   - stepItems: An array of `StepItem` for default steps generation.
+    ///   - action: Action for steps displayed on steps top-right that will show a vertical steps.
+    init(selection: Binding<String>,
+         stepItems: [StepItem],
+         @ViewBuilder action: @escaping () -> ActionView) where Title == EmptyView
+    {
+        self.init(selection: selection,
+                  stepItems: stepItems,
+                  title: { EmptyView() },
+                  action: action)
+    }
+    
+    /// Convenience initialization for default step progress indicator.
+    /// - Parameters:
+    ///   - selection: A binding string for selected step id.
+    ///   - stepItems: An array of `StepItem` for default steps generation.
+    init(selection: Binding<String>,
+         stepItems: [StepItem]) where Title == EmptyView, ActionView == EmptyView
+    {
+        self.init(selection: selection,
+                  stepItems: stepItems,
+                  title: { EmptyView() },
+                  action: { EmptyView() })
     }
 }

@@ -58,7 +58,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                     selection = stepItems[index].id
                 }
             } label: {
-                SingleStep(stepId: data.id, tappable: false) {
+                SingleStep(id: data.id, tappable: false) {
                     Text(data.title ?? "")
                 } node: {
                     ZStack {
@@ -69,7 +69,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                     .frame(width: nodeWidth, height: nodeHeight)
                     .overlay {
                         if state == .error || state == .errorActive {
-                            Image(systemName: "exclamationmark.triangle.fill")
+                            Image(systemName: "exclamationmark.circle.fill")
                                 .position(x: nodeWidth, y: 2)
                         }
                     }
@@ -91,14 +91,14 @@ public struct _DefaultSteps: IndexedViewContainer {
                     selection = data.id
                 }
             } label: {
-                SingleStep(stepId: data.id, tappable: false) {
+                SingleStep(id: data.id, tappable: false) {
                     Text(data.title ?? "")
                 } node: {
                     Group {
                         if state == .error {
-                            Image(systemName: "exclamationmark.triangle")
+                            Image(systemName: "exclamationmark.circle")
                         } else if state == .errorActive {
-                            Image(systemName: "exclamationmark.triangle.fill")
+                            Image(systemName: "exclamationmark.circle.fill")
                         } else if state == .active {
                             ZStack {
                                 node(by: state)

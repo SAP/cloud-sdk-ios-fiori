@@ -9,29 +9,29 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	@Environment(\.stepAxis) var stepAxis
 	@Environment(\.stepLineColor) var stepLineColor
 
-    var _stepId: String
+    var _id: String
 	let _title: Title
 	let _node: Node
 	let _substeps: Substeps
-	var tappable: Bool = true
 	var top: CGFloat = 8
-	var trailing: CGFloat = 8
-	@State var nodeAndLineSize: CGSize = .zero
-	var verticalSpacing: CGFloat = 8
-	var horizontalSpacing: CGFloat = 14
-	var leading: CGFloat = 8
+	var tappable: Bool = true
 	var bottom: CGFloat = 8
+	var leading: CGFloat = 8
+	@State var nodeAndLineSize: CGSize = .zero
+	var trailing: CGFloat = 8
+	var horizontalSpacing: CGFloat = 14
+	var verticalSpacing: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
 
     public init(
-        stepId: String = UUID().uuidString,
+        id: String = UUID().uuidString,
 		@ViewBuilder title: () -> Title,
 		@ViewBuilder node: () -> Node,
 		@IndexedViewBuilder substeps: () -> Substeps
         ) {
-            self._stepId = stepId
+            self._id = id
 			self._title = title()
 			self._node = node()
 			self._substeps = substeps()
@@ -65,11 +65,11 @@ extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
 		Substeps == _StepsContainer {
 
     public init(model: SingleStepModel) {
-        self.init(stepId: model.stepId, title: model.title, node: model.node, substeps: model.substeps)
+        self.init(id: model.id, title: model.title, node: model.node, substeps: model.substeps)
     }
 
-    public init(stepId: String = UUID().uuidString, title: String? = nil, node: TextOrIcon, substeps: [SingleStepModel] = []) {
-        self._stepId = stepId
+    public init(id: String = UUID().uuidString, title: String? = nil, node: TextOrIcon, substeps: [SingleStepModel] = []) {
+        self._id = id
 		self._title = title != nil ? ViewBuilder.buildEither(first: Text(title!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._node = TextOrIconView(node: node)
 		self._substeps = _StepsContainer(substeps: substeps)

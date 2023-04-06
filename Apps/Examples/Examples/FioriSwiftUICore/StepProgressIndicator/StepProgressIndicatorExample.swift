@@ -239,20 +239,20 @@ struct SPIExampleByBuilder: View {
                     Image(systemName: "chevron.right")
                 }
             }, steps: {
-                SingleStep(stepId: "1") {
+                SingleStep(id: "1") {
                     node("1")
                 } substeps: {
-                    SingleStep(stepId: "1.1") {
+                    SingleStep(id: "1.1") {
                         node("1.1")
                         
                     }.stepLineColor(Color.random)
                 }
                 .stepLineColor(Color.random)
 
-                SingleStep(stepId: "2") {
+                SingleStep(id: "2") {
                     node("2")
                 } substeps: {
-                    SingleStep(stepId: "2.1") {
+                    SingleStep(id: "2.1") {
                         node("2.1")
                     } substeps: {
                         SingleStep {
@@ -263,7 +263,7 @@ struct SPIExampleByBuilder: View {
                     }
                     .stepLineColor(Color.random)
                     
-                    SingleStep(stepId: "2.2") {
+                    SingleStep(id: "2.2") {
                         node("2.2")
                     } substeps: {
                         SingleStep {
