@@ -402,17 +402,17 @@ struct ItemView: View {
         let tapGesture = TapGesture()
             .onEnded { _ in
                 if self.layoutManager.model.editMode == .inline {
+                    // save text changes if an other cell is tapped
+                    if let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text {
+                        self.layoutManager.updateText(rowIndex: currentCell.0, columnIndex: currentCell.1)
+                    }
+                    
                     // header is not editable
                     if isHeader {
                         if self.layoutManager.currentCell != nil {
                             self.layoutManager.currentCell = nil
                         }
                         return
-                    }
-                    
-                    // save text changes if an other cell is tapped
-                    if let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text {
-                        self.layoutManager.updateText(rowIndex: currentCell.0, columnIndex: currentCell.1)
                     }
                     
                     self.layoutManager.currentCell = (self.rowIndex, self.columnIndex)
