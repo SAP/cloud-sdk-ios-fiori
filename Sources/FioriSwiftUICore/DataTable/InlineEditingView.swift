@@ -109,19 +109,6 @@ struct InlineEditingView: View {
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
         .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                
-                Button {
-                    self.updateText(self.editingText)
-                } label: {
-                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                        .font(.fiori(forTextStyle: .body).bold())
-                        .foregroundColor(Color.preferredColor(.tintColor))
-                }
-            }
-        }
         .onAppear {
             DispatchQueue.main.async {
                 self.focusState = true
@@ -130,6 +117,12 @@ struct InlineEditingView: View {
         .onChange(of: self.editingText, perform: { _ in
             self.layoutManager.cacheEditingText = self.editingText
         })
+        .onChange(of: self.focusState) { newValue in
+            // lost focus
+            if !newValue {
+                self.updateText(self.editingText)
+            }
+        }
     }
     
     func updateText(_ newValue: String) {
