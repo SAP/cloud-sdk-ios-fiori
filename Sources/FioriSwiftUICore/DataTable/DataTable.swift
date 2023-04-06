@@ -67,9 +67,9 @@ public struct DataTable: View {
                     .foregroundColor(Color.preferredColor(.tertiaryLabel))
                     .font(.fiori(forTextStyle: .body))
             } else if self.model.showListView {
-                TableListView(layoutManager: layoutManager)
+                TableListView(layoutManager: self.layoutManager)
             } else {
-                if !layoutManager.isLayoutFinished(rect.size) {
+                if !self.layoutManager.isLayoutFinished(rect.size) {
                     if #available(iOS 14.0, *) {
                         ProgressView().progressViewStyle(CircularProgressViewStyle())
                     } else {
@@ -77,23 +77,40 @@ public struct DataTable: View {
                         Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
                     }
                 } else {
-                    ScrollAndZoomView(layoutManager: layoutManager, size: rect.size)
+                    ScrollAndZoomView(layoutManager: self.layoutManager, size: rect.size)
                 }
             }
         }
         .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                
+                Button {
+                    // save text changes
+                    self.layoutManager.saveEditingTextChange()
+                } label: {
+                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
+                        .font(.fiori(forTextStyle: .body).bold())
+                        .foregroundColor(Color.preferredColor(.tintColor))
+                }
+            }
+        }
         .onReceive(Publishers.keyboardHeight) { keyboardHeight in
             self.layoutManager.keyboardHeight = keyboardHeight
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            if layoutManager.currentCell != nil {
-                layoutManager.currentCell = nil
+            // save text changes
+            self.layoutManager.saveEditingTextChange()
+            
+            if self.layoutManager.currentCell != nil {
+                self.layoutManager.currentCell = nil
             }
         }
-        .onChange(of: self.sizeCategory, perform: { newValue in
-            layoutManager.sizeCategory = newValue
-            layoutManager.layoutData = nil
-        })
+        .onChange(of: self.sizeCategory) { newValue in
+            self.layoutManager.sizeCategory = newValue
+            self.layoutManager.layoutData = nil
+        }
         .clipped()
         .environmentObject(self.layoutManager)
         .background(self.model.backgroundColor)

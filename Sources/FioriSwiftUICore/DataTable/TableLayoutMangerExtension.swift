@@ -66,7 +66,7 @@ extension TableLayoutManager {
             tmpLayoutData.allDataItems = tmpLayoutData.updatedItemsPos()
             
             DispatchQueue.main.async {
-                if self.model.editMode != .inline {
+                if self.cacheLayoutData == nil || self.model.editMode != .inline {
                     self.cacheLayoutData = tmpLayoutData.copy()
                 }
                 
@@ -205,7 +205,7 @@ extension TableLayoutManager {
         }
         
         return Group {
-            if textBindings.count == 2 && textBindings.keys.contains(.title) && textBindings.keys.contains(.subtitle) {
+            if textBindings.count == 2, textBindings.keys.contains(.title), textBindings.keys.contains(.subtitle) {
                 ObjectItem {
                     textBindings[.title]
                 } subtitle: {
@@ -254,10 +254,6 @@ extension TableLayoutManager {
     func visibleRowAndColumnIndexes() -> ([Int], [Int]) {
         guard let ld = layoutData else { return ([], []) }
         
-//        if model.needsCalculateLayout {
-//            return ([], [])
-//        }
-        
         let numbOfColumns = self.numberOfColumns()
         let numbOfRows = self.numberOfRows()
         
@@ -276,7 +272,7 @@ extension TableLayoutManager {
         let startPosY = tmpStartPosition.y / hUnit // * height
         
         var tempStartX: CGFloat = 0
-        var xStartIndex: Int = 0
+        var xStartIndex = 0
         var xEndIndex: Int = numbOfColumns - 1
         var foundStartIndex = false
         for (index, w) in ld.columnWidths.enumerated() {
@@ -294,7 +290,7 @@ extension TableLayoutManager {
         
         foundStartIndex = false
         var tempStartY: CGFloat = 0
-        var yStartIndex: Int = 0
+        var yStartIndex = 0
         var yEndIndex: Int = numbOfRows - 1
         for (index, h) in ld.rowHeights.enumerated() {
             tempStartY += (h * self.scaleY)
@@ -314,11 +310,21 @@ extension TableLayoutManager {
         var indexOfRows: [Int] = indexRangeOfRows.sorted()
         var indexOfColumns: [Int] = indexRangeOfColumn.sorted()
         
-        if self.model.isHeaderSticky, !indexOfRows.contains(0) {
+        /// add the row 0 to the end so it can be displayed on top of other rows
+        if self.model.isHeaderSticky {
+            if let index = indexOfRows.firstIndex(of: 0) {
+                indexOfRows.remove(at: index)
+            }
+            
             indexOfRows.append(0)
         }
         
-        if self.model.isFirstColumnSticky, !indexOfColumns.contains(0) {
+        /// add the column 0 to the end so it can be displayed on top of other columns
+        if self.model.isFirstColumnSticky {
+            if let index = indexOfColumns.firstIndex(of: 0) {
+                indexOfColumns.remove(at: index)
+            }
+            
             indexOfColumns.append(0)
         }
         

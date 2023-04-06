@@ -150,7 +150,7 @@ class TableLayoutManager: ObservableObject {
         
         guard let ld = layoutData, let cacheLd = cacheLayoutData else { return ([], [], false) }
         
-        var isThereRejectedErrors: Bool = false
+        var isThereRejectedErrors = false
         var changes: [DataTableChange] = []
         var newRowData: [TableRowItem] = ld.rowData
         
@@ -262,13 +262,14 @@ class TableLayoutManager: ObservableObject {
         }
         
         // update model
-        guard let ld = layoutData, cacheLayoutData != nil else { return [] }
+        guard let ld = layoutData else { return [] }
         
         // save text changes if an other cell is tapped
         if let tmpCell = cacheCurrentCell, ld.allDataItems[tmpCell.0][tmpCell.1].type == .text {
             self.updateText(rowIndex: tmpCell.0, columnIndex: tmpCell.1, updateItValidOnly: true)
         }
         
+        guard self.cacheLayoutData != nil else { return [] }
         let changeResult = self.queryInlineEditChanges(applyValidation: true, findFirstChangeThenReturn: false)
         let isThereRejectedErrors: Bool = changeResult.isThereRejectedErrors
         let changes: [DataTableChange] = changeResult.changes
@@ -290,6 +291,17 @@ class TableLayoutManager: ObservableObject {
             self.cacheLayoutData = self.layoutData?.copy()
         }
         return changes
+    }
+    
+    func saveEditingTextChange() {
+        // save text changes
+        guard self.model.editMode == .inline else { return }
+        
+        if let tmpCell = currentCell, let ld = layoutData, ld.allDataItems[tmpCell.0][tmpCell.1].type == .text {
+            self.updateText(rowIndex: tmpCell.0, columnIndex: tmpCell.1, updateItValidOnly: false)
+            
+            self.currentCell = nil
+        }
     }
     
     func updateText(rowIndex: Int, columnIndex: Int, updateItValidOnly: Bool = false) {

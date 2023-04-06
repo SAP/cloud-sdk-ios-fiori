@@ -113,7 +113,7 @@ class LayoutData {
         var res: [[DataTableItem]] = []
         var maxFirstBaselineHeights = [CGFloat]()
         // reset it
-        numOfErrors = 0
+        self.numOfErrors = 0
         for i in 0 ..< numbOfRows {
             if workItem?.isCancelled ?? false {
                 return ([[]], [])
@@ -239,11 +239,11 @@ class LayoutData {
     
     func getleadingAccessoryViewWidth() -> CGFloat {
         var width: CGFloat = 0
-        var icons: Int = 0
-        var buttons: Int = 0
+        var icons = 0
+        var buttons = 0
         for row in self.rowData {
-            var currentIcons: Int = 0
-            var currentButtons: Int = 0
+            var currentIcons = 0
+            var currentButtons = 0
             for item in row.leadingAccessories {
                 if case .button = item {
                     currentButtons += 1
@@ -495,6 +495,8 @@ class LayoutData {
                     }
                 } else if item.image != nil {
                     itemHeight = max(item.size.height, itemHeight)
+                    // update cell height
+                    self.allDataItems[rowIndex][columnIndex].rowHeight = item.size.height
                 }
             }
             
@@ -596,7 +598,7 @@ class LayoutData {
     
     func infinityColumnIndex() -> Int {
         // by default, the first column will expand to fill the space
-        var infinityIndex: Int = 0
+        var infinityIndex = 0
         for (index, columnAttribute) in self.columnAttributes.enumerated() {
             switch columnAttribute.width {
             case .infinity:
@@ -673,98 +675,352 @@ extension String {
     }
 }
 
-extension UIFont {
-    class func preferredFont(from font: Font) -> UIFont {
-        let uiFont: UIFont
+/**
+  Convert SwiftUI Font to UIFont using Swift's reflection API
+  Three types of SwiftUI Font conversion is supported. It includes system fonts, custom fonts and Fiori fonts.
+ `DataTable` use UIFont to meaure a String's bounding box
+  */
 
-        if #available(iOS 14.0, *) {
-            switch font {
-            /// fiori font
-            case .fiori(forTextStyle: .largeTitle):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .largeTitle)
-            case .fiori(forTextStyle: .title1):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title1)
-            case .fiori(forTextStyle: .title2):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title2)
-            case .fiori(forTextStyle: .title3):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title3)
-            case .fiori(forTextStyle: .headline):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .headline)
-            case .fiori(forTextStyle: .body):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .body)
-            case .fiori(forTextStyle: .callout):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .callout)
-            case .fiori(forTextStyle: .subheadline):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .subheadline)
-            case .fiori(forTextStyle: .footnote):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .footnote)
-            case .fiori(forTextStyle: .caption1):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .caption1)
-            case .fiori(forTextStyle: .caption2):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .caption2)
-            case .fiori(forTextStyle: .KPI):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .KPI)
-            case .fiori(forTextStyle: .largeKPI):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .largeKPI)
+/// used to store UIFont properties dumped from SwiftUI Font
+class UIFontInfo {
+    /// used to create UIFont other than Fiori fonts
+    var fontDescriptor: UIFontDescriptor
+    
+    /// below properties are used to create a Fiori font
+    var isItalic: Bool
+    var isBold: Bool
+    var isCondensed: Bool
+    var fontSize: CGFloat?
+    var textStyle: UIFont.TextStyle?
+    var weight: UIFont.Weight?
+    
+    init(fontDescriptor: UIFontDescriptor, isItalic: Bool = false, isBold: Bool = false, isCondensed: Bool = false, fontSize: CGFloat? = nil, textStyle: UIFont.TextStyle? = nil, weight: UIFont.Weight? = nil) {
+        self.fontDescriptor = fontDescriptor
+        self.isItalic = isItalic
+        self.isBold = isBold
+        self.isCondensed = isCondensed
+        self.fontSize = fontSize
+        self.textStyle = textStyle
+        self.weight = weight
+    }
+}
 
-            /// fiori condensed font
-            case .fioriCondensed(forTextStyle: .largeTitle):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .largeTitle, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .title1):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title1, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .title2):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title2, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .title3):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .title3, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .headline):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .headline, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .body):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .body, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .callout):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .callout, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .subheadline):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .subheadline, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .footnote):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .footnote, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .caption1):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .caption1, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .caption2):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .caption2, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .KPI):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .KPI, isCondensed: true)
-            case .fioriCondensed(forTextStyle: .largeKPI):
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .largeKPI, isCondensed: true)
-                
-            /// system font
-            case .largeTitle:
-                uiFont = UIFont.preferredFont(forTextStyle: .largeTitle)
-            case .title:
-                uiFont = UIFont.preferredFont(forTextStyle: .title1)
-            case .title2:
-                uiFont = UIFont.preferredFont(forTextStyle: .title2)
-            case .title3:
-                uiFont = UIFont.preferredFont(forTextStyle: .title3)
-            case .headline:
-                uiFont = UIFont.preferredFont(forTextStyle: .headline)
-            case .subheadline:
-                uiFont = UIFont.preferredFont(forTextStyle: .subheadline)
-            case .callout:
-                uiFont = UIFont.preferredFont(forTextStyle: .callout)
-            case .caption:
-                uiFont = UIFont.preferredFont(forTextStyle: .caption1)
-            case .caption2:
-                uiFont = UIFont.preferredFont(forTextStyle: .caption2)
-            case .footnote:
-                uiFont = UIFont.preferredFont(forTextStyle: .footnote)
-                
-            default:
-                uiFont = UIFont.preferredFioriFont(forTextStyle: .body)
+protocol FontProvider {
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo
+}
+
+extension FontProvider {
+    func font(with traitCollection: UITraitCollection?) -> UIFont {
+        let fi = fontInfo(with: traitCollection)
+        let fd = fi.fontDescriptor
+        let attributes = fd.fontAttributes
+        
+        // fiori fonts
+        if let fontName = attributes[.name] as? String, fontName.prefix(2) == "72" {
+            var isCondensed = fi.isCondensed
+            var weight = UIFont.Weight.regular
+            if let traits = attributes[.traits] as? NSDictionary, let tmpWeight = traits[UIFontDescriptor.TraitKey.weight] as? UIFont.Weight {
+                weight = tmpWeight
             }
-        } else {
-            uiFont = UIFont.preferredFioriFont(forTextStyle: .body)
+            
+            if fontName.prefix(12).caseInsensitiveCompare("72-condensed") == .orderedSame {
+                isCondensed = true
+            }
+            
+            if fi.isBold, weight.rawValue < UIFont.Weight.bold.rawValue {
+                weight = .bold
+            }
+            
+            if let style = fi.textStyle {
+                return UIFont.preferredFioriFont(forTextStyle: style, weight: weight.fiori72Weight, isItalic: fi.isItalic, isCondensed: isCondensed)
+            } else {
+                return UIFont.preferredFioriFont(fixedSize: fi.fontSize ?? 12, weight: weight.fiori72Weight, isItalic: fi.isItalic, isCondensed: isCondensed)
+            }
+        } else { // other fonts
+            return UIFont(descriptor: fd, size: 0)
+        }
+    }
+}
+
+protocol FontModifier {
+    func modify(_ fontInfo: inout UIFontInfo)
+}
+
+protocol StaticFontModifier: FontModifier {
+    init()
+}
+
+struct SystemProvider: FontProvider {
+    var size: CGFloat
+    var design: UIFontDescriptor.SystemDesign?
+    var weight: UIFont.Weight?
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        var fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body, compatibleWith: traitCollection)
+            .addingAttributes([
+                .size: self.size
+            ])
+        
+        if let design = design, let tmpFd = fd.withDesign(design) {
+            fd = tmpFd
+        }
+        
+        if let weight = weight {
+            fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
+            return UIFontInfo(fontDescriptor: fd, weight: weight)
+        }
+        
+        return UIFontInfo(fontDescriptor: fd, fontSize: self.size, weight: self.weight)
+    }
+}
+
+struct TextStyleProvider: FontProvider {
+    var textStyle: UIFont.TextStyle?
+    var design: UIFontDescriptor.SystemDesign?
+    var weight: UIFont.Weight?
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        var fd = UIFontDescriptor.preferredFontDescriptor(withTextStyle: self.textStyle ?? .body, compatibleWith: traitCollection)
+        if let design = design, let tmpFd = fd.withDesign(design) {
+            fd = tmpFd
         }
 
-        return uiFont
+        if let weight = weight {
+            fd = fd.addingAttributes([UIFontDescriptor.AttributeName.traits: [UIFontDescriptor.TraitKey.weight: weight]])
+            return UIFontInfo(fontDescriptor: fd, textStyle: self.textStyle, weight: weight)
+        }
+        
+        return UIFontInfo(fontDescriptor: fd, textStyle: self.textStyle, weight: self.weight)
+    }
+}
+
+struct NamedProvider: FontProvider {
+    var name: String
+    var size: CGFloat
+    var textStyle: UIFont.TextStyle?
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        if let textStyle = textStyle, size <= 34 {
+            let metrics = UIFontMetrics(forTextStyle: textStyle)
+            let fd = UIFontDescriptor(fontAttributes: [
+                .name: name,
+                .size: metrics.scaledValue(for: self.size, compatibleWith: traitCollection)
+            ])
+            
+            return UIFontInfo(fontDescriptor: fd, textStyle: textStyle)
+        } else {
+            let fd = UIFontDescriptor(fontAttributes: [
+                .name: name,
+                .size: size
+            ])
+            
+            return UIFontInfo(fontDescriptor: fd, fontSize: self.size)
+        }
+    }
+}
+
+struct StaticModifierProvider<M: StaticFontModifier>: FontProvider {
+    var base: FontProvider
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        var info = self.base.fontInfo(with: traitCollection)
+
+        M().modify(&info)
+
+        return info
+    }
+}
+
+struct WeightModifierProvider: FontProvider {
+    var base: FontProvider
+    var weight: UIFont.Weight?
+    
+    init(base: FontProvider, weight: UIFont.Weight?) {
+        self.base = base
+        self.weight = weight
+    }
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        let info = self.base.fontInfo(with: traitCollection)
+        info.fontDescriptor = info.fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: self.weight]])
+        info.weight = self.weight
+        
+        return info
+    }
+}
+
+struct WidthModifierProvider: FontProvider {
+    var base: FontProvider
+    var isCondensed: Bool
+    
+    init(base: FontProvider, isCondensed: Bool = false) {
+        self.base = base
+        self.isCondensed = isCondensed
+    }
+    
+    func fontInfo(with traitCollection: UITraitCollection?) -> UIFontInfo {
+        let info = self.base.fontInfo(with: traitCollection)
+//        info.fontDescriptor = info.fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]])
+        info.isCondensed = self.isCondensed
+//
+        return info
+//        base.fontInfo(with: traitCollection)
+    }
+}
+
+struct ItalicModifier: StaticFontModifier {
+    init() {}
+
+    func modify(_ fontInfo: inout UIFontInfo) {
+        if let fd = fontInfo.fontDescriptor.withSymbolicTraits(.traitItalic) {
+            fontInfo.fontDescriptor = fd
+        }
+        fontInfo.isItalic = true
+    }
+}
+
+struct BoldModifier: StaticFontModifier {
+    init() {}
+
+    func modify(_ fontInfo: inout UIFontInfo) {
+        if let fd = fontInfo.fontDescriptor.withSymbolicTraits(.traitBold) {
+            fontInfo.fontDescriptor = fd
+        }
+        fontInfo.isBold = true
+    }
+}
+
+/**
+ Convert SwiftUI Font to UIFont using Swift's reflection API
+ */
+extension UIFont {
+    class func resolveFontProvider(_ provider: Any) -> FontProvider? {
+        let mirror = Mirror(reflecting: provider)
+
+        switch String(describing: type(of: provider)) {
+        case "StaticModifierProvider<ItalicModifier>":
+            guard let base = mirror.descendant("base", "provider", "base") else {
+                return nil
+            }
+
+            return self.resolveFontProvider(base).map(StaticModifierProvider<ItalicModifier>.init)
+            
+        case "StaticModifierProvider<BoldModifier>":
+            guard let base = mirror.descendant("base", "provider", "base") else {
+                return nil
+            }
+            
+            return self.resolveFontProvider(base).map(StaticModifierProvider<BoldModifier>.init)
+        
+        case "ModifierProvider<WidthModifier>":
+            guard let base = mirror.descendant("base", "provider", "base") else {
+                return nil
+            }
+            
+            if let widthValue = mirror.descendant("modifier", "width") as? CGFloat {
+                #if swift(>=5.7.1)
+                    if #available(iOS 16.0, watchOS 9.0, *) {
+                        if abs(widthValue - Font.Width.condensed.value) < 0.01 {
+                            if let provider = resolveFontProvider(base) {
+                                return WidthModifierProvider(base: provider, isCondensed: true)
+                            } else {
+                                return nil
+                            }
+                        }
+                    }
+                #endif
+            }
+
+            return self.resolveFontProvider(base)
+            
+        case "ModifierProvider<WeightModifier>":
+            guard let base = mirror.descendant("base", "provider", "base") else {
+                return nil
+            }
+            
+            var weight = UIFont.Weight.regular
+            if let weightValue = mirror.descendant("modifier", "weight", "value") as? CGFloat {
+                let tmpWeight = UIFont.Weight(rawValue: weightValue)
+                weight = tmpWeight
+            }
+
+            if let provider = resolveFontProvider(base) {
+                return WeightModifierProvider(base: provider, weight: weight)
+            } else {
+                return nil
+            }
+            
+        case "SystemProvider":
+            guard let size = mirror.descendant("size") as? CGFloat else {
+                return nil
+            }
+            
+            var uiDesign: UIFontDescriptor.SystemDesign?
+            if let design = mirror.descendant("design") as? Font.Design {
+                uiDesign = design.uiDesign
+            }
+            var uiWeight: UIFont.Weight?
+            if let weight = mirror.descendant("weight") as? Font.Weight {
+                uiWeight = weight.uiWeight
+            }
+
+            return SystemProvider(size: size, design: uiDesign, weight: uiWeight)
+            
+        case "TextStyleProvider":
+            guard let textStyle = mirror.descendant("style") as? Font.TextStyle else {
+                return nil
+            }
+            
+            var uiDesign: UIFontDescriptor.SystemDesign?
+            if let design = mirror.descendant("design") as? Font.Design {
+                uiDesign = design.uiDesign
+            }
+            var uiWeight: UIFont.Weight?
+            if let weight = mirror.descendant("weight") as? Font.Weight {
+                uiWeight = weight.uiWeight
+            }
+            
+            return TextStyleProvider(textStyle: textStyle.uiTextStyle, design: uiDesign, weight: uiWeight)
+            
+        case "NamedProvider":
+            guard let name = mirror.descendant("name") as? String,
+                  let size = mirror.descendant("size") as? CGFloat
+            else {
+                return nil
+            }
+
+            var style: UIFont.TextStyle?
+            if let textStyle = mirror.descendant("textStyle") as? Font.TextStyle {
+                style = textStyle.uiTextStyle
+            }
+            
+            return NamedProvider(name: name, size: size, textStyle: style)
+            
+        default:
+            // Not exhaustive, more providers need to be handled here.
+            return nil
+        }
+    }
+    
+    class func resolveFont(_ font: Font) -> FontProvider? {
+        let mirror = Mirror(reflecting: font)
+        guard let provider = mirror.descendant("provider", "base") else {
+            return nil
+        }
+
+        return self.resolveFontProvider(provider)
+    }
+
+    /// Convert a SwiftUI font to a UIKit UIFont
+    /// Three types of SwiftUI Font conversion is supported. It includes system fonts, custom fonts and Fiori fonts.
+    /// In some cases, the converted UIFont may be slightly different than the original SwiftUI font.
+    ///
+    /// -- parameter font: The SwiftUI Font
+    /// -- parameter traitCollection: The traitCollection used to create UIFont
+    ///
+    /// - returns: an UIFont
+    public class func preferredFont(from font: Font, traitCollection: UITraitCollection? = nil) -> UIFont {
+        self.resolveFont(font)?.font(with: traitCollection) ?? UIFont.preferredFioriFont(forTextStyle: .body)
     }
 }
 
@@ -780,16 +1036,27 @@ extension UIFont {
     ///
     /// - returns: The font object with specified attributes.
     class func preferredFioriFont(forTextStyle textStyle: UIFont.TextStyle, weight: UIFont.Weight = .regular, isItalic: Bool = false, isCondensed: Bool = false) -> UIFont {
-        guard var font = UIFont(name: get72FontName(weight: weight.fioriWeight), size: textStyle.size) else {
-            var font = UIFont.preferredFont(forTextStyle: textStyle).withWeight(weight)
-            
-            if isItalic {
-                font = font.italic
-            }
-            if isCondensed {
-                font = font.with(.traitCondensed)
-            }
-            
+        var symbolicTraits: UIFontDescriptor.SymbolicTraits = []
+        if isItalic {
+            symbolicTraits.formUnion(.traitItalic)
+        } else if isCondensed {
+            symbolicTraits.formUnion(.traitCondensed)
+        }
+
+        var traits: [UIFontDescriptor.TraitKey: Any] = [.symbolic: symbolicTraits.rawValue]
+        var fontAttributes: [UIFontDescriptor.AttributeName: Any] = [:]
+        if UIFont.is72FontsAvailable {
+            traits[.weight] = weight.getFioriWeight(isItalic: isItalic, isCondensed: isCondensed)
+            fontAttributes[.family] = "72"
+            fontAttributes[.size] = textStyle.size
+        } else {
+            traits[.weight] = weight
+            fontAttributes = UIFontDescriptor.preferredFontDescriptor(withTextStyle: textStyle).fontAttributes
+        }
+        fontAttributes[.traits] = traits
+
+        let font = UIFont(descriptor: UIFontDescriptor(fontAttributes: fontAttributes), size: 0)
+        if !UIFont.is72FontsAvailable {
             return font
         }
         
@@ -799,16 +1066,8 @@ extension UIFont {
         } else {
             metrics = UIFontMetrics(forTextStyle: textStyle)
         }
-        
-        if isItalic {
-            font = font.italic
-        }
-        if isCondensed {
-            font = font.with(.traitCondensed)
-        }
-        
+
         let scaledFont = metrics.scaledFont(for: font)
-        
         return scaledFont
     }
     
@@ -823,97 +1082,38 @@ extension UIFont {
     ///
     /// - returns: The font object with fixed size.
     class func preferredFioriFont(fixedSize size: CGFloat, weight: UIFont.Weight = .regular, isItalic: Bool = false, isCondensed: Bool = false) -> UIFont {
-        guard var font = UIFont(name: get72FontName(weight: weight.fioriWeight), size: size) else {
-            var font = UIFont.systemFont(ofSize: size, weight: weight)
-            
-            if isItalic {
-                font = font.italic
-            }
-            if isCondensed {
-                font = font.with(.traitCondensed)
-            }
-            
-            return font
-        }
-        
+        var symbolicTraits: UIFontDescriptor.SymbolicTraits = []
         if isItalic {
-            font = font.italic
+            symbolicTraits.formUnion(.traitItalic)
+        } else if isCondensed {
+            symbolicTraits.formUnion(.traitCondensed)
         }
-        if isCondensed {
-            font = font.with(.traitCondensed)
+
+        var traits: [UIFontDescriptor.TraitKey: Any] = [.symbolic: symbolicTraits.rawValue]
+        var fontAttributes: [UIFontDescriptor.AttributeName: Any] = [:]
+        if UIFont.is72FontsAvailable {
+            traits[.weight] = weight.getFioriWeight(isItalic: isItalic, isCondensed: isCondensed)
+            fontAttributes[.family] = "72"
+        } else {
+            traits[.weight] = weight
+            fontAttributes = UIFont.systemFont(ofSize: size).fontDescriptor.fontAttributes
         }
-        
+        fontAttributes[.size] = size
+        fontAttributes[.traits] = traits
+
+        let font = UIFont(descriptor: UIFontDescriptor(fontAttributes: fontAttributes), size: 0)
         return font
-    }
-    
-    static func get72FontName(weight: UIFont.Weight) -> String {
-        let description: String
-        
-        switch weight {
-        case .black:
-            description = "black"
-        case .heavy:
-            description = "heavy"
-        case .bold:
-            description = "bold"
-        case .semibold:
-            description = "semibold"
-        case .medium:
-            description = "medium"
-        case .regular:
-            description = "regular"
-        case .light:
-            description = "light"
-        case .thin:
-            description = "thin"
-        case .ultraLight:
-            description = "ultraLight"
-        default:
-            description = "Unknown"
-        }
-
-        if weight == .black {
-            return "72\(description)"
-        }
-        
-        return "72-\(description)"
-    }
-}
-
-extension UIFont {
-    var bold: UIFont {
-        self.with(.traitBold)
-    }
-
-    var italic: UIFont {
-        self.with(.traitItalic)
-    }
-
-    var boldItalic: UIFont {
-        self.with([.traitBold, .traitItalic])
-    }
-
-    func with(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
-        guard let descriptor = self.fontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits(traits).union(self.fontDescriptor.symbolicTraits)) else {
-            return self
-        }
-        return UIFont(descriptor: descriptor, size: 0)
-    }
-
-    func without(_ traits: UIFontDescriptor.SymbolicTraits...) -> UIFont {
-        guard let descriptor = self.fontDescriptor.withSymbolicTraits(self.fontDescriptor.symbolicTraits.subtracting(UIFontDescriptor.SymbolicTraits(traits))) else {
-            return self
-        }
-        return UIFont(descriptor: descriptor, size: 0)
-    }
-    
-    func withWeight(_ weight: UIFont.Weight) -> UIFont {
-        let newDescriptor = fontDescriptor.addingAttributes([.traits: [UIFontDescriptor.TraitKey.weight: weight]])
-        return UIFont(descriptor: newDescriptor, size: 0)
     }
 }
  
-public extension UIFont.TextStyle {
+extension UIFont {
+    // Check if 72 fonts are registed.
+    static var is72FontsAvailable: Bool {
+        UIFont.familyNames.contains("72")
+    }
+}
+
+extension UIFont.TextStyle {
     /// KPI text style.
     static let KPI = UIFont.TextStyle(rawValue: "com.sap.sdk.ios.SAPFiori.TextStyle.KPI")
     
@@ -957,8 +1157,12 @@ extension UIFont.TextStyle {
 }
 
 extension UIFont.Weight {
+    func getFioriWeight(isItalic: Bool, isCondensed: Bool) -> UIFont.Weight {
+        isItalic ? self.italicWeight : (isCondensed ? self.condensedWeight : self.fioriWeight)
+    }
+    
     // Available 72 weights
-    var fioriWeight: UIFont.Weight {
+    private var fioriWeight: UIFont.Weight {
         switch self {
         case .heavy, .black:
             return .black
@@ -970,6 +1174,141 @@ extension UIFont.Weight {
             return .light
         default:
             return .regular
+        }
+    }
+    
+    private var italicWeight: UIFont.Weight {
+        switch self.fioriWeight {
+        case .black, .bold:
+            return .bold
+        default:
+            return .regular
+        }
+    }
+    
+    private var condensedWeight: UIFont.Weight {
+        switch self.fioriWeight {
+        case .black, .bold:
+            return .bold
+        default:
+            return .regular
+        }
+    }
+    
+    // Available 72 weights
+    var fiori72Weight: UIFont.Weight {
+        if rawValue >= 0.56 { // heavy & black; use black
+            return .black
+        } else if rawValue >= 0.23 { // .medium, .semibold, .bold; use bold
+            return .bold
+        } else if rawValue < 0 { // .ultraLight, .thin, .light; use light
+            return .light
+        } else { // regular
+            return .regular
+        }
+    }
+    
+    var fioriDescription: String {
+        let name: String
+        
+        switch self {
+        case .black:
+            name = "black"
+        case .heavy:
+            name = "heavy"
+        case .bold:
+            name = "bold"
+        case .semibold:
+            name = "semibold"
+        case .medium:
+            name = "medium"
+        case .regular:
+            name = "regular"
+        case .light:
+            name = "light"
+        case .thin:
+            name = "thin"
+        case .ultraLight:
+            name = "ultraLight"
+        default:
+            name = "Unknown"
+        }
+        
+        return name
+    }
+}
+
+extension Font.TextStyle {
+    var uiTextStyle: UIFont.TextStyle {
+        switch self {
+        case .largeTitle:
+            return UIFont.TextStyle.largeTitle
+        case .title:
+            return UIFont.TextStyle.title1
+        case .title2:
+            return UIFont.TextStyle.title2
+        case .title3:
+            return UIFont.TextStyle.title3
+        case .headline:
+            return UIFont.TextStyle.headline
+        case .subheadline:
+            return UIFont.TextStyle.subheadline
+        case .body:
+            return UIFont.TextStyle.body
+        case .callout:
+            return UIFont.TextStyle.callout
+        case .footnote:
+            return UIFont.TextStyle.footnote
+        case .caption:
+            return UIFont.TextStyle.caption1
+        case .caption2:
+            return UIFont.TextStyle.caption2
+        @unknown default:
+            return UIFont.TextStyle.body
+        }
+    }
+}
+
+extension Font.Weight {
+    var uiWeight: UIFont.Weight {
+        switch self {
+        case .ultraLight:
+            return UIFont.Weight.ultraLight
+        case .thin:
+            return UIFont.Weight.thin
+        case .light:
+            return UIFont.Weight.light
+        case .regular:
+            return UIFont.Weight.regular
+        case .medium:
+            return UIFont.Weight.medium
+        case .semibold:
+            return UIFont.Weight.semibold
+        case .bold:
+            return UIFont.Weight.bold
+        case .heavy:
+            return UIFont.Weight.heavy
+        case .black:
+            return UIFont.Weight.black
+        default:
+            return UIFont.Weight.regular
+        }
+    }
+}
+
+extension Font.Design {
+    var uiDesign: UIFontDescriptor.SystemDesign {
+        switch self {
+        case .default:
+            return UIFontDescriptor.SystemDesign.default
+        case .monospaced:
+            return UIFontDescriptor.SystemDesign.monospaced
+        case .rounded:
+            return UIFontDescriptor.SystemDesign.rounded
+        case .serif:
+            return UIFontDescriptor.SystemDesign.serif
+        default:
+            return UIFontDescriptor.SystemDesign.default
         }
     }
 }
