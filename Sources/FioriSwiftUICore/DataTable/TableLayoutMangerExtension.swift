@@ -66,7 +66,7 @@ extension TableLayoutManager {
             tmpLayoutData.allDataItems = tmpLayoutData.updatedItemsPos()
             
             DispatchQueue.main.async {
-                if self.model.editMode != .inline {
+                if self.cacheLayoutData == nil || self.model.editMode != .inline {
                     self.cacheLayoutData = tmpLayoutData.copy()
                 }
                 

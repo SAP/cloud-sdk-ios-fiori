@@ -30,6 +30,9 @@ struct LeadingAccessoryView: View {
                 switch items[index] {
                 case .button(let button):
                     Button(action: {
+                        // save text changes
+                        self.layoutManager.saveEditingTextChange()
+                        
                         button.action()
                     }) {
                         button.image?
@@ -57,6 +60,10 @@ struct LeadingAccessoryView: View {
                height: self.layoutData.rowHeights[self.rowIndex] * self.layoutManager.scaleY)
         .background(self.layoutManager.model.editMode == .select && self.isSelected ? Color.preferredColor(.informationBackground) : Color.clear)
         .background(self.layoutManager.model.backgroundColor)
+        .onTapGesture {
+            // save text changes
+            self.layoutManager.saveEditingTextChange()
+        }
     }
     
     func makeSectionButton(layoutData: LayoutData) -> some View {
