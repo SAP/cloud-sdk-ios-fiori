@@ -58,4 +58,42 @@ class StyleSheetParserTests: XCTestCase {
         
         XCTAssertNotEqual(styleSheet.globalDefinitions.keys.count, 0)
     }
+    
+    func testBCP2370020386() throws {
+        XCTAssertNoThrow(try? StyleSheetSettings.loadStylesheetByURL(url: Bundle.module.url(forResource: "BCP2370020386", withExtension: "nss")!))
+        
+        #if os(iOS)
+        // tintColor light variant
+        var tintColor = Color.preferredColor(.tintColor, background: .darkConstant, interface: .baseConstant, display: .normalConstant).toHex()
+        XCTAssertEqual(tintColor!, "0CBB74", "Incorrect tintColor light variant")
+        
+        // tintColor dark variant
+        tintColor = Color.preferredColor(.tintColor, background: .lightConstant, interface: .baseConstant, display: .normalConstant).toHex()
+        XCTAssertEqual(tintColor!, "0070F2", "Incorrect tintColor dark variant")
+        
+        // tintColor elevatedLight variant
+        tintColor = Color.preferredColor(.tintColor, background: .darkConstant, interface: .elevatedConstant, display: .normalConstant).toHex()
+        XCTAssertEqual(tintColor!, "0CBB74", "Incorrect tintColor elevatedLight variant")
+        
+        // tintColor elevatedDark variant
+        tintColor = Color.preferredColor(.tintColor, background: .lightConstant, interface: .elevatedConstant, display: .normalConstant).toHex()
+        XCTAssertEqual(tintColor!, "0070F2", "Incorrect tintColor elevatedDark variant")
+        
+        // tintColor contrastLight variant
+        tintColor = Color.preferredColor(.tintColor, background: .darkConstant, interface: .baseConstant, display: .highConstant).toHex()
+        XCTAssertEqual(tintColor!, "0CBB74", "Incorrect tintColor contrastLight variant")
+        
+        // tintColor contrastDark variant
+        tintColor = Color.preferredColor(.tintColor, background: .lightConstant, interface: .baseConstant, display: .highConstant).toHex()
+        XCTAssertEqual(tintColor!, "0046A8", "Incorrect tintColor contrastDark variant")
+        
+        // tintColor elevatedContrastLight variant
+        tintColor = Color.preferredColor(.tintColor, background: .darkConstant, interface: .elevatedConstant, display: .highConstant).toHex()
+        XCTAssertEqual(tintColor!, "0CBB74", "Incorrect tintColor elevatedContrastLight variant")
+        
+        // tintColor elevatedContrastDark variant
+        tintColor = Color.preferredColor(.tintColor, background: .lightConstant, interface: .elevatedConstant, display: .highConstant).toHex()
+        XCTAssertEqual(tintColor!, "0070F2", "Incorrect tintColor elevatedContrastDark variant")
+        #endif
+    }
 }

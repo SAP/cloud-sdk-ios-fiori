@@ -229,6 +229,10 @@ public class ThemeManager {
                     return "contrastDarkBackground"
                 case .contrastDark:
                     return "contrastLightBackground"
+                case .elevatedContrastLight:
+                    return "elevatedContrastDarkBackground"
+                case .elevatedContrastDark:
+                    return "elevatedContrastLightkBackground"
                 default:
                     return "darkBackground"
                 }
