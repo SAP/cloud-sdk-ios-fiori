@@ -198,6 +198,12 @@ public protocol ProgressIndicatorComponent {
     var progressIndicatorText: String? { get }
 }
 
+public protocol SingleStepComponent {
+    var title: String? { get }
+	// sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
+}
+
 public protocol TextInputComponent : AnyObject {
 	// sourcery: bindingPropertyOptional=.constant("")
     var textInputValue: String { get set }
