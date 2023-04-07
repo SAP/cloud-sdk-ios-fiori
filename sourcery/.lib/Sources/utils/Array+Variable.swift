@@ -314,7 +314,11 @@ extension Array where Element: Variable {
                         output.append("@ViewBuilder \(variable.trimmedName): () -> \(variable.genericParameterName)")
                     }
                 } else {
-                    output.append("\(variable.trimmedName): \(variable.typeName)\(variable.emptyDefault)")
+                    if variable.annotations["bindingProperty"] != nil {
+                        output.append("\(variable.trimmedName): Binding<\(variable.typeName)>")
+                    } else {
+                        output.append("\(variable.trimmedName): \(variable.typeName)\(variable.emptyDefault)")
+                    }
                 }
             }
         }

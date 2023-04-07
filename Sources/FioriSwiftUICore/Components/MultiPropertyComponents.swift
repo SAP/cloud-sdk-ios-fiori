@@ -53,3 +53,9 @@ internal protocol _DurationPicker: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: default.value = MeasurementFormatter()
     var measurementFormatter: MeasurementFormatter { get set }
 }
+
+internal protocol _SingleStep: _ComponentMultiPropGenerating {
+    var title: String? { get }
+    // sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
+}
