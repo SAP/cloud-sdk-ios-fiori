@@ -43,7 +43,8 @@ let package = Package(
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS])),
                 .target(name: "FioriCharts", condition: .when(platforms: [.iOS]))
             ],
-            resources: [.process("FioriSwiftUICore.strings")]
+            resources: [.process("FioriSwiftUICore.strings"),
+                        .process("Resources/FioriIcon.xcassets")]
         ),
         .target(
             name: "FioriThemeManager",
