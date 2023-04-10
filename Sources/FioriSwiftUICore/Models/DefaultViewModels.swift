@@ -105,4 +105,12 @@ public let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> 
     }
 }
 
+public struct _AllStepsActionDefault: ActionModel {
+    public var actionText: String? {
+        nil
+    }
+
+    public init() {}
+}
+
 private let fioriSwiftUICoreBundle = Bundle.accessor
