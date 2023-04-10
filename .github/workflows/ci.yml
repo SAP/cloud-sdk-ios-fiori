@@ -4,8 +4,6 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
-  pull_request_target:
   workflow_dispatch:
 
 jobs:
@@ -40,7 +38,7 @@ jobs:
 
   sonar:
     needs: build
-    if: github.event_name == 'push' || github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
+    if: github.event_name == 'push' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -55,3 +53,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+
+  build_watch:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run tests on Apple Watch simulator
+      run: set -o pipefail && make test_watch

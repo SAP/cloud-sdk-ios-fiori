@@ -184,6 +184,12 @@ public extension SecondaryValuesAxisTitleComponent {
     }
 }
 
+public extension SingleStepComponent {
+    var title: String? {
+        return nil
+    }
+}
+
 public extension StatusComponent {
     var status: TextOrIcon? {
         return nil
