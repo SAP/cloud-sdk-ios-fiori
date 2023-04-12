@@ -31,7 +31,7 @@ extension StepProgressIndicator: View {
     public var body: some View {
         switch axis {
         case .horizontal:
-            VStack {
+            VStack(spacing: 0) {
                 stepsHeader
                 stepsContainer
             }
@@ -59,7 +59,7 @@ extension StepProgressIndicator: View {
         if isActionEmptyView && isTitleEmptyView {
             EmptyView()
         } else {
-            HStack(alignment: .top) {
+            HStack(alignment: .center) {
                 title
                 Spacer()
                 Button {
@@ -68,6 +68,7 @@ extension StepProgressIndicator: View {
                     action
                 }
             }
+            .frame(minHeight: 44)
             .sheet(isPresented: $isPresented) {
                 verticalSteps()
             }
