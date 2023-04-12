@@ -120,11 +120,6 @@ struct CoreContentView: View {
                 {
                     Text("EmptyStateViewExample")
                 }
-                NavigationLink(
-                    destination: IconLibraryExample())
-                {
-                    Text("IconLibrary")
-                }
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }

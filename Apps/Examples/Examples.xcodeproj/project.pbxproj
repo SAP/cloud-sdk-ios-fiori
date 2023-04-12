@@ -384,6 +384,7 @@
 		1FC3040F2705409C004BEE00 /* FioriThemeManager */ = {
 			isa = PBXGroup;
 			children = (
+				993B55BD29DF7EC70002B065 /* IconLibraryExample.swift */,
 				1FC30411270540FB004BEE00 /* 72-Fonts.swift */,
 				1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */,
 				8A6DE30A28DD27F9003222E3 /* Colors.swift */,
@@ -499,7 +500,6 @@
 			isa = PBXGroup;
 			children = (
 				B100639129C0623300AF0CA2 /* StepProgressIndicator */,
-				993B55BC29DF7E8B0002B065 /* IconLibrary */,
 				108E43D3292DAB3E006532F3 /* EmptyStateView */,
 				B1D41B1E291A2D2E004E64A5 /* Picker */,
 				B8239D8626815C11003455D2 /* ContactItem */,
@@ -611,14 +611,6 @@
 				975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */,
 			);
 			path = SignatureView;
-			sourceTree = "<group>";
-		};
-		993B55BC29DF7E8B0002B065 /* IconLibrary */ = {
-			isa = PBXGroup;
-			children = (
-				993B55BD29DF7EC70002B065 /* IconLibraryExample.swift */,
-			);
-			path = IconLibrary;
 			sourceTree = "<group>";
 		};
 		AB988B11263128C400483D87 /* DataTable */ = {

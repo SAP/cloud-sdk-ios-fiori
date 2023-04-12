@@ -43,14 +43,14 @@ let package = Package(
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS])),
                 .target(name: "FioriCharts", condition: .when(platforms: [.iOS]))
             ],
-            resources: [.process("FioriSwiftUICore.strings"),
-                        .process("Resources/FioriIcon.xcassets")]
+            resources: [.process("FioriSwiftUICore.strings")]
         ),
         .target(
             name: "FioriThemeManager",
             dependencies: [],
             resources: [
-                .process("72-Fonts/Resources")
+                .process("72-Fonts/Resources"),
+                .process("FioriIcons/Resources/FioriIcon.xcassets")
             ]
         ),
         .testTarget(

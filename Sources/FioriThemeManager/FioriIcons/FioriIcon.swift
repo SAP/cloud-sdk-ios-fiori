@@ -1,6 +1,6 @@
-
 import SwiftUI
 
+/// Public list of icons available for reference by the Developer.
 public enum FioriIcon {
     /// Images representing actions
     public enum actions {
@@ -683,6 +683,7 @@ public enum FioriIcon {
     }
 }
 
+/// Initializer in Image extension to allow developers to access by fiori icon name
 public extension Image {
     init?(fioriName: String) {
         self.init(fioriName, bundle: Bundle.module)
