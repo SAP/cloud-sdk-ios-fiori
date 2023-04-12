@@ -80,6 +80,7 @@
 		975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */; };
 		993A122E26A726AC0018028B /* PrivacyText.html in Resources */ = {isa = PBXBuildFile; fileRef = 993A122C26A726AC0018028B /* PrivacyText.html */; };
 		993A122F26A726AC0018028B /* PrivacyText.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 993A122D26A726AC0018028B /* PrivacyText.rtf */; };
+		993B55BE29DF7EC70002B065 /* IconLibraryExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B55BD29DF7EC70002B065 /* IconLibraryExample.swift */; };
 		99942D572616980A001912C5 /* OnboardingExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D562616980A001912C5 /* OnboardingExamples.swift */; };
 		99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99942D58261698FC001912C5 /* InfoViewSample.swift */; };
 		9996CCFF262EB4E8001B99AE /* EULAText.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CCFD262EB4E7001B99AE /* EULAText.html */; };
@@ -260,6 +261,7 @@
 		975CB76A256C5A7400DB7A15 /* SignatureCaptureViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureCaptureViewExample.swift; sourceTree = "<group>"; };
 		993A122C26A726AC0018028B /* PrivacyText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PrivacyText.html; sourceTree = "<group>"; };
 		993A122D26A726AC0018028B /* PrivacyText.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = PrivacyText.rtf; sourceTree = "<group>"; };
+		993B55BD29DF7EC70002B065 /* IconLibraryExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconLibraryExample.swift; sourceTree = "<group>"; };
 		99942D562616980A001912C5 /* OnboardingExamples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingExamples.swift; sourceTree = "<group>"; };
 		99942D58261698FC001912C5 /* InfoViewSample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoViewSample.swift; sourceTree = "<group>"; };
 		9996CCFD262EB4E7001B99AE /* EULAText.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = EULAText.html; sourceTree = "<group>"; };
@@ -382,6 +384,7 @@
 		1FC3040F2705409C004BEE00 /* FioriThemeManager */ = {
 			isa = PBXGroup;
 			children = (
+				993B55BD29DF7EC70002B065 /* IconLibraryExample.swift */,
 				1FC30411270540FB004BEE00 /* 72-Fonts.swift */,
 				1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */,
 				8A6DE30A28DD27F9003222E3 /* Colors.swift */,
@@ -872,6 +875,7 @@
 				B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */,
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
+				993B55BE29DF7EC70002B065 /* IconLibraryExample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
 				B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */,
 				108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */,
