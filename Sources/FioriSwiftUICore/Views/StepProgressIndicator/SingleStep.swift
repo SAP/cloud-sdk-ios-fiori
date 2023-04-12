@@ -100,11 +100,15 @@ extension SingleStep: View {
                         nodeAndLineSize = size
                     }
                 }
-                Spacer().frame(height: verticalSpacing)
-                title
-                    .frame(width: nodeAndLineSize.width, alignment: .leading)
-                    .lineLimit(2)
-                Spacer().frame(height: bottom)
+                if isTitleEmptyView {
+                    Spacer().frame(height: bottom)
+                } else {
+                    Spacer().frame(height: verticalSpacing)
+                    title
+                        .frame(width: nodeAndLineSize.width, alignment: .leading)
+                        .lineLimit(2)
+                    Spacer().frame(height: bottom)
+                }
             }
         case .vertical:
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
