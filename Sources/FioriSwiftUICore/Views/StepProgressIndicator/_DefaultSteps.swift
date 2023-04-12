@@ -59,7 +59,11 @@ public struct _DefaultSteps: IndexedViewContainer {
                 }
             } label: {
                 SingleStep(id: data.id, tappable: false) {
-                    Text(data.title ?? "")
+                    if let title = data.title {
+                        Text(title)
+                    } else {
+                        EmptyView()
+                    }
                 } node: {
                     ZStack {
                         node(by: state)
@@ -92,7 +96,11 @@ public struct _DefaultSteps: IndexedViewContainer {
                 }
             } label: {
                 SingleStep(id: data.id, tappable: false) {
-                    Text(data.title ?? "")
+                    if let title = data.title {
+                        Text(title)
+                    } else {
+                        EmptyView()
+                    }
                 } node: {
                     Group {
                         if state == .error {
