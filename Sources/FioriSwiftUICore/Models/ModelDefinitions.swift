@@ -373,3 +373,58 @@ public protocol SearchableListViewModel {
 }
 
 public protocol KPIHeaderItemModel {}
+
+// sourcery: add_env_props = "stepLineColor"
+// sourcery: add_env_props = "stepAxis"
+// sourcery: add_env_props = "currentStepId"
+// sourcery: virtualPropWithGesture = "var tappable: Bool = true"
+// sourcery: virtualPropTop = "var top: CGFloat = 8"
+// sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
+// sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
+// sourcery: virtualPropLeading = "var leading: CGFloat = 8"
+// sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
+// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
+// sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
+// sourcery: generated_component_composite
+public protocol SingleStepModel {
+    // sourcery: default.value = UUID().uuidString
+    // sourcery: no_view
+    var id: String { get set }
+    
+    var title: String? { get }
+    // sourcery: backingComponent=TextOrIconView
+    var node: TextOrIcon { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=_StepsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var substeps: [SingleStepModel] { get }
+}
+
+// sourcery: add_env_props = "presentationMode"
+// sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
+// sourcery: virtualPropStepsData = "var stepItems: [StepItem] = []"
+// sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
+// sourcery: generated_component_composite
+public protocol StepProgressIndicatorModel: AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: no_view
+    var selection: String { get set }
+    
+    var title: String? { get }
+    
+    // sourcery: genericParameter.name = ActionView
+    // sourcery: default.value = _AllStepsActionDefault()
+    var action: ActionModel? { get }
+    
+    // sourcery: no_style
+    // sourcery: backingComponent=_StepsContainer
+    // sourcery: customFunctionBuilder=IndexedViewBuilder
+    // sourcery: genericParameter.type=IndexedViewContainer
+    var steps: [SingleStepModel] { get }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+}

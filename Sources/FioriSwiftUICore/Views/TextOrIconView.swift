@@ -17,6 +17,10 @@ public struct TextOrIconView: View {
         self.content = substatus
     }
     
+    init(node: TextOrIcon) {
+        self.content = node
+    }
+    
     @ViewBuilder
     public var body: some View {
         if content != nil {

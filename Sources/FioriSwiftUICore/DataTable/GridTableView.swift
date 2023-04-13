@@ -43,21 +43,21 @@ struct BannerView: View {
                 Spacer()
                 
                 Image(systemName: "exclamationmark.triangle")
-                    .foregroundColor(data.level.tintColor)
+                    .foregroundColor(self.data.level.tintColor)
                     .fixedSize()
                     .frame(width: 16, height: 18)
                     
                 Spacer().frame(width: 6)
-                Text(data.title)
+                Text(self.data.title)
                     .font(.fiori(forTextStyle: .footnote))
-                    .foregroundColor(data.level.tintColor)
+                    .foregroundColor(self.data.level.tintColor)
                 
                 Spacer()
             }
             
             Button {
-                action?()
-                showBanner = false
+                self.action?()
+                self.showBanner = false
             } label: {
                 Image(systemName: "xmark")
                     .foregroundColor(Color.preferredColor(.quaternaryLabel))
@@ -79,12 +79,12 @@ struct BannerViewModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.overlay(
             Group {
-                if isPresented {
+                if self.isPresented {
                     VStack {
                         Color.preferredColor(.negativeLabel).frame(height: 4)
                         
-                        BannerView(data: data, showBanner: $isPresented)
-                            .animation(.easeInOut)
+                        BannerView(data: self.data, showBanner: self.$isPresented)
+                            .animation(.easeOut, value: self.isPresented)
                             .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
                         
                         Color.preferredColor(.primaryLabel).frame(height: 0.33).opacity(0.7)
@@ -378,7 +378,7 @@ struct InternalGridTableView: View {
     /// observe this to make DataListItem refresh to show/hide the chevron icon when it enters in/out of the inline edit mode
     @ObservedObject var model: TableModel
     @State var showBanner: Bool = true
-    
+
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
         self.model = layoutManager.model
@@ -401,18 +401,24 @@ struct InternalGridTableView: View {
     
     func makeRootBody(_ size: CGSize) -> some View {
         Group {
-            if size == .zero || !layoutManager.isLayoutFinished(layoutManager.size) {
+            if size == .zero || !self.layoutManager.isLayoutFinished(self.layoutManager.size) {
                 EmptyView()
             } else {
                 ZStack(alignment: .top) {
-                    makeBody(size)
-                        .banner(isPresented: $showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
+                    self.makeBody(size)
+                        .banner(isPresented: self.$showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
                     
-                    // show the textfield
-                    if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
-                        InlineEditingView(layoutManager: layoutManager, showBanner: $showBanner)
-                            .id("\(cellIndex.0), \(cellIndex.1)")
-                            .position(textFieldPosition(layoutManager.size))
+                    // show the focused textfield or other type of inline editing view
+                    if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, layoutManager.model.editMode == .inline {
+                        if ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
+                            InlineEditingView(layoutManager: self.layoutManager, layoutData: ld, showBanner: self.$showBanner)
+                                .id("\(cellIndex.0), \(cellIndex.1)")
+                                .position(self.focusedCellPosition(self.layoutManager.size))
+                        } else {
+                            FocusedEditingView(rowIndex: cellIndex.0, columnIndex: cellIndex.1, layoutManager: self.layoutManager, layoutData: ld, showBanner: self.$showBanner)
+                                .id("\(cellIndex.0), \(cellIndex.1)")
+                                .position(self.focusedCellPosition(self.layoutManager.size))
+                        }
                     }
                 }
                 .frame(width: size.width, height: size.height)
@@ -420,7 +426,57 @@ struct InternalGridTableView: View {
         }
     }
     
-    // swiftlint:disable force_unwrapping function_body_length
+    func itemViewId(rowIndex: Int, columnIndex: Int) -> String {
+        var result = "\(rowIndex), \(columnIndex), \(model.editMode), \(self.layoutManager.scaleX), \(self.layoutManager.needRefresh)"
+        
+        var isStickyCell = false
+        let isHeader: Bool = rowIndex == 0 && self.layoutManager.model.hasHeader
+        if isHeader, self.layoutManager.model.isHeaderSticky {
+            isStickyCell = true
+        } else if self.layoutManager.model.isFirstColumnSticky, columnIndex == 0 {
+            isStickyCell = true
+        }
+        
+        let selectionIndex = rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
+        let isSelected = self.layoutManager.selectedIndexes.contains(selectionIndex)
+        
+        result += isStickyCell && isSelected ? "true" : "false"
+        
+        if let currentCell = layoutManager.currentCell, currentCell.0 == rowIndex, currentCell.1 == columnIndex {
+            result += ", true"
+        } else {
+            result += ", false"
+        }
+        
+        return result
+    }
+    
+    func leadingAccessoryViewId(_ rowIndex: Int) -> String {
+        var result = "\(rowIndex), \(layoutManager.scaleX), "
+        var state = "false"
+        if self.layoutManager.model.editMode == .select {
+            let selectionIndex = rowIndex - (layoutManager.model.hasHeader ? 1 : 0)
+            let isSelected = self.layoutManager.selectedIndexes.contains(selectionIndex)
+            
+            state = isSelected ? "true" : "false"
+        }
+        
+        result += state
+        
+        return result
+    }
+    
+    /**
+     the z order of views:
+     regular rows
+        row: cells
+        leading accessory, trailing accessory
+        row divider
+     sticky column
+     sticky header
+     sticky header divider
+     column divider
+     */
     func makeBody(_ size: CGSize) -> some View {
         let rect = CGRect(origin: .zero, size: size)
         let layoutData = self.layoutManager.layoutData!
@@ -431,18 +487,19 @@ struct InternalGridTableView: View {
         let tmpScaleY = self.layoutManager.scaleY(size: size)
         let startPosition = self.layoutManager.startPositionInPoint(size: size)
         let leadingAccessoryViewWidth = layoutData.leadingAccessoryViewWidth
-        
+         
         return ZStack {
             // all visible rows
             ForEach(0 ..< indexOfRows.count, id: \.self) { i in
                 let rowIndex = indexOfRows[i]
                 let offsetY: CGFloat = (self.layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosition.y
                 let y: CGFloat = allItems[rowIndex][0].pos.y * tmpScaleY - offsetY
-                let allowsToShowTheRow = showTheRow(for: rowIndex, y: y, startPosY: startPosition.y, layoutData: layoutData, size: size)
+                let allowsToShowTheRow = self.showTheRow(for: rowIndex, y: y, startPosY: startPosition.y, layoutData: layoutData, size: size)
+                
                 if allowsToShowTheRow {
                     // general background color & selection background color for the row
                     Group {
-                        if self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)) {
+                        if self.layoutManager.model.editMode == .select, self.layoutManager.selectedIndexes.contains(rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)) {
                             Color.preferredColor(.informationBackground)
                         } else {
                             self.layoutManager.model.backgroundColor
@@ -450,7 +507,6 @@ struct InternalGridTableView: View {
                     }
                     .frame(width: size.width, height: layoutData.rowHeights[rowIndex] * tmpScaleY)
                     .position(x: size.width / 2, y: y)
-                    .zIndex(rowIndex == 0 ? 510 : 0)
                     
                     // all visible columns
                     ForEach(0 ..< indexOfColumns.count, id: \.self) { j in
@@ -458,65 +514,54 @@ struct InternalGridTableView: View {
                         let currentItem = allItems[rowIndex][columnIndex]
                         let offsetX: CGFloat = (self.layoutManager.model.isFirstColumnSticky && columnIndex == 0) ? 0 : startPosition.x
                         let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
-                        let zIndex: Double = {
-                            if rowIndex == 0 {
-                                return columnIndex == 0 ? 550 : 520
-                            } else {
-                                return columnIndex == 0 ? 500 : 100
-                            }
-                        }()
                         
                         // cell
-                        ItemView(currentItem, layoutManager: layoutManager, showBanner: $showBanner, isInlineEdit: checkIsInlineEdit(for: rowIndex, columnIndex: columnIndex))
-                            .id("\(rowIndex), \(columnIndex)")
+                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner)
+                            .id(self.itemViewId(rowIndex: rowIndex, columnIndex: columnIndex))
                             .position(x: x, y: y)
-                            .zIndex(zIndex)
                     }
                     
                     // row leading accessory view
-                    LeadingAccessoryView(rowIndex: rowIndex)
-                        .id("\(rowIndex)")
+                    LeadingAccessoryView(rowIndex: rowIndex, layoutManager: self.layoutManager, layoutData: layoutData)
+                        .id("\(self.leadingAccessoryViewId(rowIndex))")
                         .position(x: leadingAccessoryViewWidth * tmpScaleX / 2, y: y)
-                        .zIndex(rowIndex == 0 ? 550 : 300)
                     
                     // row trailing accesory view
-                    TrailingAccessoryView(rowIndex: rowIndex)
-                        .id("\(rowIndex)")
+                    TrailingAccessoryView(rowIndex: rowIndex, layoutManager: self.layoutManager, layoutData: layoutData)
+                        .id("\(rowIndex), \(self.layoutManager.scaleX)")
                         .position(x: rect.maxX - layoutData.trailingAccessoryViewWidth * tmpScaleX / 2, y: y)
-                        .zIndex(rowIndex == 0 ? 460 : 290)
                 }
                 
                 // row dividers
-                if layoutManager.model.showRowDivider && (rowIndex + 1) % max(1, layoutManager.model.everyNumOfRowsToShowDivider) == 0 {
+                if self.layoutManager.model.showRowDivider, (rowIndex + 1) % max(1, self.layoutManager.model.everyNumOfRowsToShowDivider) == 0 {
                     Rectangle()
-                        .fill(layoutManager.model.rowDividerColor)
-                        .frame(width: rect.size.width, height: layoutManager.model.rowDividerHeight)
+                        .fill(self.layoutManager.model.rowDividerColor)
+                        .frame(width: rect.size.width, height: self.layoutManager.model.rowDividerHeight)
                         .position(x: rect.size.width / 2,
                                   y: y + layoutData.rowHeights[rowIndex] * tmpScaleY / 2)
-                        .dropShadow(isVertical: false, show: rowIndex == 0 && isDropHorizontalShadow(size))
-                        .zIndex(rowIndex == 0 ? 750 : 510)
+                        .dropShadow(isVertical: false, show: rowIndex == 0 && self.isDropHorizontalShadow(size))
                 }
             }
             
             // first column divider
-            if numbOfColumns > 1 && layoutManager.model.showColoumnDivider {
+            if numbOfColumns > 1, self.layoutManager.model.showColoumnDivider {
                 let offsetX: CGFloat = self.layoutManager.model.isFirstColumnSticky ? 0 : startPosition.x
                 let x: CGFloat = (leadingAccessoryViewWidth + allItems[0][0].pos.x + layoutData.columnWidths[0] / 2) * tmpScaleX - offsetX
-                let height = columnDividerHeight(layoutData: layoutData) * tmpScaleY
+                let height = self.columnDividerHeight(layoutData: layoutData) * tmpScaleY
                 Rectangle()
-                    .fill(layoutManager.model.columnDividerColor)
-                    .frame(width: layoutManager.model.columnDividerWidth, height: height)
+                    .fill(self.layoutManager.model.columnDividerColor)
+                    .frame(width: self.layoutManager.model.columnDividerWidth, height: height)
                     .position(x: x, y: height / 2)
-                    .dropShadow(isVertical: true, show: isDropVerticalShadow(size))
-                    .zIndex(700)
+                    .dropShadow(isVertical: true, show: self.isDropVerticalShadow(size))
             }
         }
         .frame(width: size.width, height: size.height)
         .background(self.layoutManager.model.backgroundColor)
     }
     
-    func textFieldPosition(_ size: CGSize) -> CGPoint {
-        guard let layoutData = layoutManager.layoutData, let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text else { return .zero }
+    func focusedCellPosition(_ size: CGSize) -> CGPoint {
+        guard let layoutData = layoutManager.layoutData, let currentCell = layoutManager.currentCell else { return .zero }
+        
         let rowIndex = currentCell.0
         let columnIndex = currentCell.1
         let dataItem = layoutData.allDataItems[rowIndex][columnIndex]
@@ -529,18 +574,6 @@ struct InternalGridTableView: View {
         let x: CGFloat = (leadingAccessoryViewWidth + dataItem.pos.x) * tmpScaleY - offsetX
         
         return CGPoint(x: x, y: y)
-    }
-    
-    func checkIsInlineEdit(for rowIndex: Int, columnIndex: Int) -> Bool {
-        if self.layoutManager.model.editMode != .inline {
-            return false
-        }
-        
-        if let curr = self.layoutManager.currentCell, curr == (rowIndex, columnIndex) {
-            return true
-        }
-        
-        return false
     }
     
     func columnDividerHeight(layoutData: LayoutData) -> CGFloat {

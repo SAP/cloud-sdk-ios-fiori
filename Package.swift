@@ -49,7 +49,8 @@ let package = Package(
             name: "FioriThemeManager",
             dependencies: [],
             resources: [
-                .process("72-Fonts/Resources")
+                .process("72-Fonts/Resources"),
+                .process("FioriIcons/Resources/FioriIcon.xcassets")
             ]
         ),
         .testTarget(
