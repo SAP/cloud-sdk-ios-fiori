@@ -131,9 +131,8 @@ extension SignatureCaptureView: View {
                             .stroke(Color.preferredColor(.separator), lineWidth: 1)
                     )
                     .onTapGesture {
-                        withAnimation {
-                            self.isEditing = true
-                        }
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                        self.isEditing = true
                     }
             }
 
@@ -165,6 +164,7 @@ extension SignatureCaptureView: View {
                     .simultaneousGesture(
                         TapGesture()
                             .onEnded { _ in
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 clear()
                                 onDelete()
                                 isReenterTapped = true
@@ -211,6 +211,7 @@ extension SignatureCaptureView: View {
                         .simultaneousGesture(
                             TapGesture()
                                 .onEnded { _ in
+                                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                     self.isEditing = true
                                 }
                         )
