@@ -1,46 +1,6 @@
 import FioriThemeManager
 import SwiftUI
 
-/// An option set for step state that used for default `StepProgressIndicator`
-public struct StepIndicatorState: OptionSet {
-    /// :nodoc:
-    public let rawValue: UInt
-    /// :nodoc:
-    public init(rawValue: UInt) {
-        self.rawValue = rawValue
-    }
-    
-    /// Completed state for a step.
-    public static let completed = StepIndicatorState(rawValue: 1 << 0)
-    /// disabled state for a step.
-    public static let disabled = StepIndicatorState(rawValue: 1 << 1)
-    /// error state for a step.
-    public static let error = StepIndicatorState(rawValue: 1 << 2)
-    
-    func convert(_ isSelected: Bool) -> InternalStepState? {
-        switch (isSelected, self) {
-        case (true, []):
-            return .active
-        case (_, .completed):
-            return .completed
-        case (_, .disabled):
-            return .disabled
-        case (true, .error):
-            return .errorActive
-        case (false, []):
-            return .inactive
-        case (false, .error):
-            return .error
-        case (_, _):
-            return nil
-        }
-    }
-}
-
-enum InternalStepState {
-    case inactive, active, completed, disabled, error, errorActive
-}
-
 /// Step items data model for `StepProgressIndicator` with a default style.
 public struct StepItem: Identifiable {
     /// Step id.
@@ -100,8 +60,12 @@ extension HorizontalAlignment {
 }
 
 struct StepButtonStyle: ButtonStyle {
+    var stepId: String
     var state: InternalStepState
+    var isSelected: Bool
     var showLine: Bool
+    
+    @Environment(\.stepStyle) var stepStyle
     
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
@@ -113,8 +77,7 @@ struct StepButtonStyle: ButtonStyle {
             }
             .titleModifier {
                 $0.foregroundColor(nameColor(isPressed: isPressed))
-                    .font(Font.fiori(forTextStyle: .footnote)
-                        .weight(useSemibold ? .semibold : .regular))
+                    .font(nameFont(isPressed: isPressed))
             }
             .stepLineColor(self.lineColor(isPressed))
     }
@@ -130,13 +93,29 @@ struct StepButtonStyle: ButtonStyle {
     
     func lineColor(_ isPressed: Bool) -> Color {
         if self.showLine {
-            return self.line(isPressed: isPressed)
+            if let lineColor = stepStyle.lineColor?(stepId, state.convert(), isPressed) {
+                return lineColor
+            } else {
+                return self.line(isPressed: isPressed)
+            }
         } else {
             return Color.clear
         }
     }
     
+    func nameFont(isPressed: Bool) -> Font {
+        if let titleFont = stepStyle.titleFont?(stepId, state.convert(), isPressed) {
+            return titleFont
+        } else {
+            return Font.fiori(forTextStyle: .footnote)
+                .weight(self.useSemibold ? .semibold : .regular)
+        }
+    }
+    
     func nameColor(isPressed: Bool) -> Color {
+        if let titleForeground = stepStyle.titleForeground?(stepId, state.convert(), isPressed) {
+            return titleForeground
+        }
         switch self.state {
         case .inactive, .active, .completed:
             return Color.preferredColor(.primaryLabel)
@@ -148,6 +127,9 @@ struct StepButtonStyle: ButtonStyle {
     }
     
     func nodeBackground(isPressed: Bool) -> Color {
+        if let nodeBackground = stepStyle.nodeBackground?(stepId, state.convert(), isPressed) {
+            return nodeBackground
+        }
         switch self.state {
         case .inactive:
             return Color.preferredColor(.primaryBackground)
@@ -165,6 +147,9 @@ struct StepButtonStyle: ButtonStyle {
     }
     
     func nodeForeground(isPressed: Bool) -> Color {
+        if let nodeForeground = stepStyle.nodeForeground?(stepId, state.convert(), isPressed) {
+            return nodeForeground
+        }
         switch self.state {
         case .inactive, .disabled:
             return Color.preferredColor(.tertiaryLabel)
@@ -189,4 +174,22 @@ struct StepButtonStyle: ButtonStyle {
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
         }
     }
+}
+
+/// Step style configuration for `StepProgressIndicator`
+public class StepStyleModel: ObservableObject {
+    /// Node background color for different state
+    public var nodeBackground: ((_ id: String, _ state: StepIndicatorState, _ isPressed: Bool) -> Color?)?
+    /// Node foreground color for different state
+    public var nodeForeground: ((_ id: String, _ state: StepIndicatorState, _ isPressed: Bool) -> Color?)?
+    /// Title foreground color for different state
+    public var titleForeground: ((_ id: String, _ state: StepIndicatorState, _ isPressed: Bool) -> Color?)?
+    /// Title font for different state
+    public var titleFont: ((_ id: String, _ state: StepIndicatorState, _ isPressed: Bool) -> Font?)?
+    
+    /// Line color for different state
+    public var lineColor: ((_ id: String, _ state: StepIndicatorState, _ isPressed: Bool) -> Color?)?
+    
+    /// : nodoc:
+    public init() {}
 }

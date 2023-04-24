@@ -6,7 +6,8 @@ public struct _DefaultSteps: IndexedViewContainer {
     @Binding var selection: String
     var isSubstep: Bool = false
     @Environment(\.stepAxis) var stepAxis
-
+    @Environment(\.stepStyle) var stepStyle
+    
     init(stepItems: [StepItem],
          selection: Binding<String>,
          isSubstep: Bool = false)
@@ -79,7 +80,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                     }
                 }
             }
-            .buttonStyle(StepButtonStyle(state: state, showLine: showLine))
+            .buttonStyle(StepButtonStyle(stepId: data.id, state: state, isSelected: data.id == self.selection, showLine: showLine))
         } else {
             EmptyView()
         }
@@ -118,7 +119,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                     }.frame(width: 16, height: 16)
                 }.stepPadding(top: 14, bottom: 4, leading: 14, trailing: 4, vertical: 14, horizontal: 14)
             }
-            .buttonStyle(StepButtonStyle(state: state, showLine: showLine))
+            .buttonStyle(StepButtonStyle(stepId: data.id, state: state, isSelected: data.id == self.selection, showLine: showLine))
         } else {
             EmptyView()
         }
@@ -156,5 +157,25 @@ public struct _DefaultSteps: IndexedViewContainer {
 
     var nodeHeight: CGFloat {
         28
+    }
+}
+
+struct StepStyleKey: EnvironmentKey {
+    static let defaultValue = StepStyleModel()
+}
+
+extension EnvironmentValues {
+    var stepStyle: StepStyleModel {
+        get { self[StepStyleKey.self] }
+        set { self[StepStyleKey.self] = newValue }
+    }
+}
+
+public extension View {
+    /// Configuration for custom step style.
+    /// - Parameter style: Step style.
+    /// - Returns: A new view for `StepProgressIndicator` with specific configurations.
+    func stepStyle(_ style: StepStyleModel) -> some View {
+        self.environment(\.stepStyle, style)
     }
 }

@@ -19,7 +19,11 @@ struct StepProgressIndicatorExample: View {
             } label: {
                 Text("Steps Without Names")
             }
-            
+            NavigationLink {
+                SPICustomStyleExample()
+            } label: {
+                Text("Steps With Custom Style")
+            }
             NavigationLink {
                 SPIExampleByBuilder()
             } label: {
@@ -290,5 +294,145 @@ struct SPIExampleByBuilder: View {
         }
         .frame(width: 40, height: 40)
         .border(self.selection == s ? Color.black : Color.clear, width: 2)
+    }
+}
+
+struct SPICustomStyleExample: View {
+    @State var title: String = ""
+    @State var steps = [StepItem(title: "Step A", state: .completed),
+                        StepItem(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItem(title: "Step 3", substeps: [
+                            StepItem(title: "Step 3.1"),
+                            StepItem(title: "Step 3.2", state: .disabled),
+                            StepItem(title: "Step 3.3", state: .error),
+                            StepItem(title: "Step 3.4", state: .error),
+                            StepItem(title: "Step 3.p", state: .completed)
+                        ]),
+                        StepItem(title: "Step P", state: .disabled),
+                        StepItem(title: "Step D", state: .error),
+                        StepItem(title: "Step E", state: .error),
+                        StepItem(title: "Step F")]
+    
+    @State var selection: String = ""
+    var style: StepStyleModel {
+        let style = StepStyleModel()
+        style.nodeBackground = { _, state, pressed in
+            if pressed {
+                return Color.mint
+            }
+            switch state {
+            case .normal:
+                return Color.blue
+            case .completed:
+                return Color.black
+            case .error:
+                return Color.red
+            case .disabled:
+                return Color.yellow
+            default:
+                return nil
+            }
+        }
+        
+        style.nodeForeground = { _, state, _ in
+            if state == .error || state == .disabled {
+                return Color.black
+            } else {
+                return Color.green
+            }
+        }
+        
+        style.titleForeground = { _, state, _ in
+            switch state {
+            case .normal:
+                return Color.blue
+            case .completed:
+                return Color.black
+            case .error:
+                return Color.red
+            case .disabled:
+                return Color.yellow
+            default:
+                return nil
+            }
+        }
+        
+        style.titleFont = { _, _, _ in
+            Font.subheadline
+        }
+        return style
+    }
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Custom Styles").bold()
+            StepProgressIndicator(selection: $selection, stepItems: steps) {
+                Text(title).lineLimit(1)
+            } action: {
+                HStack(spacing: 2) {
+                    Text("All Steps(\(steps.count)")
+                    Image(systemName: "chevron.right")
+                }
+            }
+            .stepStyle(style)
+            Spacer().padding(20)
+            Button {
+                completeStep()
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
+        .padding()
+        .onChange(of: selection, perform: { _ in
+            updateCurrentStepName()
+        })
+        .onAppear {
+            updateCurrentStepName()
+        }
+    }
+    
+    func getStep() -> StepItem? {
+        func findStep(in data: [StepItem]) -> StepItem? {
+            for step in data {
+                if step.id == self.selection {
+                    return step
+                }
+                
+                if !step.substeps.isEmpty {
+                    if let foundItem = findStep(in: step.substeps) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
+                }
+            }
+            
+            return nil
+        }
+        return findStep(in: self.steps)
+    }
+    
+    func updateCurrentStepName() {
+        let selectedTitle = "\(getStep()?.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
+        }
+    }
+    
+    func completeStep() {
+        for index in self.steps.indices {
+            if self.steps[index].id == self.selection {
+                self.steps[index].state = .completed
+            } else {
+                let substeps = self.steps[index].substeps
+                guard !substeps.isEmpty else { continue }
+                for subindex in substeps.indices {
+                    if substeps[subindex].id == self.selection {
+                        self.steps[index].substeps[subindex].state = .completed
+                    }
+                }
+            }
+        }
     }
 }
