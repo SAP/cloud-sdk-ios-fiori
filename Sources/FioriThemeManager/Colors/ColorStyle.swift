@@ -809,7 +809,12 @@ public enum ColorStyle: String, CaseIterable {
     /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
     case tertiaryBackground
     
-    // MARK: - Label Colors (4 Colors)
+    // MARK: - Label Colors (5 Colors)
+    
+    /// Standard color for navigation bar title label.
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
+    case navBarTitleLabel
     
     /// Standard color for primary label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
@@ -1494,7 +1499,7 @@ public enum ColorStyle: String, CaseIterable {
                                                     .cardShadow, .sectionShadow, .primaryGroupedBackground,
                                                     .secondaryGroupedBackground, .tertiaryGroupedBackground,
                                                     .primaryBackground, .secondaryBackground, .tertiaryBackground,
-                                                    .primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel,
+                                                    .navBarTitleLabel, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel,
                                                     .primaryFill, .secondaryFill, .tertiaryFill, .quaternaryFill,
                                                     .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
                                                     .positiveLabel, .criticalLabel, .negativeLabelTapState,
