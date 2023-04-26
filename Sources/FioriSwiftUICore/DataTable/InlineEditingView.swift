@@ -25,7 +25,6 @@ struct InlineEditingView: View {
         self.rowIndex = (layoutManager.currentCell ?? (0, 0)).0
         self.columnIndex = (layoutManager.currentCell ?? (0, 0)).1
         let dataItem = layoutManager.layoutData?.allDataItems[self.rowIndex][self.columnIndex]
-        layoutManager.cacheEditingText = dataItem?.text ?? ""
         self._editingText = State(initialValue: dataItem?.text ?? "")
         self._isValid = State(initialValue: (dataItem?.isValid ?? true, ""))
     }

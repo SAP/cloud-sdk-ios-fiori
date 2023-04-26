@@ -204,10 +204,13 @@ struct ScrollAndZoomView: UIViewRepresentable {
             }
         }
         
-        if self.layoutManager.model.editMode == .inline, self.layoutManager.cachedKeyboardHeight != self.layoutManager.keyboardHeight {
+        // there could be multiple DataTable present when the keyboard shows up
+        if self.layoutManager.model.editMode == .inline, self.layoutManager.cachedKeyboardHeight != self.layoutManager.keyboardHeight, self.layoutManager.currentCell != nil {
             let originalContentOffset = uiView.contentOffset
             var contentOffset = uiView.contentOffset
             
+            self.layoutManager.cachedKeyboardHeight = self.layoutManager.keyboardHeight
+          
             if self.layoutManager.keyboardHeight > 0 { // show keyboard
                 contentOffset = self.adjustContentOffset(uiView)
             } else { // hide keyboard, may adjust start position
@@ -216,11 +219,18 @@ struct ScrollAndZoomView: UIViewRepresentable {
                 contentOffset = self.layoutManager.convertUnitPointToContentPoint(validPos, size: self.size)
             }
             
+            // do not adjust y if keyboardDidShowOrHide is available
+            if self.layoutManager.model.keyboardDidShowOrHide != nil {
+                contentOffset.y = originalContentOffset.y
+            }
+            
             if contentOffset != originalContentOffset {
                 uiView.setContentOffset(contentOffset, animated: false)
             }
             
-            self.layoutManager.cachedKeyboardHeight = self.layoutManager.keyboardHeight
+            if let keyboardDidShowOrHide = layoutManager.model.keyboardDidShowOrHide {
+                keyboardDidShowOrHide(self.layoutManager.keyboardFrame)
+            }
         }
     }
     
@@ -242,18 +252,20 @@ struct ScrollAndZoomView: UIViewRepresentable {
         let y: CGFloat = dataItem.pos.y * tmpScaleY - ((self.layoutManager.model.isHeaderSticky && rowIndex == 0) ? 0 : startPosition.y)
         let cellHeight = layoutData.rowHeights[rowIndex] * tmpScaleY
         let bottomY = y + cellHeight / 2
-        
         let offsetY: CGFloat = self.layoutManager.model.hasHeader && self.layoutManager.model.isHeaderSticky ? layoutData.rowHeights[0] * tmpScaleY : 0
         
-        // move the cell up
-        if bottomY > size.height {
-            contentOffset.y += bottomY - size.height
-        } else if y - cellHeight / 2 < offsetY {
-            // move the cell down and consider not to block the header
-            contentOffset.y -= offsetY - (y - cellHeight / 2)
-        }
-        if contentOffset.y < 0 {
-            contentOffset.y = 0
+        // need to ajust y pos
+        if self.layoutManager.model.keyboardDidShowOrHide == nil {
+            // move the cell up
+            if bottomY > size.height {
+                contentOffset.y += bottomY - size.height
+            } else if y - cellHeight / 2 < offsetY {
+                // move the cell down and consider not to block the header
+                contentOffset.y -= offsetY - (y - cellHeight / 2)
+            }
+            if contentOffset.y < 0 {
+                contentOffset.y = 0
+            }
         }
         
         // adjust contentOffset.x
@@ -274,7 +286,7 @@ struct ScrollAndZoomView: UIViewRepresentable {
         if contentOffset.x < 0 {
             contentOffset.x = 0
         }
-        
+    
         return contentOffset
     }
 

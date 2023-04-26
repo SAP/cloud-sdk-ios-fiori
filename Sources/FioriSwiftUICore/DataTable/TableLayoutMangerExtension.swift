@@ -79,7 +79,10 @@ extension TableLayoutManager {
                 
                 self.workingLayoutData = nil
                 self.layoutWorkItem = nil
-                self.currentCell = nil
+                if self.currentCell != nil {
+                    self.currentCell = nil
+                }
+                self.cacheEditingText = nil
                 self.layoutData = tmpLayoutData
                 // check if prev startPosition is valid
                 let tmpPos = self.validStartPosition(pt: self.startPosition, size: self.size)
@@ -105,6 +108,35 @@ extension TableLayoutManager {
         }
         
         if let ld = layoutData, ld.size.width == size.width {
+            return
+        }
+        
+        // use cacheLayoutDataForMeasurement
+        if let ld = cacheLayoutDataForMeasurement, ld.size.width == size.width {
+            DispatchQueue.main.async {
+                if self.cacheLayoutData == nil || self.model.editMode != .inline {
+                    self.cacheLayoutData = ld.copy()
+                }
+                
+                if self.needsCalculateLayout {
+                    self.needsCalculateLayout = false
+                }
+                
+                self.workingLayoutData = nil
+                self.layoutWorkItem = nil
+                if self.currentCell != nil {
+                    self.currentCell = nil
+                }
+                
+                self.layoutData = ld
+                // check if prev startPosition is valid
+                let tmpPos = self.validStartPosition(pt: self.startPosition, size: self.size)
+                if self.startPosition != tmpPos {
+                    self.startPosition = tmpPos
+                }
+                self.model.layoutManager = self
+            }
+            
             return
         }
         
@@ -338,17 +370,6 @@ extension TableLayoutManager {
     func scaleY(size: CGSize) -> CGFloat {
         self.scaleX
     }
-
-    /*
-         func startPosition(size: CGSize) -> CGPoint {
-     //        let pos = self.centerPosition(size: size)
-     //        let x = pos.x - self.widthPointInUnit(size: size) * size.width / 2
-     //        let y = pos.y - self.heightPointInUnit(size: size) * size.height / 2
-     //
-     //        return CGPoint(x: x, y: y)
-             return startPosition
-         }
-         */
     
     /// contentOffset: x:  0 ~ contentWidth;  y: 0 ~ contentHeight
     func startPosition(from contentOffset: CGPoint) -> CGPoint {
@@ -410,14 +431,12 @@ extension TableLayoutManager {
     }
     
     func widthPointInUnit(size: CGSize) -> CGFloat {
-//        let totalWidth = max(size.width, self.contentWidth()) * self.scaleX(size: size)
         let totalWidth = max(1, totalContentWidth())
         
         return 1 / totalWidth
     }
     
     func heightPointInUnit(size: CGSize) -> CGFloat {
-//        let totalHeight = max(size.height, self.contentHeight()) * self.scaleX(size: size)
         let totalHeight = max(1, totalContentHeight())
         
         return 1 / totalHeight

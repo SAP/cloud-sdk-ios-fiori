@@ -59,7 +59,7 @@ public class TableModel: ObservableObject {
         set {
             self._rowData = newValue.map { rowItem in
                 // process binding and generate titles for cells like .date, .time and .duration
-                processRowItem(for: rowItem)
+                self.processRowItem(for: rowItem)
             }
             
             self.layoutManager?.needsCalculateLayout = true
@@ -132,6 +132,12 @@ public class TableModel: ObservableObject {
     
     /// value did change
     public var valueDidChange: ((DataTableChange) -> Void)?
+    
+    /// cell tapped closure to store (rowIndex, columnIndex); rowIndex starts from header if it exists
+    public var cellTapped: ((Int, Int) -> Void)?
+    
+    /// a closure to call after the keybaord shown or hidden; typically used to ajust the focused text field position when the keyboard is shown
+    public var keyboardDidShowOrHide: ((CGRect) -> Void)?
     
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
@@ -292,8 +298,8 @@ public class TableModel: ObservableObject {
         var newRow = row
         
         if items.filter({ ($0 as? CheckBinding)?.hasBinding ?? false }).isEmpty {
-            var labelIndex: Int = 0
-            var imageIndex: Int = 0
+            var labelIndex = 0
+            var imageIndex = 0
             
             func textBinding(forIndex index: Int) -> ObjectViewProperty.Text? {
                 switch index {
@@ -392,7 +398,10 @@ public class TableModel: ObservableObject {
 
 /// DataTable change for inline editing
 public struct DataTableChange: CustomStringConvertible {
+    /// row index; rowIndex starts from header if it exists
     public let rowIndex: Int
+    
+    /// column index
     public let columnIndex: Int
     
     /// value type for DataTableChange
