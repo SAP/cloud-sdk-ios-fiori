@@ -148,6 +148,7 @@ struct PaletteV7: PaletteProvider {
         .secondaryGroupedBackground: HexColor(lightColor: "161C21FF", darkColor: "FFFFFFFF", elevatedLightColor: "242E38FF", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"),
         .tertiaryGroupedBackground: HexColor(lightColor: "0F1216FF", darkColor: "F5F6F7FF", elevatedLightColor: "1F272FFF", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF", elevatedContrastLightColor: "252E38FF"),
         /// Label Colors
+        .navBarTitleLabel: HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .primaryLabel: HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"),
         .secondaryLabel: HexColor(lightColor: "D5DADDFF", darkColor: "475E75FF", contrastLightColor: "EAECEEFF", contrastDarkColor: "121C26FF"),
         .tertiaryLabel: HexColor(lightColor: "A9B4BEFF", darkColor: "475E75E5", contrastLightColor: "CCD2D6FF", contrastDarkColor: "344556FF"),
