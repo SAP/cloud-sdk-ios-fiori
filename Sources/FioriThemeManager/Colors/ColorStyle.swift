@@ -814,6 +814,7 @@ public enum ColorStyle: String, CaseIterable {
     /// Standard color for navigation bar title label.
     /// (dark variant - normal) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
     /// (light variant - normal) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)          Hex value: F5F6F7FF
+    @available(watchOS, unavailable)
     case navBarTitleLabel
     
     /// Standard color for primary label.
