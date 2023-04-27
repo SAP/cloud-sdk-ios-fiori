@@ -62,6 +62,12 @@ struct FocusedEditingView: View {
         
         let tapGesture = TapGesture()
             .onEnded { _ in
+                defer {
+                    if let closure = layoutManager.model.cellTapped {
+                        closure(rowIndex, columnIndex)
+                    }
+                }
+                
                 guard self.layoutManager.model.editMode == .inline else { return }
                 
                 // header is not editable
@@ -401,6 +407,12 @@ struct ItemView: View {
         
         let tapGesture = TapGesture()
             .onEnded { _ in
+                defer {
+                    if let closure = layoutManager.model.cellTapped {
+                        closure(rowIndex, columnIndex)
+                    }
+                }
+                
                 if self.layoutManager.model.editMode == .inline {
                     // save text changes if an other cell is tapped
                     if let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text {
