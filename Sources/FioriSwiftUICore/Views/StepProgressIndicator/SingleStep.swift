@@ -85,6 +85,10 @@ extension SingleStep: View {
         }
     }
     
+    @ViewBuilder var line: some View {
+        Rectangle().modifier(stepLineModifier)
+    }
+    
     @ViewBuilder
     var oneStep: some View {
         switch stepAxis {
@@ -93,8 +97,7 @@ extension SingleStep: View {
                 Spacer().frame(height: top)
                 HStack(spacing: stepsSpacing) {
                     node
-                    Rectangle().fill(stepLineColor)
-                        .frame(width: lineWidth, height: lineHeight)
+                    line.frame(width: lineWidth, height: lineHeight)
                 }.sizeReader { size in
                     if nodeAndLineSize.different(with: size) {
                         nodeAndLineSize = size
@@ -116,8 +119,7 @@ extension SingleStep: View {
                 VStack(spacing: stepsSpacing) {
                     node
                         .alignmentGuide(.stepsTopAlignment) { $0.height / 2.0 }
-                    Rectangle().fill(stepLineColor)
-                        .frame(maxWidth: lineWidth, minHeight: lineHeight)
+                    line.frame(maxWidth: lineWidth, minHeight: lineHeight)
                 }
                 Spacer().frame(width: horizontalSpacing)
                 title.lineLimit(nil)
@@ -176,24 +178,25 @@ extension SingleStep: View {
     }
 }
 
-struct StepLineColor: EnvironmentKey {
-    static let defaultValue = Color.clear
+struct StepLineModifierKey: EnvironmentKey {
+    /// Step separator line environment key for `SingleStep`.
+    public static let defaultValue = AnyViewModifier { $0 }
 }
 
 public extension EnvironmentValues {
-    /// Single step line color environment value.
-    var stepLineColor: Color {
-        get { self[StepLineColor.self] }
-        set { self[StepLineColor.self] = newValue }
+    /// Step separator line environment value for `SingleStep`.
+    var stepLineModifier: AnyViewModifier {
+        get { self[StepLineModifierKey.self] }
+        set { self[StepLineModifierKey.self] = newValue }
     }
 }
 
 public extension View {
-    /// Customize `SingleStep` line color.
-    /// - Parameter color: Line color for `SingleStep`.
-    /// - Returns: A new view with specific line color.
-    func stepLineColor(_ color: Color) -> some View {
-        environment(\.stepLineColor, color)
+    /// Modifier for step separator line.
+    /// - Parameter transform: Any transform.
+    /// - Returns: A new view with modified line.
+    @ViewBuilder func stepLineModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.stepLineModifier, AnyViewModifier(transform))
     }
 }
 

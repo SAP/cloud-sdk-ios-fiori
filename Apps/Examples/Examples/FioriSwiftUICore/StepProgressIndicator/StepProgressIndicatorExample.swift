@@ -248,10 +248,8 @@ struct SPIExampleByBuilder: View {
                 } substeps: {
                     SingleStep(id: "1.1") {
                         node("1.1")
-                        
-                    }.stepLineColor(Color.random)
+                    }
                 }
-                .stepLineColor(Color.random)
 
                 SingleStep(id: "2") {
                     node("2")
@@ -263,9 +261,7 @@ struct SPIExampleByBuilder: View {
                             node("2.1.1")
                         }
                         .customStepId("2.1.1")
-                        .stepLineColor(Color.random)
                     }
-                    .stepLineColor(Color.random)
                     
                     SingleStep(id: "2.2") {
                         node("2.2")
@@ -274,10 +270,8 @@ struct SPIExampleByBuilder: View {
                             node("2.2.1")
                         }
                         .customStepId("2.2.1")
-                        .stepLineColor(Color.random)
                     }
-                    .stepLineColor(Color.random)
-                }.stepLineColor(Color.random)
+                }
             })
             Spacer()
         }.padding()
@@ -299,9 +293,9 @@ struct SPIExampleByBuilder: View {
 
 struct SPICustomStyleExample: View {
     @State var title: String = ""
-    @State var steps = [StepItem(title: "Step A", state: .completed),
-                        StepItem(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
-                        StepItem(title: "Step 3", substeps: [
+    @State var steps = [StepItem(id: "1", title: "Step A", state: .completed),
+                        StepItem(id: "2", title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItem(id: "3", title: "Step 3", substeps: [
                             StepItem(title: "Step 3.1"),
                             StepItem(title: "Step 3.2", state: .disabled),
                             StepItem(title: "Step 3.3", state: .error),
@@ -314,54 +308,6 @@ struct SPICustomStyleExample: View {
                         StepItem(title: "Step F")]
     
     @State var selection: String = ""
-    var style: StepStyleModel {
-        let style = StepStyleModel()
-        style.nodeBackground = { _, state, pressed in
-            if pressed {
-                return Color.mint
-            }
-            switch state {
-            case .normal:
-                return Color.blue
-            case .completed:
-                return Color.black
-            case .error:
-                return Color.red
-            case .disabled:
-                return Color.yellow
-            default:
-                return nil
-            }
-        }
-        
-        style.nodeForeground = { _, state, _ in
-            if state == .error || state == .disabled {
-                return Color.black
-            } else {
-                return Color.green
-            }
-        }
-        
-        style.titleForeground = { _, state, _ in
-            switch state {
-            case .normal:
-                return Color.blue
-            case .completed:
-                return Color.black
-            case .error:
-                return Color.red
-            case .disabled:
-                return Color.yellow
-            default:
-                return nil
-            }
-        }
-        
-        style.titleFont = { _, _, _ in
-            Font.subheadline
-        }
-        return style
-    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -374,7 +320,7 @@ struct SPICustomStyleExample: View {
                     Image(systemName: "chevron.right")
                 }
             }
-            .stepStyle(style)
+            .stepsStyle(CustomStyleExample())
             Spacer().padding(20)
             Button {
                 completeStep()
@@ -434,5 +380,24 @@ struct SPICustomStyleExample: View {
                 }
             }
         }
+    }
+}
+
+struct CustomStyleExample: StepsStyle {
+    func makeNode(configuration: StepNodeConfiguration) -> some View {
+        configuration.node
+            .foregroundColor(Color.random)
+            .background(Color.random.clipShape(Circle()))
+    }
+
+    func makeTitle(configuration: StepTitleConfiguration) -> some View {
+        let isCompleted = configuration.state == .completed
+        configuration.title
+            .font(Font.system(size: 30))
+            .foregroundColor(isCompleted ? Color.black : Color.red)
+    }
+
+    func makeLine(configuration: StepLineConfiguration) -> some View {
+        configuration.line.foregroundColor(configuration.isLastStep ? Color.clear : Color.random)
     }
 }

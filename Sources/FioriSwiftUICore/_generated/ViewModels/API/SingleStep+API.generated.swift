@@ -7,7 +7,7 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	@Environment(\.nodeModifier) private var nodeModifier
 	@Environment(\.currentStepId) var currentStepId
 	@Environment(\.stepAxis) var stepAxis
-	@Environment(\.stepLineColor) var stepLineColor
+	@Environment(\.stepLineModifier) var stepLineModifier
 
     var _id: String
 	let _title: Title

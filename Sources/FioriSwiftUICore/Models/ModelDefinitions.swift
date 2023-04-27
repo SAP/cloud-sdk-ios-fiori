@@ -374,7 +374,7 @@ public protocol SearchableListViewModel {
 
 public protocol KPIHeaderItemModel {}
 
-// sourcery: add_env_props = "stepLineColor"
+// sourcery: add_env_props = "stepLineModifier"
 // sourcery: add_env_props = "stepAxis"
 // sourcery: add_env_props = "currentStepId"
 // sourcery: virtualPropWithGesture = "var tappable: Bool = true"
