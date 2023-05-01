@@ -43,16 +43,15 @@ public struct TableRowItem: Equatable {
     }
     
     /// check equality
+    // swiftlint:disable cyclomatic_complexity
     public static func == (lhs: TableRowItem, rhs: TableRowItem) -> Bool {
         // check leadingAccessories
         if lhs.leadingAccessories.count != rhs.leadingAccessories.count {
             return false
         }
         
-        for index in 0 ..< lhs.leadingAccessories.count {
-            if lhs.leadingAccessories[index] != rhs.leadingAccessories[index] {
-                return false
-            }
+        for index in 0 ..< lhs.leadingAccessories.count where lhs.leadingAccessories[index] != rhs.leadingAccessories[index] {
+            return false
         }
         
         // check trailingAccessory
