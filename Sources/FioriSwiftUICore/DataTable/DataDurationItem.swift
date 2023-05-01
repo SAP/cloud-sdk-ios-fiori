@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Duration item for `DataTable`
-public struct DataDurationItem: DataItemTextComponent, CheckBinding {
+public struct DataDurationItem: DataItemTextComponent, CheckBinding, Equatable {
     /// Type.
     public var type: DataItemType = .duration
     
@@ -66,5 +66,30 @@ public struct DataDurationItem: DataItemTextComponent, CheckBinding {
         let min = (Int(duration) - hrs * 3600) / 60
         
         return String(format: durationTextFormat, locale: Locale.autoupdatingCurrent, hrs, min)
+    }
+    
+    /// check equality
+    public static func == (lhs: DataDurationItem, rhs: DataDurationItem) -> Bool {
+        if lhs.duration != rhs.duration {
+            return false
+        }
+        
+        if lhs.font != rhs.font {
+            return false
+        }
+        
+        if lhs.uifont != rhs.uifont {
+            return false
+        }
+        
+        if lhs.lineLimit != rhs.lineLimit {
+            return false
+        }
+        
+        if lhs.textColor != rhs.textColor {
+            return false
+        }
+        
+        return true
     }
 }
