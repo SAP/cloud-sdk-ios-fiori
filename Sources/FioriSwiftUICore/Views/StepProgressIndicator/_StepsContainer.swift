@@ -24,10 +24,12 @@ extension _StepsContainer: IndexedViewContainer {
     /// :nodoc:
     @ViewBuilder public func view(at index: Int) -> some View {
         if index < self.count {
+            let id: String = self.steps[index].id
             let title = self.steps[index].title
             let node = self.steps[index].node
             let substeps = self.steps[index].substeps
-            SingleStep(title: title,
+            SingleStep(id: id,
+                       title: title,
                        node: node,
                        substeps: substeps)
         } else {

@@ -29,6 +29,11 @@ struct StepProgressIndicatorExample: View {
             } label: {
                 Text("Steps By Builder")
             }
+            NavigationLink {
+                SPIModelExample()
+            } label: {
+                Text("Steps By Model")
+            }
         }
     }
 }
@@ -113,9 +118,11 @@ struct SPIExampleWithHeader: View {
             StepProgressIndicator(selection: $selection, stepItems: steps) {
                 Text(title).lineLimit(1)
             } action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(\(steps.count)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count)")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
             Spacer().padding(20)
@@ -201,9 +208,11 @@ struct SPIExampleWithoutName: View {
             
             StepProgressIndicator(selection: $selection,
                                   stepItems: steps) {} action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(\(steps.count)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count))")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
             Spacer().padding(20)
@@ -238,9 +247,11 @@ struct SPIExampleByBuilder: View {
     var body: some View {
         VStack {
             StepProgressIndicator(selection: $selection, action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(2)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(2)")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }, steps: {
                 SingleStep(id: "1") {
@@ -270,6 +281,9 @@ struct SPIExampleByBuilder: View {
                             node("2.2.1")
                         }
                         .customStepId("2.2.1")
+                        .stepLineModifier {
+                            $0.foregroundColor(.clear)
+                        }
                     }
                 }
             })
@@ -315,12 +329,16 @@ struct SPICustomStyleExample: View {
             StepProgressIndicator(selection: $selection, stepItems: steps) {
                 Text(title).lineLimit(1)
             } action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(\(steps.count)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count)")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
-            .stepsStyle(CustomStyleExample())
+            .stepsStyle { _ in
+                CustomStyleExample()
+            }
             Spacer().padding(20)
             Button {
                 completeStep()
@@ -384,20 +402,15 @@ struct SPICustomStyleExample: View {
 }
 
 struct CustomStyleExample: StepsStyle {
-    func makeNode(configuration: StepNodeConfiguration) -> some View {
+    func makeNode(configuration: Self.Configuration) -> some View {
+        let background = configuration.state == .completed ? Color.black : Color.gray
         configuration.node
-            .foregroundColor(Color.random)
-            .background(Color.random.clipShape(Circle()))
+            .foregroundColor(Color.blue)
+            .background(background.clipShape(Circle()))
     }
 
-    func makeTitle(configuration: StepTitleConfiguration) -> some View {
-        let isCompleted = configuration.state == .completed
-        configuration.title
-            .font(Font.system(size: 30))
-            .foregroundColor(isCompleted ? Color.black : Color.red)
-    }
-
-    func makeLine(configuration: StepLineConfiguration) -> some View {
-        configuration.line.foregroundColor(configuration.isLastStep ? Color.clear : Color.random)
+    func makeLine(configuration: Configuration) -> some View {
+        let isLast = configuration.isLastStep
+        configuration.line.foregroundColor(isLast ?? false ? Color.clear : nil)
     }
 }

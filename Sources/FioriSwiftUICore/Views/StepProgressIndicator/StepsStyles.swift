@@ -60,145 +60,147 @@ extension HorizontalAlignment {
 }
 
 struct StepButtonStyle: ButtonStyle {
+    let id: String
     let node: any View
     let title: any View
     let line: any View
     @Environment(\.stepsStyle) var stepsStyle
 
-    var state: StepIndicatorState
+    var state: StepIndicatorState?
     var isSelected: Bool
     var isLastStep: Bool
         
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
-        
-        let nodeConfig = StepNodeConfiguration(node: StepNodeConfiguration.Node(body: self.node.typeErased),
-                                               state: self.state,
-                                               isPressed: isPressed,
-                                               isSelected: self.isSelected)
-        let titleConfig = StepTitleConfiguration(title: StepTitleConfiguration.Title(body: self.title.typeErased),
-                                                 state: self.state,
-                                                 isPressed: isPressed,
-                                                 isSelected: self.isSelected)
-        let lineConfig = StepLineConfiguration(line: StepLineConfiguration.Line(body: self.line.typeErased),
-                                               state: self.state,
-                                               isPressed: isPressed,
-                                               isSelected: self.isSelected,
-                                               isLastStep: self.isLastStep)
-        
+        let stepConfig = StepsConfiguration(node: StepsConfiguration.Node(body: self.node.typeErased),
+                                            title: StepsConfiguration.Title(body: self.title.typeErased),
+                                            line: StepsConfiguration.Line(body: self.line.typeErased),
+                                            state: self.state,
+                                            isPressed: isPressed,
+                                            isSelected: self.isSelected,
+                                            isLastStep: self.isLastStep)
         configuration.label
             .nodeModifier { _ in
-                stepsStyle.makeNode(configuration: nodeConfig).typeErased
+                self.generateNode(stepConfig)
             }
             .titleModifier { _ in
-                stepsStyle.makeTitle(configuration: titleConfig).typeErased
+                self.generateTitle(stepConfig)
             }
             .stepLineModifier { _ in
-                stepsStyle.makeLine(configuration: lineConfig).typeErased
+                self.generateLine(stepConfig)
             }
     }
-}
-
-struct StepsStyleKey: EnvironmentKey {
-    static var defaultValue: any StepsStyle = DefaultStepsStyle()
-}
-
-extension EnvironmentValues {
-    var stepsStyle: any StepsStyle {
-        get { self[StepsStyleKey.self] }
-        set { self[StepsStyleKey.self] = newValue }
+    
+    @ViewBuilder func generateNode(_ stepsConfig: StepsConfiguration) -> some View {
+        if let s = stepsStyle(id) {
+            s.makeNode(configuration: stepsConfig).typeErased
+        } else {
+            stepsConfig.node
+        }
+    }
+    
+    @ViewBuilder func generateTitle(_ stepsConfig: StepsConfiguration) -> some View {
+        if let s = stepsStyle(id) {
+            s.makeTitle(configuration: stepsConfig).typeErased
+        } else {
+            stepsConfig.title
+        }
+    }
+    
+    @ViewBuilder func generateLine(_ stepsConfig: StepsConfiguration) -> some View {
+        if let s = stepsStyle(id) {
+            s.makeLine(configuration: stepsConfig).typeErased
+        } else {
+            stepsConfig.line
+        }
     }
 }
 
-public extension View {
-    /// Step style for `StepProgressIndicator`.
-    /// - Parameter style: Style for `StepProgressIndicator`.
-    /// - Returns: A new `StepProgressIndicator` with specific style.
-    func stepsStyle(_ style: some StepsStyle) -> some View {
-        environment(\.stepsStyle, style)
-    }
-}
-
-/// Steps style for `StepProgressIndicator`.
+/// Steps style for `StepProgressIndicator` which is initialized by `[StepItem]`.
 public protocol StepsStyle {
+    /// A view that represents the node of a step.
     associatedtype Node: View
+    /// A view that represents the title of a step.
     associatedtype Title: View
+    /// A view that represents the separator line of a step.
     associatedtype Line: View
     
     /// Node style for `StepProgressIndicator`.
     /// - Parameter configuration: configuration for node in `StepProgressIndicator`.
     /// - Returns: A new `StepProgressIndicator` with specific node.
-    @ViewBuilder func makeNode(configuration: StepNodeConfiguration) -> Self.Node
+    @ViewBuilder func makeNode(configuration: Self.Configuration) -> Self.Node
 
     /// Title style for `StepProgressIndicator`.
     /// - Parameter configuration: configuration for title in `StepProgressIndicator`.
     /// - Returns: A new `StepProgressIndicator` with specific title.
-    @ViewBuilder func makeTitle(configuration: StepTitleConfiguration) -> Self.Title
+    @ViewBuilder func makeTitle(configuration: Self.Configuration) -> Self.Title
     
     /// Line style for `StepProgressIndicator`.
     /// - Parameter configuration: configuration for line in `StepProgressIndicator`.
     /// - Returns: A new `StepProgressIndicator` with specific line.
-    @ViewBuilder func makeLine(configuration: StepLineConfiguration) -> Self.Line
+    @ViewBuilder func makeLine(configuration: Self.Configuration) -> Self.Line
+    
+    /// The properties of a step.
+    typealias Configuration = StepsConfiguration
 }
 
-/// Step node configuration used for `StepStyle`.
-public struct StepNodeConfiguration {
+public extension StepsStyle where Self.Node: View, Self.Title: View, Self.Line: View {
+    private var defaultStyle: DefaultStepsStyle {
+        DefaultStepsStyle()
+    }
+    
+    /// Use `default` style node for `StepProgressIndicator`
+    @ViewBuilder func makeNode(configuration: Self.Configuration) -> some View {
+        self.defaultStyle.makeNode(configuration: configuration)
+    }
+    
+    /// Use `default` style title for `StepProgressIndicator`
+    @ViewBuilder func makeTitle(configuration: Self.Configuration) -> some View {
+        self.defaultStyle.makeTitle(configuration: configuration)
+    }
+    
+    /// Use `default` style line for `StepProgressIndicator`
+    @ViewBuilder func makeLine(configuration: Self.Configuration) -> some View {
+        self.defaultStyle.makeLine(configuration: configuration)
+    }
+}
+
+/// Steps configuration used for `StepStyle`.
+public struct StepsConfiguration {
     /// :nodoc
     public struct Node: View {
         public var body: AnyView
     }
 
-    /// :nodoc
-    public let node: StepNodeConfiguration.Node
-    
-    /// State for step in `StepProgressIndicator`.
-    public let state: StepIndicatorState
-    /// Indicate whether step is pressed in `StepProgressIndicator`.
-    public let isPressed: Bool
-    /// Indicate whether step is selected in `StepProgressIndicator`.
-    public let isSelected: Bool
-}
-
-/// Step title configuration used for `StepStyle`.
-public struct StepTitleConfiguration {
     /// :nodoc:
     public struct Title: View {
         public var body: AnyView
     }
-    
-    /// :nodoc:
-    public let title: StepTitleConfiguration.Title
-    
-    /// State for step in `StepProgressIndicator`.
-    public let state: StepIndicatorState
-    /// Indicate whether step is pressed in `StepProgressIndicator`.
-    public let isPressed: Bool
-    /// Indicate whether step is selected in `StepProgressIndicator`.
-    public let isSelected: Bool
-}
 
-/// Step line configuration used for `StepStyle`.
-public struct StepLineConfiguration {
     /// :nodoc
     public struct Line: View {
         public var body: AnyView
     }
 
-    /// :nodoc
-    public let line: StepLineConfiguration.Line
+    /// Node for `StepProgressIndicator`
+    public let node: StepsConfiguration.Node
+    /// Title for `StepProgressIndicator`
+    public let title: StepsConfiguration.Title
+    /// Line for `StepProgressIndicator`
+    public let line: StepsConfiguration.Line
     
     /// State for step in `StepProgressIndicator`.
-    public let state: StepIndicatorState
+    public let state: StepIndicatorState?
     /// Indicate whether step is pressed in `StepProgressIndicator`.
-    public let isPressed: Bool
+    public var isPressed: Bool
     /// Indicate whether step is selected in `StepProgressIndicator`.
-    public let isSelected: Bool
+    public var isSelected: Bool
     /// Indicate whether step is the last one in `StepProgressIndicator`.
-    public let isLastStep: Bool
+    public var isLastStep: Bool?
 }
 
 struct DefaultStepsStyle: StepsStyle {
-    func makeNode(configuration: StepNodeConfiguration) -> some View {
+    func makeNode(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
         let isSelected = configuration.isSelected
         let state = configuration.state
@@ -207,7 +209,7 @@ struct DefaultStepsStyle: StepsStyle {
             .foregroundColor(self.nodeForeground(state, isSelected, isPressed))
     }
     
-    func makeTitle(configuration: StepTitleConfiguration) -> some View {
+    func makeTitle(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
         let isSelected = configuration.isSelected
         let state = configuration.state
@@ -216,43 +218,39 @@ struct DefaultStepsStyle: StepsStyle {
             .font(self.nameFont(state, isSelected))
     }
     
-    func makeLine(configuration: StepLineConfiguration) -> some View {
+    func makeLine(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
         let isSelected = configuration.isSelected
         let state = configuration.state
-        let showLine = !configuration.isLastStep
+        let showLine = !(configuration.isLastStep ?? true)
         configuration.line
             .foregroundColor(self.lineColor(state, isSelected, isPressed, showLine))
     }
     
-    func nodeBackground(_ state: StepIndicatorState,
+    func nodeBackground(_ state: StepIndicatorState?,
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
+        guard let state = state else { return Color.preferredColor(.primaryBackground) }
         switch state.convert(isSelected) {
-        case .inactive:
-            return Color.preferredColor(.primaryBackground)
-        case .active:
+        case .inactive, .active, .error, .none:
             return Color.preferredColor(.primaryBackground)
         case .completed:
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
         case .disabled:
             return Color.preferredColor(.quaternaryFill)
-        case .error:
-            return Color.preferredColor(.primaryBackground)
         case .errorActive:
             return Color.preferredColor(.negativeBackground)
-        case .none:
-            return Color.clear
         }
     }
     
-    func nodeForeground(_ state: StepIndicatorState,
+    func nodeForeground(_ state: StepIndicatorState?,
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
+        guard let state = state else { return Color.preferredColor(.tertiaryLabel) }
         switch state.convert(isSelected) {
-        case .inactive, .disabled:
+        case .inactive, .disabled, .none:
             return Color.preferredColor(.tertiaryLabel)
         case .active:
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
@@ -260,28 +258,26 @@ struct DefaultStepsStyle: StepsStyle {
             return Color.preferredColor(.primaryFill)
         case .error, .errorActive:
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
-        case .none:
-            return Color.clear
         }
     }
     
-    func nameColor(_ state: StepIndicatorState,
+    func nameColor(_ state: StepIndicatorState?,
                    _ isSelected: Bool,
                    _ isPressed: Bool) -> Color
     {
+        guard let state = state else { return Color.preferredColor(.primaryLabel) }
         switch state.convert(isSelected) {
-        case .inactive, .active, .completed:
+        case .inactive, .active, .completed, .none:
             return Color.preferredColor(.primaryLabel)
         case .disabled:
             return Color.preferredColor(.tertiaryLabel)
         case .error, .errorActive:
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
-        case .none:
-            return Color.clear
         }
     }
     
-    func nameFont(_ state: StepIndicatorState, _ isSelected: Bool) -> Font {
+    func nameFont(_ state: StepIndicatorState?, _ isSelected: Bool) -> Font {
+        guard let state = state else { return Font.fiori(forTextStyle: .body) }
         let useSemibold: Bool
         switch state.convert(isSelected) {
         case .active, .errorActive:
@@ -293,11 +289,12 @@ struct DefaultStepsStyle: StepsStyle {
             .weight(useSemibold ? .semibold : .regular)
     }
     
-    func lineColor(_ state: StepIndicatorState,
+    func lineColor(_ state: StepIndicatorState?,
                    _ isSelected: Bool,
                    _ isPressed: Bool,
                    _ showLine: Bool) -> Color
     {
+        guard let state = state else { return Color.preferredColor(.separator) }
         if showLine {
             return self.line(state, isSelected, isPressed)
         } else {
@@ -316,7 +313,7 @@ struct DefaultStepsStyle: StepsStyle {
         case .error, .errorActive:
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
         case .none:
-            return Color.clear
+            return Color.preferredColor(.separator)
         }
     }
 }

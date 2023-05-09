@@ -29,14 +29,3 @@ struct StepProgressIndicatorContainer<Steps: IndexedViewContainer>: View {
         }
     }
 }
-
-struct CurrentStepIdKey: EnvironmentKey {
-    static let defaultValue: Binding<String> = .constant("")
-}
-
-extension EnvironmentValues {
-    var currentStepId: Binding<String> {
-        get { self[CurrentStepIdKey.self] }
-        set { self[CurrentStepIdKey.self] = newValue }
-    }
-}

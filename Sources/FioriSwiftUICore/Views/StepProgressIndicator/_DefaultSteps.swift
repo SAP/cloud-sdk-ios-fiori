@@ -5,7 +5,7 @@ public struct _DefaultSteps: IndexedViewContainer {
     var stepItems: [StepItem]
     @Binding var selection: String
     var isSubstep: Bool = false
-
+    
     init(stepItems: [StepItem],
          selection: Binding<String>,
          isSubstep: Bool = false)
@@ -52,7 +52,7 @@ public struct _DefaultSteps: IndexedViewContainer {
         let data = self.stepItems[index]
         let showLine = index < self.count - 1 || !data.substeps.isEmpty
         if let state = state(at: index) {
-            let step = SingleStep(id: data.id, tappable: false) {
+            let step = SingleStep(id: data.id, fromDataItems: true) {
                 if let title = data.title {
                     Text(title)
                 } else {
@@ -74,13 +74,19 @@ public struct _DefaultSteps: IndexedViewContainer {
             }
             Button {
                 if state != .disabled {
-                    selection = stepItems[index].id
+                    selection = data.id
                 }
             } label: {
                 step
             }
-            .buttonStyle(StepButtonStyle(node: step.node, title: step.title, line: step.line,
-                                         state: data.state, isSelected: data.id == self.selection, isLastStep: !showLine))
+            .disabled(state == .disabled)
+            .buttonStyle(StepButtonStyle(id: data.id,
+                                         node: step._node,
+                                         title: step._title,
+                                         line: step._line,
+                                         state: data.state,
+                                         isSelected: data.id == self.selection,
+                                         isLastStep: !showLine))
         } else {
             EmptyView()
         }
@@ -91,7 +97,7 @@ public struct _DefaultSteps: IndexedViewContainer {
         let data = self.stepItems[index]
         if let state = state(at: index) {
             let showLine = index < self.count - 1 || !data.substeps.isEmpty || !isTail
-            let step = SingleStep(id: data.id, tappable: false) {
+            let step = SingleStep(id: data.id, fromDataItems: true) {
                 if let title = data.title {
                     Text(title)
                 } else {
@@ -113,6 +119,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                     }
                 }.frame(width: 16, height: 16)
             }.stepPadding(top: 14, bottom: 4, leading: 14, trailing: 4, vertical: 14, horizontal: 14)
+            
             Button {
                 if state != .disabled {
                     selection = data.id
@@ -120,8 +127,14 @@ public struct _DefaultSteps: IndexedViewContainer {
             } label: {
                 step
             }
-            .buttonStyle(StepButtonStyle(node: step.node, title: step.title, line: step.line,
-                                         state: data.state, isSelected: data.id == self.selection, isLastStep: !showLine))
+            .disabled(state == .disabled)
+            .buttonStyle(StepButtonStyle(id: data.id,
+                                         node: step._node,
+                                         title: step._title,
+                                         line: step._line,
+                                         state: data.state,
+                                         isSelected: data.id == self.selection,
+                                         isLastStep: !showLine))
         } else {
             EmptyView()
         }

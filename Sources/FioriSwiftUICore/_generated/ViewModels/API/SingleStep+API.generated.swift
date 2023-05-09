@@ -8,16 +8,16 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	@Environment(\.currentStepId) var currentStepId
 	@Environment(\.stepAxis) var stepAxis
 	@Environment(\.stepLineModifier) var stepLineModifier
-
+    @Environment(\.stepsStyle) var stepsStyle
+    
     var _id: String
 	let _title: Title
 	let _node: Node
 	let _substeps: Substeps
+    var fromDataItems: Bool = false
 	var top: CGFloat = 8
-	var tappable: Bool = true
 	var bottom: CGFloat = 8
 	var leading: CGFloat = 8
-	@State var nodeAndLineSize: CGSize = .zero
 	var trailing: CGFloat = 8
 	var horizontalSpacing: CGFloat = 14
 	var verticalSpacing: CGFloat = 8
