@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// List item for `DataTable`
-public struct DataListItem: DataItemTextComponent, CheckBinding {
+public struct DataListItem: DataItemTextComponent, CheckBinding, Equatable {
     public let type: DataItemType = .listitem
 
     /// String for text item.
@@ -58,5 +58,30 @@ public struct DataListItem: DataItemTextComponent, CheckBinding {
     
     func string(for columnAttribute: ColumnAttribute) -> String {
         self.text
+    }
+    
+    /// check equality
+    public static func == (lhs: DataListItem, rhs: DataListItem) -> Bool {
+        if lhs.text != rhs.text {
+            return false
+        }
+        
+        if lhs.font != rhs.font {
+            return false
+        }
+        
+        if lhs.uifont != rhs.uifont {
+            return false
+        }
+        
+        if lhs.lineLimit != rhs.lineLimit {
+            return false
+        }
+        
+        if lhs.textColor != rhs.textColor {
+            return false
+        }
+        
+        return true
     }
 }
