@@ -62,20 +62,22 @@ extension StepProgressIndicator: View {
             HStack(alignment: .center) {
                 title
                 Spacer()
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    action
-                }
+                action
+                    .simultaneousGesture(TapGesture().onEnded { _ in
+                        self.isPresented.toggle()
+                    })
+                    .simultaneousGesture(LongPressGesture().onEnded { _ in
+                        self.isPresented.toggle()
+                    })
             }
             .frame(minHeight: 44)
             .sheet(isPresented: $isPresented) {
-                verticalSteps()
+                verticalSteps
             }
         }
     }
     
-    func verticalSteps() -> some View {
+    var verticalSteps: some View {
         var newSelf = self
         newSelf.axis = .vertical
         return NavigationView {

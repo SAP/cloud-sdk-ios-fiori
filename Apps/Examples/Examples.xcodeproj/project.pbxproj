@@ -91,6 +91,7 @@
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
+		B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */; };
 		B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */; };
 		B1D9D22A2991E056008FF5BC /* ObjectItemAvatarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */; };
 		B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */; };
@@ -272,6 +273,7 @@
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
+		B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIModelExample.swift; sourceTree = "<group>"; };
 		B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPickerExample.swift; sourceTree = "<group>"; };
 		B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectItemAvatarsExample.swift; sourceTree = "<group>"; };
 		B80DA9B9260BBF8600C0B2E9 /* SingleActionProfiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionProfiles.swift; sourceTree = "<group>"; };
@@ -625,6 +627,7 @@
 			isa = PBXGroup;
 			children = (
 				B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */,
+				B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */,
 			);
 			path = StepProgressIndicator;
 			sourceTree = "<group>";
@@ -906,6 +909,7 @@
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
 				B84D24F12652F343007F2373 /* ObjectHeaderSpec.swift in Sources */,
 				B846F94A26815DF30085044B /* ContactItemCompactExamples.swift in Sources */,
+				B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
 				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,

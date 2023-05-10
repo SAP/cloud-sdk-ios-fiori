@@ -5,22 +5,23 @@ import SwiftUI
 public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.nodeModifier) private var nodeModifier
+	@Environment(\.stepStyle) var stepStyle
 	@Environment(\.currentStepId) var currentStepId
 	@Environment(\.stepAxis) var stepAxis
-	@Environment(\.stepLineColor) var stepLineColor
+	@Environment(\.stepLineModifier) var stepLineModifier
 
     var _id: String
-	let _title: Title
-	let _node: Node
-	let _substeps: Substeps
-	var top: CGFloat = 8
-	var tappable: Bool = true
-	var bottom: CGFloat = 8
-	var leading: CGFloat = 8
-	@State var nodeAndLineSize: CGSize = .zero
-	var trailing: CGFloat = 8
+	var _title: Title
+	var _node: Node
+	var _substeps: Substeps
 	var horizontalSpacing: CGFloat = 14
+	var trailing: CGFloat = 8
+	var bottom: CGFloat = 8
+	var state: StepIndicatorState?
 	var verticalSpacing: CGFloat = 8
+	var isLastStep: Bool = false
+	var top: CGFloat = 8
+	var leading: CGFloat = 8
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
