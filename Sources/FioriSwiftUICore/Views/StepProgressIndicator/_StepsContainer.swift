@@ -37,3 +37,28 @@ extension _StepsContainer: IndexedViewContainer {
         }
     }
 }
+
+/// Not for developers.
+public struct _StepItemsContainer {
+    var steps: [StepItem]
+    /// :nodoc:
+    public init(_ steps: [StepItem]) {
+        self.steps = steps
+    }
+}
+
+extension _StepItemsContainer: IndexedViewContainer {
+    /// :nodoc:
+    public var count: Int {
+        self.steps.count
+    }
+    
+    /// :nodoc:
+    @ViewBuilder public func view(at index: Int) -> some View {
+        if index < self.count {
+            SingleStep(item: self.steps[index])
+        } else {
+            EmptyView()
+        }
+    }
+}

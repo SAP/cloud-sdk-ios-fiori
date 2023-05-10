@@ -12,26 +12,60 @@ extension Fiori {
     }
 }
 
-extension SingleStep where Substeps == EmptyView {
+/// Not for developers
+public struct _StepNode: View {
+    var state: StepIndicatorState
+    /// :nodoc:
+    public var body: some View {
+        node().frame(width: 28, height: 28)
+    }
+    
+    @ViewBuilder func node() -> some View {
+        switch self.state {
+        case .normal:
+            Circle().strokeBorder(lineWidth: 2)
+        case .completed:
+            Circle().fill(Color.clear)
+        case .disabled:
+            let strokeStyle = StrokeStyle(lineWidth: 2, lineCap: .butt, lineJoin: .miter, miterLimit: 0, dash: [3], dashPhase: 0)
+            Circle()
+                .strokeBorder(style: strokeStyle)
+        default:
+            Circle().strokeBorder(lineWidth: 1)
+        }
+    }
+}
+
+public extension SingleStep where Title == _ConditionalContent<Text, EmptyView>,
+    Node == _StepNode,
+    Substeps == _StepItemsContainer
+{
+    /// Generic `SingleStep` by `StepItem`
+    /// - Parameter item: A `StepItem`.
+    init(item: StepItem) {
+        self._id = item.id
+        if let t = item.title {
+            self._title = ViewBuilder.buildEither(first: Text(t))
+        } else {
+            self._title = ViewBuilder.buildEither(second: EmptyView())
+        }
+        self._node = _StepNode(state: item.state)
+        self._substeps = _StepItemsContainer(item.substeps)
+        self.state = item.state
+    }
+}
+
+public extension SingleStep where Substeps == EmptyView {
     /// Convenience initialization for empty sub-steps.
     /// - Parameters:
     ///   - id: String value for step id.
     ///   - title: Title for single step.
     ///   - node: Node for single step.
-    public init(id: String = UUID().uuidString,
-                @ViewBuilder title: () -> Title,
-                @ViewBuilder node: () -> Node)
-    {
-        self.init(id: id, fromDataItems: false, title: title, node: node)
-    }
-    
     init(id: String = UUID().uuidString,
-         fromDataItems: Bool = false,
          @ViewBuilder title: () -> Title,
          @ViewBuilder node: () -> Node)
     {
         self._id = id
-        self.fromDataItems = fromDataItems
         self._title = title()
         self._node = node()
         self._substeps = EmptyView()
@@ -76,35 +110,37 @@ extension SingleStep: View {
     }
     
     @ViewBuilder var stepContainer: some View {
-        let step = InnerSingleStep(id: _id,
-                                   title: title,
-                                   node: node,
-                                   line: line,
-                                   isTitleEmptyView: isTitleEmptyView,
-                                   top: top,
-                                   bottom: bottom,
-                                   leading: leading,
-                                   trailing: trailing,
-                                   horizontalSpacing: horizontalSpacing,
-                                   verticalSpacing: verticalSpacing)
-        if fromDataItems {
-            step
-        } else {
-            Button {
-                if currentStepId.wrappedValue != _id {
-                    currentStepId.wrappedValue = _id
-                }
-            } label: {
-                step
+        Button {
+            if currentStepId.wrappedValue != _id, state != .disabled {
+                currentStepId.wrappedValue = _id
             }
-            .buttonStyle(StepButtonStyle(id: _id,
-                                         node: node,
-                                         title: title,
-                                         line: line,
-                                         state: nil,
-                                         isSelected: currentStepId.wrappedValue == _id,
-                                         isLastStep: false))
+        } label: {
+            // setup label in button style
+            EmptyView()
         }
+        .buttonStyle(StepButtonStyle(id: _id,
+                                     node: node.typeErased,
+                                     title: title.typeErased,
+                                     line: line.typeErased,
+                                     state: state,
+                                     isSelected: currentStepId.wrappedValue == _id,
+                                     isLastStep: isLastStep,
+                                     isTitleEmptyView: isTitleEmptyView,
+                                     top: top,
+                                     bottom: bottom,
+                                     leading: leading,
+                                     trailing: trailing,
+                                     horizontalSpacing: horizontalSpacing,
+                                     verticalSpacing: verticalSpacing))
+    }
+    
+    func update(_ state: StepIndicatorState,
+                _ isLastStep: Bool = false) -> Self
+    {
+        var newSelf = self
+        newSelf.state = state
+        newSelf.isLastStep = isLastStep
+        return newSelf
     }
     
     /// Separator line for `SingleStep`.
@@ -179,11 +215,8 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
     
-    @Environment(\.stepsStyle) var stepsStyle
-    @Environment(\.titleModifier) private var titleModifier
-    @Environment(\.nodeModifier) private var nodeModifier
+    @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
-    @Environment(\.stepLineModifier) var stepLineModifier
 
     @State var nodeAndLineSize: CGSize = .zero
     
@@ -194,19 +227,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var body: some View {
         oneStep
     }
-    
-    @ViewBuilder var styledNode: some View {
-        node.modifier(nodeModifier)
-    }
-    
-    @ViewBuilder var styledTitle: some View {
-        title.modifier(titleModifier)
-    }
-    
-    @ViewBuilder var styledLine: some View {
-        line.modifier(stepLineModifier)
-    }
-    
+        
     @ViewBuilder
     var oneStep: some View {
         switch stepAxis {
@@ -214,8 +235,8 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
             VStack(alignment: .leading, spacing: 0) {
                 Spacer().frame(height: top)
                 HStack(spacing: stepsSpacing) {
-                    styledNode
-                    styledLine.frame(width: lineWidth, height: lineHeight)
+                    node
+                    line.frame(width: lineWidth, height: lineHeight)
                 }.sizeReader { size in
                     if nodeAndLineSize.different(with: size) {
                         nodeAndLineSize = size
@@ -225,7 +246,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                     Spacer().frame(height: bottom)
                 } else {
                     Spacer().frame(height: verticalSpacing)
-                    styledTitle
+                    title
                         .frame(width: nodeAndLineSize.width, alignment: .leading)
                         .lineLimit(2)
                     Spacer().frame(height: bottom)
@@ -235,12 +256,12 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
                 Spacer().frame(width: leading)
                 VStack(spacing: stepsSpacing) {
-                    styledNode
+                    node
                         .alignmentGuide(.stepsTopAlignment) { $0.height / 2.0 }
-                    styledLine.frame(maxWidth: lineWidth, minHeight: lineHeight)
+                    line.frame(maxWidth: lineWidth, minHeight: lineHeight)
                 }
                 Spacer().frame(width: horizontalSpacing)
-                styledTitle.lineLimit(nil)
+                title.lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .alignmentGuide(.stepsTopAlignment) {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2

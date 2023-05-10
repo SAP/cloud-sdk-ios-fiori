@@ -18,39 +18,12 @@ public struct StepIndicatorState: OptionSet {
     /// error state for a step.
     public static let normal: StepIndicatorState = []
     
-    func convert(_ isSelected: Bool) -> InternalStepState? {
-        switch (isSelected, self) {
-        case (true, .normal):
-            return .active
-        case (_, .completed):
-            return .completed
-        case (_, .disabled):
-            return .disabled
-        case (true, .error):
-            return .errorActive
-        case (false, .normal):
-            return .inactive
-        case (false, .error):
-            return .error
-        case (_, _):
-            return nil
-        }
-    }
-}
-
-enum InternalStepState {
-    case inactive, active, completed, disabled, error, errorActive
-    
-    func convert() -> StepIndicatorState {
+    var isSupported: Bool {
         switch self {
-        case .inactive, .active:
-            return .normal
-        case .completed:
-            return .completed
-        case .disabled:
-            return .disabled
-        case .error, .errorActive:
-            return .error
+        case .normal, .completed, .error, .disabled:
+            return true
+        default:
+            return false
         }
     }
 }

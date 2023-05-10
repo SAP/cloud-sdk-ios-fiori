@@ -336,7 +336,7 @@ struct SPICustomStyleExample: View {
                     }
                 }
             }
-            .stepsStyle { _ in
+            .stepStyle { _ in
                 CustomStyleExample()
             }
             Spacer().padding(20)
@@ -401,7 +401,7 @@ struct SPICustomStyleExample: View {
     }
 }
 
-struct CustomStyleExample: StepsStyle {
+struct CustomStyleExample: StepStyle {
     func makeNode(configuration: Self.Configuration) -> some View {
         let background = configuration.state == .completed ? Color.black : Color.gray
         configuration.node

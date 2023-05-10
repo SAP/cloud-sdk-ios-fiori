@@ -377,14 +377,15 @@ public protocol KPIHeaderItemModel {}
 // sourcery: add_env_props = "stepLineModifier"
 // sourcery: add_env_props = "stepAxis"
 // sourcery: add_env_props = "currentStepId"
-// sourcery: add_env_props = "stepsStyle"
-// sourcery: virtualPropFromDataItems = "var fromDataItems: Bool = false"
+// sourcery: add_env_props = "stepStyle"
 // sourcery: virtualPropTop = "var top: CGFloat = 8"
 // sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
 // sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
 // sourcery: virtualPropLeading = "var leading: CGFloat = 8"
 // sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
 // sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
+// sourcery: virtualPropStepState = "var state: StepIndicatorState?"
+// sourcery: virtualPropIsLastStep = "var isLastStep: Bool = false"
 // sourcery: generated_component_composite
 public protocol SingleStepModel {
     // sourcery: default.value = UUID().uuidString

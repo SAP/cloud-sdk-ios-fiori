@@ -48,10 +48,9 @@ struct SPIModelExample: View {
         VStack(alignment: .leading) {
             Text("Initialized by Model").bold()
             StepProgressIndicator(model: model)
-                .stepsStyle { id in
+                .stepStyle { id in
                     CustomModelStyleExample(isLast: id == "f")
                 }
-                
             Spacer().padding(20)
             Button {
                 completeStep()
@@ -84,7 +83,7 @@ struct SPIModelExample: View {
     }
 }
 
-struct CustomModelStyleExample: StepsStyle {
+struct CustomModelStyleExample: StepStyle {
     var isLast: Bool
     
     func makeNode(configuration: Self.Configuration) -> some View {

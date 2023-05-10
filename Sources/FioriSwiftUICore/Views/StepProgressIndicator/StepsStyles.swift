@@ -30,15 +30,6 @@ public struct StepItem: Identifiable {
     }
 }
 
-struct IconTrailedTitleLabelStyle: LabelStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        HStack(spacing: 2) {
-            configuration.title
-            configuration.icon
-        }
-    }
-}
-
 extension VerticalAlignment {
     private enum StepsTopAlignment: AlignmentID {
         static func defaultValue(in dimensions: ViewDimensions) -> CGFloat {
@@ -49,75 +40,74 @@ extension VerticalAlignment {
     static let stepsTopAlignment = VerticalAlignment(StepsTopAlignment.self)
 }
 
-extension HorizontalAlignment {
-    private enum StepsHorizontalAlignment: AlignmentID {
-        static func defaultValue(in dimensions: ViewDimensions) -> CGFloat {
-            dimensions[VerticalAlignment.top]
-        }
-    }
-
-    static let stepsHorizontalAlignment = HorizontalAlignment(StepsHorizontalAlignment.self)
-}
-
 struct StepButtonStyle: ButtonStyle {
     let id: String
-    let node: any View
-    let title: any View
-    let line: any View
-    @Environment(\.stepsStyle) var stepsStyle
-
+    let node: AnyView
+    let title: AnyView
+    let line: AnyView
+    @Environment(\.stepStyle) var stepStyle
+    
     var state: StepIndicatorState?
     var isSelected: Bool
     var isLastStep: Bool
-        
+    
+    let isTitleEmptyView: Bool
+    var top: CGFloat
+    var bottom: CGFloat
+    var leading: CGFloat
+    var trailing: CGFloat
+    var horizontalSpacing: CGFloat
+    var verticalSpacing: CGFloat
+    
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
-        let stepConfig = StepsConfiguration(node: StepsConfiguration.Node(body: self.node.typeErased),
-                                            title: StepsConfiguration.Title(body: self.title.typeErased),
-                                            line: StepsConfiguration.Line(body: self.line.typeErased),
-                                            state: self.state,
-                                            isPressed: isPressed,
-                                            isSelected: self.isSelected,
-                                            isLastStep: self.isLastStep)
-        configuration.label
-            .nodeModifier { _ in
-                self.generateNode(stepConfig)
-            }
-            .titleModifier { _ in
-                self.generateTitle(stepConfig)
-            }
-            .stepLineModifier { _ in
-                self.generateLine(stepConfig)
-            }
+        let stepConfig = StepConfiguration(node: StepConfiguration.Node(body: self.node.typeErased),
+                                           title: StepConfiguration.Title(body: self.title.typeErased),
+                                           line: StepConfiguration.Line(body: self.line.typeErased),
+                                           state: self.state,
+                                           isPressed: isPressed,
+                                           isSelected: self.isSelected,
+                                           isLastStep: self.isLastStep)
+        InnerSingleStep(id: self.id,
+                        title: self.generateTitle(stepConfig),
+                        node: self.generateNode(stepConfig),
+                        line: self.generateLine(stepConfig),
+                        isTitleEmptyView: self.isTitleEmptyView,
+                        top: self.top,
+                        bottom: self.bottom,
+                        leading: self.leading,
+                        trailing: self.trailing,
+                        horizontalSpacing: self.horizontalSpacing,
+                        verticalSpacing: self.verticalSpacing)
     }
     
-    @ViewBuilder func generateNode(_ stepsConfig: StepsConfiguration) -> some View {
-        if let s = stepsStyle(id) {
-            s.makeNode(configuration: stepsConfig).typeErased
+    @ViewBuilder func generateNode(_ stepConfig: StepConfiguration) -> some View {
+        if let s = stepStyle(id) {
+            s.makeNode(configuration: stepConfig).typeErased
         } else {
-            stepsConfig.node
+            stepConfig.node
         }
     }
     
-    @ViewBuilder func generateTitle(_ stepsConfig: StepsConfiguration) -> some View {
-        if let s = stepsStyle(id) {
-            s.makeTitle(configuration: stepsConfig).typeErased
+    @ViewBuilder func generateTitle(_ stepConfig: StepConfiguration) -> some View {
+        if let s = stepStyle(id) {
+            s.makeTitle(configuration: stepConfig).typeErased
         } else {
-            stepsConfig.title
+            stepConfig.title
         }
     }
     
-    @ViewBuilder func generateLine(_ stepsConfig: StepsConfiguration) -> some View {
-        if let s = stepsStyle(id) {
-            s.makeLine(configuration: stepsConfig).typeErased
+    @ViewBuilder func generateLine(_ stepConfig: StepConfiguration) -> some View {
+        if let s = stepStyle(id) {
+            s.makeLine(configuration: stepConfig).typeErased
         } else {
-            stepsConfig.line
+            stepConfig.line
         }
     }
 }
 
 /// Steps style for `StepProgressIndicator` which is initialized by `[StepItem]`.
-public protocol StepsStyle {
+public protocol StepStyle {
     /// A view that represents the node of a step.
     associatedtype Node: View
     /// A view that represents the title of a step.
@@ -141,12 +131,12 @@ public protocol StepsStyle {
     @ViewBuilder func makeLine(configuration: Self.Configuration) -> Self.Line
     
     /// The properties of a step.
-    typealias Configuration = StepsConfiguration
+    typealias Configuration = StepConfiguration
 }
 
-public extension StepsStyle where Self.Node: View, Self.Title: View, Self.Line: View {
-    private var defaultStyle: DefaultStepsStyle {
-        DefaultStepsStyle()
+public extension StepStyle where Self.Node: View, Self.Title: View, Self.Line: View {
+    private var defaultStyle: DefaultStepStyle {
+        DefaultStepStyle()
     }
     
     /// Use `default` style node for `StepProgressIndicator`
@@ -166,7 +156,7 @@ public extension StepsStyle where Self.Node: View, Self.Title: View, Self.Line: 
 }
 
 /// Steps configuration used for `StepStyle`.
-public struct StepsConfiguration {
+public struct StepConfiguration {
     /// :nodoc
     public struct Node: View {
         public var body: AnyView
@@ -183,11 +173,11 @@ public struct StepsConfiguration {
     }
 
     /// Node for `StepProgressIndicator`
-    public let node: StepsConfiguration.Node
+    public let node: StepConfiguration.Node
     /// Title for `StepProgressIndicator`
-    public let title: StepsConfiguration.Title
+    public let title: StepConfiguration.Title
     /// Line for `StepProgressIndicator`
-    public let line: StepsConfiguration.Line
+    public let line: StepConfiguration.Line
     
     /// State for step in `StepProgressIndicator`.
     public let state: StepIndicatorState?
@@ -199,7 +189,7 @@ public struct StepsConfiguration {
     public var isLastStep: Bool?
 }
 
-struct DefaultStepsStyle: StepsStyle {
+struct DefaultStepStyle: StepStyle {
     func makeNode(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
         let isSelected = configuration.isSelected
@@ -232,15 +222,15 @@ struct DefaultStepsStyle: StepsStyle {
                         _ isPressed: Bool) -> Color
     {
         guard let state = state else { return Color.preferredColor(.primaryBackground) }
-        switch state.convert(isSelected) {
-        case .inactive, .active, .error, .none:
-            return Color.preferredColor(.primaryBackground)
-        case .completed:
+        switch (state, isSelected) {
+        case (.completed, _):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
-        case .disabled:
+        case (.disabled, _):
             return Color.preferredColor(.quaternaryFill)
-        case .errorActive:
+        case (.error, true):
             return Color.preferredColor(.negativeBackground)
+        default:
+            return Color.preferredColor(.primaryBackground)
         }
     }
     
@@ -249,15 +239,15 @@ struct DefaultStepsStyle: StepsStyle {
                         _ isPressed: Bool) -> Color
     {
         guard let state = state else { return Color.preferredColor(.tertiaryLabel) }
-        switch state.convert(isSelected) {
-        case .inactive, .disabled, .none:
-            return Color.preferredColor(.tertiaryLabel)
-        case .active:
+        switch (state, isSelected) {
+        case (.normal, true):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
-        case .completed:
+        case (.completed, _):
             return Color.preferredColor(.primaryFill)
-        case .error, .errorActive:
+        case (.error, _):
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
+        default:
+            return Color.preferredColor(.tertiaryLabel)
         }
     }
     
@@ -266,23 +256,23 @@ struct DefaultStepsStyle: StepsStyle {
                    _ isPressed: Bool) -> Color
     {
         guard let state = state else { return Color.preferredColor(.primaryLabel) }
-        switch state.convert(isSelected) {
-        case .inactive, .active, .completed, .none:
-            return Color.preferredColor(.primaryLabel)
-        case .disabled:
+        switch (state, isSelected) {
+        case (.disabled, _):
             return Color.preferredColor(.tertiaryLabel)
-        case .error, .errorActive:
+        case (.error, _):
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
+        default:
+            return Color.preferredColor(.primaryLabel)
         }
     }
     
     func nameFont(_ state: StepIndicatorState?, _ isSelected: Bool) -> Font {
         guard let state = state else { return Font.fiori(forTextStyle: .body) }
         let useSemibold: Bool
-        switch state.convert(isSelected) {
-        case .active, .errorActive:
+        switch (state, isSelected) {
+        case (.normal, true), (.error, true):
             useSemibold = true
-        case .completed, .inactive, .disabled, .error, .none:
+        default:
             useSemibold = false
         }
         return Font.fiori(forTextStyle: .footnote)
@@ -303,16 +293,14 @@ struct DefaultStepsStyle: StepsStyle {
     }
     
     func line(_ state: StepIndicatorState, _ isSelected: Bool, _ isPressed: Bool) -> Color {
-        switch state.convert(isSelected) {
-        case .inactive, .active:
-            return Color.preferredColor(.separator)
-        case .completed:
+        switch (state, isSelected) {
+        case (.completed, _):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
-        case .disabled:
+        case (.disabled, _):
             return Color.preferredColor(.tertiaryLabel)
-        case .error, .errorActive:
+        case (.error, _):
             return Color.preferredColor(isPressed ? .negativeLabelTapState : .negativeLabel)
-        case .none:
+        default:
             return Color.preferredColor(.separator)
         }
     }

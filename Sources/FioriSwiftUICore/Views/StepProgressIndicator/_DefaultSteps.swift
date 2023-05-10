@@ -51,8 +51,9 @@ public struct _DefaultSteps: IndexedViewContainer {
     func singleStep(at index: Int) -> some View {
         let data = self.stepItems[index]
         let showLine = index < self.count - 1 || !data.substeps.isEmpty
-        if let state = state(at: index) {
-            let step = SingleStep(id: data.id, fromDataItems: true) {
+        if data.state.isSupported {
+            let isSelected = data.id == self.selection
+            SingleStep(id: data.id) {
                 if let title = data.title {
                     Text(title)
                 } else {
@@ -60,33 +61,18 @@ public struct _DefaultSteps: IndexedViewContainer {
                 }
             } node: {
                 ZStack {
-                    node(by: state)
+                    node(by: data.state, isSelected: isSelected)
                     Text("\(index + 1)")
                         .font(Font.fiori(forTextStyle: .footnote))
                 }
                 .frame(width: nodeWidth, height: nodeHeight)
                 .overlay {
-                    if state == .error || state == .errorActive {
+                    if data.state == .error {
                         Image(systemName: "exclamationmark.circle.fill")
                             .position(x: nodeWidth, y: 2)
                     }
                 }
-            }
-            Button {
-                if state != .disabled {
-                    selection = data.id
-                }
-            } label: {
-                step
-            }
-            .disabled(state == .disabled)
-            .buttonStyle(StepButtonStyle(id: data.id,
-                                         node: step._node,
-                                         title: step._title,
-                                         line: step._line,
-                                         state: data.state,
-                                         isSelected: data.id == self.selection,
-                                         isLastStep: !showLine))
+            }.update(data.state, !showLine)
         } else {
             EmptyView()
         }
@@ -95,70 +81,56 @@ public struct _DefaultSteps: IndexedViewContainer {
     @ViewBuilder
     func singleSubstep(at index: Int, isTail: Bool = false) -> some View {
         let data = self.stepItems[index]
-        if let state = state(at: index) {
+        if data.state.isSupported {
             let showLine = index < self.count - 1 || !data.substeps.isEmpty || !isTail
-            let step = SingleStep(id: data.id, fromDataItems: true) {
+            let isSelected = data.id == self.selection
+            SingleStep(id: data.id) {
                 if let title = data.title {
                     Text(title)
                 } else {
                     EmptyView()
                 }
             } node: {
-                Group {
-                    if state == .error {
-                        Image(systemName: "exclamationmark.circle")
-                    } else if state == .errorActive {
-                        Image(systemName: "exclamationmark.circle.fill")
-                    } else if state == .active {
-                        ZStack {
-                            node(by: state)
-                            Circle().padding(4)
-                        }
-                    } else {
-                        node(by: state)
-                    }
-                }.frame(width: 16, height: 16)
-            }.stepPadding(top: 14, bottom: 4, leading: 14, trailing: 4, vertical: 14, horizontal: 14)
-            
-            Button {
-                if state != .disabled {
-                    selection = data.id
-                }
-            } label: {
-                step
+                subnode(by: data.state, isSelected: isSelected)
+                    .frame(width: 16, height: 16)
             }
-            .disabled(state == .disabled)
-            .buttonStyle(StepButtonStyle(id: data.id,
-                                         node: step._node,
-                                         title: step._title,
-                                         line: step._line,
-                                         state: data.state,
-                                         isSelected: data.id == self.selection,
-                                         isLastStep: !showLine))
+            .update(data.state, !showLine)
+            .stepPadding(top: 14, bottom: 4, leading: 14, trailing: 4, vertical: 14, horizontal: 14)
         } else {
             EmptyView()
         }
     }
     
-    func state(at index: Int) -> InternalStepState? {
-        let data = self.stepItems[index]
-        let isSelected = data.id == self.selection
-        return data.state.convert(isSelected)
-    }
-    
     @ViewBuilder
-    func node(by state: InternalStepState) -> some View {
-        switch state {
-        case .active:
+    func node(by state: StepIndicatorState, isSelected: Bool) -> some View {
+        switch (state, isSelected) {
+        case (.normal, true):
             Circle().strokeBorder(lineWidth: 2)
-        case .completed:
+        case (.completed, _):
             Circle().fill(Color.clear)
-        case .disabled:
+        case (.disabled, _):
             let strokeStyle = StrokeStyle(lineWidth: 2, lineCap: .butt, lineJoin: .miter, miterLimit: 0, dash: [3], dashPhase: 0)
             Circle()
                 .strokeBorder(style: strokeStyle)
-        case .inactive, .error, .errorActive:
+        default:
             Circle().strokeBorder(lineWidth: 1)
+        }
+    }
+    
+    @ViewBuilder
+    func subnode(by state: StepIndicatorState, isSelected: Bool) -> some View {
+        switch (state, isSelected) {
+        case (.error, false):
+            Image(systemName: "exclamationmark.circle")
+        case (.error, true):
+            Image(systemName: "exclamationmark.circle.fill")
+        case (.normal, true):
+            ZStack {
+                node(by: state, isSelected: isSelected)
+                Circle().padding(4)
+            }
+        default:
+            self.node(by: state, isSelected: isSelected)
         }
     }
     
