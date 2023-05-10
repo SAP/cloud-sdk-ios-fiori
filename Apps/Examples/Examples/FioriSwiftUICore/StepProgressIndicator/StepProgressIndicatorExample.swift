@@ -19,11 +19,20 @@ struct StepProgressIndicatorExample: View {
             } label: {
                 Text("Steps Without Names")
             }
-            
+            NavigationLink {
+                SPICustomStyleExample()
+            } label: {
+                Text("Steps With Custom Style")
+            }
             NavigationLink {
                 SPIExampleByBuilder()
             } label: {
                 Text("Steps By Builder")
+            }
+            NavigationLink {
+                SPIModelExample()
+            } label: {
+                Text("Steps By Model")
             }
         }
     }
@@ -109,9 +118,11 @@ struct SPIExampleWithHeader: View {
             StepProgressIndicator(selection: $selection, stepItems: steps) {
                 Text(title).lineLimit(1)
             } action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(\(steps.count)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count)")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
             Spacer().padding(20)
@@ -197,9 +208,11 @@ struct SPIExampleWithoutName: View {
             
             StepProgressIndicator(selection: $selection,
                                   stepItems: steps) {} action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(\(steps.count)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count))")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }
             Spacer().padding(20)
@@ -234,9 +247,11 @@ struct SPIExampleByBuilder: View {
     var body: some View {
         VStack {
             StepProgressIndicator(selection: $selection, action: {
-                HStack(spacing: 2) {
-                    Text("All Steps(2)")
-                    Image(systemName: "chevron.right")
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(2)")
+                        Image(systemName: "chevron.right")
+                    }
                 }
             }, steps: {
                 SingleStep(id: "1") {
@@ -244,10 +259,8 @@ struct SPIExampleByBuilder: View {
                 } substeps: {
                     SingleStep(id: "1.1") {
                         node("1.1")
-                        
-                    }.stepLineColor(Color.random)
+                    }
                 }
-                .stepLineColor(Color.random)
 
                 SingleStep(id: "2") {
                     node("2")
@@ -259,9 +272,7 @@ struct SPIExampleByBuilder: View {
                             node("2.1.1")
                         }
                         .customStepId("2.1.1")
-                        .stepLineColor(Color.random)
                     }
-                    .stepLineColor(Color.random)
                     
                     SingleStep(id: "2.2") {
                         node("2.2")
@@ -270,10 +281,11 @@ struct SPIExampleByBuilder: View {
                             node("2.2.1")
                         }
                         .customStepId("2.2.1")
-                        .stepLineColor(Color.random)
+                        .stepLineModifier {
+                            $0.foregroundColor(.clear)
+                        }
                     }
-                    .stepLineColor(Color.random)
-                }.stepLineColor(Color.random)
+                }
             })
             Spacer()
         }.padding()
@@ -290,5 +302,115 @@ struct SPIExampleByBuilder: View {
         }
         .frame(width: 40, height: 40)
         .border(self.selection == s ? Color.black : Color.clear, width: 2)
+    }
+}
+
+struct SPICustomStyleExample: View {
+    @State var title: String = ""
+    @State var steps = [StepItem(id: "1", title: "Step A", state: .completed),
+                        StepItem(id: "2", title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItem(id: "3", title: "Step 3", substeps: [
+                            StepItem(title: "Step 3.1"),
+                            StepItem(title: "Step 3.2", state: .disabled),
+                            StepItem(title: "Step 3.3", state: .error),
+                            StepItem(title: "Step 3.4", state: .error),
+                            StepItem(title: "Step 3.p", state: .completed)
+                        ]),
+                        StepItem(title: "Step P", state: .disabled),
+                        StepItem(title: "Step D", state: .error),
+                        StepItem(title: "Step E", state: .error),
+                        StepItem(title: "Step F")]
+    
+    @State var selection: String = ""
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            Text("Custom Styles").bold()
+            StepProgressIndicator(selection: $selection, stepItems: steps) {
+                Text(title).lineLimit(1)
+            } action: {
+                Button {} label: {
+                    HStack(spacing: 2) {
+                        Text("All Steps(\(steps.count)")
+                        Image(systemName: "chevron.right")
+                    }
+                }
+            }
+            .stepStyle { _ in
+                CustomStyleExample()
+            }
+            Spacer().padding(20)
+            Button {
+                completeStep()
+            } label: {
+                Text("Mark as Completed")
+            }
+            .padding(20)
+        }
+        .padding()
+        .onChange(of: selection, perform: { _ in
+            updateCurrentStepName()
+        })
+        .onAppear {
+            updateCurrentStepName()
+        }
+    }
+    
+    func getStep() -> StepItem? {
+        func findStep(in data: [StepItem]) -> StepItem? {
+            for step in data {
+                if step.id == self.selection {
+                    return step
+                }
+                
+                if !step.substeps.isEmpty {
+                    if let foundItem = findStep(in: step.substeps) {
+                        return foundItem
+                    } else {
+                        continue
+                    }
+                }
+            }
+            
+            return nil
+        }
+        return findStep(in: self.steps)
+    }
+    
+    func updateCurrentStepName() {
+        let selectedTitle = "\(getStep()?.title ?? "no title")"
+        if self.title != selectedTitle {
+            self.title = selectedTitle
+        }
+    }
+    
+    func completeStep() {
+        for index in self.steps.indices {
+            if self.steps[index].id == self.selection {
+                self.steps[index].state = .completed
+            } else {
+                let substeps = self.steps[index].substeps
+                guard !substeps.isEmpty else { continue }
+                for subindex in substeps.indices {
+                    if substeps[subindex].id == self.selection {
+                        self.steps[index].substeps[subindex].state = .completed
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct CustomStyleExample: StepStyle {
+    func makeNode(configuration: Self.Configuration) -> some View {
+        let background = configuration.state == .completed ? Color.black : Color.gray
+        configuration.node
+            .foregroundColor(Color.blue)
+            .background(background.clipShape(Circle()))
+    }
+
+    func makeLine(configuration: Configuration) -> some View {
+        let isLast = configuration.isLastStep
+        configuration.line.foregroundColor(isLast ?? false ? Color.clear : nil)
     }
 }
