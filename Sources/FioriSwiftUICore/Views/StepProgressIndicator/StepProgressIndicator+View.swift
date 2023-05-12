@@ -63,10 +63,7 @@ extension StepProgressIndicator: View {
                 title
                 Spacer()
                 action
-                    .simultaneousGesture(TapGesture().onEnded { _ in
-                        self.isPresented.toggle()
-                    })
-                    .simultaneousGesture(LongPressGesture().onEnded { _ in
+                    .simultaneousGesture(LongPressGesture(minimumDuration: 0).onEnded { _ in
                         self.isPresented.toggle()
                     })
             }

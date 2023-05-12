@@ -266,6 +266,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                     .alignmentGuide(.stepsTopAlignment) {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2
                     }
+                    .alignmentGuide(.stepsLeadingAlignment) { $0[.leading] }
                 Spacer().frame(width: trailing)
                 Spacer()
             }
