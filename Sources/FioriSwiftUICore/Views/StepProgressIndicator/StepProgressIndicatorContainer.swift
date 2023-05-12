@@ -19,7 +19,7 @@ struct StepProgressIndicatorContainer<Steps: IndexedViewContainer>: View {
                 }
             }
         case .vertical:
-            VStack(alignment: .leading, spacing: stepsSpacing) {
+            VStack(alignment: .stepsLeadingAlignment, spacing: stepsSpacing) {
                 ForEach(0 ..< steps.count, id: \.self) { index in
                     steps.view(at: index)
                         .environment(\.stepAxis, stepAxis)

@@ -383,7 +383,7 @@ public protocol KPIHeaderItemModel {}
 // sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
 // sourcery: virtualPropLeading = "var leading: CGFloat = 8"
 // sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
-// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
+// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 8"
 // sourcery: virtualPropStepState = "var state: StepIndicatorState?"
 // sourcery: virtualPropIsLastStep = "var isLastStep: Bool = false"
 // sourcery: generated_component_composite

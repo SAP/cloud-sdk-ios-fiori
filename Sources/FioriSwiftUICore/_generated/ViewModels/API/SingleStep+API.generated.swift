@@ -14,7 +14,7 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	var _title: Title
 	var _node: Node
 	var _substeps: Substeps
-	var horizontalSpacing: CGFloat = 14
+	var horizontalSpacing: CGFloat = 8
 	var trailing: CGFloat = 8
 	var bottom: CGFloat = 8
 	var state: StepIndicatorState?

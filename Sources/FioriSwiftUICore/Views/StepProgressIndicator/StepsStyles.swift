@@ -1,35 +1,6 @@
 import FioriThemeManager
 import SwiftUI
 
-/// Step items data model for `StepProgressIndicator` with a default style.
-public struct StepItem: Identifiable {
-    /// Step id.
-    public var id = UUID().uuidString
-    /// Step title.
-    public var title: String?
-    /// Step state.
-    public var state: StepIndicatorState
-    /// Sub-steps for this one.
-    public var substeps: [StepItem]
-    
-    /// Convenience initialization for step tiem.
-    /// - Parameters:
-    ///   - id: Step id.
-    ///   - title: Step title.
-    ///   - state: Step state.
-    ///   - children: Sub-steps for this one.
-    public init(id: String = UUID().uuidString,
-                title: String? = nil,
-                state: StepIndicatorState = [],
-                substeps: [StepItem] = [])
-    {
-        self.id = id
-        self.title = title
-        self.state = state
-        self.substeps = substeps
-    }
-}
-
 extension VerticalAlignment {
     private enum StepsTopAlignment: AlignmentID {
         static func defaultValue(in dimensions: ViewDimensions) -> CGFloat {
@@ -38,6 +9,24 @@ extension VerticalAlignment {
     }
 
     static let stepsTopAlignment = VerticalAlignment(StepsTopAlignment.self)
+    
+    private enum StepsNodeCenterAlignment: AlignmentID {
+        static func defaultValue(in dimensions: ViewDimensions) -> CGFloat {
+            dimensions[VerticalAlignment.center]
+        }
+    }
+
+    static let stepsNodeCenterAlignment = VerticalAlignment(StepsNodeCenterAlignment.self)
+}
+
+extension HorizontalAlignment {
+    private enum StepsLeadingAlignment: AlignmentID {
+        static func defaultValue(in dimensions: ViewDimensions) -> CGFloat {
+            dimensions[HorizontalAlignment.leading]
+        }
+    }
+
+    static let stepsLeadingAlignment = HorizontalAlignment(StepsLeadingAlignment.self)
 }
 
 struct StepButtonStyle: ButtonStyle {
@@ -85,7 +74,7 @@ struct StepButtonStyle: ButtonStyle {
         if let s = stepStyle(id) {
             s.makeNode(configuration: stepConfig).typeErased
         } else {
-            stepConfig.node
+            DefaultStepStyle().makeNode(configuration: stepConfig).typeErased
         }
     }
     
@@ -93,7 +82,7 @@ struct StepButtonStyle: ButtonStyle {
         if let s = stepStyle(id) {
             s.makeTitle(configuration: stepConfig).typeErased
         } else {
-            stepConfig.title
+            DefaultStepStyle().makeTitle(configuration: stepConfig).typeErased
         }
     }
     
@@ -101,7 +90,7 @@ struct StepButtonStyle: ButtonStyle {
         if let s = stepStyle(id) {
             s.makeLine(configuration: stepConfig).typeErased
         } else {
-            stepConfig.line
+            DefaultStepStyle().makeLine(configuration: stepConfig).typeErased
         }
     }
 }
