@@ -6,7 +6,7 @@ class LayoutData {
     var size: CGSize = .zero
     
     var sizeClass: UserInterfaceSizeClass = .compact
-
+    
     var editMode: TableModel.EditMode = .none
     
     var hasHeader: Bool = false
@@ -21,6 +21,10 @@ class LayoutData {
     
     var minColumnWidth: CGFloat = 48
     
+    /// changes for rowData
+    /// each row: -1: delete; 0: no change; 1: add; 2: change
+    var rowDataChanges: [Int] = []
+    
     var rowData: [TableRowItem] = []
     
     var columnAttributes: [ColumnAttribute] = []
@@ -29,6 +33,7 @@ class LayoutData {
     
     var allDataItems: [[DataTableItem]] = []
     
+    /// number of errors checked against TableModel.validateDataItem
     var numOfErrors: Int = 0
     
     /// column width including padding
@@ -108,20 +113,39 @@ class LayoutData {
         return rowData
     }
     
-    func initItems(model: TableModel, workItem: DispatchWorkItem?) -> ([[DataTableItem]], [CGFloat]) {
+    /// Calculate all cells' content size in one line based on allDataItems and fromLayoutData
+    ///
+    /// - Parameter fromLayoutData: use this to reduce some calculations
+    /// - Parameter workItem: use this to check cancel status
+    ///
+    /// - Returns: [[DataTableItem]] to be assigned to allDataItems later
+    func initItems(model: TableModel, fromLayoutData: LayoutData? = nil, workItem: DispatchWorkItem? = nil) -> ([[DataTableItem]], [CGFloat]) {
         let numbOfRows = self.numberOfRows()
         var res: [[DataTableItem]] = []
         var maxFirstBaselineHeights = [CGFloat]()
         // reset it
         self.numOfErrors = 0
+        
+        /// minimize efforts to init items by using layoutData with rowDataChanges
         for i in 0 ..< numbOfRows {
             if workItem?.isCancelled ?? false {
                 return ([[]], [])
             }
             
-            let (items, maxFirstBaselineHeight) = self.createDataItemForRow(model: model, at: i, workItem: workItem)
-            res.append(items)
-            maxFirstBaselineHeights.append(maxFirstBaselineHeight)
+            // unchanged, just copy it
+            if let ld = fromLayoutData, i < ld.allDataItems.count, i < ld.firstBaselineHeights.count, i < rowDataChanges.count, rowDataChanges[i] == 0 {
+                res.append(ld.allDataItems[i])
+                maxFirstBaselineHeights.append(ld.firstBaselineHeights[i])
+                
+                // check isValid
+                for di in ld.allDataItems[i] where !di.isValid {
+                    self.numOfErrors += 1
+                }
+            } else {
+                let (items, maxFirstBaselineHeight) = self.createDataItemForRow(model: model, at: i, workItem: workItem)
+                res.append(items)
+                maxFirstBaselineHeights.append(maxFirstBaselineHeight)
+            }
         }
 
         return (res, maxFirstBaselineHeights)
@@ -272,7 +296,13 @@ class LayoutData {
          .flexible: 48 pt -- 50%
          .infinity: 48 pt -- 50%, then fill the remaining space if possible
       */
-    func getColumnWidths(workItem: DispatchWorkItem?) -> [CGFloat] {
+    /// Calculate column widths based on allDataItems and fromLayoutData
+    ///
+    /// - Parameter fromLayoutData: use this to reduce some calculations
+    /// - Parameter workItem: use this to check cancel status
+    ///
+    /// - Returns: widths for all columns
+    func calcColumnWidths(fromLayoutData: LayoutData? = nil, workItem: DispatchWorkItem? = nil) -> [CGFloat] {
         let numberOfColumns = self.numberOfColumns()
         let numberOfRows = self.numberOfRows()
         if numberOfColumns < 1 || numberOfRows < 1 {
@@ -459,12 +489,24 @@ class LayoutData {
         }
     }
     
-    func getRowHeights(workItem: DispatchWorkItem?) -> [CGFloat] {
+    /// Calculate row heights based on allDataItems, columnWidths and fromLayoutData
+    ///
+    /// - Parameter fromLayoutData: use this to reduce some calculations
+    /// - Parameter workItem: use this to check cancel status
+    ///
+    /// - Returns: heights for all rows
+    func calcRowHeights(fromLayoutData: LayoutData? = nil, workItem: DispatchWorkItem? = nil) -> [CGFloat] {
         var heights: [CGFloat] = []
     
         for rowIndex in self.allDataItems.indices {
             if workItem?.isCancelled ?? false {
                 return []
+            }
+            
+            // copy the height from fromLayoutData if these conditions are met
+            if let ld = fromLayoutData, rowIndex < ld.allDataItems.count, rowIndex < ld.rowHeights.count, rowIndex < rowDataChanges.count, rowDataChanges[rowIndex] == 0, ld.columnWidths == self.columnWidths {
+                heights.append(ld.rowHeights[rowIndex])
+                continue
             }
             
             var itemHeight: CGFloat = 0

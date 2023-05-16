@@ -23,16 +23,7 @@ class TableLayoutManager: ObservableObject {
        
     var size: CGSize = .zero
     
-    var needsCalculateLayout: Bool = false {
-        didSet {
-            if self.needsCalculateLayout {
-                DispatchQueue.main.async {
-                    self.layoutData = nil
-                    self.cacheLayoutData = nil
-                }
-            }
-        }
-    }
+    var needsCalculateLayout: Bool = false
     
     var cachedKeyboardHeight: CGFloat = 0
     
@@ -43,6 +34,7 @@ class TableLayoutManager: ObservableObject {
     
     @Published var currentCell: (Int, Int)? = nil
     
+    // contentOffset in the UIScrollView
     @Published var startPosition: CGPoint = .zero
     
     @Published var selectedIndexes: [Int] = []
@@ -121,7 +113,7 @@ class TableLayoutManager: ObservableObject {
     /// check if layout process is finished
     func isLayoutFinished(_ size: CGSize) -> Bool {
         if let ld = layoutData {
-            return ld.size.width == size.width && self.layoutWorkItem == nil
+            return (ld.size.width == size.width && self.layoutWorkItem == nil) || (ld.size.width == size.width && (self.workingLayoutData?.rowData.count ?? 0) > ld.rowData.count)
         }
         
         return false
@@ -157,7 +149,8 @@ class TableLayoutManager: ObservableObject {
         var changes: [DataTableChange] = []
         var newRowData: [TableRowItem] = ld.rowData
         
-        for i in 0 ..< newRowData.count {
+        // cacheLd.allDataItems may contain less data than ld.rowData because new rows could be added during scrolling from the app
+        for i in 0 ..< min(cacheLd.allDataItems.count, newRowData.count) {
             for j in 0 ..< newRowData[i].data.count {
                 switch newRowData[i].data[j].type {
                 case .text:
@@ -331,6 +324,7 @@ class TableLayoutManager: ObservableObject {
             ld.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
             self.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
             self.cacheEditingText = nil
+            self.isValid = validState
             self.needRefresh.toggle()
         }
     }
