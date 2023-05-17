@@ -51,15 +51,36 @@ public class TableModel: ObservableObject {
         return false
     }
     
+    /// changes for rowData
+    /// each row: -1: delete; 0: no change; 1: add; 2: change
+    var rowDataChanges: [Int] = []
+    
     /// Data for each row. Header is not included.
     public var rowData: [TableRowItem] {
         get {
             self._rowData
         }
         set {
-            self._rowData = newValue.map { rowItem in
+            // -1: delete; 0: no change; 1: add; 2: change
+            self.rowDataChanges = []
+            for index in 0 ..< max(self._rowData.count, newValue.count) {
+                if index < self._rowData.count, index < newValue.count {
+                    self.rowDataChanges.append(self._rowData[index] != newValue[index] ? 2 : 0)
+                } else if index >= self._rowData.count {
+                    self.rowDataChanges.append(1)
+                } else if index >= newValue.count {
+                    self.rowDataChanges.append(-1)
+                }
+            }
+            
+            let _rowDataBackup = self._rowData
+            self._rowData = newValue.enumerated().map { index, rowItem in
                 // process binding and generate titles for cells like .date, .time and .duration
-                self.processRowItem(for: rowItem)
+                if self.rowDataChanges[index] == 0, index < _rowDataBackup.count {
+                    return _rowDataBackup[index]
+                } else {
+                    return self.processRowItem(for: rowItem)
+                }
             }
             
             self.layoutManager?.needsCalculateLayout = true
@@ -142,7 +163,8 @@ public class TableModel: ObservableObject {
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
-    @Published internal var _rowData: [TableRowItem] = []
+//    @Published internal var _rowData: [TableRowItem] = []
+    internal var _rowData: [TableRowItem] = []
     
     /// show row dividers in every number of Rows; The values must be >= 1; The default is 1.
     @Published public var everyNumOfRowsToShowDivider: Int = 1
@@ -189,7 +211,10 @@ public class TableModel: ObservableObject {
     /// a closure to provide a `DataListItem` type dataItem located at (rowIndex, columnIndex) for an array of Strings and a title for inline editing mode
     public var listItemDataAndTitle: ((_ rowIndex: Int, _ columnIndex: Int) -> (listItems: [String], title: String))?
     
-    // cached TableLayoutManager
+    /// a closure to provide contentOffset and the index of visible rows and columns when the user scrolls the content view within the DataTable.
+    public var didScroll: ((_ contentOffset: CGPoint, _ indexOfRows: [Int], _ indexOfColumns: [Int]) -> Void)?
+    
+    /// cached TableLayoutManager
     weak var layoutManager: TableLayoutManager?
     
     /// Public initializer for TableModel.

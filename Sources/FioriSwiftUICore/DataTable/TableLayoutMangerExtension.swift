@@ -6,10 +6,6 @@ extension TableLayoutManager {
     // swiftlint:disable cyclomatic_complexity force_unwrapping function_body_length
     func createLayoutWorkItem(_ size: CGSize) {
         let needToInitModel = cacheLayoutData == nil || needsCalculateLayout
-        if needToInitModel, cacheLayoutData != nil {
-            self.cacheLayoutData = nil
-        }
-
         var newWorkItem: DispatchWorkItem?
         let tmpLayoutData = LayoutData()
         tmpLayoutData.size = size
@@ -24,13 +20,16 @@ extension TableLayoutManager {
             tmpLayoutData.minRowHeight = self.model.minRowHeight
             tmpLayoutData.minColumnWidth = self.model.minColumnWidth
             tmpLayoutData.rowAlignment = self.model.rowAlignment
+            tmpLayoutData.rowDataChanges = self.model.rowDataChanges
             
             if newWorkItem?.isCancelled ?? true {
                 return
             }
+            
             if needToInitModel {
                 tmpLayoutData.rowData = tmpLayoutData.initRowData(model: self.model)
-                let (di, fbh) = tmpLayoutData.initItems(model: self.model, workItem: newWorkItem)
+                /// minimize efforts to init items by using layoutData with rowDataChanges
+                let (di, fbh) = tmpLayoutData.initItems(model: self.model, fromLayoutData: self.layoutData, workItem: newWorkItem)
                 tmpLayoutData.allDataItems = di
                 tmpLayoutData.firstBaselineHeights = fbh
             } else {
@@ -53,20 +52,18 @@ extension TableLayoutManager {
             if newWorkItem?.isCancelled ?? true {
                 return
             }
-            tmpLayoutData.columnWidths = tmpLayoutData.getColumnWidths(workItem: newWorkItem)
-            
+            tmpLayoutData.columnWidths = tmpLayoutData.calcColumnWidths(fromLayoutData: self.layoutData, workItem: newWorkItem)
             if newWorkItem?.isCancelled ?? true {
                 return
             }
-            tmpLayoutData.rowHeights = tmpLayoutData.getRowHeights(workItem: newWorkItem)
-            
+            tmpLayoutData.rowHeights = tmpLayoutData.calcRowHeights(fromLayoutData: self.layoutData, workItem: newWorkItem)
             if newWorkItem?.isCancelled ?? true {
                 return
             }
             tmpLayoutData.allDataItems = tmpLayoutData.updatedItemsPos()
             
             DispatchQueue.main.async {
-                if self.cacheLayoutData == nil || self.model.editMode != .inline {
+                if self.cacheLayoutData == nil || self.model.editMode != .inline || (tmpLayoutData.allDataItems.count > (self.cacheLayoutData?.allDataItems.count ?? 0)) {
                     self.cacheLayoutData = tmpLayoutData.copy()
                 }
                 
@@ -83,13 +80,23 @@ extension TableLayoutManager {
                     self.currentCell = nil
                 }
                 self.cacheEditingText = nil
-                self.layoutData = tmpLayoutData
+                
                 // check if prev startPosition is valid
                 let tmpPos = self.validStartPosition(pt: self.startPosition, size: self.size)
                 if self.startPosition != tmpPos {
                     self.startPosition = tmpPos
                 }
+                
+                var errMsg: String? = nil
+                if tmpLayoutData.numOfErrors > 0 {
+                    let errFormat = NSLocalizedString("There are %d errors in the data table.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                    errMsg = String(format: errFormat, tmpLayoutData.numOfErrors)
+                }
+                self.isValid = (tmpLayoutData.numOfErrors > 0 ? true : false, errMsg)
+                
+                self.layoutData = tmpLayoutData
                 self.model.layoutManager = self
+                self.model.rowDataChanges = []
             }
         }
         
@@ -105,6 +112,12 @@ extension TableLayoutManager {
         
         if self.size != size {
             self.size = size
+        }
+        
+        // redo layout
+        if self.needsCalculateLayout, workingLayoutData == nil || (workingLayoutData != nil && workingLayoutData!.rowDataChanges != self.model.rowDataChanges) {
+            self.createLayoutWorkItem(size)
+            return
         }
         
         if let ld = layoutData, ld.size.width == size.width {
@@ -186,7 +199,7 @@ extension TableLayoutManager {
         
         if needToInitModel {
             tmpLayoutData.rowData = tmpLayoutData.initRowData(model: model)
-            let (di, fbh) = tmpLayoutData.initItems(model: model, workItem: nil)
+            let (di, fbh) = tmpLayoutData.initItems(model: model)
             tmpLayoutData.allDataItems = di
             tmpLayoutData.firstBaselineHeights = fbh
         } else {
@@ -195,8 +208,8 @@ extension TableLayoutManager {
         
         tmpLayoutData.leadingAccessoryViewWidth = tmpLayoutData.getleadingAccessoryViewWidth()
         tmpLayoutData.trailingAccessoryViewWidth = tmpLayoutData.getTrailingAccessoryViewWidth()
-        tmpLayoutData.columnWidths = tmpLayoutData.getColumnWidths(workItem: nil)
-        tmpLayoutData.rowHeights = tmpLayoutData.getRowHeights(workItem: nil)
+        tmpLayoutData.columnWidths = tmpLayoutData.calcColumnWidths()
+        tmpLayoutData.rowHeights = tmpLayoutData.calcRowHeights()
         tmpLayoutData.allDataItems = tmpLayoutData.updatedItemsPos()
         self.cacheLayoutDataForMeasurement = tmpLayoutData
         
@@ -294,14 +307,10 @@ extension TableLayoutManager {
         }
         
         let width: CGFloat = size.width
+        let startPosX = self.startPosition.x
         
-        let tmpStartPosition = self.startPosition
-        let wUnit = self.widthPointInUnit(size: size)
-        let startPosX = tmpStartPosition.x / wUnit // * width
-
         let height = size.height
-        let hUnit = self.heightPointInUnit(size: size)
-        let startPosY = tmpStartPosition.y / hUnit // * height
+        let startPosY = self.startPosition.y
         
         var tempStartX: CGFloat = 0
         var xStartIndex = 0
@@ -371,39 +380,6 @@ extension TableLayoutManager {
         self.scaleX
     }
     
-    /// contentOffset: x:  0 ~ contentWidth;  y: 0 ~ contentHeight
-    func startPosition(from contentOffset: CGPoint) -> CGPoint {
-        let contentSizeWidth = self.totalContentWidth()
-        let contentSizeHeight = self.totalContentHeight()
-        
-        return CGPoint(x: contentOffset.x / contentSizeWidth, y: contentOffset.y / contentSizeHeight)
-    }
-    
-    func convertUnitPointToContentPoint(_ pt: CGPoint, size: CGSize) -> CGPoint {
-        let wUnit = self.widthPointInUnit(size: size)
-        let hUnit = self.heightPointInUnit(size: size)
-        
-        return CGPoint(x: pt.x / wUnit, y: pt.y / hUnit)
-    }
-    
-    func startPositionInPoint(size: CGSize) -> CGPoint {
-        let pos = self.startPosition
-        let wUnit = self.widthPointInUnit(size: size)
-        let hUnit = self.heightPointInUnit(size: size)
-        
-        return CGPoint(x: pos.x / wUnit, y: pos.y / hUnit)
-    }
-    
-    /**
-     startPosition is in point
-     */
-    func centerPosition(from startPosition: CGPoint, size: CGSize) -> CGPoint {
-        let x = (startPosition.x + size.width / 2) * self.widthPointInUnit(size: size)
-        let y = (startPosition.y + size.height / 2) * self.heightPointInUnit(size: size)
-        
-        return CGPoint(x: x, y: y)
-    }
-    
     /// scale is not a factor
     func contentWidth(_ layoutData: LayoutData? = nil) -> CGFloat {
         let tmpLd = layoutData != nil ? layoutData : self.layoutData
@@ -430,18 +406,6 @@ extension TableLayoutManager {
         return totalHeight
     }
     
-    func widthPointInUnit(size: CGSize) -> CGFloat {
-        let totalWidth = max(1, totalContentWidth())
-        
-        return 1 / totalWidth
-    }
-    
-    func heightPointInUnit(size: CGSize) -> CGFloat {
-        let totalHeight = max(1, totalContentHeight())
-        
-        return 1 / totalHeight
-    }
-    
     /// view size is a factor
     func totalContentWidth(_ layoutData: LayoutData? = nil, _ isMaxValue: Bool = true) -> CGFloat {
         let tmpLd = layoutData != nil ? layoutData : self.layoutData
@@ -463,14 +427,12 @@ extension TableLayoutManager {
         if layoutData == nil {
             return .zero
         }
-    
-        let wUnit = self.widthPointInUnit(size: size)
+
         let totalWidth = self.totalContentWidth()
-        let maxX = (totalWidth - size.width) * wUnit
+        let maxX = totalWidth - size.width
         
-        let hUnit = self.heightPointInUnit(size: size)
         let totalHeight = self.totalContentHeight()
-        let maxY = (totalHeight - size.height) * hUnit
+        let maxY = totalHeight - size.height
         
         let x = max(0, min(maxX, pt.x))
         let y = max(0, min(maxY, pt.y))

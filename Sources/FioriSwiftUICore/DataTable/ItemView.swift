@@ -428,7 +428,8 @@ struct ItemView: View {
                     }
                     
                     self.layoutManager.currentCell = (self.rowIndex, self.columnIndex)
-                    self.showBanner = !dataItem.isValid
+                    self.layoutManager.isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
+                    self.showBanner = !self.layoutManager.isValid.0
                 } else {
                     guard self.rowIndex >= 0, !isHeader else {
                         return

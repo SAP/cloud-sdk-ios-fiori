@@ -45,19 +45,19 @@ struct StepProgressIndicatorExample_Previews: PreviewProvider {
 }
 
 struct SPIExampleWithoutHeader: View {
-    @State var steps = [StepItem(title: "Step A", state: .completed),
-                        StepItem(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
-                        StepItem(title: "Step 3", substeps: [
-                            StepItem(title: "Step 3.1"),
-                            StepItem(title: "Step 3.2", state: .disabled),
-                            StepItem(title: "Step 3.3", state: .error),
-                            StepItem(title: "Step 3.4", state: .error),
-                            StepItem(title: "Step 3.p", state: .completed)
+    @State var steps = [StepItemData(title: "Step A", state: .completed),
+                        StepItemData(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItemData(title: "Step 3", substeps: [
+                            StepItemData(title: "Step 3.1"),
+                            StepItemData(title: "Step 3.2", state: .disabled),
+                            StepItemData(title: "Step 3.3", state: .error),
+                            StepItemData(title: "Step 3.4", state: .error),
+                            StepItemData(title: "Step 3.p", state: .completed)
                         ]),
-                        StepItem(title: "Step P", state: .disabled),
-                        StepItem(title: "Step D", state: .error),
-                        StepItem(title: "Step E", state: .error),
-                        StepItem(title: "Step F")]
+                        StepItemData(title: "Step P", state: .disabled),
+                        StepItemData(title: "Step D", state: .error),
+                        StepItemData(title: "Step E", state: .error),
+                        StepItemData(title: "Step F")]
     
     @State var selection: String = ""
 
@@ -96,19 +96,19 @@ struct SPIExampleWithoutHeader: View {
 
 struct SPIExampleWithHeader: View {
     @State var title: String = ""
-    @State var steps = [StepItem(title: "Step A", state: .completed),
-                        StepItem(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
-                        StepItem(title: "Step 3", substeps: [
-                            StepItem(title: "Step 3.1"),
-                            StepItem(title: "Step 3.2", state: .disabled),
-                            StepItem(title: "Step 3.3", state: .error),
-                            StepItem(title: "Step 3.4", state: .error),
-                            StepItem(title: "Step 3.p", state: .completed)
+    @State var steps = [StepItemData(title: "Step A", state: .completed),
+                        StepItemData(title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItemData(title: "Step 3", substeps: [
+                            StepItemData(title: "Step 3.1"),
+                            StepItemData(title: "Step 3.2", state: .disabled),
+                            StepItemData(title: "Step 3.3", state: .error),
+                            StepItemData(title: "Step 3.4", state: .error),
+                            StepItemData(title: "Step 3.p", state: .completed)
                         ]),
-                        StepItem(title: "Step P", state: .disabled),
-                        StepItem(title: "Step D", state: .error),
-                        StepItem(title: "Step E", state: .error),
-                        StepItem(title: "Step F")]
+                        StepItemData(title: "Step P", state: .disabled),
+                        StepItemData(title: "Step D", state: .error),
+                        StepItemData(title: "Step E", state: .error),
+                        StepItemData(title: "Step F")]
     
     @State var selection: String = ""
     
@@ -188,17 +188,17 @@ struct SPIExampleWithHeader: View {
 }
 
 struct SPIExampleWithoutName: View {
-    @State var steps = [StepItem(),
-                        StepItem(),
-                        StepItem(substeps: [
-                            StepItem(),
-                            StepItem(),
-                            StepItem(state: .completed),
-                            StepItem(state: .error)
+    @State var steps = [StepItemData(),
+                        StepItemData(),
+                        StepItemData(substeps: [
+                            StepItemData(),
+                            StepItemData(),
+                            StepItemData(state: .completed),
+                            StepItemData(state: .error)
                         ]),
-                        StepItem(state: .error),
-                        StepItem(state: .error),
-                        StepItem()]
+                        StepItemData(state: .error),
+                        StepItemData(state: .error),
+                        StepItemData()]
     
     @State var selection: String = ""
     
@@ -307,19 +307,19 @@ struct SPIExampleByBuilder: View {
 
 struct SPICustomStyleExample: View {
     @State var title: String = ""
-    @State var steps = [StepItem(id: "1", title: "Step A", state: .completed),
-                        StepItem(id: "2", title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
-                        StepItem(id: "3", title: "Step 3", substeps: [
-                            StepItem(title: "Step 3.1"),
-                            StepItem(title: "Step 3.2", state: .disabled),
-                            StepItem(title: "Step 3.3", state: .error),
-                            StepItem(title: "Step 3.4", state: .error),
-                            StepItem(title: "Step 3.p", state: .completed)
+    @State var steps = [StepItemData(id: "1", title: "Step A", state: .completed),
+                        StepItemData(id: "2", title: "Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name Step B This is a very very long step name"),
+                        StepItemData(id: "3", title: "Step 3", substeps: [
+                            StepItemData(title: "Step 3.1"),
+                            StepItemData(title: "Step 3.2", state: .disabled),
+                            StepItemData(title: "Step 3.3", state: .error),
+                            StepItemData(title: "Step 3.4", state: .error),
+                            StepItemData(title: "Step 3.p", state: .completed)
                         ]),
-                        StepItem(title: "Step P", state: .disabled),
-                        StepItem(title: "Step D", state: .error),
-                        StepItem(title: "Step E", state: .error),
-                        StepItem(title: "Step F")]
+                        StepItemData(title: "Step P", state: .disabled),
+                        StepItemData(title: "Step D", state: .error),
+                        StepItemData(title: "Step E", state: .error),
+                        StepItemData(title: "Step F")]
     
     @State var selection: String = ""
     
@@ -412,5 +412,26 @@ struct CustomStyleExample: StepStyle {
     func makeLine(configuration: Configuration) -> some View {
         let isLast = configuration.isLastStep
         configuration.line.foregroundColor(isLast ?? false ? Color.clear : nil)
+    }
+}
+
+struct StepItemData: StepItem {
+    var id: String = UUID().uuidString
+    /// Step title.
+    var title: String?
+    /// Step state.
+    var state: StepIndicatorState = .normal
+    /// Sub-steps for this one.
+    var substeps: [StepItem] = []
+    
+    init(id: String = UUID().uuidString,
+         title: String? = nil,
+         state: StepIndicatorState = [],
+         substeps: [StepItemData] = [])
+    {
+        self.id = id
+        self.title = title
+        self.state = state
+        self.substeps = substeps
     }
 }
