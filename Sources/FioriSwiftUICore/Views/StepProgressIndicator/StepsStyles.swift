@@ -47,6 +47,7 @@ struct StepButtonStyle: ButtonStyle {
     var trailing: CGFloat
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
+    var lineSize: CGSize?
     
     func makeBody(configuration: Self.Configuration) -> some View {
         let isPressed = configuration.isPressed
@@ -67,7 +68,8 @@ struct StepButtonStyle: ButtonStyle {
                         leading: self.leading,
                         trailing: self.trailing,
                         horizontalSpacing: self.horizontalSpacing,
-                        verticalSpacing: self.verticalSpacing)
+                        verticalSpacing: self.verticalSpacing,
+                        lineSize: self.lineSize)
     }
     
     @ViewBuilder func generateNode(_ stepConfig: StepConfiguration) -> some View {
