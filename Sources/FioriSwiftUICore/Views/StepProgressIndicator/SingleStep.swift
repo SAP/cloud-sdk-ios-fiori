@@ -131,7 +131,8 @@ extension SingleStep: View {
                                      leading: leading,
                                      trailing: trailing,
                                      horizontalSpacing: horizontalSpacing,
-                                     verticalSpacing: verticalSpacing))
+                                     verticalSpacing: verticalSpacing,
+                                     lineSize: lineSize))
     }
     
     func update(_ state: StepIndicatorState,
@@ -177,6 +178,15 @@ extension SingleStep: View {
         newSelf._id = id
         return newSelf
     }
+    
+    /// Customize line size.
+    /// - Parameter size: Size for step line.
+    /// - Returns: A new `SingleStep` with specific line size.
+    public func lineSize(_ size: CGSize) -> Self {
+        var newSelf = self
+        newSelf.lineSize = size
+        return newSelf
+    }
 }
 
 extension CGSize {
@@ -214,7 +224,8 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     var trailing: CGFloat
     var horizontalSpacing: CGFloat
     var verticalSpacing: CGFloat
-    
+    var lineSize: CGSize?
+
     @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
 
@@ -274,20 +285,28 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     }
     
     var lineWidth: CGFloat {
-        switch self.stepAxis {
-        case .horizontal:
-            return 54
-        case .vertical:
-            return 2
+        if let size = lineSize {
+            return size.width
+        } else {
+            switch self.stepAxis {
+            case .horizontal:
+                return 54
+            case .vertical:
+                return 2
+            }
         }
     }
     
     var lineHeight: CGFloat {
-        switch self.stepAxis {
-        case .horizontal:
-            return 2
-        case .vertical:
-            return 36
+        if let size = lineSize {
+            return size.height
+        } else {
+            switch self.stepAxis {
+            case .horizontal:
+                return 2
+            case .vertical:
+                return 36
+            }
         }
     }
 }
