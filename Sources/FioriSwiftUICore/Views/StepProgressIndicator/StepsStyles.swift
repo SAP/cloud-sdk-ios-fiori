@@ -35,7 +35,8 @@ struct StepButtonStyle: ButtonStyle {
     let title: AnyView
     let line: AnyView
     @Environment(\.stepStyle) var stepStyle
-    
+    @Environment(\.stepAxis) var stepAxis
+
     var state: StepIndicatorState?
     var isSelected: Bool
     var isLastStep: Bool
@@ -57,7 +58,8 @@ struct StepButtonStyle: ButtonStyle {
                                            state: self.state,
                                            isPressed: isPressed,
                                            isSelected: self.isSelected,
-                                           isLastStep: self.isLastStep)
+                                           isLastStep: self.isLastStep,
+                                           axis: self.stepAxis)
         InnerSingleStep(id: self.id,
                         title: self.generateTitle(stepConfig),
                         node: self.generateNode(stepConfig),
@@ -178,6 +180,8 @@ public struct StepConfiguration {
     public var isSelected: Bool
     /// Indicate whether step is the last one in `StepProgressIndicator`.
     public var isLastStep: Bool?
+    /// The horizontal or vertical dimension for steps arrangement.
+    public var axis: Axis
 }
 
 struct DefaultStepStyle: StepStyle {
@@ -196,7 +200,7 @@ struct DefaultStepStyle: StepStyle {
         let state = configuration.state
         configuration.title
             .foregroundColor(self.nameColor(state, isSelected, isPressed))
-            .font(self.nameFont(state, isSelected))
+            .font(self.nameFont(state, isSelected, configuration.axis))
     }
     
     func makeLine(configuration: Self.Configuration) -> some View {
@@ -257,7 +261,7 @@ struct DefaultStepStyle: StepStyle {
         }
     }
     
-    func nameFont(_ state: StepIndicatorState?, _ isSelected: Bool) -> Font {
+    func nameFont(_ state: StepIndicatorState?, _ isSelected: Bool, _ axis: Axis) -> Font {
         guard let state = state else { return Font.fiori(forTextStyle: .body) }
         let useSemibold: Bool
         switch (state, isSelected) {
@@ -266,7 +270,7 @@ struct DefaultStepStyle: StepStyle {
         default:
             useSemibold = false
         }
-        return Font.fiori(forTextStyle: .footnote)
+        return Font.fiori(forTextStyle: axis == .vertical ? .headline : .footnote)
             .weight(useSemibold ? .semibold : .regular)
     }
     
