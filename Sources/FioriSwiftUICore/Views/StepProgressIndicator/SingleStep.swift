@@ -254,13 +254,13 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                     }
                 }
                 if isTitleEmptyView {
-                    Spacer().frame(height: bottom)
+                    Spacer().frame(height: abs(bottom))
                 } else {
                     Spacer().frame(height: verticalSpacing)
                     title
                         .frame(width: nodeAndLineSize.width, alignment: .leading)
                         .lineLimit(2)
-                    Spacer().frame(height: bottom)
+                    Spacer().frame(height: abs(bottom))
                 }
             }
         case .vertical:
@@ -278,7 +278,7 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2
                     }
                     .alignmentGuide(.stepsLeadingAlignment) { $0[.leading] }
-                Spacer().frame(width: trailing)
+                Spacer().frame(width: abs(trailing))
                 Spacer()
             }
         }
