@@ -143,7 +143,7 @@ struct DefaultSingleStep: View {
     }
     
     @ViewBuilder
-    func node(by state: StepIndicatorState, isSelected: Bool) -> some View {
+    func node(by state: StepProgressIndicatorState, isSelected: Bool) -> some View {
         switch (state, isSelected) {
         case (.normal, true):
             Circle().strokeBorder(lineWidth: 2)
@@ -159,7 +159,7 @@ struct DefaultSingleStep: View {
     }
     
     @ViewBuilder
-    func subnode(by state: StepIndicatorState, isSelected: Bool) -> some View {
+    func subnode(by state: StepProgressIndicatorState, isSelected: Bool) -> some View {
         switch (state, isSelected) {
         case (.error, false):
             Image(systemName: "exclamationmark.circle")

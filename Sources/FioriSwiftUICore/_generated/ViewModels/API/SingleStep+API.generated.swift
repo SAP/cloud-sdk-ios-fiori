@@ -21,7 +21,7 @@ public struct SingleStep<Title: View, Node: View, Substeps: IndexedViewContainer
 	var isLastStep: Bool = false
 	var top: CGFloat = 8
 	var bottom: CGFloat = 8
-	var state: StepIndicatorState?
+	var state: StepProgressIndicatorState?
 	var trailing: CGFloat = 8
 
     private var isModelInit: Bool = false

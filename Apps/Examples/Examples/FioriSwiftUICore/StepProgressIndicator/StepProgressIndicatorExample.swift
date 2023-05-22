@@ -420,13 +420,13 @@ struct StepItemData: StepItem {
     /// Step title.
     var title: String?
     /// Step state.
-    var state: StepIndicatorState = .normal
+    var state: StepProgressIndicatorState = .normal
     /// Sub-steps for this one.
     var substeps: [StepItem] = []
     
     init(id: String = UUID().uuidString,
          title: String? = nil,
-         state: StepIndicatorState = [],
+         state: StepProgressIndicatorState = [],
          substeps: [StepItemData] = [])
     {
         self.id = id

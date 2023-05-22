@@ -7,7 +7,7 @@ public protocol StepItem {
     /// Step title.
     var title: String? { get }
     /// Step state.
-    var state: StepIndicatorState { get set }
+    var state: StepProgressIndicatorState { get set }
     /// Substeps for this one.
     var substeps: [StepItem] { get set }
 }
