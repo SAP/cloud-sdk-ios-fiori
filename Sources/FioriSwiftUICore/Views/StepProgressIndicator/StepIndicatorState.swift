@@ -1,7 +1,7 @@
 import Foundation
 
 /// An option set for step state that used for default `StepProgressIndicator`
-public struct StepIndicatorState: OptionSet {
+public struct StepProgressIndicatorState: OptionSet {
     /// :nodoc:
     public let rawValue: UInt
     /// :nodoc:
@@ -10,13 +10,13 @@ public struct StepIndicatorState: OptionSet {
     }
     
     /// Completed state for a step.
-    public static let completed = StepIndicatorState(rawValue: 1 << 0)
+    public static let completed = StepProgressIndicatorState(rawValue: 1 << 0)
     /// disabled state for a step.
-    public static let disabled = StepIndicatorState(rawValue: 1 << 1)
+    public static let disabled = StepProgressIndicatorState(rawValue: 1 << 1)
     /// error state for a step.
-    public static let error = StepIndicatorState(rawValue: 1 << 2)
+    public static let error = StepProgressIndicatorState(rawValue: 1 << 2)
     /// error state for a step.
-    public static let normal: StepIndicatorState = []
+    public static let normal: StepProgressIndicatorState = []
     
     var isSupported: Bool {
         switch self {

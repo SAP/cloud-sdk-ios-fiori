@@ -14,7 +14,7 @@ extension Fiori {
 
 /// Not for developers
 public struct _StepNode: View {
-    var state: StepIndicatorState
+    var state: StepProgressIndicatorState
     /// :nodoc:
     public var body: some View {
         node().frame(width: 28, height: 28)
@@ -135,7 +135,7 @@ extension SingleStep: View {
                                      lineSize: lineSize))
     }
     
-    func update(_ state: StepIndicatorState,
+    func update(_ state: StepProgressIndicatorState,
                 _ isLastStep: Bool = false) -> Self
     {
         var newSelf = self

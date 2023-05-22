@@ -37,7 +37,7 @@ struct StepButtonStyle: ButtonStyle {
     @Environment(\.stepStyle) var stepStyle
     @Environment(\.stepAxis) var stepAxis
 
-    var state: StepIndicatorState?
+    var state: StepProgressIndicatorState?
     var isSelected: Bool
     var isLastStep: Bool
     
@@ -173,7 +173,7 @@ public struct StepConfiguration {
     public let line: StepConfiguration.Line
     
     /// State for step in `StepProgressIndicator`.
-    public let state: StepIndicatorState?
+    public let state: StepProgressIndicatorState?
     /// Indicate whether step is pressed in `StepProgressIndicator`.
     public var isPressed: Bool
     /// Indicate whether step is selected in `StepProgressIndicator`.
@@ -212,7 +212,7 @@ struct DefaultStepStyle: StepStyle {
             .foregroundColor(self.lineColor(state, isSelected, isPressed, showLine))
     }
     
-    func nodeBackground(_ state: StepIndicatorState?,
+    func nodeBackground(_ state: StepProgressIndicatorState?,
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
@@ -229,7 +229,7 @@ struct DefaultStepStyle: StepStyle {
         }
     }
     
-    func nodeForeground(_ state: StepIndicatorState?,
+    func nodeForeground(_ state: StepProgressIndicatorState?,
                         _ isSelected: Bool,
                         _ isPressed: Bool) -> Color
     {
@@ -246,7 +246,7 @@ struct DefaultStepStyle: StepStyle {
         }
     }
     
-    func nameColor(_ state: StepIndicatorState?,
+    func nameColor(_ state: StepProgressIndicatorState?,
                    _ isSelected: Bool,
                    _ isPressed: Bool) -> Color
     {
@@ -261,7 +261,7 @@ struct DefaultStepStyle: StepStyle {
         }
     }
     
-    func nameFont(_ state: StepIndicatorState?, _ isSelected: Bool, _ axis: Axis) -> Font {
+    func nameFont(_ state: StepProgressIndicatorState?, _ isSelected: Bool, _ axis: Axis) -> Font {
         guard let state = state else { return Font.fiori(forTextStyle: .body) }
         let useSemibold: Bool
         switch (state, isSelected) {
@@ -274,7 +274,7 @@ struct DefaultStepStyle: StepStyle {
             .weight(useSemibold ? .semibold : .regular)
     }
     
-    func lineColor(_ state: StepIndicatorState?,
+    func lineColor(_ state: StepProgressIndicatorState?,
                    _ isSelected: Bool,
                    _ isPressed: Bool,
                    _ showLine: Bool) -> Color
@@ -287,7 +287,7 @@ struct DefaultStepStyle: StepStyle {
         }
     }
     
-    func line(_ state: StepIndicatorState, _ isSelected: Bool, _ isPressed: Bool) -> Color {
+    func line(_ state: StepProgressIndicatorState, _ isSelected: Bool, _ isPressed: Bool) -> Color {
         switch (state, isSelected) {
         case (.completed, _):
             return Color.preferredColor(isPressed ? .tintColorTapState : .tintColor)
