@@ -1,4 +1,5 @@
 import Combine
+import FioriThemeManager
 import SwiftUI
 
 /**
@@ -163,8 +164,7 @@ public class TableModel: ObservableObject {
     /// Selected Indexes.
     @Published public var selectedIndexes: [Int] = []
     
-//    @Published internal var _rowData: [TableRowItem] = []
-    internal var _rowData: [TableRowItem] = []
+    @Published internal var _rowData: [TableRowItem] = []
     
     /// show row dividers in every number of Rows; The values must be >= 1; The default is 1.
     @Published public var everyNumOfRowsToShowDivider: Int = 1
