@@ -142,7 +142,7 @@ struct DataTableExample: View {
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: true, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("Sticky header & column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, isFixedWidth: true)))
             }
             
             Section(header: Text("Variant rows/columns")) {
@@ -311,16 +311,16 @@ public enum TestRowData {
         return TableRowItem(data: data)
     }
     
-    static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
+    static func generateColumnAttributes(column: Int, isFixedWidth: Bool = false) -> [ColumnAttribute] {
         var output: [ColumnAttribute] = []
         for _ in 0 ..< column {
-            let att = ColumnAttribute(textAlignment: .leading, width: .flexible)
+            let att = ColumnAttribute(textAlignment: .leading, width: isFixedWidth ? .fixed(200) : .flexible)
             output.append(att)
         }
         return output
     }
     
-    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false) -> TableModel {
+    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false, isFixedWidth: Bool = false) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [DataTextItem] = []
         for k in 0 ..< column {
@@ -331,7 +331,7 @@ public enum TestRowData {
         }
         let header = TableRowItem(data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
-        model.columnAttributes = self.generateColumnAttributes(column: column)
+        model.columnAttributes = self.generateColumnAttributes(column: column, isFixedWidth: isFixedWidth)
         model.didSelectRowAt = { rowIndex in
             print("Tapped row \(rowIndex)")
         }

@@ -187,6 +187,7 @@ struct FocusedEditingView: View {
                             .background((self.checkIsValid() ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel)).opacity(self.colorScheme == .light ? 0.1 : 0.2))
                             .lineLimit(dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
+                            .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .accessibility(hidden: self.editingText.isEmpty)
                     }
                 }
