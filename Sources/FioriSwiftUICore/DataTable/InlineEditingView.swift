@@ -108,6 +108,19 @@ struct InlineEditingView: View {
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
         .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                
+                Button {
+                    self.updateText(self.editingText)
+                } label: {
+                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle(for: ImageSaver.self))
+                        .font(Font.fiori(forTextStyle: .body).bold())
+                        .foregroundColor(Color.preferredColor(.tintColor))
+                }
+            }
+        }
         .onAppear {
             DispatchQueue.main.async {
                 self.focusState = true

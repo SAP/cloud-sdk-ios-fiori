@@ -331,6 +331,7 @@ class TableLayoutManager: ObservableObject {
             ld.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
             self.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
             self.cacheEditingText = nil
+            self.isValid = validState
             self.needRefresh.toggle()
         }
     }

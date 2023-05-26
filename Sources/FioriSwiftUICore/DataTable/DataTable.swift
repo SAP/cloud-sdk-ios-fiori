@@ -82,20 +82,6 @@ public struct DataTable: View {
             }
         }
         .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                
-                Button {
-                    // save text changes
-                    self.layoutManager.saveEditingTextChange()
-                } label: {
-                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                        .font(.fiori(forTextStyle: .body).bold())
-                        .foregroundColor(Color.preferredColor(.tintColor))
-                }
-            }
-        }
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
             let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
             self.layoutManager.keyboardFrame = rect
