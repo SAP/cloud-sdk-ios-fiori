@@ -187,6 +187,7 @@ struct FocusedEditingView: View {
                             .background((self.checkIsValid() ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel)).opacity(self.colorScheme == .light ? 0.1 : 0.2))
                             .lineLimit(dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
+                            .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .accessibility(hidden: self.editingText.isEmpty)
                     }
                 }
@@ -428,7 +429,8 @@ struct ItemView: View {
                     }
                     
                     self.layoutManager.currentCell = (self.rowIndex, self.columnIndex)
-                    self.showBanner = !dataItem.isValid
+                    self.layoutManager.isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
+                    self.showBanner = !self.layoutManager.isValid.0
                 } else {
                     guard self.rowIndex >= 0, !isHeader else {
                         return
