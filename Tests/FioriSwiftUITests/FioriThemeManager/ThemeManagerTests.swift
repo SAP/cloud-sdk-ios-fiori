@@ -13,6 +13,38 @@ class ThemeManagerTests: XCTestCase {
             XCTAssertEqual(ColorStyle.allCases.count, 195)
         }
     
+
+        func testPalette8() throws {
+            let tm = ThemeManager.shared
+            tm.setPaletteVersion(.v8)
+            // followings are same as v7
+            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 197)
+            XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
+            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 0)
+            let newStyle_grey1 = tm.hexColor(for: .grey1)
+            XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
+            let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
+            XCTAssertEqual(newStyle_primaryLabel, HexColor(lightColor: "F5F6F7FF", darkColor: "223548FF", contrastLightColor: "FFFFFFFF", contrastDarkColor: "000000FF"))
+            let obsoletedStyle_line = tm.hexColor(for: .line)
+            XCTAssertEqual(obsoletedStyle_line, HexColor(lightColor: "8696A9", darkColor: "89919A"))
+            let obsoletedStyle_negative = tm.hexColor(for: .negative)
+            XCTAssertEqual(obsoletedStyle_negative, HexColor(lightColor: "FF8888", darkColor: "BB0000"))
+            
+            // followings are changes made to v7 and available starting v8
+            let primaryBackground = tm.hexColor(for: .primaryBackground)
+            XCTAssertEqual(primaryBackground, HexColor(lightColor: "000000FF", darkColor: "FFFFFFFF", elevatedLightColor: "5B738B47", contrastLightColor: "000000FF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "1C242BFF"))
+            let secondaryBackground = tm.hexColor(for: .secondaryBackground)
+            XCTAssertEqual(secondaryBackground, HexColor(lightColor: "5B738B29", darkColor: "F5F6F7FF", elevatedLightColor: "5B738B57", contrastLightColor: "171E23FF", contrastDarkColor: "E8EBEDFF", elevatedContrastLightColor: "252E38FF"))
+            let tertiaryBackground = tm.hexColor(for: .tertiaryBackground)
+            XCTAssertEqual(tertiaryBackground, HexColor(lightColor: "8396A852", darkColor: "FFFFFFFF", elevatedLightColor: "5B738B66", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"))
+            let headerBlended = tm.hexColor(for: .headerBlended)
+            XCTAssertEqual(headerBlended, HexColor(lightColor: "5B738B36", darkColor: "FFFFFFD9", elevatedLightColor: "5B738B57", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"))
+            let footer = tm.hexColor(for: .footer)
+            XCTAssertEqual(footer, HexColor(lightColor: "5B738B47", darkColor: "FFFFFFFF", elevatedLightColor: "5B738B6B", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3541FF"))
+            let sectionShadow = tm.hexColor(for: .sectionShadow)
+            XCTAssertEqual(sectionShadow, HexColor(lightColor: "0000005E", darkColor: "5B738B3D", contrastLightColor: "9CA9B4FF", contrastDarkColor: "47596C3D"))
+        }
+
         func testPaletteV7() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v7)
