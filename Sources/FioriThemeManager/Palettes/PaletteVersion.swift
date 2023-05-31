@@ -48,6 +48,14 @@ public enum PaletteVersion: Int {
     case v7
 
     /**
+     Snapshot of palette at SAP Fiori SDK version 9.1.
+ 
+     - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori Next' styling.
+     */
+    @available(watchOS, unavailable)
+    case v8
+    
+    /**
      Snapshot of palette at SAP Fiori SDK version 9.2 for watch platform.
  
      - Important: Referred to in SAP Fiori Design Guidelines as 'Fiori Next' styling.
@@ -118,6 +126,8 @@ public extension PaletteVersion {
                 self = .v6
             case PaletteV7.default:
                 self = .v7
+            case PaletteV8.default:
+                self = .v8
         #else
             case WatchPaletteV1.default:
                 self = .v1
@@ -145,6 +155,8 @@ public extension PaletteVersion {
                 return PaletteV6.default
             case .v7:
                 return PaletteV7.default
+            case .v8:
+                return PaletteV8.default
         #else
             case .v1:
                 return WatchPaletteV1.default
@@ -155,6 +167,8 @@ public extension PaletteVersion {
     internal var compatibilityMap: ColorCompatibilityMap? {
         switch self {
         #if !os(watchOS)
+            case .v7:
+                return ColorCompatibilityMapV7.default
             case .v6:
                 return ColorCompatibilityMapV6.default
             case .v5:
@@ -171,7 +185,7 @@ public extension PaletteVersion {
 extension PaletteVersion: CaseIterable {
     public static var allCases: [PaletteVersion] {
         #if !os(watchOS)
-            return [v3_x, v3_2, v4, v5, v6, v7]
+            return [v3_x, v3_2, v4, v5, v6, v7, v8]
         #else
             return [v1]
         #endif
