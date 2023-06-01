@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.1.1...3.2.0) (2023-06-01)
+
+
+### Features
+
+* 🎸 [JIRA: 0] add Equatable support for DataTable ([d793c98](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d793c986c9af59060ec8327598d3552e1e428bad))
+* 🎸 [jira: 2279] Support DataTable Paging ([7e46592](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7e4659287c57297152d386af767c013b7a678cba))
+* 🎸 [jira: 2313] improve DataTable performance ([#544](https://github.com/SAP/cloud-sdk-ios-fiori/issues/544)) ([d98bd0a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d98bd0a3729851830e274f4e38915f24576234bc))
+* 🎸 [JIRA: HCPSDKFIORIUIKIT-2234] Migrate Icon Library ([#550](https://github.com/SAP/cloud-sdk-ios-fiori/issues/550)) ([d5aa431](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d5aa4314e0a6cf0e292bdf9fe60054cabf5721f9))
+* 🎸 auto scrolling for step progress indicator ([#575](https://github.com/SAP/cloud-sdk-ios-fiori/issues/575)) ([a465fbd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/a465fbdde4fd9a0c68bbb6c84f8dbc52a3992834))
+* 🎸 custom styles for step progress indicator ([#555](https://github.com/SAP/cloud-sdk-ios-fiori/issues/555)) ([d45d0a4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/d45d0a40a8fcc5571b55ded9a812afeca9887b33))
+* 🎸 HCPSDKFIORIUIKIT-2287 Add color navBarTitleLab ([e8e4403](https://github.com/SAP/cloud-sdk-ios-fiori/commit/e8e4403dae7345dff8721d38f6de4d151e6257b9))
+* 🎸 HCPSDKFIORIUIKIT-2287 Add color navBarTitleLabel ([fed9b88](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fed9b884313cf850f2dfdd9341a36857936a220d))
+* 🎸 SPI dynamic size support ([#568](https://github.com/SAP/cloud-sdk-ios-fiori/issues/568)) ([7990f26](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7990f26702f15487e629849a65b32a0b3e9f090c))
+* 🎸 step progress indicator ([#537](https://github.com/SAP/cloud-sdk-ios-fiori/issues/537)) ([59185bf](https://github.com/SAP/cloud-sdk-ios-fiori/commit/59185bf096d412f68ef4c8e2a0ac7067ed023cc4))
+* 🎸 update title to headline for vertical steps ([f1f1c0b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/f1f1c0b7315b071a73d41c77a85d4c1de1d4ed5a))
+* jira 2297 color updates for palette v8 ([#574](https://github.com/SAP/cloud-sdk-ios-fiori/issues/574)) ([392d04a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/392d04a2304819a203e35bce8bb60472051a1f4a))
+
+
+### Bug Fixes
+
+* 🐛 [bcp: 2370038492] adjust TextField pos in DataTabel ([3a92960](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3a92960e49755bd4c3fb93a558b4ea1d535a05cf))
+* 🐛 [jira: 2279] fix a bug in DataTable paging support ([c892677](https://github.com/SAP/cloud-sdk-ios-fiori/commit/c8926776b4b5fcae58b3ab70fd55483f9106104e))
+* 🐛 [jira: 2279] fix a layout error in DataTable ([0f5ff9f](https://github.com/SAP/cloud-sdk-ios-fiori/commit/0f5ff9ff3030b4809e8537d211ffd57067d56cca))
+* 🐛 rename step progress indicator state ([#570](https://github.com/SAP/cloud-sdk-ios-fiori/issues/570)) ([1dd05ed](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1dd05edee1fea184d54d0ee1ea1aa514e4cd9229))
+* 🐛 step header alignment and remove duplicated component ([#551](https://github.com/SAP/cloud-sdk-ios-fiori/issues/551)) ([76ff9ba](https://github.com/SAP/cloud-sdk-ios-fiori/commit/76ff9ba744330a588ff8c691ae1b39b74fffc970))
+* 🐛 step progress indicator alignment ([#564](https://github.com/SAP/cloud-sdk-ios-fiori/issues/564)) ([79658a8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/79658a8da36704b675b44a17410c6f785c416b96))
+* 🐛 tap gesture issue ([#565](https://github.com/SAP/cloud-sdk-ios-fiori/issues/565)) ([3b05001](https://github.com/SAP/cloud-sdk-ios-fiori/commit/3b0500165ccf4610fd7e3d2992ed731b32a2efdb))
+* 🐛 toolbar for keyboard on iOS 15 & save func in DataTable ([#546](https://github.com/SAP/cloud-sdk-ios-fiori/issues/546)) ([1d5e5b9](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1d5e5b96c73f15cd1195fffe8d3a3d787471a664))
+* 🐛 update step item as protocol ([#566](https://github.com/SAP/cloud-sdk-ios-fiori/issues/566)) ([63053f3](https://github.com/SAP/cloud-sdk-ios-fiori/commit/63053f36689e055c5292d36e7c91ec59e02b7730))
+* bcp 2370057173 chart8 and chart9 color mismatch ([eb06d1b](https://github.com/SAP/cloud-sdk-ios-fiori/commit/eb06d1b97df63e5a51201ee8b733b495305e69cb))
+* incorrect color value for the elevatedContrastLight variant ([#548](https://github.com/SAP/cloud-sdk-ios-fiori/issues/548)) ([fb187cd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/fb187cd8b0c772811b7d7fc318344f9125c6117d))
+
 ### [3.1.1](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.1.0...3.1.1) (2023-03-27)
 
 
