@@ -128,105 +128,105 @@
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1379,
+      "line": 1385,
       "symbol": "ColorStyle.accent1",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1383,
+      "line": 1389,
       "symbol": "ColorStyle.accent1b",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1388,
+      "line": 1394,
       "symbol": "ColorStyle.accent2",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1392,
+      "line": 1398,
       "symbol": "ColorStyle.accent2b",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1397,
+      "line": 1403,
       "symbol": "ColorStyle.accent3",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1402,
+      "line": 1408,
       "symbol": "ColorStyle.accent4",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1407,
+      "line": 1413,
       "symbol": "ColorStyle.accent5",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1412,
+      "line": 1418,
       "symbol": "ColorStyle.accent6",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1416,
+      "line": 1422,
       "symbol": "ColorStyle.accent6b",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1421,
+      "line": 1427,
       "symbol": "ColorStyle.accent7",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1425,
+      "line": 1431,
       "symbol": "ColorStyle.accent7b",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1430,
+      "line": 1436,
       "symbol": "ColorStyle.accent8",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1435,
+      "line": 1441,
       "symbol": "ColorStyle.accent9",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1439,
+      "line": 1445,
       "symbol": "ColorStyle.accent10",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
       "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/Colors/ColorStyle.swift",
-      "line": 1443,
+      "line": 1449,
       "symbol": "ColorStyle.accent10b",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
@@ -278,6 +278,13 @@
       "line": 46,
       "symbol": "InterfaceLevel",
       "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/runner/work/cloud-sdk-ios-fiori/cloud-sdk-ios-fiori/Sources/FioriThemeManager/FioriIcons/FioriIcon.swift",
+      "line": 688,
+      "symbol": "Image.init(fioriName:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
