@@ -62,6 +62,12 @@ struct FocusedEditingView: View {
         
         let tapGesture = TapGesture()
             .onEnded { _ in
+                defer {
+                    if let closure = layoutManager.model.cellTapped {
+                        closure(rowIndex, columnIndex)
+                    }
+                }
+                
                 guard self.layoutManager.model.editMode == .inline else { return }
                 
                 // header is not editable
@@ -181,6 +187,7 @@ struct FocusedEditingView: View {
                             .background((self.checkIsValid() ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel)).opacity(self.colorScheme == .light ? 0.1 : 0.2))
                             .lineLimit(dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
+                            .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
                             .accessibility(hidden: self.editingText.isEmpty)
                     }
                 }
@@ -401,6 +408,12 @@ struct ItemView: View {
         
         let tapGesture = TapGesture()
             .onEnded { _ in
+                defer {
+                    if let closure = layoutManager.model.cellTapped {
+                        closure(rowIndex, columnIndex)
+                    }
+                }
+                
                 if self.layoutManager.model.editMode == .inline {
                     // save text changes if an other cell is tapped
                     if let currentCell = layoutManager.currentCell, layoutData.allDataItems[currentCell.0][currentCell.1].type == .text {
@@ -416,7 +429,8 @@ struct ItemView: View {
                     }
                     
                     self.layoutManager.currentCell = (self.rowIndex, self.columnIndex)
-                    self.showBanner = !dataItem.isValid
+                    self.layoutManager.isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
+                    self.showBanner = !self.layoutManager.isValid.0
                 } else {
                     guard self.rowIndex >= 0, !isHeader else {
                         return

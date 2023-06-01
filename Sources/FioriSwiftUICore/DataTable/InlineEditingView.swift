@@ -25,7 +25,6 @@ struct InlineEditingView: View {
         self.rowIndex = (layoutManager.currentCell ?? (0, 0)).0
         self.columnIndex = (layoutManager.currentCell ?? (0, 0)).1
         let dataItem = layoutManager.layoutData?.allDataItems[self.rowIndex][self.columnIndex]
-        layoutManager.cacheEditingText = dataItem?.text ?? ""
         self._editingText = State(initialValue: dataItem?.text ?? "")
         self._isValid = State(initialValue: (dataItem?.isValid ?? true, ""))
     }
@@ -109,6 +108,19 @@ struct InlineEditingView: View {
         .padding(contentInset)
         .frame(width: cellWidth, height: cellHeight)
         .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
+        .toolbar {
+            ToolbarItemGroup(placement: .keyboard) {
+                Spacer()
+                
+                Button {
+                    self.updateText(self.editingText)
+                } label: {
+                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
+                        .font(Font.fiori(forTextStyle: .body).bold())
+                        .foregroundColor(Color.preferredColor(.tintColor))
+                }
+            }
+        }
         .onAppear {
             DispatchQueue.main.async {
                 self.focusState = true

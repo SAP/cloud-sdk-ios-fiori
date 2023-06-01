@@ -43,15 +43,33 @@ extension StepProgressIndicator: View {
     @ViewBuilder var stepsContainer: some View {
         switch axis {
         case .horizontal:
-            ScrollView(.horizontal, showsIndicators: false) {
-                StepProgressIndicatorContainer(selection: _selection,
-                                               steps: steps)
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    StepProgressIndicatorContainer(selection: _selection,
+                                                   steps: steps)
+                        .environment(\.stepFrames, $stepFrames)
+                        .onChange(of: _selection.wrappedValue) { newValue in
+                            if let currentFrame = stepFrames[newValue],
+                               !scrollBounds.contains(currentFrame)
+                            {
+                                withAnimation {
+                                    proxy.scrollTo(newValue, anchor: .leading)
+                                }
+                            }
+                        }
+                }
+            }
+            .coordinateSpace(name: "SPICoordinateSpace")
+            .frameReader(in: .local) { rect in
+                scrollBounds = rect
             }
         case .vertical:
-            ScrollView(.vertical, showsIndicators: false) {
-                StepProgressIndicatorContainer(selection: _selection,
-                                               steps: steps)
-            }.padding(20)
+            ScrollViewReader { _ in
+                ScrollView(.vertical, showsIndicators: false) {
+                    StepProgressIndicatorContainer(selection: _selection,
+                                                   steps: steps)
+                }.padding(20)
+            }
         }
     }
     
@@ -62,20 +80,19 @@ extension StepProgressIndicator: View {
             HStack(alignment: .center) {
                 title
                 Spacer()
-                Button {
-                    isPresented.toggle()
-                } label: {
-                    action
-                }
+                action
+                    .onSimultaneousTapGesture(perform: {
+                        self.isPresented.toggle()
+                    })
             }
             .frame(minHeight: 44)
             .sheet(isPresented: $isPresented) {
-                verticalSteps()
+                verticalSteps
             }
         }
     }
     
-    func verticalSteps() -> some View {
+    var verticalSteps: some View {
         var newSelf = self
         newSelf.axis = .vertical
         return NavigationView {

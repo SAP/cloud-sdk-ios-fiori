@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// An image item for `DataTable`
-public struct DataImageItem: DataItemImageComponent, CheckBinding {
+public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
     /// Type.
     public var type: DataItemType = .image
     /// Mapping rule.
@@ -25,5 +25,18 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding {
         self.image = image.resizable()
         self.tintColor = tintColor
         self.binding = binding
+    }
+    
+    /// check equality
+    public static func == (lhs: DataImageItem, rhs: DataImageItem) -> Bool {
+        if lhs.image != rhs.image {
+            return false
+        }
+        
+        if lhs.tintColor != rhs.tintColor {
+            return false
+        }
+        
+        return true
     }
 }

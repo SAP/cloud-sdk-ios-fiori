@@ -61,43 +61,34 @@ public struct DataTable: View {
         // it only layouts when necessary
         self.layoutManager.layout(rect.size)
         
-        return Group {
-            if self.model.isNoData {
-                Text("There is nothing to display yet", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                    .foregroundColor(Color.preferredColor(.tertiaryLabel))
-                    .font(.fiori(forTextStyle: .body))
-            } else if self.model.showListView {
-                TableListView(layoutManager: self.layoutManager)
-            } else {
-                if !self.layoutManager.isLayoutFinished(rect.size) {
-                    if #available(iOS 14.0, *) {
-                        ProgressView().progressViewStyle(CircularProgressViewStyle())
-                    } else {
-                        // Fallback on earlier versions
-                        Text("Loading...", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                    }
+        return ZStack {
+            Group {
+                if self.model.isNoData {
+                    Text("There is nothing to display yet", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
+                        .foregroundColor(Color.preferredColor(.tertiaryLabel))
+                        .font(.fiori(forTextStyle: .body))
+                } else if self.model.showListView {
+                    TableListView(layoutManager: self.layoutManager)
                 } else {
-                    ScrollAndZoomView(layoutManager: self.layoutManager, size: rect.size)
+                    if !self.layoutManager.isLayoutFinished(rect.size) {
+                        ProgressView().progressViewStyle(CircularProgressViewStyle())
+                    }
                 }
+            }
+
+            if !self.model.showListView {
+                ScrollAndZoomView(layoutManager: self.layoutManager, size: rect.size)
             }
         }
         .frame(width: rect.size.width, height: rect.size.height, alignment: .center)
-        .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
-                Spacer()
-                
-                Button {
-                    // save text changes
-                    self.layoutManager.saveEditingTextChange()
-                } label: {
-                    Text("Done", tableName: "FioriSwiftUICore", bundle: Bundle.accessor)
-                        .font(.fiori(forTextStyle: .body).bold())
-                        .foregroundColor(Color.preferredColor(.tintColor))
-                }
-            }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification)) { notif in
+            let rect = (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect) ?? .zero
+            self.layoutManager.keyboardFrame = rect
+            self.layoutManager.keyboardHeight = rect.size.height
         }
-        .onReceive(Publishers.keyboardHeight) { keyboardHeight in
-            self.layoutManager.keyboardHeight = keyboardHeight
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification)) { _ in
+            self.layoutManager.keyboardFrame = .zero
+            self.layoutManager.keyboardHeight = 0
         }
         .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
             // save text changes
@@ -244,16 +235,13 @@ public extension DataTable {
     func sizeThatFits(_ size: CGSize) -> CGSize {
         self.layoutManager.sizeThatFits(size)
     }
-}
 
-extension Publishers {
-    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
-        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardDidShowNotification).map { notif in
-            (notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
-        }
-        
-        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardDidHideNotification).map { _ in CGFloat(0) }
-        
-        return MergeMany(willShow, willHide).eraseToAnyPublisher()
+    /// Returns the rect for the specified cell with rowIndex and columnIndex
+    /// - Parameter rowIndex: the row index; rowIndex starts from header if it exists
+    /// - Parameter columnIndex: the column index
+    /// - Parameter isRelativeToContentOffset: subtract ScrollView's contentOffset if it is true
+    /// - Returns: Return the rect
+    func rectForCell(at rowIndex: Int, columnIndex: Int, isRelativeToContentOffset: Bool = false) -> CGRect {
+        self.layoutManager.rectForCell(at: rowIndex, columnIndex: columnIndex, isRelativeToContentOffset: isRelativeToContentOffset)
     }
 }

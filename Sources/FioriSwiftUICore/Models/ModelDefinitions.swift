@@ -374,38 +374,42 @@ public protocol SearchableListViewModel {
 
 public protocol KPIHeaderItemModel {}
 
-// sourcery: add_env_props = "stepLineColor"
+// sourcery: add_env_props = "stepLineModifier"
 // sourcery: add_env_props = "stepAxis"
 // sourcery: add_env_props = "currentStepId"
-// sourcery: virtualPropWithGesture = "var tappable: Bool = true"
+// sourcery: add_env_props = "stepStyle"
 // sourcery: virtualPropTop = "var top: CGFloat = 8"
 // sourcery: virtualPropVerticalSpacing = "var verticalSpacing: CGFloat = 8"
 // sourcery: virtualPropBottom = "var bottom: CGFloat = 8"
 // sourcery: virtualPropLeading = "var leading: CGFloat = 8"
 // sourcery: virtualPropTrailing = "var trailing: CGFloat = 8"
-// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 14"
-// sourcery: virtualPropNodeAndLineSize = "@State var nodeAndLineSize: CGSize = .zero"
+// sourcery: virtualPropHorizontalSpacing = "var horizontalSpacing: CGFloat = 8"
+// sourcery: virtualPropLineSize = "var lineSize: CGSize? = nil"
+// sourcery: virtualPropStepState = "var state: StepProgressIndicatorState?"
+// sourcery: virtualPropIsLastStep = "var isLastStep: Bool = false"
 // sourcery: generated_component_composite
 public protocol SingleStepModel {
     // sourcery: default.value = UUID().uuidString
     // sourcery: no_view
     var id: String { get set }
     
-    var title: String? { get }
+    var title: String? { get set }
     // sourcery: backingComponent=TextOrIconView
-    var node: TextOrIcon { get }
+    var node: TextOrIcon { get set }
     
     // sourcery: no_style
     // sourcery: backingComponent=_StepsContainer
     // sourcery: customFunctionBuilder=IndexedViewBuilder
     // sourcery: genericParameter.type=IndexedViewContainer
-    var substeps: [SingleStepModel] { get }
+    var substeps: [SingleStepModel] { get set }
 }
 
 // sourcery: add_env_props = "presentationMode"
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
 // sourcery: virtualPropStepsData = "var stepItems: [StepItem] = []"
 // sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
+// sourcery: virtualPropStepFrames = "@State var stepFrames: [String: CGRect] = [:]"
+// sourcery: virtualPropScrollBounds = "@State var scrollBounds: CGRect = .zero"
 // sourcery: generated_component_composite
 public protocol StepProgressIndicatorModel: AnyObject {
     // sourcery: bindingProperty

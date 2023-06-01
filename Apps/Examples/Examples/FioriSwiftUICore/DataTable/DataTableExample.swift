@@ -142,7 +142,7 @@ struct DataTableExample: View {
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: true, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("Sticky header & column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, isFixedWidth: true)))
             }
             
             Section(header: Text("Variant rows/columns")) {
@@ -155,17 +155,15 @@ struct DataTableExample: View {
                 NavigationLink("5 rows 3 columns",
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("30 rows 12 columns",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 30, column: 12, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
-               
+                NavigationLink("20 rows 12 columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 12, containLeadingAccessory: false, containTrailingAccessory: false, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false), addRowsDuringScrolling: true))
+                
                 NavigationLink("300 rows 60 columns",
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
             }
         }
     }
 }
-
-// let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.fiori(forTextStyle: .largeTitle).bold().italic())])
 
 let row0 = TableRowItem(leadingAccessories: [accBtn], trailingAccessory: accBtn, data: [DataTextItem("Need Attention", Font.largeTitle.bold().italic())])
 
@@ -264,7 +262,16 @@ public enum TestRowData {
                 let imageItem = DataImageItem(Image(systemName: imageNames[(rowIndex + i) % self.imageNames.count]), color)
                 data.append(imageItem)
             case 1:
-                let textString = i / DataItemType.allCases.count % 2 == 0 ? "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium." : "Aliquam erat volutpat."
+                var textString = ""
+                if rowIndex < 20 {
+                    textString = "Aliquam erat volutpat."
+                } else if rowIndex < 40 {
+                    textString = "Aliquam erat volutpat. One"
+                } else if rowIndex < 60 {
+                    textString = "Aliquam erat volutpat. One more."
+                } else {
+                    textString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium."
+                }
                 let finalText = containIndex ? "(\(rowIndex), \(i)): " + textString : textString
                 let textItem = DataTextItem(newRowHint ? "New column" : finalText, font, color)
                 data.append(textItem)
@@ -304,16 +311,16 @@ public enum TestRowData {
         return TableRowItem(data: data)
     }
     
-    static func generateColumnAttributes(column: Int) -> [ColumnAttribute] {
+    static func generateColumnAttributes(column: Int, isFixedWidth: Bool = false) -> [ColumnAttribute] {
         var output: [ColumnAttribute] = []
         for _ in 0 ..< column {
-            let att = ColumnAttribute(textAlignment: .leading, width: .flexible)
+            let att = ColumnAttribute(textAlignment: .leading, width: isFixedWidth ? .fixed(200) : .flexible)
             output.append(att)
         }
         return output
     }
     
-    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false) -> TableModel {
+    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false, isFixedWidth: Bool = false) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [DataTextItem] = []
         for k in 0 ..< column {
@@ -324,7 +331,7 @@ public enum TestRowData {
         }
         let header = TableRowItem(data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
-        model.columnAttributes = self.generateColumnAttributes(column: column)
+        model.columnAttributes = self.generateColumnAttributes(column: column, isFixedWidth: isFixedWidth)
         model.didSelectRowAt = { rowIndex in
             print("Tapped row \(rowIndex)")
         }
@@ -335,11 +342,13 @@ public enum TestRowData {
 }
 
 public struct DataTableExampleView: View {
-    var model: TableModel
+    let model: TableModel
+    let addRowsDuringScrolling: Bool
     @State var editMode: TableModel.EditMode = .none
     
-    public init(model: TableModel) {
+    public init(model: TableModel, addRowsDuringScrolling: Bool = false) {
         self.model = model
+        self.addRowsDuringScrolling = addRowsDuringScrolling
         
         /// set a closure to check whether a dataItem located at (rowIndex, columnIndex) is valid; If it is valid, returns (true, nil); if it is not valid, returns false and an error message which is shown to users.
         model.validateDataItem = { _, columnIndex, dataItem in
@@ -389,6 +398,26 @@ public struct DataTableExampleView: View {
         model.valueDidChange = { change in
             print("valueDidChange: \(change.description)")
         }
+        
+        /// add new rows when scrolling to the end of the DataTable
+        if addRowsDuringScrolling {
+            // here only indexOfRows is what we need
+            model.didScroll = { _, indexOfRows, _ in
+                if let lastRowIndex = indexOfRows.last, lastRowIndex + 6 > model.rowData.count {
+                    // generate new rows
+                    var newRows = [TableRowItem]()
+                    let numOfColumns = model.rowData.first?.data.count ?? 1
+                    let startRowIndex = model.rowData.count
+                    for i in 0 ..< 20 {
+                        let row = TestRowData.generateRowData(numOfColumns: numOfColumns, rowIndex: startRowIndex + i, containIndex: true)
+                        newRows.append(row)
+                    }
+                    
+                    // append new rows to the end of DataTable
+                    model.rowData.append(contentsOf: newRows)
+                }
+            }
+        }
     }
     
     public var body: some View {
@@ -397,27 +426,27 @@ public struct DataTableExampleView: View {
             .navigationBarTitle("Data Table")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    if editMode == .none {
+                    if self.editMode == .none {
                         Button(action: {
-                            let numOfColumn: Int = model.rowData.first?.data.count ?? 0
+                            let numOfColumn: Int = self.model.rowData.first?.data.count ?? 0
                             self.model.rowData.insert(TestRowData.generateRowData(numOfColumns: numOfColumn, rowIndex: 0, newRowHint: true), at: 0)
                         }) {
                             Image(systemName: "plus")
                         }
                         
                         Button("Edit") {
-                            editMode = .inline
-                            model.editMode = .inline
+                            self.editMode = .inline
+                            self.model.editMode = .inline
                         }
                         Button("Select") {
-                            editMode = .select
-                            model.editMode = .select
+                            self.editMode = .select
+                            self.model.editMode = .select
                         }
                     } else {
-                        if editMode == .select {
+                        if self.editMode == .select {
                             Button(action: {
                                 self.model.selectedIndexes = []
-                                let numOfColumn: Int = model.rowData.first?.data.count ?? 0
+                                let numOfColumn: Int = self.model.rowData.first?.data.count ?? 0
                                 self.model.rowData.insert(TestRowData.generateRowData(numOfColumns: numOfColumn, rowIndex: 0, newRowHint: true), at: 0)
                             }) {
                                 Image(systemName: "plus")
@@ -430,25 +459,25 @@ public struct DataTableExampleView: View {
                                 self.model.selectedIndexes = []
                             }
                         }
-                        if editMode == .inline {
+                        if self.editMode == .inline {
                             Button("Cancel") {
-                                _ = model.onSave(false)
+                                _ = self.model.onSave(false)
                                 
-                                editMode = .none
-                                model.editMode = .none
+                                self.editMode = .none
+                                self.model.editMode = .none
                             }
                         }
                         
                         Button("Done") {
-                            if model.editMode == .inline {
-                                let changes = model.onSave(true)
+                            if self.model.editMode == .inline {
+                                let changes = self.model.onSave(true)
                                 print("Model changes:")
                                 for change in changes {
                                     print("\(change.description)")
                                 }
                             }
                             
-                            editMode = .none
+                            self.editMode = .none
                             self.model.editMode = .none
                         }
                     }

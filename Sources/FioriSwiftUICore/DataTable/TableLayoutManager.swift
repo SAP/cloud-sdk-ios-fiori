@@ -23,23 +23,18 @@ class TableLayoutManager: ObservableObject {
        
     var size: CGSize = .zero
     
-    var needsCalculateLayout: Bool = false {
-        didSet {
-            if self.needsCalculateLayout {
-                DispatchQueue.main.async {
-                    self.layoutData = nil
-                    self.cacheLayoutData = nil
-                }
-            }
-        }
-    }
+    var needsCalculateLayout: Bool = false
     
     var cachedKeyboardHeight: CGFloat = 0
+    
+    /// keyboard frame
+    var keyboardFrame: CGRect = .zero
     
     @Published var keyboardHeight: CGFloat = 0
     
     @Published var currentCell: (Int, Int)? = nil
     
+    // contentOffset in the UIScrollView
     @Published var startPosition: CGPoint = .zero
     
     @Published var selectedIndexes: [Int] = []
@@ -110,7 +105,7 @@ class TableLayoutManager: ObservableObject {
     var cacheLayoutData: LayoutData?
     
     /// cache editing text to save if users tap another cell before the editing text has been saved explicitly
-    var cacheEditingText: String = ""
+    var cacheEditingText: String? = nil
     
     /// cache the result
     var numOfColumns: Int = -1
@@ -118,7 +113,7 @@ class TableLayoutManager: ObservableObject {
     /// check if layout process is finished
     func isLayoutFinished(_ size: CGSize) -> Bool {
         if let ld = layoutData {
-            return ld.size.width == size.width && self.layoutWorkItem == nil
+            return (ld.size.width == size.width && self.layoutWorkItem == nil) || (ld.size.width == size.width && (self.workingLayoutData?.rowData.count ?? 0) > ld.rowData.count)
         }
         
         return false
@@ -154,7 +149,8 @@ class TableLayoutManager: ObservableObject {
         var changes: [DataTableChange] = []
         var newRowData: [TableRowItem] = ld.rowData
         
-        for i in 0 ..< newRowData.count {
+        // cacheLd.allDataItems may contain less data than ld.rowData because new rows could be added during scrolling from the app
+        for i in 0 ..< min(cacheLd.allDataItems.count, newRowData.count) {
             for j in 0 ..< newRowData[i].data.count {
                 switch newRowData[i].data[j].type {
                 case .text:
@@ -276,6 +272,7 @@ class TableLayoutManager: ObservableObject {
         let newRowData: [TableRowItem] = changeResult.newRowData
         
         self.model._rowData = newRowData.suffix(self.model._rowData.count)
+        self.layoutData?.rowData = newRowData
         if isThereRejectedErrors {
             // need to update numOfErrors
             var numOfErrors = 0
@@ -305,12 +302,12 @@ class TableLayoutManager: ObservableObject {
     }
     
     func updateText(rowIndex: Int, columnIndex: Int, updateItValidOnly: Bool = false) {
-        guard let ld = layoutData else { return }
+        guard let ld = layoutData, let editingText = self.cacheEditingText else { return }
         
         var dataItem = ld.allDataItems[rowIndex][columnIndex]
-        if dataItem.text != self.cacheEditingText {
+        if dataItem.text != editingText {
             let originalText = dataItem.text
-            dataItem.text = self.cacheEditingText
+            dataItem.text = editingText
             let validState = self.checkIsValid(for: dataItem)
             
             // not valid then roll back
@@ -325,7 +322,9 @@ class TableLayoutManager: ObservableObject {
             dataItem.size = ld.calcDataItemSize(dataItem)
             ld.allDataItems[rowIndex][columnIndex] = dataItem
             ld.updateCellLayout(for: rowIndex, columnIndex: columnIndex)
-            self.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(self.cacheEditingText), text: self.cacheEditingText))
+            self.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText))
+            self.cacheEditingText = nil
+            self.isValid = validState
             self.needRefresh.toggle()
         }
     }
@@ -349,5 +348,32 @@ class TableLayoutManager: ObservableObject {
         }
         
         return (true, nil)
+    }
+    
+    /// Returns the rect for the specified cell with rowIndex and columnIndex
+    /// - Parameter rowIndex: the row index; rowIndex starts from header if it exists
+    /// - Parameter columnIndex: the column index
+    /// - Parameter isRelativeToContentOffset: subtract ScrollView's contentOffset if it is true
+    /// - Returns: Return the rect
+    func rectForCell(at rowIndex: Int, columnIndex: Int, isRelativeToContentOffset: Bool = false) -> CGRect {
+        guard let layoutData = layoutData, rowIndex < layoutData.allDataItems.count, columnIndex < layoutData.allDataItems[rowIndex].count else { return .zero }
+        
+        let dataItem = layoutData.allDataItems[rowIndex][columnIndex]
+        let tmpScaleX = self.scaleX(size: self.size)
+        let tmpScaleY = self.scaleY(size: self.size)
+        
+        let contentSizeWidth = totalContentWidth()
+        let contentSizeHeight = totalContentHeight()
+        // check & restore scrollView's contentOffset
+        let tmpOffsetX = contentSizeWidth * self.startPosition.x
+        let tmpOffsetY = contentSizeHeight * self.startPosition.y
+        
+        let cellWidth = layoutData.columnWidths[columnIndex] * tmpScaleX
+        let x: CGFloat = dataItem.pos.x * tmpScaleX - cellWidth / 2 - (isRelativeToContentOffset ? tmpOffsetX : 0)
+        
+        let cellHeight = layoutData.rowHeights[rowIndex] * tmpScaleY
+        let y: CGFloat = dataItem.pos.y * tmpScaleY - cellHeight / 2 - (isRelativeToContentOffset ? tmpOffsetY : 0)
+    
+        return CGRect(origin: CGPoint(x: x, y: y), size: CGSize(width: cellWidth, height: cellHeight))
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// Time item for `DataTable`
-public struct DataTimeItem: DataItemTextComponent, CheckBinding {
+public struct DataTimeItem: DataItemTextComponent, CheckBinding, Equatable {
     /// Type.
     public var type: DataItemType = .time
     
@@ -63,5 +63,30 @@ public struct DataTimeItem: DataItemTextComponent, CheckBinding {
     func string(for columnAttribute: ColumnAttribute) -> String {
         let df = columnAttribute.dateFormatter(for: .time)
         return df.string(from: self.date)
+    }
+    
+    /// check equality
+    public static func == (lhs: DataTimeItem, rhs: DataTimeItem) -> Bool {
+        if lhs.date != rhs.date {
+            return false
+        }
+        
+        if lhs.font != rhs.font {
+            return false
+        }
+        
+        if lhs.uifont != rhs.uifont {
+            return false
+        }
+        
+        if lhs.lineLimit != rhs.lineLimit {
+            return false
+        }
+        
+        if lhs.textColor != rhs.textColor {
+            return false
+        }
+        
+        return true
     }
 }

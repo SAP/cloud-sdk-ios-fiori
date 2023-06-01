@@ -19,7 +19,7 @@ struct StepProgressIndicatorContainer<Steps: IndexedViewContainer>: View {
                 }
             }
         case .vertical:
-            VStack(alignment: .leading, spacing: stepsSpacing) {
+            VStack(alignment: .stepsLeadingAlignment, spacing: stepsSpacing) {
                 ForEach(0 ..< steps.count, id: \.self) { index in
                     steps.view(at: index)
                         .environment(\.stepAxis, stepAxis)
@@ -27,16 +27,5 @@ struct StepProgressIndicatorContainer<Steps: IndexedViewContainer>: View {
                 }
             }
         }
-    }
-}
-
-struct CurrentStepIdKey: EnvironmentKey {
-    static let defaultValue: Binding<String> = .constant("")
-}
-
-extension EnvironmentValues {
-    var currentStepId: Binding<String> {
-        get { self[CurrentStepIdKey.self] }
-        set { self[CurrentStepIdKey.self] = newValue }
     }
 }
