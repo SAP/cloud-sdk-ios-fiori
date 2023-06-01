@@ -408,6 +408,8 @@ public protocol SingleStepModel {
 // sourcery: virtualPropAxis = "var axis: Axis = .horizontal"
 // sourcery: virtualPropStepsData = "var stepItems: [StepItem] = []"
 // sourcery: virtualPropIsPresented = "@State var isPresented: Bool = false"
+// sourcery: virtualPropStepFrames = "@State var stepFrames: [String: CGRect] = [:]"
+// sourcery: virtualPropScrollBounds = "@State var scrollBounds: CGRect = .zero"
 // sourcery: generated_component_composite
 public protocol StepProgressIndicatorModel: AnyObject {
     // sourcery: bindingProperty

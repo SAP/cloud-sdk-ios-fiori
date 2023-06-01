@@ -8,6 +8,9 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
+    @State var stepFrames: [String: CGRect] = [:]
+    @State var scrollBounds: CGRect = .zero
+    
     var _selection: Binding<String>
 	let _title: Title
 	let _action: ActionView

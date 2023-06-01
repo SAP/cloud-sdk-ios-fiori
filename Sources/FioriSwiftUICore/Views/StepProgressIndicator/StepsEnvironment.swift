@@ -71,6 +71,17 @@ extension EnvironmentValues {
     }
 }
 
+struct StepFramesKey: EnvironmentKey {
+    static let defaultValue: Binding<[String: CGRect]> = .constant([:])
+}
+
+extension EnvironmentValues {
+    var stepFrames: Binding<[String: CGRect]> {
+        get { self[StepFramesKey.self] }
+        set { self[StepFramesKey.self] = newValue }
+    }
+}
+
 extension View {
     func stepAxis(_ axis: Axis) -> some View {
         self.environment(\.stepAxis, axis)

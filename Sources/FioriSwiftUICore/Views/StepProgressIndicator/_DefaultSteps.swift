@@ -36,6 +36,7 @@ public struct _DefaultSteps: IndexedViewContainer {
                               selection: $selection,
                               isSubstep: isSubstep,
                               showLine: showLine)
+                .id(data.id)
             if !data.substeps.isEmpty {
                 StepProgressIndicatorContainer(selection: $selection,
                                                steps: _DefaultSteps(stepItems: data.substeps,
@@ -50,7 +51,8 @@ public struct _DefaultSteps: IndexedViewContainer {
 struct DefaultSingleStep: View {
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     @Environment(\.stepAxis) var stepAxis
-    
+    @Environment(\.stepFrames) var stepFrames
+
     var stepItem: StepItem
     @Binding var selection: String
     var isSubstep: Bool = false
@@ -71,10 +73,15 @@ struct DefaultSingleStep: View {
     }
     
     var body: some View {
-        if isSubstep {
-            singleSubstep()
-        } else {
-            singleStep()
+        Group {
+            if isSubstep {
+                singleSubstep()
+            } else {
+                singleStep()
+            }
+        }
+        .frameReader(in: .named("SPICoordinateSpace")) { rect in
+            stepFrames.wrappedValue[stepItem.id] = rect
         }
     }
     
