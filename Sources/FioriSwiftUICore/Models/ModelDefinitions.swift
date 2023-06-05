@@ -86,6 +86,7 @@ public protocol KPIProgressItemModel: KpiProgressComponent, SubtitleComponent, F
 // sourcery: generated_component
 public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
+// sourcery: add_env_props = "sharedAction"
 // sourcery: generated_component_not_configurable
 public protocol ActionModel: ActionComponent {}
 

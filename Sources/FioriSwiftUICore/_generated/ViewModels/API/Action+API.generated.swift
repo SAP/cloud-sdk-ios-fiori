@@ -4,6 +4,7 @@ import SwiftUI
 
 public struct Action {
     @Environment(\.actionTextModifier) private var actionTextModifier
+    @Environment(\.sharedAction) var sharedAction
 
     var _actionText: String? = nil
 	var _didSelectAction: (() -> Void)? = nil

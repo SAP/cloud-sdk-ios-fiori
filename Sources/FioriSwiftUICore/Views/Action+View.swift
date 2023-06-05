@@ -15,11 +15,31 @@ extension Fiori {
 extension Action: View {
     public var body: some View {
         if _actionText != nil {
-            Button(action: self._didSelectAction ?? {}) {
+            Button {
+                self.sharedAction?()
+                self._didSelectAction?()
+            } label: {
                 Text(self._actionText ?? "")
             }
         } else {
             EmptyView()
         }
+    }
+}
+
+struct SharedActionKey: EnvironmentKey {
+    static let defaultValue: (() -> Void)? = nil
+}
+
+extension EnvironmentValues {
+    var sharedAction: (() -> Void)? {
+        get { self[SharedActionKey.self] }
+        set { self[SharedActionKey.self] = newValue }
+    }
+}
+
+extension View {
+    func setSharedAction(_ action: (() -> Void)?) -> some View {
+        self.environment(\.sharedAction, action)
     }
 }
