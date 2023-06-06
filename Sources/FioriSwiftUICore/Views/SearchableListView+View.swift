@@ -83,6 +83,7 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         rowBackground: ((Data.Element) -> RowBackground)? = nil
     ) {
         self.init(data: data, id: id, children: children, selection: selection,
+                  allowsMultipleSelection: allowsMultipleSelection,
                   searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground,
                   cancelAction: Action(model: _CancelActionDefault()),
                   doneAction: Action(model: _DoneActionDefault()))

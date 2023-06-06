@@ -32,6 +32,12 @@ struct FocusedEditingView: View {
         case .listitem:
             if let selectedIndex = dataItem.selectedIndex {
                 self._listItemSelection = State(initialValue: [selectedIndex])
+                
+            } else {
+                let data = self.layoutManager.model.listItemDataAndTitle?(self.rowIndex, self.columnIndex) ?? ([self.editingText], "")
+                if let index = data.0.firstIndex(of: self.dataItem.text ?? "") {
+                    self._listItemSelection = State(initialValue: [index])
+                }
             }
         case .date, .time:
             self._editingDate = State(initialValue: self.dataItem.date ?? Date())
@@ -82,7 +88,7 @@ struct FocusedEditingView: View {
                 }
                 
                 // tap again to dismiss .date, .time & .duration popover
-                if let currentCell = self.layoutManager.currentCell, currentCell == (rowIndex, columnIndex), dataItem.type != .text, dataItem.type != .listitem {
+                if let currentCell = self.layoutManager.currentCell, currentCell == (rowIndex, columnIndex), dataItem.type != .text, dataItem.type != .listitem, self.showPopover {
                     self.showPopover = false
                     self.showSheet = false
                     self.isInlineEdit = false
