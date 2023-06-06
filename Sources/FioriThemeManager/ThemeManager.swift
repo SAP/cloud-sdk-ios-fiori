@@ -109,7 +109,7 @@ public class ThemeManager {
     internal func hexColor(for style: ColorStyle) -> HexColor? {
         switch self.paletteVersion {
         #if !os(watchOS)
-            case .v3_x, .v3_2, .v4, .v5, .v6, .v7, .v8:
+            case .v3_x, .v3_2, .v4, .v5, .v6, .v7:
                 let compatibleDefinitions = self.mergedCompatibleDefinitions()
                 guard !compatibleDefinitions.isEmpty else {
                     return self.mergedDeprecatedDefinitions()[style]
