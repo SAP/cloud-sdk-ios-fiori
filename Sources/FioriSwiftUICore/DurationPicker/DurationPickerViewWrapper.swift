@@ -55,7 +55,7 @@ class DurationPickerContainer: UIView, UIPickerViewDelegate, UIPickerViewDataSou
         self.minimumMinutes = minimumMinutes
         self.minuteInterval = minuteInterval
         self.measurementFormatter = measurementFormatter
-        super.init(frame: CGRect(x: 0, y: 0, width: 232, height: 204))
+        super.init(frame: .zero)
         self.setup()
     }
     
