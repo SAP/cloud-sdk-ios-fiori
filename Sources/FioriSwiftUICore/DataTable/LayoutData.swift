@@ -295,7 +295,7 @@ class LayoutData {
          .fixed: max(1, fixedWidth)
          .flexible: 48 pt -- 50%
          .infinity: 48 pt -- 50%, then fill the remaining space if possible
-       */
+        */
     /// Calculate column widths based on allDataItems and fromLayoutData
     ///
     /// - Parameter fromLayoutData: use this to reduce some calculations
@@ -721,7 +721,7 @@ extension String {
   Convert SwiftUI Font to UIFont using Swift's reflection API
   Three types of SwiftUI Font conversion is supported. It includes system fonts, custom fonts and Fiori fonts.
  `DataTable` use UIFont to meaure a String's bounding box
-   */
+    */
 
 /// used to store UIFont properties dumped from SwiftUI Font
 class UIFontInfo {
