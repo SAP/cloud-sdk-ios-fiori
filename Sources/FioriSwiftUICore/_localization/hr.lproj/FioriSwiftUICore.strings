@@ -89,5 +89,5 @@
 "Done" = "Gotovo";
 
 /* XBUT: Error messages shown to users in DataTable */
-"There are %d errors in the data table." = "U tablici podataka ima ovoliko pogrešaka: %d ";
+"There are %d errors in the data table." = "U tablici podataka ima ovoliko pogrešaka: %d";
 
