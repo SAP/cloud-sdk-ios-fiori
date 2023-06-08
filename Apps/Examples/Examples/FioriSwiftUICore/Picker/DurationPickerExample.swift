@@ -25,7 +25,7 @@ struct DurationPickerExample: View {
             Divider()
             Text("Total \(selection2) minutes")
             
-            DurationPicker(selection: $selection3, maximumMinutes: 120, minimumMinutes: 60, minuteInterval: 2)
+            DurationPicker(selection: $selection3, maximumMinutes: 124, minimumMinutes: 60, minuteInterval: 2)
                 .measurementFormatter(formatter)
             Divider()
             Text("Total \(selection3) minutes")

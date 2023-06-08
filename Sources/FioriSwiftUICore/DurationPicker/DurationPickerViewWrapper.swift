@@ -3,7 +3,6 @@ import SwiftUI
 
 struct DurationPickerViewWrapper: UIViewRepresentable {
     @Environment(\.layoutDirection) var layoutDirection
-    var pickerView = UIPickerView()
     @Binding var selection: Int
     
     var maximumMinutes: Int
@@ -35,39 +34,45 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {}
     
     func makeUIView(context: Context) -> some UIView {
-        self.pickerView.dataSource = context.coordinator
-        self.pickerView.delegate = context.coordinator
-        self.pickerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.pickerView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        self.pickerView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
-        self.pickerView.addSubview(context.coordinator.hourLabel)
-        self.pickerView.addSubview(context.coordinator.minuteLabel)
-        
+        let container = UIView()
+        container.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        container.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        let pickerView = UIPickerView()
+        pickerView.dataSource = context.coordinator
+        pickerView.delegate = context.coordinator
+        pickerView.addSubview(context.coordinator.hourLabel)
+        pickerView.addSubview(context.coordinator.minuteLabel)
+        container.addSubview(pickerView)
+        pickerView.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
+        pickerView.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+        pickerView.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        pickerView.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
+
         let hour = self.selection / 60
         let minute = self.selection % 60
         
         if let hourIndex = hours.firstIndex(of: hour) {
-            self.pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
+            pickerView.selectRow(hourIndex, inComponent: 0, animated: false)
+            if let minuteIndex = minutesForHour(hourIndex).firstIndex(of: minute) {
+                pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
+            }
         }
-        if let minuteIndex = minutesForHour().firstIndex(of: minute) {
-            self.pickerView.selectRow(minuteIndex, inComponent: 1, animated: false)
-        }
-        
         let padding: CGFloat = 4
         let hourLabel = context.coordinator.hourLabel
-        hourLabel.centerYAnchor.constraint(equalTo: self.pickerView.centerYAnchor).isActive = true
+        hourLabel.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor).isActive = true
         hourLabel.heightAnchor.constraint(equalToConstant: context.coordinator.hourSize.height).isActive = true
         hourLabel.widthAnchor.constraint(equalToConstant: context.coordinator.hourSize.width).isActive = true
         let constant = context.coordinator.hourSize.width + context.coordinator.hourTrailingOffset() + padding
-        hourLabel.trailingAnchor.constraint(equalTo: self.pickerView.centerXAnchor, constant: constant).isActive = true
+        hourLabel.trailingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: constant).isActive = true
         
         let minuteLabel = context.coordinator.minuteLabel
-        minuteLabel.centerYAnchor.constraint(equalTo: self.pickerView.centerYAnchor).isActive = true
+        minuteLabel.centerYAnchor.constraint(equalTo: pickerView.centerYAnchor).isActive = true
         minuteLabel.heightAnchor.constraint(equalToConstant: context.coordinator.minuteSize.height).isActive = true
         minuteLabel.widthAnchor.constraint(equalToConstant: context.coordinator.minuteSize.width).isActive = true
         let offset: CGFloat = self.layoutDirection == .leftToRight ? 0 : 8
-        minuteLabel.leadingAnchor.constraint(equalTo: self.pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + padding + 8 + offset).isActive = true
-        return self.pickerView
+        minuteLabel.leadingAnchor.constraint(equalTo: pickerView.centerXAnchor, constant: context.coordinator.componentValueWidth + padding + 8 + offset).isActive = true
+        return container
     }
     
     func makeCoordinator() -> Coordinator {
@@ -91,7 +96,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours.count
             case 1:
-                return self.parent.minutesForHour().count
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                return self.parent.minutesForHour(hourIndex).count
             default:
                 return 0
             }
@@ -102,7 +108,8 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             case 0:
                 return self.parent.hours[row].description
             case 1:
-                return self.parent.minutesForHour()[row].description
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                return self.parent.minutesForHour(hourIndex)[row].description
             default:
                 return ""
             }
@@ -114,8 +121,12 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             }
             let hourIndex = pickerView.selectedRow(inComponent: 0)
             let minuteIndex = pickerView.selectedRow(inComponent: 1)
-            guard hourIndex < self.parent.hours.count, minuteIndex < self.parent.minutesForHour().count else { return }
-            self.parent.selection = self.parent.hours[hourIndex] * 60 + self.parent.minutesForHour()[minuteIndex]
+            guard hourIndex < self.parent.hours.count else { return }
+            if minuteIndex < self.parent.minutesForHour(hourIndex).count {
+                self.parent.selection = self.parent.hours[hourIndex] * 60 + self.parent.minutesForHour(hourIndex)[minuteIndex]
+            } else {
+                self.parent.selection = self.parent.hours[hourIndex] * 60 + (self.parent.minutesForHour(hourIndex).last ?? 0)
+            }
         }
         
         func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
@@ -130,9 +141,14 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
             label.textColor = Color.preferredColor(.base1).uiColor()
             label.textAlignment = self.parent.layoutDirection == .leftToRight ? .right : .left
             if component == 0 {
-                return self.setupHourView(label, forComponent: component)
+                let view = self.setupHourView(label, forComponent: component)
+                view.accessibilityLabel = self.parent.hours[row].description + self.parent.hourText
+                return view
             } else {
-                return self.setupMinuteView(label, forComponent: component)
+                let view = self.setupMinuteView(label, forComponent: component)
+                let hourIndex = pickerView.selectedRow(inComponent: 0)
+                view.accessibilityLabel = self.parent.minutesForHour(hourIndex)[row].description + self.parent.minuteText
+                return view
             }
         }
         
@@ -212,7 +228,7 @@ struct DurationPickerViewWrapper: UIViewRepresentable {
 extension DurationPickerViewWrapper {
     var hours: [Int] {
         guard self.maximumMinutes >= self.minimumMinutes else {
-            fatalError("Fiori Error: minimum should be not be less than maximum minutes")
+            fatalError("Fiori Error: minimum should be less than maximum minutes")
         }
         let maxHour = self.maximumMinutes / 60
         let minHour = self.minimumMinutes / 60
@@ -223,25 +239,17 @@ extension DurationPickerViewWrapper {
         }
     }
     
-    func minutesForHour(_ hour: Int? = nil) -> [Int] {
+    func minutesForHour(_ hourIndex: Int) -> [Int] {
         guard self.maximumMinutes >= self.minimumMinutes else {
             fatalError("Fiori Error: minimum should be not be less than maximum minutes")
         }
-        var searchHour: Int {
-            if let hour = hour {
-                return hour
-            } else {
-                let hourIndex = self.pickerView.selectedRow(inComponent: 0)
-                
-                return self.hours[hourIndex]
-            }
-        }
+        let selectedHour = self.hours[hourIndex]
         let start: Int
         let end: Int
-        if searchHour == self.hours.first {
+        if selectedHour == self.hours.first {
             start = self.minimumMinutes % 60
             end = min(60, self.maximumMinutes - self.minimumMinutes + 1)
-        } else if searchHour == self.hours.last {
+        } else if selectedHour == self.hours.last {
             start = 0
             end = self.maximumMinutes % 60 + 1
         } else {
