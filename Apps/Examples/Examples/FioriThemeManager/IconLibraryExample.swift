@@ -103,8 +103,7 @@ struct FioriIconSet {
                                                                               "unfavorite": FioriIcon.actions.unfavorite,
                                                                               "wrench": FioriIcon.actions.wrench,
                                                                               "zoomIn": FioriIcon.actions.zoomIn,
-                                                                              "zoomOut": FioriIcon.actions.zoomOut
-                                        ]),
+                                                                              "zoomOut": FioriIcon.actions.zoomOut]),
                                         FioriIconSet(name: "arrows", icons: ["arrowBottom": FioriIcon.arrows.arrowBottom,
                                                                              "arrowDown": FioriIcon.arrows.arrowDown,
                                                                              "arrowLeft": FioriIcon.arrows.arrowLeft,
@@ -113,16 +112,14 @@ struct FioriIconSet {
                                                                              "closeCommandField": FioriIcon.arrows.closeCommandField,
                                                                              "compareArrows": FioriIcon.arrows.compareArrows,
                                                                              "initiative": FioriIcon.arrows.initiative,
-                                                                             "sourceCode": FioriIcon.arrows.sourceCode
-                                            ]),
+                                                                             "sourceCode": FioriIcon.arrows.sourceCode]),
                                         FioriIconSet(name: "calendars", icons: ["accelerated": FioriIcon.calendars.accelerated,
                                                                                 "appointment2": FioriIcon.calendars.appointment2,
                                                                                 "appointment": FioriIcon.calendars.appointment,
                                                                                 "calendarFill": FioriIcon.calendars.calendarFill,
                                                                                 "calendar": FioriIcon.calendars.calendar,
                                                                                 "checkAvailability": FioriIcon.calendars.checkAvailability,
-                                                                                "dateTime": FioriIcon.calendars.dateTime
-                                            ]),
+                                                                                "dateTime": FioriIcon.calendars.dateTime]),
                                         FioriIconSet(name: "callout", icons: ["discussion": FioriIcon.callout.discussion]),
                                         FioriIconSet(name: "charts", icons: ["areaChart": FioriIcon.charts.areaChart,
                                                                              "bubbleChart": FioriIcon.charts.bubbleChart,
@@ -149,21 +146,18 @@ struct FioriIconSet {
                                                                              "toolsOpportunityFill": FioriIcon.charts.toolsOpportunityFill,
                                                                              "toolsOpportunity": FioriIcon.charts.toolsOpportunity,
                                                                              "tree": FioriIcon.charts.tree,
-                                                                             "lineChart": FioriIcon.charts.lineChart
-                                            ]),
+                                                                             "lineChart": FioriIcon.charts.lineChart]),
                                         FioriIconSet(name: "clipboards", icons: ["activities": FioriIcon.clipboards.activities,
                                                                                  "activityAssignedToGoal": FioriIcon.clipboards.activityAssignedToGoal,
                                                                                  "activityIndividual": FioriIcon.clipboards.activityIndividual,
                                                                                  "activityItems": FioriIcon.clipboards.activityItems,
                                                                                  "clinicalFastTracker": FioriIcon.clipboards.clinicalFastTracker,
                                                                                  "taskFill": FioriIcon.clipboards.taskFill,
-                                                                                 "task": FioriIcon.clipboards.task
-                                            ]),
+                                                                                 "task": FioriIcon.clipboards.task]),
                                         FioriIconSet(name: "device", icons: ["fobWatchFill": FioriIcon.device.fobWatchFill,
                                                                              "fobWatch": FioriIcon.device.fobWatch,
                                                                              "machine": FioriIcon.device.machine,
-                                                                             "megaphone": FioriIcon.device.megaphone
-                                            ]),
+                                                                             "megaphone": FioriIcon.device.megaphone]),
                                         FioriIconSet(name: "documents", icons: ["attachmentAudio": FioriIcon.documents.attachmentAudio,
                                                                                 "attachmentEpub": FioriIcon.documents.attachmentEpub,
                                                                                 "attachmentHtml": FioriIcon.documents.attachmentHtml,
@@ -182,18 +176,15 @@ struct FioriIconSet {
                                                                                 "expenseReport": FioriIcon.documents.expenseReport,
                                                                                 "pdfAttachment": FioriIcon.documents.pdfAttachment,
                                                                                 "salesDocument": FioriIcon.documents.salesDocument,
-                                                                                "salesOrderItem": FioriIcon.documents.salesOrderItem
-                                            ]),
+                                                                                "salesOrderItem": FioriIcon.documents.salesOrderItem]),
                                         FioriIconSet(name: "folder", icons: ["batchPayments": FioriIcon.folder.batchPayments,
                                                                              "folderBlank": FioriIcon.folder.folderBlank,
                                                                              "folderFill": FioriIcon.folder.folderFill,
-                                                                             "folder": FioriIcon.folder.folder
-                                            ]),
+                                                                             "folder": FioriIcon.folder.folder]),
                                         FioriIconSet(name: "form", icons: ["approvals": FioriIcon.form.approvals]),
                                         FioriIconSet(name: "medical", icons: ["accidentalLeave": FioriIcon.medical.accidentalLeave,
                                                                               "bed": FioriIcon.medical.bed,
-                                                                              "electrocardiogram": FioriIcon.medical.electrocardiogram
-                                            ]),
+                                                                              "electrocardiogram": FioriIcon.medical.electrocardiogram]),
                                         FioriIconSet(name: "money", icons: ["capitalProjects": FioriIcon.money.capitalProjects,
                                                                             "commissionCheck": FioriIcon.money.commissionCheck,
                                                                             "lead": FioriIcon.money.lead,
@@ -202,8 +193,7 @@ struct FioriIconSet {
                                                                             "monitorPayments": FioriIcon.money.monitorPayments,
                                                                             "travelExpenseReportFill": FioriIcon.money.travelExpenseReportFill,
                                                                             "travelExpenseReport": FioriIcon.money.travelExpenseReport,
-                                                                            "paidLeave": FioriIcon.money.paidLeave
-                                            ]),
+                                                                            "paidLeave": FioriIcon.money.paidLeave]),
                                         FioriIconSet(name: "objects", icons: ["acUnit": FioriIcon.objects.acUnit,
                                                                               "addressBook": FioriIcon.objects.addressBook,
                                                                               "addresses": FioriIcon.objects.addresses,
@@ -262,8 +252,7 @@ struct FioriIconSet {
                                                                               "targetGroupFill": FioriIcon.objects.targetGroupFill,
                                                                               "targetGroup": FioriIcon.objects.targetGroup,
                                                                               "umbrella": FioriIcon.objects.umbrella,
-                                                                              "world": FioriIcon.objects.world
-                                            ]),
+                                                                              "world": FioriIcon.objects.world]),
                                         FioriIconSet(name: "people", icons: ["account": FioriIcon.people.account,
                                                                              "addContact": FioriIcon.people.addContact,
                                                                              "addEmployee": FioriIcon.people.addEmployee,
@@ -284,8 +273,7 @@ struct FioriIconSet {
                                                                              "leads": FioriIcon.people.leads,
                                                                              "learningAssistant": FioriIcon.people.learningAssistant,
                                                                              "personPlaceholderFill": FioriIcon.people.personPlaceholderFill,
-                                                                             "personPlaceholder": FioriIcon.people.personPlaceholder
-                                            ]),
+                                                                             "personPlaceholder": FioriIcon.people.personPlaceholder]),
                                         FioriIconSet(name: "places", icons: ["retailStore": FioriIcon.places.retailStore]),
                                         FioriIconSet(name: "shopping", icons: ["basketFill": FioriIcon.shopping.basketFill,
                                                                                "basket": FioriIcon.shopping.basket,
@@ -294,8 +282,7 @@ struct FioriIconSet {
                                                                                "cart4": FioriIcon.shopping.cart4,
                                                                                "cartApproval": FioriIcon.shopping.cartApproval,
                                                                                "cartFill": FioriIcon.shopping.cartFill,
-                                                                               "cart": FioriIcon.shopping.cart
-                                            ]),
+                                                                               "cart": FioriIcon.shopping.cart]),
                                         FioriIconSet(name: "status", icons: ["appearOffline": FioriIcon.status.appearOffline,
                                                                              "busy": FioriIcon.status.busy,
                                                                              "error": FioriIcon.status.error,
@@ -306,11 +293,9 @@ struct FioriIconSet {
                                                                              "loader3": FioriIcon.status.loader3,
                                                                              "messageWarning": FioriIcon.status.messageWarning,
                                                                              "notification": FioriIcon.status.notification,
-                                                                             "warning": FioriIcon.status.warning
-                                            ]),
+                                                                             "warning": FioriIcon.status.warning]),
                                         FioriIconSet(name: "time", icons: ["createEntryTime": FioriIcon.time.createEntryTime,
-                                                                           "past": FioriIcon.time.past
-                                            ]),
+                                                                           "past": FioriIcon.time.past]),
                                         FioriIconSet(name: "transport", icons: ["busPublicTransport": FioriIcon.transport.busPublicTransport,
                                                                                 "carRentalFill": FioriIcon.transport.carRentalFill,
                                                                                 "carRental": FioriIcon.transport.carRental,
@@ -327,11 +312,11 @@ struct FioriIconSetRow: View {
     
     var body: some View {
         let weights: [Font.Weight] = [.ultraLight, .thin, .light, .regular, .medium, .semibold, .bold, .black, .heavy]
-        Section(header: Text(iconSet.name)) {
-            ForEach(Array(iconSet.icons.keys), id: \.self) { iconName in
+        Section(header: Text(self.iconSet.name)) {
+            ForEach(Array(self.iconSet.icons.keys), id: \.self) { iconName in
                 HStack {
                     ForEach(weights, id: \.self) { weight in
-                        iconSet.icons[iconName]!
+                        self.iconSet.icons[iconName]!
                             .font(.system(size: 16, weight: weight))
                     }
                     Text(iconName)
