@@ -79,9 +79,11 @@ struct BannerViewModifier: ViewModifier {
     @Binding var isPresented: Bool
     let data: BannerData
     let action: (() -> Void)?
-
+    
     func body(content: Content) -> some View {
-        content.overlay(
+        ZStack(alignment: .topLeading) {
+            content
+
             Group {
                 if self.isPresented {
                     VStack {
@@ -95,9 +97,9 @@ struct BannerViewModifier: ViewModifier {
                     }
                     .background(Color.preferredColor(.header))
                 }
-            },
-            alignment: .top
-        )
+            }
+            .accessibilitySortPriority(100)
+        }.accessibilityElement(children: .contain)
     }
 }
 
@@ -543,6 +545,9 @@ struct InternalGridTableView: View {
                         ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner)
                             .id(self.itemViewId(rowIndex: rowIndex, columnIndex: columnIndex))
                             .position(x: x, y: y)
+                            .accessibilityElement(children: .ignore)
+                            .accessibilityLabel(self.layoutManager.accessibilityLabelForCell(currentItem))
+                            .accessibilitySortPriority(rowIndex == 0 ? 2 : 0)
                     }
                   
                     // row leading accessory view

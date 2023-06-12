@@ -14,6 +14,11 @@ struct TrailingAccessoryView: View {
     
     var body: some View {
         let trailingItem: AccessoryItem? = self.layoutData.rowData[self.rowIndex].trailingAccessory
+        /// row index starts from 1 for voice over
+        let rowIndexForVoiceOver = self.rowIndex + (self.layoutManager.model.hasHeader ? 0 : 1)
+        let cellType = NSLocalizedString("trailing accessory", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowFormat = NSLocalizedString("row %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowLabel = String.localizedStringWithFormat(rowFormat, rowIndexForVoiceOver)
         
         return Group {
             if let item = trailingItem {
@@ -32,6 +37,8 @@ struct TrailingAccessoryView: View {
                     }
                     .frame(width: TableViewLayout.buttonSize * self.layoutManager.scaleX, height: TableViewLayout.buttonSize * self.layoutManager.scaleY, alignment: .center)
                     .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
+                    .accessibilityLabel("\(rowLabel), \(cellType)")
+                    
                 case .icon(let image):
                     image
                         .renderingMode(.template)
@@ -41,6 +48,7 @@ struct TrailingAccessoryView: View {
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
                         .padding(.leading, TableViewLayout.rightPaddingForLeadingAccessoryView(self.layoutManager.sizeClass) * self.layoutManager.scaleX)
+                        .accessibilityLabel("\(rowLabel), \(cellType)")
                 }
             } else {
                 EmptyView()
