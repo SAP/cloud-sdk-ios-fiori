@@ -20,6 +20,11 @@ struct LeadingAccessoryView: View {
         let rowItem = self.layoutData.rowData[self.rowIndex]
         let items: [AccessoryItem] = rowItem.leadingAccessories
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
+        /// row index starts from 1 for voice over
+        let rowIndexForVoiceOver = self.rowIndex + (self.layoutManager.model.hasHeader ? 0 : 1)
+        let cellType = NSLocalizedString("leading accessory", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowFormat = NSLocalizedString("row %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowLabel = String.localizedStringWithFormat(rowFormat, rowIndexForVoiceOver)
         
         return HStack(alignment: .center, spacing: TableViewLayout.accessorySpacing) {
             if self.layoutManager.model.editMode == .select, !isHeader {
@@ -42,6 +47,7 @@ struct LeadingAccessoryView: View {
                             .padding(8 * self.layoutManager.scaleX)
                     }
                     .frame(width: TableViewLayout.buttonSize * self.layoutManager.scaleX, height: TableViewLayout.buttonSize * self.layoutManager.scaleY)
+                    .accessibilityLabel("\(rowLabel), \(cellType)")
                     
                 case .icon(let image):
                     image
@@ -51,6 +57,7 @@ struct LeadingAccessoryView: View {
                         .aspectRatio(contentMode: .fit)
                         .foregroundColor(TableViewLayout.defaultForegroundColor)
                         .frame(width: TableViewLayout.iconSize * self.layoutManager.scaleX, height: TableViewLayout.iconSize * self.layoutManager.scaleY, alignment: .center)
+                        .accessibilityLabel("\(rowLabel), \(cellType)")
                 }
             }
             
@@ -70,7 +77,11 @@ struct LeadingAccessoryView: View {
         let rowItem = layoutData.rowData[self.rowIndex]
         let selectedImage = rowItem.selectedImage ?? Image(systemName: "checkmark.circle.fill")
         let deSelectedImage = rowItem.deSelectedImage ?? Image(systemName: "circle")
-        
+        /// row index starts from 1 for voice over
+        let rowIndexForVoiceOver = self.rowIndex + (self.layoutManager.model.hasHeader ? 0 : 1)
+        let rowFormat = NSLocalizedString("row %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowLabel = String.localizedStringWithFormat(rowFormat, rowIndexForVoiceOver)
+        let isSelectedLabel = self.isSelected ? NSLocalizedString("selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "") : NSLocalizedString("not selected", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
         return Button(action: {
             if !self.layoutManager.selectedIndexes.contains(self.selectionIndex) {
                 self.layoutManager.selectedIndexes.append(self.selectionIndex)
@@ -97,5 +108,8 @@ struct LeadingAccessoryView: View {
             }
         }
         .frame(width: TableViewLayout.buttonSize * self.layoutManager.scaleX, height: TableViewLayout.buttonSize * self.layoutManager.scaleY)
+        .accessibilityLabel("\(rowLabel)")
+        .accessibilityValue("\(isSelectedLabel)")
+        .accessibilityAddTraits(.isButton)
     }
 }
