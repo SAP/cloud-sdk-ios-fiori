@@ -324,8 +324,8 @@ struct FocusedEditingView: View {
                 
                                               self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText, selectedIndex: selectedIndex))
                                           })
-                                          .listBackground(Color.preferredColor(.primaryBackground))
-                                          .navigationTitle(data.1)
+                    .listBackground(Color.preferredColor(.primaryBackground))
+                    .navigationTitle(data.1)
             } else {
                 return EmptyView()
             }
