@@ -12,12 +12,10 @@ jobs:
       fail-fast: false
       matrix:
         os: [macos-11, macos-12]
-        xcode: ['Xcode_13.0', 'Xcode_14.0']
+        xcode: ['Xcode_14.0']
         exclude:
           - os: macos-11
-            xcode: 'Xcode_14.0'
-          - os: macos-12
-            xcode: 'Xcode_13.0'     
+            xcode: 'Xcode_14.0'  
     runs-on: ${{ matrix.os }}         
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
