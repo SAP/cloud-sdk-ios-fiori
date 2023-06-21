@@ -115,36 +115,22 @@ struct ChartHomeView: View {
             width = max(min(size.width, size.height) - 32, 1)
         }
 
-        // Xcode 12
-        #if swift(>=5.3)
-            // iOS 14, or greater
-            if #available(iOS 14, *) {
-                let numOfColumns: Int = horizontalSizeClass == .regular && verticalSizeClass == .regular ? 2 : 1
-            
-                let columns: [GridItem] = Array(repeating: .init(.flexible()), count: numOfColumns)
 
-                return AnyView(ScrollView {
-                    LazyVGrid(columns: columns) {
-                        ForEach(0 ..< self.info.1.count, id: \.self) { i in
-                            self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
-                                .padding(8)
-                        }
-                    }.padding(8)
-                })
-            } else {
-                return AnyView(List {
+        // iOS 14, or greater
+        if #available(iOS 14, *) {
+            let numOfColumns: Int = horizontalSizeClass == .regular && verticalSizeClass == .regular ? 2 : 1
+        
+            let columns: [GridItem] = Array(repeating: .init(.flexible()), count: numOfColumns)
+
+            return AnyView(ScrollView {
+                LazyVGrid(columns: columns) {
                     ForEach(0 ..< self.info.1.count, id: \.self) { i in
-                        HStack {
-                            Spacer(minLength: 0)
-
-                            self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
-
-                            Spacer(minLength: 0)
-                        }
+                        self.griditem(model: self.info.1[i], desc: self.info.2[i], width: width)
+                            .padding(8)
                     }
-                })
-            }
-        #else
+                }.padding(8)
+            })
+        } else {
             return AnyView(List {
                 ForEach(0 ..< self.info.1.count, id: \.self) { i in
                     HStack {
@@ -156,7 +142,7 @@ struct ChartHomeView: View {
                     }
                 }
             })
-        #endif
+        }
     }
     
     func griditem(model: ChartModel, desc: String, width: CGFloat) -> some View {
