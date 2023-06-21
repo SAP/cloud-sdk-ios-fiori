@@ -115,7 +115,6 @@ struct ChartHomeView: View {
             width = max(min(size.width, size.height) - 32, 1)
         }
 
-
         // iOS 14, or greater
         if #available(iOS 14, *) {
             let numOfColumns: Int = horizontalSizeClass == .regular && verticalSizeClass == .regular ? 2 : 1
