@@ -37,7 +37,7 @@ public struct DataTable: View {
     @ObservedObject public var model: TableModel
     @ObservedObject var layoutManager: TableLayoutManager
     @Environment(\.sizeCategory) var sizeCategory
-
+    
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
@@ -49,7 +49,7 @@ public struct DataTable: View {
             self.layoutManager = TableLayoutManager(model: model)
         }
     }
-            
+    
     /// Body of the View
     public var body: some View {
         GeometryReader { proxy in
@@ -75,7 +75,7 @@ public struct DataTable: View {
                     }
                 }
             }
-
+            
             if !self.model.showListView {
                 ScrollAndZoomView(layoutManager: self.layoutManager, size: rect.size)
             }
@@ -90,21 +90,25 @@ public struct DataTable: View {
             self.layoutManager.keyboardFrame = .zero
             self.layoutManager.keyboardHeight = 0
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            // save text changes
-            self.layoutManager.saveEditingTextChange()
+        #if !os(xrOS)
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                // save text changes
+                self.layoutManager.saveEditingTextChange()
             
-            if self.layoutManager.currentCell != nil {
-                self.layoutManager.currentCell = nil
+                if self.layoutManager.currentCell != nil {
+                    self.layoutManager.currentCell = nil
+                }
             }
-        }
-        .onChange(of: self.sizeCategory) { newValue in
-            self.layoutManager.sizeCategory = newValue
-            self.layoutManager.layoutData = nil
-        }
+        #endif
+        #if !os(xrOS)
+            .onChange(of: self.sizeCategory) { newValue in
+                self.layoutManager.sizeCategory = newValue
+                self.layoutManager.layoutData = nil
+            }
+        #endif
         .clipped()
-        .environmentObject(self.layoutManager)
-        .background(self.model.backgroundColor)
+            .environmentObject(self.layoutManager)
+            .background(self.model.backgroundColor)
     }
 }
 
@@ -152,7 +156,7 @@ public extension DataTable {
     @available(*, deprecated)
     func editingMode(_ value: Bool = false) -> DataTable {
         self.model.isEditing = value
-
+        
         return self
     }
     
@@ -235,7 +239,7 @@ public extension DataTable {
     func sizeThatFits(_ size: CGSize) -> CGSize {
         self.layoutManager.sizeThatFits(size)
     }
-
+    
     /// Returns the rect for the specified cell with rowIndex and columnIndex
     /// - Parameter rowIndex: the row index; rowIndex starts from header if it exists
     /// - Parameter columnIndex: the column index

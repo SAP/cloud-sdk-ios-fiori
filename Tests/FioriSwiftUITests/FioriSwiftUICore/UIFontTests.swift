@@ -2,6 +2,25 @@
 import SwiftUI
 import XCTest
 
+enum AppleSystemUIFont {
+    static var familyName: String { ".AppleSystemUIFont" }
+    static var fontName: String {
+        #if os(xrOS)
+            return ".SFUI-Bold"
+        #else
+            return ".SFUI-Semibold"
+        #endif
+    }
+
+    static var pointSize: CGFloat {
+        #if os(xrOS)
+            return 12.0
+        #else
+            return 17.0
+        #endif
+    }
+}
+
 final class UIFontTests: XCTestCase {
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,20 +41,37 @@ final class UIFontTests: XCTestCase {
            - weight: nil
      provider = TextStyleProvider
      */
+    @available(xrOS, unavailable)
     func testSystemStyleFont() throws {
-        let font = Font.headline
-        let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
-        let fd = resolvedFont.fontDescriptor
+        #if os(xrOS)
+            let font = Font.headline
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
 
-        XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
-        XCTAssertEqual(resolvedFont.fontName, ".SFUI-Semibold")
-        XCTAssertEqual(resolvedFont.pointSize, 17.0)
-        if let style = fd.fontAttributes[.textStyle] as? NSString {
-            XCTAssertEqual(style, "UICTFontTextStyleHeadline")
-        }
-        if let fontSize = fd.fontAttributes[.size] as? NSNumber {
-            XCTAssertEqual(fontSize, 17)
-        }
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-Bold")
+            XCTAssertEqual(resolvedFont.pointSize, 12.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 12)
+            }
+        #else
+            let font = Font.headline
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
+
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-Semibold")
+            XCTAssertEqual(resolvedFont.pointSize, 17.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 17)
+            }
+        #endif
     }
 
     /**
@@ -54,31 +90,91 @@ final class UIFontTests: XCTestCase {
      provider = TextStyleProvider
      */
     func testSystemStyleItalicFont() throws {
-        let font = Font.headline.italic()
-        let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
-        let fd = resolvedFont.fontDescriptor
+        #if os(xrOS)
+            let font = Font.headline.italic()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
         
-        XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
-        XCTAssertEqual(resolvedFont.fontName, ".SFUI-SemiboldItalic")
-        XCTAssertEqual(resolvedFont.pointSize, 17.0)
-        if let style = fd.fontAttributes[.textStyle] as? NSString {
-            XCTAssertEqual(style, "UICTFontTextStyleItalicHeadline")
-        }
-        if let fontSize = fd.fontAttributes[.size] as? NSNumber {
-            XCTAssertEqual(fontSize, 17)
-        }
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-BoldItalic")
+            XCTAssertEqual(resolvedFont.pointSize, 12.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleItalicHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 12)
+            }
+        #else
+            let font = Font.headline.italic()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
+        
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-SemiboldItalic")
+            XCTAssertEqual(resolvedFont.pointSize, 17.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleItalicHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 17)
+            }
+        #endif
+    }
+    
+    func testSystemStyleItalicFontOnVisionOS() throws {
+        #if os(xrOS)
+            let font = Font.headline.italic()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
+        
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-BoldItalic")
+            XCTAssertEqual(resolvedFont.pointSize, 12.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleItalicHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 12)
+            }
+        #else
+            let font = Font.headline.italic()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
+        
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-SemiboldItalic")
+            XCTAssertEqual(resolvedFont.pointSize, 17.0)
+            if let style = fd.fontAttributes[.textStyle] as? NSString {
+                XCTAssertEqual(style, "UICTFontTextStyleItalicHeadline")
+            }
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 17)
+            }
+        #endif
     }
     
     func testSystemStyleItalicBoldFont() throws {
-        let font = Font.headline.italic().bold()
-        let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
-        let fd = resolvedFont.fontDescriptor
+        #if os(xrOS)
+            let font = Font.headline.italic().bold()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
         
-        XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
-        XCTAssertEqual(resolvedFont.fontName, ".SFUI-Semibold")
-        if let fontSize = fd.fontAttributes[.size] as? NSNumber {
-            XCTAssertEqual(fontSize, 17)
-        }
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-Black")
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 12)
+            }
+        #else
+            let font = Font.headline.italic().bold()
+            let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
+            let fd = resolvedFont.fontDescriptor
+        
+            XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
+            XCTAssertEqual(resolvedFont.fontName, ".SFUI-Semibold")
+            if let fontSize = fd.fontAttributes[.size] as? NSNumber {
+                XCTAssertEqual(fontSize, 17)
+            }
+        #endif
     }
     
     /**
@@ -112,12 +208,20 @@ final class UIFontTests: XCTestCase {
         
         XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
         XCTAssertEqual(resolvedFont.fontName, ".SFUI-BlackItalic")
-        XCTAssertEqual(resolvedFont.pointSize, 20.0)
+        #if os(xrOS)
+            XCTAssertEqual(resolvedFont.pointSize, 14.0)
+        #else
+            XCTAssertEqual(resolvedFont.pointSize, 14.0)
+        #endif
         if let style = fd.fontAttributes[.textStyle] as? NSString {
             XCTAssertEqual(style, "UICTFontTextStyleItalicTitle3")
         }
         if let fontSize = fd.fontAttributes[.size] as? NSNumber {
-            XCTAssertEqual(fontSize, 20)
+            #if os(xrOS)
+                XCTAssertEqual(fontSize, 14)
+            #else
+                XCTAssertEqual(fontSize, 20)
+            #endif
         }
     }
     

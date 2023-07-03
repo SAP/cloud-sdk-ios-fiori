@@ -32,7 +32,7 @@ This project is the SwiftUI implementation of the [SAP Fiori for iOS Design Lang
 This project currently contains three modules: `FioriThemeManager`, `FioriSwiftUICore`, and `FioriCharts`.
 
 ## FioriThemeManager
-![FioriThemeManager platform support: iOS and watchOS](https://img.shields.io/badge/platform-ios%20%7C%20watchos-lightgray)
+![FioriThemeManager platform support: iOS, visionOS, watchOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos%20%7C%20watchos-lightgray)
 
 This module provides a [color palette](https://experience.sap.com/fiori-design-ios/article/colors/) and a new font family [SAP 72](https://experience.sap.com/72/) that conform to [Fiori Design Language](https://experience.sap.com/fiori-design-ios/). It is adopted by all the Fiori components in both this package and SAPFiori.
 
@@ -43,7 +43,7 @@ All Fiori Colors are dynamic colors, which means they will adjust based on iOS A
 > Custom fonts need to be loaded and registered during App's runtime. Make sure you call `Font.registerFioriFonts()` inside `application(_:didFinishLaunchingWithOptions:)` of your `AppDelegate`.
 
 ## FioriSwiftUICore
-![FioriSwiftUICore platform support: iOS only](https://img.shields.io/badge/platform-ios-lightgray)
+![FioriSwiftUICore platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)
 
 This module contains SwiftUI implementation for those UIKit-based components existing in [SAPFiori](https://help.sap.com/doc/978e4f6c968c4cc5a30f9d324aa4b1d7/Latest/en-US/Documents/Frameworks/SAPFiori/index.html). It provides you with an easy way to migrate your UIKit project to SwiftUI while delivering the same experience as before.
 
@@ -81,7 +81,7 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | TouchIDErrorView | :x: |
 
 ## FioriCharts
-![FioriCharts platform support: iOS only](https://img.shields.io/badge/platform-ios-lightgray)
+![FioriCharts platform support: iOS and visionOS](https://img.shields.io/badge/platform-ios%20%7C%20visionos-lightgray)
 
 The FioriCharts module replaces the *RoambiChartKit* charting library which was already embedded in SAPFiori. Migrating to SwiftUI gives the ability to easily add new chart components (donut, bullet, stocks, etc.) while modernizing the existing supported charts with pinch-to-zoom, pan, and new design features.
 
