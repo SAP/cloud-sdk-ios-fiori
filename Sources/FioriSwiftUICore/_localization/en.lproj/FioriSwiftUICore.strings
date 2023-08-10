@@ -92,40 +92,40 @@
 "There are %d errors in the data table." = "There are %d errors in the data table.";
 
 /* XBUT: voice over label for row header in DataTable */
-"row header" = "row header"
+"row header" = "row header";
 
 /* XBUT: voice over label for row %d in DataTable */
-"row %d" = "row %d"
+"row %d" = "row %d";
 
 /* XBUT: voice over label for column %d in DataTable */
-"column %d" = "column %d"
+"column %d" = "column %d";
 
 /* XBUT: voice over label for cell type of `leading accessory` in DataTable */
-"leading accessory" = "leading accessory"
+"leading accessory" = "leading accessory";
 
 /* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
-"trailing accessory" = "trailing accessory"
+"trailing accessory" = "trailing accessory";
 
 /* XBUT: voice over label for cell type of `text` in DataTable */
-"text" = "text"
+"text" = "text";
 
 /* XBUT: voice over label for cell type of `image` in DataTable */
-"image" = "image"
+"image" = "image";
 
 /* XBUT: voice over label for cell type of `date` in DataTable */
-"date" = "date"
+"date" = "date";
 
 /* XBUT: voice over label for cell type of `time` in DataTable */
-"time" = "time"
+"time" = "time";
 
 /* XBUT: voice over label for cell type of `duration` in DataTable */
-"duration" = "duration"
+"duration" = "duration";
 
 /* XBUT: voice over label for cell type of `list item` in DataTable */
-"list item" = "list item"
+"list item" = "list item";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"selected" = "selected"
+"selected" = "selected";
 
 /* XBUT: voice over label for row selection status in DataTable */
-"not selected" = "not selected"
+"not selected" = "not selected";
