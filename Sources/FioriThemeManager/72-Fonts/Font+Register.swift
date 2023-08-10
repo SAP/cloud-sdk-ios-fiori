@@ -19,7 +19,7 @@ extension Font {
     }
     
     // stackoverflow: https://stackoverflow.com/questions/62681206/xcode-12b1-swift-packages-custom-fonts
-    static func registerFont(_ name: String, fileExtension: String, bundle: Bundle = Bundle.module) {
+    static func registerFont(_ name: String, fileExtension: String, bundle: Bundle = Bundle.accessor) {
         guard let fontURL = bundle.url(forResource: name, withExtension: fileExtension) else {
             os_log("No font named %@.%@ was found in the module bundle", log: OSLog.fontLogger, type: .default, name, fileExtension)
             return
