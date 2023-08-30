@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.2.0...3.3.0) (2023-08-30)
+
+- requires Xcode 14+
+
+### Bug Fixes
+
+- 🐛 reverts color updates for palette v8 previously introduced with ([#574](https://github.com/SAP/cloud-sdk-ios-fiori/issues/574)) ([392d04a](https://github.com/SAP/cloud-sdk-ios-fiori/commit/392d04a2304819a203e35bce8bb60472051a1f4a))
+* 🐛 [BCP: 0] accessibility improvement for DataTable ([8060bfe](https://github.com/SAP/cloud-sdk-ios-fiori/commit/8060bfea7d0a21886a648d95140ad513048dc094))
+* 🐛 [BCP: 0] fix bugs in DataTable ([1cb2cfd](https://github.com/SAP/cloud-sdk-ios-fiori/commit/1cb2cfd2b87165f09e01bca25e99257a1c5b12b7))
+* 🐛 duration picker voiceover issue ([#578](https://github.com/SAP/cloud-sdk-ios-fiori/issues/578)) ([2bfc7b4](https://github.com/SAP/cloud-sdk-ios-fiori/commit/2bfc7b4f0d2d2659655c796a4a3d35a43cb97058))
+* 🐛 searchable list multi-selection ([75335b8](https://github.com/SAP/cloud-sdk-ios-fiori/commit/75335b84fbc15837e2a1140938120271fdde706d))
+* 🐛 searchable list voiceover actions failed ([#577](https://github.com/SAP/cloud-sdk-ios-fiori/issues/577)) ([7414122](https://github.com/SAP/cloud-sdk-ios-fiori/commit/7414122d257bf8031d65dee0bfc46d40761bc555))
+
 ## [3.2.0](https://github.com/SAP/cloud-sdk-ios-fiori/compare/3.1.1...3.2.0) (2023-06-01)
 
 
