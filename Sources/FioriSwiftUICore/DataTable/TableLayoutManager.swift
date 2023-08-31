@@ -105,7 +105,7 @@ class TableLayoutManager: ObservableObject {
     var cacheLayoutData: LayoutData?
     
     /// cache editing text to save if users tap another cell before the editing text has been saved explicitly
-    var cacheEditingText: String? = nil
+    var cacheEditingText: String?
     
     /// cache the result
     var numOfColumns: Int = -1
@@ -375,5 +375,40 @@ class TableLayoutManager: ObservableObject {
         let y: CGFloat = dataItem.pos.y * tmpScaleY - cellHeight / 2 - (isRelativeToContentOffset ? tmpOffsetY : 0)
     
         return CGRect(origin: CGPoint(x: x, y: y), size: CGSize(width: cellWidth, height: cellHeight))
+    }
+    
+    func accessibilityLabelForCell(_ item: DataTableItem) -> String {
+        let isHeader = self.model.hasHeader && item.rowIndex == 0
+        /// row index starts from 1 for voice over
+        let rowIndex = item.rowIndex + (self.model.hasHeader ? 0 : 1)
+        /// column index starts from 1 for voice over
+        let columnIndex = item.columnIndex + 1
+        var label = ""
+        let rowHeader = NSLocalizedString("row header", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let rowFormat = NSLocalizedString("row %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let columnFormat = NSLocalizedString("column %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        let columnLabel = String.localizedStringWithFormat(columnFormat, columnIndex)
+        let rowLabel = isHeader ? rowHeader : String.localizedStringWithFormat(rowFormat, rowIndex)
+        var cellType = NSLocalizedString("image", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+        switch item.type {
+        case .image:
+            label = "\(rowLabel), \(columnLabel), \(cellType)"
+        case .text:
+            label = "\(rowLabel), \(columnLabel), \(item.text ?? "")"
+        case .date:
+            cellType = NSLocalizedString("date", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            label = "\(rowLabel), \(columnLabel), \(item.text ?? ""), \(cellType)"
+        case .time:
+            cellType = NSLocalizedString("time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            label = "\(rowLabel), \(columnLabel), \(item.text ?? ""), \(cellType)"
+        case .duration:
+            cellType = NSLocalizedString("duration", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            label = "\(rowLabel), \(columnLabel), \(item.text ?? ""), \(cellType)"
+        case .listitem:
+            cellType = NSLocalizedString("list item", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+            label = "\(rowLabel), \(columnLabel), \(item.text ?? ""), \(cellType)"
+        }
+        
+        return label
     }
 }

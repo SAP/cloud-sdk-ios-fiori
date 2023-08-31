@@ -39,12 +39,12 @@ extension SearchableListView: View {
                 .ifApply(isTopLevel) {
                     $0.toolbar {
                         ToolbarItem(placement: .navigationBarLeading) {
-                            cancelAction.onSimultaneousTapGesture {
+                            cancelAction.setSharedAction {
                                 presentationMode.wrappedValue.dismiss()
                             }
                         }
                         ToolbarItem(placement: .navigationBarTrailing) {
-                            doneAction.onSimultaneousTapGesture {
+                            doneAction.setSharedAction {
                                 dataHandler?()
                                 presentationMode.wrappedValue.dismiss()
                             }

@@ -201,6 +201,8 @@ struct FocusedEditingView: View {
                 Spacer(minLength: 0)
             }
         }
+        .accessibilityRemoveTraits(.isStaticText)
+        .accessibilityLabel(self.layoutManager.accessibilityLabelForCell(dataItem))
         .popover(self.$showPopover) {
             switch dataItem.type {
             case .date:
@@ -223,6 +225,7 @@ struct FocusedEditingView: View {
                 
             case .duration:
                 DurationPicker(selection: self.$editingDuration)
+
             default:
                 EmptyView()
             }
@@ -273,7 +276,7 @@ struct FocusedEditingView: View {
             self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: self.rowIndex, columnIndex: self.columnIndex, value: .duration(TimeInterval(newValue * 60)), text: self.editingText))
         }
     }
-
+    
     func pickerView() -> some View {
         let data = self.layoutManager.model.listItemDataAndTitle?(self.rowIndex, self.columnIndex) ?? ([self.editingText], "")
         let indexData: [Int] = (0 ..< data.0.count).map { $0 }
@@ -321,8 +324,8 @@ struct FocusedEditingView: View {
                 
                                               self.layoutManager.model.valueDidChange?(DataTableChange(rowIndex: rowIndex, columnIndex: columnIndex, value: .text(editingText), text: editingText, selectedIndex: selectedIndex))
                                           })
-                                          .listBackground(Color.preferredColor(.primaryBackground))
-                                          .navigationTitle(data.1)
+                    .listBackground(Color.preferredColor(.primaryBackground))
+                    .navigationTitle(data.1)
             } else {
                 return EmptyView()
             }
