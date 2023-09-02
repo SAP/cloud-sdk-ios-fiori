@@ -12,5 +12,5 @@ chmod +x .git/hooks/pre-commit
 
 # install git pre-push hook
 rm -f .git/hooks/pre-push
-ln -s ../../scripts/githooks/pre-push.sh .git/hooks/pre-push
+ln -s ../../scripts/githooks/pre-push .git/hooks/pre-push
 chmod +x .git/hooks/pre-push
