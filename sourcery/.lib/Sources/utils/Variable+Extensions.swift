@@ -115,7 +115,7 @@ public extension Variable {
             return " = \(defaultValue)"
         } else if (isOptional && annotations["bindingProperty"] == nil) || annotations["bindingPropertyOptional"] != nil {
             return " = nil"
-        } else if typeName.isArray {
+        } else if typeName.isArray, !isConvertedToBinding {
             return " = []"
         } else {
             return ""
