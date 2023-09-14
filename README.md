@@ -69,6 +69,9 @@ We plan to progressively bring more Fiori UI components into this module in the 
 | EULAView | :white_check_mark: |
 | ContactItem | :white_check_mark: | 
 | KPIHeader | :white_check_mark: |
+| Signature Capture | :white_check_mark: |
+| DurationPicker | :white_check_mark: |
+| StepProgressIndicator | :white_check_mark: |
 | KeyValueItem | :x: |
 | TimelineItem | :x: |
 | TimelinePreviewItem | :x: |
