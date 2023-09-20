@@ -36,7 +36,7 @@ public struct DataTable: View {
     /// Data table's data model
     @ObservedObject public var model: TableModel
     @ObservedObject var layoutManager: TableLayoutManager
-    @Environment(\.sizeCategory) var sizeCategory
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
 
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
@@ -98,8 +98,9 @@ public struct DataTable: View {
                 self.layoutManager.currentCell = nil
             }
         }
-        .onChange(of: self.sizeCategory) { newValue in
-            self.layoutManager.sizeCategory = newValue
+        .onChange(of: self.dynamicTypeSize) { newValue in
+            self.layoutManager.dynamicTypeSize = newValue
+            self.layoutManager.cacheLayoutDataForMeasurement = nil
             self.layoutManager.layoutData = nil
         }
         .clipped()
