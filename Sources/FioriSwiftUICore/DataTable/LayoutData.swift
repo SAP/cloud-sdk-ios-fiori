@@ -7,6 +7,8 @@ class LayoutData {
     
     var sizeClass: UserInterfaceSizeClass = .compact
     
+    var dynamicTypeSize: DynamicTypeSize?
+    
     var editMode: TableModel.EditMode = .none
     
     var hasHeader: Bool = false

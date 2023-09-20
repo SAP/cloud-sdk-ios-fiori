@@ -15,7 +15,7 @@ class TableLayoutManager: ObservableObject {
 
     var sizeClass: UserInterfaceSizeClass = .compact
     
-    var sizeCategory: ContentSizeCategory? {
+    var dynamicTypeSize: DynamicTypeSize? {
         didSet {
             self.needsCalculateLayout = true
         }
