@@ -165,7 +165,7 @@ extension ObjectItem: View {
                 } else {
                     self.makeRegularSingleActionView()
                 }
-            } else if horizontalSizeClass == .some(.compact) || splitPercent == nil {
+            } else if horizontalSizeClass == nil || horizontalSizeClass == .some(.compact) || splitPercent == nil {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeCompactOneLineView()
