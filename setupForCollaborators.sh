@@ -24,12 +24,3 @@ if [ $# -eq 0 ]; then
 else
 	echo "warning: skipping installation of SwiftLint, SwiftFormat and Sourcery"
 fi
-
-# clone/update snapshot reference images
- if [ -d "./Apps/Examples/cloud-sdk-ios-fiori-snapshot-references" ]
- then
-     bash scripts/snapshottesting/removeImages.sh
-     bash scripts/snapshottesting/cloneImages.sh
- else
-     bash scripts/snapshottesting/cloneImages.sh
- fi
