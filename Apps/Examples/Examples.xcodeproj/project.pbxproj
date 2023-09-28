@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */; };
 		1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */; };
 		1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C92F025DF12C100A99A07 /* ListPicker.swift */; };
+		1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */; };
 		1F60179729A8439A00DBDCDE /* WatchExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */; };
 		1F60179929A8439A00DBDCDE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F60179829A8439A00DBDCDE /* ContentView.swift */; };
 		1F60179B29A8439C00DBDCDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F60179A29A8439C00DBDCDE /* Assets.xcassets */; };
@@ -194,6 +195,7 @@
 		108E43D4292DAB7C006532F3 /* EmptyStateViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateViewExample.swift; sourceTree = "<group>"; };
 		1F26DCF9261A5CD9006C43B1 /* FioriButtonContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriButtonContentView.swift; sourceTree = "<group>"; };
 		1F3C92F025DF12C100A99A07 /* ListPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPicker.swift; sourceTree = "<group>"; };
+		1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		1F60179429A8439A00DBDCDE /* WatchExamples Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WatchExamples Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F60179629A8439A00DBDCDE /* WatchExamplesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchExamplesApp.swift; sourceTree = "<group>"; };
 		1F60179829A8439A00DBDCDE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -364,6 +366,14 @@
 			path = FioriButton;
 			sourceTree = "<group>";
 		};
+		1F55FEF12AC941C100D7A1BE /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				1F55FEF22AC941FF00D7A1BE /* View+Extensions.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
 		1F60179529A8439A00DBDCDE /* WatchExamples Watch App */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,6 +454,7 @@
 		8A55795524C1286E0098003A /* Examples */ = {
 			isa = PBXGroup;
 			children = (
+				1F55FEF12AC941C100D7A1BE /* Utility */,
 				1FC3040F2705409C004BEE00 /* FioriThemeManager */,
 				8A55797824C1293C0098003A /* FioriCharts */,
 				8A5579C824C1293C0098003A /* FioriSwiftUICore */,
@@ -895,6 +906,7 @@
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
+				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,

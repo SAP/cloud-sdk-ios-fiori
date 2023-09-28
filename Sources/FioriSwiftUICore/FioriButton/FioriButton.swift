@@ -3,7 +3,7 @@ import SwiftUI
 
 /// A control which is able to display different views depending on current tap state and responds to action.
 ///
-/// # Create a fiori button by providing an action and different labels depending on states.
+/// ## Create a fiori button by providing an action and different labels depending on states.
 ///
 ///     FioriButton(action: { state in
 ///         print("Button tapped with state: \(state)")
@@ -27,13 +27,13 @@ import SwiftUI
 ///         }
 ///     })
 ///
-/// # Create a fiori button with title text.
+/// ## Create a fiori button with title text.
 ///
 ///     FioriButton { _ in "Start" }
 ///
-/// # Style customization
+/// ## Style customization
 ///
-/// Create a style that conforms to `FioriButtonStyle`. To set the style to a fiori button or to a container within which all fiori buttons should share the same style, use the `fioriButtonStyle(_:)` modifier.
+/// Create a style that conforms to `FioriButtonStyle`. There are three pre-defined fiori button styles: `FioriPrimaryButtonStyle`, `FioriSecondaryButtonStyle` and `FioriTertiaryButtonStyle`. To set the style to a `FioriButton` or to a container within which all fiori buttons should share the same style, use the `fioriButtonStyle(_:)` modifier.
 ///
 ///     struct CustomFioriButtonStyle: FioriButtonStyle {
 ///         func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
@@ -53,6 +53,8 @@ import SwiftUI
 ///                 .background(Circle().fill(color))
 ///         }
 ///     }
+///
+///  To apply these styles to a `Button`, use `PrimaryButtonStyle`, `SecondaryButtonStyle` and `TertiaryButtonStyle` instead.
 public struct FioriButton<Label: View>: View {
     let action: ((UIControl.State) -> Void)?
     let label: (UIControl.State) -> Label
@@ -156,81 +158,6 @@ public extension FioriButton where Label == Text {
     }
 }
 
-/// The object that supplies styles to the content of `FioriButton` instances.
-public protocol FioriButtonStyle {
-    /// A view that represents the body of a button.
-    associatedtype Body: View
-    
-    /// Creates a view that represents the body of a fiori button.
-    ///
-    /// The system calls this method for each ``FioriButton`` instance in a view
-    /// hierarchy where this style is the current button style.
-    ///
-    /// - Parameter configuration : The properties of the fiori button.
-    func makeBody(configuration: Configuration) -> Self.Body
-
-    /// The properties of a fiori button.
-    typealias Configuration = FioriButtonStyleConfiguration
-}
-
-/// The properties of a fiori button.
-public struct FioriButtonStyleConfiguration {
-    /// A type-erased label of a button.
-    public struct Label: View {
-        let view: AnyView
-        
-        init<V: View>(_ view: V) {
-            self.view = AnyView(view)
-        }
-        
-        /// The content of label.
-        public var body: some View {
-            view
-        }
-    }
-
-    /// The current state of the button.
-    public let state: UIControl.State
-    
-    let _label: (UIControl.State) -> Label
-    
-    /// The label for the current state.
-    public var label: Label {
-        label(for: self.state)
-    }
-    
-    /// Returns the label for the specific state.
-    /// - Parameter state: A valid state for button. For a fiori button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
-    /// - Returns: The label for the specific state.
-    public func label(for state: UIControl.State) -> Label {
-        self._label(state)
-    }
-}
-
-struct DefaultFioriButtonStyle: FioriButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        let backgroundColor: Color
-        let foregroundColor: Color
-        switch configuration.state {
-        case .normal:
-            foregroundColor = Color.preferredColor(.base2)
-            backgroundColor = Color.preferredColor(.tintColor)
-        case .highlighted, .selected:
-            foregroundColor = Color.preferredColor(.base2)
-            backgroundColor = Color.preferredColor(.tintColorTapState)
-        default:
-            foregroundColor = Color.preferredColor(.separator)
-            backgroundColor = Color.preferredColor(.tertiaryFill)
-        }
-        
-        return configuration.label
-            .foregroundColor(foregroundColor)
-            .font(.fiori(forTextStyle: .body).weight(.bold))
-            .padding(15)
-            .background(RoundedRectangle(cornerRadius: 5).fill(backgroundColor))
-    }
-}
-
 private struct _ButtonStyleImpl<Label: View>: ButtonStyle {
     let fioriButtonStyle: AnyFioriButtonStyle
     let label: (UIControl.State) -> Label
@@ -248,45 +175,5 @@ private struct _ButtonStyleImpl<Label: View>: ButtonStyle {
             
             configuration.label.hidden()
         }
-    }
-}
-
-public extension View {
-    /// Sets the style for fiori buttons within this view.
-    ///     HStack {
-    ///         FioriButton { _ in "A" }
-    ///         FioriButton { _ in "B" }
-    ///     }
-    ///     .fioriButtonStyle(CustomFioriButtonStyle())
-    ///
-    /// - Parameter style: A fiori button style instance.
-    /// - Returns: A view that uses the style provided.
-    func fioriButtonStyle<S>(_ style: S) -> some View where S: FioriButtonStyle {
-        self.environment(\.fioriButtonStyle, AnyFioriButtonStyle(style))
-    }
-}
-
-struct FioriButtonLabelKey: EnvironmentKey {
-    static let defaultValue = AnyFioriButtonStyle(DefaultFioriButtonStyle())
-}
-
-extension EnvironmentValues {
-    var fioriButtonStyle: AnyFioriButtonStyle {
-        get { self[FioriButtonLabelKey.self] }
-        set { self[FioriButtonLabelKey.self] = newValue }
-    }
-}
-
-struct AnyFioriButtonStyle: FioriButtonStyle {
-    let view: (FioriButtonStyleConfiguration) -> AnyView
-    
-    init<S: FioriButtonStyle>(_ style: S) {
-        self.view = {
-            AnyView(style.makeBody(configuration: $0))
-        }
-    }
-    
-    func makeBody(configuration: Configuration) -> some View {
-        self.view(configuration)
     }
 }
