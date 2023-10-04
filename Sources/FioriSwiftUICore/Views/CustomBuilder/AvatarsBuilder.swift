@@ -21,7 +21,8 @@ public extension AvatarList {
                     .clipShape(Capsule())
                     .overlay {
                         Capsule()
-                            .strokeBorder(borderColor, lineWidth: borderWidth)
+                            .inset(by: borderWidth / 2.0)
+                            .stroke(borderColor, lineWidth: borderWidth)
                     }
             } else {
                 avatar
