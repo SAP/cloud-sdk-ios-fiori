@@ -269,7 +269,11 @@ extension DimensionSelector {
                 .padding(insets)
                 .font(getSegmentAttributes()?.font)
                 .foregroundColor(getSegmentAttributes()?.textColor)
-                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).strokeBorder(getSegmentAttributes()!.borderColor!, lineWidth: getSegmentAttributes()!.borderWidth!, antialiased: true))
+                .background(
+                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                        .inset(by: getSegmentAttributes()!.borderWidth! / 2.0)
+                        .stroke(getSegmentAttributes()!.borderColor!, lineWidth: getSegmentAttributes()!.borderWidth!)
+                )
                 .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(getSegmentAttributes()!.backgroundColor!))
         }
         
