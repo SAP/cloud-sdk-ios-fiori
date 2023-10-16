@@ -78,7 +78,7 @@ extension SignatureCaptureView: View {
                     .padding(.bottom, 11)
                 Spacer()
                 cancelAction
-                    .accessibilitySimultaneousGesture(
+                    .simultaneousGesture(
                         TapGesture()
                             .onEnded { _ in
                                 clear()
@@ -142,7 +142,7 @@ extension SignatureCaptureView: View {
             if self.isEditing {
                 HStack {
                     clearAction
-                        .accessibilitySimultaneousGesture(
+                        .simultaneousGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     clear()
@@ -152,7 +152,7 @@ extension SignatureCaptureView: View {
                         .frame(minWidth: 44, minHeight: 44)
                     Spacer()
                     saveAction
-                        .accessibilitySimultaneousGesture(
+                        .simultaneousGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     isSaved = true
@@ -164,7 +164,7 @@ extension SignatureCaptureView: View {
                 .padding(.top, 8)
             } else if (_signatureImage != nil && !isReenterTapped) || fullSignatureImage != nil {
                 restartAction
-                    .accessibilitySimultaneousGesture(
+                    .simultaneousGesture(
                         TapGesture()
                             .onEnded { _ in
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
@@ -216,7 +216,7 @@ extension SignatureCaptureView: View {
                 ZStack {
                     Color.preferredColor(.quaternaryFill).cornerRadius(10)
                     startAction
-                        .accessibilitySimultaneousGesture(
+                        .simultaneousGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
