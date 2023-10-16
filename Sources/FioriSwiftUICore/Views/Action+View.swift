@@ -18,6 +18,9 @@ extension Action: View {
             Button(action: self._didSelectAction ?? {}) {
                 Text(self._actionText ?? "")
             }
+            .accessibilityElement()
+            .accessibilityLabel(_actionText ?? "")
+            .accessibilityAddTraits(.isButton)
         } else {
             EmptyView()
         }
