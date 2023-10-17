@@ -90,7 +90,7 @@ public struct DataTable: View {
             self.layoutManager.keyboardFrame = .zero
             self.layoutManager.keyboardHeight = 0
         }
-        #if !os(xrOS)
+        #if !os(visionOS)
             .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
                 // save text changes
                 self.layoutManager.saveEditingTextChange()
@@ -99,7 +99,7 @@ public struct DataTable: View {
                     self.layoutManager.currentCell = nil
                 }
             }
-        }
+        #endif
         .onChange(of: self.dynamicTypeSize) { newValue in
             self.layoutManager.dynamicTypeSize = newValue
             self.layoutManager.cacheLayoutDataForMeasurement = nil

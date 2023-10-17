@@ -116,7 +116,7 @@ extension KPIHeaderContent {
     }
     
     private var resizePublisher: AnyPublisher<Void, Never> {
-        #if os(xrOS)
+        #if os(visionOS)
             let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
                 .compactMap { _ in () }
             return sizeCategoryPublisher.eraseToAnyPublisher()

@@ -5,7 +5,7 @@ import XCTest
 enum AppleSystemUIFont {
     static var familyName: String { ".AppleSystemUIFont" }
     static var fontName: String {
-        #if os(xrOS)
+        #if os(visionOS)
             return ".SFUI-Bold"
         #else
             return ".SFUI-Semibold"
@@ -13,7 +13,7 @@ enum AppleSystemUIFont {
     }
 
     static var pointSize: CGFloat {
-        #if os(xrOS)
+        #if os(visionOS)
             return 12.0
         #else
             return 17.0
@@ -41,9 +41,9 @@ final class UIFontTests: XCTestCase {
            - weight: nil
      provider = TextStyleProvider
      */
-    @available(xrOS, unavailable)
+    @available(visionOS, unavailable)
     func testSystemStyleFont() throws {
-        #if os(xrOS)
+        #if os(visionOS)
             let font = Font.headline
             let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
             let fd = resolvedFont.fontDescriptor
@@ -90,7 +90,7 @@ final class UIFontTests: XCTestCase {
      provider = TextStyleProvider
      */
     func testSystemStyleItalicFont() throws {
-        #if os(xrOS)
+        #if os(visionOS)
             let font = Font.headline.italic()
             let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
             let fd = resolvedFont.fontDescriptor
@@ -122,7 +122,7 @@ final class UIFontTests: XCTestCase {
     }
     
     func testSystemStyleItalicFontOnVisionOS() throws {
-        #if os(xrOS)
+        #if os(visionOS)
             let font = Font.headline.italic()
             let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
             let fd = resolvedFont.fontDescriptor
@@ -154,7 +154,7 @@ final class UIFontTests: XCTestCase {
     }
     
     func testSystemStyleItalicBoldFont() throws {
-        #if os(xrOS)
+        #if os(visionOS)
             let font = Font.headline.italic().bold()
             let resolvedFont = UIFont.resolveFont(font)?.font(with: nil) ?? UIFont.preferredFont(forTextStyle: .footnote)
             let fd = resolvedFont.fontDescriptor
@@ -208,16 +208,16 @@ final class UIFontTests: XCTestCase {
         
         XCTAssertEqual(resolvedFont.familyName, ".AppleSystemUIFont")
         XCTAssertEqual(resolvedFont.fontName, ".SFUI-BlackItalic")
-        #if os(xrOS)
+        #if os(visionOS)
             XCTAssertEqual(resolvedFont.pointSize, 14.0)
         #else
-            XCTAssertEqual(resolvedFont.pointSize, 14.0)
+            XCTAssertEqual(resolvedFont.pointSize, 20.0)
         #endif
         if let style = fd.fontAttributes[.textStyle] as? NSString {
             XCTAssertEqual(style, "UICTFontTextStyleItalicTitle3")
         }
         if let fontSize = fd.fontAttributes[.size] as? NSNumber {
-            #if os(xrOS)
+            #if os(visionOS)
                 XCTAssertEqual(fontSize, 14)
             #else
                 XCTAssertEqual(fontSize, 20)

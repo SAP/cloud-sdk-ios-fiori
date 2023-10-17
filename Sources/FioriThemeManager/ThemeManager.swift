@@ -171,7 +171,7 @@ public class ThemeManager {
     
     func uiColor(for style: ColorStyle, background scheme: BackgroundColorScheme?, interface level: InterfaceLevel?, display mode: ColorDisplayMode?) -> UIColor {
         guard let hc = self.hexColor(for: style) else { return .clear }
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
             let uc = UIColor { [weak self] traitCollection in
                 guard let self = self else { return .clear }
                 guard let hexColor = self.hexColor(for: style) else { return .clear }
