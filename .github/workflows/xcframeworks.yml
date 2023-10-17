@@ -7,23 +7,28 @@ on:
         description: 'Branch to build from'
         default: 'main'
         required: true
+      releaseVersion:
+        description: 'Release Version'
+        required: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    runs-on: macos-11
+    runs-on: macos-12
     env:
-      DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
+      DEVELOPER_DIR: /Applications/Xcode_14.2.app/Contents/Developer
 
     steps:
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.event.inputs.ref }}
     - run: brew install xcodegen
-    - name: Create FioriSwiftUI.xcodeproj through Xcode and project.yml
+    - name: Set environment variable
+      run: export FIORISWIFTUI_VERSION="${{ github.event.inputs.releaseVersion }}"    
+    - name: Create FioriSwiftUI.xcodeproj from project.yml
       run: cd .xcodegen && xcodegen generate
     - name: Create XCFrameworks
-      run: cd .xcodegen && set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme buildBinaryFramework | xcpretty
+      run: cd .xcodegen && set -o pipefail && xcodebuild -project FioriSwiftUI.xcodeproj -scheme buildBinaryFramework -configuration Release | xcpretty
     - run: cd .xcodegen && cd XCFramework && ls
     - run: rm -R .xcodegen/XCFramework/iphoneos
     - run: rm -R .xcodegen/XCFramework/iphonesimulator

@@ -36,8 +36,8 @@ public struct DataTable: View {
     /// Data table's data model
     @ObservedObject public var model: TableModel
     @ObservedObject var layoutManager: TableLayoutManager
-    @Environment(\.sizeCategory) var sizeCategory
-    
+    @Environment(\.dynamicTypeSize) var dynamicTypeSize
+
     /// Public initializer for DataTable
     /// - Parameter model: TableModel Object.
     public init(model: TableModel) {
@@ -99,13 +99,12 @@ public struct DataTable: View {
                     self.layoutManager.currentCell = nil
                 }
             }
-        #endif
-        #if !os(xrOS)
-            .onChange(of: self.sizeCategory) { newValue in
-                self.layoutManager.sizeCategory = newValue
-                self.layoutManager.layoutData = nil
-            }
-        #endif
+        }
+        .onChange(of: self.dynamicTypeSize) { newValue in
+            self.layoutManager.dynamicTypeSize = newValue
+            self.layoutManager.cacheLayoutDataForMeasurement = nil
+            self.layoutManager.layoutData = nil
+        }
         .clipped()
             .environmentObject(self.layoutManager)
             .background(self.model.backgroundColor)

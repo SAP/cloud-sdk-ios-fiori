@@ -41,7 +41,7 @@ public extension Array where Element == Variable {
      */
     var miscPropertyDecls: [String] {
         map {
-            if $0.isConvertedToBinding {
+            if $0.isConvertedToBinding, !$0.isRepresentableByView {
                 return "var _\($0.trimmedName): Binding<\($0.typeName)>"
             }
 
@@ -121,7 +121,7 @@ public extension Array where Element == Variable {
      */
     var miscInitParams: [String] {
         map {
-            if $0.isConvertedToBinding {
+            if $0.isConvertedToBinding, !$0.isRepresentableByView {
                 return "\($0.trimmedName): \($0.computedInternalTypeName)\($0.emptyDefault)"
             }
             
@@ -147,7 +147,7 @@ public extension Array where Element == Variable {
      */
     var miscInitParamAssignment: [String] {
         map {
-            if $0.isConvertedToBinding {
+            if $0.isConvertedToBinding, !$0.isRepresentableByView {
                 if let defaultValue = $0.annotations["bindingPropertyOptional"] as? String {
                     return "self._\($0.trimmedName) = \($0.trimmedName) ?? \(defaultValue)"
                 }
@@ -200,7 +200,7 @@ public extension Array where Element: Variable {
      */
     var extensionModelInitParamsAssignments: [String] {
         map {
-            if $0.isConvertedToBinding {
+            if $0.isConvertedToBinding, !$0.isRepresentableByView {
                 if let defaultValue = $0.annotations["bindingPropertyOptional"] as? String {
                     return "self._\($0.trimmedName) = \($0.trimmedName) ?? \(defaultValue)"
                 }

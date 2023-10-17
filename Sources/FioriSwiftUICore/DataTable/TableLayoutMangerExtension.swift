@@ -14,6 +14,7 @@ extension TableLayoutManager {
         newWorkItem = DispatchWorkItem {
             tmpLayoutData.editMode = self.model.editMode
             tmpLayoutData.sizeClass = self.sizeClass
+            tmpLayoutData.dynamicTypeSize = self.dynamicTypeSize
             tmpLayoutData.size = size
             tmpLayoutData.headerCellPadding = self.model.headerCellPadding
             tmpLayoutData.dataCellPadding = self.model.dataCellPadding
@@ -172,9 +173,9 @@ extension TableLayoutManager {
             return CGSize(width: strSize.width + 32, height: strSize.height + 71)
         }
         
-        if let cachedLD = cacheLayoutDataForMeasurement, cachedLD.size.width == size.width, cachedLD.sizeClass == self.sizeClass {
+        if let cachedLD = cacheLayoutDataForMeasurement, cachedLD.size.width == size.width, cachedLD.sizeClass == self.sizeClass, cachedLD.dynamicTypeSize == self.dynamicTypeSize {
             let width = self.totalContentWidth(cachedLD, false)
-            let height = self.self.totalContentHeight(cachedLD, false)
+            let height = self.totalContentHeight(cachedLD, false)
             
             return CGSize(width: width, height: height)
         }
@@ -190,6 +191,7 @@ extension TableLayoutManager {
         
         tmpLayoutData.editMode = model.editMode
         tmpLayoutData.sizeClass = self.sizeClass
+        tmpLayoutData.dynamicTypeSize = self.dynamicTypeSize
         tmpLayoutData.size = size
         tmpLayoutData.headerCellPadding = model.headerCellPadding
         tmpLayoutData.dataCellPadding = model.dataCellPadding

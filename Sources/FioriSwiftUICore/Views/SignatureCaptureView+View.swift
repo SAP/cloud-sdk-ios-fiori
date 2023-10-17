@@ -123,6 +123,8 @@ extension SignatureCaptureView: View {
                         .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
                         .padding(.zero)
                 }.padding(.zero)
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(NSLocalizedString("Signature Image", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Image"))
             } else {
                 drawingArea
                     .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
@@ -192,6 +194,9 @@ extension SignatureCaptureView: View {
             ZStack(alignment: .bottom) {
                 ScribbleView(image: $fullSignatureImage, currentDrawing: $currentDrawing, drawings: $drawings, isSaved: $isSaved, isEditing: $isEditing, onSave: self.onSave(_:), strokeWidth: strokeWidth, strokeColor: strokeColor, drawingViewBackgroundColor: drawingViewBackgroundColor, cropsImage: cropsImage, watermarkText: watermarkText, watermarkTextColor: watermarkTextColor, watermarkTextFont: watermarkTextFont, watermarkTextAlignment: watermarkTextAlignment, addsTimestampInImage: addsTimestampInImage, timestampFormatter: timestampFormatter)
                     .frame(maxWidth: .infinity, minHeight: 256, maxHeight: _drawingViewMaxHeight)
+                    .accessibilityElement()
+                    .accessibilityLabel(NSLocalizedString("Signature Area", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Area"))
+                    .accessibilityHint(NSLocalizedString("Double tap and drag to sign", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Double tap and drag to sign"))
                 HStack(alignment: .bottom) {
                     Image(systemName: "xmark")
                         .foregroundColor(xmarkColor)
@@ -202,6 +207,8 @@ extension SignatureCaptureView: View {
                         .frame(height: 1)
                         .setHidden(self.hidesSignatureLine)
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(NSLocalizedString("Signature Line", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Line"))
                 .padding([.leading, .trailing]).padding(.bottom, 48)
             }
         } else {
@@ -230,6 +237,8 @@ extension SignatureCaptureView: View {
                         .frame(height: 1)
                         .setHidden(self.hidesSignatureLine)
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(NSLocalizedString("Signature Line", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Line"))
                 .padding([.leading, .trailing]).padding(.bottom, 48)
             }
         }
