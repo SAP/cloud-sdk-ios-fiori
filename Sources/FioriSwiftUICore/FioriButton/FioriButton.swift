@@ -27,7 +27,7 @@ import SwiftUI
 ///         }
 ///     })
 ///
-/// ## Create a fiori button with title text.
+/// ## Create a Fiori button with title text.
 ///
 ///     FioriButton { _ in "Start" }
 ///
