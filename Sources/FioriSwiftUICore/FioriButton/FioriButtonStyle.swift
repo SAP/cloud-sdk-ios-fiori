@@ -36,7 +36,7 @@ public struct FioriButtonStyleConfiguration {
             self.view = AnyView(view)
         }
         
-        /// The content of label.
+        /// The content of the label.
         public var body: some View {
             view
         }
