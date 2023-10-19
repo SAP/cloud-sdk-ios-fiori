@@ -8,7 +8,7 @@ public protocol FioriButtonStyle {
     
     /// Creates a view that represents the body of a Fiori button.
     ///
-    /// The system calls this method for each ``FioriButton`` instance in a view
+    /// The system calls this method for each `FioriButton` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration: The properties of the Fiori button.
