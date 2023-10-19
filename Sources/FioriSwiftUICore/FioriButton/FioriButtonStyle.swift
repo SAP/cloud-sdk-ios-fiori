@@ -26,7 +26,7 @@ public extension FioriButtonStyle {
     }
 }
 
-/// The properties of a fiori button.
+/// The properties of a Fiori button.
 public struct FioriButtonStyleConfiguration {
     /// A type-erased label of a button.
     public struct Label: View {
