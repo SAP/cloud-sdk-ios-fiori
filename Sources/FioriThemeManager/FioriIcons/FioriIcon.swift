@@ -1786,7 +1786,7 @@ public enum FioriIcon {
         ///
         public static let physicalActivity: Image = .init("fiori.physical.activity", bundle: Bundle.accessor)
         ///
-        public static let privateIcon: Image = .init("fiori.private", bundle: Bundle.accessor)
+        public static let `private`: Image = .init("fiori.private", bundle: Bundle.accessor)
         ///
         public static let role: Image = .init("fiori.role", bundle: Bundle.accessor)
         ///
@@ -1963,7 +1963,7 @@ public enum FioriIcon {
         ///
         public static let permission: Image = .init("fiori.permission", bundle: Bundle.accessor)
         ///
-        public static let privateIcon: Image = .init("fiori.private", bundle: Bundle.accessor)
+        public static let `private`: Image = .init("fiori.private", bundle: Bundle.accessor)
         ///
         public static let qualityIssue: Image = .init("fiori.quality.issue", bundle: Bundle.accessor)
         ///
