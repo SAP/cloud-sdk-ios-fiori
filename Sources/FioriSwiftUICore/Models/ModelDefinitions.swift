@@ -433,3 +433,83 @@ public protocol StepProgressIndicatorModel: AnyObject {
     // sourcery: default.value = _CancelActionDefault()
     var cancelAction: ActionModel? { get }
 }
+
+// sourcery: generated_component_composite
+public protocol SortFilterMenuModel: AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: backingComponent=_SortFilterMenuItemContainer
+    var items: [[SortFilterItem]] { get set }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ResetActionView
+    // sourcery: default.value = _ResetActionDefault()
+    var resetAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ApplyActionView
+    // sourcery: default.value = _ApplyActionDefault()
+    var applyAction: ActionModel? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onUpdate: (() -> Void)? { get set }
+}
+
+// sourcery: virtualPropActionHelper = "@State var context: SortFilterContext = SortFilterContext()"
+// sourcery: add_env_props = "dismiss"
+// sourcery: generated_component_composite
+public protocol SortFilterFullCFGModel: AnyObject {
+    // sourcery: bindingProperty
+    // sourcery: backingComponent=_SortFilterCFGItemContainer
+    var items: [[SortFilterItem]] { get set }
+    
+    // sourcery: genericParameter.name = CancelActionView
+    // sourcery: default.value = _CancelActionDefault()
+    var cancelAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ResetActionView
+    // sourcery: default.value = _ResetActionDefault()
+    var resetAction: ActionModel? { get }
+    
+    // sourcery: genericParameter.name = ApplyActionView
+    // sourcery: default.value = _ApplyActionDefault()
+    var applyAction: ActionModel? { get }
+    
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onUpdate: (() -> Void)? { get }
+}
+
+// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: virtualPropActionHelper = "@State var context: SortFilterContext = SortFilterContext()"
+// sourcery: generated_component_composite
+public protocol SortFilterMenuItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+    // sourcery: no_view
+    var isSelected: Bool { get }
+}
+
+// sourcery: add_env_props = "optionChipStyle"
+// sourcery: generated_component_composite
+public protocol OptionChipModel: LeftIconComponent, TitleComponent {
+    // sourcery: no_view
+    var isSelected: Bool { get }
+}
+
+// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: generated_component_not_configurable
+public protocol OptionListPickerModel: OptionListPickerComponent {
+    // sourcery: default.value = nil
+    // sourcery: no_view
+    var onTap: ((_ index: Int) -> Void)? { get }
+}
+
+// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: generated_component_not_configurable
+// sourcery: add_env_props = "fioriToggleStyle"
+public protocol SwitchPickerModel: SwitchPickerComponent {}
+
+// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: generated_component_not_configurable
+public protocol SliderPickerModel: SliderPickerComponent {}
