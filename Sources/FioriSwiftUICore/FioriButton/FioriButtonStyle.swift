@@ -14,7 +14,7 @@ public protocol FioriButtonStyle {
     /// - Parameter configuration: The properties of the Fiori button.
     func makeBody(configuration: Configuration) -> Self.Body
 
-    /// The properties of a fiori button.
+    /// The properties of a Fiori button.
     typealias Configuration = FioriButtonStyleConfiguration
 }
 
