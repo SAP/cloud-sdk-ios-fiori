@@ -169,7 +169,7 @@ struct AnyPrimitiveButtonStyle: PrimitiveButtonStyle {
 
 extension PrimitiveButtonStyle {
     /// Return a type-erased button style.
-    /// - Returns: An AnyPrimitiveButtonStyle wrapping this button style.
+    /// - Returns: An `AnyPrimitiveButtonStyle` wrapping this button style.
     func eraseToAnyPrimitiveButtonStyle() -> AnyPrimitiveButtonStyle {
         AnyPrimitiveButtonStyle(self)
     }
