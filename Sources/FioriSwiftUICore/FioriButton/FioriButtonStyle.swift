@@ -62,7 +62,7 @@ public struct FioriButtonStyleConfiguration {
 
 /// A Fiori button style for the primary button.
 public struct FioriPrimaryButtonStyle: FioriButtonStyle {
-    /// Create a FioriPrimaryButtonStyle instance.
+    /// Create a `FioriPrimaryButtonStyle` instance.
     public init() {}
     
     public func makeBody(configuration: Configuration) -> some View {
@@ -73,11 +73,11 @@ public struct FioriPrimaryButtonStyle: FioriButtonStyle {
     }
 }
 
-/// A fiori button style for the secondary button.
+/// A Fiori button style for the secondary button.
 public struct FioriSecondaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
     
-    /// Create a FioriSecondaryButtonStyle instance.
+    /// Create a `FioriSecondaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
     public init(colorStyle: FioriButtonColorStyle = .tint) {
         self.colorStyle = colorStyle
@@ -91,11 +91,11 @@ public struct FioriSecondaryButtonStyle: FioriButtonStyle {
     }
 }
 
-/// A fiori button style for the tertiary button.
+/// A Fiori button style for the tertiary button.
 public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     private let colorStyle: FioriButtonColorStyle
     
-    /// Create a FioriTertiaryButtonStyle instance.
+    /// Create a `FioriTertiaryButtonStyle` instance.
     /// - Parameter colorStyle: The color style used for this button style.
     public init(colorStyle: FioriButtonColorStyle = .tint) {
         self.colorStyle = colorStyle
@@ -109,7 +109,7 @@ public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     }
 }
 
-/// The color style of a fiori button.
+/// The color style of a Fiori button.
 public enum FioriButtonColorStyle {
     case normal
     case tint
@@ -117,14 +117,14 @@ public enum FioriButtonColorStyle {
 }
 
 public extension View {
-    /// Sets the style for fiori buttons within this view.
+    /// Sets the style for Fiori buttons within this view.
     ///     HStack {
     ///         FioriButton { _ in "A" }
     ///         FioriButton { _ in "B" }
     ///     }
     ///     .fioriButtonStyle(CustomFioriButtonStyle())
     ///
-    /// - Parameter style: A fiori button style instance.
+    /// - Parameter style: A Fiori button style instance.
     /// - Returns: A view that uses the style provided.
     func fioriButtonStyle<S>(_ style: S) -> some View where S: FioriButtonStyle {
         self.environment(\.fioriButtonStyle, AnyFioriButtonStyle(style))
@@ -142,7 +142,7 @@ extension EnvironmentValues {
     }
 }
 
-/// A type-erased fiori button style.
+/// A type-erased Fiori button style.
 public struct AnyFioriButtonStyle: FioriButtonStyle {
     let view: (FioriButtonStyleConfiguration) -> AnyView
     
