@@ -1210,6 +1210,23 @@ struct FioriIconSet {
             "travelItinerary": FioriIcon.travel.travelItinerary,
             "world": FioriIcon.travel.world,
         ]),
+        FioriIconSet(name: "uncategorized", icons: [
+            "bookmark2": Image(fioriName: "fiori.bookmark.2") ?? FioriIcon.status.error,
+            "browseFolder": Image(fioriName: "fiori.browse.folder") ?? FioriIcon.status.error,
+            "commandLineInterfaces": Image(fioriName: "fiori.command.line.interfaces") ?? FioriIcon.status.error,
+            "darkMode": Image(fioriName: "fiori.dark.mode") ?? FioriIcon.status.error,
+            "directionArrows": Image(fioriName: "fiori.direction.arrows") ?? FioriIcon.status.error,
+            "flag2": Image(fioriName: "fiori.flag.2") ?? FioriIcon.status.error,
+            "heart": Image(fioriName: "fiori.heart") ?? FioriIcon.status.error,
+            "heart2": Image(fioriName: "fiori.heart.2") ?? FioriIcon.status.error,
+            "lightMode": Image(fioriName: "fiori.light.mode") ?? FioriIcon.status.error,
+            "locateMe2": Image(fioriName: "fiori.locate.me.2") ?? FioriIcon.status.error,
+            "megamenu": Image(fioriName: "fiori.megamenu") ?? FioriIcon.status.error,
+            "notEditable": Image(fioriName: "fiori.not.editable") ?? FioriIcon.status.error,
+            "paintBucket": Image(fioriName: "fiori.paint.bucket") ?? FioriIcon.status.error,
+            "rotate": Image(fioriName: "fiori.rotate") ?? FioriIcon.status.error,
+            "spaceNavigation": Image(fioriName: "fiori.space.navigation") ?? FioriIcon.status.error,
+        ]),
     ]
 }
 
