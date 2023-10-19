@@ -33,7 +33,7 @@ import SwiftUI
 ///
 /// ## Style customization
 ///
-/// Create a style that conforms to `FioriButtonStyle`. There are three pre-defined fiori button styles: `FioriPrimaryButtonStyle`, `FioriSecondaryButtonStyle` and `FioriTertiaryButtonStyle`. To set the style to a `FioriButton` or to a container within which all fiori buttons should share the same style, use the `fioriButtonStyle(_:)` modifier.
+/// Create a style that conforms to `FioriButtonStyle`. There are three predefined Fiori button styles: `FioriPrimaryButtonStyle`, `FioriSecondaryButtonStyle`, and `FioriTertiaryButtonStyle`. To set the style to a `FioriButton` or to a container within which all Fiori buttons should share the same style, use the `fioriButtonStyle(_:)` modifier.
 ///
 ///     struct CustomFioriButtonStyle: FioriButtonStyle {
 ///         func makeBody(configuration: FioriButtonStyle.Configuration) -> some View {
