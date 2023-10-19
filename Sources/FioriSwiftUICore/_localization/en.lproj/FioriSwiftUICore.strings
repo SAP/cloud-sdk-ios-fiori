@@ -129,3 +129,6 @@
 
 /* XBUT: voice over label for row selection status in DataTable */
 "not selected" = "not selected";
+
+/* XBUT: calendar time component label */
+"Time" = "Time";

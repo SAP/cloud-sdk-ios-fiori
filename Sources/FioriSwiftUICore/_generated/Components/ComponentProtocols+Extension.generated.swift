@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -142,8 +142,20 @@ public extension KpiProgressComponent {
     }
 }
 
+public extension LeftIconComponent {
+    var leftIcon: Image? {
+        return nil
+    }
+}
+
 public extension LowerBoundTitleComponent {
     var lowerBoundTitle: String? {
+        return nil
+    }
+}
+
+public extension OptionListPickerComponent {
+    var hint: String? {
         return nil
     }
 }
@@ -156,6 +168,12 @@ public extension PlaceholderComponent {
 
 public extension ProgressIndicatorComponent {
     var progressIndicatorText: String? {
+        return nil
+    }
+}
+
+public extension RightIconComponent {
+    var rightIcon: Image? {
         return nil
     }
 }
@@ -184,6 +202,28 @@ public extension SecondaryValuesAxisTitleComponent {
     }
 }
 
+public extension SliderPickerComponent {
+    var formatter: String? {
+        return nil
+    }
+
+	var minimumValue: Int {
+        return 0
+    }
+
+	var maximumValue: Int {
+        return 100
+    }
+
+	var hint: String? {
+        return nil
+    }
+
+	var value: Int? {
+        return nil
+    }
+}
+
 public extension StatusComponent {
     var status: TextOrIcon? {
         return nil
@@ -198,6 +238,20 @@ public extension SubstatusComponent {
 
 public extension SubtitleComponent {
     var subtitle: String? {
+        return nil
+    }
+}
+
+public extension SwitchPickerComponent {
+    var name: String? {
+        return nil
+    }
+
+	var hint: String? {
+        return nil
+    }
+
+	var value: Bool? {
         return nil
     }
 }

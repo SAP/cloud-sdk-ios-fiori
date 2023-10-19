@@ -24,6 +24,22 @@ public struct _CancelActionDefault: ActionModel {
     public init() {}
 }
 
+public struct _ResetActionDefault: ActionModel {
+    public var actionText: String? {
+        NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
+    }
+    
+    public init() {}
+}
+
+public struct _ApplyActionDefault: ActionModel {
+    public var actionText: String? {
+        NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
+    }
+    
+    public init() {}
+}
+
 public struct _AgreeActionDefault: ActionModel {
     public var actionText: String? {
         NSLocalizedString("Agree", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
