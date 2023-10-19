@@ -60,7 +60,7 @@ public struct FioriButtonStyleConfiguration {
     }
 }
 
-/// A fiori button style for the primary button.
+/// A Fiori button style for the primary button.
 public struct FioriPrimaryButtonStyle: FioriButtonStyle {
     /// Create a FioriPrimaryButtonStyle instance.
     public init() {}
