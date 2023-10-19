@@ -3,7 +3,7 @@ import SwiftUI
 
 /// A control which is able to display different views depending on current tap state and responds to action.
 ///
-/// ## Create a fiori button by providing an action and different labels depending on states.
+/// ## Create a Fiori button by providing an action and different labels depending on states.
 ///
 ///     FioriButton(action: { state in
 ///         print("Button tapped with state: \(state)")
