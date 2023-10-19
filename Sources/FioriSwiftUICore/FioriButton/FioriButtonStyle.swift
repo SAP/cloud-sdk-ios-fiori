@@ -53,7 +53,7 @@ public struct FioriButtonStyleConfiguration {
     }
     
     /// Returns the label for the specific state.
-    /// - Parameter state: A valid state for button. For a fiori button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
+    /// - Parameter state: A valid state for a button. For a Fiori button with non-persistent selection, `.normal`, `.disabled`, and `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
     /// - Returns: The label for the specific state.
     public func label(for state: UIControl.State) -> Label {
         self._label(state)
