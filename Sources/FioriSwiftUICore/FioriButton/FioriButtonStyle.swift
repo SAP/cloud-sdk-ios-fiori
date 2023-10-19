@@ -11,7 +11,7 @@ public protocol FioriButtonStyle {
     /// The system calls this method for each ``FioriButton`` instance in a view
     /// hierarchy where this style is the current button style.
     ///
-    /// - Parameter configuration : The properties of the fiori button.
+    /// - Parameter configuration: The properties of the Fiori button.
     func makeBody(configuration: Configuration) -> Self.Body
 
     /// The properties of a fiori button.
