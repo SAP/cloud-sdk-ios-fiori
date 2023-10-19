@@ -30,7 +30,7 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
     
     /// Creates a view that represents the body of a button.
     ///
-    /// The system calls this method for each ``Button`` instance in a view
+    /// The system calls this method for each `Button` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration : The properties of the button.
@@ -58,7 +58,7 @@ public struct PrimaryButtonStyle: PrimitiveButtonStyle {
     
     /// Creates a view that represents the body of a button.
     ///
-    /// The system calls this method for each ``Button`` instance in a view
+    /// The system calls this method for each `Button` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration : The properties of the button.
@@ -81,7 +81,7 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     
     /// Creates a view that represents the body of a button.
     ///
-    /// The system calls this method for each ``Button`` instance in a view
+    /// The system calls this method for each `Button` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration : The properties of the button.
@@ -104,7 +104,7 @@ public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     
     /// Creates a view that represents the body of a button.
     ///
-    /// The system calls this method for each ``Button`` instance in a view
+    /// The system calls this method for each `Button` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration : The properties of the button.
