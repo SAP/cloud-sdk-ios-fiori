@@ -2,7 +2,7 @@ import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/// An object that provides fiori style color and interaction for `Button`.
+/// An object that provides Fiori style color and interaction for `Button`.
 public struct StatefulButtonStyle: PrimitiveButtonStyle {
     
     // TODO: style configuration struct?
