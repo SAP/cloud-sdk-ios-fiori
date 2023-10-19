@@ -6,7 +6,7 @@ public protocol FioriButtonStyle {
     /// A view that represents the body of a button.
     associatedtype Body: View
     
-    /// Creates a view that represents the body of a fiori button.
+    /// Creates a view that represents the body of a Fiori button.
     ///
     /// The system calls this method for each ``FioriButton`` instance in a view
     /// hierarchy where this style is the current button style.
