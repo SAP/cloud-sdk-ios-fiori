@@ -48,7 +48,7 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
     }
 }
 
-/// An object that provides fiori primary button style for `Button`.
+/// An object that provides Fiori primary button style for `Button`.
 public struct PrimaryButtonStyle: PrimitiveButtonStyle {
     let isSelectionPersistent: Bool
     
