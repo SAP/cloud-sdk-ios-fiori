@@ -92,7 +92,7 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     }
 }
 
-/// An object that provides fiori tertiary button style for `Button`.
+/// An object that provides the Fiori tertiary button style for `Button`.
 public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     let colorStyle: FioriButtonColorStyle
     let isSelectionPersistent: Bool
