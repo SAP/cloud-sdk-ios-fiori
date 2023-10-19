@@ -107,6 +107,10 @@ struct CoreContentView: View {
                     destination: EmptyStateViewExample()) {
                     Text("EmptyStateViewExample")
                 }
+                
+                NavigationLink(destination: SortFilterExample()) {
+                    Text("SortFilterExample")
+                }
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }

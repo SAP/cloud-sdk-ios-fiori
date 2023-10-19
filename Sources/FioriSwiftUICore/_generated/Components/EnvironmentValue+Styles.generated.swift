@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -184,6 +184,16 @@ extension EnvironmentValues {
         set { self[FootnoteIconsModifierKey.self] = newValue }
     }
 
+    public var leftIconModifier: AnyViewModifier {
+        get { return self[LeftIconModifierKey.self] }
+        set { self[LeftIconModifierKey.self] = newValue }
+    }
+
+    public var rightIconModifier: AnyViewModifier {
+        get { return self[RightIconModifierKey.self] }
+        set { self[RightIconModifierKey.self] = newValue }
+    }
+
     public var actionTextModifier: AnyViewModifier {
         get { return self[ActionTextModifierKey.self] }
         set { self[ActionTextModifierKey.self] = newValue }
@@ -197,11 +207,6 @@ extension EnvironmentValues {
     public var progressIndicatorTextModifier: AnyViewModifier {
         get { return self[ProgressIndicatorTextModifierKey.self] }
         set { self[ProgressIndicatorTextModifierKey.self] = newValue }
-    }
-
-    public var nodeModifier: AnyViewModifier {
-        get { return self[NodeModifierKey.self] }
-        set { self[NodeModifierKey.self] = newValue }
     }
 
     public var textInputValueModifier: AnyViewModifier {
@@ -257,6 +262,26 @@ extension EnvironmentValues {
     public var saveActionModifier: AnyViewModifier {
         get { return self[SaveActionModifierKey.self] }
         set { self[SaveActionModifierKey.self] = newValue }
+    }
+
+    public var nodeModifier: AnyViewModifier {
+        get { return self[NodeModifierKey.self] }
+        set { self[NodeModifierKey.self] = newValue }
+    }
+
+    public var itemsModifier: AnyViewModifier {
+        get { return self[ItemsModifierKey.self] }
+        set { self[ItemsModifierKey.self] = newValue }
+    }
+
+    public var resetActionModifier: AnyViewModifier {
+        get { return self[ResetActionModifierKey.self] }
+        set { self[ResetActionModifierKey.self] = newValue }
+    }
+
+    public var applyActionModifier: AnyViewModifier {
+        get { return self[ApplyActionModifierKey.self] }
+        set { self[ApplyActionModifierKey.self] = newValue }
     }
 
     public var nextActionModifier: AnyViewModifier {
@@ -464,6 +489,16 @@ public extension View {
     }
 
     @ViewBuilder
+    func leftIconModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.leftIconModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func rightIconModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.rightIconModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
     func actionTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.actionTextModifier, AnyViewModifier(transform))
     }
@@ -476,11 +511,6 @@ public extension View {
     @ViewBuilder
     func progressIndicatorTextModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.progressIndicatorTextModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.nodeModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
@@ -536,6 +566,26 @@ public extension View {
     @ViewBuilder
     func saveActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.saveActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.nodeModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.itemsModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func resetActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.resetActionModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
+    func applyActionModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.applyActionModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder
