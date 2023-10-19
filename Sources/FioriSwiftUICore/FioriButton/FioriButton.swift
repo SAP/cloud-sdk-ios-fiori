@@ -54,7 +54,7 @@ import SwiftUI
 ///         }
 ///     }
 ///
-///  To apply these styles to a `Button`, use `PrimaryButtonStyle`, `SecondaryButtonStyle` and `TertiaryButtonStyle` instead.
+///  To apply these styles to a `Button`, use `PrimaryButtonStyle`, `SecondaryButtonStyle`, and `TertiaryButtonStyle` instead.
 public struct FioriButton<Label: View>: View {
     let action: ((UIControl.State) -> Void)?
     let label: (UIControl.State) -> Label
