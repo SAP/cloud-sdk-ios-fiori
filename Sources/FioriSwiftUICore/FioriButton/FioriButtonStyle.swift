@@ -19,7 +19,7 @@ public protocol FioriButtonStyle {
 }
 
 public extension FioriButtonStyle {
-    /// Return a type-erased fiori button style.
+    /// Return a type-erased Fiori button style.
     /// - Returns: An AnyFioriButtonStyle wrapping this button style.
     func eraseToAnyFioriButtonStyle() -> AnyFioriButtonStyle {
         AnyFioriButtonStyle(self)
