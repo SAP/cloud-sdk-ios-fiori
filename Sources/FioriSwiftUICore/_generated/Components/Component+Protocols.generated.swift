@@ -222,6 +222,7 @@ public protocol SliderPickerComponent : AnyObject {
 	// sourcery: no_view
     var value: Int? { get set }
 	// sourcery: default.value=nil
+	// sourcery: no_view
     var formatter: String? { get }
 	// sourcery: default.value=0
 	// sourcery: no_view

@@ -59,6 +59,7 @@ internal protocol _SliderPicker: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: no_view
     var value: Int? { get set }
     
+    // sourcery: no_view
     // sourcery: default.value = nil
     var formatter: String? { get }
 

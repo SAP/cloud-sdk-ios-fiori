@@ -19,6 +19,18 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Tap to Sign";
 
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Signature Area";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Double tap and drag to sign";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Signature Image";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Signature Line";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Canceled";
 

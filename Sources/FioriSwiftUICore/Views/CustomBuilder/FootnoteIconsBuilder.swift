@@ -27,10 +27,12 @@ public extension FootnoteIconList {
                         Group {
                             if isCircular {
                                 Capsule()
-                                    .strokeBorder(Color.preferredColor(.separator), lineWidth: 0.33)
+                                    .inset(by: 0.33 / 2.0)
+                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
                             } else {
                                 Rectangle()
-                                    .strokeBorder(Color.preferredColor(.separator), lineWidth: 0.33)
+                                    .inset(by: 0.33 / 2.0)
+                                    .stroke(Color.preferredColor(.separator), lineWidth: 0.33)
                             }
                         }
                     }
