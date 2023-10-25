@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -12,8 +12,8 @@ public struct SearchableListView<CancelActionView: View, DoneActionView: View> {
     let _cancelAction: CancelActionView
 	let _doneAction: DoneActionView
 	var dataHandler: (() -> ())? = nil
-	var isTopLevel: Bool = true
 	var contentView: AnyView? = nil
+	var isTopLevel: Bool = true
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false

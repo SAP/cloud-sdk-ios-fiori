@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.3.4 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -25,11 +25,11 @@ public struct ObjectHeader<Title: View, Subtitle: View, Tags: View, BodyText: Vi
 	let _substatus: Substatus
 	let _detailImage: DetailImage
 	let _detailContent: DetailContent
-	@State var mainViewSize: CGSize = .zero
 	@State var statusViewSize: CGSize = .zero
-	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
 	@State var rightViewSize: CGSize = CGSize(width: 120, height: 0)
 	@State var currentTabIndex: Int = 0
+	@State var middleViewSize: CGSize = CGSize(width: 312, height: 0)
+	@State var mainViewSize: CGSize = .zero
 	@State var leftViewSize: CGSize = CGSize(width: 740, height: 0)
 
     private var isModelInit: Bool = false

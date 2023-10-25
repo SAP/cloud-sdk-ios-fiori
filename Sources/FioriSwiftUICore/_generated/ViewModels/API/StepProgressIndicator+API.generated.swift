@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -8,17 +8,16 @@ public struct StepProgressIndicator<Title: View, ActionView: View, Steps: Indexe
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
 	@Environment(\.presentationMode) var presentationMode
 
-    @State var stepFrames: [String: CGRect] = [:]
-    @State var scrollBounds: CGRect = .zero
-    
     var _selection: Binding<String>
 	let _title: Title
 	let _action: ActionView
 	let _steps: Steps
 	let _cancelAction: CancelActionView
-	@State var isPresented: Bool = false
-	var stepItems: [StepItem] = []
 	var axis: Axis = .horizontal
+	var stepItems: [StepItem] = []
+	@State var isPresented: Bool = false
+	@State var stepFrames: [String: CGRect] = [:]
+	@State var scrollBounds: CGRect = .zero
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false

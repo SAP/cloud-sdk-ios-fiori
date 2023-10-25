@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 import Combine
@@ -19,32 +19,32 @@ public struct SignatureCaptureView<StartActionView: View, RestartActionView: Vie
 	let _signatureImage: UIImage?
 	let _onSave: ((UIImage) -> Void)?
 	let _onDelete: (() -> Void)?
-	var timestampFormatter: DateFormatter?
-	@State var currentDrawing = Drawing()
-	var titleColor = Color.preferredColor(.primaryLabel)
-	var hidesXmark = false
+	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
+	@State var drawings = [Drawing]()
+	var strokeColor = Color.preferredColor(.primaryLabel)
 	@State var fullSignatureImage: UIImage?
-	var strokeWidth: CGFloat = 3.0
+	var hidesSignatureLine = false
+	let _drawingViewMinHeight: CGFloat = 256
+	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
+	var watermarkTextAlignment: NSTextAlignment = .natural
+	@State var isSaved = false
+	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
+	var timestampFormatter: DateFormatter?
+	var cropsImage = false
+	@State var currentDrawing = Drawing()
+	@State var isEditing = false
+	var xmarkColor = Color.preferredColor(.quarternaryLabel)
 	public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
 	var addsTimestampInImage: Bool = false
-	var strokeColor = Color.preferredColor(.primaryLabel)
-	var drawingViewBackgroundColor = Color.preferredColor(.primaryBackground)
-	var watermarkTextFont: UIFont = .preferredFont(forTextStyle: .caption1)
-	var cropsImage = false
 	var _drawingViewMaxHeight: CGFloat?
 	var watermarkTextColor: Color = .preferredColor(.tertiaryLabel)
-	var signatureLineColor = Color.preferredColor(.quarternaryLabel)
-	var appliesTintColorToImage = true
-	@State var isSaved = false
-	let _drawingViewMinHeight: CGFloat = 256
-	@State var isReenterTapped = false
-	var watermarkTextAlignment: NSTextAlignment = .natural
-	var watermarkText: String?
+	var titleColor = Color.preferredColor(.primaryLabel)
 	var titleFont = Font.fiori(forTextStyle: .subheadline).weight(.semibold)
-	@State var isEditing = false
-	var hidesSignatureLine = false
-	var xmarkColor = Color.preferredColor(.quarternaryLabel)
-	@State var drawings = [Drawing]()
+	var hidesXmark = false
+	var watermarkText: String?
+	var strokeWidth: CGFloat = 3.0
+	@State var isReenterTapped = false
+	var appliesTintColorToImage = true
 
     private var isModelInit: Bool = false
 	private var isTitleNil: Bool = false
