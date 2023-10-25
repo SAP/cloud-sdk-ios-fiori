@@ -25,7 +25,6 @@ We recommend to run `setupForCollaborators.sh` in root directory once to install
   - automatic formatting with [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) as part of pre-commit
   - to run a [SwiftLint](https://github.com/realm/SwiftLint) check automatically before pushing your sources to remote
   - to help creating a commit messages according to the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standards, just use `git commit` command
-- clone data related to Snapshot Testing
 - install [Sourcery](https://github.com/krzysztofzablocki/Sourcery/) to generate UI components
 
 If you choose to run the script please make sure your dev machine has
@@ -39,20 +38,6 @@ If you choose to run the script please make sure your dev machine has
 We are utilizing [Sourcery](https://github.com/krzysztofzablocki/Sourcery) to generate the same [initialization pattern](./GeneratedComponentConcepts.md) for core components across the board. 
 
 If you are interested in contributing to the development of core components, please follow this [Guideline](./CoreComponentGeneration.md) for more explanations in detail and an example of how to create a new component from the scratch.
-
-## Snapshot Testing
-
-In addition to unit tests we verify the visual correctness of our SwiftUI components with the help of [swift-snapshot-testing](https://github.com/pointfreeco/swift-snapshot-testing). The central build will run those tests for pull requests.
-
-To run tests locally you have to download the snapshot reference files which is automatically handled by `setupForCollaborators.sh` script. As an alternative you can use shell script `/scripts/snapshottesting/cloneImages.sh`
-
-Tests can then manually executed in `Apps/Examples` app as part of its unit tests
-
-To add additional snapshot tests please follow this approach:
-1. write your tests. As example see `/Apps/Examples/ExamplesTests/SnapshotTests/FioriCharts/LineChartSnapshotTests.swift`
-2. run tests to record reference images
-3. push reference images (from `/Apps/Examples/cloud-sdk-ios-fiori-snapshot-references`) to its remote and create PR for companion  https://github.com/SAP/cloud-sdk-ios-fiori-snapshot-references repository
-4. finally push your code changes and create PR for this repository
 
 ## Platform-specific Testing
 

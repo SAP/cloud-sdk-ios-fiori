@@ -62,10 +62,10 @@ struct RadialMicroChart: View {
         let depth = val > RadialMicroChart.maxDepth ? RadialMicroChart.maxDepth : (val < RadialMicroChart.minDepth ? RadialMicroChart.minDepth : val)
         
         return ZStack {
-            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                .strokeBorder(total!.color, lineWidth: depth)
-            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: ratio * 360))
-                .strokeBorder(percentage!.color, lineWidth: depth)
+            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360), insetAmount: depth / 2)
+                .stroke(total!.color, lineWidth: depth)
+            ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: ratio * 360), insetAmount: depth / 2)
+                .stroke(percentage!.color, lineWidth: depth)
         }.frame(width: radius * 2, height: radius * 2, alignment: .topLeading)
     }
 }

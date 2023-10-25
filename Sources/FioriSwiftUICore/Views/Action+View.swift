@@ -21,6 +21,9 @@ extension Action: View {
             } label: {
                 Text(self._actionText ?? "")
             }
+            .accessibilityElement()
+            .accessibilityLabel(_actionText ?? "")
+            .accessibilityAddTraits(.isButton)
         } else {
             EmptyView()
         }

@@ -28,12 +28,12 @@ struct HarveyBallMicroChart: View {
             if fraction != nil && total != nil {
                 Spacer()
                 ZStack(alignment: .center) {
-                    ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))
-                        .strokeBorder(total!.color, lineWidth: radius)
+                    Circle()
+                        .fill(total!.color)
                         .frame(width: radius * 2, height: radius * 2)
                     
-                    ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(fraction!.value) * 360 / Double(total!.value)))
-                        .strokeBorder(fraction!.color, lineWidth: radius - depth)
+                    ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: Double(fraction!.value) * 360 / Double(total!.value)), insetAmount: (radius - depth) / 2)
+                        .stroke(fraction!.color, lineWidth: radius - depth)
                         .frame(width: (radius - depth) * 2, height: (radius - depth) * 2)
                 }
                 

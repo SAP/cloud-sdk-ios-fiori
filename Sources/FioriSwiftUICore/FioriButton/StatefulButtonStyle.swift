@@ -1,12 +1,12 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
-/// An object that provides fiori style color and interaction for `Button`.
+/// An object that provides Fiori style color and interaction for `Button`.
 public struct StatefulButtonStyle: PrimitiveButtonStyle {
-    @Environment(\.isEnabled) var isEnabled
     
     // TODO: style configuration struct?
-    let foregroundColor: Color
+    let color: Color
     let depressedColor: Color
     let disabledColor: Color
     let isSelectionPersistent: Bool
@@ -22,7 +22,7 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
                 disabledColor: Color = .gray,
                 isSelectionPersistent: Bool = false)
     {
-        self.foregroundColor = color
+        self.color = color
         self.depressedColor = depressedColor
         self.disabledColor = disabledColor
         self.isSelectionPersistent = isSelectionPersistent
@@ -30,65 +30,130 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
     
     /// Creates a view that represents the body of a button.
     ///
-    /// The system calls this method for each ``Button`` instance in a view
+    /// The system calls this method for each `Button` instance in a view
     /// hierarchy where this style is the current button style.
     ///
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
-        if self.isEnabled {
-            return AnyView(EnabledButton(configuration: configuration, color: self.foregroundColor, pressedColor: self.depressedColor, isSelectionPersistent: self.isSelectionPersistent))
-        } else {
-            return AnyView(DisabledButton(configuration: configuration, color: self.disabledColor))
-        }
-    }
-    
-    struct EnabledButton: View {
-        @State var pressed = false
-        
-        let configuration: PrimitiveButtonStyle.Configuration
-        let color: Color
-        let pressedColor: Color
-        let isSelectionPersistent: Bool
-        
-        var body: some View {
-            configuration.label
-                .foregroundColor(.white)
-                .padding(15)
-                .background(RoundedRectangle(cornerRadius: 5).fill(pressed ? pressedColor : color))
-                .gesture(createGesture())
-        }
-        
-        func createGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {
-            if self.isSelectionPersistent {
-                return DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                    }
-                    .onEnded { _ in
-                        self.pressed.toggle()
-                        self.configuration.trigger()
-                    }
-            } else {
-                return DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        self.pressed = true
-                    }
-                    .onEnded { _ in
-                        self.pressed = false
-                        self.configuration.trigger()
-                    }
+        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
+            switch state {
+            case .normal:
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: color)
+            case .highlighted, .selected:
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: depressedColor)
+            default:
+                return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: disabledColor)
             }
         }
     }
+}
+
+/// An object that provides Fiori primary button style for `Button`.
+public struct PrimaryButtonStyle: PrimitiveButtonStyle {
+    let isSelectionPersistent: Bool
     
-    struct DisabledButton: View {
-        let configuration: PrimitiveButtonStyle.Configuration
-        let color: Color
+    public init(isSelectionPersistent: Bool = false) {
+        self.isSelectionPersistent = isSelectionPersistent
+    }
+    
+    /// Creates a view that represents the body of a button.
+    ///
+    /// The system calls this method for each `Button` instance in a view
+    /// hierarchy where this style is the current button style.
+    ///
+    /// - Parameter configuration : The properties of the button.
+    public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
+        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
+            return FioriButtonStyleProvider.getPrimaryButtonStyle(state: state)
+        }
+    }
+}
+
+/// An object that provides the Fiori secondary button style for `Button`.
+public struct SecondaryButtonStyle: PrimitiveButtonStyle {
+    let colorStyle: FioriButtonColorStyle
+    let isSelectionPersistent: Bool
+    
+    public init(colorStyle: FioriButtonColorStyle = .tint, isSelectionPersistent: Bool = false) {
+        self.colorStyle = colorStyle
+        self.isSelectionPersistent = isSelectionPersistent
+    }
+    
+    /// Creates a view that represents the body of a button.
+    ///
+    /// The system calls this method for each `Button` instance in a view
+    /// hierarchy where this style is the current button style.
+    ///
+    /// - Parameter configuration : The properties of the button.
+    public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
+        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
+            return FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: colorStyle, for: state)
+        }
+    }
+}
+
+/// An object that provides the Fiori tertiary button style for `Button`.
+public struct TertiaryButtonStyle: PrimitiveButtonStyle {
+    let colorStyle: FioriButtonColorStyle
+    let isSelectionPersistent: Bool
+    
+    public init(colorStyle: FioriButtonColorStyle = .tint, isSelectionPersistent: Bool = false) {
+        self.colorStyle = colorStyle
+        self.isSelectionPersistent = isSelectionPersistent
+    }
+    
+    /// Creates a view that represents the body of a button.
+    ///
+    /// The system calls this method for each `Button` instance in a view
+    /// hierarchy where this style is the current button style.
+    ///
+    /// - Parameter configuration : The properties of the button.
+    public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
+        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
+            return FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: colorStyle, for: state)
+        }
+    }
+}
+
+fileprivate struct StatefulButton: View {
+    @State var pressed = false
+    @Environment(\.isEnabled) var isEnabled: Bool
+    var state: UIControl.State {
+        if !isEnabled {
+            return .disabled
+        }
         
-        var body: some View {
-            configuration.label
-                .foregroundColor(.white)
-                .padding(15)
-                .background(RoundedRectangle(cornerRadius: 5).fill(color))
+        return pressed ? (isSelectionPersistent ? .selected : .highlighted) : .normal
+    }
+    
+    let configuration: PrimitiveButtonStyle.Configuration
+    let isSelectionPersistent: Bool
+    let fioriButtonConfiguration: (UIControl.State) -> FioriButtonConfiguration
+    
+    var body: some View {
+        configuration.label
+            .fioriButtonConfiguration(fioriButtonConfiguration(state))
+            .gesture(createGesture())
+    }
+    
+    func createGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {
+        if self.isSelectionPersistent {
+            return DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                }
+                .onEnded { _ in
+                    self.pressed.toggle()
+                    self.configuration.trigger()
+                }
+        } else {
+            return DragGesture(minimumDistance: 0)
+                .onChanged { _ in
+                    self.pressed = true
+                }
+                .onEnded { _ in
+                    self.pressed = false
+                    self.configuration.trigger()
+                }
         }
     }
 }

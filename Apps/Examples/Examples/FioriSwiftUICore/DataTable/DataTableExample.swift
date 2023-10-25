@@ -98,7 +98,6 @@ struct DataTableExample: View {
                                    .rowAlignment(.baseline)
                                    .showListView(true)
                                    .frame(width: 343, height: 124)
-                                   .border(Color.gray, width: 1)
                                    .disabled(true))
                 
                 NavigationLink("Example 2",
