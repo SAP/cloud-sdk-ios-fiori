@@ -144,3 +144,6 @@
 
 /* XBUT: calendar time component label */
 "Time" = "Time";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Value: %d";

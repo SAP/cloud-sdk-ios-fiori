@@ -1,6 +1,7 @@
 import SwiftUI
 import UIKit
 
+/// UI control types supporeted by Sort and Filter configuraiton
 public enum SortFilterItem: Identifiable, Hashable {
     public var id: String {
         switch self {
@@ -17,10 +18,43 @@ public enum SortFilterItem: Identifiable, Hashable {
         }
     }
     
+    /// The type of UI control is used to buid:
+    ///
+    /// 1. Sort & Filter's menu item associating with sub-menu items when the number of selectable options is less than 8,
+    /// or a popover containing a collection of selectable buttons when the number of selectable options is greater than 7.
+    ///
+    /// 2. A section of view containing a collection of selectable buttons 
     case picker(item: PickerItem, isShownOnMenu: Bool)
+    
+    /// The type of UI control is used to buid:
+    ///
+    /// 1. Sort & Filter's menu items associated with one and another; the number of selectable items, mutual exclusion, and
+    /// empty selection can be controlled
+    ///
+    /// 2. A section of view containing a collection of selectable buttons
+    ///
+    /// Note: `filterfeedback` is alwasy to be shown on menu bar
     case filterfeedback(item: PickerItem)
+    
+    /// The type of UI control is used to buid:
+    ///
+    /// 1. Sort & Filter's menu item to be toggled between selected and unselected states
+    ///
+    /// 2. A section of view containing a SwiftUI Toggle with Fiori style
     case `switch`(item: SwitchItem, isShownOnMenu: Bool)
+    
+    /// The type of UI control is used to buid:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Toggle with Fiori style
+    ///
+    /// 2. A section of view containing a SwiftUI Toggle with Fiori style
     case slider(item: SliderItem, isShownOnMenu: Bool)
+    
+    /// The type of UI control is used to buid:
+    ///
+    /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Canlendar
+    ///
+    /// 2. A section of view containing a SwiftUI Canlendar
     case datetime(item: DateTimeItem, isShownOnMenu: Bool)
     
     public var isShownOnMenu: Bool {

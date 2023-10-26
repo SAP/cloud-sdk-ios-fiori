@@ -3,21 +3,31 @@ import SwiftUI
 extension SliderPicker: View {
     public var body: some View {
         VStack {
-            if let formatter = self._formatter {
-                HStack {
-                    Text(String(format: formatter, _value.wrappedValue ?? _minimumValue))
-                        .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
-                        .foregroundColor(Color.preferredColor(.primaryLabel))
-                    Spacer()
+            HStack {
+                Text(String(format: self._formatter ?? NSLocalizedString("Value: %d", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), _value.wrappedValue ?? _minimumValue))
+                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+            }
+            .frame(minHeight: 44)
+            
+            HStack {
+                Slider(value: .convert(from: _value, ifNilUse: _minimumValue), in: Float(_minimumValue) ... Float(_maximumValue), step: 1.0) {
+                    EmptyView()
+                } minimumValueLabel: {
+                    Text("\(_minimumValue)")
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(.preferredColor(.primaryLabel))
+                } maximumValueLabel: {
+                    Text("\(_maximumValue)")
+                        .font(.body)
+                        .fontWeight(.regular)
+                        .foregroundColor(.preferredColor(.primaryLabel))
                 }
             }
-            HStack {
-                Slider(value: .convert(from: _value, ifNilUse: _minimumValue), in: Float(_minimumValue) ... Float(_maximumValue), step: 1.0)
-                TextField("", value: Binding<Int>(get: { _value.wrappedValue ?? _minimumValue }, set: { _value.wrappedValue = $0 }), format: .number)
-                    .frame(width: calcWidth(font: .body))
-                    .keyboardType(.numberPad)
-                    .textFieldStyle(.roundedBorder)
-            }
+            .frame(minHeight: 44)
+
             if let hint = _hint {
                 HStack {
                     Text(hint)

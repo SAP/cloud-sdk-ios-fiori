@@ -1,13 +1,10 @@
-/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
-/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
-/// to declare a wrapped property
-/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 
 import SwiftUI
 
 extension OptionListPicker: View {
     public var body: some View {
-        Grid {
+        Grid(horizontalSpacing: 16) {
             ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0))) { rowIndex in
                 GridRow {
                     OptionChip(

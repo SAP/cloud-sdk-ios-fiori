@@ -1,11 +1,6 @@
-/// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
-/// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
-/// to declare a wrapped property
-/// e.g.:  `// sourcery: add_env_props = ["horizontalSizeClass"]`
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 
 import SwiftUI
-
-// FIXME: - Implement Fiori style definitions
 
 extension Fiori {
     enum OptionChip {
@@ -82,11 +77,11 @@ public struct DefaultOptionChipStyle: OptionChipStyle {
     let strokeColorUnselected: Color
     let cornerRadius: CGFloat
     let spacing: CGFloat
-    let padding: CGFloat
     let borderWidth: CGFloat
     let minHeight: CGFloat
+    let minTouchHeight: CGFloat
     
-    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) {
+    public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 56) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
         self.foregroundColorUnselected = foregroundColorUnselected
@@ -96,9 +91,9 @@ public struct DefaultOptionChipStyle: OptionChipStyle {
         self.strokeColorUnselected = strokeColorUnselected
         self.cornerRadius = cornerRadius
         self.spacing = spacing
-        self.padding = padding
         self.borderWidth = borderWidth
         self.minHeight = minHeight
+        self.minTouchHeight = minTouchHeight
     }
     
     public func makeBody(configuration: Configuration) -> AnyView {
@@ -109,8 +104,7 @@ public struct DefaultOptionChipStyle: OptionChipStyle {
             }
             .font(self.font)
             .foregroundColor(configuration.isSelected ? self.foregroundColorSelected : self.foregroundColorUnselected)
-            .padding(self.padding)
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: .infinity, minHeight: minHeight)
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
@@ -119,6 +113,7 @@ public struct DefaultOptionChipStyle: OptionChipStyle {
                         .stroke(configuration.isSelected ? strokeColorSelected : strokeColorUnselected, lineWidth: borderWidth)
                 }
             )
+            .frame(minHeight: minTouchHeight)
         )
     }
 }
@@ -143,9 +138,9 @@ public extension View {
         self.environment(\.optionChipStyle, style)
     }
     
-    func optionChipStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) -> some View {
+    func optionChipStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44) -> some View {
         self.environment(\.optionChipStyle,
-                         DefaultOptionChipStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight))
+                         DefaultOptionChipStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, borderWidth: borderWidth, minHeight: minHeight))
     }
 }
 

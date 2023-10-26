@@ -18,18 +18,18 @@ extension View {
     }
     
     func json(item: PickerItem) -> String {
-        "SortFilterCFG: {name: \(item.name), value: \(item.value)}"
+        "{name: \(item.name), value: \(item.value)}"
     }
 
     func json(item: SliderItem) -> String {
-        "SortFilterCFG: {name: \(item.name), value: \(String(describing: item.value))}"
+        "{name: \(item.name), value: \(String(describing: item.value))}"
     }
     
     func json(item: DateTimeItem) -> String {
-        "SortFilterCFG: {name: \(item.name), value: \(String(describing: item.value))}"
+        "{name: \(item.name), value: \(String(describing: item.value))}"
     }
     
     func json(item: SwitchItem) -> String {
-        "SortFilterCFG: {name: \(item.name), value: \(String(describing: item.value))}"
+        "{name: \(item.name), value: \(String(describing: item.value))}"
     }
 }

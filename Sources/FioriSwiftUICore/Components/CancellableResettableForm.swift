@@ -35,8 +35,9 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             components
             applyAction
         }
-        .frame(minWidth: 375)
-        .padding(UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
+        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375: UIScreen.main.bounds.size.width - 32)
+        .padding([.leading, .trailing], 16)
+        .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
     }
 }
 
@@ -44,7 +45,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(minWidth: UIDevice.current.userInterfaceIdiom == .pad ? 375 : 200, maxWidth: .infinity)
-            .padding(15)
+            .padding(8)
             .font(.body)
             .fontWeight(.bold)
             .foregroundStyle(Color.preferredColor(.base2))
@@ -52,6 +53,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
             .onTapGesture {
                 configuration.trigger()
             }
+            .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
     }
 }
 
@@ -61,7 +63,6 @@ struct CancelResetButtonStyle: PrimitiveButtonStyle {
             .font(.body)
             .fontWeight(.bold)
             .foregroundStyle(Color.preferredColor(.tintColor))
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom == .pad ? 375 : 200, maxWidth: .infinity)
             .onTapGesture {
                 configuration.trigger()
             }

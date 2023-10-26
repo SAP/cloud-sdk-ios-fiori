@@ -84,26 +84,9 @@ public struct FioriToggleStyle: ToggleStyle {
                     .onTapGesture { configuration.isOn.toggle() }
             }
         }
-        .padding(.horizontal)
+        .frame(minHeight: 44)
     }
 }
-
-// public struct DefaultToggleStyle: ToggleStyle {
-//    public func makeBody(configuration: Configuration) -> some View {
-//        VStack {
-//            Toggle(configuration)
-//                .labelsHidden()
-//                .foregroundColor(Color.tintColor)
-//            configuration.label
-//                .font(.system(size: 22, weight: .semibold)).lineLimit(2)
-//                .padding()
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 10)
-//                        .stroke(configuration.isOn ? Color.green: Color.gray, lineWidth: 1)
-//                )
-//        }
-//    }
-// }
 
 public struct FioriToggleStyleKey: EnvironmentKey {
     public static var defaultValue: any ToggleStyle = FioriToggleStyle()

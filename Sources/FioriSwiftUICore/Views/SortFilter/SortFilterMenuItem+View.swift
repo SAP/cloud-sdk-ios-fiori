@@ -305,6 +305,10 @@ struct DateTimeMenuItem: View {
                             displayedComponents: [.date]
                         )
                         .datePickerStyle(.graphical)
+                        .labelsHidden()
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 + 32: UIScreen.main.bounds.size.width - 16)
+                        .clipped()
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375: UIScreen.main.bounds.size.width)
                     }
                 }
                 .readHeight()
