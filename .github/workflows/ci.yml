@@ -11,11 +11,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-11, macos-12]
-        xcode: ['Xcode_14.0']
-        exclude:
-          - os: macos-11
-            xcode: 'Xcode_14.0'  
+        os: [macos-13]
+        xcode: ['Xcode_15.0']
     runs-on: ${{ matrix.os }}         
     env:
       DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
@@ -25,10 +22,8 @@ jobs:
     - name: Build and Test
       run: set -o pipefail && xcodebuild -enableCodeCoverage YES -scheme FioriSwiftUI-Package -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 11' clean build test | xcpretty
     - name: Create code coverage report
-      if: matrix.xcode == 'Xcode_14.0'
       run: ./scripts/xccov-to-sonarqube-generic.sh /Users/runner/Library/Developer/Xcode/DerivedData/cloud-sdk-ios-fiori*/Logs/Test/*.xcresult/ > sonarqube-generic-coverage.xml
     - name: Store coverage for sonar job
-      if: matrix.xcode == 'Xcode_14.0'
       uses: actions/upload-artifact@v1
       with:
         name: coverage
