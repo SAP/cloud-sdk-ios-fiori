@@ -166,10 +166,6 @@ struct ProgressIndicatorTextModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
-struct FormatterModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
 struct TextInputValueModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }

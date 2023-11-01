@@ -12,7 +12,7 @@ public struct SortFilterMenuItem<LeftIcon: View, Title: View, RightIcon: View> {
 	let _title: Title
 	let _rightIcon: RightIcon
 	let _isSelected: Bool
-	@State var context: SortFilterContext = SortFilterContext()
+	@StateObject var context: SortFilterContext = SortFilterContext()
 
     private var isModelInit: Bool = false
 	private var isLeftIconNil: Bool = false

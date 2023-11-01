@@ -43,42 +43,33 @@ extension SortFilterFullCFG: View {
                 .simultaneousGesture(
                     TapGesture()
                         .onEnded { _ in
-                            print("...Cancel...")
                             context.handleCancel?()
-                            context.isApplyButtonEnabled = false
-                            context.isResetButtonEnabled = false
                             dismiss()
                         }
                 )
-                .buttonStyle(CancelResetButtonStyle())
+                .buttonStyle(CancelButtonStyle())
         } resetAction: {
             resetAction
                 .simultaneousGesture(
                     TapGesture()
                         .onEnded { _ in
-                            print("...Reset...")
                             context.handleReset?()
-                            context.isApplyButtonEnabled = false
-                            context.isResetButtonEnabled = false
-                            dismiss()
                         }
                 )
-                .buttonStyle(CancelResetButtonStyle())
+                .buttonStyle(ResetButtonStyle())
+                .environment(\.isEnabled, context.isResetButtonEnabled)
         } applyAction: {
             applyAction
                 .simultaneousGesture(
                     TapGesture()
                         .onEnded { _ in
-                            print("...Apply...")
                             context.handleApply?()
-                            context.isApplyButtonEnabled = false
-                            context.isResetButtonEnabled = false
                             _onUpdate?()
                             dismiss()
                         }
                 )
-
                 .buttonStyle(ApplyButtonStyle())
+                .environment(\.isEnabled, true)
         } components: {
             _items
                 .environmentObject(context)

@@ -3,8 +3,7 @@
 import SwiftUI
 
 public struct SliderPicker {
-    @Environment(\.formatterModifier) private var formatterModifier
-	@Environment(\.sortFilterMenuItemStyle) var sortFilterMenuItemStyle
+    @Environment(\.sortFilterMenuItemStyle) var sortFilterMenuItemStyle
 
     var _value: Binding<Int?>
 	var _formatter: String? = nil

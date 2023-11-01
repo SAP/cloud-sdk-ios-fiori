@@ -44,18 +44,10 @@ extension _SortFilterCFGItemContainer: View {
             .background(Color.preferredColor(.secondaryBackground))
         }
         .onChange(of: _items) { _ in
-            for item in _items.joined() {
-                if item.isChanged {
-                    context.isResetButtonEnabled = true
-                    context.isApplyButtonEnabled = true
-                    return
-                }
-            }
-            context.isResetButtonEnabled = true
+            checkUpdateButtonState()
         }
         .onAppear {
             context.handleCancel = {
-                print("....cancel in context...")
                 for r in 0 ..< _items.count {
                     for c in 0 ..< _items[r].count {
                         _items[r][c].cancel()
@@ -64,7 +56,6 @@ extension _SortFilterCFGItemContainer: View {
             }
     
             context.handleReset = {
-                print("....reset in context...")
                 for r in 0 ..< _items.count {
                     for c in 0 ..< _items[r].count {
                         _items[r][c].reset()
@@ -73,7 +64,6 @@ extension _SortFilterCFGItemContainer: View {
             }
     
             context.handleApply = {
-                print("....apply in context...")
                 for r in 0 ..< _items.count {
                     for c in 0 ..< _items[r].count {
                         _items[r][c].apply()
@@ -81,9 +71,26 @@ extension _SortFilterCFGItemContainer: View {
                 }
             }
             
-            context.isResetButtonEnabled = false
-            context.isApplyButtonEnabled = false
+            checkUpdateButtonState()
         }
+    }
+    
+    func checkUpdateButtonState() {
+        var isApplyButtonEnabled = false
+        var isResetButtonEnabled = false
+        
+        for item in _items.joined() {
+            if !isApplyButtonEnabled && item.isChanged {
+                isApplyButtonEnabled = true
+                print("Enable apply button.")
+            }
+            if !isResetButtonEnabled && !item.isOriginal {
+                isResetButtonEnabled = true
+                print("Enable reset button.")
+            }
+        }
+        context.isApplyButtonEnabled = isApplyButtonEnabled
+        context.isResetButtonEnabled = isResetButtonEnabled
     }
     
     func picker(row r: Int, column c: Int) -> some View {

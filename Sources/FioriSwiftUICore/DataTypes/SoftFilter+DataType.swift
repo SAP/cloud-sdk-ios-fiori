@@ -210,6 +210,10 @@ public struct PickerItem: Identifiable, Equatable {
     var isChanged: Bool {
         self.value != self.workingValue
     }
+    
+    var isOriginal: Bool {
+        self.workingValue == self.originalValue
+    }
 }
 
 /// (value: Bool, keyName: String)
@@ -252,6 +256,10 @@ public struct SwitchItem: Identifiable, Equatable {
     var isChanged: Bool {
         self.value != self.workingValue
     }
+    
+    var isOriginal: Bool {
+        self.workingValue == self.originalValue
+    }
 }
 
 ///   (value: Float, minimumValue: Float, maximumValue: Float, keyName: String?)
@@ -259,7 +267,7 @@ public struct SliderItem: Identifiable, Equatable {
     public var id = UUID().uuidString
     
     public var name: String
-
+    
     public var value: Int?
     var workingValue: Int?
     let originalValue: Int?
@@ -292,7 +300,7 @@ public struct SliderItem: Identifiable, Equatable {
     mutating func apply() {
         self.value = self.workingValue
     }
-
+    
     var isChecked: Bool {
         self.value != nil
     }
@@ -310,6 +318,10 @@ public struct SliderItem: Identifiable, Equatable {
     
     var isChanged: Bool {
         self.value != self.workingValue
+    }
+    
+    var isOriginal: Bool {
+        self.workingValue == self.originalValue
     }
 }
 
@@ -331,7 +343,7 @@ public struct DateTimeItem: Equatable, Hashable {
         self.formatter = formatter
         self.icon = icon
     }
-        
+    
     mutating func reset() {
         self.workingValue = self.originalValue
     }
@@ -367,6 +379,10 @@ public struct DateTimeItem: Equatable, Hashable {
     
     var isChanged: Bool {
         self.value != self.workingValue
+    }
+    
+    var isOriginal: Bool {
+        self.workingValue == self.originalValue
     }
 }
 
@@ -483,6 +499,21 @@ extension SortFilterItem {
             return item.isChanged
         case .slider(let item, _):
             return item.isChanged
+        }
+    }
+    
+    public var isOriginal: Bool {
+        switch self {
+        case .picker(let item, _):
+            return item.isOriginal
+        case .filterfeedback(let item):
+            return item.isOriginal
+        case .switch(let item, _):
+            return item.isOriginal
+        case .datetime(let item, _):
+            return item.isOriginal
+        case .slider(let item, _):
+            return item.isOriginal
         }
     }
     

@@ -1,6 +1,6 @@
 import SwiftUI
 
-class SortFilterContext: ObservableObject {
+class SortFilterContext: Equatable, ObservableObject {
     @Published public var isResetButtonEnabled: Bool = false
     @Published public var isApplyButtonEnabled: Bool = false
     
@@ -11,4 +11,8 @@ class SortFilterContext: ObservableObject {
     @Published public var handleDismiss: (() -> Void)?
     
     public init() {}
+    
+    static func == (lhs: SortFilterContext, rhs: SortFilterContext) -> Bool {
+        return lhs.isResetButtonEnabled == rhs.isResetButtonEnabled && lhs.isApplyButtonEnabled == rhs.isApplyButtonEnabled
+    }
 }

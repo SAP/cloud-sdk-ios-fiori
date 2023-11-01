@@ -42,22 +42,35 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
 }
 
 struct ApplyButtonStyle: PrimitiveButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .frame(minWidth: UIDevice.current.userInterfaceIdiom == .pad ? 375 : 200, maxWidth: .infinity)
-            .padding(8)
-            .font(.body)
-            .fontWeight(.bold)
-            .foregroundStyle(Color.preferredColor(.base2))
-            .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
-            .onTapGesture {
-                configuration.trigger()
-            }
-            .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
+        if isEnabled {
+            configuration.label
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom == .pad ? 375 : 200, maxWidth: .infinity)
+                .padding(8)
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.preferredColor(.base2))
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.tintColor)))
+                .onTapGesture {
+                    configuration.trigger()
+                }
+                .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
+        } else {
+            configuration.label
+                .frame(minWidth: UIDevice.current.userInterfaceIdiom == .pad ? 375 : 200, maxWidth: .infinity)
+                .padding(8)
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.preferredColor(.grey1))
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.preferredColor(.grey5)))
+                .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 16 : 8)
+        }
     }
 }
 
-struct CancelResetButtonStyle: PrimitiveButtonStyle {
+struct CancelButtonStyle: PrimitiveButtonStyle {    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .font(.body)
@@ -66,6 +79,27 @@ struct CancelResetButtonStyle: PrimitiveButtonStyle {
             .onTapGesture {
                 configuration.trigger()
             }
+    }
+}
+
+struct ResetButtonStyle: PrimitiveButtonStyle {
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
+    func makeBody(configuration: Configuration) -> some View {
+        if isEnabled {
+            configuration.label
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.preferredColor(.tintColor))
+                .onTapGesture {
+                    configuration.trigger()
+                }
+        } else {
+            configuration.label
+                .font(.body)
+                .fontWeight(.bold)
+                .foregroundStyle(Color.preferredColor(.separator))
+        }
     }
 }
 

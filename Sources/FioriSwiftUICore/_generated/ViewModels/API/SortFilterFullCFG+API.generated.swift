@@ -16,7 +16,7 @@ public struct SortFilterFullCFG<Title: View, Items: View, CancelActionView: View
 	let _resetAction: ResetActionView
 	let _applyAction: ApplyActionView
 	let _onUpdate: (() -> Void)?
-	@State var context: SortFilterContext = SortFilterContext()
+	@StateObject var context: SortFilterContext = SortFilterContext()
 
     private var isModelInit: Bool = false
 	private var isCancelActionNil: Bool = false

@@ -98,12 +98,13 @@ struct SliderMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
@@ -161,12 +162,13 @@ struct PickerMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
@@ -271,12 +273,13 @@ struct DateTimeMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(CancelResetButtonStyle())
+                    .buttonStyle(ResetButtonStyle())
+                    .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
@@ -414,14 +417,14 @@ struct FullCFGMenuItem: View {
                             onUpdate()
                             isSheetVisible.toggle()
                         })
-                        .buttonStyle(CancelResetButtonStyle())
+                        .buttonStyle(CancelButtonStyle())
                     },
                     resetAction: {
                         Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.cancel()
                             isSheetVisible.toggle()
                         })
-                        .buttonStyle(CancelResetButtonStyle())
+                        .buttonStyle(ResetButtonStyle())
                     },
                     applyAction: {
                         Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {

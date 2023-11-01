@@ -445,7 +445,7 @@ public protocol SortFilterMenuModel: AnyObject {
     var onUpdate: (() -> Void)? { get set }
 }
 
-// sourcery: virtualPropActionHelper = "@State var context: SortFilterContext = SortFilterContext()"
+// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
 public protocol SortFilterFullCFGModel: AnyObject, TitleComponent {
@@ -471,7 +471,7 @@ public protocol SortFilterFullCFGModel: AnyObject, TitleComponent {
 }
 
 // sourcery: add_env_props = "sortFilterMenuItemStyle"
-// sourcery: virtualPropActionHelper = "@State var context: SortFilterContext = SortFilterContext()"
+// sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
 public protocol SortFilterMenuItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
     // sourcery: no_view
