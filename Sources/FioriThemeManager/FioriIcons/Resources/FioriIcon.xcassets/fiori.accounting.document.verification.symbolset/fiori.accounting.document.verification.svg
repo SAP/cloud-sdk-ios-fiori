@@ -5,13 +5,7 @@ PUBLIC "-//W3C//DTD SVG 1.1//EN"
        "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3300" height="2200">
  <!--glyph: "", point size: 100.0, font version: "19.0d6e1", template writer version: "123"-->
- <style>.monochrome-0 {-sfsymbols-motion-group:0}
-
-.multicolor-0:tintColor {-sfsymbols-motion-group:0}
-
-.hierarchical-0:primary {-sfsymbols-motion-group:0}
-
-.SFSymbolsPreviewWireframe {fill:none;opacity:1.0;stroke:black;stroke-width:0.5}
+ <style>.SFSymbolsPreviewWireframe {fill:none;opacity:1.0;stroke:black;stroke-width:0.5}
 </style>
  <g id="Notes">
   <rect height="2200" id="artboard" style="fill:white;opacity:1" width="3300" x="0" y="0"/>
@@ -58,7 +52,7 @@ PUBLIC "-//W3C//DTD SVG 1.1//EN"
   <text style="stroke:none;fill:black;font-family:sans-serif;font-size:13;" transform="matrix(1 0 0 1 1289 1989)">design is preserved when submitting to Xcode.</text>
   <text id="template-version" style="stroke:none;fill:black;font-family:sans-serif;font-size:13;text-anchor:end;" transform="matrix(1 0 0 1 3036 1933)">Template v.5.0</text>
   <text style="stroke:none;fill:black;font-family:sans-serif;font-size:13;text-anchor:end;" transform="matrix(1 0 0 1 3036 1951)">Requires Xcode 15 or greater</text>
-  <text id="descriptive-name" style="stroke:none;fill:black;font-family:sans-serif;font-size:13;text-anchor:end;" transform="matrix(1 0 0 1 3036 1969)">Generated from accounting.document.verification</text>
+  <text id="descriptive-name" style="stroke:none;fill:black;font-family:sans-serif;font-size:13;text-anchor:end;" transform="matrix(1 0 0 1 3036 1969)">Generated from fiori.accounting.document.verification</text>
   <text style="stroke:none;fill:black;font-family:sans-serif;font-size:13;text-anchor:end;" transform="matrix(1 0 0 1 3036 1987)">Typeset at 100.0 points</text>
   <text style="stroke:none;fill:black;font-family:sans-serif;font-size:13;" transform="matrix(1 0 0 1 263 726)">Small</text>
   <text style="stroke:none;fill:black;font-family:sans-serif;font-size:13;" transform="matrix(1 0 0 1 263 1156)">Medium</text>
@@ -89,13 +83,13 @@ PUBLIC "-//W3C//DTD SVG 1.1//EN"
  </g>
  <g id="Symbols">
   <g id="Black-S" transform="matrix(1 0 0 1 2884.9 696)">
-   <path class="monochrome-0 multicolor-0:tintColor hierarchical-0:primary SFSymbolsPreviewWireframe" d="M42.21-31.9C39.91-34.2 35.71-35.3 32.51-32.2C29.91-29.6 29.21-26 32.11-22.4L39.61-14.2C40.41-13.3 42.11-11.9 44.91-11.9C44.91-11.9 44.91-11.9 44.91-11.9C47.41-11.9 49.21-13.4 50.01-14.3L65.11-31.8C67.71-34.9 67.21-39.1 64.41-41.6C61.01-44.5 56.91-43.5 54.61-40.9L44.61-29.3L42.21-31.9ZM75.21-79.2L44.61-79.2C41.91-79.2 40.11-77.7 39.31-76.8L16.51-50C15.91-49.3 14.81-47.7 14.81-45.5L14.81 1.8C14.81 5.6 17.91 8.7 21.71 8.7L75.21 8.7C79.01 8.7 82.11 5.6 82.11 1.8L82.11-72.2C82.21-76.1 79.11-79.2 75.21-79.2ZM68.31-5.2L28.71-5.2L28.71-42L28.71-42.7L35.11-42.7C41.31-42.7 46.11-47.8 46.11-53.7L46.11-63.3L47.81-65.3L68.21-65.3L68.21-5.2Z"/>
+   <path class="SFSymbolsPreviewWireframe" d="M42.21-31.9C39.91-34.2 35.71-35.3 32.51-32.2C29.91-29.6 29.21-26 32.11-22.4L39.61-14.2C40.41-13.3 42.11-11.9 44.91-11.9C44.91-11.9 44.91-11.9 44.91-11.9C47.41-11.9 49.21-13.4 50.01-14.3L65.11-31.8C67.71-34.9 67.21-39.1 64.41-41.6C61.01-44.5 56.91-43.5 54.61-40.9L44.61-29.3L42.21-31.9ZM75.21-79.2L44.61-79.2C41.91-79.2 40.11-77.7 39.31-76.8L16.51-50C15.91-49.3 14.81-47.7 14.81-45.5L14.81 1.8C14.81 5.6 17.91 8.7 21.71 8.7L75.21 8.7C79.01 8.7 82.11 5.6 82.11 1.8L82.11-72.2C82.21-76.1 79.11-79.2 75.21-79.2ZM68.31-5.2L28.71-5.2L28.71-42L28.71-42.7L35.11-42.7C41.31-42.7 46.11-47.8 46.11-53.7L46.11-63.3L47.81-65.3L68.21-65.3L68.21-5.2Z"/>
   </g>
   <g id="Regular-S" transform="matrix(1 0 0 1 1403.39 696)">
-   <path class="monochrome-0 multicolor-0:tintColor hierarchical-0:primary SFSymbolsPreviewWireframe" d="M38.26-29.8C36.76-31.5 34.16-31.6 32.46-30.1C30.76-28.6 30.66-26 32.16-24.3L39.66-16.1C40.46-15.2 41.56-14.8 42.66-14.8C42.66-14.8 42.66-14.8 42.76-14.8C43.96-14.8 45.06-15.3 45.86-16.2L60.96-33.6C62.46-35.3 62.26-37.9 60.56-39.4C58.86-40.9 56.26-40.7 54.76-39L42.66-25L38.26-29.8ZM73.26-76.4L42.66-76.4C41.46-76.4 40.36-75.9 39.56-75L16.66-48.2C16.06-47.5 15.66-46.5 15.66-45.5L15.66 1.8C15.66 4.1 17.46 5.9 19.76 5.9L73.26 5.9C75.56 5.9 77.36 4.1 77.36 1.8L77.36-72.2C77.36-74.5 75.46-76.4 73.26-76.4ZM69.16-2.4L23.86-2.4L23.86-44L25.16-45.5L33.16-45.5C37.66-45.5 41.26-49.2 41.26-53.7L41.26-64.3L44.56-68.1L69.16-68.1L69.16-2.4Z"/>
+   <path class="SFSymbolsPreviewWireframe" d="M38.26-29.8C36.76-31.5 34.16-31.6 32.46-30.1C30.76-28.6 30.66-26 32.16-24.3L39.66-16.1C40.46-15.2 41.56-14.8 42.66-14.8C42.66-14.8 42.66-14.8 42.76-14.8C43.96-14.8 45.06-15.3 45.86-16.2L60.96-33.6C62.46-35.3 62.26-37.9 60.56-39.4C58.86-40.9 56.26-40.7 54.76-39L42.66-25L38.26-29.8ZM73.26-76.4L42.66-76.4C41.46-76.4 40.36-75.9 39.56-75L16.66-48.2C16.06-47.5 15.66-46.5 15.66-45.5L15.66 1.8C15.66 4.1 17.46 5.9 19.76 5.9L73.26 5.9C75.56 5.9 77.36 4.1 77.36 1.8L77.36-72.2C77.36-74.5 75.46-76.4 73.26-76.4ZM69.16-2.4L23.86-2.4L23.86-44L25.16-45.5L33.16-45.5C37.66-45.5 41.26-49.2 41.26-53.7L41.26-64.3L44.56-68.1L69.16-68.1L69.16-2.4Z"/>
   </g>
   <g id="Ultralight-S" transform="matrix(1 0 0 1 515.011 696)">
-   <path class="monochrome-0 multicolor-0:tintColor hierarchical-0:primary SFSymbolsPreviewWireframe" d="M34.375-27.9C33.975-28.3 33.175-28.5 32.575-28C31.975-27.5 32.075-26.6 32.475-26.2L39.975-18C40.175-17.7 40.575-17.6 40.975-17.6C40.975-17.6 40.975-17.6 40.975-17.6C41.275-17.6 41.575-17.7 41.875-18L56.975-35.4C57.175-35.6 57.575-36.6 56.875-37.2C56.175-37.8 55.475-37.5 55.075-37.1L40.975-20.7L34.375-27.9ZM71.475-73.5L40.875-73.5C40.375-73.5 40.075-73.2 39.875-73.1L17.075-46.4C16.875-46.2 16.775-45.9 16.775-45.6L16.775 1.7C16.775 2.5 17.275 3 17.975 3L71.475 3C72.175 3 72.775 2.4 72.775 1.7L72.775-72.3C72.775-73 72.175-73.5 71.475-73.5ZM70.175 0.5L19.275 0.5L19.275-45L22.075-48.3L31.475-48.3C33.675-48.3 36.675-50.2 36.675-53.6L36.675-65.3L41.475-70.9L70.175-70.9L70.175 0.5Z"/>
+   <path class="SFSymbolsPreviewWireframe" d="M34.375-27.9C33.975-28.3 33.175-28.5 32.575-28C31.975-27.5 32.075-26.6 32.475-26.2L39.975-18C40.175-17.7 40.575-17.6 40.975-17.6C40.975-17.6 40.975-17.6 40.975-17.6C41.275-17.6 41.575-17.7 41.875-18L56.975-35.4C57.175-35.6 57.575-36.6 56.875-37.2C56.175-37.8 55.475-37.5 55.075-37.1L40.975-20.7L34.375-27.9ZM71.475-73.5L40.875-73.5C40.375-73.5 40.075-73.2 39.875-73.1L17.075-46.4C16.875-46.2 16.775-45.9 16.775-45.6L16.775 1.7C16.775 2.5 17.275 3 17.975 3L71.475 3C72.175 3 72.775 2.4 72.775 1.7L72.775-72.3C72.775-73 72.175-73.5 71.475-73.5ZM70.175 0.5L19.275 0.5L19.275-45L22.075-48.3L31.475-48.3C33.675-48.3 36.675-50.2 36.675-53.6L36.675-65.3L41.475-70.9L70.175-70.9L70.175 0.5Z"/>
   </g>
  </g>
 </svg>
