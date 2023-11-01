@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SortFilterMenuItem where LeftIcon == EmptyView {
+extension FilterFeedbackBarItem where LeftIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder rightIcon: () -> RightIcon,
@@ -17,7 +17,7 @@ extension SortFilterMenuItem where LeftIcon == EmptyView {
     }
 }
 
-extension SortFilterMenuItem where RightIcon == EmptyView {
+extension FilterFeedbackBarItem where RightIcon == EmptyView {
     public init(
     @ViewBuilder leftIcon: () -> LeftIcon,
 		@ViewBuilder title: () -> Title,
@@ -32,7 +32,7 @@ extension SortFilterMenuItem where RightIcon == EmptyView {
     }
 }
 
-extension SortFilterMenuItem where LeftIcon == EmptyView, RightIcon == EmptyView {
+extension FilterFeedbackBarItem where LeftIcon == EmptyView, RightIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		isSelected: Bool

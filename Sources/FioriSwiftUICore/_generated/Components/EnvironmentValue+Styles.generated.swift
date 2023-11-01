@@ -234,6 +234,11 @@ extension EnvironmentValues {
         set { self[CancelActionModifierKey.self] = newValue }
     }
 
+    public var itemsModifier: AnyViewModifier {
+        get { return self[ItemsModifierKey.self] }
+        set { self[ItemsModifierKey.self] = newValue }
+    }
+
     public var progressIndicatorModifier: AnyViewModifier {
         get { return self[ProgressIndicatorModifierKey.self] }
         set { self[ProgressIndicatorModifierKey.self] = newValue }
@@ -267,11 +272,6 @@ extension EnvironmentValues {
     public var nodeModifier: AnyViewModifier {
         get { return self[NodeModifierKey.self] }
         set { self[NodeModifierKey.self] = newValue }
-    }
-
-    public var itemsModifier: AnyViewModifier {
-        get { return self[ItemsModifierKey.self] }
-        set { self[ItemsModifierKey.self] = newValue }
     }
 
     public var resetActionModifier: AnyViewModifier {
@@ -539,6 +539,11 @@ public extension View {
     }
 
     @ViewBuilder
+    func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
+        self.environment(\.itemsModifier, AnyViewModifier(transform))
+    }
+
+    @ViewBuilder
     func progressIndicatorModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.progressIndicatorModifier, AnyViewModifier(transform))
     }
@@ -571,11 +576,6 @@ public extension View {
     @ViewBuilder
     func nodeModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
         self.environment(\.nodeModifier, AnyViewModifier(transform))
-    }
-
-    @ViewBuilder
-    func itemsModifier<V: View>(_ transform: @escaping (AnyViewModifier.Content) -> V) -> some View {
-        self.environment(\.itemsModifier, AnyViewModifier(transform))
     }
 
     @ViewBuilder

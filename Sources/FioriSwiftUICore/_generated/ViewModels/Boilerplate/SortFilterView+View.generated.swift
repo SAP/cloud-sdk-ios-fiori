@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SortFilterFullCFG+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SortFilterView+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SortFilterFullCFG `View` body
+//TODO: Implement SortFilterView `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,7 +16,7 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SortFilterFullCFG {
+    enum SortFilterView {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 		typealias Items = EmptyModifier
@@ -53,21 +53,21 @@ extension Fiori {
     }
 }
 
-// FIXME: - Implement SortFilterFullCFG View body
+// FIXME: - Implement SortFilterView View body
 
-extension SortFilterFullCFG: View {
+extension SortFilterView: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SortFilterFullCFG specific LibraryContentProvider
+// FIXME: - Implement SortFilterView specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SortFilterFullCFGLibraryContent: LibraryContentProvider {
+struct SortFilterViewLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SortFilterFullCFG(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(SortFilterView(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

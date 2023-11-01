@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SortFilterMenuItem<LeftIcon: View, Title: View, RightIcon: View> {
+public struct FilterFeedbackBarItem<LeftIcon: View, Title: View, RightIcon: View> {
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.rightIconModifier) private var rightIconModifier
@@ -32,23 +32,23 @@ public struct SortFilterMenuItem<LeftIcon: View, Title: View, RightIcon: View> {
 
     @ViewBuilder var leftIcon: some View {
         if isModelInit {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.SortFilterMenuItem.leftIcon).concat(Fiori.SortFilterMenuItem.leftIconCumulative))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarItem.leftIcon).concat(Fiori.FilterFeedbackBarItem.leftIconCumulative))
         } else {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.SortFilterMenuItem.leftIcon))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarItem.leftIcon))
         }
     }
 	@ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterMenuItem.title).concat(Fiori.SortFilterMenuItem.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarItem.title).concat(Fiori.FilterFeedbackBarItem.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterMenuItem.title))
+            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarItem.title))
         }
     }
 	@ViewBuilder var rightIcon: some View {
         if isModelInit {
-            _rightIcon.modifier(rightIconModifier.concat(Fiori.SortFilterMenuItem.rightIcon).concat(Fiori.SortFilterMenuItem.rightIconCumulative))
+            _rightIcon.modifier(rightIconModifier.concat(Fiori.FilterFeedbackBarItem.rightIcon).concat(Fiori.FilterFeedbackBarItem.rightIconCumulative))
         } else {
-            _rightIcon.modifier(rightIconModifier.concat(Fiori.SortFilterMenuItem.rightIcon))
+            _rightIcon.modifier(rightIconModifier.concat(Fiori.FilterFeedbackBarItem.rightIcon))
         }
     }
     
@@ -61,11 +61,11 @@ public struct SortFilterMenuItem<LeftIcon: View, Title: View, RightIcon: View> {
     }
 }
 
-extension SortFilterMenuItem where LeftIcon == _ConditionalContent<Image, EmptyView>,
+extension FilterFeedbackBarItem where LeftIcon == _ConditionalContent<Image, EmptyView>,
 		Title == Text,
 		RightIcon == _ConditionalContent<Image, EmptyView> {
 
-    public init(model: SortFilterMenuItemModel) {
+    public init(model: FilterFeedbackBarItemModel) {
         self.init(leftIcon: model.leftIcon, title: model.title, rightIcon: model.rightIcon, isSelected: model.isSelected)
     }
 

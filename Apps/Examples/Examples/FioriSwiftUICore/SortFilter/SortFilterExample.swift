@@ -30,14 +30,14 @@ struct SortFilterExample: View {
     var body: some View {
         VStack {
             if isCustomStyle {
-                SortFilterMenu(items: $items, onUpdate: performSortAndFilter)
+                FilterFeedbackBar(items: $items, onUpdate: performSortAndFilter)
                     .sortFilterMenuItemStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
                     .optionChipStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
 //                    .trailingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(name: "All")
             } else {
-                SortFilterMenu(items: $items, onUpdate: performSortAndFilter)
+                FilterFeedbackBar(items: $items, onUpdate: performSortAndFilter)
             }
             
             List {
@@ -66,14 +66,14 @@ struct SortFilterExample: View {
             }
             .popover(isPresented: $isShowingFullCFG, arrowEdge: .leading) {
                 if isCustomStyle {
-                    SortFilterFullCFG(
+                    SortFilterView(
                         title: "Configuration",
                         items: $items,
                         onUpdate: performSortAndFilter
                     )
                     .optionChipStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
                 } else {
-                    SortFilterFullCFG(
+                    SortFilterView(
                         title: "Configuration",
                         items: $items,
                         onUpdate: performSortAndFilter

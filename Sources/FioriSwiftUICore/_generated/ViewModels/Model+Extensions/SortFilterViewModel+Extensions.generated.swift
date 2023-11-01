@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension SortFilterFullCFGModel {
+public extension SortFilterViewModel {
     var cancelAction: ActionModel? {
         return _CancelActionDefault()
     }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum SortFilterFullCFG {
+    enum SortFilterView {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content
@@ -34,7 +34,7 @@ extension Fiori {
     }
 }
 
-extension SortFilterFullCFG: View {
+extension SortFilterView: View {
     public var body: some View {
         CancellableResettableDialogForm {
             title

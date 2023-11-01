@@ -186,6 +186,10 @@ struct CancelActionModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 
+struct ItemsModifierKey: EnvironmentKey {
+    public static let defaultValue = AnyViewModifier { $0 }
+}
+
 struct ProgressIndicatorModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
@@ -211,10 +215,6 @@ struct SaveActionModifierKey: EnvironmentKey {
 }
 
 struct NodeModifierKey: EnvironmentKey {
-    public static let defaultValue = AnyViewModifier { $0 }
-}
-
-struct ItemsModifierKey: EnvironmentKey {
     public static let defaultValue = AnyViewModifier { $0 }
 }
 

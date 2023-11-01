@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SortFilterMenu<Items: View> {
+public struct FilterFeedbackBar<Items: View> {
     @Environment(\.itemsModifier) private var itemsModifier
 
     var _items: Items
@@ -22,18 +22,18 @@ public struct SortFilterMenu<Items: View> {
 
     @ViewBuilder var items: some View {
         if isModelInit {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterMenu.items).concat(Fiori.SortFilterMenu.itemsCumulative))
+            _items.modifier(itemsModifier.concat(Fiori.FilterFeedbackBar.items).concat(Fiori.FilterFeedbackBar.itemsCumulative))
         } else {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterMenu.items))
+            _items.modifier(itemsModifier.concat(Fiori.FilterFeedbackBar.items))
         }
     }
     
 	
 }
 
-extension SortFilterMenu where Items == _SortFilterMenuItemContainer {
+extension FilterFeedbackBar where Items == _SortFilterMenuItemContainer {
 
-    public init(model: SortFilterMenuModel) {
+    public init(model: FilterFeedbackBarModel) {
         self.init(items: Binding<[[SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), onUpdate: model.onUpdate)
     }
 

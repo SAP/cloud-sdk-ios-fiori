@@ -1,8 +1,8 @@
 // Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SortFilterMenuItem+View.swift`
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/FilterFeedbackBar+View.swift`
 //TODO: Implement default Fiori style definitions as `ViewModifier`
-//TODO: Implement SortFilterMenuItem `View` body
+//TODO: Implement FilterFeedbackBar `View` body
 //TODO: Implement LibraryContentProvider
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
@@ -16,13 +16,9 @@ import SwiftUI
 // FIXME: - Implement Fiori style definitions
 
 extension Fiori {
-    enum SortFilterMenuItem {
-        typealias LeftIcon = EmptyModifier
-        typealias LeftIconCumulative = EmptyModifier
-		typealias Title = EmptyModifier
-        typealias TitleCumulative = EmptyModifier
-		typealias RightIcon = EmptyModifier
-        typealias RightIconCumulative = EmptyModifier
+    enum FilterFeedbackBar {
+        typealias Items = EmptyModifier
+        typealias ItemsCumulative = EmptyModifier
 
         // TODO: - substitute type-specific ViewModifier for EmptyModifier
         /*
@@ -36,30 +32,26 @@ extension Fiori {
                 }
             }
         */
-        static let leftIcon = LeftIcon()
-		static let title = Title()
-		static let rightIcon = RightIcon()
-        static let leftIconCumulative = LeftIconCumulative()
-		static let titleCumulative = TitleCumulative()
-		static let rightIconCumulative = RightIconCumulative()
+        static let items = Items()
+        static let itemsCumulative = ItemsCumulative()
     }
 }
 
-// FIXME: - Implement SortFilterMenuItem View body
+// FIXME: - Implement FilterFeedbackBar View body
 
-extension SortFilterMenuItem: View {
+extension FilterFeedbackBar: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SortFilterMenuItem specific LibraryContentProvider
+// FIXME: - Implement FilterFeedbackBar specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SortFilterMenuItemLibraryContent: LibraryContentProvider {
+struct FilterFeedbackBarLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SortFilterMenuItem(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(FilterFeedbackBar(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

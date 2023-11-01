@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Fiori {
-    enum SortFilterMenuItem {
+    enum FilterFeedbackBarItem {
         typealias LeftIcon = EmptyModifier
         typealias LeftIconCumulative = EmptyModifier
         typealias Title = EmptyModifier
@@ -18,24 +18,11 @@ extension Fiori {
     }
 }
 
-extension SortFilterMenuItem: View {
+extension FilterFeedbackBarItem: View {
     public var body: some View {
         sortFilterMenuItemStyle.makeBody(configuration: SortFilterMenuItemConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
     }
 }
-
-/*
- // FIXME: - Implement SortFilterMenuItem specific LibraryContentProvider
-
- @available(iOS 14.0, macOS 11.0, *)
- struct SortFilterMenuItemLibraryContent: LibraryContentProvider {
-     @LibraryContentBuilder
-     var views: [LibraryItem] {
-         LibraryItem(SortFilterMenuItem(model: LibraryPreviewData.Person.laurelosborn),
-                     category: .control)
-     }
- }
- */
 
 private extension View {
     func icon(name: String?, isVisible: Bool) -> Image? {
@@ -60,7 +47,7 @@ struct FilterFeedbackMenuItem: View {
     var body: some View {
         Group {
             ForEach($item.valueOptions.wrappedValue, id: \.self) { opt in
-                SortFilterMenuItem(leftIcon: item.isOptionSelected(opt) ? icon(name: item.icon, isVisible: true) : nil, title: opt, isSelected: item.isOptionSelected(opt))
+                FilterFeedbackBarItem(leftIcon: item.isOptionSelected(opt) ? icon(name: item.icon, isVisible: true) : nil, title: opt, isSelected: item.isOptionSelected(opt))
                     .onTapGesture {
                         item.onTap(option: opt)
                         item.apply()
@@ -86,7 +73,7 @@ struct SliderMenuItem: View {
     }
     
     var body: some View {
-        SortFilterMenuItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
             .onTapGesture {
                 isSheetVisible.toggle()
             }
@@ -150,7 +137,7 @@ struct PickerMenuItem: View {
 
     @ViewBuilder
     var button: some View {
-        SortFilterMenuItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
             .onTapGesture {
                 isSheetVisible.toggle()
             }
@@ -213,7 +200,7 @@ struct PickerMenuItem: View {
                     }
                 }
             } label: {
-                SortFilterMenuItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, isSelected: item.isChecked)
+                FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, isSelected: item.isChecked)
             }
         }
     }
@@ -261,7 +248,7 @@ struct DateTimeMenuItem: View {
     }
         
     var body: some View {
-        SortFilterMenuItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.label, rightIcon: Image(systemName: "chevron.down"), isSelected: item.isChecked)
             .onTapGesture {
                 isSheetVisible.toggle()
             }
@@ -339,7 +326,7 @@ struct SwitchMenuItem: View {
     }
         
     var body: some View {
-        SortFilterMenuItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.name, isSelected: item.isChecked)
+        FilterFeedbackBarItem(leftIcon: icon(name: item.icon, isVisible: true), title: item.name, isSelected: item.isChecked)
             .onTapGesture {
                 if item.value != nil {
                     item.workingValue?.toggle()
@@ -395,12 +382,12 @@ struct FullCFGMenuItem: View {
     }
     
     var body: some View {
-        SortFilterMenuItem(leftIcon: icon(name: fullCFGButton.icon, isVisible: true), title: fullCFGButton.name ?? "", isSelected: true)
+        FilterFeedbackBarItem(leftIcon: icon(name: fullCFGButton.icon, isVisible: true), title: fullCFGButton.name ?? "", isSelected: true)
             .onTapGesture {
                 isSheetVisible.toggle()
             }
             .popover(isPresented: $isSheetVisible, attachmentAnchor: .point(.bottom), arrowEdge: .bottom) {
-                SortFilterFullCFG(
+                SortFilterView(
                     title: {
                         if let title = fullCFGButton.name {
                             Text(title)
@@ -442,28 +429,28 @@ struct FullCFGMenuItem: View {
     VStack {
         Spacer()
         
-        SortFilterMenuItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-        SortFilterMenuItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-        SortFilterMenuItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-        SortFilterMenuItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-        SortFilterMenuItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: true)
-        SortFilterMenuItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: false)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Airplane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
+        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
+        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: true)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Bus", isSelected: false)
         
         Spacer()
         
-        SortFilterMenuItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
             .sortFilterMenuItemStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
-        SortFilterMenuItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
             .sortFilterMenuItemStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
 
             .sortFilterMenuItemStyle(cornerRadius: 16)
-        SortFilterMenuItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
+        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
             .sortFilterMenuItemStyle(fillColorSelected: .yellow)
-        SortFilterMenuItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
+        FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
             .sortFilterMenuItemStyle(fillColorUnselected: .gray)
-        SortFilterMenuItem(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
             .sortFilterMenuItemStyle(cornerRadius: 20)
-        SortFilterMenuItem(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
+        FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
             .sortFilterMenuItemStyle(cornerRadius: 20)
 
         Spacer()

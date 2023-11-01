@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension SortFilterMenuModel {
+public extension FilterFeedbackBarModel {
     var onUpdate: (() -> Void)? {
         return nil
     }

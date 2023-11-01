@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SortFilterFullCFG<Title: View, Items: View, CancelActionView: View, ResetActionView: View, ApplyActionView: View> {
+public struct SortFilterView<Title: View, Items: View, CancelActionView: View, ResetActionView: View, ApplyActionView: View> {
     @Environment(\.titleModifier) private var titleModifier
 	@Environment(\.itemsModifier) private var itemsModifier
 	@Environment(\.cancelActionModifier) private var cancelActionModifier
@@ -42,37 +42,37 @@ public struct SortFilterFullCFG<Title: View, Items: View, CancelActionView: View
 
     @ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterFullCFG.title).concat(Fiori.SortFilterFullCFG.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori.SortFilterView.title).concat(Fiori.SortFilterView.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.SortFilterFullCFG.title))
+            _title.modifier(titleModifier.concat(Fiori.SortFilterView.title))
         }
     }
 	@ViewBuilder var items: some View {
         if isModelInit {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterFullCFG.items).concat(Fiori.SortFilterFullCFG.itemsCumulative))
+            _items.modifier(itemsModifier.concat(Fiori.SortFilterView.items).concat(Fiori.SortFilterView.itemsCumulative))
         } else {
-            _items.modifier(itemsModifier.concat(Fiori.SortFilterFullCFG.items))
+            _items.modifier(itemsModifier.concat(Fiori.SortFilterView.items))
         }
     }
 	@ViewBuilder var cancelAction: some View {
         if isModelInit {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterFullCFG.cancelAction).concat(Fiori.SortFilterFullCFG.cancelActionCumulative))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterView.cancelAction).concat(Fiori.SortFilterView.cancelActionCumulative))
         } else {
-            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterFullCFG.cancelAction))
+            _cancelAction.modifier(cancelActionModifier.concat(Fiori.SortFilterView.cancelAction))
         }
     }
 	@ViewBuilder var resetAction: some View {
         if isModelInit {
-            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterFullCFG.resetAction).concat(Fiori.SortFilterFullCFG.resetActionCumulative))
+            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterView.resetAction).concat(Fiori.SortFilterView.resetActionCumulative))
         } else {
-            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterFullCFG.resetAction))
+            _resetAction.modifier(resetActionModifier.concat(Fiori.SortFilterView.resetAction))
         }
     }
 	@ViewBuilder var applyAction: some View {
         if isModelInit {
-            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterFullCFG.applyAction).concat(Fiori.SortFilterFullCFG.applyActionCumulative))
+            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterView.applyAction).concat(Fiori.SortFilterView.applyActionCumulative))
         } else {
-            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterFullCFG.applyAction))
+            _applyAction.modifier(applyActionModifier.concat(Fiori.SortFilterView.applyAction))
         }
     }
     
@@ -89,13 +89,13 @@ public struct SortFilterFullCFG<Title: View, Items: View, CancelActionView: View
     }
 }
 
-extension SortFilterFullCFG where Title == Text,
+extension SortFilterView where Title == Text,
 		Items == _SortFilterCFGItemContainer,
 		CancelActionView == _ConditionalContent<Action, EmptyView>,
 		ResetActionView == _ConditionalContent<Action, EmptyView>,
 		ApplyActionView == _ConditionalContent<Action, EmptyView> {
 
-    public init(model: SortFilterFullCFGModel) {
+    public init(model: SortFilterViewModel) {
         self.init(title: model.title, items: Binding<[[SortFilterItem]]>(get: { model.items }, set: { model.items = $0 }), cancelAction: model.cancelAction != nil ? Action(model: model.cancelAction!) : nil, resetAction: model.resetAction != nil ? Action(model: model.resetAction!) : nil, applyAction: model.applyAction != nil ? Action(model: model.applyAction!) : nil, onUpdate: model.onUpdate)
     }
 

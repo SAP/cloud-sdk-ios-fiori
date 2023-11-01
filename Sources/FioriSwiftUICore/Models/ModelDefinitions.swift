@@ -435,7 +435,7 @@ public protocol StepProgressIndicatorModel: AnyObject {
 }
 
 // sourcery: generated_component_composite
-public protocol SortFilterMenuModel: AnyObject {
+public protocol FilterFeedbackBarModel: AnyObject {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterMenuItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -448,7 +448,7 @@ public protocol SortFilterMenuModel: AnyObject {
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: add_env_props = "dismiss"
 // sourcery: generated_component_composite
-public protocol SortFilterFullCFGModel: AnyObject, TitleComponent {
+public protocol SortFilterViewModel: AnyObject, TitleComponent {
     // sourcery: bindingProperty
     // sourcery: backingComponent=_SortFilterCFGItemContainer
     var items: [[SortFilterItem]] { get set }
@@ -473,7 +473,7 @@ public protocol SortFilterFullCFGModel: AnyObject, TitleComponent {
 // sourcery: add_env_props = "sortFilterMenuItemStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
-public protocol SortFilterMenuItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
+public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }

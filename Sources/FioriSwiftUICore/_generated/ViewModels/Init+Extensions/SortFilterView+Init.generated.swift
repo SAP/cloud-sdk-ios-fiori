@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SortFilterFullCFG where CancelActionView == Action {
+extension SortFilterView where CancelActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -21,7 +21,7 @@ extension SortFilterFullCFG where CancelActionView == Action {
     }
 }
 
-extension SortFilterFullCFG where ResetActionView == Action {
+extension SortFilterView where ResetActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -40,7 +40,7 @@ extension SortFilterFullCFG where ResetActionView == Action {
     }
 }
 
-extension SortFilterFullCFG where ApplyActionView == Action {
+extension SortFilterView where ApplyActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -59,7 +59,7 @@ extension SortFilterFullCFG where ApplyActionView == Action {
     }
 }
 
-extension SortFilterFullCFG where CancelActionView == Action, ResetActionView == Action {
+extension SortFilterView where CancelActionView == Action, ResetActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -77,7 +77,7 @@ extension SortFilterFullCFG where CancelActionView == Action, ResetActionView ==
     }
 }
 
-extension SortFilterFullCFG where CancelActionView == Action, ApplyActionView == Action {
+extension SortFilterView where CancelActionView == Action, ApplyActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -95,7 +95,7 @@ extension SortFilterFullCFG where CancelActionView == Action, ApplyActionView ==
     }
 }
 
-extension SortFilterFullCFG where ResetActionView == Action, ApplyActionView == Action {
+extension SortFilterView where ResetActionView == Action, ApplyActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
@@ -113,7 +113,7 @@ extension SortFilterFullCFG where ResetActionView == Action, ApplyActionView == 
     }
 }
 
-extension SortFilterFullCFG where CancelActionView == Action, ResetActionView == Action, ApplyActionView == Action {
+extension SortFilterView where CancelActionView == Action, ResetActionView == Action, ApplyActionView == Action {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder items: () -> Items,
