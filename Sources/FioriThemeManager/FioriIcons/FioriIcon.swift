@@ -1,5 +1,5 @@
-import SwiftUI
 import Foundation
+import SwiftUI
 
 /// Public list of icons available for reference by the Developer.
 public enum FioriIcon {
