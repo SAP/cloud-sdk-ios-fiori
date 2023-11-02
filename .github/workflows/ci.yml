@@ -48,7 +48,15 @@ jobs:
         SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
 
   build_watch:
-    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-13]
+        xcode: ['Xcode_15.0.1']
+    runs-on: ${{ matrix.os }}         
+    env:
+      DEVELOPER_DIR: /Applications/${{ matrix.xcode }}.app/Contents/Developer
+    
     steps:
     - uses: actions/checkout@v3
     - name: Run tests on Apple Watch simulator
