@@ -1226,7 +1226,7 @@ struct FioriIconSet {
             "paintBucket": Image(fioriName: "fiori.paint.bucket") ?? FioriIcon.status.error,
             "rotate": Image(fioriName: "fiori.rotate") ?? FioriIcon.status.error,
             "spaceNavigation": Image(fioriName: "fiori.space.navigation") ?? FioriIcon.status.error
-        ]),
+        ])
     ]
 }
 
