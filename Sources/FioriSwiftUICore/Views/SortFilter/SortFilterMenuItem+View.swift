@@ -102,6 +102,7 @@ struct SliderMenuItem: View {
 
                 } components: {
                     SliderPicker(value: Binding<Int?>(get: { item.workingValue }, set: { item.workingValue = $0 }), formatter: item.formatter, minimumValue: item.minimumValue, maximumValue: item.maximumValue)
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
@@ -167,6 +168,7 @@ struct PickerMenuItem: View {
                     OptionListPicker(value: $item.workingValue, valueOptions: item.valueOptions, hint: nil) { index in
                         item.onTap(option: item.valueOptions[index])
                     }
+                    .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
@@ -278,7 +280,7 @@ struct DateTimeMenuItem: View {
                     VStack {
                         HStack {
                             Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
-                                .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                                .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
                                 .foregroundColor(Color.preferredColor(.primaryLabel))
                             Spacer()
                             DatePicker(
@@ -288,6 +290,7 @@ struct DateTimeMenuItem: View {
                             )
                             .labelsHidden()
                         }
+                        .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
 
                         DatePicker(
                             item.label,
@@ -296,10 +299,11 @@ struct DateTimeMenuItem: View {
                         )
                         .datePickerStyle(.graphical)
                         .labelsHidden()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 + 32: UIScreen.main.bounds.size.width - 16)
+                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : UIScreen.main.bounds.size.width - 16)
                         .clipped()
-                        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375: UIScreen.main.bounds.size.width)
                     }
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
+
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in

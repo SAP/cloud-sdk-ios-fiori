@@ -306,8 +306,8 @@ public struct SliderItem: Identifiable, Equatable {
     }
     
     var label: String {
-        if let formatter = formatter, let value = value {
-            return String(format: formatter, value)
+        if let value = self.value {
+            return "\(name): \(value)"
         }
         return name
     }

@@ -18,7 +18,6 @@ extension FilterFeedbackBar: View {
 }
 
 /*
- // FIXME: - Implement SortFilterMenu specific LibraryContentProvider
  @available(iOS 14.0, macOS 11.0, *)
  struct SortFilterMenuLibraryContent: LibraryContentProvider {
      @LibraryContentBuilder

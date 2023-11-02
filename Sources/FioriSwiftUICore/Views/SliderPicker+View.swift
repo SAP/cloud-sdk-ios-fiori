@@ -121,8 +121,6 @@ extension Binding {
 }
 
 /*
- // FIXME: - Implement SliderPicker specific LibraryContentProvider
-
  @available(iOS 14.0, macOS 11.0, *)
  struct SliderPickerLibraryContent: LibraryContentProvider {
      @LibraryContentBuilder

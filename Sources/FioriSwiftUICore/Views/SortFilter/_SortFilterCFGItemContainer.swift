@@ -34,10 +34,13 @@ extension _SortFilterCFGItemContainer: View {
                                 slider(row: r, column: c)
                             case .datetime:
                                 datetimePicker(row: r, column: c)
+                                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
                             }
                         }
                     }
                     .padding([.top], 12)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width - 16 * 2)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
                     .background(Color.preferredColor(.secondaryGroupedBackground))
                 }
             }
@@ -155,16 +158,25 @@ extension _SortFilterCFGItemContainer: View {
         VStack {
             HStack {
                 Text(_items[r][c].datetime.name)
-                    .font(.fiori(forTextStyle: .subheadline, weight: .bold, isItalic: false, isCondensed: false))
+                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            
-            DatePicker(
-                NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""),
-                selection: Binding<Date>(get: { _items[r][c].datetime.workingValue ?? Date() }, set: { _items[r][c].datetime.workingValue = $0 }),
-                displayedComponents: [.hourAndMinute]
-            )
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : UIScreen.main.bounds.size.width - 16 * 2)
+
+            HStack {
+                Text(NSLocalizedString("Time", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""))
+                    .font(.fiori(forTextStyle: .headline, weight: .bold, isItalic: false, isCondensed: false))
+                    .foregroundColor(Color.preferredColor(.primaryLabel))
+                Spacer()
+                DatePicker(
+                    "",
+                    selection: Binding<Date>(get: { _items[r][c].datetime.workingValue ?? Date() }, set: { _items[r][c].datetime.workingValue = $0 }),
+                    displayedComponents: [.hourAndMinute]
+                )
+                .labelsHidden()
+            }
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : UIScreen.main.bounds.size.width - 16 * 2)
             
             DatePicker(
                 "",
@@ -173,9 +185,10 @@ extension _SortFilterCFGItemContainer: View {
             )
             .datePickerStyle(.graphical)
             .labelsHidden()
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 + 32: UIScreen.main.bounds.size.width - 16)
+            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 : UIScreen.main.bounds.size.width - 16)
+//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
             .clipped()
-            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375: UIScreen.main.bounds.size.width - 32)
+//            .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width)
         }
     }
 }

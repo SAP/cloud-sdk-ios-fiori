@@ -104,8 +104,6 @@ public extension EnvironmentValues {
 }
 
 /*
- // FIXME: - Implement SwitchPicker specific LibraryContentProvider
-
  @available(iOS 14.0, macOS 11.0, *)
  struct SwitchPickerLibraryContent: LibraryContentProvider {
      @LibraryContentBuilder
