@@ -4,16 +4,17 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct DimensionSelector_Chart: View {
-    let segmentTitltes = ["intraday: 1min", "one day: 1min", "1year:1day", "3years:1week"]
+    let segmentTitltes = ["1min", "One day", "1year: 1day", "Three years: one week"]
     
     @ObservedObject var stockModel = Tests.stockModels[0]
     
+    @State var widthMode: SegmentWidthMode = .intrinsic
     var cancellableSet: Set<AnyCancellable> = []
-    
     var dimensionSelector: DimensionSelector!
     
     init() {
         self.dimensionSelector = DimensionSelector(segmentTitles: self.segmentTitltes, selectedIndex: stockModel.indexOfStockSeries)
+        self.dimensionSelector.segmentWidthMode = .equal
         let stockModel = self.stockModel
         self.dimensionSelector.selectionDidChangePublisher
             .sink(receiveValue: { index in
@@ -25,6 +26,7 @@ struct DimensionSelector_Chart: View {
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
             dimensionSelector
+
             chartView
         }
     }
