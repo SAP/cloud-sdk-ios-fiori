@@ -41,8 +41,8 @@ public struct FioriToggleStyle: ToggleStyle {
         labelColor: Color = Color.preferredColor(.primaryLabel),
         onColor: Color = Color.preferredColor(.tintColor),
         offColor: Color = Color.preferredColor(.secondaryFill),
-        onThumbColor: Color = Color.preferredColor(.primaryBackground),
-        offThumbColor: Color = Color.preferredColor(.primaryBackground),
+        onThumbColor: Color = Color.preferredColor(.baseWhite),
+        offThumbColor: Color = Color.preferredColor(.baseWhite),
         onBorderColor: Color = Color.preferredColor(.separator),
         offBorderColor: Color = Color.preferredColor(.separator)
     ) {
