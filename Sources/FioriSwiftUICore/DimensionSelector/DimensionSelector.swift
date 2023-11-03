@@ -126,9 +126,7 @@ public struct DimensionSelector: View {
     }
     
     /// A `Publisher` which signals selection change.
-    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<Int?, Never> = {
-        self.model.$selectedIndex.eraseToAnyPublisher()
-    }()
+    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<Int?, Never> = self.model.$selectedIndex.eraseToAnyPublisher()
     
     /// :nodoc:
     public private(set) var _heightDidChangePublisher = CurrentValueSubject<CGFloat, Never>(0)
@@ -166,11 +164,11 @@ public struct DimensionSelector: View {
     
     public var body: some View {
         Group {
-            if model.segmentWidthMode == .equal {
-                getHStack()
+            if self.model.segmentWidthMode == .equal {
+                self.getHStack()
             } else {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    getHStack()
+                    self.getHStack()
                 }
                 .onPreferenceChange(SegmentPreferenceKey.self) { sizes in
                     switch self.model.segmentWidthMode {
@@ -183,7 +181,7 @@ public struct DimensionSelector: View {
                 }
             }
         }
-        .frame(width: nil, height: _height)
+        .frame(width: nil, height: self._height)
         .onPreferenceChange(HStackPreferenceKey.self) { heights in
             guard let height = heights.first, self._height != height else {
                 return
@@ -203,19 +201,34 @@ public struct DimensionSelector: View {
     private func getHStack() -> some View {
         HStack(alignment: .center, spacing: self.model.interItemSpacing) {
             ForEach(self.model.titles.indices, id: \.self) { index in
-                Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, cornerRadius: 10.0, backgroundColor: .preferredColor(.primaryFill), segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
+                Text(self.model.titles[index])
+                    .padding(self.titleInsets)
+                    .font(self.segmentAttributes(for: index)?.font)
+                    .foregroundColor(self.segmentAttributes(for: index)?.textColor)
+                    .background(SegmentPreferenceSetter())
+                    .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
+                    .background(
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .inset(by: self.segmentAttributes(for: index)!.borderWidth! / 2.0)
+                            .stroke(self.segmentAttributes(for: index)!.borderColor!, lineWidth: self.segmentAttributes(for: index)!.borderWidth!)
+                    )
+                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(self.segmentAttributes(for: index)!.backgroundColor!))
                     .onTapGesture {
                         if self.model.isEnable {
                             self.selectionDidChange(index: index)
                         }
                     }
-                    .background(SegmentPreferenceSetter())
-                    .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
             }
         }
         .padding(self.contentInset)
         .lineLimit(1)
         .background(HStackPreferenceSetter())
+    }
+    
+    func segmentAttributes(for index: Int) -> SegmentAttributes? {
+        let isSelected = self.model.selectedIndex == index
+        
+        return self.model.isEnable ? (isSelected ? self.model.segmentAttributes[.selected] : self.model.segmentAttributes[.normal]) : self.model.segmentAttributes[.disabled]
     }
     
     private var _segmentWidth: CGFloat? {
@@ -249,35 +262,6 @@ public struct DimensionSelector: View {
 }
 
 extension DimensionSelector {
-    struct Segment: View {
-        let title: String
-        
-        let isSelected: Bool
-        
-        let isEnable: Bool
-        
-        let cornerRadius: CGFloat
-        
-        let backgroundColor: Color
-        
-        let segmentAttributes: [ControlState: SegmentAttributes]
-        
-        let insets: EdgeInsets
-        
-        var body: some View {
-            Text(self.title)
-                .padding(insets)
-                .font(getSegmentAttributes()?.font)
-                .foregroundColor(getSegmentAttributes()?.textColor)
-                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).strokeBorder(getSegmentAttributes()!.borderColor!, lineWidth: getSegmentAttributes()!.borderWidth!, antialiased: true))
-                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(getSegmentAttributes()!.backgroundColor!))
-        }
-        
-        func getSegmentAttributes() -> SegmentAttributes? {
-            self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected] : self.segmentAttributes[.normal]) : self.segmentAttributes[.disabled]
-        }
-    }
-    
     class Model: ObservableObject {
         @Published var titles: [String] = []
         @Published var selectedIndex: Int?
@@ -340,12 +324,12 @@ extension DimensionSelector {
         
         func body(content: Content) -> some View {
             Group {
-                if segmentWidthMode == .equal {
+                if self.segmentWidthMode == .equal {
                     content.frame(minWidth: 0, maxWidth: .infinity)
-                } else if segmentWidthMode == .maximum {
-                    content.fixedSize().frame(width: width)
+                } else if self.segmentWidthMode == .maximum {
+                    content.fixedSize().frame(width: self.width)
                 } else {
-                    content.frame(width: width)
+                    content.frame(width: self.width)
                 }
             }
         }
