@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct OptionChip<LeftIcon: View, Title: View> {
+public struct FilterFeedbackBarButton<LeftIcon: View, Title: View> {
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
 	@Environment(\.optionListPickerStyle) var optionListPickerStyle
@@ -27,16 +27,16 @@ public struct OptionChip<LeftIcon: View, Title: View> {
 
     @ViewBuilder var leftIcon: some View {
         if isModelInit {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.OptionChip.leftIcon).concat(Fiori.OptionChip.leftIconCumulative))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarButton.leftIcon).concat(Fiori.FilterFeedbackBarButton.leftIconCumulative))
         } else {
-            _leftIcon.modifier(leftIconModifier.concat(Fiori.OptionChip.leftIcon))
+            _leftIcon.modifier(leftIconModifier.concat(Fiori.FilterFeedbackBarButton.leftIcon))
         }
     }
 	@ViewBuilder var title: some View {
         if isModelInit {
-            _title.modifier(titleModifier.concat(Fiori.OptionChip.title).concat(Fiori.OptionChip.titleCumulative))
+            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarButton.title).concat(Fiori.FilterFeedbackBarButton.titleCumulative))
         } else {
-            _title.modifier(titleModifier.concat(Fiori.OptionChip.title))
+            _title.modifier(titleModifier.concat(Fiori.FilterFeedbackBarButton.title))
         }
     }
     
@@ -45,10 +45,10 @@ public struct OptionChip<LeftIcon: View, Title: View> {
     }
 }
 
-extension OptionChip where LeftIcon == _ConditionalContent<Image, EmptyView>,
+extension FilterFeedbackBarButton where LeftIcon == _ConditionalContent<Image, EmptyView>,
 		Title == Text {
 
-    public init(model: OptionChipModel) {
+    public init(model: FilterFeedbackBarButtonModel) {
         self.init(leftIcon: model.leftIcon, title: model.title, isSelected: model.isSelected)
     }
 

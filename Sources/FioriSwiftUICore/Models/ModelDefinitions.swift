@@ -480,7 +480,7 @@ public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, R
 
 // sourcery: add_env_props = "optionListPickerStyle"
 // sourcery: generated_component_composite
-public protocol OptionChipModel: LeftIconComponent, TitleComponent {
+public protocol FilterFeedbackBarButtonModel: LeftIconComponent, TitleComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }

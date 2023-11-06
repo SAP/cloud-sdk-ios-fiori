@@ -2,7 +2,7 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension OptionChip where LeftIcon == EmptyView {
+extension FilterFeedbackBarButton where LeftIcon == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		isSelected: Bool

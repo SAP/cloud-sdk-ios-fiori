@@ -7,7 +7,7 @@ extension OptionListPickerItem: View {
         Grid(horizontalSpacing: 16) {
             ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0))) { rowIndex in
                 GridRow {
-                    OptionChip(
+                    FilterFeedbackBarButton(
                         leftIcon: _value.wrappedValue.contains(rowIndex * 2) ? Image(systemName: "checkmark") : nil,
                         title: _valueOptions[rowIndex * 2],
                         isSelected: _value.wrappedValue.contains(rowIndex * 2)
@@ -16,7 +16,7 @@ extension OptionListPickerItem: View {
                         _onTap?(rowIndex * 2)
                     }
                     if rowIndex * 2 + 1 < _valueOptions.count {
-                        OptionChip(
+                        FilterFeedbackBarButton(
                             leftIcon: _value.wrappedValue.contains(rowIndex * 2 + 1) ? Image(systemName: "checkmark") : nil,
                             title: _valueOptions[rowIndex * 2 + 1],
                             isSelected: _value.wrappedValue.contains(rowIndex * 2 + 1)
