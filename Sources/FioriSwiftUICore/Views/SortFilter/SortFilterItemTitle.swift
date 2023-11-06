@@ -26,5 +26,5 @@ struct SortFilterItemTitle: TitleComponent, View {
 }
 
 #Preview {
-    SortFilterItemTitle(title: /*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    SortFilterItemTitle(title: "My Title")
 }
