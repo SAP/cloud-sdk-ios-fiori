@@ -5,7 +5,7 @@ import SwiftUI
 public struct OptionChip<LeftIcon: View, Title: View> {
     @Environment(\.leftIconModifier) private var leftIconModifier
 	@Environment(\.titleModifier) private var titleModifier
-	@Environment(\.optionChipStyle) var optionChipStyle
+	@Environment(\.optionListPickerStyle) var optionChipStyle
 
     let _leftIcon: LeftIcon
 	let _title: Title

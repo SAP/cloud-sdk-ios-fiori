@@ -18,7 +18,7 @@ extension Fiori {
 
 extension OptionChip: View {
     public var body: some View {
-        optionChipStyle.makeBody(configuration: OptionChipConfiguration(leftIcon: AnyView(leftIcon), title: AnyView(title), isSelected: _isSelected))
+        optionChipStyle.makeBody(configuration: OptionListPickerButtonConfiguration(leftIcon: AnyView(leftIcon), title: AnyView(title), isSelected: _isSelected))
     }
 }
 
@@ -33,7 +33,8 @@ extension OptionChip: View {
  }
  */
 
-public struct OptionChipConfiguration {
+/// Option list picker configuration for styling
+public struct OptionListPickerButtonConfiguration {
     let leftIcon: AnyView
     let title: AnyView
     let isSelected: Bool
@@ -45,15 +46,17 @@ public struct OptionChipConfiguration {
     }
 }
 
-public protocol OptionChipStyle {
+/// Option list picker style
+public protocol OptionListPickerStyle {
     associatedtype Body = View
         
-    typealias Configuration = OptionChipConfiguration
+    typealias Configuration = OptionListPickerButtonConfiguration
     
     func makeBody(configuration: Self.Configuration) -> AnyView // Self.Body
 }
 
-public struct DefaultOptionChipStyle: OptionChipStyle {
+/// Default option list picker style
+public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     let font: Font
     let foregroundColorSelected: Color
     let foregroundColorUnselected: Color
@@ -104,29 +107,32 @@ public struct DefaultOptionChipStyle: OptionChipStyle {
     }
 }
 
-struct OptionChipStyleKey: EnvironmentKey {
-    static var defaultValue: any OptionChipStyle = DefaultOptionChipStyle()
+struct OptionListPickerStyleKey: EnvironmentKey {
+    static var defaultValue: any OptionListPickerStyle = DefaultOptionListPickerStyle()
 }
 
 extension EnvironmentValues {
-    var optionChipStyle: any OptionChipStyle {
+    var optionListPickerStyle: any OptionListPickerStyle {
         get {
-            self[OptionChipStyleKey.self]
+            self[OptionListPickerStyleKey.self]
         }
         set {
-            self[OptionChipStyleKey.self] = newValue
+            self[OptionListPickerStyleKey.self] = newValue
         }
     }
 }
 
+/// Experiemental option list picker styling
 public extension View {
-    func optionChipStyle<S>(_ style: S) -> some View where S: OptionChipStyle {
-        self.environment(\.optionChipStyle, style)
+    /// Experiemental option list picker styling
+    func optionListPickerStyle<S>(_ style: S) -> some View where S: OptionListPickerStyle {
+        self.environment(\.optionListPickerStyle, style)
     }
     
-    func optionChipStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44) -> some View {
-        self.environment(\.optionChipStyle,
-                         DefaultOptionChipStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, borderWidth: borderWidth, minHeight: minHeight))
+    /// Experiemental option list picker styling
+    func optionListPickerStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44) -> some View {
+        self.environment(\.optionListPickerStyle,
+                         DefaultOptionListPickerStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, borderWidth: borderWidth, minHeight: minHeight))
     }
 }
 
@@ -144,19 +150,19 @@ public extension View {
         Spacer()
         
         OptionChip(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: true)
-            .optionChipStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
+            .optionListPickerStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
         OptionChip(leftIcon: Image(systemName: "airplane"), title: "Air Plane", isSelected: false)
-            .optionChipStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+            .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
 
-            .optionChipStyle(cornerRadius: 16)
+            .optionListPickerStyle(cornerRadius: 16)
         OptionChip(title: "Ship", isSelected: true)
-            .optionChipStyle(fillColorSelected: .yellow)
+            .optionListPickerStyle(fillColorSelected: .yellow)
         OptionChip(title: "Ship", isSelected: false)
-            .optionChipStyle(fillColorUnselected: .gray)
+            .optionListPickerStyle(fillColorUnselected: .gray)
         OptionChip(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
-            .optionChipStyle(cornerRadius: 20)
+            .optionListPickerStyle(cornerRadius: 20)
         OptionChip(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
-            .optionChipStyle(cornerRadius: 20)
+            .optionListPickerStyle(cornerRadius: 20)
         
         Spacer()
     }

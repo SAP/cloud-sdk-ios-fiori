@@ -1,6 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
+/// Configuration for sort and filer menu item styling
 public struct SortFilterMenuItemConfiguration {
     let leftIcon: AnyView
     let title: AnyView
@@ -15,6 +16,7 @@ public struct SortFilterMenuItemConfiguration {
     }
 }
 
+/// Protocol for sort and filer menu item styling
 public protocol SortFilterMenuItemStyle {
     associatedtype Body = View
         
@@ -23,6 +25,7 @@ public protocol SortFilterMenuItemStyle {
     func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
+/// Default style for sort and filer menu item
 public struct DefaultSortFilterMenuItemStyle: SortFilterMenuItemStyle {
     let font: Font
     let foregroundColorSelected: Color
@@ -90,12 +93,13 @@ extension EnvironmentValues {
     }
 }
 
+/// Experimental filter feedback bar styling
 public extension View {
-    func sortFilterMenuItemStyle<S>(_ style: S) -> some View where S: SortFilterMenuItemStyle {
+    func filterFeedbackBarStyle<S>(_ style: S) -> some View where S: SortFilterMenuItemStyle {
         self.environment(\.sortFilterMenuItemStyle, style)
     }
     
-    func sortFilterMenuItemStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) -> some View {
+    func filterFeedbackBarStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) -> some View {
         self.environment(\.sortFilterMenuItemStyle,
                          DefaultSortFilterMenuItemStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight))
     }

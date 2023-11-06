@@ -31,8 +31,8 @@ struct SortFilterExample: View {
         VStack {
             if isCustomStyle {
                 FilterFeedbackBar(items: $items, onUpdate: performSortAndFilter)
-                    .sortFilterMenuItemStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
-                    .optionChipStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+                    .filterFeedbackBarStyle(font: .subheadline, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
+                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
 //                    .trailingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(icon: "command")
 //                    .leadingFullConfigurationMenuItem(name: "All")
@@ -71,7 +71,7 @@ struct SortFilterExample: View {
                         items: $items,
                         onUpdate: performSortAndFilter
                     )
-                    .optionChipStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+                    .optionListPickerStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
                 } else {
                     SortFilterView(
                         title: "Configuration",

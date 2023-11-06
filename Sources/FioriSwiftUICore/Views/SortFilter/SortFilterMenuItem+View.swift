@@ -443,19 +443,18 @@ struct FullCFGMenuItem: View {
         Spacer()
         
         FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .sortFilterMenuItemStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
+            .filterFeedbackBarStyle(font: .largeTitle, foregroundColorSelected: .red, strokeColorSelected: .red, cornerRadius: 25)
         FilterFeedbackBarItem(leftIcon: Image(systemName: "airplane"), title: "Air Plane", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .sortFilterMenuItemStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
-
-            .sortFilterMenuItemStyle(cornerRadius: 16)
+            .filterFeedbackBarStyle(font: .footnote, foregroundColorUnselected: .green, strokeColorSelected: .black)
+            .filterFeedbackBarStyle(cornerRadius: 16)
         FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: true)
-            .sortFilterMenuItemStyle(fillColorSelected: .yellow)
+            .filterFeedbackBarStyle(fillColorSelected: .yellow)
         FilterFeedbackBarItem(title: "Ship", rightIcon: Image(systemName: "chevron.down"), isSelected: false)
-            .sortFilterMenuItemStyle(fillColorUnselected: .gray)
+            .filterFeedbackBarStyle(fillColorUnselected: .gray)
         FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Blue Bus", isSelected: true)
-            .sortFilterMenuItemStyle(cornerRadius: 20)
+            .filterFeedbackBarStyle(cornerRadius: 20)
         FilterFeedbackBarItem(leftIcon: Image(systemName: "bus"), title: "Gray Bus", isSelected: false)
-            .sortFilterMenuItemStyle(cornerRadius: 20)
+            .filterFeedbackBarStyle(cornerRadius: 20)
 
         Spacer()
     }
