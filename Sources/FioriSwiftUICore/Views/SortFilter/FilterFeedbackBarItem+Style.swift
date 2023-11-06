@@ -20,6 +20,7 @@ public struct FilterFeedbackBarStyleConfiguration {
 public protocol FilterFeedbackBarStyle {
     typealias Configuration = FilterFeedbackBarStyleConfiguration
     
+    /// Build view according to configuration and style
     func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
@@ -38,6 +39,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     let borderWidth: CGFloat
     let minHeight: CGFloat
     
+    /// :nodoc:
     public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
@@ -53,6 +55,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
         self.minHeight = minHeight
     }
     
+    /// Build view according to configuration and style
     public func makeBody(configuration: Configuration) -> AnyView {
         AnyView(
             HStack(spacing: self.spacing) {
