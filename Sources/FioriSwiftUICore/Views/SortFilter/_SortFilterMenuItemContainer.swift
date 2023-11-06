@@ -59,13 +59,21 @@ struct SortFilterMenuItemFullConfigurationButtonKey: EnvironmentKey {
 
 /// Filter feedback bar item for displaying full configuration list
 public struct SortFilterMenuItemFullConfigurationButton {
+    /// Name/title of the button
     public let name: String?
+    /// SF icon name of the button
     public let icon: String?
+    /// Position of the button
     public let positon: Position
     
     /// Location of the button
     public enum Position {
-        case leading, trailing, none
+        /// Disaplay the button as the first one
+        case leading
+        /// Display the button as the last one
+        case trailing
+        /// No button displayed
+        case none
     }
     
     private init(name: String? = nil, icon: String? = nil, positon: Position) {
