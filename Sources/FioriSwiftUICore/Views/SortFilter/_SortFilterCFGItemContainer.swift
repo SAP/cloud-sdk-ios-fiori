@@ -18,6 +18,7 @@ public struct _SortFilterCFGItemContainer {
 }
 
 extension _SortFilterCFGItemContainer: View {
+    /// :nodoc:
     public var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 30) {

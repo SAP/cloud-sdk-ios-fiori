@@ -63,6 +63,7 @@ public struct SortFilterMenuItemFullConfigurationButton {
     public let icon: String?
     public let positon: Position
     
+    /// Location of the button
     public enum Position {
         case leading, trailing, none
     }
@@ -73,30 +74,37 @@ public struct SortFilterMenuItemFullConfigurationButton {
         self.positon = positon
     }
     
+    /// Place the button at the beginning
     public static func leading(name: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(name: name, positon: .leading)
     }
     
+    /// Place the button at the beginning
     public static func leading(icon: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(icon: icon, positon: .leading)
     }
     
+    /// Place the button at the beginning
     public static func leading(name: String, icon: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, positon: .leading)
     }
     
+    /// Place the button at the end
     public static func trailing(name: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(name: name, positon: .trailing)
     }
     
+    /// Place the button at the end
     public static func trailing(icon: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(icon: icon, positon: .trailing)
     }
     
+    /// Place the button at the end
     public static func trailing(name: String, icon: String) -> SortFilterMenuItemFullConfigurationButton {
         SortFilterMenuItemFullConfigurationButton(name: name, icon: icon, positon: .trailing)
     }
     
+    /// No button for full configuration
     static var none = SortFilterMenuItemFullConfigurationButton(positon: Position.none)
 }
 
@@ -113,26 +121,32 @@ extension EnvironmentValues {
 
 /// Experiemental feature for adding full list of configuraiton to filter feedback bar
 public extension View {
+    /// Place the button at the beginning
     func leadingFullConfigurationMenuItem(name: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .leading(name: name))
     }
     
+    /// Place the button at the beginning
     func leadingFullConfigurationMenuItem(icon: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .leading(icon: icon))
     }
     
+    /// Place the button at the beginning
     func leadingFullConfigurationMenuItem(name: String, icon: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .leading(name: name, icon: icon))
     }
     
+    /// Place the button at the end
     func trailingFullConfigurationMenuItem(name: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .trailing(name: name))
     }
     
+    /// Place the button at the end
     func trailingFullConfigurationMenuItem(icon: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .trailing(icon: icon))
     }
     
+    /// Place the button at the end
     func trailingFullConfigurationMenuItem(name: String, icon: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .trailing(name: name, icon: icon))
     }

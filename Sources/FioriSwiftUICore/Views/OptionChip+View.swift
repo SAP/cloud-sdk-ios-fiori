@@ -70,6 +70,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     let minHeight: CGFloat
     let minTouchHeight: CGFloat
     
+    /// :nodoc:
     public init(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 16, spacing: CGFloat = 6, borderWidth: CGFloat = 1, minHeight: CGFloat = 44, minTouchHeight: CGFloat = 56) {
         self.font = font
         self.foregroundColorSelected = foregroundColorSelected
@@ -85,6 +86,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
         self.minTouchHeight = minTouchHeight
     }
     
+    /// :nodoc:
     public func makeBody(configuration: Configuration) -> AnyView {
         AnyView(
             HStack(spacing: self.spacing) {
