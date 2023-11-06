@@ -17,19 +17,19 @@ extension View {
         }
     }
     
-    func json(item: PickerItem) -> String {
+    func json(item: SortFilterItem.PickerItem) -> String {
         "{name: \(item.name), value: \(item.value)}"
     }
 
-    func json(item: SliderItem) -> String {
+    func json(item: SortFilterItem.SliderItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
     }
     
-    func json(item: DateTimeItem) -> String {
+    func json(item: SortFilterItem.DateTimeItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
     }
     
-    func json(item: SwitchItem) -> String {
+    func json(item: SortFilterItem.SwitchItem) -> String {
         "{name: \(item.name), value: \(String(describing: item.value))}"
     }
 }

@@ -105,287 +105,6 @@ public enum SortFilterItem: Identifiable, Hashable {
     }
 }
 
-///  Data structure for filter feedback, option list picker,
-public struct PickerItem: Identifiable, Equatable {
-    public let id: String
-    public var name: String
-    public var value: [Int]
-    public var workingValue: [Int]
-    let originalValue: [Int]
-
-    var valueOptions: [String]
-    public let allowsMultipleSelection: Bool
-    public let allowsEmptySelection: Bool
-    public let icon: String?
-    
-    public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil) {
-        self.id = id
-        self.name = name
-        self.value = value
-        self.workingValue = value
-        self.originalValue = value
-        self.valueOptions = valueOptions
-        self.allowsMultipleSelection = allowsMultipleSelection
-        self.allowsEmptySelection = allowsEmptySelection
-        self.icon = icon
-    }
-    
-    mutating func onTap(option: String) {
-        guard let index = valueOptions.firstIndex(of: option) else { return }
-        if self.workingValue.contains(index) {
-            if self.workingValue.count > 1 {
-                self.workingValue = self.workingValue.filter { $0 != index }
-            } else {
-                if self.allowsEmptySelection {
-                    self.workingValue = []
-                } else {
-                    self.workingValue = index == 1 ? [0] : [1]
-                }
-            }
-        } else {
-            if self.allowsMultipleSelection {
-                self.workingValue.append(index)
-            } else {
-                self.workingValue = [index]
-            }
-        }
-    }
-    
-    mutating func optionOnTap(_ index: Int) {
-        if self.workingValue.contains(index) {
-            if self.workingValue.count > 1 {
-                self.workingValue = self.workingValue.filter { $0 != index }
-            } else {
-                if self.allowsEmptySelection {
-                    self.workingValue = []
-                } else {
-                    self.workingValue = index == 1 ? [0] : [1]
-                }
-            }
-        } else {
-            if self.allowsMultipleSelection {
-                self.workingValue.append(index)
-            } else {
-                self.workingValue = [index]
-            }
-        }
-    }
-    
-    mutating func cancel() {
-        self.workingValue = self.value.map { $0 }
-    }
-    
-    mutating func reset() {
-        self.workingValue = self.originalValue.map { $0 }
-    }
-
-    mutating func apply() {
-        self.value = self.workingValue.map { $0 }
-    }
-
-    func isOptionSelected(_ option: String) -> Bool {
-        guard let idx = valueOptions.firstIndex(of: option) else { return false }
-        return self.workingValue.contains(idx)
-    }
-    
-    func isOptionSelected(index: Int) -> Bool {
-        self.workingValue.contains(index)
-    }
-
-    var isChecked: Bool {
-        !self.value.isEmpty
-    }
-    
-    var label: String {
-        if allowsMultipleSelection && self.value.count >= 1 {
-            if self.value.count == 1 {
-                return valueOptions[value[0]]
-            } else {
-                return "\(self.name) (\(self.value.count))"
-            }
-        } else {
-            return self.name
-        }
-    }
-    
-    var isChanged: Bool {
-        self.value != self.workingValue
-    }
-    
-    var isOriginal: Bool {
-        self.workingValue == self.originalValue
-    }
-}
-
-/// Data structure for boolean type
-public struct SwitchItem: Identifiable, Equatable {
-    public var id: String
-    public var name: String
-    public var value: Bool?
-    var workingValue: Bool?
-    let originalValue: Bool?
-    public let icon: String?
-    public let hint: String?
-    
-    public init(id: String = UUID().uuidString, name: String, value: Bool?, icon: String? = nil, hint: String? = nil) {
-        self.id = id
-        self.name = name
-        self.value = value
-        self.workingValue = value
-        self.originalValue = value
-        self.icon = icon
-        self.hint = hint
-    }
-    
-    mutating func reset() {
-        self.workingValue = self.originalValue
-    }
-    
-    mutating func cancel() {
-        self.workingValue = self.value
-    }
-    
-    mutating func apply() {
-        self.value = self.workingValue
-    }
-
-    var isChecked: Bool {
-        self.value ?? false
-    }
-    
-    var isChanged: Bool {
-        self.value != self.workingValue
-    }
-    
-    var isOriginal: Bool {
-        self.workingValue == self.originalValue
-    }
-}
-
-///  Data structure for integer type slider
-public struct SliderItem: Identifiable, Equatable {
-    public let id: String
-    public var name: String
-    public var value: Int?
-    var workingValue: Int?
-    let originalValue: Int?
-    public let minimumValue: Int
-    public let maximumValue: Int
-    let formatter: String?
-    public let icon: String?
-    public let hint: String?
-    
-    public init(id: String = UUID().uuidString, name: String, value: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
-        self.id = id
-        self.name = name
-        self.value = value
-        self.workingValue = value
-        self.originalValue = value
-        self.minimumValue = minimumValue
-        self.maximumValue = maximumValue
-        self.formatter = formatter
-        self.icon = icon
-        self.hint = hint
-    }
-    
-    mutating func reset() {
-        self.workingValue = self.originalValue
-    }
-    
-    mutating func cancel() {
-        self.workingValue = self.value
-    }
-    
-    mutating func apply() {
-        self.value = self.workingValue
-    }
-    
-    var isChecked: Bool {
-        self.value != nil
-    }
-    
-    var label: String {
-        if let value = self.value {
-            return "\(name): \(value)"
-        }
-        return name
-    }
-    
-    mutating func setValue(newValue: SliderItem) {
-        self.value = newValue.value
-    }
-    
-    var isChanged: Bool {
-        self.value != self.workingValue
-    }
-    
-    var isOriginal: Bool {
-        self.workingValue == self.originalValue
-    }
-}
-
-/// Data structure for datetime data
-public struct DateTimeItem: Equatable, Hashable {
-    public let id: String
-    public var name: String
-    public var value: Date?
-    var workingValue: Date?
-    let originalValue: Date?
-    public var icon: String?
-    public let formatter: String?
-    
-    public init(id: String = UUID().uuidString, name: String, value: Date?, formatter: String? = nil, icon: String? = nil) {
-        self.id = id
-        self.name = name
-        self.value = value
-        self.workingValue = value
-        self.originalValue = value
-        self.formatter = formatter
-        self.icon = icon
-    }
-    
-    mutating func reset() {
-        self.workingValue = self.originalValue
-    }
-    
-    mutating func apply() {
-        self.value = self.workingValue
-    }
-    
-    mutating func cancel() {
-        self.workingValue = self.value
-    }
-    
-    var isChecked: Bool {
-        self.value != nil
-    }
-    
-    var label: String {
-        if let value = self.value {
-            if let format = self.formatter {
-                let formatter = DateFormatter()
-                formatter.dateFormat = format
-                return formatter.string(from: value)
-            } else {
-                let dateFormatter: DateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .long
-                dateFormatter.timeStyle = .short
-                return dateFormatter.string(from: value)
-            }
-        } else {
-            return self.name
-        }
-    }
-    
-    var isChanged: Bool {
-        self.value != self.workingValue
-    }
-    
-    var isOriginal: Bool {
-        self.workingValue == self.originalValue
-    }
-}
-
 extension SortFilterItem {
     var picker: PickerItem {
         get {
@@ -574,6 +293,289 @@ extension SortFilterItem {
         case .slider(var item, _):
             item.apply()
             self.slider = item
+        }
+    }
+}
+
+extension SortFilterItem {
+    ///  Data structure for filter feedback, option list picker,
+    public struct PickerItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var value: [Int]
+        public var workingValue: [Int]
+        let originalValue: [Int]
+        
+        var valueOptions: [String]
+        public let allowsMultipleSelection: Bool
+        public let allowsEmptySelection: Bool
+        public let icon: String?
+        
+        public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.valueOptions = valueOptions
+            self.allowsMultipleSelection = allowsMultipleSelection
+            self.allowsEmptySelection = allowsEmptySelection
+            self.icon = icon
+        }
+        
+        mutating func onTap(option: String) {
+            guard let index = valueOptions.firstIndex(of: option) else { return }
+            if self.workingValue.contains(index) {
+                if self.workingValue.count > 1 {
+                    self.workingValue = self.workingValue.filter { $0 != index }
+                } else {
+                    if self.allowsEmptySelection {
+                        self.workingValue = []
+                    } else {
+                        self.workingValue = index == 1 ? [0] : [1]
+                    }
+                }
+            } else {
+                if self.allowsMultipleSelection {
+                    self.workingValue.append(index)
+                } else {
+                    self.workingValue = [index]
+                }
+            }
+        }
+        
+        mutating func optionOnTap(_ index: Int) {
+            if self.workingValue.contains(index) {
+                if self.workingValue.count > 1 {
+                    self.workingValue = self.workingValue.filter { $0 != index }
+                } else {
+                    if self.allowsEmptySelection {
+                        self.workingValue = []
+                    } else {
+                        self.workingValue = index == 1 ? [0] : [1]
+                    }
+                }
+            } else {
+                if self.allowsMultipleSelection {
+                    self.workingValue.append(index)
+                } else {
+                    self.workingValue = [index]
+                }
+            }
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value.map { $0 }
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue.map { $0 }
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue.map { $0 }
+        }
+        
+        func isOptionSelected(_ option: String) -> Bool {
+            guard let idx = valueOptions.firstIndex(of: option) else { return false }
+            return self.workingValue.contains(idx)
+        }
+        
+        func isOptionSelected(index: Int) -> Bool {
+            self.workingValue.contains(index)
+        }
+        
+        var isChecked: Bool {
+            !self.value.isEmpty
+        }
+        
+        var label: String {
+            if allowsMultipleSelection && self.value.count >= 1 {
+                if self.value.count == 1 {
+                    return valueOptions[value[0]]
+                } else {
+                    return "\(self.name) (\(self.value.count))"
+                }
+            } else {
+                return self.name
+            }
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    /// Data structure for boolean type
+    public struct SwitchItem: Identifiable, Equatable {
+        public var id: String
+        public var name: String
+        public var value: Bool?
+        var workingValue: Bool?
+        let originalValue: Bool?
+        public let icon: String?
+        public let hint: String?
+        
+        public init(id: String = UUID().uuidString, name: String, value: Bool?, icon: String? = nil, hint: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.icon = icon
+            self.hint = hint
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        var isChecked: Bool {
+            self.value ?? false
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    ///  Data structure for integer type slider
+    public struct SliderItem: Identifiable, Equatable {
+        public let id: String
+        public var name: String
+        public var value: Int?
+        var workingValue: Int?
+        let originalValue: Int?
+        public let minimumValue: Int
+        public let maximumValue: Int
+        let formatter: String?
+        public let icon: String?
+        public let hint: String?
+        
+        public init(id: String = UUID().uuidString, name: String, value: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.minimumValue = minimumValue
+            self.maximumValue = maximumValue
+            self.formatter = formatter
+            self.icon = icon
+            self.hint = hint
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        var isChecked: Bool {
+            self.value != nil
+        }
+        
+        var label: String {
+            if let value = self.value {
+                return "\(name): \(value)"
+            }
+            return name
+        }
+        
+        mutating func setValue(newValue: SliderItem) {
+            self.value = newValue.value
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
+        }
+    }
+    
+    /// Data structure for datetime data
+    public struct DateTimeItem: Equatable, Hashable {
+        public let id: String
+        public var name: String
+        public var value: Date?
+        var workingValue: Date?
+        let originalValue: Date?
+        public var icon: String?
+        public let formatter: String?
+        
+        public init(id: String = UUID().uuidString, name: String, value: Date?, formatter: String? = nil, icon: String? = nil) {
+            self.id = id
+            self.name = name
+            self.value = value
+            self.workingValue = value
+            self.originalValue = value
+            self.formatter = formatter
+            self.icon = icon
+        }
+        
+        mutating func reset() {
+            self.workingValue = self.originalValue
+        }
+        
+        mutating func apply() {
+            self.value = self.workingValue
+        }
+        
+        mutating func cancel() {
+            self.workingValue = self.value
+        }
+        
+        var isChecked: Bool {
+            self.value != nil
+        }
+        
+        var label: String {
+            if let value = self.value {
+                if let format = self.formatter {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = format
+                    return formatter.string(from: value)
+                } else {
+                    let dateFormatter: DateFormatter = DateFormatter()
+                    dateFormatter.dateStyle = .long
+                    dateFormatter.timeStyle = .short
+                    return dateFormatter.string(from: value)
+                }
+            } else {
+                return self.name
+            }
+        }
+        
+        var isChanged: Bool {
+            self.value != self.workingValue
+        }
+        
+        var isOriginal: Bool {
+            self.workingValue == self.originalValue
         }
     }
 }

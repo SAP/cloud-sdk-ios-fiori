@@ -9,18 +9,6 @@ extension Fiori {
         typealias Title = EmptyModifier
         typealias TitleCumulative = EmptyModifier
 
-        // TODO: - substitute type-specific ViewModifier for EmptyModifier
-        /*
-             // replace `typealias Subtitle = EmptyModifier` with:
-
-             struct Subtitle: ViewModifier {
-                 func body(content: Content) -> some View {
-                     content
-                         .font(.body)
-                         .foregroundColor(.preferredColor(.primary3))
-                 }
-             }
-         */
         static let leftIcon = LeftIcon()
         static let title = Title()
         static let leftIconCumulative = LeftIconCumulative()

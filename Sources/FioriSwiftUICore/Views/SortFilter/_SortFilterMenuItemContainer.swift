@@ -29,15 +29,15 @@ extension _SortFilterMenuItemContainer: View {
                         if _items[r][c].showsOnFilterFeedbackBar {
                             switch _items[r][c] {
                             case .picker:
-                                PickerMenuItem(item: Binding<PickerItem>(get: { _items[r][c].picker }, set: { _items[r][c].picker = $0 }), onUpdate: onUpdate)
+                                PickerMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { _items[r][c].picker }, set: { _items[r][c].picker = $0 }), onUpdate: onUpdate)
                             case .filterfeedback:
-                                FilterFeedbackMenuItem(item: Binding<PickerItem>(get: { _items[r][c].filterfeedback }, set: { _items[r][c].filterfeedback = $0 }), onUpdate: onUpdate)
+                                FilterFeedbackMenuItem(item: Binding<SortFilterItem.PickerItem>(get: { _items[r][c].filterfeedback }, set: { _items[r][c].filterfeedback = $0 }), onUpdate: onUpdate)
                             case .switch:
-                                SwitchMenuItem(item: Binding<SwitchItem>(get: { _items[r][c].switch }, set: { _items[r][c].switch = $0 }), onUpdate: onUpdate)
+                                SwitchMenuItem(item: Binding<SortFilterItem.SwitchItem>(get: { _items[r][c].switch }, set: { _items[r][c].switch = $0 }), onUpdate: onUpdate)
                             case .slider:
-                                SliderMenuItem(item: Binding<SliderItem>(get: { _items[r][c].slider }, set: { _items[r][c].slider = $0 }), onUpdate: onUpdate)
+                                SliderMenuItem(item: Binding<SortFilterItem.SliderItem>(get: { _items[r][c].slider }, set: { _items[r][c].slider = $0 }), onUpdate: onUpdate)
                             case .datetime:
-                                DateTimeMenuItem(item: Binding<DateTimeItem>(get: { _items[r][c].datetime }, set: { _items[r][c].datetime = $0 }), onUpdate: onUpdate)
+                                DateTimeMenuItem(item: Binding<SortFilterItem.DateTimeItem>(get: { _items[r][c].datetime }, set: { _items[r][c].datetime = $0 }), onUpdate: onUpdate)
                             }
                         }
                     }

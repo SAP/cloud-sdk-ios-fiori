@@ -36,10 +36,10 @@ private extension View {
 }
 
 struct FilterFeedbackMenuItem: View {
-    @Binding var item: PickerItem
+    @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
     
-    public init(item: Binding<PickerItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -59,7 +59,7 @@ struct FilterFeedbackMenuItem: View {
 }
 
 struct SliderMenuItem: View {
-    @Binding var item: SliderItem
+    @Binding var item: SortFilterItem.SliderItem
 
     @State var isSheetVisible = false
 
@@ -67,7 +67,7 @@ struct SliderMenuItem: View {
 
     var onUpdate: () -> Void
     
-    public init(item: Binding<SliderItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<SortFilterItem.SliderItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -116,14 +116,14 @@ struct SliderMenuItem: View {
 }
 
 struct PickerMenuItem: View {
-    @Binding var item: PickerItem
+    @Binding var item: SortFilterItem.PickerItem
     var onUpdate: () -> Void
     
     @State var isSheetVisible = false
 
     @State var detentHeight: CGFloat = 0
     
-    public init(item: Binding<PickerItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<SortFilterItem.PickerItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -236,7 +236,7 @@ private struct ReadHeightModifier: ViewModifier {
 }
 
 struct DateTimeMenuItem: View {
-    @Binding private var item: DateTimeItem
+    @Binding private var item: SortFilterItem.DateTimeItem
     
     @State private var isSheetVisible: Bool = false
 
@@ -244,7 +244,7 @@ struct DateTimeMenuItem: View {
     
     var onUpdate: () -> Void
 
-    public init(item: Binding<DateTimeItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<SortFilterItem.DateTimeItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
@@ -317,14 +317,14 @@ struct DateTimeMenuItem: View {
 }
 
 struct SwitchMenuItem: View {
-    @Binding private var item: SwitchItem
+    @Binding private var item: SortFilterItem.SwitchItem
     
 //    @State var detentHeight: CGFloat = 0
     
 //    @State private var isSheetVisible: Bool = false
     var onUpdate: () -> Void
 
-    public init(item: Binding<SwitchItem>, onUpdate: @escaping () -> Void) {
+    public init(item: Binding<SortFilterItem.SwitchItem>, onUpdate: @escaping () -> Void) {
         self._item = item
         self.onUpdate = onUpdate
     }
