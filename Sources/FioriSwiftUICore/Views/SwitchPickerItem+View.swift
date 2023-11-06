@@ -23,6 +23,7 @@ private extension Binding {
     }
 }
 
+/// Experiemental Fiori switch/toggle style
 public struct FioriToggleStyle: ToggleStyle {
     @ScaledMetric var scale: CGFloat = 1
     
@@ -88,11 +89,11 @@ public struct FioriToggleStyle: ToggleStyle {
     }
 }
 
-public struct FioriToggleStyleKey: EnvironmentKey {
+struct FioriToggleStyleKey: EnvironmentKey {
     public static var defaultValue: any ToggleStyle = FioriToggleStyle()
 }
 
-public extension EnvironmentValues {
+extension EnvironmentValues {
     var fioriToggleStyle: any ToggleStyle {
         get {
             self[FioriToggleStyleKey.self]
