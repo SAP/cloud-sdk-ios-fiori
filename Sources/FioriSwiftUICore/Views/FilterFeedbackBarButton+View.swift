@@ -49,10 +49,8 @@ public struct OptionListPickerButtonConfiguration {
 
 /// Option list picker style
 public protocol OptionListPickerStyle {
-    typealias Configuration = OptionListPickerButtonConfiguration
-    
     /// :nodoc:
-    func makeBody(configuration: Self.Configuration) -> AnyView
+    func makeBody(configuration: OptionListPickerButtonConfiguration) -> AnyView
 }
 
 /// Default option list picker style
@@ -87,7 +85,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
     }
     
     /// :nodoc:
-    public func makeBody(configuration: Configuration) -> AnyView {
+    public func makeBody(configuration: OptionListPickerButtonConfiguration) -> AnyView {
         AnyView(
             HStack(spacing: self.spacing) {
                 configuration.leftIcon
