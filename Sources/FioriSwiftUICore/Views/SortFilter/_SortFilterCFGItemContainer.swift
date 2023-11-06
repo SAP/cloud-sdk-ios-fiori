@@ -6,6 +6,7 @@
 import SwiftUI
 import FioriThemeManager
 
+/// :nodoc:
 public struct _SortFilterCFGItemContainer {
     @EnvironmentObject var context: SortFilterContext
 

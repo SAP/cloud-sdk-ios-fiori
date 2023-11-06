@@ -95,10 +95,12 @@ extension EnvironmentValues {
 
 /// Experimental filter feedback bar styling
 public extension View {
+    /// Experimental filter feedback bar styling
     func filterFeedbackBarStyle<S>(_ style: S) -> some View where S: SortFilterMenuItemStyle {
         self.environment(\.sortFilterMenuItemStyle, style)
     }
     
+    /// Experimental filter feedback bar styling
     func filterFeedbackBarStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) -> some View {
         self.environment(\.sortFilterMenuItemStyle,
                          DefaultSortFilterMenuItemStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight))

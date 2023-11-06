@@ -6,6 +6,7 @@
 //
 import SwiftUI
 
+/// :nodoc:
 public struct _SortFilterMenuItemContainer {
     @Environment(\.onModelUpdateAppCallback) var onUpdate: () -> Void
 //    @Environment(\.cancelActionView) var _cancelAction
@@ -52,10 +53,11 @@ extension _SortFilterMenuItemContainer: View {
     }
 }
 
-public struct SortFilterMenuItemFullConfigurationButtonKey: EnvironmentKey {
+struct SortFilterMenuItemFullConfigurationButtonKey: EnvironmentKey {
     public static var defaultValue: SortFilterMenuItemFullConfigurationButton = .none
 }
 
+/// Filter feedback bar item for displaying full configuration list
 public struct SortFilterMenuItemFullConfigurationButton {
     public let name: String?
     public let icon: String?
@@ -98,7 +100,7 @@ public struct SortFilterMenuItemFullConfigurationButton {
     static var none = SortFilterMenuItemFullConfigurationButton(positon: Position.none)
 }
 
-public extension EnvironmentValues {
+extension EnvironmentValues {
     var sortFilterMenuItemFullConfigurationButton: SortFilterMenuItemFullConfigurationButton {
         get {
             self[SortFilterMenuItemFullConfigurationButtonKey.self]
@@ -109,6 +111,7 @@ public extension EnvironmentValues {
     }
 }
 
+/// Experiemental feature for adding full list of configuraiton to filter feedback bar
 public extension View {
     func leadingFullConfigurationMenuItem(name: String) -> some View {
         self.environment(\.sortFilterMenuItemFullConfigurationButton, .leading(name: name))

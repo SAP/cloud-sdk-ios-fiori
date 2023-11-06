@@ -13,7 +13,7 @@ extension Fiori {
 extension FilterFeedbackBar: View {
     public var body: some View {
         items
-            .onModelUpdateAppCallback(_onUpdate!)
+            .onModelUpdateAppCallback(_onUpdate ?? {})
     }
 }
 

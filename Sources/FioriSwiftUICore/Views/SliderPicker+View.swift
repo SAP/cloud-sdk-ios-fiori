@@ -76,7 +76,7 @@ private extension SliderPicker {
         case .footnote:
             uiFont = UIFont.preferredFont(forTextStyle: .footnote)
         case .body:
-            fallthrough
+            uiFont = UIFont.preferredFont(forTextStyle: .body)
         default:
             uiFont = UIFont.preferredFont(forTextStyle: .body)
         }
