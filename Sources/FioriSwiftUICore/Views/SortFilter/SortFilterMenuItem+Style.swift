@@ -1,8 +1,8 @@
 import FioriThemeManager
 import SwiftUI
 
-/// Configuration for sort and filer menu item styling
-public struct SortFilterMenuItemConfiguration {
+/// Configuration for filter feedback bar styling
+public struct FilterFeedbackBarStyleConfiguration {
     let leftIcon: AnyView
     let title: AnyView
     let isSelected: Bool
@@ -17,16 +17,14 @@ public struct SortFilterMenuItemConfiguration {
 }
 
 /// Protocol for sort and filer menu item styling
-public protocol SortFilterMenuItemStyle {
-    associatedtype Body = View
-        
-    typealias Configuration = SortFilterMenuItemConfiguration
+public protocol FilterFeedbackBarStyle {
+    typealias Configuration = FilterFeedbackBarStyleConfiguration
     
     func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
 /// Default style for sort and filer menu item
-public struct DefaultSortFilterMenuItemStyle: SortFilterMenuItemStyle {
+public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     let font: Font
     let foregroundColorSelected: Color
     let foregroundColorUnselected: Color
@@ -78,17 +76,17 @@ public struct DefaultSortFilterMenuItemStyle: SortFilterMenuItemStyle {
     }
 }
 
-struct SortFilterMenuItemStyleKey: EnvironmentKey {
-    static var defaultValue: any SortFilterMenuItemStyle = DefaultSortFilterMenuItemStyle()
+struct FilterFeedbackBarStyleKey: EnvironmentKey {    
+    static var defaultValue: any FilterFeedbackBarStyle = DefaultFilterFeedbackBarStyle()
 }
 
 extension EnvironmentValues {
-    var sortFilterMenuItemStyle: any SortFilterMenuItemStyle {
+    var filterFeedbackBarStyle: any FilterFeedbackBarStyle {
         get {
-            self[SortFilterMenuItemStyleKey.self]
+            self[FilterFeedbackBarStyleKey.self]
         }
         set {
-            self[SortFilterMenuItemStyleKey.self] = newValue
+            self[FilterFeedbackBarStyleKey.self] = newValue
         }
     }
 }
@@ -96,13 +94,13 @@ extension EnvironmentValues {
 /// Experimental filter feedback bar styling
 public extension View {
     /// Experimental filter feedback bar styling
-    func filterFeedbackBarStyle<S>(_ style: S) -> some View where S: SortFilterMenuItemStyle {
-        self.environment(\.sortFilterMenuItemStyle, style)
+    func filterFeedbackBarStyle<S>(_ style: S) -> some View where S: FilterFeedbackBarStyle {
+        self.environment(\.filterFeedbackBarStyle, style)
     }
     
     /// Experimental filter feedback bar styling
     func filterFeedbackBarStyle(font: Font = .system(.body), foregroundColorSelected: Color = .preferredColor(.tintColor), foregroundColorUnselected: Color = .preferredColor(.tertiaryLabel), fillColorSelected: Color = .preferredColor(.primaryFill), fillColorUnselected: Color = .preferredColor(.secondaryFill), strokeColorSelected: Color = .preferredColor(.tintColor), strokeColorUnselected: Color = .preferredColor(.separator), cornerRadius: CGFloat = 10, spacing: CGFloat = 6, padding: CGFloat = 8, borderWidth: CGFloat = 1, minHeight: CGFloat = 38) -> some View {
-        self.environment(\.sortFilterMenuItemStyle,
-                         DefaultSortFilterMenuItemStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight))
+        self.environment(\.filterFeedbackBarStyle,
+                         DefaultFilterFeedbackBarStyle(font: font, foregroundColorSelected: foregroundColorSelected, foregroundColorUnselected: foregroundColorUnselected, fillColorSelected: fillColorSelected, fillColorUnselected: fillColorUnselected, strokeColorSelected: strokeColorSelected, strokeColorUnselected: strokeColorUnselected, cornerRadius: cornerRadius, spacing: spacing, padding: padding, borderWidth: borderWidth, minHeight: minHeight))
     }
 }

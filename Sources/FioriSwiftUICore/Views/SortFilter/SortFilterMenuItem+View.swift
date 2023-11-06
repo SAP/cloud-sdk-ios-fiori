@@ -20,7 +20,7 @@ extension Fiori {
 
 extension FilterFeedbackBarItem: View {
     public var body: some View {
-        sortFilterMenuItemStyle.makeBody(configuration: SortFilterMenuItemConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
+        filterFeedbackBarStyle.makeBody(configuration: FilterFeedbackBarStyleConfiguration(leftIcon: AnyView(_leftIcon), title: AnyView(_title), isSelected: _isSelected, rightIcon: AnyView(_rightIcon))).typeErased
     }
 }
 
@@ -101,7 +101,7 @@ struct SliderMenuItem: View {
                     .buttonStyle(ApplyButtonStyle())
 
                 } components: {
-                    SliderPicker(value: Binding<Int?>(get: { item.workingValue }, set: { item.workingValue = $0 }), formatter: item.formatter, minimumValue: item.minimumValue, maximumValue: item.maximumValue)
+                    SliderPickerItem(value: Binding<Int?>(get: { item.workingValue }, set: { item.workingValue = $0 }), formatter: item.formatter, minimumValue: item.minimumValue, maximumValue: item.maximumValue)
                         .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
                 }
                 .readHeight()
@@ -165,7 +165,7 @@ struct PickerMenuItem: View {
                     })
                     .buttonStyle(ApplyButtonStyle())
                 } components: {
-                    OptionListPicker(value: $item.workingValue, valueOptions: item.valueOptions, hint: nil) { index in
+                    OptionListPickerItem(value: $item.workingValue, valueOptions: item.valueOptions, hint: nil) { index in
                         item.onTap(option: item.valueOptions[index])
                     }
                     .padding([.leading, .trailing], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)

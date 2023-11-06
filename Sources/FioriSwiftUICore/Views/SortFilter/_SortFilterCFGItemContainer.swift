@@ -106,7 +106,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            OptionListPicker(
+            OptionListPickerItem(
                 value: Binding<[Int]>(get: { _items[r][c].picker.workingValue }, set: { _items[r][c].picker.workingValue = $0 }),
                 valueOptions: _items[r][c].picker.valueOptions,
                 onTap: { index in
@@ -124,7 +124,7 @@ extension _SortFilterCFGItemContainer: View {
                     .foregroundColor(Color.preferredColor(.primaryLabel))
                 Spacer()
             }
-            OptionListPicker(
+            OptionListPickerItem(
                 value: Binding<[Int]>(get: { _items[r][c].filterfeedback.workingValue }, set: { _items[r][c].filterfeedback.workingValue = $0 }),
                 valueOptions: _items[r][c].filterfeedback.valueOptions,
                 onTap: { index in
@@ -136,7 +136,7 @@ extension _SortFilterCFGItemContainer: View {
     
     func switcher(row r: Int, column c: Int) -> some View {
         VStack {
-            SwitchPicker(value: Binding<Bool?>(get: { _items[r][c].switch.workingValue }, set: { _items[r][c].switch.workingValue = $0 }), name: _items[r][c].switch.name, hint: nil)
+            SwitchPickerItem(value: Binding<Bool?>(get: { _items[r][c].switch.workingValue }, set: { _items[r][c].switch.workingValue = $0 }), name: _items[r][c].switch.name, hint: nil)
         }
     }
     
@@ -147,7 +147,7 @@ extension _SortFilterCFGItemContainer: View {
                     .font(.headline)
                 Spacer()
             }
-            SliderPicker(
+            SliderPickerItem(
                 value: Binding<Int?>(get: { _items[r][c].slider.workingValue }, set: { _items[r][c].slider.workingValue = $0 }),
                 formatter: _items[r][c].slider.formatter,
                 minimumValue: _items[r][c].slider.minimumValue,

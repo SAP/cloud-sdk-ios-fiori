@@ -23,8 +23,8 @@ public struct UserConsentForm<NextActionView: View, CancelActionView: View, Allo
 	let _didAllow: (() -> Void)?
 	let _didDeny: ((Bool) -> Void)?
 	let _didCancel: (() -> Void)?
-	@State var _pageIndex = 0
 	@State var _showAlert: (Bool, UserConsentAlertType) = (false, .deny)
+	@State var _pageIndex = 0
 
     private var isModelInit: Bool = false
 	private var isNextActionNil: Bool = false

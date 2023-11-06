@@ -18,7 +18,7 @@ extension Fiori {
 
 extension OptionChip: View {
     public var body: some View {
-        optionChipStyle.makeBody(configuration: OptionListPickerButtonConfiguration(leftIcon: AnyView(leftIcon), title: AnyView(title), isSelected: _isSelected))
+        optionListPickerStyle.makeBody(configuration: OptionListPickerButtonConfiguration(leftIcon: AnyView(leftIcon), title: AnyView(title), isSelected: _isSelected))
     }
 }
 
@@ -39,6 +39,7 @@ public struct OptionListPickerButtonConfiguration {
     let title: AnyView
     let isSelected: Bool
     
+    /// :nodoc:
     public init(leftIcon: AnyView, title: AnyView, isSelected: Bool) {
         self.leftIcon = leftIcon
         self.title = title
@@ -48,11 +49,10 @@ public struct OptionListPickerButtonConfiguration {
 
 /// Option list picker style
 public protocol OptionListPickerStyle {
-    associatedtype Body = View
-        
     typealias Configuration = OptionListPickerButtonConfiguration
     
-    func makeBody(configuration: Self.Configuration) -> AnyView // Self.Body
+    /// :nodoc:
+    func makeBody(configuration: Self.Configuration) -> AnyView
 }
 
 /// Default option list picker style

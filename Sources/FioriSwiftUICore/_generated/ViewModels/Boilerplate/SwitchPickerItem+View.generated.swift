@@ -1,7 +1,7 @@
 // Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
-//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SwitchPicker+View.swift`
-//TODO: Implement SwitchPicker `View` body
+//TODO: Copy commented code to new file: `FioriSwiftUICore/Views/SwitchPickerItem+View.swift`
+//TODO: Implement SwitchPickerItem `View` body
 
 /// - Important: to make `@Environment` properties (e.g. `horizontalSizeClass`), internally accessible
 /// to extensions, add as sourcery annotation in `FioriSwiftUICore/Models/ModelDefinitions.swift`
@@ -13,21 +13,21 @@ import SwiftUI
 
 // FIXME: - Implement Fiori style definitions
 
-// FIXME: - Implement SwitchPicker View body
+// FIXME: - Implement SwitchPickerItem View body
 
-extension SwitchPicker: View {
+extension SwitchPickerItem: View {
     public var body: some View {
         <# View body #>
     }
 }
 
-// FIXME: - Implement SwitchPicker specific LibraryContentProvider
+// FIXME: - Implement SwitchPickerItem specific LibraryContentProvider
 
 @available(iOS 14.0, macOS 11.0, *)
-struct SwitchPickerLibraryContent: LibraryContentProvider {
+struct SwitchPickerItemLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(SwitchPicker(model: LibraryPreviewData.Person.laurelosborn),
+        LibraryItem(SwitchPickerItem(model: LibraryPreviewData.Person.laurelosborn),
                     category: .control)
     }
 }

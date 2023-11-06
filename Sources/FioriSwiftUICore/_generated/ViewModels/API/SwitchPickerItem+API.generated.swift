@@ -2,15 +2,15 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SwitchPicker {
+public struct SwitchPickerItem {
     @Environment(\.fioriToggleStyle) var fioriToggleStyle
-	@Environment(\.sortFilterMenuItemStyle) var sortFilterMenuItemStyle
+	@Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
 
     var _value: Binding<Bool?>
 	var _name: String? = nil
 	var _hint: String? = nil
 	
-    public init(model: SwitchPickerModel) {
+    public init(model: SwitchPickerItemModel) {
         self.init(value: Binding<Bool?>(get: { model.value }, set: { model.value = $0 }), name: model.name, hint: model.hint)
     }
 

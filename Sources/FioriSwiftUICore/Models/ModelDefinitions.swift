@@ -470,7 +470,7 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
     var onUpdate: (() -> Void)? { get }
 }
 
-// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: virtualPropActionHelper = "@StateObject var context: SortFilterContext = SortFilterContext()"
 // sourcery: generated_component_composite
 public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, RightIconComponent {
@@ -478,26 +478,26 @@ public protocol FilterFeedbackBarItemModel: LeftIconComponent, TitleComponent, R
     var isSelected: Bool { get }
 }
 
-// sourcery: add_env_props = "optionChipStyle"
+// sourcery: add_env_props = "optionListPickerStyle"
 // sourcery: generated_component_composite
 public protocol OptionChipModel: LeftIconComponent, TitleComponent {
     // sourcery: no_view
     var isSelected: Bool { get }
 }
 
-// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
-public protocol OptionListPickerModel: OptionListPickerComponent {
+public protocol OptionListPickerItemModel: OptionListPickerComponent {
     // sourcery: default.value = nil
     // sourcery: no_view
     var onTap: ((_ index: Int) -> Void)? { get }
 }
 
-// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
 // sourcery: add_env_props = "fioriToggleStyle"
-public protocol SwitchPickerModel: SwitchPickerComponent {}
+public protocol SwitchPickerItemModel: SwitchPickerComponent {}
 
-// sourcery: add_env_props = "sortFilterMenuItemStyle"
+// sourcery: add_env_props = "filterFeedbackBarStyle"
 // sourcery: generated_component_not_configurable
-public protocol SliderPickerModel: SliderPickerComponent {}
+public protocol SliderPickerItemModel: SliderPickerComponent {}

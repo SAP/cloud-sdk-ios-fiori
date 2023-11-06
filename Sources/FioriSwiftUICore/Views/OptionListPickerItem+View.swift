@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-extension OptionListPicker: View {
+extension OptionListPickerItem: View {
     public var body: some View {
         Grid(horizontalSpacing: 16) {
             ForEach(0 ..< Int(ceil(Double(_valueOptions.count) / 2.0))) { rowIndex in
@@ -45,10 +45,10 @@ extension OptionListPicker: View {
 #Preview {
     VStack {
         Spacer()
-        OptionListPicker(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], hint: nil)
+        OptionListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], hint: nil)
             .frame(width: 375)
         Spacer()
-        OptionListPicker(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], hint: nil)
+        OptionListPickerItem(value: Binding<[Int]>(get: { [0, 1, 2] }, set: { print($0) }), valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], hint: nil)
             .optionListPickerStyle(font: .title, foregroundColorSelected: Color.red, strokeColorSelected: Color.red, cornerRadius: 25)
             .frame(width: 375)
         Spacer()

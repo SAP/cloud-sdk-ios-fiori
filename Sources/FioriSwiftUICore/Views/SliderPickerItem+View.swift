@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension SliderPicker: View {
+extension SliderPickerItem: View {
     public var body: some View {
         VStack {
             HStack {
@@ -40,7 +40,7 @@ extension SliderPicker: View {
     }
 }
 
-private extension SliderPicker {
+private extension SliderPickerItem {
     func calcWidth(font: Font) -> CGFloat {
         var width: CGFloat = 0
         for i in 0 ... 9 {
@@ -145,7 +145,7 @@ private struct SliderPickeTestView: View {
                     .foregroundColor(value1 != nil ? .blue : .gray)
                 Spacer()
             }
-            SliderPicker(value: Binding<Int?>(
+            SliderPickerItem(value: Binding<Int?>(
                 get: {
                     value1
                 },
@@ -162,7 +162,7 @@ private struct SliderPickeTestView: View {
                 Spacer()
             }
 
-            SliderPicker(value: Binding<Int?>(
+            SliderPickerItem(value: Binding<Int?>(
                 get: {
                     value2
                 },
@@ -178,7 +178,7 @@ private struct SliderPickeTestView: View {
 
                 Spacer()
             }
-            SliderPicker(value: Binding<Int?>(
+            SliderPickerItem(value: Binding<Int?>(
                 get: {
                     value3
                 },

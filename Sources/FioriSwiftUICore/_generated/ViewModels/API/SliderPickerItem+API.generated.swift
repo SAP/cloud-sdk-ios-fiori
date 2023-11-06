@@ -2,8 +2,8 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct SliderPicker {
-    @Environment(\.sortFilterMenuItemStyle) var sortFilterMenuItemStyle
+public struct SliderPickerItem {
+    @Environment(\.filterFeedbackBarStyle) var filterFeedbackBarStyle
 
     var _value: Binding<Int?>
 	var _formatter: String? = nil
@@ -11,7 +11,7 @@ public struct SliderPicker {
 	var _maximumValue: Int
 	var _hint: String? = nil
 	
-    public init(model: SliderPickerModel) {
+    public init(model: SliderPickerItemModel) {
         self.init(value: Binding<Int?>(get: { model.value }, set: { model.value = $0 }), formatter: model.formatter, minimumValue: model.minimumValue, maximumValue: model.maximumValue, hint: model.hint)
     }
 
