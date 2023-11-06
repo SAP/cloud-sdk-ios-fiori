@@ -35,8 +35,6 @@ extension OptionChip: View {
 }
 
 /*
- // FIXME: - Implement OptionChip specific LibraryContentProvider
-
  @available(iOS 14.0, macOS 11.0, *)
  struct OptionChipLibraryContent: LibraryContentProvider {
      @LibraryContentBuilder

@@ -3,6 +3,7 @@ import UIKit
 
 /// UI control types supporeted by Sort and Filter configuraiton
 public enum SortFilterItem: Identifiable, Hashable {
+    /// :nodoc:
     public var id: String {
         switch self {
         case .picker(let item, _):
@@ -24,7 +25,7 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// or a popover containing a collection of selectable buttons when the number of selectable options is greater than 7.
     ///
     /// 2. A section of view containing a collection of selectable buttons 
-    case picker(item: PickerItem, isShownOnMenu: Bool)
+    case picker(item: PickerItem, showsOnFilterFeedbackBar: Bool)
     
     /// The type of UI control is used to buid:
     ///
@@ -41,37 +42,38 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 1. Sort & Filter's menu item to be toggled between selected and unselected states
     ///
     /// 2. A section of view containing a SwiftUI Toggle with Fiori style
-    case `switch`(item: SwitchItem, isShownOnMenu: Bool)
+    case `switch`(item: SwitchItem, showsOnFilterFeedbackBar: Bool)
     
     /// The type of UI control is used to buid:
     ///
     /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Toggle with Fiori style
     ///
     /// 2. A section of view containing a SwiftUI Toggle with Fiori style
-    case slider(item: SliderItem, isShownOnMenu: Bool)
+    case slider(item: SliderItem, showsOnFilterFeedbackBar: Bool)
     
     /// The type of UI control is used to buid:
     ///
     /// 1. Sort & Filter's menu item associated with a popover containing a SwiftUI Canlendar
     ///
     /// 2. A section of view containing a SwiftUI Canlendar
-    case datetime(item: DateTimeItem, isShownOnMenu: Bool)
+    case datetime(item: DateTimeItem, showsOnFilterFeedbackBar: Bool)
     
-    public var isShownOnMenu: Bool {
+    public var showsOnFilterFeedbackBar: Bool {
         switch self {
-        case .picker(_, let isShownOnMenu):
-            return isShownOnMenu
+        case .picker(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
         case .filterfeedback:
             return true
-        case .switch(_, let isShownOnMenu):
-            return isShownOnMenu
-        case .slider(_, let isShownOnMenu):
-            return isShownOnMenu
-        case .datetime(_, let isShownOnMenu):
-            return isShownOnMenu
+        case .switch(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .slider(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
+        case .datetime(_, let showsOnFilterFeedbackBar):
+            return showsOnFilterFeedbackBar
         }
     }
     
+    /// :nodoc:
     public func hash(into hasher: inout Hasher) {
         switch self {
         case .picker(let item, _):
@@ -103,12 +105,10 @@ public enum SortFilterItem: Identifiable, Hashable {
     }
 }
 
-///  (value: [Int], valueOptions: [String], keyName: String?, allowsMultipleSelection: Bool, allowsEmptySelection: Bool)
+///  Data structure for filter feedback, option list picker,
 public struct PickerItem: Identifiable, Equatable {
-    public var id = UUID().uuidString
-    
+    public let id: String
     public var name: String
-
     public var value: [Int]
     public var workingValue: [Int]
     let originalValue: [Int]
@@ -118,12 +118,13 @@ public struct PickerItem: Identifiable, Equatable {
     public let allowsEmptySelection: Bool
     public let icon: String?
     
-    public init(value: [Int], valueOptions: [String], name: String, allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil) {
+    public init(id: String = UUID().uuidString, name: String, value: [Int], valueOptions: [String], allowsMultipleSelection: Bool, allowsEmptySelection: Bool, icon: String? = nil) {
+        self.id = id
+        self.name = name
         self.value = value
         self.workingValue = value
         self.originalValue = value
         self.valueOptions = valueOptions
-        self.name = name
         self.allowsMultipleSelection = allowsMultipleSelection
         self.allowsEmptySelection = allowsEmptySelection
         self.icon = icon
@@ -216,10 +217,9 @@ public struct PickerItem: Identifiable, Equatable {
     }
 }
 
-/// (value: Bool, keyName: String)
+/// Data structure for boolean type
 public struct SwitchItem: Identifiable, Equatable {
-    public var id = UUID().uuidString
-    
+    public var id: String
     public var name: String
     public var value: Bool?
     var workingValue: Bool?
@@ -262,12 +262,10 @@ public struct SwitchItem: Identifiable, Equatable {
     }
 }
 
-///   (value: Float, minimumValue: Float, maximumValue: Float, keyName: String?)
+///  Data structure for integer type slider
 public struct SliderItem: Identifiable, Equatable {
-    public var id = UUID().uuidString
-    
+    public let id: String
     public var name: String
-    
     public var value: Int?
     var workingValue: Int?
     let originalValue: Int?
@@ -277,13 +275,14 @@ public struct SliderItem: Identifiable, Equatable {
     public let icon: String?
     public let hint: String?
     
-    public init(value: Int? = nil, minimumValue: Int, maximumValue: Int, name: String, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+    public init(id: String = UUID().uuidString, name: String, value: Int? = nil, minimumValue: Int, maximumValue: Int, formatter: String? = nil, icon: String? = nil, hint: String? = nil) {
+        self.id = id
+        self.name = name
         self.value = value
         self.workingValue = value
         self.originalValue = value
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
-        self.name = name
         self.formatter = formatter
         self.icon = icon
         self.hint = hint
@@ -325,9 +324,9 @@ public struct SliderItem: Identifiable, Equatable {
     }
 }
 
+/// Data structure for datetime data
 public struct DateTimeItem: Equatable, Hashable {
-    public let id = UUID().uuidString
-    
+    public let id: String
     public var name: String
     public var value: Date?
     var workingValue: Date?
@@ -335,11 +334,12 @@ public struct DateTimeItem: Equatable, Hashable {
     public var icon: String?
     public let formatter: String?
     
-    public init(value: Date?, name: String, formatter: String? = nil, icon: String? = nil) {
+    public init(id: String = UUID().uuidString, name: String, value: Date?, formatter: String? = nil, icon: String? = nil) {
+        self.id = id
+        self.name = name
         self.value = value
         self.workingValue = value
         self.originalValue = value
-        self.name = name
         self.formatter = formatter
         self.icon = icon
     }
@@ -399,8 +399,8 @@ extension SortFilterItem {
         
         set {
             switch self {
-            case .picker(_, let isShownOnMenu):
-                self = .picker(item: newValue, isShownOnMenu: isShownOnMenu)
+            case .picker(_, let showsOnFilterFeedbackBar):
+                self = .picker(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
             default:
                 fatalError("Unexpected value \(self)")
             }
@@ -439,8 +439,8 @@ extension SortFilterItem {
         
         set {
             switch self {
-            case .slider(_, let isShownOnMenu):
-                self = .slider(item: newValue, isShownOnMenu: isShownOnMenu)
+            case .slider(_, let showsOnFilterFeedbackBar):
+                self = .slider(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
             default:
                 fatalError("Unexpected value \(self)")
             }
@@ -459,8 +459,8 @@ extension SortFilterItem {
         
         set {
             switch self {
-            case .datetime(_, let isShownOnMenu):
-                self = .datetime(item: newValue, isShownOnMenu: isShownOnMenu)
+            case .datetime(_, let showsOnFilterFeedbackBar):
+                self = .datetime(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
             default:
                 fatalError("Unexpected value \(self)")
             }
@@ -479,15 +479,15 @@ extension SortFilterItem {
         
         set {
             switch self {
-            case .switch(_, let isShownOnMenu):
-                self = .switch(item: newValue, isShownOnMenu: isShownOnMenu)
+            case .switch(_, let showsOnFilterFeedbackBar):
+                self = .switch(item: newValue, showsOnFilterFeedbackBar: showsOnFilterFeedbackBar)
             default:
                 fatalError("Unexpected value \(self)")
             }
         }
     }
     
-    public var isChanged: Bool {
+    var isChanged: Bool {
         switch self {
         case .picker(let item, _):
             return item.isChanged
@@ -502,7 +502,7 @@ extension SortFilterItem {
         }
     }
     
-    public var isOriginal: Bool {
+    var isOriginal: Bool {
         switch self {
         case .picker(let item, _):
             return item.isOriginal
@@ -517,7 +517,7 @@ extension SortFilterItem {
         }
     }
     
-    public mutating func cancel() {
+    mutating func cancel() {
         switch self {
         case .picker(var item, _):
             item.cancel()
@@ -537,7 +537,7 @@ extension SortFilterItem {
         }
     }
     
-    public mutating func reset() {
+    mutating func reset() {
         switch self {
         case .picker(var item, _):
             item.reset()
@@ -557,7 +557,7 @@ extension SortFilterItem {
         }
     }
     
-    public mutating func apply() {
+    mutating func apply() {
         switch self {
         case .picker(var item, _):
             item.apply()
@@ -577,8 +577,3 @@ extension SortFilterItem {
         }
     }
 }
-
-/*
- Notes:
- c. to resolve: keyName should not be nillable for menu item, but it can be nil for sheet
- */

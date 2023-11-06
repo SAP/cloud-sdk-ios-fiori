@@ -4,21 +4,21 @@ import SwiftUI
 struct SortFilterExample: View {
     @State private var items: [[SortFilterItem]] = [
         [
-            .switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), isShownOnMenu: true),
-            .switch(item: .init(name: "Tagged", value: nil, icon: "tag"), isShownOnMenu: false),
-            .picker(item: .init(value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], name: "JIRA Status", allowsMultipleSelection: true, allowsEmptySelection: true, icon: "clock"), isShownOnMenu: true)
+            .switch(item: .init(name: "Favorite", value: true, icon: "heart.fill"), showsOnFilterFeedbackBar: true),
+            .switch(item: .init(name: "Tagged", value: nil, icon: "tag"), showsOnFilterFeedbackBar: false),
+            .picker(item: .init(name: "JIRA Status", value: [0], valueOptions: ["Received", "Started", "Hold", "Transfer", "Completed", "Pending Review", "Accepted", "Rejected"], allowsMultipleSelection: true, allowsEmptySelection: true, icon: "clock"), showsOnFilterFeedbackBar: true)
         ],
         [
-            .picker(item: .init(value: [0], valueOptions: ["High", "Medium", "Low"], name: "Priority", allowsMultipleSelection: true, allowsEmptySelection: true, icon: "filemenu.and.cursorarrow"), isShownOnMenu: true),
-            .filterfeedback(item: .init(value: [0], valueOptions: ["Ascending", "Descending"], name: "Sort Order", allowsMultipleSelection: false, allowsEmptySelection: false, icon: "checkmark"))
+            .picker(item: .init(name: "Priority", value: [0], valueOptions: ["High", "Medium", "Low"], allowsMultipleSelection: true, allowsEmptySelection: true, icon: "filemenu.and.cursorarrow"), showsOnFilterFeedbackBar: true),
+            .filterfeedback(item: .init(name: "Sort Order", value: [0], valueOptions: ["Ascending", "Descending"], allowsMultipleSelection: false, allowsEmptySelection: false, icon: "checkmark"))
         ],
         [
-            .slider(item: .init(value: 10, minimumValue: 0, maximumValue: 100, name: "User Stories", formatter: "%2d Stories", icon: "number"), isShownOnMenu: true),
-            .slider(item: .init(value: nil, minimumValue: 0, maximumValue: 100, name: "Number of Tasks"), isShownOnMenu: true),
-            .datetime(item: .init(value: Date(), name: "Start Date", formatter: "yyyy-MM-dd HH:mm",icon: "calendar"), isShownOnMenu: true)
+            .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "%2d Stories", icon: "number"), showsOnFilterFeedbackBar: true),
+            .slider(item: .init(name: "Number of Tasks", value: nil, minimumValue: 0, maximumValue: 100), showsOnFilterFeedbackBar: true),
+            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm",icon: "calendar"), showsOnFilterFeedbackBar: true)
         ],
         [
-            .datetime(item: .init(value: nil, name: "Completion Date"), isShownOnMenu: true)
+            .datetime(item: .init(name: "Completion Date", value: nil), showsOnFilterFeedbackBar: true)
         ]
     ]
     

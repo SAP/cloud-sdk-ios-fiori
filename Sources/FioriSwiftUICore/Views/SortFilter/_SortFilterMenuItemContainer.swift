@@ -26,7 +26,7 @@ extension _SortFilterMenuItemContainer: View {
                 }
                 ForEach(0 ..< _items.count) { r in
                     ForEach(0 ..< _items[r].count) { c in
-                        if _items[r][c].isShownOnMenu {
+                        if _items[r][c].showsOnFilterFeedbackBar {
                             switch _items[r][c] {
                             case .picker:
                                 PickerMenuItem(item: Binding<PickerItem>(get: { _items[r][c].picker }, set: { _items[r][c].picker = $0 }), onUpdate: onUpdate)

@@ -9,7 +9,7 @@ import SwiftUI
 import FioriThemeManager
 
 /// Dialog titile component
-public struct SortFilterItemTitle: TitleComponent, View {
+struct SortFilterItemTitle: TitleComponent, View {
     public let title: String
     
     public init(title: String) {
