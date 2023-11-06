@@ -1,12 +1,13 @@
-// swift-tools-version:5.7
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v16), .watchOS(.v7)],
+    platforms: [.iOS(.v16), .watchOS(.v7), .macOS(.v13)],
     products: [
         .library(
             name: "FioriSwiftUI",
@@ -25,7 +26,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
+        .package(url: "https://github.com/apple/swift-syntax.git", branch: "main")
     ],
     targets: [
         .target(
@@ -47,12 +48,17 @@ let package = Package(
         ),
         .target(
             name: "FioriThemeManager",
-            dependencies: [],
+            dependencies: ["FioriMacros"],
             resources: [
                 .process("72-Fonts/Resources"),
                 .process("FioriIcons/Resources/FioriIcon.xcassets")
             ]
         ),
+        .macro(name: "FioriMacros", dependencies: [
+            .product(name: "SwiftSyntax", package: "swift-syntax"),
+            .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
+            .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+        ]),
         .testTarget(
             name: "FioriThemeManagerTests",
             dependencies: ["FioriThemeManager"],

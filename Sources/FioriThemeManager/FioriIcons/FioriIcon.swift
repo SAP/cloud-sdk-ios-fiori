@@ -2,8 +2,12 @@ import Foundation
 import SwiftUI
 import UIKit
 
+@attached(member, names: named(_registrar), arbitrary)
+macro FioriIcon() = #externalMacro(module: "FioriMacros", type: "FioriIconMacro")
+
 /// Public list of icons available for reference by the Developer.
 public enum FioriIcon {
+    @FioriIcon
     public enum actions {
         ///
         public static let accept = Image(fioriName: "fiori.accept")
