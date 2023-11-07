@@ -100,6 +100,8 @@
 		B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */; };
 		B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4377025F983730024EE7D /* ObjectCell_Rules_Alignment.swift */; };
 		B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D437722609479E0024EE7D /* SingleActionFollowButton.swift */; };
+		C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */; };
+		C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +242,8 @@
 		B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell_Spec_Jan2018.swift; sourceTree = "<group>"; };
 		B8D4377025F983730024EE7D /* ObjectCell_Rules_Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell_Rules_Alignment.swift; sourceTree = "<group>"; };
 		B8D437722609479E0024EE7D /* SingleActionFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionFollowButton.swift; sourceTree = "<group>"; };
+		C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortFilterView+Extensions.swift"; sourceTree = "<group>"; };
+		C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -423,6 +427,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				C1C764862A818BD600BCB0F7 /* SortFilter */,
 				B100639129C0623300AF0CA2 /* StepProgressIndicator */,
 				108E43D3292DAB3E006532F3 /* EmptyStateView */,
 				B1D41B1E291A2D2E004E64A5 /* Picker */,
@@ -573,6 +578,15 @@
 				B80DA9BB260BED9400C0B2E9 /* SingleActionCollectionView.swift */,
 			);
 			path = ObjectItem;
+			sourceTree = "<group>";
+		};
+		C1C764862A818BD600BCB0F7 /* SortFilter */ = {
+			isa = PBXGroup;
+			children = (
+				C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */,
+				C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */,
+			);
+			path = SortFilter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -728,6 +742,7 @@
 				8A557A2424C12F380098003A /* ChartDetailView.swift in Sources */,
 				8A5579D024C1293C0098003A /* SettingsLine.swift in Sources */,
 				1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */,
+				C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */,
 				B84D24ED2652F343007F2373 /* HeaderChartExample.swift in Sources */,
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
@@ -777,6 +792,7 @@
 				8A5579D524C1293C0098003A /* SettingsSeries.swift in Sources */,
 				8A557A2224C12C9B0098003A /* CoreContentView.swift in Sources */,
 				8A5579D224C1293C0098003A /* Color+Extensions.swift in Sources */,
+				C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */,
 				B84D24EF2652F343007F2373 /* ObjectHeaderTestApp.swift in Sources */,
 				B84D24EC2652F343007F2373 /* ObjectHeaderSpecCompact.swift in Sources */,
 				8A5579CD24C1293C0098003A /* SettingsLabel.swift in Sources */,
@@ -920,7 +936,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -975,7 +991,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -995,7 +1011,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Examples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1017,7 +1033,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Examples/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

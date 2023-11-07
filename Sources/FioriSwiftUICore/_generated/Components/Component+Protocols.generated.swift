@@ -1,4 +1,4 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
@@ -158,6 +158,14 @@ public protocol FootnoteIconsComponent {
     var footnoteIcons: [TextOrIcon]? { get }
 }
 
+public protocol LeftIconComponent {
+    var leftIcon: Image? { get }
+}
+
+public protocol RightIconComponent {
+    var rightIcon: Image? { get }
+}
+
 
 public protocol ActionComponent {
     var actionText: String? { get }
@@ -194,8 +202,49 @@ public protocol KpiProgressComponent : KpiComponent {
     var fraction: Double? { get }
 }
 
+public protocol OptionListPickerComponent : AnyObject {
+	// sourcery: bindingProperty
+	// sourcery: no_view
+    var value: [Int] { get set }
+	// sourcery: no_view
+    var valueOptions: [String] { get }
+	// sourcery: default.value=nil
+	// sourcery: no_view
+    var hint: String? { get }
+}
+
 public protocol ProgressIndicatorComponent {
     var progressIndicatorText: String? { get }
+}
+
+public protocol SliderPickerComponent : AnyObject {
+	// sourcery: bindingProperty
+	// sourcery: no_view
+    var value: Int? { get set }
+	// sourcery: default.value=nil
+	// sourcery: no_view
+    var formatter: String? { get }
+	// sourcery: default.value=0
+	// sourcery: no_view
+    var minimumValue: Int { get }
+	// sourcery: default.value=100
+	// sourcery: no_view
+    var maximumValue: Int { get }
+	// sourcery: default.value=nil
+	// sourcery: no_view
+    var hint: String? { get }
+}
+
+public protocol SwitchPickerComponent : AnyObject {
+	// sourcery: bindingProperty
+	// sourcery: no_view
+    var value: Bool? { get set }
+	// sourcery: default.value=nil
+	// sourcery: no_view
+    var name: String? { get }
+	// sourcery: default.value=nil
+	// sourcery: no_view
+    var hint: String? { get }
 }
 
 public protocol TextInputComponent : AnyObject {

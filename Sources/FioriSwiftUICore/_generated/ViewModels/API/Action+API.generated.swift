@@ -1,10 +1,10 @@
-// Generated using Sourcery 1.1.1 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import SwiftUI
 
 public struct Action {
     @Environment(\.actionTextModifier) private var actionTextModifier
-    @Environment(\.sharedAction) var sharedAction
+	@Environment(\.sharedAction) var sharedAction
 
     var _actionText: String? = nil
 	var _didSelectAction: (() -> Void)? = nil
