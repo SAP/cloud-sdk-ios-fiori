@@ -51,4 +51,6 @@ internal struct _Component: _ComponentGenerating {
     // sourcery: backingComponent=FootnoteIconStack
     // sourcery: customFunctionBuilder=FootnoteIconsBuilder
     let footnoteIcons_: [TextOrIcon]?
+    let leftIcon_: Image?
+    let rightIcon_: Image?
 }
