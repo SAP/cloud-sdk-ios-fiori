@@ -85,20 +85,20 @@ struct SliderMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelButtonStyle())
+                        .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
                         onUpdate()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                        .buttonStyle(ApplyButtonStyle())
 
                 } components: {
                     SliderPickerItem(value: Binding<Int?>(get: { item.workingValue }, set: { item.workingValue = $0 }), formatter: item.formatter, minimumValue: item.minimumValue, maximumValue: item.maximumValue)
@@ -150,20 +150,20 @@ struct PickerMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelButtonStyle())
+                        .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
                         onUpdate()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                        .buttonStyle(ApplyButtonStyle())
                 } components: {
                     OptionListPickerItem(value: $item.workingValue, valueOptions: item.valueOptions, hint: nil) { index in
                         item.onTap(option: item.valueOptions[index])
@@ -262,20 +262,20 @@ struct DateTimeMenuItem: View {
                         item.cancel()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(CancelButtonStyle())
+                        .buttonStyle(CancelButtonStyle())
                 } resetAction: {
                     Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.reset()
                     })
-                    .buttonStyle(ResetButtonStyle())
-                    .disabled(self.item.isOriginal)
+                        .buttonStyle(ResetButtonStyle())
+                        .disabled(self.item.isOriginal)
                 } applyAction: {
                     Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                         item.apply()
                         onUpdate()
                         isSheetVisible.toggle()
                     })
-                    .buttonStyle(ApplyButtonStyle())
+                        .buttonStyle(ApplyButtonStyle())
                 } components: {
                     VStack {
                         HStack {
@@ -303,7 +303,6 @@ struct DateTimeMenuItem: View {
                         .clipped()
                     }
                     .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
-
                 }
                 .readHeight()
                 .onPreferenceChange(HeightPreferenceKey.self) { height in
@@ -408,20 +407,20 @@ struct FullCFGMenuItem: View {
                             onUpdate()
                             isSheetVisible.toggle()
                         })
-                        .buttonStyle(CancelButtonStyle())
+                            .buttonStyle(CancelButtonStyle())
                     },
                     resetAction: {
                         Action(actionText: NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.cancel()
                             isSheetVisible.toggle()
                         })
-                        .buttonStyle(ResetButtonStyle())
+                            .buttonStyle(ResetButtonStyle())
                     },
                     applyAction: {
                         Action(actionText: NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: ""), didSelectAction: {
                             // item.reset()
                         })
-                        .buttonStyle(ApplyButtonStyle())
+                            .buttonStyle(ApplyButtonStyle())
                     },
                     onUpdate: {}
                 )

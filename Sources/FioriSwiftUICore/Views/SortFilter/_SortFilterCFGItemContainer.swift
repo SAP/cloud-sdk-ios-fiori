@@ -1,10 +1,10 @@
+import FioriThemeManager
 //  _SortFilterMenuItemContainer.swift
 //
 //
 //  Created by Xu, Charles on 9/25/23.
 //
 import SwiftUI
-import FioriThemeManager
 
 /// :nodoc:
 public struct _SortFilterCFGItemContainer {
@@ -41,7 +41,7 @@ extension _SortFilterCFGItemContainer: View {
                         }
                     }
                     .padding([.top], 12)
-                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2: UIScreen.main.bounds.size.width - 16 * 2)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 : UIScreen.main.bounds.size.width - 16 * 2)
                     .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
                     .background(Color.preferredColor(.secondaryGroupedBackground))
                 }
@@ -84,18 +84,18 @@ extension _SortFilterCFGItemContainer: View {
         var isApplyButtonEnabled = false
         var isResetButtonEnabled = false
         
-        for item in _items.joined() {
-            if !isApplyButtonEnabled && item.isChanged {
+        for item in self._items.joined() {
+            if !isApplyButtonEnabled, item.isChanged {
                 isApplyButtonEnabled = true
                 print("Enable apply button.")
             }
-            if !isResetButtonEnabled && !item.isOriginal {
+            if !isResetButtonEnabled, !item.isOriginal {
                 isResetButtonEnabled = true
                 print("Enable reset button.")
             }
         }
-        context.isApplyButtonEnabled = isApplyButtonEnabled
-        context.isResetButtonEnabled = isResetButtonEnabled
+        self.context.isApplyButtonEnabled = isApplyButtonEnabled
+        self.context.isResetButtonEnabled = isResetButtonEnabled
     }
     
     func picker(row r: Int, column c: Int) -> some View {

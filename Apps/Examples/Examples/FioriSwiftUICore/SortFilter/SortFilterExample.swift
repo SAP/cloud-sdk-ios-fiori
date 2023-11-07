@@ -15,7 +15,7 @@ struct SortFilterExample: View {
         [
             .slider(item: .init(name: "User Stories", value: 10, minimumValue: 0, maximumValue: 100, formatter: "%2d Stories", icon: "number"), showsOnFilterFeedbackBar: true),
             .slider(item: .init(name: "Number of Tasks", value: nil, minimumValue: 0, maximumValue: 100), showsOnFilterFeedbackBar: true),
-            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm",icon: "calendar"), showsOnFilterFeedbackBar: true)
+            .datetime(item: .init(name: "Start Date", value: Date(), formatter: "yyyy-MM-dd HH:mm", icon: "calendar"), showsOnFilterFeedbackBar: true)
         ],
         [
             .datetime(item: .init(name: "Completion Date", value: nil), showsOnFilterFeedbackBar: true)

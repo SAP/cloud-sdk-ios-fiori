@@ -79,7 +79,7 @@ public struct DefaultFilterFeedbackBarStyle: FilterFeedbackBarStyle {
     }
 }
 
-struct FilterFeedbackBarStyleKey: EnvironmentKey {    
+struct FilterFeedbackBarStyleKey: EnvironmentKey {
     static var defaultValue: any FilterFeedbackBarStyle = DefaultFilterFeedbackBarStyle()
 }
 

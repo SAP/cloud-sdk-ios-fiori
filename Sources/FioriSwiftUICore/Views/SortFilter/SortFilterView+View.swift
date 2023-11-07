@@ -6,11 +6,12 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .font(.body)
-                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .fontWeight(/*@START_MENU_TOKEN@*/ .bold/*@END_MENU_TOKEN@*/)
                     .foregroundStyle(Color.preferredColor(.primaryLabel))
                     .multilineTextAlignment(.center)
             }
         }
+
         typealias TitleCumulative = EmptyModifier
         typealias Items = EmptyModifier
         typealias ItemsCumulative = EmptyModifier
