@@ -1,11 +1,3 @@
-//
-//  View+Extensions.swift
-//  Examples
-//
-//  Created by Zhou, Bill on 9/30/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
@@ -15,7 +7,7 @@ extension View {
     ///   - isPresented: A binding to a Boolean value that determines whether to present the sheet that you create in the modifier’s content closure.
     ///   - content: A closure that returns the content of the sheet.
     func settingsSheet<V: View>(isPresented: Binding<Bool>, @ViewBuilder content: @escaping () -> V) -> some View {
-        return self
+        self
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {

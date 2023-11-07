@@ -84,7 +84,7 @@ public struct FioriSecondaryButtonStyle: FioriButtonStyle {
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: colorStyle, for: configuration.state)
+        let config = FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state)
         
         return configuration.label
             .fioriButtonConfiguration(config)
@@ -102,7 +102,7 @@ public struct FioriTertiaryButtonStyle: FioriButtonStyle {
     }
     
     public func makeBody(configuration: Configuration) -> some View {
-        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: colorStyle, for: configuration.state)
+        let config = FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: self.colorStyle, for: configuration.state)
         
         return configuration.label
             .fioriButtonConfiguration(config)
