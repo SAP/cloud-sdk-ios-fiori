@@ -203,19 +203,34 @@ public struct DimensionSelector: View {
     private func getHStack() -> some View {
         HStack(alignment: .center, spacing: self.model.interItemSpacing) {
             ForEach(self.model.titles.indices, id: \.self) { index in
-                Segment(title: self.model.titles[index], isSelected: self.model.selectedIndex == index, isEnable: self.model.isEnable, cornerRadius: 10.0, backgroundColor: .preferredColor(.primaryFill), segmentAttributes: self.model.segmentAttributes, insets: self.titleInsets)
+                Text(self.model.titles[index])
+                    .padding(self.titleInsets)
+                    .font(segmentAttributes(for: index)?.font)
+                    .foregroundColor(segmentAttributes(for: index)?.textColor)
+                    .background(SegmentPreferenceSetter())
+                    .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
+                    .background(
+                        RoundedRectangle(cornerRadius: 10, style: .continuous)
+                            .inset(by: segmentAttributes(for: index)!.borderWidth! / 2.0)
+                            .stroke(segmentAttributes(for: index)!.borderColor!, lineWidth: segmentAttributes(for: index)!.borderWidth!)
+                    )
+                    .background(RoundedRectangle(cornerRadius: 10, style: .continuous).fill(segmentAttributes(for: index)!.backgroundColor!))
                     .onTapGesture {
                         if self.model.isEnable {
                             self.selectionDidChange(index: index)
                         }
                     }
-                    .background(SegmentPreferenceSetter())
-                    .modifier(SegmentFrame(segmentWidthMode: self.model.segmentWidthMode, width: self._segmentWidth))
             }
         }
         .padding(self.contentInset)
         .lineLimit(1)
         .background(HStackPreferenceSetter())
+    }
+    
+    func segmentAttributes(for index: Int) -> SegmentAttributes? {
+        let isSelected = self.model.selectedIndex == index
+        
+        return self.model.isEnable ? (isSelected ? self.model.segmentAttributes[.selected] : self.model.segmentAttributes[.normal]) : self.model.segmentAttributes[.disabled]
     }
     
     private var _segmentWidth: CGFloat? {
@@ -249,39 +264,6 @@ public struct DimensionSelector: View {
 }
 
 extension DimensionSelector {
-    struct Segment: View {
-        let title: String
-        
-        let isSelected: Bool
-        
-        let isEnable: Bool
-        
-        let cornerRadius: CGFloat
-        
-        let backgroundColor: Color
-        
-        let segmentAttributes: [ControlState: SegmentAttributes]
-        
-        let insets: EdgeInsets
-        
-        var body: some View {
-            Text(self.title)
-                .padding(insets)
-                .font(getSegmentAttributes()?.font)
-                .foregroundColor(getSegmentAttributes()?.textColor)
-                .background(
-                    RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
-                        .inset(by: getSegmentAttributes()!.borderWidth! / 2.0)
-                        .stroke(getSegmentAttributes()!.borderColor!, lineWidth: getSegmentAttributes()!.borderWidth!)
-                )
-                .background(RoundedRectangle(cornerRadius: cornerRadius, style: .continuous).fill(getSegmentAttributes()!.backgroundColor!))
-        }
-        
-        func getSegmentAttributes() -> SegmentAttributes? {
-            self.isEnable ? (self.isSelected ? self.segmentAttributes[.selected] : self.segmentAttributes[.normal]) : self.segmentAttributes[.disabled]
-        }
-    }
-    
     class Model: ObservableObject {
         @Published var titles: [String] = []
         @Published var selectedIndex: Int?
