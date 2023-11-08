@@ -24,7 +24,7 @@ public enum SortFilterItem: Identifiable, Hashable {
     /// 1. Sort & Filter's menu item associating with sub-menu items when the number of selectable options is less than 8,
     /// or a popover containing a collection of selectable buttons when the number of selectable options is greater than 7.
     ///
-    /// 2. A section of view containing a collection of selectable buttons 
+    /// 2. A section of view containing a collection of selectable buttons
     case picker(item: PickerItem, showsOnFilterFeedbackBar: Bool)
     
     /// The type of UI control is used to buid:
@@ -297,9 +297,9 @@ extension SortFilterItem {
     }
 }
 
-extension SortFilterItem {
+public extension SortFilterItem {
     ///  Data structure for filter feedback, option list picker,
-    public struct PickerItem: Identifiable, Equatable {
+    struct PickerItem: Identifiable, Equatable {
         public let id: String
         public var name: String
         public var value: [Int]
@@ -390,9 +390,9 @@ extension SortFilterItem {
         }
         
         var label: String {
-            if allowsMultipleSelection && self.value.count >= 1 {
+            if self.allowsMultipleSelection, self.value.count >= 1 {
                 if self.value.count == 1 {
-                    return valueOptions[value[0]]
+                    return self.valueOptions[self.value[0]]
                 } else {
                     return "\(self.name) (\(self.value.count))"
                 }
@@ -411,7 +411,7 @@ extension SortFilterItem {
     }
     
     /// Data structure for boolean type
-    public struct SwitchItem: Identifiable, Equatable {
+    struct SwitchItem: Identifiable, Equatable {
         public var id: String
         public var name: String
         public var value: Bool?
@@ -456,7 +456,7 @@ extension SortFilterItem {
     }
     
     ///  Data structure for integer type slider
-    public struct SliderItem: Identifiable, Equatable {
+    struct SliderItem: Identifiable, Equatable {
         public let id: String
         public var name: String
         public var value: Int?
@@ -518,7 +518,7 @@ extension SortFilterItem {
     }
     
     /// Data structure for datetime data
-    public struct DateTimeItem: Equatable, Hashable {
+    struct DateTimeItem: Equatable, Hashable {
         public let id: String
         public var name: String
         public var value: Date?
@@ -560,7 +560,7 @@ extension SortFilterItem {
                     formatter.dateFormat = format
                     return formatter.string(from: value)
                 } else {
-                    let dateFormatter: DateFormatter = DateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateStyle = .long
                     dateFormatter.timeStyle = .short
                     return dateFormatter.string(from: value)

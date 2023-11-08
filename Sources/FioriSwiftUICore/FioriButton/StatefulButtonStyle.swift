@@ -4,7 +4,6 @@ import SwiftUI
 
 /// An object that provides Fiori style color and interaction for `Button`.
 public struct StatefulButtonStyle: PrimitiveButtonStyle {
-    
     // TODO: style configuration struct?
     let color: Color
     let depressedColor: Color
@@ -35,7 +34,7 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
     ///
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
-        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
+        StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
             switch state {
             case .normal:
                 return FioriButtonConfiguration(foregroundColor: .white, backgroundColor: color)
@@ -63,8 +62,8 @@ public struct PrimaryButtonStyle: PrimitiveButtonStyle {
     ///
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
-        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
-            return FioriButtonStyleProvider.getPrimaryButtonStyle(state: state)
+        StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
+            FioriButtonStyleProvider.getPrimaryButtonStyle(state: state)
         }
     }
 }
@@ -86,8 +85,8 @@ public struct SecondaryButtonStyle: PrimitiveButtonStyle {
     ///
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
-        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
-            return FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: colorStyle, for: state)
+        StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
+            FioriButtonStyleProvider.getSecondaryButtonStyle(colorStyle: colorStyle, for: state)
         }
     }
 }
@@ -109,21 +108,21 @@ public struct TertiaryButtonStyle: PrimitiveButtonStyle {
     ///
     /// - Parameter configuration : The properties of the button.
     public func makeBody(configuration: PrimitiveButtonStyle.Configuration) -> some View {
-        StatefulButton(configuration: configuration, isSelectionPersistent: isSelectionPersistent) { state in
-            return FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: colorStyle, for: state)
+        StatefulButton(configuration: configuration, isSelectionPersistent: self.isSelectionPersistent) { state in
+            FioriButtonStyleProvider.getTertiaryButtonStyle(colorStyle: colorStyle, for: state)
         }
     }
 }
 
-fileprivate struct StatefulButton: View {
+private struct StatefulButton: View {
     @State var pressed = false
     @Environment(\.isEnabled) var isEnabled: Bool
     var state: UIControl.State {
-        if !isEnabled {
+        if !self.isEnabled {
             return .disabled
         }
         
-        return pressed ? (isSelectionPersistent ? .selected : .highlighted) : .normal
+        return self.pressed ? (self.isSelectionPersistent ? .selected : .highlighted) : .normal
     }
     
     let configuration: PrimitiveButtonStyle.Configuration

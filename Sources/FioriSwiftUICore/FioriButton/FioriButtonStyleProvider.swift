@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  
-//
-//  Created by Zhou, Bill on 9/28/23.
-//
-
 import Foundation
 import SwiftUI
 
@@ -134,7 +127,7 @@ struct FioriButtonConfiguration {
 
 extension View {
     func fioriButtonConfiguration(_ config: FioriButtonConfiguration) -> some View {
-        return self
+        self
             .font(config.font)
             .foregroundColor(config.foregroundColor)
             .padding(config.padding)

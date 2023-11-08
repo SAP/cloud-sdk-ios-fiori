@@ -13,6 +13,6 @@ class SortFilterContext: Equatable, ObservableObject {
     public init() {}
     
     static func == (lhs: SortFilterContext, rhs: SortFilterContext) -> Bool {
-        return lhs.isResetButtonEnabled == rhs.isResetButtonEnabled && lhs.isApplyButtonEnabled == rhs.isApplyButtonEnabled
+        lhs.isResetButtonEnabled == rhs.isResetButtonEnabled && lhs.isApplyButtonEnabled == rhs.isApplyButtonEnabled
     }
 }

@@ -112,11 +112,11 @@ struct StatefulButtonStyleExample: View {
     var primitiveButtonStyle: AnyPrimitiveButtonStyle {
         switch self._buttonStyle {
         case "Primary":
-            return PrimaryButtonStyle(isSelectionPersistent: _isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
+            return PrimaryButtonStyle(isSelectionPersistent: self._isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
         case "Secondary":
-            return SecondaryButtonStyle(colorStyle: _colorStyle, isSelectionPersistent: _isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
+            return SecondaryButtonStyle(colorStyle: self._colorStyle, isSelectionPersistent: self._isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
         default:
-            return TertiaryButtonStyle(colorStyle: _colorStyle, isSelectionPersistent: _isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
+            return TertiaryButtonStyle(colorStyle: self._colorStyle, isSelectionPersistent: self._isSelectionPersistent).eraseToAnyPrimitiveButtonStyle()
         }
     }
     
@@ -127,28 +127,28 @@ struct StatefulButtonStyleExample: View {
                 Text("Add")
             }
         })
-        .buttonStyle(primitiveButtonStyle)
-        .disabled(!_isEnabled)
-        .settingsSheet(isPresented: $_showSettings) {
-            Toggle("isEnabled", isOn: self.$_isEnabled)
-            Toggle("isSelectionPersistent", isOn: self.$_isSelectionPersistent)
-            Picker(selection: $_buttonStyle) {
-                Text("Primary Button").tag("Primary")
-                Text("Secondary Button").tag("Secondary")
-                Text("Tertiary Button").tag("Tertiary")
-            } label: {
-                Text("button style")
-            }
-            if _buttonStyle != "Primary" {
-                Picker(selection: $_colorStyle) {
-                    Text("tint").tag(FioriButtonColorStyle.tint)
-                    Text("normal").tag(FioriButtonColorStyle.normal)
-                    Text("negative").tag(FioriButtonColorStyle.negative)
+            .buttonStyle(primitiveButtonStyle)
+            .disabled(!_isEnabled)
+            .settingsSheet(isPresented: $_showSettings) {
+                Toggle("isEnabled", isOn: self.$_isEnabled)
+                Toggle("isSelectionPersistent", isOn: self.$_isSelectionPersistent)
+                Picker(selection: $_buttonStyle) {
+                    Text("Primary Button").tag("Primary")
+                    Text("Secondary Button").tag("Secondary")
+                    Text("Tertiary Button").tag("Tertiary")
                 } label: {
-                    Text("color style")
+                    Text("button style")
+                }
+                if _buttonStyle != "Primary" {
+                    Picker(selection: $_colorStyle) {
+                        Text("tint").tag(FioriButtonColorStyle.tint)
+                        Text("normal").tag(FioriButtonColorStyle.normal)
+                        Text("negative").tag(FioriButtonColorStyle.negative)
+                    } label: {
+                        Text("color style")
+                    }
                 }
             }
-        }
     }
 }
 
@@ -177,7 +177,7 @@ extension PrimitiveButtonStyle {
 
 struct PreviewView: PreviewProvider {
     static var previews: some View {
-        NavigationView{
+        NavigationView {
             FioriButtonExample()
         }
         

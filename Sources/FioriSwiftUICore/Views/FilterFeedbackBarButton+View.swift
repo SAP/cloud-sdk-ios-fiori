@@ -1,5 +1,3 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
-
 import SwiftUI
 
 extension Fiori {
@@ -93,7 +91,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
             }
             .font(self.font)
             .foregroundColor(configuration.isSelected ? self.foregroundColorSelected : self.foregroundColorUnselected)
-            .frame(maxWidth: .infinity, minHeight: minHeight)
+            .frame(maxWidth: .infinity, minHeight: self.minHeight)
             .background(
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
@@ -102,7 +100,7 @@ public struct DefaultOptionListPickerStyle: OptionListPickerStyle {
                         .stroke(configuration.isSelected ? strokeColorSelected : strokeColorUnselected, lineWidth: borderWidth)
                 }
             )
-            .frame(minHeight: minTouchHeight)
+            .frame(minHeight: self.minTouchHeight)
         )
     }
 }

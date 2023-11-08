@@ -1,12 +1,5 @@
-//
-//  SortFilterItemTitle.swift
-//
-//
-//  Created by Xu, Charles on 10/24/23.
-//
-
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 /// Dialog titile component
 struct SortFilterItemTitle: TitleComponent, View {
@@ -19,7 +12,7 @@ struct SortFilterItemTitle: TitleComponent, View {
     public var body: some View {
         Text(title)
             .font(.body)
-            .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+            .fontWeight(/*@START_MENU_TOKEN@*/ .bold/*@END_MENU_TOKEN@*/)
             .foregroundStyle(Color.preferredColor(.primaryLabel))
             .multilineTextAlignment(.center)
     }
