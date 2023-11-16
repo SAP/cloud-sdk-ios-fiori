@@ -38,6 +38,11 @@ struct CoreContentView: View {
                     destination: SignatureCaptureViewExample2()) {
                     Text("Customized Signature Inline View")
                 }
+                
+                NavigationLink(
+                    destination: NavigationBarExample()) {
+                    Text("Customized NavigationBar")
+                }
             }
             
             NavigationLink(
