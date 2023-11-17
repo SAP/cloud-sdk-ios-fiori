@@ -37,7 +37,7 @@ struct CancellableResettableDialogForm<Title: View, CancelAction: View, ResetAct
             components
             applyAction
         }
-        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : UIScreen.main.bounds.size.width)
+        .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 : Screen.bounds.size.width)
         .padding([.top, .bottom], UIDevice.current.userInterfaceIdiom == .pad ? 13 : 16)
     }
 }
@@ -49,7 +49,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
         if self.isEnabled {
             configuration.label
                 .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 :
-                    UIScreen.main.bounds.size.width - 16 * 2)
+                    Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
                 .fontWeight(.bold)
@@ -62,7 +62,7 @@ struct ApplyButtonStyle: PrimitiveButtonStyle {
         } else {
             configuration.label
                 .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? 375 - 13 * 2 :
-                    UIScreen.main.bounds.size.width - 16 * 2)
+                    Screen.bounds.size.width - 16 * 2)
                 .padding([.top, .bottom], 8)
                 .font(.body)
                 .fontWeight(.bold)

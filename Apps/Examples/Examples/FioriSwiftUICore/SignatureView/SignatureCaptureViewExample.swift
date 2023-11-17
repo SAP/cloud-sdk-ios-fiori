@@ -78,11 +78,7 @@ public extension View {
         
         hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
         UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
-        #if os(visionOS)
-        let size = hostingController.sizeThatFits(in: CGSize(width: 200, height: 200)) // dummy size 
-        #else
-        let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
-        #endif
+        let size = hostingController.sizeThatFits(in: Screen.bounds.size)
         hostingController.view.bounds = CGRect(origin: .zero, size: size)
         hostingController.view.sizeToFit()
 
