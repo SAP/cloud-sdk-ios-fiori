@@ -23,3 +23,27 @@ extension View {
         }
     }
 }
+
+extension Text {
+    init?(attributedString: AttributedString?) {
+        if let attributedString {
+            self.init(attributedString)
+        } else {
+            return nil
+        }
+    }
+}
+
+extension View {
+    var isEmpty: Bool {
+        if self is EmptyView {
+            return true
+        }
+        
+        if let self = self as? _NilChecking {
+            return self.isNil
+        }
+        
+        return false
+    }
+}
