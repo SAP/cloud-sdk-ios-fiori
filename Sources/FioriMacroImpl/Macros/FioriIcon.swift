@@ -2,8 +2,8 @@ import Foundation
 import SwiftSyntax
 import SwiftSyntaxMacros
 
-struct FioriIconMacro: MemberMacro {
-    static func expansion(of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax, in context: some MacroExpansionContext) throws -> [DeclSyntax] {
+public struct FioriIconMacro: MemberMacro {
+    public static func expansion(of node: AttributeSyntax, providingMembersOf declaration: some DeclGroupSyntax, in context: some MacroExpansionContext) throws -> [DeclSyntax] {
         let backingProperties: [DeclSyntax] = declaration.memberBlock.members.compactMap {
             guard let variable = $0.decl.as(VariableDeclSyntax.self) else { return nil }
             guard let binding = variable.bindings.first else { return nil }

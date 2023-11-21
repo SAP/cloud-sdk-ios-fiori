@@ -16,7 +16,7 @@ extension DemoViewStyle {
     }
 }
 
-struct ResolvedNewTitleStyle<Style: NewTitleStyle>: View {
+struct ResolvedNewTitleStyle<Style: TitleStyle>: View {
     let style: Style
     let configuration: NewTitleConfiguration
     
@@ -25,7 +25,7 @@ struct ResolvedNewTitleStyle<Style: NewTitleStyle>: View {
     }
 }
 
-extension NewTitleStyle {
+extension TitleStyle {
     func resolve(configuration: NewTitleConfiguration) -> some View {
         ResolvedNewTitleStyle(style: self, configuration: configuration)
     }

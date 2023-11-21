@@ -22,21 +22,21 @@ extension EnvironmentValues {
 }
 
 // TODO: macro
-struct NewTitleStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewTitleStyle] = []
+struct TitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TitleStyle] = []
 }
 
 // TODO: macro
 extension EnvironmentValues {
-    var newTitleStyleStack: [any NewTitleStyle] {
-        get { self[NewTitleStyleStackKey.self] }
-        set { self[NewTitleStyleStackKey.self] = newValue }
+    var titleStyleStack: [any TitleStyle] {
+        get { self[TitleStyleStackKey.self] }
+        set { self[TitleStyleStackKey.self] = newValue }
     }
 }
 
 // TODO: macro
 extension EnvironmentValues {
-    var newTitleStyle: any NewTitleStyle {
-        newTitleStyleStack.last ?? .base
+    var titleStyle: any TitleStyle {
+        titleStyleStack.last ?? .base
     }
 }

@@ -1,9 +1,11 @@
 import Foundation
 import SwiftCompilerPlugin
+import SwiftSyntax
 import SwiftSyntaxMacros
 
 @main struct Plugin: CompilerPlugin {
     let providingMacros: [Macro.Type] = [
-        FioriIconMacro.self
+        FioriIconMacro.self,
+        InitMacro.self
     ]
 }

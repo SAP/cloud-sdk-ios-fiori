@@ -42,22 +42,26 @@ let package = Package(
             name: "FioriSwiftUICore",
             dependencies: [
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS])),
-                .target(name: "FioriCharts", condition: .when(platforms: [.iOS]))
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS])),
+                .target(name: "FioriMacro")
             ],
-            resources: [.process("FioriSwiftUICore.strings")]
+            resources: [.process("_localization")]
         ),
         .target(
             name: "FioriThemeManager",
-            dependencies: ["FioriMacros"],
             resources: [
                 .process("72-Fonts/Resources"),
                 .process("FioriIcons/Resources/FioriIcon.xcassets")
             ]
         ),
-        .macro(name: "FioriMacros", dependencies: [
+        .target(name: "FioriMacro", dependencies: [
+            .target(name: "FioriMacroImpl")
+        ]),
+        .macro(name: "FioriMacroImpl", dependencies: [
             .product(name: "SwiftSyntax", package: "swift-syntax"),
             .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-            .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
+            .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
+            .product(name: "SwiftDiagnostics", package: "swift-syntax")
         ]),
         .testTarget(
             name: "FioriThemeManagerTests",
@@ -76,6 +80,11 @@ let package = Package(
             name: "FioriSwiftUICoreTests",
             dependencies: ["FioriSwiftUICore"],
             path: "Tests/FioriSwiftUITests/FioriSwiftUICore"
+        ),
+        .testTarget(
+            name: "FioriMacrosTests",
+            dependencies: ["FioriMacro"],
+            path: "Tests/FioriSwiftUITests/FioriMacros"
         )
     ]
 )

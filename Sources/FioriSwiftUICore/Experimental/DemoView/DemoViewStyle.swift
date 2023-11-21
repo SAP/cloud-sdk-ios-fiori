@@ -40,25 +40,17 @@ public struct DemoViewConfiguration {
 
 /// The style that only defines the default layout of DemoView without providing any styling attributes.
 public struct DemoViewBaseStyle: DemoViewStyle {
+    @State var isPresented = true
+    
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         VStack {
-            HStack {
-                VStack {
-                    configuration.title
-                    configuration.subtitle
-                }
-
-                configuration.status
-            }
-            
-            HStack {
-                Spacer()
-                
-                if !configuration.actionTitle.isEmpty {
-                    Button(action: configuration.action ?? {}, label: {
-                        configuration.actionTitle
-                    })
-                }
+            configuration.title
+            configuration.subtitle
+            configuration.status
+            if !configuration.actionTitle.isEmpty {
+                Button(action: configuration.action ?? {}, label: {
+                    configuration.actionTitle
+                })
             }
         }
         .padding()
@@ -70,13 +62,13 @@ public struct DemoViewFioriStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
             .newTitleStyle {
-                NewTitleView($0).modifier(NewTitleFioriStyleModifier())
+                TitleView($0).modifier(NewTitleFioriStyleModifier())
             }
     }
 }
 
 public struct DemoViewNewTitleStyle: DemoViewStyle {
-    let style: any NewTitleStyle
+    let style: any TitleStyle
     
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
@@ -102,7 +94,7 @@ public extension DemoViewStyle where Self == DemoViewFioriStyle {
 }
 
 extension DemoViewStyle where Self == DemoViewNewTitleStyle {
-    static func newTitleStyle<Style: NewTitleStyle>(_ style: Style) -> DemoViewNewTitleStyle {
+    static func newTitleStyle<Style: TitleStyle>(_ style: Style) -> DemoViewNewTitleStyle {
         DemoViewNewTitleStyle(style: style)
     }
     

@@ -1,14 +1,36 @@
+import FioriMacro
 import Foundation
 import SwiftUI
+
+// @Init()
+// public struct TestDemoView<Title: View, ActionTitle: View>: _TitleComponent, _ActionComponent {
+//    @ViewBuilder
+//    var title: Title
+//
+//    @ViewBuilder
+//    var actionTitle: ActionTitle
+//
+//    var action: Button<ActionTitle>
+//
+//
+//
+////    init(@ViewBuilder title: (), actionTitle: View, action: (@escaping () -> Void)? = nil) {
+////        self.title = title
+////        self.actionTitle = actionTitle
+////        self.action = action
+////    }
+//
+// }
 
 // TODO:
 /// 1. Add default component fiori style into stack √
 /// 2. make environment variables work in style object √
 /// 3. how to handle dynamic basic component and what styling api should be provided
 /// 4. Swift Macro
-public struct DemoView<Title: View, Subtitle: View, Status: View, ActionTitle: View>: NewTitleComponent, NewSubtitleComponent, NewStatusComponent, NewActionComponent {
+public struct DemoView<Title: View, Subtitle: View, Status: View, ActionTitle: View>: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent {
+    @ViewBuilder
     let title: Title
-    let subtitle: Subtitle
+    let subtitle: Subtitle?
     let status: Status
     let actionTitle: ActionTitle
     let action: (() -> Void)?
@@ -19,13 +41,17 @@ public struct DemoView<Title: View, Subtitle: View, Status: View, ActionTitle: V
     @Environment(\.demoViewStyle) var style
     
     // TODO: macro
-    public init<_Title: View>(@ViewBuilder title: () -> _Title,
-                              @ViewBuilder subtitle: () -> Subtitle = { EmptyView() },
-                              @ViewBuilder status: () -> Status = { EmptyView() },
-                              @ViewBuilder actionTitle: () -> ActionTitle = { EmptyView() },
-                              action: (() -> Void)? = nil) where Title == NewTitleView<_Title>
+    public init<Title_: View>
+    (
+        @ViewBuilder title: () -> Title_,
+        @ViewBuilder subtitle: () -> Subtitle? = { EmptyView() },
+        @ViewBuilder status: () -> Status = { EmptyView() },
+        @ViewBuilder actionTitle: () -> ActionTitle = { EmptyView() },
+        action: (() -> Void)? = nil
+    )
+        where Title == TitleView<Title_>
     {
-        self.title = NewTitleView { title() }
+        self.title = TitleView { title() }
         self.subtitle = subtitle()
         self.status = status()
         self.actionTitle = actionTitle()
@@ -34,7 +60,7 @@ public struct DemoView<Title: View, Subtitle: View, Status: View, ActionTitle: V
 }
 
 // TODO: macro
-public extension DemoView where Title == NewTitleView<Text>,
+public extension DemoView where Title == TitleView<Text>,
     Subtitle == Text?,
     Status == Text?,
     ActionTitle == Text?
@@ -91,6 +117,19 @@ extension DemoView {
     }
 }
 
+// TODO: macro
+extension DemoView: View {
+    public var body: some View {
+        let configuration = DemoViewConfiguration(title: .init(title), subtitle: .init(subtitle), status: .init(status), actionTitle: .init(actionTitle), action: action)
+        style.resolve(configuration: configuration).typeErased
+            .transformEnvironment(\.demoViewStyleStack) { stack in
+                if !stack.isEmpty {
+                    stack.removeLast()
+                }
+            }
+    }
+}
+
 //// TODO: macro
 // extension DemoView {
 //    private func defaultStyle() -> some View {
@@ -122,19 +161,6 @@ extension DemoView {
 //        }
 //    }
 // }
-
-// TODO: macro
-extension DemoView: View {
-    public var body: some View {
-        let configuration = DemoViewConfiguration(title: .init(title), subtitle: .init(subtitle), status: .init(status), actionTitle: .init(actionTitle), action: action)
-        style.resolve(configuration: configuration).typeErased
-            .transformEnvironment(\.demoViewStyleStack) { stack in
-                if !stack.isEmpty {
-                    stack.removeLast()
-                }
-            }
-    }
-}
 
 // Testing
 
@@ -207,11 +233,11 @@ extension DemoViewStyle where Self == CustomTitleColorDemoViewStyle {
     }
 }
 
-public struct CustomNewTitleColorStyle: NewTitleStyle {
+public struct CustomNewTitleColorStyle: TitleStyle {
     let color: Color
     
     public func makeBody(_ configuration: NewTitleConfiguration) -> some View {
-        NewTitleView(configuration)
+        TitleView(configuration)
             .foregroundStyle(self.color)
     }
 }
@@ -264,12 +290,12 @@ struct Preview: PreviewProvider {
         // Test the case where developer-set styles overrides default styles
         DemoView(titleText: "Title", subtitleText: "Subtitle")
 //            .newTitleStyle {
-//                NewTitleView($0)
+//                TitleView($0)
 //                    .foregroundStyle(.yellow)
 //                    .font(.largeTitle)
 //            }
             .demoViewStyle(.newTitleStyle {
-                NewTitleView($0)
+                TitleView($0)
                     .foregroundStyle(.yellow)
                     .font(.largeTitle)
             })
