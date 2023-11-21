@@ -6,11 +6,18 @@ struct NavigationBarExample: View {
     
     var body: some View {
         List {
-            NavigationLink {
-                NavigationBarFioriStyle()
-            } label: {
+            HStack {
                 Text("FioriStyle")
+                Spacer()
             }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                isPresented.toggle()
+            }
+            .sheet(isPresented: $isPresented) {
+                NavigationBarFioriStyle()
+            }
+            
             NavigationLink {
                 NavigationBarPopover()
             } label: {
