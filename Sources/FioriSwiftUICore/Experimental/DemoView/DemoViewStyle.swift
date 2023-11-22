@@ -43,7 +43,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
     @State var isPresented = true
     
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
-        VStack {
+        VStack(spacing: 10) {
             configuration.title
             configuration.subtitle
             configuration.status
@@ -61,8 +61,8 @@ public struct DemoViewBaseStyle: DemoViewStyle {
 public struct DemoViewFioriStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
-            .newTitleStyle {
-                TitleView($0).modifier(NewTitleFioriStyleModifier())
+            .titleStyle {
+                Title($0).modifier(NewTitleFioriStyleModifier())
             }
     }
 }
@@ -72,7 +72,7 @@ public struct DemoViewNewTitleStyle: DemoViewStyle {
     
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
-            .newTitleStyle(self.style)
+            .titleStyle(self.style)
             .typeErased
     }
 }
@@ -98,7 +98,7 @@ extension DemoViewStyle where Self == DemoViewNewTitleStyle {
         DemoViewNewTitleStyle(style: style)
     }
     
-    static func newTitleStyle(@ViewBuilder content: @escaping (NewTitleConfiguration) -> some View) -> DemoViewNewTitleStyle {
+    static func newTitleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewNewTitleStyle {
         let style = AnyNewTitleStyle(content)
         return DemoViewNewTitleStyle(style: style)
     }

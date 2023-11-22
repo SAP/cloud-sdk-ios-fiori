@@ -18,7 +18,7 @@ extension DemoViewStyle {
 
 struct ResolvedNewTitleStyle<Style: TitleStyle>: View {
     let style: Style
-    let configuration: NewTitleConfiguration
+    let configuration: TitleConfiguration
     
     var body: some View {
         style.makeBody(configuration)
@@ -26,7 +26,7 @@ struct ResolvedNewTitleStyle<Style: TitleStyle>: View {
 }
 
 extension TitleStyle {
-    func resolve(configuration: NewTitleConfiguration) -> some View {
+    func resolve(configuration: TitleConfiguration) -> some View {
         ResolvedNewTitleStyle(style: self, configuration: configuration)
     }
 }

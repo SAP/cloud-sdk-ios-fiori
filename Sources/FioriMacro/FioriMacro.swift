@@ -1,3 +1,5 @@
+import SwiftUI
+
 /// Generates a public initializer.
 ///
 /// Example:
@@ -43,3 +45,7 @@ public macro Init(
 
 @attached(member, names: named(_registrar), arbitrary)
 public macro FioriIcon() = #externalMacro(module: "FioriMacroImpl", type: "FioriIconMacro")
+
+@attached(member, names: named(style), named(_shouldApplyDefaultStyle), named(init))
+@attached(extension, names: arbitrary, conformances: View)
+public macro BaseComponent() = #externalMacro(module: "FioriMacroImpl", type: "BaseComponent")

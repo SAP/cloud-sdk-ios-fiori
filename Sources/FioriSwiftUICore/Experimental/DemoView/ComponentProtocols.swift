@@ -4,15 +4,15 @@ import SwiftUI
 // MARK: NewTitleComponent
 
 protocol _TitleComponent {
-    associatedtype Title: View
-    var title: Title { get }
+    associatedtype _Title: View
+    var title: _Title { get }
 }
 
 // MARK: NewSubtitleComponent
 
 protocol _SubtitleComponent {
     associatedtype Subtitle: View
-    var subtitle: Subtitle? { get }
+    var subtitle: Subtitle { get }
 }
 
 // MARK: NewStatusComponent
@@ -24,9 +24,15 @@ protocol _StatusComponent {
 
 // MARK: NewActionComponent
 
-protocol _ActionComponent {
-    associatedtype ActionTitle: View
+protocol _PrimaryButtonComponent {
+    associatedtype Label: View
     // generate style
-    var actionTitle: ActionTitle { get }
+    var primaryButton: Button<Label> { get }
+}
+
+protocol _ActionComponent {
+    associatedtype _ActionTitle: View
+    // generate style
+    var actionTitle: _ActionTitle { get }
     var action: (() -> Void)? { get }
 }
