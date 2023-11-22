@@ -2,6 +2,7 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
+/// Title component
 @BaseComponent
 public struct Title<_Title: View>: _TitleComponent {
     @ViewBuilder

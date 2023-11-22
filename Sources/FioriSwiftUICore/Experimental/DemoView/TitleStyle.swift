@@ -1,36 +1,18 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
-// TODO: macro
+// MARK: Macro generated
+
 public protocol TitleStyle: DynamicProperty {
     associatedtype Body: View
     func makeBody(_ configuration: TitleConfiguration) -> Body
 }
 
-// TODO: macro
 public struct TitleConfiguration {
     let title: Title
     
     public typealias Title = ConfigurationViewWrapper
-}
-
-// MARK: Style implementations
-
-// TODO: macro
-// Layout style
-public struct TitleBaseStyle: TitleStyle {
-    public func makeBody(_ configuration: TitleConfiguration) -> some View {
-        configuration.title
-    }
-}
-
-// For SDK developer to implement default fiori styles
-public struct TitleFioriStyle: TitleStyle {
-    public func makeBody(_ configuration: TitleConfiguration) -> some View {
-        Title(configuration)
-            .foregroundStyle(.red)
-            .font(.title)
-    }
 }
 
 public struct AnyNewTitleStyle: TitleStyle {
@@ -45,8 +27,6 @@ public struct AnyNewTitleStyle: TitleStyle {
     }
 }
 
-// MARK: Style extensions
-
 extension TitleStyle where Self == TitleBaseStyle {
     static var base: TitleBaseStyle {
         TitleBaseStyle()
@@ -56,5 +36,23 @@ extension TitleStyle where Self == TitleBaseStyle {
 extension TitleStyle where Self == TitleFioriStyle {
     static var fiori: some TitleStyle {
         TitleFioriStyle()
+    }
+}
+
+// MARK: SDK Developer implementations
+
+// Base Layout style
+public struct TitleBaseStyle: TitleStyle {
+    public func makeBody(_ configuration: TitleConfiguration) -> some View {
+        configuration.title
+    }
+}
+
+// Default fiori styles
+public struct TitleFioriStyle: TitleStyle {
+    public func makeBody(_ configuration: TitleConfiguration) -> some View {
+        Title(configuration)
+            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            .font(.title)
     }
 }

@@ -2,11 +2,6 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
-// TODO:
-/// 1. Add default component fiori style into stack √
-/// 2. make environment variables work in style object √
-/// 3. how to handle dynamic basic component and what styling api should be provided
-/// 4. Swift Macro
 public struct DemoView<_Title: View, Subtitle: View, Status: View, ActionTitle: View>: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent {
     @ViewBuilder
     let title: _Title
@@ -63,10 +58,10 @@ public extension DemoView where _Title == Title<Text>,
 }
 
 // TODO: macro
-public extension DemoView where _Title == DemoViewConfiguration.Label,
-    Subtitle == DemoViewConfiguration.Label,
-    Status == DemoViewConfiguration.Label,
-    ActionTitle == DemoViewConfiguration.Label
+public extension DemoView where _Title == DemoViewConfiguration.Title,
+    Subtitle == DemoViewConfiguration.Subtitle,
+    Status == DemoViewConfiguration.Status,
+    ActionTitle == DemoViewConfiguration.ActionTitle
 {
     init(_ configuration: DemoViewConfiguration) {
         self.title = configuration.title
@@ -172,23 +167,47 @@ public struct CustomNewTitleColorStyle: TitleStyle {
 
 struct Preview: PreviewProvider {
     static var previews: some View {
+        // 1. Test style propagation
+        HStack {
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle") {
+                print("Action tapped")
+            }
+
+            Title(title: "Other Title")
+        }
+        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+        .titleStyle { configuration in
+            Title(configuration)
+                .foregroundStyle(.yellow)
+        }
+        
+        // 2. Test style customization in a specific component
+        HStack {
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle") {
+                print("Action tapped")
+            }
+
+            Title(title: "Other Title")
+        }
+        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+        .demoViewStyle(.titleStyle { config in
+            Title(config)
+                .foregroundStyle(.yellow)
+        })
+        
+        // 3. Style composition (concatenation)
+        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle") {
+            print("Action tapped")
+        }
+        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+        .demoViewStyle(.titleStyle { config in
+            Title(config)
+                .foregroundStyle(.yellow)
+        })
+        
         DemoView(title: "Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle") {
             print("Action tapped")
         }
-        
-        DemoView(title: "Title")
-
-        DemoView(title: {
-            Text("Title")
-        })
-        
-        DemoView(title: {
-            Text("Title")
-        }, subtitle: {
-            Text("Subtitle")
-        }, actionTitle: {
-            Text("ActionTitle")
-        })
 
         // Test styling propagation
         DemoView {
@@ -222,7 +241,7 @@ struct Preview: PreviewProvider {
 //                    .foregroundStyle(.yellow)
 //                    .font(.largeTitle)
 //            }
-            .demoViewStyle(.newTitleStyle {
+            .demoViewStyle(.titleStyle {
                 Title($0)
                     .foregroundStyle(.yellow)
                     .font(.largeTitle)
