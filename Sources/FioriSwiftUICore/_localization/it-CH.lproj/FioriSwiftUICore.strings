@@ -19,6 +19,18 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Tocca per firmare";
 
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Area di firma";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Tocca due volte e trascina per firmare";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Immagine firma";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Riga firma";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Annullato";
 
@@ -90,4 +102,49 @@
 
 /* XBUT: Error messages shown to users in DataTable */
 "There are %d errors in the data table." = "Sono presenti %d errori nella tabella di dati.";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "testata riga";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "riga %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "colonna %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "accessorio iniziale";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "accessorio finale";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "testo";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "immagine";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "data";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "ora";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "durata";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "voce di elenco";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "selezionato";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "non selezionato";
+
+/* XBUT: calendar time component label */
+"Time" = "Ora";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Valore: %d";
 
