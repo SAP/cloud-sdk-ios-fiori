@@ -74,6 +74,8 @@
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
 		B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */; };
 		B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */; };
+		B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */; };
+		B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */; };
 		B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */; };
 		B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */; };
 		B1D9D22A2991E056008FF5BC /* ObjectItemAvatarsExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */; };
@@ -221,6 +223,8 @@
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
 		B141D6BA29261F9E008A8BD6 /* SearchableListViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchableListViewExample.swift; sourceTree = "<group>"; };
 		B18D2E9E2988B07B000A1821 /* KPIHeaderExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIHeaderExample.swift; sourceTree = "<group>"; };
+		B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabViewExample.swift; sourceTree = "<group>"; };
+		B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViewDetailView.swift; sourceTree = "<group>"; };
 		B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SPIModelExample.swift; sourceTree = "<group>"; };
 		B1D41B1F291A2D97004E64A5 /* DurationPickerExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationPickerExample.swift; sourceTree = "<group>"; };
 		B1D9D2292991E056008FF5BC /* ObjectItemAvatarsExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectItemAvatarsExample.swift; sourceTree = "<group>"; };
@@ -437,6 +441,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				B1BA1F902B19A8B500E6C052 /* TabViewExample */,
 				B1CC61C52AFA0856002078C1 /* NavigationBar */,
 				C1C764862A818BD600BCB0F7 /* SortFilter */,
 				B100639129C0623300AF0CA2 /* StepProgressIndicator */,
@@ -521,6 +526,15 @@
 				B1C7DC8029FBB13F00DC5EEB /* SPIModelExample.swift */,
 			);
 			path = StepProgressIndicator;
+			sourceTree = "<group>";
+		};
+		B1BA1F902B19A8B500E6C052 /* TabViewExample */ = {
+			isa = PBXGroup;
+			children = (
+				B18D593B2B0C52C700ABB1AD /* TabViewExample.swift */,
+				B1BA1F912B19AAEE00E6C052 /* TabViewDetailView.swift */,
+			);
+			path = TabViewExample;
 			sourceTree = "<group>";
 		};
 		B1CC61C52AFA0856002078C1 /* NavigationBar */ = {
@@ -781,6 +795,7 @@
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
+				B1BA1F922B19AAEE00E6C052 /* TabViewDetailView.swift in Sources */,
 				B1DD864F2B07441C00D7EDFD /* UIFont+Fiori.swift in Sources */,
 				B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */,
 				8A5579CF24C1293C0098003A /* SettingsAxis.swift in Sources */,
@@ -814,6 +829,7 @@
 				692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */,
 				8A5579D324C1293C0098003A /* SettingsPoint.swift in Sources */,
 				B80DA9BA260BBF8600C0B2E9 /* SingleActionProfiles.swift in Sources */,
+				B18D593C2B0C52C700ABB1AD /* TabViewExample.swift in Sources */,
 				8A5579D424C1293C0098003A /* SettingsBaseline.swift in Sources */,
 				1F90888C261A59820015A84D /* FioriButtonExample.swift in Sources */,
 				B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */,

@@ -43,6 +43,11 @@ struct CoreContentView: View {
                     destination: NavigationBarExample()) {
                     Text("Customized NavigationBar")
                 }
+                
+                NavigationLink(
+                    destination: TabViewExample()) {
+                    Text("Customized TabView")
+                }
             }
             
             NavigationLink(
