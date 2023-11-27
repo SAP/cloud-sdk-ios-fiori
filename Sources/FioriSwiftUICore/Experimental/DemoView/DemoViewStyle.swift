@@ -9,11 +9,12 @@ public protocol DemoViewStyle: DynamicProperty {
 }
 
 public struct DemoViewConfiguration {
-    let title: Title
-    let subtitle: Subtitle
-    let status: Status
-    let actionTitle: ActionTitle
-    let action: (() -> Void)?
+    public let title: Title
+    public let subtitle: Subtitle
+    public let status: Status
+    public let actionTitle: ActionTitle
+    public let action: (() -> Void)?
+    public var isOn: Binding<Bool>
     
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -99,6 +100,18 @@ extension DemoViewStyle {
     }
 }
 
+public struct AnyDemoViewStyle: DemoViewStyle {
+    let content: (DemoViewConfiguration) -> any View
+    
+    init(@ViewBuilder _ content: @escaping (DemoViewConfiguration) -> any View) {
+        self.content = content
+    }
+    
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        self.content(configuration).typeErased
+    }
+}
+
 // MARK: Style implementations by SDK developers
 
 /// The style that only defines the default layout of DemoView without providing any styling attributes.
@@ -111,6 +124,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             Button(action: configuration.action ?? {}, label: {
                 configuration.actionTitle
             })
+            Toggle(isOn: configuration.isOn, label: {})
         }
         .padding()
     }
@@ -138,19 +152,16 @@ extension DemoViewFioriStyle {
 /// Show contents in a scrollable horizontal stack
 public struct DemoViewHorizontalStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
-        ScrollView {
-            HStack(spacing: 10) {
-                configuration.title
-                configuration.subtitle
-                configuration.status
-                if !configuration.actionTitle.isEmpty {
-                    Button(action: configuration.action ?? {}, label: {
-                        configuration.actionTitle
-                    })
-                }
-            }
-            .padding()
+        HStack(spacing: 10) {
+            configuration.title
+            configuration.subtitle
+            configuration.status
+            Button(action: configuration.action ?? {}, label: {
+                configuration.actionTitle
+            })
+            Toggle(isOn: configuration.isOn, label: {})
         }
+        .padding()
     }
 }
 
@@ -177,3 +188,14 @@ public extension DemoViewStyle where Self == DemoViewCardStyle {
         DemoViewCardStyle()
     }
 }
+
+//
+// struct DemoViewThememingStyle: DemoViewStyle, Codable {
+//    let font: Font
+//    let textColor: Color
+//
+//    func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+//        DemoView(configuration)
+//            .font(font)
+//    }
+// }

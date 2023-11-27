@@ -24,15 +24,13 @@ protocol _StatusComponent {
 
 // MARK: NewActionComponent
 
-protocol _PrimaryButtonComponent {
-    associatedtype Label: View
-    // generate style
-    var primaryButton: Button<Label> { get }
-}
-
 protocol _ActionComponent {
     associatedtype _ActionTitle: View
     // generate style
     var actionTitle: _ActionTitle { get }
     var action: (() -> Void)? { get }
+}
+
+protocol _SwitchComponent {
+    var isOn: Bool { get }
 }

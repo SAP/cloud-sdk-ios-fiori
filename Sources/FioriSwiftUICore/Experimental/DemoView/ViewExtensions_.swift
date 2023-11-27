@@ -24,4 +24,11 @@ public extension View {
             stack.append(style)
         }
     }
+    
+    func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.demoViewStyleStack) { stack in
+            let style = AnyDemoViewStyle(content)
+            stack.append(style)
+        }
+    }
 }
