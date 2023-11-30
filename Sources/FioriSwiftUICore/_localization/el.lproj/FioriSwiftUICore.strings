@@ -19,6 +19,18 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Πάτημα για Υπογραφή";
 
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Περιοχή Υπογραφής";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Διπλό κλικ και μεταφορά για υπογραφή";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Εικόνα Υπογραφής";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Γραμμή Υπογραφής";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Ακυρωμένο";
 
@@ -90,4 +102,49 @@
 
 /* XBUT: Error messages shown to users in DataTable */
 "There are %d errors in the data table." = "Υπάρχουν %d σφάλματα στον πίνακα δεδομένων.";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "κεφαλίδα σειράς";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "σειρά %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "στήλη %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "κύρια παρελκόμενα";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "παρελκόμενα διαδρομής";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "κείμενο";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "εικόνα";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "ημερομηνία";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "ώρα";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "διάρκεια";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "στοιχείο λίστας";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "επιλεγμένο";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "δεν επιλέχτηκε";
+
+/* XBUT: calendar time component label */
+"Time" = "Ώρα";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Τιμή: %d";
 

@@ -19,6 +19,18 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "Торкніться, щоб підписати";
 
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "Область підпису";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "Двічі натисніть і перетягніть, щоб підписати";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "Зображення підпису";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "Рядок підпису";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "Скасовано";
 
@@ -89,5 +101,50 @@
 "Done" = "Виконано";
 
 /* XBUT: Error messages shown to users in DataTable */
-"There are %d errors in the data table." = "У таблиці даних є %d помил.";
+"There are %d errors in the data table." = "У таблиці даних є %d помилок.";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "заголовок рядка";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "рядок %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "стовпчик %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "початкове приладдя";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "кінцеве приладдя";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "текст";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "зображення";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "дата";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "час";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "тривалість";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "елемент списку";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "вибрано";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "не вибрано";
+
+/* XBUT: calendar time component label */
+"Time" = "Час";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "Значення: %d";
 
