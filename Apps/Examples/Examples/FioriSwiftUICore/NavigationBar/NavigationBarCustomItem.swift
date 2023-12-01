@@ -1,5 +1,5 @@
-import SwiftUI
 import FioriSwiftUICore
+import SwiftUI
 
 struct NavigationBarCustomItem: View {
     var body: some View {
@@ -7,15 +7,13 @@ struct NavigationBarCustomItem: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack {
-                        Button {
-                        } label: {
+                        Button {} label: {
                             Text("Option")
                                 .padding()
                         }
                         .buttonStyle(CustomBarButtonStyle())
                         
-                        Button {
-                        } label: {
+                        Button {} label: {
                             Image(systemName: "pencil")
                                 .padding()
                         }

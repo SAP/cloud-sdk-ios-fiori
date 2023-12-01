@@ -1,5 +1,5 @@
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 struct NavigationBarPopover: View {
     @Environment(\.presentationMode) var presentationMode
