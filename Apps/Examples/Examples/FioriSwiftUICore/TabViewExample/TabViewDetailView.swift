@@ -1,3 +1,5 @@
+import AVFAudio
+import FioriThemeManager
 import SwiftUI
 
 struct TabBarModel: Identifiable {
@@ -13,8 +15,9 @@ struct TabViewDetailView: View {
     @Binding var isCustomSelectionIndicatorImage: Bool
     @Binding var isCustomBackgroundImage: Bool
     @State private var selection = 0
-    @State private var accendColor = Color.orange
-
+    @State private var accendColor = Color.random
+    @State private var selectionAudioPlayer: AVAudioPlayer!
+    
     var tabs: [TabBarModel] = [TabBarModel(name: "bicycle", badge: "2", imageName: "bicycle"),
                                TabBarModel(name: "list", imageName: "list.dash"),
                                TabBarModel(name: "cart", badge: "NEW", imageName: "cart"),
@@ -30,6 +33,8 @@ struct TabViewDetailView: View {
                 self.selection = $0
                 accendColor = Color.random
             }
+            
+            selectionAudioPlayer?.play()
         }
     ) }
     
@@ -59,30 +64,21 @@ struct TabViewDetailView: View {
         .navigationTitle("Customized TabView")
         .accentColor(accendColor)
         .onAppear {
-            if isCustomColor {
-                UITabBarItem.appearance().setTitleTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .title3),
-                                                                  .foregroundColor: UIColor.black], for: .normal)
-                UITabBarItem.appearance().setTitleTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .title3),
-                                                                  .foregroundColor: UIColor.purple], for: .selected)
-                UITabBarItem.appearance().setBadgeTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .callout),
-                                                                  .foregroundColor: UIColor.white], for: .normal)
-                UITabBarItem.appearance().setBadgeTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .callout),
-                                                                  .foregroundColor: UIColor.red], for: .selected)
-                
-                UITabBar.appearance().unselectedItemTintColor = UIColor.red
-                UITabBar.appearance().backgroundColor = UIColor.green
-                UITabBarItem.appearance().badgeColor = UIColor.black
-            } else {
-                UITabBar.appearance().unselectedItemTintColor = nil
-                UITabBar.appearance().backgroundColor = nil
-                UITabBarItem.appearance().badgeColor = UIColor.systemRed
-                
-                UITabBarItem.appearance().setTitleTextAttributes([:], for: .normal)
-                UITabBarItem.appearance().setTitleTextAttributes([:], for: .selected)
-                UITabBarItem.appearance().setBadgeTextAttributes([:], for: .normal)
-                UITabBarItem.appearance().setBadgeTextAttributes([:], for: .selected)
+            if let path = Bundle.main.path(forResource: "08 Tap", ofType: "wav") {
+                let url = URL(fileURLWithPath: path)
+                do {
+                    selectionAudioPlayer = try AVAudioPlayer(contentsOf: url)
+                    selectionAudioPlayer.prepareToPlay()
+                } catch let error as NSError {
+                    print("Error creating AVAudioPlayer \(error)")
+                }
             }
-            
+
+            if isCustomColor {
+                customTabColor()
+            } else {
+                resetTabColor()
+            }
             if isCustomSelectionIndicatorImage {
                 UITabBar.appearance().selectionIndicatorImage = UIImage(systemName: "car")
             } else {
@@ -90,11 +86,41 @@ struct TabViewDetailView: View {
             }
             
             if isCustomBackgroundImage {
-                UITabBar.appearance().backgroundImage = UIImage(systemName: "square")?.withTintColor(UIColor.clear)
+                UITabBar.appearance().backgroundImage = UIImage(named: "SAPLogo")?.stretchableImage(withLeftCapWidth: 0, topCapHeight: 0)
             } else {
                 UITabBar.appearance().backgroundImage = nil
             }
         }
+        .onDisappear {
+            resetTabColor()
+            UITabBar.appearance().selectionIndicatorImage = nil
+            UITabBar.appearance().backgroundImage = nil
+        }
+    }
+    
+    func customTabColor() {
+        UITabBarItem.appearance().setTitleTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .title3),
+                                                          .foregroundColor: UIColor(Color.preferredColor(.primaryLabel))], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .title3),
+                                                          .foregroundColor: UIColor(Color.random)], for: .selected)
+        UITabBarItem.appearance().setBadgeTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .callout),
+                                                          .foregroundColor: UIColor(Color.random)], for: .normal)
+        UITabBarItem.appearance().setBadgeTextAttributes([.font: UIFont.preferredFioriFont(forTextStyle: .callout),
+                                                          .foregroundColor: UIColor(Color.random)], for: .selected)
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.preferredColor(.red11))
+        UITabBar.appearance().backgroundColor = UIColor(Color.preferredColor(.green11))
+        UITabBarItem.appearance().badgeColor = UIColor(Color.preferredColor(.base1))
+    }
+    
+    func resetTabColor() {
+        UITabBar.appearance().unselectedItemTintColor = nil
+        UITabBar.appearance().backgroundColor = nil
+        UITabBarItem.appearance().badgeColor = UIColor.systemRed
+        
+        UITabBarItem.appearance().setTitleTextAttributes([:], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([:], for: .selected)
+        UITabBarItem.appearance().setBadgeTextAttributes([:], for: .normal)
+        UITabBarItem.appearance().setBadgeTextAttributes([:], for: .selected)
     }
 }
 
