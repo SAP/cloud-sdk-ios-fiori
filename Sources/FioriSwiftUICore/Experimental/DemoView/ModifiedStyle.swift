@@ -13,3 +13,11 @@ extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
             .modifier(self.modifier)
     }
 }
+
+extension ModifiedStyle: ActionTitleStyle where Style: ActionTitleStyle {
+    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
+        ActionTitle(configuration)
+            .actionTitleStyle(self.style)
+            .modifier(self.modifier)
+    }
+}

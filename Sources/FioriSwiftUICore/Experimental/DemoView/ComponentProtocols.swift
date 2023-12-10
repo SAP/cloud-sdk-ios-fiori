@@ -8,6 +8,11 @@ protocol _TitleComponent {
     var title: _Title { get }
 }
 
+protocol _ActionTitleComponent {
+    associatedtype _ActionTitle: View
+    var actionTitle: _ActionTitle { get }
+}
+
 // MARK: NewSubtitleComponent
 
 protocol _SubtitleComponent {

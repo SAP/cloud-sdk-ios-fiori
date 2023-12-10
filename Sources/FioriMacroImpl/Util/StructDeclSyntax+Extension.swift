@@ -4,7 +4,9 @@ import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
 extension StructDeclSyntax {
-    var lowerCasedName: String {
-        name.text.lowercased()
+    func firstCharlowerCased() -> String {
+        var char = Array(name.text)
+        char[0] = Character(char[0].lowercased())
+        return String(char)
     }
 }

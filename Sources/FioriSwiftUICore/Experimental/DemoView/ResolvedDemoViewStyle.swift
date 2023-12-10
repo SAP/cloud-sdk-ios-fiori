@@ -16,7 +16,22 @@ extension DemoViewStyle {
     }
 }
 
-struct ResolvedNewTitleStyle<Style: TitleStyle>: View {
+struct ResolvedNewActionStyle<Style: NewActionStyle>: View {
+    let style: Style
+    let configuration: NewActionConfiguration
+    
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension NewActionStyle {
+    func resolve(configuration: NewActionConfiguration) -> some View {
+        ResolvedNewActionStyle(style: self, configuration: configuration)
+    }
+}
+
+struct ResolvedTitleStyle<Style: TitleStyle>: View {
     let style: Style
     let configuration: TitleConfiguration
     
@@ -27,6 +42,21 @@ struct ResolvedNewTitleStyle<Style: TitleStyle>: View {
 
 extension TitleStyle {
     func resolve(configuration: TitleConfiguration) -> some View {
-        ResolvedNewTitleStyle(style: self, configuration: configuration)
+        ResolvedTitleStyle(style: self, configuration: configuration)
+    }
+}
+
+struct ResolvedActionTitleStyle<Style: ActionTitleStyle>: View {
+    let style: Style
+    let configuration: ActionTitleConfiguration
+    
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension ActionTitleStyle {
+    func resolve(configuration: ActionTitleConfiguration) -> some View {
+        ResolvedActionTitleStyle(style: self, configuration: configuration)
     }
 }

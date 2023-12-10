@@ -40,3 +40,23 @@ extension EnvironmentValues {
         titleStyleStack.last ?? .base
     }
 }
+
+// TODO: macro
+struct ActionTitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActionTitleStyle] = []
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var actionTitleStyleStack: [any ActionTitleStyle] {
+        get { self[ActionTitleStyleStackKey.self] }
+        set { self[ActionTitleStyleStackKey.self] = newValue }
+    }
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var actionTitleStyle: any ActionTitleStyle {
+        actionTitleStyleStack.last ?? .base
+    }
+}

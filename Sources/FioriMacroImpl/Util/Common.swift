@@ -394,7 +394,7 @@ extension AttachedMacro {
                    !(syntax.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
                 {
                     let isViewBuilder = syntax.isViewBuilder
-                    genericParams.append("\(type) == \(configurationName).\(identifier.text.firstLetterUppercase())")
+                    genericParams.append("\(type) == \(configurationName).\(identifier.text.firstLetterUppercased())")
 //                    let identifierPrefix = {
 //                        var ret = ""
 //
@@ -510,13 +510,23 @@ extension String {
         return String(chars[i ..< chars.count])
     }
     
-    func firstLetterUppercase() -> String {
+    func firstLetterUppercased() -> String {
         if self.isEmpty {
             return self
         }
         
         var chars = Array(self)
         chars[0] = Character(chars[0].uppercased())
+        return String(chars)
+    }
+    
+    func firstLetterlowercased() -> String {
+        if self.isEmpty {
+            return self
+        }
+        
+        var chars = Array(self)
+        chars[0] = Character(chars[0].lowercased())
         return String(chars)
     }
 }

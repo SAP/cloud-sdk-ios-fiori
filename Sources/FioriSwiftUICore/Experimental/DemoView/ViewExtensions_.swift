@@ -8,6 +8,13 @@ extension View {
             stack.append(style)
         }
     }
+    
+    func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.demoViewStyleStack) { stack in
+            let style = AnyDemoViewStyle(content)
+            stack.append(style)
+        }
+    }
 }
 
 // TODO: macro
@@ -24,10 +31,19 @@ public extension View {
             stack.append(style)
         }
     }
+}
+
+// TODO: macro
+public extension View {
+    func actionTitleStyle(_ style: some ActionTitleStyle) -> some View {
+        self.transformEnvironment(\.actionTitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
     
-    func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.demoViewStyleStack) { stack in
-            let style = AnyDemoViewStyle(content)
+    func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.actionTitleStyleStack) { stack in
+            let style = AnyActionTitleStyle(content)
             stack.append(style)
         }
     }

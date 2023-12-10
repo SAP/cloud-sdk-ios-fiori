@@ -8,7 +8,7 @@ public struct BaseComponent: MemberMacro {
         var ret: [DeclSyntax] = []
         
         if let structDecl = declaration.as(StructDeclSyntax.self),
-           case let name = structDecl.lowerCasedName
+           case let name = structDecl.firstCharlowerCased()
         {
             /// Add style environment variable
             /// ```
@@ -111,7 +111,7 @@ extension BaseComponent: ExtensionMacro {
                 """
                 \(name)(\(paramList.joined(separator: ",\n")))
                 .shouldApplyDefaultStyle(false)
-                .\(name.lowercased())Style(.fiori)
+                .\(name.firstLetterlowercased())Style(.fiori)
                 """
                 .components(separatedBy: "\n")
             for line in lines {
@@ -161,7 +161,7 @@ extension BaseComponent: ExtensionMacro {
                     self.defaultStyle()
                 } else {
                     style.resolve(configuration: .init(\(paramList.joined(separator: ", ")))).typeErased
-                        .transformEnvironment(\\.\(name.lowercased())StyleStack) { stack in
+                        .transformEnvironment(\\.\(name.firstLetterlowercased())StyleStack) { stack in
                             if !stack.isEmpty {
                                 stack.removeLast()
                             }
