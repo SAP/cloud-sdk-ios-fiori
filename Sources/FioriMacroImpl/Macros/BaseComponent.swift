@@ -122,7 +122,7 @@ extension BaseComponent: ExtensionMacro {
         
         let extensionDecl = try ExtensionDeclSyntax(.init(stringLiteral: "private extension \(name)")) {
             for method in methods {
-                MemberBlockItemSyntax(decl: method)
+                method
             }
         }
         
@@ -182,9 +182,20 @@ extension BaseComponent: ExtensionMacro {
     }
 }
 
-public extension SyntaxProtocol {
-    var trimmed: Self {
-        // TODO: Should only need one new node here
-        self.with(\.leadingTrivia, []).with(\.trailingTrivia, [])
+extension BaseComponent: PeerMacro {
+    public static func expansion(of node: SwiftSyntax.AttributeSyntax, providingPeersOf declaration: some SwiftSyntax.DeclSyntaxProtocol, in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.DeclSyntax] {
+        guard let typeName = declaration.typeName else {
+            return []
+        }
+        
+        var ret: [DeclSyntax] = []
+        
+        let styleProtocolDecl = try ProtocolDeclSyntax(SyntaxNodeString(stringLiteral: "public protocol \(typeName.firstLetterUppercased())Style: DynamicProperty")) {
+            "associatedtype Body: View"
+            try FunctionDeclSyntax(SyntaxNodeString(stringLiteral: "func makeBody(_ configuration: \(typeName.firstLetterUppercased())Configuration) -> Body"))
+        }
+        ret.append(.init(styleProtocolDecl))
+        
+        return ret
     }
 }

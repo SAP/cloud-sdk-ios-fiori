@@ -4,10 +4,10 @@ import SwiftUI
 
 // MARK: Macro generated
 
-public protocol ActionTitleStyle: DynamicProperty {
-    associatedtype Body: View
-    func makeBody(_ configuration: ActionTitleConfiguration) -> Body
-}
+// public protocol ActionTitleStyle: DynamicProperty {
+//    associatedtype Body: View
+//    func makeBody(_ configuration: ActionTitleConfiguration) -> Body
+// }
 
 public struct ActionTitleConfiguration {
     let actionTitle: ActionTitle

@@ -48,4 +48,5 @@ public macro FioriIcon() = #externalMacro(module: "FioriMacroImpl", type: "Fiori
 
 @attached(member, names: named(style), named(_shouldApplyDefaultStyle), named(init))
 @attached(extension, names: arbitrary, conformances: View)
+@attached(peer, names: suffixed(Style))
 public macro BaseComponent() = #externalMacro(module: "FioriMacroImpl", type: "BaseComponent")

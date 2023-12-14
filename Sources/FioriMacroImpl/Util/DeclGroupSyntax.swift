@@ -3,7 +3,7 @@ import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
 
-extension DeclGroupSyntax {
+extension SyntaxProtocol {
     var typeName: String? {
         if let structDecl = self.as(StructDeclSyntax.self) {
             return structDecl.name.text

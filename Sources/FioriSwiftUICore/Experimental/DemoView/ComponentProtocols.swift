@@ -29,10 +29,7 @@ protocol _StatusComponent {
 
 // MARK: NewActionComponent
 
-protocol _ActionComponent {
-    associatedtype _ActionTitle: View
-    // generate style
-    var actionTitle: _ActionTitle { get }
+protocol _ActionComponent: _ActionTitleComponent {
     var action: (() -> Void)? { get }
 }
 
