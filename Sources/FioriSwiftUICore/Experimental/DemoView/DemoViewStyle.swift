@@ -121,9 +121,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             configuration.title
             configuration.subtitle
             configuration.status
-            NewAction(actionTitle: {
-                configuration.actionTitle
-            }, action: configuration.action)
+            NewAction(.init(actionTitle: configuration.actionTitle, action: configuration.action))
             Toggle(isOn: configuration.isOn, label: {})
         }
         .padding()

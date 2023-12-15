@@ -4,13 +4,11 @@ import SwiftUI
 // MARK: NewTitleComponent
 
 protocol _TitleComponent {
-    associatedtype _Title: View
-    var title: _Title { get }
+    var title: any View { get }
 }
 
 protocol _ActionTitleComponent {
-    associatedtype _ActionTitle: View
-    var actionTitle: _ActionTitle { get }
+    var actionTitle: any View { get }
 }
 
 // MARK: NewSubtitleComponent

@@ -36,7 +36,7 @@ extension AttachedMacro {
 
         if let decl = declaration.as(StructDeclSyntax.self) {
             let configurationName = "\(decl.name)Configuration"
-            (parameters, assignments, _, accessorType) = self.makeData(
+            (parameters, assignments, accessorType) = self.makeData(
                 getModifiers("", decl.modifiers),
                 decl.memberBlock.members,
                 decl.attributes,
@@ -67,7 +67,7 @@ extension AttachedMacro {
         of node: AttributeSyntax,
         providingMembersOf declaration: some DeclGroupSyntax,
         in context: some MacroExpansionContext
-    ) throws -> ([DeclSyntax], [String]) {
+    ) throws -> [DeclSyntax] {
         // Only `struct` and `class` is suitable for this macro
         guard declaration.is(StructDeclSyntax.self) || declaration.is(ClassDeclSyntax.self) else {
             let message: DiagnosticMessage
@@ -81,16 +81,15 @@ extension AttachedMacro {
                 message: message
             )
             context.diagnose(error)
-            return ([], [])
+            return []
         }
         
         var parameters = [String]()
         var assignments = [String]()
-        var genericParams = [String]()
         var accessorType = false
 
         if let decl = declaration.as(StructDeclSyntax.self) {
-            (parameters, assignments, genericParams, accessorType) = self.makeData(
+            (parameters, assignments, accessorType) = self.makeData(
                 getModifiers("", decl.modifiers),
                 decl.memberBlock.members,
                 decl.attributes,
@@ -98,11 +97,11 @@ extension AttachedMacro {
             )
         }
         
-        let initBody: [CodeBlockItemListSyntax.Element] = assignments.enumerated().map { index, assignment in
+        let initBody: [LabeledExprListSyntax.Element] = assignments.enumerated().map { index, assignment in
             if index == 0 {
-                return "\(raw: assignment)"
+                return .init(expression: ExprSyntax(stringLiteral: assignment))
             } else {
-                return "\n\(raw: assignment)"
+                return .init(expression: ExprSyntax(stringLiteral: "\n\(assignment)"))
             }
         }
         
@@ -110,10 +109,21 @@ extension AttachedMacro {
             SyntaxNodeString(
                 stringLiteral: "init(\n\(parameters.joined(separator: ",\n"))\n)"
             ),
-            bodyBuilder: { .init(initBody) }
+            bodyBuilder: {
+                FunctionCallExprSyntax(callee: ExprSyntax(stringLiteral: "self.init"), argumentList: {
+                    for expr in initBody {
+                        expr
+                    }
+                })
+//                FunctionCallExprSyntax(calledExpression: , arguments: .init(itemsBuilder: {
+//                    for expr in initBody {
+//                        expr
+//                    }
+//                }))
+            }
         )
         
-        return (["\(raw: initDeclSyntax)"], genericParams)
+        return ["\(raw: initDeclSyntax)"]
     }
     
     static func createConfigurationInit(
@@ -121,7 +131,7 @@ extension AttachedMacro {
         providingMembersOf declaration: some DeclGroupSyntax,
         in context: some MacroExpansionContext,
         isBaseComponent: Bool = true
-    ) throws -> ([DeclSyntax], [String]) {
+    ) throws -> [DeclSyntax] {
         // Only `struct` and `class` is suitable for this macro
         guard declaration.is(StructDeclSyntax.self) || declaration.is(ClassDeclSyntax.self) else {
             let message: DiagnosticMessage
@@ -135,16 +145,15 @@ extension AttachedMacro {
                 message: message
             )
             context.diagnose(error)
-            return ([], [])
+            return []
         }
         
         var parameters = [String]()
         var assignments = [String]()
-        var genericParams = [String]()
 
         if let decl = declaration.as(StructDeclSyntax.self) {
             let configurationName = "\(decl.name)Configuration"
-            (parameters, assignments, genericParams, _) = self.makeData(
+            (parameters, assignments, _) = self.makeData(
                 getModifiers("", decl.modifiers),
                 decl.memberBlock.members,
                 decl.attributes,
@@ -171,7 +180,7 @@ extension AttachedMacro {
             bodyBuilder: { .init(initBody) }
         )
         
-        return (["\(raw: initDeclSyntax)"], genericParams)
+        return ["\(raw: initDeclSyntax)"]
     }
     
     private static func makeData(
@@ -180,7 +189,7 @@ extension AttachedMacro {
         _ attributes: AttributeListSyntax?,
         _ initType: InitType,
         _ configurationName: String = ""
-    ) -> ([String], [String], [String], Bool) {
+    ) -> ([String], [String], Bool) {
         var defaults = [String: String]()
         var wildcards = [String]()
         
@@ -228,9 +237,39 @@ extension AttachedMacro {
             accessorType = "\(publicAttribute)" == "true"
         }
         
+        /// Get supporting attributes of view builder properties
+        /// E.g.
+        ///
+        ///  ```
+        ///  let actionTitle: any View
+        ///  private let _actionTitle = (dataType: "AttributedString?", viewType: "Text")
+        ///  ```
+
+        /// ["title": ["AttributedString", "Text"]]
+        var dict: [String: [String]] = [:]
+        for member in members {
+            if let syntax = member.decl.as(VariableDeclSyntax.self),
+               case let bindings = syntax.bindings,
+               let pattern = bindings.first,
+               let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
+               syntax.bindingSpecifier.tokenKind == .keyword(.let),
+               let tupleList = pattern.initializer?.value.as(TupleExprSyntax.self)?.elements
+            {
+                for labeledExpr in tupleList {
+                    guard let stringLiteral = labeledExpr.expression.as(StringLiteralExprSyntax.self),
+                          let segment = stringLiteral.segments.first?.as(StringSegmentSyntax.self),
+                          case let text = segment.content.text
+                    else {
+                        continue
+                    }
+                          
+                    dict[identifier.text.trimLeadingUnderscore(), default: []].append(text)
+                }
+            }
+        }
+        
         var parameters = [String]()
         var assignments = [String]()
-        var genericParams = [String]()
         
         func viewBuilderInit() {
             for member in members {
@@ -253,14 +292,15 @@ extension AttachedMacro {
                         return ret
                     }()
                     
-                    let shouldAddScaping = type.is(FunctionTypeSyntax.self)
-                    let typePrefix = "\(shouldAddScaping ? "@escaping " : "")"
+                    let shouldAddEscaping = type.is(FunctionTypeSyntax.self)
+                    let typePrefix = "\(shouldAddEscaping ? "@escaping " : "")"
                     let type = {
                         guard isViewBuilder else { return type }
                         return "() -> \(type)"
                     }()
                     
                     var parameter = "\(identifierPrefix)\(identifier): \(typePrefix)\(type)"
+                    // add default value
                     if let defaultValue = defaults["\(identifier)"] {
                         let value = defaultValue.containsPattern("\\(\\)\"")
                             ? defaultValue.removePattern("\"(.*)\"")
@@ -268,6 +308,8 @@ extension AttachedMacro {
                         parameter += " = " + "\(value)"
                     } else if let initializer = pattern.initializer {
                         parameter += "\(initializer)"
+                    } else if isViewBuilder, let dataType = dict[identifier.text]?.first, dataType.hasSuffix("?") {
+                        parameter += " = " + "{ EmptyView() }"
                     }
                     
                     let memberAccessor = getModifiers("", syntax.modifiers)
@@ -286,31 +328,6 @@ extension AttachedMacro {
         }
         
         func dataInit() {
-            /// getting data types for each view builder property
-            ///
-            /// ["title": ["AttributedString, "Text""]]
-            var dict: [String: [String]] = [:]
-            for member in members {
-                if let syntax = member.decl.as(VariableDeclSyntax.self),
-                   case let bindings = syntax.bindings,
-                   let pattern = bindings.first,
-                   let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
-                   syntax.bindingSpecifier.tokenKind == .keyword(.let),
-                   let tupleList = pattern.initializer?.value.as(TupleExprSyntax.self)?.elements
-                {
-                    for labeledExpr in tupleList {
-                        guard let stringLiteral = labeledExpr.expression.as(StringLiteralExprSyntax.self),
-                              let segment = stringLiteral.segments.first?.as(StringSegmentSyntax.self),
-                              case let text = segment.content.text
-                        else {
-                            return
-                        }
-                              
-                        dict[identifier.text.trimLeadingUnderscore(), default: []].append(text)
-                    }
-                }
-            }
-            
             for member in members {
                 if let syntax = member.decl.as(VariableDeclSyntax.self),
                    case let bindings = syntax.bindings,
@@ -365,20 +382,18 @@ extension AttachedMacro {
                            case let _viewType = list[1]
                         {
                             viewType = _viewType
-                            
-                            genericParams.append("\(type) == \(_viewType)")
                         }
-                        
+
                         let value = {
                             if let viewType {
-                                return "\(viewType)(\(identifier))"
+                                return "{ \(viewType)(\(identifier)) }"
                             } else if isViewBuilder {
-                                return "\(identifier)()"
+                                return "{ \(identifier)() }"
                             } else {
                                 return "\(identifier)"
                             }
                         }()
-                        assignments.append("\(memberAccessorPrefix).\(identifier) = \(value)")
+                        assignments.append("\(identifier): \(value)")
                     }
                 }
             }
@@ -394,7 +409,6 @@ extension AttachedMacro {
                    !(syntax.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
                 {
                     let isViewBuilder = syntax.isViewBuilder
-                    genericParams.append("\(type) == \(configurationName).\(identifier.text.firstLetterUppercased())")
 //                    let identifierPrefix = {
 //                        var ret = ""
 //
@@ -444,7 +458,7 @@ extension AttachedMacro {
             configurationInit()
         }
         
-        return (parameters, assignments, genericParams, accessorType)
+        return (parameters, assignments, accessorType)
     }
     
     static func getInitParamList(

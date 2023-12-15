@@ -1,21 +1,19 @@
 import Foundation
 import SwiftUI
 
-public struct NewAction<_ActionTitle: View>: _ActionComponent {
-    var actionTitle: _ActionTitle
+public struct NewAction: _ActionComponent {
+    var actionTitle: any View
     var action: (() -> Void)?
     
     @Environment(\.newActionStyle) var style
     
-    init<ActionTitle_: View>(actionTitle: () -> ActionTitle_, action: (() -> Void)? = nil) where _ActionTitle == ActionTitle<ActionTitle_> {
+    init(actionTitle: () -> some View = { EmptyView() }, action: (() -> Void)? = nil) {
         self.actionTitle = ActionTitle { actionTitle() }
         self.action = action
     }
 }
 
-public extension NewAction where
-    _ActionTitle == ActionTitle<Text>
-{
+public extension NewAction {
     init(
         actionTitle: AttributedString,
         action: (() -> Void)? = nil
@@ -24,9 +22,7 @@ public extension NewAction where
     }
 }
 
-public extension NewAction where
-    _ActionTitle == NewActionConfiguration.ActionTitle
-{
+public extension NewAction {
     init(
         _ configuration: NewActionConfiguration
     ) {

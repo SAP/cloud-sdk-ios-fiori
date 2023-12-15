@@ -2,13 +2,13 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
-public struct DemoView<_Title: View, Subtitle: View, Status: View, ActionTitle: View>: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {
+public struct DemoView<Subtitle: View, Status: View>: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {
     @ViewBuilder
-    let title: _Title
+    let title: any View
     let subtitle: Subtitle
     let status: Status
     
-    let actionTitle: ActionTitle
+    let actionTitle: any View
     let action: (() -> Void)?
     
     @Binding var isOn: Bool
@@ -17,31 +17,29 @@ public struct DemoView<_Title: View, Subtitle: View, Status: View, ActionTitle: 
     @Environment(\.demoViewStyle) var style
     
     // TODO: macro
-    public init<Title_: View>
-    (
-        @ViewBuilder title: () -> Title_,
-        @ViewBuilder subtitle: () -> Subtitle = { EmptyView() },
-        @ViewBuilder status: () -> Status = { EmptyView() },
-        @ViewBuilder actionTitle: () -> ActionTitle = { EmptyView() },
-        action: (() -> Void)? = nil,
-        isOn: Binding<Bool>
-    )
-        where _Title == Title<Title_>
+    public init
+        (
+            @ViewBuilder title: () -> any View,
+            @ViewBuilder subtitle: () -> Subtitle = { EmptyView() },
+            @ViewBuilder status: () -> Status = { EmptyView() },
+            @ViewBuilder actionTitle: () -> any View = { EmptyView() },
+            action: (() -> Void)? = nil,
+            isOn: Binding<Bool>
+        )
     {
         self.title = Title { title() }
         self.subtitle = subtitle()
         self.status = status()
-        self.actionTitle = actionTitle()
+        self.actionTitle = ActionTitle { actionTitle() }
         self.action = action
         self._isOn = isOn
     }
 }
 
 // TODO: macro
-public extension DemoView where _Title == Title<Text>,
+public extension DemoView where
     Subtitle == Text?,
-    Status == Text?,
-    ActionTitle == Text?
+    Status == Text?
 {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
@@ -53,6 +51,7 @@ public extension DemoView where _Title == Title<Text>,
         self.init(title: {
             Text(title)
         }, subtitle: {
+//            OptionalText(subtitle)
             Text(attributedString: subtitle)
         }, status: {
             Text(attributedString: status)
@@ -63,10 +62,9 @@ public extension DemoView where _Title == Title<Text>,
 }
 
 // TODO: macro
-public extension DemoView where _Title == DemoViewConfiguration.Title,
+public extension DemoView where
     Subtitle == DemoViewConfiguration.Subtitle,
-    Status == DemoViewConfiguration.Status,
-    ActionTitle == DemoViewConfiguration.ActionTitle
+    Status == DemoViewConfiguration.Status
 {
     init(_ configuration: DemoViewConfiguration) {
         self.title = configuration.title
@@ -203,6 +201,10 @@ struct Preview: PreviewProvider {
         .titleStyle { configuration in
             Title(configuration)
                 .foregroundStyle(.blue)
+        }
+        .actionTitleStyle {
+            ActionTitle($0)
+                .foregroundStyle(Color.red)
         }
         
         // 2. Test style customization for a specific component

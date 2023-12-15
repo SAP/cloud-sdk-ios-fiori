@@ -45,19 +45,15 @@ extension BaseComponent: ExtensionMacro {
             return []
         }
         
-        var (initDecl, genericParams): ([DeclSyntax], [String])
+        var initDecl: [DeclSyntax]
         switch initType {
         case .data:
-            (initDecl, genericParams) = try createDataInit(of: node, providingMembersOf: declaration, in: context)
+            initDecl = try createDataInit(of: node, providingMembersOf: declaration, in: context)
         default:
-            (initDecl, genericParams) = try createConfigurationInit(of: node, providingMembersOf: declaration, in: context)
+            initDecl = try createConfigurationInit(of: node, providingMembersOf: declaration, in: context)
         }
-        let genericClause = genericParams.joined(separator: ",\n")
+
         var header = "public extension \(name)"
-        if !genericClause.isEmpty {
-            header += " where\n\(genericClause)"
-        }
-        
         let extensionDecl = try ExtensionDeclSyntax(.init(stringLiteral: header)) {
             for decl in initDecl {
                 MemberBlockItemSyntax(decl: decl)
