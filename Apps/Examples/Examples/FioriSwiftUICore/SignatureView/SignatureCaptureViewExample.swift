@@ -72,13 +72,14 @@ class ImageSaver: NSObject {
     @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {}
 }
 
+#if !os(visionOS)
 public extension View {
     func asUIImage() -> UIImage {
         let hostingController = UIHostingController(rootView: self)
         
         hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
         UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
-        let size = hostingController.sizeThatFits(in: Screen.bounds.size)
+        let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
         hostingController.view.bounds = CGRect(origin: .zero, size: size)
         hostingController.view.sizeToFit()
 
@@ -96,3 +97,4 @@ public extension UIView {
         }
     }
 }
+#endif
