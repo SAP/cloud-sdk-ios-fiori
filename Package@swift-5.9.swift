@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v15), .watchOS(.v7), .visionOS(.v1)],
+    platforms: [.iOS(.v16), .watchOS(.v7), .visionOS(.v1)],
     products: [
         .library(
             name: "FioriSwiftUI",

@@ -1,20 +1,21 @@
 import Foundation
+import UIKit
 
 struct Screen {
     private init() {}
     
     static var scale: CGFloat {
-        #if os(xrOS)
+        #if os(visionOS)
             1.0
-        #elseif canImport(UIKit)
+        #else
             UIScreen.main.scale
         #endif
     }
     
     static var bounds: CGRect {
-        #if os(xrOS)
-            .zero
-        #elseif canImport(UIKit)
+        #if os(visionOS)
+            CGRect(x: 0, y: 0, width: 1280, height: 720) // default window size for visionOS
+        #else
             UIScreen.main.bounds
         #endif
     }
