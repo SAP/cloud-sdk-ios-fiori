@@ -28,6 +28,14 @@ struct InlineEditingView: View {
         self._editingText = State(initialValue: dataItem?.text ?? "")
         self._isValid = State(initialValue: (dataItem?.isValid ?? true, ""))
     }
+    
+    var toolbarItemPlacement: ToolbarItemPlacement {
+        #if os(visionOS)
+            return .automatic
+        #else
+            return .keyboard
+        #endif
+    }
 
     var body: some View {
         let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
@@ -109,7 +117,7 @@ struct InlineEditingView: View {
         .frame(width: cellWidth, height: cellHeight)
         .border(isValid.0 ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel), width: 2)
         .toolbar {
-            ToolbarItemGroup(placement: .keyboard) {
+            ToolbarItemGroup(placement: toolbarItemPlacement) {
                 Spacer()
                 
                 Button {
