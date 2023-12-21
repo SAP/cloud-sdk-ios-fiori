@@ -49,7 +49,7 @@ public struct DataTable: View {
             self.layoutManager = TableLayoutManager(model: model)
         }
     }
-            
+    
     /// Body of the View
     public var body: some View {
         GeometryReader { proxy in
@@ -75,7 +75,7 @@ public struct DataTable: View {
                     }
                 }
             }
-
+            
             if !self.model.showListView {
                 ScrollAndZoomView(layoutManager: self.layoutManager, size: rect.size)
             }
@@ -90,14 +90,16 @@ public struct DataTable: View {
             self.layoutManager.keyboardFrame = .zero
             self.layoutManager.keyboardHeight = 0
         }
-        .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
-            // save text changes
-            self.layoutManager.saveEditingTextChange()
+        #if !os(visionOS)
+            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)) { _ in
+                // save text changes
+                self.layoutManager.saveEditingTextChange()
             
-            if self.layoutManager.currentCell != nil {
-                self.layoutManager.currentCell = nil
+                if self.layoutManager.currentCell != nil {
+                    self.layoutManager.currentCell = nil
+                }
             }
-        }
+        #endif
         .onChange(of: self.dynamicTypeSize) { newValue in
             self.layoutManager.dynamicTypeSize = newValue
             self.layoutManager.cacheLayoutDataForMeasurement = nil
@@ -153,7 +155,7 @@ public extension DataTable {
     @available(*, deprecated)
     func editingMode(_ value: Bool = false) -> DataTable {
         self.model.isEditing = value
-
+        
         return self
     }
     
@@ -236,7 +238,7 @@ public extension DataTable {
     func sizeThatFits(_ size: CGSize) -> CGSize {
         self.layoutManager.sizeThatFits(size)
     }
-
+    
     /// Returns the rect for the specified cell with rowIndex and columnIndex
     /// - Parameter rowIndex: the row index; rowIndex starts from header if it exists
     /// - Parameter columnIndex: the column index
