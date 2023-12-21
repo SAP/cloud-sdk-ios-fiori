@@ -116,12 +116,18 @@ extension KPIHeaderContent {
     }
     
     private var resizePublisher: AnyPublisher<Void, Never> {
-        let orientationPublisher = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
-            .compactMap { _ in () }
-        let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
-            .compactMap { _ in () }
-        return Publishers.Merge(orientationPublisher, sizeCategoryPublisher)
-            .eraseToAnyPublisher()
+        #if os(visionOS)
+            let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+                .compactMap { _ in () }
+            return sizeCategoryPublisher.eraseToAnyPublisher()
+        #else
+            let orientationPublisher = NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification)
+                .compactMap { _ in () }
+            let sizeCategoryPublisher = NotificationCenter.default.publisher(for: UIContentSizeCategory.didChangeNotification)
+                .compactMap { _ in () }
+            return Publishers.Merge(orientationPublisher, sizeCategoryPublisher)
+                .eraseToAnyPublisher()
+        #endif
     }
     
     private var minItemSpacing: CGFloat {
