@@ -9,23 +9,23 @@ import SwiftUI
 //    func makeBody(_ configuration: ActionTitleConfiguration) -> Body
 // }
 
-public struct ActionTitleConfiguration {
-    let actionTitle: ActionTitle
-    
-    public typealias ActionTitle = ConfigurationViewWrapper
-}
+// public struct ActionTitleConfiguration {
+//    public let actionTitle: ActionTitle
+//
+//    public typealias ActionTitle = ConfigurationViewWrapper
+// }
 
-public struct AnyActionTitleStyle: ActionTitleStyle {
-    let content: (ActionTitleConfiguration) -> any View
-    
-    init(@ViewBuilder _ content: @escaping (ActionTitleConfiguration) -> any View) {
-        self.content = content
-    }
-    
-    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-        self.content(configuration).typeErased
-    }
-}
+// struct ActionTitleStyleBox: ActionTitleStyle {
+//    let content: (ActionTitleConfiguration) -> any View
+//
+//    init(@ViewBuilder _ content: @escaping (ActionTitleConfiguration) -> any View) {
+//        self.content = content
+//    }
+//
+//    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
+//        self.content(configuration).typeErased
+//    }
+// }
 
 extension ActionTitleStyle where Self == ActionTitleBaseStyle {
     static var base: ActionTitleBaseStyle {

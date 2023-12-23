@@ -176,6 +176,30 @@ extension BaseComponent: ExtensionMacro {
         
         return [extensionDecl]
     }
+    
+//    static func createStyleExtension(of node: SwiftSyntax.AttributeSyntax, attachedTo declaration: some SwiftSyntax.DeclGroupSyntax, providingExtensionsOf type: some SwiftSyntax.TypeSyntaxProtocol, conformingTo protocols: [SwiftSyntax.TypeSyntax], in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.ExtensionDeclSyntax] {
+//        guard let name = declaration.typeName else {
+//            return []
+//        }
+//
+//        var ret: [ExtensionDeclSyntax] = []
+//
+//        let baseStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(name)Style where Self == \(name)BaseStyle")) {
+//            try VariableDeclSyntax(.init(stringLiteral: "static var base: \(name)BaseStyle")) {
+//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(name)BaseStyle")), arguments: [])
+//            }
+//        }
+//        ret.append(baseStyleExt)
+//
+//        let fioriStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(name)Style where Self == \(name)FioriStyle")) {
+//            try VariableDeclSyntax(.init(stringLiteral: "static var fiori: \(name)FioriStyle")) {
+//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(name)FioriStyle")), arguments: [])
+//            }
+//        }
+//        ret.append(fioriStyleExt)
+//
+//        return ret
+//    }
 }
 
 extension BaseComponent: PeerMacro {
@@ -186,11 +210,60 @@ extension BaseComponent: PeerMacro {
         
         var ret: [DeclSyntax] = []
         
-        let styleProtocolDecl = try ProtocolDeclSyntax(SyntaxNodeString(stringLiteral: "public protocol \(typeName.firstLetterUppercased())Style: DynamicProperty")) {
+        let styleProtocolDecl = try ProtocolDeclSyntax(SyntaxNodeString(stringLiteral: "public protocol \(typeName)Style: DynamicProperty")) {
             "associatedtype Body: View"
             try FunctionDeclSyntax(SyntaxNodeString(stringLiteral: "func makeBody(_ configuration: \(typeName.firstLetterUppercased())Configuration) -> Body"))
         }
         ret.append(.init(styleProtocolDecl))
+        
+        let configurationDecl = try StructDeclSyntax(.init(stringLiteral: "public struct \(typeName)Configuration")) {
+            let variableDecls = declaration.as(StructDeclSyntax.self)?.getInitVariableList() ?? []
+            
+            for varDecl in variableDecls {
+                let name = varDecl.name
+                
+                if varDecl.isViewBuilder {
+                    let variableDecl = try VariableDeclSyntax(.init(stringLiteral: "public let \(name): \(name.firstLetterUppercased())"))
+                    MemberBlockItemSyntax(decl: variableDecl)
+                    
+                    let typealiasDecl = try TypeAliasDeclSyntax(.init(stringLiteral: "public typealias \(name.firstLetterUppercased()) = ConfigurationViewWrapper"))
+                    MemberBlockItemSyntax(decl: typealiasDecl)
+                } else {
+                    if let type = varDecl.typeName {
+                        let variableDecl = try VariableDeclSyntax(.init(stringLiteral: "let \(name): \(type)"))
+                        MemberBlockItemSyntax(decl: variableDecl)
+                    }
+                }
+            }
+        }
+        ret.append(.init(configurationDecl))
+        
+        let styleBoxDecl = try StructDeclSyntax(.init(stringLiteral: "struct \(typeName)StyleBox: \(typeName)Style")) {
+            "let content: (\(raw: typeName)Configuration) -> any View"
+            
+            try InitializerDeclSyntax(.init(stringLiteral: "init(@ViewBuilder _ content: @escaping (\(typeName)Configuration) -> any View)")) {
+                "self.content = content"
+            }
+            
+            try FunctionDeclSyntax(.init(stringLiteral: "public func makeBody(_ configuration: \(typeName)Configuration) -> some View")) {
+                "self.content(configuration).typeErased"
+            }
+        }
+        ret.append(.init(styleBoxDecl))
+        
+//        let baseStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(typeName)Style where Self == \(typeName)BaseStyle")) {
+//            try VariableDeclSyntax(.init(stringLiteral: "static var base: \(typeName)BaseStyle")) {
+//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(typeName)BaseStyle")), arguments: [])
+//            }
+//        }
+//        ret.append(.init(baseStyleExt))
+//
+//        let fioriStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(typeName)Style where Self == \(typeName)FioriStyle")) {
+//            try VariableDeclSyntax(.init(stringLiteral: "static var fiori: \(typeName)FioriStyle")) {
+//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(typeName)FioriStyle")), arguments: [])
+//            }
+//        }
+//        ret.append(.init(fioriStyleExt))
         
         return ret
     }

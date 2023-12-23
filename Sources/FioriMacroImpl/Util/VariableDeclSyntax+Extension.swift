@@ -15,4 +15,14 @@ extension VariableDeclSyntax {
             return true
         }
     }
+    
+    var name: String {
+        guard let pattern = self.bindings.first,
+              let name = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier.text
+        else {
+            fatalError("Variable syntax \(self) has no identifier")
+        }
+        
+        return name
+    }
 }

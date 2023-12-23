@@ -11,6 +11,9 @@ extension SyntaxProtocol {
         if let classDecl = self.as(ClassDeclSyntax.self) {
             return classDecl.name.text
         }
+        if let protocolDecl = self.as(ProtocolDeclSyntax.self) {
+            return protocolDecl.name.text
+        }
         return nil
     }
 }

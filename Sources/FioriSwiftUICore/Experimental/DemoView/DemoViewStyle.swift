@@ -14,7 +14,7 @@ public struct DemoViewConfiguration {
     public let status: Status
     public let actionTitle: ActionTitle
     public let action: (() -> Void)?
-    public var isOn: Binding<Bool>
+    public let isOn: Binding<Bool>
     
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -72,7 +72,7 @@ extension DemoViewStyle where Self == DemoViewTitleStyle {
     }
     
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
-        let style = AnyNewTitleStyle(content)
+        let style = TitleStyleBox(content)
         return DemoViewTitleStyle(style: style)
     }
 }

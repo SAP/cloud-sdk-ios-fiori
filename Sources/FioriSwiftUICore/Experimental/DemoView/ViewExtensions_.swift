@@ -27,7 +27,7 @@ public extension View {
     
     func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.titleStyleStack) { stack in
-            let style = AnyNewTitleStyle(content)
+            let style = TitleStyleBox(content)
             stack.append(style)
         }
     }
@@ -43,7 +43,7 @@ public extension View {
     
     func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.actionTitleStyleStack) { stack in
-            let style = AnyActionTitleStyle(content)
+            let style = ActionTitleStyleBox(content)
             stack.append(style)
         }
     }

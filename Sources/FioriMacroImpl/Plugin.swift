@@ -7,6 +7,7 @@ import SwiftSyntaxMacros
     let providingMacros: [Macro.Type] = [
         FioriIconMacro.self,
         InitMacro.self,
-        BaseComponent.self
+        BaseComponent.self,
+        StyleTypeEraser.self
     ]
 }

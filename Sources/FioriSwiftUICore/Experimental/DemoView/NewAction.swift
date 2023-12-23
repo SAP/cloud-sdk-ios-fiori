@@ -2,8 +2,9 @@ import Foundation
 import SwiftUI
 
 public struct NewAction: _ActionComponent {
-    var actionTitle: any View
-    var action: (() -> Void)?
+    @ViewBuilder
+    let actionTitle: any View
+    let action: (() -> Void)?
     
     @Environment(\.newActionStyle) var style
     

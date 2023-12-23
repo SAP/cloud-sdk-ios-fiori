@@ -273,14 +273,14 @@ extension AttachedMacro {
         
         func viewBuilderInit() {
             for member in members {
-                if let syntax = member.decl.as(VariableDeclSyntax.self),
-                   case let bindings = syntax.bindings,
+                if let variableDecl = member.decl.as(VariableDeclSyntax.self),
+                   case let bindings = variableDecl.bindings,
                    let pattern = bindings.first,
                    let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
                    let type = pattern.typeAnnotation?.type,
-                   !(syntax.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
+                   !(variableDecl.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
                 {
-                    let isViewBuilder = syntax.isViewBuilder
+                    let isViewBuilder = variableDecl.isViewBuilder
                     let identifierPrefix = {
                         var ret = ""
                         
@@ -312,7 +312,7 @@ extension AttachedMacro {
                         parameter += " = " + "{ EmptyView() }"
                     }
                     
-                    let memberAccessor = getModifiers("", syntax.modifiers)
+                    let memberAccessor = getModifiers("", variableDecl.modifiers)
                     let memberAccessorPrefix = (memberAccessor.contains("static") ? "S" : "s") + "elf"
                     
                     let isComputedProperty = pattern.accessorBlock?.is(CodeBlockSyntax.self) == true
@@ -459,31 +459,6 @@ extension AttachedMacro {
         }
         
         return (parameters, assignments, accessorType)
-    }
-    
-    static func getInitParamList(
-        of node: AttributeSyntax,
-        providingMembersOf declaration: some DeclGroupSyntax,
-        in context: some MacroExpansionContext
-    ) -> [String] {
-        guard let members = declaration.as(StructDeclSyntax.self)?.memberBlock.members else {
-            return []
-        }
-        
-        var ret: [String] = []
-        for member in members {
-            if let syntax = member.decl.as(VariableDeclSyntax.self),
-               case let bindings = syntax.bindings,
-               let pattern = bindings.first,
-               let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
-               let type = pattern.typeAnnotation?.type,
-               !(syntax.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
-            {
-                ret.append(identifier.text)
-            }
-        }
-        
-        return ret
     }
 }
 

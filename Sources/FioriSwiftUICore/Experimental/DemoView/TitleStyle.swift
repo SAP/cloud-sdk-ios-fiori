@@ -9,23 +9,23 @@ import SwiftUI
 //    func makeBody(_ configuration: TitleConfiguration) -> Body
 // }
 
-public struct TitleConfiguration {
-    let title: Title
-    
-    public typealias Title = ConfigurationViewWrapper
-}
+// public struct TitleConfiguration {
+//    let title: Title
+//
+//    public typealias Title = ConfigurationViewWrapper
+// }
 
-public struct AnyNewTitleStyle: TitleStyle {
-    let content: (TitleConfiguration) -> any View
-    
-    init(@ViewBuilder _ content: @escaping (TitleConfiguration) -> any View) {
-        self.content = content
-    }
-    
-    public func makeBody(_ configuration: TitleConfiguration) -> some View {
-        self.content(configuration).typeErased
-    }
-}
+// struct TitleStyleBox: TitleStyle {
+//    let content: (TitleConfiguration) -> any View
+//
+//    init(@ViewBuilder _ content: @escaping (TitleConfiguration) -> any View) {
+//        self.content = content
+//    }
+//
+//    public func makeBody(_ configuration: TitleConfiguration) -> some View {
+//        self.content(configuration).typeErased
+//    }
+// }
 
 extension TitleStyle where Self == TitleBaseStyle {
     static var base: TitleBaseStyle {
