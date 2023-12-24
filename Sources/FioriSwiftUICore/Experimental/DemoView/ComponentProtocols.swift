@@ -14,15 +14,33 @@ protocol _ActionTitleComponent {
 // MARK: NewSubtitleComponent
 
 protocol _SubtitleComponent {
-    associatedtype Subtitle: View
-    var subtitle: Subtitle { get }
+    var subtitle: any View { get }
+}
+
+protocol _FootnoteComponent {
+    var footnote: any View { get }
+}
+
+protocol _DescriptionComponent {
+    var description: any View { get }
 }
 
 // MARK: NewStatusComponent
 
 protocol _StatusComponent {
-    associatedtype Status: View
-    var status: Status { get }
+    var status: any View { get }
+}
+
+protocol _SubstatusComponent {
+    var substatus: any View { get }
+}
+
+protocol _DetailImageComponent {
+    var detailImage: any View { get }
+}
+
+protocol _IconsComponent {
+    var icons: any View { get }
 }
 
 // MARK: NewActionComponent

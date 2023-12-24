@@ -60,3 +60,18 @@ extension ActionTitleStyle {
         ResolvedActionTitleStyle(style: self, configuration: configuration)
     }
 }
+
+struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
+    let style: Style
+    let configuration: SubtitleConfiguration
+    
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension SubtitleStyle {
+    func resolve(configuration: SubtitleConfiguration) -> some View {
+        ResolvedSubtitleStyle(style: self, configuration: configuration)
+    }
+}

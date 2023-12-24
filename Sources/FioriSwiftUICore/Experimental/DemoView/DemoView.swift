@@ -2,11 +2,11 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
-public struct DemoView<Subtitle: View, Status: View>: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {
+public struct DemoView: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {
     @ViewBuilder
     let title: any View
-    let subtitle: Subtitle
-    let status: Status
+    let subtitle: any View
+    let status: any View
     
     let actionTitle: any View
     let action: (() -> Void)?
@@ -20,15 +20,15 @@ public struct DemoView<Subtitle: View, Status: View>: _TitleComponent, _Subtitle
     public init
         (
             @ViewBuilder title: () -> any View,
-            @ViewBuilder subtitle: () -> Subtitle = { EmptyView() },
-            @ViewBuilder status: () -> Status = { EmptyView() },
+            @ViewBuilder subtitle: () -> any View = { EmptyView() },
+            @ViewBuilder status: () -> any View = { EmptyView() },
             @ViewBuilder actionTitle: () -> any View = { EmptyView() },
             action: (() -> Void)? = nil,
             isOn: Binding<Bool>
         )
     {
         self.title = Title { title() }
-        self.subtitle = subtitle()
+        self.subtitle = Subtitle { subtitle() }
         self.status = status()
         self.actionTitle = ActionTitle { actionTitle() }
         self.action = action
@@ -37,10 +37,7 @@ public struct DemoView<Subtitle: View, Status: View>: _TitleComponent, _Subtitle
 }
 
 // TODO: macro
-public extension DemoView where
-    Subtitle == Text?,
-    Status == Text?
-{
+public extension DemoView {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          status: AttributedString? = nil,
@@ -51,7 +48,6 @@ public extension DemoView where
         self.init(title: {
             Text(title)
         }, subtitle: {
-//            OptionalText(subtitle)
             Text(attributedString: subtitle)
         }, status: {
             Text(attributedString: status)
@@ -62,10 +58,7 @@ public extension DemoView where
 }
 
 // TODO: macro
-public extension DemoView where
-    Subtitle == DemoViewConfiguration.Subtitle,
-    Status == DemoViewConfiguration.Status
-{
+public extension DemoView {
     init(_ configuration: DemoViewConfiguration) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle

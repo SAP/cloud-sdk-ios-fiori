@@ -35,6 +35,22 @@ public extension View {
 
 // TODO: macro
 public extension View {
+    func subtitleStyle(_ style: some SubtitleStyle) -> some View {
+        self.transformEnvironment(\.subtitleStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.subtitleStyleStack) { stack in
+            let style = SubtitleStyleBox(content)
+            stack.append(style)
+        }
+    }
+}
+
+// TODO: macro
+public extension View {
     func actionTitleStyle(_ style: some ActionTitleStyle) -> some View {
         self.transformEnvironment(\.actionTitleStyleStack) { stack in
             stack.append(style)

@@ -42,6 +42,26 @@ extension EnvironmentValues {
 }
 
 // TODO: macro
+struct SubtitleStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SubtitleStyle] = []
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var subtitleStyleStack: [any SubtitleStyle] {
+        get { self[SubtitleStyleStackKey.self] }
+        set { self[SubtitleStyleStackKey.self] = newValue }
+    }
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var subtitleStyle: any SubtitleStyle {
+        subtitleStyleStack.last ?? .base
+    }
+}
+
+// TODO: macro
 struct ActionTitleStyleStackKey: EnvironmentKey {
     static let defaultValue: [any ActionTitleStyle] = []
 }

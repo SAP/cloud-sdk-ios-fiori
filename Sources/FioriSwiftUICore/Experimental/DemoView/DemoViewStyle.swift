@@ -29,6 +29,9 @@ public struct DemoViewFioriStyle: DemoViewStyle {
             .titleStyle {
                 Title($0).modifier(TitleFioriStyleModifier())
             }
+            .subtitleStyle {
+                Subtitle($0).modifier(SubTitleFioriStyleModifier())
+            }
         // .subtitleStyle()
         // ...
     }
@@ -40,6 +43,16 @@ public struct DemoViewTitleStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
             .titleStyle(self.style)
+            .typeErased
+    }
+}
+
+public struct DemoViewSubtitleStyle: DemoViewStyle {
+    let style: any SubtitleStyle
+    
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .subtitleStyle(self.style)
             .typeErased
     }
 }
@@ -74,6 +87,17 @@ extension DemoViewStyle where Self == DemoViewTitleStyle {
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
         let style = TitleStyleBox(content)
         return DemoViewTitleStyle(style: style)
+    }
+}
+
+extension DemoViewStyle where Self == DemoViewSubtitleStyle {
+    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> DemoViewSubtitleStyle {
+        DemoViewSubtitleStyle(style: style)
+    }
+    
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> DemoViewSubtitleStyle {
+        let style = SubtitleStyleBox(content)
+        return DemoViewSubtitleStyle(style: style)
     }
 }
 
@@ -133,8 +157,6 @@ extension DemoViewFioriStyle {
     struct TitleFioriStyleModifier: ViewModifier {
         func body(content: Content) -> some View {
             content
-//                .font(.title)
-//                .foregroundStyle(.blue)
         }
     }
     
@@ -186,14 +208,3 @@ public extension DemoViewStyle where Self == DemoViewCardStyle {
         DemoViewCardStyle()
     }
 }
-
-//
-// struct DemoViewThememingStyle: DemoViewStyle, Codable {
-//    let font: Font
-//    let textColor: Color
-//
-//    func makeBody(_ configuration: DemoViewConfiguration) -> some View {
-//        DemoView(configuration)
-//            .font(font)
-//    }
-// }
