@@ -1,31 +1,12 @@
+import FioriMacro
 import FioriThemeManager
 import Foundation
 import SwiftUI
 
+@ComponentStyle
+public protocol ActionTitleStyle: DynamicProperty {}
+
 // MARK: Macro generated
-
-// public protocol ActionTitleStyle: DynamicProperty {
-//    associatedtype Body: View
-//    func makeBody(_ configuration: ActionTitleConfiguration) -> Body
-// }
-
-// public struct ActionTitleConfiguration {
-//    public let actionTitle: ActionTitle
-//
-//    public typealias ActionTitle = ConfigurationViewWrapper
-// }
-
-// struct ActionTitleStyleBox: ActionTitleStyle {
-//    let content: (ActionTitleConfiguration) -> any View
-//
-//    init(@ViewBuilder _ content: @escaping (ActionTitleConfiguration) -> any View) {
-//        self.content = content
-//    }
-//
-//    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-//        self.content(configuration).typeErased
-//    }
-// }
 
 extension ActionTitleStyle where Self == ActionTitleBaseStyle {
     static var base: ActionTitleBaseStyle {

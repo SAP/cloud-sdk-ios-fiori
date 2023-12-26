@@ -46,10 +46,11 @@ public macro Init(
 @attached(member, names: named(_registrar), arbitrary)
 public macro FioriIcon() = #externalMacro(module: "FioriMacroImpl", type: "FioriIconMacro")
 
-@attached(peer, names: suffixed(Style), suffixed(Configuration), suffixed(StyleBox))
+@attached(peer, names: suffixed(Configuration))
 @attached(member, names: named(style), named(_shouldApplyDefaultStyle), named(init))
 @attached(extension, names: arbitrary, conformances: View)
 public macro BaseComponent() = #externalMacro(module: "FioriMacroImpl", type: "BaseComponent")
 
-// @attached(peer, names: prefixed(`Any`))
-// public macro StyleTypeEraser() = #externalMacro(module: "FioriMacroImpl", type: "StyleTypeEraser")
+@attached(member, names: named(Body), named(makeBody))
+@attached(peer, names: prefixed(`Any`))
+public macro ComponentStyle() = #externalMacro(module: "FioriMacroImpl", type: "ComponentStyle")

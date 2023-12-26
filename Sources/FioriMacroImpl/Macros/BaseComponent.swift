@@ -210,12 +210,6 @@ extension BaseComponent: PeerMacro {
         
         var ret: [DeclSyntax] = []
         
-        let styleProtocolDecl = try ProtocolDeclSyntax(SyntaxNodeString(stringLiteral: "public protocol \(typeName)Style: DynamicProperty")) {
-            "associatedtype Body: View"
-            try FunctionDeclSyntax(SyntaxNodeString(stringLiteral: "func makeBody(_ configuration: \(typeName.firstLetterUppercased())Configuration) -> Body"))
-        }
-        ret.append(.init(styleProtocolDecl))
-        
         let configurationDecl = try StructDeclSyntax(.init(stringLiteral: "public struct \(typeName)Configuration")) {
             let variableDecls = declaration.as(StructDeclSyntax.self)?.getInitVariableList() ?? []
             
@@ -237,19 +231,6 @@ extension BaseComponent: PeerMacro {
             }
         }
         ret.append(.init(configurationDecl))
-        
-        let styleBoxDecl = try StructDeclSyntax(.init(stringLiteral: "struct \(typeName)StyleBox: \(typeName)Style")) {
-            "let content: (\(raw: typeName)Configuration) -> any View"
-            
-            try InitializerDeclSyntax(.init(stringLiteral: "init(@ViewBuilder _ content: @escaping (\(typeName)Configuration) -> any View)")) {
-                "self.content = content"
-            }
-            
-            try FunctionDeclSyntax(.init(stringLiteral: "public func makeBody(_ configuration: \(typeName)Configuration) -> some View")) {
-                "self.content(configuration).typeErased"
-            }
-        }
-        ret.append(.init(styleBoxDecl))
         
 //        let baseStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(typeName)Style where Self == \(typeName)BaseStyle")) {
 //            try VariableDeclSyntax(.init(stringLiteral: "static var base: \(typeName)BaseStyle")) {

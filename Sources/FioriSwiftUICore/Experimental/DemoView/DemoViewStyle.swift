@@ -85,7 +85,7 @@ extension DemoViewStyle where Self == DemoViewTitleStyle {
     }
     
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
-        let style = TitleStyleBox(content)
+        let style = AnyTitleStyle(content)
         return DemoViewTitleStyle(style: style)
     }
 }
@@ -96,7 +96,7 @@ extension DemoViewStyle where Self == DemoViewSubtitleStyle {
     }
     
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> DemoViewSubtitleStyle {
-        let style = SubtitleStyleBox(content)
+        let style = AnySubtitleStyle(content)
         return DemoViewSubtitleStyle(style: style)
     }
 }

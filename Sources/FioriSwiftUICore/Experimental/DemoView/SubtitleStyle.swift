@@ -1,6 +1,10 @@
+import FioriMacro
 import FioriThemeManager
 import Foundation
 import SwiftUI
+
+@ComponentStyle
+public protocol SubtitleStyle: DynamicProperty {}
 
 extension SubtitleStyle where Self == SubtitleBaseStyle {
     static var base: SubtitleBaseStyle {
