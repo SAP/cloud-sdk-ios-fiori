@@ -6,14 +6,14 @@ import SwiftUI
 @ComponentStyle
 public protocol SubtitleStyle: DynamicProperty {}
 
-extension SubtitleStyle where Self == SubtitleBaseStyle {
+public extension SubtitleStyle where Self == SubtitleBaseStyle {
     static var base: SubtitleBaseStyle {
         SubtitleBaseStyle()
     }
 }
 
-extension SubtitleStyle where Self == SubtitleFioriStyle {
-    static var fiori: some SubtitleStyle {
+public extension SubtitleStyle where Self == SubtitleFioriStyle {
+    static var fiori: SubtitleFioriStyle {
         SubtitleFioriStyle()
     }
 }

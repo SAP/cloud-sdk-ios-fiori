@@ -8,6 +8,9 @@ import SwiftSyntaxMacros
         FioriIconMacro.self,
         InitMacro.self,
         BaseComponent.self,
-        ComponentStyle.self
+        ComponentStyle.self,
+        ComponentStyleEnvironmentValues.self,
+        StyleModifierViewExtension.self,
+        Template.self
     ]
 }

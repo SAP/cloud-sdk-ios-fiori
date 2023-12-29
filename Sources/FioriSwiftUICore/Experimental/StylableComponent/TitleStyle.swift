@@ -8,14 +8,14 @@ import SwiftUI
 @ComponentStyle
 public protocol TitleStyle: DynamicProperty {}
 
-extension TitleStyle where Self == TitleBaseStyle {
+public extension TitleStyle where Self == TitleBaseStyle {
     static var base: TitleBaseStyle {
         TitleBaseStyle()
     }
 }
 
-extension TitleStyle where Self == TitleFioriStyle {
-    static var fiori: some TitleStyle {
+public extension TitleStyle where Self == TitleFioriStyle {
+    static var fiori: TitleFioriStyle {
         TitleFioriStyle()
     }
 }

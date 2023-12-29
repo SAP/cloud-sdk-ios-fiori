@@ -53,7 +53,7 @@ extension BaseComponent: ExtensionMacro {
             initDecl = try createConfigurationInit(of: node, providingMembersOf: declaration, in: context)
         }
 
-        var header = "public extension \(name)"
+        let header = "public extension \(name)"
         let extensionDecl = try ExtensionDeclSyntax(.init(stringLiteral: header)) {
             for decl in initDecl {
                 MemberBlockItemSyntax(decl: decl)
@@ -231,20 +231,6 @@ extension BaseComponent: PeerMacro {
             }
         }
         ret.append(.init(configurationDecl))
-        
-//        let baseStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(typeName)Style where Self == \(typeName)BaseStyle")) {
-//            try VariableDeclSyntax(.init(stringLiteral: "static var base: \(typeName)BaseStyle")) {
-//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(typeName)BaseStyle")), arguments: [])
-//            }
-//        }
-//        ret.append(.init(baseStyleExt))
-//
-//        let fioriStyleExt = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(typeName)Style where Self == \(typeName)FioriStyle")) {
-//            try VariableDeclSyntax(.init(stringLiteral: "static var fiori: \(typeName)FioriStyle")) {
-//                FunctionCallExprSyntax(calledExpression: DeclReferenceExprSyntax(baseName: .identifier("\(typeName)FioriStyle")), arguments: [])
-//            }
-//        }
-//        ret.append(.init(fioriStyleExt))
         
         return ret
     }

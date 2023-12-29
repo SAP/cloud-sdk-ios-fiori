@@ -1,3 +1,4 @@
+import Foundation
 import SwiftUI
 
 /// Generates a public initializer.
@@ -51,6 +52,16 @@ public macro FioriIcon() = #externalMacro(module: "FioriMacroImpl", type: "Fiori
 @attached(extension, names: arbitrary, conformances: View)
 public macro BaseComponent() = #externalMacro(module: "FioriMacroImpl", type: "BaseComponent")
 
+@attached(extension, names: named(modifier), named(concat) /* , named(resolve) */ )
 @attached(member, names: named(Body), named(makeBody))
-@attached(peer, names: prefixed(`Any`))
+@attached(peer, names: prefixed(`Any`), suffixed(Modifier), prefixed(Resolved), suffixed(StackKey))
 public macro ComponentStyle() = #externalMacro(module: "FioriMacroImpl", type: "ComponentStyle")
+
+@attached(member, names: arbitrary)
+public macro ComponentStyleEnvironmentValues() = #externalMacro(module: "FioriMacroImpl", type: "ComponentStyleEnvironmentValues")
+
+@freestanding(declaration, names: arbitrary)
+public macro StyleModifierViewExtension(_ styles: [String]) = #externalMacro(module: "FioriMacroImpl", type: "StyleModifierViewExtension")
+
+@freestanding(declaration, names: arbitrary)
+public macro Template(_ template: String, _ styles: [String]) = #externalMacro(module: "FioriMacroImpl", type: "Template")

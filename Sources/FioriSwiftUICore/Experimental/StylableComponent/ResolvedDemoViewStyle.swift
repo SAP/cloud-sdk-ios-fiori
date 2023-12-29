@@ -31,29 +31,30 @@ extension NewActionStyle {
     }
 }
 
-struct ResolvedTitleStyle<Style: TitleStyle>: View {
-    let style: Style
-    let configuration: TitleConfiguration
-    
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
+// struct ResolvedTitleStyle<Style: TitleStyle>: View {
+//    let style: Style
+//    let configuration: TitleConfiguration
+//
+//    var body: some View {
+//        style.makeBody(configuration)
+//    }
+// }
 
+// Bug: methods added by extension macro is not visible to other files.
 extension TitleStyle {
     func resolve(configuration: TitleConfiguration) -> some View {
         ResolvedTitleStyle(style: self, configuration: configuration)
     }
 }
 
-struct ResolvedActionTitleStyle<Style: ActionTitleStyle>: View {
-    let style: Style
-    let configuration: ActionTitleConfiguration
-    
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
+// struct ResolvedActionTitleStyle<Style: ActionTitleStyle>: View {
+//    let style: Style
+//    let configuration: ActionTitleConfiguration
+//
+//    var body: some View {
+//        style.makeBody(configuration)
+//    }
+// }
 
 extension ActionTitleStyle {
     func resolve(configuration: ActionTitleConfiguration) -> some View {
@@ -61,17 +62,23 @@ extension ActionTitleStyle {
     }
 }
 
-struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
-    let style: Style
-    let configuration: SubtitleConfiguration
-    
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
+// struct ResolvedSubtitleStyle<Style: SubtitleStyle>: View {
+//    let style: Style
+//    let configuration: SubtitleConfiguration
+//
+//    var body: some View {
+//        style.makeBody(configuration)
+//    }
+// }
 
 extension SubtitleStyle {
     func resolve(configuration: SubtitleConfiguration) -> some View {
         ResolvedSubtitleStyle(style: self, configuration: configuration)
+    }
+}
+
+extension FootnoteStyle {
+    func resolve(configuration: FootnoteConfiguration) -> some View {
+        ResolvedFootnoteStyle(style: self, configuration: configuration)
     }
 }
