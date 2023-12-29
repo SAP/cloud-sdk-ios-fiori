@@ -12,5 +12,5 @@ extension IconStack {
 public struct Icons: _IconsComponent {
     @ViewBuilder
     let icons: any View
-    private let _icons = (dataType: "[TextOrIcon]", viewType: "IconStack")
+    private let _icons = ["dataType": "[TextOrIcon]", "viewType": "IconStack"]
 }

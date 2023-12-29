@@ -6,5 +6,5 @@ import SwiftUI
 public struct DetailImage: _DetailImageComponent {
     @ViewBuilder
     let detailImage: any View
-    private let _detailImage = "Image?"
+    private let _detailImage = ["dataType": "Image?"]
 }

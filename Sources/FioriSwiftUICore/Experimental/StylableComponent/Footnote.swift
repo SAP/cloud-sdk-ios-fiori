@@ -6,5 +6,5 @@ import SwiftUI
 public struct Footnote: _FootnoteComponent {
     @ViewBuilder
     let footnote: any View
-    private let _footnote = (dataType: "AttributedString?", viewType: "OptionalText")
+    private let _footnote = ["dataType": "AttributedString?", "viewType": "OptionalText"]
 }

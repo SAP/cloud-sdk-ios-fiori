@@ -240,25 +240,24 @@ extension AttachedMacro {
         ///  private let _actionTitle = (dataType: "AttributedString?", viewType: "Text")
         ///  ```
 
-        /// ["title": ["AttributedString", "Text"]]
-        var dict: [String: [String]] = [:]
+        /// ["title": ["dataType": "AttributedString",  "viewType": "Text"]]
+        var dict: [String: [String: String]] = [:]
         for member in members {
             if let syntax = member.decl.as(VariableDeclSyntax.self),
                case let bindings = syntax.bindings,
                let pattern = bindings.first,
                let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
                syntax.bindingSpecifier.tokenKind == .keyword(.let),
-               let tupleList = pattern.initializer?.value.as(TupleExprSyntax.self)?.elements
+               let dictList = pattern.initializer?.value.as(DictionaryExprSyntax.self)?.content.as(DictionaryElementListSyntax.self)
             {
-                for labeledExpr in tupleList {
-                    guard let stringLiteral = labeledExpr.expression.as(StringLiteralExprSyntax.self),
-                          let segment = stringLiteral.segments.first?.as(StringSegmentSyntax.self),
-                          case let text = segment.content.text
+                for element in dictList {
+                    guard let key = element.key.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)?.content.text,
+                          let value = element.value.as(StringLiteralExprSyntax.self)?.segments.first?.as(StringSegmentSyntax.self)?.content.text
                     else {
                         continue
                     }
                           
-                    dict[identifier.text.trimLeadingUnderscore(), default: []].append(text)
+                    dict[identifier.text.trimLeadingUnderscore(), default: [:]][key] = value
                 }
             }
         }
@@ -303,7 +302,7 @@ extension AttachedMacro {
                         parameter += " = " + "\(value)"
                     } else if let initializer = pattern.initializer {
                         parameter += "\(initializer)"
-                    } else if isViewBuilder, let dataType = dict[identifier.text]?.first, dataType.hasSuffix("?") {
+                    } else if isViewBuilder, let dataType = dict[identifier.text]?["dataType"], dataType.hasSuffix("?") {
                         parameter += " = " + "{ EmptyView() }"
                     }
                     
@@ -344,7 +343,7 @@ extension AttachedMacro {
                     let shouldAddScaping = type.is(FunctionTypeSyntax.self)
                     let typePrefix = "\(shouldAddScaping ? "@escaping " : "")"
                     let paramType = {
-                        if let dataType = dict[identifier.text]?.first {
+                        if let dataType = dict[identifier.text]?["dataType"] {
                             return dataType
                         } else if isViewBuilder {
                             return "() -> \(type)"
@@ -372,10 +371,7 @@ extension AttachedMacro {
                         parameters.append(parameter)
                         
                         var viewType: String?
-                        if let list = dict[identifier.text],
-                           list.count > 1,
-                           case let _viewType = list[1]
-                        {
+                        if let _viewType = dict[identifier.text]?["viewType"] {
                             viewType = _viewType
                         }
 

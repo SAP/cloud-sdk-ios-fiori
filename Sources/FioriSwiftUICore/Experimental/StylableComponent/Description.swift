@@ -6,5 +6,5 @@ import SwiftUI
 public struct Description: _DescriptionComponent {
     @ViewBuilder
     let description: any View
-    private let _description = (dataType: "AttributedString?", viewType: "OptionalText")
+    private let _description = ["dataType": "AttributedString?", "viewType": "OptionalText"]
 }

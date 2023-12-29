@@ -7,5 +7,5 @@ import SwiftUI
 public struct ActionTitle: _ActionTitleComponent {
     @ViewBuilder
     let actionTitle: any View
-    private let _actionTitle = (dataType: "AttributedString?", viewType: "OptionalText")
+    private let _actionTitle = ["dataType": "AttributedString?", "viewType": "OptionalText"]
 }

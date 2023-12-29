@@ -7,5 +7,5 @@ import SwiftUI
 public struct Title: _TitleComponent {
     @ViewBuilder
     let title: any View
-    private let _title = (dataType: "AttributedString", viewType: "Text")
+    private let _title = ["dataType": "AttributedString", "viewType": "Text"]
 }

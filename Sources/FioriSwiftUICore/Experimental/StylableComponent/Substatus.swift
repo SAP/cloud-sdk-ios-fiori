@@ -6,5 +6,5 @@ import SwiftUI
 public struct Substatus: _SubstatusComponent {
     @ViewBuilder
     let substatus: any View
-    private let _substatus = (dataType: "TextOrIcon?", viewType: "TextOrIconView")
+    private let _substatus = ["dataType": "TextOrIcon?", "viewType": "TextOrIconView"]
 }
