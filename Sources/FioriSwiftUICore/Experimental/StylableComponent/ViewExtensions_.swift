@@ -7,6 +7,11 @@ public extension View {
     #StyleModifierViewExtension(["SubtitleStyle"])
     #StyleModifierViewExtension(["FootnoteStyle"])
     #StyleModifierViewExtension(["ActionTitleStyle"])
+    #StyleModifierViewExtension(["DescriptionStyle"])
+    #StyleModifierViewExtension(["StatusStyle"])
+    #StyleModifierViewExtension(["SubstatusStyle"])
+    #StyleModifierViewExtension(["DetailImageStyle"])
+    #StyleModifierViewExtension(["IconsStyle"])
     #StyleModifierViewExtension(["DemoViewStyle"])
 }
 

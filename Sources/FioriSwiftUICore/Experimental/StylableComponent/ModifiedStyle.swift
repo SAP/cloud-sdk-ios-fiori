@@ -46,3 +46,43 @@ extension ModifiedStyle: FootnoteStyle where Style: FootnoteStyle {
             .modifier(self.modifier)
     }
 }
+
+extension ModifiedStyle: DescriptionStyle where Style: DescriptionStyle {
+    public func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+        Description(configuration)
+            .descriptionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: StatusStyle where Style: StatusStyle {
+    public func makeBody(_ configuration: StatusConfiguration) -> some View {
+        Status(configuration)
+            .statusStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: SubstatusStyle where Style: SubstatusStyle {
+    public func makeBody(_ configuration: SubstatusConfiguration) -> some View {
+        Substatus(configuration)
+            .substatusStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: DetailImageStyle where Style: DetailImageStyle {
+    public func makeBody(_ configuration: DetailImageConfiguration) -> some View {
+        DetailImage(configuration)
+            .detailImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: IconsStyle where Style: IconsStyle {
+    public func makeBody(_ configuration: IconsConfiguration) -> some View {
+        Icons(configuration)
+            .iconsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}

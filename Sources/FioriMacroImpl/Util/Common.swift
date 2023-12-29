@@ -115,11 +115,6 @@ extension AttachedMacro {
                         expr
                     }
                 })
-//                FunctionCallExprSyntax(calledExpression: , arguments: .init(itemsBuilder: {
-//                    for expr in initBody {
-//                        expr
-//                    }
-//                }))
             }
         )
         
@@ -388,7 +383,7 @@ extension AttachedMacro {
                             if let viewType {
                                 return "{ \(viewType)(\(identifier)) }"
                             } else if isViewBuilder {
-                                return "{ \(identifier)() }"
+                                return "{ \(identifier) }"
                             } else {
                                 return "\(identifier)"
                             }

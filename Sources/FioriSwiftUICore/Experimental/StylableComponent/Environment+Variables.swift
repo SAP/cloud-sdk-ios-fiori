@@ -9,6 +9,11 @@ extension EnvironmentValues {
         case subtitleStyle
         case actionTitleStyle
         case footnoteStyle
+        case descriptionStyle
+        case statusStyle
+        case substatusStyle
+        case detailImageStyle
+        case iconsStyle
     }
 }
 

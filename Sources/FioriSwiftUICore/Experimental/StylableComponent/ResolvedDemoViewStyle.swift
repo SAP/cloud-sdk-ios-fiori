@@ -82,3 +82,33 @@ extension FootnoteStyle {
         ResolvedFootnoteStyle(style: self, configuration: configuration)
     }
 }
+
+extension DescriptionStyle {
+    func resolve(configuration: DescriptionConfiguration) -> some View {
+        ResolvedDescriptionStyle(style: self, configuration: configuration)
+    }
+}
+
+extension StatusStyle {
+    func resolve(configuration: StatusConfiguration) -> some View {
+        ResolvedStatusStyle(style: self, configuration: configuration)
+    }
+}
+
+extension SubstatusStyle {
+    func resolve(configuration: SubstatusConfiguration) -> some View {
+        ResolvedSubstatusStyle(style: self, configuration: configuration)
+    }
+}
+
+extension DetailImageStyle {
+    func resolve(configuration: DetailImageConfiguration) -> some View {
+        ResolvedDetailImageStyle(style: self, configuration: configuration)
+    }
+}
+
+extension IconsStyle {
+    func resolve(configuration: IconsConfiguration) -> some View {
+        ResolvedIconsStyle(style: self, configuration: configuration)
+    }
+}
