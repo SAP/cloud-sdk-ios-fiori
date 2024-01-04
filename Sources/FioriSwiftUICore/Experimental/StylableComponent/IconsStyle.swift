@@ -31,7 +31,5 @@ public struct IconsBaseStyle: IconsStyle {
 public struct IconsFioriStyle: IconsStyle {
     public func makeBody(_ configuration: IconsConfiguration) -> some View {
         Icons(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
     }
 }

@@ -2,6 +2,8 @@ import SwiftUI
 
 struct ObjectItemListView<T: ListDataProtocol>: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    var _isNewObjectItem = false
+    
     let title: String
     let listDataType: T.Type
     let changeLeftMargin: Bool
@@ -17,8 +19,13 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         self.showEditButton = showEditButton
     }
     
-    func createInstance(typeThing: T.Type) -> T {
-        typeThing.init(cellTapped: $cellTapped)
+    func createInstance(typeThing: T.Type) -> ListDataProtocol {
+        if let objectItemListData = typeThing as? ObjectItemListDataProtocol.Type {
+            print("NewObjectItem: \(self._isNewObjectItem)")
+            return objectItemListData.init(cellTapped: $cellTapped, isNewObjectItem: self._isNewObjectItem)
+        } else {
+            return typeThing.init(cellTapped: $cellTapped)
+        }
     }
     
     var body: some View {
@@ -60,5 +67,12 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                 }
             }.padding()
         }
+    }
+}
+
+extension ObjectItemListView {
+    init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true, isNewObjectItem: Bool = false) {
+        self.init(title: title, listDataType: listDataType, changeLeftMargin: changeLeftMargin, showEditButton: showEditButton)
+        self._isNewObjectItem = isNewObjectItem
     }
 }

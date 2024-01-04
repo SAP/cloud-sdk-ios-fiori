@@ -31,7 +31,7 @@ public struct SubstatusBaseStyle: SubstatusStyle {
 public struct SubstatusFioriStyle: SubstatusStyle {
     public func makeBody(_ configuration: SubstatusConfiguration) -> some View {
         Substatus(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .font(.fiori(forTextStyle: .subheadline))
     }
 }

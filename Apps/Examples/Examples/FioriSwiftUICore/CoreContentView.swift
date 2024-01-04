@@ -86,6 +86,13 @@ struct CoreContentView: View {
                 }
                 
                 NavigationLink(
+                    destination: ObjectItemExample(_isNewObjectItem: true),
+                    label: {
+                        Text("NewObjectItem")
+                    }
+                )
+                
+                NavigationLink(
                     destination: ObjectItemExample(),
                     label: {
                         Text("ObjectItem")

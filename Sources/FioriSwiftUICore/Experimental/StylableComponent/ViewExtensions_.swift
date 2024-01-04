@@ -12,7 +12,9 @@ public extension View {
     #StyleModifierViewExtension(["SubstatusStyle"])
     #StyleModifierViewExtension(["DetailImageStyle"])
     #StyleModifierViewExtension(["IconsStyle"])
+    #StyleModifierViewExtension(["TagsStyle"])
     #StyleModifierViewExtension(["DemoViewStyle"])
+    #StyleModifierViewExtension(["NewObjectItemStyle"])
 }
 
 // extension View {

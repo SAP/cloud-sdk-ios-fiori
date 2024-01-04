@@ -21,8 +21,9 @@ struct ObjectItemActionButtonStyle: FioriButtonStyle {
     }
 }
 
-struct SingleActionProfiles: ListDataProtocol {
+struct SingleActionProfiles: ObjectItemListDataProtocol {
     @Binding var cellTapped: Bool
+    var isNewObjectItem: Bool = false
     
     init(cellTapped: Binding<Bool>) {
         self._cellTapped = cellTapped

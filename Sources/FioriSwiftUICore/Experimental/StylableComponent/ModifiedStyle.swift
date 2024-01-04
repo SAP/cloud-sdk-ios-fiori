@@ -7,6 +7,14 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
     var modifier: Modifier
 }
 
+extension ModifiedStyle: NewObjectItemStyle where Style: NewObjectItemStyle {
+    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
+        NewObjectItem(configuration)
+            .newObjectItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
 extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
@@ -83,6 +91,14 @@ extension ModifiedStyle: IconsStyle where Style: IconsStyle {
     public func makeBody(_ configuration: IconsConfiguration) -> some View {
         Icons(configuration)
             .iconsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: TagsStyle where Style: TagsStyle {
+    public func makeBody(_ configuration: TagsConfiguration) -> some View {
+        Tags(configuration)
+            .tagsStyle(self.style)
             .modifier(self.modifier)
     }
 }

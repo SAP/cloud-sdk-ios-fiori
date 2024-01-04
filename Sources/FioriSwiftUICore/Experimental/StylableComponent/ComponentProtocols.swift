@@ -43,6 +43,10 @@ protocol _IconsComponent {
     var icons: any View { get }
 }
 
+protocol _TagsComponent {
+    var tags: any View { get }
+}
+
 // MARK: NewActionComponent
 
 protocol _ActionComponent: _ActionTitleComponent {

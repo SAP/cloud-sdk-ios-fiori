@@ -31,7 +31,7 @@ public struct FootnoteBaseStyle: FootnoteStyle {
 public struct FootnoteFioriStyle: FootnoteStyle {
     public func makeBody(_ configuration: FootnoteConfiguration) -> some View {
         Footnote(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .font(.fiori(forTextStyle: .subheadline))
     }
 }

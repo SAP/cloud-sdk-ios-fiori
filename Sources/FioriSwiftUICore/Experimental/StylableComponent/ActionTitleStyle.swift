@@ -57,6 +57,6 @@ public struct ActionTitleFioriStyle: ActionTitleStyle {
     public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
         ActionTitle(configuration)
             .foregroundStyle(Color.preferredColor(.tintColor))
-            .font(.title)
+            .font(.fiori(forTextStyle: .callout))
     }
 }

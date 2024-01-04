@@ -31,7 +31,7 @@ public struct StatusBaseStyle: StatusStyle {
 public struct StatusFioriStyle: StatusStyle {
     public func makeBody(_ configuration: StatusConfiguration) -> some View {
         Status(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .font(.fiori(forTextStyle: .subheadline))
     }
 }

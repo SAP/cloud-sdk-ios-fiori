@@ -32,6 +32,6 @@ public struct SubtitleFioriStyle: SubtitleStyle {
     public func makeBody(_ configuration: SubtitleConfiguration) -> some View {
         Subtitle(configuration)
             .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .font(.fiori(forTextStyle: .body))
     }
 }

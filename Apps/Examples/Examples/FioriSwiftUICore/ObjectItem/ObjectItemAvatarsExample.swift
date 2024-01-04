@@ -1,7 +1,9 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectItemAvatarsExample: ListDataProtocol {
+struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
+    var isNewObjectItem: Bool = false
+    
     init(cellTapped: Binding<Bool>) {}
     
     func numberOfSections() -> Int {

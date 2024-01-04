@@ -31,7 +31,6 @@ public struct DetailImageBaseStyle: DetailImageStyle {
 public struct DetailImageFioriStyle: DetailImageStyle {
     public func makeBody(_ configuration: DetailImageConfiguration) -> some View {
         DetailImage(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .clipShape(RoundedRectangle(cornerRadius: 4))
     }
 }

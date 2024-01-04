@@ -1,7 +1,9 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectCell_Rules_Alignment: ListDataProtocol {
+struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
+    var isNewObjectItem: Bool = false
+    
     init(cellTapped: Binding<Bool>) {}
     init() {}
     

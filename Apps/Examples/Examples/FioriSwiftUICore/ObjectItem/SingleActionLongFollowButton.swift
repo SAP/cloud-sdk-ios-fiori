@@ -1,8 +1,9 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct SingleActionLongFollowButton: ListDataProtocol {
+struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
     var isLongText = true
+    var isNewObjectItem: Bool = false
     
     init(cellTapped: Binding<Bool>) {}
     init() {}

@@ -31,7 +31,7 @@ public struct DescriptionBaseStyle: DescriptionStyle {
 public struct DescriptionFioriStyle: DescriptionStyle {
     public func makeBody(_ configuration: DescriptionConfiguration) -> some View {
         Description(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.subheadline)
+            .foregroundStyle(Color.preferredColor(.tertiaryLabel))
+            .font(.fiori(forTextStyle: .subheadline))
     }
 }

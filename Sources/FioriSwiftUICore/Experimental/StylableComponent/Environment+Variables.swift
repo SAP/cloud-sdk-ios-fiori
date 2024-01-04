@@ -14,6 +14,27 @@ extension EnvironmentValues {
         case substatusStyle
         case detailImageStyle
         case iconsStyle
+        case tagsStyle
+    }
+}
+
+// TODO: macro
+struct NewObjectItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NewObjectItemStyle] = []
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var newObjectItemStyleStack: [any NewObjectItemStyle] {
+        get { self[NewObjectItemStyleStackKey.self] }
+        set { self[NewObjectItemStyleStackKey.self] = newValue }
+    }
+}
+
+// TODO: macro
+extension EnvironmentValues {
+    var newObjectItemStyle: any NewObjectItemStyle {
+        newObjectItemStyleStack.last ?? .base.concat(.fiori)
     }
 }
 

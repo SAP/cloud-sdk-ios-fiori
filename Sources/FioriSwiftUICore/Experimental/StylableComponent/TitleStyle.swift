@@ -34,6 +34,6 @@ public struct TitleFioriStyle: TitleStyle {
     public func makeBody(_ configuration: TitleConfiguration) -> some View {
         Title(configuration)
             .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.title)
+            .font(.fiori(forTextStyle: .headline))
     }
 }

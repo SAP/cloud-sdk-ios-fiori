@@ -1,6 +1,21 @@
 import Foundation
 import SwiftUI
 
+struct ResolvedNewObjectItemStyle<Style: NewObjectItemStyle>: View {
+    let style: Style
+    let configuration: NewObjectItemConfiguration
+    
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension NewObjectItemStyle {
+    func resolve(configuration: NewObjectItemConfiguration) -> some View {
+        ResolvedNewObjectItemStyle(style: self, configuration: configuration)
+    }
+}
+
 struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
     let style: Style
     let configuration: DemoViewConfiguration
@@ -110,5 +125,11 @@ extension DetailImageStyle {
 extension IconsStyle {
     func resolve(configuration: IconsConfiguration) -> some View {
         ResolvedIconsStyle(style: self, configuration: configuration)
+    }
+}
+
+extension TagsStyle {
+    func resolve(configuration: TagsConfiguration) -> some View {
+        ResolvedTagsStyle(style: self, configuration: configuration)
     }
 }

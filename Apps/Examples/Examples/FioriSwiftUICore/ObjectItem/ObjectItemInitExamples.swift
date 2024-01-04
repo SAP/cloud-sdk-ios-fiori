@@ -1,7 +1,9 @@
 import FioriSwiftUICore
 import SwiftUI
 
-struct ObjectItemInitExamples: ListDataProtocol {
+struct ObjectItemInitExamples: ObjectItemListDataProtocol {
+    var isNewObjectItem: Bool = false
+    
     init(cellTapped: Binding<Bool>) {}
     init() {}
     
