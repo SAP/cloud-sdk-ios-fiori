@@ -24,14 +24,8 @@ extension View {
     }
 }
 
-extension Text {
-    init?(attributedString: AttributedString?) {
-        if let attributedString {
-            self.init(attributedString)
-        } else {
-            return nil
-        }
-    }
+protocol _ViewEmptyChecking {
+    var isEmpty: Bool { get }
 }
 
 extension View {
@@ -40,8 +34,8 @@ extension View {
             return true
         }
         
-        if let self = self as? _NilChecking {
-            return self.isNil
+        if let self = self as? _ViewEmptyChecking {
+            return self.isEmpty
         }
         
         return false

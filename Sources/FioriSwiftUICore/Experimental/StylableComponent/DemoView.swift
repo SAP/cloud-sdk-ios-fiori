@@ -48,11 +48,11 @@ public extension DemoView {
         self.init(title: {
             Text(title)
         }, subtitle: {
-            Text(attributedString: subtitle)
+            OptionalText(subtitle)
         }, status: {
-            Text(attributedString: status)
+            OptionalText(status)
         }, actionTitle: {
-            Text(attributedString: actionTitle)
+            OptionalText(actionTitle)
         }, action: action, isOn: isOn)
     }
 }

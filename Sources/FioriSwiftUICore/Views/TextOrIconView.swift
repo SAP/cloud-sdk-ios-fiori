@@ -36,3 +36,9 @@ public struct TextOrIconView: View {
         }
     }
 }
+
+extension TextOrIconView: _ViewEmptyChecking {
+    var isEmpty: Bool {
+        self.content == nil
+    }
+}

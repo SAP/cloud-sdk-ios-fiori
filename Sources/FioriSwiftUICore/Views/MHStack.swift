@@ -42,10 +42,14 @@ public struct MHStack<T: TagViewList>: View {
     }
     
     public var body: some View {
-        GeometryReader { geometry in
-            self.makeBody(in: geometry)
+        if tagLimit == 0 || tags.count == 0 {
+            EmptyView()
+        } else {
+            GeometryReader { geometry in
+                self.makeBody(in: geometry)
+            }
+            .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
         }
-        .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
     }
 
     func makeBody(in g: GeometryProxy) -> some View {

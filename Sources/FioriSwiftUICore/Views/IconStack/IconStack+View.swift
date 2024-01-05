@@ -50,6 +50,12 @@ extension IconStack: ViewList {
     }
 }
 
+extension IconStack: _ViewEmptyChecking {
+    var isEmpty: Bool {
+        self.count == 0
+    }
+}
+
 struct IconStack_Previews: PreviewProvider {
     static var previews: some View {
         Group {

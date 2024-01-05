@@ -37,6 +37,7 @@ extension BaseComponent: ExtensionMacro {
         ret.append(contentsOf: try self.createInitExtension(of: node, attachedTo: declaration, providingExtensionsOf: type, conformingTo: protocols, in: context, initType: .configuration))
         ret.append(contentsOf: try self.createPrivateHelperExtension(of: node, attachedTo: declaration, providingExtensionsOf: type, conformingTo: protocols, in: context))
         ret.append(contentsOf: try self.createViewExtension(of: node, attachedTo: declaration, providingExtensionsOf: type, conformingTo: protocols, in: context))
+        ret.append(contentsOf: try self.createEmptyViewCheckingExtension(of: node, attachedTo: declaration, providingExtensionsOf: type, conformingTo: protocols, in: context))
         return ret
     }
     
@@ -171,6 +172,46 @@ extension BaseComponent: ExtensionMacro {
         }
         
         let extensionDecl = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(name): View")) {
+            bodyDecl
+        }
+        
+        return [extensionDecl]
+    }
+    
+    static func createEmptyViewCheckingExtension(of node: SwiftSyntax.AttributeSyntax, attachedTo declaration: some SwiftSyntax.DeclGroupSyntax, providingExtensionsOf type: some SwiftSyntax.TypeSyntaxProtocol, conformingTo protocols: [SwiftSyntax.TypeSyntax], in context: some SwiftSyntaxMacros.MacroExpansionContext) throws -> [SwiftSyntax.ExtensionDeclSyntax] {
+        guard let name = declaration.as(StructDeclSyntax.self)?.name.text else {
+            return []
+        }
+        
+        let members = declaration.as(StructDeclSyntax.self)?.memberBlock.members
+        var paramList: [String] = []
+        for member in members ?? [] {
+            if let syntax = member.decl.as(VariableDeclSyntax.self),
+               case let bindings = syntax.bindings,
+               let pattern = bindings.first,
+               let identifier = pattern.pattern.as(IdentifierPatternSyntax.self)?.identifier,
+               !(syntax.bindingSpecifier.tokenKind == .keyword(.let) && pattern.initializer != nil)
+            {
+                if syntax.isViewBuilder {
+                    paramList.append(identifier.text)
+                }
+            }
+        }
+        
+        let header = "var isEmpty: Bool"
+        var accessor = ""
+        for (index, param) in paramList.enumerated() {
+            if index != 0 {
+                accessor += "&& "
+            }
+            
+            accessor += "\(param).isEmpty"
+        }
+        let bodyDecl = try VariableDeclSyntax(.init(stringLiteral: header)) {
+            CodeBlockItemSyntax(stringLiteral: accessor)
+        }
+        
+        let extensionDecl = try ExtensionDeclSyntax(.init(stringLiteral: "extension \(name): _ViewEmptyChecking")) {
             bodyDecl
         }
         

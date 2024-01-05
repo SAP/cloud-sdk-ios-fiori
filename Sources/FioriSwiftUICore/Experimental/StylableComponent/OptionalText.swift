@@ -16,3 +16,9 @@ struct OptionalText: View {
         }
     }
 }
+
+extension OptionalText: _ViewEmptyChecking {
+    var isEmpty: Bool {
+        self.attributedString == nil
+    }
+}
