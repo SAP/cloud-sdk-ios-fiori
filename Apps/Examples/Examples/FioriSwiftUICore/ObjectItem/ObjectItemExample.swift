@@ -48,7 +48,7 @@ struct ObjectItemSingleActionView: View {
             
             NavigationLink("Single Action P8-9: Profiles", destination: ObjectItemListView(title: "Single Action P8-9: Profiles", listDataType: SingleActionProfiles.self, isNewObjectItem: self._isNewObjectItem))
             
-            NavigationLink("Single Action Collection Example", destination: SingleActionCollectionView())
+            NavigationLink("Single Action Collection Example", destination: SingleActionCollectionView(isNewObjectItem: self._isNewObjectItem))
         }
     }
 }

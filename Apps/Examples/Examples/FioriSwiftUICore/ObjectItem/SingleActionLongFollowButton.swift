@@ -40,91 +40,160 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
         let longText = "TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP TEXT CAN WRAP "
         let longHeadline = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor."
         
+        let oi: any View
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let oi = ObjectItem(title: isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Cafe Food Title That Is So Long It Has To Wrap",
+                                   footnote: "3493 followers",
+                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
+                                       print("Tapped Follow")
+                                   })
+            } else {
+                oi = ObjectItem(title: self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
                                 footnote: "3493 followers",
                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                     print("Tapped Follow")
                                 }))
-            
-            return AnyView(oi)
+            }
             
         case (0, 1):
-            let oi = ObjectItem(title: isLongText ? longHeadline : "Hybris",
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Hybris",
+                                   footnote: "2290 followers",
+                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
+                                       print("Tapped Follow")
+                                   })
+            } else {
+                oi = ObjectItem(title: self.isLongText ? longHeadline : "Hybris",
                                 footnote: "2290 followers",
                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                     print("Tapped Follow")
                                 }))
-            
-            return AnyView(oi)
+            }
             
         case (0, 2):
-            let oi = ObjectItem(title: {
-                Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
-            }, footnote: {
-                Text("3493 followers")
-            }, action: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                }, footnote: {
+                    Text("3493 followers")
+                }, actionTitle: {
                     Text(isLongText ? longText : "Follow")
-                        .font(.callout)
-                        .lineLimit(2)
-                        .foregroundColor(Color.preferredColor(.tintColor))
-                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
-                }.buttonStyle(PlainButtonStyle())
-            })
+//                        .font(.callout)
+//                        .lineLimit(2)
+//                        .foregroundColor(Color.preferredColor(.tintColor))
+//                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+//                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .buttonStyle(PlainButtonStyle())
+            } else {
+                oi = ObjectItem(title: {
+                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                }, footnote: {
+                    Text("3493 followers")
+                }, action: {
+                    Button {
+                        print("Tapped Follow")
+                    } label: {
+                        Text(isLongText ? longText : "Follow")
+                            .font(.callout)
+                            .lineLimit(2)
+                            .foregroundColor(Color.preferredColor(.tintColor))
+                            .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+                            .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                })
+            }
             
-            return AnyView(oi)
-        
         case (0, 3):
-            let oi = ObjectItem(title: isLongText ? longHeadline : "Successfactors",
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Successfactors",
+                                   footnote: "1000 followers",
+                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
+                                       print("Tapped Follow")
+                                   })
+            } else {
+                oi = ObjectItem(title: self.isLongText ? longHeadline : "Successfactors",
                                 footnote: "1000 followers",
                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                     print("Tapped Follow")
                                 }))
-            return AnyView(oi)
+            }
             
         case (0, 4):
-            let oi = ObjectItem(title: isLongText ? longHeadline : "Tennis @ SAP",
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Tennis @ SAP",
+                                   footnote: "2290 followers",
+                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
+                                       print("Tapped Follow")
+                                   })
+            } else {
+                oi = ObjectItem(title: self.isLongText ? longHeadline : "Tennis @ SAP",
                                 footnote: "2290 followers",
                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                     print("Tapped Follow")
                                 }))
-            return AnyView(oi)
+            }
             
         case (0, 5):
-            let oi = ObjectItem(title: isLongText ? longHeadline : "SAP.io",
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "SAP.io",
+                                   footnote: "537 followers",
+                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
+                                       print("Tapped Follow")
+                                   })
+            } else {
+                oi = ObjectItem(title: self.isLongText ? longHeadline : "SAP.io",
                                 footnote: "537 followers",
                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                     print("Tapped Follow")
                                 }))
-            return AnyView(oi)
+            }
             
         case (1, 0):
-            let oi = ObjectItem(title: {
-                Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
-            }, footnote: {
-                Text("3493 followers")
-            }, action: {
-                Button {
-                    print("Tapped Follow")
-                } label: {
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                }, footnote: {
+                    Text("3493 followers")
+                }, actionTitle: {
                     Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.")
-                        .font(.callout)
-                        .lineLimit(2)
-                        .foregroundColor(Color.preferredColor(.tintColor))
-                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
-                }.buttonStyle(PlainButtonStyle())
-            })
-            
-            return AnyView(oi)
+//                        .font(.callout)
+//                        .lineLimit(2)
+//                        .foregroundColor(Color.preferredColor(.tintColor))
+//                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+//                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .buttonStyle(PlainButtonStyle())
+            } else {
+                oi = ObjectItem(title: {
+                    Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                }, footnote: {
+                    Text("3493 followers")
+                }, action: {
+                    Button {
+                        print("Tapped Follow")
+                    } label: {
+                        Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.")
+                            .font(.callout)
+                            .lineLimit(2)
+                            .foregroundColor(Color.preferredColor(.tintColor))
+                            .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+                            .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
+                    }.buttonStyle(PlainButtonStyle())
+                })
+            }
             
         default:
-            return AnyView(ObjectItem(title: "test"))
+            oi = ObjectItem(title: "test")
         }
+        
+        return oi.typeErased
     }
 }

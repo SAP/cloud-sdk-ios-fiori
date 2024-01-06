@@ -74,148 +74,283 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
         }.buttonStyle(PlainButtonStyle())
         
+        let oi: any View
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, detailImage: {
-                Image("ProfilePic")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }, action: {
-                actionBtn
-            })
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, action: {
+                    actionBtn
+                })
+            }
             
         case (0, 1):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, descriptionText: {
-                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-            }, status: {
-                Text("Available")
-            }, detailImage: {
-                Image("ProfilePic")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }, icons: {
-                Text("1")
-                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-            }, action: {
-                actionBtn
-            })
-                .splitPercent(0.25)
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, description: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, status: {
+                    Text("Available")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .splitPercent(0.25)
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, descriptionText: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, status: {
+                    Text("Available")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                }, action: {
+                    actionBtn
+                })
+                    .splitPercent(0.25)
+            }
             
         case (0, 2):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, descriptionText: {
-                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-            }, icons: {
-                Text("1")
-                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                Image(systemName: "paperclip").font(.system(size: 14))
-            }, action: {
-                actionBtn
-            })
-                .splitPercent(0.25)
-            
-            return AnyView(oi)
-            
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, description: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                    Image(systemName: "paperclip").font(.system(size: 14))
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .splitPercent(0.25)
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, descriptionText: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                    Image(systemName: "paperclip").font(.system(size: 14))
+                }, action: {
+                    actionBtn
+                })
+                    .splitPercent(0.25)
+            }
+             
         case (0, 3):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, descriptionText: {
-                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-            }, action: {
-                actionBtn
-            })
-                .splitPercent(0.25)
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, description: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .splitPercent(0.25)
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, descriptionText: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, action: {
+                    actionBtn
+                })
+                    .splitPercent(0.25)
+            }
             
         case (0, 4):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, detailImage: {
-                Image("ProfilePic")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .clipShape(Circle())
-            }, action: {
-                actionBtn
-            })
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, detailImage: {
+                    Image("ProfilePic")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .clipShape(Circle())
+                }, action: {
+                    actionBtn
+                })
+            }
             
         case (0, 5):
-            let oi = ObjectItem(title: {
-                Text("Steel Roter")
-            }, subtitle: {
-                Text("Product 1349-0987C65-X8900")
-            }, footnote: {
-                Text("In Stock")
-            }, detailImage: {
-                Image("wheel")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-            }, action: {
-                actionBtn
-            })
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Steel Roter")
+                }, subtitle: {
+                    Text("Product 1349-0987C65-X8900")
+                }, footnote: {
+                    Text("In Stock")
+                }, detailImage: {
+                    Image("wheel")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Steel Roter")
+                }, subtitle: {
+                    Text("Product 1349-0987C65-X8900")
+                }, footnote: {
+                    Text("In Stock")
+                }, detailImage: {
+                    Image("wheel")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                }, action: {
+                    actionBtn
+                })
+            }
             
         case (1, 0):
-            let oi = ObjectItem(title: {
-                Text("Rouja Pakiman")
-            }, subtitle: {
-                Text("Java Developer")
-            }, footnote: {
-                Text("Los Angeles")
-            }, descriptionText: {
-                Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-            }, icons: {
-                Text("1")
-                Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                Image(systemName: "paperclip").font(.system(size: 14))
-            }, action: {
-                actionBtn
-            })
-                .splitPercent(0.25)
-                .onTapGesture {
-                    print("tapped the cell")
-                    self.cellTapped = true
-                }
-            
-            return AnyView(oi)
+            if self.isNewObjectItem {
+                oi = NewObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, description: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                    Image(systemName: "paperclip").font(.system(size: 14))
+                }, actionTitle: {
+                    Text("Follow")
+                }, action: {
+                    print("Tapped Follow")
+                })
+                    .splitPercent(0.25)
+                    .onTapGesture {
+                        print("tapped the cell")
+                        self.cellTapped = true
+                    }
+            } else {
+                oi = ObjectItem(title: {
+                    Text("Rouja Pakiman")
+                }, subtitle: {
+                    Text("Java Developer")
+                }, footnote: {
+                    Text("Los Angeles")
+                }, descriptionText: {
+                    Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
+                }, icons: {
+                    Text("1")
+                    Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+                    Image(systemName: "paperclip").font(.system(size: 14))
+                }, action: {
+                    actionBtn
+                })
+                    .splitPercent(0.25)
+                    .onTapGesture {
+                        print("tapped the cell")
+                        self.cellTapped = true
+                    }
+            }
             
         default:
-            return AnyView(ObjectItem(title: "test"))
+            oi = ObjectItem(title: "test")
         }
+        
+        return oi.typeErased
     }
 }

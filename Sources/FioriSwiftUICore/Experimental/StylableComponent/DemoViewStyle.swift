@@ -79,7 +79,7 @@ public extension DemoViewStyle where Self == DemoViewFioriStyle {
     }
 }
 
-extension DemoViewStyle where Self == DemoViewTitleStyle {
+public extension DemoViewStyle where Self == DemoViewTitleStyle {
     static func titleStyle<Style: TitleStyle>(_ style: Style) -> DemoViewTitleStyle {
         DemoViewTitleStyle(style: style)
     }

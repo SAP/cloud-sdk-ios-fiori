@@ -1,3 +1,4 @@
+import FioriSwiftUICore
 import SwiftUI
 
 struct ObjectItemListView<T: ListDataProtocol>: View {
@@ -47,10 +48,12 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                         print("delete \(indexSet)")
                     }
                 }
-            }.listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-                .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
-                    $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
-                }
+            }
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+            .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
+                $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
+            }
+            .newObjectItemStyle(.actionTitleStyle(NewObjectItemBorderedActionTitle()))
         }
         .navigationBarItems(trailing: HStack {
             if showEditButton {

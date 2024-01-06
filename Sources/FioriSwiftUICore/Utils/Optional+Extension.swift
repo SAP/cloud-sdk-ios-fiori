@@ -1,11 +1,16 @@
 import Foundation
+import SwiftUI
 
-protocol _NilChecking {
-    var isNil: Bool { get }
-}
-
-extension Optional: _NilChecking {
-    var isNil: Bool {
-        self == nil
+extension Optional: _ViewEmptyChecking where Wrapped: View {
+    var isEmpty: Bool {
+        if case .none = self {
+            return true
+        }
+        
+        if case .some(let wrapped) = self {
+            return wrapped.isEmpty
+        }
+        
+        return false
     }
 }
