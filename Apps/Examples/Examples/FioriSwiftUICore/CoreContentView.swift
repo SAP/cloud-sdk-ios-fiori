@@ -121,6 +121,11 @@ struct CoreContentView: View {
                 NavigationLink(destination: SortFilterExample()) {
                     Text("SortFilterExample")
                 }
+                
+                NavigationLink(destination: SearchDemos()) {
+                    Text("Search Demos")
+                }
+                    
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }
