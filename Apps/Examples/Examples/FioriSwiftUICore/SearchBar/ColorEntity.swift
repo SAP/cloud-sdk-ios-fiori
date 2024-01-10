@@ -106,7 +106,6 @@ struct ColorEntity: Identifiable {
             }
         }
     }
-
 }
 
 struct ColorToken: Identifiable {
