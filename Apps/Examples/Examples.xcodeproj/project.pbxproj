@@ -108,6 +108,14 @@
 		B8D4376F25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */; };
 		B8D4377125F983730024EE7D /* ObjectCell_Rules_Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D4377025F983730024EE7D /* ObjectCell_Rules_Alignment.swift */; };
 		B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D437722609479E0024EE7D /* SingleActionFollowButton.swift */; };
+		C106AD422B336EA400FE8B35 /* SearchWithSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD412B336EA400FE8B35 /* SearchWithSuggestion.swift */; };
+		C106AD442B33710800FE8B35 /* SearchWithScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD432B33710800FE8B35 /* SearchWithScope.swift */; };
+		C106AD462B338D1300FE8B35 /* SearchWithToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD452B338D1300FE8B35 /* SearchWithToken.swift */; };
+		C106AD482B33940600FE8B35 /* SearchWithBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */; };
+		C106AD4A2B33970500FE8B35 /* SearchPromptFontAndColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */; };
+		C167183C2B477A81005E2629 /* SearchDemos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C167183B2B477A81005E2629 /* SearchDemos.swift */; };
+		C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18868D02B32535100F865F7 /* SearchFontAndColor.swift */; };
+		C18868D32B32580800F865F7 /* ColorEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C18868D22B32580800F865F7 /* ColorEntity.swift */; };
 		C1A0FDB32AD893FA0001738E /* SortFilterView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */; };
 		C1C764882A818BEC00BCB0F7 /* SortFilterExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */; };
 /* End PBXBuildFile section */
@@ -258,6 +266,14 @@
 		B8D4376E25F980340024EE7D /* ObjectCell_Spec_Jan2018.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell_Spec_Jan2018.swift; sourceTree = "<group>"; };
 		B8D4377025F983730024EE7D /* ObjectCell_Rules_Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectCell_Rules_Alignment.swift; sourceTree = "<group>"; };
 		B8D437722609479E0024EE7D /* SingleActionFollowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleActionFollowButton.swift; sourceTree = "<group>"; };
+		C106AD412B336EA400FE8B35 /* SearchWithSuggestion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithSuggestion.swift; sourceTree = "<group>"; };
+		C106AD432B33710800FE8B35 /* SearchWithScope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithScope.swift; sourceTree = "<group>"; };
+		C106AD452B338D1300FE8B35 /* SearchWithToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithToken.swift; sourceTree = "<group>"; };
+		C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchWithBookmark.swift; sourceTree = "<group>"; };
+		C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPromptFontAndColor.swift; sourceTree = "<group>"; };
+		C167183B2B477A81005E2629 /* SearchDemos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDemos.swift; sourceTree = "<group>"; };
+		C18868D02B32535100F865F7 /* SearchFontAndColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFontAndColor.swift; sourceTree = "<group>"; };
+		C18868D22B32580800F865F7 /* ColorEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorEntity.swift; sourceTree = "<group>"; };
 		C1A0FDB22AD893FA0001738E /* SortFilterView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SortFilterView+Extensions.swift"; sourceTree = "<group>"; };
 		C1C764872A818BEC00BCB0F7 /* SortFilterExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortFilterExample.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -443,6 +459,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				C18868CF2B3252F400F865F7 /* SearchBar */,
 				B1BA1F902B19A8B500E6C052 /* TabViewExample */,
 				B1CC61C52AFA0856002078C1 /* NavigationBar */,
 				C1C764862A818BD600BCB0F7 /* SortFilter */,
@@ -620,6 +637,21 @@
 			path = ObjectItem;
 			sourceTree = "<group>";
 		};
+		C18868CF2B3252F400F865F7 /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				C18868D02B32535100F865F7 /* SearchFontAndColor.swift */,
+				C106AD412B336EA400FE8B35 /* SearchWithSuggestion.swift */,
+				C106AD452B338D1300FE8B35 /* SearchWithToken.swift */,
+				C106AD432B33710800FE8B35 /* SearchWithScope.swift */,
+				C106AD472B33940600FE8B35 /* SearchWithBookmark.swift */,
+				C106AD492B33970500FE8B35 /* SearchPromptFontAndColor.swift */,
+				C18868D22B32580800F865F7 /* ColorEntity.swift */,
+				C167183B2B477A81005E2629 /* SearchDemos.swift */,
+			);
+			path = SearchBar;
+			sourceTree = "<group>";
+		};
 		C1C764862A818BD600BCB0F7 /* SortFilter */ = {
 			isa = PBXGroup;
 			children = (
@@ -761,6 +793,7 @@
 			files = (
 				B8101D52268BB84B00D32560 /* ContactItemTapStateExamples.swift in Sources */,
 				8A55795724C1286E0098003A /* AppDelegate.swift in Sources */,
+				C106AD4A2B33970500FE8B35 /* SearchPromptFontAndColor.swift in Sources */,
 				B18D2E9F2988B07B000A1821 /* KPIHeaderExample.swift in Sources */,
 				8AB6C01428DF6583002F32BE /* LazyView.swift in Sources */,
 				691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */,
@@ -771,6 +804,7 @@
 				1F3C92F125DF12C100A99A07 /* ListPicker.swift in Sources */,
 				B1D41B20291A2D97004E64A5 /* DurationPickerExample.swift in Sources */,
 				1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */,
+				C106AD422B336EA400FE8B35 /* SearchWithSuggestion.swift in Sources */,
 				99942D59261698FC001912C5 /* InfoViewSample.swift in Sources */,
 				993B55BE29DF7EC70002B065 /* IconLibraryExample.swift in Sources */,
 				B80DA9BE260C1CC200C0B2E9 /* ListDataProtocol.swift in Sources */,
@@ -791,6 +825,7 @@
 				B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */,
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
+				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
@@ -807,11 +842,15 @@
 				8A5579D924C1293C0098003A /* SettingsSelection.swift in Sources */,
 				B80DA9C62612A54E00C0B2E9 /* ActivationScreenSample.swift in Sources */,
 				B8D437732609479E0024EE7D /* SingleActionFollowButton.swift in Sources */,
+				C18868D32B32580800F865F7 /* ColorEntity.swift in Sources */,
 				8AD9DFB325D49967007448EC /* ContactItemInitModelExample.swift in Sources */,
+				C167183C2B477A81005E2629 /* SearchDemos.swift in Sources */,
 				B1DD86512B07534D00D7EDFD /* NavigationBarFioriStyle.swift in Sources */,
 				B84D24F12652F343007F2373 /* ObjectHeaderSpec.swift in Sources */,
 				B846F94A26815DF30085044B /* ContactItemCompactExamples.swift in Sources */,
+				C106AD442B33710800FE8B35 /* SearchWithScope.swift in Sources */,
 				B1C7DC8129FBB13F00DC5EEB /* SPIModelExample.swift in Sources */,
+				C106AD462B338D1300FE8B35 /* SearchWithToken.swift in Sources */,
 				8A5579D824C1293C0098003A /* SettingsIndexSet.swift in Sources */,
 				8A55795924C1286E0098003A /* SceneDelegate.swift in Sources */,
 				1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */,
@@ -827,6 +866,7 @@
 				B80DA9C72612A54E00C0B2E9 /* WelcomeScreenSample.swift in Sources */,
 				8A5579D724C1293C0098003A /* SettingsCategoryAxis.swift in Sources */,
 				B141D6BB29261F9E008A8BD6 /* SearchableListViewExample.swift in Sources */,
+				C106AD482B33940600FE8B35 /* SearchWithBookmark.swift in Sources */,
 				975CB76B256C5A7400DB7A15 /* SignatureCaptureViewExample.swift in Sources */,
 				8AD9DFB125D49967007448EC /* ContactItemStateAndDataBindingExample.swift in Sources */,
 				B86F02A82679835F0049DDA7 /* ObjectItemInitExamples.swift in Sources */,
