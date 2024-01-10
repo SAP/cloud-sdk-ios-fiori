@@ -125,7 +125,6 @@ struct CoreContentView: View {
                 NavigationLink(destination: SearchDemos()) {
                     Text("Search Demos")
                 }
-                    
             }
         }.navigationBarTitle("FioriSwiftUICore")
     }
