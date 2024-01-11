@@ -23,7 +23,7 @@ public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteCompo
     @ViewBuilder
     var detailImage: any View
     
-    @ViewBuilder
+    @IconBuilder
     var icons: any View
     
     @ViewBuilder
@@ -45,7 +45,7 @@ public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteCompo
             @ViewBuilder status: () -> any View = { EmptyView() },
             @ViewBuilder substatus: () -> any View = { EmptyView() },
             @ViewBuilder detailImage: () -> any View = { EmptyView() },
-            @ViewBuilder icons: () -> any View = { EmptyView() },
+            @IconBuilder icons: () -> any View = { EmptyView() },
             @ViewBuilder tags: () -> any View = { EmptyView() },
             @ViewBuilder actionTitle: () -> any View = { EmptyView() },
             action: (() -> Void)? = nil

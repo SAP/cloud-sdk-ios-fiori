@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// protocol for ViewList
+/// A view that shows content in a VStack.
 public protocol ViewList: View {
     associatedtype V: View
     
@@ -133,7 +133,7 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
 
 /// A custom parameter attribute that constructs views from closures.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-@_functionBuilder
+@resultBuilder
 public enum IconBuilder {
     /// Builds an empty view from a block containing no statements.
     public static func buildBlock() -> EmptyView {

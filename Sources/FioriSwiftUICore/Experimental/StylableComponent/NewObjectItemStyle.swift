@@ -43,6 +43,18 @@ public struct NewObjectItemFioriStyle: NewObjectItemStyle {
             .subtitleStyle {
                 Subtitle($0).modifier(SubTitleFioriStyleModifier())
             }
+            .footnoteStyle {
+                Footnote($0).modifier(FootnoteFioriStyleModifier())
+            }
+            .statusStyle {
+                Status($0).modifier(StatusFioriStyleModifier())
+            }
+            .substatusStyle {
+                Substatus($0).modifier(SubstatusFioriStyleModifier())
+            }
+            .descriptionStyle {
+                Description($0).modifier(DescriptionFioriStyleModifier())
+            }
             .actionTitleStyle {
                 ActionTitle($0)
                     .modifier(ActionTitleFioriStyleModifier())
@@ -51,8 +63,6 @@ public struct NewObjectItemFioriStyle: NewObjectItemStyle {
                 DetailImage($0)
                     .modifier(DetailImageFioriStyleModifier())
             }
-        // .subtitleStyle()
-        // ...
     }
 }
 
@@ -679,12 +689,41 @@ extension NewObjectItemFioriStyle {
     struct SubTitleFioriStyleModifier: ViewModifier {
         func body(content: Content) -> some View {
             content
+                .lineLimit(1)
+        }
+    }
+    
+    struct FootnoteFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .lineLimit(1)
+        }
+    }
+    
+    struct DescriptionFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+        }
+    }
+    
+    struct StatusFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .lineLimit(1)
+        }
+    }
+    
+    struct SubstatusFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .lineLimit(1)
         }
     }
     
     struct DetailImageFioriStyleModifier: ViewModifier {
         func body(content: Content) -> some View {
             content
+                .clipShape(RoundedRectangle(cornerRadius: 4))
                 .clipped()
         }
     }
@@ -693,29 +732,11 @@ extension NewObjectItemFioriStyle {
         func body(content: Content) -> some View {
             content
                 .lineLimit(2)
-//                .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-//                .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
         }
     }
     
     // ...
 }
-
-/// Show contents in a scrollable horizontal stack
-// public struct DemoViewHorizontalStyle: NewObjectItemStyle {
-//    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-//        HStack(spacing: 10) {
-//            configuration.title
-//            configuration.subtitle
-//            configuration.status
-//            Button(action: configuration.action ?? {}, label: {
-//                configuration.actionTitle
-//            })
-//            Toggle(isOn: configuration.isOn, label: {})
-//        }
-//        .padding()
-//    }
-// }
 
 /// Card style
 public struct NewObjectItemCardStyle: NewObjectItemStyle {
@@ -728,12 +749,6 @@ public struct NewObjectItemCardStyle: NewObjectItemStyle {
             }
     }
 }
-
-// public extension NewObjectItemStyle where Self == DemoViewHorizontalStyle {
-//    static var horizontal: Self {
-//        DemoViewHorizontalStyle()
-//    }
-// }
 
 public extension NewObjectItemStyle where Self == NewObjectItemCardStyle {
     static var card: Self {
