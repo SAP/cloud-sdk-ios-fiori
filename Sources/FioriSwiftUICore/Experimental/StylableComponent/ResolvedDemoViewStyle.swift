@@ -133,3 +133,15 @@ extension TagsStyle {
         ResolvedTagsStyle(style: self, configuration: configuration)
     }
 }
+
+extension FootnoteIconsStyle {
+    func resolve(configuration: FootnoteIconsConfiguration) -> some View {
+        ResolvedFootnoteIconsStyle(style: self, configuration: configuration)
+    }
+}
+
+extension AvatarsStyle {
+    func resolve(configuration: AvatarsConfiguration) -> some View {
+        ResolvedAvatarsStyle(style: self, configuration: configuration)
+    }
+}

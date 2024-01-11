@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _TagsComponent, _ActionComponent {
+public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _TagsComponent, _ActionComponent, _FootnoteIconsComponent, _AvatarsComponent {
     @ViewBuilder
     var title: any View
     
@@ -26,8 +26,14 @@ public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteCompo
     @IconBuilder
     var icons: any View
     
-    @ViewBuilder
+    @TagBuilder
     var tags: any View
+    
+    @FootnoteIconsBuilder
+    var footnoteIcons: any View
+    
+    @AvatarsBuilder
+    var avatars: any View
     
     @ViewBuilder
     var actionTitle: any View
@@ -46,7 +52,9 @@ public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteCompo
             @ViewBuilder substatus: () -> any View = { EmptyView() },
             @ViewBuilder detailImage: () -> any View = { EmptyView() },
             @IconBuilder icons: () -> any View = { EmptyView() },
-            @ViewBuilder tags: () -> any View = { EmptyView() },
+            @AvatarsBuilder avatars: () -> any View = { EmptyView() },
+            @FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
+            @TagBuilder tags: () -> any View = { EmptyView() },
             @ViewBuilder actionTitle: () -> any View = { EmptyView() },
             action: (() -> Void)? = nil
         )
@@ -59,6 +67,8 @@ public struct NewObjectItem: _TitleComponent, _SubtitleComponent, _FootnoteCompo
         self.substatus = Substatus { substatus() }
         self.detailImage = DetailImage { detailImage() }
         self.icons = Icons { icons() }
+        self.avatars = Avatars { avatars() }
+        self.footnoteIcons = FootnoteIcons { footnoteIcons() }
         self.tags = Tags { tags() }
         self.actionTitle = ActionTitle { actionTitle() }
         self.action = action
@@ -74,6 +84,8 @@ public extension NewObjectItem {
          substatus: TextOrIcon? = nil,
          detailImage: Image? = nil,
          icons: [TextOrIcon] = [],
+         avatars: [TextOrIcon] = [],
+         footnoteIcons: [TextOrIcon] = [],
          tags: [String] = [],
          actionTitle: AttributedString? = nil,
          action: (() -> Void)? = nil)
@@ -94,6 +106,10 @@ public extension NewObjectItem {
             detailImage
         }, icons: {
             IconStack(icons)
+        }, avatars: {
+            AvatarStack(icons)
+        }, footnoteIcons: {
+            FootnoteIconStack(icons)
         }, tags: {
             TagStack(tags)
         }, actionTitle: {
@@ -112,6 +128,8 @@ public extension NewObjectItem {
         self.substatus = configuration.substatus
         self.detailImage = configuration.detailImage
         self.icons = configuration.icons
+        self.avatars = configuration.avatars
+        self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
         self.actionTitle = configuration.actionTitle
         self.action = configuration.action
@@ -120,7 +138,7 @@ public extension NewObjectItem {
 
 extension NewObjectItem: View {
     public var body: some View {
-        let configuration = NewObjectItemConfiguration(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), tags: .init(self.tags), actionTitle: .init(actionTitle), action: self.action)
+        let configuration = NewObjectItemConfiguration(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), actionTitle: .init(actionTitle), action: self.action)
         style.resolve(configuration: configuration).typeErased
             .transformEnvironment(\.newObjectItemStyleStack) { stack in
                 if !stack.isEmpty {

@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 extension Optional: _ViewEmptyChecking where Wrapped: View {
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         if case .none = self {
             return true
         }

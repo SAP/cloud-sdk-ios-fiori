@@ -17,6 +17,8 @@ public struct NewObjectItemConfiguration {
     public let substatus: Substatus
     public let detailImage: DetailImage
     public let icons: Icons
+    public let avatars: Avatars
+    public let footnoteIcons: FootnoteIcons
     public let tags: Tags
     public let actionTitle: ActionTitle
     public let action: (() -> Void)?
@@ -29,6 +31,8 @@ public struct NewObjectItemConfiguration {
     public typealias Substatus = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
     public typealias Icons = ConfigurationViewWrapper
+    public typealias Avatars = ConfigurationViewWrapper
+    public typealias FootnoteIcons = ConfigurationViewWrapper
     public typealias Tags = ConfigurationViewWrapper
     public typealias ActionTitle = ConfigurationViewWrapper
 }
@@ -62,6 +66,14 @@ public struct NewObjectItemFioriStyle: NewObjectItemStyle {
             .detailImageStyle {
                 DetailImage($0)
                     .modifier(DetailImageFioriStyleModifier())
+            }
+            .avatarsStyle {
+                Avatars($0)
+                    .modifier(AvatarsFioriStyleModifier())
+            }
+            .footnoteIconsStyle {
+                FootnoteIcons($0)
+                    .modifier(FootnoteIconsFioriStyleModifier())
             }
     }
 }
@@ -102,6 +114,26 @@ public struct NewObjectItemActionStyle: NewObjectItemStyle {
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .buttonStyle(self.style)
+            .typeErased
+    }
+}
+
+public struct NewObjectItemAvatarsStyle: NewObjectItemStyle {
+    let style: any AvatarsStyle
+    
+    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
+        NewObjectItem(configuration)
+            .avatarsStyle(self.style)
+            .typeErased
+    }
+}
+
+public struct NewObjectItemFootnoteIconsStyle: NewObjectItemStyle {
+    let style: any FootnoteIconsStyle
+    
+    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
+        NewObjectItem(configuration)
+            .footnoteIconsStyle(self.style)
             .typeErased
     }
 }
@@ -148,6 +180,28 @@ public extension NewObjectItemStyle where Self == NewObjectItemActionTitleStyle 
     static func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> NewObjectItemActionTitleStyle {
         let style = AnyActionTitleStyle(content)
         return NewObjectItemActionTitleStyle(style: style)
+    }
+}
+
+public extension NewObjectItemStyle where Self == NewObjectItemAvatarsStyle {
+    static func avatarsStyle<Style: AvatarsStyle>(_ style: Style) -> NewObjectItemAvatarsStyle {
+        NewObjectItemAvatarsStyle(style: style)
+    }
+    
+    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> NewObjectItemAvatarsStyle {
+        let style = AnyAvatarsStyle(content)
+        return NewObjectItemAvatarsStyle(style: style)
+    }
+}
+
+public extension NewObjectItemStyle where Self == NewObjectItemFootnoteIconsStyle {
+    static func footnoteIconsStyle<Style: FootnoteIconsStyle>(_ style: Style) -> NewObjectItemFootnoteIconsStyle {
+        NewObjectItemFootnoteIconsStyle(style: style)
+    }
+    
+    static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> NewObjectItemFootnoteIconsStyle {
+        let style = AnyFootnoteIconsStyle(content)
+        return NewObjectItemFootnoteIconsStyle(style: style)
     }
 }
 
@@ -198,18 +252,15 @@ public struct NewObjectItemBaseStyle: NewObjectItemStyle {
     
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         var shouldShowAvatar: Bool {
-            /*! isAvatarsEmptyView || */ !configuration.detailImage.isEmpty
+            !configuration.avatars.isEmpty || !configuration.detailImage.isEmpty
         }
         
         @ViewBuilder
         var avatarView: some View {
-            //            if !isAvatarsEmptyView {
-            //                avatars.clipped()
-            //                Spacer().frame(width: 12)
-            //            } else
-            if !configuration.detailImage.isEmpty {
+            if !configuration.avatars.isEmpty {
+                configuration.avatars
+            } else if !configuration.detailImage.isEmpty {
                 configuration.detailImage
-                //                Spacer().frame(width: 12)
             } else {
                 EmptyView()
             }
@@ -278,7 +329,7 @@ extension NewObjectItemBaseStyle {
                 if horizontalSizeClass == .compact || splitPercent == nil {
                     HStack(alignment: .center, spacing: 0) {
                         if !context.shouldShowAvatar {
-                            context.avatarView.clipped().typeErased
+                            context.avatarView.typeErased
                             Spacer().frame(width: 12)
                         }
                         context.configuration.title.lineLimit(1)
@@ -288,7 +339,7 @@ extension NewObjectItemBaseStyle {
                     HStack(alignment: .center, spacing: 0) {
                         HStack(alignment: .center) {
                             if !context.shouldShowAvatar {
-                                context.avatarView.clipped().typeErased
+                                context.avatarView.typeErased
                                 Spacer().frame(width: 12)
                             }
                             
@@ -330,7 +381,7 @@ extension NewObjectItemBaseStyle {
                 HStack(alignment: .center) {
                     HStack(alignment: .top) {
                         if context.shouldShowAvatar {
-                            context.avatarView.clipped().typeErased
+                            context.avatarView.typeErased
                             Spacer().frame(width: 12)
                         }
                         
@@ -339,7 +390,7 @@ extension NewObjectItemBaseStyle {
                             context.configuration.subtitle
                             context.configuration.footnote
                             context.configuration.tags
-//                            footnoteIcons
+                            context.configuration.footnoteIcons
                         }
                         
                         Spacer(minLength: 16)
@@ -353,7 +404,6 @@ extension NewObjectItemBaseStyle {
                         HStack(alignment: .top) {
                             if context.shouldShowAvatar {
                                 context.avatarView
-                                    .clipped()
                                     .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                         [MyViewPreferenceData(element: .detailImage, bounds: $0)]
                                     })
@@ -371,7 +421,7 @@ extension NewObjectItemBaseStyle {
                                 context.configuration.subtitle
                                 context.configuration.footnote
                                 context.configuration.tags
-//                                footnoteIcons
+                                context.configuration.footnoteIcons
                             }
                             
                             Spacer(minLength: 16)
@@ -418,7 +468,7 @@ extension NewObjectItemBaseStyle {
             
             HStack {
                 if context.shouldShowAvatar {
-                    context.avatarView.clipped().typeErased
+                    context.avatarView.typeErased
                     Spacer().frame(width: 12)
                 }
                 
@@ -441,7 +491,7 @@ extension NewObjectItemBaseStyle {
             
             HStack(alignment: .top) {
                 if context.shouldShowAvatar {
-                    context.avatarView.clipped().typeErased
+                    context.avatarView.typeErased
                     Spacer().frame(width: 12)
                 }
                 
@@ -457,7 +507,7 @@ extension NewObjectItemBaseStyle {
                             context.configuration.subtitle
                             context.configuration.footnote
                             context.configuration.tags
-//                            footnoteIcons
+                            context.configuration.footnoteIcons
                         }
                         Spacer(minLength: 0)
                     }
@@ -476,7 +526,7 @@ extension NewObjectItemBaseStyle {
             
             HStack(alignment: .top) {
                 if context.shouldShowAvatar {
-                    context.avatarView.clipped().typeErased
+                    context.avatarView.typeErased
                     Spacer().frame(width: 12)
                 }
                 
@@ -485,7 +535,7 @@ extension NewObjectItemBaseStyle {
                     context.configuration.subtitle
                     context.configuration.footnote
                     context.configuration.tags
-//                    footnoteIcons
+                    context.configuration.footnoteIcons
                 }
                 
                 Spacer(minLength: 8)
@@ -510,7 +560,7 @@ extension NewObjectItemBaseStyle {
             HStack(alignment: .center, spacing: 0) {
                 HStack(alignment: .center) {
                     if context.shouldShowAvatar {
-                        context.avatarView.clipped().typeErased
+                        context.avatarView.typeErased
                         Spacer().frame(width: 12)
                     }
                     
@@ -549,7 +599,6 @@ extension NewObjectItemBaseStyle {
                 HStack(alignment: .top) {
                     if context.shouldShowAvatar {
                         context.avatarView
-                            .clipped()
                             .anchorPreference(key: MyViewPreferenceKey.self, value: .bounds, transform: {
                                 [MyViewPreferenceData(element: .detailImage, bounds: $0)]
                             })
@@ -567,7 +616,7 @@ extension NewObjectItemBaseStyle {
                         context.configuration.subtitle
                         context.configuration.footnote
                         context.configuration.tags
-//                        footnoteIcons
+                        context.configuration.footnoteIcons
                     }
                     Spacer(minLength: 16)
                 }
@@ -637,7 +686,6 @@ extension NewObjectItemBaseStyle {
         
         return ZStack {
             context.avatarView
-                .clipped()
                 .position(x: (boundDetail.minX + boundDetail.maxX) / 2, y: boundDetail.size.height / 2)
                 .typeErased
             
@@ -735,7 +783,18 @@ extension NewObjectItemFioriStyle {
         }
     }
     
-    // ...
+    struct AvatarsFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .clipped()
+        }
+    }
+    
+    struct FootnoteIconsFioriStyleModifier: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+        }
+    }
 }
 
 /// Card style

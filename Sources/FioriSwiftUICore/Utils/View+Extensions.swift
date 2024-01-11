@@ -24,7 +24,8 @@ extension View {
     }
 }
 
-protocol _ViewEmptyChecking {
+public protocol _ViewEmptyChecking {
+    // Check if the view is an empty view. Some SDK components implement this protocol to define their own empty logic.
     var isEmpty: Bool { get }
 }
 

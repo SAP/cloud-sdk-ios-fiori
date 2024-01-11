@@ -102,3 +102,19 @@ extension ModifiedStyle: TagsStyle where Style: TagsStyle {
             .modifier(self.modifier)
     }
 }
+
+extension ModifiedStyle: FootnoteIconsStyle where Style: FootnoteIconsStyle {
+    public func makeBody(_ configuration: FootnoteIconsConfiguration) -> some View {
+        FootnoteIcons(configuration)
+            .footnoteIconsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {
+    public func makeBody(_ configuration: AvatarsConfiguration) -> some View {
+        Avatars(configuration)
+            .avatarsStyle(self.style)
+            .modifier(self.modifier)
+    }
+}

@@ -13,6 +13,8 @@ public extension View {
     #StyleModifierViewExtension(["DetailImageStyle"])
     #StyleModifierViewExtension(["IconsStyle"])
     #StyleModifierViewExtension(["TagsStyle"])
+    #StyleModifierViewExtension(["FootnoteIconsStyle"])
+    #StyleModifierViewExtension(["AvatarsStyle"])
     #StyleModifierViewExtension(["DemoViewStyle"])
     #StyleModifierViewExtension(["NewObjectItemStyle"])
 }

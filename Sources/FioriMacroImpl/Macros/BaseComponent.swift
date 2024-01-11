@@ -198,7 +198,7 @@ extension BaseComponent: ExtensionMacro {
             }
         }
         
-        let header = "var isEmpty: Bool"
+        let header = "public var isEmpty: Bool"
         var accessor = ""
         for (index, param) in paramList.enumerated() {
             if index != 0 {

@@ -14,7 +14,7 @@ public struct ConfigurationViewWrapper: View {
 }
 
 extension ConfigurationViewWrapper: _ViewEmptyChecking {
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         self.v.isEmpty
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// A view that shows content in a VStack.
-public protocol ViewList: View {
+public protocol ViewList: View, _ViewEmptyChecking {
     associatedtype V: View
     
     /// number of View in the ViewList
@@ -25,10 +25,16 @@ public extension ViewList {
                 view(at: index)
                     .lineLimit(1)
                     .minimumScaleFactor(0.1)
+                    .frame(width: 16)
             }
         }
-        .frame(width: 16)
         .clipped()
+    }
+}
+
+public extension ViewList {
+    var isEmpty: Bool {
+        count == 0
     }
 }
 
@@ -37,7 +43,10 @@ public struct Single<Content: View>: ViewList {
     @Environment(\.numberOfLines) var numberOfLines
     
     let view: Content
-    public let count = 1
+    
+    public var count: Int {
+        self.view.isEmpty ? 0 : 1
+    }
     
     /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
@@ -65,7 +74,17 @@ public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList
     let first: TrueContent?
     let second: FalseContent?
     
-    public let count = 1
+    public var count: Int {
+        if let first, !first.isEmpty {
+            return 1
+        }
+        
+        if let second, !second.isEmpty {
+            return 1
+        }
+        
+        return 0
+    }
     
     /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
@@ -102,7 +121,8 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
     let remainder: Second
     
     public var count: Int {
-        self.remainder.count + 1
+        let firstCount = self.first.isEmpty ? 0 : 1
+        return self.remainder.count + firstCount
     }
     
     /// the View at Index in the ViewList

@@ -15,6 +15,8 @@ extension EnvironmentValues {
         case detailImageStyle
         case iconsStyle
         case tagsStyle
+        case footnoteIconsStyle
+        case avatarsStyle
     }
 }
 

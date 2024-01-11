@@ -22,9 +22,3 @@ extension TagStack: TagViewList {
         return Tag(tags[index])
     }
 }
-
-extension TagStack: _ViewEmptyChecking {
-    var isEmpty: Bool {
-        self.count == 0
-    }
-}

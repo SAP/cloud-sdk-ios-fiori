@@ -47,6 +47,14 @@ protocol _TagsComponent {
     var tags: any View { get }
 }
 
+protocol _FootnoteIconsComponent {
+    var footnoteIcons: any View { get }
+}
+
+protocol _AvatarsComponent {
+    var avatars: any View { get }
+}
+
 // MARK: NewActionComponent
 
 protocol _ActionComponent: _ActionTitleComponent {
