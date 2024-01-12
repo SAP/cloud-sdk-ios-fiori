@@ -226,7 +226,7 @@ struct Preview: PreviewProvider {
                 .demoViewStyle(.horizontal)
         }
         
-        // 5. Style based on the state
+        // 5. Style based on the state (Not work in Preview, only work in a test app)
         DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
             .demoViewStyle(.card)
             .demoViewStyle { configuration in
