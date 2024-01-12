@@ -7,7 +7,7 @@ import PackageDescription
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v16), .watchOS(.v7), .macOS(.v13)],
+    platforms: [.iOS(.v16), .watchOS(.v7), .visionOS(.v1), .macOS(.v13)],
     products: [
         .library(
             name: "FioriSwiftUI",
@@ -31,7 +31,7 @@ let package = Package(
     targets: [
         .target(
             name: "FioriSwiftUI",
-            dependencies: [.target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS]))]
+            dependencies: [.target(name: "FioriSwiftUICore", condition: .when(platforms: [.iOS, .visionOS]))]
         ),
         .target(
             name: "FioriCharts",
@@ -41,8 +41,8 @@ let package = Package(
         .target(
             name: "FioriSwiftUICore",
             dependencies: [
-                .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS])),
-                .target(name: "FioriCharts", condition: .when(platforms: [.iOS])),
+                .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .visionOS])),
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .visionOS])),
                 .target(name: "FioriMacro")
             ],
             resources: [.process("_localization")]
