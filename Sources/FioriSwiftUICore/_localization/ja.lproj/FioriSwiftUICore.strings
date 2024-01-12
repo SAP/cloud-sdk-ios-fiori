@@ -19,6 +19,18 @@
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Tap to Sign" = "タップして署名";
 
+/* XACT: The accessibility label for the signature area */
+"Signature Area" = "署名エリア";
+
+/* XACT: The accessibility hint for the signature area */
+"Double tap and drag to sign" = "ダブルタップし、ドラッグして署名します";
+
+/* XACT: The accessibility label for the signature image */
+"Signature Image" = "署名イメージ";
+
+/* XACT: The accessibility label for the signature line */
+"Signature Line" = "署名ライン";
+
 /* XBUT: Action available in inactive state of inline signature form cell, see https://experience.sap.com/fiori-design-ios/article/in-line-signature-form-cell/#behavior-and-interaction */
 "Canceled" = "キャンセルされました";
 
@@ -90,4 +102,49 @@
 
 /* XBUT: Error messages shown to users in DataTable */
 "There are %d errors in the data table." = "データテーブルに %d エラーがあります。";
+
+/* XBUT: voice over label for row header in DataTable */
+"row header" = "行ヘッダ";
+
+/* XBUT: voice over label for row %d in DataTable */
+"row %d" = "行 %d";
+
+/* XBUT: voice over label for column %d in DataTable */
+"column %d" = "列 %d";
+
+/* XBUT: voice over label for cell type of `leading accessory` in DataTable */
+"leading accessory" = "先行アクセサリ";
+
+/* XBUT: voice over label for cell type of `trailing accessory` in DataTable */
+"trailing accessory" = "後続アクセサリ";
+
+/* XBUT: voice over label for cell type of `text` in DataTable */
+"text" = "テキスト";
+
+/* XBUT: voice over label for cell type of `image` in DataTable */
+"image" = "画像";
+
+/* XBUT: voice over label for cell type of `date` in DataTable */
+"date" = "日付";
+
+/* XBUT: voice over label for cell type of `time` in DataTable */
+"time" = "時刻";
+
+/* XBUT: voice over label for cell type of `duration` in DataTable */
+"duration" = "期間";
+
+/* XBUT: voice over label for cell type of `list item` in DataTable */
+"list item" = "リスト項目";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"selected" = "選択済み";
+
+/* XBUT: voice over label for row selection status in DataTable */
+"not selected" = "未選択";
+
+/* XBUT: calendar time component label */
+"Time" = "時刻";
+
+/* XBUT: slider default value label formatter for integer */
+"Value: %d" = "値: %d";
 

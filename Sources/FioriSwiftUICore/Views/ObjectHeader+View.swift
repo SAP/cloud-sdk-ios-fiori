@@ -166,7 +166,6 @@ extension ObjectHeader: View {
                     .padding(.vertical, 18)
             }
         }
-        .background(Color.preferredColor(.secondaryGroupedBackground))
     }
     
     /*

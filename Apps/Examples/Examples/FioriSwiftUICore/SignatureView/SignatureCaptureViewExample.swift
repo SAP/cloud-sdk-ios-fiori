@@ -72,28 +72,29 @@ class ImageSaver: NSObject {
     @objc func saveError(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {}
 }
 
-public extension View {
-    func asUIImage() -> UIImage {
-        let hostingController = UIHostingController(rootView: self)
+#if !os(visionOS)
+    public extension View {
+        func asUIImage() -> UIImage {
+            let hostingController = UIHostingController(rootView: self)
         
-        hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
-        UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
-        
-        let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
-        hostingController.view.bounds = CGRect(origin: .zero, size: size)
-        hostingController.view.sizeToFit()
+            hostingController.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
+            UIApplication.shared.windows.first!.rootViewController?.view.addSubview(hostingController.view)
+            let size = hostingController.sizeThatFits(in: UIScreen.main.bounds.size)
+            hostingController.view.bounds = CGRect(origin: .zero, size: size)
+            hostingController.view.sizeToFit()
 
-        let resultingImage = hostingController.view.asUIImage()
-        hostingController.view.removeFromSuperview()
-        return resultingImage
-    }
-}
-
-public extension UIView {
-    func asUIImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
+            let resultingImage = hostingController.view.asUIImage()
+            hostingController.view.removeFromSuperview()
+            return resultingImage
         }
     }
-}
+
+    public extension UIView {
+        func asUIImage() -> UIImage {
+            let renderer = UIGraphicsImageRenderer(bounds: bounds)
+            return renderer.image { rendererContext in
+                layer.render(in: rendererContext.cgContext)
+            }
+        }
+    }
+#endif

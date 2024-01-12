@@ -14,7 +14,7 @@ public extension Color {
         ThemeManager.shared.color(for: style, background: scheme, interface: level, display: mode)
     }
     
-    #if os(iOS)
+    #if os(iOS) || os(visionOS)
         /// Extension to `Color`, to resolve a static form of `Color` from the wrapped dynamic color provider.
         ///
         /// - parameters:

@@ -54,7 +54,7 @@ class StyleSheetSettingsIntegrationTests: XCTestCase {
         
         XCTAssertNoThrow(try? StyleSheetSettings.loadStylesheetByString(content: sampleStyleSheetContent))
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
             XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
         #else
             XCTAssertNotEqual(originalColor.uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
@@ -68,7 +68,7 @@ class StyleSheetSettingsIntegrationTests: XCTestCase {
         
         XCTAssertNoThrow(try? StyleSheetSettings.loadStylesheetByURL(url: Bundle.module.url(forResource: "styleSheet", withExtension: "nss")!))
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
             XCTAssertNotEqual(originalColor.resolvedColor(with: .light).uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
         #else
             XCTAssertNotEqual(originalColor.uiColor(), Color.preferredColor(.primaryLabel).uiColor(), "Color.preferredColor should return the color specified in the styleSheet")
