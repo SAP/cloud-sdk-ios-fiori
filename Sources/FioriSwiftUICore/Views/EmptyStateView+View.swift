@@ -30,7 +30,7 @@ extension Fiori {
             func body(content: Content) -> some View {
                 content
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 160, height: 160, alignment: .center)
+                    .frame(alignment: .leading)
             }
         }
 
@@ -58,17 +58,38 @@ extension Fiori {
 
 extension EmptyStateView: View {
     public var body: some View {
-        VStack(alignment: .center) {
-            detailImage
-                .padding(.bottom, 6)
-            
-            title
-                .padding(.bottom, 2)
-            descriptionText
-                .padding(.bottom, 2)
-            
-            action
-                .padding(.top, 4)
+        if alignmentAxis == .vertical {
+            VStack(alignment: .center, spacing: 0) {
+                detailImage
+                    .padding(.bottom, 16)
+                
+                title
+
+                descriptionText
+                    .padding(.top, 4)
+                
+                action
+                    .padding(.top, 2)
+
+            }
+            .padding([.leading, .trailing], 16)
+        } else {
+            HStack(spacing: 0) {
+                detailImage
+                    .padding(.trailing, 16)
+                
+                VStack(spacing: 0) {
+                    title
+
+                    descriptionText
+                        .padding(.top, 4)
+                        .frame(maxWidth: .infinity)
+
+                    action
+                        .padding(.top, 2)
+                }
+            }
+            .padding([.leading, .trailing], 16)
         }
     }
 }

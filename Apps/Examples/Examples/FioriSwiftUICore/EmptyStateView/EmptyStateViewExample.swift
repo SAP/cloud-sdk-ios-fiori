@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 struct EmptyStateViewExample: View {
-    let data: [EmptyViewShowType] = [.title, .titleAndIcon, .titleAndDescription, .titleAndIconAndDescription, .all, .custom]
+    let data: [EmptyViewShowType] = [.title, .titleAndIcon, .titleAndDescription, .titleAndIconAndDescription, .all, .adaptiveHorizontal, .adaptiveVertical, .custom]
     
     var body: some View {
         Group {
@@ -25,6 +25,8 @@ enum EmptyViewShowType: String {
     case titleAndDescription
     case titleAndIconAndDescription
     case all
+    case adaptiveHorizontal
+    case adaptiveVertical
     case custom
 }
 
@@ -77,6 +79,10 @@ struct EmptyContentViewExample: View {
                                    action: Action(actionText: "Refresh", didSelectAction: {
                                        self.isEmpty.toggle()
                                    }))
+                case .adaptiveHorizontal:
+                    EmptyStateViewAdaptiveExample(alignmentAxis: .horizontal)
+                case .adaptiveVertical:
+                    EmptyStateViewAdaptiveExample(alignmentAxis: .vertical)
                 case .custom:
                     EmptyStateView {
                         Text("custom title")
@@ -92,6 +98,7 @@ struct EmptyContentViewExample: View {
                         Image("rw")
                             .resizable()
                             .cornerRadius(10)
+                            .frame(width: 80, height: 80)
                     } action: {
                         Action(actionText: "Clear", didSelectAction: {
                             self.isEmpty.toggle()
@@ -103,6 +110,57 @@ struct EmptyContentViewExample: View {
         .navigationBarItems(trailing: Button("Clear") {
             self.isEmpty.toggle()
         })
+    }
+}
+
+struct EmptyStateViewAdaptiveExample: View {
+    var alignmentAxis: Axis
+    var body: some View {
+        GeometryReader { geo in
+            if geo.size.width > 500 {
+                EmptyStateView(
+                    title: {
+                        Text("This is a placeholder title")
+                    },
+                    descriptionText: {
+                        Text("This is very long description text, maximum line number is 3.")
+                    },
+                    detailImage: {
+                        Image("wheel")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 300, height: 200)
+                            .clipped()
+                    },
+                    action: {
+                        Action(actionText: "Refresh")
+                    },
+                    alignmentAxis: self.alignmentAxis
+                )
+                .frame(width: geo.frame(in: .local).width, height: geo.frame(in: .local).height)
+            } else {
+                EmptyStateView(
+                    title: {
+                        Text("This is a placeholder title")
+                    },
+                    descriptionText: {
+                        Text("This is very long description text, maximum line number is 3.")
+                    },
+                    detailImage: {
+                        Image("ProfilePic")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 90, height: 90)
+                            .clipped()
+                    },
+                    action: {
+                        Action(actionText: "Refresh")
+                    },
+                    alignmentAxis: self.alignmentAxis
+                )
+                .frame(width: geo.frame(in: .local).width, height: geo.frame(in: .local).height)
+            }
+        }
     }
 }
 

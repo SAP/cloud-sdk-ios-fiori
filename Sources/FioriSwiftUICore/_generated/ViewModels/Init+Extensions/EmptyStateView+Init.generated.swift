@@ -6,13 +6,15 @@ extension EmptyStateView where DescriptionText == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder detailImage: () -> DetailImage,
-		@ViewBuilder action: () -> ActionView
+		@ViewBuilder action: () -> ActionView,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
 			detailImage: detailImage,
-			action: action
+			action: action,
+            alignmentAxis: alignmentAxis
         )
     }
 }
@@ -21,13 +23,15 @@ extension EmptyStateView where DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder action: () -> ActionView
+		@ViewBuilder action: () -> ActionView,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
 			detailImage: { EmptyView() },
-			action: action
+			action: action,
+            alignmentAxis: alignmentAxis
         )
     }
 }
@@ -36,13 +40,15 @@ extension EmptyStateView where ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
-		@ViewBuilder detailImage: () -> DetailImage
+		@ViewBuilder detailImage: () -> DetailImage,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
 			detailImage: detailImage,
-			action: { EmptyView() }
+			action: { EmptyView() },
+            alignmentAxis: alignmentAxis
         )
     }
 }
@@ -50,13 +56,15 @@ extension EmptyStateView where ActionView == EmptyView {
 extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder action: () -> ActionView
+		@ViewBuilder action: () -> ActionView,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
 			detailImage: { EmptyView() },
-			action: action
+			action: action,
+            alignmentAxis: alignmentAxis
         )
     }
 }
@@ -64,13 +72,15 @@ extension EmptyStateView where DescriptionText == EmptyView, DetailImage == Empt
 extension EmptyStateView where DescriptionText == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder detailImage: () -> DetailImage
+		@ViewBuilder detailImage: () -> DetailImage,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
 			detailImage: detailImage,
-			action: { EmptyView() }
+			action: { EmptyView() },
+            alignmentAxis: alignmentAxis
         )
     }
 }
@@ -78,26 +88,30 @@ extension EmptyStateView where DescriptionText == EmptyView, ActionView == Empty
 extension EmptyStateView where DetailImage == EmptyView, ActionView == EmptyView {
     public init(
     @ViewBuilder title: () -> Title,
-		@ViewBuilder descriptionText: () -> DescriptionText
+		@ViewBuilder descriptionText: () -> DescriptionText,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: descriptionText,
 			detailImage: { EmptyView() },
-			action: { EmptyView() }
+			action: { EmptyView() },
+            alignmentAxis: alignmentAxis
         )
     }
 }
 
 extension EmptyStateView where DescriptionText == EmptyView, DetailImage == EmptyView, ActionView == EmptyView {
     public init(
-    @ViewBuilder title: () -> Title
+    @ViewBuilder title: () -> Title,
+        alignmentAxis: Axis = .vertical
     ) {
         self.init(
             title: title,
 			descriptionText: { EmptyView() },
 			detailImage: { EmptyView() },
-			action: { EmptyView() }
+			action: { EmptyView() },
+            alignmentAxis: alignmentAxis
         )
     }
 }

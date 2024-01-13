@@ -12,7 +12,8 @@ public struct EmptyStateView<Title: View, DescriptionText: View, DetailImage: Vi
 	let _descriptionText: DescriptionText
 	let _detailImage: DetailImage
 	let _action: ActionView
-	
+
+    var alignmentAxis: Axis
 
     private var isModelInit: Bool = false
 	private var isDescriptionTextNil: Bool = false
@@ -23,12 +24,14 @@ public struct EmptyStateView<Title: View, DescriptionText: View, DetailImage: Vi
         @ViewBuilder title: () -> Title,
 		@ViewBuilder descriptionText: () -> DescriptionText,
 		@ViewBuilder detailImage: () -> DetailImage,
-		@ViewBuilder action: () -> ActionView
+		@ViewBuilder action: () -> ActionView,
+        alignmentAxis: Axis = .vertical
         ) {
             self._title = title()
 			self._descriptionText = descriptionText()
 			self._detailImage = detailImage()
 			self._action = action()
+            self.alignmentAxis = alignmentAxis
     }
 
     @ViewBuilder var title: some View {
@@ -82,11 +85,13 @@ extension EmptyStateView where Title == Text,
         self.init(title: model.title, descriptionText: model.descriptionText, detailImage: model.detailImage, action: model.action != nil ? Action(model: model.action!) : nil)
     }
 
-    public init(title: String, descriptionText: String? = nil, detailImage: Image? = nil, action: Action? = nil) {
+    public init(title: String, descriptionText: String? = nil, detailImage: Image? = nil, action: Action? = nil, alignmentAxis: Axis = .vertical) {
         self._title = Text(title)
 		self._descriptionText = descriptionText != nil ? ViewBuilder.buildEither(first: Text(descriptionText!)) : ViewBuilder.buildEither(second: EmptyView())
 		self._detailImage = detailImage != nil ? ViewBuilder.buildEither(first: detailImage!) : ViewBuilder.buildEither(second: EmptyView())
 		self._action = action != nil ? ViewBuilder.buildEither(first: action!) : ViewBuilder.buildEither(second: EmptyView())
+        
+        self.alignmentAxis = alignmentAxis
 
 		isModelInit = true
 		isDescriptionTextNil = descriptionText == nil ? true : false
@@ -94,3 +99,4 @@ extension EmptyStateView where Title == Text,
 		isActionNil = action == nil ? true : false
     }
 }
+
