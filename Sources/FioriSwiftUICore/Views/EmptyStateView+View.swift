@@ -70,7 +70,6 @@ extension EmptyStateView: View {
                 
                 action
                     .padding(.top, 2)
-
             }
             .padding([.leading, .trailing], 16)
         } else {
