@@ -20,7 +20,6 @@ struct SearchWithScope: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
-            
         }
         .searchable(text: $queryString, prompt: "Color name")
         .searchScopes($searchScope) { //, activation: .onSearchPresentation) { // onSearchPresentation is only available with iOS 16.4+
