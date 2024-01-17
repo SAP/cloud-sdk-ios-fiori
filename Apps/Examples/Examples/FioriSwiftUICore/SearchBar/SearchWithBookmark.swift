@@ -21,7 +21,6 @@ struct SearchWithBookmark: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
-            
         }
         .searchable(text: $queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
