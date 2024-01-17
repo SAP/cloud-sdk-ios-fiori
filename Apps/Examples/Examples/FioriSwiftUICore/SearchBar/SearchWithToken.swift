@@ -24,7 +24,6 @@ struct SearchWithToken: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
-            
         }
         .searchable(text: $queryString, tokens: $tokens) { token in
             Text(token.name)
