@@ -23,7 +23,6 @@ struct SearchFontAndColor: View {
                     .font(.fiori(forTextStyle: .body))
             }
             .navigationTitle("Colors")
-            
         }
         .searchable(text: $queryString, prompt: "Color name")
         .navigationBarTitleDisplayMode(.inline)
