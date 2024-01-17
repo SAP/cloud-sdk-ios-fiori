@@ -19,7 +19,6 @@ struct SearchPromptFontAndColor: View {
                     .foregroundColor(color.fioriColor)
             }
             .navigationTitle("Colors")
-            
         }
         .searchable(
             text: $queryString,
