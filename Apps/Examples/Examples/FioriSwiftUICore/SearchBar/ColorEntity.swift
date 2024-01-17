@@ -1,11 +1,3 @@
-//
-//  ColorEntity.swift
-//  Examples
-//
-//  Created by Xu, Charles on 12/19/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
 import Foundation
 import SwiftUI
 
@@ -50,9 +42,9 @@ struct ColorEntity: Identifiable {
     
     static func filterColors(_ queryString: String) -> [ColorEntity] {
         if queryString.isEmpty {
-            return colors
+            return self.colors
         } else {
-            return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
+            return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
         }
     }
 
@@ -60,33 +52,37 @@ struct ColorEntity: Identifiable {
         if queryString.isEmpty {
             switch scope {
             case .all:
-                return colors
+                return self.colors
             case .basic:
-                return colors.filter { !$0.name.localizedCaseInsensitiveContains("Tint Color") &&
+                return self.colors.filter { !$0.name.localizedCaseInsensitiveContains("Tint Color") &&
                     !$0.name.localizedCaseInsensitiveContains("Chart ") &&
-                    !$0.name.localizedCaseInsensitiveContains("Map ") }
+                    !$0.name.localizedCaseInsensitiveContains("Map ")
+                }
                 
             case .chart:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains("Chart ") }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains("Chart ") }
             case .map:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains("Map ") }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains("Map ") }
             }
         } else {
             switch scope {
             case .all:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
             case .basic:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
                     !$0.name.localizedCaseInsensitiveContains("Tint Color") &&
                     !$0.name.localizedCaseInsensitiveContains("Chart ") &&
-                    !$0.name.localizedCaseInsensitiveContains("Map ") }
+                    !$0.name.localizedCaseInsensitiveContains("Map ")
+                }
                 
             case .chart:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
-                    $0.name.localizedCaseInsensitiveContains("Chart ") }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
+                    $0.name.localizedCaseInsensitiveContains("Chart ")
+                }
             case .map:
-                return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
-                    $0.name.localizedCaseInsensitiveContains("Map ") }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) &&
+                    $0.name.localizedCaseInsensitiveContains("Map ")
+                }
             }
         }
     }
@@ -94,15 +90,15 @@ struct ColorEntity: Identifiable {
     static func filterColors(_ queryString: String, tokens: [ColorToken]) -> [ColorEntity] {
         if tokens.isEmpty {
             if queryString.isEmpty {
-                return colors
+                return self.colors
             } else {
-                return colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
+                return self.colors.filter { $0.name.localizedCaseInsensitiveContains(queryString) }
             }
         } else {
             if queryString.isEmpty {
-                return colors.filter { tokens.map { $0.name }.contains($0.name) }
+                return self.colors.filter { tokens.map(\.name).contains($0.name) }
             } else {
-                return colors.filter { tokens.map { $0.name }.contains($0.name) || $0.name.contains(queryString) }
+                return self.colors.filter { tokens.map(\.name).contains($0.name) || $0.name.contains(queryString) }
             }
         }
     }

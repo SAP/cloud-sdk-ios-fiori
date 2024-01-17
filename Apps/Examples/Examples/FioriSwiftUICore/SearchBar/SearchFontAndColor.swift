@@ -1,13 +1,5 @@
-//
-//  SearchFontAndColor.swift
-//  Examples
-//
-//  Created by Xu, Charles on 12/19/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 struct SearchFontAndColor: View {
     @State private var queryString = ""

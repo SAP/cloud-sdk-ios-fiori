@@ -1,13 +1,5 @@
-//
-//  SearchPromptFontAndColor.swift
-//  Examples
-//
-//  Created by Xu, Charles on 12/19/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 struct SearchPromptFontAndColor: View {
     @State private var queryString = ""
@@ -24,7 +16,7 @@ struct SearchPromptFontAndColor: View {
             text: $queryString,
             
             prompt: Text("Color name")
-                .foregroundColor(.red)               // SwiftUI does not support prompt text color
+                .foregroundColor(.red) // SwiftUI does not support prompt text color
                 .font(.fiori(forTextStyle: .title3)) // SwiftUI does not support prompt font
         )
         .navigationBarTitleDisplayMode(.inline)

@@ -1,13 +1,5 @@
-//
-//  SearchWithBookmark.swift
-//  Examples
-//
-//  Created by Xu, Charles on 12/19/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 struct SearchWithBookmark: View {
     @State private var queryString = ""
@@ -32,15 +24,15 @@ struct SearchWithBookmark: View {
     }
 }
 
-//class MyUISearchBarDelegate: NSObject, UISearchBarDelegate {
+// class MyUISearchBarDelegate: NSObject, UISearchBarDelegate {
 //    override init() {
-//        
+//
 //    }
-//    
+//
 //    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
 //        print("Bookmark button clicked")
 //    }
-//}
+// }
 
 #Preview {
     SearchWithBookmark()

@@ -1,11 +1,3 @@
-//
-//  SearchDemos.swift
-//  Examples
-//
-//  Created by Xu, Charles on 1/4/24.
-//  Copyright © 2024 SAP. All rights reserved.
-//
-
 import SwiftUI
 
 struct SearchDemos: View {
@@ -50,7 +42,6 @@ struct SearchDemos: View {
         .navigationTitle("Search Demos")
     }
 }
-
 
 #Preview {
     SearchDemos()

@@ -1,13 +1,5 @@
-//
-//  FontAndColor.swift
-//  Examples
-//
-//  Created by Xu, Charles on 12/19/23.
-//  Copyright © 2023 SAP. All rights reserved.
-//
-
-import SwiftUI
 import FioriThemeManager
+import SwiftUI
 
 struct SearchWithScope: View {
     @State private var queryString = ""
@@ -22,7 +14,7 @@ struct SearchWithScope: View {
             .navigationTitle("Colors")
         }
         .searchable(text: $queryString, prompt: "Color name")
-        .searchScopes($searchScope) { //, activation: .onSearchPresentation) { // onSearchPresentation is only available with iOS 16.4+
+        .searchScopes($searchScope) { // , activation: .onSearchPresentation) { // onSearchPresentation is only available with iOS 16.4+
             // cannot customize search scopes
             ForEach(SearchScope.allCases, id: \.self) { scope in
                 switch scope {
@@ -49,8 +41,8 @@ struct SearchWithScope: View {
         .onAppear {
             // a workaround for styling search scope
             UISearchBar.appearance().setScopeBarButtonTitleTextAttributes([
-                .foregroundColor : UIColor.red,
-                NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 18.0)!,
+                .foregroundColor: UIColor.red,
+                NSAttributedString.Key.font: UIFont(name: "Chalkduster", size: 18.0)!
 //                NSAttributedString.Key.backgroundColor: UIColor.yellow
             ], for: .normal)
         }
