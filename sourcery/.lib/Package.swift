@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -15,7 +15,7 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Sourcery", url: "https://github.com/krzysztofzablocki/Sourcery.git", .exact("1.5.0"))
+        .package(url: "https://github.com/krzysztofzablocki/Sourcery.git", branch: "2.1.3")
         /// **NOTICE**: this Package is set up *just* to link against `SourceryRuntime` during dev/test.  During template generation, `SourceryRuntime`
         /// is injected by the sourcery tool.  But, *no other dependencies* will be linked.  So, it does not make sense to introduce additional
         /// dependencies to this package.  If you want to rely on functionality provided by another package (e.g. `swift-algorithms`), copy those files
