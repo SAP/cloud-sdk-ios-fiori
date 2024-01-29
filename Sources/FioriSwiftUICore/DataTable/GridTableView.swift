@@ -401,6 +401,7 @@ struct InternalGridTableView: View {
     /// observe this to make DataListItem refresh to show/hide the chevron icon when it enters in/out of the inline edit mode
     @ObservedObject var model: TableModel
     @State var showBanner: Bool = true
+    @State var toast: Toast? = nil
     
     init(layoutManager: TableLayoutManager) {
         self.layoutManager = layoutManager
@@ -421,9 +422,10 @@ struct InternalGridTableView: View {
                 ZStack(alignment: .top) {
                     self.makeBody(size)
                         .banner(isPresented: self.$showBanner, data: BannerData(title: self.layoutManager.isValid.1 ?? ""))
+                        .toast(toast: $toast)
                     
                     // show the focused textfield or other type of inline editing view
-                    if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, layoutManager.model.editMode == .inline {
+                    if let cellIndex = layoutManager.currentCell, let ld = layoutManager.layoutData, layoutManager.model.editMode == .inline, !ld.allDataItems[cellIndex.0][cellIndex.1].isReadonly {
                         if ld.allDataItems[cellIndex.0][cellIndex.1].type == .text {
                             InlineEditingView(layoutManager: self.layoutManager, layoutData: ld, showBanner: self.$showBanner)
                                 .id("\(cellIndex.0), \(cellIndex.1)")
@@ -542,7 +544,7 @@ struct InternalGridTableView: View {
                         let x: CGFloat = (leadingAccessoryViewWidth + currentItem.pos.x) * tmpScaleX - offsetX
                         
                         // cell
-                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner)
+                        ItemView(rowIndex: rowIndex, columnIndex: columnIndex, layoutManager: self.layoutManager, layoutData: layoutData, showBanner: self.$showBanner, showToast: $toast)
                             .id(self.itemViewId(rowIndex: rowIndex, columnIndex: columnIndex))
                             .position(x: x, y: y)
                             .accessibilityElement(children: .ignore)

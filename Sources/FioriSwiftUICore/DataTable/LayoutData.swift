@@ -16,7 +16,7 @@ class LayoutData {
     // custom header cell's padding; if set it overwrites default value
     var headerCellPadding: EdgeInsets?
     
-    // custom header cell's padding; if set it overwrites default value
+    // custom data cell's padding; if set it overwrites default value
     var dataCellPadding: EdgeInsets?
     
     var minRowHeight: CGFloat = 48
@@ -229,7 +229,8 @@ class LayoutData {
                 self.numOfErrors += 1
             }
 
-            if let currentItem = dataInEachRow[i] as? DataTableItemConvertion, let item = currentItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader, isValid: validState.0) {
+            let finalReadonly = self.isReadonlyForCell(rowIsReadonly: self.rowData[index].isReadonly, columnIsReadonly: columnAttribute.isReadonly, cellIsReadonly: dataInEachRow[i].isReadonly)
+            if let currentItem = dataInEachRow[i] as? DataTableItemConvertion, let item = currentItem.convertToDataTableItem(rowIndex: index, columnIndex: i, contentWidth: contentWidth, textAlignment: textAlignment, isHeader: isHeader, isValid: validState.0, isReadonly: finalReadonly) {
                 res.append(item)
                 
                 if let uifont = item.uifont {
@@ -240,6 +241,27 @@ class LayoutData {
         }
         
         return (res, maxFirstBaselineHeight)
+    }
+    
+    /// Determine the cell's `isReadonly` from `isReadonly`of the row, column and cell
+    func isReadonlyForCell(rowIsReadonly: Bool?, columnIsReadonly: Bool?, cellIsReadonly: Bool?) -> Bool {
+        /// cellIsReadonly is the highest priority
+        if let value = cellIsReadonly {
+            return value
+        }
+
+        /// rowIsReadonly is the 2nd highest priority
+        if let value = rowIsReadonly {
+            return value
+        }
+        
+        /// columnIsReadonly is the lowest priority
+        if let value = columnIsReadonly {
+            return value
+        }
+        
+        /// If none of them is set, return `false`
+        return false
     }
     
     func getTrailingAccessoryViewWidth() -> CGFloat {

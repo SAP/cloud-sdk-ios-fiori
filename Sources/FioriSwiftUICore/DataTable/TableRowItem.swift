@@ -13,6 +13,8 @@ public struct TableRowItem: Equatable {
     public let selectedImage: Image?
     /// Desekected image in edting mode.
     public let deSelectedImage: Image?
+    /// Read-only property for all cells in this row. If a cell's `isReadonly` of this row is set, then that value is used. `nil` means it is `false`.
+    public var isReadonly: Bool?
     
     /// Public initializer for TableRowItem
     /// - Parameters:
@@ -21,12 +23,14 @@ public struct TableRowItem: Equatable {
     ///   - data: Row data.
     ///   - selectedImage: Selected image in editing mode.
     ///   - deSelectedImage: Desekected image in edting mode.
-    public init(leadingAccessories: [AccessoryItem], trailingAccessory: AccessoryItem?, data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
+    ///   - isReadonly: Is the row read-only or not for the inline editing mode.
+    public init(leadingAccessories: [AccessoryItem], trailingAccessory: AccessoryItem?, data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil, isReadonly: Bool? = nil) {
         self.leadingAccessories = leadingAccessories
         self.trailingAccessory = trailingAccessory
         self.data = data
         self.selectedImage = selectedImage
         self.deSelectedImage = deSelectedImage
+        self.isReadonly = isReadonly
     }
     
     /// Public initializer for TableRowItem
@@ -34,12 +38,14 @@ public struct TableRowItem: Equatable {
     ///   - data: Row data.
     ///   - selectedImage: Selected image in editing mode.
     ///   - deSelectedImage: Desekected image in edting mode.
-    public init(data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil) {
+    ///   - isReadonly: Is the row read-only or not for the inline editing mode.
+    public init(data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil, isReadonly: Bool? = nil) {
         self.leadingAccessories = []
         self.trailingAccessory = nil
         self.data = data
         self.selectedImage = selectedImage
         self.deSelectedImage = deSelectedImage
+        self.isReadonly = isReadonly
     }
     
     /// check equality
@@ -59,6 +65,11 @@ public struct TableRowItem: Equatable {
             return false
         }
 
+        // check isReadonly
+        if lhs.isReadonly != rhs.isReadonly {
+            return false
+        }
+        
         // check data
         if lhs.data.count != rhs.data.count {
             return false
