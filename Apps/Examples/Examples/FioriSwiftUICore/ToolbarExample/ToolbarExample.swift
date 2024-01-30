@@ -45,7 +45,7 @@ struct ToolbarExample: View {
             
             Picker("Helper Text", selection: $helperText) {
                 Text("None").tag("")
-                Text("Shrot").tag("Helper Text")
+                Text("Short").tag("Helper Text")
                 Text("Long").tag("Long Long Long Long Long Helper Text")
                 Text("Extra Long").tag("Extra Extra Extra Extra Extra Extra Extra Long Long Long Long Long Helper Text")
                 Text("Extra Extra Long").tag("Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra Extra Long Long Long Long Long Helper Text")

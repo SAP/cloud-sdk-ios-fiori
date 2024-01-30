@@ -21,7 +21,7 @@ struct FioriToolbar<Items: IndexedViewContainer>: ViewModifier {
          customOverflow: (any View)? = nil,
          @IndexedViewBuilder items: () -> Items)
     {
-        self.init(helperText: helperText.isEmpty ? nil : Text(helperText).font(Font.fiori(forTextStyle: .callout)),
+        self.init(helperText: helperText.isEmpty ? nil : Text(helperText).foregroundStyle(Color.preferredColor(.tertiaryLabel).opacity(0.9)).font(Font.fiori(forTextStyle: .caption1)),
                   customOverflow: customOverflow,
                   items: items)
     }
