@@ -341,7 +341,15 @@ public extension Type {
     }
     
     var styleStackKeyDecl: String {
-        """
+        let defaultStyle: String
+        switch componentType {
+        case .base:
+            defaultStyle = ".base"
+        case .composite:
+            defaultStyle = ".base.concat(.fiori)"
+        }
+        
+        return """
         // MARK: \(styleProtocolName)
         
         struct \(styleProtocolName)StackKey: EnvironmentKey {
@@ -350,7 +358,7 @@ public extension Type {
         
         extension EnvironmentValues {
             var \(styleProtocolName.lowercasingFirst()): any \(styleProtocolName) {
-                \(styleStackVariableName).last ?? .base
+                \(styleStackVariableName).last ?? \(defaultStyle)
             }
 
             var \(styleStackVariableName): [any \(styleProtocolName)] {

@@ -158,7 +158,7 @@ struct NewActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var newActionStyle: any NewActionStyle {
-        newActionStyleStack.last ?? .base
+        newActionStyleStack.last ?? .base.concat(.fiori)
     }
 
     var newActionStyleStack: [any NewActionStyle] {
@@ -179,7 +179,7 @@ struct NewObjectItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var newObjectItemStyle: any NewObjectItemStyle {
-        newObjectItemStyleStack.last ?? .base
+        newObjectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
     var newObjectItemStyleStack: [any NewObjectItemStyle] {

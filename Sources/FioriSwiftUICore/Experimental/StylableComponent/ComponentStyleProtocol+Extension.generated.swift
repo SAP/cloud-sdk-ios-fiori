@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 // MARK: ActionTitleStyle
-
+    
 public extension ActionTitleStyle where Self == ActionTitleBaseStyle {
     static var base: ActionTitleBaseStyle {
         ActionTitleBaseStyle()
@@ -18,7 +18,7 @@ public extension ActionTitleStyle where Self == ActionTitleFioriStyle {
 }
 
 // MARK: AvatarsStyle
-
+    
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
     static var base: AvatarsBaseStyle {
         AvatarsBaseStyle()
@@ -32,7 +32,7 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
 }
 
 // MARK: DescriptionStyle
-
+    
 public extension DescriptionStyle where Self == DescriptionBaseStyle {
     static var base: DescriptionBaseStyle {
         DescriptionBaseStyle()
@@ -46,7 +46,7 @@ public extension DescriptionStyle where Self == DescriptionFioriStyle {
 }
 
 // MARK: DetailImageStyle
-
+    
 public extension DetailImageStyle where Self == DetailImageBaseStyle {
     static var base: DetailImageBaseStyle {
         DetailImageBaseStyle()
@@ -60,7 +60,7 @@ public extension DetailImageStyle where Self == DetailImageFioriStyle {
 }
 
 // MARK: FootnoteStyle
-
+    
 public extension FootnoteStyle where Self == FootnoteBaseStyle {
     static var base: FootnoteBaseStyle {
         FootnoteBaseStyle()
@@ -74,7 +74,7 @@ public extension FootnoteStyle where Self == FootnoteFioriStyle {
 }
 
 // MARK: FootnoteIconsStyle
-
+    
 public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
     static var base: FootnoteIconsBaseStyle {
         FootnoteIconsBaseStyle()
@@ -88,7 +88,7 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
 }
 
 // MARK: IconsStyle
-
+    
 public extension IconsStyle where Self == IconsBaseStyle {
     static var base: IconsBaseStyle {
         IconsBaseStyle()
@@ -102,7 +102,7 @@ public extension IconsStyle where Self == IconsFioriStyle {
 }
 
 // MARK: NewActionStyle
-
+    
 public extension NewActionStyle where Self == NewActionBaseStyle {
     static var base: NewActionBaseStyle {
         NewActionBaseStyle()
@@ -114,22 +114,22 @@ public extension NewActionStyle where Self == NewActionFioriStyle {
         NewActionFioriStyle()
     }
 }
-
+    
 public struct NewActionActionTitleStyle: NewActionStyle {
     let style: any ActionTitleStyle
-    
+        
     public func makeBody(_ configuration: NewActionConfiguration) -> some View {
         NewAction(configuration)
             .actionTitleStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewActionStyle where Self == NewActionActionTitleStyle {
     static func actionTitleStyle<Style: ActionTitleStyle>(_ style: Style) -> NewActionActionTitleStyle {
         NewActionActionTitleStyle(style: style)
     }
-    
+        
     static func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> NewActionActionTitleStyle {
         let style = AnyActionTitleStyle(content)
         return NewActionActionTitleStyle(style: style)
@@ -137,7 +137,7 @@ public extension NewActionStyle where Self == NewActionActionTitleStyle {
 }
 
 // MARK: NewObjectItemStyle
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemBaseStyle {
     static var base: NewObjectItemBaseStyle {
         NewObjectItemBaseStyle()
@@ -149,22 +149,22 @@ public extension NewObjectItemStyle where Self == NewObjectItemFioriStyle {
         NewObjectItemFioriStyle()
     }
 }
-
+    
 public struct NewObjectItemTitleStyle: NewObjectItemStyle {
     let style: any TitleStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .titleStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemTitleStyle {
     static func titleStyle<Style: TitleStyle>(_ style: Style) -> NewObjectItemTitleStyle {
         NewObjectItemTitleStyle(style: style)
     }
-    
+        
     static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> NewObjectItemTitleStyle {
         let style = AnyTitleStyle(content)
         return NewObjectItemTitleStyle(style: style)
@@ -173,19 +173,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemTitleStyle {
 
 public struct NewObjectItemSubtitleStyle: NewObjectItemStyle {
     let style: any SubtitleStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .subtitleStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemSubtitleStyle {
     static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> NewObjectItemSubtitleStyle {
         NewObjectItemSubtitleStyle(style: style)
     }
-    
+        
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> NewObjectItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return NewObjectItemSubtitleStyle(style: style)
@@ -194,19 +194,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemSubtitleStyle {
 
 public struct NewObjectItemFootnoteStyle: NewObjectItemStyle {
     let style: any FootnoteStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .footnoteStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemFootnoteStyle {
     static func footnoteStyle<Style: FootnoteStyle>(_ style: Style) -> NewObjectItemFootnoteStyle {
         NewObjectItemFootnoteStyle(style: style)
     }
-    
+        
     static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> NewObjectItemFootnoteStyle {
         let style = AnyFootnoteStyle(content)
         return NewObjectItemFootnoteStyle(style: style)
@@ -215,19 +215,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemFootnoteStyle {
 
 public struct NewObjectItemDescriptionStyle: NewObjectItemStyle {
     let style: any DescriptionStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .descriptionStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemDescriptionStyle {
     static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> NewObjectItemDescriptionStyle {
         NewObjectItemDescriptionStyle(style: style)
     }
-    
+        
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> NewObjectItemDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return NewObjectItemDescriptionStyle(style: style)
@@ -236,19 +236,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemDescriptionStyle 
 
 public struct NewObjectItemStatusStyle: NewObjectItemStyle {
     let style: any StatusStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .statusStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemStatusStyle {
     static func statusStyle<Style: StatusStyle>(_ style: Style) -> NewObjectItemStatusStyle {
         NewObjectItemStatusStyle(style: style)
     }
-    
+        
     static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> NewObjectItemStatusStyle {
         let style = AnyStatusStyle(content)
         return NewObjectItemStatusStyle(style: style)
@@ -257,19 +257,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemStatusStyle {
 
 public struct NewObjectItemSubstatusStyle: NewObjectItemStyle {
     let style: any SubstatusStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .substatusStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemSubstatusStyle {
     static func substatusStyle<Style: SubstatusStyle>(_ style: Style) -> NewObjectItemSubstatusStyle {
         NewObjectItemSubstatusStyle(style: style)
     }
-    
+        
     static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> NewObjectItemSubstatusStyle {
         let style = AnySubstatusStyle(content)
         return NewObjectItemSubstatusStyle(style: style)
@@ -278,19 +278,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemSubstatusStyle {
 
 public struct NewObjectItemDetailImageStyle: NewObjectItemStyle {
     let style: any DetailImageStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .detailImageStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemDetailImageStyle {
     static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> NewObjectItemDetailImageStyle {
         NewObjectItemDetailImageStyle(style: style)
     }
-    
+        
     static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> NewObjectItemDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return NewObjectItemDetailImageStyle(style: style)
@@ -299,19 +299,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemDetailImageStyle 
 
 public struct NewObjectItemIconsStyle: NewObjectItemStyle {
     let style: any IconsStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .iconsStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemIconsStyle {
     static func iconsStyle<Style: IconsStyle>(_ style: Style) -> NewObjectItemIconsStyle {
         NewObjectItemIconsStyle(style: style)
     }
-    
+        
     static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> NewObjectItemIconsStyle {
         let style = AnyIconsStyle(content)
         return NewObjectItemIconsStyle(style: style)
@@ -320,19 +320,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemIconsStyle {
 
 public struct NewObjectItemAvatarsStyle: NewObjectItemStyle {
     let style: any AvatarsStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .avatarsStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemAvatarsStyle {
     static func avatarsStyle<Style: AvatarsStyle>(_ style: Style) -> NewObjectItemAvatarsStyle {
         NewObjectItemAvatarsStyle(style: style)
     }
-    
+        
     static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> NewObjectItemAvatarsStyle {
         let style = AnyAvatarsStyle(content)
         return NewObjectItemAvatarsStyle(style: style)
@@ -341,19 +341,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemAvatarsStyle {
 
 public struct NewObjectItemFootnoteIconsStyle: NewObjectItemStyle {
     let style: any FootnoteIconsStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .footnoteIconsStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemFootnoteIconsStyle {
     static func footnoteIconsStyle<Style: FootnoteIconsStyle>(_ style: Style) -> NewObjectItemFootnoteIconsStyle {
         NewObjectItemFootnoteIconsStyle(style: style)
     }
-    
+        
     static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> NewObjectItemFootnoteIconsStyle {
         let style = AnyFootnoteIconsStyle(content)
         return NewObjectItemFootnoteIconsStyle(style: style)
@@ -362,19 +362,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemFootnoteIconsStyl
 
 public struct NewObjectItemTagsStyle: NewObjectItemStyle {
     let style: any TagsStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .tagsStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemTagsStyle {
     static func tagsStyle<Style: TagsStyle>(_ style: Style) -> NewObjectItemTagsStyle {
         NewObjectItemTagsStyle(style: style)
     }
-    
+        
     static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> NewObjectItemTagsStyle {
         let style = AnyTagsStyle(content)
         return NewObjectItemTagsStyle(style: style)
@@ -383,19 +383,19 @@ public extension NewObjectItemStyle where Self == NewObjectItemTagsStyle {
 
 public struct NewObjectItemActionTitleStyle: NewObjectItemStyle {
     let style: any ActionTitleStyle
-    
+        
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
             .actionTitleStyle(self.style)
             .typeErased
     }
 }
-
+    
 public extension NewObjectItemStyle where Self == NewObjectItemActionTitleStyle {
     static func actionTitleStyle<Style: ActionTitleStyle>(_ style: Style) -> NewObjectItemActionTitleStyle {
         NewObjectItemActionTitleStyle(style: style)
     }
-    
+        
     static func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> NewObjectItemActionTitleStyle {
         let style = AnyActionTitleStyle(content)
         return NewObjectItemActionTitleStyle(style: style)
@@ -403,7 +403,7 @@ public extension NewObjectItemStyle where Self == NewObjectItemActionTitleStyle 
 }
 
 // MARK: StatusStyle
-
+    
 public extension StatusStyle where Self == StatusBaseStyle {
     static var base: StatusBaseStyle {
         StatusBaseStyle()
@@ -417,7 +417,7 @@ public extension StatusStyle where Self == StatusFioriStyle {
 }
 
 // MARK: SubstatusStyle
-
+    
 public extension SubstatusStyle where Self == SubstatusBaseStyle {
     static var base: SubstatusBaseStyle {
         SubstatusBaseStyle()
@@ -431,7 +431,7 @@ public extension SubstatusStyle where Self == SubstatusFioriStyle {
 }
 
 // MARK: SubtitleStyle
-
+    
 public extension SubtitleStyle where Self == SubtitleBaseStyle {
     static var base: SubtitleBaseStyle {
         SubtitleBaseStyle()
@@ -445,7 +445,7 @@ public extension SubtitleStyle where Self == SubtitleFioriStyle {
 }
 
 // MARK: TagsStyle
-
+    
 public extension TagsStyle where Self == TagsBaseStyle {
     static var base: TagsBaseStyle {
         TagsBaseStyle()
@@ -459,7 +459,7 @@ public extension TagsStyle where Self == TagsFioriStyle {
 }
 
 // MARK: TitleStyle
-
+    
 public extension TitleStyle where Self == TitleBaseStyle {
     static var base: TitleBaseStyle {
         TitleBaseStyle()
