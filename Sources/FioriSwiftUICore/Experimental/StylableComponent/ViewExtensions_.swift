@@ -3,20 +3,20 @@ import Foundation
 import SwiftUI
 
 public extension View {
-    #StyleModifierViewExtension(["TitleStyle"])
-    #StyleModifierViewExtension(["SubtitleStyle"])
-    #StyleModifierViewExtension(["FootnoteStyle"])
-    #StyleModifierViewExtension(["ActionTitleStyle"])
-    #StyleModifierViewExtension(["DescriptionStyle"])
-    #StyleModifierViewExtension(["StatusStyle"])
-    #StyleModifierViewExtension(["SubstatusStyle"])
-    #StyleModifierViewExtension(["DetailImageStyle"])
-    #StyleModifierViewExtension(["IconsStyle"])
-    #StyleModifierViewExtension(["TagsStyle"])
-    #StyleModifierViewExtension(["FootnoteIconsStyle"])
-    #StyleModifierViewExtension(["AvatarsStyle"])
+//    #StyleModifierViewExtension(["TitleStyle"])
+//    #StyleModifierViewExtension(["SubtitleStyle"])
+//    #StyleModifierViewExtension(["FootnoteStyle"])
+//    #StyleModifierViewExtension(["ActionTitleStyle"])
+//    #StyleModifierViewExtension(["DescriptionStyle"])
+//    #StyleModifierViewExtension(["StatusStyle"])
+//    #StyleModifierViewExtension(["SubstatusStyle"])
+//    #StyleModifierViewExtension(["DetailImageStyle"])
+//    #StyleModifierViewExtension(["IconsStyle"])
+//    #StyleModifierViewExtension(["TagsStyle"])
+//    #StyleModifierViewExtension(["FootnoteIconsStyle"])
+//    #StyleModifierViewExtension(["AvatarsStyle"])
     #StyleModifierViewExtension(["DemoViewStyle"])
-    #StyleModifierViewExtension(["NewObjectItemStyle"])
+//    #StyleModifierViewExtension(["NewObjectItemStyle"])
 }
 
 // extension View {

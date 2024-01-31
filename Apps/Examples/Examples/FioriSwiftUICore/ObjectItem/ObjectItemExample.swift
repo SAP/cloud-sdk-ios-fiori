@@ -7,7 +7,7 @@ struct ObjectItemExample: View {
     var body: some View {
         List {
             NavigationLink("Object Cell_Single Action_May2018.pdf", destination: ObjectItemSingleActionView(isNewObjectItem: self._isNewObjectItem))
-            
+
             NavigationLink(
                 destination: ObjectItemListView(title: "ObjectCell_Spec_Jan2018", listDataType: ObjectCell_Spec_Jan2018.self, isNewObjectItem: self._isNewObjectItem)) {
                 Text("Object Cell Specifications_Jan2018.pdf")

@@ -2,43 +2,43 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
-@ComponentStyleEnvironmentValues
-extension EnvironmentValues {
-    private enum Style {
-        case titleStyle
-        case subtitleStyle
-        case actionTitleStyle
-        case footnoteStyle
-        case descriptionStyle
-        case statusStyle
-        case substatusStyle
-        case detailImageStyle
-        case iconsStyle
-        case tagsStyle
-        case footnoteIconsStyle
-        case avatarsStyle
-    }
-}
+// @ComponentStyleEnvironmentValues
+// extension EnvironmentValues {
+//    private enum Style {
+//        case titleStyle
+//        case subtitleStyle
+//        case actionTitleStyle
+//        case footnoteStyle
+//        case descriptionStyle
+//        case statusStyle
+//        case substatusStyle
+//        case detailImageStyle
+//        case iconsStyle
+//        case tagsStyle
+//        case footnoteIconsStyle
+//        case avatarsStyle
+//    }
+// }
 
-// TODO: macro
-struct NewObjectItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewObjectItemStyle] = []
-}
-
-// TODO: macro
-extension EnvironmentValues {
-    var newObjectItemStyleStack: [any NewObjectItemStyle] {
-        get { self[NewObjectItemStyleStackKey.self] }
-        set { self[NewObjectItemStyleStackKey.self] = newValue }
-    }
-}
-
-// TODO: macro
-extension EnvironmentValues {
-    var newObjectItemStyle: any NewObjectItemStyle {
-        newObjectItemStyleStack.last ?? .base.concat(.fiori)
-    }
-}
+//// TODO: macro
+// struct NewObjectItemStyleStackKey: EnvironmentKey {
+//    static let defaultValue: [any NewObjectItemStyle] = []
+// }
+//
+//// TODO: macro
+// extension EnvironmentValues {
+//    var newObjectItemStyleStack: [any NewObjectItemStyle] {
+//        get { self[NewObjectItemStyleStackKey.self] }
+//        set { self[NewObjectItemStyleStackKey.self] = newValue }
+//    }
+// }
+//
+//// TODO: macro
+// extension EnvironmentValues {
+//    var newObjectItemStyle: any NewObjectItemStyle {
+//        newObjectItemStyleStack.last ?? .base.concat(.fiori)
+//    }
+// }
 
 // TODO: macro
 struct DemoViewStyleStackKey: EnvironmentKey {

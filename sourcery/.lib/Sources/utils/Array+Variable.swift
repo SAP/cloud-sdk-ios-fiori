@@ -1,6 +1,216 @@
 import Foundation
 import SourceryRuntime
 
+// MARK: Styleable Component
+
+public extension Array where Element == Variable {
+    /// ```
+    /// let title: any View
+    /// let subtitle: any View
+    /// @Binding var textInput: String
+    /// ```
+    var propertyListDecl: String {
+        map { variable in
+            if let (_, returnType, _, _) = variable.resultBuilderAttrs {
+                return "let \(variable.name): \(returnType)"
+            } else if variable.isConvertedToBinding {
+                return "@Binding var \(variable.name): \(variable.typeName)"
+            } else {
+                let letOrVar = variable.isMutable ? "var" : "let"
+                return "\(letOrVar) \(variable.name): \(variable.typeName)"
+            }
+        }
+        .joined(separator: "\n")
+    }
+    
+    var viewBuilderInitParams: String {
+        map { variable in
+            let decl: String
+            if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs {
+                return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
+            } else if variable.isConvertedToBinding {
+                return "\(variable.name): Binding<\(variable.typeName)>"
+            } else {
+                return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
+            }
+        }
+        .joined(separator: ",\n")
+    }
+    
+    func viewBuilderInitBody(isBaseComponent: Bool) -> String {
+        map { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                let assignment = isBaseComponent ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
+                return "self.\(name) = \(assignment)"
+            } else if variable.isConvertedToBinding {
+                return "self._\(name) = \(name)"
+            } else {
+                return "self.\(name) = \(name)"
+            }
+        }
+        .joined(separator: "\n")
+    }
+    
+    var dataInitParams: String {
+        map { variable in
+            let decl: String
+            if variable.isConvertedToBinding {
+                return "\(variable.name): Binding<\(variable.typeName)>"
+            } else {
+                return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
+            }
+        }
+        .joined(separator: ",\n")
+    }
+    
+    var dataInitBody: String {
+        let initArgs = map { variable in
+            let name = variable.name
+            if let (_, _, _, backingComponent) = variable.resultBuilderAttrs {
+                let arg = backingComponent.isEmpty ? "\(name)" : "\(backingComponent)(\(name))"
+                return "\(name): { \(arg) }"
+            } else {
+                return "\(name): \(name)"
+            }
+        }
+        .joined(separator: ", ")
+        
+        return "self.init(\(initArgs))"
+    }
+    
+    var configurationInitBody: String {
+        map { variable in
+            let name = variable.name
+            if variable.isConvertedToBinding {
+                return "self._\(name) = configuration.\(name)"
+            } else {
+                return "self.\(name) = configuration.\(name)"
+            }
+        }
+        .joined(separator: "\n")
+    }
+    
+    var configurationInitArgs: String {
+        map { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return "\(name): .init(self.\(name))"
+            } else {
+                return "\(name): self.\(name)"
+            }
+        }
+        .joined(separator: ", ")
+    }
+    
+    var viewEmptyCheckingBody: String {
+        compactMap { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return "\(name).isEmpty"
+            } else {
+                return nil
+            }
+        }
+        .joined(separator: " ||\n")
+    }
+    
+    var configurationPropertyListDecl: String {
+        var props: [String] = []
+        var `typealias`: [String] = []
+        for variable in self {
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                props.append("public let \(name): \(name.capitalizingFirst())")
+                `typealias`.append("public typealias \(name.capitalizingFirst()) = ConfigurationViewWrapper")
+            } else {
+                props.append("public let \(name): \(variable.typeName)")
+            }
+        }
+        
+        return (props + [""] + `typealias`).joined(separator: "\n")
+    }
+    
+    var configurationResultBuilderPropertyListDecl: String {
+        compactMap { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return "configuration.\(name)"
+            } else {
+                return nil
+            }
+        }
+        .joined(separator: "\n")
+    }
+    
+    var componentFioriStyleModifierList: String {
+        compactMap { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return "\(variable.styleModifierExpr)(\(variable.fioriStyleName)())"
+            } else {
+                return nil
+            }
+        }
+        .joined(separator: "\n")
+    }
+    
+    var baseComponentFioriStyleDeclList: String {
+        compactMap { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return """
+                struct \(variable.fioriStyleName): \(variable.styleProtocolName) {
+                    func makeBody(_ configuration: \(variable.configurationName)) -> some View {
+                        \(variable.componentName)(configuration)
+                        // Add default style here
+                        //.foregroundStyle(Color.preferredColor(<#fiori color#>))
+                        //.font(.fiori(forTextStyle: <#fiori font#>))
+                    }
+                }
+                """
+            } else {
+                return nil
+            }
+        }
+        .joined(separator: "\n\n")
+    }
+    
+    func baseComponentStyleExtentionList(for compositeComponent: Type) -> String {
+        compactMap { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                let baseComponentStyleDecl = "\(compositeComponent.componentName)\(variable.styleProtocolName)"
+                return """
+                public struct \(baseComponentStyleDecl): \(compositeComponent.styleProtocolName) {
+                    let style: any \(variable.styleProtocolName)
+                        
+                    public func makeBody(_ configuration: \(compositeComponent.configurationName)) -> some View {
+                        \(compositeComponent.componentName)(configuration)
+                            \(variable.styleModifierExpr)(self.style)
+                            .typeErased
+                    }
+                }
+                    
+                public extension \(compositeComponent.styleProtocolName) where Self == \(baseComponentStyleDecl) {
+                    static func \(variable.styleModifierName)<Style: \(variable.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
+                        \(baseComponentStyleDecl)(style: style)
+                    }
+                        
+                    static func \(variable.styleModifierName)(@ViewBuilder content: @escaping (\(variable.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
+                        let style = Any\(variable.styleProtocolName)(content)
+                        return \(baseComponentStyleDecl)(style: style)
+                    }
+                }
+                """
+            } else {
+                return nil
+            }
+        }
+        .joined(separator: "\n\n")
+    }
+}
+
 // MARK: Public API
 
 public extension Array where Element == Variable {

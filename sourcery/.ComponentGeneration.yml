@@ -1,0 +1,33 @@
+configurations:
+  # - sources:
+  #   - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols/BaseComponentProtocols.swift
+  #   templates:
+  #     - stencils/BaseComponentProtocolExtensionTemplate.swifttemplate
+  #   output:
+  #     ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
+  #   args:
+  #     selectedTypes: []
+  # - sources:
+  #   - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols/CompositeComponentProtocols.swift
+  #   templates:
+  #     - stencils/CompositeComponentProtocolExtensionTemplate.swifttemplate
+  #   output:
+  #     ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
+  #   args:
+  #     selectedTypes: []
+  - sources:
+    - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
+    templates:
+      - stencils/ComponentTemplate.swifttemplate
+    output:
+      ./../Sources/FioriSwiftUICore/Experimental/StylableComponent
+    args:
+      selectedTypes: []
+  # - sources:
+  #   - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
+  #   templates:
+  #     - stencils/CompositeComponentTemplate.swifttemplate
+  #   output:
+  #     ./../Sources/FioriSwiftUICore/Experimental/StylableComponent
+  #   args:
+  #     selectedTypes: []

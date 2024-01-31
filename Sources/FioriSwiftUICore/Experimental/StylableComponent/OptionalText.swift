@@ -8,6 +8,10 @@ struct OptionalText: View {
         self.attributedString = attributedString
     }
     
+    init(_ string: String?) {
+        self.attributedString = string != nil ? AttributedString(string!) : nil
+    }
+    
     var body: some View {
         if let attributedString {
             Text(attributedString)

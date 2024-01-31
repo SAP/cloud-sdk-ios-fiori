@@ -2,7 +2,7 @@ import FioriMacro
 import Foundation
 import SwiftUI
 
-public struct DemoView: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {
+public struct DemoView {
     @ViewBuilder
     let title: any View
     let subtitle: any View

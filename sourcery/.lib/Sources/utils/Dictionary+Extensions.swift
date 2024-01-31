@@ -1,6 +1,47 @@
 import Foundation
 import SourceryRuntime
 
+// MARK: styleable component
+
+public extension Dictionary where Key == String, Value == NSObject {
+    // annotation: genericParameter.name = ActionView
+    var resultBuilderName: String? {
+        self["resultBuilder.name"] as? String
+    }
+    
+    var resultBuilderReturnType: String? {
+        self["resultBuilder.returnType"] as? String
+    }
+    
+    var resultBuilderBackingComponent: String? {
+        self["resultBuilder.backingComponent"] as? String
+    }
+   
+    var resultBuilderDefaultValue: String? {
+        self["resultBuilder.defaultValue"] as? String
+    }
+    
+    var isViewBuilder: Bool {
+        self["isViewBuilder"] != nil
+    }
+}
+
+public extension Dictionary where Key == String, Value == NSObject {
+    var isBinding: Bool {
+        self["isBinding"] != nil ? true : false
+    }
+    
+    var isBaseComponent: Bool {
+        self["isBaseComponent"] != nil ? true : false
+    }
+    
+    var isCompositeComponent: Bool {
+        self["isCompositeComponent"] != nil ? true : false
+    }
+}
+
+// MARK: Old
+
 // Handling default values for variables
 public extension Dictionary where Key == String, Value == NSObject {
     var defaultValue: NSObject? {
