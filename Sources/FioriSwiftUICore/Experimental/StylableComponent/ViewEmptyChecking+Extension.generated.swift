@@ -9,6 +9,15 @@ extension Avatars: _ViewEmptyChecking {
     }
 }
 
+extension DemoView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty ||
+            subtitle.isEmpty ||
+            status.isEmpty ||
+            newAction.isEmpty
+    }
+}
+
 extension Description: _ViewEmptyChecking {
     public var isEmpty: Bool {
         description.isEmpty

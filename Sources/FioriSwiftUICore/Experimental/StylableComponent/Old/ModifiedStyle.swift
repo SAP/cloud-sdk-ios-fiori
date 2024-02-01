@@ -15,13 +15,13 @@ import SwiftUI
 //    }
 // }
 
-extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
-    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
-        DemoView(configuration)
-            .demoViewStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
+// extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
+//    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+//        DemoView(configuration)
+//            .demoViewStyle(self.style)
+//            .modifier(self.modifier)
+//    }
+// }
 
 //
 // extension ModifiedStyle: ActionTitleStyle where Style: ActionTitleStyle {

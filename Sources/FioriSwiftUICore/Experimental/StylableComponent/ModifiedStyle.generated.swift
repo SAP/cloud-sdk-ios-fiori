@@ -36,6 +36,34 @@ public extension AvatarsStyle {
     }
 }
 
+// MARK: DemoViewStyle
+
+extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .demoViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct DemoViewStyleModifier<Style: DemoViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.demoViewStyle(self.style)
+    }
+}
+
+public extension DemoViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some DemoViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some DemoViewStyle) -> some DemoViewStyle {
+        style.modifier(DemoViewStyleModifier(style: self))
+    }
+}
+
 // MARK: DescriptionStyle
 
 extension ModifiedStyle: DescriptionStyle where Style: DescriptionStyle {

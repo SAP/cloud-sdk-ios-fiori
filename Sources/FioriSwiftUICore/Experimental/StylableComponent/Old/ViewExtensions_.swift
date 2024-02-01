@@ -15,7 +15,7 @@ public extension View {
 //    #StyleModifierViewExtension(["TagsStyle"])
 //    #StyleModifierViewExtension(["FootnoteIconsStyle"])
 //    #StyleModifierViewExtension(["AvatarsStyle"])
-    #StyleModifierViewExtension(["DemoViewStyle"])
+//    #StyleModifierViewExtension(["DemoViewStyle"])
 //    #StyleModifierViewExtension(["NewObjectItemStyle"])
 }
 

@@ -83,7 +83,7 @@ public extension Array where Element == Variable {
         map { variable in
             let name = variable.name
             if variable.isConvertedToBinding {
-                return "self._\(name) = configuration.\(name)"
+                return "self._\(name) = configuration.$\(name)"
             } else {
                 return "self.\(name) = configuration.\(name)"
             }
@@ -96,6 +96,8 @@ public extension Array where Element == Variable {
             let name = variable.name
             if variable.resultBuilderAttrs != nil {
                 return "\(name): .init(self.\(name))"
+            } else if variable.isConvertedToBinding {
+                return "\(name): self.$\(name)"
             } else {
                 return "\(name): self.\(name)"
             }
@@ -123,6 +125,8 @@ public extension Array where Element == Variable {
             if variable.resultBuilderAttrs != nil {
                 props.append("public let \(name): \(name.capitalizingFirst())")
                 `typealias`.append("public typealias \(name.capitalizingFirst()) = ConfigurationViewWrapper")
+            } else if variable.isConvertedToBinding {
+                props.append("@Binding public var \(name): \(variable.typeName)")
             } else {
                 props.append("public let \(name): \(variable.typeName)")
             }

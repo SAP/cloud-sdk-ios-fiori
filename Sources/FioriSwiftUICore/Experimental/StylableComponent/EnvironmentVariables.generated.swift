@@ -24,6 +24,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: DemoViewStyle
+
+struct DemoViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any DemoViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var demoViewStyle: any DemoViewStyle {
+        demoViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var demoViewStyleStack: [any DemoViewStyle] {
+        get {
+            self[DemoViewStyleStackKey.self]
+        }
+        set {
+            self[DemoViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: DescriptionStyle
 
 struct DescriptionStyleStackKey: EnvironmentKey {

@@ -16,20 +16,20 @@ import SwiftUI
 //    }
 // }
 
-struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
-    let style: Style
-    let configuration: DemoViewConfiguration
-    
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
-
-extension DemoViewStyle {
-    func resolve(configuration: DemoViewConfiguration) -> some View {
-        ResolvedDemoViewStyle(style: self, configuration: configuration)
-    }
-}
+// struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
+//    let style: Style
+//    let configuration: DemoViewConfiguration
+//
+//    var body: some View {
+//        style.makeBody(configuration)
+//    }
+// }
+//
+// extension DemoViewStyle {
+//    func resolve(configuration: DemoViewConfiguration) -> some View {
+//        ResolvedDemoViewStyle(style: self, configuration: configuration)
+//    }
+// }
 
 // struct ResolvedNewActionStyle<Style: NewActionStyle>: View {
 //    let style: Style

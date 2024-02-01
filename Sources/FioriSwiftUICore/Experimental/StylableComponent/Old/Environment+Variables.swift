@@ -41,24 +41,24 @@ import SwiftUI
 // }
 
 // TODO: macro
-struct DemoViewStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any DemoViewStyle] = []
-}
-
-// TODO: macro
-extension EnvironmentValues {
-    var demoViewStyleStack: [any DemoViewStyle] {
-        get { self[DemoViewStyleStackKey.self] }
-        set { self[DemoViewStyleStackKey.self] = newValue }
-    }
-}
-
-// TODO: macro
-extension EnvironmentValues {
-    var demoViewStyle: any DemoViewStyle {
-        demoViewStyleStack.last ?? .base.concat(.fiori)
-    }
-}
+// struct DemoViewStyleStackKey: EnvironmentKey {
+//    static let defaultValue: [any DemoViewStyle] = []
+// }
+//
+//// TODO: macro
+// extension EnvironmentValues {
+//    var demoViewStyleStack: [any DemoViewStyle] {
+//        get { self[DemoViewStyleStackKey.self] }
+//        set { self[DemoViewStyleStackKey.self] = newValue }
+//    }
+// }
+//
+//// TODO: macro
+// extension EnvironmentValues {
+//    var demoViewStyle: any DemoViewStyle {
+//        demoViewStyleStack.last ?? .base.concat(.fiori)
+//    }
+// }
 
 // TODO: macro
 // struct TitleStyleStackKey: EnvironmentKey {

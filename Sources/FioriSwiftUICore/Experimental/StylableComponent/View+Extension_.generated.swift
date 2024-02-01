@@ -20,6 +20,23 @@ public extension View {
     }
 }
 
+// MARK: DemoViewStyle
+
+public extension View {
+    func demoViewStyle(_ style: some DemoViewStyle) -> some View {
+        self.transformEnvironment(\.demoViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func demoViewStyle(@ViewBuilder content: @escaping (DemoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.demoViewStyleStack) { stack in
+            let style = AnyDemoViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DescriptionStyle
 
 public extension View {

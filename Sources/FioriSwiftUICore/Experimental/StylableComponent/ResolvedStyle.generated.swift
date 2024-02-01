@@ -19,6 +19,22 @@ extension AvatarsStyle {
     }
 }
 
+// MARK: DemoViewStyle
+
+struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
+    let style: Style
+    let configuration: DemoViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension DemoViewStyle {
+    func resolve(configuration: DemoViewConfiguration) -> some View {
+        ResolvedDemoViewStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DescriptionStyle
 
 struct ResolvedDescriptionStyle<Style: DescriptionStyle>: View {

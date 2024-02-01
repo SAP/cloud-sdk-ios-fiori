@@ -17,6 +17,104 @@ public extension AvatarsStyle where Self == AvatarsFioriStyle {
     }
 }
 
+// MARK: DemoViewStyle
+    
+public extension DemoViewStyle where Self == DemoViewBaseStyle {
+    static var base: DemoViewBaseStyle {
+        DemoViewBaseStyle()
+    }
+}
+
+public extension DemoViewStyle where Self == DemoViewFioriStyle {
+    static var fiori: DemoViewFioriStyle {
+        DemoViewFioriStyle()
+    }
+}
+    
+public struct DemoViewTitleStyle: DemoViewStyle {
+    let style: any TitleStyle
+        
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension DemoViewStyle where Self == DemoViewTitleStyle {
+    static func titleStyle<Style: TitleStyle>(_ style: Style) -> DemoViewTitleStyle {
+        DemoViewTitleStyle(style: style)
+    }
+        
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> DemoViewTitleStyle {
+        let style = AnyTitleStyle(content)
+        return DemoViewTitleStyle(style: style)
+    }
+}
+
+public struct DemoViewSubtitleStyle: DemoViewStyle {
+    let style: any SubtitleStyle
+        
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .subtitleStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension DemoViewStyle where Self == DemoViewSubtitleStyle {
+    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> DemoViewSubtitleStyle {
+        DemoViewSubtitleStyle(style: style)
+    }
+        
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> DemoViewSubtitleStyle {
+        let style = AnySubtitleStyle(content)
+        return DemoViewSubtitleStyle(style: style)
+    }
+}
+
+public struct DemoViewStatusStyle: DemoViewStyle {
+    let style: any StatusStyle
+        
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .statusStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension DemoViewStyle where Self == DemoViewStatusStyle {
+    static func statusStyle<Style: StatusStyle>(_ style: Style) -> DemoViewStatusStyle {
+        DemoViewStatusStyle(style: style)
+    }
+        
+    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> DemoViewStatusStyle {
+        let style = AnyStatusStyle(content)
+        return DemoViewStatusStyle(style: style)
+    }
+}
+
+public struct DemoViewNewActionStyle: DemoViewStyle {
+    let style: any NewActionStyle
+        
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .newActionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension DemoViewStyle where Self == DemoViewNewActionStyle {
+    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> DemoViewNewActionStyle {
+        DemoViewNewActionStyle(style: style)
+    }
+        
+    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> DemoViewNewActionStyle {
+        let style = AnyNewActionStyle(content)
+        return DemoViewNewActionStyle(style: style)
+    }
+}
+
 // MARK: DescriptionStyle
     
 public extension DescriptionStyle where Self == DescriptionBaseStyle {
