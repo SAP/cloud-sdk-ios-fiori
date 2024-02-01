@@ -26,17 +26,26 @@ public protocol DataItem {
     /// Returns the `DataItemType` enum value for the item.
     var type: DataItemType { get }
     
+    /**
+     Is the cell read-only or not for the inline editing mode. `nil` means it is `false`.
+     A cell's `isReadonly` is determined by the value of itself, the row and the column.
+     If only one of these three value is set then that value is used.
+     If two or three values are set, then the higher priority of value is used.
+     The order of priority from high to low is cell, row and column.
+     */
+    var isReadonly: Bool? { get set }
+    
     /// conver itself to a SwiftUI View
     func toView() -> AnyView
 }
 
 // swiftlint:disable function_parameter_count
 protocol DataTableItemConvertion {
-    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment, isHeader: Bool, isValid: Bool) -> DataTableItem?
+    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment, isHeader: Bool, isValid: Bool, isReadonly: Bool) -> DataTableItem?
 }
 
 extension DataTableItemConvertion {
-    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment, isHeader: Bool, isValid: Bool) -> DataTableItem? {
+    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment, isHeader: Bool, isValid: Bool, isReadonly: Bool) -> DataTableItem? {
         nil
     }
 }
@@ -67,7 +76,7 @@ protocol DataItemTextComponent: DataItem, DataTableItemConvertion {
 }
 
 extension DataItemTextComponent {
-    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment = .leading, isHeader: Bool = false, isValid: Bool = true) -> DataTableItem? {
+    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment = .leading, isHeader: Bool = false, isValid: Bool = true, isReadonly: Bool = false) -> DataTableItem? {
         let title = self.text
         let uifont = self.finalUIFont(isHeader)
         let firstBaselineHeight = uifont.lineHeight + uifont.descender
@@ -99,7 +108,8 @@ extension DataItemTextComponent {
                                      size: size,
                                      textAlignment: textAlignment,
                                      lineLimit: self.lineLimit,
-                                     isValid: isValid)
+                                     isValid: isValid,
+                                     isReadonly: isReadonly)
         
         if let item = self as? DataDateItem {
             dataItem.date = item.date
@@ -151,7 +161,7 @@ protocol DataItemImageComponent: DataItem, DataTableItemConvertion {
 }
 
 extension DataItemImageComponent {
-    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment = .leading, isHeader: Bool = false, isValid: Bool = true) -> DataTableItem? {
+    func convertToDataTableItem(rowIndex: Int, columnIndex: Int, contentWidth: CGFloat, textAlignment: TextAlignment = .leading, isHeader: Bool = false, isValid: Bool = true, isReadonly: Bool) -> DataTableItem? {
         guard let item = (self as? DataImageItem) else {
             return nil
         }
@@ -165,7 +175,8 @@ extension DataItemImageComponent {
                              foregroundColor: item.tintColor,
                              size: CGSize(width: TableViewLayout.imageSize, height: TableViewLayout.imageSize),
                              textAlignment: textAlignment,
-                             isValid: isValid)
+                             isValid: isValid,
+                             isReadonly: isReadonly)
     }
     
     /// conver itself to a SwiftUI View

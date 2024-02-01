@@ -169,7 +169,6 @@ struct FocusedEditingView: View {
                             Text(self.editingText)
                                 .font(font)
                                 .foregroundColor(foregroundColor)
-                                .background(Color.preferredColor(.tintColor).opacity(0.2))
                                 .lineLimit(dataItem.lineLimit)
                                 .multilineTextAlignment(dataItem.textAlignment)
                                 .frame(width: contentWidth - 15, alignment: dataItem.textAlignment.toTextFrameAlignment())
@@ -190,7 +189,6 @@ struct FocusedEditingView: View {
                         Text(self.editingText)
                             .font(font)
                             .foregroundColor(self.isValid.0 ? foregroundColor : Color.preferredColor(.negativeLabel))
-                            .background((self.checkIsValid() ? Color.preferredColor(.tintColor) : Color.preferredColor(.negativeLabel)).opacity(self.colorScheme == .light ? 0.1 : 0.2))
                             .lineLimit(dataItem.lineLimit)
                             .multilineTextAlignment(dataItem.textAlignment)
                             .frame(width: contentWidth, alignment: dataItem.textAlignment.toTextFrameAlignment())
@@ -382,17 +380,19 @@ struct ItemView: View {
     let rowIndex: Int
     let columnIndex: Int
     @Binding var showBanner: Bool
+    @Binding var toast: Toast?
     
-    init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>) {
+    init(rowIndex: Int, columnIndex: Int, layoutManager: TableLayoutManager, layoutData: LayoutData, showBanner: Binding<Bool>, showToast: Binding<Toast?>) {
         self.layoutManager = layoutManager
         self.layoutData = layoutData
         self.rowIndex = rowIndex
         self.columnIndex = columnIndex
         self._showBanner = showBanner
+        self._toast = showToast
     }
     
     var body: some View {
-        if let currentCell = layoutManager.currentCell, currentCell.0 == rowIndex, currentCell.1 == columnIndex {
+        if let currentCell = layoutManager.currentCell, currentCell.0 == rowIndex, currentCell.1 == columnIndex, !layoutData.allDataItems[rowIndex][columnIndex].isReadonly {
             EmptyView()
         } else {
             self.makeBody(layoutData: self.layoutData)
@@ -437,6 +437,22 @@ struct ItemView: View {
                         return
                     }
                     
+                    if dataItem.isReadonly && dataItem.type != .image {
+                        let message = NSLocalizedString("Tapped cell is read-only.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
+                        toast = Toast(message: message)
+                        if self.layoutManager.currentCell != nil {
+                            self.layoutManager.currentCell = nil
+                        }
+                        if self.layoutManager.isValid.0 {
+                            self.layoutManager.isValid = (false, nil)
+                        }
+                        if self.showBanner {
+                            self.showBanner = false
+                        }
+                        
+                        return
+                    }
+                    
                     self.layoutManager.currentCell = (self.rowIndex, self.columnIndex)
                     self.layoutManager.isValid = self.layoutManager.checkIsValid(for: layoutData.allDataItems[self.rowIndex][self.columnIndex])
                     self.showBanner = !self.layoutManager.isValid.0
@@ -476,7 +492,6 @@ struct ItemView: View {
             }
         }
         .frame(width: cellWidth, height: cellHeight)
-        .background(self.backgroundColorForSelectionState())
         .background(self.backgroundColorForCell())
         .contentShape(Rectangle())
         .gesture(tapGesture)
@@ -526,7 +541,8 @@ struct ItemView: View {
         }
     }
 
-    func backgroundColorForSelectionState() -> Color {
+    func backgroundColorForCell() -> Color {
+        let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let selectionIndex: Int = self.rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
         let isSelected = self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(selectionIndex)
@@ -538,23 +554,26 @@ struct ItemView: View {
             isStickyCell = true
         }
         
-        if isStickyCell, isSelected {
-            return Color.preferredColor(.informationBackground)
+        /// Background color for cells in the sticky header and column should not be clear
+        if isStickyCell {
+            /// Background color for the selection mode
+            if isSelected {
+                return Color.preferredColor(.informationBackground)
+            } else if self.layoutManager.model.editMode == .inline, !isHeader, dataItem.isReadonly, dataItem.type != .image {
+                /// Read-only background color
+                return Color.preferredColor(.tertiaryFill)
+            } else {
+                /// Regular background color
+                return self.layoutManager.model.backgroundColor
+            }
         } else {
-            return Color.clear
+            /// Read-only background color for these cells only
+            if dataItem.isReadonly && dataItem.type != .image && !isHeader && self.layoutManager.model.editMode == .inline {
+                return Color.preferredColor(.tertiaryFill)
+            } else {
+                return Color.clear
+            }
         }
-    }
-
-    func backgroundColorForCell() -> Color {
-        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
-        var isStickyCell = false
-        if isHeader, self.layoutManager.model.isHeaderSticky {
-            isStickyCell = true
-        } else if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
-            isStickyCell = true
-        }
-        
-        return isStickyCell ? self.layoutManager.model.backgroundColor : Color.clear
     }
 }
 
