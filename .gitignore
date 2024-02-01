@@ -83,5 +83,4 @@ FioriSwiftUI.xcodeproj
 Brewfile.lock.json
 
 # Sourcery generated templates
-/Sources/FioriSwiftUICore/Experimental/StylableComponent/_generated/
 /Sources/FioriSwiftUICore/_generated/FioriStyleTemplates/
