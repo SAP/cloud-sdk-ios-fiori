@@ -23,17 +23,9 @@ struct AnyNewActionStyle: NewActionStyle {
 }
 
 public struct NewActionConfiguration {
-    public let actionTitle: ActionTitle
-    public let action: (() -> Void)?
+    public let newAction: NewAction
 
-    public typealias ActionTitle = ConfigurationViewWrapper
-}
-
-public struct NewActionFioriStyle: NewActionStyle {
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
-        NewAction(configuration)
-            .actionTitleStyle(ActionTitleFioriStyle())
-    }
+    public typealias NewAction = ConfigurationViewWrapper
 }
 
 // MARK: SDK Developer implementations
@@ -42,20 +34,14 @@ public struct NewActionFioriStyle: NewActionStyle {
 public struct NewActionBaseStyle: NewActionStyle {
     public func makeBody(_ configuration: NewActionConfiguration) -> some View {
         // Add default layout here
-        Button(action: configuration.action ?? {}) {
-            configuration.actionTitle
-        }
+        configuration.newAction
     }
 }
 
 // Default fiori styles
-private extension NewActionFioriStyle {
-    struct ActionTitleFioriStyle: ActionTitleStyle {
-        func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-            ActionTitle(configuration)
-                // Add default style here
-                .foregroundStyle(Color.preferredColor(.tintColor))
-                .font(.fiori(forTextStyle: .title1))
-        }
+public struct NewActionFioriStyle: NewActionStyle {
+    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
+        NewAction(configuration)
+        // Add default style here
     }
 }

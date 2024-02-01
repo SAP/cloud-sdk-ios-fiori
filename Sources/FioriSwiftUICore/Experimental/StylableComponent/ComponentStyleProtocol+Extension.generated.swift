@@ -3,20 +3,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: ActionTitleStyle
-    
-public extension ActionTitleStyle where Self == ActionTitleBaseStyle {
-    static var base: ActionTitleBaseStyle {
-        ActionTitleBaseStyle()
-    }
-}
-
-public extension ActionTitleStyle where Self == ActionTitleFioriStyle {
-    static var fiori: ActionTitleFioriStyle {
-        ActionTitleFioriStyle()
-    }
-}
-
 // MARK: AvatarsStyle
     
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
@@ -112,27 +98,6 @@ public extension NewActionStyle where Self == NewActionBaseStyle {
 public extension NewActionStyle where Self == NewActionFioriStyle {
     static var fiori: NewActionFioriStyle {
         NewActionFioriStyle()
-    }
-}
-    
-public struct NewActionActionTitleStyle: NewActionStyle {
-    let style: any ActionTitleStyle
-        
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
-        NewAction(configuration)
-            .actionTitleStyle(self.style)
-            .typeErased
-    }
-}
-    
-public extension NewActionStyle where Self == NewActionActionTitleStyle {
-    static func actionTitleStyle<Style: ActionTitleStyle>(_ style: Style) -> NewActionActionTitleStyle {
-        NewActionActionTitleStyle(style: style)
-    }
-        
-    static func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> NewActionActionTitleStyle {
-        let style = AnyActionTitleStyle(content)
-        return NewActionActionTitleStyle(style: style)
     }
 }
 
@@ -381,24 +346,24 @@ public extension NewObjectItemStyle where Self == NewObjectItemTagsStyle {
     }
 }
 
-public struct NewObjectItemActionTitleStyle: NewObjectItemStyle {
-    let style: any ActionTitleStyle
+public struct NewObjectItemNewActionStyle: NewObjectItemStyle {
+    let style: any NewActionStyle
         
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
-            .actionTitleStyle(self.style)
+            .newActionStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemActionTitleStyle {
-    static func actionTitleStyle<Style: ActionTitleStyle>(_ style: Style) -> NewObjectItemActionTitleStyle {
-        NewObjectItemActionTitleStyle(style: style)
+public extension NewObjectItemStyle where Self == NewObjectItemNewActionStyle {
+    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> NewObjectItemNewActionStyle {
+        NewObjectItemNewActionStyle(style: style)
     }
         
-    static func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> NewObjectItemActionTitleStyle {
-        let style = AnyActionTitleStyle(content)
-        return NewObjectItemActionTitleStyle(style: style)
+    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> NewObjectItemNewActionStyle {
+        let style = AnyNewActionStyle(content)
+        return NewObjectItemNewActionStyle(style: style)
     }
 }
 

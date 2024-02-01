@@ -53,7 +53,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
             .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
                 $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             }
-            .newObjectItemStyle(.actionTitleStyle(NewObjectItemBorderedActionTitle()))
+            .newObjectItemStyle(.newActionStyle(NewObjectItemBorderedAction()))
         }
         .navigationBarItems(trailing: HStack {
             if showEditButton {

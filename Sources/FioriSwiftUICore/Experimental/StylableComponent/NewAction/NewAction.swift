@@ -4,41 +4,55 @@ import Foundation
 import SwiftUI
 
 public struct NewAction {
-    let actionTitle: any View
-    let action: (() -> Void)?
+    let newAction: any View
 
     @Environment(\.newActionStyle) var style
 
-    public init(@ViewBuilder actionTitle: () -> any View = { EmptyView() },
-                action: (() -> Void)? = nil)
-    {
-        self.actionTitle = ActionTitle { actionTitle() }
-        self.action = action
+    fileprivate var _shouldApplyDefaultStyle = true
+
+    public init(@ViewBuilder newAction: () -> any View = { EmptyView() }) {
+        self.newAction = newAction()
     }
 }
 
 public extension NewAction {
-    init(actionTitle: AttributedString? = nil,
-         action: (() -> Void)? = nil)
-    {
-        self.init(actionTitle: { OptionalText(actionTitle) }, action: action)
+    init(newAction: FioriButton? = nil) {
+        self.init(newAction: { newAction })
     }
 }
 
 public extension NewAction {
     init(_ configuration: NewActionConfiguration) {
-        self.actionTitle = configuration.actionTitle
-        self.action = configuration.action
+        self.newAction = configuration.newAction
+        self._shouldApplyDefaultStyle = false
     }
 }
 
 extension NewAction: View {
     public var body: some View {
-        style.resolve(configuration: .init(actionTitle: .init(self.actionTitle), action: self.action)).typeErased
-            .transformEnvironment(\.newActionStyleStack) { stack in
-                if !stack.isEmpty {
-                    stack.removeLast()
+        if _shouldApplyDefaultStyle {
+            self.defaultStyle()
+        } else {
+            style.resolve(configuration: .init(newAction: .init(self.newAction))).typeErased
+                .transformEnvironment(\.newActionStyleStack) { stack in
+                    if !stack.isEmpty {
+                        stack.removeLast()
+                    }
                 }
-            }
+        }
+    }
+}
+
+private extension NewAction {
+    func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
+        var s = self
+        s._shouldApplyDefaultStyle = bool
+        return s
+    }
+
+    func defaultStyle() -> some View {
+        NewAction(newAction: { self.newAction })
+            .shouldApplyDefaultStyle(false)
+            .newActionStyle(.fiori)
     }
 }

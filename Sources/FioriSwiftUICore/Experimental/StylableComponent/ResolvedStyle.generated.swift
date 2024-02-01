@@ -3,22 +3,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: ActionTitleStyle
-
-struct ResolvedActionTitleStyle<Style: ActionTitleStyle>: View {
-    let style: Style
-    let configuration: ActionTitleConfiguration
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
-
-extension ActionTitleStyle {
-    func resolve(configuration: ActionTitleConfiguration) -> some View {
-        ResolvedActionTitleStyle(style: self, configuration: configuration)
-    }
-}
-
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {

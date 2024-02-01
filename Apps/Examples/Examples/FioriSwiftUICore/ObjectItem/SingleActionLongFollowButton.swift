@@ -46,9 +46,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Cafe Food Title That Is So Long It Has To Wrap",
                                    footnote: "3493 followers",
-                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
-                                       print("Tapped Follow")
-                                   })
+                                   newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
                 oi = ObjectItem(title: self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
                                 footnote: "3493 followers",
@@ -61,9 +59,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Hybris",
                                    footnote: "2290 followers",
-                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
-                                       print("Tapped Follow")
-                                   })
+                                   newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
                 oi = ObjectItem(title: self.isLongText ? longHeadline : "Hybris",
                                 footnote: "2290 followers",
@@ -78,16 +74,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                     Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
-                }, actionTitle: {
-                    Text(isLongText ? longText : "Follow")
-//                        .font(.callout)
-//                        .lineLimit(2)
-//                        .foregroundColor(Color.preferredColor(.tintColor))
-//                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-//                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
-                }, action: {
-                    print("Tapped Follow")
-                })
+                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text(isLongText ? longText : "Follow") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
                 oi = ObjectItem(title: {
@@ -113,9 +100,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Successfactors",
                                    footnote: "1000 followers",
-                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
-                                       print("Tapped Follow")
-                                   })
+                                   newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
                 oi = ObjectItem(title: self.isLongText ? longHeadline : "Successfactors",
                                 footnote: "1000 followers",
@@ -128,9 +113,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "Tennis @ SAP",
                                    footnote: "2290 followers",
-                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
-                                       print("Tapped Follow")
-                                   })
+                                   newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
                 oi = ObjectItem(title: self.isLongText ? longHeadline : "Tennis @ SAP",
                                 footnote: "2290 followers",
@@ -143,9 +126,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             if self.isNewObjectItem {
                 oi = NewObjectItem(title: self.isLongText ? AttributedString(stringLiteral: longHeadline) : "SAP.io",
                                    footnote: "537 followers",
-                                   actionTitle: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: {
-                                       print("Tapped Follow")
-                                   })
+                                   newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
                 oi = ObjectItem(title: self.isLongText ? longHeadline : "SAP.io",
                                 footnote: "537 followers",
@@ -160,16 +141,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                     Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
-                }, actionTitle: {
-                    Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.")
-//                        .font(.callout)
-//                        .lineLimit(2)
-//                        .foregroundColor(Color.preferredColor(.tintColor))
-//                        .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
-//                        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
-                }, action: {
-                    print("Tapped Follow")
-                })
+                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
                 oi = ObjectItem(title: {

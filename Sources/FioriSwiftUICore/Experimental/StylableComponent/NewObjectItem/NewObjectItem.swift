@@ -15,8 +15,7 @@ public struct NewObjectItem {
     let avatars: any View
     let footnoteIcons: any View
     let tags: any View
-    let actionTitle: any View
-    let action: (() -> Void)?
+    let newAction: any View
 
     @Environment(\.newObjectItemStyle) var style
 
@@ -31,8 +30,7 @@ public struct NewObjectItem {
                 @AvatarsBuilder avatars: () -> any View = { EmptyView() },
                 @FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
                 @TagBuilder tags: () -> any View = { EmptyView() },
-                @ViewBuilder actionTitle: () -> any View = { EmptyView() },
-                action: (() -> Void)? = nil)
+                @ViewBuilder newAction: () -> any View = { EmptyView() })
     {
         self.title = Title { title() }
         self.subtitle = Subtitle { subtitle() }
@@ -45,8 +43,7 @@ public struct NewObjectItem {
         self.avatars = Avatars { avatars() }
         self.footnoteIcons = FootnoteIcons { footnoteIcons() }
         self.tags = Tags { tags() }
-        self.actionTitle = ActionTitle { actionTitle() }
-        self.action = action
+        self.newAction = NewAction { newAction() }
     }
 }
 
@@ -62,10 +59,9 @@ public extension NewObjectItem {
          avatars: [TextOrIcon] = [],
          footnoteIcons: [TextOrIcon] = [],
          tags: [AttributedString] = [],
-         actionTitle: AttributedString? = nil,
-         action: (() -> Void)? = nil)
+         newAction: FioriButton? = nil)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, actionTitle: { OptionalText(actionTitle) }, action: action)
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, newAction: { newAction })
     }
 }
 
@@ -82,14 +78,13 @@ public extension NewObjectItem {
         self.avatars = configuration.avatars
         self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
-        self.actionTitle = configuration.actionTitle
-        self.action = configuration.action
+        self.newAction = configuration.newAction
     }
 }
 
 extension NewObjectItem: View {
     public var body: some View {
-        style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), actionTitle: .init(self.actionTitle), action: self.action)).typeErased
+        style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
             .transformEnvironment(\.newObjectItemStyleStack) { stack in
                 if !stack.isEmpty {
                     stack.removeLast()

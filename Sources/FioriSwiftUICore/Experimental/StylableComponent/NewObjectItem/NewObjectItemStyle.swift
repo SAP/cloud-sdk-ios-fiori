@@ -34,8 +34,7 @@ public struct NewObjectItemConfiguration {
     public let avatars: Avatars
     public let footnoteIcons: FootnoteIcons
     public let tags: Tags
-    public let actionTitle: ActionTitle
-    public let action: (() -> Void)?
+    public let newAction: NewAction
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -48,7 +47,7 @@ public struct NewObjectItemConfiguration {
     public typealias Avatars = ConfigurationViewWrapper
     public typealias FootnoteIcons = ConfigurationViewWrapper
     public typealias Tags = ConfigurationViewWrapper
-    public typealias ActionTitle = ConfigurationViewWrapper
+    public typealias NewAction = ConfigurationViewWrapper
 }
 
 public struct NewObjectItemFioriStyle: NewObjectItemStyle {
@@ -65,7 +64,7 @@ public struct NewObjectItemFioriStyle: NewObjectItemStyle {
             .avatarsStyle(AvatarsFioriStyle())
             .footnoteIconsStyle(FootnoteIconsFioriStyle())
             .tagsStyle(TagsFioriStyle())
-            .actionTitleStyle(ActionTitleFioriStyle())
+            .newActionStyle(NewActionFioriStyle())
     }
 }
 
@@ -103,7 +102,7 @@ public struct NewObjectItemBaseStyle: NewObjectItemStyle {
         
         // FIXME: check if VStack causes any problem.
         return VStack {
-            if !configuration.actionTitle.isEmpty {
+            if !configuration.newAction.isEmpty {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeOneLineSingleActionView(context)
@@ -193,7 +192,7 @@ extension NewObjectItemBaseStyle {
                     .background(GeometrySizeView(size: $mainViewSize))
                 }
                 
-                NewAction(.init(actionTitle: context.configuration.actionTitle, action: context.configuration.action))
+                context.configuration.newAction
             }
         }
     }
@@ -225,7 +224,7 @@ extension NewObjectItemBaseStyle {
                         Spacer(minLength: 16)
                     }
                     
-                    NewAction(.init(actionTitle: context.configuration.actionTitle, action: context.configuration.action))
+                    context.configuration.newAction
                 }
             } else {
                 HStack(alignment: .center) {
@@ -280,7 +279,7 @@ extension NewObjectItemBaseStyle {
                         }
                     }
                     
-                    NewAction(.init(actionTitle: context.configuration.actionTitle, action: context.configuration.action))
+                    context.configuration.newAction
                 }
             }
         }
@@ -640,11 +639,11 @@ private extension NewObjectItemFioriStyle {
         }
     }
 
-    struct ActionTitleFioriStyle: ActionTitleStyle {
-        func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-            ActionTitle(configuration)
+    struct NewActionFioriStyle: NewActionStyle {
+        func makeBody(_ configuration: NewActionConfiguration) -> some View {
+            NewAction(configuration)
                 // Add default style here
-                .lineLimit(2)
+                .fioriButtonStyle(FioriPlainButtonStyle())
         }
     }
 }
@@ -667,12 +666,13 @@ public extension NewObjectItemStyle where Self == NewObjectItemCardStyle {
     }
 }
 
-public struct NewObjectItemBorderedActionTitle: ActionTitleStyle {
+public struct NewObjectItemBorderedAction: NewActionStyle {
     public init() {}
     
-    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-        configuration.actionTitle
-            .padding(EdgeInsets(top: 8, leading: 32, bottom: 8, trailing: 32))
+    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
+        configuration.newAction
+            .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
+            .lineLimit(2)
     }
 }

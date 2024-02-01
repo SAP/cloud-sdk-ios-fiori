@@ -8,34 +8,6 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
     var modifier: Modifier
 }
 
-// MARK: ActionTitleStyle
-
-extension ModifiedStyle: ActionTitleStyle where Style: ActionTitleStyle {
-    public func makeBody(_ configuration: ActionTitleConfiguration) -> some View {
-        ActionTitle(configuration)
-            .actionTitleStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct ActionTitleStyleModifier<Style: ActionTitleStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.actionTitleStyle(self.style)
-    }
-}
-
-public extension ActionTitleStyle {
-    func modifier(_ modifier: some ViewModifier) -> some ActionTitleStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some ActionTitleStyle) -> some ActionTitleStyle {
-        style.modifier(ActionTitleStyleModifier(style: self))
-    }
-}
-
 // MARK: AvatarsStyle
 
 extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {

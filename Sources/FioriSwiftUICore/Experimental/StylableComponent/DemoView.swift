@@ -8,8 +8,7 @@ public struct DemoView {
     let subtitle: any View
     let status: any View
     
-    let actionTitle: any View
-    let action: (() -> Void)?
+    let newAction: any View
     
     @Binding var isOn: Bool
     
@@ -22,16 +21,14 @@ public struct DemoView {
             @ViewBuilder title: () -> any View,
             @ViewBuilder subtitle: () -> any View = { EmptyView() },
             @ViewBuilder status: () -> any View = { EmptyView() },
-            @ViewBuilder actionTitle: () -> any View = { EmptyView() },
-            action: (() -> Void)? = nil,
+            @ViewBuilder newAction: () -> any View = { EmptyView() },
             isOn: Binding<Bool>
         )
     {
         self.title = Title { title() }
         self.subtitle = Subtitle { subtitle() }
         self.status = status()
-        self.actionTitle = ActionTitle { actionTitle() }
-        self.action = action
+        self.newAction = NewAction { newAction() }
         self._isOn = isOn
     }
 }
@@ -41,8 +38,7 @@ public extension DemoView {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          status: AttributedString? = nil,
-         actionTitle: AttributedString? = nil,
-         action: (() -> Void)? = nil,
+         newAction: FioriButton? = nil,
          isOn: Binding<Bool>)
     {
         self.init(title: {
@@ -51,9 +47,9 @@ public extension DemoView {
             OptionalText(subtitle)
         }, status: {
             OptionalText(status)
-        }, actionTitle: {
-            OptionalText(actionTitle)
-        }, action: action, isOn: isOn)
+        }, newAction: {
+            newAction
+        }, isOn: isOn)
     }
 }
 
@@ -63,8 +59,7 @@ public extension DemoView {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.status = configuration.status
-        self.actionTitle = configuration.actionTitle
-        self.action = configuration.action
+        self.newAction = configuration.newAction
         self._isOn = configuration.isOn
     }
 }
@@ -72,7 +67,7 @@ public extension DemoView {
 // TODO: macro
 extension DemoView: View {
     public var body: some View {
-        let configuration = DemoViewConfiguration(title: .init(title), subtitle: .init(subtitle), status: .init(status), actionTitle: .init(actionTitle), action: action, isOn: _isOn)
+        let configuration = DemoViewConfiguration(title: .init(title), subtitle: .init(subtitle), status: .init(status), newAction: .init(newAction), isOn: _isOn)
         style.resolve(configuration: configuration).typeErased
             .transformEnvironment(\.demoViewStyleStack) { stack in
                 if !stack.isEmpty {
@@ -101,10 +96,8 @@ struct CustomTagDemoViewStyle: DemoViewStyle {
             HStack {
                 Spacer()
                 
-                if !configuration.actionTitle.isEmpty {
-                    Button(action: configuration.action ?? {}, label: {
-                        configuration.actionTitle
-                    })
+                if !configuration.newAction.isEmpty {
+                    configuration.newAction
                 }
             }
         }
@@ -177,7 +170,7 @@ struct Preview: PreviewProvider {
     static var previews: some View {
         // 1. Test style propagation
         HStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
 
             Title(title: "Other Title")
                 .titleStyle { configuration in
@@ -195,14 +188,14 @@ struct Preview: PreviewProvider {
             Title(configuration)
                 .foregroundStyle(.blue)
         }
-        .actionTitleStyle {
-            ActionTitle($0)
+        .newActionStyle {
+            NewAction($0)
                 .foregroundStyle(Color.red)
         }
         
         // 2. Test style customization for a specific component
         HStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
 
             Title(title: "Other Title")
         }
@@ -213,21 +206,21 @@ struct Preview: PreviewProvider {
         })
         
         // 3. Reusable style
-        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
             .demoViewStyle(.card)
         
         // 4. Style composition (concatenation)
         VStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
                 .demoViewStyle(.horizontal.concat(.card))
 
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
                 .demoViewStyle(.card)
                 .demoViewStyle(.horizontal)
         }
         
         // 5. Style based on the state (Not work in Preview, only work in a test app)
-        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", actionTitle: "ActionTitle", action: { print("Action tapped") }, isOn: $model.isOn)
+        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: "Status", newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
             .demoViewStyle(.card)
             .demoViewStyle { configuration in
                 DemoView(configuration)

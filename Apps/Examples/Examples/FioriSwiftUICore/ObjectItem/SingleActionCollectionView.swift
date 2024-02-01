@@ -34,15 +34,15 @@ struct SingleActionCollectionView: View {
                             Image(systemName: "checkmark")
                                 .resizable()
                                 .frame(width: 10, height: 10)
-                        }, actionTitle: {
+                        }, newAction: { FioriButton(action: { _ in
+                            print("Tapped Follow")
+                        }, label: { _ in
                             Image(systemName: "arrow.down.circle")
                                 .resizable()
-//                                .font(.callout)
+                                //                                .font(.callout)
                                 .foregroundColor(Color.preferredColor(.tintColor))
                                 .frame(width: 32, height: 32)
-                        }, action: {
-                            print("Tapped Follow")
-                        })
+                        }) })
                     } else {
                         ObjectItem(title: {
                             Text("Transform Overheating")

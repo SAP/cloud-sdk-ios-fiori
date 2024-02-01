@@ -12,14 +12,13 @@ public struct DemoViewConfiguration {
     public let title: Title
     public let subtitle: Subtitle
     public let status: Status
-    public let actionTitle: ActionTitle
-    public let action: (() -> Void)?
+    public let newAction: NewAction
     public let isOn: Binding<Bool>
     
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Status = ConfigurationViewWrapper
-    public typealias ActionTitle = ConfigurationViewWrapper
+    public typealias NewAction = ConfigurationViewWrapper
 }
 
 /// The style that provides styling attributes for this component (i.e. font, color, etc)
@@ -145,7 +144,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             configuration.title
             configuration.subtitle
             configuration.status
-            NewAction(.init(actionTitle: configuration.actionTitle, action: configuration.action))
+            configuration.newAction
             Toggle(isOn: configuration.isOn, label: {})
         }
         .padding()
@@ -176,9 +175,7 @@ public struct DemoViewHorizontalStyle: DemoViewStyle {
             configuration.title
             configuration.subtitle
             configuration.status
-            Button(action: configuration.action ?? {}, label: {
-                configuration.actionTitle
-            })
+            configuration.newAction
             Toggle(isOn: configuration.isOn, label: {})
         }
         .padding()

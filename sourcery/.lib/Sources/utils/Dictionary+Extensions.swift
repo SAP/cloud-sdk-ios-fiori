@@ -22,21 +22,21 @@ public extension Dictionary where Key == String, Value == NSObject {
     }
     
     var isViewBuilder: Bool {
-        self["isViewBuilder"] != nil
+        self["@ViewBuilder"] != nil
     }
 }
 
 public extension Dictionary where Key == String, Value == NSObject {
     var isBinding: Bool {
-        self["isBinding"] != nil ? true : false
+        self["@Binding"] != nil ? true : false
     }
     
     var isBaseComponent: Bool {
-        self["isBaseComponent"] != nil ? true : false
+        self["BaseComponent"] != nil ? true : false
     }
     
     var isCompositeComponent: Bool {
-        self["isCompositeComponent"] != nil ? true : false
+        self["CompositeComponent"] != nil ? true : false
     }
 }
 

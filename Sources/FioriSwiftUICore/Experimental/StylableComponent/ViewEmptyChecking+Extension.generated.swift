@@ -3,12 +3,6 @@
 import Foundation
 import SwiftUI
 
-extension ActionTitle: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        actionTitle.isEmpty
-    }
-}
-
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
@@ -47,7 +41,7 @@ extension Icons: _ViewEmptyChecking {
 
 extension NewAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        actionTitle.isEmpty
+        newAction.isEmpty
     }
 }
 
@@ -64,7 +58,7 @@ extension NewObjectItem: _ViewEmptyChecking {
             avatars.isEmpty ||
             footnoteIcons.isEmpty ||
             tags.isEmpty ||
-            actionTitle.isEmpty
+            newAction.isEmpty
     }
 }
 

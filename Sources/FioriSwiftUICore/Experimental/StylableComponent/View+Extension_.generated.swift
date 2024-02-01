@@ -3,23 +3,6 @@
 import Foundation
 import SwiftUI
 
-// MARK: ActionTitleStyle
-
-public extension View {
-    func actionTitleStyle(_ style: some ActionTitleStyle) -> some View {
-        self.transformEnvironment(\.actionTitleStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-    
-    func actionTitleStyle(@ViewBuilder content: @escaping (ActionTitleConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.actionTitleStyleStack) { stack in
-            let style = AnyActionTitleStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
 // MARK: AvatarsStyle
 
 public extension View {
