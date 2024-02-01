@@ -13,7 +13,7 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
     public var tintColor: Color?
     
     /**
-     Is the cell read-only or not for the inline editing mode. `DataImageItem` ignores this property since it doesn't support inline editing yet.
+     Determines whether the cell is read-only or not for inline editing mode.  `DataImageItem` ignores this property since it doesn't support inline editing yet.
      */
     public var isReadonly: Bool?
     
@@ -26,7 +26,7 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
     ///   - image: Image for item.
     ///   - tintColor: Tint color for image.
     ///   - binding: Mapping rule.
-    ///   - isReadonly: Is the cell read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
     public init(_ image: Image, _ tintColor: Color? = nil, _ binding: ObjectViewProperty.Image? = nil, isReadonly: Bool? = nil) {
         self.image = image.resizable()
         self.tintColor = tintColor
