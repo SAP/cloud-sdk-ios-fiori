@@ -1,4 +1,4 @@
-# Generate component protocol extensions.
+# [Deprecated] Generate component protocol extensions.
 sources:
   - ./../Sources/FioriSwiftUICore/_generated/Components/Component+Protocols.generated.swift
 templates:
