@@ -23,7 +23,7 @@ public struct TableRowItem: Equatable {
     ///   - data: Row data.
     ///   - selectedImage: Selected image in editing mode.
     ///   - deSelectedImage: Desekected image in edting mode.
-    ///   - isReadonly: Is the row read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the row is read-only or not in inline editing mode.
     public init(leadingAccessories: [AccessoryItem], trailingAccessory: AccessoryItem?, data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil, isReadonly: Bool? = nil) {
         self.leadingAccessories = leadingAccessories
         self.trailingAccessory = trailingAccessory
@@ -38,7 +38,7 @@ public struct TableRowItem: Equatable {
     ///   - data: Row data.
     ///   - selectedImage: Selected image in editing mode.
     ///   - deSelectedImage: Desekected image in edting mode.
-    ///   - isReadonly: Is the row read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the row is read-only or not for inline editing mode.
     public init(data: [DataItem], selectedImage: Image? = nil, deSelectedImage: Image? = nil, isReadonly: Bool? = nil) {
         self.leadingAccessories = []
         self.trailingAccessory = nil
