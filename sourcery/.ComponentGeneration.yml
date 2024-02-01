@@ -16,18 +16,11 @@ configurations:
   #   args:
   #     selectedTypes: []
   - sources:
-    - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
+    - ./../Sources/FioriSwiftUICore/_ComponentProtocols
     templates:
       - stencils/ComponentTemplate.swifttemplate
     output:
-      ./../Sources/FioriSwiftUICore/Experimental/StylableComponent
+      ./../Sources/FioriSwiftUICore/_generated
     args:
       selectedTypes: []
-  # - sources:
-  #   - ./../Sources/FioriSwiftUICore/Experimental/StylableComponent/ComponentProtocols
-  #   templates:
-  #     - stencils/CompositeComponentTemplate.swifttemplate
-  #   output:
-  #     ./../Sources/FioriSwiftUICore/Experimental/StylableComponent
-  #   args:
-  #     selectedTypes: []
+

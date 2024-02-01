@@ -35,7 +35,6 @@ public extension Type {
             
             \(self.privateHelperExtension)
             """
-            .commented()
         } else {
             return """
             public struct \(componentName) {
@@ -54,7 +53,6 @@ public extension Type {
             
             \(self.viewBodyExtension)
             """
-            .commented()
         }
     }
     
@@ -172,10 +170,7 @@ public extension Type {
             \(self.styleTypeEraserDecl)
                 
             \(self.configurationDecl)
-                
-            \(self.styleProtocolImplementations)
             """
-            .commented()
         case .composite:
             return """
             \(self.styleProtocolDecl)
@@ -185,10 +180,7 @@ public extension Type {
             \(self.configurationDecl)
                 
             \(self.fioriStyleDecl)
-                
-            \(self.styleProtocolImplementations)
             """
-            .commented()
         }
     }
     
@@ -264,7 +256,14 @@ public extension Type {
         switch componentType {
         case .base:
             return """
-            // MARK: SDK Developer implementations
+            /**
+             This file provides default fiori style for the component.
+             
+             1. Uncomment fhe following code.
+             2. Implement layout and style in corresponding places.
+             3. Delete `.generated` from file name.
+             4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+             */
 
             // Base Layout style
             public struct \(baseStyleName): \(styleProtocolName) {
@@ -284,9 +283,17 @@ public extension Type {
                 }
             }
             """
+            .commented()
         case .composite:
             return """
-            // MARK: SDK Developer implementations
+            /**
+             This file provides default fiori style for the component.
+             
+             1. Uncomment fhe following code.
+             2. Implement layout and style in corresponding places.
+             3. Delete `.generated` from file name.
+             4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+             */
 
             // Base Layout style
             public struct \(baseStyleName): \(styleProtocolName) {
@@ -297,10 +304,11 @@ public extension Type {
             }
                 
             // Default fiori styles
-            fileprivate extension \(fioriStyleName) {
+            extension \(fioriStyleName) {
                 \(allStoredVariables.baseComponentFioriStyleDeclList)
             }
             """
+            .commented()
         }
     }
     

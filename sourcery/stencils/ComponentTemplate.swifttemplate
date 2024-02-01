@@ -7,25 +7,25 @@
 <%- includeFile("../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
 <%- includeFile("../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
 
-// sourcery:file:ViewEmptyChecking+Extension
+// sourcery:file:SupportingFiles/ViewEmptyChecking+Extension
 import Foundation
 import SwiftUI
 
 // sourcery:end
 
-// sourcery:file:ResolvedStyle
+// sourcery:file:SupportingFiles/ResolvedStyle
 import Foundation
 import SwiftUI
 
 // sourcery:end
 
-// sourcery:file:EnvironmentVariables
+// sourcery:file:SupportingFiles/EnvironmentVariables
 import Foundation
 import SwiftUI
 
 // sourcery:end
 
-// sourcery:file:ModifiedStyle
+// sourcery:file:SupportingFiles/ModifiedStyle
 import Foundation
 import SwiftUI
 
@@ -36,13 +36,13 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
 
 // sourcery:end
 
-// sourcery:file:View+Extension_
+// sourcery:file:SupportingFiles/View+Extension_
 import Foundation
 import SwiftUI
 
 // sourcery:end
 
-// sourcery:file:ComponentStyleProtocol+Extension
+// sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
 import Foundation
 import SwiftUI
 
@@ -60,42 +60,49 @@ if let selectedTypes = argument["selectedTypes"] as? [String],
 for component in components {
 -%>
 
-// sourcery:file:_generated/<%= component.componentName %>/<%= component.componentName %>
+// sourcery:file:StyleableComponents/<%= component.componentName %>/<%= component.componentName %>
 import Foundation
 import SwiftUI
 
 <%= component.componentDecl %>
 // sourcery:end
 
-// sourcery:file:_generated/<%= component.componentName %>/<%= component.styleProtocolName %>
+// sourcery:file:StyleableComponents/<%= component.componentName %>/<%= component.styleProtocolName %>
 import Foundation
 import SwiftUI
-import FioriThemeManager
 
 <%= component.componentStyleDecl %>
 // sourcery:end
 
-// sourcery:file:ViewEmptyChecking+Extension
+// sourcery:file:FioriStyleTemplates/<%= component.styleProtocolName %>.fiori.generated.swift
+//import Foundation
+//import SwiftUI
+//import FioriThemeManager
+//
+<%= component.styleProtocolImplementations %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ViewEmptyChecking+Extension
 <%= component.viewEmptyCheckingExtension %>
 // sourcery:end
 
-// sourcery:file:ResolvedStyle
+// sourcery:file:SupportingFiles/ResolvedStyle
 <%= component.resolvedStyleDecl %>
 // sourcery:end
 
-// sourcery:file:EnvironmentVariables
+// sourcery:file:SupportingFiles/EnvironmentVariables
 <%= component.styleStackKeyDecl %>
 // sourcery:end
 
-// sourcery:file:ModifiedStyle
+// sourcery:file:SupportingFiles/ModifiedStyle
 <%= component.styleModifierDecl %>
 // sourcery:end
 
-// sourcery:file:View+Extension_
+// sourcery:file:SupportingFiles/View+Extension_
 <%= component.styleViewExtensionDecl %>
 // sourcery:end
 
-// sourcery:file:ComponentStyleProtocol+Extension
+// sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
 <%= component.styleProtocolExtensions %>
 // sourcery:end
 <%_ } -%>
