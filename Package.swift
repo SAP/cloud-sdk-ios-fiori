@@ -7,7 +7,7 @@ import PackageDescription
 let package = Package(
     name: "FioriSwiftUI",
     defaultLocalization: "en",
-    platforms: [.iOS(.v16), .watchOS(.v7), .visionOS(.v1), .macOS(.v13)],
+    platforms: [.iOS(.v16), .watchOS(.v7), .visionOS(.v1)],
     products: [
         .library(
             name: "FioriSwiftUI",
@@ -25,9 +25,6 @@ let package = Package(
             targets: ["FioriThemeManager"]
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", branch: "main")
-    ],
     targets: [
         .target(
             name: "FioriSwiftUI",
@@ -42,8 +39,7 @@ let package = Package(
             name: "FioriSwiftUICore",
             dependencies: [
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .visionOS])),
-                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .visionOS])),
-                .target(name: "FioriMacro")
+                .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .visionOS]))
             ],
             resources: [.process("_localization")]
         ),
@@ -54,15 +50,6 @@ let package = Package(
                 .process("FioriIcons/Resources/FioriIcon.xcassets")
             ]
         ),
-        .target(name: "FioriMacro", dependencies: [
-            .target(name: "FioriMacroImpl")
-        ]),
-        .macro(name: "FioriMacroImpl", dependencies: [
-            .product(name: "SwiftSyntax", package: "swift-syntax"),
-            .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-            .product(name: "SwiftCompilerPlugin", package: "swift-syntax"),
-            .product(name: "SwiftDiagnostics", package: "swift-syntax")
-        ]),
         .testTarget(
             name: "FioriThemeManagerTests",
             dependencies: ["FioriThemeManager"],
@@ -80,11 +67,6 @@ let package = Package(
             name: "FioriSwiftUICoreTests",
             dependencies: ["FioriSwiftUICore"],
             path: "Tests/FioriSwiftUITests/FioriSwiftUICore"
-        ),
-        .testTarget(
-            name: "FioriMacrosTests",
-            dependencies: ["FioriMacro"],
-            path: "Tests/FioriSwiftUITests/FioriMacros"
         )
     ]
 )
