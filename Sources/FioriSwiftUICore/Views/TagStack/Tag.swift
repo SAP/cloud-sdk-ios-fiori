@@ -251,6 +251,29 @@ public struct Tag: View {
     /// the value, and initialize the text view with that. Using a key as input
     /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method instead.
     ///
+    /// - Parameter content: The attributed string value to display without localization.
+    public init(_ attributedContent: AttributedString) {
+        self.content = Text(attributedContent)
+    }
+    
+    /// Creates a tag view that displays a stored string without localization.
+    ///
+    /// Use this initializer to create a tag view that displays — without
+    /// localization — the tag in a string variable.
+    ///
+    ///     Tag(someString) // Displays the contents of `someString` without localization.
+    ///
+    /// SwiftUI doesn't call the `init(_:)` method when you initialize a tag
+    /// view with a string literal as the input. Instead, a string literal
+    /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method — which
+    /// treats the input as a ``LocalizedStringKey`` instance — and attempts to
+    /// perform localization.
+    ///
+    /// By default, SwiftUI assumes that you don't want to localize stored
+    /// strings, but if you do, you can first create a localized string key from
+    /// the value, and initialize the text view with that. Using a key as input
+    /// triggers the ``Tag/init(_:tableName:bundle:comment:)`` method instead.
+    ///
     /// - Parameter content: The string value to display without localization.
     public init<S>(_ content: S) where S: StringProtocol {
         self.content = Text(content)

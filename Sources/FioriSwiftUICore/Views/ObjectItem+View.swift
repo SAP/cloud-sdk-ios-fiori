@@ -143,10 +143,8 @@ extension ObjectItem: View {
     var avatarView: some View {
         if !isAvatarsEmptyView {
             avatars.clipped()
-            Spacer().frame(width: 12)
         } else if !isDetailImageEmptyView {
             detailImage.clipped()
-            Spacer().frame(width: 12)
         } else {
             EmptyView()
         }

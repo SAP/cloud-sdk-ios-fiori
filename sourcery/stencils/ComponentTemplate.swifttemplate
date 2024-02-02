@@ -1,0 +1,108 @@
+<%- includeFile("../.lib/Sources/utils/Array+String.swift") -%>
+<%- includeFile("../.lib/Sources/utils/Array+Variable.swift") -%>
+<%- includeFile("../.lib/Sources/utils/cloud_sdk_ios_sourcery_utils.swift") -%>
+<%- includeFile("../.lib/Sources/utils/String+Extensions.swift") -%>
+<%- includeFile("../.lib/Sources/utils/Type+Extensions.swift") -%>
+<%- includeFile("../.lib/Sources/utils/Variable+Extensions.swift") -%>
+<%- includeFile("../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
+<%- includeFile("../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
+
+// sourcery:file:SupportingFiles/ViewEmptyChecking+Extension
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ResolvedStyle
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
+// sourcery:file:SupportingFiles/EnvironmentVariables
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ModifiedStyle
+import Foundation
+import SwiftUI
+
+public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
+    var style: Style
+    var modifier: Modifier
+}
+
+// sourcery:end
+
+// sourcery:file:SupportingFiles/View+Extension_
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
+<%_
+
+var components = types.protocols.filter { $0.isBaseComponent || $0.isCompositeComponent }
+if let selectedTypes = argument["selectedTypes"] as? [String],
+    !selectedTypes.isEmpty,
+    case let set = Set(selectedTypes) {
+    components = components.filter({ set.contains($0.name) })
+}
+
+for component in components {
+-%>
+
+// sourcery:file:StyleableComponents/<%= component.componentName %>/<%= component.componentName %>
+import Foundation
+import SwiftUI
+
+<%= component.componentDecl %>
+// sourcery:end
+
+// sourcery:file:StyleableComponents/<%= component.componentName %>/<%= component.styleProtocolName %>
+import Foundation
+import SwiftUI
+
+<%= component.componentStyleDecl %>
+// sourcery:end
+
+// sourcery:file:FioriStyleTemplates/<%= component.styleProtocolName %>.fiori.generated.swift
+//import Foundation
+//import SwiftUI
+//import FioriThemeManager
+//
+<%= component.styleProtocolImplementations %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ViewEmptyChecking+Extension
+<%= component.viewEmptyCheckingExtension %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ResolvedStyle
+<%= component.resolvedStyleDecl %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/EnvironmentVariables
+<%= component.styleStackKeyDecl %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ModifiedStyle
+<%= component.styleModifierDecl %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/View+Extension_
+<%= component.styleViewExtensionDecl %>
+// sourcery:end
+
+// sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
+<%= component.styleProtocolExtensions %>
+// sourcery:end
+<%_ } -%>
