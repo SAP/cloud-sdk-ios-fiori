@@ -1,7 +1,7 @@
 import SwiftUI
 
 /// protocol for TagViewList
-public protocol TagViewList: View {
+public protocol TagViewList: View, _ViewEmptyChecking {
     associatedtype V: View
     
     /// number of View in the TagViewList
@@ -18,11 +18,19 @@ public extension TagViewList {
     }
 }
 
+public extension TagViewList {
+    var isEmpty: Bool {
+        count == 0
+    }
+}
+
 /// SingleTag
 public struct SingleTag<Content: View>: TagViewList {
     let view: Content
     
-    public let count = 1
+    public var count: Int {
+        self.view.isEmpty ? 0 : 1
+    }
     
     /// the View at Index in the TagViewList
     public func view(at index: Int) -> some View {
@@ -34,7 +42,17 @@ public struct ConditionalSingleTag<TrueContent: View, FalseContent: View>: TagVi
     let first: TrueContent?
     let second: FalseContent?
     
-    public let count = 1
+    public var count: Int {
+        if let first, !first.isEmpty {
+            return 1
+        }
+        
+        if let second, !second.isEmpty {
+            return 1
+        }
+        
+        return 0
+    }
     
     /// the View at Index in the TagViewList
     public func view(at index: Int) -> some View {
@@ -53,7 +71,8 @@ public struct PairTag<First: View, Second: TagViewList>: TagViewList {
     let remainder: Second
     
     public var count: Int {
-        self.remainder.count + 1
+        let firstCount = self.first.isEmpty ? 0 : 1
+        return self.remainder.count + firstCount
     }
     
     /// the View at Index in the TagViewList

@@ -1,7 +1,10 @@
+import FioriSwiftUICore
 import SwiftUI
 
 struct ObjectItemListView<T: ListDataProtocol>: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    var _isNewObjectItem = false
+    
     let title: String
     let listDataType: T.Type
     let changeLeftMargin: Bool
@@ -17,8 +20,13 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
         self.showEditButton = showEditButton
     }
     
-    func createInstance(typeThing: T.Type) -> T {
-        typeThing.init(cellTapped: $cellTapped)
+    func createInstance(typeThing: T.Type) -> ListDataProtocol {
+        if let objectItemListData = typeThing as? ObjectItemListDataProtocol.Type {
+            print("NewObjectItem: \(self._isNewObjectItem)")
+            return objectItemListData.init(cellTapped: $cellTapped, isNewObjectItem: self._isNewObjectItem)
+        } else {
+            return typeThing.init(cellTapped: $cellTapped)
+        }
     }
     
     var body: some View {
@@ -40,10 +48,12 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                         print("delete \(indexSet)")
                     }
                 }
-            }.listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-                .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
-                    $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
-                }
+            }
+            .listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
+            .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
+                $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
+            }
+            .newObjectItemStyle(.newActionStyle(NewObjectItemBorderedAction()))
         }
         .navigationBarItems(trailing: HStack {
             if showEditButton {
@@ -60,5 +70,12 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                 }
             }.padding()
         }
+    }
+}
+
+extension ObjectItemListView {
+    init(title: String, listDataType: T.Type, changeLeftMargin: Bool = true, showEditButton: Bool = true, isNewObjectItem: Bool = false) {
+        self.init(title: title, listDataType: listDataType, changeLeftMargin: changeLeftMargin, showEditButton: showEditButton)
+        self._isNewObjectItem = isNewObjectItem
     }
 }
