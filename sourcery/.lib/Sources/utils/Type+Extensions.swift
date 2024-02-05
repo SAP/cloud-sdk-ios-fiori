@@ -572,22 +572,17 @@ public extension Type {
     
     // Composite component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
     var parentCompositeComponentProtocols: [Type] {
-        self.implements.values.filter { $0.componentType == .composite }
-            .sorted { lhs, rhs in
-                lhs.name < rhs.name
-            }
+        self.directInheritedTypes.filter { $0.componentType == .composite }
     }
     
     // All base and composite component protocols in the inheritance chain
     var conformingComponentProtocols: [Type] {
         var protocols: [Type] = []
         var set: Set<Type> = []
-        for p in self.implements.values {
+        for p in self.directInheritedTypes {
             self.traverse(p, self, &protocols, &set)
         }
-        return protocols.sorted { lhs, rhs in
-            lhs.name < rhs.name
-        }
+        return protocols
     }
     
     private func traverse(_ type: Type, _ root: Type, _ result: inout [Type], _ set: inout Set<Type>) {
@@ -595,12 +590,12 @@ public extension Type {
             return
         }
         
-        for p in type.implements.values {
+        for p in type.directInheritedTypes {
             self.traverse(p, root, &result, &set)
         }
         
         if set.contains(type) {
-            fatalError("Protocol \(root) implements \(type) twice in its declaration, which is not allowed.")
+            fatalError("Protocol \(root.name) implements \(type.name) twice in its declaration, which is not allowed.")
         } else {
             result.append(type)
             set.insert(type)
@@ -611,6 +606,17 @@ public extension Type {
 public extension Type {
     var resultBuilderVariables: [Variable] {
         allStoredVariables.filter { $0.resultBuilderAttrs != nil }
+    }
+}
+
+extension Type {
+    var directInheritedTypes: [Type] {
+        self.inheritedTypes.map { name in
+            guard let type = ProcessInfo.processInfo.context.type[name] else {
+                fatalError("Protocol \(name) is not found")
+            }
+            return type
+        }
     }
 }
 
