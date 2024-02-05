@@ -60,6 +60,19 @@ public struct FioriButtonStyleConfiguration {
     }
 }
 
+/// A Fiori button style for the plain button.
+public struct FioriPlainButtonStyle: FioriButtonStyle {
+    /// Create a `FioriPrimaryButtonStyle` instance.
+    public init() {}
+    
+    public func makeBody(configuration: Configuration) -> some View {
+        let config = FioriButtonStyleProvider.getPlainButtonStyle(state: configuration.state)
+        
+        return configuration.label
+            .fioriButtonConfiguration(config)
+    }
+}
+
 /// A Fiori button style for the primary button.
 public struct FioriPrimaryButtonStyle: FioriButtonStyle {
     /// Create a `FioriPrimaryButtonStyle` instance.

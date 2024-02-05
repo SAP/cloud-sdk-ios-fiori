@@ -1,9 +1,503 @@
 import Foundation
 import SourceryRuntime
 
+// MARK: Styleable Component
+
+public extension Type {
+//    var baseComponentDecl: String {
+//        componentDecl()
+//    }
+//
+//    var compositeComponentDecl: String {
+//        componentDecl(isBaseComponent: false)
+//    }
+    
+    var componentDecl: String {
+        if isBaseComponent {
+            return """
+            public struct \(componentName) {
+                \(allStoredVariables.propertyListDecl)
+            
+                @Environment(\\.\(componentName.lowercasingFirst())Style) var style
+            
+                fileprivate var _shouldApplyDefaultStyle = true
+            
+                public init(\(allStoredVariables.viewBuilderInitParams)) {
+                    \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
+                }
+            }
+            
+            \(self.dataInitExtension)
+            
+            \(self.configurationInitExtension)
+            
+            \(self.viewBodyExtension)
+            
+            \(self.privateHelperExtension)
+            """
+        } else {
+            return """
+            public struct \(componentName) {
+                \(allStoredVariables.propertyListDecl)
+            
+                @Environment(\\.\(componentName.lowercasingFirst())Style) var style
+            
+                public init(\(allStoredVariables.viewBuilderInitParams)) {
+                    \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
+                }
+            }
+            
+            \(self.dataInitExtension)
+            
+            \(self.configurationInitExtension)
+            
+            \(self.viewBodyExtension)
+            """
+        }
+    }
+    
+    var dataInitExtension: String {
+        """
+        public extension \(componentName) {
+            init(\(allStoredVariables.dataInitParams)) {
+                \(allStoredVariables.dataInitBody)
+            }
+        }
+        """
+    }
+    
+    var configurationInitExtension: String {
+        if isBaseComponent {
+            return """
+            public extension \(componentName) {
+                init(_ configuration: \(configurationName)) {
+                    \(allStoredVariables.configurationInitBody)
+                    self._shouldApplyDefaultStyle = false
+                }
+            }
+            """
+        } else {
+            return """
+            public extension \(componentName) {
+                init(_ configuration: \(configurationName)) {
+                    \(allStoredVariables.configurationInitBody)
+                }
+            }
+            """
+        }
+    }
+    
+    var viewBodyExtension: String {
+        if isBaseComponent {
+            return """
+            extension \(componentName): View {
+                public var body: some View {
+                    if _shouldApplyDefaultStyle {
+                        self.defaultStyle()
+                    } else {
+                        style.resolve(configuration: .init(\(allStoredVariables.configurationInitArgs))).typeErased
+                            .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
+                                if !stack.isEmpty {
+                                    stack.removeLast()
+                                }
+                            }
+                    }
+                }
+            }
+            """
+        } else {
+            return """
+            extension \(componentName): View {
+                public var body: some View {
+                    style.resolve(configuration: .init(\(allStoredVariables.configurationInitArgs))).typeErased
+                        .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
+                            if !stack.isEmpty {
+                                stack.removeLast()
+                            }
+                        }
+                }
+            }
+            """
+        }
+    }
+    
+    var privateHelperExtension: String {
+        let initArgs = allStoredVariables.map { variable in
+            let name = variable.name
+            if variable.resultBuilderAttrs != nil {
+                return "\(name): { self.\(name) }"
+            } else {
+                return "\(name): self.\(name)"
+            }
+        }
+        .joined(separator: "\n")
+        
+        return """
+        private extension \(componentName) {
+            func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
+                var s = self
+                s._shouldApplyDefaultStyle = bool
+                return s
+            }
+                
+            func defaultStyle() -> some View {
+                \(componentName)(\(initArgs))
+                .shouldApplyDefaultStyle(false)
+                .\(styleProtocolName.lowercasingFirst())(.fiori)
+            }
+        }
+        """
+    }
+    
+    var viewEmptyCheckingExtension: String {
+        """
+        extension \(componentName): _ViewEmptyChecking {
+            public var isEmpty: Bool {
+                \(allStoredVariables.viewEmptyCheckingBody)
+            }
+        }
+        """
+    }
+}
+
+public extension Type {
+    var componentStyleDecl: String {
+        switch componentType {
+        case .base:
+            return """
+            \(self.styleProtocolDecl)
+                
+            \(self.styleTypeEraserDecl)
+                
+            \(self.configurationDecl)
+            """
+        case .composite:
+            return """
+            \(self.styleProtocolDecl)
+                
+            \(self.styleTypeEraserDecl)
+                
+            \(self.configurationDecl)
+                
+            \(self.fioriStyleDecl)
+            """
+        }
+    }
+    
+    var configurationDecl: String {
+        """
+        public struct \(componentName)Configuration {
+            \(allStoredVariables.configurationPropertyListDecl)
+        }
+        """
+    }
+    
+    var styleProtocolDecl: String {
+        """
+        public protocol \(styleProtocolName): DynamicProperty {
+            associatedtype Body: View
+
+            func makeBody(_ configuration: \(configurationName)) -> Body
+        }
+        """
+    }
+    
+    var styleProtocolExtensions: String {
+        switch componentType {
+        case .base:
+            return """
+            // MARK: \(styleProtocolName)
+                
+            public extension \(styleProtocolName) where Self == \(baseStyleName) {
+                static var base: \(baseStyleName) {
+                    \(baseStyleName)()
+                }
+            }
+
+            public extension \(styleProtocolName) where Self == \(fioriStyleName) {
+                static var fiori: \(fioriStyleName) {
+                    \(fioriStyleName)()
+                }
+            }
+            """
+        case .composite:
+            return """
+            // MARK: \(styleProtocolName)
+                
+            public extension \(styleProtocolName) where Self == \(baseStyleName) {
+                static var base: \(baseStyleName) {
+                    \(baseStyleName)()
+                }
+            }
+
+            public extension \(styleProtocolName) where Self == \(fioriStyleName) {
+                static var fiori: \(fioriStyleName) {
+                    \(fioriStyleName)()
+                }
+            }
+                
+            \(allStoredVariables.baseComponentStyleExtentionList(for: self))
+            """
+        }
+    }
+    
+    var fioriStyleDecl: String {
+        """
+        public struct \(fioriStyleName): \(styleProtocolName) {
+            public func makeBody(_ configuration: \(configurationName)) -> some View {
+                \(componentName)(configuration)
+                    \(allStoredVariables.componentFioriStyleModifierList)
+            }
+        }
+        """
+    }
+    
+    var styleProtocolImplementations: String {
+        switch componentType {
+        case .base:
+            return """
+            /**
+             This file provides default fiori style for the component.
+             
+             1. Uncomment fhe following code.
+             2. Implement layout and style in corresponding places.
+             3. Delete `.generated` from file name.
+             4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+             */
+
+            // Base Layout style
+            public struct \(baseStyleName): \(styleProtocolName) {
+                public func makeBody(_ configuration: \(configurationName)) -> some View {
+                    // Add default layout here
+                    \(allStoredVariables.configurationResultBuilderPropertyListDecl)
+                }
+            }
+
+            // Default fiori styles
+            public struct \(fioriStyleName): \(styleProtocolName) {
+                public func makeBody(_ configuration: \(configurationName)) -> some View {
+                    \(componentName)(configuration)
+                        // Add default style here
+                        //.foregroundStyle(Color.preferredColor(<#fiori color#>))
+                        //.font(.fiori(forTextStyle: <#fiori font#>))
+                }
+            }
+            """
+            .commented()
+        case .composite:
+            return """
+            /**
+             This file provides default fiori style for the component.
+             
+             1. Uncomment fhe following code.
+             2. Implement layout and style in corresponding places.
+             3. Delete `.generated` from file name.
+             4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+             */
+
+            // Base Layout style
+            public struct \(baseStyleName): \(styleProtocolName) {
+                public func makeBody(_ configuration: \(configurationName)) -> some View {
+                    // Add default layout here
+                    \(allStoredVariables.configurationResultBuilderPropertyListDecl)
+                }
+            }
+                
+            // Default fiori styles
+            extension \(fioriStyleName) {
+                \(allStoredVariables.baseComponentFioriStyleDeclList)
+            }
+            """
+            .commented()
+        }
+    }
+    
+    var styleTypeEraserDecl: String {
+        """
+        struct Any\(styleProtocolName): \(styleProtocolName) {
+            let content: (\(configurationName)) -> any View
+        
+            init(@ViewBuilder _ content: @escaping (\(configurationName)) -> any View) {
+                self.content = content
+            }
+        
+            public func makeBody(_ configuration: \(configurationName)) -> some View {
+                self.content(configuration).typeErased
+            }
+        }
+        """
+    }
+    
+    var resolvedStyleDecl: String {
+        """
+        // MARK: \(styleProtocolName)
+        
+        struct Resolved\(styleProtocolName)<Style: \(styleProtocolName)>: View {
+            let style: Style
+            let configuration: \(configurationName)
+            var body: some View {
+                style.makeBody(configuration)
+            }
+        }
+        
+        extension \(styleProtocolName) {
+            func resolve(configuration: \(configurationName)) -> some View {
+                Resolved\(styleProtocolName)(style: self, configuration: configuration)
+            }
+        }
+        """
+    }
+    
+    var styleStackKeyDecl: String {
+        let defaultStyle: String
+        switch componentType {
+        case .base:
+            defaultStyle = ".base"
+        case .composite:
+            defaultStyle = ".base.concat(.fiori)"
+        }
+        
+        return """
+        // MARK: \(styleProtocolName)
+        
+        struct \(styleProtocolName)StackKey: EnvironmentKey {
+            static let defaultValue: [any \(styleProtocolName)] = []
+        }
+        
+        extension EnvironmentValues {
+            var \(styleProtocolName.lowercasingFirst()): any \(styleProtocolName) {
+                \(styleStackVariableName).last ?? \(defaultStyle)
+            }
+
+            var \(styleStackVariableName): [any \(styleProtocolName)] {
+                get {
+                    self[\(styleStackKeyName).self]
+                }
+                set {
+                    self[\(styleStackKeyName).self] = newValue
+                }
+            }
+        }
+        """
+    }
+    
+    var styleModifierDecl: String {
+        """
+        // MARK: \(styleProtocolName)
+        
+        extension ModifiedStyle: \(styleProtocolName) where Style: \(styleProtocolName) {
+            public func makeBody(_ configuration: \(configurationName)) -> some View {
+                \(componentName)(configuration)
+                    .\(styleProtocolName.lowercasingFirst())(self.style)
+                    .modifier(self.modifier)
+            }
+        }
+        
+        public struct \(styleModifierName)<Style: \(styleProtocolName)>: ViewModifier {
+            let style: Style
+        
+            public func body(content: Content) -> some View {
+                content.\(styleProtocolName.lowercasingFirst())(self.style)
+            }
+        }
+        
+        public extension \(styleProtocolName) {
+            func modifier(_ modifier: some ViewModifier) -> some \(styleProtocolName) {
+                ModifiedStyle(style: self, modifier: modifier)
+            }
+        
+            func concat(_ style: some \(styleProtocolName)) -> some \(styleProtocolName) {
+                style.modifier(\(styleModifierName)(style: self))
+            }
+        }
+        """
+    }
+    
+    var styleViewExtensionDecl: String {
+        """
+        // MARK: \(styleProtocolName)
+        
+        public extension View {
+            func \(styleProtocolName.lowercasingFirst())(_ style: some \(styleProtocolName)) -> some View {
+                self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
+                    stack.append(style)
+                }
+            }
+            
+            func \(styleProtocolName.lowercasingFirst())(@ViewBuilder content: @escaping (\(configurationName)) -> some View) -> some View {
+                self.transformEnvironment(\(styleStackKeyPathExpr)) { stack in
+                    let style = Any\(styleProtocolName)(content)
+                    stack.append(style)
+                }
+            }
+        }
+        """
+    }
+}
+
+public extension Type {
+    var configurationName: String {
+        "\(componentName)Configuration"
+    }
+    
+    var styleProtocolName: String {
+        "\(componentName)Style"
+    }
+    
+    var baseStyleName: String {
+        "\(componentName)BaseStyle"
+    }
+    
+    var fioriStyleName: String {
+        "\(componentName)FioriStyle"
+    }
+    
+    var styleModifierName: String {
+        "\(self.styleProtocolName)Modifier"
+    }
+    
+    var styleStackKeyName: String {
+        "\(self.styleProtocolName)StackKey"
+    }
+    
+    var styleStackVariableName: String {
+        "\(self.styleProtocolName.lowercasingFirst())Stack"
+    }
+    
+    var styleStackKeyPathExpr: String {
+        "\\.\(self.styleStackVariableName)"
+    }
+}
+
+public extension Type {
+    enum ComponentType {
+        case base
+        case composite
+    }
+    
+    var componentType: ComponentType {
+        if self.isBaseComponent {
+            return .base
+        } else if self.isCompositeComponent {
+            return .composite
+        } else {
+            return .base
+        }
+    }
+    
+    var isBaseComponent: Bool {
+        annotations.isBaseComponent
+    }
+    
+    var isCompositeComponent: Bool {
+        annotations.isCompositeComponent
+    }
+}
+
 // MARK: - Public API
 
 public extension Type {
+    // TODO: merge annotations for each variable
     static func getAllStoredVariables(for type: Type) -> [Variable] {
         var ret: [Variable] = []
         
@@ -68,7 +562,14 @@ extension Type {
 
 public extension Type {
     var componentName: String {
-        name.replacingOccurrences(of: "Model", with: "")
+        var name = name
+        if name.hasSuffix("Model") {
+            name = name.replacingOccurrences(of: "Model", with: "")
+        } else if name.hasSuffix("Component") {
+            name = name.replacingOccurrences(of: "Component", with: "")
+        }
+        
+        return name.trimmingPrefix("_")
     }
     
     var allStoredVariables: [Variable] {
@@ -248,7 +749,7 @@ public extension Type {
     }
 
     internal func closureProperties(contextType: [String: Type]) -> [Variable] {
-        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
+        inheritedTypes.compactMap { contextType[$0] }.flatMap(\.allMethods).map { (method) -> Variable in
 
             let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)"
 
@@ -317,7 +818,7 @@ extension Type {
             let regularProperties = componentType.variables
             let closureProperties = componentType.closureProperties
             let properties = regularProperties + closureProperties
-            let propertyNames = properties.map { $0.trimmedName }
+            let propertyNames = properties.map(\.trimmedName)
             let nilCheckPropertyNames = properties.compactMap {
                 ($0.isOptional || $0.annotations["bindingPropertyOptional"] != nil) && $0.annotations["no_nil_check"] == nil ?
                     $0.trimmedName : nil
@@ -481,7 +982,7 @@ public extension Type {
     
     var allStoredVariablesExcludingBackedComponents: [Variable] {
         let variables = self.allStoredVariables
-        let variablesInBackedComponents = self.getInheritedTypesBackedByComponent().types.flatMap { $0.allStoredVariables }
+        let variablesInBackedComponents = self.getInheritedTypesBackedByComponent().types.flatMap(\.allStoredVariables)
         return variables.filter { !variablesInBackedComponents.contains($0) }
     }
     

@@ -1,6 +1,7 @@
 // swift-tools-version:5.9
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
+import CompilerPluginSupport
 import PackageDescription
 
 let package = Package(
@@ -24,9 +25,6 @@ let package = Package(
             targets: ["FioriThemeManager"]
         )
     ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-    ],
     targets: [
         .target(
             name: "FioriSwiftUI",
@@ -43,11 +41,10 @@ let package = Package(
                 .target(name: "FioriThemeManager", condition: .when(platforms: [.iOS, .visionOS])),
                 .target(name: "FioriCharts", condition: .when(platforms: [.iOS, .visionOS]))
             ],
-            resources: [.process("FioriSwiftUICore.strings")]
+            resources: [.process("_localization")]
         ),
         .target(
             name: "FioriThemeManager",
-            dependencies: [],
             resources: [
                 .process("72-Fonts/Resources"),
                 .process("FioriIcons/Resources/FioriIcon.xcassets")

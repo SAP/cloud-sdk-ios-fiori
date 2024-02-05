@@ -57,6 +57,9 @@ struct DataTableItem: Identifiable, Hashable {
     // cache the selected index for `DataListItem`
     var selectedIndex: Int?
     
+    /// Is the cell read-only or not for the inline editing mode.
+    var isReadonly: Bool = false
+    
     init(type: DataItemType,
          rowIndex: Int,
          columnIndex: Int,
@@ -71,7 +74,8 @@ struct DataTableItem: Identifiable, Hashable {
          offset: CGPoint = .zero,
          textAlignment: TextAlignment = .leading,
          lineLimit: Int? = nil,
-         isValid: Bool)
+         isValid: Bool,
+         isReadonly: Bool = false)
     {
         self.type = type
         self.rowIndex = rowIndex
@@ -88,6 +92,7 @@ struct DataTableItem: Identifiable, Hashable {
         self.textAlignment = textAlignment
         self.lineLimit = lineLimit
         self.isValid = isValid
+        self.isReadonly = isReadonly
     }
     
     mutating func x(_ x: CGFloat) {
@@ -150,5 +155,6 @@ struct DataTableItem: Identifiable, Hashable {
         hasher.combine(self.size.width)
         hasher.combine(self.size.height)
         hasher.combine(self.isValid)
+        hasher.combine(self.isReadonly)
     }
 }
