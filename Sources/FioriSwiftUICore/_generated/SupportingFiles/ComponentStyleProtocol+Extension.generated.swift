@@ -115,6 +115,27 @@ public extension DemoViewStyle where Self == DemoViewNewActionStyle {
     }
 }
 
+public struct DemoViewSwitchStyle: DemoViewStyle {
+    let style: any SwitchStyle
+        
+    public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+        DemoView(configuration)
+            .switchStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension DemoViewStyle where Self == DemoViewSwitchStyle {
+    static func switchStyle<Style: SwitchStyle>(_ style: Style) -> DemoViewSwitchStyle {
+        DemoViewSwitchStyle(style: style)
+    }
+        
+    static func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> DemoViewSwitchStyle {
+        let style = AnySwitchStyle(content)
+        return DemoViewSwitchStyle(style: style)
+    }
+}
+
 // MARK: DescriptionStyle
     
 public extension DescriptionStyle where Self == DescriptionBaseStyle {
@@ -504,6 +525,20 @@ public extension SubtitleStyle where Self == SubtitleBaseStyle {
 public extension SubtitleStyle where Self == SubtitleFioriStyle {
     static var fiori: SubtitleFioriStyle {
         SubtitleFioriStyle()
+    }
+}
+
+// MARK: SwitchStyle
+    
+public extension SwitchStyle where Self == SwitchBaseStyle {
+    static var base: SwitchBaseStyle {
+        SwitchBaseStyle()
+    }
+}
+
+public extension SwitchStyle where Self == SwitchFioriStyle {
+    static var fiori: SwitchFioriStyle {
+        SwitchFioriStyle()
     }
 }
 

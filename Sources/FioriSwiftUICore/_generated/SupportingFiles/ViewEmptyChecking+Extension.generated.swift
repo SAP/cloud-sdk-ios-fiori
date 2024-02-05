@@ -89,6 +89,12 @@ extension Subtitle: _ViewEmptyChecking {
     }
 }
 
+extension Switch: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty

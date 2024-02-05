@@ -7,7 +7,8 @@ import SwiftUI
  
  1. Uncomment fhe following code.
  2. Implement layout and style in corresponding places.
- 3. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
+ 3. Delete `.generated` from file name.
+ 4. Move this file to `_FioriStyles` folder under `FioriSwiftUICore`.
  */
 
 // Base Layout style
@@ -19,7 +20,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             configuration.subtitle
             configuration.status
             configuration.newAction
-            Toggle(isOn: configuration.$isOn, label: {})
+            Switch(isOn: configuration.$isOn)
         }
         .padding()
     }
@@ -27,6 +28,14 @@ public struct DemoViewBaseStyle: DemoViewStyle {
     
 // Default fiori styles
 extension DemoViewFioriStyle {
+    struct ContentFioriStyle: DemoViewStyle {
+        func makeBody(_ configuration: DemoViewConfiguration) -> some View {
+            DemoView(configuration)
+            // Add default style for its content
+            // .background()
+        }
+    }
+    
     struct TitleFioriStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)

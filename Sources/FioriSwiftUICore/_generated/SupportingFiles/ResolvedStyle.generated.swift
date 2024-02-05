@@ -195,6 +195,22 @@ extension SubtitleStyle {
     }
 }
 
+// MARK: SwitchStyle
+
+struct ResolvedSwitchStyle<Style: SwitchStyle>: View {
+    let style: Style
+    let configuration: SwitchConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension SwitchStyle {
+    func resolve(configuration: SwitchConfiguration) -> some View {
+        ResolvedSwitchStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: TagsStyle
 
 struct ResolvedTagsStyle<Style: TagsStyle>: View {

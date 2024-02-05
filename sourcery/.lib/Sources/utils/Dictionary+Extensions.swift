@@ -31,6 +31,10 @@ public extension Dictionary where Key == String, Value == NSObject {
         self["@Binding"] != nil ? true : false
     }
     
+    var isComponent: Bool {
+        self.isBaseComponent || self.isCompositeComponent
+    }
+    
     var isBaseComponent: Bool {
         self["BaseComponent"] != nil ? true : false
     }

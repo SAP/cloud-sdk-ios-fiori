@@ -41,5 +41,6 @@ public struct DemoViewFioriStyle: DemoViewStyle {
             .subtitleStyle(SubtitleFioriStyle())
             .statusStyle(StatusFioriStyle())
             .newActionStyle(NewActionFioriStyle())
+            .switchStyle(SwitchFioriStyle())
     }
 }
