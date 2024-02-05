@@ -48,6 +48,12 @@ import SwiftUI
 
 // sourcery:end
 
+// sourcery:file:SupportingFiles/StyleConfiguration+Extension
+import Foundation
+import SwiftUI
+
+// sourcery:end
+
 <%_
 
 var components = types.protocols.filter { $0.isBaseComponent || $0.isCompositeComponent }
@@ -105,4 +111,11 @@ import SwiftUI
 // sourcery:file:SupportingFiles/ComponentStyleProtocol+Extension
 <%= component.styleProtocolExtensions %>
 // sourcery:end
+
+<%_ if !component.configurationExtensionDecl.isEmpty { -%>
+// sourcery:file:SupportingFiles/StyleConfiguration+Extension
+<%= component.configurationExtensionDecl %>
+// sourcery:end
+<%_ } -%>
+
 <%_ } -%>

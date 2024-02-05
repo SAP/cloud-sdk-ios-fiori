@@ -12,6 +12,8 @@ public struct DemoView {
 
     @Environment(\.demoViewStyle) var style
 
+    fileprivate var _shouldApplyDefaultStyle = true
+
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
                 @ViewBuilder status: () -> any View = { EmptyView() },
@@ -44,16 +46,35 @@ public extension DemoView {
         self.status = configuration.status
         self.newAction = configuration.newAction
         self._isOn = configuration.$isOn
+        self._shouldApplyDefaultStyle = false
     }
 }
 
 extension DemoView: View {
     public var body: some View {
-        style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), newAction: .init(self.newAction), isOn: self.$isOn)).typeErased
-            .transformEnvironment(\.demoViewStyleStack) { stack in
-                if !stack.isEmpty {
-                    stack.removeLast()
+        if _shouldApplyDefaultStyle {
+            self.defaultStyle()
+        } else {
+            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), newAction: .init(self.newAction), isOn: self.$isOn)).typeErased
+                .transformEnvironment(\.demoViewStyleStack) { stack in
+                    if !stack.isEmpty {
+                        stack.removeLast()
+                    }
                 }
-            }
+        }
+    }
+}
+
+private extension DemoView {
+    func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
+        var s = self
+        s._shouldApplyDefaultStyle = bool
+        return s
+    }
+        
+    func defaultStyle() -> some View {
+        DemoView(.init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), newAction: .init(self.newAction), isOn: self.$isOn))
+            .shouldApplyDefaultStyle(false)
+            .demoViewStyle(DemoViewFioriStyle.ContentFioriStyle())
     }
 }

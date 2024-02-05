@@ -78,6 +78,7 @@ protocol _NewActionComponent {
     var newAction: FioriButton? { get }
 }
 
+// sourcery: BaseComponent
 protocol _SwitchComponent {
     // sourcery: @Binding
     var isOn: Bool { get }

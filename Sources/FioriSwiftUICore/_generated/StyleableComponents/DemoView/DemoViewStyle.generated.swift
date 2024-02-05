@@ -37,9 +37,10 @@ public struct DemoViewConfiguration {
 public struct DemoViewFioriStyle: DemoViewStyle {
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
-            .titleStyle(TitleFioriStyle())
-            .subtitleStyle(SubtitleFioriStyle())
-            .statusStyle(StatusFioriStyle())
             .newActionStyle(NewActionFioriStyle())
+            .statusStyle(StatusFioriStyle())
+            .subtitleStyle(SubtitleFioriStyle())
+            .switchStyle(SwitchFioriStyle())
+            .titleStyle(TitleFioriStyle())
     }
 }

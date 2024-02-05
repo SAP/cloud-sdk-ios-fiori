@@ -4,60 +4,42 @@ import SourceryRuntime
 // MARK: Styleable Component
 
 public extension Type {
-//    var baseComponentDecl: String {
-//        componentDecl()
-//    }
-//
-//    var compositeComponentDecl: String {
-//        componentDecl(isBaseComponent: false)
-//    }
-    
     var componentDecl: String {
-        if isBaseComponent {
-            return """
-            public struct \(componentName) {
-                \(allStoredVariables.propertyListDecl)
-            
-                @Environment(\\.\(componentName.lowercasingFirst())Style) var style
-            
-                fileprivate var _shouldApplyDefaultStyle = true
-            
-                public init(\(allStoredVariables.viewBuilderInitParams)) {
-                    \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
-                }
-            }
-            
-            \(self.dataInitExtension)
-            
-            \(self.configurationInitExtension)
-            
-            \(self.viewBodyExtension)
-            
-            \(self.privateHelperExtension)
-            """
-        } else {
-            return """
-            public struct \(componentName) {
-                \(allStoredVariables.propertyListDecl)
-            
-                @Environment(\\.\(componentName.lowercasingFirst())Style) var style
-            
-                public init(\(allStoredVariables.viewBuilderInitParams)) {
-                    \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
-                }
-            }
-            
-            \(self.dataInitExtension)
-            
-            \(self.configurationInitExtension)
-            
-            \(self.viewBodyExtension)
-            """
+        """
+        public struct \(componentName) {
+            \(allStoredVariables.propertyListDecl)
+        
+            @Environment(\\.\(componentName.lowercasingFirst())Style) var style
+        
+            fileprivate var _shouldApplyDefaultStyle = true
+        
+            \(self.viewBuilderInit)
         }
+        
+        \(self.dataInitExtension)
+        
+        \(self.configurationInitExtension)
+        
+        \(self.viewBodyExtension)
+        
+        \(self.privateHelperExtension)
+        """
+    }
+    
+    var viewBuilderInit: String {
+        """
+        public init(\(allStoredVariables.viewBuilderInitParams)) {
+            \(allStoredVariables.viewBuilderInitBody(isBaseComponent: isBaseComponent))
+        }
+        """
     }
     
     var dataInitExtension: String {
-        """
+        if self.resultBuilderVariables.isEmpty {
+            return ""
+        }
+        
+        return """
         public extension \(componentName) {
             init(\(allStoredVariables.dataInitParams)) {
                 \(allStoredVariables.dataInitBody)
@@ -67,48 +49,23 @@ public extension Type {
     }
     
     var configurationInitExtension: String {
-        if isBaseComponent {
-            return """
-            public extension \(componentName) {
-                init(_ configuration: \(configurationName)) {
-                    \(allStoredVariables.configurationInitBody)
-                    self._shouldApplyDefaultStyle = false
-                }
+        """
+        public extension \(componentName) {
+            init(_ configuration: \(configurationName)) {
+                \(allStoredVariables.configurationInitBody)
+                self._shouldApplyDefaultStyle = false
             }
-            """
-        } else {
-            return """
-            public extension \(componentName) {
-                init(_ configuration: \(configurationName)) {
-                    \(allStoredVariables.configurationInitBody)
-                }
-            }
-            """
         }
+        """
     }
     
     var viewBodyExtension: String {
-        if isBaseComponent {
-            return """
-            extension \(componentName): View {
-                public var body: some View {
-                    if _shouldApplyDefaultStyle {
-                        self.defaultStyle()
-                    } else {
-                        style.resolve(configuration: .init(\(allStoredVariables.configurationInitArgs))).typeErased
-                            .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
-                                if !stack.isEmpty {
-                                    stack.removeLast()
-                                }
-                            }
-                    }
-                }
-            }
-            """
-        } else {
-            return """
-            extension \(componentName): View {
-                public var body: some View {
+        """
+        extension \(componentName): View {
+            public var body: some View {
+                if _shouldApplyDefaultStyle {
+                    self.defaultStyle()
+                } else {
                     style.resolve(configuration: .init(\(allStoredVariables.configurationInitArgs))).typeErased
                         .transformEnvironment(\\.\(styleProtocolName.lowercasingFirst())Stack) { stack in
                             if !stack.isEmpty {
@@ -117,20 +74,32 @@ public extension Type {
                         }
                 }
             }
-            """
         }
+        """
     }
     
     var privateHelperExtension: String {
-        let initArgs = allStoredVariables.map { variable in
-            let name = variable.name
-            if variable.resultBuilderAttrs != nil {
-                return "\(name): { self.\(name) }"
-            } else {
-                return "\(name): self.\(name)"
+        let initDecl: String
+        let fioriStyle: String
+        switch self.componentType {
+        case .base:
+            let initArgs = allStoredVariables.map { variable in
+                let name = variable.name
+                if variable.resultBuilderAttrs != nil {
+                    return "\(name): { self.\(name) }"
+                } else if variable.isConvertedToBinding {
+                    return "\(name): self.$\(name)"
+                } else {
+                    return "\(name): self.\(name)"
+                }
             }
+            .joined(separator: ",\n")
+            initDecl = "\(componentName)(\(initArgs))"
+            fioriStyle = ".fiori"
+        case .composite:
+            initDecl = "\(componentName)(.init(\(allStoredVariables.configurationInitArgs)))"
+            fioriStyle = "\(self.fioriStyleName).ContentFioriStyle()"
         }
-        .joined(separator: "\n")
         
         return """
         private extension \(componentName) {
@@ -141,9 +110,9 @@ public extension Type {
             }
                 
             func defaultStyle() -> some View {
-                \(componentName)(\(initArgs))
+                \(initDecl)
                 .shouldApplyDefaultStyle(false)
-                .\(styleProtocolName.lowercasingFirst())(.fiori)
+                .\(styleProtocolName.lowercasingFirst())(\(fioriStyle))
             }
         }
         """
@@ -236,9 +205,42 @@ public extension Type {
                 }
             }
                 
-            \(allStoredVariables.baseComponentStyleExtentionList(for: self))
+            \(self.childComponentStyleExtentionList)
             """
         }
+    }
+    
+    var childComponentStyleExtentionList: String {
+        let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+        
+        return protocols.map { type in
+            let baseComponentStyleDecl = "\(self.componentName)\(type.styleProtocolName)"
+            let styleModifierFuncName = "\(type.styleProtocolName.lowercasingFirst())"
+            let styleModifierExpr = ".\(styleModifierFuncName)"
+            return """
+            public struct \(baseComponentStyleDecl): \(self.styleProtocolName) {
+                let style: any \(type.styleProtocolName)
+                    
+                public func makeBody(_ configuration: \(self.configurationName)) -> some View {
+                    \(self.componentName)(configuration)
+                        \(styleModifierExpr)(self.style)
+                        .typeErased
+                }
+            }
+                
+            public extension \(self.styleProtocolName) where Self == \(baseComponentStyleDecl) {
+                static func \(styleModifierFuncName)<Style: \(type.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
+                    \(baseComponentStyleDecl)(style: style)
+                }
+                    
+                static func \(styleModifierFuncName)(@ViewBuilder content: @escaping (\(type.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
+                    let style = Any\(type.styleProtocolName)(content)
+                    return \(baseComponentStyleDecl)(style: style)
+                }
+            }
+            """
+        }
+        .joined(separator: "\n\n")
     }
     
     var fioriStyleDecl: String {
@@ -246,10 +248,19 @@ public extension Type {
         public struct \(fioriStyleName): \(styleProtocolName) {
             public func makeBody(_ configuration: \(configurationName)) -> some View {
                 \(componentName)(configuration)
-                    \(allStoredVariables.componentFioriStyleModifierList)
+                    \(self.componentFioriStyleModifierList)
             }
         }
         """
+    }
+    
+    var componentFioriStyleModifierList: String {
+        let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+        
+        return protocols.map { type in
+            ".\(type.styleProtocolName.lowercasingFirst())(\(type.fioriStyleName)())"
+        }
+        .joined(separator: "\n")
     }
     
     var styleProtocolImplementations: String {
@@ -305,11 +316,43 @@ public extension Type {
                 
             // Default fiori styles
             extension \(fioriStyleName) {
-                \(allStoredVariables.baseComponentFioriStyleDeclList)
+                \(self.compositeComponentContentFioriStyleDecl)
+            
+                \(self.compositeComponentFioriStyleDeclList)
             }
             """
             .commented()
         }
+    }
+    
+    var compositeComponentContentFioriStyleDecl: String {
+        """
+        struct ContentFioriStyle: \(self.styleProtocolName) {
+            func makeBody(_ configuration: \(self.configurationName)) -> some View {
+                \(self.componentName)(configuration)
+                // Add default style for its content
+                //.background()
+            }
+        }
+        """
+    }
+    
+    var compositeComponentFioriStyleDeclList: String {
+        let protocols = self.conformingBaseComponentProtocols + self.parentCompositeComponentProtocols
+        
+        return protocols.map { type in
+            """
+            struct \(type.fioriStyleName): \(type.styleProtocolName) {
+                func makeBody(_ configuration: \(type.configurationName)) -> some View {
+                    \(type.componentName)(configuration)
+                    // Add default style for \(type.componentName)
+                    //.foregroundStyle(Color.preferredColor(<#fiori color#>))
+                    //.font(.fiori(forTextStyle: <#fiori font#>))
+                }
+            }
+            """
+        }
+        .joined(separator: "\n\n")
     }
     
     var styleTypeEraserDecl: String {
@@ -433,6 +476,29 @@ public extension Type {
         }
         """
     }
+    
+    var configurationExtensionDecl: String {
+        if self.parentCompositeComponentProtocols.isEmpty {
+            return ""
+        }
+        
+        let memberList = self.parentCompositeComponentProtocols.map { type in
+            """
+            var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
+                \(type.componentName)(configuration: \(type.allStoredVariables.configurationInitArgs)
+            }
+            """
+        }
+        .joined(separator: "\n\n")
+        
+        return """
+        // MARK: \(self.configurationName)
+        
+        extension \(self.configurationName) {
+            \(memberList)
+        }
+        """
+    }
 }
 
 public extension Type {
@@ -485,12 +551,66 @@ public extension Type {
         }
     }
     
+    var isComponent: Bool {
+        self.isBaseComponent || self.isCompositeComponent
+    }
+    
     var isBaseComponent: Bool {
         annotations.isBaseComponent
     }
     
     var isCompositeComponent: Bool {
         annotations.isCompositeComponent
+    }
+}
+
+public extension Type {
+    // All base component protocols in the inheritance chain
+    var conformingBaseComponentProtocols: [Type] {
+        self.conformingComponentProtocols.filter { $0.componentType == .base }
+    }
+    
+    // Composite component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
+    var parentCompositeComponentProtocols: [Type] {
+        self.implements.values.filter { $0.componentType == .composite }
+            .sorted { lhs, rhs in
+                lhs.name < rhs.name
+            }
+    }
+    
+    // All base and composite component protocols in the inheritance chain
+    var conformingComponentProtocols: [Type] {
+        var protocols: [Type] = []
+        var set: Set<Type> = []
+        for p in self.implements.values {
+            self.traverse(p, self, &protocols, &set)
+        }
+        return protocols.sorted { lhs, rhs in
+            lhs.name < rhs.name
+        }
+    }
+    
+    private func traverse(_ type: Type, _ root: Type, _ result: inout [Type], _ set: inout Set<Type>) {
+        guard type.isComponent else {
+            return
+        }
+        
+        for p in type.implements.values {
+            self.traverse(p, root, &result, &set)
+        }
+        
+        if set.contains(type) {
+            fatalError("Protocol \(root) implements \(type) twice in its declaration, which is not allowed.")
+        } else {
+            result.append(type)
+            set.insert(type)
+        }
+    }
+}
+
+public extension Type {
+    var resultBuilderVariables: [Variable] {
+        allStoredVariables.filter { $0.resultBuilderAttrs != nil }
     }
 }
 

@@ -255,6 +255,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: SwitchStyle
+
+struct SwitchStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any SwitchStyle] = []
+}
+
+extension EnvironmentValues {
+    var switchStyle: any SwitchStyle {
+        switchStyleStack.last ?? .base
+    }
+
+    var switchStyleStack: [any SwitchStyle] {
+        get {
+            self[SwitchStyleStackKey.self]
+        }
+        set {
+            self[SwitchStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 struct TagsStyleStackKey: EnvironmentKey {

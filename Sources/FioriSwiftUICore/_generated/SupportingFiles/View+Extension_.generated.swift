@@ -207,6 +207,23 @@ public extension View {
     }
 }
 
+// MARK: SwitchStyle
+
+public extension View {
+    func switchStyle(_ style: some SwitchStyle) -> some View {
+        self.transformEnvironment(\.switchStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func switchStyle(@ViewBuilder content: @escaping (SwitchConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.switchStyleStack) { stack in
+            let style = AnySwitchStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: TagsStyle
 
 public extension View {

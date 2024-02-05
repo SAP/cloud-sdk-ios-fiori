@@ -52,17 +52,17 @@ public struct NewObjectItemConfiguration {
 public struct NewObjectItemFioriStyle: NewObjectItemStyle {
     public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
         NewObjectItem(configuration)
-            .titleStyle(TitleFioriStyle())
-            .subtitleStyle(SubtitleFioriStyle())
-            .footnoteStyle(FootnoteFioriStyle())
+            .avatarsStyle(AvatarsFioriStyle())
             .descriptionStyle(DescriptionFioriStyle())
+            .detailImageStyle(DetailImageFioriStyle())
+            .footnoteStyle(FootnoteFioriStyle())
+            .footnoteIconsStyle(FootnoteIconsFioriStyle())
+            .iconsStyle(IconsFioriStyle())
+            .newActionStyle(NewActionFioriStyle())
             .statusStyle(StatusFioriStyle())
             .substatusStyle(SubstatusFioriStyle())
-            .detailImageStyle(DetailImageFioriStyle())
-            .iconsStyle(IconsFioriStyle())
-            .avatarsStyle(AvatarsFioriStyle())
-            .footnoteIconsStyle(FootnoteIconsFioriStyle())
+            .subtitleStyle(SubtitleFioriStyle())
             .tagsStyle(TagsFioriStyle())
-            .newActionStyle(NewActionFioriStyle())
+            .titleStyle(TitleFioriStyle())
     }
 }

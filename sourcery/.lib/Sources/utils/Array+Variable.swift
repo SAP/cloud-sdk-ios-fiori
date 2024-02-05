@@ -106,15 +106,19 @@ public extension Array where Element == Variable {
     }
     
     var viewEmptyCheckingBody: String {
-        compactMap { variable in
+        let ret = compactMap { variable in
             let name = variable.name
             if variable.resultBuilderAttrs != nil {
                 return "\(name).isEmpty"
+            } else if variable.isOptional {
+                return "\(name) == nil"
             } else {
                 return nil
             }
         }
         .joined(separator: " ||\n")
+        
+        return ret.isEmpty ? "false" : ret
     }
     
     var configurationPropertyListDecl: String {
@@ -145,73 +149,6 @@ public extension Array where Element == Variable {
             }
         }
         .joined(separator: "\n")
-    }
-    
-    var componentFioriStyleModifierList: String {
-        compactMap { variable in
-            let name = variable.name
-            if variable.resultBuilderAttrs != nil {
-                return "\(variable.styleModifierExpr)(\(variable.fioriStyleName)())"
-            } else {
-                return nil
-            }
-        }
-        .joined(separator: "\n")
-    }
-    
-    var baseComponentFioriStyleDeclList: String {
-        compactMap { variable in
-            let name = variable.name
-            if variable.resultBuilderAttrs != nil {
-                return """
-                struct \(variable.fioriStyleName): \(variable.styleProtocolName) {
-                    func makeBody(_ configuration: \(variable.configurationName)) -> some View {
-                        \(variable.componentName)(configuration)
-                        // Add default style here
-                        //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-                        //.font(.fiori(forTextStyle: <#fiori font#>))
-                    }
-                }
-                """
-            } else {
-                return nil
-            }
-        }
-        .joined(separator: "\n\n")
-    }
-    
-    func baseComponentStyleExtentionList(for compositeComponent: Type) -> String {
-        compactMap { variable in
-            let name = variable.name
-            if variable.resultBuilderAttrs != nil {
-                let baseComponentStyleDecl = "\(compositeComponent.componentName)\(variable.styleProtocolName)"
-                return """
-                public struct \(baseComponentStyleDecl): \(compositeComponent.styleProtocolName) {
-                    let style: any \(variable.styleProtocolName)
-                        
-                    public func makeBody(_ configuration: \(compositeComponent.configurationName)) -> some View {
-                        \(compositeComponent.componentName)(configuration)
-                            \(variable.styleModifierExpr)(self.style)
-                            .typeErased
-                    }
-                }
-                    
-                public extension \(compositeComponent.styleProtocolName) where Self == \(baseComponentStyleDecl) {
-                    static func \(variable.styleModifierName)<Style: \(variable.styleProtocolName)>(_ style: Style) -> \(baseComponentStyleDecl) {
-                        \(baseComponentStyleDecl)(style: style)
-                    }
-                        
-                    static func \(variable.styleModifierName)(@ViewBuilder content: @escaping (\(variable.configurationName)) -> some View) -> \(baseComponentStyleDecl) {
-                        let style = Any\(variable.styleProtocolName)(content)
-                        return \(baseComponentStyleDecl)(style: style)
-                    }
-                }
-                """
-            } else {
-                return nil
-            }
-        }
-        .joined(separator: "\n\n")
     }
 }
 

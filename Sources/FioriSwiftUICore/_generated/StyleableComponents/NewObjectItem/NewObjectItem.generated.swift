@@ -19,6 +19,8 @@ public struct NewObjectItem {
 
     @Environment(\.newObjectItemStyle) var style
 
+    fileprivate var _shouldApplyDefaultStyle = true
+
     public init(@ViewBuilder title: () -> any View,
                 @ViewBuilder subtitle: () -> any View = { EmptyView() },
                 @ViewBuilder footnote: () -> any View = { EmptyView() },
@@ -79,16 +81,35 @@ public extension NewObjectItem {
         self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
         self.newAction = configuration.newAction
+        self._shouldApplyDefaultStyle = false
     }
 }
 
 extension NewObjectItem: View {
     public var body: some View {
-        style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
-            .transformEnvironment(\.newObjectItemStyleStack) { stack in
-                if !stack.isEmpty {
-                    stack.removeLast()
+        if _shouldApplyDefaultStyle {
+            self.defaultStyle()
+        } else {
+            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
+                .transformEnvironment(\.newObjectItemStyleStack) { stack in
+                    if !stack.isEmpty {
+                        stack.removeLast()
+                    }
                 }
-            }
+        }
+    }
+}
+
+private extension NewObjectItem {
+    func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
+        var s = self
+        s._shouldApplyDefaultStyle = bool
+        return s
+    }
+        
+    func defaultStyle() -> some View {
+        NewObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction)))
+            .shouldApplyDefaultStyle(false)
+            .newObjectItemStyle(NewObjectItemFioriStyle.ContentFioriStyle())
     }
 }

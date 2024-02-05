@@ -344,6 +344,34 @@ public extension SubtitleStyle {
     }
 }
 
+// MARK: SwitchStyle
+
+extension ModifiedStyle: SwitchStyle where Style: SwitchStyle {
+    public func makeBody(_ configuration: SwitchConfiguration) -> some View {
+        Switch(configuration)
+            .switchStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SwitchStyleModifier<Style: SwitchStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.switchStyle(self.style)
+    }
+}
+
+public extension SwitchStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SwitchStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SwitchStyle) -> some SwitchStyle {
+        style.modifier(SwitchStyleModifier(style: self))
+    }
+}
+
 // MARK: TagsStyle
 
 extension ModifiedStyle: TagsStyle where Style: TagsStyle {
