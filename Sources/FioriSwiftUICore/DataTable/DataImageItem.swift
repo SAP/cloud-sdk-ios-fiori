@@ -12,6 +12,11 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
     /// Tint color for image.
     public var tintColor: Color?
     
+    /**
+     Determines whether the cell is read-only or not for inline editing mode.  `DataImageItem` ignores this property since it doesn't support inline editing yet.
+     */
+    public var isReadonly: Bool?
+    
     var hasBinding: Bool {
         self.binding != nil
     }
@@ -21,10 +26,12 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
     ///   - image: Image for item.
     ///   - tintColor: Tint color for image.
     ///   - binding: Mapping rule.
-    public init(_ image: Image, _ tintColor: Color? = nil, _ binding: ObjectViewProperty.Image? = nil) {
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
+    public init(_ image: Image, _ tintColor: Color? = nil, _ binding: ObjectViewProperty.Image? = nil, isReadonly: Bool? = nil) {
         self.image = image.resizable()
         self.tintColor = tintColor
         self.binding = binding
+        self.isReadonly = isReadonly
     }
     
     /// check equality
@@ -34,6 +41,10 @@ public struct DataImageItem: DataItemImageComponent, CheckBinding, Equatable {
         }
         
         if lhs.tintColor != rhs.tintColor {
+            return false
+        }
+        
+        if lhs.isReadonly != rhs.isReadonly {
             return false
         }
         

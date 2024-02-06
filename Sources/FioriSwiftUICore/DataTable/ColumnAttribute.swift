@@ -19,7 +19,8 @@ public struct ColumnAttribute {
     public var textAlignment: TextAlignment = .leading
     /// Setting the width for each column.
     public var width: Width = .flexible
-    
+    /// Read-only property for all cells in this column. If a cell's `isReadonly` within this column is set, then that value is used instead. `nil` means it is `false`.
+    public var isReadonly: Bool?
     /// used by date or time column
     public var dateFormatter: DateFormatter?
     
@@ -70,8 +71,10 @@ public struct ColumnAttribute {
     /// - Parameters:
     ///   - textAlignment: Text alignment in each column.
     ///   - width: Setting the width for each column.
-    public init(textAlignment: TextAlignment = .leading, width: Width = .flexible) {
+    ///   - isReadonly: Whether the column is read-only or not in inline editing mode.
+    public init(textAlignment: TextAlignment = .leading, width: Width = .flexible, isReadonly: Bool? = nil) {
         self.textAlignment = textAlignment
         self.width = width
+        self.isReadonly = isReadonly
     }
 }

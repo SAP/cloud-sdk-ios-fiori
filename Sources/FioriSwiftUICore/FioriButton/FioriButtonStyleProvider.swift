@@ -2,6 +2,21 @@ import Foundation
 import SwiftUI
 
 struct FioriButtonStyleProvider {
+    static func getPlainButtonStyle(state: UIControl.State) -> FioriButtonConfiguration {
+        let backgroundColor: Color = .preferredColor(.primaryBackground)
+        let foregroundColor: Color
+        switch state {
+        case .normal:
+            foregroundColor = Color.preferredColor(.tintColor)
+        case .highlighted, .selected:
+            foregroundColor = Color.preferredColor(.tintColorTapState)
+        default:
+            foregroundColor = Color.preferredColor(.separator)
+        }
+        
+        return FioriButtonConfiguration(foregroundColor: foregroundColor, backgroundColor: backgroundColor, font: .fiori(forTextStyle: .callout), padding: EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+    }
+    
     static func getPrimaryButtonStyle(state: UIControl.State) -> FioriButtonConfiguration {
         let backgroundColor: Color
         let foregroundColor: Color
@@ -133,5 +148,6 @@ extension View {
             .padding(config.padding)
             .background(RoundedRectangle(cornerRadius: 5).fill(config.backgroundColor))
             .frame(minWidth: 44, minHeight: 44)
+            .contentShape(Rectangle())
     }
 }

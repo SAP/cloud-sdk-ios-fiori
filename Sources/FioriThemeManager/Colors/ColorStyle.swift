@@ -297,7 +297,7 @@ public enum ColorStyle: String, CaseIterable {
     case mango4
     
     /// Mango 5
-    /// (dark variant) ![](https://dummyimage.com/48x18/F58F00.png&text=+)          Hex value: F58F00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
     /// (light variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
     @available(watchOS, unavailable)
     case mango5
@@ -315,7 +315,7 @@ public enum ColorStyle: String, CaseIterable {
     case mango7
     
     /// Mango 8
-    /// (dark variant) ![](https://dummyimage.com/48x18/6D1900.png&text=+)          Hex value: 6D1900FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
     @available(watchOS, unavailable)
     case mango8
@@ -762,7 +762,7 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Section Shadow
     /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B3D
-    /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 0000003D
+    /// (light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 0000005E
     @available(watchOS, unavailable)
     case sectionShadow
     
@@ -771,21 +771,21 @@ public enum ColorStyle: String, CaseIterable {
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
     /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/192027.png&text=+)        Hex color: 192027FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/1D252C.png&text=+)        Hex color: 1D252CFF
     @available(watchOS, unavailable)
     case primaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
-    /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 1F2428FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/2A3540.png&text=+)        Hex color: 2A3540FF
     @available(watchOS, unavailable)
     case secondaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
-    /// (base light variant) ![](https://dummyimage.com/48x18/0F1216.png&text=+)              Hex color: 0F1216FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/1F272F.png&text=+)        Hex color: 1F272FFF
+    /// (base light variant) ![](https://dummyimage.com/48x18/15181B.png&text=+)              Hex color: 15181BFF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/252E38.png&text=+)        Hex color: 252E38FF
     @available(watchOS, unavailable)
     case tertiaryGroupedBackground
     
@@ -794,18 +794,18 @@ public enum ColorStyle: String, CaseIterable {
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
     /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/192027.png&text=+)        Hex color: 192027FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/1D252C.png&text=+)        Hex color: 1D252CFF
     case primaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
     /// (base light variant) ![](https://dummyimage.com/48x18/0F1216.png&text=+)              Hex color: 0F1216FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/1F272F.png&text=+)        Hex color: 1F272FFF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/252E38.png&text=+)        Hex color: 252E38FF
     case secondaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
-    /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 1F2428FF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
     case tertiaryBackground
     
@@ -828,7 +828,7 @@ public enum ColorStyle: String, CaseIterable {
     case secondaryLabel
     
     /// Standard color for tertiary label.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75E5
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/475E75.png&text=+)          Hex value: 475E75E6
     /// (light variant - normal) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BEFF
     case tertiaryLabel
     
@@ -837,6 +837,18 @@ public enum ColorStyle: String, CaseIterable {
     /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
     case quaternaryLabel
     
+    /// Standard color for quinary label.
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/000000.png&text=+)          Hex value: 000000FF
+    @available(watchOS, unavailable)
+    case quinaryLabel
+
+    /// Standard color for neutral label.
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/354A5F.png&text=+)          Hex value: 354A5FFF
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    @available(watchOS, unavailable)
+    case neutralLabel
+
     // MARK: - Fill Colors (4 Colors)
     
     /// Standard color for primary fill.
@@ -858,8 +870,8 @@ public enum ColorStyle: String, CaseIterable {
     case tertiaryFill
     
     /// Standard color for quaternary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B14
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A814
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B1A
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A838
     @available(watchOS, unavailable)
     case quaternaryFill
     
@@ -877,6 +889,12 @@ public enum ColorStyle: String, CaseIterable {
     @available(watchOS, unavailable)
     case tintColor2
     
+    /// Color for tappable elements on less contrast backgrounds.
+    /// (dark variant) ![](https://dummyimage.com/48x18/0070F2.png&text=+)          Hex color: 0070F214
+    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex color: 4DB1FF29
+    @available(watchOS, unavailable)
+    case tintColor3
+    
     /// Wraps `tintColorTapStateLight` and `tintColorTapStateDark`.
     /// Use `Color.preferredColor(forStyle:background:)` to select appropriate variant.
     /// (dark variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex color: 0040B0FF
@@ -887,82 +905,112 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Semantic color for "negative" (bad) label, with light and dark color variants.
 
-    /// (dark variant) ![](https://dummyimage.com/48x18/D20A0A.png&text=+)          Hex value: D20A0AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/FF8CB2.png&text=+)          Hex value: FF8CB2FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
     case negativeLabel
     
     /// Semantic color for "positive" (good) label, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/256F3A.png&text=+)          Hex value: 256F3AFF
-    /// (light variant) ![](https://dummyimage.com/48x18/97DD40.png&text=+)          Hex value: 97DD40FF
+    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
     case positiveLabel
     
     /// Semantic color for "critical" (risky) label, with light and dark color variants.
     /// (dark variant) ![](https://dummyimage.com/48x18/C35500.png&text=+)          Hex value: C35500FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC933FF
+    /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
     case criticalLabel
     
+    /// Semantic color for "informative" label, with light and dark color variants.
+    /// (dark variant) ![](https://dummyimage.com/48x18/0057D2.png&text=+)          Hex value: 0057D2FF
+    /// (light variant) ![](https://dummyimage.com/48x18/4DB1FF.png&text=+)          Hex value: 4DB1FFFF
+    @available(watchOS, unavailable)
+    case informativeLabel
+    
     /// NegativeLabelTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/AA0808.png&text=+)          Hex value: AA0808FF
-    /// (light variant) ![](https://dummyimage.com/48x18/FF5C77.png&text=+)          Hex value: FF5C77FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/840606.png&text=+)          Hex value: 840606FF
+    /// (light variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE3939FF
     case negativeLabelTapState
     
     /// PositiveLabelTapState
     /// (dark variant) ![](https://dummyimage.com/48x18/1E592F.png&text=+)          Hex value: 1E592FFF
-    /// (light variant) ![](https://dummyimage.com/48x18/5DC122.png&text=+)          Hex value: 5DC122FF
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41DFF
     case positiveLabelTapState
     
     /// CriticalLabelTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/A93E00.png&text=+)          Hex value: A93E00FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/8D2A00.png&text=+)          Hex value: 8D2A00FF
     /// (light variant) ![](https://dummyimage.com/48x18/FFB300.png&text=+)          Hex value: FFB300FF
     case criticalLabelTapState
     
+    /// InformativeLabelTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/0040B0.png&text=+)          Hex value: 0040B0FF
+    /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FFFF
+    @available(watchOS, unavailable)
+    case informativeLabelTapState
+    
+    /// NeutralLabelTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/223548.png&text=+)          Hex value: 223548FF
+    /// (light variant) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    @available(watchOS, unavailable)
+    case neutralLabelTapState
+    
     /// Semantic color for "negative" (bad) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF80BC.png&text=+)          Hex value: FF80BC29
-    /// (light variant) ![](https://dummyimage.com/48x18/FF5252.png&text=+)          Hex value: FF525229
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE393914
+    /// (light variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE39391F
     @available(watchOS, unavailable)
     case negativeBackground
     
     /// Semantic color for "positive" (good) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/BDDE54.png&text=+)          Hex value: BDDE5429
-    /// (light variant) ![](https://dummyimage.com/48x18/66FF90.png&text=+)          Hex value: 66FF9029
+    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D14
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D1F
     @available(watchOS, unavailable)
     case positiveBackground
     
     /// Semantic color for "critical" (risky) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFD500.png&text=+)          Hex value: FFD50029
-    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC93329
+    /// (dark variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E7650014
+    /// (light variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E765001F
     @available(watchOS, unavailable)
     case criticalBackground
     
     /// Semantic color for "information" (neutral) background, with light and dark color variants.
-    /// (dark variant) ![](https://dummyimage.com/48x18/85D4FF.png&text=+)          Hex value: 85D4FF29
-    /// (light variant) ![](https://dummyimage.com/48x18/366CFE.png&text=+)          Hex value: 366CFE29
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF14
+    /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF1F
     @available(watchOS, unavailable)
     case informationBackground
     
+    /// Semantic color for "neutral" background, with light and dark color variants.
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B29
+    /// (light variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B38
+    @available(watchOS, unavailable)
+    case neutralBackground
+    
     /// NegativeBackgroundTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/FF80BC.png&text=+)          Hex value: FF80BC52
-    /// (light variant) ![](https://dummyimage.com/48x18/FF5252.png&text=+)          Hex value: FF52521F
+    /// (dark variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE393929
+    /// (light variant) ![](https://dummyimage.com/48x18/EE3939.png&text=+)          Hex value: EE393938
     @available(watchOS, unavailable)
     case negativeBackgroundTapState
     
     /// PositiveBackgroundTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/BDDE54.png&text=+)          Hex value: BDDE5452
-    /// (light variant) ![](https://dummyimage.com/48x18/66FF90.png&text=+)          Hex value: 66FF901F
+    /// (dark variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D29
+    /// (light variant) ![](https://dummyimage.com/48x18/36A41D.png&text=+)          Hex value: 36A41D38
     @available(watchOS, unavailable)
     case positiveBackgroundTapState
     
     /// CriticalBackgroundTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFD500.png&text=+)          Hex value: FFD50052
-    /// (light variant) ![](https://dummyimage.com/48x18/FFC933.png&text=+)          Hex value: FFC9331F
+    /// (dark variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E7650029
+    /// (light variant) ![](https://dummyimage.com/48x18/E76500.png&text=+)          Hex value: E7650038
     @available(watchOS, unavailable)
     case criticalBackgroundTapState
     
     /// InformationBackgroundTapState
-    /// (dark variant) ![](https://dummyimage.com/48x18/85D4FF.png&text=+)          Hex value: 85D4FF52
-    /// (light variant) ![](https://dummyimage.com/48x18/366CFE.png&text=+)          Hex value: 366CFE1F
+    /// (dark variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF29
+    /// (light variant) ![](https://dummyimage.com/48x18/1B90FF.png&text=+)          Hex value: 1B90FF38
     @available(watchOS, unavailable)
     case informationBackgroundTapState
+    
+    /// NeutralBackgroundTapState
+    /// (dark variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B29
+    /// (light variant) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B38
+    @available(watchOS, unavailable)
+    case neutralBackgroundTapState
     
     // MARK: - Separator Colors (2 Colors)
     
@@ -985,14 +1033,14 @@ public enum ColorStyle: String, CaseIterable {
     case header
     
     /// Blended color for navigation bar or headers.
-    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
-    /// (light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)          Hex value: 161C21FF
+    /// (dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFD9
+    /// (light variant) ![](https://dummyimage.com/48x18/13181D.png&text=+)          Hex value: 13181DE6
     @available(watchOS, unavailable)
     case headerBlended
     
     /// Transparent color for navigation bar or tap bar.
-    /// (dark variant) ![](https://dummyimage.com/48x18/111D29.png&text=+)          Hex value: 111D29D9
-    /// (light variant) ![](https://dummyimage.com/48x18/111D29.png&text=+)          Hex value: 111D29D9
+    /// (dark variant) ![](https://dummyimage.com/48x18/12171C.png&text=+)          Hex value: 12171CD9
+    /// (light variant) ![](https://dummyimage.com/48x18/12171C.png&text=+)          Hex value: 12171CD9
     @available(watchOS, unavailable)
     case barTransparent
     
@@ -1500,15 +1548,17 @@ public enum ColorStyle: String, CaseIterable {
                                                     .cardShadow, .sectionShadow, .primaryGroupedBackground,
                                                     .secondaryGroupedBackground, .tertiaryGroupedBackground,
                                                     .primaryBackground, .secondaryBackground, .tertiaryBackground,
-                                                    .navBarTitleLabel, .primaryLabel, .secondaryLabel, .tertiaryLabel, .quaternaryLabel,
-                                                    .primaryFill, .secondaryFill, .tertiaryFill, .quaternaryFill,
-                                                    .tintColor, .tintColor2, .tintColorTapState, .negativeLabel,
+                                                    .navBarTitleLabel, .primaryLabel, .secondaryLabel,
+                                                    .tertiaryLabel, .quaternaryLabel, .quinaryLabel, .informativeLabel,
+                                                    .neutralLabel, .primaryFill, .secondaryFill, .tertiaryFill, .quaternaryFill,
+                                                    .tintColor, .tintColor2, .tintColor3, .tintColorTapState, .negativeLabel,
                                                     .positiveLabel, .criticalLabel, .negativeLabelTapState,
-                                                    .positiveLabelTapState, .criticalLabelTapState,
+                                                    .positiveLabelTapState, .criticalLabelTapState, .neutralLabelTapState,
                                                     .negativeBackground, .positiveBackground, .criticalBackground,
-                                                    .informationBackground, .negativeBackgroundTapState,
+                                                    .informationBackground, .neutralBackground, .negativeBackgroundTapState,
                                                     .positiveBackgroundTapState, .criticalBackgroundTapState,
-                                                    .informationBackgroundTapState, .separator, .separatorOpaque,
+                                                    .informationBackgroundTapState, .informativeLabelTapState,
+                                                    .neutralBackgroundTapState, .separator, .separatorOpaque,
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
                                                     .footer, .cellBackground, .chart1, .chart2, .chart3, .chart4,
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,

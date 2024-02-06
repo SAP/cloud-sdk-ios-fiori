@@ -9,3 +9,15 @@ protocol ListDataProtocol {
     func cellForRow(_ indexPath: IndexPath) -> AnyView
     func containAccessoryView(_ indexPath: IndexPath) -> Bool
 }
+
+protocol ObjectItemListDataProtocol: ListDataProtocol {
+    var isNewObjectItem: Bool { get set }
+    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool)
+}
+
+extension ObjectItemListDataProtocol {
+    init(cellTapped: Binding<Bool>, isNewObjectItem: Bool) {
+        self.init(cellTapped: cellTapped)
+        self.isNewObjectItem = isNewObjectItem
+    }
+}

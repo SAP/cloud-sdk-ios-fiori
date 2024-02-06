@@ -132,16 +132,16 @@ struct DataTableExample: View {
             
             Section(header: Text("Sticky header/column")) {
                 NavigationLink("Not sticky header & column, baseline alignment",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 15, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
-                NavigationLink("Sticky header",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: true, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
+                NavigationLink("Sticky header with readonly rows",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 15, containLeadingAccessory: false, containTrailingAccessory: true, isHeaderSticky: true, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false, rowIndexesReadonly: [1, 3])))
                 
-                NavigationLink("Sticky column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: true, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
+                NavigationLink("Sticky column with readonly columns",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 15, containLeadingAccessory: true, containTrailingAccessory: false, isHeaderSticky: false, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, columnIndexesReadonly: [0, 2, 4])))
                 
-                NavigationLink("Sticky header & column",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 10, column: 5, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, isFixedWidth: true)))
+                NavigationLink("Sticky header & column with readonly cells",
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 15, containLeadingAccessory: false, containTrailingAccessory: false, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, isFixedWidth: false, isReadonlyForRandomCell: true)))
             }
             
             Section(header: Text("Variant rows/columns")) {
@@ -155,7 +155,7 @@ struct DataTableExample: View {
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 5, column: 3, isHeaderSticky: false, isFirstColumnSticky: false, isPinchZoomEnable: true, showListView: false)))
                 
                 NavigationLink("20 rows 12 columns",
-                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 12, containLeadingAccessory: false, containTrailingAccessory: false, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false), addRowsDuringScrolling: true))
+                               destination: DataTableExampleView(model: TestRowData.generateData(row: 20, column: 12, containLeadingAccessory: false, containTrailingAccessory: false, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false, isReadonlyForRandomCell: true), addRowsDuringScrolling: true))
                 
                 NavigationLink("300 rows 60 columns",
                                destination: DataTableExampleView(model: TestRowData.generateData(row: 300, column: 60, containIndex: true, isHeaderSticky: true, isFirstColumnSticky: true, isPinchZoomEnable: true, showListView: false)))
@@ -205,7 +205,8 @@ let row3WithAlignment = TableRowItem(data: [DataImageItem(Image("wheel")), DataT
 
 let row1WithDate = TableRowItem(data: [DataTextItem("Hello", Font.headline, Color.orange), DataImageItem(Image("wheel")), DataDateItem(Date(timeIntervalSince1970: 1), Font.largeTitle, Color.preferredColor(.chart2)), DataTimeItem(Date(timeIntervalSince1970: 1), Font.headline, Color.purple), DataDurationItem(3000, Font.footnote, Color.preferredColor(.secondaryLabel)), DataListItem("San Jose")])
 let row2WithDate = TableRowItem(data: [DataImageItem(Image("wheel")), DataTextItem("World"), DataDateItem(Date(timeIntervalSinceReferenceDate: 1), Font.title2), DataTimeItem(Date(timeIntervalSinceReferenceDate: 1000)), DataDurationItem(23000), DataListItem("New York", Font.headline)])
-let row3WithDate = TableRowItem(data: [DataTextItem("Leading", Font.largeTitle, Color.purple), DataImageItem(Image("wheel")), DataDateItem(Date(), Font.headline), DataTimeItem(Date()), DataDurationItem(12002), DataListItem("Los Angeles", Font.title3, Color.pink)])
+let row3WithDate = TableRowItem(data: [DataTextItem("Leading", Font.largeTitle, Color.purple, isReadonly: true),
+                                       DataImageItem(Image("wheel")), DataDateItem(Date(), Font.headline), DataTimeItem(Date()), DataDurationItem(12002), DataListItem("Los Angeles", Font.title3, Color.pink)])
 
 let threeRowThreeColumn = TableModel(headerData: nil,
                                      rowData: [row1WithAlignment, row2WithAlignment, row3WithAlignment],
@@ -249,7 +250,7 @@ public enum TestRowData {
     static let colors = [Color.purple, Color.green, Color.indigo, Color.orange, Color.preferredColor(.primaryLabel)]
     static let cities = ["Aberdeen", "Anchorage", "Arvada", "Arvada", "Bakersfield", "Birmingham", "Davenport", "Duluth", "Elkhart", "Hollywood", "Indianapolis", "Knoxville", "Laredo", "San Jose", "New York", "Los Angeles", "Las Vegas", "Tokyo", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio", "Dallas", "Rancho Cucamonga", "Vancouver"]
     
-    static func generateRowData(numOfColumns: Int, rowIndex: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, newRowHint: Bool = false) -> TableRowItem {
+    static func generateRowData(numOfColumns: Int, rowIndex: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, newRowHint: Bool = false, isReadonly: Bool = false, isReadonlyForRandomCell: Bool = false) -> TableRowItem {
         var data: [DataItem] = []
         for i in 0 ..< numOfColumns {
             let dataType = i % DataItemType.allCases.count
@@ -272,21 +273,21 @@ public enum TestRowData {
                     textString = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus mattis tristique pretium."
                 }
                 let finalText = containIndex ? "(\(rowIndex), \(i)): " + textString : textString
-                let textItem = DataTextItem(newRowHint ? "New column" : finalText, font, color)
+                let textItem = DataTextItem(newRowHint ? "New column" : finalText, font, color, isReadonly: isReadonlyForRandomCell ? ((Int.random(in: 0 ... 8) + rowIndex + i) % 5 == 0 ? true : nil) : nil)
                 data.append(textItem)
             case 2:
                 let ti = rowIndex * 3600 * 24 + (i + 4) * 3600
-                let dateItem = DataDateItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color)
+                let dateItem = DataDateItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color, isReadonly: isReadonlyForRandomCell ? ((Int.random(in: 0 ... 8) + rowIndex + i) % 5 == 0 ? true : nil) : nil)
                 data.append(dateItem)
             case 3:
                 let ti = rowIndex * 3600 + i * 60
-                let timeItem = DataTimeItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color)
+                let timeItem = DataTimeItem(Date(timeIntervalSinceReferenceDate: TimeInterval(ti)), font, color, isReadonly: isReadonlyForRandomCell ? ((Int.random(in: 0 ... 8) + rowIndex + i) % 5 == 0 ? true : nil) : nil)
                 data.append(timeItem)
             case 4:
-                let durationItem = DataDurationItem(TimeInterval(3600 + rowIndex * 600 + i), font, color)
+                let durationItem = DataDurationItem(TimeInterval(3600 + rowIndex * 600 + i), font, color, isReadonly: isReadonlyForRandomCell ? ((Int.random(in: 0 ... 8) + rowIndex + i) % 5 == 0 ? true : nil) : nil)
                 data.append(durationItem)
             default:
-                let listItem = DataListItem(cities[(rowIndex + i) % self.cities.count], font, color)
+                let listItem = DataListItem(cities[(rowIndex + i) % self.cities.count], font, color, isReadonly: isReadonlyForRandomCell ? ((Int.random(in: 0 ... 8) + rowIndex + i) % 5 == 0 ? true : nil) : nil)
                 data.append(listItem)
             }
         }
@@ -296,7 +297,7 @@ public enum TestRowData {
             print("trailing accessory tapped: \(rowIndex) tapped")
         }))
         
-        let output = TableRowItem(leadingAccessories: containLeadingAccessory ? lAccessories : [], trailingAccessory: containTrailingAccessory ? tAccessory : nil, data: data)
+        let output = TableRowItem(leadingAccessories: containLeadingAccessory ? lAccessories : [], trailingAccessory: containTrailingAccessory ? tAccessory : nil, data: data, isReadonly: isReadonly ? true : nil)
         
         return output
     }
@@ -310,27 +311,27 @@ public enum TestRowData {
         return TableRowItem(data: data)
     }
     
-    static func generateColumnAttributes(column: Int, isFixedWidth: Bool = false) -> [ColumnAttribute] {
+    static func generateColumnAttributes(column: Int, isFixedWidth: Bool = false, columnIndexesReadonly: [Int] = []) -> [ColumnAttribute] {
         var output: [ColumnAttribute] = []
-        for _ in 0 ..< column {
-            let att = ColumnAttribute(textAlignment: .leading, width: isFixedWidth ? .fixed(200) : .flexible)
+        for i in 0 ..< column {
+            let att = ColumnAttribute(textAlignment: .leading, width: isFixedWidth ? .fixed(200) : .flexible, isReadonly: columnIndexesReadonly.contains(i) ? true : nil)
             output.append(att)
         }
         return output
     }
     
-    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false, isFixedWidth: Bool = false) -> TableModel {
+    static func generateData(row: Int, column: Int, containLeadingAccessory: Bool = true, containTrailingAccessory: Bool = true, containIndex: Bool = false, isHeaderSticky: Bool = true, isFirstColumnSticky: Bool = true, isPinchZoomEnable: Bool = true, showListView: Bool = false, isFixedWidth: Bool = false, rowIndexesReadonly: [Int] = [], columnIndexesReadonly: [Int] = [], isReadonlyForRandomCell: Bool = false) -> TableModel {
         var res: [TableRowItem] = []
         var titles: [DataTextItem] = []
         for k in 0 ..< column {
             titles.append(DataTextItem(self.types[k % self.types.count]))
         }
         for i in 0 ..< row {
-            res.append(self.generateRowData(numOfColumns: column, rowIndex: i, containLeadingAccessory: containLeadingAccessory, containTrailingAccessory: containTrailingAccessory, containIndex: containIndex))
+            res.append(self.generateRowData(numOfColumns: column, rowIndex: i, containLeadingAccessory: containLeadingAccessory, containTrailingAccessory: containTrailingAccessory, containIndex: containIndex, isReadonly: rowIndexesReadonly.contains(i) ? true : false, isReadonlyForRandomCell: isReadonlyForRandomCell))
         }
         let header = TableRowItem(data: titles)
         let model = TableModel(headerData: header, rowData: res, isHeaderSticky: isHeaderSticky, isFirstColumnSticky: isFirstColumnSticky, isPinchZoomEnable: isPinchZoomEnable, showListView: showListView)
-        model.columnAttributes = self.generateColumnAttributes(column: column, isFixedWidth: isFixedWidth)
+        model.columnAttributes = self.generateColumnAttributes(column: column, isFixedWidth: isFixedWidth, columnIndexesReadonly: columnIndexesReadonly)
         model.didSelectRowAt = { rowIndex in
             print("Tapped row \(rowIndex)")
         }

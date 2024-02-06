@@ -1,3 +1,4 @@
 #!/bin/bash
 # exclude files in Sources/FioriSwiftUICore/_generated/ (needed as exclude option in .swiftformat config file is not honored by git-format-staged)
-npx git-format-staged --formatter 'mint run swiftformat stdin --stdinpath "{}"' '*.swift' '!Sources/FioriSwiftUICore/_generated/*'
+# npx git-format-staged --formatter 'mint run swiftformat stdin --stdinpath "{}"' '*.swift' '!Sources/FioriSwiftUICore/_generated/*'
+npx git-format-staged --formatter 'mint run swiftformat stdin --stdinpath "{}"' '*.swift' '!Sources/FioriSwiftUICore/_generated/Components/' '!Sources/FioriSwiftUICore/_generated/FioriStyleTemplates/' '!Sources/FioriSwiftUICore/_generated/ViewModels/'

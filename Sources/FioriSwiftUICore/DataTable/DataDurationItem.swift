@@ -30,6 +30,15 @@ public struct DataDurationItem: DataItemTextComponent, CheckBinding, Equatable {
         self.binding != nil
     }
     
+    /**
+     Determines whether the cell is read-only or not for inline editing mode. `nil` means it is `false`.
+     A cell's `isReadonly` is determined by the value of itself, the row, and the column.
+     If only one of these three values, is set then that value is used.
+     If two or three values are set, then the higher priority of value is used.
+     The order of priority from high to low is: cell, row, and column.
+     */
+    public var isReadonly: Bool?
+    
     /// Public initializer for `DataTextItem`
     /// - Parameters:
     ///   - duration: duration for the item.
@@ -37,12 +46,14 @@ public struct DataDurationItem: DataItemTextComponent, CheckBinding, Equatable {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    public init(_ duration: TimeInterval, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
+    public init(_ duration: TimeInterval, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil, isReadonly: Bool? = nil) {
         self.duration = duration
         self.font = font
         self.textColor = textColor
         self.binding = binding
         self.lineLimit = lineLimit
+        self.isReadonly = isReadonly
     }
     
     /// Public initializer for `DataTextItem`
@@ -52,12 +63,14 @@ public struct DataDurationItem: DataItemTextComponent, CheckBinding, Equatable {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    public init(duration: TimeInterval, uifont: UIFont? = nil, textColor: Color? = nil, binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil) {
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
+    public init(duration: TimeInterval, uifont: UIFont? = nil, textColor: Color? = nil, binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil, isReadonly: Bool? = nil) {
         self.duration = duration
         self.uifont = uifont
         self.textColor = textColor
         self.binding = binding
         self.lineLimit = lineLimit
+        self.isReadonly = isReadonly
     }
     
     func string(for columnAttribute: ColumnAttribute) -> String {
@@ -87,6 +100,10 @@ public struct DataDurationItem: DataItemTextComponent, CheckBinding, Equatable {
         }
         
         if lhs.textColor != rhs.textColor {
+            return false
+        }
+        
+        if lhs.isReadonly != rhs.isReadonly {
             return false
         }
         
