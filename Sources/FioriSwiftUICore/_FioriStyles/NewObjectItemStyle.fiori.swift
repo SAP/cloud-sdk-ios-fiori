@@ -71,8 +71,6 @@ public struct NewObjectItemBaseStyle: NewObjectItemStyle {
                 }
             }
         }
-        .contentShape(Rectangle())
-        .padding(EdgeInsets(top: 14, leading: 0, bottom: 14, trailing: 0))
     }
 }
 
@@ -500,8 +498,8 @@ extension NewObjectItemFioriStyle {
     struct ContentFioriStyle: NewObjectItemStyle {
         func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
             NewObjectItem(configuration)
-            // Add default style for its content
-            // .background()
+                // Add default style for its content
+                .contentShape(Rectangle())
         }
     }
     
@@ -625,3 +623,31 @@ public struct NewObjectItemBorderedAction: NewActionStyle {
             .lineLimit(2)
     }
 }
+
+#Preview(body: {
+    List {
+        NewObjectItem(title: {
+            Text("Title")
+        }, subtitle: {
+            Text("Subtitle")
+        }, footnote: {
+            Text("Footnote")
+        }, description: {
+            Text("Description")
+        }, status: {
+            Text("Status")
+        }, substatus: {
+            Text("Substatus")
+        }, detailImage: {
+            Image(systemName: "person.circle").resizable().frame(width: 45, height: 45)
+        }, icons: {
+            Text("1")
+            Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
+            Image(systemName: "paperclip").font(.system(size: 14))
+        })
+            .titleStyle { config in
+                config.title
+                    .foregroundStyle(.blue) // take effect
+            }
+    }
+})
