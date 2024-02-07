@@ -108,3 +108,12 @@ extension Variable {
         "\(self.componentName)Configuration"
     }
 }
+
+extension Variable {
+    var docText: String {
+        self.documentation.map { str in
+            "/// \(str)"
+        }
+        .joined(separator: "\n")
+    }
+}

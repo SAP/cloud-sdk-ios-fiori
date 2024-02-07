@@ -4,6 +4,7 @@ import SourceryRuntime
 extension Type {
     var componentDecl: String {
         """
+        \(docText)
         public struct \(componentName) {
             \(allStoredVariables.propertyListDecl)
         
@@ -615,5 +616,14 @@ extension Type {
             }
             return type
         }
+    }
+}
+
+extension Type {
+    var docText: String {
+        self.documentation.map { str in
+            "/// \(str)"
+        }
+        .joined(separator: "\n")
     }
 }

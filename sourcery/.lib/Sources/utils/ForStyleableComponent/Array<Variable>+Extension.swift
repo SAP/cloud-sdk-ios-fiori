@@ -9,14 +9,17 @@ extension Array where Element == Variable {
     /// ```
     var propertyListDecl: String {
         map { variable in
+            var varDecl = variable.documentation.isEmpty ? "" : variable.docText + "\n"
             if let (_, returnType, _, _) = variable.resultBuilderAttrs {
-                return "let \(variable.name): \(returnType)"
+                varDecl += "let \(variable.name): \(returnType)"
             } else if variable.isConvertedToBinding {
-                return "@Binding var \(variable.name): \(variable.typeName)"
+                varDecl += "@Binding var \(variable.name): \(variable.typeName)"
             } else {
                 let letOrVar = variable.isMutable ? "var" : "let"
-                return "\(letOrVar) \(variable.name): \(variable.typeName)"
+                varDecl += "\(letOrVar) \(variable.name): \(variable.typeName)"
             }
+            
+            return varDecl
         }
         .joined(separator: "\n")
     }

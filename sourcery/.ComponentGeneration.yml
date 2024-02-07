@@ -7,4 +7,6 @@ configurations:
       ./../Sources/FioriSwiftUICore/_generated
     args:
       selectedTypes: []
+    parseDocumentation: true
+    prune: true
 
