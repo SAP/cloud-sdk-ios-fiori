@@ -11,7 +11,11 @@ extension Variable {
             }
             
             if isOptional {
-                return "nil"
+                if !self.attributes.isEmpty {
+                    return "{ EmptyView() }"
+                } else {
+                    return "nil"
+                }
             } else if isArray {
                 return "[]"
             } else {
@@ -26,6 +30,10 @@ extension Variable {
 }
 
 extension Variable {
+    var isResultBuilder: Bool {
+        self.resultBuilderAttrs != nil || hasResultBuilderAttribute
+    }
+    
     var resultBuilderAttrs: (name: String, returnType: String, defaultValue: String, backingComponent: String)? {
         if annotations.isViewBuilder {
             return ("@ViewBuilder", self.resultBuilderReturnType, self.resultBuilderDefaultValue, self.backingComponent)
@@ -84,6 +92,25 @@ extension Variable {
 }
 
 extension Variable {
+    var hasResultBuilderAttribute: Bool {
+        !self.attributes.isEmpty
+    }
+    
+    var resultBuilderInitParamDecl: String {
+        var ret = self.attributes.string + " "
+        ret += "\(self.name): \(self.resultBuilderTypeName ?? self.typeName.name)\(self.defaultValue.prependAssignmentIfNeeded())"
+        return ret
+    }
+    
+    var resultBuilderTypeName: String? {
+        guard self.hasResultBuilderAttribute else {
+            return nil
+        }
+        return self.typeName.closure?.name
+    }
+}
+
+extension Variable {
     var componentName: String {
         name.capitalizingFirst()
     }
@@ -115,5 +142,11 @@ extension Variable {
             "/// \(str)"
         }
         .joined(separator: "\n")
+    }
+}
+
+extension Variable {
+    var closureReturnType: String? {
+        self.typeName.closure?.actualReturnTypeName.name
     }
 }

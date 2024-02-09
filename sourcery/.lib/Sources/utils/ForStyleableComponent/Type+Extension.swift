@@ -84,7 +84,7 @@ extension Type {
         case .base:
             let initArgs = allStoredVariables.map { variable in
                 let name = variable.name
-                if variable.resultBuilderAttrs != nil {
+                if variable.isResultBuilder {
                     return "\(name): { self.\(name) }"
                 } else if variable.isConvertedToBinding {
                     return "\(name): self.$\(name)"
@@ -277,6 +277,7 @@ extension Type {
 
             // Base Layout style
             public struct \(baseStyleName): \(styleProtocolName) {
+                @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     // Add default layout here
                     \(allStoredVariables.configurationResultBuilderPropertyListDecl)
@@ -285,6 +286,7 @@ extension Type {
 
             // Default fiori styles
             public struct \(fioriStyleName): \(styleProtocolName) {
+                @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     \(componentName)(configuration)
                         // Add default style here
@@ -484,7 +486,7 @@ extension Type {
         let memberList = self.parentCompositeComponentProtocols.map { type in
             """
             var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
-                \(type.componentName)(configuration: \(type.allStoredVariables.configurationInitArgs)
+                \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)))
             }
             """
         }

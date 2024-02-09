@@ -12,6 +12,9 @@ extension Array where Element == Variable {
             var varDecl = variable.documentation.isEmpty ? "" : variable.docText + "\n"
             if let (_, returnType, _, _) = variable.resultBuilderAttrs {
                 varDecl += "let \(variable.name): \(returnType)"
+            } else if variable.hasResultBuilderAttribute {
+                let type = variable.closureReturnType ?? variable.typeName.name
+                varDecl += "let \(variable.name): \(type)"
             } else if variable.isConvertedToBinding {
                 varDecl += "@Binding var \(variable.name): \(variable.typeName)"
             } else {
@@ -29,6 +32,8 @@ extension Array where Element == Variable {
             let decl: String
             if let (name, returnType, defaultValue, _) = variable.resultBuilderAttrs {
                 return "\(name) \(variable.name): () -> \(returnType)\(defaultValue.prependAssignmentIfNeeded())"
+            } else if variable.hasResultBuilderAttribute {
+                return variable.resultBuilderInitParamDecl
             } else if variable.isConvertedToBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
             } else {
@@ -41,7 +46,7 @@ extension Array where Element == Variable {
     func viewBuilderInitBody(isBaseComponent: Bool) -> String {
         map { variable in
             let name = variable.name
-            if variable.resultBuilderAttrs != nil {
+            if variable.isResultBuilder {
                 let assignment = isBaseComponent ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
                 return "self.\(name) = \(assignment)"
             } else if variable.isConvertedToBinding {
@@ -58,6 +63,8 @@ extension Array where Element == Variable {
             let decl: String
             if variable.isConvertedToBinding {
                 return "\(variable.name): Binding<\(variable.typeName)>"
+            } else if variable.hasResultBuilderAttribute {
+                return variable.resultBuilderInitParamDecl
             } else {
                 return "\(variable.name): \(variable.typeName)\(variable.defaultValue.prependAssignmentIfNeeded())"
             }
@@ -95,7 +102,7 @@ extension Array where Element == Variable {
     var configurationInitArgs: String {
         map { variable in
             let name = variable.name
-            if variable.resultBuilderAttrs != nil {
+            if variable.isResultBuilder {
                 return "\(name): .init(self.\(name))"
             } else if variable.isConvertedToBinding {
                 return "\(name): self.$\(name)"
@@ -109,7 +116,7 @@ extension Array where Element == Variable {
     var viewEmptyCheckingBody: String {
         let ret = compactMap { variable in
             let name = variable.name
-            if variable.resultBuilderAttrs != nil {
+            if variable.isResultBuilder {
                 return "\(name).isEmpty"
             } else if variable.isOptional {
                 return "\(name) == nil"
@@ -127,7 +134,7 @@ extension Array where Element == Variable {
         var `typealias`: [String] = []
         for variable in self {
             let name = variable.name
-            if variable.resultBuilderAttrs != nil {
+            if variable.isResultBuilder {
                 props.append("public let \(name): \(name.capitalizingFirst())")
                 `typealias`.append("public typealias \(name.capitalizingFirst()) = ConfigurationViewWrapper")
             } else if variable.isConvertedToBinding {
@@ -143,7 +150,7 @@ extension Array where Element == Variable {
     var configurationResultBuilderPropertyListDecl: String {
         compactMap { variable in
             let name = variable.name
-            if variable.resultBuilderAttrs != nil {
+            if variable.isResultBuilder {
                 return "configuration.\(name)"
             } else {
                 return nil

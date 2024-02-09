@@ -7,3 +7,21 @@ protocol _NewObjectItemComponent: _TitleComponent, _SubtitleComponent, _Footnote
 
 // sourcery: CompositeComponent
 protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _NewActionComponent, _SwitchComponent {}
+
+// sourcery: CompositeComponent
+protocol _CardMediaComponent: _MediaImageComponent, _DescriptionComponent {}
+
+// sourcery: CompositeComponent
+protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _DetailImageComponent, _CounterComponent {}
+
+// sourcery: CompositeComponent
+protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component {}
+
+// sourcery: CompositeComponent
+protocol _CardFooterComponent: _NewActionComponent, _SecondaryActionComponent {}
+
+// sourcery: CompositeComponent
+protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _CardExtHeaderComponent {}
+
+// sourcery: CompositeComponent
+protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
