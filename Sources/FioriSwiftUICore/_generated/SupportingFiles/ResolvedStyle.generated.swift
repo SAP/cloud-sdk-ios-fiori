@@ -19,6 +19,134 @@ extension AvatarsStyle {
     }
 }
 
+// MARK: CardBodyStyle
+
+struct ResolvedCardBodyStyle<Style: CardBodyStyle>: View {
+    let style: Style
+    let configuration: CardBodyConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardBodyStyle {
+    func resolve(configuration: CardBodyConfiguration) -> some View {
+        ResolvedCardBodyStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardStyle
+
+struct ResolvedCardStyle<Style: CardStyle>: View {
+    let style: Style
+    let configuration: CardConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardStyle {
+    func resolve(configuration: CardConfiguration) -> some View {
+        ResolvedCardStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardExtHeaderStyle
+
+struct ResolvedCardExtHeaderStyle<Style: CardExtHeaderStyle>: View {
+    let style: Style
+    let configuration: CardExtHeaderConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardExtHeaderStyle {
+    func resolve(configuration: CardExtHeaderConfiguration) -> some View {
+        ResolvedCardExtHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardFooterStyle
+
+struct ResolvedCardFooterStyle<Style: CardFooterStyle>: View {
+    let style: Style
+    let configuration: CardFooterConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardFooterStyle {
+    func resolve(configuration: CardFooterConfiguration) -> some View {
+        ResolvedCardFooterStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardHeaderStyle
+
+struct ResolvedCardHeaderStyle<Style: CardHeaderStyle>: View {
+    let style: Style
+    let configuration: CardHeaderConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardHeaderStyle {
+    func resolve(configuration: CardHeaderConfiguration) -> some View {
+        ResolvedCardHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardMainHeaderStyle
+
+struct ResolvedCardMainHeaderStyle<Style: CardMainHeaderStyle>: View {
+    let style: Style
+    let configuration: CardMainHeaderConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardMainHeaderStyle {
+    func resolve(configuration: CardMainHeaderConfiguration) -> some View {
+        ResolvedCardMainHeaderStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CardMediaStyle
+
+struct ResolvedCardMediaStyle<Style: CardMediaStyle>: View {
+    let style: Style
+    let configuration: CardMediaConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CardMediaStyle {
+    func resolve(configuration: CardMediaConfiguration) -> some View {
+        ResolvedCardMediaStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: CounterStyle
+
+struct ResolvedCounterStyle<Style: CounterStyle>: View {
+    let style: Style
+    let configuration: CounterConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension CounterStyle {
+    func resolve(configuration: CounterConfiguration) -> some View {
+        ResolvedCounterStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: DemoViewStyle
 
 struct ResolvedDemoViewStyle<Style: DemoViewStyle>: View {
@@ -115,6 +243,22 @@ extension IconsStyle {
     }
 }
 
+// MARK: MediaImageStyle
+
+struct ResolvedMediaImageStyle<Style: MediaImageStyle>: View {
+    let style: Style
+    let configuration: MediaImageConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension MediaImageStyle {
+    func resolve(configuration: MediaImageConfiguration) -> some View {
+        ResolvedMediaImageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: NewActionStyle
 
 struct ResolvedNewActionStyle<Style: NewActionStyle>: View {
@@ -144,6 +288,70 @@ struct ResolvedNewObjectItemStyle<Style: NewObjectItemStyle>: View {
 extension NewObjectItemStyle {
     func resolve(configuration: NewObjectItemConfiguration) -> some View {
         ResolvedNewObjectItemStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: Row1Style
+
+struct ResolvedRow1Style<Style: Row1Style>: View {
+    let style: Style
+    let configuration: Row1Configuration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension Row1Style {
+    func resolve(configuration: Row1Configuration) -> some View {
+        ResolvedRow1Style(style: self, configuration: configuration)
+    }
+}
+
+// MARK: Row2Style
+
+struct ResolvedRow2Style<Style: Row2Style>: View {
+    let style: Style
+    let configuration: Row2Configuration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension Row2Style {
+    func resolve(configuration: Row2Configuration) -> some View {
+        ResolvedRow2Style(style: self, configuration: configuration)
+    }
+}
+
+// MARK: Row3Style
+
+struct ResolvedRow3Style<Style: Row3Style>: View {
+    let style: Style
+    let configuration: Row3Configuration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension Row3Style {
+    func resolve(configuration: Row3Configuration) -> some View {
+        ResolvedRow3Style(style: self, configuration: configuration)
+    }
+}
+
+// MARK: SecondaryActionStyle
+
+struct ResolvedSecondaryActionStyle<Style: SecondaryActionStyle>: View {
+    let style: Style
+    let configuration: SecondaryActionConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension SecondaryActionStyle {
+    func resolve(configuration: SecondaryActionConfiguration) -> some View {
+        ResolvedSecondaryActionStyle(style: self, configuration: configuration)
     }
 }
 

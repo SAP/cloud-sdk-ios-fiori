@@ -53,6 +53,8 @@ import SwiftUI
 import Foundation
 import SwiftUI
 
+// This file provides APIs for easy component construction which can be used when implementing the base layout.
+
 // sourcery:end
 
 <%_

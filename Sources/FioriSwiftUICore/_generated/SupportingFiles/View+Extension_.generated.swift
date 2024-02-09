@@ -20,6 +20,142 @@ public extension View {
     }
 }
 
+// MARK: CardBodyStyle
+
+public extension View {
+    func cardBodyStyle(_ style: some CardBodyStyle) -> some View {
+        self.transformEnvironment(\.cardBodyStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardBodyStyle(@ViewBuilder content: @escaping (CardBodyConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardBodyStyleStack) { stack in
+            let style = AnyCardBodyStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardStyle
+
+public extension View {
+    func cardStyle(_ style: some CardStyle) -> some View {
+        self.transformEnvironment(\.cardStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardStyle(@ViewBuilder content: @escaping (CardConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardStyleStack) { stack in
+            let style = AnyCardStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardExtHeaderStyle
+
+public extension View {
+    func cardExtHeaderStyle(_ style: some CardExtHeaderStyle) -> some View {
+        self.transformEnvironment(\.cardExtHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardExtHeaderStyle(@ViewBuilder content: @escaping (CardExtHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardExtHeaderStyleStack) { stack in
+            let style = AnyCardExtHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardFooterStyle
+
+public extension View {
+    func cardFooterStyle(_ style: some CardFooterStyle) -> some View {
+        self.transformEnvironment(\.cardFooterStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardFooterStyle(@ViewBuilder content: @escaping (CardFooterConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardFooterStyleStack) { stack in
+            let style = AnyCardFooterStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardHeaderStyle
+
+public extension View {
+    func cardHeaderStyle(_ style: some CardHeaderStyle) -> some View {
+        self.transformEnvironment(\.cardHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardHeaderStyle(@ViewBuilder content: @escaping (CardHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardHeaderStyleStack) { stack in
+            let style = AnyCardHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardMainHeaderStyle
+
+public extension View {
+    func cardMainHeaderStyle(_ style: some CardMainHeaderStyle) -> some View {
+        self.transformEnvironment(\.cardMainHeaderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardMainHeaderStyle(@ViewBuilder content: @escaping (CardMainHeaderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardMainHeaderStyleStack) { stack in
+            let style = AnyCardMainHeaderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CardMediaStyle
+
+public extension View {
+    func cardMediaStyle(_ style: some CardMediaStyle) -> some View {
+        self.transformEnvironment(\.cardMediaStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func cardMediaStyle(@ViewBuilder content: @escaping (CardMediaConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.cardMediaStyleStack) { stack in
+            let style = AnyCardMediaStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: CounterStyle
+
+public extension View {
+    func counterStyle(_ style: some CounterStyle) -> some View {
+        self.transformEnvironment(\.counterStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.counterStyleStack) { stack in
+            let style = AnyCounterStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: DemoViewStyle
 
 public extension View {
@@ -122,6 +258,23 @@ public extension View {
     }
 }
 
+// MARK: MediaImageStyle
+
+public extension View {
+    func mediaImageStyle(_ style: some MediaImageStyle) -> some View {
+        self.transformEnvironment(\.mediaImageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.mediaImageStyleStack) { stack in
+            let style = AnyMediaImageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: NewActionStyle
 
 public extension View {
@@ -151,6 +304,74 @@ public extension View {
     func newObjectItemStyle(@ViewBuilder content: @escaping (NewObjectItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.newObjectItemStyleStack) { stack in
             let style = AnyNewObjectItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: Row1Style
+
+public extension View {
+    func row1Style(_ style: some Row1Style) -> some View {
+        self.transformEnvironment(\.row1StyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func row1Style(@ViewBuilder content: @escaping (Row1Configuration) -> some View) -> some View {
+        self.transformEnvironment(\.row1StyleStack) { stack in
+            let style = AnyRow1Style(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: Row2Style
+
+public extension View {
+    func row2Style(_ style: some Row2Style) -> some View {
+        self.transformEnvironment(\.row2StyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func row2Style(@ViewBuilder content: @escaping (Row2Configuration) -> some View) -> some View {
+        self.transformEnvironment(\.row2StyleStack) { stack in
+            let style = AnyRow2Style(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: Row3Style
+
+public extension View {
+    func row3Style(_ style: some Row3Style) -> some View {
+        self.transformEnvironment(\.row3StyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> some View {
+        self.transformEnvironment(\.row3StyleStack) { stack in
+            let style = AnyRow3Style(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: SecondaryActionStyle
+
+public extension View {
+    func secondaryActionStyle(_ style: some SecondaryActionStyle) -> some View {
+        self.transformEnvironment(\.secondaryActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func secondaryActionStyle(@ViewBuilder content: @escaping (SecondaryActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.secondaryActionStyleStack) { stack in
+            let style = AnySecondaryActionStyle(content)
             stack.append(style)
         }
     }

@@ -36,6 +36,230 @@ public extension AvatarsStyle {
     }
 }
 
+// MARK: CardBodyStyle
+
+extension ModifiedStyle: CardBodyStyle where Style: CardBodyStyle {
+    public func makeBody(_ configuration: CardBodyConfiguration) -> some View {
+        CardBody(configuration)
+            .cardBodyStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardBodyStyleModifier<Style: CardBodyStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardBodyStyle(self.style)
+    }
+}
+
+public extension CardBodyStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardBodyStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardBodyStyle) -> some CardBodyStyle {
+        style.modifier(CardBodyStyleModifier(style: self))
+    }
+}
+
+// MARK: CardStyle
+
+extension ModifiedStyle: CardStyle where Style: CardStyle {
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .cardStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardStyleModifier<Style: CardStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardStyle(self.style)
+    }
+}
+
+public extension CardStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardStyle) -> some CardStyle {
+        style.modifier(CardStyleModifier(style: self))
+    }
+}
+
+// MARK: CardExtHeaderStyle
+
+extension ModifiedStyle: CardExtHeaderStyle where Style: CardExtHeaderStyle {
+    public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
+        CardExtHeader(configuration)
+            .cardExtHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardExtHeaderStyleModifier<Style: CardExtHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardExtHeaderStyle(self.style)
+    }
+}
+
+public extension CardExtHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardExtHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardExtHeaderStyle) -> some CardExtHeaderStyle {
+        style.modifier(CardExtHeaderStyleModifier(style: self))
+    }
+}
+
+// MARK: CardFooterStyle
+
+extension ModifiedStyle: CardFooterStyle where Style: CardFooterStyle {
+    public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
+        CardFooter(configuration)
+            .cardFooterStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardFooterStyleModifier<Style: CardFooterStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardFooterStyle(self.style)
+    }
+}
+
+public extension CardFooterStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardFooterStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardFooterStyle) -> some CardFooterStyle {
+        style.modifier(CardFooterStyleModifier(style: self))
+    }
+}
+
+// MARK: CardHeaderStyle
+
+extension ModifiedStyle: CardHeaderStyle where Style: CardHeaderStyle {
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .cardHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardHeaderStyleModifier<Style: CardHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardHeaderStyle(self.style)
+    }
+}
+
+public extension CardHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardHeaderStyle) -> some CardHeaderStyle {
+        style.modifier(CardHeaderStyleModifier(style: self))
+    }
+}
+
+// MARK: CardMainHeaderStyle
+
+extension ModifiedStyle: CardMainHeaderStyle where Style: CardMainHeaderStyle {
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .cardMainHeaderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardMainHeaderStyleModifier<Style: CardMainHeaderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardMainHeaderStyle(self.style)
+    }
+}
+
+public extension CardMainHeaderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardMainHeaderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardMainHeaderStyle) -> some CardMainHeaderStyle {
+        style.modifier(CardMainHeaderStyleModifier(style: self))
+    }
+}
+
+// MARK: CardMediaStyle
+
+extension ModifiedStyle: CardMediaStyle where Style: CardMediaStyle {
+    public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
+        CardMedia(configuration)
+            .cardMediaStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CardMediaStyleModifier<Style: CardMediaStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.cardMediaStyle(self.style)
+    }
+}
+
+public extension CardMediaStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CardMediaStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CardMediaStyle) -> some CardMediaStyle {
+        style.modifier(CardMediaStyleModifier(style: self))
+    }
+}
+
+// MARK: CounterStyle
+
+extension ModifiedStyle: CounterStyle where Style: CounterStyle {
+    public func makeBody(_ configuration: CounterConfiguration) -> some View {
+        Counter(configuration)
+            .counterStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct CounterStyleModifier<Style: CounterStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.counterStyle(self.style)
+    }
+}
+
+public extension CounterStyle {
+    func modifier(_ modifier: some ViewModifier) -> some CounterStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some CounterStyle) -> some CounterStyle {
+        style.modifier(CounterStyleModifier(style: self))
+    }
+}
+
 // MARK: DemoViewStyle
 
 extension ModifiedStyle: DemoViewStyle where Style: DemoViewStyle {
@@ -204,6 +428,34 @@ public extension IconsStyle {
     }
 }
 
+// MARK: MediaImageStyle
+
+extension ModifiedStyle: MediaImageStyle where Style: MediaImageStyle {
+    public func makeBody(_ configuration: MediaImageConfiguration) -> some View {
+        MediaImage(configuration)
+            .mediaImageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct MediaImageStyleModifier<Style: MediaImageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.mediaImageStyle(self.style)
+    }
+}
+
+public extension MediaImageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some MediaImageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some MediaImageStyle) -> some MediaImageStyle {
+        style.modifier(MediaImageStyleModifier(style: self))
+    }
+}
+
 // MARK: NewActionStyle
 
 extension ModifiedStyle: NewActionStyle where Style: NewActionStyle {
@@ -257,6 +509,118 @@ public extension NewObjectItemStyle {
 
     func concat(_ style: some NewObjectItemStyle) -> some NewObjectItemStyle {
         style.modifier(NewObjectItemStyleModifier(style: self))
+    }
+}
+
+// MARK: Row1Style
+
+extension ModifiedStyle: Row1Style where Style: Row1Style {
+    public func makeBody(_ configuration: Row1Configuration) -> some View {
+        Row1(configuration)
+            .row1Style(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct Row1StyleModifier<Style: Row1Style>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.row1Style(self.style)
+    }
+}
+
+public extension Row1Style {
+    func modifier(_ modifier: some ViewModifier) -> some Row1Style {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some Row1Style) -> some Row1Style {
+        style.modifier(Row1StyleModifier(style: self))
+    }
+}
+
+// MARK: Row2Style
+
+extension ModifiedStyle: Row2Style where Style: Row2Style {
+    public func makeBody(_ configuration: Row2Configuration) -> some View {
+        Row2(configuration)
+            .row2Style(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct Row2StyleModifier<Style: Row2Style>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.row2Style(self.style)
+    }
+}
+
+public extension Row2Style {
+    func modifier(_ modifier: some ViewModifier) -> some Row2Style {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some Row2Style) -> some Row2Style {
+        style.modifier(Row2StyleModifier(style: self))
+    }
+}
+
+// MARK: Row3Style
+
+extension ModifiedStyle: Row3Style where Style: Row3Style {
+    public func makeBody(_ configuration: Row3Configuration) -> some View {
+        Row3(configuration)
+            .row3Style(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct Row3StyleModifier<Style: Row3Style>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.row3Style(self.style)
+    }
+}
+
+public extension Row3Style {
+    func modifier(_ modifier: some ViewModifier) -> some Row3Style {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some Row3Style) -> some Row3Style {
+        style.modifier(Row3StyleModifier(style: self))
+    }
+}
+
+// MARK: SecondaryActionStyle
+
+extension ModifiedStyle: SecondaryActionStyle where Style: SecondaryActionStyle {
+    public func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
+        SecondaryAction(configuration)
+            .secondaryActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct SecondaryActionStyleModifier<Style: SecondaryActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.secondaryActionStyle(self.style)
+    }
+}
+
+public extension SecondaryActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some SecondaryActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some SecondaryActionStyle) -> some SecondaryActionStyle {
+        style.modifier(SecondaryActionStyleModifier(style: self))
     }
 }
 

@@ -84,7 +84,7 @@ extension Type {
         case .base:
             let initArgs = allStoredVariables.map { variable in
                 let name = variable.name
-                if variable.resultBuilderAttrs != nil {
+                if variable.isResultBuilder {
                     return "\(name): { self.\(name) }"
                 } else if variable.isConvertedToBinding {
                     return "\(name): self.$\(name)"
@@ -277,6 +277,7 @@ extension Type {
 
             // Base Layout style
             public struct \(baseStyleName): \(styleProtocolName) {
+                @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     // Add default layout here
                     \(allStoredVariables.configurationResultBuilderPropertyListDecl)
@@ -285,6 +286,7 @@ extension Type {
 
             // Default fiori styles
             public struct \(fioriStyleName): \(styleProtocolName) {
+                @ViewBuilder
                 public func makeBody(_ configuration: \(configurationName)) -> some View {
                     \(componentName)(configuration)
                         // Add default style here
@@ -477,14 +479,15 @@ extension Type {
     }
     
     var configurationExtensionDecl: String {
-        if self.parentCompositeComponentProtocols.isEmpty {
+        let protocols = self.parentCompositeComponentProtocols + self.parentBaseComponentProtocols.filter { !$0.allStoredVariables.filter { !$0.isResultBuilder }.isEmpty }
+        if protocols.isEmpty {
             return ""
         }
         
-        let memberList = self.parentCompositeComponentProtocols.map { type in
+        let memberList = protocols.map { type in
             """
             var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
-                \(type.componentName)(configuration: \(type.allStoredVariables.configurationInitArgs)
+                \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)))
             }
             """
         }
@@ -572,6 +575,11 @@ extension Type {
     // Composite component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
     var parentCompositeComponentProtocols: [Type] {
         self.directInheritedTypes.filter { $0.componentType == .composite }
+    }
+    
+    // Base component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
+    var parentBaseComponentProtocols: [Type] {
+        self.directInheritedTypes.filter { $0.componentType == .base }
     }
     
     // All base and composite component protocols in the inheritance chain

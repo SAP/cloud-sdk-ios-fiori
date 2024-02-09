@@ -20,7 +20,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             configuration.subtitle
             configuration.status
             configuration.newAction
-            Switch(isOn: configuration.$isOn)
+            configuration._switch
         }
         .padding()
     }
