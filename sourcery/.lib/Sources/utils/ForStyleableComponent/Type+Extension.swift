@@ -479,11 +479,12 @@ extension Type {
     }
     
     var configurationExtensionDecl: String {
-        if self.parentCompositeComponentProtocols.isEmpty {
+        let protocols = self.parentCompositeComponentProtocols + self.parentBaseComponentProtocols.filter { !$0.allStoredVariables.filter { !$0.isResultBuilder }.isEmpty }
+        if protocols.isEmpty {
             return ""
         }
         
-        let memberList = self.parentCompositeComponentProtocols.map { type in
+        let memberList = protocols.map { type in
             """
             var _\(type.componentName.lowercasingFirst()): \(type.componentName) {
                 \(type.componentName)(.init(\(type.allStoredVariables.configurationInitArgs)))
@@ -574,6 +575,11 @@ extension Type {
     // Composite component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
     var parentCompositeComponentProtocols: [Type] {
         self.directInheritedTypes.filter { $0.componentType == .composite }
+    }
+    
+    // Base component protocols this type conforms to direclty. (direct supertype, not including supertype of supertype)
+    var parentBaseComponentProtocols: [Type] {
+        self.directInheritedTypes.filter { $0.componentType == .base }
     }
     
     // All base and composite component protocols in the inheritance chain

@@ -3,6 +3,8 @@
 import Foundation
 import SwiftUI
 
+// This file provides APIs for easy component construction which can be used when implementing the base layout.
+
 // MARK: CardConfiguration
 
 extension CardConfiguration {
@@ -28,5 +30,13 @@ extension CardHeaderConfiguration {
 
     var _cardExtHeader: CardExtHeader {
         CardExtHeader(.init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3)))
+    }
+}
+
+// MARK: DemoViewConfiguration
+
+extension DemoViewConfiguration {
+    var _switch: Switch {
+        Switch(.init(isOn: self.$isOn))
     }
 }
