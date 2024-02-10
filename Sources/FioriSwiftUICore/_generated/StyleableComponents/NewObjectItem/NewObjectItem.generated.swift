@@ -3,6 +3,7 @@
 import Foundation
 import SwiftUI
 
+/// A view that displays information of an object.
 public struct NewObjectItem {
     let title: any View
     let subtitle: any View

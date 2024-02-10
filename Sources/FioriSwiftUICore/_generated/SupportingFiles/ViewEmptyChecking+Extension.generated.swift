@@ -9,6 +9,80 @@ extension Avatars: _ViewEmptyChecking {
     }
 }
 
+extension CardBody: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        cardBody.isEmpty
+    }
+}
+
+extension Card: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaImage.isEmpty ||
+            description.isEmpty ||
+            title.isEmpty ||
+            subtitle.isEmpty ||
+            detailImage.isEmpty ||
+            counter.isEmpty ||
+            row1.isEmpty ||
+            row2.isEmpty ||
+            row3.isEmpty ||
+            cardBody.isEmpty ||
+            newAction.isEmpty ||
+            secondaryAction.isEmpty
+    }
+}
+
+extension CardExtHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        row1.isEmpty ||
+            row2.isEmpty ||
+            row3.isEmpty
+    }
+}
+
+extension CardFooter: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        newAction.isEmpty ||
+            secondaryAction.isEmpty
+    }
+}
+
+extension CardHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaImage.isEmpty ||
+            description.isEmpty ||
+            title.isEmpty ||
+            subtitle.isEmpty ||
+            detailImage.isEmpty ||
+            counter.isEmpty ||
+            row1.isEmpty ||
+            row2.isEmpty ||
+            row3.isEmpty
+    }
+}
+
+extension CardMainHeader: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty ||
+            subtitle.isEmpty ||
+            detailImage.isEmpty ||
+            counter.isEmpty
+    }
+}
+
+extension CardMedia: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaImage.isEmpty ||
+            description.isEmpty
+    }
+}
+
+extension Counter: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        counter.isEmpty
+    }
+}
+
 extension DemoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
@@ -48,6 +122,12 @@ extension Icons: _ViewEmptyChecking {
     }
 }
 
+extension MediaImage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        mediaImage.isEmpty
+    }
+}
+
 extension NewAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         newAction.isEmpty
@@ -68,6 +148,30 @@ extension NewObjectItem: _ViewEmptyChecking {
             footnoteIcons.isEmpty ||
             tags.isEmpty ||
             newAction.isEmpty
+    }
+}
+
+extension Row1: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        row1.isEmpty
+    }
+}
+
+extension Row2: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        row2.isEmpty
+    }
+}
+
+extension Row3: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        row3.isEmpty
+    }
+}
+
+extension SecondaryAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        secondaryAction.isEmpty
     }
 }
 

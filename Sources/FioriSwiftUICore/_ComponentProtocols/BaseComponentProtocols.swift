@@ -83,3 +83,49 @@ protocol _SwitchComponent {
     // sourcery: @Binding
     var isOn: Bool { get }
 }
+
+// sourcery: BaseComponent
+protocol _CounterComponent {
+    // sourcery: @ViewBuilder
+    var counter: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _SecondaryActionComponent {
+    // sourcery: @ViewBuilder
+    var secondaryAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
+protocol _Row1Component {
+//    var numberOfLines: Int { get set }
+    
+    @ViewBuilder
+    var row1: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _Row2Component {
+    @ViewBuilder
+    var row2: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _Row3Component {
+    @ViewBuilder
+    var row3: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _CardBodyComponent {
+//    var separator: Bool { get set }
+    
+    @ViewBuilder
+    var cardBody: (() -> any View)? { get }
+}
+
+// sourcery: BaseComponent
+protocol _MediaImageComponent {
+    // sourcery: @ViewBuilder
+    var mediaImage: Image? { get }
+}

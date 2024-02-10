@@ -6,6 +6,7 @@
 <%- includeFile("../.lib/Sources/utils/Variable+Extensions.swift") -%>
 <%- includeFile("../.lib/Sources/utils/swift-algorithms-copy/Combinations.swift") -%>
 <%- includeFile("../.lib/Sources/utils/Dictionary+Extensions.swift") -%>
+<%- includeFile("../.lib/Sources/utils/ForStyleableComponent/") -%>
 
 // sourcery:file:SupportingFiles/ViewEmptyChecking+Extension
 import Foundation
@@ -51,6 +52,8 @@ import SwiftUI
 // sourcery:file:SupportingFiles/StyleConfiguration+Extension
 import Foundation
 import SwiftUI
+
+// This file provides APIs for easy component construction which can be used when implementing the base layout.
 
 // sourcery:end
 
