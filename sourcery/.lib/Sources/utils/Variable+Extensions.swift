@@ -189,7 +189,7 @@ public extension Variable {
     }
     
     var isConvertedToBinding: Bool {
-        annotations["bindingProperty"] != nil || annotations["bindingPropertyOptional"] != nil
+        annotations["bindingProperty"] != nil || annotations["bindingPropertyOptional"] != nil || annotations.isBinding
     }
 
     var viewBuilderDecl: String {

@@ -1,6 +1,6 @@
 import SwiftUI
 
-public protocol AvatarList: View {
+public protocol AvatarList: View, _ViewEmptyChecking {
     associatedtype V: View
     var count: Int { get }
     func view(at index: Int) -> V
@@ -51,9 +51,19 @@ public extension AvatarList {
     }
 }
 
+public extension AvatarList {
+    var isEmpty: Bool {
+        count == 0
+    }
+}
+
 public struct SingleAvatar<Content: View>: AvatarList {
     let view: Content
-    public let count = 1
+    
+    public var count: Int {
+        self.view.isEmpty ? 0 : 1
+    }
+    
     public func view(at index: Int) -> some View {
         self.view
     }
@@ -84,7 +94,17 @@ public struct ConditionalSingleAvatar<TrueContent: View, FalseContent: View>: Av
     let first: TrueContent?
     let second: FalseContent?
     
-    public let count = 1
+    public var count: Int {
+        if let first, !first.isEmpty {
+            return 1
+        }
+        
+        if let second, !second.isEmpty {
+            return 1
+        }
+        
+        return 0
+    }
     
     public func view(at index: Int) -> some View {
         Group {
@@ -123,7 +143,8 @@ public struct PairAvatar<First: View, Second: AvatarList>: AvatarList {
     let remainder: Second
     
     public var count: Int {
-        self.remainder.count + 1
+        let firstCount = self.first.isEmpty ? 0 : 1
+        return self.remainder.count + firstCount
     }
     
     public func view(at index: Int) -> some View {

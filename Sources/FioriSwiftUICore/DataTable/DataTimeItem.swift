@@ -27,11 +27,11 @@ public struct DataTimeItem: DataItemTextComponent, CheckBinding, Equatable {
     public var binding: ObjectViewProperty.Text?
     
     /**
-     Is the cell read-only or not for the inline editing mode. `nil` means it is `false`.
-     A cell's `isReadonly` is determined by the value of itself, the row and the column.
-     If only one of these three value is set then that value is used.
+     Determines whether the cell is read-only or not for inline editing mode. `nil` means it is `false`.
+     A cell's `isReadonly` is determined by the value of itself, the row, and the column.
+     If only one of these three values, is set then that value is used.
      If two or three values are set, then the higher priority of value is used.
-     The order of priority from high to low is cell, row and column.
+     The order of priority from high to low is: cell, row, and column.
      */
     public var isReadonly: Bool?
     
@@ -46,7 +46,7 @@ public struct DataTimeItem: DataItemTextComponent, CheckBinding, Equatable {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    ///   - isReadonly: Is the cell read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
     public init(_ date: Date, _ font: Font? = nil, _ textColor: Color? = nil, _ binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil, isReadonly: Bool? = nil) {
         self.date = date
         self.font = font
@@ -63,7 +63,7 @@ public struct DataTimeItem: DataItemTextComponent, CheckBinding, Equatable {
     ///   - textColor: Foreground color for text Item.
     ///   - binding: Binding rule.
     ///   - lineLimit: Line limit for item.
-    ///   - isReadonly: Is the cell read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the cell is read-only or not in inline editing mode.
     public init(date: Date, uifont: UIFont? = nil, textColor: Color? = nil, binding: ObjectViewProperty.Text? = nil, lineLimit: Int? = nil, isReadonly: Bool? = nil) {
         self.date = date
         self.uifont = uifont

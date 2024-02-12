@@ -23,3 +23,22 @@ extension View {
         }
     }
 }
+
+public protocol _ViewEmptyChecking {
+    // Check if the view is an empty view. Some SDK components implement this protocol to define their own empty logic.
+    var isEmpty: Bool { get }
+}
+
+extension View {
+    var isEmpty: Bool {
+        if self is EmptyView {
+            return true
+        }
+        
+        if let self = self as? _ViewEmptyChecking {
+            return self.isEmpty
+        }
+        
+        return false
+    }
+}

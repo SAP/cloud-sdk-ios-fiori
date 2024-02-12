@@ -1,7 +1,4 @@
-// Generated using Sourcery 1.2.0 — https://github.com/krzysztofzablocki/Sourcery
-// DO NOT EDIT
 import SwiftUI
-
 
 public protocol TitleComponent {
     var title: String { get }
@@ -19,6 +16,10 @@ public protocol TagsComponent {
 
 public protocol FootnoteComponent {
     var footnote: String? { get }
+}
+
+public protocol DescriptionComponent {
+    var description: String? { get }
 }
 
 public protocol DescriptionTextComponent {

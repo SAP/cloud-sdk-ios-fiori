@@ -14,7 +14,7 @@
 --enumthreshold 0
 --exponentcase lowercase
 --exponentgrouping disabled
---exclude Sources/FioriSwiftUICore/_generated
+--exclude Sources/FioriSwiftUICore/_generated/Components/, Sources/FioriSwiftUICore/_generated/FioriStyleTemplates/, Sources/FioriSwiftUICore/_generated/ViewModels/
 --extensionacl on-extension
 --extensionlength 0
 --extensionmark "MARK: - %t + %c"

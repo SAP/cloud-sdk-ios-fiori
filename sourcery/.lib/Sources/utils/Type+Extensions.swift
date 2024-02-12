@@ -1,9 +1,8 @@
 import Foundation
 import SourceryRuntime
 
-// MARK: - Public API
-
 public extension Type {
+    // TODO: merge annotations for each variable
     static func getAllStoredVariables(for type: Type) -> [Variable] {
         var ret: [Variable] = []
         
@@ -68,7 +67,14 @@ extension Type {
 
 public extension Type {
     var componentName: String {
-        name.replacingOccurrences(of: "Model", with: "")
+        var name = name
+        if name.hasSuffix("Model") {
+            name = name.replacingOccurrences(of: "Model", with: "")
+        } else if name.hasSuffix("Component") {
+            name = name.replacingOccurrences(of: "Component", with: "")
+        }
+        
+        return name.trimmingPrefix("_")
     }
     
     var allStoredVariables: [Variable] {
@@ -248,7 +254,7 @@ public extension Type {
     }
 
     internal func closureProperties(contextType: [String: Type]) -> [Variable] {
-        inheritedTypes.compactMap { contextType[$0] }.flatMap { $0.allMethods }.map { (method) -> Variable in
+        inheritedTypes.compactMap { contextType[$0] }.flatMap(\.allMethods).map { (method) -> Variable in
 
             let name = "\(method.name.components(separatedBy: "(").first ?? method.selectorName)"
 
@@ -317,7 +323,7 @@ extension Type {
             let regularProperties = componentType.variables
             let closureProperties = componentType.closureProperties
             let properties = regularProperties + closureProperties
-            let propertyNames = properties.map { $0.trimmedName }
+            let propertyNames = properties.map(\.trimmedName)
             let nilCheckPropertyNames = properties.compactMap {
                 ($0.isOptional || $0.annotations["bindingPropertyOptional"] != nil) && $0.annotations["no_nil_check"] == nil ?
                     $0.trimmedName : nil
@@ -481,7 +487,7 @@ public extension Type {
     
     var allStoredVariablesExcludingBackedComponents: [Variable] {
         let variables = self.allStoredVariables
-        let variablesInBackedComponents = self.getInheritedTypesBackedByComponent().types.flatMap { $0.allStoredVariables }
+        let variablesInBackedComponents = self.getInheritedTypesBackedByComponent().types.flatMap(\.allStoredVariables)
         return variables.filter { !variablesInBackedComponents.contains($0) }
     }
     

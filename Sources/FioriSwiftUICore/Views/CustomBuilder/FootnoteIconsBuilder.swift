@@ -1,7 +1,7 @@
 import FioriThemeManager
 import SwiftUI
 
-public protocol FootnoteIconList: View {
+public protocol FootnoteIconList: View, _ViewEmptyChecking {
     associatedtype V: View
     var count: Int { get }
     func view(at index: Int) -> V
@@ -38,14 +38,23 @@ public extension FootnoteIconList {
                     }
             }
         }
-        .frame(height: size.height)
         .clipped()
+    }
+}
+
+public extension FootnoteIconList {
+    var isEmpty: Bool {
+        count == 0
     }
 }
 
 public struct SingleFootnoteIcon<Content: View>: FootnoteIconList {
     let view: Content
-    public let count = 1
+    
+    public var count: Int {
+        self.view.isEmpty ? 0 : 1
+    }
+    
     public func view(at index: Int) -> some View {
         self.view
     }
@@ -75,7 +84,17 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
     let first: TrueContent?
     let second: FalseContent?
     
-    public let count = 1
+    public var count: Int {
+        if let first, !first.isEmpty {
+            return 1
+        }
+        
+        if let second, !second.isEmpty {
+            return 1
+        }
+        
+        return 0
+    }
     
     public func view(at index: Int) -> some View {
         Group {
@@ -113,7 +132,8 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
     let remainder: Second
     
     public var count: Int {
-        self.remainder.count + 1
+        let firstCount = self.first.isEmpty ? 0 : 1
+        return self.remainder.count + firstCount
     }
     
     public func view(at index: Int) -> some View {
@@ -232,7 +252,6 @@ public enum FootnoteIconsBuilder {
 extension FootnoteIconStack: FootnoteIconList {
     public var count: Int {
         let tmpIcons: [TextOrIcon] = _footnoteIcons == nil ? [] : _footnoteIcons!
-        
         return tmpIcons.count
     }
     

@@ -1,8 +1,6 @@
 import Foundation
 import SourceryRuntime
 
-// MARK: Public API
-
 public extension Array where Element == Variable {
     func foo() -> String { "Foo" }
     /**

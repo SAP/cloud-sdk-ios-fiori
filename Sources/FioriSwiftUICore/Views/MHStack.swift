@@ -42,18 +42,29 @@ public struct MHStack<T: TagViewList>: View {
     }
     
     public var body: some View {
-        GeometryReader { geometry in
-            self.makeBody(in: geometry)
+        if tagCount == 0 {
+            EmptyView()
+        } else {
+            GeometryReader { geometry in
+                self.makeBody(in: geometry)
+            }
+            .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
         }
-        .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
+    }
+    
+    private var tagCount: Int {
+        guard let limit = self.tagLimit else {
+            return self.tags.count
+        }
+        
+        if limit <= 1 {
+            return min(1, self.tags.count)
+        }
+        
+        return min(limit, self.tags.count)
     }
 
     func makeBody(in g: GeometryProxy) -> some View {
-        var tagCount: Int = self.tags.count
-        if let tmpTagLimit = tagLimit {
-            tagCount = min(tmpTagLimit, self.tags.count)
-        }
-        
         var width = CGFloat.zero
         var height = CGFloat.zero
         var tmpMainViewSize: CGSize = .zero
@@ -102,5 +113,11 @@ public struct MHStack<T: TagViewList>: View {
                     })
             }
         }
+    }
+}
+
+extension MHStack: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        self.tagCount == 0
     }
 }

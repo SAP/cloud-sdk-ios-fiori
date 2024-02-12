@@ -1,28 +1,28 @@
 import FioriThemeManager
 import SwiftUI
 
-struct Kpi: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .lineLimit(1)
-            .minimumScaleFactor(0.5)
-            .truncationMode(.tail)
-            .multilineTextAlignment(.center)
-    }
-}
-
-struct Subtitle: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .lineLimit(2)
-            .font(.subheadline)
-            .truncationMode(.tail)
-            .multilineTextAlignment(.center)
-    }
-}
-
 extension Fiori {
     enum KPIItem {
+        struct Kpi: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.5)
+                    .truncationMode(.tail)
+                    .multilineTextAlignment(.center)
+            }
+        }
+
+        struct Subtitle: ViewModifier {
+            func body(content: Content) -> some View {
+                content
+                    .lineLimit(2)
+                    .font(.subheadline)
+                    .truncationMode(.tail)
+                    .multilineTextAlignment(.center)
+            }
+        }
+        
         typealias KpiCumulative = EmptyModifier
         typealias SubtitleCumulative = EmptyModifier
 

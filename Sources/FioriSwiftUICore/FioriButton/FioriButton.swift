@@ -55,9 +55,9 @@ import SwiftUI
 ///     }
 ///
 ///  To apply these styles to a `Button`, use `PrimaryButtonStyle`, `SecondaryButtonStyle`, and `TertiaryButtonStyle` instead.
-public struct FioriButton<Label: View>: View {
+public struct FioriButton: View {
     let action: ((UIControl.State) -> Void)?
-    let label: (UIControl.State) -> Label
+    let label: (UIControl.State) -> any View
     let isSelectionPersistent: Bool
     private let touchAreaInset: CGFloat = 50
     
@@ -80,11 +80,38 @@ public struct FioriButton<Label: View>: View {
     ///   - label: A closure that returns a label for each state. For a button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
     public init(isSelectionPersistent: Bool = false,
                 action: ((UIControl.State) -> Void)? = nil,
-                @ViewBuilder label: @escaping (UIControl.State) -> Label)
+                @ViewBuilder label: @escaping (UIControl.State) -> any View)
     {
         self.action = action
         self.label = label
         self.isSelectionPersistent = isSelectionPersistent
+    }
+    
+    /// Create a fiori button.
+    /// - Parameters:
+    ///   - isSelectionPersistent: A boolean value determines whether the selection should be persistent or not.
+    ///   - action: Action triggered when tap on button.
+    ///   - title: A closure that returns an attributed string for each state. For a button with non-persistent selection, `.normal`, `.disabled`, `.highlighted` are supported. For a button with persistent selection, use `.selected` instead of `.highlighted`.
+    public init(isSelectionPersistent: Bool = false,
+                title: @escaping (UIControl.State) -> AttributedString,
+                action: ((UIControl.State) -> Void)? = nil)
+    {
+        self.init(isSelectionPersistent: isSelectionPersistent, action: action, label: {
+            let text = title($0)
+            return Text(text)
+        })
+    }
+    
+    /// Create a fiori button.
+    /// - Parameters:
+    ///   - isSelectionPersistent: A boolean value determines whether the selection should be persistent or not.
+    ///   - action: Action triggered when tap on button.
+    ///   - title: An attributed string for button label.
+    public init(isSelectionPersistent: Bool = false,
+                title: AttributedString,
+                action: ((UIControl.State) -> Void)? = nil)
+    {
+        self.init(isSelectionPersistent: isSelectionPersistent, action: action, label: { _ in Text(title) })
     }
 
     /// The content of the button.
@@ -140,7 +167,8 @@ public struct FioriButton<Label: View>: View {
     }
 }
 
-public extension FioriButton where Label == Text {
+public extension FioriButton {
+    @available(*, deprecated, message: "Use other initializers with AttributedString argument instead.")
     /// Create a fiori button with title text.
     /// - Parameters:
     ///   - isSelectionPersistent: A boolean value determines whether the button should be persistent or not.
@@ -158,9 +186,9 @@ public extension FioriButton where Label == Text {
     }
 }
 
-private struct _ButtonStyleImpl<Label: View>: ButtonStyle {
+private struct _ButtonStyleImpl: ButtonStyle {
     let fioriButtonStyle: AnyFioriButtonStyle
-    let label: (UIControl.State) -> Label
+    let label: (UIControl.State) -> any View
     let isEnabled: Bool
     
     func makeBody(configuration: Configuration) -> some View {

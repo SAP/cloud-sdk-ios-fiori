@@ -1,0 +1,12 @@
+configurations:
+  - sources:
+    - ./../Sources/FioriSwiftUICore/_ComponentProtocols
+    templates:
+      - stencils/ComponentTemplate.swifttemplate
+    output:
+      ./../Sources/FioriSwiftUICore/_generated
+    args:
+      selectedTypes: []
+    parseDocumentation: true
+    prune: true
+

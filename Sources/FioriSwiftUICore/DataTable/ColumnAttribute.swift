@@ -71,7 +71,7 @@ public struct ColumnAttribute {
     /// - Parameters:
     ///   - textAlignment: Text alignment in each column.
     ///   - width: Setting the width for each column.
-    ///   - isReadonly: Is the column read-only or not for the inline editing mode.
+    ///   - isReadonly: Whether the column is read-only or not in inline editing mode.
     public init(textAlignment: TextAlignment = .leading, width: Width = .flexible, isReadonly: Bool? = nil) {
         self.textAlignment = textAlignment
         self.width = width

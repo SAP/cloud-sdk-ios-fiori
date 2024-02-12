@@ -492,6 +492,7 @@ struct ItemView: View {
             }
         }
         .frame(width: cellWidth, height: cellHeight)
+        .background(self.backgroundColorForSelectionState())
         .background(self.backgroundColorForCell())
         .contentShape(Rectangle())
         .gesture(tapGesture)
@@ -541,8 +542,7 @@ struct ItemView: View {
         }
     }
 
-    func backgroundColorForCell() -> Color {
-        let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
+    func backgroundColorForSelectionState() -> Color {
         let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
         let selectionIndex: Int = self.rowIndex - (self.layoutManager.model.hasHeader ? 1 : 0)
         let isSelected = self.layoutManager.model.editMode == .select && self.layoutManager.selectedIndexes.contains(selectionIndex)
@@ -554,12 +554,27 @@ struct ItemView: View {
             isStickyCell = true
         }
         
+        if isStickyCell, isSelected {
+            return Color.preferredColor(.informationBackground)
+        } else {
+            return Color.clear
+        }
+    }
+    
+    func backgroundColorForCell() -> Color {
+        let dataItem = self.layoutData.allDataItems[self.rowIndex][self.columnIndex]
+        let isHeader: Bool = self.rowIndex == 0 && self.layoutManager.model.hasHeader
+        
+        var isStickyCell = false
+        if isHeader, self.layoutManager.model.isHeaderSticky {
+            isStickyCell = true
+        } else if self.layoutManager.model.isFirstColumnSticky, self.columnIndex == 0 {
+            isStickyCell = true
+        }
+        
         /// Background color for cells in the sticky header and column should not be clear
         if isStickyCell {
-            /// Background color for the selection mode
-            if isSelected {
-                return Color.preferredColor(.informationBackground)
-            } else if self.layoutManager.model.editMode == .inline, !isHeader, dataItem.isReadonly, dataItem.type != .image {
+            if self.layoutManager.model.editMode == .inline, !isHeader, dataItem.isReadonly, dataItem.type != .image {
                 /// Read-only background color
                 return Color.preferredColor(.tertiaryFill)
             } else {
