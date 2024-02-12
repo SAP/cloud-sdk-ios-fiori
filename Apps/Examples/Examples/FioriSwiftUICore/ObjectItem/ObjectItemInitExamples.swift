@@ -712,7 +712,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -737,7 +737,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 1):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -763,7 +763,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 2):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating").font(.system(size: 32, weight: .regular, design: .serif))
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -787,7 +787,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 3):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -813,7 +813,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 4):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -840,7 +840,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 5):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
                     .font(.system(size: 32, weight: .regular, design: .serif))
             }, subtitle: {
@@ -870,7 +870,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 6):
             // Regular, 1st is text, font size is 32, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
                     .font(.system(size: 28, weight: .regular, design: .serif))
             }, subtitle: {
@@ -900,7 +900,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
         case (0, 7):
             ///////////////////////////////////////////////////////////////
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -922,7 +922,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 8):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -944,7 +944,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (0, 9):
             // Regular, 1st is text, font size is 32, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
                     .font(.system(size: 28, weight: .regular, design: .serif))
             }, subtitle: {
@@ -964,7 +964,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 0):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -990,7 +990,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 1):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1018,7 +1018,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 2):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating").font(.system(size: 32, weight: .regular, design: .serif))
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1042,7 +1042,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 3):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1069,7 +1069,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 4):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1097,7 +1097,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 5):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
                     .font(.system(size: 32, weight: .regular, design: .serif))
             }, subtitle: {
@@ -1128,7 +1128,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 6):
             // Regular, 1st is text, font size is 32, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
                     .font(.system(size: 28, weight: .regular, design: .serif))
             }, subtitle: {
@@ -1161,7 +1161,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
         case (1, 7):
             ///////////////////////////////////////////////////////////////
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1182,7 +1182,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 8):
             // Regular, 1st is text, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1202,7 +1202,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (1, 9):
             // Regular, 1st is text, font size is 32, init with ViewBuilder
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
                     .font(.system(size: 28, weight: .regular, design: .serif))
             }, subtitle: {
@@ -1223,14 +1223,14 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (2, 0):
-            let oi = ObjectItem(title: "Transformer Overheating When After Being on for 1 Hour or Longer",
-                                subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                                descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                                status: TextOrIcon.text("High"),
-                                detailImage: Image(systemName: "person"),
-                                icons: [TextOrIcon.text("1"),
-                                        TextOrIcon.icon(Image(systemName: "circle.fill")),
-                                        TextOrIcon.icon(Image(systemName: "mail"))])
+            let oi = _ObjectItem(title: "Transformer Overheating When After Being on for 1 Hour or Longer",
+                                 subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                                 descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                                 status: TextOrIcon.text("High"),
+                                 detailImage: Image(systemName: "person"),
+                                 icons: [TextOrIcon.text("1"),
+                                         TextOrIcon.icon(Image(systemName: "circle.fill")),
+                                         TextOrIcon.icon(Image(systemName: "mail"))])
                 .subtitleModifier {
                     $0.lineLimit(2)
                 }
@@ -1240,26 +1240,26 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (2, 1):
-            let oi = ObjectItem(title: "Transformer Overheating",
-                                subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                                descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                                status: TextOrIcon.text("Scheduled"),
-                                substatus: TextOrIcon.icon(Image(systemName: "mail")),
-                                detailImage: Image(systemName: "person"),
-                                icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
-                                        TextOrIcon.text("1"),
-                                        TextOrIcon.icon(Image(systemName: "paperclip"))])
+            let oi = _ObjectItem(title: "Transformer Overheating",
+                                 subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                                 descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                                 status: TextOrIcon.text("Scheduled"),
+                                 substatus: TextOrIcon.icon(Image(systemName: "mail")),
+                                 detailImage: Image(systemName: "person"),
+                                 icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                                         TextOrIcon.text("1"),
+                                         TextOrIcon.icon(Image(systemName: "paperclip"))])
             return AnyView(oi)
             
         case (2, 2):
-            let oi = ObjectItem(title: "Transformer Overheating",
-                                subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                                descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                                status: TextOrIcon.text("High"),
-                                detailImage: Image(systemName: "person"),
-                                icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
-                                        TextOrIcon.text("1"),
-                                        TextOrIcon.icon(Image(systemName: "paperclip"))])
+            let oi = _ObjectItem(title: "Transformer Overheating",
+                                 subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                                 descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                                 status: TextOrIcon.text("High"),
+                                 detailImage: Image(systemName: "person"),
+                                 icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                                         TextOrIcon.text("1"),
+                                         TextOrIcon.icon(Image(systemName: "paperclip"))])
                 .titleModifier {
                     $0.font(.system(size: 32, weight: .regular, design: .serif))
                 }
@@ -1273,7 +1273,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (3, 0):
             // Everything is center aligned. Preserve Icon Stack Spacing.
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, status: {
                 Image(systemName: "exclamationmark.triangle").foregroundColor(.red)
@@ -1282,7 +1282,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (3, 1):
             // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, status: {
                 Text("High")
@@ -1295,7 +1295,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             
         case (3, 2):
             // If only 1 status is being used, the body and subhead labels in the main content area should extend to the full width of the cell below the status.
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1316,7 +1316,7 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (3, 3):
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1341,25 +1341,25 @@ struct ObjectItemInitExamples: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (3, 4):
-            let oi = ObjectItem(title: "Transformer Overheating",
-                                status: TextOrIcon.text("High"),
-                                detailImage: Image(systemName: "person"),
-                                icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
-                                        TextOrIcon.text("1"),
-                                        TextOrIcon.icon(Image(systemName: "paperclip"))])
+            let oi = _ObjectItem(title: "Transformer Overheating",
+                                 status: TextOrIcon.text("High"),
+                                 detailImage: Image(systemName: "person"),
+                                 icons: [TextOrIcon.icon(Image(systemName: "circle.fill")),
+                                         TextOrIcon.text("1"),
+                                         TextOrIcon.icon(Image(systemName: "paperclip"))])
             
             return AnyView(oi)
             
         case (3, 5):
-            let oi = ObjectItem(title: "Transformer Overheating",
-                                subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                                descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                                status: TextOrIcon.text("High"),
-                                detailImage: Image(systemName: "person"))
+            let oi = _ObjectItem(title: "Transformer Overheating",
+                                 subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                                 descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                                 status: TextOrIcon.text("High"),
+                                 detailImage: Image(systemName: "person"))
             return AnyView(oi)
             
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

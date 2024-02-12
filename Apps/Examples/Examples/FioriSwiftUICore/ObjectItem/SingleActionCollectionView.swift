@@ -44,7 +44,7 @@ struct SingleActionCollectionView: View {
                                 .frame(width: 32, height: 32)
                         }) })
                     } else {
-                        ObjectItem(title: {
+                        _ObjectItem(title: {
                             Text("Transform Overheating")
                         }, subtitle: {
                             Text("09:45 AM")

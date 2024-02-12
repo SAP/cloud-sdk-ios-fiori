@@ -159,7 +159,7 @@ struct HeaderChartExample: ListDataProtocol {
             }
             return AnyView(hc)
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(NewObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }
