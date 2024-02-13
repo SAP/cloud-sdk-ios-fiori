@@ -25,3 +25,6 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 
 // sourcery: CompositeComponent
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
+
+// sourcery: CompositeComponent
+protocol _InformationViewComponent: _InformationViewContentComponent, _InformationViewIconComponent, _InformationViewTextComponent {}

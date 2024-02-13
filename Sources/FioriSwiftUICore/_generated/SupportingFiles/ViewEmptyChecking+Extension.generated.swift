@@ -122,6 +122,32 @@ extension Icons: _ViewEmptyChecking {
     }
 }
 
+extension InformationView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        informationViewContent.isEmpty ||
+            informationViewIcon.isEmpty ||
+            informationViewText.isEmpty
+    }
+}
+
+extension InformationViewContent: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        informationViewContent.isEmpty
+    }
+}
+
+extension InformationViewIcon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        informationViewIcon.isEmpty
+    }
+}
+
+extension InformationViewText: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        informationViewText.isEmpty
+    }
+}
+
 extension MediaImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty

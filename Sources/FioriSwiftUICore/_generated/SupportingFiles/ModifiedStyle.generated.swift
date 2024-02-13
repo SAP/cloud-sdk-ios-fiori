@@ -428,6 +428,118 @@ public extension IconsStyle {
     }
 }
 
+// MARK: InformationViewStyle
+
+extension ModifiedStyle: InformationViewStyle where Style: InformationViewStyle {
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .informationViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InformationViewStyleModifier<Style: InformationViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.informationViewStyle(self.style)
+    }
+}
+
+public extension InformationViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InformationViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InformationViewStyle) -> some InformationViewStyle {
+        style.modifier(InformationViewStyleModifier(style: self))
+    }
+}
+
+// MARK: InformationViewContentStyle
+
+extension ModifiedStyle: InformationViewContentStyle where Style: InformationViewContentStyle {
+    public func makeBody(_ configuration: InformationViewContentConfiguration) -> some View {
+        InformationViewContent(configuration)
+            .informationViewContentStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InformationViewContentStyleModifier<Style: InformationViewContentStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.informationViewContentStyle(self.style)
+    }
+}
+
+public extension InformationViewContentStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InformationViewContentStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InformationViewContentStyle) -> some InformationViewContentStyle {
+        style.modifier(InformationViewContentStyleModifier(style: self))
+    }
+}
+
+// MARK: InformationViewIconStyle
+
+extension ModifiedStyle: InformationViewIconStyle where Style: InformationViewIconStyle {
+    public func makeBody(_ configuration: InformationViewIconConfiguration) -> some View {
+        InformationViewIcon(configuration)
+            .informationViewIconStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InformationViewIconStyleModifier<Style: InformationViewIconStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.informationViewIconStyle(self.style)
+    }
+}
+
+public extension InformationViewIconStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InformationViewIconStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InformationViewIconStyle) -> some InformationViewIconStyle {
+        style.modifier(InformationViewIconStyleModifier(style: self))
+    }
+}
+
+// MARK: InformationViewTextStyle
+
+extension ModifiedStyle: InformationViewTextStyle where Style: InformationViewTextStyle {
+    public func makeBody(_ configuration: InformationViewTextConfiguration) -> some View {
+        InformationViewText(configuration)
+            .informationViewTextStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InformationViewTextStyleModifier<Style: InformationViewTextStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.informationViewTextStyle(self.style)
+    }
+}
+
+public extension InformationViewTextStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InformationViewTextStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InformationViewTextStyle) -> some InformationViewTextStyle {
+        style.modifier(InformationViewTextStyleModifier(style: self))
+    }
+}
+
 // MARK: MediaImageStyle
 
 extension ModifiedStyle: MediaImageStyle where Style: MediaImageStyle {

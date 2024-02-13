@@ -71,6 +71,24 @@ protocol _AvatarsComponent {
     var avatars: [TextOrIcon] { get }
 }
 
+// sourcery: BaseComponent
+protocol _InformationViewIconComponent {
+    // sourcery: @ViewBuilder
+    var informationViewIcon: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _InformationViewTextComponent {
+    // sourcery: @ViewBuilder
+    var informationViewText: AttributedString { get }
+}
+
+// sourcery: BaseComponent
+protocol _InformationViewContentComponent {
+    // sourcery: @ViewBuilder
+    var informationViewContent: () -> any View { get }
+}
+
 // TODO: rename to _ActionComponent after resolving the conflict.
 // sourcery: BaseComponent
 protocol _NewActionComponent {
