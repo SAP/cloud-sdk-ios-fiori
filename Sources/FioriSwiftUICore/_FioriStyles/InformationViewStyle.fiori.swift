@@ -34,9 +34,6 @@ extension InformationViewFioriStyle {
     struct InformationViewIconFioriStyle: InformationViewIconStyle {
     func makeBody(_ configuration: InformationViewIconConfiguration) -> some View {
         InformationViewIcon(configuration)
-        // Add default style for InformationViewIcon
-        //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-        //.font(.fiori(forTextStyle: <#fiori font#>))
     }
 }
 
@@ -56,12 +53,11 @@ struct InformationViewContentFioriStyle: InformationViewContentStyle {
 }
 
 extension View {
-//    public func showInformationView(informationViewIcon: () -> any View, informationViewText: () -> any View) -> some View {
-    public func showInformationView(informationViewIcon: Image? = nil, informationViewText: AttributedString) -> some View {
+    /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
+    public func informationView(informationViewIcon: Image? = nil, informationViewText: AttributedString) -> some View {
         InformationView(informationViewContent: { self }, informationViewIcon: informationViewIcon, informationViewText: informationViewText)
     }
 }
-
 
 public struct InformationViewErrorStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
@@ -142,27 +138,30 @@ public struct InformationViewSuccessStyle: InformationViewStyle {
             .foregroundStyle(Color.preferredColor(.positiveLabel))
     }
 }
- 
+
+/// Error style of the InformationView. It is used to show error message.
 public extension InformationViewStyle where Self == InformationViewErrorStyle {
     static var error: InformationViewErrorStyle {
         InformationViewErrorStyle()
     }
 }
 
+/// Warning style of the InformationView. It is used to show warning message.
 public extension InformationViewStyle where Self == InformationViewWarningStyle {
     static var warning: InformationViewWarningStyle {
         InformationViewWarningStyle()
     }
 }
+
+/// Informationalstyle of the InformationView. It is used to show informational message.
 public extension InformationViewStyle where Self == InformationViewInformationalStyle {
     static var informational: InformationViewInformationalStyle {
         InformationViewInformationalStyle()
     }
 }
-
+/// Success style of the InformationView. It is used to show success message.
 public extension InformationViewStyle where Self == InformationViewSuccessStyle {
     static var success: InformationViewSuccessStyle {
         InformationViewSuccessStyle()
     }
 }
-

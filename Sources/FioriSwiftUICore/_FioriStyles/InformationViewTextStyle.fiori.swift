@@ -18,4 +18,3 @@ public struct InformationViewTextFioriStyle: InformationViewTextStyle {
             .font(.fiori(forTextStyle: .footnote))
     }
 }
-
