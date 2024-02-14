@@ -110,7 +110,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, descriptionText: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -150,7 +150,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -187,7 +187,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.43)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -228,7 +228,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman")
                         .lineLimit(2)
                 }, descriptionText: {
@@ -268,7 +268,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, descriptionText: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.").lineLimit(1)
@@ -309,7 +309,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -354,7 +354,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -399,7 +399,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -443,7 +443,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -486,7 +486,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -524,7 +524,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.43)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -564,7 +564,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -607,7 +607,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -650,7 +650,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -693,7 +693,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -745,7 +745,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating").lineLimit(1)
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -797,7 +797,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -844,7 +844,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -890,7 +890,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -931,7 +931,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, descriptionText: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -969,7 +969,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1011,7 +1011,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1051,7 +1051,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1096,7 +1096,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 60, height: 60)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1117,13 +1117,13 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            let c = UITableViewCell()
 //            c.textLabel?.text = "Multi-image profile not implemented"
 //            return c
-            oi = ObjectItem(title: "Multi-image profile not implemented")
+            oi = _ObjectItem(title: "Multi-image profile not implemented")
             
         case (2, 6):
 //            let c = UITableViewCell()
 //            c.textLabel?.text = "Prohibition on icons is not enforced programmatically"
 //            return c
-            oi = ObjectItem(title: "Prohibition on icons is not enforced programmatically")
+            oi = _ObjectItem(title: "Prohibition on icons is not enforced programmatically")
             
         case (2, 7):
 //            let data = Test.Object.transformer
@@ -1160,7 +1160,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image(systemName: "paperclip").font(.system(size: 14))
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1217,7 +1217,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1259,7 +1259,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1293,7 +1293,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1336,7 +1336,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(nil)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1371,7 +1371,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Text("2")
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -1413,7 +1413,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1450,7 +1450,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, descriptionText: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -1491,7 +1491,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1549,7 +1549,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1599,7 +1599,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, descriptionText: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -1637,7 +1637,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.33)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1679,7 +1679,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1726,7 +1726,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
                     Image("attachment009").resizable().frame(width: 60, height: 60)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Transformer Overheating When After Being on for 1 Hour or Longer Duration.").lineLimit(2)
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1744,7 +1744,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
             }
         
         default:
-            oi = ObjectItem(title: "Lorem ipseum dolor")
+            oi = _ObjectItem(title: "Lorem ipseum dolor")
         }
         
         return oi.typeErased

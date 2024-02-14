@@ -48,11 +48,11 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                                    footnote: "3493 followers",
                                    newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
-                oi = ObjectItem(title: self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
-                                footnote: "3493 followers",
-                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
-                                    print("Tapped Follow")
-                                }))
+                oi = _ObjectItem(title: self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
+                                 footnote: "3493 followers",
+                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                     print("Tapped Follow")
+                                 }))
             }
             
         case (0, 1):
@@ -61,11 +61,11 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                                    footnote: "2290 followers",
                                    newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
-                oi = ObjectItem(title: self.isLongText ? longHeadline : "Hybris",
-                                footnote: "2290 followers",
-                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
-                                    print("Tapped Follow")
-                                }))
+                oi = _ObjectItem(title: self.isLongText ? longHeadline : "Hybris",
+                                 footnote: "2290 followers",
+                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                     print("Tapped Follow")
+                                 }))
             }
             
         case (0, 2):
@@ -77,7 +77,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                 }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text(isLongText ? longText : "Follow") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
@@ -102,11 +102,11 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                                    footnote: "1000 followers",
                                    newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
-                oi = ObjectItem(title: self.isLongText ? longHeadline : "Successfactors",
-                                footnote: "1000 followers",
-                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
-                                    print("Tapped Follow")
-                                }))
+                oi = _ObjectItem(title: self.isLongText ? longHeadline : "Successfactors",
+                                 footnote: "1000 followers",
+                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                     print("Tapped Follow")
+                                 }))
             }
             
         case (0, 4):
@@ -115,11 +115,11 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                                    footnote: "2290 followers",
                                    newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
-                oi = ObjectItem(title: self.isLongText ? longHeadline : "Tennis @ SAP",
-                                footnote: "2290 followers",
-                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
-                                    print("Tapped Follow")
-                                }))
+                oi = _ObjectItem(title: self.isLongText ? longHeadline : "Tennis @ SAP",
+                                 footnote: "2290 followers",
+                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                     print("Tapped Follow")
+                                 }))
             }
             
         case (0, 5):
@@ -128,11 +128,11 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                                    footnote: "537 followers",
                                    newAction: FioriButton(title: AttributedString(stringLiteral: self.isLongText ? longText : "Follow"), action: { _ in print("Tapped Follow") }))
             } else {
-                oi = ObjectItem(title: self.isLongText ? longHeadline : "SAP.io",
-                                footnote: "537 followers",
-                                action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
-                                    print("Tapped Follow")
-                                }))
+                oi = _ObjectItem(title: self.isLongText ? longHeadline : "SAP.io",
+                                 footnote: "537 followers",
+                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                     print("Tapped Follow")
+                                 }))
             }
             
         case (1, 0):
@@ -144,7 +144,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
                 }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra libero et mauris gravida tempor.") }) })
                     .buttonStyle(PlainButtonStyle())
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
                 }, footnote: {
                     Text("3493 followers")
@@ -163,7 +163,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             }
             
         default:
-            oi = ObjectItem(title: "test")
+            oi = _ObjectItem(title: "test")
         }
         
         return oi.typeErased

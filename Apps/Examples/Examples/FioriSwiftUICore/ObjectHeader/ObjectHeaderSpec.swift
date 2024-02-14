@@ -617,7 +617,7 @@ struct ObjectHeaderSpec: ListDataProtocol {
             return AnyView(oh)
             
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(NewObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

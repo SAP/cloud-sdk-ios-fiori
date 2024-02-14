@@ -105,7 +105,7 @@ struct CoreContentView: View {
                 NavigationLink(
                     destination: ObjectItemExample(),
                     label: {
-                        Text("ObjectItem")
+                        Text("_ObjectItem")
                     }
                 )
                 
