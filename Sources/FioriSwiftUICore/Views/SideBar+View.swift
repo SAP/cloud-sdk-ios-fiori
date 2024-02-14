@@ -92,7 +92,7 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     {
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footer = footerModel != nil ?
-            ViewBuilder.buildEither(first: AnyView(ObjectItem(model: footerModel!)
+            ViewBuilder.buildEither(first: AnyView(_ObjectItem(model: footerModel!)
                     .detailImageModifier { $0.foregroundColor(.preferredColor(.primaryLabel))
                         .padding(.leading, 16)
                     }

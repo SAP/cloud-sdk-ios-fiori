@@ -192,14 +192,14 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .isFootnoteIconsCircular(false)
             return AnyView(oi)
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
     
     func getObjectItem(for indexPath: IndexPath) -> some View {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -232,7 +232,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .isAvatarCircular(false)
             return AnyView(oi)
         case (0, 1):
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -275,7 +275,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .footnoteIconsMaxCount(-2)
             return AnyView(oi)
         case (0, 2):
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -313,7 +313,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (0, 3):
-            let oi = ObjectItem(title: {
+            let oi = _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -362,7 +362,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .isFootnoteIconsCircular(false)
             return AnyView(oi)
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(_ObjectItem(title: "Lorem ipseum dolor"))
         }
     }
     

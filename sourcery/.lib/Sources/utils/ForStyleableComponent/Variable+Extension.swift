@@ -34,6 +34,29 @@ extension Variable {
         self.resultBuilderAttrs != nil || hasResultBuilderAttribute
     }
     
+    /**
+     For a variable (typically a result builder) that is styleable, during initialization, it will be wrapped by a styleable component.
+     
+     ```swift
+     public init(@ViewBuilder title: () -> any View)
+     {
+         self.title = Title { title() }
+     }
+     ```
+     
+     Otherwise,
+     
+     ```swift
+     public init(@ViewBuilder content: () -> any View)
+     {
+         self.content = content()
+     }
+     ```
+     */
+    var isStyleable: Bool {
+        self.isResultBuilder && self.definedInType?.isBaseComponent == true
+    }
+    
     var resultBuilderAttrs: (name: String, returnType: String, defaultValue: String, backingComponent: String)? {
         if annotations.isViewBuilder {
             return ("@ViewBuilder", self.resultBuilderReturnType, self.resultBuilderDefaultValue, self.backingComponent)

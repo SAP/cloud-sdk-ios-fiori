@@ -47,7 +47,7 @@ extension Array where Element == Variable {
         map { variable in
             let name = variable.name
             if variable.isResultBuilder {
-                let assignment = isBaseComponent ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
+                let assignment = isBaseComponent || !variable.isStyleable ? "\(name)()" : "\(name.capitalizingFirst()) { \(name)() }"
                 return "self.\(name) = \(assignment)"
             } else if variable.isConvertedToBinding {
                 return "self._\(name) = \(name)"

@@ -164,9 +164,9 @@ struct SearchableListViewExample: View {
                                       allowsMultipleSelection: allowsMultipleSelection,
                                       searchFilter: emptySearch ? nil : filter,
                                       rowContent: { framework in
-                                          ObjectItem {
+                                          NewObjectItem {
                                               Text(framework.name)
-                                          } descriptionText: {
+                                          } description: {
                                               Text("description")
                                           } status: {
                                               Image(systemName: "sun.min")
@@ -192,9 +192,9 @@ struct SearchableListViewExample: View {
                                       selection: selection,
                                       allowsMultipleSelection: allowsMultipleSelection,
                                       searchFilter: emptySearch ? nil : filter) { framework in
-                ObjectItem {
+                NewObjectItem {
                     Text(framework.name)
-                } descriptionText: {
+                } description: {
                     Text("description")
                 } status: {
                     Image(systemName: "sun.min")

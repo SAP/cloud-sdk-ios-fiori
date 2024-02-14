@@ -496,7 +496,7 @@ struct ObjectHeaderViewScenarios: ListDataProtocol {
              objectHeader.substatusLabel.textColor = UIColor.preferredFioriColor(forStyle: .positive, background: backgroundColorScheme)
              */
         default:
-            return AnyView(ObjectItem(title: "Lorem ipseum dolor"))
+            return AnyView(NewObjectItem(title: "Lorem ipseum dolor"))
         }
     }
 }

@@ -14,7 +14,7 @@ public extension EnvironmentValues {
 }
 
 public extension View {
-    /// the percentage of left and right content columns in remaining width, used in ObjectItem and ContactIteml etc, range from 0 to 1
+    /// the percentage of left and right content columns in remaining width, used in _ObjectItem and ContactIteml etc, range from 0 to 1
     func splitPercent(_ value: CGFloat?) -> some View {
         var newValue: CGFloat?
         

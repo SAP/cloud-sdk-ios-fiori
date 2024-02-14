@@ -336,7 +336,7 @@ public extension EnvironmentValues {
 public extension View {
     /// Maximum number of the footnote icons. Default value is 0. When the count is less or equal to 0, means the number is unlimited.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             footnoteIcons: {
     ///                 Image(systemName: "circle.fill")
     ///                 Image(systemName: "person.fill")
@@ -351,7 +351,7 @@ public extension View {
     
     /// Specifies whether the `footnoteIcons` are drawn as circular. Default value is `true`.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             footnoteIcons: {
     ///                 Image(systemName: "circle.fill")
     ///                 Image(systemName: "person.fill")
@@ -366,7 +366,7 @@ public extension View {
     
     /// Dimensions of the footnote icons spacing. Default value is -2.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             footnoteIcons: {
     ///                 Image(systemName: "circle.fill")
     ///                 Image(systemName: "person.fill")
@@ -381,7 +381,7 @@ public extension View {
     
     /// Dimensions of footnote icons. Default value is `16x16`.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             footnoteIcons: {
     ///                 Image(systemName: "circle.fill")
     ///                 Image(systemName: "person.fill")

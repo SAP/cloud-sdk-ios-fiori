@@ -2,7 +2,7 @@ import FioriThemeManager
 import SwiftUI
 
 extension Fiori {
-    enum ObjectItem {
+    enum _ObjectItem {
         struct Title: ViewModifier {
             func body(content: Content) -> some View {
                 content.font(.fiori(forTextStyle: .headline))
@@ -134,7 +134,7 @@ extension Fiori {
     }
 }
 
-extension ObjectItem: View {
+extension _ObjectItem: View {
     var shouldShowAvatar: Bool {
         !isAvatarsEmptyView || !isDetailImageEmptyView
     }
@@ -652,7 +652,7 @@ public extension EnvironmentValues {
 struct ObjectItem_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, status: {
                 Text("High")
@@ -665,7 +665,7 @@ struct ObjectItem_Previews: PreviewProvider {
                 .environment(\.horizontalSizeClass, .compact)
                 .previewDisplayName("When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.")
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -687,7 +687,7 @@ struct ObjectItem_Previews: PreviewProvider {
                 .environment(\.horizontalSizeClass, .compact)
                 .previewDisplayName("If only 1 status is being used, the body and subhead labels in the main content area should extend to the full width of the cell below the status.")
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -713,7 +713,7 @@ struct ObjectItem_Previews: PreviewProvider {
                 .environment(\.horizontalSizeClass, .compact)
                 .previewDisplayName("All elements, Compact")
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -739,7 +739,7 @@ struct ObjectItem_Previews: PreviewProvider {
                 .environment(\.horizontalSizeClass, .regular)
                 .previewDisplayName("Regular, 1st is text, init with ViewBuilder")
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating When After Being on for 1 Hour or Longer")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -766,21 +766,21 @@ struct ObjectItem_Previews: PreviewProvider {
                 .environment(\.horizontalSizeClass, .regular)
                 .previewDisplayName("Regular, 1st is icon, splitPercent to nil, init with ViewBuilder")
             
-            ObjectItem(title: "Transformer Overheating",
-                       subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
-                       descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
-                       status: TextOrIcon.text("High"),
-                       substatus: TextOrIcon.text("Scheduled"),
-                       detailImage: Image(systemName: "person"),
-                       icons: [TextOrIcon.text("1"),
-                               TextOrIcon.icon(Image(systemName: "circle.fill")),
-                               TextOrIcon.icon(Image(systemName: "mail"))])
+            _ObjectItem(title: "Transformer Overheating",
+                        subtitle: "Three Phase Pad Mounted Transformer (533423)", footnote: "1000 - Hamburg, MECHANIK",
+                        descriptionText: "Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.",
+                        status: TextOrIcon.text("High"),
+                        substatus: TextOrIcon.text("Scheduled"),
+                        detailImage: Image(systemName: "person"),
+                        icons: [TextOrIcon.text("1"),
+                                TextOrIcon.icon(Image(systemName: "circle.fill")),
+                                TextOrIcon.icon(Image(systemName: "mail"))])
                 .previewDevice(PreviewDevice(rawValue: "iPad Pro (12.9-inch) (4th generation)"))
                 .previewLayout(.fixed(width: 844, height: 120))
                 .environment(\.horizontalSizeClass, .regular)
                 .previewDisplayName("Regular, 1st is text, init with model")
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -807,7 +807,7 @@ struct ObjectItem_Previews: PreviewProvider {
                 .previewDisplayName("Accessibility AX1 and larger- no description text")
                 .environment(\.sizeCategory, .accessibilityExtraLarge)
             
-            ObjectItem(title: {
+            _ObjectItem(title: {
                 Text("Rouja Pakiman")
             }, subtitle: {
                 Text("Java Developer")
