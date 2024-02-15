@@ -47,16 +47,10 @@ extension InformationViewFioriStyle {
     }
 }
 
-
-
-
-
-
-
 extension View {
     /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
     public func informationView(icon: Image? = nil, description: AttributedString) -> some View {
-        InformationView(icon: icon, description: description, content: {self})
+        InformationView(icon: icon, description: description, content: { self })
     }
 }
 
@@ -156,6 +150,7 @@ public extension InformationViewStyle where Self == InformationViewInformational
         InformationViewInformationalStyle()
     }
 }
+
 /// Success style of the InformationView. It is used to show success message.
 public extension InformationViewStyle where Self == InformationViewSuccessStyle {
     static var success: InformationViewSuccessStyle {
