@@ -61,5 +61,6 @@ private extension CardFooter {
         CardFooter(.init(newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)
             .cardFooterStyle(CardFooterFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

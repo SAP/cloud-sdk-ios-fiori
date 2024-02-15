@@ -27,7 +27,7 @@ struct ObjectItemExample: View {
                 destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self, isNewObjectItem: self._isNewObjectItem)) {
                 Text("Avatars and Icons Tests")
             }
-        }.navigationBarTitle(_isNewObjectItem ? "NewObjectItem" : "_ObjectItem", displayMode: .inline)
+        }.navigationBarTitle(_isNewObjectItem ? "ObjectItem" : "_ObjectItem", displayMode: .inline)
     }
 }
 

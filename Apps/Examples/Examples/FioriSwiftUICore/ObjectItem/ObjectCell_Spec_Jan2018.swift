@@ -61,11 +61,11 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             //        cell.footnoteLabel.numberOfLines = 4
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: "Lorem ipseum dolor",
-                                   footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                   description: "Some descirption",
-                                   status: TextOrIcon.text("Some status"),
-                                   substatus: TextOrIcon.text("some substatus"))
+                oi = ObjectItem(title: "Lorem ipseum dolor",
+                                footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
+                                description: "Some descirption",
+                                status: TextOrIcon.text("Some status"),
+                                substatus: TextOrIcon.text("some substatus"))
                     .footnoteStyle {
                         Footnote($0)
                             .lineLimit(4)
@@ -93,7 +93,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //            cell.footnoteLabel.numberOfLines = 4
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Lorem ipseum dolor")
                 }, footnote: {
                     Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
@@ -137,7 +137,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             //                }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("John Jacob Jingleheimer Schmidt")
                 }, description: {
                     Text("Description is one line of text without wrapping")
@@ -178,7 +178,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -220,7 +220,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("No Description Set")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -269,7 +269,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -325,7 +325,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")

@@ -484,31 +484,31 @@ public extension NewActionStyle {
     }
 }
 
-// MARK: NewObjectItemStyle
+// MARK: ObjectItemStyle
 
-extension ModifiedStyle: NewObjectItemStyle where Style: NewObjectItemStyle {
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
-            .newObjectItemStyle(self.style)
+extension ModifiedStyle: ObjectItemStyle where Style: ObjectItemStyle {
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
+            .objectItemStyle(self.style)
             .modifier(self.modifier)
     }
 }
 
-public struct NewObjectItemStyleModifier<Style: NewObjectItemStyle>: ViewModifier {
+public struct ObjectItemStyleModifier<Style: ObjectItemStyle>: ViewModifier {
     let style: Style
 
     public func body(content: Content) -> some View {
-        content.newObjectItemStyle(self.style)
+        content.objectItemStyle(self.style)
     }
 }
 
-public extension NewObjectItemStyle {
-    func modifier(_ modifier: some ViewModifier) -> some NewObjectItemStyle {
+public extension ObjectItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ObjectItemStyle {
         ModifiedStyle(style: self, modifier: modifier)
     }
 
-    func concat(_ style: some NewObjectItemStyle) -> some NewObjectItemStyle {
-        style.modifier(NewObjectItemStyleModifier(style: self))
+    func concat(_ style: some ObjectItemStyle) -> some ObjectItemStyle {
+        style.modifier(ObjectItemStyleModifier(style: self))
     }
 }
 

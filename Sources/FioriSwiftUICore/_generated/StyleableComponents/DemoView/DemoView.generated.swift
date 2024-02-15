@@ -76,5 +76,6 @@ private extension DemoView {
         DemoView(.init(title: .init(self.title), subtitle: .init(self.subtitle), status: .init(self.status), newAction: .init(self.newAction), isOn: self.$isOn))
             .shouldApplyDefaultStyle(false)
             .demoViewStyle(DemoViewFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

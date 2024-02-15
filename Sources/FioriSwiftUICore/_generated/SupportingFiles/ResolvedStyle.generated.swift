@@ -275,19 +275,19 @@ extension NewActionStyle {
     }
 }
 
-// MARK: NewObjectItemStyle
+// MARK: ObjectItemStyle
 
-struct ResolvedNewObjectItemStyle<Style: NewObjectItemStyle>: View {
+struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     let style: Style
-    let configuration: NewObjectItemConfiguration
+    let configuration: ObjectItemConfiguration
     var body: some View {
         style.makeBody(configuration)
     }
 }
 
-extension NewObjectItemStyle {
-    func resolve(configuration: NewObjectItemConfiguration) -> some View {
-        ResolvedNewObjectItemStyle(style: self, configuration: configuration)
+extension ObjectItemStyle {
+    func resolve(configuration: ObjectItemConfiguration) -> some View {
+        ResolvedObjectItemStyle(style: self, configuration: configuration)
     }
 }
 

@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// A view that displays information of an object.
-public struct NewObjectItem {
+public struct ObjectItem {
     let title: any View
     let subtitle: any View
     let footnote: any View
@@ -18,7 +18,7 @@ public struct NewObjectItem {
     let tags: any View
     let newAction: any View
 
-    @Environment(\.newObjectItemStyle) var style
+    @Environment(\.objectItemStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
@@ -50,7 +50,7 @@ public struct NewObjectItem {
     }
 }
 
-public extension NewObjectItem {
+public extension ObjectItem {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -68,8 +68,8 @@ public extension NewObjectItem {
     }
 }
 
-public extension NewObjectItem {
-    init(_ configuration: NewObjectItemConfiguration) {
+public extension ObjectItem {
+    init(_ configuration: ObjectItemConfiguration) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.footnote = configuration.footnote
@@ -86,13 +86,13 @@ public extension NewObjectItem {
     }
 }
 
-extension NewObjectItem: View {
+extension ObjectItem: View {
     public var body: some View {
         if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
             style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
-                .transformEnvironment(\.newObjectItemStyleStack) { stack in
+                .transformEnvironment(\.objectItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -101,7 +101,7 @@ extension NewObjectItem: View {
     }
 }
 
-private extension NewObjectItem {
+private extension ObjectItem {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -109,8 +109,9 @@ private extension NewObjectItem {
     }
         
     func defaultStyle() -> some View {
-        NewObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction)))
+        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction)))
             .shouldApplyDefaultStyle(false)
-            .newObjectItemStyle(NewObjectItemFioriStyle.ContentFioriStyle())
+            .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

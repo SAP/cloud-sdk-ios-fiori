@@ -54,5 +54,6 @@ private extension Footnote {
         Footnote(footnote: { self.footnote })
             .shouldApplyDefaultStyle(false)
             .footnoteStyle(.fiori)
+            .typeErased
     }
 }

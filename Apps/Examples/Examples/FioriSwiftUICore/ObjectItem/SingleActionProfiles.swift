@@ -78,7 +78,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -109,7 +109,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 1):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -156,7 +156,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 2):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -191,7 +191,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
              
         case (0, 3):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -218,7 +218,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 4):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -249,7 +249,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 5):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Steel Roter")
                 }, subtitle: {
                     Text("Product 1349-0987C65-X8900")
@@ -278,7 +278,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (1, 0):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")

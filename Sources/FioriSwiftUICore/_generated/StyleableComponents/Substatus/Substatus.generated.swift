@@ -54,5 +54,6 @@ private extension Substatus {
         Substatus(substatus: { self.substatus })
             .shouldApplyDefaultStyle(false)
             .substatusStyle(.fiori)
+            .typeErased
     }
 }

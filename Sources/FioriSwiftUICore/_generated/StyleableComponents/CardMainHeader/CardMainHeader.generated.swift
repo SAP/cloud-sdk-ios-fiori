@@ -71,5 +71,6 @@ private extension CardMainHeader {
         CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), detailImage: .init(self.detailImage), counter: .init(self.counter)))
             .shouldApplyDefaultStyle(false)
             .cardMainHeaderStyle(CardMainHeaderFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

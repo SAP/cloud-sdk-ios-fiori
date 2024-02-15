@@ -54,5 +54,6 @@ private extension NewAction {
         NewAction(newAction: { self.newAction })
             .shouldApplyDefaultStyle(false)
             .newActionStyle(.fiori)
+            .typeErased
     }
 }

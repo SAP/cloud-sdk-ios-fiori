@@ -292,18 +292,18 @@ public extension View {
     }
 }
 
-// MARK: NewObjectItemStyle
+// MARK: ObjectItemStyle
 
 public extension View {
-    func newObjectItemStyle(_ style: some NewObjectItemStyle) -> some View {
-        self.transformEnvironment(\.newObjectItemStyleStack) { stack in
+    func objectItemStyle(_ style: some ObjectItemStyle) -> some View {
+        self.transformEnvironment(\.objectItemStyleStack) { stack in
             stack.append(style)
         }
     }
     
-    func newObjectItemStyle(@ViewBuilder content: @escaping (NewObjectItemConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.newObjectItemStyleStack) { stack in
-            let style = AnyNewObjectItemStyle(content)
+    func objectItemStyle(@ViewBuilder content: @escaping (ObjectItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.objectItemStyleStack) { stack in
+            let style = AnyObjectItemStyle(content)
             stack.append(style)
         }
     }

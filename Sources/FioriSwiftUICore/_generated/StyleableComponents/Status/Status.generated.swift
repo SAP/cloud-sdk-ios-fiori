@@ -54,5 +54,6 @@ private extension Status {
         Status(status: { self.status })
             .shouldApplyDefaultStyle(false)
             .statusStyle(.fiori)
+            .typeErased
     }
 }

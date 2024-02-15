@@ -111,5 +111,6 @@ private extension Card {
         Card(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), detailImage: .init(self.detailImage), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), cardBody: .init(self.cardBody), newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)
             .cardStyle(CardFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

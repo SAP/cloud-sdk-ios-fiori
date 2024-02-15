@@ -22,7 +22,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     
     func createInstance(typeThing: T.Type) -> ListDataProtocol {
         if let objectItemListData = typeThing as? ObjectItemListDataProtocol.Type {
-            print("NewObjectItem: \(self._isNewObjectItem)")
+            print("ObjectItem: \(self._isNewObjectItem)")
             return objectItemListData.init(cellTapped: $cellTapped, isNewObjectItem: self._isNewObjectItem)
         } else {
             return typeThing.init(cellTapped: $cellTapped)
@@ -53,7 +53,7 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
             .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
                 $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             }
-            .newObjectItemStyle(.newActionStyle(NewObjectItemBorderedAction()))
+            .objectItemStyle(.newActionStyle(ObjectItemBorderedAction()))
         }
         .navigationBarItems(trailing: HStack {
             if showEditButton {

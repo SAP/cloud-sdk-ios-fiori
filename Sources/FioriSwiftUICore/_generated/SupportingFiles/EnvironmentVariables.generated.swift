@@ -360,23 +360,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: NewObjectItemStyle
+// MARK: ObjectItemStyle
 
-struct NewObjectItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewObjectItemStyle] = []
+struct ObjectItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ObjectItemStyle] = []
 }
 
 extension EnvironmentValues {
-    var newObjectItemStyle: any NewObjectItemStyle {
-        newObjectItemStyleStack.last ?? .base.concat(.fiori)
+    var objectItemStyle: any ObjectItemStyle {
+        objectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
-    var newObjectItemStyleStack: [any NewObjectItemStyle] {
+    var objectItemStyleStack: [any ObjectItemStyle] {
         get {
-            self[NewObjectItemStyleStackKey.self]
+            self[ObjectItemStyleStackKey.self]
         }
         set {
-            self[NewObjectItemStyleStackKey.self] = newValue
+            self[ObjectItemStyleStackKey.self] = newValue
         }
     }
 }

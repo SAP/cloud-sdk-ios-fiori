@@ -54,5 +54,6 @@ private extension Icons {
         Icons(icons: { self.icons })
             .shouldApplyDefaultStyle(false)
             .iconsStyle(.fiori)
+            .typeErased
     }
 }

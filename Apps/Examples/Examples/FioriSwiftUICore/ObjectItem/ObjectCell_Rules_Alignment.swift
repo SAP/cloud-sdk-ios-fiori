@@ -98,7 +98,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -136,7 +136,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -175,7 +175,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.43
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -214,7 +214,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman Rouja Pakiman")
                         .lineLimit(2)
                 }, description: {
@@ -256,7 +256,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.").lineLimit(1)
@@ -293,7 +293,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -338,7 +338,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -383,7 +383,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .none
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -428,7 +428,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -471,7 +471,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -512,7 +512,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.43
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -549,7 +549,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -592,7 +592,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -636,7 +636,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -677,7 +677,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -724,7 +724,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating").lineLimit(1)
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -780,7 +780,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -827,7 +827,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.isApplyingSplitPercent = false
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -874,7 +874,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -920,7 +920,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -956,7 +956,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -998,7 +998,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1038,7 +1038,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1080,7 +1080,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1140,7 +1140,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1198,7 +1198,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1247,7 +1247,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .checkmark
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1281,7 +1281,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.statusText = highText
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1323,7 +1323,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            }
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1360,7 +1360,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .detailButton
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -1396,7 +1396,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1440,7 +1440,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .detailButton
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, description: {
                     Text("Customer noticed that the transformer started to over heat within 45 minutes each time he turned it on at 7:30am.  The first technician who looked at this did not have the correct additional tools to complete the job.")
@@ -1475,7 +1475,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1523,7 +1523,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1588,7 +1588,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
@@ -1624,7 +1624,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.splitPercent = 0.33
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -1663,7 +1663,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -1710,7 +1710,7 @@ struct ObjectCell_Rules_Alignment: ObjectItemListDataProtocol {
 //            cell.accessoryType = .disclosureIndicator
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Transformer Overheating When After Being on for 1 Hour or Longer Duration.").lineLimit(2)
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")

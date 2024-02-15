@@ -134,7 +134,7 @@ extension NewAction: _ViewEmptyChecking {
     }
 }
 
-extension NewObjectItem: _ViewEmptyChecking {
+extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
             subtitle.isEmpty ||

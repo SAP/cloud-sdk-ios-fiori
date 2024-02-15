@@ -12,14 +12,14 @@ import SwiftUI
  */
 
 // Base Layout style
-public struct NewObjectItemBaseStyle: NewObjectItemStyle {
+public struct ObjectItemBaseStyle: ObjectItemStyle {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @Environment(\.splitPercent) var splitPercent
     @Environment(\.dynamicTypeSize) var dynamicTypeSize
     
     @State var mainViewSize: CGSize = .zero
     
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
         var shouldShowAvatar: Bool {
             !configuration.avatars.isEmpty || !configuration.detailImage.isEmpty
         }
@@ -74,15 +74,15 @@ public struct NewObjectItemBaseStyle: NewObjectItemStyle {
     }
 }
 
-extension NewObjectItemBaseStyle {
+extension ObjectItemBaseStyle {
     struct Context {
-        let configuration: NewObjectItemConfiguration
+        let configuration: ObjectItemConfiguration
         let shouldShowAvatar: Bool
         let avatarView: any View
     }
 }
 
-extension NewObjectItemBaseStyle {
+extension ObjectItemBaseStyle {
     func makeOneLineSingleActionView(_ context: Context) -> some View {
         ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
             if !context.configuration.icons.isEmpty {
@@ -494,11 +494,12 @@ extension NewObjectItemBaseStyle {
 }
 
 // Default fiori styles
-extension NewObjectItemFioriStyle {
-    struct ContentFioriStyle: NewObjectItemStyle {
-        func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-            NewObjectItem(configuration)
+extension ObjectItemFioriStyle {
+    struct ContentFioriStyle: ObjectItemStyle {
+        func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+            ObjectItem(configuration)
                 // Add default style for its content
+                .padding(EdgeInsets(top: 14, leading: 0, bottom: 14, trailing: 0))
                 .contentShape(Rectangle())
         }
     }
@@ -513,7 +514,8 @@ extension NewObjectItemFioriStyle {
     struct SubtitleFioriStyle: SubtitleStyle {
         func makeBody(_ configuration: SubtitleConfiguration) -> some View {
             Subtitle(configuration)
-            // Add default style here
+                // Add default style here
+                .lineLimit(1)
         }
     }
 
@@ -591,14 +593,15 @@ extension NewObjectItemFioriStyle {
             NewAction(configuration)
                 // Add default style here
                 .fioriButtonStyle(FioriPlainButtonStyle())
+                .lineLimit(2)
         }
     }
 }
 
 /// Card style
-public struct NewObjectItemCardStyle: NewObjectItemStyle {
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+public struct ObjectItemCardStyle: ObjectItemStyle {
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .padding()
             .background {
                 RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -607,13 +610,13 @@ public struct NewObjectItemCardStyle: NewObjectItemStyle {
     }
 }
 
-public extension NewObjectItemStyle where Self == NewObjectItemCardStyle {
+public extension ObjectItemStyle where Self == ObjectItemCardStyle {
     static var card: Self {
-        NewObjectItemCardStyle()
+        ObjectItemCardStyle()
     }
 }
 
-public struct NewObjectItemBorderedAction: NewActionStyle {
+public struct ObjectItemBorderedAction: NewActionStyle {
     public init() {}
     
     public func makeBody(_ configuration: NewActionConfiguration) -> some View {
@@ -626,7 +629,7 @@ public struct NewObjectItemBorderedAction: NewActionStyle {
 
 #Preview(body: {
     List {
-        NewObjectItem(title: {
+        ObjectItem(title: {
             Text("Title")
         }, subtitle: {
             Text("Subtitle")
