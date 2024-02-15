@@ -27,4 +27,7 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
 
 // sourcery: CompositeComponent
-protocol _InformationViewComponent: _InformationViewContentComponent, _InformationViewIconComponent, _InformationViewTextComponent {}
+protocol _InformationViewComponent: _IconComponent, _DescriptionComponent{
+    @ViewBuilder
+    var content: (() -> any View) { get }
+}

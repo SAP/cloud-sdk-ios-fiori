@@ -4,38 +4,38 @@ import Foundation
 import SwiftUI
 
 public struct InformationView {
-    let informationViewContent: any View
-    let informationViewIcon: any View
-    let informationViewText: any View
+    let icon: any View
+    let description: any View
+    let content: any View
 
     @Environment(\.informationViewStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder informationViewContent: () -> any View,
-                @ViewBuilder informationViewIcon: () -> any View = { EmptyView() },
-                @ViewBuilder informationViewText: () -> any View)
+    public init(@ViewBuilder icon: () -> any View = { EmptyView() },
+                @ViewBuilder description: () -> any View = { EmptyView() },
+                @ViewBuilder content: () -> any View)
     {
-        self.informationViewContent = InformationViewContent { informationViewContent() }
-        self.informationViewIcon = InformationViewIcon { informationViewIcon() }
-        self.informationViewText = InformationViewText { informationViewText() }
+        self.icon = Icon { icon() }
+        self.description = Description { description() }
+        self.content = content()
     }
 }
 
 public extension InformationView {
-    init(informationViewContent: () -> any View,
-         informationViewIcon: Image? = nil,
-         informationViewText: AttributedString)
+    init(icon: Image? = nil,
+         description: AttributedString? = nil,
+         @ViewBuilder content: () -> any View)
     {
-        self.init(informationViewContent: informationViewContent, informationViewIcon: { informationViewIcon }, informationViewText: { Text(informationViewText) })
+        self.init(icon: { icon }, description: { OptionalText(description) }, content: content)
     }
 }
 
 public extension InformationView {
     init(_ configuration: InformationViewConfiguration) {
-        self.informationViewContent = configuration.informationViewContent
-        self.informationViewIcon = configuration.informationViewIcon
-        self.informationViewText = configuration.informationViewText
+        self.icon = configuration.icon
+        self.description = configuration.description
+        self.content = configuration.content
         self._shouldApplyDefaultStyle = false
     }
 }
@@ -45,7 +45,7 @@ extension InformationView: View {
         if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(informationViewContent: .init(self.informationViewContent), informationViewIcon: .init(self.informationViewIcon), informationViewText: .init(self.informationViewText))).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content))).typeErased
                 .transformEnvironment(\.informationViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -63,7 +63,7 @@ private extension InformationView {
     }
         
     func defaultStyle() -> some View {
-        InformationView(.init(informationViewContent: .init(self.informationViewContent), informationViewIcon: .init(self.informationViewIcon), informationViewText: .init(self.informationViewText)))
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content)))
             .shouldApplyDefaultStyle(false)
             .informationViewStyle(InformationViewFioriStyle.ContentFioriStyle())
     }

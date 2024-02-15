@@ -241,6 +241,23 @@ public extension View {
     }
 }
 
+// MARK: IconStyle
+
+public extension View {
+    func iconStyle(_ style: some IconStyle) -> some View {
+        self.transformEnvironment(\.iconStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.iconStyleStack) { stack in
+            let style = AnyIconStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: IconsStyle
 
 public extension View {
@@ -270,57 +287,6 @@ public extension View {
     func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.informationViewStyleStack) { stack in
             let style = AnyInformationViewStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: InformationViewContentStyle
-
-public extension View {
-    func informationViewContentStyle(_ style: some InformationViewContentStyle) -> some View {
-        self.transformEnvironment(\.informationViewContentStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-    
-    func informationViewContentStyle(@ViewBuilder content: @escaping (InformationViewContentConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.informationViewContentStyleStack) { stack in
-            let style = AnyInformationViewContentStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: InformationViewIconStyle
-
-public extension View {
-    func informationViewIconStyle(_ style: some InformationViewIconStyle) -> some View {
-        self.transformEnvironment(\.informationViewIconStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-    
-    func informationViewIconStyle(@ViewBuilder content: @escaping (InformationViewIconConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.informationViewIconStyleStack) { stack in
-            let style = AnyInformationViewIconStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: InformationViewTextStyle
-
-public extension View {
-    func informationViewTextStyle(_ style: some InformationViewTextStyle) -> some View {
-        self.transformEnvironment(\.informationViewTextStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-    
-    func informationViewTextStyle(@ViewBuilder content: @escaping (InformationViewTextConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.informationViewTextStyleStack) { stack in
-            let style = AnyInformationViewTextStyle(content)
             stack.append(style)
         }
     }

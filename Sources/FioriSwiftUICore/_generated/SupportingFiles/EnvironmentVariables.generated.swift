@@ -297,6 +297,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: IconStyle
+
+struct IconStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IconStyle] = []
+}
+
+extension EnvironmentValues {
+    var iconStyle: any IconStyle {
+        self.iconStyleStack.last ?? .base
+    }
+
+    var iconStyleStack: [any IconStyle] {
+        get {
+            self[IconStyleStackKey.self]
+        }
+        set {
+            self[IconStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IconsStyle
 
 struct IconsStyleStackKey: EnvironmentKey {
@@ -335,69 +356,6 @@ extension EnvironmentValues {
         }
         set {
             self[InformationViewStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: InformationViewContentStyle
-
-struct InformationViewContentStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InformationViewContentStyle] = []
-}
-
-extension EnvironmentValues {
-    var informationViewContentStyle: any InformationViewContentStyle {
-        self.informationViewContentStyleStack.last ?? .base
-    }
-
-    var informationViewContentStyleStack: [any InformationViewContentStyle] {
-        get {
-            self[InformationViewContentStyleStackKey.self]
-        }
-        set {
-            self[InformationViewContentStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: InformationViewIconStyle
-
-struct InformationViewIconStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InformationViewIconStyle] = []
-}
-
-extension EnvironmentValues {
-    var informationViewIconStyle: any InformationViewIconStyle {
-        self.informationViewIconStyleStack.last ?? .base
-    }
-
-    var informationViewIconStyleStack: [any InformationViewIconStyle] {
-        get {
-            self[InformationViewIconStyleStackKey.self]
-        }
-        set {
-            self[InformationViewIconStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: InformationViewTextStyle
-
-struct InformationViewTextStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any InformationViewTextStyle] = []
-}
-
-extension EnvironmentValues {
-    var informationViewTextStyle: any InformationViewTextStyle {
-        self.informationViewTextStyleStack.last ?? .base
-    }
-
-    var informationViewTextStyleStack: [any InformationViewTextStyle] {
-        get {
-            self[InformationViewTextStyleStackKey.self]
-        }
-        set {
-            self[InformationViewTextStyleStackKey.self] = newValue
         }
     }
 }

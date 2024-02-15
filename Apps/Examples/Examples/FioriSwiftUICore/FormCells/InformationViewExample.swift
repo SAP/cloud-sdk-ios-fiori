@@ -4,61 +4,41 @@ import SwiftUI
 struct InformationViewExample: View {
     var body: some View {
         VStack(alignment: .leading) {
-            VStack {
-                Text("Basic style, no icon")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.base)
-                
-                Text("Basic style, no icon")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.base)
-            }
-            .background(Color.preferredColor(.tertiaryBackground))
-            VStack {
-                Text("Default Style")
-                    .font(.headline)
-                Text("Fiori style")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.fiori)
-                
-                Text("Error style")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.error)
-                
-                Text("Warning style")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.warning)
-                
-                Text("Informational style")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.informational)
-                
-                Text("Success style")
-                    .informationView(informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.success)
-            }
-            .background(Color.preferredColor(.secondaryBackground))
-            VStack {
-                Text("Customized Style")
-                    .font(.headline)
-                Text("Basic style")
-                    .informationView(informationViewIcon: Image(systemName: "heart"), informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.base)
-                
-                Text("Fiori style")
-                    .informationView(informationViewIcon: Image(systemName: "diamond"), informationViewText: AttributedString("test message"))
-                    .informationViewStyle(.fiori)
-                    .informationViewIconStyle(content: { informationViewIconConfiguration in
-                        informationViewIconConfiguration.informationViewIcon
-                            .foregroundStyle(Color.preferredColor(.tintColor))
-                    })
-                    .informationViewTextStyle(content: { informationViewTextConfiguration in
-                        informationViewTextConfiguration.informationViewText
-                            .foregroundStyle(Color.preferredColor(.criticalLabel))
-                            .font(.fiori(forTextStyle: .title2))
-                        })
-            }
-            .background(Color.preferredColor(.quarternaryFill))
+            Text("Default Fiori style, no icon")
+                .informationView(description: AttributedString("test message"))
+            
+            Text("Error style")
+                .informationView(description: AttributedString("test message"))
+                .informationViewStyle(.error)
+            
+            Text("Warning style")
+                .informationView(description: AttributedString("test message"))
+                .informationViewStyle(.warning)
+            
+            Text("Informational style")
+                .informationView(description: AttributedString("test message"))
+                .informationViewStyle(.informational)
+            
+            Text("Success style")
+                .informationView(description: AttributedString("test message"))
+                .informationViewStyle(.success)
+            
+            Text("Customized icon")
+                .informationView(icon: Image(systemName: "heart"), description: AttributedString("test message"))
+            
+            Text("Customized font and color")
+                .informationView(icon: Image(systemName: "diamond"), description: AttributedString("test message"))
+                .informationViewStyle(.fiori)
+                .iconStyle(content: { iconConfiguration in
+                    iconConfiguration.icon
+                        .foregroundStyle(Color.preferredColor(.tintColor))
+                })
+                .descriptionStyle(content: { descriptionConfiguration in
+                    descriptionConfiguration.description
+                        .foregroundStyle(Color.preferredColor(.criticalLabel))
+                        .font(.fiori(forTextStyle: .title2))
+                })
+            
             Spacer()
         }
     }

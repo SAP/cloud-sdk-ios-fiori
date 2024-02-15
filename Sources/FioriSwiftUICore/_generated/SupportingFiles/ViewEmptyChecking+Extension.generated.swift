@@ -116,6 +116,12 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension Icon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty
+    }
+}
+
 extension Icons: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icons.isEmpty
@@ -124,27 +130,9 @@ extension Icons: _ViewEmptyChecking {
 
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        informationViewContent.isEmpty ||
-            informationViewIcon.isEmpty ||
-            informationViewText.isEmpty
-    }
-}
-
-extension InformationViewContent: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        informationViewContent.isEmpty
-    }
-}
-
-extension InformationViewIcon: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        informationViewIcon.isEmpty
-    }
-}
-
-extension InformationViewText: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        informationViewText.isEmpty
+        icon.isEmpty ||
+            description.isEmpty ||
+            content.isEmpty
     }
 }
 

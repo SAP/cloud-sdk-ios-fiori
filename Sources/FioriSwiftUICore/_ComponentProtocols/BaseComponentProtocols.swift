@@ -72,21 +72,9 @@ protocol _AvatarsComponent {
 }
 
 // sourcery: BaseComponent
-protocol _InformationViewIconComponent {
+protocol _IconComponent {
     // sourcery: @ViewBuilder
-    var informationViewIcon: Image? { get }
-}
-
-// sourcery: BaseComponent
-protocol _InformationViewTextComponent {
-    // sourcery: @ViewBuilder
-    var informationViewText: AttributedString { get }
-}
-
-// sourcery: BaseComponent
-protocol _InformationViewContentComponent {
-    // sourcery: @ViewBuilder
-    var informationViewContent: () -> any View { get }
+    var icon: Image? { get }
 }
 
 // TODO: rename to _ActionComponent after resolving the conflict.

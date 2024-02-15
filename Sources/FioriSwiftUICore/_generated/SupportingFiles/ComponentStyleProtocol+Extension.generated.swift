@@ -1081,6 +1081,20 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     }
 }
 
+// MARK: IconStyle
+    
+public extension IconStyle where Self == IconBaseStyle {
+    static var base: IconBaseStyle {
+        IconBaseStyle()
+    }
+}
+
+public extension IconStyle where Self == IconFioriStyle {
+    static var fiori: IconFioriStyle {
+        IconFioriStyle()
+    }
+}
+
 // MARK: IconsStyle
     
 public extension IconsStyle where Self == IconsBaseStyle {
@@ -1109,108 +1123,45 @@ public extension InformationViewStyle where Self == InformationViewFioriStyle {
     }
 }
     
-public struct InformationViewInformationViewContentStyle: InformationViewStyle {
-    let style: any InformationViewContentStyle
+public struct InformationViewIconStyle: InformationViewStyle {
+    let style: any IconStyle
         
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewContentStyle(self.style)
+            .iconStyle(self.style)
             .typeErased
     }
 }
     
-public extension InformationViewStyle where Self == InformationViewInformationViewContentStyle {
-    static func informationViewContentStyle(_ style: some InformationViewContentStyle) -> InformationViewInformationViewContentStyle {
-        InformationViewInformationViewContentStyle(style: style)
+public extension InformationViewStyle where Self == InformationViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> InformationViewIconStyle {
+        InformationViewIconStyle(style: style)
     }
         
-    static func informationViewContentStyle(@ViewBuilder content: @escaping (InformationViewContentConfiguration) -> some View) -> InformationViewInformationViewContentStyle {
-        let style = AnyInformationViewContentStyle(content)
-        return InformationViewInformationViewContentStyle(style: style)
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> InformationViewIconStyle {
+        let style = AnyIconStyle(content)
+        return InformationViewIconStyle(style: style)
     }
 }
 
-public struct InformationViewInformationViewIconStyle: InformationViewStyle {
-    let style: any InformationViewIconStyle
+public struct InformationViewDescriptionStyle: InformationViewStyle {
+    let style: any DescriptionStyle
         
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewIconStyle(self.style)
+            .descriptionStyle(self.style)
             .typeErased
     }
 }
     
-public extension InformationViewStyle where Self == InformationViewInformationViewIconStyle {
-    static func informationViewIconStyle(_ style: some InformationViewIconStyle) -> InformationViewInformationViewIconStyle {
-        InformationViewInformationViewIconStyle(style: style)
+public extension InformationViewStyle where Self == InformationViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> InformationViewDescriptionStyle {
+        InformationViewDescriptionStyle(style: style)
     }
         
-    static func informationViewIconStyle(@ViewBuilder content: @escaping (InformationViewIconConfiguration) -> some View) -> InformationViewInformationViewIconStyle {
-        let style = AnyInformationViewIconStyle(content)
-        return InformationViewInformationViewIconStyle(style: style)
-    }
-}
-
-public struct InformationViewInformationViewTextStyle: InformationViewStyle {
-    let style: any InformationViewTextStyle
-        
-    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
-        InformationView(configuration)
-            .informationViewTextStyle(self.style)
-            .typeErased
-    }
-}
-    
-public extension InformationViewStyle where Self == InformationViewInformationViewTextStyle {
-    static func informationViewTextStyle(_ style: some InformationViewTextStyle) -> InformationViewInformationViewTextStyle {
-        InformationViewInformationViewTextStyle(style: style)
-    }
-        
-    static func informationViewTextStyle(@ViewBuilder content: @escaping (InformationViewTextConfiguration) -> some View) -> InformationViewInformationViewTextStyle {
-        let style = AnyInformationViewTextStyle(content)
-        return InformationViewInformationViewTextStyle(style: style)
-    }
-}
-
-// MARK: InformationViewContentStyle
-    
-public extension InformationViewContentStyle where Self == InformationViewContentBaseStyle {
-    static var base: InformationViewContentBaseStyle {
-        InformationViewContentBaseStyle()
-    }
-}
-
-public extension InformationViewContentStyle where Self == InformationViewContentFioriStyle {
-    static var fiori: InformationViewContentFioriStyle {
-        InformationViewContentFioriStyle()
-    }
-}
-
-// MARK: InformationViewIconStyle
-    
-public extension InformationViewIconStyle where Self == InformationViewIconBaseStyle {
-    static var base: InformationViewIconBaseStyle {
-        InformationViewIconBaseStyle()
-    }
-}
-
-public extension InformationViewIconStyle where Self == InformationViewIconFioriStyle {
-    static var fiori: InformationViewIconFioriStyle {
-        InformationViewIconFioriStyle()
-    }
-}
-
-// MARK: InformationViewTextStyle
-    
-public extension InformationViewTextStyle where Self == InformationViewTextBaseStyle {
-    static var base: InformationViewTextBaseStyle {
-        InformationViewTextBaseStyle()
-    }
-}
-
-public extension InformationViewTextStyle where Self == InformationViewTextFioriStyle {
-    static var fiori: InformationViewTextFioriStyle {
-        InformationViewTextFioriStyle()
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return InformationViewDescriptionStyle(style: style)
     }
 }
 

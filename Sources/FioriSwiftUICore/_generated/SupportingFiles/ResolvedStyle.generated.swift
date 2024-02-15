@@ -227,6 +227,22 @@ extension FootnoteIconsStyle {
     }
 }
 
+// MARK: IconStyle
+
+struct ResolvedIconStyle<Style: IconStyle>: View {
+    let style: Style
+    let configuration: IconConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension IconStyle {
+    func resolve(configuration: IconConfiguration) -> some View {
+        ResolvedIconStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: IconsStyle
 
 struct ResolvedIconsStyle<Style: IconsStyle>: View {
@@ -256,54 +272,6 @@ struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
 extension InformationViewStyle {
     func resolve(configuration: InformationViewConfiguration) -> some View {
         ResolvedInformationViewStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: InformationViewContentStyle
-
-struct ResolvedInformationViewContentStyle<Style: InformationViewContentStyle>: View {
-    let style: Style
-    let configuration: InformationViewContentConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension InformationViewContentStyle {
-    func resolve(configuration: InformationViewContentConfiguration) -> some View {
-        ResolvedInformationViewContentStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: InformationViewIconStyle
-
-struct ResolvedInformationViewIconStyle<Style: InformationViewIconStyle>: View {
-    let style: Style
-    let configuration: InformationViewIconConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension InformationViewIconStyle {
-    func resolve(configuration: InformationViewIconConfiguration) -> some View {
-        ResolvedInformationViewIconStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: InformationViewTextStyle
-
-struct ResolvedInformationViewTextStyle<Style: InformationViewTextStyle>: View {
-    let style: Style
-    let configuration: InformationViewTextConfiguration
-    var body: some View {
-        self.style.makeBody(self.configuration)
-    }
-}
-
-extension InformationViewTextStyle {
-    func resolve(configuration: InformationViewTextConfiguration) -> some View {
-        ResolvedInformationViewTextStyle(style: self, configuration: configuration)
     }
 }
 

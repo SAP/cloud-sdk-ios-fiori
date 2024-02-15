@@ -22,20 +22,19 @@ struct AnyInformationViewStyle: InformationViewStyle {
 }
     
 public struct InformationViewConfiguration {
-    public let informationViewContent: InformationViewContent
-    public let informationViewIcon: InformationViewIcon
-    public let informationViewText: InformationViewText
+    public let icon: Icon
+    public let description: Description
+    public let content: Content
 
-    public typealias InformationViewContent = ConfigurationViewWrapper
-    public typealias InformationViewIcon = ConfigurationViewWrapper
-    public typealias InformationViewText = ConfigurationViewWrapper
+    public typealias Icon = ConfigurationViewWrapper
+    public typealias Description = ConfigurationViewWrapper
+    public typealias Content = ConfigurationViewWrapper
 }
     
 public struct InformationViewFioriStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewContentStyle(InformationViewContentFioriStyle())
-            .informationViewIconStyle(InformationViewIconFioriStyle())
-            .informationViewTextStyle(InformationViewTextFioriStyle())
+            .iconStyle(IconFioriStyle())
+            .descriptionStyle(DescriptionFioriStyle())
     }
 }

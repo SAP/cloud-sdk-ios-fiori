@@ -5,137 +5,134 @@ import FioriThemeManager
 // Base Layout style
 public struct InformationViewBaseStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
-        VStack {
-            configuration.informationViewContent
+        VStack{
+            configuration.content
             HStack(alignment: .center, spacing: 8) {
-                configuration.informationViewIcon
-                configuration.informationViewText
+                configuration.icon
+                configuration.description
                 Spacer()
             }
         }
-        
     }
 }
 
 // Default fiori styles
 extension InformationViewFioriStyle {
     struct ContentFioriStyle: InformationViewStyle {
-    func makeBody(_ configuration: InformationViewConfiguration) -> some View {
-        InformationView(configuration)
-            .foregroundColor(.preferredColor(.primaryLabel))
-            .informationViewTextStyle(.fiori)
-            .padding(.leading, 16)
-            .padding(.trailing, 16)
-            .padding(.top, 4)
-            .padding(.bottom, 11)
+        func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+            InformationView(configuration)
+                .foregroundColor(.preferredColor(.primaryLabel))
+                .descriptionStyle(.fiori)
+                .padding(.leading, 16)
+                .padding(.trailing, 16)
+                .padding(.top, 4)
+                .padding(.bottom, 11)
+        }
+    }
+    
+    struct IconFioriStyle: IconStyle {
+        func makeBody(_ configuration: IconConfiguration) -> some View {
+            Icon(configuration)
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .font(.fiori(forTextStyle: .footnote))
+        }
+    }
+    
+    struct DescriptionFioriStyle: DescriptionStyle {
+        func makeBody(_ configuration: DescriptionConfiguration) -> some View {
+            Description(configuration)
+                .foregroundStyle(Color.preferredColor(.primaryLabel))
+                .font(.fiori(forTextStyle: .footnote))
+        }
     }
 }
 
-    struct InformationViewIconFioriStyle: InformationViewIconStyle {
-    func makeBody(_ configuration: InformationViewIconConfiguration) -> some View {
-        InformationViewIcon(configuration)
-    }
-}
 
-struct InformationViewTextFioriStyle: InformationViewTextStyle {
-    func makeBody(_ configuration: InformationViewTextConfiguration) -> some View {
-        InformationViewText(configuration)
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
-            .font(.fiori(forTextStyle: .footnote))
-    }
-}
 
-struct InformationViewContentFioriStyle: InformationViewContentStyle {
-    func makeBody(_ configuration: InformationViewContentConfiguration) -> some View {
-        InformationViewContent(configuration)
-    }
-}
-}
+
+
+
 
 extension View {
     /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    public func informationView(informationViewIcon: Image? = nil, informationViewText: AttributedString) -> some View {
-        InformationView(informationViewContent: { self }, informationViewIcon: informationViewIcon, informationViewText: informationViewText)
+    public func informationView(icon: Image? = nil, description: AttributedString) -> some View {
+        InformationView(icon: icon, description: description, content: {self})
     }
 }
 
 public struct InformationViewErrorStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewIconStyle(content: { informationViewIconConfiguration in
-                if informationViewIconConfiguration.informationViewIcon.isEmpty {
+            .iconStyle(content: { IconConfiguration in
+                if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.circle")
                         .foregroundStyle(Color.preferredColor(.negativeLabel))
                 } else {
-                    informationViewIconConfiguration.informationViewIcon
+                    IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(.negativeLabel))
                 }
             })
-            .informationViewTextStyle(content: { informationViewTextConfiguration in
-                informationViewTextConfiguration.informationViewText
+            .descriptionStyle(content: { descriptionConfiguration in
+                descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.negativeLabel))
             })
-            .foregroundStyle(Color.preferredColor(.negativeLabel))
     }
 }
 
 public struct InformationViewWarningStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewIconStyle(content: { informationViewIconConfiguration in
-                if informationViewIconConfiguration.informationViewIcon.isEmpty {
+            .iconStyle(content: { IconConfiguration in
+                if IconConfiguration.icon.isEmpty {
                     Image(systemName: "exclamationmark.triangle")
                         .foregroundStyle(Color.preferredColor(.mango5))
                 } else {
-                    informationViewIconConfiguration.informationViewIcon
+                    IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(.mango5))
                 }
             })
-            .informationViewTextStyle(content: { informationViewTextConfiguration in
-                informationViewTextConfiguration.informationViewText
+            .descriptionStyle(content: { descriptionConfiguration in
+                descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.mango5))
-                })
-            .foregroundStyle(Color.preferredColor(.mango5))
+            })
     }
 }
 
 public struct InformationViewInformationalStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewIconStyle(content: { informationViewIconConfiguration in
-                if informationViewIconConfiguration.informationViewIcon.isEmpty {
+            .iconStyle(content: { IconConfiguration in
+                if IconConfiguration.icon.isEmpty {
                     Image(systemName: "info.circle")
                         .foregroundStyle(Color.preferredColor(.primaryLabel))
                 } else {
-                    informationViewIconConfiguration.informationViewIcon
+                    IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(.primaryLabel))
                 }
             })
-            .informationViewTextStyle(content: { informationViewTextConfiguration in
-                informationViewTextConfiguration.informationViewText
+            .descriptionStyle(content: { descriptionConfiguration in
+                descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.primaryLabel))
-                })
-            .foregroundStyle(Color.preferredColor(.primaryLabel))
+            })
     }
 }
 
 public struct InformationViewSuccessStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         InformationView(configuration)
-            .informationViewIconStyle(content: { informationViewIconConfiguration in
-                if informationViewIconConfiguration.informationViewIcon.isEmpty {
+            .iconStyle(content: { IconConfiguration in
+                if IconConfiguration.icon.isEmpty {
                     Image(systemName: "checkmark.circle")
                         .foregroundStyle(Color.preferredColor(.positiveLabel))
                 } else {
-                    informationViewIconConfiguration.informationViewIcon
+                    IconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(.positiveLabel))
                 }
             })
-            .informationViewTextStyle(content: { informationViewTextConfiguration in
-                informationViewTextConfiguration.informationViewText
+            .descriptionStyle(content: { descriptionConfiguration in
+                descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.positiveLabel))
-                })
-            .foregroundStyle(Color.preferredColor(.positiveLabel))
+            })
     }
 }
 
