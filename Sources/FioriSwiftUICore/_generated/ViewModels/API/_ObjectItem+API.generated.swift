@@ -226,13 +226,13 @@ public extension _ObjectItem where Title == Text,
     Avatars == _ConditionalContent<AvatarStack, EmptyView>,
     FootnoteIcons == _ConditionalContent<FootnoteIconStack, EmptyView>,
     Tags == _ConditionalContent<TagStack, EmptyView>,
-    ActionView == _ConditionalContent<Action, EmptyView>
+    ActionView == _ConditionalContent<_Action, EmptyView>
 {
-    init(model: ObjectItemModel) {
-        self.init(title: model.title, subtitle: model.subtitle, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, icons: model.icons, avatars: model.avatars, footnoteIcons: model.footnoteIcons, tags: model.tags, action: model.action != nil ? Action(model: model.action!) : nil)
+    init(model: _ObjectItemModel) {
+        self.init(title: model.title, subtitle: model.subtitle, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, icons: model.icons, avatars: model.avatars, footnoteIcons: model.footnoteIcons, tags: model.tags, action: model.action != nil ? _Action(model: model.action!) : nil)
     }
 
-    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, icons: [TextOrIcon]? = nil, avatars: [TextOrIcon]? = nil, footnoteIcons: [TextOrIcon]? = nil, tags: [String]? = nil, action: Action? = nil) {
+    init(title: String, subtitle: String? = nil, footnote: String? = nil, descriptionText: String? = nil, status: TextOrIcon? = nil, substatus: TextOrIcon? = nil, detailImage: Image? = nil, icons: [TextOrIcon]? = nil, avatars: [TextOrIcon]? = nil, footnoteIcons: [TextOrIcon]? = nil, tags: [String]? = nil, action: _Action? = nil) {
         self._title = Text(title)
         self._subtitle = subtitle != nil ? ViewBuilder.buildEither(first: Text(subtitle!)) : ViewBuilder.buildEither(second: EmptyView())
         self._footnote = footnote != nil ? ViewBuilder.buildEither(first: Text(footnote!)) : ViewBuilder.buildEither(second: EmptyView())

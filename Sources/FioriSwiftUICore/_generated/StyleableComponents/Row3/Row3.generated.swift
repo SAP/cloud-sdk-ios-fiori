@@ -48,5 +48,6 @@ private extension Row3 {
         Row3(row3: { self.row3 })
             .shouldApplyDefaultStyle(false)
             .row3Style(.fiori)
+            .typeErased
     }
 }

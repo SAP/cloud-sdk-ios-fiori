@@ -164,7 +164,7 @@ struct SearchableListViewExample: View {
                                       allowsMultipleSelection: allowsMultipleSelection,
                                       searchFilter: emptySearch ? nil : filter,
                                       rowContent: { framework in
-                                          NewObjectItem {
+                                          ObjectItem {
                                               Text(framework.name)
                                           } description: {
                                               Text("description")
@@ -181,10 +181,10 @@ struct SearchableListViewExample: View {
                                               return Color.mint
                                           }
                                       },
-                                      cancelAction: Action(actionText: "CacnelAction") {
+                                      cancelAction: _Action(actionText: "CacnelAction") {
                                           print("cancel action tapped")
                                       },
-                                      doneAction: Action(actionText: "DoneAction") {
+                                      doneAction: _Action(actionText: "DoneAction") {
                                           print("done action tapped")
                                       })
         } else {
@@ -192,7 +192,7 @@ struct SearchableListViewExample: View {
                                       selection: selection,
                                       allowsMultipleSelection: allowsMultipleSelection,
                                       searchFilter: emptySearch ? nil : filter) { framework in
-                NewObjectItem {
+                ObjectItem {
                     Text(framework.name)
                 } description: {
                     Text("description")

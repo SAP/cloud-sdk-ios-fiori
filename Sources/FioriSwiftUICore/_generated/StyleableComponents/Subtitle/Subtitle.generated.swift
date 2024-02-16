@@ -54,5 +54,6 @@ private extension Subtitle {
         Subtitle(subtitle: { self.subtitle })
             .shouldApplyDefaultStyle(false)
             .subtitleStyle(.fiori)
+            .typeErased
     }
 }

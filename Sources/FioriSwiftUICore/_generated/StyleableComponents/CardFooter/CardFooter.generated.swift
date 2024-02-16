@@ -4,32 +4,32 @@ import Foundation
 import SwiftUI
 
 public struct CardFooter {
-    let newAction: any View
+    let action: any View
     let secondaryAction: any View
 
     @Environment(\.cardFooterStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
-    public init(@ViewBuilder newAction: () -> any View = { EmptyView() },
+    public init(@ViewBuilder action: () -> any View = { EmptyView() },
                 @ViewBuilder secondaryAction: () -> any View = { EmptyView() })
     {
-        self.newAction = NewAction { newAction() }
+        self.action = Action { action() }
         self.secondaryAction = SecondaryAction { secondaryAction() }
     }
 }
 
 public extension CardFooter {
-    init(newAction: FioriButton? = nil,
+    init(action: FioriButton? = nil,
          secondaryAction: FioriButton? = nil)
     {
-        self.init(newAction: { newAction }, secondaryAction: { secondaryAction })
+        self.init(action: { action }, secondaryAction: { secondaryAction })
     }
 }
 
 public extension CardFooter {
     init(_ configuration: CardFooterConfiguration) {
-        self.newAction = configuration.newAction
+        self.action = configuration.action
         self.secondaryAction = configuration.secondaryAction
         self._shouldApplyDefaultStyle = false
     }
@@ -40,7 +40,7 @@ extension CardFooter: View {
         if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction))).typeErased
+            style.resolve(configuration: .init(action: .init(self.action), secondaryAction: .init(self.secondaryAction))).typeErased
                 .transformEnvironment(\.cardFooterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -58,8 +58,9 @@ private extension CardFooter {
     }
         
     func defaultStyle() -> some View {
-        CardFooter(.init(newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction)))
+        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction)))
             .shouldApplyDefaultStyle(false)
             .cardFooterStyle(CardFooterFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

@@ -12,7 +12,7 @@ extension Fiori {
     }
 }
 
-extension Action: View {
+extension _Action: View {
     public var body: some View {
         if _actionText != nil {
             Button {

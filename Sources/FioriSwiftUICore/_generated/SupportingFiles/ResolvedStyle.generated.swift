@@ -3,6 +3,22 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+struct ResolvedActionStyle<Style: ActionStyle>: View {
+    let style: Style
+    let configuration: ActionConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension ActionStyle {
+    func resolve(configuration: ActionConfiguration) -> some View {
+        ResolvedActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -291,35 +307,19 @@ extension MediaImageStyle {
     }
 }
 
-// MARK: NewActionStyle
+// MARK: ObjectItemStyle
 
-struct ResolvedNewActionStyle<Style: NewActionStyle>: View {
+struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     let style: Style
-    let configuration: NewActionConfiguration
+    let configuration: ObjectItemConfiguration
     var body: some View {
         style.makeBody(configuration)
     }
 }
 
-extension NewActionStyle {
-    func resolve(configuration: NewActionConfiguration) -> some View {
-        ResolvedNewActionStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: NewObjectItemStyle
-
-struct ResolvedNewObjectItemStyle<Style: NewObjectItemStyle>: View {
-    let style: Style
-    let configuration: NewObjectItemConfiguration
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
-
-extension NewObjectItemStyle {
-    func resolve(configuration: NewObjectItemConfiguration) -> some View {
-        ResolvedNewObjectItemStyle(style: self, configuration: configuration)
+extension ObjectItemStyle {
+    func resolve(configuration: ObjectItemConfiguration) -> some View {
+        ResolvedObjectItemStyle(style: self, configuration: configuration)
     }
 }
 

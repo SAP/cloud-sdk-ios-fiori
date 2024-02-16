@@ -2,728 +2,728 @@
 // DO NOT EDIT
 import SwiftUI
 
-extension SignatureCaptureView where StartActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where CancelActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where CancelActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, CancelActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, CancelActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where CancelActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where CancelActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where CancelActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, CancelActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, CancelActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, CancelActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, CancelActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, CancelActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where CancelActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, CancelActionView == Action, ClearActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder saveAction: () -> SaveActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder saveAction: () -> SaveActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: saveAction,
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: saveAction,
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, CancelActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder clearAction: () -> ClearActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder clearAction: () -> ClearActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: clearAction,
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: clearAction,
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder cancelAction: () -> CancelActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder cancelAction: () -> CancelActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: cancelAction,
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: cancelAction,
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, CancelActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder restartAction: () -> RestartActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder restartAction: () -> RestartActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: restartAction,
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: restartAction,
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where RestartActionView == Action, CancelActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		@ViewBuilder startAction: () -> StartActionView,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        @ViewBuilder startAction: () -> StartActionView,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: startAction,
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: startAction,
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }
 
-extension SignatureCaptureView where StartActionView == Action, RestartActionView == Action, CancelActionView == Action, ClearActionView == Action, SaveActionView == Action {
-    public init(
-    title: String? = nil,
-		signatureImage: UIImage? = nil,
-		onSave: ((UIImage) -> Void)? = nil,
-		onDelete: (() -> Void)? = nil
+public extension SignatureCaptureView where StartActionView == _Action, RestartActionView == _Action, CancelActionView == _Action, ClearActionView == _Action, SaveActionView == _Action {
+    init(
+        title: String? = nil,
+        signatureImage: UIImage? = nil,
+        onSave: ((UIImage) -> Void)? = nil,
+        onDelete: (() -> Void)? = nil
     ) {
         self.init(
             title: title,
-			startAction: { Action(model: _TapToSignActionDefault()) },
-			restartAction: { Action(model: _ReEnterSignatureActionDefault()) },
-			cancelAction: { Action(model: _CancelActionDefault()) },
-			clearAction: { Action(model: _ClearActionDefault()) },
-			saveAction: { Action(model: _SaveActionDefault()) },
-			signatureImage: signatureImage,
-			onSave: onSave,
-			onDelete: onDelete
+            startAction: { _Action(model: _TapToSignActionDefault()) },
+            restartAction: { _Action(model: _ReEnterSignatureActionDefault()) },
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            clearAction: { _Action(model: _ClearActionDefault()) },
+            saveAction: { _Action(model: _SaveActionDefault()) },
+            signatureImage: signatureImage,
+            onSave: onSave,
+            onDelete: onDelete
         )
     }
 }

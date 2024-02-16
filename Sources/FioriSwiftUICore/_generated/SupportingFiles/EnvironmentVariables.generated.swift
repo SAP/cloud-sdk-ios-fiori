@@ -3,6 +3,27 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+struct ActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var actionStyle: any ActionStyle {
+        actionStyleStack.last ?? .base
+    }
+
+    var actionStyleStack: [any ActionStyle] {
+        get {
+            self[ActionStyleStackKey.self]
+        }
+        set {
+            self[ActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct AvatarsStyleStackKey: EnvironmentKey {
@@ -381,44 +402,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: NewActionStyle
+// MARK: ObjectItemStyle
 
-struct NewActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewActionStyle] = []
+struct ObjectItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ObjectItemStyle] = []
 }
 
 extension EnvironmentValues {
-    var newActionStyle: any NewActionStyle {
-        newActionStyleStack.last ?? .base
+    var objectItemStyle: any ObjectItemStyle {
+        objectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
-    var newActionStyleStack: [any NewActionStyle] {
+    var objectItemStyleStack: [any ObjectItemStyle] {
         get {
-            self[NewActionStyleStackKey.self]
+            self[ObjectItemStyleStackKey.self]
         }
         set {
-            self[NewActionStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: NewObjectItemStyle
-
-struct NewObjectItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewObjectItemStyle] = []
-}
-
-extension EnvironmentValues {
-    var newObjectItemStyle: any NewObjectItemStyle {
-        newObjectItemStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var newObjectItemStyleStack: [any NewObjectItemStyle] {
-        get {
-            self[NewObjectItemStyleStackKey.self]
-        }
-        set {
-            self[NewObjectItemStyleStackKey.self] = newValue
+            self[ObjectItemStyleStackKey.self] = newValue
         }
     }
 }

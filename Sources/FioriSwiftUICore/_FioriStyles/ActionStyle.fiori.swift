@@ -12,17 +12,17 @@ import SwiftUI
  */
 
 // Base Layout style
-public struct NewActionBaseStyle: NewActionStyle {
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
+public struct ActionBaseStyle: ActionStyle {
+    public func makeBody(_ configuration: ActionConfiguration) -> some View {
         // Add default layout here
-        configuration.newAction
+        configuration.action
     }
 }
 
 // Default fiori styles
-public struct NewActionFioriStyle: NewActionStyle {
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
-        NewAction(configuration)
+public struct ActionFioriStyle: ActionStyle {
+    public func makeBody(_ configuration: ActionConfiguration) -> some View {
+        Action(configuration)
         // Add default style here
     }
 }

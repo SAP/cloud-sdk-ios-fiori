@@ -54,5 +54,6 @@ private extension Description {
         Description(description: { self.description })
             .shouldApplyDefaultStyle(false)
             .descriptionStyle(.fiori)
+            .typeErased
     }
 }

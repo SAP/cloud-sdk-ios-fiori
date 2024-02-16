@@ -57,5 +57,6 @@ private extension CardExtHeader {
         CardExtHeader(.init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3)))
             .shouldApplyDefaultStyle(false)
             .cardExtHeaderStyle(CardExtHeaderFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

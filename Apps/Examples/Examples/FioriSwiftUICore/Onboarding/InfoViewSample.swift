@@ -6,11 +6,11 @@ class InfoViewDataModel: InfoViewModel {
     var descriptionText: String? = "SAP BTP SDK for iOS enables you to quickly develop your own native apps, with Swift. The SDK extends the standard Swift Apple iOS frameworks with the reusable UI components from the SAP Fiori for iOS Design Language, and provides APIs which seamlessly integrate apps with SAP BTP services. "
     var progressIndicatorText: String? = "Loading..."
     
-    lazy var action: ActionModel? = ActionDataModel { [unowned self] in
+    lazy var action: _ActionModel? = ActionDataModel { [unowned self] in
         print("InfoView Primary button clicked")
     }
 
-    lazy var secondaryAction: ActionModel? = SecondaryActionDataModel { [unowned self] in
+    lazy var secondaryAction: _ActionModel? = SecondaryActionDataModel { [unowned self] in
         print("InfoView secondary button clicked")
     }
     
@@ -24,13 +24,13 @@ class InfoViewDataModel: InfoViewModel {
 }
 
 extension InfoViewDataModel {
-    struct ActionDataModel: ActionModel {
+    struct ActionDataModel: _ActionModel {
         let actionText: String? = "Next"
         
         let didSelectAction: (() -> Void)?
     }
     
-    struct SecondaryActionDataModel: ActionModel {
+    struct SecondaryActionDataModel: _ActionModel {
         let actionText: String? = "Start Tutorial"
         
         let didSelectAction: (() -> Void)?

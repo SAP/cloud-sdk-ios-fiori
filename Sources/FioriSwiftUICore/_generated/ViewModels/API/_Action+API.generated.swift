@@ -2,19 +2,19 @@
 // DO NOT EDIT
 import SwiftUI
 
-public struct Action {
+public struct _Action {
     @Environment(\.actionTextModifier) private var actionTextModifier
-	@Environment(\.sharedAction) var sharedAction
+    @Environment(\.sharedAction) var sharedAction
 
-    var _actionText: String? = nil
-	var _didSelectAction: (() -> Void)? = nil
+    var _actionText: String?
+    var _didSelectAction: (() -> Void)?
 	
-    public init(model: ActionModel) {
+    public init(model: _ActionModel) {
         self.init(actionText: model.actionText, didSelectAction: model.didSelectAction)
     }
 
     public init(actionText: String? = nil, didSelectAction: (() -> Void)? = nil) {
         self._actionText = actionText
-		self._didSelectAction = didSelectAction
+        self._didSelectAction = didSelectAction
     }
 }

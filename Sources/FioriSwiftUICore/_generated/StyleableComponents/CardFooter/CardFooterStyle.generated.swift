@@ -22,17 +22,17 @@ struct AnyCardFooterStyle: CardFooterStyle {
 }
     
 public struct CardFooterConfiguration {
-    public let newAction: NewAction
+    public let action: Action
     public let secondaryAction: SecondaryAction
 
-    public typealias NewAction = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
 }
     
 public struct CardFooterFioriStyle: CardFooterStyle {
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)
-            .newActionStyle(NewActionFioriStyle())
+            .actionStyle(ActionFioriStyle())
             .secondaryActionStyle(SecondaryActionFioriStyle())
     }
 }

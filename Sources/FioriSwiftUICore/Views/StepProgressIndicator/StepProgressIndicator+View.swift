@@ -111,7 +111,7 @@ extension StepProgressIndicator: View {
 }
 
 /// :nodoc:
-public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActionView == Action {
+public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActionView == _Action {
     /// Convenience initialization for default step progress indicator.
     /// - Parameters:
     ///   - selection: A binding string for selected step id.
@@ -127,7 +127,7 @@ public extension StepProgressIndicator where Steps == _DefaultSteps, CancelActio
         self.stepItems = stepItems
         self._title = title()
         self._action = action()
-        self._cancelAction = Action(model: _CancelActionDefault())
+        self._cancelAction = _Action(model: _CancelActionDefault())
         
         self._steps = _DefaultSteps(stepItems: stepItems,
                                     selection: selection)

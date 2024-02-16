@@ -3,43 +3,43 @@
 import SwiftUI
 
 public extension UserConsentFormModel {
-    var nextAction: ActionModel? {
-        return _NextActionDefault()
+    var nextAction: _ActionModel? {
+        _NextActionDefault()
     }
 
-	var cancelAction: ActionModel? {
-        return _CancelActionDefault()
+    var cancelAction: _ActionModel? {
+        _CancelActionDefault()
     }
 
-	var allowAction: ActionModel? {
-        return _AllowActionDefault()
+    var allowAction: _ActionModel? {
+        _AllowActionDefault()
     }
 
-	var denyAction: ActionModel? {
-        return _DenyActionDefault()
+    var denyAction: _ActionModel? {
+        _DenyActionDefault()
     }
 
-	var notNowAction: ActionModel? {
-        return _NotNowActionDefault()
+    var notNowAction: _ActionModel? {
+        _NotNowActionDefault()
     }
 
-	var isRequired: Bool {
-        return true
+    var isRequired: Bool {
+        true
     }
 
-	var alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? {
-        return _UserConsentFormAlertConfigurationDefault
+    var alertConfiguration: ((UserConsentAlertType) -> AlertConfiguration?)? {
+        _UserConsentFormAlertConfigurationDefault
     }
 
-	var didAllow: (() -> Void)? {
-        return nil
+    var didAllow: (() -> Void)? {
+        nil
     }
 
-	var didDeny: ((Bool) -> Void)? {
-        return nil
+    var didDeny: ((Bool) -> Void)? {
+        nil
     }
 
-	var didCancel: (() -> Void)? {
-        return nil
+    var didCancel: (() -> Void)? {
+        nil
     }
 }

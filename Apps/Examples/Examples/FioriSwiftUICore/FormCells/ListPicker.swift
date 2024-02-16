@@ -201,7 +201,7 @@ struct ListPickerItemWithSearchExample: View {
                         return true
                     }
                 }, rowContent: { framework in
-                    NewObjectItem {
+                    ObjectItem {
                         Text(framework.name)
                     } description: {
                         Text("description")
@@ -245,7 +245,7 @@ struct ListPickerItemWithObjectItemExample: View {
                 Text(str)
             }, configuration: ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
                 
-                NewObjectItem {
+                ObjectItem {
                     Text(framework.name)
                 } description: {
                     Text("description")

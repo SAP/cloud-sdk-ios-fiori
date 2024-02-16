@@ -54,5 +54,6 @@ private extension FootnoteIcons {
         FootnoteIcons(footnoteIcons: { self.footnoteIcons })
             .shouldApplyDefaultStyle(false)
             .footnoteIconsStyle(.fiori)
+            .typeErased
     }
 }

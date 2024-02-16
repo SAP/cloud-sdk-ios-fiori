@@ -61,5 +61,6 @@ private extension CardMedia {
         CardMedia(.init(mediaImage: .init(self.mediaImage), description: .init(self.description)))
             .shouldApplyDefaultStyle(false)
             .cardMediaStyle(CardMediaFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

@@ -3,15 +3,15 @@
 import SwiftUI
 
 public extension ActivationScreenModel {
-    var action: ActionModel? {
-        return nil
+    var action: _ActionModel? {
+        nil
     }
 
-	var secondaryAction: ActionModel? {
-        return nil
+    var secondaryAction: _ActionModel? {
+        nil
     }
 
-	var textInput: TextInputModel? {
-        return nil
+    var textInput: TextInputModel? {
+        nil
     }
 }
