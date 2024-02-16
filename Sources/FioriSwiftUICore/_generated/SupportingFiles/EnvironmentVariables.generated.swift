@@ -11,7 +11,7 @@ struct AvatarsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var avatarsStyle: any AvatarsStyle {
-        self.avatarsStyleStack.last ?? .base
+        avatarsStyleStack.last ?? .base
     }
 
     var avatarsStyleStack: [any AvatarsStyle] {
@@ -32,7 +32,7 @@ struct CardBodyStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardBodyStyle: any CardBodyStyle {
-        self.cardBodyStyleStack.last ?? .base
+        cardBodyStyleStack.last ?? .base
     }
 
     var cardBodyStyleStack: [any CardBodyStyle] {
@@ -53,7 +53,7 @@ struct CardStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardStyle: any CardStyle {
-        self.cardStyleStack.last ?? .base.concat(.fiori)
+        cardStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardStyleStack: [any CardStyle] {
@@ -74,7 +74,7 @@ struct CardExtHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardExtHeaderStyle: any CardExtHeaderStyle {
-        self.cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardExtHeaderStyleStack: [any CardExtHeaderStyle] {
@@ -95,7 +95,7 @@ struct CardFooterStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardFooterStyle: any CardFooterStyle {
-        self.cardFooterStyleStack.last ?? .base.concat(.fiori)
+        cardFooterStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardFooterStyleStack: [any CardFooterStyle] {
@@ -116,7 +116,7 @@ struct CardHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardHeaderStyle: any CardHeaderStyle {
-        self.cardHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardHeaderStyleStack: [any CardHeaderStyle] {
@@ -137,7 +137,7 @@ struct CardMainHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMainHeaderStyle: any CardMainHeaderStyle {
-        self.cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardMainHeaderStyleStack: [any CardMainHeaderStyle] {
@@ -158,7 +158,7 @@ struct CardMediaStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMediaStyle: any CardMediaStyle {
-        self.cardMediaStyleStack.last ?? .base.concat(.fiori)
+        cardMediaStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardMediaStyleStack: [any CardMediaStyle] {
@@ -179,7 +179,7 @@ struct CounterStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var counterStyle: any CounterStyle {
-        self.counterStyleStack.last ?? .base
+        counterStyleStack.last ?? .base
     }
 
     var counterStyleStack: [any CounterStyle] {
@@ -200,7 +200,7 @@ struct DemoViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var demoViewStyle: any DemoViewStyle {
-        self.demoViewStyleStack.last ?? .base.concat(.fiori)
+        demoViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var demoViewStyleStack: [any DemoViewStyle] {
@@ -221,7 +221,7 @@ struct DescriptionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var descriptionStyle: any DescriptionStyle {
-        self.descriptionStyleStack.last ?? .base
+        descriptionStyleStack.last ?? .base
     }
 
     var descriptionStyleStack: [any DescriptionStyle] {
@@ -242,7 +242,7 @@ struct DetailImageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var detailImageStyle: any DetailImageStyle {
-        self.detailImageStyleStack.last ?? .base
+        detailImageStyleStack.last ?? .base
     }
 
     var detailImageStyleStack: [any DetailImageStyle] {
@@ -263,7 +263,7 @@ struct FootnoteStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var footnoteStyle: any FootnoteStyle {
-        self.footnoteStyleStack.last ?? .base
+        footnoteStyleStack.last ?? .base
     }
 
     var footnoteStyleStack: [any FootnoteStyle] {
@@ -284,7 +284,7 @@ struct FootnoteIconsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var footnoteIconsStyle: any FootnoteIconsStyle {
-        self.footnoteIconsStyleStack.last ?? .base
+        footnoteIconsStyleStack.last ?? .base
     }
 
     var footnoteIconsStyleStack: [any FootnoteIconsStyle] {
@@ -305,7 +305,7 @@ struct IconStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var iconStyle: any IconStyle {
-        self.iconStyleStack.last ?? .base
+        iconStyleStack.last ?? .base
     }
 
     var iconStyleStack: [any IconStyle] {
@@ -326,7 +326,7 @@ struct IconsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var iconsStyle: any IconsStyle {
-        self.iconsStyleStack.last ?? .base
+        iconsStyleStack.last ?? .base
     }
 
     var iconsStyleStack: [any IconsStyle] {
@@ -347,7 +347,7 @@ struct InformationViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var informationViewStyle: any InformationViewStyle {
-        self.informationViewStyleStack.last ?? .base.concat(.fiori)
+        informationViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var informationViewStyleStack: [any InformationViewStyle] {
@@ -368,7 +368,7 @@ struct MediaImageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var mediaImageStyle: any MediaImageStyle {
-        self.mediaImageStyleStack.last ?? .base
+        mediaImageStyleStack.last ?? .base
     }
 
     var mediaImageStyleStack: [any MediaImageStyle] {
@@ -389,7 +389,7 @@ struct NewActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var newActionStyle: any NewActionStyle {
-        self.newActionStyleStack.last ?? .base
+        newActionStyleStack.last ?? .base
     }
 
     var newActionStyleStack: [any NewActionStyle] {
@@ -410,7 +410,7 @@ struct NewObjectItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var newObjectItemStyle: any NewObjectItemStyle {
-        self.newObjectItemStyleStack.last ?? .base.concat(.fiori)
+        newObjectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
     var newObjectItemStyleStack: [any NewObjectItemStyle] {
@@ -431,7 +431,7 @@ struct Row1StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row1Style: any Row1Style {
-        self.row1StyleStack.last ?? .base
+        row1StyleStack.last ?? .base
     }
 
     var row1StyleStack: [any Row1Style] {
@@ -452,7 +452,7 @@ struct Row2StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row2Style: any Row2Style {
-        self.row2StyleStack.last ?? .base
+        row2StyleStack.last ?? .base
     }
 
     var row2StyleStack: [any Row2Style] {
@@ -473,7 +473,7 @@ struct Row3StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row3Style: any Row3Style {
-        self.row3StyleStack.last ?? .base
+        row3StyleStack.last ?? .base
     }
 
     var row3StyleStack: [any Row3Style] {
@@ -494,7 +494,7 @@ struct SecondaryActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var secondaryActionStyle: any SecondaryActionStyle {
-        self.secondaryActionStyleStack.last ?? .base
+        secondaryActionStyleStack.last ?? .base
     }
 
     var secondaryActionStyleStack: [any SecondaryActionStyle] {
@@ -515,7 +515,7 @@ struct StatusStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var statusStyle: any StatusStyle {
-        self.statusStyleStack.last ?? .base
+        statusStyleStack.last ?? .base
     }
 
     var statusStyleStack: [any StatusStyle] {
@@ -536,7 +536,7 @@ struct SubstatusStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var substatusStyle: any SubstatusStyle {
-        self.substatusStyleStack.last ?? .base
+        substatusStyleStack.last ?? .base
     }
 
     var substatusStyleStack: [any SubstatusStyle] {
@@ -557,7 +557,7 @@ struct SubtitleStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var subtitleStyle: any SubtitleStyle {
-        self.subtitleStyleStack.last ?? .base
+        subtitleStyleStack.last ?? .base
     }
 
     var subtitleStyleStack: [any SubtitleStyle] {
@@ -578,7 +578,7 @@ struct SwitchStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var switchStyle: any SwitchStyle {
-        self.switchStyleStack.last ?? .base
+        switchStyleStack.last ?? .base
     }
 
     var switchStyleStack: [any SwitchStyle] {
@@ -599,7 +599,7 @@ struct TagsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var tagsStyle: any TagsStyle {
-        self.tagsStyleStack.last ?? .base
+        tagsStyleStack.last ?? .base
     }
 
     var tagsStyleStack: [any TagsStyle] {
@@ -620,7 +620,7 @@ struct TitleStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var titleStyle: any TitleStyle {
-        self.titleStyleStack.last ?? .base
+        titleStyleStack.last ?? .base
     }
 
     var titleStyleStack: [any TitleStyle] {

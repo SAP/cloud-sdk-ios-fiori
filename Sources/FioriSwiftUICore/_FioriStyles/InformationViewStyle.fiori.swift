@@ -1,11 +1,11 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
-import FioriThemeManager
 
 // Base Layout style
 public struct InformationViewBaseStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
-        VStack{
+        VStack {
             configuration.content
             HStack(alignment: .center, spacing: 8) {
                 configuration.icon
@@ -22,7 +22,6 @@ extension InformationViewFioriStyle {
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
                 .foregroundColor(.preferredColor(.primaryLabel))
-                .descriptionStyle(.fiori)
                 .padding(.leading, 16)
                 .padding(.trailing, 16)
                 .padding(.top, 4)
@@ -47,9 +46,9 @@ extension InformationViewFioriStyle {
     }
 }
 
-extension View {
+public extension View {
     /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    public func informationView(icon: Image? = nil, description: AttributedString) -> some View {
+    func informationView(icon: Image? = nil, description: AttributedString) -> some View {
         InformationView(icon: icon, description: description, content: { self })
     }
 }
