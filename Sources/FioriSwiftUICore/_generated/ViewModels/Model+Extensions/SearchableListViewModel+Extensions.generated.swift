@@ -4,11 +4,11 @@ import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
 public extension SearchableListViewModel {
-    var cancelAction: ActionModel? {
-        return _CancelActionDefault()
+    var cancelAction: _ActionModel? {
+        _CancelActionDefault()
     }
 
-	var doneAction: ActionModel? {
-        return _DoneActionDefault()
+    var doneAction: _ActionModel? {
+        _DoneActionDefault()
     }
 }

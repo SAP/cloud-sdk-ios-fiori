@@ -4,38 +4,38 @@ import SwiftUI
 
 public extension SignatureCaptureViewModel {
     var title: String? {
-        return nil
+        nil
     }
 
-	var startAction: ActionModel? {
-        return _TapToSignActionDefault()
+    var startAction: _ActionModel? {
+        _TapToSignActionDefault()
     }
 
-	var restartAction: ActionModel? {
-        return _ReEnterSignatureActionDefault()
+    var restartAction: _ActionModel? {
+        _ReEnterSignatureActionDefault()
     }
 
-	var cancelAction: ActionModel? {
-        return _CancelActionDefault()
+    var cancelAction: _ActionModel? {
+        _CancelActionDefault()
     }
 
-	var clearAction: ActionModel? {
-        return _ClearActionDefault()
+    var clearAction: _ActionModel? {
+        _ClearActionDefault()
     }
 
-	var saveAction: ActionModel? {
-        return _SaveActionDefault()
+    var saveAction: _ActionModel? {
+        _SaveActionDefault()
     }
 
-	var signatureImage: UIImage? {
-        return nil
+    var signatureImage: UIImage? {
+        nil
     }
 
-	var onSave: ((UIImage) -> Void)? {
-        return nil
+    var onSave: ((UIImage) -> Void)? {
+        nil
     }
 
-	var onDelete: (() -> Void)? {
-        return nil
+    var onDelete: (() -> Void)? {
+        nil
     }
 }

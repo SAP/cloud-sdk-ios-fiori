@@ -3,6 +3,20 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+    
+public extension ActionStyle where Self == ActionBaseStyle {
+    static var base: ActionBaseStyle {
+        ActionBaseStyle()
+    }
+}
+
+public extension ActionStyle where Self == ActionFioriStyle {
+    static var fiori: ActionFioriStyle {
+        ActionFioriStyle()
+    }
+}
+
 // MARK: AvatarsStyle
     
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
@@ -255,24 +269,24 @@ public extension CardStyle where Self == CardCardBodyStyle {
     }
 }
 
-public struct CardNewActionStyle: CardStyle {
-    let style: any NewActionStyle
+public struct CardActionStyle: CardStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         Card(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension CardStyle where Self == CardNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> CardNewActionStyle {
-        CardNewActionStyle(style: style)
+public extension CardStyle where Self == CardActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardActionStyle {
+        CardActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> CardNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return CardNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardActionStyle {
+        let style = AnyActionStyle(content)
+        return CardActionStyle(style: style)
     }
 }
 
@@ -430,24 +444,24 @@ public extension CardFooterStyle where Self == CardFooterFioriStyle {
     }
 }
     
-public struct CardFooterNewActionStyle: CardFooterStyle {
-    let style: any NewActionStyle
+public struct CardFooterActionStyle: CardFooterStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension CardFooterStyle where Self == CardFooterNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> CardFooterNewActionStyle {
-        CardFooterNewActionStyle(style: style)
+public extension CardFooterStyle where Self == CardFooterActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardFooterActionStyle {
+        CardFooterActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> CardFooterNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return CardFooterNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardFooterActionStyle {
+        let style = AnyActionStyle(content)
+        return CardFooterActionStyle(style: style)
     }
 }
 
@@ -983,24 +997,24 @@ public extension DemoViewStyle where Self == DemoViewStatusStyle {
     }
 }
 
-public struct DemoViewNewActionStyle: DemoViewStyle {
-    let style: any NewActionStyle
+public struct DemoViewActionStyle: DemoViewStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> DemoViewNewActionStyle {
-        DemoViewNewActionStyle(style: style)
+public extension DemoViewStyle where Self == DemoViewActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> DemoViewActionStyle {
+        DemoViewActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> DemoViewNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return DemoViewNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> DemoViewActionStyle {
+        let style = AnyActionStyle(content)
+        return DemoViewActionStyle(style: style)
     }
 }
 
@@ -1109,283 +1123,269 @@ public extension MediaImageStyle where Self == MediaImageFioriStyle {
     }
 }
 
-// MARK: NewActionStyle
+// MARK: ObjectItemStyle
     
-public extension NewActionStyle where Self == NewActionBaseStyle {
-    static var base: NewActionBaseStyle {
-        NewActionBaseStyle()
+public extension ObjectItemStyle where Self == ObjectItemBaseStyle {
+    static var base: ObjectItemBaseStyle {
+        ObjectItemBaseStyle()
     }
 }
 
-public extension NewActionStyle where Self == NewActionFioriStyle {
-    static var fiori: NewActionFioriStyle {
-        NewActionFioriStyle()
-    }
-}
-
-// MARK: NewObjectItemStyle
-    
-public extension NewObjectItemStyle where Self == NewObjectItemBaseStyle {
-    static var base: NewObjectItemBaseStyle {
-        NewObjectItemBaseStyle()
-    }
-}
-
-public extension NewObjectItemStyle where Self == NewObjectItemFioriStyle {
-    static var fiori: NewObjectItemFioriStyle {
-        NewObjectItemFioriStyle()
+public extension ObjectItemStyle where Self == ObjectItemFioriStyle {
+    static var fiori: ObjectItemFioriStyle {
+        ObjectItemFioriStyle()
     }
 }
     
-public struct NewObjectItemTitleStyle: NewObjectItemStyle {
+public struct ObjectItemTitleStyle: ObjectItemStyle {
     let style: any TitleStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .titleStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> NewObjectItemTitleStyle {
-        NewObjectItemTitleStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemTitleStyle {
+    static func titleStyle<Style: TitleStyle>(_ style: Style) -> ObjectItemTitleStyle {
+        ObjectItemTitleStyle(style: style)
     }
         
-    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> NewObjectItemTitleStyle {
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> ObjectItemTitleStyle {
         let style = AnyTitleStyle(content)
-        return NewObjectItemTitleStyle(style: style)
+        return ObjectItemTitleStyle(style: style)
     }
 }
 
-public struct NewObjectItemSubtitleStyle: NewObjectItemStyle {
+public struct ObjectItemSubtitleStyle: ObjectItemStyle {
     let style: any SubtitleStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .subtitleStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> NewObjectItemSubtitleStyle {
-        NewObjectItemSubtitleStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemSubtitleStyle {
+    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> ObjectItemSubtitleStyle {
+        ObjectItemSubtitleStyle(style: style)
     }
         
-    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> NewObjectItemSubtitleStyle {
+    static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> ObjectItemSubtitleStyle {
         let style = AnySubtitleStyle(content)
-        return NewObjectItemSubtitleStyle(style: style)
+        return ObjectItemSubtitleStyle(style: style)
     }
 }
 
-public struct NewObjectItemFootnoteStyle: NewObjectItemStyle {
+public struct ObjectItemFootnoteStyle: ObjectItemStyle {
     let style: any FootnoteStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .footnoteStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemFootnoteStyle {
-    static func footnoteStyle<Style: FootnoteStyle>(_ style: Style) -> NewObjectItemFootnoteStyle {
-        NewObjectItemFootnoteStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemFootnoteStyle {
+    static func footnoteStyle<Style: FootnoteStyle>(_ style: Style) -> ObjectItemFootnoteStyle {
+        ObjectItemFootnoteStyle(style: style)
     }
         
-    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> NewObjectItemFootnoteStyle {
+    static func footnoteStyle(@ViewBuilder content: @escaping (FootnoteConfiguration) -> some View) -> ObjectItemFootnoteStyle {
         let style = AnyFootnoteStyle(content)
-        return NewObjectItemFootnoteStyle(style: style)
+        return ObjectItemFootnoteStyle(style: style)
     }
 }
 
-public struct NewObjectItemDescriptionStyle: NewObjectItemStyle {
+public struct ObjectItemDescriptionStyle: ObjectItemStyle {
     let style: any DescriptionStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .descriptionStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> NewObjectItemDescriptionStyle {
-        NewObjectItemDescriptionStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemDescriptionStyle {
+    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> ObjectItemDescriptionStyle {
+        ObjectItemDescriptionStyle(style: style)
     }
         
-    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> NewObjectItemDescriptionStyle {
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> ObjectItemDescriptionStyle {
         let style = AnyDescriptionStyle(content)
-        return NewObjectItemDescriptionStyle(style: style)
+        return ObjectItemDescriptionStyle(style: style)
     }
 }
 
-public struct NewObjectItemStatusStyle: NewObjectItemStyle {
+public struct ObjectItemStatusStyle: ObjectItemStyle {
     let style: any StatusStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .statusStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemStatusStyle {
-    static func statusStyle<Style: StatusStyle>(_ style: Style) -> NewObjectItemStatusStyle {
-        NewObjectItemStatusStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemStatusStyle {
+    static func statusStyle<Style: StatusStyle>(_ style: Style) -> ObjectItemStatusStyle {
+        ObjectItemStatusStyle(style: style)
     }
         
-    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> NewObjectItemStatusStyle {
+    static func statusStyle(@ViewBuilder content: @escaping (StatusConfiguration) -> some View) -> ObjectItemStatusStyle {
         let style = AnyStatusStyle(content)
-        return NewObjectItemStatusStyle(style: style)
+        return ObjectItemStatusStyle(style: style)
     }
 }
 
-public struct NewObjectItemSubstatusStyle: NewObjectItemStyle {
+public struct ObjectItemSubstatusStyle: ObjectItemStyle {
     let style: any SubstatusStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .substatusStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemSubstatusStyle {
-    static func substatusStyle<Style: SubstatusStyle>(_ style: Style) -> NewObjectItemSubstatusStyle {
-        NewObjectItemSubstatusStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemSubstatusStyle {
+    static func substatusStyle<Style: SubstatusStyle>(_ style: Style) -> ObjectItemSubstatusStyle {
+        ObjectItemSubstatusStyle(style: style)
     }
         
-    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> NewObjectItemSubstatusStyle {
+    static func substatusStyle(@ViewBuilder content: @escaping (SubstatusConfiguration) -> some View) -> ObjectItemSubstatusStyle {
         let style = AnySubstatusStyle(content)
-        return NewObjectItemSubstatusStyle(style: style)
+        return ObjectItemSubstatusStyle(style: style)
     }
 }
 
-public struct NewObjectItemDetailImageStyle: NewObjectItemStyle {
+public struct ObjectItemDetailImageStyle: ObjectItemStyle {
     let style: any DetailImageStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .detailImageStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemDetailImageStyle {
-    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> NewObjectItemDetailImageStyle {
-        NewObjectItemDetailImageStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemDetailImageStyle {
+    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> ObjectItemDetailImageStyle {
+        ObjectItemDetailImageStyle(style: style)
     }
         
-    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> NewObjectItemDetailImageStyle {
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> ObjectItemDetailImageStyle {
         let style = AnyDetailImageStyle(content)
-        return NewObjectItemDetailImageStyle(style: style)
+        return ObjectItemDetailImageStyle(style: style)
     }
 }
 
-public struct NewObjectItemIconsStyle: NewObjectItemStyle {
+public struct ObjectItemIconsStyle: ObjectItemStyle {
     let style: any IconsStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .iconsStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemIconsStyle {
-    static func iconsStyle<Style: IconsStyle>(_ style: Style) -> NewObjectItemIconsStyle {
-        NewObjectItemIconsStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemIconsStyle {
+    static func iconsStyle<Style: IconsStyle>(_ style: Style) -> ObjectItemIconsStyle {
+        ObjectItemIconsStyle(style: style)
     }
         
-    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> NewObjectItemIconsStyle {
+    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> ObjectItemIconsStyle {
         let style = AnyIconsStyle(content)
-        return NewObjectItemIconsStyle(style: style)
+        return ObjectItemIconsStyle(style: style)
     }
 }
 
-public struct NewObjectItemAvatarsStyle: NewObjectItemStyle {
+public struct ObjectItemAvatarsStyle: ObjectItemStyle {
     let style: any AvatarsStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .avatarsStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemAvatarsStyle {
-    static func avatarsStyle<Style: AvatarsStyle>(_ style: Style) -> NewObjectItemAvatarsStyle {
-        NewObjectItemAvatarsStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemAvatarsStyle {
+    static func avatarsStyle<Style: AvatarsStyle>(_ style: Style) -> ObjectItemAvatarsStyle {
+        ObjectItemAvatarsStyle(style: style)
     }
         
-    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> NewObjectItemAvatarsStyle {
+    static func avatarsStyle(@ViewBuilder content: @escaping (AvatarsConfiguration) -> some View) -> ObjectItemAvatarsStyle {
         let style = AnyAvatarsStyle(content)
-        return NewObjectItemAvatarsStyle(style: style)
+        return ObjectItemAvatarsStyle(style: style)
     }
 }
 
-public struct NewObjectItemFootnoteIconsStyle: NewObjectItemStyle {
+public struct ObjectItemFootnoteIconsStyle: ObjectItemStyle {
     let style: any FootnoteIconsStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .footnoteIconsStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemFootnoteIconsStyle {
-    static func footnoteIconsStyle<Style: FootnoteIconsStyle>(_ style: Style) -> NewObjectItemFootnoteIconsStyle {
-        NewObjectItemFootnoteIconsStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsStyle {
+    static func footnoteIconsStyle<Style: FootnoteIconsStyle>(_ style: Style) -> ObjectItemFootnoteIconsStyle {
+        ObjectItemFootnoteIconsStyle(style: style)
     }
         
-    static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> NewObjectItemFootnoteIconsStyle {
+    static func footnoteIconsStyle(@ViewBuilder content: @escaping (FootnoteIconsConfiguration) -> some View) -> ObjectItemFootnoteIconsStyle {
         let style = AnyFootnoteIconsStyle(content)
-        return NewObjectItemFootnoteIconsStyle(style: style)
+        return ObjectItemFootnoteIconsStyle(style: style)
     }
 }
 
-public struct NewObjectItemTagsStyle: NewObjectItemStyle {
+public struct ObjectItemTagsStyle: ObjectItemStyle {
     let style: any TagsStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .tagsStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemTagsStyle {
-    static func tagsStyle<Style: TagsStyle>(_ style: Style) -> NewObjectItemTagsStyle {
-        NewObjectItemTagsStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemTagsStyle {
+    static func tagsStyle<Style: TagsStyle>(_ style: Style) -> ObjectItemTagsStyle {
+        ObjectItemTagsStyle(style: style)
     }
         
-    static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> NewObjectItemTagsStyle {
+    static func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> ObjectItemTagsStyle {
         let style = AnyTagsStyle(content)
-        return NewObjectItemTagsStyle(style: style)
+        return ObjectItemTagsStyle(style: style)
     }
 }
 
-public struct NewObjectItemNewActionStyle: NewObjectItemStyle {
-    let style: any NewActionStyle
+public struct ObjectItemActionStyle: ObjectItemStyle {
+    let style: any ActionStyle
         
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
-            .newActionStyle(self.style)
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension NewObjectItemStyle where Self == NewObjectItemNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> NewObjectItemNewActionStyle {
-        NewObjectItemNewActionStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> ObjectItemActionStyle {
+        ObjectItemActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> NewObjectItemNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return NewObjectItemNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ObjectItemActionStyle {
+        let style = AnyActionStyle(content)
+        return ObjectItemActionStyle(style: style)
     }
 }
 

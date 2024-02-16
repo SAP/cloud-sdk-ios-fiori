@@ -54,5 +54,6 @@ private extension Avatars {
         Avatars(avatars: { self.avatars })
             .shouldApplyDefaultStyle(false)
             .avatarsStyle(.fiori)
+            .typeErased
     }
 }

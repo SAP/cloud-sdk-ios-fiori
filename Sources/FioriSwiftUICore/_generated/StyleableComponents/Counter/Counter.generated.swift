@@ -54,5 +54,6 @@ private extension Counter {
         Counter(counter: { self.counter })
             .shouldApplyDefaultStyle(false)
             .counterStyle(.fiori)
+            .typeErased
     }
 }

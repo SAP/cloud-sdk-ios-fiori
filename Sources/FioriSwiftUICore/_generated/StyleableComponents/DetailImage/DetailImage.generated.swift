@@ -54,5 +54,6 @@ private extension DetailImage {
         DetailImage(detailImage: { self.detailImage })
             .shouldApplyDefaultStyle(false)
             .detailImageStyle(.fiori)
+            .typeErased
     }
 }

@@ -60,7 +60,7 @@ public struct SideBarView: View {
         }
     }
     
-    struct DevObjectItemModel: ObjectItemModel {
+    struct DevObjectItemModel: _ObjectItemModel {
         var status: TextOrIcon?
         
         var title: String

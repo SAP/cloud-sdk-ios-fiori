@@ -48,5 +48,6 @@ private extension Switch {
         Switch(isOn: self.$isOn)
             .shouldApplyDefaultStyle(false)
             .switchStyle(.fiori)
+            .typeErased
     }
 }

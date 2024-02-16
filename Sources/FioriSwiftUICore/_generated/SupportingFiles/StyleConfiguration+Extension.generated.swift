@@ -13,7 +13,7 @@ extension CardConfiguration {
     }
 
     var _cardFooter: CardFooter {
-        CardFooter(.init(newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction)))
+        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction)))
     }
 }
 

@@ -3,19 +3,19 @@
 import SwiftUI
 
 public extension SortFilterViewModel {
-    var cancelAction: ActionModel? {
-        return _CancelActionDefault()
+    var cancelAction: _ActionModel? {
+        _CancelActionDefault()
     }
 
-	var resetAction: ActionModel? {
-        return _ResetActionDefault()
+    var resetAction: _ActionModel? {
+        _ResetActionDefault()
     }
 
-	var applyAction: ActionModel? {
-        return _ApplyActionDefault()
+    var applyAction: _ActionModel? {
+        _ApplyActionDefault()
     }
 
-	var onUpdate: (() -> Void)? {
-        return nil
+    var onUpdate: (() -> Void)? {
+        nil
     }
 }

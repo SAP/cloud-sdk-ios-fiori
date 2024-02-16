@@ -2,8 +2,8 @@
 // DO NOT EDIT
 import SwiftUI
 
-public extension ObjectItemModel {
-    var action: ActionModel? {
-        return nil
+public extension _ObjectItemModel {
+    var action: _ActionModel? {
+        nil
     }
 }

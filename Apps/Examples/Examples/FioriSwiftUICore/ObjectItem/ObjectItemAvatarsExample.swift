@@ -29,7 +29,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
     func getNewObjectItem(for indexPath: IndexPath) -> some View {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            let oi = NewObjectItem(title: {
+            let oi = ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -62,7 +62,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .isAvatarCircular(false)
             return AnyView(oi)
         case (0, 1):
-            let oi = NewObjectItem(title: {
+            let oi = ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -105,7 +105,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
                 .footnoteIconsMaxCount(-2)
             return AnyView(oi)
         case (0, 2):
-            let oi = NewObjectItem(title: {
+            let oi = ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")
@@ -143,7 +143,7 @@ struct ObjectItemAvatarsExample: ObjectItemListDataProtocol {
             return AnyView(oi)
             
         case (0, 3):
-            let oi = NewObjectItem(title: {
+            let oi = ObjectItem(title: {
                 Text("Transformer Overheating")
             }, subtitle: {
                 Text("Three Phase Pad Mounted Transformer (533423)")

@@ -16,7 +16,7 @@ public struct CardFooterBaseStyle: CardFooterStyle {
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
-        configuration.newAction
+        configuration.action
         configuration.secondaryAction
     }
 }
@@ -31,10 +31,10 @@ extension CardFooterFioriStyle {
         }
     }
 
-    struct NewActionFioriStyle: NewActionStyle {
-        func makeBody(_ configuration: NewActionConfiguration) -> some View {
-            NewAction(configuration)
-            // Add default style for NewAction
+    struct ActionFioriStyle: ActionStyle {
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
+            // Add default style for Action
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }

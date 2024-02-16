@@ -54,5 +54,6 @@ private extension Tags {
         Tags(tags: { self.tags })
             .shouldApplyDefaultStyle(false)
             .tagsStyle(.fiori)
+            .typeErased
     }
 }
