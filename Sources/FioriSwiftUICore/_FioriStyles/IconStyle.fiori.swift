@@ -1,6 +1,6 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
-import FioriThemeManager
 
 // Base Layout style
 public struct IconBaseStyle: IconStyle {
