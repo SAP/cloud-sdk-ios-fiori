@@ -228,7 +228,7 @@ public extension _ObjectItem where Title == Text,
     Tags == _ConditionalContent<TagStack, EmptyView>,
     ActionView == _ConditionalContent<Action, EmptyView>
 {
-    init(model: ObjectItemModel) {
+    init(model: _ObjectItemModel) {
         self.init(title: model.title, subtitle: model.subtitle, footnote: model.footnote, descriptionText: model.descriptionText, status: model.status, substatus: model.substatus, detailImage: model.detailImage, icons: model.icons, avatars: model.avatars, footnoteIcons: model.footnoteIcons, tags: model.tags, action: model.action != nil ? Action(model: model.action!) : nil)
     }
 

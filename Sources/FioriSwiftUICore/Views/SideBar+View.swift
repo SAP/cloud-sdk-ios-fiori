@@ -85,7 +85,7 @@ public extension SideBar where Subtitle == _ConditionalContent<Text, EmptyView>,
     ///   - footerModel: Object item model for the footer view.
     ///   - list: The configuration for constructing an expandable list of side bar items.
     init<Data, Row, Destination>(subtitle: String? = nil,
-                                 footerModel: ObjectItemModel? = nil,
+                                 footerModel: _ObjectItemModel? = nil,
                                  list: ExpandableList<Data, Row, Destination>? = nil)
         where Data: RandomAccessCollection, Data.Element: Identifiable & Hashable,
         Row: View, Destination: View

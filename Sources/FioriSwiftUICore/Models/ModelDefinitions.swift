@@ -26,10 +26,13 @@ public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
 // sourcery: add_env_props = "splitPercent"
 // sourcery: virtualPropIntStateChanged = "@State var mainViewSize: CGSize = .zero"
 // sourcery: generated_component_composite
-public protocol ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent, AvatarsComponent, FootnoteIconsComponent, TagsComponent {
+public protocol _ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent, AvatarsComponent, FootnoteIconsComponent, TagsComponent {
     // sourcery: genericParameter.name = ActionView
     var action: ActionModel? { get }
 }
+
+@available(*, unavailable, renamed: "_ObjectItemModel", message: "Will be removed in the future release. Please create ObjectItem with other initializers instead.")
+public protocol ObjectItemModel {}
 
 // sourcery: generated_component_not_configurable
 public protocol TagStackModel: TagsComponent {}
