@@ -8,6 +8,34 @@ public struct ModifiedStyle<Style, Modifier: ViewModifier>: DynamicProperty {
     var modifier: Modifier
 }
 
+// MARK: ActionStyle
+
+extension ModifiedStyle: ActionStyle where Style: ActionStyle {
+    public func makeBody(_ configuration: ActionConfiguration) -> some View {
+        Action(configuration)
+            .actionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct ActionStyleModifier<Style: ActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.actionStyle(self.style)
+    }
+}
+
+public extension ActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some ActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some ActionStyle) -> some ActionStyle {
+        style.modifier(ActionStyleModifier(style: self))
+    }
+}
+
 // MARK: AvatarsStyle
 
 extension ModifiedStyle: AvatarsStyle where Style: AvatarsStyle {
@@ -453,34 +481,6 @@ public extension MediaImageStyle {
 
     func concat(_ style: some MediaImageStyle) -> some MediaImageStyle {
         style.modifier(MediaImageStyleModifier(style: self))
-    }
-}
-
-// MARK: NewActionStyle
-
-extension ModifiedStyle: NewActionStyle where Style: NewActionStyle {
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
-        NewAction(configuration)
-            .newActionStyle(self.style)
-            .modifier(self.modifier)
-    }
-}
-
-public struct NewActionStyleModifier<Style: NewActionStyle>: ViewModifier {
-    let style: Style
-
-    public func body(content: Content) -> some View {
-        content.newActionStyle(self.style)
-    }
-}
-
-public extension NewActionStyle {
-    func modifier(_ modifier: some ViewModifier) -> some NewActionStyle {
-        ModifiedStyle(style: self, modifier: modifier)
-    }
-
-    func concat(_ style: some NewActionStyle) -> some NewActionStyle {
-        style.modifier(NewActionStyleModifier(style: self))
     }
 }
 

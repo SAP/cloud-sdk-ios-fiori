@@ -73,9 +73,9 @@ protocol _AvatarsComponent {
 
 // TODO: rename to _ActionComponent after resolving the conflict.
 // sourcery: BaseComponent
-protocol _NewActionComponent {
+protocol _ActionComponent {
     // sourcery: @ViewBuilder
-    var newAction: FioriButton? { get }
+    var action: FioriButton? { get }
 }
 
 // sourcery: BaseComponent

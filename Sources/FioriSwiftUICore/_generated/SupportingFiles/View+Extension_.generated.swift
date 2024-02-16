@@ -3,6 +3,23 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+public extension View {
+    func actionStyle(_ style: some ActionStyle) -> some View {
+        self.transformEnvironment(\.actionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.actionStyleStack) { stack in
+            let style = AnyActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 public extension View {
@@ -270,23 +287,6 @@ public extension View {
     func mediaImageStyle(@ViewBuilder content: @escaping (MediaImageConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.mediaImageStyleStack) { stack in
             let style = AnyMediaImageStyle(content)
-            stack.append(style)
-        }
-    }
-}
-
-// MARK: NewActionStyle
-
-public extension View {
-    func newActionStyle(_ style: some NewActionStyle) -> some View {
-        self.transformEnvironment(\.newActionStyleStack) { stack in
-            stack.append(style)
-        }
-    }
-    
-    func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> some View {
-        self.transformEnvironment(\.newActionStyleStack) { stack in
-            let style = AnyNewActionStyle(content)
             stack.append(style)
         }
     }

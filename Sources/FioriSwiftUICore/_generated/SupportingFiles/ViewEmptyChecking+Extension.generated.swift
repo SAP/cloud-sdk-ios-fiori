@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension Action: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        action.isEmpty
+    }
+}
+
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
@@ -27,7 +33,7 @@ extension Card: _ViewEmptyChecking {
             row2.isEmpty ||
             row3.isEmpty ||
             cardBody.isEmpty ||
-            newAction.isEmpty ||
+            action.isEmpty ||
             secondaryAction.isEmpty
     }
 }
@@ -42,7 +48,7 @@ extension CardExtHeader: _ViewEmptyChecking {
 
 extension CardFooter: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        newAction.isEmpty ||
+        action.isEmpty ||
             secondaryAction.isEmpty
     }
 }
@@ -88,7 +94,7 @@ extension DemoView: _ViewEmptyChecking {
         title.isEmpty ||
             subtitle.isEmpty ||
             status.isEmpty ||
-            newAction.isEmpty
+            action.isEmpty
     }
 }
 
@@ -128,12 +134,6 @@ extension MediaImage: _ViewEmptyChecking {
     }
 }
 
-extension NewAction: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        newAction.isEmpty
-    }
-}
-
 extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
@@ -147,7 +147,7 @@ extension ObjectItem: _ViewEmptyChecking {
             avatars.isEmpty ||
             footnoteIcons.isEmpty ||
             tags.isEmpty ||
-            newAction.isEmpty
+            action.isEmpty
     }
 }
 

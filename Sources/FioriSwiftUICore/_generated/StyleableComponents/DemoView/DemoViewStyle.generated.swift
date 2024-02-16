@@ -25,13 +25,13 @@ public struct DemoViewConfiguration {
     public let title: Title
     public let subtitle: Subtitle
     public let status: Status
-    public let newAction: NewAction
+    public let action: Action
     @Binding public var isOn: Bool
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
     public typealias Status = ConfigurationViewWrapper
-    public typealias NewAction = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
 }
     
 public struct DemoViewFioriStyle: DemoViewStyle {
@@ -40,7 +40,7 @@ public struct DemoViewFioriStyle: DemoViewStyle {
             .titleStyle(TitleFioriStyle())
             .subtitleStyle(SubtitleFioriStyle())
             .statusStyle(StatusFioriStyle())
-            .newActionStyle(NewActionFioriStyle())
+            .actionStyle(ActionFioriStyle())
             .switchStyle(SwitchFioriStyle())
     }
 }

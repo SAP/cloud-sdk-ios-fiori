@@ -32,7 +32,7 @@ public struct CardConfiguration {
     public let row2: Row2
     public let row3: Row3
     public let cardBody: CardBody
-    public let newAction: NewAction
+    public let action: Action
     public let secondaryAction: SecondaryAction
 
     public typealias MediaImage = ConfigurationViewWrapper
@@ -45,7 +45,7 @@ public struct CardConfiguration {
     public typealias Row2 = ConfigurationViewWrapper
     public typealias Row3 = ConfigurationViewWrapper
     public typealias CardBody = ConfigurationViewWrapper
-    public typealias NewAction = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
     public typealias SecondaryAction = ConfigurationViewWrapper
 }
     
@@ -62,7 +62,7 @@ public struct CardFioriStyle: CardStyle {
             .row2Style(Row2FioriStyle())
             .row3Style(Row3FioriStyle())
             .cardBodyStyle(CardBodyFioriStyle())
-            .newActionStyle(NewActionFioriStyle())
+            .actionStyle(ActionFioriStyle())
             .secondaryActionStyle(SecondaryActionFioriStyle())
             .cardHeaderStyle(CardHeaderFioriStyle())
             .cardFooterStyle(CardFooterFioriStyle())

@@ -89,7 +89,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                         .resizable()
                         .frame(width: 45, height: 45)
                         .clipShape(Circle())
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -127,7 +127,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
                 oi = _ObjectItem(title: {
@@ -168,7 +168,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
                 oi = _ObjectItem(title: {
@@ -199,7 +199,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("Los Angeles")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
                 oi = _ObjectItem(title: {
@@ -229,7 +229,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                         .resizable()
                         .frame(width: 45, height: 45)
                         .clipShape(Circle())
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
                 oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
@@ -259,7 +259,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Image("wheel")
                         .resizable()
                         .frame(width: 45, height: 45)
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
                 oi = _ObjectItem(title: {
                     Text("Steel Roter")
@@ -290,7 +290,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
                     .onTapGesture {
                         print("tapped the cell")

@@ -33,7 +33,7 @@ public struct ObjectItemConfiguration {
     public let avatars: Avatars
     public let footnoteIcons: FootnoteIcons
     public let tags: Tags
-    public let newAction: NewAction
+    public let action: Action
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -46,7 +46,7 @@ public struct ObjectItemConfiguration {
     public typealias Avatars = ConfigurationViewWrapper
     public typealias FootnoteIcons = ConfigurationViewWrapper
     public typealias Tags = ConfigurationViewWrapper
-    public typealias NewAction = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
 }
     
 public struct ObjectItemFioriStyle: ObjectItemStyle {
@@ -63,6 +63,6 @@ public struct ObjectItemFioriStyle: ObjectItemStyle {
             .avatarsStyle(AvatarsFioriStyle())
             .footnoteIconsStyle(FootnoteIconsFioriStyle())
             .tagsStyle(TagsFioriStyle())
-            .newActionStyle(NewActionFioriStyle())
+            .actionStyle(ActionFioriStyle())
     }
 }

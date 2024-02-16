@@ -3,6 +3,20 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+    
+public extension ActionStyle where Self == ActionBaseStyle {
+    static var base: ActionBaseStyle {
+        ActionBaseStyle()
+    }
+}
+
+public extension ActionStyle where Self == ActionFioriStyle {
+    static var fiori: ActionFioriStyle {
+        ActionFioriStyle()
+    }
+}
+
 // MARK: AvatarsStyle
     
 public extension AvatarsStyle where Self == AvatarsBaseStyle {
@@ -255,24 +269,24 @@ public extension CardStyle where Self == CardCardBodyStyle {
     }
 }
 
-public struct CardNewActionStyle: CardStyle {
-    let style: any NewActionStyle
+public struct CardActionStyle: CardStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: CardConfiguration) -> some View {
         Card(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension CardStyle where Self == CardNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> CardNewActionStyle {
-        CardNewActionStyle(style: style)
+public extension CardStyle where Self == CardActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardActionStyle {
+        CardActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> CardNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return CardNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardActionStyle {
+        let style = AnyActionStyle(content)
+        return CardActionStyle(style: style)
     }
 }
 
@@ -430,24 +444,24 @@ public extension CardFooterStyle where Self == CardFooterFioriStyle {
     }
 }
     
-public struct CardFooterNewActionStyle: CardFooterStyle {
-    let style: any NewActionStyle
+public struct CardFooterActionStyle: CardFooterStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         CardFooter(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension CardFooterStyle where Self == CardFooterNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> CardFooterNewActionStyle {
-        CardFooterNewActionStyle(style: style)
+public extension CardFooterStyle where Self == CardFooterActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardFooterActionStyle {
+        CardFooterActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> CardFooterNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return CardFooterNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> CardFooterActionStyle {
+        let style = AnyActionStyle(content)
+        return CardFooterActionStyle(style: style)
     }
 }
 
@@ -983,24 +997,24 @@ public extension DemoViewStyle where Self == DemoViewStatusStyle {
     }
 }
 
-public struct DemoViewNewActionStyle: DemoViewStyle {
-    let style: any NewActionStyle
+public struct DemoViewActionStyle: DemoViewStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: DemoViewConfiguration) -> some View {
         DemoView(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension DemoViewStyle where Self == DemoViewNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> DemoViewNewActionStyle {
-        DemoViewNewActionStyle(style: style)
+public extension DemoViewStyle where Self == DemoViewActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> DemoViewActionStyle {
+        DemoViewActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> DemoViewNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return DemoViewNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> DemoViewActionStyle {
+        let style = AnyActionStyle(content)
+        return DemoViewActionStyle(style: style)
     }
 }
 
@@ -1106,20 +1120,6 @@ public extension MediaImageStyle where Self == MediaImageBaseStyle {
 public extension MediaImageStyle where Self == MediaImageFioriStyle {
     static var fiori: MediaImageFioriStyle {
         MediaImageFioriStyle()
-    }
-}
-
-// MARK: NewActionStyle
-    
-public extension NewActionStyle where Self == NewActionBaseStyle {
-    static var base: NewActionBaseStyle {
-        NewActionBaseStyle()
-    }
-}
-
-public extension NewActionStyle where Self == NewActionFioriStyle {
-    static var fiori: NewActionFioriStyle {
-        NewActionFioriStyle()
     }
 }
 
@@ -1368,24 +1368,24 @@ public extension ObjectItemStyle where Self == ObjectItemTagsStyle {
     }
 }
 
-public struct ObjectItemNewActionStyle: ObjectItemStyle {
-    let style: any NewActionStyle
+public struct ObjectItemActionStyle: ObjectItemStyle {
+    let style: any ActionStyle
         
     public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
         ObjectItem(configuration)
-            .newActionStyle(self.style)
+            .actionStyle(self.style)
             .typeErased
     }
 }
     
-public extension ObjectItemStyle where Self == ObjectItemNewActionStyle {
-    static func newActionStyle<Style: NewActionStyle>(_ style: Style) -> ObjectItemNewActionStyle {
-        ObjectItemNewActionStyle(style: style)
+public extension ObjectItemStyle where Self == ObjectItemActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> ObjectItemActionStyle {
+        ObjectItemActionStyle(style: style)
     }
         
-    static func newActionStyle(@ViewBuilder content: @escaping (NewActionConfiguration) -> some View) -> ObjectItemNewActionStyle {
-        let style = AnyNewActionStyle(content)
-        return ObjectItemNewActionStyle(style: style)
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> ObjectItemActionStyle {
+        let style = AnyActionStyle(content)
+        return ObjectItemActionStyle(style: style)
     }
 }
 

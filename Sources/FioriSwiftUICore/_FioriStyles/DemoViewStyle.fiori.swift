@@ -19,7 +19,7 @@ public struct DemoViewBaseStyle: DemoViewStyle {
             configuration.title
             configuration.subtitle
             configuration.status
-            configuration.newAction
+            configuration.action
             configuration._switch
         }
         .padding()
@@ -57,9 +57,9 @@ extension DemoViewFioriStyle {
         }
     }
 
-    struct NewActionFioriStyle: NewActionStyle {
-        func makeBody(_ configuration: NewActionConfiguration) -> some View {
-            NewAction(configuration)
+    struct ActionFioriStyle: ActionStyle {
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
             // Add default style here
         }
     }
@@ -72,7 +72,7 @@ public struct DemoViewHorizontalStyle: DemoViewStyle {
             configuration.title
             configuration.subtitle
             configuration.status
-            configuration.newAction
+            configuration.action
             Toggle(isOn: configuration.$isOn, label: {})
         }
         .padding()
@@ -122,8 +122,8 @@ struct CustomTagDemoViewStyle: DemoViewStyle {
             HStack {
                 Spacer()
 
-                if !configuration.newAction.isEmpty {
-                    configuration.newAction
+                if !configuration.action.isEmpty {
+                    configuration.action
                 }
             }
         }
@@ -196,7 +196,7 @@ struct Preview: PreviewProvider {
     static var previews: some View {
         // 1. Test style propagation
         HStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
 
             Title(title: "Other Title")
                 .titleStyle { configuration in
@@ -214,14 +214,14 @@ struct Preview: PreviewProvider {
             Title(configuration)
                 .foregroundStyle(.blue)
         }
-        .newActionStyle {
-            NewAction($0)
+        .actionStyle {
+            Action($0)
                 .foregroundStyle(Color.red)
         }
 
         // 2. Test style customization for a specific component
         HStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
 
             Title(title: "Other Title")
         }
@@ -232,21 +232,21 @@ struct Preview: PreviewProvider {
         })
 
         // 3. Reusable style
-        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
             .demoViewStyle(.card)
 
         // 4. Style composition (concatenation)
         VStack {
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
                 .demoViewStyle(.horizontal.concat(.card))
 
-            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+            DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
                 .demoViewStyle(.card)
                 .demoViewStyle(.horizontal)
         }
 
         // 5. Style based on the state (Not work in Preview, only work in a test app)
-        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), newAction: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
+        DemoView(title: "DemoView Title", subtitle: "Subtitle", status: .text("Status"), action: FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") }), isOn: $model.isOn)
             .demoViewStyle(.card)
             .demoViewStyle { configuration in
                 DemoView(configuration)

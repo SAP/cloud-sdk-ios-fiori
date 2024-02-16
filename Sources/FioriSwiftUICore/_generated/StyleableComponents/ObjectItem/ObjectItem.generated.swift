@@ -16,7 +16,7 @@ public struct ObjectItem {
     let avatars: any View
     let footnoteIcons: any View
     let tags: any View
-    let newAction: any View
+    let action: any View
 
     @Environment(\.objectItemStyle) var style
 
@@ -33,7 +33,7 @@ public struct ObjectItem {
                 @AvatarsBuilder avatars: () -> any View = { EmptyView() },
                 @FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
                 @TagBuilder tags: () -> any View = { EmptyView() },
-                @ViewBuilder newAction: () -> any View = { EmptyView() })
+                @ViewBuilder action: () -> any View = { EmptyView() })
     {
         self.title = Title { title() }
         self.subtitle = Subtitle { subtitle() }
@@ -46,7 +46,7 @@ public struct ObjectItem {
         self.avatars = Avatars { avatars() }
         self.footnoteIcons = FootnoteIcons { footnoteIcons() }
         self.tags = Tags { tags() }
-        self.newAction = NewAction { newAction() }
+        self.action = Action { action() }
     }
 }
 
@@ -62,9 +62,9 @@ public extension ObjectItem {
          avatars: [TextOrIcon] = [],
          footnoteIcons: [TextOrIcon] = [],
          tags: [AttributedString] = [],
-         newAction: FioriButton? = nil)
+         action: FioriButton? = nil)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, newAction: { newAction })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, action: { action })
     }
 }
 
@@ -81,7 +81,7 @@ public extension ObjectItem {
         self.avatars = configuration.avatars
         self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
-        self.newAction = configuration.newAction
+        self.action = configuration.action
         self._shouldApplyDefaultStyle = false
     }
 }
@@ -91,7 +91,7 @@ extension ObjectItem: View {
         if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
+            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), action: .init(self.action))).typeErased
                 .transformEnvironment(\.objectItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -109,7 +109,7 @@ private extension ObjectItem {
     }
         
     func defaultStyle() -> some View {
-        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction)))
+        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), action: .init(self.action)))
             .shouldApplyDefaultStyle(false)
             .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())
             .typeErased

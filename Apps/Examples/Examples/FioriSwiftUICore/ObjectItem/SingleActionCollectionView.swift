@@ -30,7 +30,7 @@ struct SingleActionCollectionView: View {
                 Image(systemName: "checkmark")
                     .resizable()
                     .frame(width: 10, height: 10)
-            }, newAction: { FioriButton(action: { _ in
+            }, action: { FioriButton(action: { _ in
                 print("Tapped Follow")
             }, label: { _ in
                 Image(systemName: "arrow.down.circle")

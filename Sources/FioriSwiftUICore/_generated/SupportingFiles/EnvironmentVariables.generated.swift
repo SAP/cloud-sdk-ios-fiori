@@ -3,6 +3,27 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+struct ActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var actionStyle: any ActionStyle {
+        actionStyleStack.last ?? .base
+    }
+
+    var actionStyleStack: [any ActionStyle] {
+        get {
+            self[ActionStyleStackKey.self]
+        }
+        set {
+            self[ActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct AvatarsStyleStackKey: EnvironmentKey {
@@ -335,27 +356,6 @@ extension EnvironmentValues {
         }
         set {
             self[MediaImageStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: NewActionStyle
-
-struct NewActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewActionStyle] = []
-}
-
-extension EnvironmentValues {
-    var newActionStyle: any NewActionStyle {
-        newActionStyleStack.last ?? .base
-    }
-
-    var newActionStyleStack: [any NewActionStyle] {
-        get {
-            self[NewActionStyleStackKey.self]
-        }
-        set {
-            self[NewActionStyleStackKey.self] = newValue
         }
     }
 }

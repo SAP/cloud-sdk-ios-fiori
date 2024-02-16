@@ -43,7 +43,7 @@ public struct ObjectItemBaseStyle: ObjectItemStyle {
         
         // FIXME: check if VStack causes any problem.
         return VStack {
-            if !configuration.newAction.isEmpty {
+            if !configuration.action.isEmpty {
                 // When only the headline label is used, everything in the cell is center aligned. Only 1 status can be used.
                 if isCenterAligned {
                     self.makeOneLineSingleActionView(context)
@@ -131,7 +131,7 @@ extension ObjectItemBaseStyle {
                     .background(GeometrySizeView(size: $mainViewSize))
                 }
                 
-                context.configuration.newAction
+                context.configuration.action
             }
         }
     }
@@ -163,7 +163,7 @@ extension ObjectItemBaseStyle {
                         Spacer(minLength: 16)
                     }
                     
-                    context.configuration.newAction
+                    context.configuration.action
                 }
             } else {
                 HStack(alignment: .center) {
@@ -218,7 +218,7 @@ extension ObjectItemBaseStyle {
                         }
                     }
                     
-                    context.configuration.newAction
+                    context.configuration.action
                 }
             }
         }
@@ -588,9 +588,9 @@ extension ObjectItemFioriStyle {
         }
     }
 
-    struct NewActionFioriStyle: NewActionStyle {
-        func makeBody(_ configuration: NewActionConfiguration) -> some View {
-            NewAction(configuration)
+    struct ActionFioriStyle: ActionStyle {
+        func makeBody(_ configuration: ActionConfiguration) -> some View {
+            Action(configuration)
                 // Add default style here
                 .fioriButtonStyle(FioriPlainButtonStyle())
                 .lineLimit(2)
@@ -616,11 +616,11 @@ public extension ObjectItemStyle where Self == ObjectItemCardStyle {
     }
 }
 
-public struct ObjectItemBorderedAction: NewActionStyle {
+public struct ObjectItemBorderedAction: ActionStyle {
     public init() {}
     
-    public func makeBody(_ configuration: NewActionConfiguration) -> some View {
-        configuration.newAction
+    public func makeBody(_ configuration: ActionConfiguration) -> some View {
+        configuration.action
             .padding(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
             .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color.preferredColor(.tintColor), lineWidth: 1))
             .lineLimit(2)
