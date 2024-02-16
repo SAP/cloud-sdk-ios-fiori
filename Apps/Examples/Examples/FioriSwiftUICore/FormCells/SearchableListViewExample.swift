@@ -181,10 +181,10 @@ struct SearchableListViewExample: View {
                                               return Color.mint
                                           }
                                       },
-                                      cancelAction: Action(actionText: "CacnelAction") {
+                                      cancelAction: _Action(actionText: "CacnelAction") {
                                           print("cancel action tapped")
                                       },
-                                      doneAction: Action(actionText: "DoneAction") {
+                                      doneAction: _Action(actionText: "DoneAction") {
                                           print("done action tapped")
                                       })
         } else {

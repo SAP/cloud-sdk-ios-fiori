@@ -50,7 +50,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap",
                                  footnote: "3493 followers",
-                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                 action: _Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                      print("Tapped Follow")
                                  }))
             }
@@ -63,7 +63,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: self.isLongText ? longHeadline : "Hybris",
                                  footnote: "2290 followers",
-                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                 action: _Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                      print("Tapped Follow")
                                  }))
             }
@@ -104,7 +104,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: self.isLongText ? longHeadline : "Successfactors",
                                  footnote: "1000 followers",
-                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                 action: _Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                      print("Tapped Follow")
                                  }))
             }
@@ -117,7 +117,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: self.isLongText ? longHeadline : "Tennis @ SAP",
                                  footnote: "2290 followers",
-                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                 action: _Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                      print("Tapped Follow")
                                  }))
             }
@@ -130,7 +130,7 @@ struct SingleActionLongFollowButton: ObjectItemListDataProtocol {
             } else {
                 oi = _ObjectItem(title: self.isLongText ? longHeadline : "SAP.io",
                                  footnote: "537 followers",
-                                 action: Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
+                                 action: _Action(actionText: self.isLongText ? longText : "Follow", didSelectAction: {
                                      print("Tapped Follow")
                                  }))
             }

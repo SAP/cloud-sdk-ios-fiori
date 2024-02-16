@@ -73,7 +73,7 @@ extension UserConsentPage: View {
 struct UserConsentPageLibraryContent: LibraryContentProvider {
     @LibraryContentBuilder
     var views: [LibraryItem] {
-        LibraryItem(UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: Action(actionText: "Learn more about Data Privacy")),
+        LibraryItem(UserConsentPage(title: "Data Privacy", bodyAttributedText: NSAttributedString(string: "Detailed text about how data privacy pertains to this app and why it is important for the user to enable this functionality."), action: _Action(actionText: "Learn more about Data Privacy")),
                     category: .control)
     }
 }

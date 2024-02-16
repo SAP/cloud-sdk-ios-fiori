@@ -1,6 +1,6 @@
 import SwiftUI
 
-public struct _AllowActionDefault: ActionModel {
+public struct _AllowActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Allow", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -8,7 +8,7 @@ public struct _AllowActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _NextActionDefault: ActionModel {
+public struct _NextActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Next", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -16,7 +16,7 @@ public struct _NextActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _CancelActionDefault: ActionModel {
+public struct _CancelActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Cancel", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -24,7 +24,7 @@ public struct _CancelActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _ResetActionDefault: ActionModel {
+public struct _ResetActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Reset", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -32,7 +32,7 @@ public struct _ResetActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _ApplyActionDefault: ActionModel {
+public struct _ApplyActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Apply", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -40,7 +40,7 @@ public struct _ApplyActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _AgreeActionDefault: ActionModel {
+public struct _AgreeActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Agree", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -48,7 +48,7 @@ public struct _AgreeActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _DisagreeActionDefault: ActionModel {
+public struct _DisagreeActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Disagree", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -56,7 +56,7 @@ public struct _DisagreeActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _DenyActionDefault: ActionModel {
+public struct _DenyActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Deny", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -64,7 +64,7 @@ public struct _DenyActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _NotNowActionDefault: ActionModel {
+public struct _NotNowActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Not Now", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -72,7 +72,7 @@ public struct _NotNowActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _TapToSignActionDefault: ActionModel {
+public struct _TapToSignActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Tap to Sign", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -80,7 +80,7 @@ public struct _TapToSignActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _ReEnterSignatureActionDefault: ActionModel {
+public struct _ReEnterSignatureActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Re-enter Signature", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -88,7 +88,7 @@ public struct _ReEnterSignatureActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _ClearActionDefault: ActionModel {
+public struct _ClearActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Clear", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -96,7 +96,7 @@ public struct _ClearActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _SaveActionDefault: ActionModel {
+public struct _SaveActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Save", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -104,7 +104,7 @@ public struct _SaveActionDefault: ActionModel {
     public init() {}
 }
 
-public struct _DoneActionDefault: ActionModel {
+public struct _DoneActionDefault: _ActionModel {
     public var actionText: String? {
         NSLocalizedString("Done", tableName: "FioriSwiftUICore", bundle: fioriSwiftUICoreBundle, comment: "")
     }
@@ -121,7 +121,7 @@ public let _UserConsentFormAlertConfigurationDefault: (UserConsentAlertType) -> 
     }
 }
 
-public struct _AllStepsActionDefault: ActionModel {
+public struct _AllStepsActionDefault: _ActionModel {
     public var actionText: String? {
         nil
     }

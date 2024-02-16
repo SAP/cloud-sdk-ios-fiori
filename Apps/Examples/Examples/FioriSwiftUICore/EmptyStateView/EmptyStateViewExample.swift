@@ -74,7 +74,7 @@ struct EmptyContentViewExample: View {
                     EmptyStateView(title: "This is a placeholder title",
                                    descriptionText: "This is a very long description text, maximum line number is 3.",
                                    detailImage: Image("rw").resizable(),
-                                   action: Action(actionText: "Refresh", didSelectAction: {
+                                   action: _Action(actionText: "Refresh", didSelectAction: {
                                        self.isEmpty.toggle()
                                    }))
                 case .custom:
@@ -93,7 +93,7 @@ struct EmptyContentViewExample: View {
                             .resizable()
                             .cornerRadius(10)
                     } action: {
-                        Action(actionText: "Clear", didSelectAction: {
+                        _Action(actionText: "Clear", didSelectAction: {
                             self.isEmpty.toggle()
                         })
                     }

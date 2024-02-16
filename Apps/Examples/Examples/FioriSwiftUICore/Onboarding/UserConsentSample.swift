@@ -18,7 +18,7 @@ struct UserConsentViewBuilderExample: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 0")
                                             showPageInfo1 = true
                                         })
@@ -29,7 +29,7 @@ struct UserConsentViewBuilderExample: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 1")
                                             showPageInfo2 = true
                                         })
@@ -44,7 +44,7 @@ struct UserConsentViewBuilderExample: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 3")
                                             showPageInfo3 = true
                                         })
@@ -55,7 +55,7 @@ struct UserConsentViewBuilderExample: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 4")
                                             showPageInfo4 = true
                                         })
@@ -98,7 +98,7 @@ struct UserConsentSinglePageM: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 0")
                                             showAlert = true
                                         })
@@ -135,7 +135,7 @@ struct UserConsentSinglePageO: View {
         if #available(iOS 15.0, *) {
             UserConsentView {
                 UserConsentForm(userConsentPages: {
-                                    UserConsentPage(title: "Data Privacy", bodyAttributedText: longText, action: Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                    UserConsentPage(title: "Data Privacy", bodyAttributedText: longText, action: _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                         print("UserConsentForm - MoreInfo")
                                         showAlert = true
                                     }))
@@ -209,7 +209,7 @@ struct UserConsentCustomized: View {
                                         Text(detailText)
                                             .font(.fiori(forTextStyle: .subheadline)).foregroundColor(.green)
                                     } action: {
-                                        Action(actionText: "Learn more about Info Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Info Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 0")
                                             showPageInfo1 = true
                                         })
@@ -220,7 +220,7 @@ struct UserConsentCustomized: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 1")
                                             showPageInfo2 = true
                                         })
@@ -245,7 +245,7 @@ struct UserConsentCustomized: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 3")
                                             showPageInfo3 = true
                                         })
@@ -256,7 +256,7 @@ struct UserConsentCustomized: View {
                                     } bodyAttributedText: {
                                         Text(detailText)
                                     } action: {
-                                        Action(actionText: "Learn more about Data Privacy", didSelectAction: {
+                                        _Action(actionText: "Learn more about Data Privacy", didSelectAction: {
                                             print("UserConsentForm - More Info 4")
                                             showPageInfo4 = true
                                         })

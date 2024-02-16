@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension _ObjectItemModel {
-    var action: ActionModel? {
+    var action: _ActionModel? {
         nil
     }
 }

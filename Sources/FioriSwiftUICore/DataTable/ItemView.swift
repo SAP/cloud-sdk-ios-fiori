@@ -303,8 +303,8 @@ struct FocusedEditingView: View {
                                           rowBackground: { _ in
                                               Color.preferredColor(.primaryBackground)
                                           },
-                                          cancelAction: Action(actionText: cancelText) {},
-                                          doneAction: Action(actionText: doneText) {
+                                          cancelAction: _Action(actionText: cancelText) {},
+                                          doneAction: _Action(actionText: doneText) {
                                               guard let selectedIndex = listItemSelection.first else { return } // selection.wrappedValue.joined()
                 
                                               guard let layoutData = self.layoutManager.layoutData else { return }

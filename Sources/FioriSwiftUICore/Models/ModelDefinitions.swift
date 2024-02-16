@@ -28,7 +28,7 @@ public protocol FootnoteIconStackModel: FootnoteIconsComponent {}
 // sourcery: generated_component_composite
 public protocol _ObjectItemModel: TitleComponent, SubtitleComponent, FootnoteComponent, DescriptionTextComponent, StatusComponent, SubstatusComponent, DetailImageComponent, IconsComponent, AvatarsComponent, FootnoteIconsComponent, TagsComponent {
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
 }
 
 @available(*, unavailable, renamed: "_ObjectItemModel", message: "Will be removed in the future release. Please create ObjectItem with other initializers instead.")
@@ -91,6 +91,9 @@ public protocol KeyValueItemModel: KeyComponent, ValueComponent {}
 
 // sourcery: add_env_props = "sharedAction"
 // sourcery: generated_component_not_configurable
+public protocol _ActionModel: ActionComponent {}
+
+@available(*, unavailable, renamed: "_ActionModel", message: "Will be removed in the future release. Please create Action with other initializers instead.")
 public protocol ActionModel: ActionComponent {}
 
 // sourcery: generated_component_not_configurable
@@ -138,19 +141,19 @@ public protocol WelcomeScreenModel: TitleComponent, DescriptionTextComponent, Su
     var textInput: TextInputModel? { get }
     
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
     
     // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: ActionModel? { get }
+    var secondaryAction: _ActionModel? { get }
 }
 
 // sourcery: generated_component_composite
 public protocol ActivationScreenModel: TitleComponent, DescriptionTextComponent, FootnoteComponent {
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
     
     // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: ActionModel? { get }
+    var secondaryAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = TextInputView
     var textInput: TextInputModel? { get }
@@ -162,10 +165,10 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
     var progressIndicator: ProgressIndicatorModel? { get }
     
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
     
     // sourcery: genericParameter.name = SecondaryActionView
-    var secondaryAction: ActionModel? { get }
+    var secondaryAction: _ActionModel? { get }
 }
 
 // sourcery: generated_component_composite
@@ -174,15 +177,15 @@ public protocol InfoViewModel: TitleComponent, DescriptionTextComponent {
 public protocol EULAViewModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
     // sourcery: default.value = _AgreeActionDefault()
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
     
     // sourcery: genericParameter.name = SecondaryActionView
     // sourcery: default.value = _DisagreeActionDefault()
-    var secondaryAction: ActionModel? { get }
+    var secondaryAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
     
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -233,23 +236,23 @@ public protocol UserConsentViewModel {
 public protocol UserConsentFormModel {
     // sourcery: genericParameter.name = NextActionView
     // sourcery: default.value = _NextActionDefault()
-    var nextAction: ActionModel? { get }
+    var nextAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = AllowActionView
     // sourcery: default.value = _AllowActionDefault()
-    var allowAction: ActionModel? { get }
+    var allowAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = DenyActionView
     // sourcery: default.value = _DenyActionDefault()
-    var denyAction: ActionModel? { get }
+    var denyAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = NotNowActionView
     // sourcery: default.value = _NotNowActionDefault()
-    var notNowAction: ActionModel? { get }
+    var notNowAction: _ActionModel? { get }
     
     // sourcery: no_style
     // sourcery: backingComponent=_UserConsentPagesContainer
@@ -281,7 +284,7 @@ public protocol UserConsentFormModel {
 // sourcery: generated_component_composite
 public protocol UserConsentPageModel: TitleComponent, BodyAttributedTextComponent {
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
 }
 
 // sourcery: importFrameworks = ["Combine"]
@@ -319,23 +322,23 @@ public protocol SignatureCaptureViewModel: AnyObject {
 
     // sourcery: genericParameter.name = StartActionView
     // sourcery: default.value = _TapToSignActionDefault()
-    var startAction: ActionModel? { get }
+    var startAction: _ActionModel? { get }
 
     // sourcery: genericParameter.name = RestartActionView
     // sourcery: default.value = _ReEnterSignatureActionDefault()
-    var restartAction: ActionModel? { get }
+    var restartAction: _ActionModel? { get }
 
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
 
     // sourcery: genericParameter.name = ClearActionView
     // sourcery: default.value = _ClearActionDefault()
-    var clearAction: ActionModel? { get }
+    var clearAction: _ActionModel? { get }
 
     // sourcery: genericParameter.name = SaveActionView
     // sourcery: default.value = _SaveActionDefault()
-    var saveAction: ActionModel? { get }
+    var saveAction: _ActionModel? { get }
 
     // sourcery: default.value = nil
     // sourcery: no_view
@@ -353,7 +356,7 @@ public protocol SignatureCaptureViewModel: AnyObject {
 // sourcery: generated_component_composite
 public protocol EmptyStateViewModel: TitleComponent, DescriptionTextComponent, DetailImageComponent {
     // sourcery: genericParameter.name = ActionView
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
 }
 
 // sourcery: generated_component_not_configurable
@@ -369,11 +372,11 @@ public protocol DurationPickerModel: DurationPickerComponent {}
 public protocol SearchableListViewModel {
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = DoneActionView
     // sourcery: default.value = _DoneActionDefault()
-    var doneAction: ActionModel? { get }
+    var doneAction: _ActionModel? { get }
 }
 
 public protocol KPIHeaderItemModel {}
@@ -424,7 +427,7 @@ public protocol StepProgressIndicatorModel: AnyObject {
     
     // sourcery: genericParameter.name = ActionView
     // sourcery: default.value = _AllStepsActionDefault()
-    var action: ActionModel? { get }
+    var action: _ActionModel? { get }
     
     // sourcery: no_style
     // sourcery: backingComponent=_StepsContainer
@@ -434,7 +437,7 @@ public protocol StepProgressIndicatorModel: AnyObject {
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
 }
 
 // sourcery: generated_component_composite
@@ -458,15 +461,15 @@ public protocol SortFilterViewModel: AnyObject, TitleComponent {
     
     // sourcery: genericParameter.name = CancelActionView
     // sourcery: default.value = _CancelActionDefault()
-    var cancelAction: ActionModel? { get }
+    var cancelAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = ResetActionView
     // sourcery: default.value = _ResetActionDefault()
-    var resetAction: ActionModel? { get }
+    var resetAction: _ActionModel? { get }
     
     // sourcery: genericParameter.name = ApplyActionView
     // sourcery: default.value = _ApplyActionDefault()
-    var applyAction: ActionModel? { get }
+    var applyAction: _ActionModel? { get }
     
     // sourcery: default.value = nil
     // sourcery: no_view
