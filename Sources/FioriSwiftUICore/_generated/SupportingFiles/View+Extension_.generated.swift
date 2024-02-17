@@ -258,6 +258,23 @@ public extension View {
     }
 }
 
+// MARK: IconStyle
+
+public extension View {
+    func iconStyle(_ style: some IconStyle) -> some View {
+        self.transformEnvironment(\.iconStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.iconStyleStack) { stack in
+            let style = AnyIconStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: IconsStyle
 
 public extension View {
@@ -270,6 +287,23 @@ public extension View {
     func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.iconsStyleStack) { stack in
             let style = AnyIconsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: InformationViewStyle
+
+public extension View {
+    func informationViewStyle(_ style: some InformationViewStyle) -> some View {
+        self.transformEnvironment(\.informationViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.informationViewStyleStack) { stack in
+            let style = AnyInformationViewStyle(content)
             stack.append(style)
         }
     }

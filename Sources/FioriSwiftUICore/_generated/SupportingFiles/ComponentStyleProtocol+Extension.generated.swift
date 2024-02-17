@@ -1095,6 +1095,20 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     }
 }
 
+// MARK: IconStyle
+    
+public extension IconStyle where Self == IconBaseStyle {
+    static var base: IconBaseStyle {
+        IconBaseStyle()
+    }
+}
+
+public extension IconStyle where Self == IconFioriStyle {
+    static var fiori: IconFioriStyle {
+        IconFioriStyle()
+    }
+}
+
 // MARK: IconsStyle
     
 public extension IconsStyle where Self == IconsBaseStyle {
@@ -1106,6 +1120,62 @@ public extension IconsStyle where Self == IconsBaseStyle {
 public extension IconsStyle where Self == IconsFioriStyle {
     static var fiori: IconsFioriStyle {
         IconsFioriStyle()
+    }
+}
+
+// MARK: InformationViewStyle
+    
+public extension InformationViewStyle where Self == InformationViewBaseStyle {
+    static var base: InformationViewBaseStyle {
+        InformationViewBaseStyle()
+    }
+}
+
+public extension InformationViewStyle where Self == InformationViewFioriStyle {
+    static var fiori: InformationViewFioriStyle {
+        InformationViewFioriStyle()
+    }
+}
+    
+public struct InformationViewIconStyle: InformationViewStyle {
+    let style: any IconStyle
+        
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension InformationViewStyle where Self == InformationViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> InformationViewIconStyle {
+        InformationViewIconStyle(style: style)
+    }
+        
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> InformationViewIconStyle {
+        let style = AnyIconStyle(content)
+        return InformationViewIconStyle(style: style)
+    }
+}
+
+public struct InformationViewDescriptionStyle: InformationViewStyle {
+    let style: any DescriptionStyle
+        
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension InformationViewStyle where Self == InformationViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> InformationViewDescriptionStyle {
+        InformationViewDescriptionStyle(style: style)
+    }
+        
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return InformationViewDescriptionStyle(style: style)
     }
 }
 

@@ -243,6 +243,22 @@ extension FootnoteIconsStyle {
     }
 }
 
+// MARK: IconStyle
+
+struct ResolvedIconStyle<Style: IconStyle>: View {
+    let style: Style
+    let configuration: IconConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension IconStyle {
+    func resolve(configuration: IconConfiguration) -> some View {
+        ResolvedIconStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: IconsStyle
 
 struct ResolvedIconsStyle<Style: IconsStyle>: View {
@@ -256,6 +272,22 @@ struct ResolvedIconsStyle<Style: IconsStyle>: View {
 extension IconsStyle {
     func resolve(configuration: IconsConfiguration) -> some View {
         ResolvedIconsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: InformationViewStyle
+
+struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
+    let style: Style
+    let configuration: InformationViewConfiguration
+    var body: some View {
+        self.style.makeBody(self.configuration)
+    }
+}
+
+extension InformationViewStyle {
+    func resolve(configuration: InformationViewConfiguration) -> some View {
+        ResolvedInformationViewStyle(style: self, configuration: configuration)
     }
 }
 

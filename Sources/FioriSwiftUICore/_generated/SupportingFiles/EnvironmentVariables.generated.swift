@@ -318,6 +318,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: IconStyle
+
+struct IconStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IconStyle] = []
+}
+
+extension EnvironmentValues {
+    var iconStyle: any IconStyle {
+        iconStyleStack.last ?? .base
+    }
+
+    var iconStyleStack: [any IconStyle] {
+        get {
+            self[IconStyleStackKey.self]
+        }
+        set {
+            self[IconStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IconsStyle
 
 struct IconsStyleStackKey: EnvironmentKey {
@@ -335,6 +356,27 @@ extension EnvironmentValues {
         }
         set {
             self[IconsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: InformationViewStyle
+
+struct InformationViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InformationViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var informationViewStyle: any InformationViewStyle {
+        informationViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var informationViewStyleStack: [any InformationViewStyle] {
+        get {
+            self[InformationViewStyleStackKey.self]
+        }
+        set {
+            self[InformationViewStyleStackKey.self] = newValue
         }
     }
 }

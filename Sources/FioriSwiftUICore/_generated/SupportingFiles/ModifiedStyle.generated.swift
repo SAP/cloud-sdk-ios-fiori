@@ -428,6 +428,34 @@ public extension FootnoteIconsStyle {
     }
 }
 
+// MARK: IconStyle
+
+extension ModifiedStyle: IconStyle where Style: IconStyle {
+    public func makeBody(_ configuration: IconConfiguration) -> some View {
+        Icon(configuration)
+            .iconStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct IconStyleModifier<Style: IconStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.iconStyle(self.style)
+    }
+}
+
+public extension IconStyle {
+    func modifier(_ modifier: some ViewModifier) -> some IconStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some IconStyle) -> some IconStyle {
+        style.modifier(IconStyleModifier(style: self))
+    }
+}
+
 // MARK: IconsStyle
 
 extension ModifiedStyle: IconsStyle where Style: IconsStyle {
@@ -453,6 +481,34 @@ public extension IconsStyle {
 
     func concat(_ style: some IconsStyle) -> some IconsStyle {
         style.modifier(IconsStyleModifier(style: self))
+    }
+}
+
+// MARK: InformationViewStyle
+
+extension ModifiedStyle: InformationViewStyle where Style: InformationViewStyle {
+    public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
+        InformationView(configuration)
+            .informationViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct InformationViewStyleModifier<Style: InformationViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.informationViewStyle(self.style)
+    }
+}
+
+public extension InformationViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some InformationViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some InformationViewStyle) -> some InformationViewStyle {
+        style.modifier(InformationViewStyleModifier(style: self))
     }
 }
 
