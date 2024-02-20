@@ -10,16 +10,16 @@ class ThemeManagerTests: XCTestCase {
     
     #if !os(watchOS)
         func testLatestColorStyle() throws {
-            XCTAssertEqual(ColorStyle.allCases.count, 203)
+            XCTAssertEqual(ColorStyle.allCases.count, 205)
         }
     
         func testPalette8() throws {
             let tm = ThemeManager.shared
             tm.setPaletteVersion(.v8)
             // followings are same as v7
-            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 205)
+            XCTAssertEqual(tm.paletteVersion?.supportedStyles().count, 207)
             XCTAssertEqual(tm.paletteVersion?.obsoletedStyles().count, 0)
-            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 8)
+            XCTAssertEqual(tm.paletteVersion?.newStyles().count, 10)
             let newStyle_grey1 = tm.hexColor(for: .grey1)
             XCTAssertEqual(newStyle_grey1, HexColor(lightColor: "12171CFF", darkColor: "F5F6F7FF", contrastLightColor: "1C242BFF", contrastDarkColor: "EAECEEFF"))
             let newStyle_primaryLabel = tm.hexColor(for: .primaryLabel)
@@ -114,6 +114,10 @@ class ThemeManagerTests: XCTestCase {
             XCTAssertEqual(footer, HexColor(lightColor: "192027FF", darkColor: "FFFFFFFF", elevatedLightColor: "1F272FE6", contrastLightColor: "1C242BFF", contrastDarkColor: "FFFFFFFF", elevatedContrastLightColor: "2B3641FF"))
             let cellBackground = tm.hexColor(for: .cellBackground)
             XCTAssertEqual(cellBackground, HexColor(lightColor: "22354800", darkColor: "FFFFFF00", contrastLightColor: "1A273300", contrastDarkColor: "FFFFFF00"))
+            let chrome = tm.hexColor(for: .chrome)
+            XCTAssertEqual(chrome, HexColor(lightColor: "000000BF", darkColor: "FFFFFFD9", elevatedLightColor: "171D23BF", contrastLightColor: "000000E6", contrastDarkColor: "FFFFFFE6", elevatedContrastLightColor: "192024E6"))
+            let chrome2 = tm.hexColor(for: .chrome2)
+            XCTAssertEqual(chrome2, HexColor(lightColor: "161C21BF", darkColor: "FFFFFFD9", elevatedLightColor: "242D37BF", contrastLightColor: "1D252AE6", contrastDarkColor: "FFFFFFE6", elevatedContrastLightColor: "212B30E6"))
             let cardShadow = tm.hexColor(for: .cardShadow)
             XCTAssertEqual(cardShadow, HexColor(lightColor: "0000004D", darkColor: "5B738B14", contrastLightColor: "0000004D", contrastDarkColor: "00000014"))
             let sectionShadow = tm.hexColor(for: .sectionShadow)

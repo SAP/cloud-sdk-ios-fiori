@@ -1062,6 +1062,20 @@ public enum ColorStyle: String, CaseIterable {
     @available(watchOS, unavailable)
     case cellBackground
     
+    /// Apple materials effect color to be applied to chrome color, with variants for light and dark color schemes.
+    /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFD9
+    /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000BF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/171D23.png&text=+)        Hex color: 171D23BF
+    @available(watchOS, unavailable)
+    case chrome
+    
+    /// Apple materials effect color to be applied to chrome color 2, with variants for light and dark color schemes.
+    /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFD9
+    /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21BF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/242D37.png&text=+)        Hex color: 242D37BF
+    @available(watchOS, unavailable)
+    case chrome2
+    
     // MARK: - Chart Colors (13 Styles)
     
     /// Chart 1
@@ -1560,7 +1574,7 @@ public enum ColorStyle: String, CaseIterable {
                                                     .informationBackgroundTapState, .informativeLabelTapState,
                                                     .neutralBackgroundTapState, .separator, .separatorOpaque,
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
-                                                    .footer, .cellBackground, .chart1, .chart2, .chart3, .chart4,
+                                                    .footer, .cellBackground, .chrome, .chrome2, .chart1, .chart2, .chart3, .chart4,
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
                                                     .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6, .esriEdit]
