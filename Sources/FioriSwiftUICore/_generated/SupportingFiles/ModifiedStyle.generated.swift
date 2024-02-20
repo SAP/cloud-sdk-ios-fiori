@@ -512,6 +512,62 @@ public extension InformationViewStyle {
     }
 }
 
+// MARK: LinearProgressIndicatorStyle
+
+extension ModifiedStyle: LinearProgressIndicatorStyle where Style: LinearProgressIndicatorStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorConfiguration) -> some View {
+        LinearProgressIndicator(configuration)
+            .linearProgressIndicatorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct LinearProgressIndicatorStyleModifier<Style: LinearProgressIndicatorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.linearProgressIndicatorStyle(self.style)
+    }
+}
+
+public extension LinearProgressIndicatorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LinearProgressIndicatorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some LinearProgressIndicatorStyle) -> some LinearProgressIndicatorStyle {
+        style.modifier(LinearProgressIndicatorStyleModifier(style: self))
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+extension ModifiedStyle: LinearProgressIndicatorViewStyle where Style: LinearProgressIndicatorViewStyle {
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct LinearProgressIndicatorViewStyleModifier<Style: LinearProgressIndicatorViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.linearProgressIndicatorViewStyle(self.style)
+    }
+}
+
+public extension LinearProgressIndicatorViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LinearProgressIndicatorViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some LinearProgressIndicatorViewStyle) -> some LinearProgressIndicatorViewStyle {
+        style.modifier(LinearProgressIndicatorViewStyleModifier(style: self))
+    }
+}
+
 // MARK: MediaImageStyle
 
 extension ModifiedStyle: MediaImageStyle where Style: MediaImageStyle {
@@ -817,6 +873,34 @@ public extension TagsStyle {
 
     func concat(_ style: some TagsStyle) -> some TagsStyle {
         style.modifier(TagsStyleModifier(style: self))
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+extension ModifiedStyle: TextInputInfoViewStyle where Style: TextInputInfoViewStyle {
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .textInputInfoViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextInputInfoViewStyleModifier<Style: TextInputInfoViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textInputInfoViewStyle(self.style)
+    }
+}
+
+public extension TextInputInfoViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextInputInfoViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextInputInfoViewStyle) -> some TextInputInfoViewStyle {
+        style.modifier(TextInputInfoViewStyleModifier(style: self))
     }
 }
 

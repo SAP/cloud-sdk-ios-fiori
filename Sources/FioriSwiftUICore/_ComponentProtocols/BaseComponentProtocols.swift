@@ -77,6 +77,12 @@ protocol _IconComponent {
     var icon: Image? { get }
 }
 
+// sourcery: BaseComponent
+protocol _LinearProgressIndicatorComponent {
+    // sourcery: @Binding
+    var indicatorProgress: Double { get }
+}
+
 // TODO: rename to _ActionComponent after resolving the conflict.
 // sourcery: BaseComponent
 protocol _ActionComponent {

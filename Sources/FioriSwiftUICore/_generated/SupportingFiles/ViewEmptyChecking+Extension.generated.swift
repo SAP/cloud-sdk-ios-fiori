@@ -142,6 +142,19 @@ extension InformationView: _ViewEmptyChecking {
     }
 }
 
+extension LinearProgressIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension LinearProgressIndicatorView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            description.isEmpty
+    }
+}
+
 extension MediaImage: _ViewEmptyChecking {
     public var isEmpty: Bool {
         mediaImage.isEmpty
@@ -216,6 +229,15 @@ extension Switch: _ViewEmptyChecking {
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty
+    }
+}
+
+extension TextInputInfoView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            description.isEmpty ||
+            content.isEmpty ||
+            counter.isEmpty
     }
 }
 
