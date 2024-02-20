@@ -18,7 +18,7 @@ struct LinearProgressIndicatorExample: View {
             LinearProgressIndicatorView(indicatorProgress: $progress2, icon: Image(systemName: "heart"), description: AttributedString("Loading..."))
                 .linearProgressIndicatorStyle(.determinate)
                 .padding(.bottom, 20)
-    
+            
             FioriButton(
                 action: { _ in
                     if progress2 > 0.9 {

@@ -24,10 +24,10 @@ public extension LinearProgressIndicator {
 
 extension LinearProgressIndicator: View {
     public var body: some View {
-        if self._shouldApplyDefaultStyle {
+        if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(indicatorProgress: self.$indicatorProgress)).typeErased
+            style.resolve(configuration: .init(indicatorProgress: self.$indicatorProgress)).typeErased
                 .transformEnvironment(\.linearProgressIndicatorStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

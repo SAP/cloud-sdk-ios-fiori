@@ -381,6 +381,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: LinearProgressIndicatorStyle
+
+struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LinearProgressIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var linearProgressIndicatorStyle: any LinearProgressIndicatorStyle {
+        linearProgressIndicatorStyleStack.last ?? .base
+    }
+
+    var linearProgressIndicatorStyleStack: [any LinearProgressIndicatorStyle] {
+        get {
+            self[LinearProgressIndicatorStyleStackKey.self]
+        }
+        set {
+            self[LinearProgressIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+struct LinearProgressIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LinearProgressIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var linearProgressIndicatorViewStyle: any LinearProgressIndicatorViewStyle {
+        linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var linearProgressIndicatorViewStyleStack: [any LinearProgressIndicatorViewStyle] {
+        get {
+            self[LinearProgressIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[LinearProgressIndicatorViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 struct MediaImageStyleStackKey: EnvironmentKey {
@@ -608,6 +650,27 @@ extension EnvironmentValues {
         }
         set {
             self[TagsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+struct TextInputInfoViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextInputInfoViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var textInputInfoViewStyle: any TextInputInfoViewStyle {
+        textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var textInputInfoViewStyleStack: [any TextInputInfoViewStyle] {
+        get {
+            self[TextInputInfoViewStyleStackKey.self]
+        }
+        set {
+            self[TextInputInfoViewStyleStackKey.self] = newValue
         }
     }
 }

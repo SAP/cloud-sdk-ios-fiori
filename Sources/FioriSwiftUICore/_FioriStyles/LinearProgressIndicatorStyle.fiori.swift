@@ -37,16 +37,12 @@ public struct LinearProgressIndicatorIndeterminateStyle: LinearProgressIndicator
         ProgressView(value: configuration.indicatorProgress, total: 1.0)
             .progressViewStyle(CustomLinearProgressViewStyle(color: .preferredColor(.tintColor), type: .indeterminate))
             .onAppear {
-                // Set up a timer to update the progress value for indeterminate animation
                 let timer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { _ in
-                    // Update progress value for indeterminate animation
                     configuration.indicatorProgress += 0.01
                     if configuration.indicatorProgress >= 1.0 {
-                        // If progress reaches 100%, reset it to 0 without animation
                         configuration.indicatorProgress = 0.0
                     }
                 }
-                // Invalidate the timer when the view is no longer visible
                 RunLoop.current.add(timer, forMode: .common)
             }
     }
@@ -90,7 +86,7 @@ struct CustomLinearProgressViewStyle: ProgressViewStyle {
                         .frame(width: geometry.size.width * getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: type), height: height)
                         .foregroundColor(.preferredColor(.secondaryBackground))
                         .opacity(type == .indeterminate ? 1 : 0)
-
+                    
                     Capsule()
                         .frame(width: geometry.size.width * getWidth(completed: CGFloat(configuration.fractionCompleted ?? 0), type: type), height: height)
                         .opacity(type == .indeterminate ? 0.85 : 0)
