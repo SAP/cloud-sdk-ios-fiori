@@ -32,7 +32,7 @@ extension TextInputInfoViewFioriStyle {
                 .foregroundColor(.preferredColor(.primaryLabel))
         }
     }
-
+    
     struct IconFioriStyle: IconStyle {
         func makeBody(_ configuration: IconConfiguration) -> some View {
             Icon(configuration)
@@ -40,7 +40,7 @@ extension TextInputInfoViewFioriStyle {
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
-
+    
     struct DescriptionFioriStyle: DescriptionStyle {
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
@@ -48,15 +48,15 @@ extension TextInputInfoViewFioriStyle {
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
-
+    
     struct CounterFioriStyle: CounterStyle {
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
-//            .foregroundStyle(Color.preferredColor(.primaryLabel))
+                //            .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
-
+    
     struct InformationViewFioriStyle: InformationViewStyle {
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
@@ -71,6 +71,7 @@ public extension View {
     }
 }
 
+/// Error style
 public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
@@ -95,6 +96,7 @@ public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
     }
 }
 
+/// Warning style
 public struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
@@ -111,14 +113,10 @@ public struct TextInputInfoViewWarningStyle: TextInputInfoViewStyle {
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.mango5))
             })
-//            .counterStyle(content: { counterConfiguration in
-//                counterConfiguration.counter
-//                    .foregroundStyle(Color.preferredColor(.mango5))
-//                    .font(.fiori(forTextStyle: .footnote))
-//            })
     }
 }
 
+/// Informational Style
 public struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
@@ -135,13 +133,10 @@ public struct TextInputInfoViewInformationalStyle: TextInputInfoViewStyle {
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.primaryLabel))
             })
-//            .counterStyle(content: { counterConfiguration in
-//                counterConfiguration.counter
-//                    .foregroundStyle(Color.preferredColor(.primaryLabel))
-//            })
     }
 }
 
+/// Success Style
 public struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
         TextInputInfoView(configuration)
@@ -158,10 +153,6 @@ public struct TextInputInfoViewSuccessStyle: TextInputInfoViewStyle {
                 descriptionConfiguration.description
                     .foregroundStyle(Color.preferredColor(.positiveLabel))
             })
-//            .counterStyle(content: { counterConfiguration in
-//                counterConfiguration.counter
-//                    .foregroundStyle(Color.preferredColor(.positiveLabel))
-//            })
     }
 }
 

@@ -49,6 +49,7 @@ extension LinearProgressIndicatorViewFioriStyle {
     }
 }
 
+/// Error style
 public struct LinearProgressIndicatorViewErrorStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)
@@ -70,12 +71,14 @@ public struct LinearProgressIndicatorViewErrorStyle: LinearProgressIndicatorView
     }
 }
 
+/// Error style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewErrorStyle {
     static var error: LinearProgressIndicatorViewErrorStyle {
         LinearProgressIndicatorViewErrorStyle()
     }
 }
 
+/// Success style
 public struct LinearProgressIndicatorViewSuccessStyle: LinearProgressIndicatorViewStyle {
     public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
         LinearProgressIndicatorView(configuration)
@@ -92,6 +95,7 @@ public struct LinearProgressIndicatorViewSuccessStyle: LinearProgressIndicatorVi
     }
 }
 
+/// Success style
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewSuccessStyle {
     static var success: LinearProgressIndicatorViewSuccessStyle {
         LinearProgressIndicatorViewSuccessStyle()
