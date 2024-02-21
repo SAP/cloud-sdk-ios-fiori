@@ -292,6 +292,23 @@ public extension View {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+public extension View {
+    func illustratedMessageStyle(_ style: some IllustratedMessageStyle) -> some View {
+        self.transformEnvironment(\.illustratedMessageStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func illustratedMessageStyle(@ViewBuilder content: @escaping (IllustratedMessageConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.illustratedMessageStyleStack) { stack in
+            let style = AnyIllustratedMessageStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 public extension View {

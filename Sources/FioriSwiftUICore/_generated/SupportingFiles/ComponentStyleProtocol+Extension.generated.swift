@@ -1123,6 +1123,104 @@ public extension IconsStyle where Self == IconsFioriStyle {
     }
 }
 
+// MARK: IllustratedMessageStyle
+    
+public extension IllustratedMessageStyle where Self == IllustratedMessageBaseStyle {
+    static var base: IllustratedMessageBaseStyle {
+        IllustratedMessageBaseStyle()
+    }
+}
+
+public extension IllustratedMessageStyle where Self == IllustratedMessageFioriStyle {
+    static var fiori: IllustratedMessageFioriStyle {
+        IllustratedMessageFioriStyle()
+    }
+}
+    
+public struct IllustratedMessageDetailImageStyle: IllustratedMessageStyle {
+    let style: any DetailImageStyle
+        
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .detailImageStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension IllustratedMessageStyle where Self == IllustratedMessageDetailImageStyle {
+    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> IllustratedMessageDetailImageStyle {
+        IllustratedMessageDetailImageStyle(style: style)
+    }
+        
+    static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> IllustratedMessageDetailImageStyle {
+        let style = AnyDetailImageStyle(content)
+        return IllustratedMessageDetailImageStyle(style: style)
+    }
+}
+
+public struct IllustratedMessageTitleStyle: IllustratedMessageStyle {
+    let style: any TitleStyle
+        
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension IllustratedMessageStyle where Self == IllustratedMessageTitleStyle {
+    static func titleStyle<Style: TitleStyle>(_ style: Style) -> IllustratedMessageTitleStyle {
+        IllustratedMessageTitleStyle(style: style)
+    }
+        
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> IllustratedMessageTitleStyle {
+        let style = AnyTitleStyle(content)
+        return IllustratedMessageTitleStyle(style: style)
+    }
+}
+
+public struct IllustratedMessageDescriptionStyle: IllustratedMessageStyle {
+    let style: any DescriptionStyle
+        
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension IllustratedMessageStyle where Self == IllustratedMessageDescriptionStyle {
+    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> IllustratedMessageDescriptionStyle {
+        IllustratedMessageDescriptionStyle(style: style)
+    }
+        
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> IllustratedMessageDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return IllustratedMessageDescriptionStyle(style: style)
+    }
+}
+
+public struct IllustratedMessageActionStyle: IllustratedMessageStyle {
+    let style: any ActionStyle
+        
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .actionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension IllustratedMessageStyle where Self == IllustratedMessageActionStyle {
+    static func actionStyle<Style: ActionStyle>(_ style: Style) -> IllustratedMessageActionStyle {
+        IllustratedMessageActionStyle(style: style)
+    }
+        
+    static func actionStyle(@ViewBuilder content: @escaping (ActionConfiguration) -> some View) -> IllustratedMessageActionStyle {
+        let style = AnyActionStyle(content)
+        return IllustratedMessageActionStyle(style: style)
+    }
+}
+
 // MARK: InformationViewStyle
     
 public extension InformationViewStyle where Self == InformationViewBaseStyle {
