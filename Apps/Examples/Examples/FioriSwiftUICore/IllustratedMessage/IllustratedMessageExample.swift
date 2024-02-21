@@ -1,11 +1,3 @@
-//
-//  IllustratedMessageExample.swift
-//  Examples
-//
-//  Created by Schneidinger, Julia on 2/20/24.
-//  Copyright © 2024 SAP. All rights reserved.
-//
-
 import FioriSwiftUICore
 import SwiftUI
 
@@ -41,14 +33,15 @@ struct IllustratedMessageExample: View {
         }
         List {
             // MARK: vertical orientation
+
             // no image and no action
             IllustratedMessage(title: {
                 Text("This is an IllustratedMessageView with no image or action button")
             }, description: {
                 Text("Subtitle")
             })
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
             
             // action but no image
             IllustratedMessage(title: {
@@ -58,8 +51,8 @@ struct IllustratedMessageExample: View {
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
             })
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // image but no action
             IllustratedMessage(detailImage: {
@@ -72,8 +65,8 @@ struct IllustratedMessageExample: View {
             }, description: {
                 Text("Subtitle")
             })
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // all components
             IllustratedMessage(detailImage: {
@@ -88,19 +81,20 @@ struct IllustratedMessageExample: View {
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
             })
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // MARK: horizontal orientation
+
             // no image and no action
             IllustratedMessage(title: {
                 Text("IllustratedMessage Title")
             }, description: {
                 Text("Subtitle")
             })
-            .illustratedMessageStyle(.horizontal)
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .illustratedMessageStyle(.horizontal)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // action but no image
             IllustratedMessage(title: {
@@ -110,9 +104,9 @@ struct IllustratedMessageExample: View {
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
             })
-            .illustratedMessageStyle(.horizontal)
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .illustratedMessageStyle(.horizontal)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // image but no action
             IllustratedMessage(detailImage: {
@@ -124,9 +118,9 @@ struct IllustratedMessageExample: View {
             }, description: {
                 Text("Subtitle")
             })
-            .illustratedMessageStyle(.horizontal)
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .illustratedMessageStyle(.horizontal)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
 
             // all components
             IllustratedMessage(detailImage: {
@@ -142,9 +136,9 @@ struct IllustratedMessageExample: View {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
 //                Button(action: { print("Action tapped") }, label: { Text("Sign In") })
             })
-            .illustratedMessageStyle(.horizontal)
-            .border(Color.gray)
-            .frame(width: selectedWidth, height: selectedHeight)
+                .illustratedMessageStyle(.horizontal)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
         }
     }
 }

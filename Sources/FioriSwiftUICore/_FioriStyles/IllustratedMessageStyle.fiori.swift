@@ -1,6 +1,6 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
-import FioriThemeManager
 
 /**
  This file provides default fiori style for the component.
@@ -35,7 +35,7 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
             IllustratedMessage(configuration)
             // Add default style for its content
-            //.background()
+            // .background()
         }
     }
 
@@ -43,8 +43,8 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
             // Add default style for DetailImage
-            //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-            //.font(.fiori(forTextStyle: <#fiori font#>))
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 
@@ -52,8 +52,8 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
             // Add default style for Title
-            //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-            //.font(.fiori(forTextStyle: <#fiori font#>))
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 
@@ -61,8 +61,8 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
             // Add default style for Description
-            //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-            //.font(.fiori(forTextStyle: <#fiori font#>))
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 
@@ -70,8 +70,8 @@ extension IllustratedMessageFioriStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
             // Add default style for Action
-            //.foregroundStyle(Color.preferredColor(<#fiori color#>))
-            //.font(.fiori(forTextStyle: <#fiori font#>))
+            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
+            // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
 }
