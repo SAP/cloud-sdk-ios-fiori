@@ -63,7 +63,7 @@ struct IllustratedMessageExample: View {
 
             // image but no action
             IllustratedMessage(detailImage: {
-                Image("oski")
+                Image("wheel")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 50)
@@ -77,7 +77,7 @@ struct IllustratedMessageExample: View {
 
             // all components
             IllustratedMessage(detailImage: {
-                Image("oski")
+                Image("wheel")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100)
@@ -116,7 +116,7 @@ struct IllustratedMessageExample: View {
 
             // image but no action
             IllustratedMessage(detailImage: {
-                Image("oski")
+                Image("wheel")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
             }, title: {
@@ -130,7 +130,7 @@ struct IllustratedMessageExample: View {
 
             // all components
             IllustratedMessage(detailImage: {
-                Image("oski")
+                Image("wheel")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100)
