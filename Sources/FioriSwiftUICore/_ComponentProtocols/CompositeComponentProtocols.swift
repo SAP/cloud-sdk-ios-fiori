@@ -31,3 +31,9 @@ protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {
     @ViewBuilder
     var content: () -> any View { get }
 }
+
+// sourcery: CompositeComponent
+protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
+
+// sourcery: CompositeComponent
+protocol _LinearProgressIndicatorViewComponent: _LinearProgressIndicatorComponent, _IconComponent, _DescriptionComponent {}

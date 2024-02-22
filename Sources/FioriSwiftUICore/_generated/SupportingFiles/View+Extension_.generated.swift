@@ -309,6 +309,40 @@ public extension View {
     }
 }
 
+// MARK: LinearProgressIndicatorStyle
+
+public extension View {
+    func linearProgressIndicatorStyle(_ style: some LinearProgressIndicatorStyle) -> some View {
+        self.transformEnvironment(\.linearProgressIndicatorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.linearProgressIndicatorStyleStack) { stack in
+            let style = AnyLinearProgressIndicatorStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+public extension View {
+    func linearProgressIndicatorViewStyle(_ style: some LinearProgressIndicatorViewStyle) -> some View {
+        self.transformEnvironment(\.linearProgressIndicatorViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func linearProgressIndicatorViewStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.linearProgressIndicatorViewStyleStack) { stack in
+            let style = AnyLinearProgressIndicatorViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: MediaImageStyle
 
 public extension View {
@@ -491,6 +525,23 @@ public extension View {
     func tagsStyle(@ViewBuilder content: @escaping (TagsConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.tagsStyleStack) { stack in
             let style = AnyTagsStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+public extension View {
+    func textInputInfoViewStyle(_ style: some TextInputInfoViewStyle) -> some View {
+        self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func textInputInfoViewStyle(@ViewBuilder content: @escaping (TextInputInfoViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
+            let style = AnyTextInputInfoViewStyle(content)
             stack.append(style)
         }
     }

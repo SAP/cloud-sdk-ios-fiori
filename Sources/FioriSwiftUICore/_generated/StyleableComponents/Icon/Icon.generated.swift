@@ -30,10 +30,10 @@ public extension Icon {
 
 extension Icon: View {
     public var body: some View {
-        if self._shouldApplyDefaultStyle {
+        if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(icon: .init(self.icon))).typeErased
+            style.resolve(configuration: .init(icon: .init(self.icon))).typeErased
                 .transformEnvironment(\.iconStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
@@ -54,5 +54,6 @@ private extension Icon {
         Icon(icon: { self.icon })
             .shouldApplyDefaultStyle(false)
             .iconStyle(.fiori)
+            .typeErased
     }
 }

@@ -249,7 +249,7 @@ struct ResolvedIconStyle<Style: IconStyle>: View {
     let style: Style
     let configuration: IconConfiguration
     var body: some View {
-        self.style.makeBody(self.configuration)
+        style.makeBody(configuration)
     }
 }
 
@@ -281,13 +281,45 @@ struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
     let style: Style
     let configuration: InformationViewConfiguration
     var body: some View {
-        self.style.makeBody(self.configuration)
+        style.makeBody(configuration)
     }
 }
 
 extension InformationViewStyle {
     func resolve(configuration: InformationViewConfiguration) -> some View {
         ResolvedInformationViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LinearProgressIndicatorStyle
+
+struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
+    let style: Style
+    let configuration: LinearProgressIndicatorConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension LinearProgressIndicatorStyle {
+    func resolve(configuration: LinearProgressIndicatorConfiguration) -> some View {
+        ResolvedLinearProgressIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorViewStyle>: View {
+    let style: Style
+    let configuration: LinearProgressIndicatorViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension LinearProgressIndicatorViewStyle {
+    func resolve(configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        ResolvedLinearProgressIndicatorViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -464,6 +496,22 @@ struct ResolvedTagsStyle<Style: TagsStyle>: View {
 extension TagsStyle {
     func resolve(configuration: TagsConfiguration) -> some View {
         ResolvedTagsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
+    let style: Style
+    let configuration: TextInputInfoViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension TextInputInfoViewStyle {
+    func resolve(configuration: TextInputInfoViewConfiguration) -> some View {
+        ResolvedTextInputInfoViewStyle(style: self, configuration: configuration)
     }
 }
 

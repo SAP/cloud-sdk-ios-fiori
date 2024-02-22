@@ -1148,7 +1148,7 @@ public struct InformationViewIconStyle: InformationViewStyle {
 }
     
 public extension InformationViewStyle where Self == InformationViewIconStyle {
-    static func iconStyle(_ style: some IconStyle) -> InformationViewIconStyle {
+    static func iconStyle<Style: IconStyle>(_ style: Style) -> InformationViewIconStyle {
         InformationViewIconStyle(style: style)
     }
         
@@ -1169,13 +1169,104 @@ public struct InformationViewDescriptionStyle: InformationViewStyle {
 }
     
 public extension InformationViewStyle where Self == InformationViewDescriptionStyle {
-    static func descriptionStyle(_ style: some DescriptionStyle) -> InformationViewDescriptionStyle {
+    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> InformationViewDescriptionStyle {
         InformationViewDescriptionStyle(style: style)
     }
         
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return InformationViewDescriptionStyle(style: style)
+    }
+}
+
+// MARK: LinearProgressIndicatorStyle
+    
+public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorBaseStyle {
+    static var base: LinearProgressIndicatorBaseStyle {
+        LinearProgressIndicatorBaseStyle()
+    }
+}
+
+public extension LinearProgressIndicatorStyle where Self == LinearProgressIndicatorFioriStyle {
+    static var fiori: LinearProgressIndicatorFioriStyle {
+        LinearProgressIndicatorFioriStyle()
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+    
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewBaseStyle {
+    static var base: LinearProgressIndicatorViewBaseStyle {
+        LinearProgressIndicatorViewBaseStyle()
+    }
+}
+
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewFioriStyle {
+    static var fiori: LinearProgressIndicatorViewFioriStyle {
+        LinearProgressIndicatorViewFioriStyle()
+    }
+}
+    
+public struct LinearProgressIndicatorViewLinearProgressIndicatorStyle: LinearProgressIndicatorViewStyle {
+    let style: any LinearProgressIndicatorStyle
+        
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .linearProgressIndicatorStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewLinearProgressIndicatorStyle {
+    static func linearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>(_ style: Style) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
+        LinearProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
+    }
+        
+    static func linearProgressIndicatorStyle(@ViewBuilder content: @escaping (LinearProgressIndicatorConfiguration) -> some View) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
+        let style = AnyLinearProgressIndicatorStyle(content)
+        return LinearProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
+    }
+}
+
+public struct LinearProgressIndicatorViewIconStyle: LinearProgressIndicatorViewStyle {
+    let style: any IconStyle
+        
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewIconStyle {
+    static func iconStyle<Style: IconStyle>(_ style: Style) -> LinearProgressIndicatorViewIconStyle {
+        LinearProgressIndicatorViewIconStyle(style: style)
+    }
+        
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LinearProgressIndicatorViewIconStyle {
+        let style = AnyIconStyle(content)
+        return LinearProgressIndicatorViewIconStyle(style: style)
+    }
+}
+
+public struct LinearProgressIndicatorViewDescriptionStyle: LinearProgressIndicatorViewStyle {
+    let style: any DescriptionStyle
+        
+    public func makeBody(_ configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        LinearProgressIndicatorView(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewDescriptionStyle {
+    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> LinearProgressIndicatorViewDescriptionStyle {
+        LinearProgressIndicatorViewDescriptionStyle(style: style)
+    }
+        
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> LinearProgressIndicatorViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return LinearProgressIndicatorViewDescriptionStyle(style: style)
     }
 }
 
@@ -1582,6 +1673,104 @@ public extension TagsStyle where Self == TagsBaseStyle {
 public extension TagsStyle where Self == TagsFioriStyle {
     static var fiori: TagsFioriStyle {
         TagsFioriStyle()
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+    
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewBaseStyle {
+    static var base: TextInputInfoViewBaseStyle {
+        TextInputInfoViewBaseStyle()
+    }
+}
+
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewFioriStyle {
+    static var fiori: TextInputInfoViewFioriStyle {
+        TextInputInfoViewFioriStyle()
+    }
+}
+    
+public struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
+    let style: any IconStyle
+        
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
+    static func iconStyle<Style: IconStyle>(_ style: Style) -> TextInputInfoViewIconStyle {
+        TextInputInfoViewIconStyle(style: style)
+    }
+        
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> TextInputInfoViewIconStyle {
+        let style = AnyIconStyle(content)
+        return TextInputInfoViewIconStyle(style: style)
+    }
+}
+
+public struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
+    let style: any DescriptionStyle
+        
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .descriptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
+    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> TextInputInfoViewDescriptionStyle {
+        TextInputInfoViewDescriptionStyle(style: style)
+    }
+        
+    static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> TextInputInfoViewDescriptionStyle {
+        let style = AnyDescriptionStyle(content)
+        return TextInputInfoViewDescriptionStyle(style: style)
+    }
+}
+
+public struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
+    let style: any CounterStyle
+        
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .counterStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
+    static func counterStyle<Style: CounterStyle>(_ style: Style) -> TextInputInfoViewCounterStyle {
+        TextInputInfoViewCounterStyle(style: style)
+    }
+        
+    static func counterStyle(@ViewBuilder content: @escaping (CounterConfiguration) -> some View) -> TextInputInfoViewCounterStyle {
+        let style = AnyCounterStyle(content)
+        return TextInputInfoViewCounterStyle(style: style)
+    }
+}
+
+public struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
+    let style: any InformationViewStyle
+        
+    public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
+        TextInputInfoView(configuration)
+            .informationViewStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
+    static func informationViewStyle<Style: InformationViewStyle>(_ style: Style) -> TextInputInfoViewInformationViewStyle {
+        TextInputInfoViewInformationViewStyle(style: style)
+    }
+        
+    static func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> TextInputInfoViewInformationViewStyle {
+        let style = AnyInformationViewStyle(content)
+        return TextInputInfoViewInformationViewStyle(style: style)
     }
 }
 
