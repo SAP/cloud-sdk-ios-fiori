@@ -13,6 +13,10 @@ struct FioriThemeManagerContentView: View {
                 Text("Colors - latest")
             }
             NavigationLink(
+                destination: ChromeEffect()) {
+                Text("Chrome effects")
+            }
+            NavigationLink(
                 destination: CustomColors(testData: .customPalette(ColorTestData.RandomColorPaletteProvider())))
             {
                 Text("Colors - custom palette (random)")
