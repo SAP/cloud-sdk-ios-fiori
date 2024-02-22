@@ -771,21 +771,21 @@ public enum ColorStyle: String, CaseIterable {
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
     /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/1D252C.png&text=+)        Hex color: 1D252CFF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/171D23.png&text=+)        Hex color: 171D23FF
     @available(watchOS, unavailable)
     case primaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
-    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 1F2428FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/2A3540.png&text=+)        Hex color: 2A3540FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/242D3.png&text=+)        Hex color: 242D37FF
     @available(watchOS, unavailable)
     case secondaryGroupedBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
-    /// (base light variant) ![](https://dummyimage.com/48x18/15181B.png&text=+)              Hex color: 15181BFF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/252E38.png&text=+)        Hex color: 252E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/15181B.png&text=+)              Hex color: 242E38FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3C48.png&text=+)        Hex color: 2F3C48FF
     @available(watchOS, unavailable)
     case tertiaryGroupedBackground
     
@@ -794,19 +794,19 @@ public enum ColorStyle: String, CaseIterable {
     /// Primary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
     /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/1D252C.png&text=+)        Hex color: 1D252CFF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/171D23.png&text=+)        Hex color: 171D23FF
     case primaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
-    /// (base light variant) ![](https://dummyimage.com/48x18/0F1216.png&text=+)              Hex color: 0F1216FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/252E38.png&text=+)        Hex color: 252E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/242D37.png&text=+)        Hex color: 242D37FF
     case secondaryBackground
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
-    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 1F2428FF
-    /// (elevated light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)        Hex color: 242E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 242E38FF
+    /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3C48.png&text=+)        Hex color: 2F3C48FF
     case tertiaryBackground
     
     // MARK: - Label Colors (5 Colors)
@@ -833,8 +833,8 @@ public enum ColorStyle: String, CaseIterable {
     case tertiaryLabel
     
     /// Standard color for quaternary label.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738BD4
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A875
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/A9B4BE.png&text=+)          Hex value: A9B4BE4D
     case quaternaryLabel
     
     /// Standard color for quinary label.
@@ -852,26 +852,26 @@ public enum ColorStyle: String, CaseIterable {
     // MARK: - Fill Colors (4 Colors)
     
     /// Standard color for primary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)          Hex value: FFFFFFFF
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A8FF
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A83D
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A84D
     @available(watchOS, unavailable)
     case primaryFill
     
     /// Standard color for secondary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B0F
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A833
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A833
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A847
     @available(watchOS, unavailable)
     case secondaryFill
     
     /// Standard color for tertiary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B29
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A845
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A826
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A833
     @available(watchOS, unavailable)
     case tertiaryFill
     
     /// Standard color for quaternary fill.
-    /// (dark variant - normal) ![](https://dummyimage.com/48x18/5B738B.png&text=+)          Hex value: 5B738B1A
-    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A838
+    /// (dark variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A817
+    /// (light variant - normal) ![](https://dummyimage.com/48x18/8396A8.png&text=+)          Hex value: 8396A829
     @available(watchOS, unavailable)
     case quaternaryFill
     
@@ -1062,19 +1062,19 @@ public enum ColorStyle: String, CaseIterable {
     @available(watchOS, unavailable)
     case cellBackground
     
-    /// Apple materials effect color to be applied to chrome color, with variants for light and dark color schemes.
+    /// Apple materials effect color to be applied to priamry background color, with variants for light and dark color schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFD9
     /// (base light variant) ![](https://dummyimage.com/48x18/000000.png&text=+)              Hex color: 000000BF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/171D23.png&text=+)        Hex color: 171D23BF
     @available(watchOS, unavailable)
     case chrome
     
-    /// Apple materials effect color to be applied to chrome color 2, with variants for light and dark color schemes.
+    /// Apple materials effect color to be applied to secondary background color, with variants for light and dark color schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFD9
     /// (base light variant) ![](https://dummyimage.com/48x18/161C21.png&text=+)              Hex color: 161C21BF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/242D37.png&text=+)        Hex color: 242D37BF
     @available(watchOS, unavailable)
-    case chrome2
+    case chromeSecondary
     
     // MARK: - Chart Colors (13 Styles)
     
@@ -1574,7 +1574,7 @@ public enum ColorStyle: String, CaseIterable {
                                                     .informationBackgroundTapState, .informativeLabelTapState,
                                                     .neutralBackgroundTapState, .separator, .separatorOpaque,
                                                     .header, .headerBlended, .barTransparent, .contrastElement,
-                                                    .footer, .cellBackground, .chrome, .chrome2, .chart1, .chart2, .chart3, .chart4,
+                                                    .footer, .cellBackground, .chrome, .chromeSecondary, .chart1, .chart2, .chart3, .chart4,
                                                     .chart5, .chart6, .chart7, .chart8, .chart9, .chart10, .chart11,
                                                     .stockUpStroke, .stockDownStroke, .map1, .map2, .map3, .map4,
                                                     .map5, .map6, .map7, .map8, .map9, .map10, .customColor1, .customColor2, .customColor3, .customColor4, .customColor5, .customColor6, .esriEdit]
