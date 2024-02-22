@@ -18,11 +18,11 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
     }
     
     func createInstance(typeThing: T.Type) -> T {
-        typeThing.init(cellTapped: $cellTapped)
+        typeThing.init(cellTapped: self.$cellTapped)
     }
     
     var body: some View {
-        let listData = createInstance(typeThing: listDataType)
+        let listData = self.createInstance(typeThing: self.listDataType)
         
         return List {
             ForEach(0 ..< listData.numberOfSections(), id: \.self) { sectionIndex in
@@ -41,17 +41,17 @@ struct ObjectItemListView<T: ListDataProtocol>: View {
                     }
                 }
             }.listRowBackground(Color.preferredColor(.secondaryGroupedBackground))
-                .ifApply(horizontalSizeClass == .some(.compact) && changeLeftMargin) {
+                .ifApply(self.horizontalSizeClass == .some(.compact) && self.changeLeftMargin) {
                     $0.listRowInsets(EdgeInsets(top: 0, leading: 32, bottom: 0, trailing: 32))
                 }
         }
         .navigationBarItems(trailing: HStack {
-            if showEditButton {
+            if self.showEditButton {
                 EditButton()
             }
         })
-        .navigationBarTitle(title, displayMode: .inline)
-        .sheet(isPresented: $cellTapped) {
+        .navigationBarTitle(self.title, displayMode: .inline)
+        .sheet(isPresented: self.$cellTapped) {
             Text("Tapped the cell").padding()
             
             VStack {

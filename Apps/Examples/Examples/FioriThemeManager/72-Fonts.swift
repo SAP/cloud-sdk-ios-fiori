@@ -12,24 +12,24 @@ struct FioriFonts: View {
     
     var body: some View {
         List {
-            ForEach(0 ..< textStyles.count) { index in
-                let textStyle = textStyles[index]
+            ForEach(0 ..< self.textStyles.count) { index in
+                let textStyle = self.textStyles[index]
                 Text(String(describing: textStyle))
-                    .font(.fiori(forTextStyle: textStyle, weight: fontWeight, isItalic: isItalic, isCondensed: isCondensed))
+                    .font(.fiori(forTextStyle: textStyle, weight: self.fontWeight, isItalic: self.isItalic, isCondensed: self.isCondensed))
             }
         }
-        .environment(\.sizeCategory, sizeCategory)
+        .environment(\.sizeCategory, self.sizeCategory)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    showSettings.toggle()
+                    self.showSettings.toggle()
                 } label: {
                     Image(systemName: "gearshape")
                 }
             }
         }
-        .sheet(isPresented: $showSettings) {
-            Settings(fontWeight: $fontWeight, isItalic: $isItalic, isCondensed: $isCondensed, sizeCategory: $sizeCategory)
+        .sheet(isPresented: self.$showSettings) {
+            Settings(fontWeight: self.$fontWeight, isItalic: self.$isItalic, isCondensed: self.$isCondensed, sizeCategory: self.$sizeCategory)
         }
     }
 }
@@ -44,7 +44,7 @@ extension FioriFonts {
         var body: some View {
             NavigationView {
                 List {
-                    Picker("Font Weight", selection: $fontWeight) {
+                    Picker("Font Weight", selection: self.$fontWeight) {
                         ForEach(0 ..< Font.Weight.allCases.count) { index in
                             let weight = Font.Weight.allCases[index]
                             Text(String(describing: weight))
@@ -52,11 +52,11 @@ extension FioriFonts {
                         }
                     }
                     
-                    Toggle("Italic", isOn: $isItalic)
+                    Toggle("Italic", isOn: self.$isItalic)
                     
-                    Toggle("Condensed", isOn: $isCondensed)
+                    Toggle("Condensed", isOn: self.$isCondensed)
                     
-                    Picker("Dynamic Type", selection: $sizeCategory) {
+                    Picker("Dynamic Type", selection: self.$sizeCategory) {
                         ForEach(0 ..< ContentSizeCategory.allCases.count) { index in
                             let sizeCategory = ContentSizeCategory.allCases[index]
                             Text(String(describing: sizeCategory))

@@ -7,22 +7,26 @@ struct ObjectItemExample: View {
             NavigationLink("Object Cell_Single Action_May2018.pdf", destination: ObjectItemSingleActionView())
             
             NavigationLink(
-                destination: ObjectItemListView(title: "ObjectCell_Spec_Jan2018", listDataType: ObjectCell_Spec_Jan2018.self)) {
+                destination: ObjectItemListView(title: "ObjectCell_Spec_Jan2018", listDataType: ObjectCell_Spec_Jan2018.self))
+            {
                 Text("Object Cell Specifications_Jan2018.pdf")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "ObjectCell_Rules_&_Alignment.pdf", listDataType: ObjectCell_Rules_Alignment.self)) {
+                destination: ObjectItemListView(title: "ObjectCell_Rules_&_Alignment.pdf", listDataType: ObjectCell_Rules_Alignment.self))
+            {
                 Text("ObjectCell_Rules_&_Alignment.pdf")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Init tests", listDataType: ObjectItemInitExamples.self)) {
+                destination: ObjectItemListView(title: "Init tests", listDataType: ObjectItemInitExamples.self))
+            {
                 Text("Init tests")
             }
             
             NavigationLink(
-                destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self)) {
+                destination: ObjectItemListView(title: "Avatars and Icons Tests", listDataType: ObjectItemAvatarsExample.self))
+            {
                 Text("Avatars and Icons Tests")
             }
         }.navigationBarTitle("ObjectItem", displayMode: .inline)

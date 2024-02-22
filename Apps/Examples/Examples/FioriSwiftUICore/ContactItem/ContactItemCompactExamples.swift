@@ -60,7 +60,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             let ci = ContactItem(title: "Seann Longname", subtitle: "Team Lead", actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             
             return AnyView(ci)
             
@@ -68,7 +68,7 @@ struct ContactItemCompactExamples: ListDataProtocol {
             let ci = ContactItem(title: "Headline when\n wrapps 2 lines", subtitle: "Team Lead", detailImage: Image("person_square4").resizable(), actionItems: ActivityItems(actionItems: [.init(type: .phone), .init(type: .videoCall), .init(type: .message)], didSelectActivityItem: { dataType in
                 print("\(dataType)")
             }))
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             
             return AnyView(ci)
             

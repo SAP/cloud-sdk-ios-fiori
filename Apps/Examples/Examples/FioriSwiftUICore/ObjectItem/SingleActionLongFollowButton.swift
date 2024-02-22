@@ -60,14 +60,14 @@ struct SingleActionLongFollowButton: ListDataProtocol {
             
         case (0, 2):
             let oi = ObjectItem(title: {
-                Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
             }, footnote: {
                 Text("3493 followers")
             }, action: {
                 Button {
                     print("Tapped Follow")
                 } label: {
-                    Text(isLongText ? longText : "Follow")
+                    Text(self.isLongText ? longText : "Follow")
                         .font(.callout)
                         .lineLimit(2)
                         .foregroundColor(Color.preferredColor(.tintColor))
@@ -104,7 +104,7 @@ struct SingleActionLongFollowButton: ListDataProtocol {
             
         case (1, 0):
             let oi = ObjectItem(title: {
-                Text(isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
+                Text(self.isLongText ? longHeadline : "Cafe Food Title That Is So Long It Has To Wrap")
             }, footnote: {
                 Text("3493 followers")
             }, action: {

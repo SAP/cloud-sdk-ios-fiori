@@ -229,7 +229,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             return AnyView(oi)
             
         case (0, 7):
@@ -252,7 +252,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             return AnyView(oi)
             
         case (0, 8):
@@ -274,7 +274,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                     .font(.system(size: 45, weight: .regular, design: .serif))
                     .border(Color.black, width: 1)
             })
-                .splitPercent(0.6)
+            .splitPercent(0.6)
             return AnyView(oi)
             
         case (0, 9):
@@ -294,7 +294,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                     .font(.system(size: 30, weight: .regular, design: .serif))
                     .foregroundColor(.red)
             })
-                .splitPercent(0.7)
+            .splitPercent(0.7)
             return AnyView(oi)
             
         case (1, 0):
@@ -398,7 +398,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Text("1")
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             
             return AnyView(oi)
             
@@ -426,7 +426,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Text("1")
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             
             return AnyView(oi)
             
@@ -458,7 +458,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Text("1")
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             return AnyView(oi)
             
         case (1, 6):
@@ -490,7 +490,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Text("1")
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.3)
+            .splitPercent(0.3)
             return AnyView(oi)
             
         case (1, 7):
@@ -512,7 +512,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Image(systemName: "circle.fill").foregroundColor(.blue)
                 Text("1")
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             return AnyView(oi)
             
         case (1, 8):
@@ -532,7 +532,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                     .font(.system(size: 45, weight: .regular, design: .serif))
                     .border(Color.black, width: 1)
             })
-                .splitPercent(0.6)
+            .splitPercent(0.6)
             return AnyView(oi)
             
         case (1, 9):
@@ -554,7 +554,7 @@ struct ObjectItemInitExamples: ListDataProtocol {
                 Text("1")
                 Image(systemName: "paperclip").frame(width: 16, height: 16)
             })
-                .splitPercent(0.7)
+            .splitPercent(0.7)
             return AnyView(oi)
             
         case (2, 0):

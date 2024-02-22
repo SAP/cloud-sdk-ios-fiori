@@ -10,11 +10,11 @@ struct FioriButtonExample: View {
     
     var body: some View {
         Group {
-            if _withCustomStyle {
-                makeBody()
+            if self._withCustomStyle {
+                self.makeBody()
                     .fioriButtonStyle(CustomFioriButtonStyle())
             } else {
-                makeBody()
+                self.makeBody()
             }
         }
         .navigationBarItems(trailing: Button("Config") {
@@ -52,7 +52,7 @@ struct FioriButtonExample: View {
                             Text("Disabled")
                         }
                     })
-            .disabled(!self._isEnabled)
+                    .disabled(!self._isEnabled)
     }
 }
 
@@ -64,8 +64,8 @@ struct StatefulButtonStyleExample: View {
                 Text("Add")
             }
         })
-            .buttonStyle(StatefulButtonStyle())
-            .padding()
+        .buttonStyle(StatefulButtonStyle())
+        .padding()
     }
 }
 

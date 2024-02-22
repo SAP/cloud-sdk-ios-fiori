@@ -117,7 +117,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             
             return AnyView(oi)
             
@@ -148,7 +148,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             
             return AnyView(oi)
             
@@ -215,7 +215,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             
             return AnyView(oi)
             
@@ -253,7 +253,7 @@ struct ObjectCell_Spec_Jan2018: ListDataProtocol {
             }, detailImage: {
                 Image("ProfilePic").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.5)
+            .splitPercent(0.5)
             
             return AnyView(oi)
         

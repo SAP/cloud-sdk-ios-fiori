@@ -103,7 +103,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -130,7 +130,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
          
             return AnyView(oi)
          
@@ -152,7 +152,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 // Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
-                .splitPercent(0.43)
+            .splitPercent(0.43)
             
             return AnyView(oi)
             
@@ -180,7 +180,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
         case (0, 4):
@@ -204,7 +204,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -314,7 +314,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
         case (1, 4):
@@ -340,7 +340,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
         case (1, 5):
@@ -361,7 +361,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
 //                Image(systemName: "circle.fill").foregroundColor(.preferredColor(.tintColorDark))
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
-                .splitPercent(0.43)
+            .splitPercent(0.43)
             
             return AnyView(oi)
         case (1, 6):
@@ -387,7 +387,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
         case (1, 7):
@@ -413,7 +413,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
         case (1, 8):
@@ -439,7 +439,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -502,7 +502,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
             
@@ -533,7 +533,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
             
@@ -562,7 +562,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("attachment009").resizable().frame(width: 45, height: 45)
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
             
@@ -615,7 +615,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -641,7 +641,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -669,7 +669,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("generic-file_28px").resizable().frame(width: 32, height: 32).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -695,7 +695,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -809,7 +809,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -883,7 +883,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(nil)
+            .splitPercent(nil)
             
             return AnyView(oi)
         
@@ -935,7 +935,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                 Image(systemName: "paperclip").font(.system(size: 14))
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -984,7 +984,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image(systemName: "paperclip").font(.system(size: 14))
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -1025,7 +1025,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
                 Image(systemName: "paperclip").font(.system(size: 14))
                 Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -1048,7 +1048,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             
@@ -1074,7 +1074,7 @@ struct ObjectCell_Rules_Alignment: ListDataProtocol {
             }, detailImage: {
                 Image("person_square4").resizable().frame(width: 45, height: 45).clipShape(Circle())
             })
-                .splitPercent(0.33)
+            .splitPercent(0.33)
             
             return AnyView(oi)
             

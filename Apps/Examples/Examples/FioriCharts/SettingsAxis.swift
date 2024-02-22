@@ -9,22 +9,22 @@ struct SettingsAxis: View {
     var body: some View {
         Form {
             Section(header: Text("Basic")) {
-                Toggle(isOn: $axis.isZeroBased) {
+                Toggle(isOn: self.$axis.isZeroBased) {
                     Text("Is Zero Based")
                 }
                 
-                Toggle(isOn: $axis.abbreviatesLabels) {
+                Toggle(isOn: self.$axis.abbreviatesLabels) {
                     Text("Is Abbreviated Labels")
                 }
                 
-                Toggle(isOn: $axis.isMagnitudedDisplayed) {
+                Toggle(isOn: self.$axis.isMagnitudedDisplayed) {
                     Text("Is Magnituded Displayed")
                 }
                 
                 HStack(alignment: .center) {
                     Text("Explicit Min: ")
                     
-                    TextField("", text: $textExplicitMin, onCommit: {
+                    TextField("", text: self.$textExplicitMin, onCommit: {
                         if let val = NumberFormatter().number(from: self.textExplicitMin) {
                             self.axis.explicitMin = CGFloat(truncating: val)
                         }
@@ -34,14 +34,14 @@ struct SettingsAxis: View {
                 HStack(alignment: .center) {
                     Text("Explicit Max: ")
 
-                    TextField("", text: $textExplicitMax, onCommit: {
+                    TextField("", text: self.$textExplicitMax, onCommit: {
                         if let val = NumberFormatter().number(from: self.textExplicitMax) {
                             self.axis.explicitMax = CGFloat(truncating: val)
                         }
                     }).textFieldStyle(RoundedBorderTextFieldStyle())
                 }
                 
-                Picker(selection: $axis.formatter.numberStyle, label: Text("Number Formatter Style")) {
+                Picker(selection: self.$axis.formatter.numberStyle, label: Text("Number Formatter Style")) {
                     Text("decimal").tag(NumberFormatter.Style.decimal)
                     Text("percent").tag(NumberFormatter.Style.percent)
                     Text("currency").tag(NumberFormatter.Style.currency)
@@ -52,7 +52,7 @@ struct SettingsAxis: View {
                     Text("none").tag(NumberFormatter.Style.none)
                 }
                 
-                Picker(selection: $axis.abbreviatedFormatter.numberStyle, label: Text("Abbreviated Number Formatter Style")) {
+                Picker(selection: self.$axis.abbreviatedFormatter.numberStyle, label: Text("Abbreviated Number Formatter Style")) {
                     Text("decimal").tag(NumberFormatter.Style.decimal)
                     Text("percent").tag(NumberFormatter.Style.percent)
                     Text("currency").tag(NumberFormatter.Style.currency)
@@ -66,22 +66,24 @@ struct SettingsAxis: View {
             
             Section(header: Text("Line")) {
                 NavigationLink(destination:
-                    SettingsBaseline(line: $axis.baseline)) {
+                    SettingsBaseline(line: self.$axis.baseline))
+                {
                     Text("Baseline")
                 }
                 
                 NavigationLink(destination:
-                    SettingsLine(line: $axis.gridlines)) {
+                    SettingsLine(line: self.$axis.gridlines))
+                {
                     Text("Gridlines")
                 }
             }
             
             Section(header: Text("Label")) {
-                NavigationLink(destination: SettingsLabel(label: $axis.labels)) {
+                NavigationLink(destination: SettingsLabel(label: self.$axis.labels)) {
                     Text("Axis Gridline Label")
                 }
                 
-                NavigationLink(destination: SettingsLabel(label: $axis.titleLabel)) {
+                NavigationLink(destination: SettingsLabel(label: self.$axis.titleLabel)) {
                     Text("Axis Title Label")
                 }
             }

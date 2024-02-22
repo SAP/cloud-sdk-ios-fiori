@@ -63,7 +63,7 @@ struct ChartsContentView: View {
     
     var body: some View {
         List {
-            ForEach(0 ..< charts.count, id: \.self) { index in
+            ForEach(0 ..< self.charts.count, id: \.self) { index in
                 NavigationLink(destination: ChartHomeView(info: self.charts[index], isPopUp: self.$isPopUp)) {
                     Text(self.charts[index].0)
                         .font(.fiori(forTextStyle: .headline))
@@ -88,9 +88,9 @@ struct ChartHomeView: View {
         GeometryReader { proxy in
             self.makeBody(in: proxy.size)
         }
-        .navigationBarTitle(info.0)
-        .navigationBarItems(trailing: Toggle("Popup", isOn: $isPopUp))
-        .sheet(isPresented: $showingDetail) {
+        .navigationBarTitle(self.info.0)
+        .navigationBarItems(trailing: Toggle("Popup", isOn: self.$isPopUp))
+        .sheet(isPresented: self.$showingDetail) {
             ChartDetailView(model: self.currentModel!)
         }
         .onDisappear {
@@ -101,7 +101,7 @@ struct ChartHomeView: View {
     func makeBody(in size: CGSize) -> some View {
         var width: CGFloat
 
-        if self.horizontalSizeClass == .regular && self.verticalSizeClass == .regular {
+        if self.horizontalSizeClass == .regular, self.verticalSizeClass == .regular {
             if #available(iOS 14, *) {
                 width = max((size.width - 48) / 2, 1)
             } else {

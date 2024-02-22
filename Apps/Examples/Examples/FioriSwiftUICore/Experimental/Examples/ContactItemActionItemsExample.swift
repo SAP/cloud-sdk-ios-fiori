@@ -31,13 +31,13 @@ struct ContactItemActionItemsExample: View {
                 } descriptionText: {
                     Text("Description")
                 } actionItems: {
-                    if useCompositeControl {
+                    if self.useCompositeControl {
                         // equivalent to `ActivityItems(model: viewModel)`
-                        ActivityItems(actionItems: viewModel.actionItems?.actionItems) { selectedActivity in
+                        ActivityItems(actionItems: self.viewModel.actionItems?.actionItems) { selectedActivity in
                             self.viewModel.selectedActivity = selectedActivity
                         }
                     } else {
-                        ActivityControlLayoutContainer(viewModel.actionItems?.actionItems ?? []) { activity in
+                        ActivityControlLayoutContainer(self.viewModel.actionItems?.actionItems ?? []) { activity in
                             ActivityButtonView(activity) {
                                 self.viewModel.selectedActivity = activity
                             }
@@ -48,17 +48,17 @@ struct ContactItemActionItemsExample: View {
 
                 ExpHeaderView(nil, subtitle: "Option: Type-based init", desc: "SDK will internally choose and initialize the control handling action items")
 
-                ContactItem(title: viewModel.title, subtitle: viewModel.subtitle, descriptionText: viewModel.descriptionText,
-                            detailImage: viewModel.detailImage, actionItems: viewModel.actionItems != nil ? ActivityItems(model: viewModel.actionItems!) : nil)
+                ContactItem(title: self.viewModel.title, subtitle: self.viewModel.subtitle, descriptionText: self.viewModel.descriptionText,
+                            detailImage: self.viewModel.detailImage, actionItems: self.viewModel.actionItems != nil ? ActivityItems(model: self.viewModel.actionItems!) : nil)
                     .exampleHighlighting()
 
                 ExpHeaderView(nil, subtitle: "Option: Protocol/Model-based init", desc: "conform your model to protocol `ContactItemModel`")
 
-                ContactItem(model: viewModel)
+                ContactItem(model: self.viewModel)
                     .exampleHighlighting()
 
-                    .alert(isPresented: $viewModel.showingAlert, content: {
-                        Alert(title: Text("Important message"), message: Text("Sending email to \(viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
+                    .alert(isPresented: self.$viewModel.showingAlert, content: {
+                        Alert(title: Text("Important message"), message: Text("Sending email to \(self.viewModel.selectedActivity?.data ?? "unknown")"), dismissButton: .default(Text("Got it!")))
                     })
             }
         }

@@ -13,11 +13,11 @@ struct ContactItemStateAndDataBindingExample: View {
             ExpHeaderView("Contact Item", subtitle: "State Handling", desc: "Struct/ObservableObject can back component model protocol (here: ContactItemModel) and changes will recompute the view",
                           back: .green, textColor: .white)
 
-            ContactItem(model: model)
+            ContactItem(model: self.model)
                 .exampleHighlighting()
         }
-        .alert(isPresented: $model.showingAlert, content: {
-            Alert(title: Text("Important message"), message: Text("Sending email to \(model.title)"), dismissButton: .default(Text("Got it!")))
+        .alert(isPresented: self.$model.showingAlert, content: {
+            Alert(title: Text("Important message"), message: Text("Sending email to \(self.model.title)"), dismissButton: .default(Text("Got it!")))
         })
     }
 }

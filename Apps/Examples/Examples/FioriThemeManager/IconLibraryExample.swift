@@ -327,11 +327,11 @@ struct FioriIconSetRow: View {
     
     var body: some View {
         let weights: [Font.Weight] = [.ultraLight, .thin, .light, .regular, .medium, .semibold, .bold, .black, .heavy]
-        Section(header: Text(iconSet.name)) {
-            ForEach(Array(iconSet.icons.keys), id: \.self) { iconName in
+        Section(header: Text(self.iconSet.name)) {
+            ForEach(Array(self.iconSet.icons.keys), id: \.self) { iconName in
                 HStack {
                     ForEach(weights, id: \.self) { weight in
-                        iconSet.icons[iconName]!
+                        self.iconSet.icons[iconName]!
                             .font(.system(size: 16, weight: weight))
                     }
                     Text(iconName)

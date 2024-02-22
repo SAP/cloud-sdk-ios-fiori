@@ -95,8 +95,8 @@ private func assertSnapshotAtCustomDir<Value, Format>(
     line: UInt = #line
 ) {
     let snapshotDirectory = getFilePath(file)
-    let failure = verifySnapshot(
-        matching: try value(),
+    let failure = try verifySnapshot(
+        matching: value(),
         as: snapshotting,
         named: name,
         record: recording,

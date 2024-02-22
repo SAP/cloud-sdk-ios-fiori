@@ -114,7 +114,7 @@ struct SingleActionProfiles: ListDataProtocol {
             }, action: {
                 actionBtn
             })
-                .splitPercent(0.25)
+            .splitPercent(0.25)
             
             return AnyView(oi)
             
@@ -134,7 +134,7 @@ struct SingleActionProfiles: ListDataProtocol {
             }, action: {
                 actionBtn
             })
-                .splitPercent(0.25)
+            .splitPercent(0.25)
             
             return AnyView(oi)
             
@@ -150,7 +150,7 @@ struct SingleActionProfiles: ListDataProtocol {
             }, action: {
                 actionBtn
             })
-                .splitPercent(0.25)
+            .splitPercent(0.25)
             
             return AnyView(oi)
             
@@ -205,11 +205,11 @@ struct SingleActionProfiles: ListDataProtocol {
             }, action: {
                 actionBtn
             })
-                .splitPercent(0.25)
-                .onTapGesture {
-                    print("tapped the cell")
-                    self.cellTapped = true
-                }
+            .splitPercent(0.25)
+            .onTapGesture {
+                print("tapped the cell")
+                self.cellTapped = true
+            }
             
             return AnyView(oi)
             

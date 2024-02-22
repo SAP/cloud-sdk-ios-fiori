@@ -63,33 +63,39 @@ struct ListPickerItemExample: View {
             switch e {
             case .nonIdentifiable:
                 NavigationLink(
-                    destination: ListPickerItemDataNonIdentifiableExample()) {
+                    destination: ListPickerItemDataNonIdentifiableExample())
+                {
                     Text("NonIdentifiable")
                 }
             case .identifiable:
                 NavigationLink(
-                    destination: ListPickerItemDataIdentifiableExample()) {
+                    destination: ListPickerItemDataIdentifiableExample())
+                {
                     Text("Identifiable")
                 }
             case .objectItem:
                 NavigationLink(
-                    destination: ListPickerItemWithObjectItemExample()) {
+                    destination: ListPickerItemWithObjectItemExample())
+                {
                     Text("ObjectItem")
                 }
             case .stringItem:
                 NavigationLink(
-                    destination: ListPickerItemWithStringExample()) {
+                    destination: ListPickerItemWithStringExample())
+                {
                     Text("StringItem")
                 }
             case .searchable:
                 NavigationLink(
-                    destination: ListPickerItemWithSearchExample()) {
+                    destination: ListPickerItemWithSearchExample())
+                {
                     Text("Searchable List Picker Item")
                 }
             case .searchableListView:
                 if #available(iOS 15, *) {
                     NavigationLink(
-                        destination: SearchableListViewExample()) {
+                        destination: SearchableListViewExample())
+                    {
                         Text("Searchable List View")
                     }
                 } else {
@@ -117,7 +123,7 @@ struct ListPickerItemDataNonIdentifiableExample: View {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+            ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -147,7 +153,7 @@ struct ListPickerItemDataIdentifiableExample: View {
                 
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(model, children: \.children, selection: $selections, rowContent: { framework in
+            ListPickerItemConfiguration(self.model, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -167,7 +173,7 @@ struct ListPickerItemFormExample: View {
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
-            }, configuration: ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+            }, configuration: ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 Text(framework.name)
             }))
         }
@@ -223,7 +229,7 @@ struct ListPickerItemWithSearchExample: View {
                         return nil
                     }.joined(separator: ", ")
                     Text(str)
-                }, configuration: ListPickerItemConfiguration(model, id: \.id, children: \.children, selection: $selections, rowContent: { framework in
+                }, configuration: ListPickerItemConfiguration(self.model, id: \.id, children: \.children, selection: self.$selections, rowContent: { framework in
                     Text(framework.name)
                 }))
             }
@@ -243,7 +249,7 @@ struct ListPickerItemWithObjectItemExample: View {
             }, value: {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
-            }, configuration: ListPickerItemConfiguration(model, id: \.name, children: \.children, selection: $selections, rowContent: { framework in
+            }, configuration: ListPickerItemConfiguration(self.model, id: \.name, children: \.children, selection: self.$selections, rowContent: { framework in
                 
                 ObjectItem {
                     Text(framework.name)
@@ -276,7 +282,7 @@ public struct ListPickerItemWithStringExample: View {
                 let str = Array(selections).joined(separator: ", ")
                 Text(str)
             }, configuration:
-            ListPickerItemConfiguration(model, selection: $selections))
+            ListPickerItemConfiguration(self.model, selection: self.$selections))
         }
         .navigationBarTitle(Text("Form"))
     }

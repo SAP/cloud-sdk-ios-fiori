@@ -115,16 +115,16 @@ public struct SideBarView: View {
     
     public var body: some View {
         SideBar(footerModel: DevObjectItemModel(title: "Title", subtitle: "Subtitle", detailImage: Image(systemName: "person")),
-                list: ExpandableList(data: items,
+                list: ExpandableList(data: self.items,
                                      children: \.children,
-                                     selection: $selectedItem,
+                                     selection: self.$selectedItem,
                                      rowModel: { item in
                                          DevRowModel(icon: item.icon, title: item.title, subtitle: item.subtitle, accessory: item.status)
                                      },
                                      destination: { item in
                                          DevDetailView(title: item.title)
                                      }))
-            .background(Color.preferredColor(.header))
+                                     .background(Color.preferredColor(.header))
     }
 }
 
@@ -136,6 +136,6 @@ public struct DevDetailView: View {
     }
     
     public var body: some View {
-        Text(title)
+        Text(self.title)
     }
 }

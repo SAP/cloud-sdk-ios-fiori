@@ -17,18 +17,18 @@ struct ExpHeaderView: View {
 
     var body: some View {
         VStack(spacing: 15) {
-            if title != nil {
-                Text(title!)
+            if self.title != nil {
+                Text(self.title!)
                     .font(.fiori(forTextStyle: .largeTitle))
             } else {
                 EmptyView()
             }
 
-            Text(subtitle)
+            Text(self.subtitle)
                 .foregroundColor(.gray)
 
             if let desc = desc {
-                DescView(desc: desc, back: back, textColor: textColor)
+                DescView(desc: desc, back: self.back, textColor: self.textColor)
             }
         }
     }
@@ -65,10 +65,10 @@ struct DescView: View {
     var textColor = Color.black
 
     var body: some View {
-        Text(desc)
+        Text(self.desc)
             .frame(maxWidth: .infinity)
             .padding()
-            .background(back)
-            .foregroundColor(textColor)
+            .background(self.back)
+            .foregroundColor(self.textColor)
     }
 }

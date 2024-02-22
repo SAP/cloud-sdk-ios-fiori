@@ -64,11 +64,11 @@ struct SPIExampleWithoutHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Without Header").bold()
-            StepProgressIndicator(selection: $selection,
-                                  stepItems: steps)
+            StepProgressIndicator(selection: self.$selection,
+                                  stepItems: self.steps)
             Spacer().padding(20)
             Button {
-                completeStep()
+                self.completeStep()
             } label: {
                 Text("Mark as Completed")
             }
@@ -115,30 +115,30 @@ struct SPIExampleWithHeader: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("With Header").bold()
-            StepProgressIndicator(selection: $selection, stepItems: steps) {
-                Text(title).lineLimit(1)
+            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                Text(self.title).lineLimit(1)
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(steps.count)")
+                        Text("All Steps(\(self.steps.count)")
                         Image(systemName: "chevron.right")
                     }
                 }
             }
             Spacer().padding(20)
             Button {
-                completeStep()
+                self.completeStep()
             } label: {
                 Text("Mark as Completed")
             }
             .padding(20)
         }
         .padding()
-        .onChange(of: selection, perform: { _ in
-            updateCurrentStepName()
+        .onChange(of: self.selection, perform: { _ in
+            self.updateCurrentStepName()
         })
         .onAppear {
-            updateCurrentStepName()
+            self.updateCurrentStepName()
         }
     }
     
@@ -206,18 +206,18 @@ struct SPIExampleWithoutName: View {
         VStack(alignment: .leading) {
             Text("Steps Without Names").bold()
             
-            StepProgressIndicator(selection: $selection,
-                                  stepItems: steps) {} action: {
+            StepProgressIndicator(selection: self.$selection,
+                                  stepItems: self.steps) {} action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(steps.count))")
+                        Text("All Steps(\(self.steps.count))")
                         Image(systemName: "chevron.right")
                     }
                 }
             }
             Spacer().padding(20)
             Button {
-                completeStep()
+                self.completeStep()
             } label: {
                 Text("Mark as Completed")
             }
@@ -246,7 +246,7 @@ struct SPIExampleByBuilder: View {
     @State var selection: String = ""
     var body: some View {
         VStack {
-            StepProgressIndicator(selection: $selection, action: {
+            StepProgressIndicator(selection: self.$selection, action: {
                 Button {} label: {
                     HStack(spacing: 2) {
                         Text("All Steps(2)")
@@ -255,30 +255,30 @@ struct SPIExampleByBuilder: View {
                 }
             }, steps: {
                 SingleStep(id: "1") {
-                    node("1")
+                    self.node("1")
                 } substeps: {
                     SingleStep(id: "1.1") {
-                        node("1.1")
+                        self.node("1.1")
                     }
                 }
 
                 SingleStep(id: "2") {
-                    node("2")
+                    self.node("2")
                 } substeps: {
                     SingleStep(id: "2.1") {
-                        node("2.1")
+                        self.node("2.1")
                     } substeps: {
                         SingleStep {
-                            node("2.1.1")
+                            self.node("2.1.1")
                         }
                         .customStepId("2.1.1")
                     }
                     
                     SingleStep(id: "2.2") {
-                        node("2.2")
+                        self.node("2.2")
                     } substeps: {
                         SingleStep {
-                            node("2.2.1")
+                            self.node("2.2.1")
                         }
                         .customStepId("2.2.1")
                         .stepLineModifier {
@@ -289,7 +289,7 @@ struct SPIExampleByBuilder: View {
             })
             Spacer()
         }.padding()
-            .onChange(of: selection) { newValue in
+            .onChange(of: self.selection) { newValue in
                 print(newValue)
             }
     }
@@ -326,12 +326,12 @@ struct SPICustomStyleExample: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Custom Styles").bold()
-            StepProgressIndicator(selection: $selection, stepItems: steps) {
-                Text(title).lineLimit(1)
+            StepProgressIndicator(selection: self.$selection, stepItems: self.steps) {
+                Text(self.title).lineLimit(1)
             } action: {
                 Button {} label: {
                     HStack(spacing: 2) {
-                        Text("All Steps(\(steps.count)")
+                        Text("All Steps(\(self.steps.count)")
                         Image(systemName: "chevron.right")
                     }
                 }
@@ -341,18 +341,18 @@ struct SPICustomStyleExample: View {
             }
             Spacer().padding(20)
             Button {
-                completeStep()
+                self.completeStep()
             } label: {
                 Text("Mark as Completed")
             }
             .padding(20)
         }
         .padding()
-        .onChange(of: selection, perform: { _ in
-            updateCurrentStepName()
+        .onChange(of: self.selection, perform: { _ in
+            self.updateCurrentStepName()
         })
         .onAppear {
-            updateCurrentStepName()
+            self.updateCurrentStepName()
         }
     }
     

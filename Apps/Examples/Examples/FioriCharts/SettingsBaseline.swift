@@ -12,22 +12,22 @@ struct SettingsBaseline: View {
         
         return Form {
             Section(header: Text("Basic")) {
-                Toggle(isOn: $line.isHidden) {
+                Toggle(isOn: self.$line.isHidden) {
                     Text("Is Hidden")
                 }
                 
-                Text("Line width: \(nf.string(from: NSNumber(value: Double(line.width))) ?? "")")
-                Slider(value: $line.width, in: 1 ... 10, step: 1)
+                Text("Line width: \(nf.string(from: NSNumber(value: Double(self.line.width))) ?? "")")
+                Slider(value: self.$line.width, in: 1 ... 10, step: 1)
 
-                SettingColor(color: $line.color)
+                SettingColor(color: self.$line.color)
             }
             
             Section(header: Text("Dash Pattern")) {
-                Text("Length: \(nf.string(from: NSNumber(value: Double(line.dashPatternLength))) ?? "")")
-                Slider(value: $line.dashPatternLength, in: 1 ... 20, step: 1)
+                Text("Length: \(nf.string(from: NSNumber(value: Double(self.line.dashPatternLength))) ?? "")")
+                Slider(value: self.$line.dashPatternLength, in: 1 ... 20, step: 1)
                 
-                Text("Gap: \(nf.string(from: NSNumber(value: Double(line.dashPatternGap))) ?? "")")
-                Slider(value: $line.dashPatternGap, in: 0 ... 20, step: 1)
+                Text("Gap: \(nf.string(from: NSNumber(value: Double(self.line.dashPatternGap))) ?? "")")
+                Slider(value: self.$line.dashPatternGap, in: 0 ... 20, step: 1)
             }
         }.navigationBarTitle("Line Attributes")
     }

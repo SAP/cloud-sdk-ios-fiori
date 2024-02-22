@@ -58,8 +58,8 @@ struct ActivationScreenSample: View {
     
     var body: some View {
         VStack {
-            ActivationScreen(model: model)
-                .actionModifier { $0.disabled(model.textInput!.textInputValue.isEmpty) }
+            ActivationScreen(model: self.model)
+                .actionModifier { $0.disabled(self.model.textInput!.textInputValue.isEmpty) }
                 .textInputModifier { $0.autocapitalization(.none) }
         }
     }
@@ -71,9 +71,9 @@ struct ActivationScreenCustomizedSample: View {
     
     var body: some View {
         VStack {
-            ActivationScreen(model: model)
+            ActivationScreen(model: self.model)
                 .footnoteModifier { $0.font(.fiori(forTextStyle: .headline)).foregroundColor(.green) }
-                .actionModifier { $0.disabled(model.textInput!.textInputValue.isEmpty) }
+                .actionModifier { $0.disabled(self.model.textInput!.textInputValue.isEmpty) }
                 .textInputModifier { $0.padding(.top, 8)
                     .border(Color(UIColor.separator))
                 }
