@@ -87,7 +87,7 @@ extension TableLayoutManager {
                     self.startPosition = tmpPos
                 }
                 
-                var errMsg: String? = nil
+                var errMsg: String?
                 if tmpLayoutData.numOfErrors > 0 {
                     let errFormat = NSLocalizedString("There are %d errors in the data table.", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "")
                     errMsg = String(format: errFormat, tmpLayoutData.numOfErrors)

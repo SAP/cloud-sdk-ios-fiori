@@ -105,7 +105,7 @@ class TableLayoutManager: ObservableObject {
     var cacheLayoutData: LayoutData?
     
     /// cache editing text to save if users tap another cell before the editing text has been saved explicitly
-    var cacheEditingText: String? = nil
+    var cacheEditingText: String?
     
     /// cache the result
     var numOfColumns: Int = -1
