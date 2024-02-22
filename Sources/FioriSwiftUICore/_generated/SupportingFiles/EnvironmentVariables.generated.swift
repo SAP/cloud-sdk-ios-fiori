@@ -3,6 +3,27 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+struct ActionStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ActionStyle] = []
+}
+
+extension EnvironmentValues {
+    var actionStyle: any ActionStyle {
+        actionStyleStack.last ?? .base
+    }
+
+    var actionStyleStack: [any ActionStyle] {
+        get {
+            self[ActionStyleStackKey.self]
+        }
+        set {
+            self[ActionStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct AvatarsStyleStackKey: EnvironmentKey {
@@ -297,6 +318,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: IconStyle
+
+struct IconStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IconStyle] = []
+}
+
+extension EnvironmentValues {
+    var iconStyle: any IconStyle {
+        iconStyleStack.last ?? .base
+    }
+
+    var iconStyleStack: [any IconStyle] {
+        get {
+            self[IconStyleStackKey.self]
+        }
+        set {
+            self[IconStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: IconsStyle
 
 struct IconsStyleStackKey: EnvironmentKey {
@@ -314,6 +356,69 @@ extension EnvironmentValues {
         }
         set {
             self[IconsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: InformationViewStyle
+
+struct InformationViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any InformationViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var informationViewStyle: any InformationViewStyle {
+        informationViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var informationViewStyleStack: [any InformationViewStyle] {
+        get {
+            self[InformationViewStyleStackKey.self]
+        }
+        set {
+            self[InformationViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LinearProgressIndicatorStyle
+
+struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LinearProgressIndicatorStyle] = []
+}
+
+extension EnvironmentValues {
+    var linearProgressIndicatorStyle: any LinearProgressIndicatorStyle {
+        linearProgressIndicatorStyleStack.last ?? .base
+    }
+
+    var linearProgressIndicatorStyleStack: [any LinearProgressIndicatorStyle] {
+        get {
+            self[LinearProgressIndicatorStyleStackKey.self]
+        }
+        set {
+            self[LinearProgressIndicatorStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+struct LinearProgressIndicatorViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any LinearProgressIndicatorViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var linearProgressIndicatorViewStyle: any LinearProgressIndicatorViewStyle {
+        linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var linearProgressIndicatorViewStyleStack: [any LinearProgressIndicatorViewStyle] {
+        get {
+            self[LinearProgressIndicatorViewStyleStackKey.self]
+        }
+        set {
+            self[LinearProgressIndicatorViewStyleStackKey.self] = newValue
         }
     }
 }
@@ -339,44 +444,23 @@ extension EnvironmentValues {
     }
 }
 
-// MARK: NewActionStyle
+// MARK: ObjectItemStyle
 
-struct NewActionStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewActionStyle] = []
+struct ObjectItemStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any ObjectItemStyle] = []
 }
 
 extension EnvironmentValues {
-    var newActionStyle: any NewActionStyle {
-        newActionStyleStack.last ?? .base
+    var objectItemStyle: any ObjectItemStyle {
+        objectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
-    var newActionStyleStack: [any NewActionStyle] {
+    var objectItemStyleStack: [any ObjectItemStyle] {
         get {
-            self[NewActionStyleStackKey.self]
+            self[ObjectItemStyleStackKey.self]
         }
         set {
-            self[NewActionStyleStackKey.self] = newValue
-        }
-    }
-}
-
-// MARK: NewObjectItemStyle
-
-struct NewObjectItemStyleStackKey: EnvironmentKey {
-    static let defaultValue: [any NewObjectItemStyle] = []
-}
-
-extension EnvironmentValues {
-    var newObjectItemStyle: any NewObjectItemStyle {
-        newObjectItemStyleStack.last ?? .base.concat(.fiori)
-    }
-
-    var newObjectItemStyleStack: [any NewObjectItemStyle] {
-        get {
-            self[NewObjectItemStyleStackKey.self]
-        }
-        set {
-            self[NewObjectItemStyleStackKey.self] = newValue
+            self[ObjectItemStyleStackKey.self] = newValue
         }
     }
 }
@@ -566,6 +650,27 @@ extension EnvironmentValues {
         }
         set {
             self[TagsStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+struct TextInputInfoViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextInputInfoViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var textInputInfoViewStyle: any TextInputInfoViewStyle {
+        textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var textInputInfoViewStyleStack: [any TextInputInfoViewStyle] {
+        get {
+            self[TextInputInfoViewStyleStackKey.self]
+        }
+        set {
+            self[TextInputInfoViewStyleStackKey.self] = newValue
         }
     }
 }

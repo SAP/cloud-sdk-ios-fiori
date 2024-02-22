@@ -3,25 +3,25 @@
 import Foundation
 import SwiftUI
 
-public protocol NewObjectItemStyle: DynamicProperty {
+public protocol ObjectItemStyle: DynamicProperty {
     associatedtype Body: View
 
-    func makeBody(_ configuration: NewObjectItemConfiguration) -> Body
+    func makeBody(_ configuration: ObjectItemConfiguration) -> Body
 }
     
-struct AnyNewObjectItemStyle: NewObjectItemStyle {
-    let content: (NewObjectItemConfiguration) -> any View
+struct AnyObjectItemStyle: ObjectItemStyle {
+    let content: (ObjectItemConfiguration) -> any View
 
-    init(@ViewBuilder _ content: @escaping (NewObjectItemConfiguration) -> any View) {
+    init(@ViewBuilder _ content: @escaping (ObjectItemConfiguration) -> any View) {
         self.content = content
     }
 
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
         self.content(configuration).typeErased
     }
 }
     
-public struct NewObjectItemConfiguration {
+public struct ObjectItemConfiguration {
     public let title: Title
     public let subtitle: Subtitle
     public let footnote: Footnote
@@ -33,7 +33,7 @@ public struct NewObjectItemConfiguration {
     public let avatars: Avatars
     public let footnoteIcons: FootnoteIcons
     public let tags: Tags
-    public let newAction: NewAction
+    public let action: Action
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
@@ -46,12 +46,12 @@ public struct NewObjectItemConfiguration {
     public typealias Avatars = ConfigurationViewWrapper
     public typealias FootnoteIcons = ConfigurationViewWrapper
     public typealias Tags = ConfigurationViewWrapper
-    public typealias NewAction = ConfigurationViewWrapper
+    public typealias Action = ConfigurationViewWrapper
 }
     
-public struct NewObjectItemFioriStyle: NewObjectItemStyle {
-    public func makeBody(_ configuration: NewObjectItemConfiguration) -> some View {
-        NewObjectItem(configuration)
+public struct ObjectItemFioriStyle: ObjectItemStyle {
+    public func makeBody(_ configuration: ObjectItemConfiguration) -> some View {
+        ObjectItem(configuration)
             .titleStyle(TitleFioriStyle())
             .subtitleStyle(SubtitleFioriStyle())
             .footnoteStyle(FootnoteFioriStyle())
@@ -63,6 +63,6 @@ public struct NewObjectItemFioriStyle: NewObjectItemStyle {
             .avatarsStyle(AvatarsFioriStyle())
             .footnoteIconsStyle(FootnoteIconsFioriStyle())
             .tagsStyle(TagsFioriStyle())
-            .newActionStyle(NewActionFioriStyle())
+            .actionStyle(ActionFioriStyle())
     }
 }

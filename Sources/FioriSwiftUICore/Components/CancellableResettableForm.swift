@@ -112,11 +112,11 @@ struct ResetButtonStyle: PrimitiveButtonStyle {
         CancellableResettableDialogForm {
             Text("Date of Completion")
         } cancelAction: {
-            Action(actionText: "Cancel", didSelectAction: nil)
+            _Action(actionText: "Cancel", didSelectAction: nil)
         } resetAction: {
-            Action(actionText: "Reset", didSelectAction: nil)
+            _Action(actionText: "Reset", didSelectAction: nil)
         } applyAction: {
-            Action(actionText: "Apply", didSelectAction: nil)
+            _Action(actionText: "Apply", didSelectAction: nil)
                 .buttonStyle(ApplyButtonStyle())
         } components: {
             DatePicker(

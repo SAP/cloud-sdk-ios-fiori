@@ -54,5 +54,6 @@ private extension SecondaryAction {
         SecondaryAction(secondaryAction: { self.secondaryAction })
             .shouldApplyDefaultStyle(false)
             .secondaryActionStyle(.fiori)
+            .typeErased
     }
 }

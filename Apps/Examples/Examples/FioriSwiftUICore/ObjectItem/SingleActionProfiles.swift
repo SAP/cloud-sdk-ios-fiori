@@ -78,7 +78,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -89,9 +89,9 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                         .resizable()
                         .frame(width: 45, height: 45)
                         .clipShape(Circle())
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -109,7 +109,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 1):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -127,10 +127,10 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                 }, icons: {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -156,7 +156,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 2):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -168,10 +168,10 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -191,7 +191,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
              
         case (0, 3):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -199,10 +199,10 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("Los Angeles")
                 }, description: {
                     Text("Rouja has worked for the company for ten years and has all of the skills that would be necessary for developing quality applications.  She is proficient in Java as well as CSS, Bootstrap, and Swift.")
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -218,7 +218,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 4):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -229,9 +229,9 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                         .resizable()
                         .frame(width: 45, height: 45)
                         .clipShape(Circle())
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -249,7 +249,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (0, 5):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Steel Roter")
                 }, subtitle: {
                     Text("Product 1349-0987C65-X8900")
@@ -259,9 +259,9 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Image("wheel")
                         .resizable()
                         .frame(width: 45, height: 45)
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Steel Roter")
                 }, subtitle: {
                     Text("Product 1349-0987C65-X8900")
@@ -278,7 +278,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             
         case (1, 0):
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -290,14 +290,14 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
                     Text("1")
                     Circle().fill(Color.preferredColor(.tintColor)).frame(width: 14, height: 14)
                     Image(systemName: "paperclip").font(.system(size: 14))
-                }, newAction: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
+                }, action: { FioriButton(action: { _ in print("Tapped Follow") }, label: { _ in Text("Follow") }) })
                     .splitPercent(0.25)
                     .onTapGesture {
                         print("tapped the cell")
                         self.cellTapped = true
                     }
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -320,7 +320,7 @@ struct SingleActionProfiles: ObjectItemListDataProtocol {
             }
             
         default:
-            oi = ObjectItem(title: "test")
+            oi = _ObjectItem(title: "test")
         }
         
         return oi.typeErased

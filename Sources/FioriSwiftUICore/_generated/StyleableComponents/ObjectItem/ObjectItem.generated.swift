@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 /// A view that displays information of an object.
-public struct NewObjectItem {
+public struct ObjectItem {
     let title: any View
     let subtitle: any View
     let footnote: any View
@@ -16,9 +16,9 @@ public struct NewObjectItem {
     let avatars: any View
     let footnoteIcons: any View
     let tags: any View
-    let newAction: any View
+    let action: any View
 
-    @Environment(\.newObjectItemStyle) var style
+    @Environment(\.objectItemStyle) var style
 
     fileprivate var _shouldApplyDefaultStyle = true
 
@@ -33,7 +33,7 @@ public struct NewObjectItem {
                 @AvatarsBuilder avatars: () -> any View = { EmptyView() },
                 @FootnoteIconsBuilder footnoteIcons: () -> any View = { EmptyView() },
                 @TagBuilder tags: () -> any View = { EmptyView() },
-                @ViewBuilder newAction: () -> any View = { EmptyView() })
+                @ViewBuilder action: () -> any View = { EmptyView() })
     {
         self.title = Title { title() }
         self.subtitle = Subtitle { subtitle() }
@@ -46,11 +46,11 @@ public struct NewObjectItem {
         self.avatars = Avatars { avatars() }
         self.footnoteIcons = FootnoteIcons { footnoteIcons() }
         self.tags = Tags { tags() }
-        self.newAction = NewAction { newAction() }
+        self.action = Action { action() }
     }
 }
 
-public extension NewObjectItem {
+public extension ObjectItem {
     init(title: AttributedString,
          subtitle: AttributedString? = nil,
          footnote: AttributedString? = nil,
@@ -62,14 +62,14 @@ public extension NewObjectItem {
          avatars: [TextOrIcon] = [],
          footnoteIcons: [TextOrIcon] = [],
          tags: [AttributedString] = [],
-         newAction: FioriButton? = nil)
+         action: FioriButton? = nil)
     {
-        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, newAction: { newAction })
+        self.init(title: { Text(title) }, subtitle: { OptionalText(subtitle) }, footnote: { OptionalText(footnote) }, description: { OptionalText(description) }, status: { TextOrIconView(status) }, substatus: { TextOrIconView(substatus) }, detailImage: { detailImage }, icons: { IconStack(icons) }, avatars: { AvatarStack(avatars) }, footnoteIcons: { FootnoteIconStack(footnoteIcons) }, tags: { TagStack(tags) }, action: { action })
     }
 }
 
-public extension NewObjectItem {
-    init(_ configuration: NewObjectItemConfiguration) {
+public extension ObjectItem {
+    init(_ configuration: ObjectItemConfiguration) {
         self.title = configuration.title
         self.subtitle = configuration.subtitle
         self.footnote = configuration.footnote
@@ -81,18 +81,18 @@ public extension NewObjectItem {
         self.avatars = configuration.avatars
         self.footnoteIcons = configuration.footnoteIcons
         self.tags = configuration.tags
-        self.newAction = configuration.newAction
+        self.action = configuration.action
         self._shouldApplyDefaultStyle = false
     }
 }
 
-extension NewObjectItem: View {
+extension ObjectItem: View {
     public var body: some View {
         if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction))).typeErased
-                .transformEnvironment(\.newObjectItemStyleStack) { stack in
+            style.resolve(configuration: .init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), action: .init(self.action))).typeErased
+                .transformEnvironment(\.objectItemStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
                     }
@@ -101,7 +101,7 @@ extension NewObjectItem: View {
     }
 }
 
-private extension NewObjectItem {
+private extension ObjectItem {
     func shouldApplyDefaultStyle(_ bool: Bool) -> some View {
         var s = self
         s._shouldApplyDefaultStyle = bool
@@ -109,8 +109,9 @@ private extension NewObjectItem {
     }
         
     func defaultStyle() -> some View {
-        NewObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), newAction: .init(self.newAction)))
+        ObjectItem(.init(title: .init(self.title), subtitle: .init(self.subtitle), footnote: .init(self.footnote), description: .init(self.description), status: .init(self.status), substatus: .init(self.substatus), detailImage: .init(self.detailImage), icons: .init(self.icons), avatars: .init(self.avatars), footnoteIcons: .init(self.footnoteIcons), tags: .init(self.tags), action: .init(self.action)))
             .shouldApplyDefaultStyle(false)
-            .newObjectItemStyle(NewObjectItemFioriStyle.ContentFioriStyle())
+            .objectItemStyle(ObjectItemFioriStyle.ContentFioriStyle())
+            .typeErased
     }
 }

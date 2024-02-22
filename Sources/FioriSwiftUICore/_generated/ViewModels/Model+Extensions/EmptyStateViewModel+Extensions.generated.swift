@@ -3,7 +3,7 @@
 import SwiftUI
 
 public extension EmptyStateViewModel {
-    var action: ActionModel? {
-        return nil
+    var action: _ActionModel? {
+        nil
     }
 }

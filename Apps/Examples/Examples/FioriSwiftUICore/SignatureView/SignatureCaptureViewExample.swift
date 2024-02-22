@@ -16,17 +16,17 @@ struct SignatureCaptureViewExample: View {
 }
 
 struct SignatureCaptureViewExample2: View {
-    let startAction = Action(actionText: "Sign Here", didSelectAction: nil)
-    let restartAction = Action(actionText: "Sign Again", didSelectAction: nil)
-    let cancelAction = Action(actionText: "Cancel2")
-    let tapAction = Action(model: _TapToSignActionDefault())
+    let startAction = _Action(actionText: "Sign Here", didSelectAction: nil)
+    let restartAction = _Action(actionText: "Sign Again", didSelectAction: nil)
+    let cancelAction = _Action(actionText: "Cancel2")
+    let tapAction = _Action(model: _TapToSignActionDefault())
     var body: some View {
         SignatureCaptureView(title: "Long Long Long Long Long Long Long Signature",
                              startAction: startAction,
                              restartAction: restartAction,
-                             cancelAction: Action(actionText: "Cancel2"),
-                             clearAction: Action(actionText: "ClearClear"),
-                             saveAction: Action(actionText: "Save Image"),
+                             cancelAction: _Action(actionText: "Cancel2"),
+                             clearAction: _Action(actionText: "ClearClear"),
+                             saveAction: _Action(actionText: "Save Image"),
                              signatureImage: UIImage(systemName: "scribble")!,
                              onSave: { uiImage in
                                  let imgSaver = ImageSaver()

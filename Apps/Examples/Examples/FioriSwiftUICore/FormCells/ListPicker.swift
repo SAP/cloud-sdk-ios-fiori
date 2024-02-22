@@ -203,7 +203,7 @@ struct ListPickerItemWithSearchExample: View {
                 }, rowContent: { framework in
                     ObjectItem {
                         Text(framework.name)
-                    } descriptionText: {
+                    } description: {
                         Text("description")
                     } status: {
                         Image(systemName: "sun.min")
@@ -247,7 +247,7 @@ struct ListPickerItemWithObjectItemExample: View {
                 
                 ObjectItem {
                     Text(framework.name)
-                } descriptionText: {
+                } description: {
                     Text("description")
                 } status: {
                     Image(systemName: "sun.min")

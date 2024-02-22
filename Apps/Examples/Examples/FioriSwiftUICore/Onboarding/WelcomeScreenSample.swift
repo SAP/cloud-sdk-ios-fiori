@@ -5,11 +5,11 @@ import SwiftUI
 class WelcomeScreenDataModel: WelcomeScreenModel, ObservableObject {
     // Changes in nested observable object will not trigger refresh. Need to send notification by explicitly calling `send()`
     @Published var textInput: TextInputModel?
-    lazy var action: ActionModel? = ActionDataModel { [unowned self] in
+    lazy var action: _ActionModel? = ActionDataModel { [unowned self] in
         print("Primary button clicked: \(self.textInput!.textInputValue)")
     }
 
-    lazy var secondaryAction: ActionModel? = SecondaryActionDataModel { [unowned self] in
+    lazy var secondaryAction: _ActionModel? = SecondaryActionDataModel { [unowned self] in
         UIApplication.shared.open(URL(string: "http://www.google.com")!)
     }
 
@@ -41,13 +41,13 @@ extension WelcomeScreenDataModel {
         }
     }
     
-    struct ActionDataModel: ActionModel {
+    struct ActionDataModel: _ActionModel {
         let actionText: String? = "Start"
         
         let didSelectAction: (() -> Void)?
     }
     
-    struct SecondaryActionDataModel: ActionModel {
+    struct SecondaryActionDataModel: _ActionModel {
         let actionText: String? = "Try Demo"
         
         let didSelectAction: (() -> Void)?

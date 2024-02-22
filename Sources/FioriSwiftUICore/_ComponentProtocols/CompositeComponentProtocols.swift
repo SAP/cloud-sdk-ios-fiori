@@ -3,10 +3,10 @@ import SwiftUI
 
 /// A view that displays information of an object.
 // sourcery: CompositeComponent
-protocol _NewObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _TagsComponent, _NewActionComponent {}
+protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteComponent, _DescriptionComponent, _StatusComponent, _SubstatusComponent, _DetailImageComponent, _IconsComponent, _AvatarsComponent, _FootnoteIconsComponent, _TagsComponent, _ActionComponent {}
 
 // sourcery: CompositeComponent
-protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _NewActionComponent, _SwitchComponent {}
+protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {}
 
 // sourcery: CompositeComponent
 protocol _CardMediaComponent: _MediaImageComponent, _DescriptionComponent {}
@@ -18,10 +18,22 @@ protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _DetailI
 protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component {}
 
 // sourcery: CompositeComponent
-protocol _CardFooterComponent: _NewActionComponent, _SecondaryActionComponent {}
+protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent {}
 
 // sourcery: CompositeComponent
 protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _CardExtHeaderComponent {}
 
 // sourcery: CompositeComponent
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
+
+// sourcery: CompositeComponent
+protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {
+    @ViewBuilder
+    var content: () -> any View { get }
+}
+
+// sourcery: CompositeComponent
+protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
+
+// sourcery: CompositeComponent
+protocol _LinearProgressIndicatorViewComponent: _LinearProgressIndicatorComponent, _IconComponent, _DescriptionComponent {}

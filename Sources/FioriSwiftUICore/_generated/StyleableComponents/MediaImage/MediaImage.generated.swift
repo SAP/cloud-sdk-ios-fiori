@@ -54,5 +54,6 @@ private extension MediaImage {
         MediaImage(mediaImage: { self.mediaImage })
             .shouldApplyDefaultStyle(false)
             .mediaImageStyle(.fiori)
+            .typeErased
     }
 }

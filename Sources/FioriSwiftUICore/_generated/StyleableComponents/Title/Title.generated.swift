@@ -54,5 +54,6 @@ private extension Title {
         Title(title: { self.title })
             .shouldApplyDefaultStyle(false)
             .titleStyle(.fiori)
+            .typeErased
     }
 }

@@ -3,6 +3,22 @@
 import Foundation
 import SwiftUI
 
+// MARK: ActionStyle
+
+struct ResolvedActionStyle<Style: ActionStyle>: View {
+    let style: Style
+    let configuration: ActionConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension ActionStyle {
+    func resolve(configuration: ActionConfiguration) -> some View {
+        ResolvedActionStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: AvatarsStyle
 
 struct ResolvedAvatarsStyle<Style: AvatarsStyle>: View {
@@ -227,6 +243,22 @@ extension FootnoteIconsStyle {
     }
 }
 
+// MARK: IconStyle
+
+struct ResolvedIconStyle<Style: IconStyle>: View {
+    let style: Style
+    let configuration: IconConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension IconStyle {
+    func resolve(configuration: IconConfiguration) -> some View {
+        ResolvedIconStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: IconsStyle
 
 struct ResolvedIconsStyle<Style: IconsStyle>: View {
@@ -240,6 +272,54 @@ struct ResolvedIconsStyle<Style: IconsStyle>: View {
 extension IconsStyle {
     func resolve(configuration: IconsConfiguration) -> some View {
         ResolvedIconsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: InformationViewStyle
+
+struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {
+    let style: Style
+    let configuration: InformationViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension InformationViewStyle {
+    func resolve(configuration: InformationViewConfiguration) -> some View {
+        ResolvedInformationViewStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LinearProgressIndicatorStyle
+
+struct ResolvedLinearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>: View {
+    let style: Style
+    let configuration: LinearProgressIndicatorConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension LinearProgressIndicatorStyle {
+    func resolve(configuration: LinearProgressIndicatorConfiguration) -> some View {
+        ResolvedLinearProgressIndicatorStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: LinearProgressIndicatorViewStyle
+
+struct ResolvedLinearProgressIndicatorViewStyle<Style: LinearProgressIndicatorViewStyle>: View {
+    let style: Style
+    let configuration: LinearProgressIndicatorViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension LinearProgressIndicatorViewStyle {
+    func resolve(configuration: LinearProgressIndicatorViewConfiguration) -> some View {
+        ResolvedLinearProgressIndicatorViewStyle(style: self, configuration: configuration)
     }
 }
 
@@ -259,35 +339,19 @@ extension MediaImageStyle {
     }
 }
 
-// MARK: NewActionStyle
+// MARK: ObjectItemStyle
 
-struct ResolvedNewActionStyle<Style: NewActionStyle>: View {
+struct ResolvedObjectItemStyle<Style: ObjectItemStyle>: View {
     let style: Style
-    let configuration: NewActionConfiguration
+    let configuration: ObjectItemConfiguration
     var body: some View {
         style.makeBody(configuration)
     }
 }
 
-extension NewActionStyle {
-    func resolve(configuration: NewActionConfiguration) -> some View {
-        ResolvedNewActionStyle(style: self, configuration: configuration)
-    }
-}
-
-// MARK: NewObjectItemStyle
-
-struct ResolvedNewObjectItemStyle<Style: NewObjectItemStyle>: View {
-    let style: Style
-    let configuration: NewObjectItemConfiguration
-    var body: some View {
-        style.makeBody(configuration)
-    }
-}
-
-extension NewObjectItemStyle {
-    func resolve(configuration: NewObjectItemConfiguration) -> some View {
-        ResolvedNewObjectItemStyle(style: self, configuration: configuration)
+extension ObjectItemStyle {
+    func resolve(configuration: ObjectItemConfiguration) -> some View {
+        ResolvedObjectItemStyle(style: self, configuration: configuration)
     }
 }
 
@@ -432,6 +496,22 @@ struct ResolvedTagsStyle<Style: TagsStyle>: View {
 extension TagsStyle {
     func resolve(configuration: TagsConfiguration) -> some View {
         ResolvedTagsStyle(style: self, configuration: configuration)
+    }
+}
+
+// MARK: TextInputInfoViewStyle
+
+struct ResolvedTextInputInfoViewStyle<Style: TextInputInfoViewStyle>: View {
+    let style: Style
+    let configuration: TextInputInfoViewConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension TextInputInfoViewStyle {
+    func resolve(configuration: TextInputInfoViewConfiguration) -> some View {
+        ResolvedTextInputInfoViewStyle(style: self, configuration: configuration)
     }
 }
 

@@ -3,37 +3,36 @@
 import SwiftUI
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableListView where CancelActionView == Action {
-    public init(
-    @ViewBuilder doneAction: () -> DoneActionView
+public extension SearchableListView where CancelActionView == _Action {
+    init(
+        @ViewBuilder doneAction: () -> DoneActionView
     ) {
         self.init(
-            cancelAction: { Action(model: _CancelActionDefault()) },
-			doneAction: doneAction
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            doneAction: doneAction
         )
     }
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableListView where DoneActionView == Action {
-    public init(
-    @ViewBuilder cancelAction: () -> CancelActionView
+public extension SearchableListView where DoneActionView == _Action {
+    init(
+        @ViewBuilder cancelAction: () -> CancelActionView
     ) {
         self.init(
             cancelAction: cancelAction,
-			doneAction: { Action(model: _DoneActionDefault()) }
+            doneAction: { _Action(model: _DoneActionDefault()) }
         )
     }
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-extension SearchableListView where CancelActionView == Action, DoneActionView == Action {
-    public init(
-    
+public extension SearchableListView where CancelActionView == _Action, DoneActionView == _Action {
+    init(
     ) {
         self.init(
-            cancelAction: { Action(model: _CancelActionDefault()) },
-			doneAction: { Action(model: _DoneActionDefault()) }
+            cancelAction: { _Action(model: _CancelActionDefault()) },
+            doneAction: { _Action(model: _DoneActionDefault()) }
         )
     }
 }

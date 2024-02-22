@@ -59,8 +59,8 @@ extension SearchableListView: View {
 }
 
 @available(iOS 15.0, macOS 12.0, *)
-public extension SearchableListView where CancelActionView == _ConditionalContent<Action, EmptyView>,
-    DoneActionView == _ConditionalContent<Action, EmptyView>
+public extension SearchableListView where CancelActionView == _ConditionalContent<_Action, EmptyView>,
+    DoneActionView == _ConditionalContent<_Action, EmptyView>
 {
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
     /// - Parameters:
@@ -85,8 +85,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         self.init(data: data, id: id, children: children, selection: selection,
                   allowsMultipleSelection: allowsMultipleSelection,
                   searchFilter: searchFilter, rowContent: rowContent, rowBackground: rowBackground,
-                  cancelAction: Action(model: _CancelActionDefault()),
-                  doneAction: Action(model: _DoneActionDefault()))
+                  cancelAction: _Action(model: _CancelActionDefault()),
+                  doneAction: _Action(model: _DoneActionDefault()))
     }
     
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
@@ -120,8 +120,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     {
         self.init(data: data, id: \.self, children: nil, selection: selection,
                   searchFilter: searchFilter, rowContent: { Text($0) }, rowBackground: rowBackground,
-                  cancelAction: Action(model: _CancelActionDefault()),
-                  doneAction: Action(model: _DoneActionDefault()))
+                  cancelAction: _Action(model: _CancelActionDefault()),
+                  doneAction: _Action(model: _DoneActionDefault()))
     }
     
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
@@ -144,8 +144,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
     ) {
         self.init(data: data, id: id, children: children, selection: selection, searchFilter: searchFilter,
                   rowContent: rowContent, rowBackground: { _ in Color.preferredColor(.primaryBackground) },
-                  cancelAction: Action(model: _CancelActionDefault()),
-                  doneAction: Action(model: _DoneActionDefault()))
+                  cancelAction: _Action(model: _CancelActionDefault()),
+                  doneAction: _Action(model: _DoneActionDefault()))
     }
     
     /// Create a searchable list view which supports both single-level and multi-level picker with the ability to select one or multiple items.
@@ -169,8 +169,8 @@ public extension SearchableListView where CancelActionView == _ConditionalConten
         searchFilter: ((Data.Element, String) -> Bool)?,
         @ViewBuilder rowContent: @escaping (Data.Element) -> RowContent,
         rowBackground: ((Data.Element) -> RowBackground)? = nil,
-        cancelAction: Action? = Action(model: _CancelActionDefault()),
-        doneAction: Action? = Action(model: _DoneActionDefault())
+        cancelAction: _Action? = _Action(model: _CancelActionDefault()),
+        doneAction: _Action? = _Action(model: _DoneActionDefault())
     ) {
         self.init(cancelAction: cancelAction, doneAction: doneAction)
         var selectionBuffer = selection?.wrappedValue

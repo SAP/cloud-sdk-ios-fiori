@@ -308,7 +308,7 @@ public extension EnvironmentValues {
 public extension View {
     /// Set the avatars border color. Default value is `clear`.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             avatars: {
     ///                 Image(systemName: "circle.fill")
     ///             })
@@ -322,7 +322,7 @@ public extension View {
     
     /// Dimensions of avatars. Default value is `45x45`.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             avatars: {
     ///                 Image(systemName: "circle.fill")
     ///             })
@@ -336,7 +336,7 @@ public extension View {
     
     /// Specifies whether the `avatars` are drawn as circular. Default value is `true`.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             avatars: {
     ///                 Image(systemName: "circle.fill")
     ///             })
@@ -350,7 +350,7 @@ public extension View {
     
     /// Dimensions of the avatars border width. Default value is 0.
     /// ```swift
-    ///  ObjectItem(title: "Object Item",
+    ///  _ObjectItem(title: "Object Item",
     ///             avatars: {
     ///                 Image(systemName: "circle.fill")
     ///             })

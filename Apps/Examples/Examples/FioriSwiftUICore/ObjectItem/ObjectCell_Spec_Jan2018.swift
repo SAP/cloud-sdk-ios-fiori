@@ -61,21 +61,21 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             //        cell.footnoteLabel.numberOfLines = 4
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: "Lorem ipseum dolor",
-                                   footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                   description: "Some descirption",
-                                   status: TextOrIcon.text("Some status"),
-                                   substatus: TextOrIcon.text("some substatus"))
+                oi = ObjectItem(title: "Lorem ipseum dolor",
+                                footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
+                                description: "Some descirption",
+                                status: TextOrIcon.text("Some status"),
+                                substatus: TextOrIcon.text("some substatus"))
                     .footnoteStyle {
                         Footnote($0)
                             .lineLimit(4)
                     }
             } else {
-                oi = ObjectItem(title: "Lorem ipseum dolor",
-                                footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
-                                descriptionText: "Some descirption",
-                                status: TextOrIcon.text("Some status"),
-                                substatus: TextOrIcon.text("some substatus"))
+                oi = _ObjectItem(title: "Lorem ipseum dolor",
+                                 footnote: "Words\nSeparated\nNewLineChars and this is Just some really long text that is here dont worry about it too much",
+                                 descriptionText: "Some descirption",
+                                 status: TextOrIcon.text("Some status"),
+                                 substatus: TextOrIcon.text("some substatus"))
                     .footnoteModifier {
                         $0.lineLimit(4)
                     }
@@ -93,7 +93,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //            cell.footnoteLabel.numberOfLines = 4
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Lorem ipseum dolor")
                 }, footnote: {
                     Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
@@ -106,7 +106,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                     Text("some substatus").font(.system(size: 32))
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Lorem ipseum dolor")
                 }, footnote: {
                     Text("NewLineChars and this is Just some really long text that is here dont worry about it too much\nWords\nSeparated")
@@ -137,7 +137,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
             //                }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("John Jacob Jingleheimer Schmidt")
                 }, description: {
                     Text("Description is one line of text without wrapping")
@@ -148,7 +148,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.5)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("John Jacob Jingleheimer Schmidt")
                 }, descriptionText: {
                     Text("Description is one line of text without wrapping")
@@ -178,7 +178,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -191,7 +191,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.5)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -220,7 +220,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
         
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("No Description Set")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -234,7 +234,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                     Image("oski").resizable().frame(width: 45, height: 45)
                 })
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("No Description Set")
                 }, subtitle: {
                     Text("Three Phase Pad Mounted Transformer (533423)")
@@ -269,7 +269,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -286,7 +286,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.5)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -325,7 +325,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         }
             
             if self.isNewObjectItem {
-                oi = NewObjectItem(title: {
+                oi = ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -342,7 +342,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
                 })
                     .splitPercent(0.5)
             } else {
-                oi = ObjectItem(title: {
+                oi = _ObjectItem(title: {
                     Text("Rouja Pakiman")
                 }, subtitle: {
                     Text("Java Developer")
@@ -364,7 +364,7 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
 //         cell.textLabel?.text = "Multi-profile image needs to be developed"
 //         return cell
-            oi = ObjectItem(title: "Multi-profile image needs to be developed")
+            oi = _ObjectItem(title: "Multi-profile image needs to be developed")
             
         case (4, 0):
 //         let cell = UITableViewCell(style: UITableViewCellStyle.value1, reuseIdentifier: nil)
@@ -372,10 +372,10 @@ struct ObjectCell_Spec_Jan2018: ObjectItemListDataProtocol {
 //         cell.detailTextLabel?.text = "Subheadline"
 //         cell.accessoryType = .disclosureIndicator
 //         return cell
-            oi = ObjectItem(title: "Headline")
+            oi = _ObjectItem(title: "Headline")
             
         default:
-            oi = ObjectItem(title: "Lorem ipseum dolor")
+            oi = _ObjectItem(title: "Lorem ipseum dolor")
         }
         
         return oi.typeErased

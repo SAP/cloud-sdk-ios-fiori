@@ -48,5 +48,6 @@ private extension CardBody {
         CardBody(cardBody: { self.cardBody })
             .shouldApplyDefaultStyle(false)
             .cardBodyStyle(.fiori)
+            .typeErased
     }
 }

@@ -3,6 +3,12 @@
 import Foundation
 import SwiftUI
 
+extension Action: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        action.isEmpty
+    }
+}
+
 extension Avatars: _ViewEmptyChecking {
     public var isEmpty: Bool {
         avatars.isEmpty
@@ -27,7 +33,7 @@ extension Card: _ViewEmptyChecking {
             row2.isEmpty ||
             row3.isEmpty ||
             cardBody.isEmpty ||
-            newAction.isEmpty ||
+            action.isEmpty ||
             secondaryAction.isEmpty
     }
 }
@@ -42,7 +48,7 @@ extension CardExtHeader: _ViewEmptyChecking {
 
 extension CardFooter: _ViewEmptyChecking {
     public var isEmpty: Bool {
-        newAction.isEmpty ||
+        action.isEmpty ||
             secondaryAction.isEmpty
     }
 }
@@ -88,7 +94,7 @@ extension DemoView: _ViewEmptyChecking {
         title.isEmpty ||
             subtitle.isEmpty ||
             status.isEmpty ||
-            newAction.isEmpty
+            action.isEmpty
     }
 }
 
@@ -116,9 +122,36 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension Icon: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty
+    }
+}
+
 extension Icons: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icons.isEmpty
+    }
+}
+
+extension InformationView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            description.isEmpty ||
+            content.isEmpty
+    }
+}
+
+extension LinearProgressIndicator: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
+    }
+}
+
+extension LinearProgressIndicatorView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            description.isEmpty
     }
 }
 
@@ -128,13 +161,7 @@ extension MediaImage: _ViewEmptyChecking {
     }
 }
 
-extension NewAction: _ViewEmptyChecking {
-    public var isEmpty: Bool {
-        newAction.isEmpty
-    }
-}
-
-extension NewObjectItem: _ViewEmptyChecking {
+extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
             subtitle.isEmpty ||
@@ -147,7 +174,7 @@ extension NewObjectItem: _ViewEmptyChecking {
             avatars.isEmpty ||
             footnoteIcons.isEmpty ||
             tags.isEmpty ||
-            newAction.isEmpty
+            action.isEmpty
     }
 }
 
@@ -202,6 +229,15 @@ extension Switch: _ViewEmptyChecking {
 extension Tags: _ViewEmptyChecking {
     public var isEmpty: Bool {
         tags.isEmpty
+    }
+}
+
+extension TextInputInfoView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            description.isEmpty ||
+            content.isEmpty ||
+            counter.isEmpty
     }
 }
 

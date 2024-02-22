@@ -103,14 +103,14 @@ struct CoreContentView: View {
                 NavigationLink(
                     destination: ObjectItemExample(_isNewObjectItem: true),
                     label: {
-                        Text("NewObjectItem")
+                        Text("ObjectItem")
                     }
                 )
                 
                 NavigationLink(
                     destination: ObjectItemExample(),
                     label: {
-                        Text("ObjectItem")
+                        Text("_ObjectItem")
                     }
                 )
                 
@@ -138,6 +138,25 @@ struct CoreContentView: View {
                     Text("Search Demos")
                 }
             }
+            
+            NavigationLink(
+                destination: InformationViewExample(),
+                label: {
+                    Text("InformationViewExample")
+                }
+            )
+            NavigationLink(
+                destination: TextInputInfoViewExample(),
+                label: {
+                    Text("TextInputInfoViewExample")
+                }
+            )
+            NavigationLink(
+                destination: LinearProgressIndicatorExample(),
+                label: {
+                    Text("Linear Progress Indicator")
+                }
+            )
         }.navigationBarTitle("FioriSwiftUICore")
     }
 }

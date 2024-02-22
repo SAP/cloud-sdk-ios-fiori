@@ -166,7 +166,7 @@ struct SearchableListViewExample: View {
                                       rowContent: { framework in
                                           ObjectItem {
                                               Text(framework.name)
-                                          } descriptionText: {
+                                          } description: {
                                               Text("description")
                                           } status: {
                                               Image(systemName: "sun.min")
@@ -181,10 +181,10 @@ struct SearchableListViewExample: View {
                                               return Color.mint
                                           }
                                       },
-                                      cancelAction: Action(actionText: "CacnelAction") {
+                                      cancelAction: _Action(actionText: "CacnelAction") {
                                           print("cancel action tapped")
                                       },
-                                      doneAction: Action(actionText: "DoneAction") {
+                                      doneAction: _Action(actionText: "DoneAction") {
                                           print("done action tapped")
                                       })
         } else {
@@ -194,7 +194,7 @@ struct SearchableListViewExample: View {
                                       searchFilter: emptySearch ? nil : filter) { framework in
                 ObjectItem {
                     Text(framework.name)
-                } descriptionText: {
+                } description: {
                     Text("description")
                 } status: {
                     Image(systemName: "sun.min")

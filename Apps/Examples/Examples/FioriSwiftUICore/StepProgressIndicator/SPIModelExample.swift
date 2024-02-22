@@ -2,7 +2,7 @@ import FioriSwiftUICore
 import SwiftUI
 
 class SPIExampleModel: StepProgressIndicatorModel, ObservableObject {
-    struct AllActionModel: ActionModel {
+    struct AllActionModel: _ActionModel {
         let actionText: String? = "All Steps"
         
         let didSelectAction: (() -> Void)?
@@ -18,7 +18,7 @@ class SPIExampleModel: StepProgressIndicatorModel, ObservableObject {
                                node: .icon(Image(systemName: "\($0).circle")))
         }
     
-    lazy var action: ActionModel? = AllActionModel { [unowned self] in
+    lazy var action: _ActionModel? = AllActionModel { [unowned self] in
         print("All steps button clicked")
     }
 }

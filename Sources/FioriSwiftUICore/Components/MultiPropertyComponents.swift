@@ -10,11 +10,11 @@ internal protocol _ActionItems: _ComponentMultiPropGenerating {
     var didSelectActivityItem_: ((ActivityItemDataType) -> Void)? { get }
 }
 
-internal protocol _Action: _ComponentMultiPropGenerating {
-    var actionText_: String? { get }
-    // sourcery: no_view
-    var didSelectAction_: (() -> Void)? { get }
-}
+// internal protocol _Action: _ComponentMultiPropGenerating {
+//    var actionText_: String? { get }
+//    // sourcery: no_view
+//    var didSelectAction_: (() -> Void)? { get }
+// }
 
 internal protocol _TextInput: _ComponentMultiPropGenerating, AnyObject {
     // sourcery: bindingPropertyOptional = .constant("")

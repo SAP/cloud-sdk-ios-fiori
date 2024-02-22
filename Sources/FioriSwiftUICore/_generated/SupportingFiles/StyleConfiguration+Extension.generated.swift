@@ -13,7 +13,7 @@ extension CardConfiguration {
     }
 
     var _cardFooter: CardFooter {
-        CardFooter(.init(newAction: .init(self.newAction), secondaryAction: .init(self.secondaryAction)))
+        CardFooter(.init(action: .init(self.action), secondaryAction: .init(self.secondaryAction)))
     }
 }
 
@@ -38,5 +38,21 @@ extension CardHeaderConfiguration {
 extension DemoViewConfiguration {
     var _switch: Switch {
         Switch(.init(isOn: self.$isOn))
+    }
+}
+
+// MARK: LinearProgressIndicatorViewConfiguration
+
+extension LinearProgressIndicatorViewConfiguration {
+    var _linearProgressIndicator: LinearProgressIndicator {
+        LinearProgressIndicator(.init(indicatorProgress: self.$indicatorProgress))
+    }
+}
+
+// MARK: TextInputInfoViewConfiguration
+
+extension TextInputInfoViewConfiguration {
+    var _informationView: InformationView {
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content)))
     }
 }
