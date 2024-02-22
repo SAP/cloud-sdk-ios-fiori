@@ -784,7 +784,7 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/F5F6F7.png&text=+)              Hex color: F5F6F7FF
-    /// (base light variant) ![](https://dummyimage.com/48x18/15181B.png&text=+)              Hex color: 242E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)              Hex color: 242E38FF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3C48.png&text=+)        Hex color: 2F3C48FF
     @available(watchOS, unavailable)
     case tertiaryGroupedBackground
@@ -805,7 +805,7 @@ public enum ColorStyle: String, CaseIterable {
     
     /// Secondary grouped background colors, with variants for base and elevated UI schemes.
     /// (base dark variant) ![](https://dummyimage.com/48x18/FFFFFF.png&text=+)              Hex color: FFFFFFFF
-    /// (base light variant) ![](https://dummyimage.com/48x18/1F2428.png&text=+)              Hex color: 242E38FF
+    /// (base light variant) ![](https://dummyimage.com/48x18/242E38.png&text=+)              Hex color: 242E38FF
     /// (elevated light variant) ![](https://dummyimage.com/48x18/2F3C48.png&text=+)        Hex color: 2F3C48FF
     case tertiaryBackground
     
