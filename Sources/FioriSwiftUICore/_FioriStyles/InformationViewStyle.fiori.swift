@@ -22,8 +22,6 @@ extension InformationViewFioriStyle {
         func makeBody(_ configuration: InformationViewConfiguration) -> some View {
             InformationView(configuration)
                 .foregroundColor(.preferredColor(.primaryLabel))
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
                 .padding(.top, 4)
                 .padding(.bottom, 11)
         }
