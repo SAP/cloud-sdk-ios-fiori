@@ -5,13 +5,11 @@ struct FioriThemeManagerContentView: View {
     var body: some View {
         List {
             NavigationLink(
-                destination: FioriFonts())
-            {
+                destination: FioriFonts()) {
                 Text("72 Fonts")
             }
             NavigationLink(
-                destination: Colors())
-            {
+                destination: Colors()) {
                 Text("Colors - latest")
             }
             NavigationLink(
@@ -20,18 +18,15 @@ struct FioriThemeManagerContentView: View {
                 Text("Colors - custom palette (random)")
             }
             NavigationLink(
-                destination: CustomColors(testData: .programmatic(.green, .red)))
-            {
+                destination: CustomColors(testData: .programmatic(.green, .red))) {
                 Text("Colors - developer override")
             }
             NavigationLink(
-                destination: CustomColors(testData: .styleSheet(ColorTestData.sampleStyleSheet)))
-            {
+                destination: CustomColors(testData: .styleSheet(ColorTestData.sampleStyleSheet))) {
                 Text("Colors - style sheet override")
             }
             NavigationLink(
-                destination: IconLibraryExample())
-            {
+                destination: IconLibraryExample()) {
                 Text("IconLibrary")
             }
         }
