@@ -5,18 +5,16 @@ import SwiftUI
 // Base Layout style
 public struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
-        GeometryReader { _ in
-            VStack {
-                configuration.content
-                HStack(alignment: .top, spacing: 8) {
-                    configuration.icon
-                    configuration.description
-                    Spacer()
-                    configuration.counter
-                }
-                .padding(.top, 4)
-                .padding(.bottom, 11)
+        VStack {
+            configuration.content
+            HStack(alignment: .top, spacing: 8) {
+                configuration.icon
+                configuration.description
+                Spacer()
+                configuration.counter
             }
+            .padding(.top, 4)
+            .padding(.bottom, 11)
         }
     }
 }
