@@ -76,7 +76,7 @@ extension IllustratedMessageFioriStyle {
     }
 }
 
-/// Show contents in a scrollable horizontal stack
+/// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
 public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
     @State var viewIsNarrow = true
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
@@ -105,6 +105,7 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
     }
 }
 
+/// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
 public extension IllustratedMessageStyle where Self == IllustratedMessageHorizontalStyle {
     static var horizontal: Self {
         IllustratedMessageHorizontalStyle()
