@@ -41,32 +41,38 @@ struct BannerView: View {
         if self.data.title == "" {
             EmptyView()
         } else {
-            HStack {
-                HStack {
-                    Spacer()
-                    
-                    Image(systemName: "exclamationmark.triangle")
-                        .foregroundColor(self.data.level.tintColor)
-                        .fixedSize()
-                        .frame(width: 16, height: 18)
-                    
-                    Spacer().frame(width: 6)
-                    Text(self.data.title)
-                        .font(.fiori(forTextStyle: .footnote))
-                        .foregroundColor(self.data.level.tintColor)
-                    
-                    Spacer()
-                }
+            VStack {
+                Color.preferredColor(.negativeLabel).frame(height: 4)
                 
-                Button {
-                    self.action?()
-                    self.showBanner = false
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundColor(Color.preferredColor(.quaternaryLabel))
+                HStack {
+                    HStack {
+                        Spacer()
+                        
+                        Image(systemName: "exclamationmark.triangle")
+                            .foregroundColor(self.data.level.tintColor)
+                            .fixedSize()
+                            .frame(width: 16, height: 18)
+                        
+                        Spacer().frame(width: 6)
+                        Text(self.data.title)
+                            .font(.fiori(forTextStyle: .footnote))
+                            .foregroundColor(self.data.level.tintColor)
+                        
+                        Spacer()
+                    }
+                    
+                    Button {
+                        self.action?()
+                        self.showBanner = false
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundColor(Color.preferredColor(.quaternaryLabel))
+                    }
                 }
+                .padding(EdgeInsets(top: 13, leading: 8, bottom: 13, trailing: 8))
+                
+                Color.preferredColor(.primaryLabel).frame(height: 0.33).opacity(0.7)
             }
-            .padding(EdgeInsets(top: 13, leading: 8, bottom: 13, trailing: 8))
             .background(Color.preferredColor(.header))
             .onTapGesture {
                 self.showBanner = false
@@ -81,23 +87,18 @@ struct BannerViewModifier: ViewModifier {
     let action: (() -> Void)?
 
     func body(content: Content) -> some View {
-        content.overlay(
+        ZStack(alignment: .topLeading) {
+            content
+
             Group {
                 if self.isPresented {
-                    VStack {
-                        Color.preferredColor(.negativeLabel).frame(height: 4)
-                        
-                        BannerView(data: self.data, showBanner: self.$isPresented)
-                            .animation(.easeOut, value: self.isPresented)
-                            .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
-                        
-                        Color.preferredColor(.primaryLabel).frame(height: 0.33).opacity(0.7)
-                    }
-                    .background(Color.preferredColor(.header))
+                    BannerView(data: self.data, showBanner: self.$isPresented)
+                        .animation(.easeOut, value: self.isPresented)
+                        .transition(AnyTransition.move(edge: .top).combined(with: .opacity))
                 }
-            },
-            alignment: .top
-        )
+            }
+            .accessibilitySortPriority(100)
+        }.accessibilityElement(children: .contain)
     }
 }
 
