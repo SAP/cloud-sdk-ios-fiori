@@ -4,7 +4,7 @@ struct StackedBarChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: StackedBarChartContext(),
                     chartView: ColumnView(),
                     indicatorView: EmptyView())

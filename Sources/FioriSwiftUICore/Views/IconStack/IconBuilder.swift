@@ -70,10 +70,10 @@ public struct ConditionalSingle<TrueContent: View, FalseContent: View>: ViewList
     /// the View at Index in the ViewList
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -109,9 +109,9 @@ public struct Pair<First: View, Second: ViewList>: ViewList {
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }

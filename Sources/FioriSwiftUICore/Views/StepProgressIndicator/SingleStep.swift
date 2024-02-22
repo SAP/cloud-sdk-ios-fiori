@@ -17,7 +17,7 @@ public struct _StepNode: View {
     var state: StepProgressIndicatorState
     /// :nodoc:
     public var body: some View {
-        node().frame(width: 28, height: 28)
+        self.node().frame(width: 28, height: 28)
     }
     
     @ViewBuilder func node() -> some View {
@@ -94,14 +94,14 @@ extension SingleStep: View {
         switch stepAxis {
         case .horizontal:
             HStack {
-                stepContainer
+                self.stepContainer
                 ForEach(0 ..< substeps.count, id: \.self) { index in
                     substeps.view(at: index)
                 }
             }
         case .vertical:
             VStack {
-                stepContainer
+                self.stepContainer
                 ForEach(0 ..< substeps.count, id: \.self) { index in
                     substeps.view(at: index)
                 }
@@ -121,7 +121,7 @@ extension SingleStep: View {
         .buttonStyle(StepButtonStyle(id: _id,
                                      node: node.typeErased,
                                      title: title.typeErased,
-                                     line: line.typeErased,
+                                     line: self.line.typeErased,
                                      state: state,
                                      isSelected: currentStepId.wrappedValue == _id,
                                      isLastStep: isLastStep,
@@ -132,7 +132,7 @@ extension SingleStep: View {
                                      trailing: trailing,
                                      horizontalSpacing: horizontalSpacing,
                                      verticalSpacing: verticalSpacing,
-                                     lineSize: lineSize))
+                                     lineSize: self.lineSize))
     }
     
     func update(_ state: StepProgressIndicatorState,
@@ -146,7 +146,7 @@ extension SingleStep: View {
     
     /// Separator line for `SingleStep`.
     @ViewBuilder public var line: some View {
-        _line.modifier(stepLineModifier)
+        self._line.modifier(stepLineModifier)
     }
     
     @ViewBuilder var _line: some View {
@@ -236,49 +236,49 @@ struct InnerSingleStep<Title: View, Node: View, Line: View>: View {
     }
     
     var body: some View {
-        oneStep
+        self.oneStep
     }
         
     @ViewBuilder
     var oneStep: some View {
-        switch stepAxis {
+        switch self.stepAxis {
         case .horizontal:
             VStack(alignment: .leading, spacing: 0) {
-                Spacer().frame(height: top)
-                HStack(spacing: stepsSpacing) {
-                    node
-                    line.frame(width: lineWidth, height: lineHeight)
+                Spacer().frame(height: self.top)
+                HStack(spacing: self.stepsSpacing) {
+                    self.node
+                    self.line.frame(width: self.lineWidth, height: self.lineHeight)
                 }.sizeReader { size in
-                    if nodeAndLineSize.different(with: size) {
-                        nodeAndLineSize = size
+                    if self.nodeAndLineSize.different(with: size) {
+                        self.nodeAndLineSize = size
                     }
                 }
-                if isTitleEmptyView {
-                    Spacer().frame(height: abs(bottom))
+                if self.isTitleEmptyView {
+                    Spacer().frame(height: abs(self.bottom))
                 } else {
-                    Spacer().frame(height: verticalSpacing)
-                    title
-                        .frame(width: nodeAndLineSize.width, alignment: .leading)
+                    Spacer().frame(height: self.verticalSpacing)
+                    self.title
+                        .frame(width: self.nodeAndLineSize.width, alignment: .leading)
                         .lineLimit(2)
-                    Spacer().frame(height: abs(bottom))
+                    Spacer().frame(height: abs(self.bottom))
                 }
             }
         case .vertical:
             HStack(alignment: .stepsTopAlignment, spacing: 0) {
-                Spacer().frame(width: leading)
-                VStack(spacing: stepsSpacing) {
-                    node
+                Spacer().frame(width: self.leading)
+                VStack(spacing: self.stepsSpacing) {
+                    self.node
                         .alignmentGuide(.stepsTopAlignment) { $0.height / 2.0 }
-                    line.frame(maxWidth: lineWidth, minHeight: lineHeight)
+                    self.line.frame(maxWidth: self.lineWidth, minHeight: self.lineHeight)
                 }
-                Spacer().frame(width: horizontalSpacing)
-                title.lineLimit(nil)
+                Spacer().frame(width: self.horizontalSpacing)
+                self.title.lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                     .alignmentGuide(.stepsTopAlignment) {
                         ($0.height - ($0[.lastTextBaseline] - $0[.firstTextBaseline])) / 2
                     }
                     .alignmentGuide(.stepsLeadingAlignment) { $0[.leading] }
-                Spacer().frame(width: abs(trailing))
+                Spacer().frame(width: abs(self.trailing))
                 Spacer()
             }
         }

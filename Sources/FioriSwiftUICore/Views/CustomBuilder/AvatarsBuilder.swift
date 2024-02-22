@@ -35,11 +35,11 @@ public extension AvatarList {
     var body: some View {
         Group {
             if count == 1 {
-                buildAvatar(view(at: 0))
+                self.buildAvatar(view(at: 0))
             } else if count >= 2 {
                 ZStack(alignment: .topLeading) {
-                    buildAvatar(view(at: 0))
-                    buildAvatar(view(at: 1))
+                    self.buildAvatar(view(at: 0))
+                    self.buildAvatar(view(at: 1))
                         .position(x: size.width, y: size.height)
                 }
                 .frame(width: size.width * 1.5, height: size.height * 1.5)
@@ -87,10 +87,10 @@ public struct ConditionalSingleAvatar<TrueContent: View, FalseContent: View>: Av
     
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -128,9 +128,9 @@ public struct PairAvatar<First: View, Second: AvatarList>: AvatarList {
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }

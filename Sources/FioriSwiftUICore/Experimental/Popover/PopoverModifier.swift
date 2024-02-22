@@ -11,12 +11,12 @@ struct PopoverModifier<PopView: View>: ViewModifier {
         WindowReader { window in
             content
                 .frameReader(rect: { rect in
-                    sourceFrame = rect
+                    self.sourceFrame = rect
                 })
-                .onChange(of: isPresented) { newValue in
+                .onChange(of: self.isPresented) { newValue in
                     if newValue {
                         let popover = Popover(popView: AnyView(popView()), isPresented: $isPresented)
-                        popover.context.sourceFrame = sourceFrame
+                        popover.context.sourceFrame = self.sourceFrame
                         popover.context.windowFrame = window?.bounds ?? .zero
                         popover.present(in: window)
                         self.popover = popover

@@ -9,21 +9,21 @@ struct StepProgressIndicatorContainer<Steps: IndexedViewContainer>: View {
     let stepsSpacing: CGFloat = 2
     
     var body: some View {
-        switch stepAxis {
+        switch self.stepAxis {
         case .horizontal:
-            HStack(alignment: .top, spacing: stepsSpacing) {
-                ForEach(0 ..< steps.count, id: \.self) { index in
-                    steps.view(at: index)
-                        .environment(\.stepAxis, stepAxis)
-                        .environment(\.currentStepId, $selection)
+            HStack(alignment: .top, spacing: self.stepsSpacing) {
+                ForEach(0 ..< self.steps.count, id: \.self) { index in
+                    self.steps.view(at: index)
+                        .environment(\.stepAxis, self.stepAxis)
+                        .environment(\.currentStepId, self.$selection)
                 }
             }
         case .vertical:
-            VStack(alignment: .stepsLeadingAlignment, spacing: stepsSpacing) {
-                ForEach(0 ..< steps.count, id: \.self) { index in
-                    steps.view(at: index)
-                        .environment(\.stepAxis, stepAxis)
-                        .environment(\.currentStepId, $selection)
+            VStack(alignment: .stepsLeadingAlignment, spacing: self.stepsSpacing) {
+                ForEach(0 ..< self.steps.count, id: \.self) { index in
+                    self.steps.view(at: index)
+                        .environment(\.stepAxis, self.stepAxis)
+                        .environment(\.currentStepId, self.$selection)
                 }
             }
         }

@@ -47,7 +47,7 @@ struct BubbleView: View {
         let x = item.pos.x * self.model.scaleX * rect.size.width - startPosX
         let y = (1 - item.pos.y) * self.model.scaleX * rect.size.height - startPosY
         
-        if x >= 0 && x <= rect.size.width && y >= 0 && y <= rect.size.height {
+        if x >= 0, x <= rect.size.width, y >= 0, y <= rect.size.height {
             return true
         } else {
             return false

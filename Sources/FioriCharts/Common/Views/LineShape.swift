@@ -8,8 +8,8 @@ struct LineShape: Shape {
     
     public func path(in rect: CGRect) -> Path {
         Path { p in
-            p.move(to: CGPoint(x: ChartUtility.xPos(pos1.x, layoutDirection: layoutDirection, width: rect.size.width), y: pos1.y))
-            p.addLine(to: CGPoint(x: ChartUtility.xPos(pos2.x, layoutDirection: layoutDirection, width: rect.size.width), y: pos2.y))
+            p.move(to: CGPoint(x: ChartUtility.xPos(self.pos1.x, layoutDirection: self.layoutDirection, width: rect.size.width), y: self.pos1.y))
+            p.addLine(to: CGPoint(x: ChartUtility.xPos(self.pos2.x, layoutDirection: self.layoutDirection, width: rect.size.width), y: self.pos2.y))
         }
     }
 }

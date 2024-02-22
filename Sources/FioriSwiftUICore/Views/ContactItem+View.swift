@@ -64,9 +64,9 @@ extension ContactItem: View {
     public var body: some View {
         Group {
             if horizontalSizeClass == .some(.regular) {
-                bodyInRegular
+                self.bodyInRegular
             } else {
-                bodyInCompact
+                self.bodyInCompact
             }
         }
     }
@@ -79,9 +79,9 @@ extension ContactItem: View {
             }
 
             if splitPercent == nil {
-                titleSubtitleDescription
+                self.titleSubtitleDescription
             } else {
-                titleSubtitleDescriptionWithSplitPercent
+                self.titleSubtitleDescriptionWithSplitPercent
             }
             actionItems
         }
@@ -141,7 +141,7 @@ extension ContactItem: View {
                 Spacer().frame(width: 8)
             }
             
-            titleSubtitle
+            self.titleSubtitle
             
             Spacer(minLength: 0)
             

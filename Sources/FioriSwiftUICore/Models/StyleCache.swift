@@ -26,7 +26,7 @@ public final class StyleCache: ObservableObject {
     static let shared = StyleCache()
     var styles: [String: AnyViewModifier] = [:]
     public static func upsertStyles(_ styles: [String: AnyViewModifier]) throws {
-        Self.shared.styles.merge(styles) { (_, rhs) -> AnyViewModifier in
+        Self.shared.styles.merge(styles) { _, rhs -> AnyViewModifier in
             rhs
         }
     }

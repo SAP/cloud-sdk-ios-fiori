@@ -89,40 +89,40 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                 })
             } else {
                 List {
-                    listContent
+                    self.listContent
                 }
-                .background(listBackground)
-                .onChange(of: selectionBuffer) { newValue in
-                    selectionUpdated?(newValue)
+                .background(self.listBackground)
+                .onChange(of: self.selectionBuffer) { newValue in
+                    self.selectionUpdated?(newValue)
                 }
-                .ifApply(searchFilter != nil, content: {
-                    $0.searchable(text: $searchText, placement: .navigationBarDrawer)
+                .ifApply(self.searchFilter != nil, content: {
+                    $0.searchable(text: self.$searchText, placement: .navigationBarDrawer)
                 })
             }
         #else
             List {
-                listContent
+                self.listContent
             }
-            .background(listBackground)
-            .onChange(of: selectionBuffer) { newValue in
-                selectionUpdated?(newValue)
+            .background(self.listBackground)
+            .onChange(of: self.selectionBuffer) { newValue in
+                self.selectionUpdated?(newValue)
             }
-            .ifApply(searchFilter != nil, content: {
-                $0.searchable(text: $searchText)
+            .ifApply(self.searchFilter != nil, content: {
+                $0.searchable(text: self.$searchText)
             })
         #endif
     }
     
     var listContent: some View {
-        ForEach(data.filter { element in
+        ForEach(self.data.filter { element in
             if let searchFilter = searchFilter, !searchText.isEmpty {
-                return searchFilter(element, searchText)
+                return searchFilter(element, self.searchText)
             } else {
                 return true
             }
-        }, id: id) { element in
+        }, id: self.id) { element in
             Group {
-                let row = rowContent(element)
+                let row = self.rowContent(element)
                 let id_value = element[keyPath: id]
                 
                 if let children = children, let childrenData = element[keyPath: children] {
@@ -131,20 +131,20 @@ struct SearchableListContent<Data: RandomAccessCollection, ID: Hashable, RowCont
                     }, value: {
                         EmptyView()
                     }, configuration: ListPickerItemConfiguration(childrenData,
-                                                                  id: id,
+                                                                  id: self.id,
                                                                   children: children,
-                                                                  selection: !isTopLevel ? selection : $selectionBuffer,
+                                                                  selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
                                                                   isTopLevel: false,
-                                                                  allowsMultipleSelection: allowsMultipleSelection,
-                                                                  searchFilter: searchFilter,
-                                                                  rowContent: rowContent,
-                                                                  rowBackground: rowBackground))
-                        .environment(\.listBackground, listBackground)
+                                                                  allowsMultipleSelection: self.allowsMultipleSelection,
+                                                                  searchFilter: self.searchFilter,
+                                                                  rowContent: self.rowContent,
+                                                                  rowBackground: self.rowBackground))
+                        .environment(\.listBackground, self.listBackground)
                 } else {
                     ListPickerItem.Row(content: row,
                                        id: id_value,
-                                       selection: !isTopLevel ? selection : $selectionBuffer,
-                                       allowsMultipleSelection: allowsMultipleSelection)
+                                       selection: !self.isTopLevel ? self.selection : self.$selectionBuffer,
+                                       allowsMultipleSelection: self.allowsMultipleSelection)
                 }
             }
             .listRowBackground(Group {

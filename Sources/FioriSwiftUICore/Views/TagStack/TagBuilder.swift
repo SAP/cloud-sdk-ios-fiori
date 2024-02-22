@@ -39,10 +39,10 @@ public struct ConditionalSingleTag<TrueContent: View, FalseContent: View>: TagVi
     /// the View at Index in the TagViewList
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -60,9 +60,9 @@ public struct PairTag<First: View, Second: TagViewList>: TagViewList {
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }

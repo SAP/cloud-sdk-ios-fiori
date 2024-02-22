@@ -65,9 +65,9 @@ public struct ScribbleView: View {
         if self.isSaved {
             DispatchQueue.main.async {
                 if let image = getUIImage() {
-                    isSaved = false
-                    isEditing = false
-                    onSave?(image)
+                    self.isSaved = false
+                    self.isEditing = false
+                    self.onSave?(image)
                 }
             }
         }

@@ -45,7 +45,7 @@ public struct MHStack<T: TagViewList>: View {
         GeometryReader { geometry in
             self.makeBody(in: geometry)
         }
-        .frame(height: mainViewSize.height < 0 ? nil : mainViewSize.height)
+        .frame(height: self.mainViewSize.height < 0 ? nil : self.mainViewSize.height)
     }
 
     func makeBody(in g: GeometryProxy) -> some View {
@@ -60,8 +60,8 @@ public struct MHStack<T: TagViewList>: View {
         
         return ZStack(alignment: .topLeading) {
             ForEach(0 ..< tagCount, id: \.self) { index in
-                tags.view(at: index)
-                    .padding(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: spacing))
+                self.tags.view(at: index)
+                    .padding(EdgeInsets(top: 0, leading: 1, bottom: 0, trailing: self.spacing))
                     .alignmentGuide(.leading, computeValue: { d in
                         if index == 0 {
                             tmpMainViewSize = .zero
@@ -69,7 +69,7 @@ public struct MHStack<T: TagViewList>: View {
                         
                         if abs(width - d.width) > g.size.width {
                             width = 0
-                            height = -(tmpMainViewSize.height + lineSpacing)
+                            height = -(tmpMainViewSize.height + self.lineSpacing)
                         }
                         let result = width
                         if index + 1 == tagCount {
@@ -94,7 +94,7 @@ public struct MHStack<T: TagViewList>: View {
                             height = 0 // last item
                             
                             DispatchQueue.main.async {
-                                mainViewSize = tmpMainViewSize
+                                self.mainViewSize = tmpMainViewSize
                             }
                         }
                         

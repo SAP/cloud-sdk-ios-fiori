@@ -33,7 +33,7 @@ class ChartUtility {
             return ChartModel.DataElementsForAxisTickValues(noData: true, dataMinimum: 0, dataMaximum: 0, currentSeriesIndex: 0, numberOfGridlines: 2, allowLooseLabels: false, fudgeYAxisRange: false, adjustToNiceValues: true, secondaryRange: secondaryRange)
         }
         
-        var currentSeriesIndex: Int = 0
+        var currentSeriesIndex = 0
         var dmin: CGFloat = 0
         var dmax: CGFloat = 0
         if model.chartType == .stock {
@@ -57,7 +57,7 @@ class ChartUtility {
                 }
             }
         } else {
-            let dataRange: ClosedRange<CGFloat> = indexes.reduce(model.ranges[indexes[0]]) { (result, i) -> ClosedRange<CGFloat> in
+            let dataRange: ClosedRange<CGFloat> = indexes.reduce(model.ranges[indexes[0]]) { result, i -> ClosedRange<CGFloat> in
                 let seriesMin = min(result.lowerBound, model.ranges[i].lowerBound)
                 let seriesMax = max(result.upperBound, model.ranges[i].upperBound)
                 return seriesMin ... seriesMax

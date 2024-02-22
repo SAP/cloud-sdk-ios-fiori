@@ -4,7 +4,7 @@ struct ComboChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: ComboChartContext(),
                     chartView: ComboView(),
                     indicatorView: LineIndicatorView())
@@ -201,7 +201,7 @@ class ComboChartContext: ColumnChartContext {
         
         let width = rect.size.width
         let pd = self.plotData(model)
-        let points = atPoints.map { (pt) -> CGPoint in
+        let points = atPoints.map { pt -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
                                       layoutDirection: layoutDirection,
                                       width: width)

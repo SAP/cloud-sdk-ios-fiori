@@ -93,18 +93,18 @@ public struct FioriButton<Label: View>: View {
         }
         
         return Group {
-            if isSelectionPersistent {
+            if self.isSelectionPersistent {
                 self.fioriButtonStyle.makeBody(configuration: config)
                     .overlay(GeometryReader { proxy in
-                        Color.clear.contentShape(Rectangle()).gesture(createGesture(proxy.size))
+                        Color.clear.contentShape(Rectangle()).gesture(self.createGesture(proxy.size))
                     })
             } else {
                 Button {
-                    action?(.normal)
+                    self.action?(.normal)
                 } label: {
                     EmptyView()
                 }
-                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: fioriButtonStyle, label: label, isEnabled: isEnabled))
+                .buttonStyle(_ButtonStyleImpl(fioriButtonStyle: self.fioriButtonStyle, label: self.label, isEnabled: self.isEnabled))
             }
         }
     }
@@ -133,7 +133,7 @@ public struct FioriButton<Label: View>: View {
                 }
                 
                 self._state = self.state == .normal ? .selected : .normal
-                self.action?(state)
+                self.action?(self.state)
             }
     }
 }
@@ -185,7 +185,7 @@ public struct FioriButtonStyleConfiguration {
         
         /// The content of label.
         public var body: some View {
-            view
+            self.view
         }
     }
 
@@ -244,7 +244,7 @@ private struct _ButtonStyleImpl<Label: View>: ButtonStyle {
         }
         
         return ZStack {
-            fioriButtonStyle.makeBody(configuration: config)
+            self.fioriButtonStyle.makeBody(configuration: config)
             
             configuration.label.hidden()
         }

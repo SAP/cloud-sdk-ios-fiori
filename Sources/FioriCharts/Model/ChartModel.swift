@@ -473,9 +473,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         })
         .store(in: &cancellableSet)
      */
-    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<[Int: [Int]]?, Never> = {
-        $_selections.eraseToAnyPublisher()
-    }()
+    public private(set) lazy var selectionDidChangePublisher: AnyPublisher<[Int: [Int]]?, Never> = $_selections.eraseToAnyPublisher()
     
     /// the center postion of a chart in relative coordinate system, both x and y are range from 0 to 1
     @Published public var centerPosition: CGPoint? = nil
@@ -558,8 +556,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
             return .allPositive
         }
         
-        let range: ClosedRange<CGFloat> = seriesIndex.reduce(self.ranges[seriesIndex[0]]) { (result, next) -> ClosedRange<CGFloat> in
-            min(result.lowerBound, ranges[next].lowerBound) ... max(result.upperBound, ranges[next].upperBound)
+        let range: ClosedRange<CGFloat> = seriesIndex.reduce(self.ranges[seriesIndex[0]]) { result, next -> ClosedRange<CGFloat> in
+            min(result.lowerBound, self.ranges[next].lowerBound) ... max(result.upperBound, self.ranges[next].upperBound)
         }
         
         if range.lowerBound >= 0 {
@@ -1227,8 +1225,8 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
         // go through series
         for i in 0 ..< self.data.count {
             let range: ClosedRange<CGFloat> = {
-                if chartType == .waterfall {
-                    let firstValue = plotItemValue(at: 0, category: 0, dimension: 0)
+                if self.chartType == .waterfall {
+                    let firstValue = self.plotItemValue(at: 0, category: 0, dimension: 0)
                     var dmin: CGFloat = 0
                     if let fv = firstValue {
                         dmin = CGFloat(fv)
@@ -1236,9 +1234,9 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                     var dmax: CGFloat = dmin
                     var subTotal: CGFloat = 0
                     
-                    for index in 0 ..< numOfCategories(in: 0) {
-                        let isSubTotal = index == 0 ? true : indexesOfTotalsCategories.contains(index)
-                        let value = plotItemValue(at: 0, category: index, dimension: 0) ?? 0
+                    for index in 0 ..< self.numOfCategories(in: 0) {
+                        let isSubTotal = index == 0 ? true : self.indexesOfTotalsCategories.contains(index)
+                        let value = self.plotItemValue(at: 0, category: index, dimension: 0) ?? 0
                         let curValue: CGFloat = isSubTotal ? CGFloat(value) : subTotal + CGFloat(value)
                     
                         dmin = min(dmin, curValue)
@@ -1249,7 +1247,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
                     return dmin ... dmax
                     
                 } else {
-                    let allValues = data[i]
+                    let allValues = self.data[i]
                         .compactMap(\.first)
                         .compactMap { $0 }
                     
@@ -1394,7 +1392,7 @@ public class ChartModel: ObservableObject, Identifiable, NSCopying {
     public func numOfCategories() -> Int {
         if self.chartType == .stock {
             if let titles = titlesForCategory, currentSeriesIndex < titles.count {
-                return titles[currentSeriesIndex].count
+                return titles[self.currentSeriesIndex].count
             }
             
             return 0
@@ -1762,7 +1760,7 @@ extension ChartModel: CustomStringConvertible {
     public var description: String {
         let titlesForCategoryDesc: [[String]]
         if let tfc = titlesForCategory {
-            titlesForCategoryDesc = tfc.map { (cat) -> [String] in
+            titlesForCategoryDesc = tfc.map { cat -> [String] in
                 cat.map { String(describing: $0) }
             }
         } else {

@@ -58,7 +58,7 @@ extension KPIProgressItem: View {
             footnote
                 .frame(maxWidth: 216)
         }
-        .gesture(createGesture())
+        .gesture(self.createGesture())
     }
     
     private func createGesture() -> some Gesture {
@@ -196,11 +196,11 @@ public struct FioriCircularProgressViewStyle: KPIProgressViewStyle {
 
     public func makeBody(configuration: Self.Configuration) -> some View {
         ZStack {
-            FioriCircularProgressView(fraction: configuration.fraction, circleColor: circleColor, completedFractionColor: getFractionColor(configuration.state), circleStyle: circleStyle, lineWidth: lineWidth)
+            FioriCircularProgressView(fraction: configuration.fraction, circleColor: self.circleColor, completedFractionColor: self.getFractionColor(configuration.state), circleStyle: self.circleStyle, lineWidth: self.lineWidth)
             VStack(alignment: .center, spacing: 2) {
                 configuration.kpi.frame(maxWidth: 108)
                 configuration.subtitle.frame(maxWidth: 94)
-            }.foregroundColor(getForegroundColor(configuration.state))
+            }.foregroundColor(self.getForegroundColor(configuration.state))
         }
     }
     
@@ -247,13 +247,13 @@ struct FioriCircularProgressView: View {
     public var body: some View {
         ZStack {
             Circle()
-                .stroke(lineWidth: lineWidth)
-                .foregroundColor(circleColor)
+                .stroke(lineWidth: self.lineWidth)
+                .foregroundColor(self.circleColor)
             Circle()
-                .trim(from: 0.0, to: CGFloat(fraction))
-                .stroke(style: circleStyle)
+                .trim(from: 0.0, to: CGFloat(self.fraction))
+                .stroke(style: self.circleStyle)
                 .rotationEffect(Angle(degrees: 270))
-                .foregroundColor(completedFractionColor)
+                .foregroundColor(self.completedFractionColor)
         }
     }
 }

@@ -51,11 +51,11 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
         let isSelectionPersistent: Bool
         
         var body: some View {
-            configuration.label
+            self.configuration.label
                 .foregroundColor(.white)
                 .padding(15)
-                .background(RoundedRectangle(cornerRadius: 5).fill(pressed ? pressedColor : color))
-                .gesture(createGesture())
+                .background(RoundedRectangle(cornerRadius: 5).fill(self.pressed ? self.pressedColor : self.color))
+                .gesture(self.createGesture())
         }
         
         func createGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {
@@ -85,10 +85,10 @@ public struct StatefulButtonStyle: PrimitiveButtonStyle {
         let color: Color
         
         var body: some View {
-            configuration.label
+            self.configuration.label
                 .foregroundColor(.white)
                 .padding(15)
-                .background(RoundedRectangle(cornerRadius: 5).fill(color))
+                .background(RoundedRectangle(cornerRadius: 5).fill(self.color))
         }
     }
 }

@@ -13,7 +13,7 @@ struct KPIHeaderContent<List: IndexedViewContainer>: View {
     
     var body: some View {
         Group {
-            if context.isViewOrganized {
+            if self.context.isViewOrganized {
                 tabView
             } else {
                 calculateLayoutView
@@ -29,8 +29,8 @@ struct KPIHeaderContent<List: IndexedViewContainer>: View {
 extension KPIHeaderContent {
     var tabView: some View {
         TabView {
-            ForEach(0 ..< context.organizedItems.count, id: \.self) { index in
-                let pageItems = context.organizedItems[index]
+            ForEach(0 ..< self.context.organizedItems.count, id: \.self) { index in
+                let pageItems = self.context.organizedItems[index]
                 if pageItems.count == 1 {
                     pageItems[0]
                 } else {
@@ -44,29 +44,29 @@ extension KPIHeaderContent {
         }
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-        .frame(minHeight: context.itemsMaxHeight)
-        .onReceive(resizePublisher) { _ in
-            context.reset()
+        .frame(minHeight: self.context.itemsMaxHeight)
+        .onReceive(self.resizePublisher) { _ in
+            self.context.reset()
         }
     }
     
     var calculateLayoutView: some View {
         VStack {
-            ForEach(0 ..< min(count, maxNumberOfItems), id: \.self) { index in
+            ForEach(0 ..< min(self.count, self.maxNumberOfItems), id: \.self) { index in
                 TabView {
                     HStack(spacing: 0) {
-                        view(at: index)
+                        self.view(at: index)
                     }
                     .sizeReader { size in
-                        updateContext(index: index, size: size)
+                        self.updateContext(index: index, size: size)
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .always))
             }
         }
         .sizeReader { size in
-            context.containerSize = size
-            reLayoutView()
+            self.context.containerSize = size
+            self.reLayoutView()
         }
     }
     

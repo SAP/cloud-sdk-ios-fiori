@@ -208,10 +208,10 @@ extension ListPickerItem {
         }
         
         var body: some View {
-            let isSelected = selection.contains(id)
+            let isSelected = self.selection.contains(self.id)
             
             HStack {
-                content
+                self.content
                 
                 Spacer()
                 
@@ -223,12 +223,12 @@ extension ListPickerItem {
             .contentShape(Rectangle())
             .onTapGesture {
                 if isSelected {
-                    selection.remove(id)
+                    self.selection.remove(self.id)
                 } else {
-                    if !allowsMultipleSelection {
-                        selection.removeAll()
+                    if !self.allowsMultipleSelection {
+                        self.selection.removeAll()
                     }
-                    selection.insert(id)
+                    self.selection.insert(self.id)
                 }
             }
         }

@@ -118,8 +118,8 @@ public struct CustomTagStyle: TagStyle {
             .foregroundColor(self.textColor)
             .padding(self.contentInsets)
             .background(ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(fillColor)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(borderColor, lineWidth: borderWidth)
+                RoundedRectangle(cornerRadius: self.cornerRadius).fill(self.fillColor)
+                RoundedRectangle(cornerRadius: self.cornerRadius).stroke(self.borderColor, lineWidth: self.borderWidth)
             })
     }
 }
@@ -257,7 +257,7 @@ public struct Tag: View {
     }
     
     public var body: some View {
-        tagStyle.apply(TagStyleConfiguration(label: content))
+        self.tagStyle.apply(TagStyleConfiguration(label: self.content))
     }
 }
 

@@ -25,7 +25,7 @@ struct HarveyBallMicroChart: View {
         let fraction = self.model.dataItemsIn(seriesIndex: 0).last
         
         return HStack {
-            if fraction != nil && total != nil {
+            if fraction != nil, total != nil {
                 Spacer()
                 ZStack(alignment: .center) {
                     ArcShape(startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 360))

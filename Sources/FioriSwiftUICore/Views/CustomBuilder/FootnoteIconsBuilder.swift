@@ -77,10 +77,10 @@ public struct ConditionalSingleFootnoteIcon<TrueContent: View, FalseContent: Vie
     
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -117,9 +117,9 @@ public struct PairFootnoteIcon<First: View, Second: FootnoteIconList>: FootnoteI
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }

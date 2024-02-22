@@ -38,9 +38,9 @@ extension AreaMicroChartModel {
                                                                                           CGPoint(x: 30, y: 20),
                                                                                           CGPoint(x: 60, y: 20),
                                                                                           CGPoint(x: 100, y: 80)]),
-    targetPoints: AreaMicroChartModel.Item(.target,
-                                           points: [CGPoint(x: 0, y: 0),
-                                                    CGPoint(x: 100, y: 55)]))
+                                           targetPoints: AreaMicroChartModel.Item(.target,
+                                                                                  points: [CGPoint(x: 0, y: 0),
+                                                                                           CGPoint(x: 100, y: 55)]))
     
     static let test3 = AreaMicroChartModel(firstXLabel: Text("June 1").foregroundColor(.green),
                                            lastXLabel: Text("June 30").foregroundColor(.green),

@@ -15,8 +15,8 @@ public struct ActivityButtonView: View {
     }
 
     public var body: some View {
-        Button(action: handle) {
-            image
+        Button(action: self.handle) {
+            self.image
                 .font(.fiori(forTextStyle: .body).weight(.light))
                 .imageScale(.large)
                 .foregroundColor(.preferredColor(.tintColor))

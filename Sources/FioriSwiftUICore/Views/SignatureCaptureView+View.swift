@@ -81,7 +81,7 @@ extension SignatureCaptureView: View {
                     .simultaneousGesture(
                         TapGesture()
                             .onEnded { _ in
-                                clear()
+                                self.clear()
                                 isEditing = false
                             }
                     )
@@ -97,12 +97,12 @@ extension SignatureCaptureView: View {
                             Image(uiImage: uiImage)
                                 .renderingMode(.template)
                                 .foregroundColor(strokeColor)
-                                .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: self.imageMaxHeight())
                                 .cornerRadius(10)
                                 .padding(.zero)
                         } else {
                             Image(uiImage: uiImage)
-                                .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
+                                .frame(minHeight: _drawingViewMinHeight, maxHeight: self.imageMaxHeight())
                                 .cornerRadius(10)
                                 .padding(.zero)
                         }
@@ -120,13 +120,13 @@ extension SignatureCaptureView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.preferredColor(.separator), lineWidth: 1)
                         .background(Color.preferredColor(.quaternaryFill)).cornerRadius(10)
-                        .frame(minHeight: _drawingViewMinHeight, maxHeight: imageMaxHeight())
+                        .frame(minHeight: _drawingViewMinHeight, maxHeight: self.imageMaxHeight())
                         .padding(.zero)
                 }.padding(.zero)
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel(NSLocalizedString("Signature Image", tableName: "FioriSwiftUICore", bundle: Bundle.accessor, comment: "Signature Image"))
             } else {
-                drawingArea
+                self.drawingArea
                     .frame(minHeight: _drawingViewMinHeight, maxHeight: _drawingViewMaxHeight)
                     .padding(.zero)
                     .overlay(
@@ -145,7 +145,7 @@ extension SignatureCaptureView: View {
                         .simultaneousGesture(
                             TapGesture()
                                 .onEnded { _ in
-                                    clear()
+                                    self.clear()
                                 }
                         )
                         .disabled(drawings.isEmpty)
@@ -168,8 +168,8 @@ extension SignatureCaptureView: View {
                         TapGesture()
                             .onEnded { _ in
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                clear()
-                                onDelete()
+                                self.clear()
+                                self.onDelete()
                                 isReenterTapped = true
                                 self.isEditing = true
                             }

@@ -162,7 +162,7 @@ public struct ExpandableList<Data, Row, Destination>: View where Data: RandomAcc
     }
     
     public var body: some View {
-        contentView
+        self.contentView
     }
 }
 
@@ -254,26 +254,26 @@ struct ExpandableSection<Header, ListContent>: View where Header: View, ListCont
     var body: some View {
         VStack(spacing: 0) {
             HStack {
-                header()
+                self.header()
                 Spacer()
-                Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                Image(systemName: self.isExpanded ? "chevron.down" : "chevron.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 15, height: 15)
-                    .padding(.trailing, isModelInit ? 0 : 16)
+                    .padding(.trailing, self.isModelInit ? 0 : 16)
                     .foregroundColor(.preferredColor(.primaryLabel))
                     .onTapGesture {
-                        isExpanded.toggle()
+                        self.isExpanded.toggle()
                     }
-            }.padding(isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
-            if !isExpanded {
+            }.padding(self.isModelInit ? EdgeInsets(top: 11, leading: 11, bottom: 11, trailing: 11) : EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+            if !self.isExpanded {
                 Rectangle()
                     .fill(Color.preferredColor(.separator))
                     .frame(height: 0.5)
             }
         }
-        if isExpanded {
-            list()
+        if self.isExpanded {
+            self.list()
         }
     }
 }
@@ -293,18 +293,18 @@ struct RowContentContainer<Data, Row>: View where Data: RandomAccessCollection, 
     var selectionBinding: Binding<Data.Element?>
     
     var body: some View {
-        if item == selectionBinding.wrappedValue {
-            rowContent
+        if self.item == self.selectionBinding.wrappedValue {
+            self.rowContent
                 .modifier(ListItemBackgroundSelectionStyle())
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectionBinding.wrappedValue = item
+                    self.selectionBinding.wrappedValue = self.item
                 }
         } else {
-            rowContent
+            self.rowContent
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    selectionBinding.wrappedValue = item
+                    self.selectionBinding.wrappedValue = self.item
                 }
         }
     }

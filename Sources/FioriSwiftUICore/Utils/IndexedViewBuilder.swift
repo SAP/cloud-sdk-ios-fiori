@@ -33,10 +33,10 @@ public struct ConditionalSingleView<TrueContent: View, FalseContent: View>: Inde
     /// the View at Index in the PageView
     public func view(at index: Int) -> some View {
         Group {
-            if first == nil {
-                second
+            if self.first == nil {
+                self.second
             } else {
-                first
+                self.first
             }
         }
     }
@@ -55,9 +55,9 @@ public struct PairView<First: View, Second: IndexedViewContainer>: IndexedViewCo
     public func view(at index: Int) -> some View {
         Group {
             if index == 0 {
-                first
+                self.first
             } else {
-                remainder.view(at: index - 1)
+                self.remainder.view(at: index - 1)
             }
         }
     }

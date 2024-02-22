@@ -4,7 +4,7 @@ struct StackedColumnChart: View {
     @ObservedObject var model: ChartModel
     
     var body: some View {
-        XYAxisChart(model: model,
+        XYAxisChart(model: self.model,
                     chartContext: StackedColumnChartContext(),
                     chartView: ColumnView(),
                     indicatorView: EmptyView())
@@ -141,7 +141,7 @@ class StackedColumnChartContext: ColumnChartContext {
         let tmpStartPosition = startPosition(model, plotViewSize: rect.size)
         let startPosX = tmpStartPosition.x * tmpScaleX * width
         let pd = self.plotData(model)
-        let points = atPoints.map { (pt) -> CGPoint in
+        let points = atPoints.map { pt -> CGPoint in
             let x = ChartUtility.xPos(pt.x,
                                       layoutDirection: layoutDirection,
                                       width: width)

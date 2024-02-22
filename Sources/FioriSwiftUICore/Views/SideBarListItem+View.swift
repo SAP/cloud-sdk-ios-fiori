@@ -47,7 +47,7 @@ extension SideBarListItem: View {
                             .frame(width: 22 * scale, height: 22 * scale)
                         title
                             .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
-                            .foregroundColor(getColorStyle())
+                            .foregroundColor(self.getColorStyle())
                         Spacer()
                     }
                     
@@ -68,7 +68,7 @@ extension SideBarListItem: View {
                         .frame(width: 22 * scale, height: 22 * scale)
                     title
                         .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
-                        .foregroundColor(getColorStyle())
+                        .foregroundColor(self.getColorStyle())
                     Spacer()
                     subtitle
                         .font(Font.fiori(forTextStyle: .subheadline).weight(sideBarListItemConfigMode.isSelected ? Font.Weight.bold : Font.Weight.regular))
