@@ -17,6 +17,7 @@ public struct CardBodyBaseStyle: CardBodyStyle {
     public func makeBody(_ configuration: CardBodyConfiguration) -> some View {
         // Add default layout here
         configuration.cardBody
+            .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
@@ -28,5 +29,11 @@ public struct CardBodyFioriStyle: CardBodyStyle {
         // Add default style here
         // .foregroundStyle(Color.preferredColor(<#fiori color#>))
         // .font(.fiori(forTextStyle: <#fiori font#>))
+    }
+}
+
+#Preview {
+    CardBody {
+        Text("Card Body Placeholder")
     }
 }

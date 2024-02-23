@@ -24,10 +24,10 @@ public extension CardBody {
 
 extension CardBody: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(cardBody: .init(self.cardBody))).typeErased
+            self.style.resolve(configuration: .init(cardBody: .init(self.cardBody))).typeErased
                 .transformEnvironment(\.cardBodyStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

@@ -30,10 +30,10 @@ public extension SecondaryAction {
 
 extension SecondaryAction: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(secondaryAction: .init(self.secondaryAction))).typeErased
+            self.style.resolve(configuration: .init(secondaryAction: .init(self.secondaryAction))).typeErased
                 .transformEnvironment(\.secondaryActionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
