@@ -428,6 +428,34 @@ public extension FootnoteIconsStyle {
     }
 }
 
+// MARK: HeaderActionStyle
+
+extension ModifiedStyle: HeaderActionStyle where Style: HeaderActionStyle {
+    public func makeBody(_ configuration: HeaderActionConfiguration) -> some View {
+        HeaderAction(configuration)
+            .headerActionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct HeaderActionStyleModifier<Style: HeaderActionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.headerActionStyle(self.style)
+    }
+}
+
+public extension HeaderActionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some HeaderActionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some HeaderActionStyle) -> some HeaderActionStyle {
+        style.modifier(HeaderActionStyleModifier(style: self))
+    }
+}
+
 // MARK: IconStyle
 
 extension ModifiedStyle: IconStyle where Style: IconStyle {
@@ -509,6 +537,90 @@ public extension InformationViewStyle {
 
     func concat(_ style: some InformationViewStyle) -> some InformationViewStyle {
         style.modifier(InformationViewStyleModifier(style: self))
+    }
+}
+
+// MARK: KpiCaptionStyle
+
+extension ModifiedStyle: KpiCaptionStyle where Style: KpiCaptionStyle {
+    public func makeBody(_ configuration: KpiCaptionConfiguration) -> some View {
+        KpiCaption(configuration)
+            .kpiCaptionStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KpiCaptionStyleModifier<Style: KpiCaptionStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kpiCaptionStyle(self.style)
+    }
+}
+
+public extension KpiCaptionStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KpiCaptionStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KpiCaptionStyle) -> some KpiCaptionStyle {
+        style.modifier(KpiCaptionStyleModifier(style: self))
+    }
+}
+
+// MARK: KpiStyle
+
+extension ModifiedStyle: KpiStyle where Style: KpiStyle {
+    public func makeBody(_ configuration: KpiConfiguration) -> some View {
+        Kpi(configuration)
+            .kpiStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KpiStyleModifier<Style: KpiStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.kpiStyle(self.style)
+    }
+}
+
+public extension KpiStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KpiStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KpiStyle) -> some KpiStyle {
+        style.modifier(KpiStyleModifier(style: self))
+    }
+}
+
+// MARK: LabelItemStyle
+
+extension ModifiedStyle: LabelItemStyle where Style: LabelItemStyle {
+    public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .labelItemStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct LabelItemStyleModifier<Style: LabelItemStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.labelItemStyle(self.style)
+    }
+}
+
+public extension LabelItemStyle {
+    func modifier(_ modifier: some ViewModifier) -> some LabelItemStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some LabelItemStyle) -> some LabelItemStyle {
+        style.modifier(LabelItemStyleModifier(style: self))
     }
 }
 

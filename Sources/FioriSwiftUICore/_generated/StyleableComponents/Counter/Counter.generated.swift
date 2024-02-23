@@ -30,10 +30,10 @@ public extension Counter {
 
 extension Counter: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(counter: .init(self.counter))).typeErased
+            self.style.resolve(configuration: .init(counter: .init(self.counter))).typeErased
                 .transformEnvironment(\.counterStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

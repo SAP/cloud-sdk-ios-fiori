@@ -9,13 +9,19 @@ protocol _ObjectItemComponent: _TitleComponent, _SubtitleComponent, _FootnoteCom
 protocol _DemoViewComponent: _TitleComponent, _SubtitleComponent, _StatusComponent, _ActionComponent, _SwitchComponent {}
 
 // sourcery: CompositeComponent
+protocol _LabelItemComponent: _IconComponent, _TitleComponent {
+    /// The icon's `HorizontalAlignment`. The default is `leading`.
+    var alignment: HorizontalAlignment? { get set }
+}
+
+// sourcery: CompositeComponent
 protocol _CardMediaComponent: _MediaImageComponent, _DescriptionComponent {}
 
 // sourcery: CompositeComponent
-protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _DetailImageComponent, _CounterComponent {}
+protocol _CardMainHeaderComponent: _TitleComponent, _SubtitleComponent, _IconsComponent, _DetailImageComponent, _HeaderActionComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent
-protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component {}
+protocol _CardExtHeaderComponent: _Row1Component, _Row2Component, _Row3Component, _KpiComponent, _KpiCaptionComponent {}
 
 // sourcery: CompositeComponent
 protocol _CardFooterComponent: _ActionComponent, _SecondaryActionComponent {}
