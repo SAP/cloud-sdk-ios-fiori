@@ -5,21 +5,16 @@ import SwiftUI
 // Base Layout style
 public struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
-        GeometryReader { geometry in
-            VStack {
-                configuration.content
-                HStack(alignment: .top, spacing: 8) {
-                    configuration.icon
-                    configuration.description
-                    Spacer()
-                    configuration.counter
-                }
-                .frame(width: geometry.size.width - 32)
-                .padding(.leading, 16)
-                .padding(.trailing, 16)
-                .padding(.top, 4)
-                .padding(.bottom, 11)
+        VStack {
+            configuration.content
+            HStack(alignment: .top, spacing: 8) {
+                configuration.icon
+                configuration.description
+                Spacer()
+                configuration.counter
             }
+            .padding(.top, 4)
+            .padding(.bottom, 11)
         }
     }
 }
@@ -52,7 +47,6 @@ extension TextInputInfoViewFioriStyle {
     struct CounterFioriStyle: CounterStyle {
         func makeBody(_ configuration: CounterConfiguration) -> some View {
             Counter(configuration)
-                //            .foregroundStyle(Color.preferredColor(.primaryLabel))
                 .font(.fiori(forTextStyle: .footnote))
         }
     }
@@ -66,7 +60,7 @@ extension TextInputInfoViewFioriStyle {
 
 public extension View {
     /// To show the TextInputInfoView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    func textInputInfoView(icon: Image? = nil, description: AttributedString, counter: AttributedString) -> some View {
+    func textInputInfoView(icon: Image? = nil, description: AttributedString? = nil, counter: AttributedString? = nil) -> some View {
         TextInputInfoView(icon: icon, description: description, content: { self }, counter: counter)
     }
 }
@@ -89,9 +83,11 @@ public struct TextInputInfoViewErrorStyle: TextInputInfoViewStyle {
                     .foregroundStyle(Color.preferredColor(.negativeLabel))
             })
             .counterStyle(content: { counterConfiguration in
-                counterConfiguration.counter
-                    .foregroundStyle(Color.preferredColor(.negativeLabel))
-                    .font(.fiori(forTextStyle: .footnote))
+                if !counterConfiguration.counter.isEmpty {
+                    counterConfiguration.counter
+                        .foregroundStyle(Color.preferredColor(.negativeLabel))
+                        .font(.fiori(forTextStyle: .footnote))
+                }
             })
     }
 }

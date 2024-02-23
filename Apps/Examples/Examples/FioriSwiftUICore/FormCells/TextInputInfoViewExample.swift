@@ -7,6 +7,12 @@ struct TextInputInfoViewExample: View {
             Text("Default Fiori style, no icon")
                 .textInputInfoView(description: AttributedString("test message"), counter: AttributedString("10/100"))
             
+            Text("Default Fiori style, no message")
+                .textInputInfoView(counter: AttributedString("10/100"))
+            
+            Text("Default Fiori style, no counter")
+                .textInputInfoView(description: AttributedString("test message"))
+            
             Text("Error style")
                 .textInputInfoView(description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("12/10"))
                 .textInputInfoViewStyle(.error)
@@ -45,5 +51,6 @@ struct TextInputInfoViewExample: View {
             
             Spacer()
         }
+        .padding()
     }
 }
