@@ -5,8 +5,8 @@ public struct PageIndicator: View {
     let numberOfPages: Int
     @Binding var currentPage: Int
     
-    let currentPageIndicatorTintColor = Color.preferredColor(.secondaryLabel)
-    let pageIndicatorTintColor = Color.preferredColor(.secondaryFill)
+    let currentPageIndicatorTintColor = Color.preferredColor(.primaryLabel)
+    let pageIndicatorTintColor = Color.preferredColor(.quaternaryLabel)
     let circleSize: CGFloat = 8
     let circleSpacing: CGFloat = 10
     
