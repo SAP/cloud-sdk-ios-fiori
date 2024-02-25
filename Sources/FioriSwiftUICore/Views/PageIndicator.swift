@@ -12,7 +12,7 @@ public struct PageIndicator: View {
     
     public var body: some View {
         HStack(spacing: circleSpacing) {
-            ForEach(0 ..< numberOfPages) { index in
+            ForEach(0 ..< numberOfPages, id: \.self) { index in
                 ZStack {
                     Circle()
                         .fill(currentPage == index ? currentPageIndicatorTintColor : pageIndicatorTintColor)
