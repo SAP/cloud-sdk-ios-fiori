@@ -17,10 +17,13 @@ public struct CardMediaBaseStyle: CardMediaStyle {
     public func makeBody(_ configuration: CardMediaConfiguration) -> some View {
         // Add default layout here
         configuration.mediaImage
-        configuration.description
+            .overlay(alignment: .bottomLeading) {
+                configuration.description
+                    .padding(EdgeInsets(top: 16, leading: 16, bottom: 16, trailing: 16))
+            }
     }
 }
-    
+
 // Default fiori styles
 extension CardMediaFioriStyle {
     struct ContentFioriStyle: CardMediaStyle {
@@ -30,22 +33,59 @@ extension CardMediaFioriStyle {
             // .background()
         }
     }
-
+    
     struct MediaImageFioriStyle: MediaImageStyle {
         func makeBody(_ configuration: MediaImageConfiguration) -> some View {
             MediaImage(configuration)
-            // Add default style for MediaImage
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .frame(maxWidth: .infinity)
+                .clipped()
         }
     }
-
+    
     struct DescriptionFioriStyle: DescriptionStyle {
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-            // Add default style for Description
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                // Add default style for Description
+                .font(.fiori(forTextStyle: .title1, weight: .bold))
+                .foregroundColor(.preferredColor(.primaryLabel))
         }
     }
+}
+
+#Preview("Data Base") {
+    CardMedia(mediaImage: Image(systemName: "sportscourt"), description: "Title")
+}
+
+#Preview("VB Base") {
+    CardMedia {
+        Image(systemName: "sportscourt")
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+    } description: {
+        Text("Title")
+            .foregroundColor(.purple)
+    }
+    .frame(height: 415)
+}
+
+#Preview("VB Fiori") {
+    CardMedia {
+        Color.purple
+            .frame(width: 300, height: 145)
+    } description: {
+        Text("Title")
+    }
+    .frame(height: 600)
+}
+
+#Preview("M") {
+    Text("hello")
+        .foregroundColor(Color.blue)
+        .foregroundColor(Color.red)
+        .font(.largeTitle)
+        .font(.footnote)
+        .frame(height: 172)
+        .frame(width: 200)
+        .frame(height: 70)
+        .border(Color.black)
 }

@@ -30,10 +30,10 @@ public extension Action {
 
 extension Action: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(action: .init(self.action))).typeErased
+            self.style.resolve(configuration: .init(action: .init(self.action))).typeErased
                 .transformEnvironment(\.actionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

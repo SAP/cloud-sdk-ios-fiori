@@ -30,10 +30,10 @@ public extension Description {
 
 extension Description: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(description: .init(self.description))).typeErased
+            self.style.resolve(configuration: .init(description: .init(self.description))).typeErased
                 .transformEnvironment(\.descriptionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

@@ -125,6 +125,10 @@ struct CoreContentView: View {
                     Text("ContactItem")
                 }
                 
+                NavigationLink(destination: MobileCardExample()) {
+                    Text("Cards")
+                }
+                
                 NavigationLink(
                     destination: EmptyStateViewExample()) {
                     Text("EmptyStateViewExample")

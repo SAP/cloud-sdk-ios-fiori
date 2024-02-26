@@ -24,12 +24,16 @@ struct AnyCardMainHeaderStyle: CardMainHeaderStyle {
 public struct CardMainHeaderConfiguration {
     public let title: Title
     public let subtitle: Subtitle
+    public let icons: Icons
     public let detailImage: DetailImage
+    public let headerAction: HeaderAction
     public let counter: Counter
 
     public typealias Title = ConfigurationViewWrapper
     public typealias Subtitle = ConfigurationViewWrapper
+    public typealias Icons = ConfigurationViewWrapper
     public typealias DetailImage = ConfigurationViewWrapper
+    public typealias HeaderAction = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
 }
     
@@ -38,7 +42,9 @@ public struct CardMainHeaderFioriStyle: CardMainHeaderStyle {
         CardMainHeader(configuration)
             .titleStyle(TitleFioriStyle())
             .subtitleStyle(SubtitleFioriStyle())
+            .iconsStyle(IconsFioriStyle())
             .detailImageStyle(DetailImageFioriStyle())
+            .headerActionStyle(HeaderActionFioriStyle())
             .counterStyle(CounterFioriStyle())
     }
 }

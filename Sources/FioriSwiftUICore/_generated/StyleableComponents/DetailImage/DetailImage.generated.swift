@@ -30,10 +30,10 @@ public extension DetailImage {
 
 extension DetailImage: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(detailImage: .init(self.detailImage))).typeErased
+            self.style.resolve(configuration: .init(detailImage: .init(self.detailImage))).typeErased
                 .transformEnvironment(\.detailImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

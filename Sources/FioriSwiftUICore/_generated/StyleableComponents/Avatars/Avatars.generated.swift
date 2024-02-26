@@ -30,10 +30,10 @@ public extension Avatars {
 
 extension Avatars: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(avatars: .init(self.avatars))).typeErased
+            self.style.resolve(configuration: .init(avatars: .init(self.avatars))).typeErased
                 .transformEnvironment(\.avatarsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
