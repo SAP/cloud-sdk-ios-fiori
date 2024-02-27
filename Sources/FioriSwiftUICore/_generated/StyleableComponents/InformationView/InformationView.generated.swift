@@ -42,10 +42,10 @@ public extension InformationView {
 
 extension InformationView: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content))).typeErased
+            self.style.resolve(configuration: .init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content))).typeErased
                 .transformEnvironment(\.informationViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

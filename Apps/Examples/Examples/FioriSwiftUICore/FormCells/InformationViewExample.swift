@@ -3,7 +3,7 @@ import SwiftUI
 
 struct InformationViewExample: View {
     var body: some View {
-        VStack(alignment: .leading) {
+        List {
             Text("Default Fiori style, no icon")
                 .informationView(description: AttributedString("test message"))
             

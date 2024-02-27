@@ -30,10 +30,10 @@ public extension Tags {
 
 extension Tags: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(tags: .init(self.tags))).typeErased
+            self.style.resolve(configuration: .init(tags: .init(self.tags))).typeErased
                 .transformEnvironment(\.tagsStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

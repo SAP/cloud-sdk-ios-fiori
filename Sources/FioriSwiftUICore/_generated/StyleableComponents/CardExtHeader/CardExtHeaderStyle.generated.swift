@@ -25,10 +25,14 @@ public struct CardExtHeaderConfiguration {
     public let row1: Row1
     public let row2: Row2
     public let row3: Row3
+    public let kpi: Kpi
+    public let kpiCaption: KpiCaption
 
     public typealias Row1 = ConfigurationViewWrapper
     public typealias Row2 = ConfigurationViewWrapper
     public typealias Row3 = ConfigurationViewWrapper
+    public typealias Kpi = ConfigurationViewWrapper
+    public typealias KpiCaption = ConfigurationViewWrapper
 }
     
 public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
@@ -37,5 +41,7 @@ public struct CardExtHeaderFioriStyle: CardExtHeaderStyle {
             .row1Style(Row1FioriStyle())
             .row2Style(Row2FioriStyle())
             .row3Style(Row3FioriStyle())
+            .kpiStyle(KpiFioriStyle())
+            .kpiCaptionStyle(KpiCaptionFioriStyle())
     }
 }

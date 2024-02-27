@@ -30,10 +30,10 @@ public extension Substatus {
 
 extension Substatus: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(substatus: .init(self.substatus))).typeErased
+            self.style.resolve(configuration: .init(substatus: .init(self.substatus))).typeErased
                 .transformEnvironment(\.substatusStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

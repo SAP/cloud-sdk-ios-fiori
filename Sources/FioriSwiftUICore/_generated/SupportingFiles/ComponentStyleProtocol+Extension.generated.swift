@@ -70,7 +70,7 @@ public struct CardMediaImageStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardMediaImageStyle {
-    static func mediaImageStyle<Style: MediaImageStyle>(_ style: Style) -> CardMediaImageStyle {
+    static func mediaImageStyle(_ style: some MediaImageStyle) -> CardMediaImageStyle {
         CardMediaImageStyle(style: style)
     }
         
@@ -91,7 +91,7 @@ public struct CardDescriptionStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> CardDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> CardDescriptionStyle {
         CardDescriptionStyle(style: style)
     }
         
@@ -112,7 +112,7 @@ public struct CardTitleStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> CardTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> CardTitleStyle {
         CardTitleStyle(style: style)
     }
         
@@ -133,13 +133,34 @@ public struct CardSubtitleStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> CardSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> CardSubtitleStyle {
         CardSubtitleStyle(style: style)
     }
         
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardSubtitleStyle(style: style)
+    }
+}
+
+public struct CardIconsStyle: CardStyle {
+    let style: any IconsStyle
+        
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .iconsStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardStyle where Self == CardIconsStyle {
+    static func iconsStyle(_ style: some IconsStyle) -> CardIconsStyle {
+        CardIconsStyle(style: style)
+    }
+        
+    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardIconsStyle {
+        let style = AnyIconsStyle(content)
+        return CardIconsStyle(style: style)
     }
 }
 
@@ -154,13 +175,34 @@ public struct CardDetailImageStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardDetailImageStyle {
-    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> CardDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> CardDetailImageStyle {
         CardDetailImageStyle(style: style)
     }
         
     static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardDetailImageStyle(style: style)
+    }
+}
+
+public struct CardHeaderActionStyle: CardStyle {
+    let style: any HeaderActionStyle
+        
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .headerActionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardStyle where Self == CardHeaderActionStyle {
+    static func headerActionStyle(_ style: some HeaderActionStyle) -> CardHeaderActionStyle {
+        CardHeaderActionStyle(style: style)
+    }
+        
+    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderActionStyle {
+        let style = AnyHeaderActionStyle(content)
+        return CardHeaderActionStyle(style: style)
     }
 }
 
@@ -175,7 +217,7 @@ public struct CardCounterStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardCounterStyle {
-    static func counterStyle<Style: CounterStyle>(_ style: Style) -> CardCounterStyle {
+    static func counterStyle(_ style: some CounterStyle) -> CardCounterStyle {
         CardCounterStyle(style: style)
     }
         
@@ -196,7 +238,7 @@ public struct CardRow1Style: CardStyle {
 }
     
 public extension CardStyle where Self == CardRow1Style {
-    static func row1Style<Style: Row1Style>(_ style: Style) -> CardRow1Style {
+    static func row1Style(_ style: some Row1Style) -> CardRow1Style {
         CardRow1Style(style: style)
     }
         
@@ -217,7 +259,7 @@ public struct CardRow2Style: CardStyle {
 }
     
 public extension CardStyle where Self == CardRow2Style {
-    static func row2Style<Style: Row2Style>(_ style: Style) -> CardRow2Style {
+    static func row2Style(_ style: some Row2Style) -> CardRow2Style {
         CardRow2Style(style: style)
     }
         
@@ -238,13 +280,55 @@ public struct CardRow3Style: CardStyle {
 }
     
 public extension CardStyle where Self == CardRow3Style {
-    static func row3Style<Style: Row3Style>(_ style: Style) -> CardRow3Style {
+    static func row3Style(_ style: some Row3Style) -> CardRow3Style {
         CardRow3Style(style: style)
     }
         
     static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardRow3Style {
         let style = AnyRow3Style(content)
         return CardRow3Style(style: style)
+    }
+}
+
+public struct CardKpiStyle: CardStyle {
+    let style: any KpiStyle
+        
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .kpiStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardStyle where Self == CardKpiStyle {
+    static func kpiStyle(_ style: some KpiStyle) -> CardKpiStyle {
+        CardKpiStyle(style: style)
+    }
+        
+    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardKpiStyle {
+        let style = AnyKpiStyle(content)
+        return CardKpiStyle(style: style)
+    }
+}
+
+public struct CardKpiCaptionStyle: CardStyle {
+    let style: any KpiCaptionStyle
+        
+    public func makeBody(_ configuration: CardConfiguration) -> some View {
+        Card(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardStyle where Self == CardKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> CardKpiCaptionStyle {
+        CardKpiCaptionStyle(style: style)
+    }
+        
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return CardKpiCaptionStyle(style: style)
     }
 }
 
@@ -259,7 +343,7 @@ public struct CardCardBodyStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardCardBodyStyle {
-    static func cardBodyStyle<Style: CardBodyStyle>(_ style: Style) -> CardCardBodyStyle {
+    static func cardBodyStyle(_ style: some CardBodyStyle) -> CardCardBodyStyle {
         CardCardBodyStyle(style: style)
     }
         
@@ -280,7 +364,7 @@ public struct CardActionStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardActionStyle {
-    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> CardActionStyle {
         CardActionStyle(style: style)
     }
         
@@ -301,7 +385,7 @@ public struct CardSecondaryActionStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardSecondaryActionStyle {
-    static func secondaryActionStyle<Style: SecondaryActionStyle>(_ style: Style) -> CardSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> CardSecondaryActionStyle {
         CardSecondaryActionStyle(style: style)
     }
         
@@ -322,7 +406,7 @@ public struct CardCardHeaderStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardCardHeaderStyle {
-    static func cardHeaderStyle<Style: CardHeaderStyle>(_ style: Style) -> CardCardHeaderStyle {
+    static func cardHeaderStyle(_ style: some CardHeaderStyle) -> CardCardHeaderStyle {
         CardCardHeaderStyle(style: style)
     }
         
@@ -343,7 +427,7 @@ public struct CardCardFooterStyle: CardStyle {
 }
     
 public extension CardStyle where Self == CardCardFooterStyle {
-    static func cardFooterStyle<Style: CardFooterStyle>(_ style: Style) -> CardCardFooterStyle {
+    static func cardFooterStyle(_ style: some CardFooterStyle) -> CardCardFooterStyle {
         CardCardFooterStyle(style: style)
     }
         
@@ -378,7 +462,7 @@ public struct CardExtHeaderRow1Style: CardExtHeaderStyle {
 }
     
 public extension CardExtHeaderStyle where Self == CardExtHeaderRow1Style {
-    static func row1Style<Style: Row1Style>(_ style: Style) -> CardExtHeaderRow1Style {
+    static func row1Style(_ style: some Row1Style) -> CardExtHeaderRow1Style {
         CardExtHeaderRow1Style(style: style)
     }
         
@@ -399,7 +483,7 @@ public struct CardExtHeaderRow2Style: CardExtHeaderStyle {
 }
     
 public extension CardExtHeaderStyle where Self == CardExtHeaderRow2Style {
-    static func row2Style<Style: Row2Style>(_ style: Style) -> CardExtHeaderRow2Style {
+    static func row2Style(_ style: some Row2Style) -> CardExtHeaderRow2Style {
         CardExtHeaderRow2Style(style: style)
     }
         
@@ -420,13 +504,55 @@ public struct CardExtHeaderRow3Style: CardExtHeaderStyle {
 }
     
 public extension CardExtHeaderStyle where Self == CardExtHeaderRow3Style {
-    static func row3Style<Style: Row3Style>(_ style: Style) -> CardExtHeaderRow3Style {
+    static func row3Style(_ style: some Row3Style) -> CardExtHeaderRow3Style {
         CardExtHeaderRow3Style(style: style)
     }
         
     static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardExtHeaderRow3Style {
         let style = AnyRow3Style(content)
         return CardExtHeaderRow3Style(style: style)
+    }
+}
+
+public struct CardExtHeaderKpiStyle: CardExtHeaderStyle {
+    let style: any KpiStyle
+        
+    public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
+        CardExtHeader(configuration)
+            .kpiStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardExtHeaderStyle where Self == CardExtHeaderKpiStyle {
+    static func kpiStyle(_ style: some KpiStyle) -> CardExtHeaderKpiStyle {
+        CardExtHeaderKpiStyle(style: style)
+    }
+        
+    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardExtHeaderKpiStyle {
+        let style = AnyKpiStyle(content)
+        return CardExtHeaderKpiStyle(style: style)
+    }
+}
+
+public struct CardExtHeaderKpiCaptionStyle: CardExtHeaderStyle {
+    let style: any KpiCaptionStyle
+        
+    public func makeBody(_ configuration: CardExtHeaderConfiguration) -> some View {
+        CardExtHeader(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardExtHeaderStyle where Self == CardExtHeaderKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> CardExtHeaderKpiCaptionStyle {
+        CardExtHeaderKpiCaptionStyle(style: style)
+    }
+        
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardExtHeaderKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return CardExtHeaderKpiCaptionStyle(style: style)
     }
 }
 
@@ -455,7 +581,7 @@ public struct CardFooterActionStyle: CardFooterStyle {
 }
     
 public extension CardFooterStyle where Self == CardFooterActionStyle {
-    static func actionStyle<Style: ActionStyle>(_ style: Style) -> CardFooterActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> CardFooterActionStyle {
         CardFooterActionStyle(style: style)
     }
         
@@ -476,7 +602,7 @@ public struct CardFooterSecondaryActionStyle: CardFooterStyle {
 }
     
 public extension CardFooterStyle where Self == CardFooterSecondaryActionStyle {
-    static func secondaryActionStyle<Style: SecondaryActionStyle>(_ style: Style) -> CardFooterSecondaryActionStyle {
+    static func secondaryActionStyle(_ style: some SecondaryActionStyle) -> CardFooterSecondaryActionStyle {
         CardFooterSecondaryActionStyle(style: style)
     }
         
@@ -511,7 +637,7 @@ public struct CardHeaderMediaImageStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderMediaImageStyle {
-    static func mediaImageStyle<Style: MediaImageStyle>(_ style: Style) -> CardHeaderMediaImageStyle {
+    static func mediaImageStyle(_ style: some MediaImageStyle) -> CardHeaderMediaImageStyle {
         CardHeaderMediaImageStyle(style: style)
     }
         
@@ -532,7 +658,7 @@ public struct CardHeaderDescriptionStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> CardHeaderDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> CardHeaderDescriptionStyle {
         CardHeaderDescriptionStyle(style: style)
     }
         
@@ -553,7 +679,7 @@ public struct CardHeaderTitleStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> CardHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> CardHeaderTitleStyle {
         CardHeaderTitleStyle(style: style)
     }
         
@@ -574,13 +700,34 @@ public struct CardHeaderSubtitleStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> CardHeaderSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> CardHeaderSubtitleStyle {
         CardHeaderSubtitleStyle(style: style)
     }
         
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardHeaderSubtitleStyle(style: style)
+    }
+}
+
+public struct CardHeaderIconsStyle: CardHeaderStyle {
+    let style: any IconsStyle
+        
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .iconsStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardHeaderStyle where Self == CardHeaderIconsStyle {
+    static func iconsStyle(_ style: some IconsStyle) -> CardHeaderIconsStyle {
+        CardHeaderIconsStyle(style: style)
+    }
+        
+    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardHeaderIconsStyle {
+        let style = AnyIconsStyle(content)
+        return CardHeaderIconsStyle(style: style)
     }
 }
 
@@ -595,13 +742,34 @@ public struct CardHeaderDetailImageStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderDetailImageStyle {
-    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> CardHeaderDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> CardHeaderDetailImageStyle {
         CardHeaderDetailImageStyle(style: style)
     }
         
     static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardHeaderDetailImageStyle(style: style)
+    }
+}
+
+public struct CardHeaderHeaderActionStyle: CardHeaderStyle {
+    let style: any HeaderActionStyle
+        
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .headerActionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardHeaderStyle where Self == CardHeaderHeaderActionStyle {
+    static func headerActionStyle(_ style: some HeaderActionStyle) -> CardHeaderHeaderActionStyle {
+        CardHeaderHeaderActionStyle(style: style)
+    }
+        
+    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardHeaderHeaderActionStyle {
+        let style = AnyHeaderActionStyle(content)
+        return CardHeaderHeaderActionStyle(style: style)
     }
 }
 
@@ -616,7 +784,7 @@ public struct CardHeaderCounterStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderCounterStyle {
-    static func counterStyle<Style: CounterStyle>(_ style: Style) -> CardHeaderCounterStyle {
+    static func counterStyle(_ style: some CounterStyle) -> CardHeaderCounterStyle {
         CardHeaderCounterStyle(style: style)
     }
         
@@ -637,7 +805,7 @@ public struct CardHeaderRow1Style: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderRow1Style {
-    static func row1Style<Style: Row1Style>(_ style: Style) -> CardHeaderRow1Style {
+    static func row1Style(_ style: some Row1Style) -> CardHeaderRow1Style {
         CardHeaderRow1Style(style: style)
     }
         
@@ -658,7 +826,7 @@ public struct CardHeaderRow2Style: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderRow2Style {
-    static func row2Style<Style: Row2Style>(_ style: Style) -> CardHeaderRow2Style {
+    static func row2Style(_ style: some Row2Style) -> CardHeaderRow2Style {
         CardHeaderRow2Style(style: style)
     }
         
@@ -679,13 +847,55 @@ public struct CardHeaderRow3Style: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderRow3Style {
-    static func row3Style<Style: Row3Style>(_ style: Style) -> CardHeaderRow3Style {
+    static func row3Style(_ style: some Row3Style) -> CardHeaderRow3Style {
         CardHeaderRow3Style(style: style)
     }
         
     static func row3Style(@ViewBuilder content: @escaping (Row3Configuration) -> some View) -> CardHeaderRow3Style {
         let style = AnyRow3Style(content)
         return CardHeaderRow3Style(style: style)
+    }
+}
+
+public struct CardHeaderKpiStyle: CardHeaderStyle {
+    let style: any KpiStyle
+        
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .kpiStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardHeaderStyle where Self == CardHeaderKpiStyle {
+    static func kpiStyle(_ style: some KpiStyle) -> CardHeaderKpiStyle {
+        CardHeaderKpiStyle(style: style)
+    }
+        
+    static func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> CardHeaderKpiStyle {
+        let style = AnyKpiStyle(content)
+        return CardHeaderKpiStyle(style: style)
+    }
+}
+
+public struct CardHeaderKpiCaptionStyle: CardHeaderStyle {
+    let style: any KpiCaptionStyle
+        
+    public func makeBody(_ configuration: CardHeaderConfiguration) -> some View {
+        CardHeader(configuration)
+            .kpiCaptionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardHeaderStyle where Self == CardHeaderKpiCaptionStyle {
+    static func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> CardHeaderKpiCaptionStyle {
+        CardHeaderKpiCaptionStyle(style: style)
+    }
+        
+    static func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> CardHeaderKpiCaptionStyle {
+        let style = AnyKpiCaptionStyle(content)
+        return CardHeaderKpiCaptionStyle(style: style)
     }
 }
 
@@ -700,7 +910,7 @@ public struct CardHeaderCardMediaStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderCardMediaStyle {
-    static func cardMediaStyle<Style: CardMediaStyle>(_ style: Style) -> CardHeaderCardMediaStyle {
+    static func cardMediaStyle(_ style: some CardMediaStyle) -> CardHeaderCardMediaStyle {
         CardHeaderCardMediaStyle(style: style)
     }
         
@@ -721,7 +931,7 @@ public struct CardHeaderCardMainHeaderStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderCardMainHeaderStyle {
-    static func cardMainHeaderStyle<Style: CardMainHeaderStyle>(_ style: Style) -> CardHeaderCardMainHeaderStyle {
+    static func cardMainHeaderStyle(_ style: some CardMainHeaderStyle) -> CardHeaderCardMainHeaderStyle {
         CardHeaderCardMainHeaderStyle(style: style)
     }
         
@@ -742,7 +952,7 @@ public struct CardHeaderCardExtHeaderStyle: CardHeaderStyle {
 }
     
 public extension CardHeaderStyle where Self == CardHeaderCardExtHeaderStyle {
-    static func cardExtHeaderStyle<Style: CardExtHeaderStyle>(_ style: Style) -> CardHeaderCardExtHeaderStyle {
+    static func cardExtHeaderStyle(_ style: some CardExtHeaderStyle) -> CardHeaderCardExtHeaderStyle {
         CardHeaderCardExtHeaderStyle(style: style)
     }
         
@@ -777,7 +987,7 @@ public struct CardMainHeaderTitleStyle: CardMainHeaderStyle {
 }
     
 public extension CardMainHeaderStyle where Self == CardMainHeaderTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> CardMainHeaderTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> CardMainHeaderTitleStyle {
         CardMainHeaderTitleStyle(style: style)
     }
         
@@ -798,13 +1008,34 @@ public struct CardMainHeaderSubtitleStyle: CardMainHeaderStyle {
 }
     
 public extension CardMainHeaderStyle where Self == CardMainHeaderSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> CardMainHeaderSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> CardMainHeaderSubtitleStyle {
         CardMainHeaderSubtitleStyle(style: style)
     }
         
     static func subtitleStyle(@ViewBuilder content: @escaping (SubtitleConfiguration) -> some View) -> CardMainHeaderSubtitleStyle {
         let style = AnySubtitleStyle(content)
         return CardMainHeaderSubtitleStyle(style: style)
+    }
+}
+
+public struct CardMainHeaderIconsStyle: CardMainHeaderStyle {
+    let style: any IconsStyle
+        
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .iconsStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardMainHeaderStyle where Self == CardMainHeaderIconsStyle {
+    static func iconsStyle(_ style: some IconsStyle) -> CardMainHeaderIconsStyle {
+        CardMainHeaderIconsStyle(style: style)
+    }
+        
+    static func iconsStyle(@ViewBuilder content: @escaping (IconsConfiguration) -> some View) -> CardMainHeaderIconsStyle {
+        let style = AnyIconsStyle(content)
+        return CardMainHeaderIconsStyle(style: style)
     }
 }
 
@@ -819,13 +1050,34 @@ public struct CardMainHeaderDetailImageStyle: CardMainHeaderStyle {
 }
     
 public extension CardMainHeaderStyle where Self == CardMainHeaderDetailImageStyle {
-    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> CardMainHeaderDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> CardMainHeaderDetailImageStyle {
         CardMainHeaderDetailImageStyle(style: style)
     }
         
     static func detailImageStyle(@ViewBuilder content: @escaping (DetailImageConfiguration) -> some View) -> CardMainHeaderDetailImageStyle {
         let style = AnyDetailImageStyle(content)
         return CardMainHeaderDetailImageStyle(style: style)
+    }
+}
+
+public struct CardMainHeaderHeaderActionStyle: CardMainHeaderStyle {
+    let style: any HeaderActionStyle
+        
+    public func makeBody(_ configuration: CardMainHeaderConfiguration) -> some View {
+        CardMainHeader(configuration)
+            .headerActionStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension CardMainHeaderStyle where Self == CardMainHeaderHeaderActionStyle {
+    static func headerActionStyle(_ style: some HeaderActionStyle) -> CardMainHeaderHeaderActionStyle {
+        CardMainHeaderHeaderActionStyle(style: style)
+    }
+        
+    static func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> CardMainHeaderHeaderActionStyle {
+        let style = AnyHeaderActionStyle(content)
+        return CardMainHeaderHeaderActionStyle(style: style)
     }
 }
 
@@ -840,7 +1092,7 @@ public struct CardMainHeaderCounterStyle: CardMainHeaderStyle {
 }
     
 public extension CardMainHeaderStyle where Self == CardMainHeaderCounterStyle {
-    static func counterStyle<Style: CounterStyle>(_ style: Style) -> CardMainHeaderCounterStyle {
+    static func counterStyle(_ style: some CounterStyle) -> CardMainHeaderCounterStyle {
         CardMainHeaderCounterStyle(style: style)
     }
         
@@ -875,7 +1127,7 @@ public struct CardMediaMediaImageStyle: CardMediaStyle {
 }
     
 public extension CardMediaStyle where Self == CardMediaMediaImageStyle {
-    static func mediaImageStyle<Style: MediaImageStyle>(_ style: Style) -> CardMediaMediaImageStyle {
+    static func mediaImageStyle(_ style: some MediaImageStyle) -> CardMediaMediaImageStyle {
         CardMediaMediaImageStyle(style: style)
     }
         
@@ -896,7 +1148,7 @@ public struct CardMediaDescriptionStyle: CardMediaStyle {
 }
     
 public extension CardMediaStyle where Self == CardMediaDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> CardMediaDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> CardMediaDescriptionStyle {
         CardMediaDescriptionStyle(style: style)
     }
         
@@ -945,7 +1197,7 @@ public struct DemoViewTitleStyle: DemoViewStyle {
 }
     
 public extension DemoViewStyle where Self == DemoViewTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> DemoViewTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> DemoViewTitleStyle {
         DemoViewTitleStyle(style: style)
     }
         
@@ -966,7 +1218,7 @@ public struct DemoViewSubtitleStyle: DemoViewStyle {
 }
     
 public extension DemoViewStyle where Self == DemoViewSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> DemoViewSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> DemoViewSubtitleStyle {
         DemoViewSubtitleStyle(style: style)
     }
         
@@ -987,7 +1239,7 @@ public struct DemoViewStatusStyle: DemoViewStyle {
 }
     
 public extension DemoViewStyle where Self == DemoViewStatusStyle {
-    static func statusStyle<Style: StatusStyle>(_ style: Style) -> DemoViewStatusStyle {
+    static func statusStyle(_ style: some StatusStyle) -> DemoViewStatusStyle {
         DemoViewStatusStyle(style: style)
     }
         
@@ -1008,7 +1260,7 @@ public struct DemoViewActionStyle: DemoViewStyle {
 }
     
 public extension DemoViewStyle where Self == DemoViewActionStyle {
-    static func actionStyle<Style: ActionStyle>(_ style: Style) -> DemoViewActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> DemoViewActionStyle {
         DemoViewActionStyle(style: style)
     }
         
@@ -1029,7 +1281,7 @@ public struct DemoViewSwitchStyle: DemoViewStyle {
 }
     
 public extension DemoViewStyle where Self == DemoViewSwitchStyle {
-    static func switchStyle<Style: SwitchStyle>(_ style: Style) -> DemoViewSwitchStyle {
+    static func switchStyle(_ style: some SwitchStyle) -> DemoViewSwitchStyle {
         DemoViewSwitchStyle(style: style)
     }
         
@@ -1092,6 +1344,20 @@ public extension FootnoteIconsStyle where Self == FootnoteIconsBaseStyle {
 public extension FootnoteIconsStyle where Self == FootnoteIconsFioriStyle {
     static var fiori: FootnoteIconsFioriStyle {
         FootnoteIconsFioriStyle()
+    }
+}
+
+// MARK: HeaderActionStyle
+    
+public extension HeaderActionStyle where Self == HeaderActionBaseStyle {
+    static var base: HeaderActionBaseStyle {
+        HeaderActionBaseStyle()
+    }
+}
+
+public extension HeaderActionStyle where Self == HeaderActionFioriStyle {
+    static var fiori: HeaderActionFioriStyle {
+        HeaderActionFioriStyle()
     }
 }
 
@@ -1246,7 +1512,7 @@ public struct InformationViewIconStyle: InformationViewStyle {
 }
     
 public extension InformationViewStyle where Self == InformationViewIconStyle {
-    static func iconStyle<Style: IconStyle>(_ style: Style) -> InformationViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> InformationViewIconStyle {
         InformationViewIconStyle(style: style)
     }
         
@@ -1267,13 +1533,97 @@ public struct InformationViewDescriptionStyle: InformationViewStyle {
 }
     
 public extension InformationViewStyle where Self == InformationViewDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> InformationViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> InformationViewDescriptionStyle {
         InformationViewDescriptionStyle(style: style)
     }
         
     static func descriptionStyle(@ViewBuilder content: @escaping (DescriptionConfiguration) -> some View) -> InformationViewDescriptionStyle {
         let style = AnyDescriptionStyle(content)
         return InformationViewDescriptionStyle(style: style)
+    }
+}
+
+// MARK: KpiCaptionStyle
+    
+public extension KpiCaptionStyle where Self == KpiCaptionBaseStyle {
+    static var base: KpiCaptionBaseStyle {
+        KpiCaptionBaseStyle()
+    }
+}
+
+public extension KpiCaptionStyle where Self == KpiCaptionFioriStyle {
+    static var fiori: KpiCaptionFioriStyle {
+        KpiCaptionFioriStyle()
+    }
+}
+
+// MARK: KpiStyle
+    
+public extension KpiStyle where Self == KpiBaseStyle {
+    static var base: KpiBaseStyle {
+        KpiBaseStyle()
+    }
+}
+
+public extension KpiStyle where Self == KpiFioriStyle {
+    static var fiori: KpiFioriStyle {
+        KpiFioriStyle()
+    }
+}
+
+// MARK: LabelItemStyle
+    
+public extension LabelItemStyle where Self == LabelItemBaseStyle {
+    static var base: LabelItemBaseStyle {
+        LabelItemBaseStyle()
+    }
+}
+
+public extension LabelItemStyle where Self == LabelItemFioriStyle {
+    static var fiori: LabelItemFioriStyle {
+        LabelItemFioriStyle()
+    }
+}
+    
+public struct LabelItemIconStyle: LabelItemStyle {
+    let style: any IconStyle
+        
+    public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .iconStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension LabelItemStyle where Self == LabelItemIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> LabelItemIconStyle {
+        LabelItemIconStyle(style: style)
+    }
+        
+    static func iconStyle(@ViewBuilder content: @escaping (IconConfiguration) -> some View) -> LabelItemIconStyle {
+        let style = AnyIconStyle(content)
+        return LabelItemIconStyle(style: style)
+    }
+}
+
+public struct LabelItemTitleStyle: LabelItemStyle {
+    let style: any TitleStyle
+        
+    public func makeBody(_ configuration: LabelItemConfiguration) -> some View {
+        LabelItem(configuration)
+            .titleStyle(self.style)
+            .typeErased
+    }
+}
+    
+public extension LabelItemStyle where Self == LabelItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> LabelItemTitleStyle {
+        LabelItemTitleStyle(style: style)
+    }
+        
+    static func titleStyle(@ViewBuilder content: @escaping (TitleConfiguration) -> some View) -> LabelItemTitleStyle {
+        let style = AnyTitleStyle(content)
+        return LabelItemTitleStyle(style: style)
     }
 }
 
@@ -1316,7 +1666,7 @@ public struct LinearProgressIndicatorViewLinearProgressIndicatorStyle: LinearPro
 }
     
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewLinearProgressIndicatorStyle {
-    static func linearProgressIndicatorStyle<Style: LinearProgressIndicatorStyle>(_ style: Style) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
+    static func linearProgressIndicatorStyle(_ style: some LinearProgressIndicatorStyle) -> LinearProgressIndicatorViewLinearProgressIndicatorStyle {
         LinearProgressIndicatorViewLinearProgressIndicatorStyle(style: style)
     }
         
@@ -1337,7 +1687,7 @@ public struct LinearProgressIndicatorViewIconStyle: LinearProgressIndicatorViewS
 }
     
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewIconStyle {
-    static func iconStyle<Style: IconStyle>(_ style: Style) -> LinearProgressIndicatorViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> LinearProgressIndicatorViewIconStyle {
         LinearProgressIndicatorViewIconStyle(style: style)
     }
         
@@ -1358,7 +1708,7 @@ public struct LinearProgressIndicatorViewDescriptionStyle: LinearProgressIndicat
 }
     
 public extension LinearProgressIndicatorViewStyle where Self == LinearProgressIndicatorViewDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> LinearProgressIndicatorViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> LinearProgressIndicatorViewDescriptionStyle {
         LinearProgressIndicatorViewDescriptionStyle(style: style)
     }
         
@@ -1407,7 +1757,7 @@ public struct ObjectItemTitleStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemTitleStyle {
-    static func titleStyle<Style: TitleStyle>(_ style: Style) -> ObjectItemTitleStyle {
+    static func titleStyle(_ style: some TitleStyle) -> ObjectItemTitleStyle {
         ObjectItemTitleStyle(style: style)
     }
         
@@ -1428,7 +1778,7 @@ public struct ObjectItemSubtitleStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemSubtitleStyle {
-    static func subtitleStyle<Style: SubtitleStyle>(_ style: Style) -> ObjectItemSubtitleStyle {
+    static func subtitleStyle(_ style: some SubtitleStyle) -> ObjectItemSubtitleStyle {
         ObjectItemSubtitleStyle(style: style)
     }
         
@@ -1449,7 +1799,7 @@ public struct ObjectItemFootnoteStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemFootnoteStyle {
-    static func footnoteStyle<Style: FootnoteStyle>(_ style: Style) -> ObjectItemFootnoteStyle {
+    static func footnoteStyle(_ style: some FootnoteStyle) -> ObjectItemFootnoteStyle {
         ObjectItemFootnoteStyle(style: style)
     }
         
@@ -1470,7 +1820,7 @@ public struct ObjectItemDescriptionStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> ObjectItemDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> ObjectItemDescriptionStyle {
         ObjectItemDescriptionStyle(style: style)
     }
         
@@ -1491,7 +1841,7 @@ public struct ObjectItemStatusStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemStatusStyle {
-    static func statusStyle<Style: StatusStyle>(_ style: Style) -> ObjectItemStatusStyle {
+    static func statusStyle(_ style: some StatusStyle) -> ObjectItemStatusStyle {
         ObjectItemStatusStyle(style: style)
     }
         
@@ -1512,7 +1862,7 @@ public struct ObjectItemSubstatusStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemSubstatusStyle {
-    static func substatusStyle<Style: SubstatusStyle>(_ style: Style) -> ObjectItemSubstatusStyle {
+    static func substatusStyle(_ style: some SubstatusStyle) -> ObjectItemSubstatusStyle {
         ObjectItemSubstatusStyle(style: style)
     }
         
@@ -1533,7 +1883,7 @@ public struct ObjectItemDetailImageStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemDetailImageStyle {
-    static func detailImageStyle<Style: DetailImageStyle>(_ style: Style) -> ObjectItemDetailImageStyle {
+    static func detailImageStyle(_ style: some DetailImageStyle) -> ObjectItemDetailImageStyle {
         ObjectItemDetailImageStyle(style: style)
     }
         
@@ -1554,7 +1904,7 @@ public struct ObjectItemIconsStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemIconsStyle {
-    static func iconsStyle<Style: IconsStyle>(_ style: Style) -> ObjectItemIconsStyle {
+    static func iconsStyle(_ style: some IconsStyle) -> ObjectItemIconsStyle {
         ObjectItemIconsStyle(style: style)
     }
         
@@ -1575,7 +1925,7 @@ public struct ObjectItemAvatarsStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemAvatarsStyle {
-    static func avatarsStyle<Style: AvatarsStyle>(_ style: Style) -> ObjectItemAvatarsStyle {
+    static func avatarsStyle(_ style: some AvatarsStyle) -> ObjectItemAvatarsStyle {
         ObjectItemAvatarsStyle(style: style)
     }
         
@@ -1596,7 +1946,7 @@ public struct ObjectItemFootnoteIconsStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemFootnoteIconsStyle {
-    static func footnoteIconsStyle<Style: FootnoteIconsStyle>(_ style: Style) -> ObjectItemFootnoteIconsStyle {
+    static func footnoteIconsStyle(_ style: some FootnoteIconsStyle) -> ObjectItemFootnoteIconsStyle {
         ObjectItemFootnoteIconsStyle(style: style)
     }
         
@@ -1617,7 +1967,7 @@ public struct ObjectItemTagsStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemTagsStyle {
-    static func tagsStyle<Style: TagsStyle>(_ style: Style) -> ObjectItemTagsStyle {
+    static func tagsStyle(_ style: some TagsStyle) -> ObjectItemTagsStyle {
         ObjectItemTagsStyle(style: style)
     }
         
@@ -1638,7 +1988,7 @@ public struct ObjectItemActionStyle: ObjectItemStyle {
 }
     
 public extension ObjectItemStyle where Self == ObjectItemActionStyle {
-    static func actionStyle<Style: ActionStyle>(_ style: Style) -> ObjectItemActionStyle {
+    static func actionStyle(_ style: some ActionStyle) -> ObjectItemActionStyle {
         ObjectItemActionStyle(style: style)
     }
         
@@ -1799,7 +2149,7 @@ public struct TextInputInfoViewIconStyle: TextInputInfoViewStyle {
 }
     
 public extension TextInputInfoViewStyle where Self == TextInputInfoViewIconStyle {
-    static func iconStyle<Style: IconStyle>(_ style: Style) -> TextInputInfoViewIconStyle {
+    static func iconStyle(_ style: some IconStyle) -> TextInputInfoViewIconStyle {
         TextInputInfoViewIconStyle(style: style)
     }
         
@@ -1820,7 +2170,7 @@ public struct TextInputInfoViewDescriptionStyle: TextInputInfoViewStyle {
 }
     
 public extension TextInputInfoViewStyle where Self == TextInputInfoViewDescriptionStyle {
-    static func descriptionStyle<Style: DescriptionStyle>(_ style: Style) -> TextInputInfoViewDescriptionStyle {
+    static func descriptionStyle(_ style: some DescriptionStyle) -> TextInputInfoViewDescriptionStyle {
         TextInputInfoViewDescriptionStyle(style: style)
     }
         
@@ -1841,7 +2191,7 @@ public struct TextInputInfoViewCounterStyle: TextInputInfoViewStyle {
 }
     
 public extension TextInputInfoViewStyle where Self == TextInputInfoViewCounterStyle {
-    static func counterStyle<Style: CounterStyle>(_ style: Style) -> TextInputInfoViewCounterStyle {
+    static func counterStyle(_ style: some CounterStyle) -> TextInputInfoViewCounterStyle {
         TextInputInfoViewCounterStyle(style: style)
     }
         
@@ -1862,7 +2212,7 @@ public struct TextInputInfoViewInformationViewStyle: TextInputInfoViewStyle {
 }
     
 public extension TextInputInfoViewStyle where Self == TextInputInfoViewInformationViewStyle {
-    static func informationViewStyle<Style: InformationViewStyle>(_ style: Style) -> TextInputInfoViewInformationViewStyle {
+    static func informationViewStyle(_ style: some InformationViewStyle) -> TextInputInfoViewInformationViewStyle {
         TextInputInfoViewInformationViewStyle(style: style)
     }
         

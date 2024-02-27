@@ -30,10 +30,10 @@ public extension Subtitle {
 
 extension Subtitle: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(subtitle: .init(self.subtitle))).typeErased
+            self.style.resolve(configuration: .init(subtitle: .init(self.subtitle))).typeErased
                 .transformEnvironment(\.subtitleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

@@ -27,11 +27,15 @@ extension Card: _ViewEmptyChecking {
             description.isEmpty ||
             title.isEmpty ||
             subtitle.isEmpty ||
+            icons.isEmpty ||
             detailImage.isEmpty ||
+            headerAction.isEmpty ||
             counter.isEmpty ||
             row1.isEmpty ||
             row2.isEmpty ||
             row3.isEmpty ||
+            kpi.isEmpty ||
+            kpiCaption.isEmpty ||
             cardBody.isEmpty ||
             action.isEmpty ||
             secondaryAction.isEmpty
@@ -42,7 +46,9 @@ extension CardExtHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
         row1.isEmpty ||
             row2.isEmpty ||
-            row3.isEmpty
+            row3.isEmpty ||
+            kpi.isEmpty ||
+            kpiCaption.isEmpty
     }
 }
 
@@ -59,11 +65,15 @@ extension CardHeader: _ViewEmptyChecking {
             description.isEmpty ||
             title.isEmpty ||
             subtitle.isEmpty ||
+            icons.isEmpty ||
             detailImage.isEmpty ||
+            headerAction.isEmpty ||
             counter.isEmpty ||
             row1.isEmpty ||
             row2.isEmpty ||
-            row3.isEmpty
+            row3.isEmpty ||
+            kpi.isEmpty ||
+            kpiCaption.isEmpty
     }
 }
 
@@ -71,7 +81,9 @@ extension CardMainHeader: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
             subtitle.isEmpty ||
+            icons.isEmpty ||
             detailImage.isEmpty ||
+            headerAction.isEmpty ||
             counter.isEmpty
     }
 }
@@ -122,6 +134,12 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension HeaderAction: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        headerAction.isEmpty
+    }
+}
+
 extension Icon: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty
@@ -148,6 +166,26 @@ extension InformationView: _ViewEmptyChecking {
         icon.isEmpty ||
             description.isEmpty ||
             content.isEmpty
+    }
+}
+
+extension KpiCaption: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kpiCaption.isEmpty
+    }
+}
+
+extension Kpi: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        kpi.isEmpty
+    }
+}
+
+extension LabelItem: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        icon.isEmpty ||
+            title.isEmpty ||
+            alignment == nil
     }
 }
 

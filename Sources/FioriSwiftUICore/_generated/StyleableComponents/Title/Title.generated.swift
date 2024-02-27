@@ -30,10 +30,10 @@ public extension Title {
 
 extension Title: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(title: .init(self.title))).typeErased
+            self.style.resolve(configuration: .init(title: .init(self.title))).typeErased
                 .transformEnvironment(\.titleStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

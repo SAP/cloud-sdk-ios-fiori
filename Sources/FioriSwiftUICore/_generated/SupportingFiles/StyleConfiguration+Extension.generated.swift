@@ -9,7 +9,7 @@ import SwiftUI
 
 extension CardConfiguration {
     var _cardHeader: CardHeader {
-        CardHeader(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), detailImage: .init(self.detailImage), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3)))
+        CardHeader(.init(mediaImage: .init(self.mediaImage), description: .init(self.description), title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter), row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)))
     }
 
     var _cardFooter: CardFooter {
@@ -25,11 +25,11 @@ extension CardHeaderConfiguration {
     }
 
     var _cardMainHeader: CardMainHeader {
-        CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), detailImage: .init(self.detailImage), counter: .init(self.counter)))
+        CardMainHeader(.init(title: .init(self.title), subtitle: .init(self.subtitle), icons: .init(self.icons), detailImage: .init(self.detailImage), headerAction: .init(self.headerAction), counter: .init(self.counter)))
     }
 
     var _cardExtHeader: CardExtHeader {
-        CardExtHeader(.init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3)))
+        CardExtHeader(.init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption)))
     }
 }
 
