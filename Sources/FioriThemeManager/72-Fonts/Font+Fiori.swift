@@ -245,8 +245,10 @@ extension Font.Weight {
         switch self {
         case .heavy, .black:
             return .black
-        case .medium, .semibold, .bold:
+        case .bold:
             return .bold
+        case .medium, .semibold:
+            return .semibold
         case .regular:
             return .regular
         case .ultraLight, .thin, .light:
