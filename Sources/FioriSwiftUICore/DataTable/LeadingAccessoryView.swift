@@ -104,6 +104,7 @@ struct LeadingAccessoryView: View {
                 deSelectedImage
                     .resizable()
                     .aspectRatio(contentMode: .fit)
+                    .foregroundColor(Color.preferredColor(.separatorOpaque))
                     .padding(8 * self.layoutManager.scaleX)
             }
         }
