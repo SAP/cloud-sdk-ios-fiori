@@ -1,3 +1,4 @@
+import FioriThemeManager
 import Foundation
 import SwiftUI
 
@@ -5,7 +6,7 @@ struct FioriFonts: View {
     let textStyles = Font.FioriTextStyle.allCases
     
     @State var showSettings = false
-    @State var fontWeight = Font.Weight.regular
+    @State var fontWeight = Font.FioriWeight.regular
     @State var isItalic = false
     @State var isCondensed = false
     @State var sizeCategory = ContentSizeCategory.large
@@ -36,7 +37,7 @@ struct FioriFonts: View {
 
 extension FioriFonts {
     struct Settings: View {
-        @Binding var fontWeight: Font.Weight
+        @Binding var fontWeight: Font.FioriWeight
         @Binding var isItalic: Bool
         @Binding var isCondensed: Bool
         @Binding var sizeCategory: ContentSizeCategory
@@ -45,8 +46,8 @@ extension FioriFonts {
             NavigationView {
                 List {
                     Picker("Font Weight", selection: $fontWeight) {
-                        ForEach(0 ..< Font.Weight.allCases.count) { index in
-                            let weight = Font.Weight.allCases[index]
+                        ForEach(0 ..< Font.FioriWeight.allCases.count) { index in
+                            let weight = Font.FioriWeight.allCases[index]
                             Text(String(describing: weight))
                                 .tag(weight)
                         }
@@ -69,9 +70,9 @@ extension FioriFonts {
     }
 }
 
-extension Font.Weight: CaseIterable {
-    public static var allCases: [Font.Weight] {
-        [.black, .heavy, .bold, .semibold, .medium, .regular, .light, .thin, .ultraLight]
+extension Font.FioriWeight: CaseIterable {
+    public static var allCases: [Font.FioriWeight] {
+        [.black, .heavy, .bold, .semibold, .semiboldDuplex, .medium, .regular, .light, .thin, .ultraLight]
     }
 }
 
