@@ -16,6 +16,7 @@ extension Font {
         self.registerFont("72-Light", fileExtension: "ttf")
         self.registerFont("72-Regular", fileExtension: "ttf")
         self.registerFont("72-Semibold", fileExtension: "ttf")
+        self.registerFont("72-SemiboldDuplex", fileExtension: "ttf")
         os_log("Done registering 72 fonts", log: OSLog.fontLogger, type: .info)
     }
     
