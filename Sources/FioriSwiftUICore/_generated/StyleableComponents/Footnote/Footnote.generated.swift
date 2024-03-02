@@ -30,10 +30,10 @@ public extension Footnote {
 
 extension Footnote: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(footnote: .init(self.footnote))).typeErased
+            self.style.resolve(configuration: .init(footnote: .init(self.footnote))).typeErased
                 .transformEnvironment(\.footnoteStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

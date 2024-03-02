@@ -258,6 +258,23 @@ public extension View {
     }
 }
 
+// MARK: HeaderActionStyle
+
+public extension View {
+    func headerActionStyle(_ style: some HeaderActionStyle) -> some View {
+        self.transformEnvironment(\.headerActionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func headerActionStyle(@ViewBuilder content: @escaping (HeaderActionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.headerActionStyleStack) { stack in
+            let style = AnyHeaderActionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: IconStyle
 
 public extension View {
@@ -321,6 +338,57 @@ public extension View {
     func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.informationViewStyleStack) { stack in
             let style = AnyInformationViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KpiCaptionStyle
+
+public extension View {
+    func kpiCaptionStyle(_ style: some KpiCaptionStyle) -> some View {
+        self.transformEnvironment(\.kpiCaptionStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func kpiCaptionStyle(@ViewBuilder content: @escaping (KpiCaptionConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kpiCaptionStyleStack) { stack in
+            let style = AnyKpiCaptionStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KpiStyle
+
+public extension View {
+    func kpiStyle(_ style: some KpiStyle) -> some View {
+        self.transformEnvironment(\.kpiStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func kpiStyle(@ViewBuilder content: @escaping (KpiConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.kpiStyleStack) { stack in
+            let style = AnyKpiStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: LabelItemStyle
+
+public extension View {
+    func labelItemStyle(_ style: some LabelItemStyle) -> some View {
+        self.transformEnvironment(\.labelItemStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func labelItemStyle(@ViewBuilder content: @escaping (LabelItemConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.labelItemStyleStack) { stack in
+            let style = AnyLabelItemStyle(content)
             stack.append(style)
         }
     }

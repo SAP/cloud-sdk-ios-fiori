@@ -103,6 +103,12 @@ protocol _CounterComponent {
 }
 
 // sourcery: BaseComponent
+protocol _HeaderActionComponent {
+    // sourcery: @ViewBuilder
+    var headerAction: FioriButton? { get }
+}
+
+// sourcery: BaseComponent
 protocol _SecondaryActionComponent {
     // sourcery: @ViewBuilder
     var secondaryAction: FioriButton? { get }
@@ -140,4 +146,16 @@ protocol _CardBodyComponent {
 protocol _MediaImageComponent {
     // sourcery: @ViewBuilder
     var mediaImage: Image? { get }
+}
+
+// sourcery: BaseComponent
+protocol _KpiComponent {
+    // sourcery: @ViewBuilder, resultBuilder.backingComponent = KPIItem
+    var kpi: KPIItemData? { get }
+}
+
+// sourcery: BaseComponent
+protocol _KpiCaptionComponent {
+    // sourcery: @ViewBuilder
+    var kpiCaption: AttributedString? { get }
 }

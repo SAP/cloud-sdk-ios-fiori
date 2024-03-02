@@ -69,6 +69,25 @@ public extension KPIItem where Kpi == Text, Subtitle == Text {
     }
 }
 
+public extension KPIItem where Kpi == Text, Subtitle == EmptyView {
+    /// Returns a KPI item with given configuration.
+    /// - Parameters:
+    ///   - data: The data of the KPI item.
+    ///   - action: The action when user interacts with the KPI item.
+    init(data: KPIItemData, action: (() -> Void)? = nil) {
+        self.init(kpi: {
+            KPIFormatter().create(from: data) ?? Text("")
+        }, subtitle: {
+            EmptyView()
+        })
+        self.action = action
+    }
+    
+    init(_ data: KPIItemData?) {
+        self.init(data: data ?? KPIItemData.components([]), action: nil)
+    }
+}
+
 struct ButtonContainerStyle: ButtonStyle {
     func makeBody(configuration: Self.Configuration) -> some View {
         TappableStyleView(configuration: configuration)

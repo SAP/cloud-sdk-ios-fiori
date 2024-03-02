@@ -16,11 +16,16 @@ public struct CardFooterBaseStyle: CardFooterStyle {
     @ViewBuilder
     public func makeBody(_ configuration: CardFooterConfiguration) -> some View {
         // Add default layout here
-        configuration.action
-        configuration.secondaryAction
+        HStack {
+            configuration.secondaryAction
+            
+            Spacer()
+            
+            configuration.action
+        }
     }
 }
-    
+
 // Default fiori styles
 extension CardFooterFioriStyle {
     struct ContentFioriStyle: CardFooterStyle {
@@ -30,22 +35,30 @@ extension CardFooterFioriStyle {
             // .background()
         }
     }
-
+    
     struct ActionFioriStyle: ActionStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
-            // Add default style for Action
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .fioriButtonStyle(FioriPrimaryButtonStyle())
         }
     }
-
+    
     struct SecondaryActionFioriStyle: SecondaryActionStyle {
         func makeBody(_ configuration: SecondaryActionConfiguration) -> some View {
             SecondaryAction(configuration)
+                .fioriButtonStyle(FioriSecondaryButtonStyle())
             // Add default style for SecondaryAction
             // .foregroundStyle(Color.preferredColor(<#fiori color#>))
             // .font(.fiori(forTextStyle: <#fiori font#>))
         }
     }
+}
+
+#Preview("Base") {
+    CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+}
+
+#Preview("Fiori") {
+    CardFooter(action: FioriButton(title: "Primary"), secondaryAction: FioriButton(title: "Secondary"))
+        .cardFooterStyle(.fiori)
 }
