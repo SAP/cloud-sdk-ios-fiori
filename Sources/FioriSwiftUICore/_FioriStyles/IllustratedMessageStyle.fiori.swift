@@ -16,16 +16,10 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             configuration.detailImage
-                .padding(.bottom, 16)
             configuration.title
-                .padding(.horizontal, 16)
-                .padding(.bottom, 4)
             configuration.description
-                .padding(.horizontal, 16)
             configuration.action
-                .padding(.top, 24)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
     
@@ -34,44 +28,36 @@ extension IllustratedMessageFioriStyle {
     struct ContentFioriStyle: IllustratedMessageStyle {
         func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
             IllustratedMessage(configuration)
-            // Add default style for its content
-            // .background()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
 
     struct DetailImageFioriStyle: DetailImageStyle {
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-            // Add default style for DetailImage
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .padding(.bottom, 16)
         }
     }
 
     struct TitleFioriStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
-            // Add default style for Title
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .padding(.horizontal, 16)
+                .padding(.bottom, 4)
         }
     }
 
     struct DescriptionFioriStyle: DescriptionStyle {
         func makeBody(_ configuration: DescriptionConfiguration) -> some View {
             Description(configuration)
-            // Add default style for Description
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .padding(.horizontal, 16)
         }
     }
 
     struct ActionFioriStyle: ActionStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
-            // Add default style for Action
-            // .foregroundStyle(Color.preferredColor(<#fiori color#>))
-            // .font(.fiori(forTextStyle: <#fiori font#>))
+                .padding(.top, 24)
         }
     }
 }
@@ -94,7 +80,6 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
                     .padding(.top, 16)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .sizeReader { size in
             if size.width < 375 {
                 viewIsNarrow = true
