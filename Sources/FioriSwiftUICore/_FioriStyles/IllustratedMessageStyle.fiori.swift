@@ -69,7 +69,7 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
         HStack(spacing: 0) {
             configuration.detailImage
                 .padding(.leading, 16)
-            VStack(alignment: viewIsNarrow || configuration.detailImage.isEmpty ? .center : .leading, spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 configuration.title
                     .padding(.horizontal, 16)
                     .padding(.bottom, 4)
@@ -78,13 +78,6 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
                 configuration.action
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
-            }
-        }
-        .sizeReader { size in
-            if size.width < 375 {
-                viewIsNarrow = true
-            } else {
-                viewIsNarrow = false
             }
         }
     }
