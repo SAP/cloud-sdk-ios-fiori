@@ -16,9 +16,11 @@ public struct IllustratedMessageBaseStyle: IllustratedMessageStyle {
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         VStack(spacing: 0) {
             configuration.detailImage
+                .padding(.bottom, 16)
             configuration.title
             configuration.description
             configuration.action
+                .padding(.top, 24)
         }
     }
 }
@@ -35,7 +37,6 @@ extension IllustratedMessageFioriStyle {
     struct DetailImageFioriStyle: DetailImageStyle {
         func makeBody(_ configuration: DetailImageConfiguration) -> some View {
             DetailImage(configuration)
-                .padding(.bottom, 16)
         }
     }
 
@@ -57,13 +58,12 @@ extension IllustratedMessageFioriStyle {
     struct ActionFioriStyle: ActionStyle {
         func makeBody(_ configuration: ActionConfiguration) -> some View {
             Action(configuration)
-                .padding(.top, 24)
         }
     }
 }
 
 /// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
-public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
+public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     @State var viewIsNarrow = true
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         HStack(spacing: 0) {
@@ -71,10 +71,7 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
                 .padding(.leading, 16)
             VStack(alignment: .leading, spacing: 0) {
                 configuration.title
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 4)
                 configuration.description
-                    .padding(.horizontal, 16)
                 configuration.action
                     .padding(.horizontal, 16)
                     .padding(.top, 16)
@@ -84,8 +81,8 @@ public struct IllustratedMessageHorizontalStyle: IllustratedMessageStyle {
 }
 
 /// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
-public extension IllustratedMessageStyle where Self == IllustratedMessageHorizontalStyle {
-    static var horizontal: Self {
-        IllustratedMessageHorizontalStyle()
+public extension IllustratedMessageStyle where Self == IllustratedMessageHorizontalLayoutStyle {
+    static var horizontal: some IllustratedMessageStyle {
+        IllustratedMessageHorizontalLayoutStyle().concat(.fiori)
     }
 }
