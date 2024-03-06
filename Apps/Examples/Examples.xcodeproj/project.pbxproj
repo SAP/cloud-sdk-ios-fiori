@@ -23,6 +23,7 @@
 		1FC30412270540FB004BEE00 /* 72-Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30411270540FB004BEE00 /* 72-Fonts.swift */; };
 		1FC30414270541BF004BEE00 /* FioriThemeManagerContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */; };
 		1FF3662E264C662A00AB8BD8 /* DimensionSelector+Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */; };
+		3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */; };
 		691DE21925F2A30B00094D4A /* KPIViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691DE21825F2A30B00094D4A /* KPIViewExample.swift */; };
 		692F338B26556A6A009B98DA /* SideBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F338A26556A6A009B98DA /* SideBarExample.swift */; };
 		69B2B5D9268A333C009AC6B3 /* KPIProgressViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */; };
@@ -187,6 +188,7 @@
 		1FC30411270540FB004BEE00 /* 72-Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "72-Fonts.swift"; sourceTree = "<group>"; };
 		1FC30413270541BF004BEE00 /* FioriThemeManagerContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FioriThemeManagerContentView.swift; sourceTree = "<group>"; };
 		1FF3662D264C662A00AB8BD8 /* DimensionSelector+Chart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DimensionSelector+Chart.swift"; sourceTree = "<group>"; };
+		3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IllustratedMessageExample.swift; sourceTree = "<group>"; };
 		691DE21825F2A30B00094D4A /* KPIViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIViewExample.swift; sourceTree = "<group>"; };
 		692F338A26556A6A009B98DA /* SideBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarExample.swift; sourceTree = "<group>"; };
 		69B2B5D8268A333C009AC6B3 /* KPIProgressViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KPIProgressViewExample.swift; sourceTree = "<group>"; };
@@ -387,6 +389,14 @@
 			path = DimensionSelector;
 			sourceTree = "<group>";
 		};
+		3C180C262B858CBE007CE79A /* IllustratedMessage */ = {
+			isa = PBXGroup;
+			children = (
+				3C180C272B858CF6007CE79A /* IllustratedMessageExample.swift */,
+			);
+			path = IllustratedMessage;
+			sourceTree = "<group>";
+		};
 		691DE21725F2A2F000094D4A /* KPI */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +486,7 @@
 		8A5579C824C1293C0098003A /* FioriSwiftUICore */ = {
 			isa = PBXGroup;
 			children = (
+				3C180C262B858CBE007CE79A /* IllustratedMessage */,
 				99658F862B7C35630026A743 /* Indicator */,
 				B88CB6102B716C0300013B37 /* Card */,
 				C18868CF2B3252F400F865F7 /* SearchBar */,
@@ -908,6 +919,7 @@
 				1F26DCFA261A5CD9006C43B1 /* FioriButtonContentView.swift in Sources */,
 				B86F02AA267983870049DDA7 /* ObjectItemListView.swift in Sources */,
 				B846F94826815DE50085044B /* ContactItemRegularExamples.swift in Sources */,
+				3C180C282B858CF6007CE79A /* IllustratedMessageExample.swift in Sources */,
 				8AD9DFB425D49967007448EC /* ContactItemInitViewBuilderExample.swift in Sources */,
 				B8D4376D25F97F140024EE7D /* ObjectItemExample.swift in Sources */,
 				8A6D64BF25AE7A6D00D2D76C /* ExperimentalContentView.swift in Sources */,

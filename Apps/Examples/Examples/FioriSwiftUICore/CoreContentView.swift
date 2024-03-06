@@ -78,6 +78,11 @@ struct CoreContentView: View {
                     }
                 )
                 
+                NavigationLink(
+                    destination: IllustratedMessageExample()) {
+                    Text("IllustratedMessage")
+                }
+                
                 Group {
                     NavigationLink(
                         destination: KPIExample()) {

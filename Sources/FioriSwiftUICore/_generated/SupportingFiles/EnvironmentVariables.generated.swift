@@ -381,6 +381,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+struct IllustratedMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IllustratedMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var illustratedMessageStyle: any IllustratedMessageStyle {
+        illustratedMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var illustratedMessageStyleStack: [any IllustratedMessageStyle] {
+        get {
+            self[IllustratedMessageStyleStackKey.self]
+        }
+        set {
+            self[IllustratedMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 struct InformationViewStyleStackKey: EnvironmentKey {
