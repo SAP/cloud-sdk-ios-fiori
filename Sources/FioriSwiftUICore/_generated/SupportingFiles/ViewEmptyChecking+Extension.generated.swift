@@ -152,6 +152,15 @@ extension Icons: _ViewEmptyChecking {
     }
 }
 
+extension IllustratedMessage: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        detailImage.isEmpty ||
+            title.isEmpty ||
+            description.isEmpty ||
+            action.isEmpty
+    }
+}
+
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty ||

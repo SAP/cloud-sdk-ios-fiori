@@ -291,6 +291,22 @@ extension IconsStyle {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+struct ResolvedIllustratedMessageStyle<Style: IllustratedMessageStyle>: View {
+    let style: Style
+    let configuration: IllustratedMessageConfiguration
+    var body: some View {
+        style.makeBody(configuration)
+    }
+}
+
+extension IllustratedMessageStyle {
+    func resolve(configuration: IllustratedMessageConfiguration) -> some View {
+        ResolvedIllustratedMessageStyle(style: self, configuration: configuration)
+    }
+}
+
 // MARK: InformationViewStyle
 
 struct ResolvedInformationViewStyle<Style: InformationViewStyle>: View {

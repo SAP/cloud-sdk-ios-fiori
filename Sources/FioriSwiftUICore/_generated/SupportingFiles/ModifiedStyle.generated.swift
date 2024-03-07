@@ -512,6 +512,34 @@ public extension IconsStyle {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+extension ModifiedStyle: IllustratedMessageStyle where Style: IllustratedMessageStyle {
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .illustratedMessageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct IllustratedMessageStyleModifier<Style: IllustratedMessageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.illustratedMessageStyle(self.style)
+    }
+}
+
+public extension IllustratedMessageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some IllustratedMessageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some IllustratedMessageStyle) -> some IllustratedMessageStyle {
+        style.modifier(IllustratedMessageStyleModifier(style: self))
+    }
+}
+
 // MARK: InformationViewStyle
 
 extension ModifiedStyle: InformationViewStyle where Style: InformationViewStyle {
