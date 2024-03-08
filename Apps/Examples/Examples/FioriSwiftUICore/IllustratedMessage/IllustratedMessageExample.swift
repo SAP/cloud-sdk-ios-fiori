@@ -42,6 +42,16 @@ struct IllustratedMessageExample: View {
             })
                 .border(Color.gray)
                 .frame(width: selectedWidth, height: selectedHeight)
+
+            // no image and no action; vertical layout manually selected
+            IllustratedMessage(title: {
+                Text("This is an IllustratedMessageView with no image or action button")
+            }, description: {
+                Text("Subtitle")
+            })
+                .illustratedMessageStyle(.vertical)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
             
             // action but no image
             IllustratedMessage(title: {
@@ -51,6 +61,18 @@ struct IllustratedMessageExample: View {
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
             })
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
+
+            // action but no image; vertical layout manually selected
+            IllustratedMessage(title: {
+                Text("IllustratedMessage Title")
+            }, description: {
+                Text("Subtitle: abc def ghi jkl mno pqr stu vwx yz abc def ghi jkl mno pqr stu vwx yz")
+            }, action: {
+                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
+            })
+                .illustratedMessageStyle(.vertical)
                 .border(Color.gray)
                 .frame(width: selectedWidth, height: selectedHeight)
 
@@ -68,6 +90,21 @@ struct IllustratedMessageExample: View {
                 .border(Color.gray)
                 .frame(width: selectedWidth, height: selectedHeight)
 
+            // image but no action; vertical layout manually selected
+            IllustratedMessage(detailImage: {
+                Image("wheel")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50)
+            }, title: {
+                Text("IllustratedMessage Title")
+            }, description: {
+                Text("Subtitle")
+            })
+                .illustratedMessageStyle(.vertical)
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
+
             // all components
             IllustratedMessage(detailImage: {
                 Image("wheel")
@@ -81,6 +118,23 @@ struct IllustratedMessageExample: View {
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
             })
+                .border(Color.gray)
+                .frame(width: selectedWidth, height: selectedHeight)
+
+            // all components; vertical layout manually selected
+            IllustratedMessage(detailImage: {
+                Image("wheel")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100)
+            }, title: {
+                Text("Unable to load data")
+            }, description: {
+                Text("Reload to try again or contact your administrator to update your permission.")
+            }, action: {
+                FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
+            })
+                .illustratedMessageStyle(.vertical)
                 .border(Color.gray)
                 .frame(width: selectedWidth, height: selectedHeight)
 
@@ -134,7 +188,6 @@ struct IllustratedMessageExample: View {
                 Text("Subtitle")
             }, action: {
                 FioriButton(title: "ActionTitle", action: { _ in print("Action tapped") })
-//                Button(action: { print("Action tapped") }, label: { Text("Sign In") })
             })
                 .illustratedMessageStyle(.horizontal)
                 .border(Color.gray)
