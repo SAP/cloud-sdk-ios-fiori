@@ -67,7 +67,6 @@ public typealias IllustratedMessageVerticalLayoutStyle = IllustratedMessageBaseS
 
 /// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
 public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
-    @State var viewIsNarrow = true
     public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
         HStack(spacing: 0) {
             configuration.detailImage
