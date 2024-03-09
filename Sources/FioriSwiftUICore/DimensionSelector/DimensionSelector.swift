@@ -154,9 +154,9 @@ public struct DimensionSelector: View {
         self.selectedIndex = selectedIndex
         
         self.model.segmentAttributes = [
-            .normal: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.separator), backgroundColor: Color.preferredColor(.secondaryFill)),
-            .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 1.0, borderColor: Color.preferredColor(.tintColor), backgroundColor: Color.preferredColor(.primaryFill)),
-            .disabled: SegmentAttributes(textColor: Color.preferredColor(.tertiaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.secondaryFill), backgroundColor: Color.preferredColor(.secondaryFill))
+            .normal: SegmentAttributes(textColor: Color.preferredColor(.secondaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.separator), backgroundColor: Color.preferredColor(.tertiaryFill)),
+            .selected: SegmentAttributes(textColor: Color.preferredColor(.tintColor), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 1.0, borderColor: Color.preferredColor(.tintColor), backgroundColor: Color.preferredColor(.secondaryGroupedBackground)),
+            .disabled: SegmentAttributes(textColor: Color.preferredColor(.secondaryLabel), font: Font.fiori(forTextStyle: .subheadline), borderWidth: 0.33, borderColor: Color.preferredColor(.secondaryFill), backgroundColor: Color.preferredColor(.tertiaryFill))
         ]
         
         if let _contentInset = contentInset {
