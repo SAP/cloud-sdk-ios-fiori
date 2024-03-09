@@ -6,7 +6,6 @@ import SwiftUI
 public struct InformationViewBaseStyle: InformationViewStyle {
     public func makeBody(_ configuration: InformationViewConfiguration) -> some View {
         VStack {
-            configuration.content
             HStack(alignment: .center, spacing: 8) {
                 configuration.icon
                 configuration.description
@@ -44,10 +43,26 @@ extension InformationViewFioriStyle {
     }
 }
 
+struct InformationViewModifier: ViewModifier {
+    let icon: Image?
+    let description: AttributedString
+    @Binding var isPresented: Bool
+    
+    func body(content: Content) -> some View {
+        VStack {
+            content
+            
+            if isPresented {
+                InformationView(icon: icon, description: description)
+            }
+        }
+    }
+}
+
 public extension View {
     /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    func informationView(icon: Image? = nil, description: AttributedString) -> some View {
-        InformationView(icon: icon, description: description, content: { self })
+    func informationView(icon: Image? = nil, description: AttributedString, isPresented: Binding<Bool>) -> some View {
+        self.modifier(InformationViewModifier(icon: icon, description: description, isPresented: isPresented))
     }
 }
 

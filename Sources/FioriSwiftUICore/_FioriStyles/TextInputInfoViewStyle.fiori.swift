@@ -5,17 +5,14 @@ import SwiftUI
 // Base Layout style
 public struct TextInputInfoViewBaseStyle: TextInputInfoViewStyle {
     public func makeBody(_ configuration: TextInputInfoViewConfiguration) -> some View {
-        VStack {
-            configuration.content
-            HStack(alignment: .top, spacing: 8) {
-                configuration.icon
-                configuration.description
-                Spacer()
-                configuration.counter
-            }
-            .padding(.top, 4)
-            .padding(.bottom, 11)
+        HStack(alignment: .top, spacing: 8) {
+            configuration.icon
+            configuration.description
+            Spacer()
+            configuration.counter
         }
+        .padding(.top, 4)
+        .padding(.bottom, 11)
     }
 }
 
@@ -58,10 +55,27 @@ extension TextInputInfoViewFioriStyle {
     }
 }
 
+struct TextInputInfoViewModifier: ViewModifier {
+    let icon: Image?
+    let description: AttributedString?
+    let counter: AttributedString?
+    @Binding var isPresented: Bool
+    
+    func body(content: Content) -> some View {
+        VStack {
+            content
+            
+            if isPresented {
+                TextInputInfoView(icon: icon, description: description, counter: counter)
+            }
+        }
+    }
+}
+
 public extension View {
     /// To show the TextInputInfoView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    func textInputInfoView(icon: Image? = nil, description: AttributedString? = nil, counter: AttributedString? = nil) -> some View {
-        TextInputInfoView(icon: icon, description: description, content: { self }, counter: counter)
+    func textInputInfoView(isPresented: Binding<Bool>, icon: Image? = nil, description: AttributedString? = nil, counter: AttributedString? = nil) -> some View {
+        self.modifier(TextInputInfoViewModifier(icon: icon, description: description, counter: counter, isPresented: isPresented))
     }
 }
 
