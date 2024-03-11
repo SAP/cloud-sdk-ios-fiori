@@ -56,10 +56,10 @@ extension TextInputInfoViewFioriStyle {
 }
 
 struct TextInputInfoViewModifier: ViewModifier {
+    @Binding var isPresented: Bool
     let icon: Image?
     let description: AttributedString?
     let counter: AttributedString?
-    @Binding var isPresented: Bool
     
     func body(content: Content) -> some View {
         VStack {
@@ -75,7 +75,7 @@ struct TextInputInfoViewModifier: ViewModifier {
 public extension View {
     /// To show the TextInputInfoView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
     func textInputInfoView(isPresented: Binding<Bool>, icon: Image? = nil, description: AttributedString? = nil, counter: AttributedString? = nil) -> some View {
-        self.modifier(TextInputInfoViewModifier(icon: icon, description: description, counter: counter, isPresented: isPresented))
+        self.modifier(TextInputInfoViewModifier(isPresented: isPresented, icon: icon, description: description, counter: counter))
     }
 }
 

@@ -58,11 +58,11 @@ struct KeyValueFormViewExample: View {
 
                 Text("Existing Text")
                     .italic()
-                KeyValueFormView(title: key2, text: $valueText2, placeholder: "KeyValueFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount)
+                KeyValueFormView(title: key2, text: $valueText2, placeholder: "KeyValueFormView", errorMessage: getErrorMessage(), maxTextLength: getMaxTextLength(), hintText: getHintText(), isCharCountEnabled: showsCharCount, allowsBeyondLimit: allowsBeyondLimit)
 
                 Text("minHeight 50, maxHeight 200")
                     .italic()
-                KeyValueFormView(title: key3, text: $valueText3, placeholder: "Please enter something", errorMessage: getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: getHintText())
+                KeyValueFormView(title: key3, text: $valueText3, placeholder: "Please enter something", errorMessage: getErrorMessage(), minTextEditorHeight: 50, maxTextEditorHeight: 200, hintText: getHintText(), allowsBeyondLimit: allowsBeyondLimit)
 
                 Text("Disabled")
                 KeyValueFormView(title: "Disabled", text: $disabledText, placeholder: "Disabled", controlState: .disabled, minTextEditorHeight: 50, maxTextEditorHeight: 200)

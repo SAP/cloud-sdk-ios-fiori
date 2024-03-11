@@ -61,7 +61,7 @@ struct InformationViewModifier: ViewModifier {
 
 public extension View {
     /// To show the InformationView at the bottom of the view. It includes an icon and text. It is used in error handling to show error / warning / informational / success confirmation message.
-    func informationView(icon: Image? = nil, description: AttributedString, isPresented: Binding<Bool>) -> some View {
+    func informationView(isPresented: Binding<Bool>, icon: Image? = nil, description: AttributedString) -> some View {
         self.modifier(InformationViewModifier(icon: icon, description: description, isPresented: isPresented))
     }
 }

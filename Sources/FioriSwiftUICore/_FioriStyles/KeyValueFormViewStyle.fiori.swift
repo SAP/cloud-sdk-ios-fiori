@@ -16,12 +16,7 @@ public struct KeyValueFormViewBaseStyle: KeyValueFormViewStyle {
     public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
             configuration.title
-                .padding(.bottom, -4)
-                .padding(.top, 11)
-
             configuration._noteFormView
-                .padding(.top, -7)
-                .padding(.bottom, 0)
         }
     }
 }
@@ -53,12 +48,16 @@ extension KeyValueFormViewFioriStyle {
     struct TitleFioriStyle: TitleStyle {
         func makeBody(_ configuration: TitleConfiguration) -> some View {
             Title(configuration)
+                .padding(.bottom, -4)
+                .padding(.top, 11)
         }
     }
 
     struct TextViewFioriStyle: TextViewStyle {
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
+                .padding(.top, -7)
+                .padding(.bottom, 0)
         }
     }
 

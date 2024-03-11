@@ -18,13 +18,9 @@ public struct PlaceholderTextEditorBaseStyle: PlaceholderTextEditorStyle {
     public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
         ZStack(alignment: .topLeading) {
             configuration._textView.body
-                .zIndex(1.0)
-                .padding(.bottom, 0)
                 .focused($isFocused)
             if configuration.text.isEmpty, !isFocused, !configuration.placeholder.isEmpty {
                 configuration.placeholder.body
-                    .padding(.top, 8)
-                    .padding(.leading, 8)
             }
         }
     }
@@ -41,12 +37,16 @@ extension PlaceholderTextEditorFioriStyle {
     struct TextViewFioriStyle: TextViewStyle {
         func makeBody(_ configuration: TextViewConfiguration) -> some View {
             TextView(configuration)
+                .zIndex(1.0)
+                .padding(.bottom, 0)
         }
     }
 
     struct PlaceholderFioriStyle: PlaceholderStyle {
         func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
             Placeholder(configuration)
+                .padding(.top, 8)
+                .padding(.leading, 8)
         }
     }
 }

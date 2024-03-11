@@ -18,37 +18,10 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
     public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
         VStack(alignment: .leading) {
             configuration._placeholderTextEditor
-                .frame(minHeight: getMinHeight(configuration))
-                .frame(maxHeight: getMaxHeight(configuration))
                 .focused($isFocused)
-                .padding(.top, 9)
                 .disabled(getDisabled(configuration))
-                .onChange(of: configuration.text) { s in
-                    checkCharCount(configuration, textString: s)
-                }
-                .padding(.bottom, isInfoViewNeeded(configuration) ? 0 : 9)
         }
         .textInputInfoView(isPresented: Binding(get: { isInfoViewNeeded(configuration) }, set: { _ in }), description: self.getInfoString(configuration, isFocused: self.isFocused), counter: self.getCounterString(configuration, isFocused: self.isFocused))
-    }
-
-    func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-        // Somehow, the minHeight is 14pt higher than the specified. Use this adjustment.
-        let minHeightAdjustMent = 14.0
-        guard let minHeight = configuration.minTextEditorHeight else {
-            return 88 - minHeightAdjustMent
-        }
-        guard minHeight > 0 else {
-            return 88 - minHeightAdjustMent
-        }
-        return minHeight - minHeightAdjustMent
-    }
-
-    func getMaxHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
-        guard let maxHeight = configuration.maxTextEditorHeight else {
-            return .infinity
-        }
-        let minHeght = self.getMinHeight(configuration)
-        return maxHeight > minHeght ? maxHeight : minHeght
     }
 
     func getDisabled(_ configuration: NoteFormViewConfiguration) -> Bool {
@@ -57,28 +30,6 @@ public struct NoteFormViewBaseStyle: NoteFormViewStyle {
             return true
         default:
             return false
-        }
-    }
-
-    func isInfoViewNeeded(_ configuration: NoteFormViewConfiguration) -> Bool {
-        if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
-            return true
-        }
-        if let hintText = configuration.hintText, !hintText.characters.isEmpty {
-            return true
-        }
-        if let isCharCountEnabled = configuration.isCharCountEnabled, isCharCountEnabled {
-            return true
-        }
-        return false
-    }
-
-    func checkCharCount(_ configuration: NoteFormViewConfiguration, textString: String) {
-        guard let maxTextLength = configuration.maxTextLength, maxTextLength > 0 else {
-            return
-        }
-        if !(configuration.allowsBeyondLimit == true), textString.count > maxTextLength {
-            configuration.text = String(textString.prefix(maxTextLength))
         }
     }
 
@@ -154,8 +105,15 @@ extension NoteFormViewFioriStyle {
                 }
                 .placeholderTextEditorStyle { config in
                     PlaceholderTextEditor(config)
+                        .frame(minHeight: getMinHeight(configuration))
+                        .frame(maxHeight: getMaxHeight(configuration))
                         .background(RoundedRectangle(cornerRadius: 8).stroke(getBorderColor(configuration), lineWidth: getBorderWidth(configuration)).background(getBackgroundColor(configuration)))
+                        .onChange(of: configuration.text) { s in
+                            checkCharCount(configuration, textString: s)
+                        }
+                        .padding(.bottom, isInfoViewNeeded(configuration) ? 0 : 9)
                 }
+                .padding(.top, 9)
         }
 
         func getTextColor(_ configuration: NoteFormViewConfiguration) -> Color {
@@ -214,6 +172,35 @@ extension NoteFormViewFioriStyle {
                 return true
             }
             return false
+        }
+
+        func getMinHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
+            // Somehow, the minHeight is 14pt higher than the specified. Use this adjustment.
+            let minHeightAdjustMent = 14.0
+            guard let minHeight = configuration.minTextEditorHeight else {
+                return 88 - minHeightAdjustMent
+            }
+            guard minHeight > 0 else {
+                return 88 - minHeightAdjustMent
+            }
+            return minHeight - minHeightAdjustMent
+        }
+
+        func getMaxHeight(_ configuration: NoteFormViewConfiguration) -> CGFloat {
+            guard let maxHeight = configuration.maxTextEditorHeight else {
+                return .infinity
+            }
+            let minHeght = self.getMinHeight(configuration)
+            return maxHeight > minHeght ? maxHeight : minHeght
+        }
+
+        func checkCharCount(_ configuration: NoteFormViewConfiguration, textString: String) {
+            guard let maxTextLength = configuration.maxTextLength, maxTextLength > 0 else {
+                return
+            }
+            if !(configuration.allowsBeyondLimit == true), textString.count > maxTextLength {
+                configuration.text = String(textString.prefix(maxTextLength))
+            }
         }
     }
 
@@ -315,4 +302,17 @@ private func checkMaxLength(_ configuration: NoteFormViewConfiguration) -> Lengt
     }
 
     return .overLimit
+}
+
+private func isInfoViewNeeded(_ configuration: NoteFormViewConfiguration) -> Bool {
+    if let errorMessage = configuration.errorMessage, !errorMessage.characters.isEmpty {
+        return true
+    }
+    if let hintText = configuration.hintText, !hintText.characters.isEmpty {
+        return true
+    }
+    if let isCharCountEnabled = configuration.isCharCountEnabled, isCharCountEnabled {
+        return true
+    }
+    return false
 }
