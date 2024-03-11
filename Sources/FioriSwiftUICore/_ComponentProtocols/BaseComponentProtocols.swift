@@ -159,3 +159,15 @@ protocol _KpiCaptionComponent {
     // sourcery: @ViewBuilder
     var kpiCaption: AttributedString? { get }
 }
+
+// sourcery: BaseComponent
+protocol _PlaceholderComponent {
+    // sourcery: @ViewBuilder
+    var placeholder: AttributedString? { get }
+}
+
+// sourcery: BaseComponent
+protocol _TextViewComponent {
+    // sourcery: @Binding
+    var text: String { get }
+}

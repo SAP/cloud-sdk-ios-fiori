@@ -5,35 +5,35 @@ struct TextInputInfoViewExample: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Default Fiori style, no icon")
-                .textInputInfoView(description: AttributedString("test message"), counter: AttributedString("10/100"))
-            
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("10/100"))
+
             Text("Default Fiori style, no message")
-                .textInputInfoView(counter: AttributedString("10/100"))
-            
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), counter: AttributedString("10/100"))
+
             Text("Default Fiori style, no counter")
-                .textInputInfoView(description: AttributedString("test message"))
-            
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"))
+
             Text("Error style")
-                .textInputInfoView(description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("12/10"))
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("12/10"))
                 .textInputInfoViewStyle(.error)
             
             Text("Warning style")
-                .textInputInfoView(description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/10"))
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/10"))
                 .textInputInfoViewStyle(.warning)
             
             Text("Informational style")
-                .textInputInfoView(description: AttributedString("test message"), counter: AttributedString("0/10"))
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("0/10"))
                 .textInputInfoViewStyle(.informational)
             
             Text("Success style")
-                .textInputInfoView(description: AttributedString("test message"), counter: AttributedString("10/100"))
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), description: AttributedString("test message"), counter: AttributedString("10/100"))
                 .textInputInfoViewStyle(.success)
             
             Text("Customized icon")
-                .textInputInfoView(icon: Image(systemName: "heart"), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/100"))
-            
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), icon: Image(systemName: "heart"), description: AttributedString("test message, long messag  long message  long message  long message  long message  long message long message  long message"), counter: AttributedString("10/100"))
+
             Text("Customized font and color")
-                .textInputInfoView(icon: Image(systemName: "diamond"), description: AttributedString("test message"), counter: AttributedString("10/100"))
+                .textInputInfoView(isPresented: Binding(get: { true }, set: { _ in }), icon: Image(systemName: "diamond"), description: AttributedString("test message"), counter: AttributedString("10/100"))
                 .iconStyle(content: { iconConfiguration in
                     iconConfiguration.icon
                         .foregroundStyle(Color.preferredColor(.tintColor))

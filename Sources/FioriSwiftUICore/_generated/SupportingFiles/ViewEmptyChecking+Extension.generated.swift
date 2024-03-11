@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -134,6 +134,13 @@ extension FootnoteIcons: _ViewEmptyChecking {
     }
 }
 
+extension FormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        controlState == nil ||
+            errorMessage == nil
+    }
+}
+
 extension HeaderAction: _ViewEmptyChecking {
     public var isEmpty: Bool {
         headerAction.isEmpty
@@ -164,8 +171,25 @@ extension IllustratedMessage: _ViewEmptyChecking {
 extension InformationView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty ||
-            description.isEmpty ||
-            content.isEmpty
+            description.isEmpty
+    }
+}
+
+extension KeyValueFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        title.isEmpty ||
+            placeholder.isEmpty ||
+            controlState == nil ||
+            errorMessage == nil ||
+            minTextEditorHeight == nil ||
+            maxTextEditorHeight == nil ||
+            maxTextLength == nil ||
+            hintText == nil ||
+            hidesReadOnlyHint == nil ||
+            isCharCountEnabled == nil ||
+            allowsBeyondLimit == nil ||
+            charCountReachLimitMessage == nil ||
+            charCountBeyondLimitMsg == nil
     }
 }
 
@@ -208,6 +232,23 @@ extension MediaImage: _ViewEmptyChecking {
     }
 }
 
+extension NoteFormView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        placeholder.isEmpty ||
+            controlState == nil ||
+            errorMessage == nil ||
+            minTextEditorHeight == nil ||
+            maxTextEditorHeight == nil ||
+            maxTextLength == nil ||
+            hintText == nil ||
+            hidesReadOnlyHint == nil ||
+            isCharCountEnabled == nil ||
+            allowsBeyondLimit == nil ||
+            charCountReachLimitMessage == nil ||
+            charCountBeyondLimitMsg == nil
+    }
+}
+
 extension ObjectItem: _ViewEmptyChecking {
     public var isEmpty: Bool {
         title.isEmpty ||
@@ -222,6 +263,18 @@ extension ObjectItem: _ViewEmptyChecking {
             footnoteIcons.isEmpty ||
             tags.isEmpty ||
             action.isEmpty
+    }
+}
+
+extension Placeholder: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        placeholder.isEmpty
+    }
+}
+
+extension PlaceholderTextEditor: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        placeholder.isEmpty
     }
 }
 
@@ -283,8 +336,13 @@ extension TextInputInfoView: _ViewEmptyChecking {
     public var isEmpty: Bool {
         icon.isEmpty ||
             description.isEmpty ||
-            content.isEmpty ||
             counter.isEmpty
+    }
+}
+
+extension TextView: _ViewEmptyChecking {
+    public var isEmpty: Bool {
+        false
     }
 }
 

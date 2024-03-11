@@ -73,6 +73,9 @@
 		9996CD03262FFEBE001B99AE /* EULA2.html in Resources */ = {isa = PBXBuildFile; fileRef = 9996CD02262FFEBD001B99AE /* EULA2.html */; };
 		99B6EF8C2672224D00515E8E /* UserConsentSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B6EF8B2672224C00515E8E /* UserConsentSample.swift */; };
 		99F3D88D2B82119900802603 /* TextInputInfoViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F3D88C2B82119900802603 /* TextInputInfoViewExample.swift */; };
+		9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */; };
+		9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */; };
+		9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */; };
 		AB988B102631270300483D87 /* DataTableExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB988B0F2631270300483D87 /* DataTableExample.swift */; };
 		B100639329C0624D00AF0CA2 /* StepProgressIndicatorExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */; };
 		B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13408912B01FA0700600331 /* NavigationBarExample.swift */; };
@@ -239,6 +242,9 @@
 		9996CD02262FFEBD001B99AE /* EULA2.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = EULA2.html; sourceTree = "<group>"; };
 		99B6EF8B2672224C00515E8E /* UserConsentSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConsentSample.swift; sourceTree = "<group>"; };
 		99F3D88C2B82119900802603 /* TextInputInfoViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputInfoViewExample.swift; sourceTree = "<group>"; };
+		9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewExamples.swift; sourceTree = "<group>"; };
+		9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyValueFormViewExample.swift; sourceTree = "<group>"; };
+		9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteFormViewExample.swift; sourceTree = "<group>"; };
 		AB988B0F2631270300483D87 /* DataTableExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataTableExample.swift; sourceTree = "<group>"; };
 		B100639229C0624D00AF0CA2 /* StepProgressIndicatorExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepProgressIndicatorExample.swift; sourceTree = "<group>"; };
 		B13408912B01FA0700600331 /* NavigationBarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationBarExample.swift; sourceTree = "<group>"; };
@@ -507,6 +513,7 @@
 				B84D24E42652F343007F2373 /* ObjectHeader */,
 				1F3C939B25E05E0200A99A07 /* FioriButton */,
 				1F3C92EF25DF12A100A99A07 /* FormCells */,
+				9D0B26072B9BA5C0004278A5 /* FormViews */,
 				8A6D64AF25AE656400D2D76C /* Experimental */,
 				B80DA9C32612A54E00C0B2E9 /* Onboarding */,
 				8A557A2124C12C9B0098003A /* CoreContentView.swift */,
@@ -567,6 +574,16 @@
 				99658F872B7C359D0026A743 /* LinearProgressIndicatorExample.swift */,
 			);
 			path = Indicator;
+			sourceTree = "<group>";
+		};
+		9D0B26072B9BA5C0004278A5 /* FormViews */ = {
+			isa = PBXGroup;
+			children = (
+				9D0B26042B9BA5C0004278A5 /* FormViewExamples.swift */,
+				9D0B26052B9BA5C0004278A5 /* KeyValueFormViewExample.swift */,
+				9D0B26062B9BA5C0004278A5 /* NoteFormViewExample.swift */,
+			);
+			path = FormViews;
 			sourceTree = "<group>";
 		};
 		AB988B11263128C400483D87 /* DataTable */ = {
@@ -868,6 +885,7 @@
 				B1DD86532B0758F000D7EDFD /* NavigationBarPopover.swift in Sources */,
 				B1DD86552B0759DD00D7EDFD /* NavigationBarCustomItem.swift in Sources */,
 				B84D24EE2652F343007F2373 /* ObjectHeaderViewScenarios.swift in Sources */,
+				9D0B26082B9BA5C0004278A5 /* FormViewExamples.swift in Sources */,
 				108E43D5292DAB7C006532F3 /* EmptyStateViewExample.swift in Sources */,
 				B13408922B01FA0700600331 /* NavigationBarExample.swift in Sources */,
 				B84D24F22652F343007F2373 /* ObjectHeaderDeveloperExample.swift in Sources */,
@@ -885,11 +903,13 @@
 				B846F94626815CC90085044B /* ContactItemExample.swift in Sources */,
 				8A5579CC24C1293C0098003A /* SettingsColorForCategory.swift in Sources */,
 				C18868D12B32535100F865F7 /* SearchFontAndColor.swift in Sources */,
+				9D0B26092B9BA5C0004278A5 /* KeyValueFormViewExample.swift in Sources */,
 				8A557A1A24C12C820098003A /* ChartsContentView.swift in Sources */,
 				8A5579CE24C1293C0098003A /* SettingColor.swift in Sources */,
 				1F55FEF32AC941FF00D7A1BE /* View+Extensions.swift in Sources */,
 				8A6DE30B28DD27F9003222E3 /* Colors.swift in Sources */,
 				8AD9DFB225D49967007448EC /* StylingModifierExample.swift in Sources */,
+				9D0B260A2B9BA5C0004278A5 /* NoteFormViewExample.swift in Sources */,
 				8A5579D124C1293C0098003A /* Settings.swift in Sources */,
 				8AD9DFB025D49967007448EC /* ContactItemActionItemsExample.swift in Sources */,
 				8A6D64B125AE658300D2D76C /* ExpHeaderView.swift in Sources */,
