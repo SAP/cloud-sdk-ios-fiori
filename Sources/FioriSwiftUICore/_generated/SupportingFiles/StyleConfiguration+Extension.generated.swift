@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -41,6 +41,14 @@ extension DemoViewConfiguration {
     }
 }
 
+// MARK: KeyValueFormViewConfiguration
+
+extension KeyValueFormViewConfiguration {
+    var _noteFormView: NoteFormView {
+        NoteFormView(.init(text: self.$text, placeholder: .init(self.placeholder), controlState: self.controlState, errorMessage: self.errorMessage, minTextEditorHeight: self.minTextEditorHeight, maxTextEditorHeight: self.maxTextEditorHeight, maxTextLength: self.maxTextLength, hintText: self.hintText, hidesReadOnlyHint: self.hidesReadOnlyHint, isCharCountEnabled: self.isCharCountEnabled, allowsBeyondLimit: self.allowsBeyondLimit, charCountReachLimitMessage: self.charCountReachLimitMessage, charCountBeyondLimitMsg: self.charCountBeyondLimitMsg))
+    }
+}
+
 // MARK: LinearProgressIndicatorViewConfiguration
 
 extension LinearProgressIndicatorViewConfiguration {
@@ -49,10 +57,30 @@ extension LinearProgressIndicatorViewConfiguration {
     }
 }
 
+// MARK: NoteFormViewConfiguration
+
+extension NoteFormViewConfiguration {
+    var _placeholderTextEditor: PlaceholderTextEditor {
+        PlaceholderTextEditor(.init(text: self.$text, placeholder: .init(self.placeholder)))
+    }
+
+    var _formView: FormView {
+        FormView(.init(controlState: self.controlState, errorMessage: self.errorMessage))
+    }
+}
+
+// MARK: PlaceholderTextEditorConfiguration
+
+extension PlaceholderTextEditorConfiguration {
+    var _textView: TextView {
+        TextView(.init(text: self.$text))
+    }
+}
+
 // MARK: TextInputInfoViewConfiguration
 
 extension TextInputInfoViewConfiguration {
     var _informationView: InformationView {
-        InformationView(.init(icon: .init(self.icon), description: .init(self.description), content: .init(self.content)))
+        InformationView(.init(icon: .init(self.icon), description: .init(self.description)))
     }
 }

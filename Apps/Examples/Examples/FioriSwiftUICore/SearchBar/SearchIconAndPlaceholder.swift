@@ -26,8 +26,8 @@ struct SearchIconAndPlaceholder: View {
                 .applyingSymbolConfiguration(UIImage.SymbolConfiguration(weight: .semibold))
             UISearchBar.appearance().setImage(searchImage, for: .search, state: .normal)
             
-//          SwiftUI doesn't support bookmark actions.
-//          only show bookmark icon
+            // SwiftUI doesn't support bookmark actions.
+            // Only show bookmark icon
             UISearchBar.appearance().showsBookmarkButton = true
             let bookmarkImage = UIImage(systemName: "book")?
                 .withTintColor(UIColor(Color.preferredColor(.tintColor2)), renderingMode: .alwaysOriginal)

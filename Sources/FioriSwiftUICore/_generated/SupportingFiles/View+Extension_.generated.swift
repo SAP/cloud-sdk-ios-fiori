@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -258,6 +258,23 @@ public extension View {
     }
 }
 
+// MARK: FormViewStyle
+
+public extension View {
+    func formViewStyle(_ style: some FormViewStyle) -> some View {
+        self.transformEnvironment(\.formViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func formViewStyle(@ViewBuilder content: @escaping (FormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.formViewStyleStack) { stack in
+            let style = AnyFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: HeaderActionStyle
 
 public extension View {
@@ -338,6 +355,23 @@ public extension View {
     func informationViewStyle(@ViewBuilder content: @escaping (InformationViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.informationViewStyleStack) { stack in
             let style = AnyInformationViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: KeyValueFormViewStyle
+
+public extension View {
+    func keyValueFormViewStyle(_ style: some KeyValueFormViewStyle) -> some View {
+        self.transformEnvironment(\.keyValueFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func keyValueFormViewStyle(@ViewBuilder content: @escaping (KeyValueFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.keyValueFormViewStyleStack) { stack in
+            let style = AnyKeyValueFormViewStyle(content)
             stack.append(style)
         }
     }
@@ -445,6 +479,23 @@ public extension View {
     }
 }
 
+// MARK: NoteFormViewStyle
+
+public extension View {
+    func noteFormViewStyle(_ style: some NoteFormViewStyle) -> some View {
+        self.transformEnvironment(\.noteFormViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func noteFormViewStyle(@ViewBuilder content: @escaping (NoteFormViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.noteFormViewStyleStack) { stack in
+            let style = AnyNoteFormViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
 // MARK: ObjectItemStyle
 
 public extension View {
@@ -457,6 +508,40 @@ public extension View {
     func objectItemStyle(@ViewBuilder content: @escaping (ObjectItemConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.objectItemStyleStack) { stack in
             let style = AnyObjectItemStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: PlaceholderStyle
+
+public extension View {
+    func placeholderStyle(_ style: some PlaceholderStyle) -> some View {
+        self.transformEnvironment(\.placeholderStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func placeholderStyle(@ViewBuilder content: @escaping (PlaceholderConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.placeholderStyleStack) { stack in
+            let style = AnyPlaceholderStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: PlaceholderTextEditorStyle
+
+public extension View {
+    func placeholderTextEditorStyle(_ style: some PlaceholderTextEditorStyle) -> some View {
+        self.transformEnvironment(\.placeholderTextEditorStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func placeholderTextEditorStyle(@ViewBuilder content: @escaping (PlaceholderTextEditorConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.placeholderTextEditorStyleStack) { stack in
+            let style = AnyPlaceholderTextEditorStyle(content)
             stack.append(style)
         }
     }
@@ -627,6 +712,23 @@ public extension View {
     func textInputInfoViewStyle(@ViewBuilder content: @escaping (TextInputInfoViewConfiguration) -> some View) -> some View {
         self.transformEnvironment(\.textInputInfoViewStyleStack) { stack in
             let style = AnyTextInputInfoViewStyle(content)
+            stack.append(style)
+        }
+    }
+}
+
+// MARK: TextViewStyle
+
+public extension View {
+    func textViewStyle(_ style: some TextViewStyle) -> some View {
+        self.transformEnvironment(\.textViewStyleStack) { stack in
+            stack.append(style)
+        }
+    }
+    
+    func textViewStyle(@ViewBuilder content: @escaping (TextViewConfiguration) -> some View) -> some View {
+        self.transformEnvironment(\.textViewStyleStack) { stack in
+            let style = AnyTextViewStyle(content)
             stack.append(style)
         }
     }
