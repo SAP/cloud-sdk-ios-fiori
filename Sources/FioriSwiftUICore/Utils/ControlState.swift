@@ -17,6 +17,9 @@ public struct ControlState: OptionSet {
     public static let selected = ControlState(rawValue: 1 << 3)
     /// Focused UI control state
     public static let focused = ControlState(rawValue: 1 << 4)
+
+    /// Read-Only control state
+    public static let readOnly = ControlState(rawValue: 1 << 5)
 }
 
 extension ControlState: Hashable {

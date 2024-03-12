@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -24,12 +24,10 @@ struct AnyTextInputInfoViewStyle: TextInputInfoViewStyle {
 public struct TextInputInfoViewConfiguration {
     public let icon: Icon
     public let description: Description
-    public let content: Content
     public let counter: Counter
 
     public typealias Icon = ConfigurationViewWrapper
     public typealias Description = ConfigurationViewWrapper
-    public typealias Content = ConfigurationViewWrapper
     public typealias Counter = ConfigurationViewWrapper
 }
     
