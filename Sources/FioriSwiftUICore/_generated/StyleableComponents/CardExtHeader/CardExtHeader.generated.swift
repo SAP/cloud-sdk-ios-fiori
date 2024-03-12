@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -52,10 +52,10 @@ public extension CardExtHeader {
 
 extension CardExtHeader: View {
     public var body: some View {
-        if self._shouldApplyDefaultStyle {
+        if _shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            self.style.resolve(configuration: .init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
+            style.resolve(configuration: .init(row1: .init(self.row1), row2: .init(self.row2), row3: .init(self.row3), kpi: .init(self.kpi), kpiCaption: .init(self.kpiCaption))).typeErased
                 .transformEnvironment(\.cardExtHeaderStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
