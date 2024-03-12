@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -11,7 +11,7 @@ struct ActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var actionStyle: any ActionStyle {
-        self.actionStyleStack.last ?? .base
+        actionStyleStack.last ?? .base
     }
 
     var actionStyleStack: [any ActionStyle] {
@@ -32,7 +32,7 @@ struct AvatarsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var avatarsStyle: any AvatarsStyle {
-        self.avatarsStyleStack.last ?? .base
+        avatarsStyleStack.last ?? .base
     }
 
     var avatarsStyleStack: [any AvatarsStyle] {
@@ -53,7 +53,7 @@ struct CardBodyStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardBodyStyle: any CardBodyStyle {
-        self.cardBodyStyleStack.last ?? .base
+        cardBodyStyleStack.last ?? .base
     }
 
     var cardBodyStyleStack: [any CardBodyStyle] {
@@ -74,7 +74,7 @@ struct CardStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardStyle: any CardStyle {
-        self.cardStyleStack.last ?? .base.concat(.fiori)
+        cardStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardStyleStack: [any CardStyle] {
@@ -95,7 +95,7 @@ struct CardExtHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardExtHeaderStyle: any CardExtHeaderStyle {
-        self.cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardExtHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardExtHeaderStyleStack: [any CardExtHeaderStyle] {
@@ -116,7 +116,7 @@ struct CardFooterStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardFooterStyle: any CardFooterStyle {
-        self.cardFooterStyleStack.last ?? .base.concat(.fiori)
+        cardFooterStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardFooterStyleStack: [any CardFooterStyle] {
@@ -137,7 +137,7 @@ struct CardHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardHeaderStyle: any CardHeaderStyle {
-        self.cardHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardHeaderStyleStack: [any CardHeaderStyle] {
@@ -158,7 +158,7 @@ struct CardMainHeaderStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMainHeaderStyle: any CardMainHeaderStyle {
-        self.cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
+        cardMainHeaderStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardMainHeaderStyleStack: [any CardMainHeaderStyle] {
@@ -179,7 +179,7 @@ struct CardMediaStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var cardMediaStyle: any CardMediaStyle {
-        self.cardMediaStyleStack.last ?? .base.concat(.fiori)
+        cardMediaStyleStack.last ?? .base.concat(.fiori)
     }
 
     var cardMediaStyleStack: [any CardMediaStyle] {
@@ -200,7 +200,7 @@ struct CounterStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var counterStyle: any CounterStyle {
-        self.counterStyleStack.last ?? .base
+        counterStyleStack.last ?? .base
     }
 
     var counterStyleStack: [any CounterStyle] {
@@ -221,7 +221,7 @@ struct DemoViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var demoViewStyle: any DemoViewStyle {
-        self.demoViewStyleStack.last ?? .base.concat(.fiori)
+        demoViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var demoViewStyleStack: [any DemoViewStyle] {
@@ -242,7 +242,7 @@ struct DescriptionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var descriptionStyle: any DescriptionStyle {
-        self.descriptionStyleStack.last ?? .base
+        descriptionStyleStack.last ?? .base
     }
 
     var descriptionStyleStack: [any DescriptionStyle] {
@@ -263,7 +263,7 @@ struct DetailImageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var detailImageStyle: any DetailImageStyle {
-        self.detailImageStyleStack.last ?? .base
+        detailImageStyleStack.last ?? .base
     }
 
     var detailImageStyleStack: [any DetailImageStyle] {
@@ -284,7 +284,7 @@ struct FootnoteStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var footnoteStyle: any FootnoteStyle {
-        self.footnoteStyleStack.last ?? .base
+        footnoteStyleStack.last ?? .base
     }
 
     var footnoteStyleStack: [any FootnoteStyle] {
@@ -305,7 +305,7 @@ struct FootnoteIconsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var footnoteIconsStyle: any FootnoteIconsStyle {
-        self.footnoteIconsStyleStack.last ?? .base
+        footnoteIconsStyleStack.last ?? .base
     }
 
     var footnoteIconsStyleStack: [any FootnoteIconsStyle] {
@@ -318,6 +318,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: FormViewStyle
+
+struct FormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any FormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var formViewStyle: any FormViewStyle {
+        formViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var formViewStyleStack: [any FormViewStyle] {
+        get {
+            self[FormViewStyleStackKey.self]
+        }
+        set {
+            self[FormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: HeaderActionStyle
 
 struct HeaderActionStyleStackKey: EnvironmentKey {
@@ -326,7 +347,7 @@ struct HeaderActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var headerActionStyle: any HeaderActionStyle {
-        self.headerActionStyleStack.last ?? .base
+        headerActionStyleStack.last ?? .base
     }
 
     var headerActionStyleStack: [any HeaderActionStyle] {
@@ -347,7 +368,7 @@ struct IconStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var iconStyle: any IconStyle {
-        self.iconStyleStack.last ?? .base
+        iconStyleStack.last ?? .base
     }
 
     var iconStyleStack: [any IconStyle] {
@@ -368,7 +389,7 @@ struct IconsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var iconsStyle: any IconsStyle {
-        self.iconsStyleStack.last ?? .base
+        iconsStyleStack.last ?? .base
     }
 
     var iconsStyleStack: [any IconsStyle] {
@@ -381,6 +402,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+struct IllustratedMessageStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any IllustratedMessageStyle] = []
+}
+
+extension EnvironmentValues {
+    var illustratedMessageStyle: any IllustratedMessageStyle {
+        illustratedMessageStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var illustratedMessageStyleStack: [any IllustratedMessageStyle] {
+        get {
+            self[IllustratedMessageStyleStackKey.self]
+        }
+        set {
+            self[IllustratedMessageStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: InformationViewStyle
 
 struct InformationViewStyleStackKey: EnvironmentKey {
@@ -389,7 +431,7 @@ struct InformationViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var informationViewStyle: any InformationViewStyle {
-        self.informationViewStyleStack.last ?? .base.concat(.fiori)
+        informationViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var informationViewStyleStack: [any InformationViewStyle] {
@@ -402,6 +444,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: KeyValueFormViewStyle
+
+struct KeyValueFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any KeyValueFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var keyValueFormViewStyle: any KeyValueFormViewStyle {
+        keyValueFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var keyValueFormViewStyleStack: [any KeyValueFormViewStyle] {
+        get {
+            self[KeyValueFormViewStyleStackKey.self]
+        }
+        set {
+            self[KeyValueFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: KpiCaptionStyle
 
 struct KpiCaptionStyleStackKey: EnvironmentKey {
@@ -410,7 +473,7 @@ struct KpiCaptionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var kpiCaptionStyle: any KpiCaptionStyle {
-        self.kpiCaptionStyleStack.last ?? .base
+        kpiCaptionStyleStack.last ?? .base
     }
 
     var kpiCaptionStyleStack: [any KpiCaptionStyle] {
@@ -431,7 +494,7 @@ struct KpiStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var kpiStyle: any KpiStyle {
-        self.kpiStyleStack.last ?? .base
+        kpiStyleStack.last ?? .base
     }
 
     var kpiStyleStack: [any KpiStyle] {
@@ -452,7 +515,7 @@ struct LabelItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var labelItemStyle: any LabelItemStyle {
-        self.labelItemStyleStack.last ?? .base.concat(.fiori)
+        labelItemStyleStack.last ?? .base.concat(.fiori)
     }
 
     var labelItemStyleStack: [any LabelItemStyle] {
@@ -473,7 +536,7 @@ struct LinearProgressIndicatorStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var linearProgressIndicatorStyle: any LinearProgressIndicatorStyle {
-        self.linearProgressIndicatorStyleStack.last ?? .base
+        linearProgressIndicatorStyleStack.last ?? .base
     }
 
     var linearProgressIndicatorStyleStack: [any LinearProgressIndicatorStyle] {
@@ -494,7 +557,7 @@ struct LinearProgressIndicatorViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var linearProgressIndicatorViewStyle: any LinearProgressIndicatorViewStyle {
-        self.linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
+        linearProgressIndicatorViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var linearProgressIndicatorViewStyleStack: [any LinearProgressIndicatorViewStyle] {
@@ -515,7 +578,7 @@ struct MediaImageStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var mediaImageStyle: any MediaImageStyle {
-        self.mediaImageStyleStack.last ?? .base
+        mediaImageStyleStack.last ?? .base
     }
 
     var mediaImageStyleStack: [any MediaImageStyle] {
@@ -528,6 +591,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: NoteFormViewStyle
+
+struct NoteFormViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any NoteFormViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var noteFormViewStyle: any NoteFormViewStyle {
+        noteFormViewStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var noteFormViewStyleStack: [any NoteFormViewStyle] {
+        get {
+            self[NoteFormViewStyleStackKey.self]
+        }
+        set {
+            self[NoteFormViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: ObjectItemStyle
 
 struct ObjectItemStyleStackKey: EnvironmentKey {
@@ -536,7 +620,7 @@ struct ObjectItemStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var objectItemStyle: any ObjectItemStyle {
-        self.objectItemStyleStack.last ?? .base.concat(.fiori)
+        objectItemStyleStack.last ?? .base.concat(.fiori)
     }
 
     var objectItemStyleStack: [any ObjectItemStyle] {
@@ -549,6 +633,48 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: PlaceholderStyle
+
+struct PlaceholderStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any PlaceholderStyle] = []
+}
+
+extension EnvironmentValues {
+    var placeholderStyle: any PlaceholderStyle {
+        placeholderStyleStack.last ?? .base
+    }
+
+    var placeholderStyleStack: [any PlaceholderStyle] {
+        get {
+            self[PlaceholderStyleStackKey.self]
+        }
+        set {
+            self[PlaceholderStyleStackKey.self] = newValue
+        }
+    }
+}
+
+// MARK: PlaceholderTextEditorStyle
+
+struct PlaceholderTextEditorStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any PlaceholderTextEditorStyle] = []
+}
+
+extension EnvironmentValues {
+    var placeholderTextEditorStyle: any PlaceholderTextEditorStyle {
+        placeholderTextEditorStyleStack.last ?? .base.concat(.fiori)
+    }
+
+    var placeholderTextEditorStyleStack: [any PlaceholderTextEditorStyle] {
+        get {
+            self[PlaceholderTextEditorStyleStackKey.self]
+        }
+        set {
+            self[PlaceholderTextEditorStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: Row1Style
 
 struct Row1StyleStackKey: EnvironmentKey {
@@ -557,7 +683,7 @@ struct Row1StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row1Style: any Row1Style {
-        self.row1StyleStack.last ?? .base
+        row1StyleStack.last ?? .base
     }
 
     var row1StyleStack: [any Row1Style] {
@@ -578,7 +704,7 @@ struct Row2StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row2Style: any Row2Style {
-        self.row2StyleStack.last ?? .base
+        row2StyleStack.last ?? .base
     }
 
     var row2StyleStack: [any Row2Style] {
@@ -599,7 +725,7 @@ struct Row3StyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var row3Style: any Row3Style {
-        self.row3StyleStack.last ?? .base
+        row3StyleStack.last ?? .base
     }
 
     var row3StyleStack: [any Row3Style] {
@@ -620,7 +746,7 @@ struct SecondaryActionStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var secondaryActionStyle: any SecondaryActionStyle {
-        self.secondaryActionStyleStack.last ?? .base
+        secondaryActionStyleStack.last ?? .base
     }
 
     var secondaryActionStyleStack: [any SecondaryActionStyle] {
@@ -641,7 +767,7 @@ struct StatusStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var statusStyle: any StatusStyle {
-        self.statusStyleStack.last ?? .base
+        statusStyleStack.last ?? .base
     }
 
     var statusStyleStack: [any StatusStyle] {
@@ -662,7 +788,7 @@ struct SubstatusStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var substatusStyle: any SubstatusStyle {
-        self.substatusStyleStack.last ?? .base
+        substatusStyleStack.last ?? .base
     }
 
     var substatusStyleStack: [any SubstatusStyle] {
@@ -683,7 +809,7 @@ struct SubtitleStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var subtitleStyle: any SubtitleStyle {
-        self.subtitleStyleStack.last ?? .base
+        subtitleStyleStack.last ?? .base
     }
 
     var subtitleStyleStack: [any SubtitleStyle] {
@@ -704,7 +830,7 @@ struct SwitchStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var switchStyle: any SwitchStyle {
-        self.switchStyleStack.last ?? .base
+        switchStyleStack.last ?? .base
     }
 
     var switchStyleStack: [any SwitchStyle] {
@@ -725,7 +851,7 @@ struct TagsStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var tagsStyle: any TagsStyle {
-        self.tagsStyleStack.last ?? .base
+        tagsStyleStack.last ?? .base
     }
 
     var tagsStyleStack: [any TagsStyle] {
@@ -746,7 +872,7 @@ struct TextInputInfoViewStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var textInputInfoViewStyle: any TextInputInfoViewStyle {
-        self.textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
+        textInputInfoViewStyleStack.last ?? .base.concat(.fiori)
     }
 
     var textInputInfoViewStyleStack: [any TextInputInfoViewStyle] {
@@ -759,6 +885,27 @@ extension EnvironmentValues {
     }
 }
 
+// MARK: TextViewStyle
+
+struct TextViewStyleStackKey: EnvironmentKey {
+    static let defaultValue: [any TextViewStyle] = []
+}
+
+extension EnvironmentValues {
+    var textViewStyle: any TextViewStyle {
+        textViewStyleStack.last ?? .base
+    }
+
+    var textViewStyleStack: [any TextViewStyle] {
+        get {
+            self[TextViewStyleStackKey.self]
+        }
+        set {
+            self[TextViewStyleStackKey.self] = newValue
+        }
+    }
+}
+
 // MARK: TitleStyle
 
 struct TitleStyleStackKey: EnvironmentKey {
@@ -767,7 +914,7 @@ struct TitleStyleStackKey: EnvironmentKey {
 
 extension EnvironmentValues {
     var titleStyle: any TitleStyle {
-        self.titleStyleStack.last ?? .base
+        titleStyleStack.last ?? .base
     }
 
     var titleStyleStack: [any TitleStyle] {

@@ -78,6 +78,11 @@ struct CoreContentView: View {
                     }
                 )
                 
+                NavigationLink(
+                    destination: IllustratedMessageExample()) {
+                    Text("IllustratedMessage")
+                }
+                
                 Group {
                     NavigationLink(
                         destination: KPIExample()) {
@@ -141,6 +146,13 @@ struct CoreContentView: View {
                 NavigationLink(destination: SearchDemos()) {
                     Text("Search Demos")
                 }
+
+                NavigationLink(
+                    destination: FormViewExamples(),
+                    label: {
+                        Text("FormView")
+                    }
+                )
             }
             
             NavigationLink(

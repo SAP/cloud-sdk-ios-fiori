@@ -33,13 +33,38 @@ protocol _CardHeaderComponent: _CardMediaComponent, _CardMainHeaderComponent, _C
 protocol _CardComponent: _CardHeaderComponent, _CardBodyComponent, _CardFooterComponent {}
 
 // sourcery: CompositeComponent
-protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {
-    @ViewBuilder
-    var content: () -> any View { get }
-}
+protocol _IllustratedMessageComponent: _DetailImageComponent, _TitleComponent, _DescriptionComponent, _ActionComponent {}
+
+// sourcery: CompositeComponent
+protocol _InformationViewComponent: _IconComponent, _DescriptionComponent {}
 
 // sourcery: CompositeComponent
 protocol _TextInputInfoViewComponent: _InformationViewComponent, _CounterComponent {}
 
 // sourcery: CompositeComponent
 protocol _LinearProgressIndicatorViewComponent: _LinearProgressIndicatorComponent, _IconComponent, _DescriptionComponent {}
+
+// sourcery: CompositeComponent
+protocol _FormViewComponent {
+    var controlState: ControlState? { get }
+    var errorMessage: AttributedString? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _PlaceholderTextEditorComponent: _TextViewComponent, _PlaceholderComponent {}
+
+// sourcery: CompositeComponent
+protocol _NoteFormViewComponent: _PlaceholderTextEditorComponent, _FormViewComponent {
+    var minTextEditorHeight: CGFloat? { get }
+    var maxTextEditorHeight: CGFloat? { get }
+    var maxTextLength: Int? { get }
+    var hintText: AttributedString? { get }
+    var hidesReadOnlyHint: Bool? { get }
+    var isCharCountEnabled: Bool? { get }
+    var allowsBeyondLimit: Bool? { get }
+    var charCountReachLimitMessage: String? { get }
+    var charCountBeyondLimitMsg: String? { get }
+}
+
+// sourcery: CompositeComponent
+protocol _KeyValueFormViewComponent: _TitleComponent, _NoteFormViewComponent {}

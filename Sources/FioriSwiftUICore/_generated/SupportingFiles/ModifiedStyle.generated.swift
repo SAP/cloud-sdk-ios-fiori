@@ -1,4 +1,4 @@
-// Generated using Sourcery 2.1.3 — https://github.com/krzysztofzablocki/Sourcery
+// Generated using Sourcery 2.1.7 — https://github.com/krzysztofzablocki/Sourcery
 // DO NOT EDIT
 import Foundation
 import SwiftUI
@@ -428,6 +428,34 @@ public extension FootnoteIconsStyle {
     }
 }
 
+// MARK: FormViewStyle
+
+extension ModifiedStyle: FormViewStyle where Style: FormViewStyle {
+    public func makeBody(_ configuration: FormViewConfiguration) -> some View {
+        FormView(configuration)
+            .formViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct FormViewStyleModifier<Style: FormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.formViewStyle(self.style)
+    }
+}
+
+public extension FormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some FormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some FormViewStyle) -> some FormViewStyle {
+        style.modifier(FormViewStyleModifier(style: self))
+    }
+}
+
 // MARK: HeaderActionStyle
 
 extension ModifiedStyle: HeaderActionStyle where Style: HeaderActionStyle {
@@ -512,6 +540,34 @@ public extension IconsStyle {
     }
 }
 
+// MARK: IllustratedMessageStyle
+
+extension ModifiedStyle: IllustratedMessageStyle where Style: IllustratedMessageStyle {
+    public func makeBody(_ configuration: IllustratedMessageConfiguration) -> some View {
+        IllustratedMessage(configuration)
+            .illustratedMessageStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct IllustratedMessageStyleModifier<Style: IllustratedMessageStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.illustratedMessageStyle(self.style)
+    }
+}
+
+public extension IllustratedMessageStyle {
+    func modifier(_ modifier: some ViewModifier) -> some IllustratedMessageStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some IllustratedMessageStyle) -> some IllustratedMessageStyle {
+        style.modifier(IllustratedMessageStyleModifier(style: self))
+    }
+}
+
 // MARK: InformationViewStyle
 
 extension ModifiedStyle: InformationViewStyle where Style: InformationViewStyle {
@@ -537,6 +593,34 @@ public extension InformationViewStyle {
 
     func concat(_ style: some InformationViewStyle) -> some InformationViewStyle {
         style.modifier(InformationViewStyleModifier(style: self))
+    }
+}
+
+// MARK: KeyValueFormViewStyle
+
+extension ModifiedStyle: KeyValueFormViewStyle where Style: KeyValueFormViewStyle {
+    public func makeBody(_ configuration: KeyValueFormViewConfiguration) -> some View {
+        KeyValueFormView(configuration)
+            .keyValueFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct KeyValueFormViewStyleModifier<Style: KeyValueFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.keyValueFormViewStyle(self.style)
+    }
+}
+
+public extension KeyValueFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some KeyValueFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some KeyValueFormViewStyle) -> some KeyValueFormViewStyle {
+        style.modifier(KeyValueFormViewStyleModifier(style: self))
     }
 }
 
@@ -708,6 +792,34 @@ public extension MediaImageStyle {
     }
 }
 
+// MARK: NoteFormViewStyle
+
+extension ModifiedStyle: NoteFormViewStyle where Style: NoteFormViewStyle {
+    public func makeBody(_ configuration: NoteFormViewConfiguration) -> some View {
+        NoteFormView(configuration)
+            .noteFormViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct NoteFormViewStyleModifier<Style: NoteFormViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.noteFormViewStyle(self.style)
+    }
+}
+
+public extension NoteFormViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some NoteFormViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some NoteFormViewStyle) -> some NoteFormViewStyle {
+        style.modifier(NoteFormViewStyleModifier(style: self))
+    }
+}
+
 // MARK: ObjectItemStyle
 
 extension ModifiedStyle: ObjectItemStyle where Style: ObjectItemStyle {
@@ -733,6 +845,62 @@ public extension ObjectItemStyle {
 
     func concat(_ style: some ObjectItemStyle) -> some ObjectItemStyle {
         style.modifier(ObjectItemStyleModifier(style: self))
+    }
+}
+
+// MARK: PlaceholderStyle
+
+extension ModifiedStyle: PlaceholderStyle where Style: PlaceholderStyle {
+    public func makeBody(_ configuration: PlaceholderConfiguration) -> some View {
+        Placeholder(configuration)
+            .placeholderStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct PlaceholderStyleModifier<Style: PlaceholderStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.placeholderStyle(self.style)
+    }
+}
+
+public extension PlaceholderStyle {
+    func modifier(_ modifier: some ViewModifier) -> some PlaceholderStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some PlaceholderStyle) -> some PlaceholderStyle {
+        style.modifier(PlaceholderStyleModifier(style: self))
+    }
+}
+
+// MARK: PlaceholderTextEditorStyle
+
+extension ModifiedStyle: PlaceholderTextEditorStyle where Style: PlaceholderTextEditorStyle {
+    public func makeBody(_ configuration: PlaceholderTextEditorConfiguration) -> some View {
+        PlaceholderTextEditor(configuration)
+            .placeholderTextEditorStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct PlaceholderTextEditorStyleModifier<Style: PlaceholderTextEditorStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.placeholderTextEditorStyle(self.style)
+    }
+}
+
+public extension PlaceholderTextEditorStyle {
+    func modifier(_ modifier: some ViewModifier) -> some PlaceholderTextEditorStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some PlaceholderTextEditorStyle) -> some PlaceholderTextEditorStyle {
+        style.modifier(PlaceholderTextEditorStyleModifier(style: self))
     }
 }
 
@@ -1013,6 +1181,34 @@ public extension TextInputInfoViewStyle {
 
     func concat(_ style: some TextInputInfoViewStyle) -> some TextInputInfoViewStyle {
         style.modifier(TextInputInfoViewStyleModifier(style: self))
+    }
+}
+
+// MARK: TextViewStyle
+
+extension ModifiedStyle: TextViewStyle where Style: TextViewStyle {
+    public func makeBody(_ configuration: TextViewConfiguration) -> some View {
+        TextView(configuration)
+            .textViewStyle(self.style)
+            .modifier(self.modifier)
+    }
+}
+
+public struct TextViewStyleModifier<Style: TextViewStyle>: ViewModifier {
+    let style: Style
+
+    public func body(content: Content) -> some View {
+        content.textViewStyle(self.style)
+    }
+}
+
+public extension TextViewStyle {
+    func modifier(_ modifier: some ViewModifier) -> some TextViewStyle {
+        ModifiedStyle(style: self, modifier: modifier)
+    }
+
+    func concat(_ style: some TextViewStyle) -> some TextViewStyle {
+        style.modifier(TextViewStyleModifier(style: self))
     }
 }
 
