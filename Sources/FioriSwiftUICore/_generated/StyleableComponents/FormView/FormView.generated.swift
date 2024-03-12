@@ -29,10 +29,10 @@ public extension FormView {
 
 extension FormView: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(controlState: self.controlState, errorMessage: self.errorMessage)).typeErased
+            self.style.resolve(configuration: .init(controlState: self.controlState, errorMessage: self.errorMessage)).typeErased
                 .transformEnvironment(\.formViewStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

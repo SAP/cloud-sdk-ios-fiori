@@ -30,10 +30,10 @@ public extension MediaImage {
 
 extension MediaImage: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(mediaImage: .init(self.mediaImage))).typeErased
+            self.style.resolve(configuration: .init(mediaImage: .init(self.mediaImage))).typeErased
                 .transformEnvironment(\.mediaImageStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

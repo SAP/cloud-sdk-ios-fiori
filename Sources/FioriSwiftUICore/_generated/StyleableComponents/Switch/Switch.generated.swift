@@ -24,10 +24,10 @@ public extension Switch {
 
 extension Switch: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(isOn: self.$isOn)).typeErased
+            self.style.resolve(configuration: .init(isOn: self.$isOn)).typeErased
                 .transformEnvironment(\.switchStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()

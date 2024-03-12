@@ -30,10 +30,10 @@ public extension KpiCaption {
 
 extension KpiCaption: View {
     public var body: some View {
-        if _shouldApplyDefaultStyle {
+        if self._shouldApplyDefaultStyle {
             self.defaultStyle()
         } else {
-            style.resolve(configuration: .init(kpiCaption: .init(self.kpiCaption))).typeErased
+            self.style.resolve(configuration: .init(kpiCaption: .init(self.kpiCaption))).typeErased
                 .transformEnvironment(\.kpiCaptionStyleStack) { stack in
                     if !stack.isEmpty {
                         stack.removeLast()
