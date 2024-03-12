@@ -62,7 +62,7 @@ extension IllustratedMessageFioriStyle {
     }
 }
 
-/// Vertical layout style of the Illustrated Message. All content is displayed in one row. This is the default layout style
+/// Vertical layout style of the Illustrated Message. All content is displayed in one column. This is the default layout style
 public typealias IllustratedMessageVerticalLayoutStyle = IllustratedMessageBaseStyle
 
 /// Horizontal layout style of the Illustrated Message. Shows content in two columns, with an image on the left and a vertical stack of the other content on the right
@@ -82,7 +82,7 @@ public struct IllustratedMessageHorizontalLayoutStyle: IllustratedMessageStyle {
     }
 }
 
-/// Vertical layout style of the Illustrated Message. All content is displayed in one row. This is the default layout style
+/// Vertical layout style of the Illustrated Message. All content is displayed in one column. This is the default layout style
 public extension IllustratedMessageStyle where Self == IllustratedMessageVerticalLayoutStyle {
     static var vertical: some IllustratedMessageStyle {
         IllustratedMessageVerticalLayoutStyle().concat(.fiori)
